@@ -2,8 +2,6 @@ package org.smartregister.chw.core.rule;
 
 import android.content.Context;
 
-
-
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;

@@ -10,7 +10,6 @@ import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.utils.HfChildUtils;
-
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.util.DBConstants;
 

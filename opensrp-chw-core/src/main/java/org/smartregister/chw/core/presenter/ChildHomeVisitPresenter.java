@@ -1,5 +1,6 @@
 package org.smartregister.chw.core.presenter;
 
+import org.json.JSONObject;
 import org.smartregister.chw.core.contract.ChildHomeVisitContract;
 import org.smartregister.chw.core.interactor.CoreChildHomeVisitInteractor;
 import org.smartregister.chw.core.utils.BirthCertDataModel;
@@ -7,8 +8,6 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.ObsIllnessDataModel;
 import org.smartregister.chw.core.utils.ServiceTask;
-
-import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.util.FormUtils;

@@ -5,15 +5,14 @@ import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
 import android.util.Pair;
 
+import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.FamilyChangeContract;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.Utils;
-
-import org.apache.commons.lang3.tuple.Triple;
-import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;

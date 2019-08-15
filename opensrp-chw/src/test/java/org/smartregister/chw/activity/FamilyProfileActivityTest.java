@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
-import org.smartregister.chw.core.utils.CoreConstants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +24,7 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;

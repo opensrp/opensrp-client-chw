@@ -14,7 +14,9 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-
+import org.apache.commons.lang3.StringUtils;
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.custom_views.FamilyFloatingMenu;
@@ -22,10 +24,6 @@ import org.smartregister.chw.core.event.PermissionEvent;
 import org.smartregister.chw.core.listener.FloatingMenuListener;
 import org.smartregister.chw.core.presenter.CoreFamilyProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
-
-import org.apache.commons.lang3.StringUtils;
-import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
@@ -168,8 +166,8 @@ public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivit
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     break;
-                    default:
-                        break;
+                default:
+                    break;
             }
         }
     }

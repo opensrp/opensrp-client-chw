@@ -2,13 +2,11 @@ package org.smartregister.chw.core.fragment;
 
 import android.content.Intent;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildUtils;
-import org.smartregister.chw.core.utils.Utils;
-
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;

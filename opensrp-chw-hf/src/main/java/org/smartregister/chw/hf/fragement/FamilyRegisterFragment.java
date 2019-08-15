@@ -6,7 +6,6 @@ import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.provider.HfRegisterProvider;
-
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 
 import java.util.Set;

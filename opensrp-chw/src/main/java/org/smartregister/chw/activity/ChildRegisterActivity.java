@@ -2,7 +2,6 @@ package org.smartregister.chw.activity;
 
 import org.smartregister.chw.core.activity.CoreChildRegisterActivity;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
-
 import org.smartregister.chw.fragment.ChildRegisterFragment;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;

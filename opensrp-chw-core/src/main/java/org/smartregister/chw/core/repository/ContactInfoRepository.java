@@ -2,14 +2,13 @@ package org.smartregister.chw.core.repository;
 
 import android.content.ContentValues;
 
-import org.smartregister.chw.core.domain.ContactInfo;
-
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
+import org.smartregister.chw.core.domain.ContactInfo;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 

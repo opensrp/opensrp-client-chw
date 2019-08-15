@@ -1,4 +1,5 @@
 package org.smartregister.chw.util;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;

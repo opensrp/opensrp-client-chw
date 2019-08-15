@@ -1,12 +1,11 @@
 package org.smartregister.chw.core.presenter;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.CoreChildRegisterFragmentContract;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
-
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.View;

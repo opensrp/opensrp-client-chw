@@ -7,8 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
-import org.smartregister.chw.core.utils.ChwDBConstants;
-
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -17,6 +15,7 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.provider.AncRegisterProvider;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.ChwDBConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.HomeVisitUtil;

@@ -3,6 +3,10 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
+
+import org.apache.commons.lang3.text.WordUtils;
+import org.smartregister.chw.R;
+import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.core.domain.HomeVisitServiceDataModel;
 import org.smartregister.chw.core.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
@@ -10,10 +14,6 @@ import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.ServiceTask;
 import org.smartregister.chw.core.utils.TaskServiceCalculate;
-
-import org.apache.commons.lang3.text.WordUtils;
-import org.smartregister.chw.R;
-import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.presenter.HomeVisitGrowthNutritionPresenter;
 import org.smartregister.chw.presenter.HomeVisitGrowthNutritionPresenterFlv;
 import org.smartregister.chw.util.BaseService;

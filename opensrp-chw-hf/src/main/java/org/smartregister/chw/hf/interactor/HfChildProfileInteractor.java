@@ -3,6 +3,7 @@ package org.smartregister.chw.hf.interactor;
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 
+import org.json.JSONObject;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
@@ -14,8 +15,6 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.hf.utils.HfChildUtils;
-
-import org.json.JSONObject;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 

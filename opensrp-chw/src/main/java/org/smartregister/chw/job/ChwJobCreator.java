@@ -5,10 +5,9 @@ import android.support.annotation.Nullable;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
+
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
-import job.BasePncCloseJob;
-
 import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.P2pServiceJob;
@@ -19,6 +18,7 @@ import org.smartregister.job.ValidateSyncDataServiceJob;
 import org.smartregister.sync.intent.SyncIntentService;
 import org.smartregister.sync.intent.SyncTaskIntentService;
 
+import job.BasePncCloseJob;
 import timber.log.Timber;
 
 /**

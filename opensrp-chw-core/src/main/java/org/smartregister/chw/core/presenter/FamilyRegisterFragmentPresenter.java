@@ -4,7 +4,6 @@ package org.smartregister.chw.core.presenter;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.CoreFamilyRegisterFragmentContract;
 import org.smartregister.chw.core.utils.ChildDBConstants;
-
 import org.smartregister.family.presenter.BaseFamilyRegisterFragmentPresenter;
 import org.smartregister.family.util.DBConstants;
 

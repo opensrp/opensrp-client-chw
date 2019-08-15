@@ -3,12 +3,10 @@ package org.smartregister.chw.core.interactor;
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 
-
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.FamilyCallDialogContract;
 import org.smartregister.chw.core.model.FamilyCallDialogModel;
-
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;

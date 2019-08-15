@@ -4,9 +4,6 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 
-import org.smartregister.chw.core.custom_views.ImmunizationView;
-import org.smartregister.chw.core.fragment.VaccinationDialogFragment;
-import org.smartregister.chw.core.presenter.ImmunizationViewPresenter;
 import com.vijay.jsonwizard.customviews.CheckBox;
 
 import org.junit.Assert;
@@ -19,12 +16,14 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.R;
+import org.smartregister.chw.core.custom_views.ImmunizationView;
+import org.smartregister.chw.core.fragment.VaccinationDialogFragment;
+import org.smartregister.chw.core.presenter.ImmunizationViewPresenter;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 

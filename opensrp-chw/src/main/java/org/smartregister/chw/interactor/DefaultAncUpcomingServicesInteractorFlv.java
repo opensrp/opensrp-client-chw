@@ -2,8 +2,6 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
-import org.smartregister.chw.core.model.VaccineTaskModel;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
@@ -14,6 +12,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
+import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.util.ContactUtil;
 import org.smartregister.chw.util.VaccineScheduleUtil;
 import org.smartregister.immunization.db.VaccineRepo;

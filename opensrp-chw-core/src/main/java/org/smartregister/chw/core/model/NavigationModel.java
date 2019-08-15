@@ -1,7 +1,6 @@
 package org.smartregister.chw.core.model;
 
 import org.smartregister.chw.core.contract.NavigationContract;
-
 import org.smartregister.util.Utils;
 
 import java.util.List;

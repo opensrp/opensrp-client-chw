@@ -26,8 +26,6 @@ import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.adapter.ReferralCardViewAdapter;
 import org.smartregister.chw.hf.fragement.HfChildHomeVisitFragment;
 import org.smartregister.chw.hf.presenter.HfChildProfilePresenter;
-
-
 import org.smartregister.domain.Task;
 import org.smartregister.family.util.Constants;
 
@@ -82,7 +80,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     public void setClientTasks(Set<Task> taskList) {
         if (referralRecyclerView != null && taskList.size() > 0) {
             referalRow.setVisibility(View.VISIBLE);
-            mAdapter = new ReferralCardViewAdapter(taskList,this, ((CoreChildProfilePresenter) presenter()).getChildClient());
+            mAdapter = new ReferralCardViewAdapter(taskList, this, ((CoreChildProfilePresenter) presenter()).getChildClient());
             referralRecyclerView.setAdapter(mAdapter);
         }
     }

@@ -5,10 +5,6 @@ import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Pair;
 
-
-import org.smartregister.chw.core.R;
-import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.domain.FamilyMember;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +15,9 @@ import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.core.R;
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;

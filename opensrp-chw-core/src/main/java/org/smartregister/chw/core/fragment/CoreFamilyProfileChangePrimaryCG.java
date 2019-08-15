@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.utils.CoreConstants;

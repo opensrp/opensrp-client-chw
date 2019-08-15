@@ -3,11 +3,9 @@ package org.smartregister.chw.core.activity;
 import android.content.Intent;
 import android.view.View;
 
-
+import org.json.JSONObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.fragment.CoreFamilyRemoveMemberFragment;
-
-import org.json.JSONObject;
 import org.smartregister.family.util.Constants;
 import org.smartregister.view.activity.SecuredActivity;
 

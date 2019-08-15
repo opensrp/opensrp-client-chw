@@ -1,7 +1,5 @@
 package org.smartregister.chw.util;
 
-import org.smartregister.chw.core.helper.ContactRule;
-
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -9,6 +7,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.helper.ContactRule;
 
 import java.util.LinkedHashMap;
 import java.util.List;

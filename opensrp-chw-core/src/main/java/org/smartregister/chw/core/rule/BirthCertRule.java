@@ -1,8 +1,7 @@
 package org.smartregister.chw.core.rule;
 
-import org.smartregister.chw.core.utils.Utils;
-
 import org.joda.time.LocalDate;
+import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.util.DateUtil;
 
 //All date formats ISO 8601 yyyy-mm-dd

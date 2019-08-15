@@ -3,19 +3,18 @@ package org.smartregister.chw.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
-import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
-import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
-import org.smartregister.chw.core.fragment.CoreFamilyProfileChangeDialog;
-import org.smartregister.chw.core.fragment.CoreIndividualProfileRemoveFragment;
-import org.smartregister.chw.core.fragment.FamilyRemoveMemberConfirmDialog;
-import org.smartregister.chw.core.utils.CoreConstants;
-
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.IndividualProfileRemoveActivity;
+import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
+import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
+import org.smartregister.chw.core.fragment.CoreFamilyProfileChangeDialog;
+import org.smartregister.chw.core.fragment.CoreIndividualProfileRemoveFragment;
+import org.smartregister.chw.core.fragment.FamilyRemoveMemberConfirmDialog;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.FamilyRemoveMemberModel;
 import org.smartregister.chw.presenter.FamilyRemoveMemberPresenter;
 import org.smartregister.chw.provider.FamilyRemoveMemberProvider;

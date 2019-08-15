@@ -3,12 +3,11 @@ package org.smartregister.chw.core.task;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
+import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.smartregister.chw.core.listener.UpdateServiceListener;
 import org.smartregister.chw.core.model.RecurringServiceModel;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
-
-import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
 import org.smartregister.immunization.domain.ServiceType;

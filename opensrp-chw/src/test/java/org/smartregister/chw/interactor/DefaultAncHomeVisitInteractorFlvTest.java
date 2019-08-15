@@ -1,7 +1,5 @@
 package org.smartregister.chw.interactor;
 
-import org.smartregister.chw.core.model.VaccineTaskModel;
-
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -27,6 +25,7 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.application.TestChwApplication;
+import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;

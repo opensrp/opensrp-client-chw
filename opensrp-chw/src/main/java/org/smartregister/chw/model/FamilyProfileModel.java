@@ -1,7 +1,6 @@
 package org.smartregister.chw.model;
 
 import org.smartregister.chw.core.model.CoreFamilyProfileModel;
-
 import org.smartregister.family.domain.FamilyEventClient;
 
 public class FamilyProfileModel extends CoreFamilyProfileModel {

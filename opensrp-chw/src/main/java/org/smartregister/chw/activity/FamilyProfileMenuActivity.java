@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
-
 import org.smartregister.chw.fragment.FamilyProfileChangeHead;
 import org.smartregister.chw.fragment.FamilyProfileChangePrimaryCG;
 import org.smartregister.family.util.Constants;

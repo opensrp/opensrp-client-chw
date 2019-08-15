@@ -8,7 +8,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-
+import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
@@ -16,8 +16,6 @@ import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
-
-import org.jeasy.rules.api.Rules;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;

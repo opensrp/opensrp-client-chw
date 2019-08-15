@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 
 import org.smartregister.chw.core.provider.CoreMemberRegisterProvider;
-
 import org.smartregister.commonregistry.CommonRepository;
 
 import java.util.Set;

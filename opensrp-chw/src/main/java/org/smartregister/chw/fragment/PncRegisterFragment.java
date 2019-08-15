@@ -9,9 +9,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.core.utils.QueryBuilder;
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.PncHomeVisitActivity;
@@ -19,6 +16,8 @@ import org.smartregister.chw.activity.PncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.core.utils.QueryBuilder;
 import org.smartregister.chw.model.PncRegisterFragmentModel;
 import org.smartregister.chw.pnc.fragment.BasePncRegisterFragment;
 import org.smartregister.chw.pnc.presenter.BasePncRegisterFragmentPresenter;

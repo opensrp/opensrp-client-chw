@@ -7,7 +7,6 @@ import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.model.CoreChildRegisterModel;
 import org.smartregister.chw.core.presenter.CoreFamilyProfilePresenter;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-
 import org.smartregister.chw.interactor.FamilyChangeContractInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;

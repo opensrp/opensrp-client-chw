@@ -7,7 +7,6 @@ import android.view.View;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.provider.CoreChildRegisterProvider;
 import org.smartregister.chw.core.task.UpdateLastAsyncTask;
-
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Utils;

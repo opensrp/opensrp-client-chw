@@ -5,7 +5,6 @@ import android.view.View;
 
 import org.smartregister.chw.core.interactor.CoreFamilyRemoveMemberInteractor;
 import org.smartregister.chw.core.provider.CoreFamilyRemoveMemberProvider;
-
 import org.smartregister.chw.interactor.FamilyRemoveMemberInteractor;
 import org.smartregister.commonregistry.CommonRepository;
 

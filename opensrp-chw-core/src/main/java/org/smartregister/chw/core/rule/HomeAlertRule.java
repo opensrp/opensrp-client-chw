@@ -2,15 +2,13 @@ package org.smartregister.chw.core.rule;
 
 import android.content.Context;
 
-
-import org.smartregister.chw.core.R;
-import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
-import org.smartregister.chw.core.utils.CoreChildUtils;
-
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
+import org.smartregister.chw.core.R;
+import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
+import org.smartregister.chw.core.utils.CoreChildUtils;
 
 //All date formats ISO 8601 yyyy-mm-dd
 

@@ -7,12 +7,10 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.BaseReferralRegisterFragmentContract;
 import org.smartregister.chw.core.provider.BasereferralRegisterProvider;
 import org.smartregister.chw.core.utils.CoreConstants;
-
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;

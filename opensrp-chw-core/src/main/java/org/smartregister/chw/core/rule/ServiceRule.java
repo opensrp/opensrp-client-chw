@@ -1,8 +1,7 @@
 package org.smartregister.chw.core.rule;
 
-import org.smartregister.chw.core.enums.ImmunizationState;
-
 import org.joda.time.LocalDate;
+import org.smartregister.chw.core.enums.ImmunizationState;
 
 //All date formats ISO 8601 yyyy-mm-dd
 

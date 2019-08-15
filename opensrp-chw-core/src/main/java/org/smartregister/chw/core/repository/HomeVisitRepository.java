@@ -4,7 +4,6 @@ import android.content.ContentValues;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.smartregister.chw.core.domain.HomeVisit;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
@@ -12,6 +11,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.ei.drishti.dto.AlertStatus;
 import org.json.JSONObject;
+import org.smartregister.chw.core.domain.HomeVisit;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.ImmunizationLibrary;

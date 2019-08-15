@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import org.smartregister.chw.core.custom_views.NavigationMenu;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.MalariaRegisterFragment;
 import org.smartregister.chw.malaria.activity.BaseMalariaRegisterActivity;
 import org.smartregister.chw.util.Constants;

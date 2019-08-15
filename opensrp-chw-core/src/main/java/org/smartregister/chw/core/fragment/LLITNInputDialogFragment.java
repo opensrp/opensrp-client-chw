@@ -15,7 +15,6 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.listener.OnUpdateServiceTask;
 import org.smartregister.chw.core.utils.ServiceTask;

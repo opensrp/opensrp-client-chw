@@ -1,16 +1,15 @@
 package org.smartregister.chw.presenter;
 
-import org.smartregister.chw.core.contract.FamilyCallDialogContract;
-import org.smartregister.chw.core.interactor.FamilyCallDialogInteractor;
-import org.smartregister.chw.core.model.FamilyCallDialogModel;
-import org.smartregister.chw.core.presenter.FamilyCallDialogPresenter;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
+import org.smartregister.chw.core.contract.FamilyCallDialogContract;
+import org.smartregister.chw.core.interactor.FamilyCallDialogInteractor;
+import org.smartregister.chw.core.model.FamilyCallDialogModel;
+import org.smartregister.chw.core.presenter.FamilyCallDialogPresenter;
 
 public class FamilyCallDialogPresenterTest {
 

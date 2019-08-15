@@ -23,7 +23,6 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
 
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 

@@ -2,14 +2,12 @@ package org.smartregister.chw.core.presenter;
 
 import android.content.Context;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.core.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.core.interactor.HomeVisitGrowthNutritionInteractor;
 import org.smartregister.chw.core.utils.ChwServiceSchedule;
 import org.smartregister.chw.core.utils.Utils;
-
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;

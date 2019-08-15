@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.CoreFamilyRegisterFragmentContract;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -17,7 +16,6 @@ import org.smartregister.chw.core.model.FamilyRegisterFramentModel;
 import org.smartregister.chw.core.presenter.FamilyRegisterFragmentPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.QueryBuilder;
-
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;

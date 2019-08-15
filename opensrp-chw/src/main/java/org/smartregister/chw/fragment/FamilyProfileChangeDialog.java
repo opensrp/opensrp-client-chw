@@ -5,7 +5,6 @@ import android.content.Context;
 
 import org.smartregister.chw.core.fragment.CoreFamilyProfileChangeDialog;
 import org.smartregister.chw.core.presenter.CoreFamilyChangePresenter;
-
 import org.smartregister.chw.presenter.FamilyChangePresenter;
 
 public class FamilyProfileChangeDialog extends CoreFamilyProfileChangeDialog {

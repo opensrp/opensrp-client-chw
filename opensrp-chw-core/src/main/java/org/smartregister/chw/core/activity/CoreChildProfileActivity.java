@@ -23,7 +23,12 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
 
+import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONObject;
+import org.opensrp.api.constants.Gender;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
@@ -32,12 +37,6 @@ import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.domain.Form;
-
-import org.apache.commons.lang3.tuple.Triple;
-import org.json.JSONObject;
-import org.opensrp.api.constants.Gender;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.Task;
 import org.smartregister.family.util.Constants;

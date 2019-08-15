@@ -1,9 +1,8 @@
 package org.smartregister.chw.core.model;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
-
-import org.apache.commons.lang3.ArrayUtils;
 import org.smartregister.family.model.BaseFamilyProfileMemberModel;
 
 public class CoreFamilyProfileMemberModel extends BaseFamilyProfileMemberModel {

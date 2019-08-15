@@ -4,16 +4,15 @@ import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.util.Pair;
 
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.ChildHomeVisit;
 import org.smartregister.chw.core.utils.CoreChildService;
-
-import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;

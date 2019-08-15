@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import utils.WashCheck;
-
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.WashCheckAdapter;
 import org.smartregister.chw.model.FamilyProfileActivityModel;
@@ -24,6 +22,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import timber.log.Timber;
+import utils.WashCheck;
 
 public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFragment {
     private String familyName;

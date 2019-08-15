@@ -4,11 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-
-import org.smartregister.chw.core.R;
-import org.smartregister.chw.core.contract.ChwBottomNavigator;
-import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.core.utils.CoreConstants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -17,6 +12,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.activity.BaseAncRegisterActivity;
 import org.smartregister.chw.anc.util.DBConstants;
+import org.smartregister.chw.core.R;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.fragment.BaseRegisterFragment;

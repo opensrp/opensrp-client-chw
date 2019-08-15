@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.interactor.OnClickServiceTaskAdapter;
 import org.smartregister.chw.core.presenter.ChildHomeVisitPresenter;

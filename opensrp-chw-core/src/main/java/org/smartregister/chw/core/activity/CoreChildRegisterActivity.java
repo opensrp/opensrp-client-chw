@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
 
+import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -14,11 +18,6 @@ import org.smartregister.chw.core.listener.CoreBottomNavigationListener;
 import org.smartregister.chw.core.model.CoreChildRegisterModel;
 import org.smartregister.chw.core.presenter.CoreChildRegisterPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.domain.Form;
-
-import org.json.JSONObject;
-import org.smartregister.AllConstants;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;

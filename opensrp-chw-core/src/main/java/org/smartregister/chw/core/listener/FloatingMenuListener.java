@@ -2,7 +2,6 @@ package org.smartregister.chw.core.listener;
 
 import android.app.Activity;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.fragment.AddMemberFragment;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;

@@ -3,16 +3,14 @@ package org.smartregister.chw.core.model;
 import android.content.Context;
 import android.text.TextUtils;
 
+import org.joda.time.DateTime;
+import org.joda.time.Months;
+import org.joda.time.Weeks;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.enums.ImmunizationState;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitVaccineGroup;
-
-
-import org.joda.time.DateTime;
-import org.joda.time.Months;
-import org.joda.time.Weeks;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
@@ -23,7 +21,6 @@ import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.util.DateUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;

@@ -5,14 +5,12 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Pair;
 
-
-import org.smartregister.chw.core.R;
-import org.smartregister.chw.core.contract.CoreChildRegisterContract;
-import org.smartregister.chw.core.interactor.CoreChildRegisterInteractor;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
+import org.smartregister.chw.core.R;
+import org.smartregister.chw.core.contract.CoreChildRegisterContract;
+import org.smartregister.chw.core.interactor.CoreChildRegisterInteractor;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.FetchStatus;

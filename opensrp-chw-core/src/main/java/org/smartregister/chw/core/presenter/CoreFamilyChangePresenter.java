@@ -6,7 +6,6 @@ import android.util.Pair;
 import org.smartregister.chw.core.contract.FamilyChangeContract;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.model.FamilyChangeContractModel;
-
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.view.LocationPickerView;
 

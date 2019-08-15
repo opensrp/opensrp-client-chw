@@ -2,13 +2,12 @@ package org.smartregister.chw.core.repository;
 
 import android.content.Context;
 
-import org.smartregister.chw.core.application.CoreChwApplication;
-
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.immunization.ImmunizationLibrary;

@@ -8,15 +8,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.core.fragment.CoreChildHomeVisitFragment;
 import org.smartregister.chw.core.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.core.presenter.CoreHomeVisitGrowthNutritionPresenter;
 import org.smartregister.chw.core.utils.CoreChildUtils;
-
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.domain.ServiceWrapper;
 

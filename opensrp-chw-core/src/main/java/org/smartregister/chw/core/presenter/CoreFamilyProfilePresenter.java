@@ -3,7 +3,9 @@ package org.smartregister.chw.core.presenter;
 import android.content.Context;
 import android.util.Pair;
 
-
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
@@ -15,10 +17,6 @@ import org.smartregister.chw.core.model.CoreChildRegisterModel;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.Utils;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Triple;
-import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;

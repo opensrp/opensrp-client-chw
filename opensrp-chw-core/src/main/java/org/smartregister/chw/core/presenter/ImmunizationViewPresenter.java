@@ -3,13 +3,12 @@ package org.smartregister.chw.core.presenter;
 import android.content.Context;
 import android.text.TextUtils;
 
+import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.smartregister.chw.core.contract.ImmunizationContact;
 import org.smartregister.chw.core.interactor.ImmunizationViewInteractor;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.HomeVisitVaccineGroup;
-
-import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Utils;
 import org.smartregister.immunization.ImmunizationLibrary;

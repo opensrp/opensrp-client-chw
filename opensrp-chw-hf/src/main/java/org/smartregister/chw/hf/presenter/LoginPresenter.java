@@ -9,8 +9,6 @@ import android.widget.TextView;
 import org.smartregister.chw.hf.HealthFacilityApplication;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.interactor.LoginInteractor;
-
-
 import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.configurableviews.util.Constants;

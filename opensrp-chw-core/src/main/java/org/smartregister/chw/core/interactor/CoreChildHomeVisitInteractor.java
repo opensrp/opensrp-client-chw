@@ -4,6 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.ChildHomeVisitContract;
 import org.smartregister.chw.core.domain.HomeVisit;
@@ -13,9 +15,6 @@ import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.ObsIllnessDataModel;
 import org.smartregister.chw.core.utils.ServiceTask;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;

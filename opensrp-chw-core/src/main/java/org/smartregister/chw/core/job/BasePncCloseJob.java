@@ -3,11 +3,10 @@ package job;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import intent.ChwPncCloseDateIntent;
-
 import org.smartregister.family.util.Constants;
 import org.smartregister.job.BaseJob;
 
+import intent.ChwPncCloseDateIntent;
 import timber.log.Timber;
 
 public class BasePncCloseJob extends BaseJob {

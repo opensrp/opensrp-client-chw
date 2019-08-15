@@ -1,6 +1,7 @@
 package org.smartregister.chw.core.presenter;
 
 import android.app.Activity;
+
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.contract.NavigationContract;
 import org.smartregister.chw.core.interactor.NavigationInteractor;
@@ -9,8 +10,6 @@ import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.core.model.NavigationModel;
 import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.core.utils.CoreConstants;
-import job.BasePncCloseJob;
-
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
@@ -20,6 +19,7 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
 
+import job.BasePncCloseJob;
 import timber.log.Timber;
 
 public class NavigationPresenter implements NavigationContract.Presenter {

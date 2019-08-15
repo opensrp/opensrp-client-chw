@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.adapter.MemberAdapter;
 import org.smartregister.chw.core.contract.FamilyChangeContract;
@@ -22,8 +23,6 @@ import org.smartregister.chw.core.listener.FloatingMenuListener;
 import org.smartregister.chw.core.listener.MemberAdapterListener;
 import org.smartregister.chw.core.presenter.CoreFamilyChangePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,13 +2,13 @@ package org.smartregister.chw.core.sync;
 
 import android.content.ContentValues;
 import android.content.Context;
+
+import org.apache.commons.lang3.StringUtils;
+import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.HomeVisitRepository;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
-
-import org.apache.commons.lang3.StringUtils;
-import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;

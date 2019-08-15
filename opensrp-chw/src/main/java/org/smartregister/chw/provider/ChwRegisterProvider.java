@@ -6,12 +6,11 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.View;
 
+import org.jeasy.rules.api.Rules;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.core.utils.ChildDBConstants;
-
-import org.jeasy.rules.api.Rules;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;

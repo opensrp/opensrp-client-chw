@@ -1,10 +1,9 @@
 package org.smartregister.chw.application;
 
-import org.smartregister.chw.core.utils.Utils;
-
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.core.utils.Utils;
 
 /**
  * Created by samuelgithengi on 10/19/18.

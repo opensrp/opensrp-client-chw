@@ -12,13 +12,11 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.listener.ReferralsTaskViewClickListener;
-
-
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Task;
 import org.smartregister.family.util.DBConstants;
@@ -29,10 +27,10 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 import static org.smartregister.util.Utils.getValue;
 
 public class ReferralTaskViewActivity extends SecuredActivity {
+    protected AppBarLayout appBarLayout;
     private CommonPersonObjectClient personObjectClient;
     private Task task;
     private CustomFontTextView toolBarTextView;
-    protected AppBarLayout appBarLayout;
     private CustomFontTextView clientName;
     private CustomFontTextView clientAge;
     private CustomFontTextView careGiverName;

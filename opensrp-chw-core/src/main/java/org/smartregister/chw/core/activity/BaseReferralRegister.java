@@ -5,18 +5,16 @@ import android.os.Bundle;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
 
-
+import org.json.JSONObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.listener.CoreBottomNavigationListener;
-
-import org.json.JSONObject;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.util.List;
 
-public  abstract class BaseReferralRegister extends BaseRegisterActivity {
+public abstract class BaseReferralRegister extends BaseRegisterActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

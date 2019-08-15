@@ -1,8 +1,7 @@
 package org.smartregister.chw.interactor;
 
-import org.smartregister.chw.core.interactor.CoreFamilyChangeContractInteractor;
-
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.interactor.CoreFamilyChangeContractInteractor;
 
 import java.util.Calendar;
 import java.util.Date;

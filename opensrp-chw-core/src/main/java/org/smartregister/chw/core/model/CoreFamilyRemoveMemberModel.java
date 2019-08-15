@@ -1,13 +1,12 @@
 package org.smartregister.chw.core.model;
 
 
-import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
-import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;

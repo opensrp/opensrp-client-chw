@@ -1,8 +1,8 @@
 package org.smartregister.chw.core.contract;
 
-import org.smartregister.chw.core.utils.HomeVisitVaccineGroup;
 import android.content.Context;
 
+import org.smartregister.chw.core.utils.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.ArrayList;

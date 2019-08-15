@@ -8,6 +8,15 @@ public class CoreConstants {
 
     public static String EC_CLIENT_FIELDS = "ec_client_fields.json";
 
+    public interface DB_CONSTANTS {
+        String ID = "_id";
+        String FOR = "for";
+        String FOCUS = "focus";
+        String REQUESTER = "requester";
+        String START = "start";
+        String MALARIA_REGISTER_ACTIVITY = "MALARIA_REGISTER_ACTIVITY";
+    }
+
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
         public static final String FAMILY_REGISTER = "family_register";
@@ -543,15 +552,6 @@ public class CoreConstants {
         public static final String ANC_REGISTER_ACTIVITY = "ANC_REGISTER_ACTIVITY";
         public static final String PNC_REGISTER_ACTIVITY = "PNC_REGISTER_ACTIVITY";
         public static final String REFERRALS_REGISTER_ACTIVITY = "REFERRALS_REGISTER_ACTIVITY";
-        public static final String MALARIA_REGISTER_ACTIVITY = "MALARIA_REGISTER_ACTIVITY";
-    }
-
-    public interface DB_CONSTANTS {
-        String ID = "_id";
-        String FOR = "for";
-        String FOCUS = "focus";
-        String REQUESTER = "requester";
-        String START = "start";
         public static final String MALARIA_REGISTER_ACTIVITY = "MALARIA_REGISTER_ACTIVITY";
     }
 }

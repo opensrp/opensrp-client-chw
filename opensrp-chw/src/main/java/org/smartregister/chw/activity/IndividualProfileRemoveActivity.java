@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 
 import org.smartregister.chw.core.activity.CoreIndividualProfileRemoveActivity;
-
 import org.smartregister.chw.fragment.IndividualProfileRemoveFragment;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;

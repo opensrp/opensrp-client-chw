@@ -2,13 +2,12 @@ package org.smartregister.chw.repository;
 
 import android.content.Context;
 
-import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.repository.CoreChwRepository;
-
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.AllConstants;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.repository.CoreChwRepository;
 
 import timber.log.Timber;
 

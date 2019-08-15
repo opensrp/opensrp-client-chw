@@ -1,9 +1,8 @@
 package org.smartregister.chw.core.utils;
 
-import org.smartregister.chw.core.model.RecurringServiceModel;
-
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.smartregister.chw.core.model.RecurringServiceModel;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.ImmunizationLibrary;

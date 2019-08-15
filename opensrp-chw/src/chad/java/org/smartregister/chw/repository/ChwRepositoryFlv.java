@@ -2,8 +2,6 @@ package org.smartregister.chw.repository;
 
 import android.content.Context;
 
-import org.smartregister.chw.core.repository.HomeVisitRepository;
-import HomeVisitRepository;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.domain.db.Column;
@@ -13,6 +11,7 @@ import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
 
+import HomeVisitRepository;
 import timber.log.Timber;
 
 public class ChwRepositoryFlv {

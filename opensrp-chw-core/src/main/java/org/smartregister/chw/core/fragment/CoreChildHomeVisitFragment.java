@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -251,7 +250,7 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
                 Date date = dobStringToDate(dob);
                 textViewBirthCertDueDate.setTextColor(getResources().getColor(R.color.alert_urgent_red));
                 textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.overdue), dd_MMM_yyyy.format(date)));
-            } else{
+            } else {
                 Date date = dobStringToDate(dob);
                 textViewBirthCertDueDate.setTextColor(getResources().getColor(R.color.grey));
                 textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.due), dd_MMM_yyyy.format(date)));
@@ -285,7 +284,7 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
                 Date date = dobStringToDate(dob);
                 textViewVaccineCardText.setTextColor(getResources().getColor(R.color.alert_urgent_red));
                 textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.overdue), dd_MMM_yyyy.format(date)));
-            } else{
+            } else {
                 Date date = dobStringToDate(dob);
                 textViewVaccineCardText.setTextColor(getResources().getColor(R.color.grey));
                 textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.due), dd_MMM_yyyy.format(date)));

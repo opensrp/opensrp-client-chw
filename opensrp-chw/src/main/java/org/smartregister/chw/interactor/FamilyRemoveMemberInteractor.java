@@ -1,8 +1,7 @@
 package org.smartregister.chw.interactor;
 
-import org.smartregister.chw.core.interactor.CoreFamilyRemoveMemberInteractor;
-
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.interactor.CoreFamilyRemoveMemberInteractor;
 
 public class FamilyRemoveMemberInteractor extends CoreFamilyRemoveMemberInteractor {
     private static FamilyRemoveMemberInteractor instance;

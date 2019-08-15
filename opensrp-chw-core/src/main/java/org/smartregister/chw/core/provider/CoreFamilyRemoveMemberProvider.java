@@ -7,12 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
 import org.smartregister.chw.core.interactor.CoreFamilyRemoveMemberInteractor;
 import org.smartregister.chw.core.utils.CoreConstants;
-
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.provider.FamilyMemberRegisterProvider;
 import org.smartregister.view.customcontrols.CustomFontTextView;

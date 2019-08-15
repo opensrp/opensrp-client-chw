@@ -5,8 +5,6 @@ import android.os.Bundle;
 
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.presenter.LoginPresenter;
-
-
 import org.smartregister.family.util.Constants;
 import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.util.Utils;

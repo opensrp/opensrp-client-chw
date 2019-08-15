@@ -4,17 +4,16 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 
-
-import org.smartregister.chw.core.R;
-import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
-import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
-import org.smartregister.chw.core.provider.CoreFamilyRemoveMemberProvider;
-import org.smartregister.chw.core.utils.CoreConstants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.smartregister.chw.core.R;
+import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
+import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
+import org.smartregister.chw.core.provider.CoreFamilyRemoveMemberProvider;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;

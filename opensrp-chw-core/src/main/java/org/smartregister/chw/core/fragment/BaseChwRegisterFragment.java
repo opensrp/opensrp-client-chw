@@ -5,10 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
-
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 import org.smartregister.view.customcontrols.FontVariant;

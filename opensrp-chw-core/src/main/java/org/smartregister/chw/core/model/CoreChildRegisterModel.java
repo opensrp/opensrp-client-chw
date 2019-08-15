@@ -2,9 +2,8 @@ package org.smartregister.chw.core.model;
 
 import android.util.Pair;
 
-import org.smartregister.chw.core.contract.CoreChildRegisterContract;
-
 import org.json.JSONObject;
+import org.smartregister.chw.core.contract.CoreChildRegisterContract;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;

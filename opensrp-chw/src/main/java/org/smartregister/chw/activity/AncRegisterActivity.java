@@ -2,12 +2,12 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.helper.BottomNavigationHelper;

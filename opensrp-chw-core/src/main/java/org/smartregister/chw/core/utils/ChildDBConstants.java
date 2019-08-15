@@ -5,9 +5,9 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.family.util.DBConstants;
 
 public class ChildDBConstants {
-    private static final int FIVE_YEAR = 5;
     public static final String OTHER_PHONE_NUMBER = "other_phone_number";
     public static final String PHONE_NUMBER = "phone_number";
+    private static final int FIVE_YEAR = 5;
 
     public static String childAgeLimitFilter() {
         return childAgeLimitFilter(DBConstants.KEY.DOB, FIVE_YEAR);

@@ -4,6 +4,11 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
+
+import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.ImmunizationContact;
 import org.smartregister.chw.core.domain.HomeVisit;
@@ -14,11 +19,6 @@ import org.smartregister.chw.core.utils.ChwServiceSchedule;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.HomeVisitVaccineGroup;
 import org.smartregister.chw.core.utils.Utils;
-
-import org.joda.time.DateTime;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import org.smartregister.chw.core.utils.CoreConstants;
-
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.Date;

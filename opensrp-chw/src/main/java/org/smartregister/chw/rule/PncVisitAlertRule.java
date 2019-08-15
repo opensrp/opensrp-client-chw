@@ -1,10 +1,9 @@
 package org.smartregister.chw.rule;
 
-import org.smartregister.chw.core.rule.ICommonRule;
-
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.smartregister.chw.contract.RegisterAlert;
+import org.smartregister.chw.core.rule.ICommonRule;
 
 import java.util.Date;
 

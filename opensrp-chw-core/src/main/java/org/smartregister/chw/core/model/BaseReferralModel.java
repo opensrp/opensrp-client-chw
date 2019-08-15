@@ -2,7 +2,6 @@ package org.smartregister.chw.core.model;
 
 import org.smartregister.chw.core.contract.BaseReferralRegisterFragmentContract;
 import org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS;
-
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 
 public class BaseReferralModel implements BaseReferralRegisterFragmentContract.Model {

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import org.smartregister.chw.core.fragment.CoreFamilyProfileChangeHead;
 import org.smartregister.chw.core.fragment.CoreFamilyProfileChangePrimaryCG;
 import org.smartregister.chw.core.presenter.CoreFamilyChangePresenter;
-
 import org.smartregister.chw.presenter.FamilyChangePresenter;
 
 public class FamilyProfileChangePrimaryCG extends CoreFamilyProfileChangePrimaryCG {

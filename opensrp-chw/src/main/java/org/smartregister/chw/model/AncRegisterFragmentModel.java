@@ -1,9 +1,8 @@
 package org.smartregister.chw.model;
 
+import org.smartregister.chw.anc.model.BaseAncRegisterFragmentModel;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.ChwDBConstants;
-
-import org.smartregister.chw.anc.model.BaseAncRegisterFragmentModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;

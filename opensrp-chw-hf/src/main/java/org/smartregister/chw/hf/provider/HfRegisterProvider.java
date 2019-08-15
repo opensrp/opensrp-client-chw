@@ -4,10 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
 
+import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
-
-import org.jeasy.rules.api.Rules;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.view.contract.SmartRegisterClient;
 

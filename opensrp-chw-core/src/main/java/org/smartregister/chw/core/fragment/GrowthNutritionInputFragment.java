@@ -21,16 +21,15 @@ import android.widget.TextView;
 
 import com.google.common.collect.ImmutableMap;
 
+import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.custom_views.HomeVisitGrowthAndNutrition;
 import org.smartregister.chw.core.utils.ChwServiceSchedule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.Utils;
-
-import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
-import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.ServiceRecord;

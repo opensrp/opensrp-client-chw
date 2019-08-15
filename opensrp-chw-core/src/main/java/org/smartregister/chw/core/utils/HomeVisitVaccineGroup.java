@@ -1,8 +1,7 @@
 package org.smartregister.chw.core.utils;
 
-import org.smartregister.chw.core.enums.ImmunizationState;
-
 import org.joda.time.DateTime;
+import org.smartregister.chw.core.enums.ImmunizationState;
 import org.smartregister.immunization.db.VaccineRepo;
 
 import java.util.ArrayList;

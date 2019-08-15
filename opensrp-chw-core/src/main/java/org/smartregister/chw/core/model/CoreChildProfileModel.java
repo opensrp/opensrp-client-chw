@@ -1,10 +1,9 @@
 package org.smartregister.chw.core.model;
 
+import org.json.JSONObject;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-
-import org.json.JSONObject;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
 

@@ -2,12 +2,11 @@ package org.smartregister.chw.hf.fragement;
 
 import android.content.Intent;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.fragment.CoreChildRegisterFragment;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.activity.ChildProfileActivity;
 import org.smartregister.chw.hf.provider.HfChildRegisterProvider;
-
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;

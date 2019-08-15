@@ -2,6 +2,7 @@ package org.smartregister.chw.core.application;
 
 import android.content.Intent;
 
+import org.smartregister.Context;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.helper.RulesEngineHelper;
 import org.smartregister.chw.core.repository.AncRegisterRepository;
@@ -10,8 +11,6 @@ import org.smartregister.chw.core.repository.HomeVisitRepository;
 import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.core.repository.WashCheckRepository;
 import org.smartregister.chw.core.sync.ChwClientProcessor;
-
-import org.smartregister.Context;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -50,14 +49,13 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     private static TaskRepository taskRepository;
     private static PlanDefinitionRepository planDefinitionRepository;
     private static WashCheckRepository washCheckRepository;
-    private LocationRepository locationRepository;
-
-
     public JsonSpecHelper jsonSpecHelper;
+    private LocationRepository locationRepository;
     private ECSyncHelper ecSyncHelper;
     private String password;
 
     private RulesEngineHelper rulesEngineHelper;
+
     public static synchronized CoreChwApplication getInstance() {
         return (CoreChwApplication) mInstance;
     }

@@ -2,7 +2,6 @@ package org.smartregister.chw.presenter;
 
 import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
 import org.smartregister.chw.core.presenter.CoreFamilyRemoveMemberPresenter;
-
 import org.smartregister.chw.interactor.FamilyRemoveMemberInteractor;
 
 public class FamilyRemoveMemberPresenter extends CoreFamilyRemoveMemberPresenter {

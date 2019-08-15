@@ -8,15 +8,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
-import org.smartregister.chw.core.fragment.CoreChildHomeVisitFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
-
-import org.smartregister.chw.R;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.fragment.ChildHomeVisitFragment;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
@@ -86,7 +84,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 
     private void openFamilyDueTab() {

@@ -6,12 +6,11 @@ import android.os.Bundle;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.design.widget.BottomNavigationView;
 
-import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
-import org.smartregister.chw.core.custom_views.NavigationMenu;
-
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.FamilyRegisterFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
 import org.smartregister.chw.listener.FamilyBottomNavigationListener;

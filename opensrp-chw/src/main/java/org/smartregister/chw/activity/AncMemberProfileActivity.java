@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import org.smartregister.chw.core.utils.CoreConstants;
 
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
@@ -21,6 +20,7 @@ import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.Util;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.AncMemberProfileInteractor;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;

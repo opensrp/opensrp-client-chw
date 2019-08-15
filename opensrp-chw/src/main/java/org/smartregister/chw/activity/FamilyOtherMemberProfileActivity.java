@@ -18,15 +18,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.smartregister.chw.core.listener.FloatingMenuListener;
-import org.smartregister.chw.core.listener.OnClickFloatingMenu;
-import org.smartregister.chw.core.utils.CoreConstants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
+import org.smartregister.chw.core.listener.FloatingMenuListener;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.interactor.ChildProfileInteractor;

@@ -1,17 +1,16 @@
 package org.smartregister.chw.presenter;
 
-import org.smartregister.chw.core.contract.FamilyChangeContract;
-import org.smartregister.chw.core.domain.FamilyMember;
-import org.smartregister.chw.core.interactor.CoreFamilyChangeContractInteractor;
-import org.smartregister.chw.core.model.FamilyChangeContractModel;
-import org.smartregister.chw.core.presenter.CoreFamilyChangePresenter;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
+import org.smartregister.chw.core.contract.FamilyChangeContract;
+import org.smartregister.chw.core.domain.FamilyMember;
+import org.smartregister.chw.core.interactor.CoreFamilyChangeContractInteractor;
+import org.smartregister.chw.core.model.FamilyChangeContractModel;
+import org.smartregister.chw.core.presenter.CoreFamilyChangePresenter;
 
 import java.util.ArrayList;
 import java.util.List;

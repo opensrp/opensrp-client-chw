@@ -1,7 +1,6 @@
 package org.smartregister.chw.interactor;
 
 import org.smartregister.chw.core.interactor.CoreFamilyChangeContractInteractor;
-
 import org.smartregister.family.util.DBConstants;
 
 public abstract class DefaultFamilyChangeContractInteractorFlv implements CoreFamilyChangeContractInteractor.Flavor {

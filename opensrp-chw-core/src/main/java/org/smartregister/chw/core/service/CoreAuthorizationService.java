@@ -3,10 +3,9 @@ package org.smartregister.chw.core.service;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import org.smartregister.chw.core.utils.CoreConstants;
-
 import org.smartregister.AllConstants;
 import org.smartregister.CoreLibrary;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.domain.jsonmapping.Location;
 import org.smartregister.domain.jsonmapping.util.LocationTree;
 import org.smartregister.domain.jsonmapping.util.TreeNode;

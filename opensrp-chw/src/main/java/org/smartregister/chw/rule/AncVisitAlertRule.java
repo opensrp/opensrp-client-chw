@@ -2,8 +2,6 @@ package org.smartregister.chw.rule;
 
 import android.content.Context;
 
-import org.smartregister.chw.core.rule.ICommonRule;
-
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
@@ -12,6 +10,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.RegisterAlert;
+import org.smartregister.chw.core.rule.ICommonRule;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 
 public class AncVisitAlertRule implements ICommonRule, RegisterAlert {

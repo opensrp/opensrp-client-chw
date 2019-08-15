@@ -1,9 +1,8 @@
 package org.smartregister.chw.model;
 
-import org.smartregister.chw.core.model.NavigationOption;
-
 import org.junit.Test;
 import org.smartregister.chw.R;
+import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.util.Constants;
 
 import static org.junit.Assert.assertEquals;

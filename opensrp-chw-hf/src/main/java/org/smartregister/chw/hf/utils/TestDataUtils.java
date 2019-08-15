@@ -1,10 +1,9 @@
 package org.smartregister.chw.hf.utils;
 
-import org.smartregister.chw.core.utils.CoreConstants;
-
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartregister.CoreLibrary;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.Task;
 import org.smartregister.repository.AllSharedPreferences;
@@ -17,15 +16,10 @@ import java.util.UUID;
 public class TestDataUtils {
 
 
-    private TaskRepository taskRepository = CoreLibrary.getInstance().context().getTaskRepository();
-
-
-    private CommonRepository childRepository = CoreLibrary.getInstance().context().commonrepository(CoreConstants.TABLE_NAME.CHILD);
-
-
-    private AllSharedPreferences sharedPreferences = CoreLibrary.getInstance().context().allSharedPreferences();
-
     private static final String TEST_DATA_POPULATED = "TEST_DATA_POPULATED";
+    private TaskRepository taskRepository = CoreLibrary.getInstance().context().getTaskRepository();
+    private CommonRepository childRepository = CoreLibrary.getInstance().context().commonrepository(CoreConstants.TABLE_NAME.CHILD);
+    private AllSharedPreferences sharedPreferences = CoreLibrary.getInstance().context().allSharedPreferences();
 
     public void populateTasks() {
 

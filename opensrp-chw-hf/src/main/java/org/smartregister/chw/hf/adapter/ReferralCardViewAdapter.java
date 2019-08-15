@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.holder.ReferralCardViewHolder;
 import org.smartregister.chw.hf.listener.ReferralRecyclerClickListener;
-
-
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Task;
 

@@ -1,10 +1,8 @@
 package org.smartregister.chw.interactor;
 
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
-import job.BasePncCloseJob;
-
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.job.ChwIndicatorGeneratingJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PlanIntentServiceJob;
@@ -15,6 +13,8 @@ import org.smartregister.login.interactor.BaseLoginInteractor;
 import org.smartregister.view.contract.BaseLoginContract;
 
 import java.util.concurrent.TimeUnit;
+
+import job.BasePncCloseJob;
 
 public class LoginInteractor extends BaseLoginInteractor implements BaseLoginContract.Interactor {
 

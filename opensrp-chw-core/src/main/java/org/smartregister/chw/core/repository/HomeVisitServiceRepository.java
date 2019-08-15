@@ -4,10 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import org.smartregister.chw.core.domain.HomeVisitServiceDataModel;
-
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.smartregister.chw.core.domain.HomeVisitServiceDataModel;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 

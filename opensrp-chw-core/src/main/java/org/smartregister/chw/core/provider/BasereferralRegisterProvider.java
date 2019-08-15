@@ -7,15 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
+import org.joda.time.DateTime;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.holders.FooterViewHolder;
 import org.smartregister.chw.core.holders.ReferralViewHolder;
 import org.smartregister.chw.core.utils.CoreConstants;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.WordUtils;
-import org.joda.time.DateTime;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
@@ -65,7 +63,7 @@ public class BasereferralRegisterProvider implements RecyclerViewProvider<Referr
         String executionStart = Utils.getValue(pc.getColumnmaps(), CoreConstants.DB_CONSTANTS.START, false);
         if (StringUtils.isNotBlank(executionStart)) {
             DateTime duration = new DateTime(Long.valueOf(executionStart));
-            viewHolder.setReferralStart(org.smartregister.chw.core.utils.Utils.formatReferralDuration(duration,context));
+            viewHolder.setReferralStart(org.smartregister.chw.core.utils.Utils.formatReferralDuration(duration, context));
         }
         attachPatientOnclickListener(viewHolder.itemView, pc);
 

@@ -1,8 +1,6 @@
 package org.smartregister.chw.presenter;
 
 
-import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
-
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
+import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
 import org.smartregister.chw.interactor.FamilyRemoveMemberInteractor;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;

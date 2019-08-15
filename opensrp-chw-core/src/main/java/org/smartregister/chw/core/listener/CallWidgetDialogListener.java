@@ -3,10 +3,8 @@ package org.smartregister.chw.core.listener;
 
 import android.view.View;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
-
 import org.smartregister.chw.core.utils.Utils;
 
 import timber.log.Timber;

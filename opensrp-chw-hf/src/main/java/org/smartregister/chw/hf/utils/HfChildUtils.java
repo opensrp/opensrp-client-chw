@@ -1,11 +1,10 @@
 package org.smartregister.chw.hf.utils;
 
+import org.json.JSONObject;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.hf.HealthFacilityApplication;
-
-import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.family.FamilyLibrary;
@@ -17,8 +16,6 @@ import java.util.Date;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.CoreJsonFormUtils.tagSyncMetadata;
 
 public class HfChildUtils extends CoreChildUtils {
 

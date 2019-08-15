@@ -2,10 +2,9 @@ package org.smartregister.chw.presenter;
 
 import android.util.Pair;
 
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
-
-import org.smartregister.chw.R;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;

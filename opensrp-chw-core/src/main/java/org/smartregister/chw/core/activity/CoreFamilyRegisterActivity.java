@@ -6,10 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
-
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.family.activity.BaseFamilyRegisterActivity;
 import org.smartregister.family.model.BaseFamilyRegisterModel;
 import org.smartregister.family.presenter.BaseFamilyRegisterPresenter;

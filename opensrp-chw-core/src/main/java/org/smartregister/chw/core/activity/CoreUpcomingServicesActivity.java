@@ -12,11 +12,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.custom_views.UpcomingServicesFragmentView;
 import org.smartregister.chw.core.utils.CoreConstants;
-
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
 

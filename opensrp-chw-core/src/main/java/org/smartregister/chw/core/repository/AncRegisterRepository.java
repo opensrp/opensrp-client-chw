@@ -1,11 +1,10 @@
 package org.smartregister.chw.core.repository;
 
-import org.smartregister.chw.core.utils.CoreConstants;
-
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;

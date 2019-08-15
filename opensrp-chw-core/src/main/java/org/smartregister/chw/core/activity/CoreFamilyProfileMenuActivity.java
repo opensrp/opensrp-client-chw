@@ -3,7 +3,6 @@ package org.smartregister.chw.core.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;

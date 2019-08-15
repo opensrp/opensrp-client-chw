@@ -6,10 +6,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.util.Pair;
 
-import org.smartregister.chw.core.domain.FamilyMember;
-import org.smartregister.chw.core.repository.WashCheckRepository;
-import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -24,6 +20,10 @@ import org.smartregister.AllConstants;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.domain.FamilyMember;
+import org.smartregister.chw.core.repository.WashCheckRepository;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;

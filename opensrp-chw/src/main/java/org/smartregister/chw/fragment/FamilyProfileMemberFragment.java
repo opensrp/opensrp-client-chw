@@ -4,13 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import org.smartregister.chw.core.utils.ChildDBConstants;
-import org.smartregister.chw.core.utils.CoreConstants;
-
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AboveFiveChildProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
+import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.FamilyProfileMemberModel;
 import org.smartregister.chw.provider.ChwMemberRegisterProvider;
 import org.smartregister.chw.util.ChildUtils;

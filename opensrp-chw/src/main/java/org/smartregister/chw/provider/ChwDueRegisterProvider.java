@@ -7,13 +7,12 @@ import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 
-import org.smartregister.chw.core.model.ChildVisit;
-import org.smartregister.chw.core.utils.ChildDBConstants;
-
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.model.ChildVisit;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;

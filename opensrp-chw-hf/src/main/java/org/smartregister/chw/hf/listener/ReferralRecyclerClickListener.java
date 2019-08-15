@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.view.View;
 
 import org.smartregister.chw.hf.activity.ReferralTaskViewActivity;
-
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Task;
 

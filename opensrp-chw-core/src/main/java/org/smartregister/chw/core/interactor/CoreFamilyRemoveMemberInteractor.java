@@ -5,15 +5,14 @@ import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
 import android.util.Pair;
 
-import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
-import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObjectClient;

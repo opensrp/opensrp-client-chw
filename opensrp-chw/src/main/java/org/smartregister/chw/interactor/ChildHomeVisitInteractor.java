@@ -4,11 +4,10 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import org.json.JSONObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.interactor.CoreChildHomeVisitInteractor;
 import org.smartregister.chw.core.model.BirthIllnessFormModel;
-
-import org.json.JSONObject;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;

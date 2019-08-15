@@ -1,11 +1,11 @@
 package org.smartregister.chw.job;
 
 import com.google.gson.reflect.TypeToken;
+
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.HomeVisit;
 import org.smartregister.chw.core.domain.HomeVisitIndicatorInfo;
 import org.smartregister.chw.core.repository.HomeVisitIndicatorInfoRepository;
-
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.util.Log;

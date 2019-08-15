@@ -3,13 +3,13 @@ package org.smartregister.chw.presenter;
 import org.smartregister.chw.core.enums.ImmunizationState;
 import org.smartregister.chw.core.rule.WashCheckAlertRule;
 import org.smartregister.chw.core.utils.ChildDBConstants;
-import utils.WashCheck;
-
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.model.WashCheckModel;
 import org.smartregister.family.contract.FamilyProfileDueContract;
 import org.smartregister.family.presenter.BaseFamilyProfileDuePresenter;
+
+import utils.WashCheck;
 
 public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
     private WashCheckModel washCheckModel;

@@ -1,7 +1,7 @@
 package org.smartregister.chw.interactor;
 
-import org.smartregister.chw.core.domain.Person;
 import android.content.Context;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +22,7 @@ import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
 import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.dao.PNCDao;
 import org.smartregister.chw.dao.PersonDao;
@@ -154,7 +155,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if(StringUtils.isBlank(danger_signs_present_child))
+                if (StringUtils.isBlank(danger_signs_present_child))
                     return BaseAncHomeVisitAction.Status.PENDING;
 
                 if (StringUtils.isNotBlank(danger_signs_present_child)) {
@@ -394,7 +395,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if(StringUtils.isBlank(nutrition_status_mama))
+                if (StringUtils.isBlank(nutrition_status_mama))
                     return BaseAncHomeVisitAction.Status.PENDING;
 
                 if (StringUtils.isNotBlank(nutrition_status_mama)) {

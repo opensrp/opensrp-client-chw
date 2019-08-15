@@ -16,8 +16,6 @@ import org.smartregister.chw.core.task.UpdateServiceTask;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.GrowthServiceData;
-
-
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.AlertStatus;

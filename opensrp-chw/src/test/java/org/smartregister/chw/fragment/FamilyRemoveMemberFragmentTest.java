@@ -2,8 +2,6 @@ package org.smartregister.chw.fragment;
 
 import android.content.Context;
 
-import org.smartregister.chw.core.fragment.FamilyRemoveMemberConfirmDialog;
-
 import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,6 +17,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.fragment.FamilyRemoveMemberConfirmDialog;
 import org.smartregister.chw.presenter.FamilyRemoveMemberPresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 

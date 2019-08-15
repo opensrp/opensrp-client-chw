@@ -2,10 +2,9 @@ package org.smartregister.chw.core.repository;
 
 import android.content.ContentValues;
 
-import org.smartregister.chw.core.domain.HomeVisitIndicatorInfo;
-
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.smartregister.chw.core.domain.HomeVisitIndicatorInfo;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 

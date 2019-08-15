@@ -6,7 +6,6 @@ import org.smartregister.chw.core.fragment.CoreFamilyProfileMemberFragment;
 import org.smartregister.chw.core.provider.CoreMemberRegisterProvider;
 import org.smartregister.chw.hf.model.FamilyProfileMemberModel;
 import org.smartregister.chw.hf.provider.HfMemberRegisterProvider;
-
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;

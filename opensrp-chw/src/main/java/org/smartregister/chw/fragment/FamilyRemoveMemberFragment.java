@@ -2,12 +2,11 @@ package org.smartregister.chw.fragment;
 
 import android.os.Bundle;
 
+import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.fragment.CoreFamilyProfileChangeDialog;
 import org.smartregister.chw.core.fragment.CoreFamilyRemoveMemberFragment;
 import org.smartregister.chw.core.utils.CoreConstants;
-
-import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.model.FamilyRemoveMemberModel;
 import org.smartregister.chw.presenter.FamilyRemoveMemberPresenter;
 import org.smartregister.chw.provider.FamilyRemoveMemberProvider;

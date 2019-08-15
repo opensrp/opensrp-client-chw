@@ -8,7 +8,6 @@ import org.smartregister.chw.core.enums.ImmunizationState;
 import org.smartregister.chw.core.interactor.CoreFamilyInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
-
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;

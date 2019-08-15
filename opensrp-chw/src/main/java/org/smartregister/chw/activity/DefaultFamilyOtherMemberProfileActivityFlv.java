@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.text.TextUtils;
 import android.view.Menu;
 
-import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
-import org.smartregister.chw.core.listener.OnClickFloatingMenu;
-
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.smartregister.chw.R;
+import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {

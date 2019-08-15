@@ -6,7 +6,6 @@ import android.view.View;
 import org.smartregister.chw.core.fragment.BaseReferralRegisterFragment;
 import org.smartregister.chw.hf.activity.ChildProfileActivity;
 import org.smartregister.chw.hf.presenter.ReferralFragmentPresenter;
-
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 

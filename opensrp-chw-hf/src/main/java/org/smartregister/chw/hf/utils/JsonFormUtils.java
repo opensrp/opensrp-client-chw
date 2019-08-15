@@ -3,17 +3,16 @@ package org.smartregister.chw.hf.utils;
 import android.content.Context;
 import android.util.Pair;
 
-import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-import org.smartregister.chw.hf.HealthFacilityApplication;
-import org.smartregister.chw.hf.repository.HfChwRepository;
-
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.hf.HealthFacilityApplication;
+import org.smartregister.chw.hf.repository.HfChwRepository;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;

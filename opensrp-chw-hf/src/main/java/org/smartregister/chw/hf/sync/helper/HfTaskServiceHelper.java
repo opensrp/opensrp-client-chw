@@ -1,8 +1,7 @@
 package org.smartregister.chw.hf.sync.helper;
 
-import org.smartregister.chw.core.utils.CoreConstants;
-
 import org.smartregister.CoreLibrary;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.TaskRepository;
 import org.smartregister.sync.helper.TaskServiceHelper;

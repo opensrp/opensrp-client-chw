@@ -18,21 +18,19 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.vijay.jsonwizard.customviews.CheckBox;
 
+import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.ImmunizationView;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-import com.vijay.jsonwizard.customviews.CheckBox;
-
-import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;

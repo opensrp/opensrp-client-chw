@@ -3,7 +3,6 @@ package org.smartregister.chw.listener;
 import android.app.Activity;
 import android.view.View;
 
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

@@ -2,9 +2,8 @@ package org.smartregister.chw.core.contract;
 
 import android.content.Context;
 
-import org.smartregister.chw.core.utils.ServiceTask;
-
 import org.json.JSONObject;
+import org.smartregister.chw.core.utils.ServiceTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.ArrayList;

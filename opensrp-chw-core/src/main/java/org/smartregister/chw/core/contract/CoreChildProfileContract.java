@@ -3,10 +3,9 @@ package org.smartregister.chw.core.contract;
 import android.content.Context;
 import android.util.Pair;
 
+import org.json.JSONObject;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.CoreChildService;
-
-import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;

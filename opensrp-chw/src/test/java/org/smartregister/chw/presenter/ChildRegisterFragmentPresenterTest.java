@@ -1,5 +1,4 @@
 package org.smartregister.chw.presenter;
-import org.smartregister.chw.core.contract.CoreChildRegisterFragmentContract;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -7,6 +6,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.BaseUnitTest;
+import org.smartregister.chw.core.contract.CoreChildRegisterFragmentContract;
 
 public class ChildRegisterFragmentPresenterTest extends BaseUnitTest {
 

@@ -3,12 +3,6 @@ package org.smartregister.chw.presenter;
 
 import android.support.v7.app.AppCompatActivity;
 
-import org.smartregister.chw.core.contract.CoreApplication;
-import org.smartregister.chw.core.contract.NavigationContract;
-import org.smartregister.chw.core.interactor.NavigationInteractor;
-import org.smartregister.chw.core.model.NavigationModel;
-import org.smartregister.chw.core.presenter.NavigationPresenter;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -19,6 +13,11 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.smartregister.chw.core.contract.CoreApplication;
+import org.smartregister.chw.core.contract.NavigationContract;
+import org.smartregister.chw.core.interactor.NavigationInteractor;
+import org.smartregister.chw.core.model.NavigationModel;
+import org.smartregister.chw.core.presenter.NavigationPresenter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

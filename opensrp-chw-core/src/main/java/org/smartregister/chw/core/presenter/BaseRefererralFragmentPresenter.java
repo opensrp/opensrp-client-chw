@@ -2,7 +2,6 @@ package org.smartregister.chw.core.presenter;
 
 import org.smartregister.chw.core.contract.BaseReferralRegisterFragmentContract;
 import org.smartregister.chw.core.model.BaseReferralModel;
-
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.configurableviews.model.View;
 

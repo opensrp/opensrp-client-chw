@@ -1,6 +1,9 @@
 package org.smartregister.chw.core.presenter;
 
 
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.json.JSONObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
@@ -9,10 +12,6 @@ import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildService;
 import org.smartregister.chw.core.utils.CoreConstants;
-
-import org.joda.time.DateTime;
-import org.joda.time.Period;
-import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.Task;
@@ -170,7 +169,7 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     @Override
     public void fetchTasks() {
         // // TODO: 08/08/19  Change to use correct plan id
-        interactor.getClientTasks("5270285b-5a3b-4647-b772-c0b3c52e2b71",childBaseEntityId, this);
+        interactor.getClientTasks("5270285b-5a3b-4647-b772-c0b3c52e2b71", childBaseEntityId, this);
     }
 
     @Override

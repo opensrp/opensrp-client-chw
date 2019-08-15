@@ -3,13 +3,13 @@ package org.smartregister.chw.util;
 import android.content.Context;
 import android.util.Pair;
 
-import org.smartregister.chw.core.utils.ChwDBConstants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.core.utils.ChwDBConstants;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;

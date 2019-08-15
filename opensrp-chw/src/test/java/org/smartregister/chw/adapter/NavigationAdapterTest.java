@@ -1,8 +1,5 @@
 package org.smartregister.chw.adapter;
 
-import org.smartregister.chw.core.adapter.NavigationAdapter;
-import org.smartregister.chw.core.model.NavigationOption;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +14,8 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.adapter.NavigationAdapter;
+import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.util.Constants;
 
 import java.util.HashMap;

@@ -8,13 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
+import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.holders.FooterViewHolder;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.utils.ChildDBConstants;
-
-import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;

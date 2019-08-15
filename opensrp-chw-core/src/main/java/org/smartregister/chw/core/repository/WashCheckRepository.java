@@ -4,8 +4,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import utils.WashCheck;
-
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.repository.BaseRepository;
@@ -13,6 +11,8 @@ import org.smartregister.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import utils.WashCheck;
 
 public class WashCheckRepository extends BaseRepository {
     public static final String WASH_CHECK_TABLE_NAME = "ec_wash_check_log";

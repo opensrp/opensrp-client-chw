@@ -2,8 +2,6 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
-import org.smartregister.chw.core.model.VaccineTaskModel;
-
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -28,6 +26,7 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
 import org.smartregister.chw.util.VaccineScheduleUtil;

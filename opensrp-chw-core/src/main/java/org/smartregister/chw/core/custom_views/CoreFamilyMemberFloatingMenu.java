@@ -9,7 +9,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 

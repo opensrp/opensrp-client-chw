@@ -1,7 +1,6 @@
 package org.smartregister.chw.hf.model;
 
 import org.smartregister.chw.core.model.BaseReferralModel;
-
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;

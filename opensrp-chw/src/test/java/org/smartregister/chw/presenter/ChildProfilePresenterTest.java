@@ -67,6 +67,6 @@ public class ChildProfilePresenterTest extends BaseUnitTest {
     @Test
     public void testProcessBackGroundEvent() {
         childProfilePresenter.processBackGroundEvent();
-        Mockito.verify(interactor, Mockito.atLeastOnce()).processBackGroundEvent ((ChildProfilePresenter) childProfilePresenter);
+        Mockito.verify(interactor, Mockito.atLeastOnce()).processBackGroundEvent((ChildProfilePresenter) childProfilePresenter);
     }
 }
