@@ -11,7 +11,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.2'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.5.0-x'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
         classpath 'io.fabric.tools:gradle:1.30.0'
     }
 }
@@ -21,12 +21,17 @@ android {
     compileSdkVersion 28
     buildToolsVersion androidBuildToolsVersion
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
-        applicationId "org.smartregister.chw.hf"
+        applicationId "com.opensrp.chw.hf"
         minSdkVersion 18
         targetSdkVersion 28
         versionCode 1
-        versionName "1.2.0"
+        versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
@@ -105,7 +110,7 @@ dependencies {
 
     testImplementation 'org.mockito:mockito-core:2.8.47'
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.robolectric:robolectric:3.8'
+    testImplementation 'org.robolectric:robolectric:4.0.1'
     testImplementation 'org.robolectric:shadows-multidex:3.8'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
 
