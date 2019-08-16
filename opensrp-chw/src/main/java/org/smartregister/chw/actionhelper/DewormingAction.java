@@ -14,6 +14,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.util.Utils;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -25,46 +26,45 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.core.utils.Utils.getDayOfMonthSuffix;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
 import static org.smartregister.util.JsonFormUtils.fields;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
-public class IPTPAction extends HomeVisitActionHelper {
+public class DewormingAction extends HomeVisitActionHelper {
     private Context context;
     private String serviceIteration;
     private String str_date;
     private Date parsedDate;
 
-    public IPTPAction(Context context, String serviceIteration) {
+    public DewormingAction(Context context, String serviceIteration) {
         this.context = context;
         this.serviceIteration = serviceIteration;
+    }
+
+    @Override
+    public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
+        // prevent default behavoiur
     }
 
     public JSONObject preProcess(JSONObject jsonObject, String iteration) throws JSONException {
         JSONArray fields = fields(jsonObject);
 
         String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
-        String formatted_count = MessageFormat.format("{0}{1}", iteration, getDayOfMonthSuffix(iteration));
+        String formatted_count = MessageFormat.format("{0}", Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context));
         jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, formatted_count));
 
-        JSONObject visit_field = getFieldJSONObject(fields, "iptp{0}_date");
-        visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration));
-        visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), iteration));
+        JSONObject visit_field = getFieldJSONObject(fields, "deworming{0}_date");
+        visit_field.put("key", MessageFormat.format(visit_field.getString("key"), Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context)));
+        visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context)));
 
         return jsonObject;
-    }
-
-    @Override
-    public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
-        Timber.v("onJsonFormLoaded");
     }
 
     @Override
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            str_date = getValue(jsonObject, MessageFormat.format("iptp{0}_date", serviceIteration));
+            str_date = getValue(jsonObject, MessageFormat.format("deworming{0}_date", serviceIteration));
 
             try {
                 parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(str_date);
@@ -103,7 +103,7 @@ public class IPTPAction extends HomeVisitActionHelper {
     public void onPayloadReceived(BaseAncHomeVisitAction ba) {
         try {
             JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
-            String value = getValue(jsonObject, MessageFormat.format("iptp{0}_date", serviceIteration));
+            String value = getValue(jsonObject, MessageFormat.format("vitamin_a{0}_date", serviceIteration));
 
             try {
                 if (ba.getServiceWrapper() != null && ba.getServiceWrapper().size() > 0) {

@@ -161,9 +161,19 @@ public class CoreConstants {
 
         public static class CHILD_HOME_VISIT{
             private static final String VACCINE_CARD = "child_hv_vaccine_card_received";
+            private static final String VITAMIN_A = "child_hv_vitamin_a";
+            private static final String DEWORMING = "child_hv_deworming";
 
             public static String getVaccineCard() {
                 return Utils.getLocalForm(VACCINE_CARD, locale, assetManager);
+            }
+
+            public static String getVitaminA() {
+                return Utils.getLocalForm(VITAMIN_A, locale, assetManager);
+            }
+
+            public static String getDEWORMING() {
+                return Utils.getLocalForm(DEWORMING, locale, assetManager);
             }
         }
 
@@ -561,5 +571,12 @@ public class CoreConstants {
         public static final String PNC_REGISTER_ACTIVITY = "PNC_REGISTER_ACTIVITY";
         public static final String REFERRALS_REGISTER_ACTIVITY = "REFERRALS_REGISTER_ACTIVITY";
         public static final String MALARIA_REGISTER_ACTIVITY = "MALARIA_REGISTER_ACTIVITY";
+    }
+
+    public interface SERVICE_GROUPS{
+        String CHILD = "child";
+        String WOMAN = "woman";
+        String PNC = "pnc";
+        String ANC = "anc";
     }
 }

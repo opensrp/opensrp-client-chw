@@ -16,6 +16,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
@@ -223,10 +224,55 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
         return " " + context.getString(resId);
     }
 
+    @Nullable
+    public static String getDayOfMonthWithSuffix(int day, Context context){
+        checkArgument(day >= 1 && day <= 31, "illegal day of month: " + day);
+        switch (day){
+            case 1:
+                return context.getString(R.string.abv_first);
+            case 2:
+                return context.getString(R.string.abv_second);
+            case 3:
+                return context.getString(R.string.abv_third);
+            case 4:
+                return context.getString(R.string.abv_fourth);
+            case 5:
+                return context.getString(R.string.abv_fifth);
+            case 6:
+                return context.getString(R.string.abv_sixth);
+            case 7:
+                return context.getString(R.string.abv_seventh);
+            case 8:
+                return context.getString(R.string.abv_eigth);
+            case 9:
+                return context.getString(R.string.abv_nineth);
+            case 10:
+                return context.getString(R.string.abv_tenth);
+            case 11:
+                return context.getString(R.string.abv_eleventh);
+            case 12:
+                return context.getString(R.string.abv_twelfth);
+                default:
+                    return null;
+        }
+    }
+
+    /**
+     * use  translated equivalent  {@link #getDayOfMonthWithSuffix(int, Context)}
+     * @param n
+     * @return
+     */
+    @Deprecated
     public static String getDayOfMonthSuffix(String n) {
         return getDayOfMonthSuffix(Integer.parseInt(n));
     }
 
+    /**
+     * use  translated equivalent  {@link #getDayOfMonthWithSuffix(int, Context)}
+     * @param n
+     * @return
+     */
+    @Deprecated
     public static String getDayOfMonthSuffix(final int n) {
         checkArgument(n >= 1 && n <= 31, "illegal day of month: " + n);
         if (n >= 11 && n <= 13) {
