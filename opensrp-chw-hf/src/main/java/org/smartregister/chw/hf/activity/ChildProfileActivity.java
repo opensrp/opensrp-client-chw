@@ -46,7 +46,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         onClickFloatingMenu = getOnClickFloatingMenu(this, (HfChildProfilePresenter) presenter);
         setupViews();
         setUpToolbar();
-        registerReceiver(mDateTimeChangedReceiver, sIntentFilter);
     }
 
     @Override
@@ -134,6 +133,11 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(true);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(true);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void openMedicalHistoryScreen() {

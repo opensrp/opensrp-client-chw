@@ -56,7 +56,7 @@ public class BasereferralRegisterProvider implements RecyclerViewProvider<Referr
         viewHolder.setName(WordUtils.capitalize(childName) + ", " + WordUtils.capitalize(Utils.getTranslatedDate(dobString, context)));
 
         String focus = Utils.getValue(pc.getColumnmaps(), CoreConstants.DB_CONSTANTS.FOCUS, true);
-        String referredBy = Utils.getValue(pc.getColumnmaps(), CoreConstants.DB_CONSTANTS.REQUESTER, true);
+        String referredBy = Utils.getValue(pc.getColumnmaps(), CoreConstants.DB_CONSTANTS.OWNER, true);
         viewHolder.setReason(focus);
         viewHolder.setReferredBy(referredBy);
 

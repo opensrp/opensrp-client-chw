@@ -33,6 +33,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     private CustomFontTextView careGiverPhone;
     private CustomFontTextView clientReferralProblem;
     private CustomFontTextView referralDate;
+    private CustomFontTextView chwDetailsNames;
     private ReferralsTaskViewClickListener referralsTaskViewClickListener = new ReferralsTaskViewClickListener();
     private String name;
 
@@ -46,6 +47,11 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -113,6 +119,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         careGiverName = findViewById(R.id.care_giver_name);
         careGiverPhone = findViewById(R.id.care_giver_phone);
         clientReferralProblem = findViewById(R.id.client_referral_problem);
+        chwDetailsNames = findViewById(R.id.chw_details_names);
         referralDate = findViewById(R.id.referral_date);
 
         CustomFontTextView markAskDone = findViewById(R.id.mark_ask_done);
@@ -142,11 +149,13 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             String parentFirstName = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
             String parentLastName = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
             String parentMiddleName = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
+            String chwNamw = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
 
             String parentName = getString(R.string.care_giver_prefix, org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName));
             careGiverName.setText(parentName);
             careGiverPhone.setText(getFamilyMemberContacts());
 
+            chwDetailsNames.setText(getTask().getRequester());
         }
     }
 

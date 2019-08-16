@@ -19,10 +19,23 @@ import timber.log.Timber;
 public class ChildProfilePresenter extends CoreChildProfilePresenter {
 
     public ChildProfilePresenter(CoreChildProfileContract.View childView, CoreChildProfileContract.Model model, String childBaseEntityId) {
+        super(childView, model, childBaseEntityId);
         setView(new WeakReference<>(childView));
         setInteractor(new ChildProfileInteractor());
+        getInteractor().setChildBaseEntityId(childBaseEntityId);
         setModel(model);
-        setChildBaseEntityId(childBaseEntityId);
+    }
+
+    @Override
+    public void verifyHasPhone() {
+        new FamilyProfileInteractor().verifyHasPhone(familyID, this);
+    }
+
+    @Override
+    public void notifyHasPhone(boolean hasPhone) {
+        if (getView() != null) {
+            getView().updateHasPhone(hasPhone);
+        }
     }
 
     @Override
@@ -42,18 +55,6 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
             getView().startFormActivity(getFormUtils().getFormJson(Constants.JSON_FORM.getChildReferralForm()));
         } catch (Exception e) {
             Timber.e(e);
-        }
-    }
-
-    @Override
-    public void verifyHasPhone() {
-        new FamilyProfileInteractor().verifyHasPhone(familyID, this);
-    }
-
-    @Override
-    public void notifyHasPhone(boolean hasPhone) {
-        if (getView() != null) {
-            getView().updateHasPhone(hasPhone);
         }
     }
 
