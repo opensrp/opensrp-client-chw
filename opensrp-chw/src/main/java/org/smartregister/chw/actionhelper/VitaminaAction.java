@@ -70,7 +70,7 @@ public class VitaminaAction extends HomeVisitActionHelper {
     }
 
     private boolean isOverDue() {
-        return new LocalDate().isAfter(new LocalDate(alert.startDate()));
+        return new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
     }
 
     @Override

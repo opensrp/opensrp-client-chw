@@ -292,32 +292,34 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
         if (serviceWrapper == null) {
             return;
         }
-/*
+
+        Alert alert = serviceWrapper.getAlert();
         final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
-        String title = MessageFormat.format(context.getString(R.string.visit_vitamin_a_dose), serviceIteration);
-        boolean overdueMonth = new DateTime().isAfter(serviceWrapper.getVaccineDate());
-        String dueState = !overdueMonth ? context.getString(R.string.due) : context.getString(R.string.overdue);
+        String title = context.getString(R.string.exclusive_breastfeeding_months, serviceIteration);
 
-        ExclusiveBreastFeedingAction helper = new ExclusiveBreastFeedingAction(context, serviceIteration);
+        // alert if overdue after 14 days
+        boolean isOverdue = new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
+        String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
+
+        ExclusiveBreastFeedingAction helper = new ExclusiveBreastFeedingAction(context, alert);
         JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), memberObject.getBaseEntityId());
-        JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
                 .withHelper(helper)
                 .withDetails(details)
                 .withOptional(false)
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, jsonObject, details, serviceIteration))
                 .withServiceWrapper(serviceWrapper)
-                .withScheduleStatus(overdueMonth ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
-                .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
+                .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
+                .withSubtitle(MessageFormat.format("{0}{1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                 .build();
 
         // don't show if its after now
         if (!serviceWrapper.getVaccineDate().isAfterNow()) {
             actionList.put(title, action);
         }
-        */
+
     }
 
     protected void evaluateVitaminA(Map<String, ServiceWrapper> serviceWrapperMap) throws Exception {
@@ -332,7 +334,7 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
         String title = MessageFormat.format(context.getString(R.string.visit_vitamin_a_dose), serviceIteration);
 
         // alert if overdue after 14 days
-        boolean isOverdue = new LocalDate().isAfter(new LocalDate(alert.startDate()));
+        boolean isOverdue = new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
         String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
         VitaminaAction helper = new VitaminaAction(context, serviceIteration, alert);
@@ -367,7 +369,7 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
         String title = MessageFormat.format(context.getString(R.string.deworming), serviceIteration);
 
         // alert if overdue after 14 days
-        boolean isOverdue = new LocalDate().isAfter(new LocalDate(alert.startDate()));
+        boolean isOverdue = new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
         String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
         DewormingAction helper = new DewormingAction(context, serviceIteration, alert);

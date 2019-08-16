@@ -32,6 +32,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
+import org.smartregister.chw.core.utils.RecurringServiceUtil;
 import org.smartregister.chw.dao.PNCDao;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
@@ -39,7 +40,9 @@ import org.smartregister.chw.domain.PncBaby;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.PNCVisitUtil;
 import org.smartregister.chw.util.VaccineScheduleUtil;
+import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
+import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.domain.jsonmapping.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
@@ -301,15 +304,46 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     private void evaluateExclusiveBreastFeeding() throws Exception {
         for (Person baby : children) {
             if (getAgeInDays(baby.getDob()) <= 28) {
-                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName()))
-                        .withOptional(false)
+
+                Map<String, ServiceWrapper> serviceWrapperMap =
+                        RecurringServiceUtil.getRecurringServices(
+                                baby.getBaseEntityID(),
+                                new DateTime(baby.getDob()),
+                                Constants.SERVICE_GROUPS.CHILD
+                        );
+
+                ServiceWrapper serviceWrapper = serviceWrapperMap.get("Exclusive breastfeeding");
+                if (serviceWrapper == null) {
+                    return;
+                }
+
+                Alert alert = serviceWrapper.getAlert();
+                final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
+
+                String title = MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName());
+
+                // alert if overdue after 14 days
+                boolean isOverdue = new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
+                String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
+
+                ExclusiveBreastFeedingAction helper = new ExclusiveBreastFeedingAction(context, alert);
+                JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), memberObject.getBaseEntityId());
+
+                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
+                        .withHelper(helper)
                         .withDetails(details)
-                        .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
-                        .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), null, details, null))
-                        .withHelper(new ExclusiveBreastFeedingAction(context, null, baby.getDob()))
+                        .withOptional(false)
+                        .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, jsonObject, details, serviceIteration))
+                        .withServiceWrapper(serviceWrapper)
+                        .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
+                        .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                         .build();
-                actionList.put(MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName()), action);
+
+                // don't show if its after now
+                if (!serviceWrapper.getVaccineDate().isAfterNow()) {
+                    actionList.put(MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName()), action);
+                }
+
             }
         }
     }

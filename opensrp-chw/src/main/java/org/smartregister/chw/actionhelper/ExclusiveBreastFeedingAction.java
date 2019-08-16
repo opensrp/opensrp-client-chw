@@ -3,18 +3,16 @@ package org.smartregister.chw.actionhelper;
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.LocalDate;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.domain.Alert;
 
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -24,25 +22,25 @@ import static org.smartregister.chw.util.JsonFormUtils.getValue;
 public class ExclusiveBreastFeedingAction extends HomeVisitActionHelper {
     private Context context;
     private String exclusive_breast_feeding;
-    private String serviceIteration;
-    private String str_date;
-    private Date parsedDate;
-    private Date dob;
+    private Alert alert;
 
-    public ExclusiveBreastFeedingAction(Context context, String serviceIteration, Date dob) {
+    public ExclusiveBreastFeedingAction(Context context, Alert alert) {
         this.context = context;
-        this.serviceIteration = serviceIteration;
-        this.dob = dob;
+        this.alert = alert;
     }
 
     @Override
     public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
-        // prevent default behavoiur
+        // prevent default behaviour
     }
 
     @Override
-    public String getPreProcessedSubTitle() {
-        return MessageFormat.format("{0} {1}", context.getString(R.string.due), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(dob));
+    public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+        return isOverDue() ? BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
+    }
+
+    private boolean isOverDue() {
+        return new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
     }
 
     @Override

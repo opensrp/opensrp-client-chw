@@ -266,5 +266,6 @@
     <string name="pnc_visit">PNC Visit</string>
     <string name="anc_visit">ANC Visit</string>
     <string name="issued">Issued</string>
+    <string name="exclusive_breastfeeding_months">Exclusive breastfeeding %s months</string>
 
 </resources>
