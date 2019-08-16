@@ -1,27 +1,43 @@
 package org.smartregister.chw.actionhelper;
 
+import android.content.Context;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
+import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import timber.log.Timber;
 
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
 
 public class ExclusiveBreastFeedingAction extends HomeVisitActionHelper {
+    private Context context;
     private String exclusive_breast_feeding;
+    private String serviceIteration;
+    private String str_date;
+    private Date parsedDate;
     private Date dob;
 
-    public ExclusiveBreastFeedingAction(Date dob) {
+    public ExclusiveBreastFeedingAction(Context context, String serviceIteration, Date dob) {
+        this.context = context;
+        this.serviceIteration = serviceIteration;
         this.dob = dob;
+    }
+
+    @Override
+    public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
+        // prevent default behavoiur
     }
 
     @Override

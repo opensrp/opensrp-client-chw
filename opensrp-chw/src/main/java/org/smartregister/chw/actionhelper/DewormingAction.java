@@ -6,6 +6,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,6 +16,7 @@ import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.domain.Alert;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -35,10 +37,12 @@ public class DewormingAction extends HomeVisitActionHelper {
     private String serviceIteration;
     private String str_date;
     private Date parsedDate;
+    private Alert alert;
 
-    public DewormingAction(Context context, String serviceIteration) {
+    public DewormingAction(Context context, String serviceIteration, Alert alert) {
         this.context = context;
         this.serviceIteration = serviceIteration;
+        this.alert = alert;
     }
 
     @Override
@@ -54,10 +58,19 @@ public class DewormingAction extends HomeVisitActionHelper {
         jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, formatted_count));
 
         JSONObject visit_field = getFieldJSONObject(fields, "deworming{0}_date");
-        visit_field.put("key", MessageFormat.format(visit_field.getString("key"), Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context)));
+        visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration, context));
         visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context)));
 
         return jsonObject;
+    }
+
+    @Override
+    public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+        return isOverDue() ? BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
+    }
+
+    private boolean isOverDue() {
+        return new LocalDate().isAfter(new LocalDate(alert.startDate()));
     }
 
     @Override

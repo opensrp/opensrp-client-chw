@@ -28,6 +28,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.VaccineScheduleUtil;
+import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
@@ -246,8 +247,16 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
                 if (StringUtils.isBlank(birth_cert))
                     return null;
 
+                String certDate;
+                try {
+                    Date date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(birth_cert_issue_date);
+                    certDate = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date);
+                } catch (Exception e) {
+                    certDate = birth_cert_issue_date;
+                }
+
                 return birth_cert.equalsIgnoreCase("Yes") ?
-                        MessageFormat.format("{0} (#{1}) ", birth_cert_issue_date, birth_cert_num) :
+                        MessageFormat.format("{0} {1} (#{2}) ", context.getString(R.string.issued), certDate, birth_cert_num) :
                         context.getString(org.smartregister.chw.core.R.string.not_done);
             }
 
@@ -279,31 +288,19 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
     }
 
     protected void evaluateExclusiveBreastFeeding(Map<String, ServiceWrapper> serviceWrapperMap) throws Exception {
-
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.exclusive_breastfeeding))
-                .withOptional(false)
-                .withDetails(details)
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), null, details, null))
-                .withHelper(new ExclusiveBreastFeedingAction(dob))
-                .build();
-        actionList.put(context.getString(R.string.exclusive_breastfeeding), action);
-
-    }
-
-    protected void evaluateVitaminA(Map<String, ServiceWrapper> serviceWrapperMap) throws Exception {
-        ServiceWrapper serviceWrapper = serviceWrapperMap.get("Vitamin A");
+        ServiceWrapper serviceWrapper = serviceWrapperMap.get("Exclusive breastfeeding");
         if (serviceWrapper == null) {
             return;
         }
-
+/*
         final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
         String title = MessageFormat.format(context.getString(R.string.visit_vitamin_a_dose), serviceIteration);
         boolean overdueMonth = new DateTime().isAfter(serviceWrapper.getVaccineDate());
         String dueState = !overdueMonth ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
-        VitaminaAction helper = new VitaminaAction(context, serviceIteration);
-        JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getVitaminA(), memberObject.getBaseEntityId());
+        ExclusiveBreastFeedingAction helper = new ExclusiveBreastFeedingAction(context, serviceIteration);
+        JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), memberObject.getBaseEntityId());
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
@@ -320,6 +317,42 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
         if (!serviceWrapper.getVaccineDate().isAfterNow()) {
             actionList.put(title, action);
         }
+        */
+    }
+
+    protected void evaluateVitaminA(Map<String, ServiceWrapper> serviceWrapperMap) throws Exception {
+        ServiceWrapper serviceWrapper = serviceWrapperMap.get("Vitamin A");
+        if (serviceWrapper == null) {
+            return;
+        }
+
+        Alert alert = serviceWrapper.getAlert();
+        final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
+
+        String title = MessageFormat.format(context.getString(R.string.visit_vitamin_a_dose), serviceIteration);
+
+        // alert if overdue after 14 days
+        boolean isOverdue = new LocalDate().isAfter(new LocalDate(alert.startDate()));
+        String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
+
+        VitaminaAction helper = new VitaminaAction(context, serviceIteration, alert);
+        JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getVitaminA(), memberObject.getBaseEntityId());
+        JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
+
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
+                .withHelper(helper)
+                .withDetails(details)
+                .withOptional(false)
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
+                .withServiceWrapper(serviceWrapper)
+                .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
+                .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
+                .build();
+
+        // don't show if its after now
+        if (!serviceWrapper.getVaccineDate().isAfterNow()) {
+            actionList.put(title, action);
+        }
     }
 
     protected void evaluateDeworming(Map<String, ServiceWrapper> serviceWrapperMap) throws Exception {
@@ -328,13 +361,16 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
             return;
         }
 
+        Alert alert = serviceWrapper.getAlert();
         final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
         String title = MessageFormat.format(context.getString(R.string.deworming), serviceIteration);
-        boolean overdueMonth = new DateTime().isAfter(serviceWrapper.getVaccineDate());
-        String dueState = !overdueMonth ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
-        DewormingAction helper = new DewormingAction(context, serviceIteration);
+        // alert if overdue after 14 days
+        boolean isOverdue = new LocalDate().isAfter(new LocalDate(alert.startDate()));
+        String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
+
+        DewormingAction helper = new DewormingAction(context, serviceIteration, alert);
         JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getDEWORMING(), memberObject.getBaseEntityId());
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
 
@@ -344,7 +380,7 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
                 .withOptional(false)
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
                 .withServiceWrapper(serviceWrapper)
-                .withScheduleStatus(overdueMonth ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
+                .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                 .build();
 
