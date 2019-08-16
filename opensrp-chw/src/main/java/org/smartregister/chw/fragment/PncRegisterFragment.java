@@ -213,12 +213,12 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         if (syncButton != null) {
             syncButton.setVisibility(View.GONE);
         }
-    }    private String getDueCondition() {
+    }
+
+    private String getDueCondition() {
         return " ifnull(substr(delivery_date, 7, 4)||'-'||substr(delivery_date, 4, 2)||'-'||substr(delivery_date, 1, 2), '+2 day') < STRFTIME('%Y%m%d', datetime('now')) " +
                 " and julianday() - julianday(substr(delivery_date, 7, 4)||'-'||substr(delivery_date, 4, 2)||'-'||substr(delivery_date, 1, 2)) >= 2   ";
     }
-
-
 
 
     private String defaultFilterAndSortQuery() {

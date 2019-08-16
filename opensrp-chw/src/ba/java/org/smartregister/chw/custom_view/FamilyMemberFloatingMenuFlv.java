@@ -2,7 +2,6 @@ package org.smartregister.chw.custom_view;
 
 import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
-import android.view.View;
 import android.widget.TextView;
 
 import org.smartregister.chw.R;
@@ -42,12 +41,7 @@ public class FamilyMemberFloatingMenuFlv implements FamilyMemberFloatingMenu.Fla
 
     @Override
     public void prepareFab(final FamilyMemberFloatingMenu menu, FloatingActionButton fab) {
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menu.animateFAB();
-            }
-        });
+        fab.setOnClickListener(v -> menu.animateFAB());
 
         fab.setImageResource(R.drawable.ic_edit_white);
     }

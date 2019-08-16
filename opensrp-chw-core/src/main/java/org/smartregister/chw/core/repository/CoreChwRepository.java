@@ -23,6 +23,7 @@ import org.smartregister.reporting.repository.IndicatorQueryRepository;
 import org.smartregister.reporting.repository.IndicatorRepository;
 import org.smartregister.repository.DrishtiRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.LocationRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
 import org.smartregister.repository.UniqueIdRepository;
@@ -60,6 +61,7 @@ public class CoreChwRepository extends Repository {
         VaccineTypeRepository.createTable(database);
         WashCheckRepository.createTable(database);
         ConfigurableViewsRepository.createTable(database);
+        LocationRepository.createTable(database);
 
         UniqueIdRepository.createTable(database);
         SettingsRepository.onUpgrade(database);

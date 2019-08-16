@@ -12,10 +12,11 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 public class PncRegisterActivity extends AncRegisterActivity {
 
     @Override
-    public void switchToBaseFragment() {
-        Intent intent = new Intent(this, FamilyRegisterActivity.class);
-        startActivity(intent);
-        finish();
+    protected void registerBottomNavigation() {
+        super.registerBottomNavigation();
+        bottomNavigationHelper = new BottomNavigationHelper();
+        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
+        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
     }
 
     @Override
@@ -24,11 +25,10 @@ public class PncRegisterActivity extends AncRegisterActivity {
     }
 
     @Override
-    protected void registerBottomNavigation() {
-        super.registerBottomNavigation();
-        bottomNavigationHelper = new BottomNavigationHelper();
-        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
-        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
+    public void switchToBaseFragment() {
+        Intent intent = new Intent(this, FamilyRegisterActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

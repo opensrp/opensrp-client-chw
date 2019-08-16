@@ -6,6 +6,7 @@ import java.util.Locale;
 
 public class CoreConstants {
 
+    public static final String ENTITY_ID = "entity_id";
     public static String EC_CLIENT_FIELDS = "ec_client_fields.json";
 
     public interface DB_CONSTANTS {
@@ -13,6 +14,7 @@ public class CoreConstants {
         String FOR = "for";
         String FOCUS = "focus";
         String REQUESTER = "requester";
+        String OWNER = "owner";
         String START = "start";
         String MALARIA_REGISTER_ACTIVITY = "MALARIA_REGISTER_ACTIVITY";
     }
