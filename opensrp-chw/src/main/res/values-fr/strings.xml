@@ -116,7 +116,7 @@
     <string name="section_format">Salut le monde, de la section: %1$d</string>
     <string name="updating">Mise à jour en cours...</string>
     <string name="birth_certification">Acte de naissance</string>
-    <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optionelle</i>]]></string>
+    <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optional</i>]]></string>
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Épisodes de maladies]]></string>
     <string name="home_visit_suffix"> &#183; Visite à domicile</string>
     <string name="wash_check_suffix">&#183; Vérification Eau, Hygiène et Assainissement </string>
@@ -369,6 +369,8 @@
     <string name="dev_warning_sign">Signes d\'avertissement d\'un retard potentiel dans le développment de l\'enfant:</string>
     <string name="care_stim_skill">Compétences de stimulation de la gardienne:</string>
     <string name="early_learning"> Programme d\'apprentissage précoce pour la petite enfance:</string>
+    <string name="malaria_follow_up">Visite de suivi du paludisme</string>
+    <string name="refer_to_facilty">Se référer au centre de santé</string>
 
     <string name="health_facility_visit_num">Visite CPN {0} à la formation sanitaire</string>
     <string name="tt_dose">VAT {0}</string>
@@ -379,6 +381,7 @@
     <string name="opv_1">VPO 1</string>
     <string name="opv_2">VPO 2</string>
     <string name="yellow_fever">Fièvre Jaune</string>
+    <string name="follow_up_visit">Visite de suivi</string>
 
     <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number
  as defined in the data dictionary -->
@@ -393,12 +396,12 @@
 
     <string name="pnc_danger_signs_mother">Signes de danger - femme</string>
     <string name="pnc_danger_signs_baby">Signes de danger - enfant ({0})</string>
-    <string name="pnc_health_facility_visit">Visit CPoN au centre de santé - jour {0} ({1})</string>
+    <string name="pnc_health_facility_visit">Visite CPoN au centre de santé - Jour {0} ({1})</string>
     <string name="pnc_child_vaccine_card_recevied">Carte de vaccination enfant reçu ({0})</string>
     <string name="pnc_immunization_at_birth">Immunisations (à la naissance) ({0})</string>
     <string name="pnc_umblicord_care">Soins du cordon ombilical</string>
     <string name="pnc_exclusive_breastfeeding">Allaitement maternel exclusif ({0})</string>
-    <string name="pnc_kangaroo_mother_care">Soins maternels kangourou (SMK) - ({0})</string>
+    <string name="pnc_kangaroo_mother_care">Soins Maternels Kangourou (SMK) - ({0})</string>
     <string name="pnc_family_planning">Planification familiale</string>
     <string name="pnc_observation_and_illness_mother">Observations &amp; maladie - femme </string>
     <string name="pnc_observation_and_illness_baby">Observations &amp; maladie - enfant ({0})</string>
@@ -435,17 +438,36 @@
     <string name="abv_tenth">10ème</string>
     <string name="abv_eleventh">11ème</string>
     <string name="abv_twelfth">12ème</string>
-    <string name="change_member_alert">Kindly complete the form before submitting</string>
-    <string name="must_start_with_zero">Must start with 0</string>
-    <string name="length_equal_10">Length must be equal to 10</string>
+    <string name="change_member_alert">Veuillez compléter le formulaire avant de le soumettre.</string>
+    <string name="must_start_with_zero">Doit commencer par 0</string>
+    <string name="length_equal_10">Doit être 10 chiffres</string>
     <string name="dismiss">Rejeter</string>
     <string name="birth">naissance</string>
-    <string name="week_full">weeks</string>
-    <string name="month_full">months</string>
+    <string name="week_full">semaines</string>
+    <string name="month_full">mois</string>
     <string name="at_birth">à la naissance</string>
-    <string name="child">child</string>
+    <string name="child">enfant</string>
     <string name="birth_cap">Naissance</string>
-    <string name="done">terminé</string>
-    <string name="on">sur</string>
+    <string name="done">fait</string>
+    <string name="on">on</string>
 
+    <string name="babys_weight">Poids de l\'enfant</string>
+    <string name="babys_temperature">Temperature de l\'enfant</string>
+    <string name="degrees_centigrade">°C</string>
+    <string name="no_products">Aucun produit</string>
+    <string name="chlorhexidine">Chlorhexidine</string>
+    <string name="other">Autre</string>
+    <string name="fp_counseling">Conseil planification familial</string>
+    <string name="fp_method_chosen">Méthode de planification familiale choisie</string>
+    <string name="fp_method_start_date">Date de début</string>
+    <string name="none">Aucun</string>
+    <string name="abstinence">Abstinence</string>
+    <string name="condom">Préservatif</string>
+    <string name="tablets">Comprimés</string>
+    <string name="injectable">Injectable</string>
+    <string name="iud">DIU</string>
+    <string name="implant">Implant</string>
+    <string name="managed">Géré</string>
+    <string name="referred">Référé</string>
+    <string name="no_action_taken">Aucun mesure n\'a été prise</string>
 </resources>
