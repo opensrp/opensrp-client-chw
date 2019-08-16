@@ -44,9 +44,4 @@ public class SleepingUnderLLITNAction extends HomeVisitActionHelper {
             return BaseAncHomeVisitAction.Status.PENDING;
         }
     }
-
-    @Override
-    public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-        Timber.d("onPayloadReceived");
-    }
 }

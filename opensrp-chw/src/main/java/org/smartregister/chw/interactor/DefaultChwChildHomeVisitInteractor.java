@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.DewormingAction;
+import org.smartregister.chw.actionhelper.ECDAction;
 import org.smartregister.chw.actionhelper.ExclusiveBreastFeedingAction;
 import org.smartregister.chw.actionhelper.ImmunizationActionHelper;
 import org.smartregister.chw.actionhelper.ObservationAction;
@@ -25,7 +26,6 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
 import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
-import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -38,7 +38,6 @@ import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 import org.smartregister.util.FormUtils;
-import org.smartregister.util.Utils;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -431,7 +430,7 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.ecd_title))
                 .withOptional(false)
                 .withDetails(details)
-                .withHelper(new SleepingUnderLLITNAction())
+                .withHelper(new ECDAction())
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment())
                 .withJsonPayload(jsonObject.toString())
                 .build();

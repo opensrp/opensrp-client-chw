@@ -70,7 +70,11 @@
         "values": [
           "Yes",
           "No"
-        ]
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select action"
+        }
       },
       {
         "key": "stim_skills",
@@ -85,7 +89,11 @@
         "values": [
           "Yes",
           "No"
-        ]
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select action"
+        }
       },
       {
         "key": "early_learning",
@@ -99,6 +107,10 @@
           "Yes",
           "No"
         ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select action"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
