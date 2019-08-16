@@ -21,11 +21,10 @@ public class ChwChildRegisterFragment extends CoreChildRegisterFragment {
     @Override
     protected void onViewClicked(android.view.View view) {
         super.onViewClicked(view);
-        if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
-            if (view.getTag() instanceof CommonPersonObjectClient) {
-                CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
-                ChwChildHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
-            }
+        if (view.getTag() instanceof CommonPersonObjectClient
+                && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
+            CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
+            ChwChildHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
         }
     }
 
