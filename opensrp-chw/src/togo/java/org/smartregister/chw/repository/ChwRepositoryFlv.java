@@ -146,7 +146,7 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion8(SQLiteDatabase db) {
         try {
-            db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_HOME_VISIT_ID);
+            //db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_HOME_VISIT_ID);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion8 ");
         }

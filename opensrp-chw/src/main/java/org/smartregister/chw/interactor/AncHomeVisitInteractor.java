@@ -18,13 +18,14 @@ public class AncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
     @Override
     public void calculateActions(final BaseAncHomeVisitContract.View view, final MemberObject memberObject, final BaseAncHomeVisitContract.InteractorCallBack callBack) {
         // update the local database incase of manual date adjustment
-        try {
-            VisitUtils.processVisits(memberObject.getBaseEntityId());
-        } catch (Exception e) {
-            Timber.e(e);
-        }
 
         final Runnable runnable = () -> {
+            try {
+                VisitUtils.processVisits(memberObject.getBaseEntityId());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+
             final LinkedHashMap<String, BaseAncHomeVisitAction> actionList = new LinkedHashMap<>();
 
             try {
@@ -32,7 +33,7 @@ public class AncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
                     actionList.put(entry.getKey(), entry.getValue());
                 }
             } catch (BaseAncHomeVisitAction.ValidationException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
 
             appExecutors.mainThread().execute(() -> callBack.preloadActions(actionList));

@@ -159,6 +159,14 @@ public class CoreConstants {
             return Utils.getLocalForm(WASH_CHECK, locale, assetManager);
         }
 
+        public static class CHILD_HOME_VISIT{
+            private static final String VACCINE_CARD = "child_hv_vaccine_card_received";
+
+            public static String getVaccineCard() {
+                return Utils.getLocalForm(VACCINE_CARD, locale, assetManager);
+            }
+        }
+
         public static class ANC_HOME_VISIT {
             private static final String DANGER_SIGNS = "anc_hv_danger_signs";
             private static final String ANC_COUNSELING = "anc_hv_counseling";

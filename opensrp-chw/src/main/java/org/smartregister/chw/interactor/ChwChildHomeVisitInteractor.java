@@ -4,8 +4,8 @@ import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.interactor.BaseAncHomeVisitInteractor;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
-import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 
@@ -19,15 +19,16 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
+public class ChwChildHomeVisitInteractor extends BaseAncHomeVisitInteractor {
 
-    private Flavor flavor = new PncHomeVisitInteractorFlv();
+    private Flavor flavor = new ChwChildHomeVisitInteractorFlv();
 
     @Override
     public void calculateActions(final BaseAncHomeVisitContract.View view, final MemberObject memberObject, final BaseAncHomeVisitContract.InteractorCallBack callBack) {
+        // update the local database incase of manual date adjustment
 
         final Runnable runnable = () -> {
-            // update the local database incase of manual date adjustment
+
             try {
                 VisitUtils.processVisits(memberObject.getBaseEntityId());
             } catch (Exception e) {
@@ -50,6 +51,17 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
         appExecutors.diskIO().execute(runnable);
     }
 
+
+    @Override
+    protected String getEncounterType() {
+        return CoreConstants.EventType.CHILD_HOME_VISIT;
+    }
+
+    @Override
+    protected String getTableName() {
+        return CoreConstants.TABLE_NAME.CHILD;
+    }
+
     /**
      * Injects implementation specific changes to the event
      *
@@ -60,19 +72,9 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
             // add anc date obs and last
             List<Object> list = new ArrayList<>();
             list.add(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-            baseEvent.addObs(new Obs("concept", "text", "pnc_visit_date", "",
-                    list, new ArrayList<>(), null, "pnc_visit_date"));
+            baseEvent.addObs(new Obs("concept", "text", "home_visit_date", "",
+                    list, new ArrayList<>(), null, "home_visit_date"));
         }
-    }
-
-    @Override
-    protected String getEncounterType() {
-        return Constants.EVENT_TYPE.PNC_HOME_VISIT;
-    }
-
-    @Override
-    protected String getTableName() {
-        return Constants.TABLES.PREGNANCY_OUTCOME;
     }
 
     public interface Flavor {

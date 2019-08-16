@@ -18,10 +18,13 @@ import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.service.AlertService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import timber.log.Timber;
 
 import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
 import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
@@ -172,5 +175,38 @@ public class VaccineScheduleUtil {
         return "woman".equals(vaccineType) ?
                 VaccinatorUtils.getSupportedWomanVaccines(context) :
                 VaccinatorUtils.getSupportedVaccines(context);
+    }
+
+    /**
+     * returns list of vaccines that are pending
+     *
+     * @param baseEntityID
+     * @param dob
+     * @param group
+     * @return
+     */
+    public static List<VaccineWrapper> getChildDueVaccines(String baseEntityID, Date dob, int group) {
+        List<VaccineWrapper> vaccineWrappers = new ArrayList<>();
+        try {
+            VaccineGroup groupMap = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), "child").get(group);
+
+            // get all vaccines that are not given
+            VaccineTaskModel taskModel = VaccineScheduleUtil.getLocalUpdatedVaccines(baseEntityID, new DateTime(dob), new ArrayList<>(), "child");
+
+            for (org.smartregister.immunization.domain.jsonmapping.Vaccine vaccine : groupMap.vaccines) {
+                Triple<DateTime, VaccineRepo.Vaccine, String> individualVaccine = VaccineScheduleUtil.getIndividualVaccine(taskModel, vaccine.type);
+
+                if (individualVaccine == null || individualVaccine.getLeft().isAfter(new DateTime())) {
+                    continue;
+                }
+
+                vaccineWrappers.add(VaccineScheduleUtil.getVaccineWrapper(individualVaccine.getMiddle(), taskModel));
+            }
+            //
+
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return vaccineWrappers;
     }
 }

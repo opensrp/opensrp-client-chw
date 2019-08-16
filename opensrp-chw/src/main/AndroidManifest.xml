@@ -111,6 +111,15 @@
         <activity
             android:name=".activity.ChildRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.ChwChildRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.ChwChildHomeVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
         <activity
             android:name=".activity.ChildProfileActivity"
             android:label="@string/child_details"
