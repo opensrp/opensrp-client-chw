@@ -26,6 +26,7 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
 import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -402,11 +403,64 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
     }
 
     protected void evaluateMUAC() throws Exception {
+        int age = getAgeInMonths();
+        if (age > 60 || age < 6)
+            return;
 
+        HomeVisitActionHelper helper = new HomeVisitActionHelper() {
+            private String muac;
+
+            @Override
+            public void onPayloadReceived(String jsonPayload) {
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonPayload);
+                    muac = JsonFormUtils.getValue(jsonObject, "muac");
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
+            }
+
+            @Override
+            public String evaluateSubTitle() {
+                if (StringUtils.isBlank(muac))
+                    return null;
+
+                String value = "";
+                if ("chk_green".equalsIgnoreCase(muac)) {
+                    value = context.getString(R.string.muac_choice_1);
+                } else if ("chk_yellow".equalsIgnoreCase(muac)) {
+                    value = context.getString(R.string.muac_choice_2);
+                } else if ("chk_red".equalsIgnoreCase(muac)) {
+                    value = context.getString(R.string.muac_choice_3);
+                }
+                return value;
+            }
+
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (StringUtils.isBlank(muac))
+                    return BaseAncHomeVisitAction.Status.PENDING;
+
+                if ("chk_green".equalsIgnoreCase(muac)) {
+                    return BaseAncHomeVisitAction.Status.COMPLETED;
+                }
+
+                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+            }
+        };
+
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.muac_title))
+                .withOptional(false)
+                .withDetails(details)
+                .withHelper(helper)
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getMUAC(), null, details, null))
+                .build();
+
+        actionList.put(context.getString(R.string.muac_title), action);
     }
 
     protected void evaluateLLITN() throws Exception {
-        if (getAgeInMonths() > 60)
+        if (getAgeInMonths() < 60)
             return;
 
         BaseAncHomeVisitAction sleeping = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_sleeping_under_llitn_net))

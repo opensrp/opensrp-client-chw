@@ -165,6 +165,7 @@ public class CoreConstants {
             private static final String VACCINE_CARD = "child_hv_vaccine_card_received";
             private static final String VITAMIN_A = "child_hv_vitamin_a";
             private static final String DEWORMING = "child_hv_deworming";
+            private static final String MUAC = "child_hv_muac";
 
             public static String getVaccineCard() {
                 return Utils.getLocalForm(VACCINE_CARD, locale, assetManager);
@@ -176,6 +177,10 @@ public class CoreConstants {
 
             public static String getDEWORMING() {
                 return Utils.getLocalForm(DEWORMING, locale, assetManager);
+            }
+
+            public static String getMUAC() {
+                return Utils.getLocalForm(MUAC, locale, assetManager);
             }
         }
 
