@@ -1,33 +1,17 @@
 package org.smartregister.chw.actionhelper;
 
-import android.content.Context;
-
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 
-import java.util.List;
-import java.util.Map;
-
 import timber.log.Timber;
 
-public class SleepingUnderLLITNAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
-    private Context context;
+public class SleepingUnderLLITNAction extends HomeVisitActionHelper {
     private String sleeping_llitn;
-
-    @Override
-    public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
-        this.context = context;
-    }
-
-    @Override
-    public String getPreProcessed() {
-        return null;
-    }
 
     @Override
     public void onPayloadReceived(String jsonPayload) {
@@ -35,23 +19,8 @@ public class SleepingUnderLLITNAction implements BaseAncHomeVisitAction.AncHomeV
             JSONObject jsonObject = new JSONObject(jsonPayload);
             sleeping_llitn = JsonFormUtils.getValue(jsonObject, "sleeping_llitn");
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
-    }
-
-    @Override
-    public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-        return null;
-    }
-
-    @Override
-    public String getPreProcessedSubTitle() {
-        return null;
-    }
-
-    @Override
-    public String postProcess(String s) {
-        return s;
     }
 
     @Override

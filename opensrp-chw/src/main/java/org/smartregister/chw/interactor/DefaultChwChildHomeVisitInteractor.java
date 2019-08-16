@@ -25,8 +25,11 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
 import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.VaccineScheduleUtil;
@@ -34,6 +37,8 @@ import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
+import org.smartregister.util.FormUtils;
+import org.smartregister.util.Utils;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -398,22 +403,40 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
     }
 
     protected void evaluateMUAC() throws Exception {
+
     }
 
     protected void evaluateLLITN() throws Exception {
-        if (getAgeInMonths() < 60) {
-            BaseAncHomeVisitAction sleeping = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_sleeping_under_llitn_net))
-                    .withOptional(false)
-                    .withDetails(details)
-                    .withHelper(new SleepingUnderLLITNAction())
-                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.ANC_HOME_VISIT.getSleepingUnderLlitn(), null, details, null))
-                    .build();
+        if (getAgeInMonths() > 60)
+            return;
 
-            actionList.put(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), sleeping);
-        }
+        BaseAncHomeVisitAction sleeping = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_sleeping_under_llitn_net))
+                .withOptional(false)
+                .withDetails(details)
+                .withHelper(new SleepingUnderLLITNAction())
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.ANC_HOME_VISIT.getSleepingUnderLlitn(), null, details, null))
+                .build();
+
+        actionList.put(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), sleeping);
+
     }
 
     protected void evaluateECD() throws Exception {
+        if (getAgeInMonths() > 60)
+            return;
+
+        JSONObject jsonObject = FormUtils.getInstance(context).getFormJson(CoreConstants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment());
+        jsonObject = CoreJsonFormUtils.getEcdWithDatePass(jsonObject, memberObject.getDob());
+
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.ecd_title))
+                .withOptional(false)
+                .withDetails(details)
+                .withHelper(new SleepingUnderLLITNAction())
+                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment())
+                .withJsonPayload(jsonObject.toString())
+                .build();
+
+        actionList.put(context.getString(R.string.ecd_title), action);
     }
 
     protected void evaluateObsAndIllness() throws Exception {

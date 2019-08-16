@@ -18,7 +18,7 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
-import org.smartregister.chw.anc.util.Util;
+import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.AncMemberProfileInteractor;
@@ -117,7 +117,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                         } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION)) {
                             AllSharedPreferences allSharedPreferences = getAllSharedPreferences();
                             Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, Constants.TABLES.ANC_MEMBERS);
-                            Util.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
+                            NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
                             AllCommonsRepository commonsRepository = ChwApplication.getInstance().getAllCommonsRepository(CoreConstants.TABLE_NAME.ANC_MEMBER);
 
                             JSONArray field = fields(form);
@@ -132,7 +132,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Timber.e(e);
                     }
                 }
                 break;

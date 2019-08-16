@@ -8,7 +8,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
-import org.smartregister.chw.anc.util.Util;
+import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.repository.HomeVisitRepository;
 import org.smartregister.chw.util.Constants;
@@ -165,7 +165,7 @@ public class ChwRepositoryFlv {
             //reprocess all the anc visit events
             List<Event> events = getEvents(db);
             for (Event event : events) {
-                Util.processAncHomeVisit(new EventClient(event), db);
+                NCUtils.processAncHomeVisit(new EventClient(event), db);
             }
 
             // update recurring services
