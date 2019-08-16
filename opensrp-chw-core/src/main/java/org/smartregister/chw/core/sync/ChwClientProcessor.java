@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.HomeVisitRepository;
 import org.smartregister.chw.core.utils.CoreChildUtils;
@@ -325,7 +326,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
     // possible to delegate
     private void processVisitEvent(EventClient eventClient) {
         try {
-            org.smartregister.chw.anc.util.Util.processAncHomeVisit(eventClient); // save locally
+            NCUtils.processAncHomeVisit(eventClient); // save locally
         } catch (Exception e) {
             Timber.e(e);
         }
