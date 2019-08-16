@@ -5,6 +5,7 @@ import android.content.Context;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.joda.time.Months;
 import org.joda.time.format.DateTimeFormat;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +14,7 @@ import org.smartregister.chw.actionhelper.DewormingAction;
 import org.smartregister.chw.actionhelper.ExclusiveBreastFeedingAction;
 import org.smartregister.chw.actionhelper.ImmunizationActionHelper;
 import org.smartregister.chw.actionhelper.ObservationAction;
+import org.smartregister.chw.actionhelper.SleepingUnderLLITNAction;
 import org.smartregister.chw.actionhelper.VitaminaAction;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
@@ -399,6 +401,16 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
     }
 
     protected void evaluateLLITN() throws Exception {
+        if (getAgeInMonths() < 60) {
+            BaseAncHomeVisitAction sleeping = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_sleeping_under_llitn_net))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withHelper(new SleepingUnderLLITNAction())
+                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.ANC_HOME_VISIT.getSleepingUnderLlitn(), null, details, null))
+                    .build();
+
+            actionList.put(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), sleeping);
+        }
     }
 
     protected void evaluateECD() throws Exception {
@@ -413,5 +425,9 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
                 .build();
 
         actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), observation);
+    }
+
+    protected int getAgeInMonths() {
+        return Months.monthsBetween(new LocalDate(dob), new LocalDate()).getMonths();
     }
 }
