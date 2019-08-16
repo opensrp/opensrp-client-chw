@@ -50,7 +50,6 @@ import java.util.Set;
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
 
-
 public class CoreChildProfileActivity extends BaseProfileActivity implements CoreChildProfileContract.View, CoreChildRegisterContract.InteractorCallBack {
     public static IntentFilter sIntentFilter;
 
@@ -113,6 +112,15 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
             appBarLayout.setOutlineProvider(null);
         }
         imageRenderHelper = new ImageRenderHelper(this);
+        registerReceiver(mDateTimeChangedReceiver, getsIntentFilter());
+    }
+
+    public static IntentFilter getsIntentFilter() {
+        return sIntentFilter;
+    }
+
+    public static void setsIntentFilter(IntentFilter sIntentFilter) {
+        CoreChildProfileActivity.sIntentFilter = sIntentFilter;
     }
 
     @Override
@@ -558,6 +566,8 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION)) {
                     presenter().updateChildProfile(jsonString);
+                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.CHILD_REFERRAL)) {
+                    presenter().createSickChildEvent(Utils.getAllSharedPreferences(), jsonString);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

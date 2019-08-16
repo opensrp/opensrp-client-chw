@@ -33,16 +33,13 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
     }
 
     @Override
-    public void switchToBaseFragment() {
-        Intent intent = new Intent(this, FamilyRegisterActivity.class);
-        startActivity(intent);
+    public void onRegistrationSaved(boolean isEdit) {
+        if (hasChildRegistration) {
+            startRegisterActivity(PncRegisterActivity.class);
+        } else {
+            startRegisterActivity(AncRegisterActivity.class);
+        }
         finish();
-    }
-
-
-    @Override
-    protected BaseRegisterFragment getRegisterFragment() {
-        return new AncRegisterFragment();
     }
 
     @Override
@@ -54,12 +51,14 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
     }
 
     @Override
-    public void onRegistrationSaved(boolean isEdit) {
-        if (hasChildRegistration) {
-            startRegisterActivity(PncRegisterActivity.class);
-        } else {
-            startRegisterActivity(AncRegisterActivity.class);
-        }
+    protected BaseRegisterFragment getRegisterFragment() {
+        return new AncRegisterFragment();
+    }
+
+    @Override
+    public void switchToBaseFragment() {
+        Intent intent = new Intent(this, FamilyRegisterActivity.class);
+        startActivity(intent);
         finish();
     }
 

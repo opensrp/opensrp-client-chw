@@ -189,9 +189,6 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         } catch (Exception e) {
             Timber.e(e);
         }
-    }    @Override
-    public void saveLanguage(String language) {
-        CoreChwApplication.getInstance().getContext().allSharedPreferences().saveLanguagePreference(language);
     }
 
     public void scheduleJobs() {
@@ -201,13 +198,18 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
 
     public AllCommonsRepository getAllCommonsRepository(String table) {
         return CoreChwApplication.getInstance().getContext().allCommonsRepositoryobjects(table);
+    }    @Override
+    public void saveLanguage(String language) {
+        CoreChwApplication.getInstance().getContext().allSharedPreferences().saveLanguagePreference(language);
     }
+
+
+
 
     @Override
     public Context getContext() {
         return context;
     }
-
 
 
     @Override

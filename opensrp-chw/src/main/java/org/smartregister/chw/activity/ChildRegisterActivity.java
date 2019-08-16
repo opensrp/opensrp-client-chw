@@ -9,15 +9,15 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 public class ChildRegisterActivity extends CoreChildRegisterActivity implements CoreChildRegisterContract.View {
 
     @Override
-    protected BaseRegisterFragment getRegisterFragment() {
-        return new ChildRegisterFragment();
-    }
-
-    @Override
     protected void registerBottomNavigation() {
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
         FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
+    }
+
+    @Override
+    protected BaseRegisterFragment getRegisterFragment() {
+        return new ChildRegisterFragment();
     }
 
 }

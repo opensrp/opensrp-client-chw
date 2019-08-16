@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.HomeVisitRepository;
 import org.smartregister.chw.core.utils.CoreChildUtils;
@@ -19,6 +18,7 @@ import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceRecord;
@@ -41,6 +41,7 @@ import timber.log.Timber;
 
 
 public class ChwClientProcessor extends ClientProcessorForJava {
+
     private ClientClassification classification;
     private Table vaccineTable;
     private Table serviceTable;
@@ -59,6 +60,10 @@ public class ChwClientProcessor extends ClientProcessorForJava {
     @Override
     public synchronized void processClient(List<EventClient> eventClients) throws Exception {
 
+        ClientClassification clientClassification = getClassification();
+        Table vaccineTable = getVaccineTable();
+        Table serviceTable = getServiceTable();
+
         if (!eventClients.isEmpty()) {
             for (EventClient eventClient : eventClients) {
                 Event event = eventClient.getEvent();
@@ -71,18 +76,35 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     continue;
                 }
 
-                processEvents(eventClient, event, eventType);
+                processEvents(clientClassification, vaccineTable, serviceTable, eventClient, event, eventType);
 
             }
 
         }
     }
 
-    private void processEvents(EventClient eventClient, Event event, String eventType) throws Exception {
-        ClientClassification clientClassification = getClassification();
-        Table vaccineTable = getVaccineTable();
-        Table serviceTable = getServiceTable();
+    private ClientClassification getClassification() {
+        if (classification == null) {
+            classification = assetJsonToJava("ec_client_classification.json", ClientClassification.class);
+        }
+        return classification;
+    }
 
+    private Table getVaccineTable() {
+        if (vaccineTable == null) {
+            vaccineTable = assetJsonToJava("ec_client_vaccine.json", Table.class);
+        }
+        return vaccineTable;
+    }
+
+    private Table getServiceTable() {
+        if (serviceTable == null) {
+            serviceTable = assetJsonToJava("ec_client_service.json", Table.class);
+        }
+        return serviceTable;
+    }
+
+    private void processEvents(ClientClassification clientClassification, Table vaccineTable, Table serviceTable, EventClient eventClient, Event event, String eventType) throws Exception {
         switch (eventType) {
             case VaccineIntentService.EVENT_TYPE:
             case VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT:
@@ -162,27 +184,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 }
                 break;
         }
-    }
-
-    private ClientClassification getClassification() {
-        if (classification == null) {
-            classification = assetJsonToJava("ec_client_classification.json", ClientClassification.class);
-        }
-        return classification;
-    }
-
-    private Table getVaccineTable() {
-        if (vaccineTable == null) {
-            vaccineTable = assetJsonToJava("ec_client_vaccine.json", Table.class);
-        }
-        return vaccineTable;
-    }
-
-    private Table getServiceTable() {
-        if (serviceTable == null) {
-            serviceTable = assetJsonToJava("ec_client_service.json", Table.class);
-        }
-        return serviceTable;
     }
 
     // possible to delegate
@@ -301,7 +302,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
                 recurringServiceRecordRepository.add(serviceObj);
 
-                Timber.d("Ending processService table: %s", serviceTable.name);
+                Timber.d("Ending processService table: " + serviceTable.name);
             }
             return true;
 
@@ -313,6 +314,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
     private void processHomeVisit(EventClient eventClient) {
         List<Obs> observations = eventClient.getEvent().getObs();
+
         CoreChildUtils.addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), eventClient.getEvent().getFormSubmissionId(), observations);
     }
 
@@ -551,5 +553,14 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         Timber.d("Started updateClientDetailsTable");
         event.addDetails("detailsUpdated", Boolean.TRUE.toString());
         Timber.d("Finished updateClientDetailsTable");
+    }
+
+    private Float parseFloat(String string) {
+        try {
+            return Float.valueOf(string);
+        } catch (NumberFormatException e) {
+            Timber.e(e);
+        }
+        return null;
     }
 }
