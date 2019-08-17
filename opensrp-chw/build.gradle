@@ -126,10 +126,35 @@ android {
             buildConfigField "boolean", 'SUPPORT_QR', 'true'
             buildConfigField "int", "DATABASE_VERSION", '12'
         }
-        wcaro {
+        chad {
             dimension = 'baseDimension'
+            applicationIdSuffix ".chad"
             versionCode 1
-            versionName "0.1.7"
+            versionName "0.0.1"
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "int", "DATABASE_VERSION", '6'
+        }
+        drc {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".drc"
+            versionCode 1
+            versionName "0.0.1"
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "int", "DATABASE_VERSION", '6'
+        }
+        guinea {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".guinea"
+            versionCode 1
+            versionName "0.0.1"
             buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
@@ -149,35 +174,10 @@ android {
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
             buildConfigField "int", "DATABASE_VERSION", '9'
         }
-        guinea {
+        wcaro {
             dimension = 'baseDimension'
-            applicationIdSuffix ".guinea"
             versionCode 1
-            versionName "0.0.1"
-            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
-            buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "int", "DATABASE_VERSION", '6'
-        }
-        chad {
-            dimension = 'baseDimension'
-            applicationIdSuffix ".chad"
-            versionCode 1
-            versionName "0.0.1"
-            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
-            buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "int", "DATABASE_VERSION", '6'
-        }
-        drc {
-            dimension = 'baseDimension'
-            applicationIdSuffix ".drc"
-            versionCode 1
-            versionName "0.0.1"
+            versionName "0.1.7"
             buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
