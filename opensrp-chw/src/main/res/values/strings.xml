@@ -267,5 +267,7 @@
     <string name="anc_visit">ANC Visit</string>
     <string name="issued">Issued</string>
     <string name="exclusive_breastfeeding_months">Exclusive breastfeeding %s months</string>
+    <string name="deworming_number_dose">Deworming %s dose</string>
+    <string name="vitamin_a_number_dose">Vitamin A %s dose</string>
 
 </resources>

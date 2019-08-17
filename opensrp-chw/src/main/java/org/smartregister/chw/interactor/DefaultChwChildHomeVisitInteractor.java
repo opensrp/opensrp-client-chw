@@ -33,6 +33,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.chw.util.VaccineScheduleUtil;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.ServiceWrapper;
@@ -95,7 +96,7 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
         try {
             Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
             evaluateChildVaccineCard();
-            //evaluateImmunization();
+            evaluateImmunization();
             evaluateExclusiveBreastFeeding(serviceWrapperMap);
             evaluateVitaminA(serviceWrapperMap);
             evaluateDeworming(serviceWrapperMap);
@@ -338,7 +339,7 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
         Alert alert = serviceWrapper.getAlert();
         final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
-        String title = MessageFormat.format(context.getString(R.string.visit_vitamin_a_dose), serviceIteration);
+        String title = context.getString(R.string.vitamin_a_number_dose, Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context));
 
         // alert if overdue after 14 days
         boolean isOverdue = new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
@@ -373,7 +374,7 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
         Alert alert = serviceWrapper.getAlert();
         final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
-        String title = MessageFormat.format(context.getString(R.string.deworming), serviceIteration);
+        String title = context.getString(R.string.deworming_number_dose, Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context));
 
         // alert if overdue after 14 days
         boolean isOverdue = new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
