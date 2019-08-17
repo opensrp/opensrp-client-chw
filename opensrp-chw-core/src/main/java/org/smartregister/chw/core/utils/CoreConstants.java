@@ -166,6 +166,7 @@ public class CoreConstants {
             private static final String VITAMIN_A = "child_hv_vitamin_a";
             private static final String DEWORMING = "child_hv_deworming";
             private static final String MUAC = "child_hv_muac";
+            private static final String DIETARY = "child_hv_dietary_diversity";
 
             public static String getVaccineCard() {
                 return Utils.getLocalForm(VACCINE_CARD, locale, assetManager);
@@ -181,6 +182,10 @@ public class CoreConstants {
 
             public static String getMUAC() {
                 return Utils.getLocalForm(MUAC, locale, assetManager);
+            }
+
+            public static String getDIETARY() {
+                return Utils.getLocalForm(DIETARY, locale, assetManager);
             }
         }
 
@@ -532,11 +537,6 @@ public class CoreConstants {
 
     public static class IDENTIFIER {
         public static final String UNIQUE_IDENTIFIER_KEY = "opensrp_id";
-    }
-
-    public static class ECClientConfig {
-        public static String LIBERIA_EC_CLIENT_FIELDS = "ec_client_fields.json";
-        public static String TANZANIA_EC_CLIENT_FIELDS = "tz_ec_client_fields.json";
     }
 
     public static final class RQ_CODE {

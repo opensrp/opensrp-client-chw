@@ -400,6 +400,60 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
     }
 
     protected void evaluateMNP() throws Exception {
+        int age = getAgeInMonths();
+        if (age > 60 || age < 6)
+            return;
+
+        HomeVisitActionHelper helper = new HomeVisitActionHelper() {
+            private String diet_diversity;
+
+            @Override
+            public void onPayloadReceived(String jsonPayload) {
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonPayload);
+                    diet_diversity = JsonFormUtils.getValue(jsonObject, "diet_diversity");
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
+            }
+
+            @Override
+            public String evaluateSubTitle() {
+                if (StringUtils.isBlank(diet_diversity))
+                    return null;
+
+                String value = "";
+                if ("chk_no_animal_products".equalsIgnoreCase(diet_diversity)) {
+                    value = context.getString(R.string.minimum_dietary_choice_1);
+                } else if ("chw_one_animal_product_or_fruit".equalsIgnoreCase(diet_diversity)) {
+                    value = context.getString(R.string.minimum_dietary_choice_2);
+                } else if ("chw_one_animal_product_and_fruit".equalsIgnoreCase(diet_diversity)) {
+                    value = context.getString(R.string.minimum_dietary_choice_3);
+                }
+                return value;
+            }
+
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (StringUtils.isBlank(diet_diversity))
+                    return BaseAncHomeVisitAction.Status.PENDING;
+
+                if ("chw_one_animal_product_and_fruit".equalsIgnoreCase(diet_diversity)) {
+                    return BaseAncHomeVisitAction.Status.COMPLETED;
+                }
+
+                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+            }
+        };
+
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.minimum_dietary_title))
+                .withOptional(false)
+                .withDetails(details)
+                .withHelper(helper)
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getDIETARY(), null, details, null))
+                .build();
+
+        actionList.put(context.getString(R.string.minimum_dietary_title), action);
     }
 
     protected void evaluateMUAC() throws Exception {
