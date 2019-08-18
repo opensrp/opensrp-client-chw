@@ -31,6 +31,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Hours;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.FamilyCallDialogContract;
@@ -40,14 +42,18 @@ import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.domain.db.Event;
+import org.smartregister.domain.db.EventClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.PermissionUtils;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -225,9 +231,9 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
     }
 
     @Nullable
-    public static String getDayOfMonthWithSuffix(int day, Context context){
+    public static String getDayOfMonthWithSuffix(int day, Context context) {
         checkArgument(day >= 1 && day <= 31, "illegal day of month: " + day);
-        switch (day){
+        switch (day) {
             case 1:
                 return context.getString(R.string.abv_first);
             case 2:
@@ -252,13 +258,14 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
                 return context.getString(R.string.abv_eleventh);
             case 12:
                 return context.getString(R.string.abv_twelfth);
-                default:
-                    return null;
+            default:
+                return null;
         }
     }
 
     /**
      * use  translated equivalent  {@link #getDayOfMonthWithSuffix(int, Context)}
+     *
      * @param n
      * @return
      */
@@ -269,6 +276,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
 
     /**
      * use  translated equivalent  {@link #getDayOfMonthWithSuffix(int, Context)}
+     *
      * @param n
      * @return
      */
@@ -433,5 +441,105 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
             return StringUtils.join(subLocationIds, ",");
         }
         return "";
+    }
+
+
+    /**
+     * This is a compatibility class to process the old child home visit events to
+     * the new visits structure
+     *
+     * @param eventClient
+     * @return
+     */
+    public static List<EventClient> processOldEvents(EventClient eventClient) {
+
+        // remove all nested events and add them to this object
+        List<EventClient> events = new ArrayList<>();
+
+        if (eventClient.getEvent() == null)
+            return new ArrayList<>();
+
+        Event event = eventClient.getEvent();
+        List<org.smartregister.domain.db.Obs> observations = new ArrayList<>();
+        for (org.smartregister.domain.db.Obs obs : event.getObs()) {
+            switch (obs.getFieldCode()) {
+                case "illness_information":
+                    try {
+                        JSONArray jsonArray = new JSONArray(obs.getValues());
+                        int length = jsonArray.length();
+                        int x = 0;
+                        while (x < length) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(x);
+                            if (jsonObject.has("obsIllness")) {
+                                Event obsEvent = convert(jsonObject.getJSONObject("obsIllness").toString(), Event.class);
+                                events.add(new EventClient(obsEvent, eventClient.getClient()));
+                            }
+
+                            x++;
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                    break;
+                case "service":
+                    try {
+                        JSONArray jsonArray = new JSONArray(obs.getValues());
+                        int length = jsonArray.length();
+                        int x = 0;
+                        while (x < length) {
+                            String value_raw = jsonArray.getString(x);
+                            String values = value_raw.substring(1, value_raw.length()-1);
+                            String[] services = values.split(",");
+                            for (String service_str : services) {
+                                String[] service = service_str.split(":");
+                                if (service.length == 2) {
+                                    org.smartregister.domain.db.Obs obs1 = new org.smartregister.domain.db.Obs();
+                                    obs1.setFieldType("formsubmissionField");
+                                    obs1.setFieldDataType("text");
+                                    obs1.setFieldCode(service[0]);
+                                    obs1.setParentCode("");
+                                    obs1.setValues(new ArrayList<>(Arrays.asList(service[1])));
+                                    observations.add(obs1);
+                                }
+                            }
+                            x++;
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                    break;
+                default:
+                    observations.add(obs);
+                    break;
+            }
+
+        }
+
+        // exclude these events
+        // fieldCode : singleVaccine , service ,  vaccineNotGiven , groupVaccine , serviceNotGiven
+
+
+        // convert the json in these events
+        // fieldCode : birth_certificate
+
+        event.setObs(null);
+        event.setObs(observations);
+
+        events.add(new EventClient(event, eventClient.getClient()));
+
+        return events;
+    }
+
+    private static <T> T convert(String jsonString, Class<T> t) {
+        if (StringUtils.isBlank(jsonString)) {
+            return null;
+        }
+        try {
+            return JsonFormUtils.gson.fromJson(jsonString, t);
+        } catch (Exception e) {
+            Timber.e(e);
+            Timber.e(jsonString);
+            return null;
+        }
     }
 }

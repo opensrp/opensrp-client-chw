@@ -10,6 +10,7 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.HomeVisitRepository;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -121,7 +122,12 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 processService(eventClient, serviceTable);
                 break;
             case HomeVisitRepository.EVENT_TYPE:
+                processVisitEvent(Utils.processOldEvents(eventClient));
+                processHomeVisit(eventClient);
+                processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                break;
             case HomeVisitRepository.NOT_DONE_EVENT_TYPE:
+                processVisitEvent(eventClient);
                 processHomeVisit(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
@@ -129,6 +135,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             case CoreConstants.EventType.MUAC:
             case CoreConstants.EventType.LLITN:
             case CoreConstants.EventType.ECD:
+                processVisitEvent(eventClient);
                 processHomeVisitService(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
@@ -163,6 +170,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 if (eventClient.getClient() == null) {
                     return;
                 }
+                processVisitEvent(eventClient);
                 processVaccineCardEvent(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
@@ -327,6 +335,16 @@ public class ChwClientProcessor extends ClientProcessorForJava {
     private void processVisitEvent(EventClient eventClient) {
         try {
             NCUtils.processAncHomeVisit(eventClient); // save locally
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void processVisitEvent(List<EventClient> eventClients) {
+        try {
+            for (EventClient eventClient : eventClients) {
+                NCUtils.processAncHomeVisit(eventClient); // save locally
+            }
         } catch (Exception e) {
             Timber.e(e);
         }
