@@ -100,6 +100,9 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
 
     @Override
     public void refreshChildVisitBar(Context context, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
+        if (getpClient() == null) {
+            return;
+        }
         ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(Constants.TABLE_NAME.CHILD, baseEntityId);
 
         String dobString = Utils.getDuration(Utils.getValue(getpClient().getColumnmaps(), DBConstants.KEY.DOB, false));

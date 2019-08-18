@@ -129,6 +129,10 @@
             android:label="@string/medical_history"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".core.activity.CoreChildMedicalHistoryActivity"
+            android:label="@string/medical_history"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".core.activity.CoreUpcomingServicesActivity"
             android:label="@string/upcoming_services"
             android:theme="@style/ChwTheme.NoActionBar" />

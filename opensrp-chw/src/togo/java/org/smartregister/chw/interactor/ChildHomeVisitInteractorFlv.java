@@ -2,9 +2,9 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
-import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.core.domain.HomeVisit;
-import org.smartregister.chw.core.domain.HomeVisitServiceDataModel;
 import org.smartregister.chw.core.utils.ServiceTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractorFlv {
-    private List<HomeVisitServiceDataModel> homeVisitServiceDataModels = new ArrayList<>();
+    private List<Visit> homeVisitServiceDataModels = new ArrayList<>();
 
     @Override
     public ArrayList<ServiceTask> getTaskService(CommonPersonObjectClient childClient, boolean isEditMode, Context context) {
@@ -23,7 +23,7 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
     public void generateServiceData(HomeVisit homeVisit) {
         if (homeVisit.getHomeVisitId() != null) {
             homeVisitServiceDataModels.clear();
-            homeVisitServiceDataModels = ChwApplication.getHomeVisitServiceRepository().getHomeVisitServiceList(homeVisit.getHomeVisitId());
+            homeVisitServiceDataModels = AncLibrary.getInstance().visitRepository().getVisitsByVisitId(homeVisit.getHomeVisitId());
         }
     }
 
