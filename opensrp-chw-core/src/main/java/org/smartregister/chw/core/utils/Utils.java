@@ -465,17 +465,27 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
             switch (obs.getFieldCode()) {
                 case "illness_information":
                     try {
-                        JSONArray jsonArray = new JSONArray(obs.getValues());
-                        int length = jsonArray.length();
-                        int x = 0;
-                        while (x < length) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(x);
-                            if (jsonObject.has("obsIllness")) {
-                                Event obsEvent = convert(jsonObject.getJSONObject("obsIllness").toString(), Event.class);
-                                events.add(new EventClient(obsEvent, eventClient.getClient()));
-                            }
+                        JSONObject jsonObject = new JSONObject(obs.getValues().get(0).toString());
+                        if (jsonObject.has("obsIllness")) {
+                            Event obsEvent = convert(jsonObject.getString("obsIllness"), Event.class);
+                            events.add(new EventClient(obsEvent, eventClient.getClient()));
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                    break;
+                case "birth_certificate":
+                    try {
+                        String val = obs.getValues().get(0).toString();
+                        if (val.equalsIgnoreCase("NOT_GIVEN") || val.equalsIgnoreCase("GIVEN")) {
+                            observations.add(obs);
+                            continue;
+                        }
 
-                            x++;
+                        JSONObject jsonObject = new JSONObject(val);
+                        if (jsonObject.has("birtCert")) {
+                            Event obsEvent = convert(jsonObject.getString("birtCert").toString(), Event.class);
+                            events.add(new EventClient(obsEvent, eventClient.getClient()));
                         }
                     } catch (Exception e) {
                         Timber.e(e);
@@ -488,17 +498,22 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
                         int x = 0;
                         while (x < length) {
                             String value_raw = jsonArray.getString(x);
-                            String values = value_raw.substring(1, value_raw.length()-1);
+                            String values = value_raw.substring(1, value_raw.length() - 1);
                             String[] services = values.split(",");
                             for (String service_str : services) {
                                 String[] service = service_str.split(":");
                                 if (service.length == 2) {
+                                    String key = service[0].substring(1, service[0].length() - 1);
+                                    String val = service[1].substring(1, service[1].length() - 1);
+
                                     org.smartregister.domain.db.Obs obs1 = new org.smartregister.domain.db.Obs();
                                     obs1.setFieldType("formsubmissionField");
                                     obs1.setFieldDataType("text");
-                                    obs1.setFieldCode(service[0]);
+                                    obs1.setFieldCode(key);
+                                    obs1.setFormSubmissionField(key);
                                     obs1.setParentCode("");
-                                    obs1.setValues(new ArrayList<>(Arrays.asList(service[1])));
+                                    obs1.setValues(new ArrayList<>(Arrays.asList(val)));
+                                    obs1.setHumanReadableValues(new ArrayList<>(Arrays.asList(val)));
                                     observations.add(obs1);
                                 }
                             }
