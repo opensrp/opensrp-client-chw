@@ -54,7 +54,6 @@ import java.util.Map;
 import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy;
-import static org.smartregister.chw.util.JsonFormUtils.getValue;
 
 public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHomeVisitInteractor.Flavor {
     protected LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
@@ -132,7 +131,7 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    child_vaccine_card = getValue(jsonObject, "child_vaccine_card");
+                    child_vaccine_card = JsonFormUtils.getValue(jsonObject, "child_vaccine_card");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -231,9 +230,9 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    birth_cert = getValue(jsonObject, "birth_cert");
-                    birth_cert_issue_date = getValue(jsonObject, "birth_cert_issue_date");
-                    birth_cert_num = getValue(jsonObject, "birth_cert_num");
+                    birth_cert = JsonFormUtils.getValue(jsonObject, "birth_cert");
+                    birth_cert_issue_date = JsonFormUtils.getValue(jsonObject, "birth_cert_issue_date");
+                    birth_cert_num = JsonFormUtils.getValue(jsonObject, "birth_cert_num");
                 } catch (JSONException e) {
                     Timber.e(e);
                 }
