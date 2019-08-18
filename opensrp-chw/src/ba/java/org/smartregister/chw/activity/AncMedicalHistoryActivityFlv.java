@@ -13,6 +13,12 @@ import java.util.Map;
 public class AncMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
 
     @Override
+    protected void processAncCard(String has_card, Context context) {
+        // super.processAncCard(has_card, context);
+        linearLayoutAncCard.setVisibility(View.GONE);
+    }
+
+    @Override
     protected void processHealthFacilityVisit(List<Map<String, String>> hf_visits, Context context) {
         //super.processHealthFacilityVisit(hf_visits, context);
 
@@ -40,11 +46,5 @@ public class AncMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivi
                 x++;
             }
         }
-    }
-
-    @Override
-    protected void processAncCard(String has_card, Context context) {
-        // super.processAncCard(has_card, context);
-        linearLayoutAncCard.setVisibility(View.GONE);
     }
 }

@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "PNC Health Facility Visit Day {0}",
+    "title": "PNC Health Facility Visit - Day {0}",
     "fields": [
       {
         "key": "pnc_visit_{0}",
@@ -56,7 +56,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Did the woman attend her PNC visit {0} at the health facility?\n\nVisit due date: {1}",
+        "hint": "Did the woman attend her PNC visit (Day {0}) at the health facility?\n\nVisit due date: {1}",
         "v_required": {
           "value": "true",
           "err": "Please select option"
@@ -72,7 +72,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Date of PNC health facility visit {0}",
+        "hint": "Date of visit",
         "expanded": false,
         "max_date": "today",
         "min_date": "",
@@ -94,7 +94,7 @@
         "openmrs_entity_id": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "edit_type": "number",
-        "hint": "The baby's weight in kilograms.",
+        "hint": "Baby's weight (kg)",
         "v_min": {
           "value": "0",
           "err": "The value must be greater than or equal to 0"
@@ -125,7 +125,7 @@
         "openmrs_entity_id": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "edit_type": "number",
-        "hint": "The baby's temperature in degrees Celsius.",
+        "hint": "Baby's temperature (°C)",
         "v_min": {
           "value": "35",
           "err": "The value must be greater than or equal to 35"

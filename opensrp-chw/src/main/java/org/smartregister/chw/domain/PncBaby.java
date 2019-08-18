@@ -1,5 +1,7 @@
 package org.smartregister.chw.domain;
 
+import org.smartregister.chw.core.domain.Person;
+
 import java.util.Date;
 
 public class PncBaby extends Person {

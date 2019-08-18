@@ -3,13 +3,21 @@ package org.smartregister.chw.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import org.smartregister.chw.custom_view.NavigationMenu;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.PncRegisterFragment;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class PncRegisterActivity extends AncRegisterActivity {
+
+    @Override
+    protected void registerBottomNavigation() {
+        super.registerBottomNavigation();
+        bottomNavigationHelper = new BottomNavigationHelper();
+        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
+        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
+    }
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
@@ -27,14 +35,6 @@ public class PncRegisterActivity extends AncRegisterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
-    }
-
-    @Override
-    protected void registerBottomNavigation() {
-        super.registerBottomNavigation();
-        bottomNavigationHelper = new BottomNavigationHelper();
-        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
-        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
     }
 
     @Override

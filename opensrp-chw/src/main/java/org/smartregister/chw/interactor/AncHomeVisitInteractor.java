@@ -24,26 +24,18 @@ public class AncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
             Timber.e(e);
         }
 
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                final LinkedHashMap<String, BaseAncHomeVisitAction> actionList = new LinkedHashMap<>();
+        final Runnable runnable = () -> {
+            final LinkedHashMap<String, BaseAncHomeVisitAction> actionList = new LinkedHashMap<>();
 
-                try {
-                    for (Map.Entry<String, BaseAncHomeVisitAction> entry : flavor.calculateActions(view, memberObject, callBack).entrySet()) {
-                        actionList.put(entry.getKey(), entry.getValue());
-                    }
-                } catch (BaseAncHomeVisitAction.ValidationException e) {
-                    e.printStackTrace();
+            try {
+                for (Map.Entry<String, BaseAncHomeVisitAction> entry : flavor.calculateActions(view, memberObject, callBack).entrySet()) {
+                    actionList.put(entry.getKey(), entry.getValue());
                 }
-
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.preloadActions(actionList);
-                    }
-                });
+            } catch (BaseAncHomeVisitAction.ValidationException e) {
+                e.printStackTrace();
             }
+
+            appExecutors.mainThread().execute(() -> callBack.preloadActions(actionList));
         };
 
         appExecutors.diskIO().execute(runnable);

@@ -35,13 +35,10 @@ public class AncMemberProfileInteractor extends BaseAncMemberProfileInteractor {
 
             @Override
             public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.refreshLastVisit(lastVisitDate);
-                        callback.refreshFamilyStatus(AlertStatus.normal);
-                        callback.refreshUpComingServicesStatus(context.getString(R.string.anc_visit), AlertStatus.normal, new Date());
-                    }
+                appExecutors.mainThread().execute(() -> {
+                    callback.refreshLastVisit(lastVisitDate);
+                    callback.refreshFamilyStatus(AlertStatus.normal);
+                    callback.refreshUpComingServicesStatus(context.getString(R.string.anc_visit), AlertStatus.normal, new Date());
                 });
             }
         };

@@ -2,12 +2,13 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.text.TextUtils;
+import android.view.Menu;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.smartregister.chw.R;
-import org.smartregister.chw.fragment.FamilyCallDialogFragment;
-import org.smartregister.chw.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {
@@ -28,6 +29,13 @@ public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements Fami
     }
 
     @Override
+    public Boolean onCreateOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_malaria_registration).setVisible(false);
+        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
+        return true;
+    }
+
+    @Override
     public boolean isWra(CommonPersonObjectClient commonPersonObject) {
         if (commonPersonObject == null) {
             return false;
@@ -42,11 +50,6 @@ public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements Fami
             return age >= 10 && age <= 49;
         }
 
-        return false;
-    }
-
-    @Override
-    public boolean showMalariaConfirmationMenu() {
         return false;
     }
 

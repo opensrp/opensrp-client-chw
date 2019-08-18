@@ -19,18 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ChildUtilsTest extends BaseUnitTest {
-
-
     @Mock
     private ChildUtils.Flavor childUtilsFlv;
-
-    private static void setFinalStatic(Field field, Object newValue) throws Exception {
-        field.setAccessible(true);
-        Field modifiersField = Field.class.getDeclaredField("modifiers");
-        modifiersField.setAccessible(true);
-        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-        field.set(null, newValue);
-    }
 
     @Before
     public void setUp() throws Exception {
@@ -46,8 +36,15 @@ public class ChildUtilsTest extends BaseUnitTest {
                 , "MCV2".toLowerCase(), "yellowfever".toLowerCase()};
         List<String> receivedVaccine = Arrays.asList(list);
         setFinalStatic(ChildUtils.class.getDeclaredField("childUtilsFlv"), childUtilsFlv);
-
         Assert.assertEquals("2", ChildUtils.isFullyImmunized(receivedVaccine));
+    }
+
+    private static void setFinalStatic(Field field, Object newValue) throws Exception {
+        field.setAccessible(true);
+        Field modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+        field.set(null, newValue);
     }
 
     @Test
@@ -81,7 +78,6 @@ public class ChildUtilsTest extends BaseUnitTest {
         String[] strings = ChildUtils.splitStringByNewline(str);
         List<String> list = Arrays.asList(strings);
         Assert.assertEquals(3, list.size());
-
     }
 
     @Test
@@ -96,7 +92,6 @@ public class ChildUtilsTest extends BaseUnitTest {
         String str2 = ChildUtils.getDurationFromTwoDate(date1, date2);
         Assert.assertEquals("13w 1d", str2);
     }
-
     /*
     @Test
     public void daysAway_awayTest(){

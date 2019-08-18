@@ -11,7 +11,7 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.JsonFormUtils;
-import org.smartregister.chw.anc.util.Util;
+import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.domain.VaccineWrapper;
@@ -62,7 +62,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
                 dueDate = new LocalDate(alert.startDate());
             }
 
-            keys.add(Util.removeSpaces(vaccineWrapper.getName()));
+            keys.add(NCUtils.removeSpaces(vaccineWrapper.getName()));
         }
 
         this.dueDate = new LocalDate(dueDate);

@@ -35,15 +35,6 @@ public class NativeFormsValidator extends BaseUnitTest {
     private List<String> forms = new ArrayList<>();
     private Context context = RuntimeEnvironment.application;
 
-    public static boolean isNumeric(String strNum) {
-        try {
-            Double.parseDouble(strNum);
-        } catch (NumberFormatException | NullPointerException nfe) {
-            return false;
-        }
-        return true;
-    }
-
     @Before
     public void setUp() throws IOException {
         String[] assets = context.getAssets().list("json.form/");
@@ -130,6 +121,15 @@ public class NativeFormsValidator extends BaseUnitTest {
             Timber.e(e);
             return false;
         }
+    }
+
+    public static boolean isNumeric(String strNum) {
+        try {
+            Double.parseDouble(strNum);
+        } catch (NumberFormatException | NullPointerException nfe) {
+            return false;
+        }
+        return true;
     }
 
     /**

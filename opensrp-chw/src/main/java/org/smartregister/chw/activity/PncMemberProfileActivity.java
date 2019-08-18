@@ -36,8 +36,6 @@ import static org.smartregister.chw.anc.util.JsonFormUtils.setRequiredFieldsToFa
 
 public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
-
-    PncMedicalHistoryActivityFlv flv = new PncMedicalHistoryActivityFlv();
     private PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
@@ -46,12 +44,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhoneNumber);
         activity.startActivity(intent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.pnc_member_profile_menu, menu);
-        return true;
     }
 
     @Override
@@ -89,53 +81,11 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private CommonPersonObjectClient clientObject() {
-        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
-        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(MEMBER_OBJECT.getBaseEntityId());
-        final CommonPersonObjectClient client =
-                new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
-        client.setColumnmaps(commonPersonObject.getColumnmaps());
-        return client;
-    }
-
     @Override
-    public void setupViews() {
-        super.setupViews();
-        VisitSummary visitSummary = basePncMemberProfileInteractor.visitSummary(clientObject());
-        String visitStatus = visitSummary.getVisitStatus();
-
-        if (ChildProfileInteractor.VisitType.OVERDUE.name().equals(visitStatus) || ChildProfileInteractor.VisitType.EXPIRY.name().equals(visitStatus)) {
-            textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
-        }
-
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.pnc_member_profile_menu, menu);
+        return true;
     }
-
-
-    @Override
-    protected void registerPresenter() {
-        presenter = new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
-    }
-
-    @Override
-    public void openMedicalHistory() {
-        PncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
-    }
-
-    @Override
-    public void openUpcomingService() {
-        PncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
-    }
-
-
-    public void startFormForEdit(JSONObject form) {
-        try {
-            startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-    }
-
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -180,6 +130,39 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         return new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
     }
 
+    public void startFormForEdit(JSONObject form) {
+        try {
+            startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private CommonPersonObjectClient clientObject() {
+        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
+        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(MEMBER_OBJECT.getBaseEntityId());
+        final CommonPersonObjectClient client =
+                new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+        return client;
+    }
+
+    @Override
+    public void setupViews() {
+        super.setupViews();
+        VisitSummary visitSummary = basePncMemberProfileInteractor.visitSummary(clientObject());
+        String visitStatus = visitSummary.getVisitStatus();
+
+        if (ChildProfileInteractor.VisitType.OVERDUE.name().equals(visitStatus) || ChildProfileInteractor.VisitType.EXPIRY.name().equals(visitStatus)) {
+            textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
+        }
+    }
+
+    @Override
+    protected void registerPresenter() {
+        presenter = new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
+    }
+
     @Override
     public void onClick(View view) {
         super.onClick(view);
@@ -191,6 +174,16 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void openMedicalHistory() {
+        PncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+    }
+
+    @Override
+    public void openUpcomingService() {
+        PncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
     }
 
 }

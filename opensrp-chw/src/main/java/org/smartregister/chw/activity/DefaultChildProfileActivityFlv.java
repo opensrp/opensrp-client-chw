@@ -3,8 +3,8 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 
 import org.smartregister.chw.R;
-import org.smartregister.chw.fragment.FamilyCallDialogFragment;
-import org.smartregister.chw.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 
 public abstract class DefaultChildProfileActivityFlv implements ChildProfileActivity.Flavor {
@@ -12,12 +12,8 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
     @Override
     public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final ChildProfilePresenter presenter) {
         return viewId -> {
-            switch (viewId) {
-                case R.id.fab:
-                    FamilyCallDialogFragment.launchDialog(activity, presenter.getFamilyId());
-                    break;
-                default:
-                    break;
+            if (viewId == R.id.fab) {
+                FamilyCallDialogFragment.launchDialog(activity, presenter.getFamilyId());
             }
         };
     }

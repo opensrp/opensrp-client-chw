@@ -51,8 +51,10 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
         initializePresenter();
     }
 
-    public void fetchFullYImmunization(String dateOfBirth) {
-        presenter.fetchFullyImmunization(dateOfBirth);
+    @Override
+    public ChildMedicalHistoryContract.Presenter initializePresenter() {
+        presenter = new ChildMedicalHistoryPresenter(this, new AppExecutors(), ChwApplication.getHomeVisitServiceRepository());
+        return presenter;
     }
 
 //    public void generateHomeVisitServiceList(CommonPersonObjectClient childClient) {
@@ -60,54 +62,6 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
 //        long lastHomeVisit= TextUtils.isEmpty(lastHomeVisitStr)?0:Long.parseLong(lastHomeVisitStr);
 //        presenter.generateHomeVisitServiceList(lastHomeVisit);
 //    }
-
-    public void setInitialVaccineList(Map<String, Date> vaccineList) {
-        presenter.setInitialVaccineList(vaccineList);
-
-    }
-
-    public void fetchGrowthNutrition(CommonPersonObjectClient childClient) {
-        presenter.fetchGrowthNutrition(childClient);
-
-    }
-
-    public void fetchBirthCertificateData(CommonPersonObjectClient childClient) {
-        presenter.fetchBirthData(childClient);
-    }
-
-    public void fetchIllnessData(CommonPersonObjectClient childClient) {
-        presenter.fetchIllnessData(childClient);
-    }
-
-    public void fetchDietaryData(CommonPersonObjectClient childClient) {
-        presenter.fetchDietaryData(childClient);
-    }
-
-    public void fetchMuacData(CommonPersonObjectClient childClient) {
-        presenter.fetchMuacData(childClient);
-    }
-
-    public void fetchLlitnData(CommonPersonObjectClient childClient) {
-        presenter.fetchLLitnData(childClient);
-    }
-
-    public void fetchEcdData(CommonPersonObjectClient childClient) {
-        presenter.fetchEcdData(childClient);
-    }
-
-    @Override
-    public void updateFullyImmunization(String text) {
-        if (text.equalsIgnoreCase("2")) {
-            layoutFullyImmunizationBarAge1.setVisibility(View.VISIBLE);
-            layoutFullyImmunizationBarAge2.setVisibility(View.VISIBLE);
-        } else if (text.equalsIgnoreCase("1")) {
-            layoutFullyImmunizationBarAge1.setVisibility(View.VISIBLE);
-            layoutFullyImmunizationBarAge2.setVisibility(View.GONE);
-        } else {
-            layoutFullyImmunizationBarAge1.setVisibility(View.GONE);
-            layoutFullyImmunizationBarAge2.setVisibility(View.GONE);
-        }
-    }
 
     @Override
     public void updateVaccinationData() {
@@ -154,6 +108,28 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
             birthCertAdapter.setData(presenter.getObsIllness());
             medicalContentDetailsViewHolder.recyclerView.setAdapter(birthCertAdapter);
         }
+    }
+
+    @Override
+    public void updateFullyImmunization(String text) {
+        if (text.equalsIgnoreCase("2")) {
+            layoutFullyImmunizationBarAge1.setVisibility(View.VISIBLE);
+            layoutFullyImmunizationBarAge2.setVisibility(View.VISIBLE);
+        } else if (text.equalsIgnoreCase("1")) {
+            layoutFullyImmunizationBarAge1.setVisibility(View.VISIBLE);
+            layoutFullyImmunizationBarAge2.setVisibility(View.GONE);
+        } else {
+            layoutFullyImmunizationBarAge1.setVisibility(View.GONE);
+            layoutFullyImmunizationBarAge2.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void updateVaccineCard(String value) {
+        if (vaccineCardViewHolder == null) {
+            vaccineCardViewHolder = new VaccineCardViewHolder();
+        }
+        vaccineCardViewHolder.textViewVaccineCardText.setText(String.format("%s %s", activity.getString(R.string.vaccine_card_text), value));
     }
 
     @Override
@@ -215,20 +191,6 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
     }
 
     @Override
-    public void updateVaccineCard(String value) {
-        if (vaccineCardViewHolder == null) {
-            vaccineCardViewHolder = new VaccineCardViewHolder();
-        }
-        vaccineCardViewHolder.textViewVaccineCardText.setText(String.format("%s %s", activity.getString(R.string.vaccine_card_text), value));
-    }
-
-    @Override
-    public ChildMedicalHistoryContract.Presenter initializePresenter() {
-        presenter = new ChildMedicalHistoryPresenter(this, new AppExecutors(), ChwApplication.getHomeVisitServiceRepository());
-        return presenter;
-    }
-
-    @Override
     public Context getContext() {
         return activity;
     }
@@ -246,6 +208,44 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
             growthAdapter.notifyDataSetChanged();
         }
 
+    }
+
+    public void fetchFullYImmunization(String dateOfBirth) {
+        presenter.fetchFullyImmunization(dateOfBirth);
+    }
+
+    public void setInitialVaccineList(Map<String, Date> vaccineList) {
+        presenter.setInitialVaccineList(vaccineList);
+
+    }
+
+    public void fetchGrowthNutrition(CommonPersonObjectClient childClient) {
+        presenter.fetchGrowthNutrition(childClient);
+
+    }
+
+    public void fetchBirthCertificateData(CommonPersonObjectClient childClient) {
+        presenter.fetchBirthData(childClient);
+    }
+
+    public void fetchIllnessData(CommonPersonObjectClient childClient) {
+        presenter.fetchIllnessData(childClient);
+    }
+
+    public void fetchDietaryData(CommonPersonObjectClient childClient) {
+        presenter.fetchDietaryData(childClient);
+    }
+
+    public void fetchMuacData(CommonPersonObjectClient childClient) {
+        presenter.fetchMuacData(childClient);
+    }
+
+    public void fetchLlitnData(CommonPersonObjectClient childClient) {
+        presenter.fetchLLitnData(childClient);
+    }
+
+    public void fetchEcdData(CommonPersonObjectClient childClient) {
+        presenter.fetchEcdData(childClient);
     }
 
     private class GrowthNutritionViewHolder {

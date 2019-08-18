@@ -1,5 +1,7 @@
 package org.smartregister.chw.util;
 
+import org.smartregister.chw.core.utils.ChildDBConstants;
+
 import java.util.ArrayList;
 
 public class ChildUtilsFlv implements ChildUtils.Flavor {

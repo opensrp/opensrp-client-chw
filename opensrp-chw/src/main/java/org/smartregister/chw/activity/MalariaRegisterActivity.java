@@ -9,7 +9,7 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.custom_view.NavigationMenu;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.MalariaRegisterFragment;
 import org.smartregister.chw.malaria.activity.BaseMalariaRegisterActivity;
 import org.smartregister.chw.util.Constants;
@@ -31,19 +31,35 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
     }
 
     @Override
-    public String getRegistrationForm() {
-        return Constants.JSON_FORM.getMalariaConfirmation();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
     }
 
     @Override
-    protected BaseRegisterFragment getRegisterFragment() {
-        return new MalariaRegisterFragment();
+    public String getRegistrationForm() {
+        return Constants.JSON_FORM.getMalariaConfirmation();
+    }
+
+    public void startFormActivity(JSONObject jsonForm) {
+
+        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+
+        Form form = new Form();
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setNavigationBackground(R.color.family_navigation);
+        form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
+        form.setName(this.getString(R.string.malaria_registration));
+        form.setNextLabel(this.getResources().getString(R.string.next));
+        form.setPreviousLabel(this.getResources().getString(R.string.back));
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public List<String> getViewIdentifiers() {
+        return Arrays.asList(Constants.CONFIGURATION.MALARIA_REGISTER);
     }
 
     @Override
@@ -55,6 +71,17 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
     }
 
     @Override
+    protected BaseRegisterFragment getRegisterFragment() {
+        return new MalariaRegisterFragment();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    @Override
     protected void onResumption() {
         super.onResumption();
         NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
@@ -62,30 +89,5 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
             menu.getNavigationAdapter()
                     .setSelectedView(Constants.DrawerMenu.MALARIA);
         }
-    }
-
-    @Override
-    public List<String> getViewIdentifiers() {
-        return Arrays.asList(Constants.CONFIGURATION.MALARIA_REGISTER);
-    }
-
-    public void startFormActivity(JSONObject jsonForm) {
-
-        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
-        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-
-        Form form = new Form();
-        form.setActionBarBackground(R.color.family_actionbar);
-        form.setWizard(false);
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-
-
-        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
     }
 }
