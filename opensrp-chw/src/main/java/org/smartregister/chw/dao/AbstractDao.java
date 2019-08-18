@@ -69,7 +69,7 @@ public class AbstractDao {
      * @param query
      * @return
      */
-    protected static List<Map<String, String>> readData(String query, String[] selectionArgs) {
+    public static List<Map<String, String>> readData(String query, String[] selectionArgs) {
         List<Map<String, String>> list = new ArrayList<>();
         Cursor cursor = ChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, selectionArgs);
         cursor.moveToFirst();

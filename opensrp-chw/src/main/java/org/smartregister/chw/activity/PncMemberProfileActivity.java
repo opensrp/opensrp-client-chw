@@ -36,6 +36,8 @@ import static org.smartregister.chw.anc.util.JsonFormUtils.setRequiredFieldsToFa
 
 public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
+
+    PncMedicalHistoryActivityFlv flv = new PncMedicalHistoryActivityFlv();
     private PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
@@ -105,7 +107,10 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         if (ChildProfileInteractor.VisitType.OVERDUE.name().equals(visitStatus) || ChildProfileInteractor.VisitType.EXPIRY.name().equals(visitStatus)) {
             textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
         }
+
+
     }
+
 
     @Override
     protected void registerPresenter() {

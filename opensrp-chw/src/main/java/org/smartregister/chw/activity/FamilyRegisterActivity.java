@@ -35,6 +35,26 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
         activity.startActivity(intent);
     }
 
+    public static void registerBottomNavigation(
+            BottomNavigationHelper bottomNavigationHelper,
+            BottomNavigationView bottomNavigationView,
+            Activity activity
+    ) {
+
+        if (bottomNavigationView != null) {
+            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+
+            bottomNavigationView.getMenu().clear();
+            bottomNavigationView.inflateMenu(R.menu.bottom_nav_family_menu);
+            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
+            bottomNavigationView.setOnNavigationItemSelectedListener(new ChwBottomNavigationListener(activity));
+        }
+
+        if (!BuildConfig.SUPPORT_QR) {
+            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
+        }
+    }
+
     @Override
     protected void initializePresenter() {
         presenter = new BaseFamilyRegisterPresenter(this, new BaseFamilyRegisterModel());
@@ -99,26 +119,6 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
             if (navigationMenu != null) {
                 navigationMenu.startP2PActivity(this);
             }
-        }
-    }
-
-    public static void registerBottomNavigation(
-            BottomNavigationHelper bottomNavigationHelper,
-            BottomNavigationView bottomNavigationView,
-            Activity activity
-    ) {
-
-        if (bottomNavigationView != null) {
-            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-
-            bottomNavigationView.getMenu().clear();
-            bottomNavigationView.inflateMenu(R.menu.bottom_nav_family_menu);
-            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-            bottomNavigationView.setOnNavigationItemSelectedListener(new ChwBottomNavigationListener(activity));
-        }
-
-        if (!BuildConfig.SUPPORT_QR) {
-            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
     }
 }

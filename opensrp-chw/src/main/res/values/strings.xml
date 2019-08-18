@@ -412,6 +412,22 @@
     <string name="pnc_health_facility_visit_days_eight_to_twenty_eight">PNC health facility visit - days 8 - 28</string>
     <string name="pnc_health_facility_visit_days_twenty_nine_to_forty_two">PNC health facility visit - days 29 - 42</string>
 
+    <string name="pnc_48_hours">48 hours</string>
+    <string name="pnc_three_to_seven_days">days 3-7 </string>
+    <string name="pnc_eight_to_twenty_eight">days 8-28 </string>
+    <string name="pnc_twenty_nine_to_forty_two">days 29-42</string>
+
+    <string name="pnc_health_facility_visit_title">PNC HEALTH FACILITY VISITS</string>
+    <string name="pnc_home_visit_title">PNC HOME VISITS</string>
+
+    <string name="pnc_home_day_one_visit">day 1</string>
+    <string name="pnc_home_day_three_visit">day 3</string>
+    <string name="pnc_home_day_eight_visit">day 8</string>
+    <string name="pnc_home_day_twenty_one_to_twenty_seven_visit">days 21-27</string>
+    <string name="pnc_home_day_thirty_five_to_forty_one_visit">days 35-41</string>
+
+    <string name="pnc_visit_date">PNC visit {0}: {1}</string>
+
     <string name="pnc_visit_day_due">DAY %s VISIT DUE</string>
     <string name="pnc_visit_day_overdue">DAY %s OVERDUE</string>
     <string name="pnc_visit">PNC Visit</string>
