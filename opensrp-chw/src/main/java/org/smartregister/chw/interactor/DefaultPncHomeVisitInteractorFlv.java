@@ -540,39 +540,6 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         return Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime().toLocalDate()).getDays();
     }
 
-    /**
-     * returns list of vaccines that are pending
-     *
-     * @param baseEntityID
-     * @param dob
-     * @param group
-     * @return
-     */
-    protected List<VaccineWrapper> getChildDueVaccines(String baseEntityID, Date dob, int group) {
-        List<VaccineWrapper> vaccineWrappers = new ArrayList<>();
-        try {
-            VaccineGroup groupMap = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), "child").get(group);
-
-            // get all vaccines that are not given
-            VaccineTaskModel taskModel = VaccineScheduleUtil.getLocalUpdatedVaccines(baseEntityID, new DateTime(dob), new ArrayList<>(), "child");
-
-            for (Vaccine vaccine : groupMap.vaccines) {
-                Triple<DateTime, VaccineRepo.Vaccine, String> individualVaccine = VaccineScheduleUtil.getIndividualVaccine(taskModel, vaccine.type);
-
-                if (individualVaccine == null || individualVaccine.getLeft().isAfter(new DateTime())) {
-                    continue;
-                }
-
-                vaccineWrappers.add(VaccineScheduleUtil.getVaccineWrapper(individualVaccine.getMiddle(), taskModel));
-            }
-            //
-
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-        return vaccineWrappers;
-    }
-
     private class PNCHealthFacilityVisitHelper implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
         private Context context;
         private String jsonPayload;

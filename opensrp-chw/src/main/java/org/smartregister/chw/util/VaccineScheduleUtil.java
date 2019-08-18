@@ -94,7 +94,7 @@ public class VaccineScheduleUtil {
     }
 
     /**
-     * Updates locals vaccines grouped by type and deducts all those not give
+     * Updates locals vaccines grouped by type and deducts all those not given
      * Returns a vaccines summary object that can be used for immunization
      *
      * @param baseEntityID
@@ -186,12 +186,24 @@ public class VaccineScheduleUtil {
      * @return
      */
     public static List<VaccineWrapper> getChildDueVaccines(String baseEntityID, Date dob, int group) {
+        return getChildDueVaccines(baseEntityID, dob, new ArrayList<>(), group);
+    }
+
+    /**
+     * returns list of vaccines that are pending. you can add vaccine wrappers to exclude
+     * @param baseEntityID
+     * @param dob
+     * @param excludedVaccines
+     * @param group
+     * @return
+     */
+    public static List<VaccineWrapper> getChildDueVaccines(String baseEntityID, Date dob, List<VaccineWrapper> excludedVaccines, int group) {
         List<VaccineWrapper> vaccineWrappers = new ArrayList<>();
         try {
             VaccineGroup groupMap = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), "child").get(group);
 
             // get all vaccines that are not given
-            VaccineTaskModel taskModel = VaccineScheduleUtil.getLocalUpdatedVaccines(baseEntityID, new DateTime(dob), new ArrayList<>(), "child");
+            VaccineTaskModel taskModel = VaccineScheduleUtil.getLocalUpdatedVaccines(baseEntityID, new DateTime(dob), excludedVaccines, "child");
 
             for (org.smartregister.immunization.domain.jsonmapping.Vaccine vaccine : groupMap.vaccines) {
                 Triple<DateTime, VaccineRepo.Vaccine, String> individualVaccine = VaccineScheduleUtil.getIndividualVaccine(taskModel, vaccine.type);

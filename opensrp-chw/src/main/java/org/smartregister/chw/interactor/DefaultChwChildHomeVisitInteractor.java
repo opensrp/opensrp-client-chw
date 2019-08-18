@@ -44,6 +44,7 @@ import org.smartregister.util.FormUtils;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -191,10 +192,11 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
         List<VaccineGroup> groups = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), "child");
         int x = 0;
 
+        List<VaccineWrapper> previousGroup = new ArrayList<>();
+
         for (VaccineGroup group : groups) {
 
-            List<VaccineWrapper> wrappers = VaccineScheduleUtil.getChildDueVaccines(memberObject.getBaseEntityId(), dob, x);
-
+            List<VaccineWrapper> wrappers = VaccineScheduleUtil.getChildDueVaccines(memberObject.getBaseEntityId(), dob, previousGroup, x);
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, group.name)
                     .withOptional(false)
                     .withDetails(details)
@@ -205,6 +207,7 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
                     .build();
             actionList.put(group.name, action);
 
+            previousGroup.addAll(wrappers);
             x++;
         }
     }
