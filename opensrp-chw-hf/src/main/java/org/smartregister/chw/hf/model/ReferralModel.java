@@ -42,6 +42,7 @@ public class ReferralModel extends BaseReferralModel {
 
     private void addTaskDetails(String table, Set<String> columns) {
         columns.add(table + "." + CoreConstants.DB_CONSTANTS.FOCUS);
+        columns.add(table + "." + CoreConstants.DB_CONSTANTS.OWNER);
         columns.add(table + "." + CoreConstants.DB_CONSTANTS.REQUESTER);
         columns.add(table + "." + CoreConstants.DB_CONSTANTS.START);
 

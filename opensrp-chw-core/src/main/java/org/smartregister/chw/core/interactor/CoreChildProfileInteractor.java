@@ -11,7 +11,7 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.chw.anc.util.Util;
+import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.contract.HomeVisitGrowthNutritionContract;
@@ -60,7 +60,6 @@ import java.util.UUID;
 import io.reactivex.Observable;
 import timber.log.Timber;
 
-import static org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 import static org.smartregister.util.JsonFormUtils.gson;
 
@@ -223,7 +222,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
                 pClient.setColumnmaps(personObject.getColumnmaps());
             }
         } catch (Exception ex) {
-            Timber.e(ex.toString());
+            Timber.e(ex, "CoreChildProfileInteractor --> updateChildCommonPerson");
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -281,7 +280,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
                     });
                 }
             } catch (Exception ex) {
-                Timber.e(ex.toString());
+                Timber.e(ex, "CoreChildProfileInteractor --> refreshProfileView");
             } finally {
                 if (cursor != null) {
                     cursor.close();
@@ -400,7 +399,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
                 return form;
             }
         } catch (Exception e) {
-            Timber.e(e);
+            Timber.e(e, "CoreChildProfileInteractor --> getAutoPopulatedJsonEditFormString");
         }
 
         return null;
@@ -413,10 +412,23 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
 
     @Override
     public void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception {
-        final Event baseEvent = processJsonForm(allSharedPreferences, new JSONObject(jsonString)
-                .put(JsonFormUtils.ENTITY_ID, getChildBaseEntityId()).toString(), CoreConstants.TABLE_NAME.CHILD_REFERRAL);
-        Util.processEvent(baseEvent.getBaseEntityId(), new JSONObject(gson.toJson(baseEvent)));
+        final Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, setEntityId(jsonString), CoreConstants.TABLE_NAME.CHILD_REFERRAL);
+        NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(gson.toJson(baseEvent)));
         createReferralTask(baseEvent.getBaseEntityId(), allSharedPreferences);
+    }
+
+    private String setEntityId(String jsonString) {
+        String referralForm = "";
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            jsonObject.put(CoreConstants.ENTITY_ID, getChildBaseEntityId());
+
+            referralForm = jsonObject.toString();
+        } catch (JSONException e) {
+            Timber.e(e, "CoreChildProfileInteractor --> setEntityId");
+        }
+
+        return referralForm;
     }
 
     private void createReferralTask(String baseEntityId, AllSharedPreferences allSharedPreferences) {
@@ -449,7 +461,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
         task.setLastModified(now);
         task.setOwner(allSharedPreferences.fetchRegisteredANM());
         task.setSyncStatus(BaseRepository.TYPE_Created);
-        task.setRequester(allSharedPreferences.fetchRegisteredANM());
+        task.setRequester(allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM()));
         task.setLocation(allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM()));
         CoreChwApplication.getInstance().getTaskRepository().addOrUpdate(task);
     }
