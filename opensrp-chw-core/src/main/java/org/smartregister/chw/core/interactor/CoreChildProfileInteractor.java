@@ -61,7 +61,6 @@ import io.reactivex.Observable;
 import timber.log.Timber;
 
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
-import static org.smartregister.util.JsonFormUtils.gson;
 
 public class CoreChildProfileInteractor implements CoreChildProfileContract.Interactor {
     public static final String TAG = CoreChildProfileInteractor.class.getName();
@@ -413,7 +412,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
     @Override
     public void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception {
         final Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, setEntityId(jsonString), CoreConstants.TABLE_NAME.CHILD_REFERRAL);
-        Util.processEvent(baseEvent.getBaseEntityId(), new JSONObject(gson.toJson(baseEvent)));
+        Util.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
         createReferralTask(baseEvent.getBaseEntityId(), allSharedPreferences);
     }
 
