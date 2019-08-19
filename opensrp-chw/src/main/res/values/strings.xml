@@ -268,6 +268,10 @@
 
     <string name="pnc_health_facility_visit_title">PNC HEALTH FACILITY VISITS</string>
     <string name="pnc_home_visit_title">PNC HOME VISITS</string>
+    <string name="pnc_family_planning_title">FAMILY PLANNING</string>
+    <string name="pnc_child_vaccine">CHILD VACCINE CARD RECEIVED</string>
+    <string name="pnc_immunization">IMMUNIZATION</string>
+    <string name="pnc_growth_and_nutrition">GROWTH AND NUTRITION</string>
 
     <string name="pnc_home_day_one_visit">day 1</string>
     <string name="pnc_home_day_three_visit">day 3</string>
@@ -276,6 +280,19 @@
     <string name="pnc_home_day_thirty_five_to_forty_one_visit">days 35-41</string>
 
     <string name="pnc_visit_date">PNC visit {0}: {1}</string>
+    <string name="pnc_baby_weight">Baby\'s weight: %1$s kgs</string>
+    <string name="pnc_baby_temp">Baby\'s temperature: %1$s °C</string>
+    <string name="pnc_wcaro_health_facility_visit">PNC visit: {0}</string>
+
+    <string name="pnc_family_planning_method">Method: {0}</string>
+    <string name="pnc_family_planning_date">Start date: {0}</string>
+    <string name="pnc_child_vaccine_card">card: {0}</string>
+
+    <string name="pnc_bcg">BCG - done [{0}]</string>
+    <string name="pnc_opv0">OPV 0 - done [{}]</string>
+
+    <string name="pnc_early_initiation_bf">Early initiation of breastfeeding: {0}</string>
+    <string name="pnc_exclusive_bf_0_months">Exclusive breastfeeding 0 months: {0}</string>
 
     <string name="pnc_visit_day_due">DAY %s VISIT DUE</string>
     <string name="pnc_visit_day_overdue">DAY %s OVERDUE</string>
