@@ -13,6 +13,7 @@ import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.pnc.interactor.BasePncMemberProfileInteractor;
 import org.smartregister.chw.util.HomeVisitUtil;
 import org.smartregister.chw.util.VisitSummary;
@@ -83,7 +84,7 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
     }
 
     public VisitSummary visitSummary(CommonPersonObjectClient pc) {
-        Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(org.smartregister.chw.util.Constants.RULE_FILE.ANC_HOME_VISIT);
+        Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.PNC_HOME_VISIT);
         String dayPnc = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DELIVERY_DATE, true);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String baseEntityID = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);

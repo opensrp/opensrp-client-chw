@@ -46,7 +46,7 @@ public class PncMedicalHistoryActivityFlv extends DefaultPncMedicalHistoryActivi
 
         exctractHomeVisits(visits, home_visits);
         processHomeVisits(home_visits, context);
-        processHealthFacilityVisit(hf_visits, context);
+        processHealthFVisit(hf_visits, context);
     }
 
 
@@ -143,7 +143,7 @@ public class PncMedicalHistoryActivityFlv extends DefaultPncMedicalHistoryActivi
 
     }
 
-    protected void processHealthFacilityVisit(Map<String, String> hf_visits, Context context) {
+    protected void processHealthFVisit(Map<String, String> hf_visits, Context context) {
         if (hf_visits != null && hf_visits.size() > 0) {
             linearLayoutHealthFacilityVisit.setVisibility(View.VISIBLE);
 
@@ -168,5 +168,28 @@ public class PncMedicalHistoryActivityFlv extends DefaultPncMedicalHistoryActivi
         }
     }
 
+    @Override
+    protected void processHealthFacilityVisit(Map<String, Map<String, String>> healthFacility_visit, Context context) {
+       return;
+    }
 
+    @Override
+    protected void processFamilyPlanning(Map<String, String> family_plnning, Context context) {
+        return;
+    }
+
+    @Override
+    protected void processVaccineCard(String received, Context context) {
+        return;
+    }
+
+    @Override
+    protected void processImmunization(Map<String, String> immunization, Context context) {
+       return;
+    }
+
+    @Override
+    protected void processGrowthAndNutrition(Map<String, String> growth_data, Context context) {
+        return;
+    }
 }
