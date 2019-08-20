@@ -216,7 +216,7 @@
     <string name="fully_immunized_at_age_2">Fully immunized at age 2</string>
     <string name="fully_immunized_at_age_1">Fully immunized at age 1</string>
 
-  <!--Referral-->
+    <!--Referral-->
     <string name="referred_by">Referred by CHW %1s</string>
     <string name="hours_ago">1%dh ago</string>
     <string name="yesterday">Yesterday</string>
@@ -255,7 +255,6 @@
     <string name="no_action_taken">No action taken</string>
 
 
-
     <string name="handwashing_facilities">Does the household have handwashing facilities?</string>
     <string name="drinking_water">Does the household have access to clean drinking water?</string>
     <string name="hygienic_latrine">Do household members use a hygienic latrine for the disposal of feces?</string>
@@ -273,5 +272,7 @@
     <string name="abv_tenth">10th</string>
     <string name="abv_eleventh">11th</string>
     <string name="abv_twelfth">12th</string>
+
+    <string name="anc_register">ANC Register</string>
 
 </resources>
