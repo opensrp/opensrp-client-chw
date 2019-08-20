@@ -3,7 +3,9 @@ package org.smartregister.chw.hf.interactor;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.hf.BuildConfig;
+import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.PlanIntentServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
@@ -45,8 +47,13 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
     @Override
     protected void scheduleJobsImmediately() {
         super.scheduleJobsImmediately();
+        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
-        //PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
         SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
+        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
+        job.BasePncCloseJob.scheduleJobImmediately(job.BasePncCloseJob.TAG);
+        PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
+        VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
+        VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
     }
 }

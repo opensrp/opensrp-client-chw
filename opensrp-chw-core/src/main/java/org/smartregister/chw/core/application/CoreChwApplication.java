@@ -156,7 +156,6 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     public static ClientProcessorForJava getClientProcessor(android.content.Context context) {
         if (clientProcessor == null) {
             clientProcessor = ChwClientProcessor.getInstance(context);
-//            clientProcessor = FamilyLibrary.getInstance().getClientProcessorForJava();
         }
         return clientProcessor;
     }
@@ -191,20 +190,14 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         }
     }
 
-    public void scheduleJobs() {
-        // TODO implement job scheduling
-        Timber.d("scheduleJobs pending implementation");
-    }
-
     public AllCommonsRepository getAllCommonsRepository(String table) {
         return CoreChwApplication.getInstance().getContext().allCommonsRepositoryobjects(table);
-    }    @Override
+    }
+
+    @Override
     public void saveLanguage(String language) {
         CoreChwApplication.getInstance().getContext().allSharedPreferences().saveLanguagePreference(language);
     }
-
-
-
 
     @Override
     public Context getContext() {
@@ -220,13 +213,11 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         return ecSyncHelper;
     }
 
-
     @Override
     public void notifyAppContextChange() {
         Locale current = getApplicationContext().getResources().getConfiguration().locale;
         saveLanguage(current.getLanguage());
     }
-
 
     @Override
     public RulesEngineHelper getRulesEngineHelper() {

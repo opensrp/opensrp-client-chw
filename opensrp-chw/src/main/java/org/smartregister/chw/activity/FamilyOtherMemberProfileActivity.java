@@ -54,6 +54,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     private String familyHead;
     private String primaryCaregiver;
     private String familyName;
+    private String PhoneNumber;
     private CommonPersonObjectClient commonPersonObject;
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private TextView textViewFamilyHas;
@@ -136,6 +137,9 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         } else {
             menu.findItem(R.id.action_anc_registration).setVisible(false);
         }
+
+        menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
+        menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         return true;
     }
 
@@ -146,7 +150,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 onBackPressed();
                 return true;
             case R.id.action_anc_registration:
-                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, CoreConstants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId, familyName);
+                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber,
+                        org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId, familyName);
                 return true;
             case R.id.action_malaria_registration:
                 MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
@@ -303,6 +308,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         String villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
         familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
+        PhoneNumber = commonPersonObject.getColumnmaps().get(org.smartregister.chw.util.Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
         presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
 
         onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, familyBaseEntityId);
