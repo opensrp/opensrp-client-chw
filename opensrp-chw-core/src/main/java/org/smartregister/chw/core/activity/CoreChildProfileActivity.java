@@ -106,7 +106,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
             upArrow.setColorFilter(getResources().getColor(R.color.text_blue), PorterDuff.Mode.SRC_ATOP);
             actionBar.setHomeAsUpIndicator(upArrow);
         }
-        toolbar.setNavigationOnClickListener(v -> finish());
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
         appBarLayout = findViewById(R.id.collapsing_toolbar_appbarlayout);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             appBarLayout.setOutlineProvider(null);
@@ -252,7 +252,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
      * it'll update the child client because for edit it's need the vaccine card,illness,birthcert.
      */
     public void processBackgroundEvent() {
-
         layoutMostDueOverdue.setVisibility(View.GONE);
         viewMostDueRow.setVisibility(View.GONE);
         presenter().fetchVisitStatus(childBaseEntityId);
@@ -562,7 +561,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         } else if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION)) {
                     presenter().updateChildProfile(jsonString);
@@ -570,7 +568,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
                     presenter().createSickChildEvent(Utils.getAllSharedPreferences(), jsonString);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Timber.e(e, "CoreChildProfileActivity --> onActivityResult");
             }
         }
     }

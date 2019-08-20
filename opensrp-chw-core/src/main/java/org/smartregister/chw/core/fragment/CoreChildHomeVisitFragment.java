@@ -145,7 +145,6 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Holo_Light_NoActionBar);
     }
 
@@ -734,8 +733,8 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
 
     @Override
     public void onDestroy() {
-        getActivity().unregisterReceiver(mDateTimeChangedReceiver);
         super.onDestroy();
+        getActivity().unregisterReceiver(mDateTimeChangedReceiver);
     }
 
     public void checkIfSubmitIsToBeEnabled() {

@@ -102,12 +102,17 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
     @Override
     public void setClientTasks(Set<Task> taskList) {
-        if (referralRecyclerView != null && taskList.size() > 0) {
-            referralRow.setVisibility(View.VISIBLE);
-            RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, ((CoreChildProfilePresenter) presenter()).getChildClient());
-            referralRecyclerView.setAdapter(mAdapter);
-        }
+        handler.postDelayed(() -> {
+            if (referralRecyclerView != null && taskList.size() > 0) {
+                RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, ((HfChildProfilePresenter) presenter()).getChildClient());
+                referralRecyclerView.setAdapter(mAdapter);
+                referralRow.setVisibility(View.VISIBLE);
+
+            }
+        }, 100);
+
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -133,11 +138,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(true);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(true);
         return true;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     private void openMedicalHistoryScreen() {

@@ -1,6 +1,7 @@
 package org.smartregister.chw.hf.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -22,6 +23,8 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
+
+import timber.log.Timber;
 
 public class ReferralTaskViewActivity extends SecuredActivity {
     protected AppBarLayout appBarLayout;
@@ -50,11 +53,6 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     protected void onCreation() {
         setContentView(R.layout.referrals_tasks_view_layout);
         if (getIntent().getExtras() != null) {
@@ -65,6 +63,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         inflateToolbar();
         setUpViews();
         if (getPersonObjectClient() == null) {
+            Timber.d("The person object is null");
             finish();
         }
     }
@@ -77,7 +76,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     private void extractPersonObjectClient() {
         setPersonObjectClient((CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON));
         if (getPersonObjectClient() != null) {
-            name = Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.FIRST_NAME, true) + " " + Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
+            name = Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.FIRST_NAME, true) + " " + Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true) + " " + Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         }
     }
 
@@ -149,7 +148,6 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             String parentFirstName = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
             String parentLastName = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
             String parentMiddleName = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
-            String chwNamw = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
 
             String parentName = getString(R.string.care_giver_prefix, org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName));
             careGiverName.setText(parentName);
@@ -183,7 +181,16 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     }
 
     public void closeTask() {
-        //// TODO: 15/08/19
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.mark_as_done_title));
+        builder.setMessage(getString(R.string.mark_as_done_message));
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(this.getString(R.string.mark_as_done), (dialog, id) -> dialog.cancel());
+        builder.setNegativeButton(this.getString(R.string.dismiss), ((dialog, id) -> dialog.cancel()));
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
   /*  private Event createReferralCloseEvent() {
