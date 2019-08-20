@@ -1,6 +1,7 @@
 package org.smartregister.chw.actionhelper;
 
 import android.content.Context;
+import android.text.Html;
 
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;

@@ -14,6 +14,7 @@ import org.smartregister.chw.actionhelper.DewormingAction;
 import org.smartregister.chw.actionhelper.ECDAction;
 import org.smartregister.chw.actionhelper.ExclusiveBreastFeedingAction;
 import org.smartregister.chw.actionhelper.ImmunizationActionHelper;
+import org.smartregister.chw.actionhelper.ImmunizationValidator;
 import org.smartregister.chw.actionhelper.ObservationAction;
 import org.smartregister.chw.actionhelper.SleepingUnderLLITNAction;
 import org.smartregister.chw.actionhelper.VitaminaAction;
@@ -21,6 +22,7 @@ import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
@@ -193,22 +195,52 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
 
         List<VaccineWrapper> previousGroup = new ArrayList<>();
 
+        ImmunizationValidator validator = new ImmunizationValidator();
+
         for (VaccineGroup group : groups) {
 
             List<VaccineWrapper> wrappers = VaccineScheduleUtil.getChildDueVaccines(memberObject.getBaseEntityId(), dob, previousGroup, x);
-            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, group.name)
+
+            List<VaccineDisplay> displays = new ArrayList<>();
+            for (VaccineWrapper vaccineWrapper : wrappers) {
+                VaccineDisplay display = new VaccineDisplay();
+                display.setVaccineWrapper(vaccineWrapper);
+                display.setStartDate(dob);
+                display.setEndDate(new Date());
+                display.setValid(true);
+                displays.add(display);
+            }
+
+            String title = MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.immunizations_count), getVaccineTitle(group.name));
+            BaseHomeVisitImmunizationFragment fragment =
+                    BaseHomeVisitImmunizationFragment.getInstance(view, memberObject.getBaseEntityId(), details, displays);
+
+            validator.addFragment(title, fragment);
+
+            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
                     .withOptional(false)
                     .withDetails(details)
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
                     .withVaccineWrapper(wrappers)
-                    .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, memberObject.getBaseEntityId(), dob, details, wrappers))
+                    .withDestinationFragment(fragment)
                     .withHelper(new ImmunizationActionHelper(context, wrappers))
+                    .withDisabledMessage(context.getString(org.smartregister.chw.core.R.string.fill_earler_immunization))
+                    .withValidator(validator)
                     .build();
-            actionList.put(group.name, action);
+            actionList.put(title, action);
 
             previousGroup.addAll(wrappers);
             x++;
         }
+    }
+
+    private String getVaccineTitle(String name) {
+        if ("Birth".equals(name))
+            return context.getString(R.string.at_birth);
+
+        return name.replace("Weeks", context.getString(org.smartregister.chw.core.R.string.abbrv_weeks))
+                .replace("Months", context.getString(org.smartregister.chw.core.R.string.abbrv_months))
+                .replace(" ", "");
     }
 
     protected void evaluateBirthCertForm() throws Exception {
