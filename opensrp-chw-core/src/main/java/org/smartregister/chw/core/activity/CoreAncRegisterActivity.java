@@ -29,24 +29,9 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
     protected static String form_name;
     protected static String unique_id;
     protected static String familyBaseEntityId;
-    private static String familyName;
+    protected static String familyName;
 
-
-    public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
-                                                    String uniqueId, String familyBaseID, String family_name) {
-        Intent intent = new Intent(activity, CoreAncRegisterActivity.class);
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
-        phone_number = phoneNumber;
-        familyBaseEntityId = familyBaseID;
-        form_name = formName;
-        familyName = family_name;
-        unique_id = uniqueId;
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
-        intent.putExtra(TABLE_NAME, getFormTable());
-        activity.startActivity(intent);
-    }
-
-    private static String getFormTable() {
+    protected static String getFormTable() {
         if (form_name != null && form_name.equals(CoreConstants.JSON_FORM.getAncRegistration())) {
             return CoreConstants.TABLE_NAME.ANC_MEMBER;
         }
