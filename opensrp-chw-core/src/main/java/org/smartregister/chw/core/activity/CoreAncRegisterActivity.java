@@ -53,6 +53,46 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
         return CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME;
     }
 
+    public static String getPhoneNumber() {
+        return phone_number;
+    }
+
+    public static void setPhoneNumber(String phone_number) {
+        CoreAncRegisterActivity.phone_number = phone_number;
+    }
+
+    public static String getFormName() {
+        return form_name;
+    }
+
+    public static void setFormName(String form_name) {
+        CoreAncRegisterActivity.form_name = form_name;
+    }
+
+    public static String getUniqueId() {
+        return unique_id;
+    }
+
+    public static void setUniqueId(String unique_id) {
+        CoreAncRegisterActivity.unique_id = unique_id;
+    }
+
+    public static String getFamilyBaseEntityId() {
+        return familyBaseEntityId;
+    }
+
+    public static void setFamilyBaseEntityId(String familyBaseEntityId) {
+        CoreAncRegisterActivity.familyBaseEntityId = familyBaseEntityId;
+    }
+
+    public static String getFamilyName() {
+        return familyName;
+    }
+
+    public static void setFamilyName(String familyName) {
+        CoreAncRegisterActivity.familyName = familyName;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

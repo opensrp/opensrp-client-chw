@@ -14,7 +14,6 @@ import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.repository.LocationRepository;
 import org.smartregister.repository.PlanDefinitionRepository;
 import org.smartregister.repository.PlanDefinitionSearchRepository;
 import org.smartregister.repository.TaskRepository;
@@ -131,7 +130,6 @@ public class HfChwRepository extends CoreChwRepository {
             PlanDefinitionRepository.createTable(database);
             PlanDefinitionSearchRepository.createTable(database);
             TaskRepository.createTable(database);
-            LocationRepository.createTable(database);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion6");
         }

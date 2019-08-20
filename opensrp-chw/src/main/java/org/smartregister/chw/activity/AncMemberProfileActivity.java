@@ -19,7 +19,6 @@ import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.NCUtils;
-import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.AncMemberProfileInteractor;
@@ -80,7 +79,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(AncMemberProfileActivity.this, client, MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver(), AncRegisterActivity.class.getCanonicalName());
                 return true;
             case R.id.action_pregnancy_out_come:
-                PncRegisterActivity.startAncRegistrationActivity(AncMemberProfileActivity.this, MEMBER_OBJECT.getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyName());
+                PncRegisterActivity.startAncRegistrationActivity(AncMemberProfileActivity.this, MEMBER_OBJECT.getBaseEntityId(), null, org.smartregister.chw.util.Constants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyName());
                 return true;
             default:
                 break;

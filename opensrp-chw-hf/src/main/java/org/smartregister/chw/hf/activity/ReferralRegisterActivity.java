@@ -8,6 +8,11 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 public class ReferralRegisterActivity extends BaseReferralRegister {
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     protected void initializePresenter() {
         presenter = new BaseRefererralPresenter();
     }
