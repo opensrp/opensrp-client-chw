@@ -2,16 +2,16 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AboveFiveChildProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
+import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.FamilyProfileMemberModel;
 import org.smartregister.chw.provider.ChwMemberRegisterProvider;
-import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -24,11 +24,9 @@ import org.smartregister.family.util.DBConstants;
 import java.util.HashMap;
 import java.util.Set;
 
-import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
+import timber.log.Timber;
 
 public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
-
-    private static final String TAG = FamilyProfileMemberFragment.class.getCanonicalName();
 
     public static BaseFamilyProfileMemberFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -46,6 +44,11 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
         String primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         presenter = new BaseFamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+    }
+
+    @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        Timber.v("setAdvancedSearchFormData");
     }
 
     @Override
@@ -78,7 +81,7 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         if (view.getTag() instanceof CommonPersonObjectClient) {
             CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
             String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
-            if (org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
+            if (CoreConstants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
                 goToOtherMemberProfileActivity(commonPersonObjectClient);
             } else {
                 goToChildProfileActivity(commonPersonObjectClient);
@@ -90,7 +93,7 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         Intent intent = new Intent(getActivity(), FamilyOtherMemberProfileActivity.class);
         intent.putExtras(getArguments());
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-        intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON, patient);
+        intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, patient);
         intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, ((BaseFamilyProfileMemberPresenter) presenter).getFamilyHead());
         intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((BaseFamilyProfileMemberPresenter) presenter).getPrimaryCaregiver());
         startActivity(intent);
@@ -100,20 +103,15 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
         Integer yearOfBirth = ChildUtils.dobStringToYear(dobString);
         Intent intent;
-        if(yearOfBirth!=null && yearOfBirth >= 5){
+        if (yearOfBirth != null && yearOfBirth >= 5) {
             intent = new Intent(getActivity(), AboveFiveChildProfileActivity.class);
-        }else{
-            intent = new Intent(getActivity(),ChildProfileActivity.class);
+        } else {
+            intent = new Intent(getActivity(), ChildProfileActivity.class);
         }
         intent.putExtras(getArguments());
-        intent.putExtra(IS_COMES_FROM_FAMILY, true);
+        intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, true);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         startActivity(intent);
-    }
-
-    @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        Log.v(TAG, "setAdvancedSearchFormData");
     }
 
 }

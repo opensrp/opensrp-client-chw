@@ -1,44 +1,74 @@
 package org.smartregister.chw.fragment;
 
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
-import org.smartregister.chw.BuildConfig;
-import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
+import org.mockito.Spy;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.when;
+
 public class MalariaRegisterFragmentTest {
+    private MalariaRegisterFragment malariaRegisterFragment = new MalariaRegisterFragment();
+
+    @Spy
+    private MalariaRegisterFragment spy;
 
     @Mock
-    private FamilyRecyclerViewCustomAdapter clientAdapter;
+    private View dueOnlyLayout;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        spy = Mockito.spy(malariaRegisterFragment);
     }
 
     @Test
-    public void testonEmptyMalariaCountIsCalled() {
-        MalariaRegisterFragment spyFragment = Mockito.spy(MalariaRegisterFragment.class);
-        FragmentActivity activity = Mockito.spy(FragmentActivity.class);
-        Mockito.when(spyFragment.getActivity()).thenReturn(activity);
-
-        View emptyView = Mockito.mock(View.class);
-        Whitebox.setInternalState(spyFragment, "emptyView", emptyView);
-        Whitebox.setInternalState(spyFragment, "clientAdapter", clientAdapter);
-        spyFragment.countExecute();
-
-        Mockito.verify(emptyView).setVisibility(Mockito.anyInt());
+    public void assertViewLayoutNotNull() {
+        Assert.assertNotNull(dueOnlyLayout);
     }
+
+    @Test
+    public void testToggleFilterSelectionCallsDueFilterWhenTagIsNull() {
+        dueOnlyLayout.setTag(null);
+        doNothing().when(spy).dueFilter(dueOnlyLayout);
+        spy.toggleFilterSelection(dueOnlyLayout);
+        Mockito.verify(spy).dueFilter(dueOnlyLayout);
+    }
+
+    @Test
+    public void testToggleFilterSelectionNeverCallsNormalFilterWhenTagIsNull() {
+        dueOnlyLayout.setTag(null);
+        doNothing().when(spy).dueFilter(dueOnlyLayout);
+        spy.toggleFilterSelection(dueOnlyLayout);
+        Mockito.verify(spy, never()).normalFilter(dueOnlyLayout);
+    }
+
+    @Test
+    public void testToggleFilterSelectionCallsNormalFilterWhenTagIsPressed() {
+        when(dueOnlyLayout.getTag()).thenReturn("PRESSED");
+        doNothing().when(spy).normalFilter(dueOnlyLayout);
+        spy.toggleFilterSelection(dueOnlyLayout);
+        Mockito.verify(spy).normalFilter(dueOnlyLayout);
+    }
+
+    @Test
+    public void testToggleFilterSelectionNeverCallsDueFilterWhenTagIsPressed() {
+        when(dueOnlyLayout.getTag()).thenReturn("PRESSED");
+        doNothing().when(spy).normalFilter(dueOnlyLayout);
+        spy.toggleFilterSelection(dueOnlyLayout);
+        Mockito.verify(spy, never()).dueFilter(dueOnlyLayout);
+    }
+
+    @Test
+    public void testSearchTextNull() {
+        Assert.assertEquals("", spy.searchText());
+    }
+
 }

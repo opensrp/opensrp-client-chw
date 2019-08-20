@@ -16,14 +16,14 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.R;
-import org.smartregister.chw.custom_view.ImmunizationView;
-import org.smartregister.chw.presenter.ImmunizationViewPresenter;
+import org.smartregister.chw.core.custom_views.ImmunizationView;
+import org.smartregister.chw.core.fragment.VaccinationDialogFragment;
+import org.smartregister.chw.core.presenter.ImmunizationViewPresenter;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -77,33 +77,6 @@ public class VaccinationDialogFragmentTest extends BaseUnitTest {
             fail();
         }
     }
-
-    @Test
-    public void testShowSingleVaccineDetailsView() {
-
-        try {
-            View view = Mockito.mock(View.class);
-
-            LinearLayout vaccinationNameLayout = Mockito.mock(LinearLayout.class);
-            Mockito.when(vaccinationNameLayout.getChildAt(Mockito.anyInt())).thenReturn(view);
-            Whitebox.setInternalState(vaccinationDialogFragment, "vaccinationNameLayout", vaccinationNameLayout);
-
-            LinearLayout multipleVaccineDatePickerView = Mockito.mock(LinearLayout.class);
-            Whitebox.setInternalState(vaccinationDialogFragment, "multipleVaccineDatePickerView", multipleVaccineDatePickerView);
-
-            LinearLayout singleVaccineAddView = Mockito.mock(LinearLayout.class);
-            Whitebox.setInternalState(vaccinationDialogFragment, "singleVaccineAddView", singleVaccineAddView);
-
-            Map<VaccineWrapper, DatePicker> singleVaccineMap = new LinkedHashMap<>();
-            Whitebox.setInternalState(vaccinationDialogFragment, "singleVaccineMap", singleVaccineMap);
-
-
-            Whitebox.invokeMethod(vaccinationDialogFragment, "showSingleVaccineDetailsView");
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
 
     @Test
     public void testHandleSingleVaccineLogic() {

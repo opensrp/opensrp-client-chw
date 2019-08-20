@@ -1,6 +1,8 @@
 package org.smartregister.chw.model;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.core.model.NavigationModel;
+import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.util.Constants;
 
 import java.util.ArrayList;
@@ -8,11 +10,12 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public class NavigationModelFlv {
+public class NavigationModelFlv implements NavigationModel.Flavor {
 
     private static List<NavigationOption> navigationOptions = new ArrayList<>();
 
-    public static List<NavigationOption> getNavigationItems() {
+    @Override
+    public List<NavigationOption> getNavigationItems() {
 
         if (navigationOptions.size() == 0) {
             NavigationOption op1 = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, R.string.menu_all_families, Constants.DrawerMenu.ALL_FAMILIES, 0);

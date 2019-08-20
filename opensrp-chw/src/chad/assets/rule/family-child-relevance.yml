@@ -4,7 +4,7 @@ description: surname relevance
 priority: 1
 condition: "!step1_same_as_fam_name.contains('same_as_fam_name')"
 actions:
- - "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step1_dob
 description: dob relevance
@@ -17,5 +17,12 @@ name: step1_age
 description: age relevance
 priority: 1
 condition: "step1_dob_unknown.contains('dob_unknown')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_early_bf_1hr
+description: early_bf_1hr below six month
+priority: 1
+condition: "helper.formatDate(step1_dob,'m') < 6"
 actions:
   - "isRelevant = true"

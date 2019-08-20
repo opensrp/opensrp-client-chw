@@ -3,6 +3,7 @@ package org.smartregister.chw.util;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.smartregister.chw.core.utils.QueryBuilder;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 
 public class QueryBuilderTest {

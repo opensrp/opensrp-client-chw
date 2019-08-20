@@ -2,7 +2,6 @@ package org.smartregister.chw.presenter;
 
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -12,8 +11,8 @@ import com.android.volley.toolbox.ImageLoader;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.ImageLoaderRequest;
 import org.smartregister.chw.interactor.LoginInteractor;
-import org.smartregister.chw.util.ImageLoaderRequest;
 import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.configurableviews.util.Constants;
@@ -22,6 +21,8 @@ import org.smartregister.login.presenter.BaseLoginPresenter;
 import org.smartregister.view.contract.BaseLoginContract;
 
 import java.lang.ref.WeakReference;
+
+import timber.log.Timber;
 
 public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContract.Presenter {
 
@@ -74,7 +75,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
             }
 
         } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
+            Timber.e(e);
         }
     }
 

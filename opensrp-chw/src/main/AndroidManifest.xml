@@ -4,14 +4,14 @@
     package="org.smartregister.chw">
 
     <uses-feature
-        android:required="false"
-        android:name="android.hardware.camera" />
+        android:name="android.hardware.camera"
+        android:required="false" />
     <uses-feature
-        android:required="false"
-        android:name="android.hardware.camera.autofocus" />
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
     <uses-feature
-        android:required="false"
-        android:name="android.hardware.telephony" />
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -23,27 +23,51 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-            android:name=".application.ChwApplication"
-            android:allowBackup="true"
-            android:supportsRtl="true"
-            android:theme="@style/ChwTheme"
-            tools:replace="android:theme">
-        <activity android:name=".activity.AncHomeVisitActivity"
-            android:theme="@style/ChwTheme.NoActionBar"></activity>
+        android:name=".application.ChwApplication"
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:theme="@style/ChwTheme"
+        tools:replace="android:theme">
+
+        <activity
+            android:name=".activity.AncUpcomingServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AncMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AncHomeVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.AncRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.MalariaRegisterActivity"
+            android:name=".activity.AncMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.AncMemberProfileActivity"
+            android:name=".activity.PncUpcomingServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.PncMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.PncHomeVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.PncRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.PncMemberProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MalariaRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
 
+        <activity android:name="activity.ChwP2pModeSelectActivity" />
         <activity
             android:name=".activity.JobAidsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -92,11 +116,11 @@
             android:label="@string/child_details"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.MedicalHistoryActivity"
+            android:name=".activity.ChildMedicalHistoryActivity"
             android:label="@string/medical_history"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.UpcomingServicesActivity"
+            android:name=".core.activity.CoreUpcomingServicesActivity"
             android:label="@string/upcoming_services"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -117,10 +141,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AboveFiveChildProfileActivity" android:label="@string/child_details"
-                  android:theme="@style/ChwTheme.NoActionBar"/>
-        <activity android:name=".activity.MalariaProfileActivity"
-                  android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.AboveFiveChildProfileActivity"
+            android:label="@string/child_details"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MalariaProfileActivity"
+            android:label="@string/malaria"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.CoreAncRegisterActivity"
+            android:label="@string/anc_register"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -132,7 +164,6 @@
                 android:resource="@xml/captured_images_path" />
         </provider>
 
-
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
@@ -140,6 +171,9 @@
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
+        <service android:name="org.smartregister.chw.anc.intent.HomeVisitIntent" />
+        <service android:name="org.smartregister.sync.intent.SyncTaskIntentService" />
+        <service android:name="org.smartregister.sync.intent.PlanIntentService" />
 
         <uses-library
             android:name="org.apache.http.legacy"

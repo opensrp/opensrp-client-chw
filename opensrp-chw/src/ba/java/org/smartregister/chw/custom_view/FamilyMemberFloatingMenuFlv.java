@@ -2,7 +2,6 @@ package org.smartregister.chw.custom_view;
 
 import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
-import android.view.View;
 import android.widget.TextView;
 
 import org.smartregister.chw.R;
@@ -10,20 +9,14 @@ import org.smartregister.chw.R;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class FamilyMemberFloatingMenuFlv {
+public class FamilyMemberFloatingMenuFlv implements FamilyMemberFloatingMenu.Flavor {
 
-    private FamilyMemberFloatingMenu menu;
-
-    public FamilyMemberFloatingMenuFlv(FamilyMemberFloatingMenu familyMemberFloatingMenu) {
-        this.menu = familyMemberFloatingMenu;
+    @Override
+    public void reDraw(FamilyMemberFloatingMenu menu, boolean has_phone) {
+        redrawWithOption(menu, has_phone);
     }
 
-
-    public void reDraw(boolean has_phone) {
-        redrawWithOption(has_phone);
-    }
-
-    private void redrawWithOption(boolean has_phone) {
+    private void redrawWithOption(FamilyMemberFloatingMenu menu, boolean has_phone) {
         TextView callTextView = menu.findViewById(R.id.CallTextView);
         TextView callTextViewHint = menu.findViewById(R.id.CallTextViewHint);
 
@@ -46,18 +39,15 @@ public class FamilyMemberFloatingMenuFlv {
         }
     }
 
-    public void prepareFab(FloatingActionButton fab) {
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menu.animateFAB();
-            }
-        });
+    @Override
+    public void prepareFab(final FamilyMemberFloatingMenu menu, FloatingActionButton fab) {
+        fab.setOnClickListener(v -> menu.animateFAB());
 
         fab.setImageResource(R.drawable.ic_edit_white);
     }
 
-    public void fabInteraction() {
+    @Override
+    public void fabInteraction(FamilyMemberFloatingMenu menu) {
         menu.animateFAB();
     }
 }

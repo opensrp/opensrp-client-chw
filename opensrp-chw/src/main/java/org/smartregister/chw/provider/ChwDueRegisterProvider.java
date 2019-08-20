@@ -11,10 +11,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.model.ChildVisit;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
-import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.ChildVisit;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -26,6 +26,7 @@ import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Set;
 
+import static org.smartregister.chw.core.utils.Utils.actualDaysBetweenDateAndNow;
 import static org.smartregister.family.util.Utils.getName;
 
 public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
@@ -45,7 +46,7 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         populatePatientColumn(pc, client, viewHolder);
-        populateIdentifierColumn(pc, viewHolder);
+        // populateIdentifierColumn(pc, viewHolder);
 
         viewHolder.status.setVisibility(View.GONE);
         Utils.startAsyncTask(new UpdateAsyncTask(viewHolder, pc), null);
@@ -74,7 +75,7 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         String lastVisit = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
         if (StringUtils.isNotBlank(lastVisit)) {
             // String lastVisitString = Utils.actualDuration(context, Utils.getDuration(lastVisit));
-            String lastVisitString = Utils.actualDaysBetweenDateAndNow(context, lastVisit);
+            String lastVisitString = actualDaysBetweenDateAndNow(context, lastVisit);
             viewHolder.lastVisit.setText(String.format(context.getString(R.string.last_visit_prefix), lastVisitString));
             viewHolder.lastVisit.setVisibility(View.VISIBLE);
         } else {
@@ -98,11 +99,6 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         attachPatientOnclickListener(viewHolder.patientColumn, client);
 
         attachNextArrowOnclickListener(viewHolder.nextArrow, client);
-    }
-
-    private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        String uniqueId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
-        //fillValue(viewHolder.ancId, String.format(context.getString(R.string.unique_id_text), uniqueId));
     }
 
     private void attachPatientOnclickListener(View view, SmartRegisterClient client) {

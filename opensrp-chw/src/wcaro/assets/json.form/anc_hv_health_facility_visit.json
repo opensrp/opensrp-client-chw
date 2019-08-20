@@ -84,7 +84,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Enter the date that the member moved away"
+          "err": "Enter the date of the ANC visit"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -92,6 +92,13 @@
             "ex": "equalTo(., \"Yes\")"
           }
         }
+      },
+      {
+        "key": "anc_hf_next_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "anc_hf_next_visit_date",
+        "type": "spacer"
       },
       {
         "key": "weight",

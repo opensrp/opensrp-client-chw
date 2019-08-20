@@ -1,10 +1,12 @@
 package org.smartregister.chw.repository;
 
 import android.content.Context;
-import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.smartregister.chw.anc.repository.VisitDetailsRepository;
+import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.core.repository.HomeVisitRepository;
 import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
@@ -12,12 +14,14 @@ import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
 
+import timber.log.Timber;
+
 public class ChwRepositoryFlv {
 
     private static final String TAG = ChwRepositoryFlv.class.getCanonicalName();
 
     public static void onUpgrade(Context context, SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(ChwRepository.class.getName(),
+        Timber.w(ChwRepository.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
         int upgradeTo = oldVersion + 1;
@@ -37,6 +41,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 7:
                     upgradeToVersion7(db);
+                    break;
+                case 8:
+                    upgradeToVersion8(db);
                     break;
                 default:
                     break;
@@ -62,7 +69,7 @@ public class ChwRepositoryFlv {
             IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
 
         } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion2 " + Log.getStackTraceString(e));
+            Timber.e(e, "upgradeToVersion2 ");
         }
 
     }
@@ -78,7 +85,7 @@ public class ChwRepositoryFlv {
             db.execSQL(RecurringServiceRecordRepository.ALTER_ADD_CREATED_AT_COLUMN);
             RecurringServiceRecordRepository.migrateCreatedAt(db);
         } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion3 " + Log.getStackTraceString(e));
+            Timber.e(e, "upgradeToVersion3 ");
         }
         try {
             Column[] columns = {EventClientRepository.event_column.formSubmissionId};
@@ -86,7 +93,7 @@ public class ChwRepositoryFlv {
 
 
         } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion3 " + e.getMessage());
+            Timber.e(e, "upgradeToVersion3 " + e.getMessage());
         }
     }
 
@@ -99,7 +106,7 @@ public class ChwRepositoryFlv {
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_COL);
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
         } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion4 " + Log.getStackTraceString(e));
+            Timber.e(e, "upgradeToVersion4 ");
         }
 
     }
@@ -109,7 +116,7 @@ public class ChwRepositoryFlv {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
         } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion5 " + Log.getStackTraceString(e));
+            Timber.e(e, "upgradeToVersion5 ");
         }
     }
 
@@ -118,7 +125,16 @@ public class ChwRepositoryFlv {
             db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN);
             db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN);
         } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion7 " + Log.getStackTraceString(e));
+            Timber.e(e, "upgradeToVersion7 ");
+        }
+    }
+
+    private static void upgradeToVersion8(SQLiteDatabase db) {
+        try {
+            VisitRepository.createTable(db);
+            VisitDetailsRepository.createTable(db);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion8 ");
         }
     }
 }

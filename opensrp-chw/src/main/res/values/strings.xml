@@ -1,52 +1,12 @@
 <resources>
-
     <string name="login_title">CFC App</string>
-    <string name="nav_logo">CFC App</string>
     <string name="logo">logo</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-
-    <string name="menu_all_families">All Families</string>
-    <string name="menu_anc_clients">ANC Clients</string>
-    <string name="menu_child_clients">Child Clients</string>
-    <string name="menu_hiv_clients">HIV Clients</string>
 
     <string name="title_family_detail">Family Detail</string>
-    <string name="child_register_title">Child Clients</string>
-    <string name="return_to_all_children">Return to all children</string>
-    <string name="back_to_children">Back to %1$s</string>
     <string name="child_details">Child details %1$s</string>
-    <string name="not_given">Not given</string>
     <string name="not_done">Not done</string>
     <string name="not_provided">Not provided</string>
-    <string name="given">Given</string>
-    <string name="provided_on">Provided on %1$s</string>
-    <string name="given_on">Given on %1$s</string>
-    <string name="search_name_or_id">Search name or ID</string>
 
-    <string name="navigation_drawer_open">Open</string>
-    <string name="navigation_drawer_close">Close</string>
-
-    <string name="action_log_out">Logging Out</string>
-    <string name="action_start_sync">Sync Started</string>
-    <string name="action_sync_failed">Sync Failed</string>
-
-    <!-- Navigation Strings -->
-    <string name="nav_registers">Registers</string>
-    <string name="nav_logout_as">Logout as</string>
-    <string name="nav_sync">Sync</string>
-    <string name="nav_last">"Last: </string>
-    <string name="nav_last_sync_time">HH:mm a , MMM DD</string>
-
-    <string name="call">Call</string>
-    <string name="call_no_number_provided">(no number provided)</string>
-    <string name="family_details">Family details</string>
-    <string name="add_new_family_member">Add new family member</string>
-    <string name="remove_existing_family_member">Remove existing family member</string>
-    <string name="change_family_head">Change family head</string>
-    <string name="change_primary_caregiver">Change primary caregiver</string>
-    <string name="add_other_family_member">Other family member</string>
-    <string name="add_child_under_five">Child under 5 years</string>
     <string name="child_under_five">Child under 5 years</string>
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
     <string name="family_has_nothing_due">Family has nothing due</string>
@@ -62,54 +22,22 @@
     <string name="penta_1">Penta 1</string>
     <string name="view_medical_history">View medical history</string>
     <string name="last_visit_40_days_ago">Last visit %1$s ago</string>
-    <string name="add_member_title">Add family member</string>
-    <string name="add_member_title_question">What kind of family member do you want to add?</string>
-    <string name="change_head_member_title">Change family head</string>
-    <string name="change_head_member_title_question">Select a new family head</string>
-    <string name="change_caregiver_member_title">Change primary caregiver</string>
-    <string name="change_caregiver_member_title_question">Select a new primary caregiver</string>
-    <string name="remove_member_title">Remove member</string>
-    <string name="remove_member_prompt">Which member do you want to remove?</string>
-    <string name="visit_month">%1$s visit done</string>
+
     <string name="not_visiting_this_month">Not visiting this month</string>
     <string name="undo">UNDO</string>
-    <string name="record_visit">Record visit</string>
+
     <string name="edit">EDIT</string>
     <string name="return_to_family_name">Return to %1$s Family</string>
     <string name="return_to_family_members">Return to family members</string>
-    <string name="save_title">SAVE</string>
-
-    <string name="allow_calls_denied">Kindly allow calls to be made here</string>
-    <string name="copy_to_clipboard">Copy to clipboard</string>
-    <string name="copied_phone_number">PhoneNumber copied to clipboard</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="visit_not_done_btn_child_profile">Visit not done</string>
     <string name="medical_history">Medical History</string>
-    <string name="record_home_visit">Record \nHome visit</string>
-    <string name="visit_not_done">Visit not \ndone</string>
-    <string name="visit_done">Visit done</string>
-    <string name="due_visit">Last visit \n %1$s</string>
-    <string name="medical_title">Back to %1$s\'s profile</string>
-    <string name="medical_last_visit">%1$s ago</string>
-    <string name="growth_and_nutrition">GROWTH AND NUTRITION</string>
-    <string name="immunization">IMMUNIZATION</string>
     <string name="fully_immunized_at_age">Fully immunized at age %1$s</string>
     <string name="add_date_separately">+ ADD DATE FOR EACH VACCINE</string>
     <string name="which_vaccines_given_text">Which vaccinations were done?</string>
-    <string name="when_vaccines_given_text">When were vaccinations done?</string>
-    <string name="fully_immunized_at_age_2">Fully immunized at age 2</string>
-    <string name="fully_immunized_at_age_1">Fully immunized at age 1</string>
-    <string name="health_child_milestone">Healthy child milestone</string>
-    <string name="exclusive_feeding">Did the child receive any liquid or food other than breastmilk yesterday and last night?</string>
-    <string name="vitamin_given">When was %1$s given?</string>
-    <string name="exclusive_breastfeeding">Exclusive breastfeeding</string>
     <string name="vitamin_a">Vitamin A</string>
-    <string name="deworming">Deworming</string>
-    <string name="vaccine_card_text">Did the child receive their vaccine card?</string>
-    <string name="vaccine_card_title">Child vaccine card received</string>
-    <string name="record_immunizations">Record vaccinations</string>
     <string name="tab_text_1">DASHBOARD</string>
     <string name="tab_text_2">GUIDEBOOKS</string>
     <string name="action_settings">Settings</string>
@@ -119,66 +47,33 @@
     <string name="observations_illness_episodes"><![CDATA[Observations & Illness - <i>optional</i>]]></string>
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Illness Episodes]]></string>
     <string name="home_visit_suffix"> &#183; Home Visit</string>
+    <string name="wash_check_suffix"> &#183; WASH check</string>
     <string name="last_visit_prefix">Last visit %1$s ago</string>
+    <string name="completed_on_prefix">Completed on %1$s</string>
 
     <string name="profile_activity_completed">Completed on %s</string>
     <string name="interpunct">・</string>
-    <string name="home_visit">Home Visit</string>
     <string name="profile_activity_not_visited">Marked not visited on %s</string>
 
-    <string name="day">day</string>
-    <string name="days">days</string>
-    <string name="week">week</string>
-    <string name="weeks">weeks</string>
-    <string name="month">month</string>
-    <string name="months">months</string>
-    <string name="year">year</string>
-    <string name="years">years</string>
-
-    <string name="family">%s Family</string>
-    <string name="remove_entire_family">Removing entire family</string>
-    <string name="remove_warning_family">Are you sure you want to remove the %s Family\'s record? This will remove the family\'s entire record AND all of the %s family members\' health records from your device. This action cannot be undone.</string>
     <string name="cancel">CANCEL</string>
     <string name="submit">SUBMIT</string>
-    <string name="profile_change_dialog_message">Before you remove this member, you must select a new family head.</string>
-    <string name="select_caregiver">Select a new primary caregiver</string>
-    <string name="select_family_head">Select a new family head</string>
-    <string name="remove_caregiver_warning_message">Before you remove this member you must select a new primary caregiver</string>
-    <string name="remove_familyhead_warning_message">Before you remove this member you must select a new family head.</string>
 
-    <string name="visit_months">months</string>
-    <string name="visit_dose">dose</string>
-    <string name="visit_pack">pack</string>
-    <string name="visit_exclusive_breastfeeding">Exclusive breastfeeding</string>
-    <string name="visit_mnp_dose">MNP dose</string>
-    <string name="visit_vitamin_a_dose">Vitamin A dose</string>
-    <string name="visit_deworming_dose">Deworming dose</string>
 
-    <string name="growth_nutrition">Growth and Nutrition</string>
     <string name="dose_not_given">DOSE NOT GIVEN</string>
     <string name="has_birt_cert">Has birth certificate?</string>
     <string name="issuance_date">Issuance date</string>
     <string name="number">Number</string>
     <string name="notification">Birth notification done?</string>
-    <string name="call_prompt">CALL %s</string>
     <string name="head_of_family">Head of family</string>
-    <string name="care_giver">Caregiver</string>
-    <string name="status_saving">Saving</string>
-    <string name="fill_earler_immunization"><![CDATA[<i>Record earlier immunizations</i>]]></string>
-    <string name="confirm_remove_text">Are you sure you want to remove %s\'s record? This will remove their entire health record from your device. This action cannot be undone.</string>
-    <string name="remove">REMOVE</string>
+
     <string name="birth_date">Birth Date</string>
     <string name="age">Age</string>
-    registration
-    <string name="when_vaccine">When was %s immunization done?</string>
-    <string name="no_vaccines_were_done">No vaccines were done</string>
+
     <string name="edit_member_form_title">Edit Family Member</string>
     <string name="edit_anc_registration_form_title">Edit ANC Registration</string>
     <string name="anc_registration_form_title">ANC Registration</string>
     <string name="anc_pregnancy_outcome_form_title">Pregnancy Outcome</string>
 
-    <string name="last_visit">LAST VISIT</string>
-    <string name="edit_child_form_title">Edit Child Under 5</string>
     <string name="birth_cert_value">Does the child have a birth certificate? %s</string>
     <string name="birth_cert_date">Birth certificate issuance date: %s</string>
     <string name="birth_cert_number">Birth certificate number: %s</string>
@@ -194,25 +89,16 @@
     <string name="vaccination_done_earlier">Vaccination done earlier</string>
     <string name="vaccines_not_done">VACCINES NOT DONE</string>
     <string name="set">Set</string>
-    <string name="remove_family_count">%s adults and %s U5 children</string>
-    <string name="not_given_with_spaces">&#160;not given&#160;</string>
-    <string name="given_on_with_spaces">&#160;given on&#160;</string>
-    <string name="immunizations">Immunizations (%s)</string>
-    <string name="immunizations_count">Immunizations ({0})</string>
-    <string name="phone_number">Phone number</string>
-    <string name="other_phone_number">Other phone number</string>
     <string name="highest_education_level">Highest education level</string>
-    <string name="overdue">Overdue&#160;</string>
-    <string name="due">Due&#160;</string>
-    <string name="remove_this_person">Remove this person</string>
-    <string name="registration_info">Registration info</string>
-    <string name="anc_registration">ANC Registration</string>
-    <string name="malaria_registration">Malaria Confirmation</string>
     <string name="anc_registration_info">ANC Registration info</string>
     <string name="anc_pregnancy_out_come">Pregnancy outcome</string>
-    <string name="log_out_as">Log out as</string>
+
     <string name="job_aids">Job Aids</string>
     <string name="refresh_indicators">Refresh indicators</string>
+    <string name="indicators_udpating">Updating&#8230;</string>
+    <string name="indicators_updating_complete">Update complete</string>
+
+    <!-- Child indicators-->
     <string name="total_under_5_children_label">Total U5 children</string>
     <string name="deceased_children_0_11_months">Children (0&#8211;11 months) who died in the last year</string>
     <string name="deceased_children_12_59_months">Children (12&#8211;59 months) who died in the last year</string>
@@ -234,23 +120,12 @@
 
     <string name="yes_slice_label">Yes</string>
     <string name="no_slice_label">No</string>
-    <string name="powered_by">Powered by</string>
+
     <string name="immunisation_and_services"><![CDATA[IMMUNISATION & SERVICES]]></string>
-    <string name="call_caregiver">Call caregiver</string>
-    <string name="caregiver">Caregiver</string>
-    <string name="select_a_new_family_head">Select a new family head</string>
-    <string name="all_registers">All Registers</string>
     <string name="menu_labour_and_delivery"><![CDATA[L&D]]></string>
     <string name="menu_child">CH</string>
-    <string name="menu_anc">ANC</string>
-    <string name="menu_pnc">PNC</string>
     <string name="menu_family_planing">FP</string>
     <string name="menu_malaria">Malaria</string>
-    <string name="refer_to_facility">Refer to facility</string>
-
-    <string name="due_only">Due only</string>
-    <string name="care_giver_initials">CG</string>
-    <string name="less_than_twenty_four">less than 24 hrs</string>
 
     <string name="january">January</string>
     <string name="february">February</string>
@@ -266,11 +141,6 @@
     <string name="december">December</string>
     <string name="no_services_due">No services are due</string>
     <string name="due_details">When a service becomes due for a family member, it will show up here.</string>
-
-    <string name="edu_level_none">None</string>
-    <string name="edu_level_primary">Primary</string>
-    <string name="edu_level_secondary">Secondary</string>
-    <string name="edu_level_post_secondary">Post-secondary</string>
 
     <string name="counseled">Counseled : </string>
     <string name="not_counseled">Not counseled : </string>
@@ -296,8 +166,6 @@
     <string name="anc_home_visit_iptp_sp">IPTp-SP dose {0}</string>
     <string name="gest_age">GA: %1$s</string>
     <string name="gest_age_weeks">weeks</string>
-    <string name="return_to_profile">Return to profiles</string>
-    <string name="malaria_followup_visti">Follow-up visit</string>
 
     <string name="action_taken">Action taken</string>
     <string name="date">Date</string>
@@ -319,8 +187,83 @@
     <string name="remarks_and__comments">Remarks / Comments</string>
     <string name="date_given">Given on</string>
 
+    <string name="counseling_visit">Visit</string>
 
-    <string name="device_to_device">Device-to-device sync</string>
-    <string name="choose_language">Choose language</string>
+    <string name="anc_last_visit">LAST VISIT</string>
+    <string name="anc_health_facility_visits">ANC HEALTH FACILITY VISITS</string>
+    <string name="anc_card">ANC CARD</string>
+    <string name="anc_tt_immunization">TT IMMUNIZATION</string>
+    <string name="anc_iptp_sp">IPTp-SP DOSE</string>
+
+    <string name="days_ago">{0} days ago</string>
+    <string name="vaccines_done_date">{0} - done {1}</string>
+    <string name="anc_visit_date">ANC visit {0}: {1}</string>
+    <string name="weight_in_kgs">Weight: {0} kgs</string>
+    <string name="bp_in_mmhg">BP: {0}/{1} mmHg</string>
+    <string name="hb_level_in_g_dl">Hb level: {0} g/dl</string>
+    <string name="ifa_received_status">IFA received: {0}</string>
+    <string name="tests_done_details">Tests done: {0}</string>
+
+    <string name="danger_signs_counselling">Danger signs counselling</string>
+    <string name="anc_visit_counselling">ANC visit counseling</string>
+    <string name="delivery_at_facilty_counselling">Delivery at health facility counseling</string>
+    <string name="nutrition_counselling">Nutrition counseling</string>
+    <string name="llitn_label">Is the woman sleeping under a Long Lasting Insecticide-Treated Net (LLITN)?</string>
+    <string name="llitn_label_child">Is the child sleeping under a Long Lasting Insecticide-Treated Net (LLITN)?</string>
+    <string name="llitn_info_title">Whether the pregnant woman sleeps under a LLITN</string>
+    <string name="llitn_info_text">Malaria is very dangerous for pregnant women. Wherever malaria is common, women should prevent malaria by taking anti-malarial tablets recommended by a trained health worker and by sleeping under an insecticide-treated mosquito net.</string>
+    <string name="dev_warning_sign">Developmental warning signs:</string>
+    <string name="care_stim_skill">Caregiver stimulation skills:</string>
+    <string name="early_learning">Early learning program:</string>
+    <string name="malaria_follow_up">Malaria Follow up</string>
+    <string name="refer_to_facilty">Refer to facility</string>
+
+    <string name="health_facility_visit_num">ANC health facility visit {0}</string>
+    <string name="tt_dose">TT {0}</string>
+    <string name="iptp_sp_dose">IPTP-sp {0}</string>
+
+    <string name="rubella">Rubella</string>
+    <string name="opv_0">OPV 0</string>
+    <string name="opv_1">OPV 1</string>
+    <string name="opv_2">OPV 2</string>
+    <string name="yellow_fever">Yellow Fever</string>
+    <string name="follow_up_visit">Follow-up Visit</string>
+
+    <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number
+ as defined in the data dictionary -->
+    <string name="anc_indicator1">Total WRA (10–49 years)</string>
+    <string name="anc_indicator2">Total pregnant women</string>
+    <string name="anc_indicator3">Pregnant women up to date with their ANC home visits</string>
+    <string name="anc_indicator4">Pregnant women up to date with their ANC health facility visits</string>
+    <string name="anc_indicator5">Pregnant women tested for HIV</string>
+    <string name="anc_indicator6">Pregnant women tested for syphilis</string>
+    <string name="anc_indicator7">Pregnant women up to date on TT immunization</string>
+    <string name="anc_indicator8">Pregnant women up to date on IPTp-SP doses</string>
+
+    <string name="pnc_danger_signs_mother">Danger signs - mother</string>
+    <string name="pnc_danger_signs_baby">Danger signs - baby ({0})</string>
+    <string name="pnc_health_facility_visit">PNC health facility visit - day {0} ({1})</string>
+    <string name="pnc_child_vaccine_card_recevied">Child vaccine card received ({0})</string>
+    <string name="pnc_immunization_at_birth">Immunizations (at birth) ({0})</string>
+    <string name="pnc_umblicord_care">Umbilical cord care</string>
+    <string name="pnc_exclusive_breastfeeding">Exclusive breastfeeding ({0})</string>
+    <string name="pnc_kangaroo_mother_care">Kangaroo mother care (KNC) - ({0})</string>
+    <string name="pnc_family_planning">Family planning</string>
+    <string name="pnc_observation_and_illness_mother">Observations &amp; illness - mother </string>
+    <string name="pnc_observation_and_illness_baby">Observations &amp; illness - baby ({0}) </string>
+
+    <string name="pnc_counselling">Counselling</string>
+    <string name="pnc_nutrition_status">Nutrition status</string>
+    <string name="pnc_nutrition_status_baby_name">Nutrition status baby ({0})</string>
+    <string name="pnc_malaria_prevention">Malaria prevention</string>
+    <string name="pnc_health_facility_visit_within_fourty_eight_hours">PNC health facility visit - within 48 hours </string>
+    <string name="pnc_health_facility_visit_days_three_to_seven">PNC health facility visit - days 3 - 7</string>
+    <string name="pnc_health_facility_visit_days_eight_to_twenty_eight">PNC health facility visit - days 8 - 28</string>
+    <string name="pnc_health_facility_visit_days_twenty_nine_to_forty_two">PNC health facility visit - days 29 - 42</string>
+
+    <string name="pnc_visit_day_due">DAY %s VISIT DUE</string>
+    <string name="pnc_visit_day_overdue">DAY %s OVERDUE</string>
+    <string name="pnc_visit">PNC Visit</string>
+    <string name="anc_visit">ANC Visit</string>
 
 </resources>

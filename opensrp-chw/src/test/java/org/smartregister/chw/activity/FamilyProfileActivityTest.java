@@ -24,6 +24,7 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
@@ -33,6 +34,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -43,13 +45,10 @@ import static org.powermock.api.mockito.PowerMockito.verifyPrivate;
 @Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
 public class FamilyProfileActivityTest {
 
-    private FamilyProfileActivity activity;
-    private ActivityController<FamilyProfileActivity> controller;
-
-
     private final String TEST_CARE_GIVER = "45645sdfs64564544";
     private final String TEST_FAMILY_HEAD = "hsdf34453";
-
+    private FamilyProfileActivity activity;
+    private ActivityController<FamilyProfileActivity> controller;
     @Mock
     private FamilyProfilePresenter presenter;
 
@@ -77,7 +76,6 @@ public class FamilyProfileActivityTest {
 
         activity = controller.get();
         Whitebox.setInternalState(activity, "presenter", presenter);
-
     }
 
     @After
@@ -116,7 +114,7 @@ public class FamilyProfileActivityTest {
     public void testOnActivityResultVerifyJsonReceived() throws Exception {
 
         FamilyProfileActivity spyActivity = Mockito.spy(activity);
-        JSONObject form = getFormJson(RuntimeEnvironment.application, org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister());
+        JSONObject form = getFormJson(RuntimeEnvironment.application, CoreConstants.JSON_FORM.getFamilyMemberRegister());
 
         FamilyProfilePresenter presenter = mock(FamilyProfilePresenter.class);
         Whitebox.setInternalState(spyActivity, "presenter", presenter);
@@ -139,7 +137,7 @@ public class FamilyProfileActivityTest {
                 InputStream inputStream = mContext.getApplicationContext().getAssets()
                         .open("json" + ".form/" + formIdentity + ".json");
                 BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(inputStream, "UTF-8"));
+                        new InputStreamReader(inputStream, StandardCharsets.UTF_8));
                 String jsonString;
                 StringBuilder stringBuilder = new StringBuilder();
 
@@ -163,7 +161,7 @@ public class FamilyProfileActivityTest {
         FamilyProfileActivity spyActivity = Mockito.spy(activity);
 
         int resultCode = Activity.RESULT_OK;
-        int requestCode = org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED;
+        int requestCode = CoreConstants.ProfileActivityResults.CHANGE_COMPLETED;
         Intent data = new Intent();
         data.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, TEST_CARE_GIVER);
         data.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, TEST_FAMILY_HEAD);

@@ -2,7 +2,6 @@ package org.smartregister.chw.util;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.util.Pair;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -12,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.ChwDBConstants;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -36,17 +36,17 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
 
     public JsonFormUtilsFlv() {
         JSON_DB_MAP = new HashMap<>();
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.SEX, DBConstants.KEY.GENDER);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.NATIONAL_ID, org.smartregister.chw.util.Constants.JsonAssets.NATIONAL_ID);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.VOTER_ID, ChwDBConstants.VOTER_ID);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.DRIVER_LICENSE, ChwDBConstants.DRIVER_LICENSE);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.PASSPORT, ChwDBConstants.PASSPORT);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER, ChwDBConstants.INSURANCE_PROVIDER);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER_OTHER, ChwDBConstants.INSURANCE_PROVIDER_OTHER);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER_NUMBER, ChwDBConstants.INSURANCE_PROVIDER_NUMBER);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.DISABILITIES, ChwDBConstants.DISABILITIES);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.DISABILITY_TYPE, ChwDBConstants.DISABILITY_TYPE);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.OTHER_LEADER, ChwDBConstants.OTHER_LEADER);
+        JSON_DB_MAP.put(Constants.JsonAssets.SEX, DBConstants.KEY.GENDER);
+        JSON_DB_MAP.put(Constants.JsonAssets.NATIONAL_ID, Constants.JsonAssets.NATIONAL_ID);
+        JSON_DB_MAP.put(Constants.JsonAssets.VOTER_ID, ChwDBConstants.VOTER_ID);
+        JSON_DB_MAP.put(Constants.JsonAssets.DRIVER_LICENSE, ChwDBConstants.DRIVER_LICENSE);
+        JSON_DB_MAP.put(Constants.JsonAssets.PASSPORT, ChwDBConstants.PASSPORT);
+        JSON_DB_MAP.put(Constants.JsonAssets.INSURANCE_PROVIDER, ChwDBConstants.INSURANCE_PROVIDER);
+        JSON_DB_MAP.put(Constants.JsonAssets.INSURANCE_PROVIDER_OTHER, ChwDBConstants.INSURANCE_PROVIDER_OTHER);
+        JSON_DB_MAP.put(Constants.JsonAssets.INSURANCE_PROVIDER_NUMBER, ChwDBConstants.INSURANCE_PROVIDER_NUMBER);
+        JSON_DB_MAP.put(Constants.JsonAssets.DISABILITIES, ChwDBConstants.DISABILITIES);
+        JSON_DB_MAP.put(Constants.JsonAssets.DISABILITY_TYPE, ChwDBConstants.DISABILITY_TYPE);
+        JSON_DB_MAP.put(Constants.JsonAssets.OTHER_LEADER, ChwDBConstants.OTHER_LEADER);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                     try {
                         processFieldsForMemberEdit(client, jsonObject, jsonArray, familyName, isPrimaryCaregiver, eventClientPair.first, eventClientPair.second);
                     } catch (Exception e) {
-                        Timber.e(Log.getStackTraceString(e));
+                        Timber.e(e);
                     }
 
                 }
@@ -94,7 +94,7 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 return form;
             }
         } catch (Exception e) {
-            Timber.e(Log.getStackTraceString(e));
+            Timber.e(e);
         }
 
         return null;
@@ -108,7 +108,7 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
             case org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN:
                 computeDOBUnknown(jsonObject, client);
                 break;
-            case org.smartregister.chw.util.Constants.JsonAssets.AGE:
+            case Constants.JsonAssets.AGE:
                 computeAge(jsonObject, client);
                 break;
             case DBConstants.KEY.DOB:
@@ -124,32 +124,32 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, uniqueId.replace("-", ""));
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.PREGNANT_1_YR:
+            case Constants.JsonAssets.PREGNANT_1_YR:
                 computePregnantOneYr(jsonObject, ecEvent);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.SURNAME:
+            case Constants.JsonAssets.SURNAME:
                 computeSurname(jsonObject, ecClient, familyName);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.FAM_NAME:
+            case Constants.JsonAssets.FAM_NAME:
                 computeFamName(client, jsonObject, jsonArray, ecClient, familyName);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.PRIMARY_CARE_GIVER:
-            case org.smartregister.chw.util.Constants.JsonAssets.IS_PRIMARY_CARE_GIVER:
+            case Constants.JsonAssets.PRIMARY_CARE_GIVER:
+            case Constants.JsonAssets.IS_PRIMARY_CARE_GIVER:
                 computePrimaryCareGiver(jsonObject, isPrimaryCaregiver);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.ID_AVAIL:
+            case Constants.JsonAssets.ID_AVAIL:
                 computeIDAvail(jsonObject, ecClient);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.SERVICE_PROVIDER:
+            case Constants.JsonAssets.SERVICE_PROVIDER:
                 computeServiceProvider(jsonObject, ecEvent);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.LEADER:
+            case Constants.JsonAssets.LEADER:
                 computeLeader(jsonObject, ecClient);
                 break;
 
@@ -188,7 +188,7 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
 
 
         String query_event = String.format("select json from event where baseEntityId = '%s' and eventType in ('%s','%s') order by updatedAt desc limit 1;",
-                baseEntityID, org.smartregister.chw.util.Constants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, org.smartregister.chw.util.Constants.EventType.FAMILY_MEMBER_REGISTRATION);
+                baseEntityID, Constants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, Constants.EventType.FAMILY_MEMBER_REGISTRATION);
 
         Cursor cursor1 = ChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query_event, new String[]{});
         try {
@@ -207,6 +207,11 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
         return Pair.create(ecEvent, ecClient);
     }
 
+    private void computeDOBUnknown(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
+        jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
+        JSONObject optionsObject = jsonObject.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+        optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
+    }
 
     private void computeAge(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
         String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
@@ -214,13 +219,6 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "0";
         jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Integer.valueOf(dobString));
     }
-
-    private void computeDOBUnknown(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
-        jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
-        JSONObject optionsObject = jsonObject.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
-        optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
-    }
-
 
     private void computeDOB(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
 
@@ -256,6 +254,7 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
         if (ecClient != null) {
             jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
                     (ecClient.getLastName() == null ? familyName : ecClient.getLastName()));
+            jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
         }
     }
 
@@ -267,6 +266,7 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
             final String SURNAME = "surname";
 
             jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, familyName);
+
 
             String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, false);
 
@@ -282,8 +282,10 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
             JSONObject surname = JsonFormUtils.getFieldJSONObject(jsonArray, SURNAME);
             if (!familyName.equals(lastName)) {
                 surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, lastName);
+                surname.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
             } else {
                 surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, "");
+                surname.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
             }
 
         }

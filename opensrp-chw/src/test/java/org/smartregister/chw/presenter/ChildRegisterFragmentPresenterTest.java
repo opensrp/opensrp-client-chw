@@ -6,17 +6,17 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.BaseUnitTest;
-import org.smartregister.chw.contract.ChildRegisterFragmentContract;
+import org.smartregister.chw.core.contract.CoreChildRegisterFragmentContract;
 
 public class ChildRegisterFragmentPresenterTest extends BaseUnitTest {
 
     private ChildRegisterFragmentPresenter presenter;
 
     @Mock
-    private ChildRegisterFragmentContract.View view;
+    private CoreChildRegisterFragmentContract.View view;
 
     @Mock
-    private ChildRegisterFragmentContract.Model model;
+    private CoreChildRegisterFragmentContract.Model model;
 
     @Before
     public void setUp() {

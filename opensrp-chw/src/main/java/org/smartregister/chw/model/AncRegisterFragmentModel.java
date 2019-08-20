@@ -1,8 +1,8 @@
 package org.smartregister.chw.model;
 
 import org.smartregister.chw.anc.model.BaseAncRegisterFragmentModel;
-import org.smartregister.chw.util.ChildDBConstants;
-import org.smartregister.chw.util.ChwDBConstants;
+import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.ChwDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;
@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class AncRegisterFragmentModel extends BaseAncRegisterFragmentModel {
+
+    private Flavor flavor = new AncRegisterFragmentModelFlv();
 
     @Override
     public String mainSelect(String tableName, String mainCondition) {
@@ -33,6 +35,7 @@ public class AncRegisterFragmentModel extends BaseAncRegisterFragmentModel {
         columnList.add(Constants.TABLE_NAME.ANC_MEMBER_LOG + "." + org.smartregister.chw.anc.util.DBConstants.KEY.DATE_CREATED);
         columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.CONFIRMED_VISITS);
         columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.LAST_HOME_VISIT);
+        columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.PHONE_NUMBER);
         columnList.add(tableName + "." + ChwDBConstants.VISIT_NOT_DONE);
         columnList.add(Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
         columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.LAST_MENSTRUAL_PERIOD);
@@ -47,6 +50,13 @@ public class AncRegisterFragmentModel extends BaseAncRegisterFragmentModel {
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.PRIMARY_CAREGIVER);
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME + " as " + org.smartregister.chw.anc.util.DBConstants.KEY.FAMILY_NAME);
 
+        columnList.addAll(flavor.mainColumns(tableName));
+
         return columnList.toArray(new String[columnList.size()]);
+    }
+
+
+    interface Flavor {
+        Set<String> mainColumns(String tableName);
     }
 }

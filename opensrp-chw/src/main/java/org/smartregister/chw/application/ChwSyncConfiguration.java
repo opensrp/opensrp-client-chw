@@ -1,13 +1,9 @@
 package org.smartregister.chw.application;
 
-import org.apache.commons.lang3.StringUtils;
-import org.smartregister.chw.BuildConfig;
-import org.smartregister.chw.util.Utils;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
-import org.smartregister.location.helper.LocationHelper;
-
-import java.util.List;
+import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.core.utils.Utils;
 
 /**
  * Created by samuelgithengi on 10/19/18.
@@ -25,16 +21,8 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-        String providerId = Utils.context().allSharedPreferences().fetchRegisteredANM();
-        String userLocationId = Utils.context().allSharedPreferences().fetchUserLocalityId(providerId);
 
-        List<String> locationIds = LocationHelper.getInstance().locationsFromHierarchy(true, null);
-        if (!Utils.isEmptyCollection(locationIds)) {
-            int index = locationIds.indexOf(userLocationId);
-            List<String> subLocationIds = locationIds.subList(index, locationIds.size());
-            return StringUtils.join(subLocationIds, ",");
-        }
-        return "";
+        return Utils.getSyncFilterValue();
     }
 
     @Override

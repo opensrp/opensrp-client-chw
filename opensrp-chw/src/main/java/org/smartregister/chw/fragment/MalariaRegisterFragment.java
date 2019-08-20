@@ -9,36 +9,38 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
-import org.smartregister.chw.anc.util.DBConstants;
-
-import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.activity.MalariaProfileActivity;
+import org.smartregister.chw.anc.util.DBConstants;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.core.utils.QueryBuilder;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.fragment.BaseMalariaRegisterFragment;
 import org.smartregister.chw.model.MalariaRegisterFragmentModel;
 import org.smartregister.chw.presenter.MalariaRegisterFragmentPresenter;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.QueryBuilder;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
+
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
+
+import timber.log.Timber;
 
 public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
+    private static final String DUE_FILTER_TAG = "PRESSED";
     private View view;
     private View dueOnlyLayout;
-
     private boolean dueFilterActive = false;
-    private static final String DUE_FILTER_TAG = "PRESSED";
 
     @Override
     public void setupViews(View view) {
@@ -90,28 +92,6 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     }
 
     @Override
-    protected void onResumption() {
-        if (dueFilterActive && dueOnlyLayout != null) {
-            dueFilter(dueOnlyLayout);
-        } else {
-            super.onResumption();
-        }
-    }
-
-    @Override
-    protected void onViewClicked(View view) {
-        super.onViewClicked(view);
-
-        switch (view.getId()) {
-            case R.id.due_only_layout:
-                toggleFilterSelection(view);
-                break;
-            default:
-                break;
-        }
-    }
-
-    @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
             return;
@@ -121,12 +101,21 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     }
 
     @Override
-    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
-        this.joinTables = new String[]{Constants.TABLE_NAME.MALARIA_CONFIRMATION};
-        super.filter(filterString, joinTableString, mainConditionString, qrCode);
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        //TODO
+        //Log.d(TAG, "setAdvancedSearchFormData unimplemented");
     }
 
-    private void toggleFilterSelection(View dueOnlyLayout) {
+    @Override
+    protected void onViewClicked(View view) {
+        super.onViewClicked(view);
+
+        if (view.getId() == R.id.due_only_layout) {
+            toggleFilterSelection(view);
+        }
+    }
+
+    protected void toggleFilterSelection(View dueOnlyLayout) {
         if (dueOnlyLayout != null) {
             if (dueOnlyLayout.getTag() == null) {
                 dueFilterActive = true;
@@ -139,20 +128,20 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     }
 
     //due filter for the client
-    private void dueFilter(View dueOnlyLayout) {
-        filter(searchText(),"",presenter().getMainCondition(),false);
+    protected void dueFilter(View dueOnlyLayout) {
+        filter(searchText(), "", presenter().getMainCondition(), false);
         dueOnlyLayout.setTag(DUE_FILTER_TAG);
         switchViews(dueOnlyLayout, true);
     }
 
     //normal search for the client
-    private void normalFilter(View dueOnlyLayout) {
+    protected void normalFilter(View dueOnlyLayout) {
         filter(searchText(), "", presenter().getMainCondition(), false);
         dueOnlyLayout.setTag(null);
         switchViews(dueOnlyLayout, false);
     }
 
-    private String searchText() {
+    protected String searchText() {
         return (getSearchView() == null) ? "" : getSearchView().getText().toString();
     }
 
@@ -166,7 +155,48 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         }
     }
 
-    private String dueFilterAndSortQuery() {
+    @Override
+    protected void openProfile(CommonPersonObjectClient client) {
+        MalariaProfileActivity.startMalariaActivity(getActivity(), new MemberObject(client), client);
+    }
+
+    @Override
+    protected void onResumption() {
+        if (dueFilterActive && dueOnlyLayout != null) {
+            dueFilter(dueOnlyLayout);
+        } else {
+            super.onResumption();
+        }
+    }
+
+    @Override
+    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
+        this.joinTables = new String[]{Constants.TABLE_NAME.MALARIA_CONFIRMATION};
+        super.filter(filterString, joinTableString, mainConditionString, qrCode);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
+        toolbar.setContentInsetsAbsolute(0, 0);
+        toolbar.setContentInsetsRelative(0, 0);
+        toolbar.setContentInsetStartWithNavigation(0);
+        NavigationMenu.getInstance(getActivity(), null, toolbar);
+    }
+
+    @Override
+    protected void refreshSyncProgressSpinner() {
+        if (syncProgressBar != null) {
+            syncProgressBar.setVisibility(View.GONE);
+        }
+        if (syncButton != null) {
+            syncButton.setVisibility(View.GONE);
+        }
+    }
+
+    protected String dueFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
         String query = "";
@@ -194,6 +224,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         return query;
     }
 
+
     private String defaultFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
@@ -203,7 +234,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
             customFilter.append(MessageFormat.format(" and ( {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.FIRST_NAME, filters));
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.LAST_NAME, filters));
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.MIDDLE_NAME, filters));
-            customFilter.append(MessageFormat.format(" or {0}.{1} = ''{2}'' ) ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.UNIQUE_ID, filters));
+            customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ) ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.UNIQUE_ID, filters));
 
             if (dueFilterActive) {
                 customFilter.append(MessageFormat.format(" and ( {0}) ", presenter().getDueFilterCondition()));
@@ -230,53 +261,44 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         return query;
     }
 
+
     @Override
     public void countExecute() {
-        if (!dueFilterActive) {
-            super.countExecute();
-        } else {
-            Cursor c = null;
+        Cursor c = null;
+        try {
 
-            try {
-                SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
-                String query = "";
-                if (isValidFilterForFts(commonRepository())) {
-                    String sql = sqb.countQueryFts(tablename, joinTable, mainCondition, filters);
-                    sql = sql.replace(CommonFtsObject.idColumn, CommonFtsObject.relationalIdColumn);
-                    sql = sql.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.MALARIA_CONFIRMATION), CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD));
-                    sql = sql + " GROUP BY " + CommonFtsObject.relationalIdColumn;
-                    Log.i(getClass().getName(), query);
+            String query = "select count(*) from " + presenter().getMainTable() + " inner join " + Constants.TABLE_NAME.FAMILY_MEMBER +
+                    " on " + presenter().getMainTable() + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " +
+                    Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID +
+                    " where " + presenter().getMainCondition();
 
-                    clientAdapter.setTotalcount(commonRepository().countSearchIds(sql));
-                    Log.v("total count here", "" + clientAdapter.getTotalcount());
+            if (StringUtils.isNotBlank(filters)) {
+                query = query + " and ( " + filters + " ) ";
+            }
 
+            if (dueFilterActive) {
+                query = query + " and ( " + presenter().getDueFilterCondition() + " ) ";
+            }
 
-                } else {
-                    sqb.addCondition(filters);
-                    query = sqb.orderbyCondition(Sortqueries);
-                    query = sqb.Endquery(query);
+            c = commonRepository().rawCustomQueryForAdapter(query);
+            c.moveToFirst();
+            clientAdapter.setTotalcount(c.getInt(0));
+            Timber.v("total count here %s", clientAdapter.getTotalcount());
 
-                    Log.i(getClass().getName(), query);
-                    c = commonRepository().rawCustomQueryForAdapter(query);
-                    c.moveToFirst();
-                    clientAdapter.setTotalcount(c.getInt(0));
-                    Log.v("total count here", "" + clientAdapter.getTotalcount());
-                }
-
-                clientAdapter.setCurrentlimit(20);
-                clientAdapter.setCurrentoffset(0);
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
 
 
-            } catch (Exception e) {
-                Log.e(getClass().getName(), e.toString(), e);
-            } finally {
-                if (c != null) {
-                    c.close();
-                }
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (c != null) {
+                c.close();
             }
         }
 
     }
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
@@ -297,37 +319,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         return super.onCreateLoader(id, args);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
 
-        Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
-        toolbar.setContentInsetsAbsolute(0, 0);
-        toolbar.setContentInsetsRelative(0, 0);
-        toolbar.setContentInsetStartWithNavigation(0);
-        NavigationMenu.getInstance(getActivity(), null, toolbar);
-    }
-
-    @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        //TODO
-        //Log.d(TAG, "setAdvancedSearchFormData unimplemented");
-    }
-
-    @Override
-    protected void refreshSyncProgressSpinner() {
-        if (syncProgressBar != null) {
-            syncProgressBar.setVisibility(View.GONE);
-        }
-        if (syncButton != null) {
-            syncButton.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    protected void openProfile(CommonPersonObjectClient client) {
-        MalariaProfileActivity.startMalariaActivity(getActivity(), new MemberObject(client), client);
-    }
 }
 
 

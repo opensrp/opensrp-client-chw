@@ -1,10 +1,11 @@
 package org.smartregister.chw.presenter;
 
-import android.util.Log;
-
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
-import org.smartregister.chw.contract.FamilyProfileExtendedContract;
+import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.interactor.FamilyInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileModel;
@@ -23,6 +24,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 import static org.smartregister.util.Utils.getName;
 
@@ -51,14 +53,20 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         initializeServiceStatus();
     }
 
+    @Override
+    public void verifyHasPhone() {
+        ((FamilyProfileInteractor) profileInteractor).verifyHasPhone(familyBaseEntityId, this);
+    }
+
     private void initializeServiceStatus() {
-        FamilyInteractor.updateFamilyDueStatus(viewReference.get().getContext(), "", familyBaseEntityId)
+        FamilyInteractor familyInteractor = new FamilyInteractor();
+        familyInteractor.updateFamilyDueStatus(viewReference.get().getContext(), "", familyBaseEntityId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        Log.v(TAG, "initializeServiceStatus onSubscribe");
+                        Timber.v(TAG, "initializeServiceStatus onSubscribe");
                     }
 
                     @Override
@@ -68,14 +76,48 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "initializeServiceStatus " + e.toString());
+                        Timber.e("initializeServiceStatus " + e.toString());
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.v(TAG, "initializeServiceStatus onComplete");
+                        Timber.v("initializeServiceStatus onComplete");
                     }
                 });
+    }
+
+    public FamilyOtherMemberProfileExtendedContract.View getView() {
+        if (viewReference != null) {
+            return viewReference.get();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void refreshProfileTopSection(CommonPersonObjectClient client) {
+        super.refreshProfileTopSection(client);
+        if (client != null && client.getColumnmaps() != null) {
+            String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
+            String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
+            String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
+
+            String dob = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true);
+            int age = StringUtils.isNotBlank(dob) ? Utils.getAgeFromDate(dob) : 0;
+
+            this.getView().setProfileName(MessageFormat.format("{0}, {1}", getName(getName(firstName, middleName), lastName), age));
+            String gestationAge = ChwApplication.ancRegisterRepository().getGaIfAncWoman(client.getCaseId());
+            if (gestationAge != null) {
+                this.getView().setProfileDetailOne(NCUtils.gestationAgeString(gestationAge, viewReference.get().getContext(), true));
+            }
+        }
+    }
+
+    @Override
+    public void notifyHasPhone(boolean hasPhone) {
+        if (viewReference.get() != null) {
+            viewReference.get().updateHasPhone(hasPhone);
+        }
     }
 
     public String getFamilyBaseEntityId() {
@@ -98,21 +140,16 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
             profileInteractor.saveRegistration(familyEventClient, jsonString, true, this);
         } catch (Exception e) {
             getView().hideProgressDialog();
-            Log.e(TAG, e.getMessage(), e);
+            Timber.e(e);
         }
     }
 
     @Override
-    public void refreshProfileTopSection(CommonPersonObjectClient client) {
-        super.refreshProfileTopSection(client);
-        if (client != null && client.getColumnmaps() != null) {
-            String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
-            String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
-            String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-            int age = Utils.getAgeFromDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true));
-
-            this.getView().setProfileName(MessageFormat.format("{0}, {1}", getName(getName(firstName, middleName), lastName), age));
+    public void updateFamilyMemberServiceDue(String serviceDueStatus) {
+        if (getView() != null) {
+            getView().setFamilyServiceStatus(serviceDueStatus);
         }
+
     }
 
     public void startFormForEdit(CommonPersonObjectClient commonPersonObject) {
@@ -121,13 +158,13 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
         //TODO Implement
-        Log.d(TAG, "onUniqueIdFetched unimplemented");
+        Timber.d("onUniqueIdFetched unimplemented");
     }
 
     @Override
     public void onNoUniqueId() {
         //TODO Implement
-        Log.d(TAG, "onNoUniqueId unimplemented");
+        Timber.d("onNoUniqueId unimplemented");
     }
 
     @Override
@@ -139,33 +176,5 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
 
             getView().refreshList();
         }
-    }
-
-    @Override
-    public void verifyHasPhone() {
-        ((FamilyProfileInteractor) profileInteractor).verifyHasPhone(familyBaseEntityId, this);
-    }
-
-    public FamilyOtherMemberProfileExtendedContract.View getView() {
-        if (viewReference != null) {
-            return viewReference.get();
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public void notifyHasPhone(boolean hasPhone) {
-        if (viewReference.get() != null) {
-            viewReference.get().updateHasPhone(hasPhone);
-        }
-    }
-
-    @Override
-    public void updateFamilyMemberServiceDue(String serviceDueStatus) {
-        if (getView() != null) {
-            getView().setFamilyServiceStatus(serviceDueStatus);
-        }
-
     }
 }

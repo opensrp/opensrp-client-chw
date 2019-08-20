@@ -104,7 +104,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "commune",
-        "hint": "Quartier/Clan",
+        "hint": "Quartier",
         "v_required": {
           "value": "true",
           "err": "Veuillez entrer le quartier ou clan"
@@ -458,21 +458,24 @@
         "hint": "Niveau plus haut d'éducation/de formation",
         "values": [
           "Aucun",
+          "Alphabétiser",
           "Primaire",
           "Secondaire",
-          "Postsecondaire"
+          "Universite"
         ],
         "keys": [
           "None",
+          "Literacy",
           "Primary",
           "Secondary",
-          "Post-secondary"
+          "University"
         ],
         "openmrs_choice_ids": {
-          "Aucun": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Primaire": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Secondaire": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Postsecondaire": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Literacy": "",
+          "Primary": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Secondary": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "University": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]
