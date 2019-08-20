@@ -15,6 +15,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
@@ -174,7 +175,10 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
             view_anc_record.setVisibility(View.GONE);
             textViewAncVisitNot.setVisibility(View.GONE);
         }
-        if (visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+
+        Visit lastVisit = getVisit(Constants.EVENT_TYPE.ANC_HOME_VISIT);
+        boolean within24Hours = isVisitWithin24Hours(lastVisit);
+        if (visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name()) && !within24Hours) {
             textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
             layoutRecordView.setVisibility(View.VISIBLE);
             record_reccuringvisit_done_bar.setVisibility(View.GONE);
