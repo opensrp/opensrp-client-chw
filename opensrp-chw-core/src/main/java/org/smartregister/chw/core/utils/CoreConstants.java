@@ -384,6 +384,7 @@ public class CoreConstants {
         public static final String IMMUNIZATION_EXPIRED = "immunization-expire-rules.yml";
         public static final String CONTACT_RULES = "contact-rules.yml";
         public static final String PNC_HEALTH_FACILITY_VISIT = "pnc-health-facility-schedule-rule.yml";
+        public static final String MALARIA_FOLLOW_UP_VISIT = "malaria-follow-up-rule.yml";
     }
 
     public static class PROFILE_CHANGE_ACTION {

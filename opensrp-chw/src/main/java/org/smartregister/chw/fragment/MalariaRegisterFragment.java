@@ -20,11 +20,13 @@ import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.fragment.BaseMalariaRegisterFragment;
 import org.smartregister.chw.model.MalariaRegisterFragmentModel;
 import org.smartregister.chw.presenter.MalariaRegisterFragmentPresenter;
+import org.smartregister.chw.provider.ChwMalariaRegisterProvider;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
@@ -32,6 +34,7 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import timber.log.Timber;
 
@@ -41,6 +44,14 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     private View view;
     private View dueOnlyLayout;
     private boolean dueFilterActive = false;
+
+    @Override
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        ChwMalariaRegisterProvider malariaRegisterProvider = new ChwMalariaRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns, commonRepository());
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, malariaRegisterProvider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
+    }
 
     @Override
     public void setupViews(View view) {
