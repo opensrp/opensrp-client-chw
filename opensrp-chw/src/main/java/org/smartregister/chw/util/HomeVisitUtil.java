@@ -38,9 +38,9 @@ public class HomeVisitUtil {
         return visitSummary;
     }
 
-    public static VisitSummary getPncVisitStatus(Rules rules, Date lastVisitDate, Date lastNotVisitDate, Date deliveryDate) {
+    public static PncVisitAlertRule getPncVisitStatus(Rules rules, Date lastVisitDate, Date lastNotVisitDate, Date deliveryDate) {
         PncVisitAlertRule pncVisitAlertRule = new PncVisitAlertRule(lastVisitDate, lastNotVisitDate, deliveryDate);
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(pncVisitAlertRule, rules);
-        return getAncVisitStatus(pncVisitAlertRule, lastVisitDate);
+        return pncVisitAlertRule;
     }
 }

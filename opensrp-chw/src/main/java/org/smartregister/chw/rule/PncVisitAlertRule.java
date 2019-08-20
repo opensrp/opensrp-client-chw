@@ -2,19 +2,18 @@ package org.smartregister.chw.rule;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.smartregister.chw.contract.RegisterAlert;
 import org.smartregister.chw.core.rule.ICommonRule;
 
 import java.util.Date;
 
-public class PncVisitAlertRule implements ICommonRule, RegisterAlert {
+public class PncVisitAlertRule implements ICommonRule {
 
     private String visitID;
     private int lastVisitDay = 0;
     private int lastNotVisitDay = 0;
     private int deliveryDiff;
     private int dueDay = -1;
-    private int overDueDay = 0;
+    private int overDueDay;
     private int expiry = -1;
 
     public PncVisitAlertRule(Date lastVisitDate, Date lastNotVisitDate, Date deliveryDate) {
@@ -33,7 +32,7 @@ public class PncVisitAlertRule implements ICommonRule, RegisterAlert {
         this.visitID = visitID;
     }
 
-    public boolean isValid(int dueDay, int overdueDate, int expiry){
+    public boolean isValid(int dueDay, int overdueDate, int expiry) {
         this.dueDay = dueDay;
         this.overDueDay = overDueDay;
         this.expiry = expiry;
@@ -58,20 +57,5 @@ public class PncVisitAlertRule implements ICommonRule, RegisterAlert {
             return "OVERDUE";
         }
         return "EXPIRY";
-    }
-
-    @Override
-    public String getNumberOfMonthsDue() {
-        return "";
-    }
-
-    @Override
-    public String getNumberOfDaysDue() {
-        return String.valueOf(dueDay);
-    }
-
-    @Override
-    public String getVisitMonthName() {
-        return visitID;
     }
 }

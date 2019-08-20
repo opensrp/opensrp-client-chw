@@ -6,15 +6,16 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Button;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
+import org.smartregister.chw.rule.PncVisitAlertRule;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.HomeVisitUtil;
-import org.smartregister.chw.util.VisitSummary;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.util.Utils;
@@ -52,15 +53,15 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
         Utils.startAsyncTask(new UpdateAsyncTask(context, viewHolder, pc), null);
     }
 
-    private void updateDueColumn(Context context, RegisterViewHolder viewHolder, VisitSummary visitSummary) {
+    private void updateDueColumn(Context context, RegisterViewHolder viewHolder, PncVisitAlertRule pncVisitAlertRule) {
         viewHolder.dueButton.setVisibility(View.VISIBLE);
-        if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
-            setVisitButtonDueStatus(context, visitSummary.getNoOfDaysDue(), viewHolder.dueButton);
-        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
-            setVisitButtonOverdueStatus(context, visitSummary.getNoOfDaysDue(), viewHolder.dueButton);
-        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
+        if (pncVisitAlertRule.getButtonStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
+            setVisitButtonDueStatus(context, pncVisitAlertRule.getVisitID(), viewHolder.dueButton);
+        } else if (pncVisitAlertRule.getButtonStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+            setVisitButtonOverdueStatus(context, pncVisitAlertRule.getVisitID(), viewHolder.dueButton);
+        } else if (pncVisitAlertRule.getButtonStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
             setVisitAboveTwentyFourView(context, viewHolder.dueButton);
-        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
+        } else if (pncVisitAlertRule.getButtonStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
             setVisitNotDone(context, viewHolder.dueButton);
         }
     }
@@ -99,7 +100,7 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
         private final Context context;
 
         private final Rules rules;
-        private VisitSummary visitSummary;
+        private PncVisitAlertRule pncVisitAlertRule;
 
         private UpdateAsyncTask(Context context, RegisterViewHolder viewHolder, CommonPersonObjectClient pc) {
             this.context = context;
@@ -131,15 +132,18 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
             if (lastNotVisit != null)
                 lastNotVisitDate = lastNotVisit.getDate();
 
-            visitSummary = HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, lastNotVisitDate, deliveryDate);
+            pncVisitAlertRule = HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, lastNotVisitDate, deliveryDate);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void param) {
             // Update status column
-            if (visitSummary != null && !visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.EXPIRY.name())) {
-                updateDueColumn(context, viewHolder, visitSummary);
+            if (pncVisitAlertRule != null
+                    && StringUtils.isNotBlank(pncVisitAlertRule.getVisitID())
+                    && !pncVisitAlertRule.getButtonStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.EXPIRY.name())
+            ) {
+                updateDueColumn(context, viewHolder, pncVisitAlertRule);
             }
         }
     }
