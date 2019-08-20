@@ -141,7 +141,7 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion6(SQLiteDatabase db) {
         try {
             for (String query : RepositoryUtilsFlv.UPGRADE_V6) {
-                db.execSQL(query);
+                //db.execSQL(query);
             }
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion6 ");
