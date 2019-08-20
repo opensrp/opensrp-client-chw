@@ -117,6 +117,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "Malaria Followup",
+            "creates_case": [
+              "ec_malaria_followup_visit"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Pregnancy Outcome",
             "closes_case": [
               "ec_anc_register"
