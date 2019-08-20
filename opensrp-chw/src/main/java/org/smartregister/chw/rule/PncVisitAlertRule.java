@@ -2,25 +2,26 @@ package org.smartregister.chw.rule;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.LocalDate;
 import org.smartregister.chw.core.rule.ICommonRule;
+import org.smartregister.chw.core.utils.CoreConstants;
 
 import java.util.Date;
 
 public class PncVisitAlertRule implements ICommonRule {
 
     private String visitID;
-    private int lastVisitDay = 0;
-    private int lastNotVisitDay = 0;
+    private DateTime lastVisitDate;
+    private DateTime deliveryDate;
     private int deliveryDiff;
-    private int dueDay = -1;
-    private int overDueDay;
-    private int expiry = -1;
+    private DateTime dueDate;
+    private DateTime overDueDate;
+    private DateTime expiryDate;
 
-    public PncVisitAlertRule(Date lastVisitDate, Date lastNotVisitDate, Date deliveryDate) {
-        if (lastVisitDate != null)
-            lastVisitDay = Days.daysBetween(new DateTime(lastVisitDate), new DateTime()).getDays();
-        if (lastNotVisitDate != null)
-            lastNotVisitDay = Days.daysBetween(new DateTime(lastNotVisitDate), new DateTime()).getDays();
+    public PncVisitAlertRule(Date lastVisitDate, Date deliveryDate) {
+        this.lastVisitDate = lastVisitDate == null ? null : new DateTime(lastVisitDate);
+        this.deliveryDate = new DateTime(deliveryDate);
+
         deliveryDiff = Days.daysBetween(new DateTime(deliveryDate), new DateTime()).getDays();
     }
 
@@ -33,10 +34,9 @@ public class PncVisitAlertRule implements ICommonRule {
     }
 
     public boolean isValid(int dueDay, int overdueDate, int expiry) {
-        this.dueDay = dueDay;
-        this.overDueDay = overDueDay;
-        this.expiry = expiry;
-
+        this.dueDate = new DateTime(deliveryDate).plusDays(dueDay);
+        this.overDueDate = new DateTime(deliveryDate).plusDays(overdueDate);
+        this.expiryDate = new DateTime(deliveryDate).plusDays(expiry);
         return (deliveryDiff >= dueDay && deliveryDiff < expiry);
     }
 
@@ -45,17 +45,31 @@ public class PncVisitAlertRule implements ICommonRule {
         return "pncVisitAlertRule";
     }
 
+    public DateTime getPrevVisitDate() {
+        if (lastVisitDate == null)
+            return deliveryDate;
+
+        return lastVisitDate;
+    }
+
     @Override
     public String getButtonStatus() {
-        if (lastVisitDay >= dueDay && lastVisitDay <= expiry) {
-            return "VISIT_THIS_MONTH";
-        } else if (lastNotVisitDay >= dueDay && lastNotVisitDay <= expiry) {
-            return "NOT_VISIT_THIS_MONTH";
-        } else if (deliveryDiff == dueDay) {
-            return "DUE";
-        } else if (lastVisitDay < dueDay) {
-            return "OVERDUE";
+        DateTime lastVisit = getPrevVisitDate();
+        DateTime currentDate = new DateTime(new LocalDate().toDate());
+
+        if ((lastVisit.isAfter(dueDate) || lastVisit.isEqual(dueDate)) && lastVisit.isBefore(expiryDate))
+            return CoreConstants.VISIT_STATE.VISIT_DONE;
+
+        if (lastVisit.isBefore(dueDate)) {
+
+            if (currentDate.isBefore(overDueDate) && (currentDate.isAfter(dueDate) || currentDate.isEqual(dueDate)))
+                return CoreConstants.VISIT_STATE.DUE;
+
+            if (currentDate.isBefore(expiryDate) && (currentDate.isAfter(overDueDate) || currentDate.isEqual(overDueDate)))
+                return CoreConstants.VISIT_STATE.OVERDUE;
+
         }
-        return "EXPIRY";
+
+        return CoreConstants.VISIT_STATE.EXPIRED;
     }
 }

@@ -89,7 +89,6 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
         String baseEntityID = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
         Date deliveryDate = null;
         Date lastVisitDate = null;
-        Date lastNotVisitDate = null;
         try {
             deliveryDate = sdf.parse(dayPnc);
         } catch (ParseException e) {
@@ -100,10 +99,6 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
         if (lastVisit != null)
             lastVisitDate = lastVisit.getDate();
 
-        Visit lastNotVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT_NOT_DONE);
-        if (lastNotVisit != null)
-            lastNotVisitDate = lastNotVisit.getDate();
-
-        return HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, lastNotVisitDate, deliveryDate);
+        return HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, deliveryDate);
     }
 }

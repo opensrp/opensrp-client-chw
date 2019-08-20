@@ -12,6 +12,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.rule.PncVisitAlertRule;
 import org.smartregister.chw.util.Constants;
@@ -55,14 +56,12 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
 
     private void updateDueColumn(Context context, RegisterViewHolder viewHolder, PncVisitAlertRule pncVisitAlertRule) {
         viewHolder.dueButton.setVisibility(View.VISIBLE);
-        if (pncVisitAlertRule.getButtonStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
+        if (pncVisitAlertRule.getButtonStatus().equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE)) {
             setVisitButtonDueStatus(context, pncVisitAlertRule.getVisitID(), viewHolder.dueButton);
-        } else if (pncVisitAlertRule.getButtonStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+        } else if (pncVisitAlertRule.getButtonStatus().equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE)) {
             setVisitButtonOverdueStatus(context, pncVisitAlertRule.getVisitID(), viewHolder.dueButton);
-        } else if (pncVisitAlertRule.getButtonStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
-            setVisitAboveTwentyFourView(context, viewHolder.dueButton);
-        } else if (pncVisitAlertRule.getButtonStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
-            setVisitNotDone(context, viewHolder.dueButton);
+        } else if (pncVisitAlertRule.getButtonStatus().equalsIgnoreCase(CoreConstants.VISIT_STATE.VISIT_DONE)) {
+            setVisitDone(context, viewHolder.dueButton);
         }
     }
 
@@ -80,16 +79,9 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
         dueButton.setOnClickListener(onClickListener);
     }
 
-    private void setVisitAboveTwentyFourView(Context context, Button dueButton) {
+    private void setVisitDone(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
         dueButton.setText(context.getString(R.string.visit_done));
-        dueButton.setBackgroundColor(context.getResources().getColor(R.color.transparent));
-        dueButton.setOnClickListener(null);
-    }
-
-    private void setVisitNotDone(Context context, Button dueButton) {
-        dueButton.setTextColor(context.getResources().getColor(R.color.progress_orange));
-        dueButton.setText(context.getString(R.string.visit_not_done));
         dueButton.setBackgroundColor(context.getResources().getColor(R.color.transparent));
         dueButton.setOnClickListener(null);
     }
@@ -117,7 +109,6 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
             String dayPnc = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DELIVERY_DATE, true);
             Date deliveryDate = null;
             Date lastVisitDate = null;
-            Date lastNotVisitDate = null;
             try {
                 deliveryDate = sdf.parse(dayPnc);
             } catch (ParseException e) {
@@ -128,20 +119,19 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
             if (lastVisit != null)
                 lastVisitDate = lastVisit.getDate();
 
-            Visit lastNotVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT_NOT_DONE);
-            if (lastNotVisit != null)
-                lastNotVisitDate = lastNotVisit.getDate();
-
-            pncVisitAlertRule = HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, lastNotVisitDate, deliveryDate);
+            pncVisitAlertRule = HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, deliveryDate);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void param) {
             // Update status column
+            if(pncVisitAlertRule == null || StringUtils.isBlank(pncVisitAlertRule.getVisitID()))
+                return;
+
             if (pncVisitAlertRule != null
                     && StringUtils.isNotBlank(pncVisitAlertRule.getVisitID())
-                    && !pncVisitAlertRule.getButtonStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.EXPIRY.name())
+                    && !pncVisitAlertRule.getButtonStatus().equalsIgnoreCase(CoreConstants.VISIT_STATE.EXPIRED)
             ) {
                 updateDueColumn(context, viewHolder, pncVisitAlertRule);
             }
