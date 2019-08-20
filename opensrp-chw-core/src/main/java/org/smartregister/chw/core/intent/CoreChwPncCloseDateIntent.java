@@ -1,4 +1,4 @@
-package intent;
+package org.smartregister.chw.core.intent;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -10,21 +10,14 @@ import org.smartregister.chw.pnc.util.PncUtil;
 
 import timber.log.Timber;
 
-public class ChwPncCloseDateIntent extends IntentService {
+public class CoreChwPncCloseDateIntent extends IntentService {
     private PncCloseDateRepository repository;
 
     private Flavor flavor;
 
 
-    public ChwPncCloseDateIntent() {
-        super("ChwPncCloseDateIntent");
-    }
-
-    public Flavor getFlavor() {
-        return flavor;
-    }
-
-    public void setFlavor(Flavor flavor) {
+    public CoreChwPncCloseDateIntent (Flavor flavor) {
+        super("CoreChwPncCloseDateIntent");
         this.flavor = flavor;
     }
 

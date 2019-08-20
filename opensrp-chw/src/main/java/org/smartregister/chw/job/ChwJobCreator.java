@@ -18,7 +18,6 @@ import org.smartregister.job.ValidateSyncDataServiceJob;
 import org.smartregister.sync.intent.SyncIntentService;
 import org.smartregister.sync.intent.SyncTaskIntentService;
 
-import job.BasePncCloseJob;
 import timber.log.Timber;
 
 /**
