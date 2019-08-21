@@ -162,6 +162,10 @@
             android:name=".activity.MalariaProfileActivity"
             android:label="@string/malaria"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.CoreAncRegisterActivity"
+            android:label="@string/anc_register"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

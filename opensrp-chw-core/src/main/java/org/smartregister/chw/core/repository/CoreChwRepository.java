@@ -24,8 +24,11 @@ import org.smartregister.reporting.repository.IndicatorRepository;
 import org.smartregister.repository.DrishtiRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.LocationRepository;
+import org.smartregister.repository.PlanDefinitionRepository;
+import org.smartregister.repository.PlanDefinitionSearchRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
+import org.smartregister.repository.TaskRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.util.Session;
 
@@ -75,6 +78,11 @@ public class CoreChwRepository extends Repository {
 
         VisitRepository.createTable(database);
         VisitDetailsRepository.createTable(database);
+
+        PlanDefinitionRepository.createTable(database);
+        PlanDefinitionSearchRepository.createTable(database);
+        TaskRepository.createTable(database);
+        //LocationRepository.createTable(database);    //TODO verify why this causes a break in code
 
         RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
         IMDatabaseUtils.populateRecurringServices(context, database, recurringServiceTypeRepository);

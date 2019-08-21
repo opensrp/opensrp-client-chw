@@ -136,6 +136,13 @@
             "creates_case": [
               "ec_pregnancy_outcome"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Sick Child Referral",
+            "creates_case": [
+              "ec_child_referral"
+            ]
           }
         ]
       }
