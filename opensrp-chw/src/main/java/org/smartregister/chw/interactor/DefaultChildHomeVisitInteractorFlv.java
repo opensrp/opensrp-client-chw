@@ -10,7 +10,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.HomeVisit;
-import org.smartregister.chw.core.domain.HomeVisitServiceDataModel;
 import org.smartregister.chw.core.utils.BirthCertDataModel;
 import org.smartregister.chw.core.utils.ObsIllnessDataModel;
 import org.smartregister.chw.core.utils.ServiceTask;
