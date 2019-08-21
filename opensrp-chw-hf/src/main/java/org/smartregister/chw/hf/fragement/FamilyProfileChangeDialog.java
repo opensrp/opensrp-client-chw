@@ -10,6 +10,10 @@ import org.smartregister.chw.hf.presenter.FamilyChangePresenter;
 
 public class FamilyProfileChangeDialog extends CoreFamilyProfileChangeDialog {
 
+    public FamilyProfileChangeDialog() {
+        phoneNumberLengthFlavor = null;
+    }
+
     public static CoreFamilyProfileChangeDialog newInstance(Context context, String familyBaseEntityId, String actionType) {
         CoreFamilyProfileChangeDialog fragment = new FamilyProfileChangeDialog();
         fragment.setContext(context);
