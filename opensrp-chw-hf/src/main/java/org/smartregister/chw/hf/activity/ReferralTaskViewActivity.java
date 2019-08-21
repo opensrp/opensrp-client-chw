@@ -196,13 +196,6 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         this.personObjectClient = personObjectClient;
     }
 
-    private void goToChildProfile() {
-        Intent intent = new Intent(this, ChildProfileActivity.class);
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, getPersonObjectClient().getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID));
-        startActivity(intent);
-
-    }
-
     public void closeReferral() {
         closeReferralDialog();
     }
@@ -253,7 +246,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             baseEvent.addObs((new Obs()).withFormSubmissionField(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.REFERRAL_TASK_PREVIOUS_BUSINESS_STATUS).withValue(getTask().getBusinessStatus())
                     .withFieldCode(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.REFERRAL_TASK_PREVIOUS_BUSINESS_STATUS).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
-            org.smartregister.chw.hf.utils.JsonFormUtils.tagSyncMetadata(org.smartregister.family.util.Utils.context().allSharedPreferences(), baseEvent);// tag docs
+            org.smartregister.chw.hf.utils.JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), baseEvent);// tag docs
 
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
             syncHelper.addEvent(getBaseEntityId(), eventJson);

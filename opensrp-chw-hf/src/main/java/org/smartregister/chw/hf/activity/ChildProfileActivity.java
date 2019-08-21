@@ -1,7 +1,6 @@
 package org.smartregister.chw.hf.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -59,8 +58,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
             openUpcomingServicePage();
         } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
             openVisitHomeScreen(false);
-        } else if (i == R.id.family_has_row) {
-            openFamilyDueTab();
         } else if (i == R.id.textview_edit) {
             openVisitHomeScreen(true);
         }
@@ -94,6 +91,21 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         familyFloatingMenu.setClickListener(onClickFloatingMenu);
         fetchProfileData();
         presenter().fetchTasks();
+    }
+
+    @Override
+    public void setFamilyHasNothingDue() {
+        layoutFamilyHasRow.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setFamilyHasServiceDue() {
+        layoutFamilyHasRow.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setFamilyHasServiceOverdue() {
+        layoutFamilyHasRow.setVisibility(View.GONE);
     }
 
     @Override
@@ -156,18 +168,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         childHomeVisitFragment.setContext(this);
         childHomeVisitFragment.setChildClient(((CoreChildProfilePresenter) presenter()).getChildClient());
         childHomeVisitFragment.show(getFragmentManager(), CoreChildHomeVisitFragment.DIALOG_TAG);
-    }
-
-    private void openFamilyDueTab() {
-        Intent intent = new Intent(this, FamilyProfileActivity.class);
-
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, ((CoreChildProfilePresenter) presenter()).getFamilyId());
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, ((CoreChildProfilePresenter) presenter()).getFamilyHeadID());
-        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((CoreChildProfilePresenter) presenter()).getPrimaryCareGiverID());
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, ((CoreChildProfilePresenter) presenter()).getFamilyName());
-
-        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
-        startActivity(intent);
     }
 
     public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final HfChildProfilePresenter presenter) {

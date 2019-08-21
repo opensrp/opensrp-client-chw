@@ -77,13 +77,14 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
             }
         }
     };
+    public RelativeLayout layoutFamilyHasRow;
     protected TextView textViewParentName, textViewLastVisit, textViewMedicalHistory;
     protected CircleImageView imageViewProfile;
     protected View recordVisitPanel;
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private TextView textViewTitle, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot, tvEdit;
-    private RelativeLayout layoutNotRecordView, layoutLastVisitRow, layoutMostDueOverdue, layoutFamilyHasRow;
+    private RelativeLayout layoutNotRecordView, layoutLastVisitRow, layoutMostDueOverdue;
     private RelativeLayout layoutRecordButtonDone;
     private LinearLayout layoutRecordView;
     private View viewLastVisitRow, viewMostDueRow, viewFamilyRow;
