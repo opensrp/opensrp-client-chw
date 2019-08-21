@@ -102,7 +102,7 @@ public abstract class CoreChildUtils {
                     try {
                         childHomeVisit.setLastHomeVisitDate(Long.parseLong(lastVisitStr));
                     } catch (Exception e) {
-
+                        Timber.e(e);
                     }
                 }
                 String visitNotDoneStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.VISIT_NOT_DONE));

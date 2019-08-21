@@ -7,9 +7,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.chw.core.utils.WashCheck;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -276,7 +276,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     value = contentValues.getAsString(RecurringServiceRecordRepository.VALUE);
                 }
 
-                RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().getInstance().recurringServiceTypeRepository();
+                RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
                 List<ServiceType> serviceTypeList = recurringServiceTypeRepository.searchByName(name);
                 if (serviceTypeList == null || serviceTypeList.isEmpty()) {
                     return false;
@@ -286,7 +286,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     return false;
                 }
 
-                RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().getInstance().recurringServiceRecordRepository();
+                RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
                 ServiceRecord serviceObj = new ServiceRecord();
                 serviceObj.setBaseEntityId(contentValues.getAsString(RecurringServiceRecordRepository.BASE_ENTITY_ID));
                 serviceObj.setName(name);
@@ -436,7 +436,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
     }
 
     private void processWashCheckEvent(EventClient eventClient) {
-        utils.WashCheck washCheck = new utils.WashCheck();
+        WashCheck washCheck = new WashCheck();
         for (Obs obs : eventClient.getEvent().getObs()) {
 
             if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID)) {

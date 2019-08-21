@@ -12,7 +12,6 @@ import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.ChildHomeVisit;
-import org.smartregister.chw.core.utils.CoreChildService;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;

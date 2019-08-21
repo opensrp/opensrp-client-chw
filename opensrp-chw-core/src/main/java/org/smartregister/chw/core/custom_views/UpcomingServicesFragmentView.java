@@ -15,7 +15,6 @@ import org.smartregister.chw.core.utils.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.db.VaccineRepo;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
