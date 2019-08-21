@@ -34,6 +34,7 @@ public abstract class CoreFamilyProfileChangeHead extends Fragment implements Vi
 
     protected TextView tvAction;
     protected MemberAdapter memberAdapter;
+    protected MemberAdapter.Flavor phoneNumberLengthFlavor;
     protected RecyclerView recyclerView;
     protected FamilyChangeContract.Presenter presenter;
     protected List<FamilyMember> members;
@@ -108,6 +109,7 @@ public abstract class CoreFamilyProfileChangeHead extends Fragment implements Vi
             if (memberAdapter == null) {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 memberAdapter = new MemberAdapter(getActivity(), members, this);
+                memberAdapter.setFlavorPhoneNumberLength(phoneNumberLengthFlavor);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(memberAdapter);
             } else {

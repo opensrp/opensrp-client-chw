@@ -10,6 +10,10 @@ import org.smartregister.chw.hf.presenter.FamilyChangePresenter;
 public class FamilyProfileChangeHead extends CoreFamilyProfileChangeHead {
     private FamilyChangePresenter familyChangePresenter;
 
+    public FamilyProfileChangeHead() {
+        phoneNumberLengthFlavor = null;
+    }
+
     public static FamilyProfileChangeHead newInstance(String familyID) {
         FamilyProfileChangeHead fragment = new FamilyProfileChangeHead();
         Bundle args = new Bundle();
