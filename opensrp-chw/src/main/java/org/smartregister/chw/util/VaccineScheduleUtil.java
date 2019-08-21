@@ -2,8 +2,10 @@ package org.smartregister.chw.util;
 
 import android.content.Context;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
+import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.core.utils.ChwServiceSchedule;
@@ -25,9 +27,6 @@ import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
-import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 
 public class VaccineScheduleUtil {
 
@@ -100,21 +99,21 @@ public class VaccineScheduleUtil {
      * @param baseEntityID
      * @param anchorDate
      * @param inMemoryVaccines (this array contains the vaccines that should be treated as received but yet to be persisted in memory)
-     * @param vaccineGroup
+     * @param vaccineGroupName
      * @return
      */
-    public static VaccineTaskModel getLocalUpdatedVaccines(String baseEntityID, DateTime anchorDate, List<VaccineWrapper> inMemoryVaccines, String vaccineGroup) {
+    public static VaccineTaskModel getLocalUpdatedVaccines(String baseEntityID, DateTime anchorDate, List<VaccineWrapper> inMemoryVaccines, String vaccineGroupName) {
         AlertService alertService = ChwApplication.getInstance().getContext().alertService();
         VaccineRepository vaccineRepository = ChwApplication.getInstance().vaccineRepository();
 
         // updates the local vaccines and services for the mother
-        VaccineSchedule.updateOfflineAlerts(baseEntityID, anchorDate, vaccineGroup);
-        ChwServiceSchedule.updateOfflineAlerts(baseEntityID, anchorDate, vaccineGroup); // get services
+        VaccineSchedule.updateOfflineAlerts(baseEntityID, anchorDate, vaccineGroupName);
+        ChwServiceSchedule.updateOfflineAlerts(baseEntityID, anchorDate, vaccineGroupName); // get services
 
         // retrieve related information from the local db
-        List<Alert> alerts = alertService.findByEntityIdAndAlertNames(baseEntityID, VaccinateActionUtils.allAlertNames(vaccineGroup)); // list of all alerts
+        List<Alert> alerts = alertService.findByEntityIdAndAlertNames(baseEntityID, VaccinateActionUtils.allAlertNames(vaccineGroupName)); // list of all alerts
         List<Vaccine> vaccines = vaccineRepository.findByEntityId(baseEntityID); // add vaccines given to the user
-        Map<String, Date> receivedVaccines = receivedVaccines(vaccines); // groups vaccines and date received
+        Map<String, Date> receivedVaccines = VaccinatorUtils.receivedVaccines(vaccines); // groups vaccines and date received
 
         // add vaccines not done to list of processed vaccines (eliminate these vaccines from the next group)
         if (inMemoryVaccines != null) {
@@ -123,14 +122,48 @@ public class VaccineScheduleUtil {
             }
         }
 
-        List<Map<String, Object>> sch = generateScheduleList(vaccineGroup, anchorDate, receivedVaccines, alerts);
+        List<Map<String, Object>> sch = VaccinatorUtils.generateScheduleList(vaccineGroupName, anchorDate, receivedVaccines, alerts);
         VaccineTaskModel vaccineTaskModel = new VaccineTaskModel();
+        vaccineTaskModel.setVaccineGroupName(vaccineGroupName);
+        vaccineTaskModel.setAnchorDate(anchorDate);
         vaccineTaskModel.setAlerts(alerts);
         vaccineTaskModel.setVaccines(vaccines);
         vaccineTaskModel.setReceivedVaccines(receivedVaccines);
         vaccineTaskModel.setScheduleList(sch);
 
         return vaccineTaskModel;
+    }
+
+    public static List<VaccineWrapper> recomputeSchedule(VaccineTaskModel vaccineTaskModel, List<VaccineDisplay> inMemoryVaccines) {
+        List<VaccineWrapper> vaccineWrappers = new ArrayList<>();
+
+        if (inMemoryVaccines != null) {
+            for (VaccineDisplay vaccineDisplay : inMemoryVaccines) {
+                if (vaccineDisplay.getValid())
+                    vaccineTaskModel.getReceivedVaccines().put(vaccineDisplay.getVaccineWrapper().getName().toLowerCase(), vaccineDisplay.getDateGiven());
+            }
+        }
+
+        List<Map<String, Object>> sch = VaccinatorUtils.generateScheduleList(
+                vaccineTaskModel.getVaccineGroupName(),
+                vaccineTaskModel.getAnchorDate(),
+                vaccineTaskModel.getReceivedVaccines(),
+                vaccineTaskModel.getAlerts()
+        );
+        vaccineTaskModel.setScheduleList(sch);
+
+
+        for (org.smartregister.immunization.domain.jsonmapping.Vaccine vaccine : vaccineTaskModel.getGroupMap().vaccines) {
+            Triple<DateTime, VaccineRepo.Vaccine, String> individualVaccine = VaccineScheduleUtil.getIndividualVaccine(vaccineTaskModel, vaccine.type);
+
+            if (individualVaccine == null || individualVaccine.getLeft().isAfter(new DateTime())) {
+                continue;
+            }
+
+            vaccineWrappers.add(VaccineScheduleUtil.getVaccineWrapper(individualVaccine.getMiddle(), vaccineTaskModel));
+        }
+
+        return vaccineWrappers;
     }
 
     /**
@@ -186,24 +219,27 @@ public class VaccineScheduleUtil {
      * @return
      */
     public static List<VaccineWrapper> getChildDueVaccines(String baseEntityID, Date dob, int group) {
-        return getChildDueVaccines(baseEntityID, dob, new ArrayList<>(), group);
+        Pair<VaccineTaskModel, List<VaccineWrapper>> res = getChildDueVaccines(baseEntityID, dob, new ArrayList<>(), group);
+        return res.getRight();
     }
 
     /**
      * returns list of vaccines that are pending. you can add vaccine wrappers to exclude
+     *
      * @param baseEntityID
      * @param dob
      * @param excludedVaccines
      * @param group
      * @return
      */
-    public static List<VaccineWrapper> getChildDueVaccines(String baseEntityID, Date dob, List<VaccineWrapper> excludedVaccines, int group) {
+    public static Pair<VaccineTaskModel, List<VaccineWrapper>> getChildDueVaccines(String baseEntityID, Date dob, List<VaccineWrapper> excludedVaccines, int group) {
         List<VaccineWrapper> vaccineWrappers = new ArrayList<>();
         try {
             VaccineGroup groupMap = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), "child").get(group);
 
             // get all vaccines that are not given
             VaccineTaskModel taskModel = VaccineScheduleUtil.getLocalUpdatedVaccines(baseEntityID, new DateTime(dob), excludedVaccines, "child");
+            taskModel.setGroupMap(groupMap);
 
             for (org.smartregister.immunization.domain.jsonmapping.Vaccine vaccine : groupMap.vaccines) {
                 Triple<DateTime, VaccineRepo.Vaccine, String> individualVaccine = VaccineScheduleUtil.getIndividualVaccine(taskModel, vaccine.type);
@@ -213,12 +249,14 @@ public class VaccineScheduleUtil {
                 }
 
                 vaccineWrappers.add(VaccineScheduleUtil.getVaccineWrapper(individualVaccine.getMiddle(), taskModel));
+
+                return Pair.of(taskModel, vaccineWrappers);
             }
             //
 
         } catch (Exception e) {
             Timber.e(e);
         }
-        return vaccineWrappers;
+        return Pair.of(null, vaccineWrappers);
     }
 }

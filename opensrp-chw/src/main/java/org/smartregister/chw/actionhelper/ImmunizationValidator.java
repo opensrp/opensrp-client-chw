@@ -2,6 +2,7 @@ package org.smartregister.chw.actionhelper;
 
 import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.core.model.VaccineTaskModel;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -13,14 +14,16 @@ import java.util.Map;
  */
 public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
     private Map<String, BaseHomeVisitImmunizationFragment> fragments = new LinkedHashMap<>();
+    private Map<String, VaccineTaskModel> vaccineTaskModelMap = new LinkedHashMap<>();
     private List<String> keyPositions = new ArrayList<>();
     private int lastValidKeyPosition = 0;
 
-    public void addFragment(String key, BaseHomeVisitImmunizationFragment fragment) {
+    public void addFragment(String key, BaseHomeVisitImmunizationFragment fragment, VaccineTaskModel vaccineTaskModel) {
         if (!fragments.containsKey(key)) {
             keyPositions.add(key);
         }
         fragments.put(key, fragment);
+        vaccineTaskModelMap.put(key, vaccineTaskModel);
     }
 
     /**
@@ -59,8 +62,40 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
     public void onChanged(String s) {
         int position = keyPositions.indexOf(s);
         lastValidKeyPosition = position + 1;
+/*
+        int x = lastValidKeyPosition + 1;
+        while (x < keyPositions.size()) {
+            String key = keyPositions.get(x);
+            BaseHomeVisitImmunizationFragment fragment = fragments.get(key);
+            VaccineTaskModel taskModel = vaccineTaskModelMap.get(key);
+            if (fragment == null || taskModel == null)
+                continue;
 
-        if(position > 0){
+            List<VaccineDisplay> vaccineDisplays = new ArrayList<>(fragment.getVaccineDisplays().values());
+            List<VaccineWrapper> wrappers = VaccineScheduleUtil.recomputeSchedule(taskModel, vaccineDisplays);
+
+            List<VaccineDisplay> displays = new ArrayList<>();
+            for (VaccineWrapper vaccineWrapper : wrappers) {
+                Alert alert = vaccineWrapper.getAlert();
+                VaccineDisplay display = new VaccineDisplay();
+                display.setVaccineWrapper(vaccineWrapper);
+                display.setStartDate(alert != null ? new LocalDate(alert.startDate()).toDate() : taskModel.getAnchorDate().toDate());
+                display.setEndDate(alert != null && alert.expiryDate() != null ? new LocalDate(alert.expiryDate()).toDate() : taskModel.getAnchorDate().toDate());
+                display.setValid(false);
+                displays.add(display);
+            }
+
+            // update the vaccines
+            Map<String, VaccineDisplay> linkedHashMap = new LinkedHashMap<>();
+            for (VaccineDisplay vaccineDisplay : displays) {
+                linkedHashMap.put(vaccineDisplay.getVaccineWrapper().getName(), vaccineDisplay);
+            }
+            fragment.setVaccineDisplays(linkedHashMap);
+
+            x++;
         }
+        */
     }
+
+
 }

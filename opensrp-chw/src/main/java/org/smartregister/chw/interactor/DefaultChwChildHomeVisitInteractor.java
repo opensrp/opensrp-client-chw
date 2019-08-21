@@ -3,6 +3,7 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
@@ -31,6 +32,7 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
@@ -98,7 +100,7 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
         try {
             Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
             evaluateChildVaccineCard();
-            evaluateImmunization();
+            //evaluateImmunization();
             evaluateExclusiveBreastFeeding(serviceWrapperMap);
             evaluateVitaminA(serviceWrapperMap);
             evaluateDeworming(serviceWrapperMap);
@@ -199,15 +201,18 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
 
         for (VaccineGroup group : groups) {
 
-            List<VaccineWrapper> wrappers = VaccineScheduleUtil.getChildDueVaccines(memberObject.getBaseEntityId(), dob, previousGroup, x);
+            Pair<VaccineTaskModel, List<VaccineWrapper>> listPair = VaccineScheduleUtil.getChildDueVaccines(memberObject.getBaseEntityId(), dob, previousGroup, x);
+            List<VaccineWrapper> wrappers = listPair.getRight();
 
             List<VaccineDisplay> displays = new ArrayList<>();
             for (VaccineWrapper vaccineWrapper : wrappers) {
+                Alert alert = vaccineWrapper.getAlert();
+
                 VaccineDisplay display = new VaccineDisplay();
                 display.setVaccineWrapper(vaccineWrapper);
-                display.setStartDate(dob);
-                display.setEndDate(new Date());
-                display.setValid(true);
+                display.setStartDate(alert != null ? new LocalDate(alert.startDate()).toDate() : dob);
+                display.setEndDate(alert != null && alert.expiryDate() != null ? new LocalDate(alert.expiryDate()).toDate() : dob);
+                display.setValid(false);
                 displays.add(display);
             }
 
@@ -215,7 +220,7 @@ public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHome
             BaseHomeVisitImmunizationFragment fragment =
                     BaseHomeVisitImmunizationFragment.getInstance(view, memberObject.getBaseEntityId(), details, displays);
 
-            validator.addFragment(title, fragment);
+            validator.addFragment(title, fragment, listPair.getLeft());
 
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
                     .withOptional(false)
