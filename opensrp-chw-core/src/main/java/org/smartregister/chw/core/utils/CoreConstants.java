@@ -16,7 +16,6 @@ public class CoreConstants {
         String REQUESTER = "requester";
         String OWNER = "owner";
         String START = "start";
-        String MALARIA_REGISTER_ACTIVITY = "MALARIA_REGISTER_ACTIVITY";
     }
 
     public static class CONFIGURATION {

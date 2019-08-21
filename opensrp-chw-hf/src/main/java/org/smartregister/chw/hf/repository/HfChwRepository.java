@@ -14,6 +14,9 @@ import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.PlanDefinitionRepository;
+import org.smartregister.repository.PlanDefinitionSearchRepository;
+import org.smartregister.repository.TaskRepository;
 
 import timber.log.Timber;
 

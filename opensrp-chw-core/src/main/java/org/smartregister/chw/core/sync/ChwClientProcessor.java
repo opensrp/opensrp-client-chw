@@ -207,7 +207,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 return false;
             }
 
-            Timber.d("Starting processVaccine table: " + vaccineTable.name);
+            Timber.d("Starting processVaccine table: %s", vaccineTable.name);
 
             ContentValues contentValues = processCaseModel(vaccine, vaccineTable);
 
@@ -237,7 +237,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
                 addVaccine(vaccineRepository, vaccineObj);
 
-                Timber.d("Ending processVaccine table: " + vaccineTable.name);
+                Timber.d("Ending processVaccine table: %s", vaccineTable.name);
             }
             return true;
 

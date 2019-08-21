@@ -107,7 +107,6 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
                         for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupsList.iterator(); iterator.hasNext(); ) {
                             HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
                             if (homeVisitVaccineGroup.getDueVaccines().size() == 0) {
-                                //iterator.remove();
                                 homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_HIDDEN);
                             }
 
@@ -137,7 +136,7 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
      */
     public Observable<VaccineTaskModel> getLastVaccineTask(final CommonPersonObjectClient childClient, final ArrayList<VaccineWrapper> notDoneVaccines) {
 
-        return Observable.create(emmiter -> {
+        return Observable.create(emitter -> {
             String lastHomeVisitStr = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
             long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
             HomeVisit homeVisit = CoreChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
@@ -169,7 +168,7 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
                 }
 
             }
-            emmiter.onNext(vaccineTaskModel);
+            emitter.onNext(vaccineTaskModel);
         });
     }
 
@@ -185,7 +184,7 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
     public Observable<VaccineTaskModel> getVaccineTask(final CommonPersonObjectClient childClient, final ArrayList<VaccineWrapper> notDoneVaccines) {
         final String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
 
-        return Observable.create(emmiter -> {
+        return Observable.create(emitter -> {
             DateTime dob = Utils.dobStringToDateTime(dobString);
             if (dob == null) {
                 dob = new DateTime();
@@ -196,29 +195,29 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
                 try {
                     VaccineSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime, "child");
                 } catch (Exception e) {
-
+                    Timber.e(e, "ImmunizationViewInteractor --> getVaccineTask");
                 }
                 try {
                     ChwServiceSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime, "child");
                 } catch (Exception e) {
-
+                    Timber.e(e, "ImmunizationViewInteractor --> getVaccineTask");
                 }
             }
             List<Alert> alerts = alertService.findByEntityIdAndAlertNames(childClient.getCaseId(), VaccinateActionUtils.allAlertNames("child"));
             List<Vaccine> vaccines = vaccineRepository.findByEntityId(childClient.getCaseId());
-            Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
+            Map<String, Date> receivedVaccines = receivedVaccines(vaccines);
             int size = notDoneVaccines.size();
             for (int i = 0; i < size; i++) {
-                recievedVaccines.put(notDoneVaccines.get(i).getName().toLowerCase(), new Date());
+                receivedVaccines.put(notDoneVaccines.get(i).getName().toLowerCase(), new Date());
             }
 
-            List<Map<String, Object>> sch = generateScheduleList("child", dob, recievedVaccines, alerts);
+            List<Map<String, Object>> sch = generateScheduleList("child", dob, receivedVaccines, alerts);
             VaccineTaskModel vaccineTaskModel = new VaccineTaskModel();
             vaccineTaskModel.setAlerts(alerts);
             vaccineTaskModel.setVaccines(vaccines);
-            vaccineTaskModel.setReceivedVaccines(recievedVaccines);
+            vaccineTaskModel.setReceivedVaccines(receivedVaccines);
             vaccineTaskModel.setScheduleList(sch);
-            emmiter.onNext(vaccineTaskModel);
+            emitter.onNext(vaccineTaskModel);
         });
     }
 }
