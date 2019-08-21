@@ -1,5 +1,6 @@
 package org.smartregister.chw.presenter;
 
+import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.interactor.ChildMedicalHistoryInteractor;
 import org.smartregister.chw.util.BaseService;
@@ -21,9 +22,10 @@ public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract
     private ArrayList<String> birthCertifications;
     private ArrayList<String> obsIllnesses;
 
-    public ChildMedicalHistoryPresenter(ChildMedicalHistoryContract.View view, AppExecutors appExecutors) {
+
+    public ChildMedicalHistoryPresenter(ChildMedicalHistoryContract.View view, AppExecutors appExecutors, VisitRepository visitRepository) {
         this.view = new WeakReference<>(view);
-        interactor = new ChildMedicalHistoryInteractor(appExecutors, getView().getContext());
+        interactor = new ChildMedicalHistoryInteractor(appExecutors, visitRepository, getView().getContext());
     }
 
 //    @Override

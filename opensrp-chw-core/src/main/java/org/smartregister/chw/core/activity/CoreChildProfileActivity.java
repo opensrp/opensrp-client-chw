@@ -100,7 +100,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
 
     public static void startMe(Activity activity, MemberObject memberObject, Class<?> cls) {
         Intent intent = new Intent(activity, cls);
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
+        intent.putExtra(MEMBER_PROFILE_OBJECT, memberObject);
         activity.startActivity(intent);
     }
 

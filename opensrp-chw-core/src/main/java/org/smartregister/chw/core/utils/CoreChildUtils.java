@@ -311,21 +311,6 @@ public abstract class CoreChildUtils {
 
     }
 
-    public static void updateECDTaskAsEvent(String homeVisitId, String entityId, String jsonString) {
-        try {
-            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
-            Event baseEvent = CoreJsonFormUtils.getECDEvent(jsonString, homeVisitId, entityId);
-            if (baseEvent != null) {
-                JSONObject eventJson = new JSONObject(CoreJsonFormUtils.gson.toJson(baseEvent));
-                syncHelper.addEvent(entityId, eventJson);
-            }
-
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-
-    }
-
     public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, Map<String, JSONObject> fieldObjects, String visitStatus, String value, String homeVisitId) {
         try {
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
