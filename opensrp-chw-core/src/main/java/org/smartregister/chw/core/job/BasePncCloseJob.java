@@ -1,4 +1,4 @@
-package job;
+package org.smartregister.chw.core.job;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;

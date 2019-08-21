@@ -170,8 +170,7 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
         JSONObject jsonForm = toJSONObject(jsonString);
         JSONArray fields = fields(jsonForm);
 
-        Triple<Boolean, JSONObject, JSONArray> registrationFormParams = Triple.of(jsonForm != null && fields != null, jsonForm, fields);
-        return registrationFormParams;
+        return Triple.of(jsonForm != null && fields != null, jsonForm, fields);
     }
 
     public static Event tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {

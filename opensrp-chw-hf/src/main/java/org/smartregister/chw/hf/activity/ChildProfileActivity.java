@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.core.activity.CoreChildHomeVisitActivity;
 import org.smartregister.chw.core.activity.CoreChildMedicalHistoryActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
@@ -65,8 +67,8 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
     @Override
     protected void initializePresenter() {
-        childBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        isComesFromFamily = getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, false);
+        //childBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        //isComesFromFamily = getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, false);
         String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         if (familyName == null) {
             familyName = "";
@@ -150,6 +152,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
     //TODO Child Refactor
     private void openVisitHomeScreen(boolean isEditMode) {
+        CoreChildHomeVisitActivity.startMe(this, new MemberObject(((HfChildProfilePresenter) presenter()).getChildClient()), isEditMode);
     }
 
     private void openFamilyDueTab() {

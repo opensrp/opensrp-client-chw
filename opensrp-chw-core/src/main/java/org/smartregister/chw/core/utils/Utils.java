@@ -404,7 +404,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
 
     public static String getFamilyMembersSql(String familyID) {
 
-        String info_columns = DBConstants.KEY.RELATIONAL_ID + " , " +
+        return DBConstants.KEY.RELATIONAL_ID + " , " +
                 DBConstants.KEY.BASE_ENTITY_ID + " , " +
                 DBConstants.KEY.FIRST_NAME + " , " +
                 DBConstants.KEY.MIDDLE_NAME + " , " +
@@ -414,8 +414,6 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
                 DBConstants.KEY.DOB + " , " +
                 DBConstants.KEY.DOD + " , " +
                 DBConstants.KEY.GENDER;
-
-        return info_columns;
     }
 
     public static String formatReferralDuration(DateTime referralTime, Context context) {

@@ -1,6 +1,5 @@
 package org.smartregister.chw.core.utils;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Build;
@@ -31,11 +30,8 @@ import org.smartregister.chw.core.enums.ImmunizationState;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.rule.HomeAlertRule;
 import org.smartregister.chw.core.rule.ImmunizationExpiredRule;
-import org.smartregister.chw.core.rule.ServiceRule;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
-import org.smartregister.domain.db.Obs;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;

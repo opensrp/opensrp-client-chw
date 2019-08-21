@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
@@ -29,6 +30,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
@@ -49,6 +51,8 @@ import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
+
+import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
 
 public class CoreChildProfileActivity extends BaseProfileActivity implements CoreChildProfileContract.View, CoreChildRegisterContract.InteractorCallBack {
     public static IntentFilter sIntentFilter;
@@ -92,12 +96,27 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     private ProgressBar progressBar;
     private String gender;
 
+    protected MemberObject memberObject;
+
+    public static void startMe(Activity activity, MemberObject memberObject, Class<?> cls) {
+        Intent intent = new Intent(activity, cls);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
+        activity.startActivity(intent);
+    }
+
     @Override
     protected void onCreation() {
         setContentView(R.layout.activity_child_profile);
         Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
         textViewTitle = toolbar.findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            memberObject = (MemberObject) getIntent().getSerializableExtra(MEMBER_PROFILE_OBJECT);
+            childBaseEntityId = memberObject.getBaseEntityId();
+            isComesFromFamily = getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, false);
+        }
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

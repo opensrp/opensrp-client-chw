@@ -186,8 +186,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         JSONObject jsonForm = toJSONObject(jsonString);
         JSONArray fields = fields(jsonForm);
 
-        Triple<Boolean, JSONObject, JSONArray> registrationFormParams = Triple.of(jsonForm != null && fields != null, jsonForm, fields);
-        return registrationFormParams;
+        return Triple.of(jsonForm != null && fields != null, jsonForm, fields);
     }
 
     private static void processChildEnrollMent(JSONObject jsonForm, JSONArray fields) {
