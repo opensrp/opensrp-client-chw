@@ -275,4 +275,6 @@
 
     <string name="anc_register">ANC Register</string>
 
+    <string name="child_details">Child details %1$s</string>
+
 </resources>

@@ -2,6 +2,8 @@ package org.smartregister.chw.hf.activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
@@ -14,6 +16,13 @@ import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.util.Constants;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        setupMenuOptions(menu);
+        return true;
+    }
 
     @Override
     protected void refreshPresenter() {
@@ -63,4 +72,22 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         return viewPager;
     }
 
+    private void setupMenuOptions(Menu menu) {
+
+        MenuItem removeMember = menu.findItem(org.smartregister.chw.core.R.id.action_remove_member);
+        MenuItem changeFamHead = menu.findItem(org.smartregister.chw.core.R.id.action_change_head);
+        MenuItem changeCareGiver = menu.findItem(org.smartregister.chw.core.R.id.action_change_care_giver);
+
+        if (removeMember != null) {
+            removeMember.setVisible(false);
+        }
+
+        if (changeFamHead != null) {
+            changeFamHead.setVisible(false);
+        }
+
+        if (changeCareGiver != null) {
+            changeCareGiver.setVisible(false);
+        }
+    }
 }
