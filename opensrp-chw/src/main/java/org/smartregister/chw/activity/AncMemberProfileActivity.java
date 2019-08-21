@@ -168,13 +168,13 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, MEMBER_OBJECT.getLastMenstrualPeriod(), MEMBER_OBJECT.getLastContactVisit(), null, new DateTime(MEMBER_OBJECT.getDateCreated()).toLocalDate());
         String visitStatus = visitSummary.getVisitStatus();
 
-        if (!visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()) &&
+        if (!visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) &&
                 !visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             textview_record_anc_visit.setVisibility(View.GONE);
             view_anc_record.setVisibility(View.GONE);
             textViewAncVisitNot.setVisibility(View.GONE);
         }
-        if (visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+        if (visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE)) {
             textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
             layoutRecordView.setVisibility(View.VISIBLE);
             record_reccuringvisit_done_bar.setVisibility(View.GONE);
