@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.core.activity.CoreChildMedicalHistoryActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
@@ -114,7 +115,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_sick_child_follow_up:
                 displayShortToast(R.string.clicked_sick_child);
