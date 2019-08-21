@@ -55,7 +55,6 @@ public class CoreChwRepository extends Repository {
         EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
 
         HomeVisitRepository.createTable(database);
-        HomeVisitServiceRepository.createTable(database);
         VaccineRepository.createTable(database);
         VaccineNameRepository.createTable(database);
         VaccineTypeRepository.createTable(database);

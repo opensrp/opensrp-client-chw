@@ -26,14 +26,13 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONObject;
+import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.domain.HomeVisit;
-import org.smartregister.chw.core.domain.HomeVisitServiceDataModel;
 import org.smartregister.chw.core.enums.ImmunizationState;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.repository.HomeVisitRepository;
-import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.core.rule.HomeAlertRule;
 import org.smartregister.chw.core.rule.ImmunizationExpiredRule;
 import org.smartregister.chw.core.rule.ServiceRule;
@@ -180,18 +179,18 @@ public abstract class CoreChildUtils {
         return newHomeVisit;
     }
 
-    public static void addToHomeVisitService(String eventType, List<Obs> observations, Date evenDate, String details) {
-        HomeVisitServiceDataModel homeVisitServiceDataModel = new HomeVisitServiceDataModel();
-        for (Obs obs : observations) {
-            if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID)) {
-                homeVisitServiceDataModel.setHomeVisitId((String) obs.getValue());
-            }
-        }
-        homeVisitServiceDataModel.setEventType(eventType);
-        homeVisitServiceDataModel.setHomeVisitDate(evenDate);
-        homeVisitServiceDataModel.setHomeVisitDetails(details);
-        CoreChwApplication.getHomeVisitServiceRepository().add(homeVisitServiceDataModel);
-    }
+//    public static void addToHomeVisitService(String eventType, List<Obs> observations, Date evenDate, String details) {
+//        HomeVisitServiceDataModel homeVisitServiceDataModel = new HomeVisitServiceDataModel();
+//        for (Obs obs : observations) {
+//            if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID)) {
+//                homeVisitServiceDataModel.setHomeVisitId((String) obs.getValue());
+//            }
+//        }
+//        homeVisitServiceDataModel.setEventType(eventType);
+//        homeVisitServiceDataModel.setHomeVisitDate(evenDate);
+//        homeVisitServiceDataModel.setHomeVisitDetails(details);
+//        CoreChwApplication.getHomeVisitServiceRepository().add(homeVisitServiceDataModel);
+//    }
 
     public static String getChildListByFamilyId(String tableName, String familyId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
@@ -430,7 +429,7 @@ public abstract class CoreChildUtils {
             Event baseEvent = (Event) new Event()
                     .withBaseEntityId(entityId)
                     .withEventDate(new Date())
-                    .withEntityType(HomeVisitServiceRepository.HOME_VISIT_SERVICE_TABLE_NAME)
+                    .withEntityType(VisitRepository.VISIT_TABLE)
                     .withEventType(eventType)
                     .withFormSubmissionId(CoreJsonFormUtils.generateRandomUUIDString())
                     .withDateCreated(new Date());

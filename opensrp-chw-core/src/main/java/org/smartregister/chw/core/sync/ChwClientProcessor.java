@@ -136,7 +136,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             case CoreConstants.EventType.LLITN:
             case CoreConstants.EventType.ECD:
                 processVisitEvent(eventClient);
-                processHomeVisitService(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
             case CoreConstants.EventType.ANC_HOME_VISIT:
@@ -325,10 +324,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         List<Obs> observations = eventClient.getEvent().getObs();
 
         CoreChildUtils.addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), eventClient.getEvent().getFormSubmissionId(), observations);
-    }
-
-    private void processHomeVisitService(EventClient eventClient) {
-        CoreChildUtils.addToHomeVisitService(eventClient.getEvent().getEventType(), eventClient.getEvent().getObs(), eventClient.getEvent().getEventDate().toDate(), CoreChildUtils.gsonConverter.toJson(eventClient.getEvent()));
     }
 
     // possible to delegate

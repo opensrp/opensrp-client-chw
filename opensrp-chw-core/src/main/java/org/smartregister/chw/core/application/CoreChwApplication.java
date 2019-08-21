@@ -8,7 +8,6 @@ import org.smartregister.chw.core.helper.RulesEngineHelper;
 import org.smartregister.chw.core.repository.AncRegisterRepository;
 import org.smartregister.chw.core.repository.HomeVisitIndicatorInfoRepository;
 import org.smartregister.chw.core.repository.HomeVisitRepository;
-import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.core.repository.WashCheckRepository;
 import org.smartregister.chw.core.sync.ChwClientProcessor;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -42,7 +41,6 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
 
     private static CommonFtsObject commonFtsObject = null;
     private static HomeVisitRepository homeVisitRepository;
-    private static HomeVisitServiceRepository homeVisitServiceRepository;
     private static AncRegisterRepository ancRegisterRepository;
     private static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository;
     private static TaskRepository taskRepository;
@@ -72,13 +70,6 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
             homeVisitRepository = new HomeVisitRepository(getInstance().getRepository(), getInstance().getContext().commonFtsObject(), getInstance().getContext().alertService());
         }
         return homeVisitRepository;
-    }
-
-    public static HomeVisitServiceRepository getHomeVisitServiceRepository() {
-        if (homeVisitServiceRepository == null) {
-            homeVisitServiceRepository = new HomeVisitServiceRepository(getInstance().getRepository());
-        }
-        return homeVisitServiceRepository;
     }
 
     public static AncRegisterRepository ancRegisterRepository() {
