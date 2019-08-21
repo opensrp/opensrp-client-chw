@@ -50,15 +50,12 @@ public class CoreChwRepository extends Repository {
         this.databaseVersion = databaseVersion;
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase database) {
         super.onCreate(database);
         EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
         EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
 
-        HomeVisitRepository.createTable(database);
-        HomeVisitServiceRepository.createTable(database);
         VaccineRepository.createTable(database);
         VaccineNameRepository.createTable(database);
         VaccineTypeRepository.createTable(database);
@@ -75,7 +72,6 @@ public class CoreChwRepository extends Repository {
         IndicatorRepository.createTable(database);
         IndicatorQueryRepository.createTable(database);
         DailyIndicatorCountRepository.createTable(database);
-        HomeVisitIndicatorInfoRepository.createTable(database);
 
         VisitRepository.createTable(database);
         VisitDetailsRepository.createTable(database);

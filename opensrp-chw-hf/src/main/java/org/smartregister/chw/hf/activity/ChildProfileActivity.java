@@ -16,7 +16,6 @@ import org.smartregister.chw.core.activity.CoreChildMedicalHistoryActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
-import org.smartregister.chw.core.fragment.CoreChildHomeVisitFragment;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
@@ -24,7 +23,6 @@ import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.adapter.ReferralCardViewAdapter;
-import org.smartregister.chw.hf.fragement.HfChildHomeVisitFragment;
 import org.smartregister.chw.hf.presenter.HfChildProfilePresenter;
 import org.smartregister.domain.Task;
 import org.smartregister.family.util.Constants;
@@ -150,12 +148,8 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         CoreUpcomingServicesActivity.startUpcomingServicesActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient());
     }
 
+    //TODO Child Refactor
     private void openVisitHomeScreen(boolean isEditMode) {
-        HfChildHomeVisitFragment childHomeVisitFragment = HfChildHomeVisitFragment.newInstance();
-        childHomeVisitFragment.setEditMode(isEditMode);
-        childHomeVisitFragment.setContext(this);
-        childHomeVisitFragment.setChildClient(((CoreChildProfilePresenter) presenter()).getChildClient());
-        childHomeVisitFragment.show(getFragmentManager(), CoreChildHomeVisitFragment.DIALOG_TAG);
     }
 
     private void openFamilyDueTab() {

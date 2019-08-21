@@ -563,6 +563,23 @@ public class CoreConstants {
         public static final String VISIT_DONE = "VISIT_DONE";
     }
 
+    public enum VisitType {DUE, OVERDUE, LESS_TWENTY_FOUR, VISIT_THIS_MONTH, NOT_VISIT_THIS_MONTH, EXPIRY}
+
+    public enum ServiceType {DUE, OVERDUE, UPCOMING}
+
+    public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
+
+    public enum GROWTH_TYPE {
+        EXCLUSIVE("Exclusive breastfeeding"), MNP("MNP"), VITAMIN("Vitamin A"), DEWORMING("Deworming");
+        private String value;
+        GROWTH_TYPE(String value) {
+            this.value = value;
+        }
+        public String getValue() {
+            return value;
+        }
+    }
+
     public static final class DATE_FORMATS {
         public static final String NATIVE_FORMS = "dd-MM-yyyy";
         public static final String HOME_VISIT_DISPLAY = "dd MMM yyyy";

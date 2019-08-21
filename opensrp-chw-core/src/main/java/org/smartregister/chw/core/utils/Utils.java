@@ -37,7 +37,6 @@ import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.FamilyCallDialogContract;
 import org.smartregister.chw.core.fragment.CopyToClipboardDialog;
-import org.smartregister.chw.core.fragment.GrowthNutritionInputFragment;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -99,11 +98,11 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
     }
 
     public static String getServiceTypeLanguageSpecific(Context context, String value) {
-        if (value.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
+        if (value.equalsIgnoreCase(CoreConstants.GROWTH_TYPE.EXCLUSIVE.getValue())) {
             return context.getString(R.string.exclusive_breastfeeding);
-        } else if (value.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue())) {
+        } else if (value.equalsIgnoreCase(CoreConstants.GROWTH_TYPE.VITAMIN.getValue())) {
             return context.getString(R.string.vitamin_a);
-        } else if (value.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())) {
+        } else if (value.equalsIgnoreCase(CoreConstants.GROWTH_TYPE.DEWORMING.getValue())) {
             return context.getString(R.string.deworming);
         }
         return value;

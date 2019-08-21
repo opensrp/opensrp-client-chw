@@ -2,7 +2,6 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -13,12 +12,8 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
-import org.smartregister.chw.core.fragment.GrowthNutritionInputFragment;
-import org.smartregister.chw.core.utils.ChildDBConstants;
-import org.smartregister.chw.util.ServiceContent;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;
-import org.smartregister.immunization.domain.ServiceRecord;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,18 +78,6 @@ public class CoreChildMedicalHistoryActivityInteractorTest extends BaseUnitTest 
         interactor.fetchBirthCertificateData(commonPersonObjectClient, callBack);
         verify(callBack, never()).updateBirthCertification(Mockito.any(ArrayList.class));
 
-    }
-
-    @Test
-    public void addContentInitialBreastfeeding() throws Exception {
-        PowerMockito.when(interactor.getContext()).thenReturn(context);
-        ServiceContent serviceContent = new ServiceContent();
-        ServiceRecord initialServiceRecord = new ServiceRecord();
-        initialServiceRecord.setType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
-        initialServiceRecord.setName(ChildDBConstants.KEY.CHILD_BF_HR);
-        initialServiceRecord.setValue("yes");
-        Whitebox.invokeMethod(interactor, "addContent", serviceContent, initialServiceRecord);
-        Assert.assertEquals("Early initiation breastfeeding: Yes", serviceContent.getServiceName());
     }
 
 }

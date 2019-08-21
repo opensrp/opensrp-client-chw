@@ -2,16 +2,15 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
+import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.core.activity.CoreChildHomeVisitActivity;
 import org.smartregister.chw.core.fragment.CoreChildRegisterFragment;
 import org.smartregister.chw.provider.ChildRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.family.util.DBConstants;
-import org.smartregister.util.Utils;
 
 import java.util.Set;
 
@@ -22,16 +21,10 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
     @Override
     protected void onViewClicked(android.view.View view) {
         super.onViewClicked(view);
-        if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS && view.getTag() instanceof CommonPersonObjectClient) {
-            CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
-            String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
-
-            if (StringUtils.isNotBlank(baseEntityId)) {
-                ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
-                childHomeVisitFragment.setContext(getActivity());
-                childHomeVisitFragment.setChildClient(pc);
-                childHomeVisitFragment.show(getActivity().getFragmentManager(), ChildHomeVisitFragment.DIALOG_TAG);
-            }
+        if (view.getTag() instanceof CommonPersonObjectClient
+                && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
+            CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
+            CoreChildHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
         }
     }
 

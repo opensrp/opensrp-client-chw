@@ -8,14 +8,11 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.core.domain.HomeVisitServiceDataModel;
-import org.smartregister.chw.core.fragment.GrowthNutritionInputFragment;
-import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildUtils;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.ServiceTask;
 import org.smartregister.chw.core.utils.TaskServiceCalculate;
-import org.smartregister.chw.presenter.HomeVisitGrowthNutritionPresenter;
-import org.smartregister.chw.presenter.HomeVisitGrowthNutritionPresenterFlv;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.chw.util.ChildUtils;
@@ -64,19 +61,15 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
     private ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
 
-    private HomeVisitServiceRepository homeVisitServiceRepository;
-
     private Context context;
-    private HomeVisitGrowthNutritionPresenter.Flavor homeVisitGrowthNutritionPresenterFlv = new HomeVisitGrowthNutritionPresenterFlv();
 
     @VisibleForTesting
     public ChildMedicalHistoryInteractor() {
         Timber.v("constructor");
     }
 
-    public ChildMedicalHistoryInteractor(AppExecutors appExecutors, HomeVisitServiceRepository homeVisitServiceRepository, Context context) {
+    public ChildMedicalHistoryInteractor(AppExecutors appExecutors, Context context) {
         this.appExecutors = appExecutors;
-        this.homeVisitServiceRepository = homeVisitServiceRepository;
         this.context = context;
     }
 
@@ -219,40 +212,14 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             });
         }
         //adding exclusive breast feeding initial value from child form
-        ServiceRecord initialServiceRecord = new ServiceRecord();
-        initialServiceRecord.setType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
-        initialServiceRecord.setName(ChildDBConstants.KEY.CHILD_BF_HR);
-        initialServiceRecord.setValue(Utils.getYesNoAsLanguageSpecific(getContext(), initialFeedingValue));
-        serviceRecordList.add(0, initialServiceRecord);
-        String lastType = "";
-        for (ServiceRecord serviceRecord : serviceRecordList) {
-            if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())
-                    && !homeVisitGrowthNutritionPresenterFlv.hasMNP()) continue;
-            if (!serviceRecord.getType().equalsIgnoreCase(lastType)) {
-                if (!TextUtils.isEmpty(lastType)) {
-                    ServiceLine serviceLine = new ServiceLine();
-                    baseServiceArrayList.add(serviceLine);
-                }
-                ServiceHeader serviceHeader = new ServiceHeader();
-                serviceHeader.setServiceHeaderName(Utils.getServiceTypeLanguageSpecific(getContext(), serviceRecord.getType()));
-                baseServiceArrayList.add(serviceHeader);
-                ServiceContent content = new ServiceContent();
-                addContent(content, serviceRecord);
-                baseServiceArrayList.add(content);
-                lastType = serviceRecord.getType();
-            } else {
-                ServiceContent content = new ServiceContent();
-                addContent(content, serviceRecord);
-                baseServiceArrayList.add(content);
-            }
-        }
+        //TODO Child Refactor code deleted
         Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateGrowthNutrition(baseServiceArrayList));
         appExecutors.diskIO().execute(runnable);
     }
 
     @Override
     public void fetchDietaryData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
-        List<HomeVisitServiceDataModel> homeVisitDietary = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.MINIMUM_DIETARY_DIVERSITY);
+        List<HomeVisitServiceDataModel> homeVisitDietary = new ArrayList<>(); //TODO Child Refactor
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
         if (homeVisitDietary.size() > 0) {
 
@@ -284,7 +251,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     @Override
     public void fetchMuacData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
 
-        List<HomeVisitServiceDataModel> homeVisitMUAC = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.MUAC);
+        List<HomeVisitServiceDataModel> homeVisitMUAC = new ArrayList<>(); //TODO Child Refactor
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
         if (homeVisitMUAC.size() > 0) {
 
@@ -316,7 +283,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     @Override
     public void fetchLLitnData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
 
-        List<HomeVisitServiceDataModel> homeVisitLlitn = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.LLITN);
+        List<HomeVisitServiceDataModel> homeVisitLlitn = new ArrayList<>(); //TODO Child Refactor
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
         if (homeVisitLlitn.size() > 0) {
 
@@ -340,7 +307,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     public void fetchEcdData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
         String dateOfBirth = getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
 
-        List<HomeVisitServiceDataModel> homeVisitEcd = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.ECD);
+        List<HomeVisitServiceDataModel> homeVisitEcd = new ArrayList<>(); //TODO Child Refactor
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
         if (homeVisitEcd.size() > 0) {
 
@@ -388,7 +355,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     }
 
     private void addContent(ServiceContent content, ServiceRecord serviceRecord) {
-        if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
+        if (serviceRecord.getType().equalsIgnoreCase(CoreConstants.GROWTH_TYPE.EXCLUSIVE.getValue())) {
             //String[] values = serviceRecord.getValue().split("_");
             if (serviceRecord.getName().equalsIgnoreCase(ChildDBConstants.KEY.CHILD_BF_HR)) {
                 content.setServiceName(getContext().getString(R.string.initial_breastfeed_value, WordUtils.capitalize(serviceRecord.getValue())));

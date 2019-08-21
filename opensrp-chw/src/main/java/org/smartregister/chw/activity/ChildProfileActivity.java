@@ -16,7 +16,6 @@ import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
-import org.smartregister.chw.fragment.ChildHomeVisitFragment;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.family.util.Constants;
 
@@ -133,13 +132,8 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         CoreUpcomingServicesActivity.startUpcomingServicesActivity(this, ((ChildProfilePresenter) presenter()).getChildClient());
     }
 
+    //TODO Child Refactor
     private void openVisitHomeScreen(boolean isEditMode) {
-        ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
-        childHomeVisitFragment.setEditMode(isEditMode);
-        childHomeVisitFragment.setContext(this);
-        childHomeVisitFragment.setChildClient(((ChildProfilePresenter) presenter()).getChildClient());
-//                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
-        childHomeVisitFragment.show(getFragmentManager(), ChildHomeVisitFragment.DIALOG_TAG);
     }
 
     private void openFamilyDueTab() {

@@ -183,7 +183,9 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
         appExecutors.diskIO().execute(runnable);
     }
 
+    //TODO Child Refactor
     private void updateUpcomingServices(final CoreChildProfileContract.InteractorCallBack callback, Context context) {
+        /*
         updateUpcomingServices(context)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -210,6 +212,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
                         callback.hideProgressBar();
                     }
                 });
+                */
     }
 
     private void updateFamilyDueStatus(Context context, String familyId, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {

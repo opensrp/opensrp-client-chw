@@ -7,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.repository.HomeVisitRepository;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
@@ -79,7 +78,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 }
 
                 processEvents(clientClassification, vaccineTable, serviceTable, eventClient, event, eventType);
-
             }
 
         }
@@ -121,14 +119,12 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 }
                 processService(eventClient, serviceTable);
                 break;
-            case HomeVisitRepository.EVENT_TYPE:
+            case CoreConstants.EventType.CHILD_HOME_VISIT:
                 processVisitEvent(Utils.processOldEvents(eventClient));
-                processHomeVisit(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
-            case HomeVisitRepository.NOT_DONE_EVENT_TYPE:
+            case CoreConstants.EventType.CHILD_VISIT_NOT_DONE:
                 processVisitEvent(eventClient);
-                processHomeVisit(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
             case CoreConstants.EventType.MINIMUM_DIETARY_DIVERSITY:
@@ -136,7 +132,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             case CoreConstants.EventType.LLITN:
             case CoreConstants.EventType.ECD:
                 processVisitEvent(eventClient);
-                processHomeVisitService(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
             case CoreConstants.EventType.ANC_HOME_VISIT:
@@ -171,7 +166,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     return;
                 }
                 processVisitEvent(eventClient);
-                processVaccineCardEvent(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
             case CoreConstants.EventType.WASH_CHECK:
@@ -321,16 +315,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         }
     }
 
-    private void processHomeVisit(EventClient eventClient) {
-        List<Obs> observations = eventClient.getEvent().getObs();
-
-        CoreChildUtils.addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), eventClient.getEvent().getFormSubmissionId(), observations);
-    }
-
-    private void processHomeVisitService(EventClient eventClient) {
-        CoreChildUtils.addToHomeVisitService(eventClient.getEvent().getEventType(), eventClient.getEvent().getObs(), eventClient.getEvent().getEventDate().toDate(), CoreChildUtils.gsonConverter.toJson(eventClient.getEvent()));
-    }
-
     // possible to delegate
     private void processVisitEvent(EventClient eventClient) {
         try {
@@ -341,12 +325,8 @@ public class ChwClientProcessor extends ClientProcessorForJava {
     }
 
     private void processVisitEvent(List<EventClient> eventClients) {
-        try {
-            for (EventClient eventClient : eventClients) {
-                NCUtils.processAncHomeVisit(eventClient); // save locally
-            }
-        } catch (Exception e) {
-            Timber.e(e);
+        for (EventClient eventClient : eventClients) {
+            processVisitEvent(eventClient); // save locally
         }
     }
 
@@ -453,11 +433,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             // Utils.context().commonrepository(CoreConstants.TABLE_NAME.CHILD).populateSearchValues(baseEntityId, DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate), null);
 
         }
-    }
-
-    private void processVaccineCardEvent(EventClient eventClient) {
-        List<Obs> observations = eventClient.getEvent().getObs();
-        CoreChildUtils.addToChildTable(eventClient.getEvent().getBaseEntityId(), observations);
     }
 
     private void processWashCheckEvent(EventClient eventClient) {

@@ -32,6 +32,7 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.interactor.CoreChildHomeVisitInteractor;
 import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
@@ -59,7 +60,7 @@ import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy;
 
-public abstract class DefaultChwChildHomeVisitInteractor implements ChwChildHomeVisitInteractor.Flavor {
+public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVisitInteractor.Flavor {
     protected LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
     protected Context context;
     protected Map<String, List<VisitDetail>> details = null;

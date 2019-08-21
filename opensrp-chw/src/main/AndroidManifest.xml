@@ -113,11 +113,7 @@
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
-            android:name=".activity.ChwChildRegisterActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
-
-        <activity
-            android:name=".activity.ChwChildHomeVisitActivity"
+            android:name="org.smartregister.chw.core.activity.CoreChildHomeVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity

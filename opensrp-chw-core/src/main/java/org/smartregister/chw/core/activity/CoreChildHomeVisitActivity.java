@@ -1,4 +1,4 @@
-package org.smartregister.chw.activity;
+package org.smartregister.chw.core.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,11 +8,9 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
-import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncHomeVisitActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
-import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
-import org.smartregister.chw.interactor.ChwChildHomeVisitInteractor;
+import org.smartregister.chw.core.R;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -23,19 +21,17 @@ import java.text.MessageFormat;
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.EDIT_MODE;
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
 
-public class ChwChildHomeVisitActivity extends BaseAncHomeVisitActivity {
+public abstract class CoreChildHomeVisitActivity extends BaseAncHomeVisitActivity {
 
-    public static void startMe(Activity activity, MemberObject memberObject, Boolean isEditMode) {
-        Intent intent = new Intent(activity, ChwChildHomeVisitActivity.class);
+    public static void startMe(Activity activity, MemberObject memberObject, Boolean isEditMode, Class<?> cls) {
+        Intent intent = new Intent(activity, cls);
         intent.putExtra(MEMBER_PROFILE_OBJECT, memberObject);
         intent.putExtra(EDIT_MODE, isEditMode);
         activity.startActivity(intent);
     }
 
     @Override
-    protected void registerPresenter() {
-        presenter = new BaseAncHomeVisitPresenter(memberObject, this, new ChwChildHomeVisitInteractor());
-    }
+    protected abstract void registerPresenter();
 
     @Override
     public void redrawHeader(MemberObject memberObject) {

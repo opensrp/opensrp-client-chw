@@ -8,7 +8,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
-import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.interactor.ChildMedicalHistoryInteractor;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -32,15 +31,14 @@ public class CoreChildMedicalHistoryActivityPresenterTest {
 
     @Mock
     private CommonPersonObjectClient commonPersonObjectClient;
-    @Mock
-    private HomeVisitServiceRepository homeVisitServiceRepository;
+
     @Mock
     private AppExecutors appExecutors;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        presenter = new ChildMedicalHistoryPresenter(view, appExecutors, homeVisitServiceRepository);
+        presenter = new ChildMedicalHistoryPresenter(view, appExecutors);
         Whitebox.setInternalState(presenter, "interactor", interactor);
     }
 
