@@ -15,8 +15,8 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.pnc.interactor.BasePncMemberProfileInteractor;
+import org.smartregister.chw.rule.PncVisitAlertRule;
 import org.smartregister.chw.util.HomeVisitUtil;
-import org.smartregister.chw.util.VisitSummary;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -83,14 +83,14 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
         appExecutors.diskIO().execute(runnable);
     }
 
-    public VisitSummary visitSummary(CommonPersonObjectClient pc) {
-        Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.PNC_HOME_VISIT);
+
+    public PncVisitAlertRule visitSummary(CommonPersonObjectClient pc) {
+        Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(org.smartregister.chw.util.Constants.RULE_FILE.ANC_HOME_VISIT);
         String dayPnc = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DELIVERY_DATE, true);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String baseEntityID = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
         Date deliveryDate = null;
         Date lastVisitDate = null;
-        Date lastNotVisitDate = null;
         try {
             deliveryDate = sdf.parse(dayPnc);
         } catch (ParseException e) {
@@ -101,10 +101,6 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
         if (lastVisit != null)
             lastVisitDate = lastVisit.getDate();
 
-        Visit lastNotVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT_NOT_DONE);
-        if (lastNotVisit != null)
-            lastNotVisitDate = lastNotVisit.getDate();
-
-        return HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, lastNotVisitDate, deliveryDate);
+        return HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, deliveryDate);
     }
 }
