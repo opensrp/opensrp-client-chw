@@ -13,16 +13,30 @@ import android.text.TextUtils;
 import android.view.Menu;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.hf.BuildConfig;
+import org.smartregister.chw.hf.HealthFacilityApplication;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.listener.ReferralsTaskViewClickListener;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Task;
+import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.BaseRepository;
+import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.SecuredActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 import timber.log.Timber;
 
@@ -39,6 +53,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     private CustomFontTextView chwDetailsNames;
     private ReferralsTaskViewClickListener referralsTaskViewClickListener = new ReferralsTaskViewClickListener();
     private String name;
+    private String baseEntityId;
 
     public static void startReferralTaskViewActivity(Activity activity, CommonPersonObjectClient personObjectClient, Task task) {
         Intent intent = new Intent(activity, ReferralTaskViewActivity.class);
@@ -77,6 +92,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         setPersonObjectClient((CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON));
         if (getPersonObjectClient() != null) {
             name = Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.FIRST_NAME, true) + " " + Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true) + " " + Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
+            setBaseEntityId(Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true));
         }
     }
 
@@ -134,10 +150,6 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         return personObjectClient;
     }
 
-    public void setPersonObjectClient(CommonPersonObjectClient personObjectClient) {
-        this.personObjectClient = personObjectClient;
-    }
-
     private void getReferralDetails() {
         if (getPersonObjectClient() != null) {
             clientReferralProblem.setText(getTask().getDescription());
@@ -161,10 +173,6 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         return task;
     }
 
-    public void setTask(Task task) {
-        this.task = task;
-    }
-
     private String getFamilyMemberContacts() {
         String phoneNumber = "";
         String familyPhoneNumber = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_MEMBER_PHONENUMBER, true);
@@ -180,43 +188,99 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         return phoneNumber;
     }
 
-    public void closeTask() {
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    public void setPersonObjectClient(CommonPersonObjectClient personObjectClient) {
+        this.personObjectClient = personObjectClient;
+    }
+
+    private void goToChildProfile() {
+        Intent intent = new Intent(this, ChildProfileActivity.class);
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, getPersonObjectClient().getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID));
+        startActivity(intent);
+
+    }
+
+    public void closeReferral() {
+        closeReferralDialog();
+    }
+
+    private void closeReferralDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.mark_as_done_title));
         builder.setMessage(getString(R.string.mark_as_done_message));
         builder.setCancelable(true);
 
-        builder.setPositiveButton(this.getString(R.string.mark_as_done), (dialog, id) -> dialog.cancel());
+        builder.setPositiveButton(this.getString(R.string.mark_as_done), (dialog, id) -> {
+            try {
+                saveCloseReferralEvent();
+                completeTask();
+                finish();
+            } catch (Exception e) {
+                Timber.e(e, "ReferralTaskViewActivity --> closeReferralDialog");
+            }
+        });
         builder.setNegativeButton(this.getString(R.string.dismiss), ((dialog, id) -> dialog.cancel()));
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 
-  /*  private Event createReferralCloseEvent() {
-        Event event = new Event();
+    private void saveCloseReferralEvent() {
         try {
+            AllSharedPreferences sharedPreferences = Utils.getAllSharedPreferences();
+            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
+            Event baseEvent = (Event) new Event()
+                    .withBaseEntityId(getBaseEntityId())
+                    .withEventDate(new Date())
+                    .withEventType(CoreConstants.EventType.CLOSE_REFERRAL)
+                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withEntityType(CoreConstants.TABLE_NAME.CLOSE_REFERRAL)
+                    .withProviderId(sharedPreferences.fetchRegisteredANM())
+                    .withLocationId(sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()))
+                    .withTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()))
+                    .withTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()))
+                    .withClientDatabaseVersion(BuildConfig.DATABASE_VERSION)
+                    .withClientApplicationVersion(BuildConfig.VERSION_CODE)
+                    .withDateCreated(new Date());
 
-            JSONObject metadata = FormUtils.getInstance(getApplicationContext())
-                    .getFormJson(Utils.metadata().familyRegister.formName)
-                    .getJSONObject(org.smartregister.family.util.JsonFormUtils.METADATA);
+            baseEvent.addObs((new Obs()).withFormSubmissionField(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.REFERRAL_TASK).withValue(getTask().getIdentifier())
+                    .withFieldCode(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.REFERRAL_TASK).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
+            baseEvent.addObs((new Obs()).withFormSubmissionField(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.REFERRAL_TASK_PREVIOUS_STATUS).withValue(getTask().getStatus())
+                    .withFieldCode(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.REFERRAL_TASK_PREVIOUS_STATUS).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
+            baseEvent.addObs((new Obs()).withFormSubmissionField(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.REFERRAL_TASK_PREVIOUS_BUSINESS_STATUS).withValue(getTask().getBusinessStatus())
+                    .withFieldCode(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.REFERRAL_TASK_PREVIOUS_BUSINESS_STATUS).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
-            metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
+            org.smartregister.chw.hf.utils.JsonFormUtils.tagSyncMetadata(org.smartregister.family.util.Utils.context().allSharedPreferences(), baseEvent);// tag docs
 
-            FormTag formTag = new FormTag();
-            formTag.providerId = Utils.context().allSharedPreferences().fetchRegisteredANM();
-            formTag.appVersion = FamilyLibrary.getInstance().getApplicationVersion();
-            formTag.databaseVersion = FamilyLibrary.getInstance().getDatabaseVersion();
-
-            event = createEvent(new JSONArray(), metadata, formTag, familyMember.getFamilyID(),
-                    CoreConstants.EventType.UPDATE_FAMILY_RELATIONS, Utils.metadata().familyRegister.tableName);
-            tagSyncMetadata(Utils.context().allSharedPreferences(), event);
-
-            return event;
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
+            syncHelper.addEvent(getBaseEntityId(), eventJson);
+            long lastSyncTimeStamp = HealthFacilityApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            HealthFacilityApplication.getClientProcessor(HealthFacilityApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
+            HealthFacilityApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
-            Timber.e(e, "ReferralTaskViewActivity -- > createReferralCloseEvent");
+            Timber.e(e, "ReferralTaskViewActivity --> saveCloseReferralEvent");
         }
 
-        return event;
-    }*/
+    }
+
+    private void completeTask() {
+        Task currentTask = getTask();
+        currentTask.setForEntity(getBaseEntityId());
+        currentTask.setStatus(Task.TaskStatus.COMPLETED);
+        currentTask.setBusinessStatus(CoreConstants.BUSINESS_STATUS.COMPLETE);
+        currentTask.setSyncStatus(BaseRepository.TYPE_Unsynced);
+        CoreChwApplication.getInstance().getTaskRepository().addOrUpdate(currentTask);
+    }
+
+    public String getBaseEntityId() {
+        return baseEntityId;
+    }
+
+    public void setBaseEntityId(String baseEntityId) {
+        this.baseEntityId = baseEntityId;
+    }
 }

@@ -21,5 +21,5 @@
     <string name="client_name_suffix">%s,</string>
     <string name="care_giver_prefix">CG: %s</string>
     <string name="mark_as_done_title">Mark as done?</string>
-    <string name="mark_as_done_message">Mark as done?</string>
+    <string name="mark_as_done_message">Referral will closed and disappear from app</string>
 </resources>

@@ -172,6 +172,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
                 break;
             case CoreConstants.EventType.CHILD_REFERRAL:
+            case CoreConstants.EventType.CLOSE_REFERRAL:
                 if (eventClient.getClient() != null) {
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 }

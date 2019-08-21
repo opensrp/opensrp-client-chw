@@ -282,7 +282,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         if (fetchStatus.equals(FetchStatus.fetched)) {
             handler.postDelayed(() -> presenter().fetchProfileData(), 100);
         }
-
     }
 
     @Override
@@ -305,10 +304,10 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     public void setGender(String gender) {
         this.gender = gender;
         textViewGender.setText(gender);
-        updateTopbar();
+        updateTopBar();
     }
 
-    protected void updateTopbar() {
+    protected void updateTopBar() {
         if (gender.equalsIgnoreCase(Gender.MALE.toString())) {
             imageViewProfile.setBorderColor(getResources().getColor(R.color.light_blue));
         } else if (gender.equalsIgnoreCase(Gender.FEMALE.toString())) {
@@ -319,7 +318,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     @Override
     public void setAddress(String address) {
         textViewAddress.setText(address);
-
     }
 
     @Override
@@ -429,7 +427,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         layoutRecordButtonDone.setVisibility(View.VISIBLE);
         layoutNotRecordView.setVisibility(View.GONE);
         layoutRecordView.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -437,7 +434,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         layoutFamilyHasRow.setVisibility(View.VISIBLE);
         viewFamilyRow.setVisibility(View.VISIBLE);
         textViewFamilyHas.setText(getString(R.string.family_has_nothing_due));
-
     }
 
     @Override

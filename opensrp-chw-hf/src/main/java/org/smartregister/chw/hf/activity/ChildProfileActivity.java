@@ -113,7 +113,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

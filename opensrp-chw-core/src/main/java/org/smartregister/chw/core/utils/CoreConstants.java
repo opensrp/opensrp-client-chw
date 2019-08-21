@@ -58,9 +58,13 @@ public class CoreConstants {
         public static final String ANC_HOME_VISIT = "ANC Home Visit";
         public static final String PNC_HOME_VISIT = "PNC Home Visit";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
-        public static final String REFERRAL_TASK_MASK_AS_DONE = "Referral Task Mark as Done";
+        public static final String CLOSE_REFERRAL = "Close Referral";
         public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
         public static final String WASH_CHECK = "WASH check";
+    }
+
+    public static final class EncounterType {
+        public static final String CLOSE_REFERRAL = "Close Referral";
     }
 
     /**
@@ -336,6 +340,7 @@ public class CoreConstants {
         public static final String TASK = "task";
         public static final String WASH_CHECK_LOG = "ec_wash_check_log";
         public static final String CHILD_REFERRAL = "ec_child_referral";
+        public static final String CLOSE_REFERRAL = "ec_close_referral";
     }
 
     public static final class INTENT_KEY {
@@ -491,6 +496,9 @@ public class CoreConstants {
             public static final String WASH_CHECK_DETAILS = "details_info";
             public static final String WASH_CHECK_LAST_VISIT = "last_visit";
             public static final String FAMILY_ID = "family_id";
+            public static final String REFERRAL_TASK = "referral_task";
+            public static final String REFERRAL_TASK_PREVIOUS_STATUS = "referral_task_previous_status";
+            public static final String REFERRAL_TASK_PREVIOUS_BUSINESS_STATUS = "referral_task_previous_business_status";
 
 
         }
@@ -554,5 +562,12 @@ public class CoreConstants {
         public static final String PNC_REGISTER_ACTIVITY = "PNC_REGISTER_ACTIVITY";
         public static final String REFERRALS_REGISTER_ACTIVITY = "REFERRALS_REGISTER_ACTIVITY";
         public static final String MALARIA_REGISTER_ACTIVITY = "MALARIA_REGISTER_ACTIVITY";
+    }
+
+    public static final class BUSINESS_STATUS {
+        public static final String REFERRED = "Referred";
+        public static final String IN_PROGRESS = "In-Progress";
+        public static final String COMPLETE = "Complete";
+        public static final String EXPIRED = "Expired";
     }
 }
