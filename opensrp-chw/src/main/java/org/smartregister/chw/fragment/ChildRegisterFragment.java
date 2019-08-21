@@ -3,9 +3,9 @@ package org.smartregister.chw.fragment;
 import android.content.Intent;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.ChildHomeVisitActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
-import org.smartregister.chw.core.activity.CoreChildHomeVisitActivity;
 import org.smartregister.chw.core.fragment.CoreChildRegisterFragment;
 import org.smartregister.chw.provider.ChildRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -24,7 +24,7 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
         if (view.getTag() instanceof CommonPersonObjectClient
                 && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
             CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
-            CoreChildHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
+            ChildHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false, ChildHomeVisitActivity.class);
         }
     }
 

@@ -249,9 +249,9 @@ public class VaccineScheduleUtil {
                 }
 
                 vaccineWrappers.add(VaccineScheduleUtil.getVaccineWrapper(individualVaccine.getMiddle(), taskModel));
-
-                return Pair.of(taskModel, vaccineWrappers);
             }
+
+            return Pair.of(taskModel, vaccineWrappers);
             //
 
         } catch (Exception e) {

@@ -101,7 +101,7 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         try {
             Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
             evaluateChildVaccineCard();
-            //evaluateImmunization();
+            evaluateImmunization();
             evaluateExclusiveBreastFeeding(serviceWrapperMap);
             evaluateVitaminA(serviceWrapperMap);
             evaluateDeworming(serviceWrapperMap);

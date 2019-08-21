@@ -1,8 +1,13 @@
 package org.smartregister.chw.actionhelper;
 
+import org.joda.time.LocalDate;
+import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.core.model.VaccineTaskModel;
+import org.smartregister.chw.util.VaccineScheduleUtil;
+import org.smartregister.domain.Alert;
+import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -62,7 +67,7 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
     public void onChanged(String s) {
         int position = keyPositions.indexOf(s);
         lastValidKeyPosition = position + 1;
-/*
+
         int x = lastValidKeyPosition + 1;
         while (x < keyPositions.size()) {
             String key = keyPositions.get(x);
@@ -94,7 +99,7 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
 
             x++;
         }
-        */
+
     }
 
 
