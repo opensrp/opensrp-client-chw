@@ -160,7 +160,7 @@ public class CoreConstants {
             return Utils.getLocalForm(WASH_CHECK, locale, assetManager);
         }
 
-        public static class CHILD_HOME_VISIT{
+        public static class CHILD_HOME_VISIT {
             private static final String VACCINE_CARD = "child_hv_vaccine_card_received";
             private static final String VITAMIN_A = "child_hv_vitamin_a";
             private static final String DEWORMING = "child_hv_deworming";
@@ -407,8 +407,6 @@ public class CoreConstants {
         public static final String HOME_VISIT = "home-visit-rules.yml";
         public static final String ANC_HOME_VISIT = "anc-home-visit-rules.yml";
         public static final String PNC_HOME_VISIT = "pnc-home-visit-rules.yml";
-        public static final String BIRTH_CERT = "birth-cert-rules.yml";
-        public static final String SERVICE = "service-rules.yml";
         public static final String IMMUNIZATION_EXPIRED = "immunization-expire-rules.yml";
         public static final String CONTACT_RULES = "contact-rules.yml";
         public static final String PNC_HEALTH_FACILITY_VISIT = "pnc-health-facility-schedule-rule.yml";
@@ -572,9 +570,11 @@ public class CoreConstants {
     public enum GROWTH_TYPE {
         EXCLUSIVE("Exclusive breastfeeding"), MNP("MNP"), VITAMIN("Vitamin A"), DEWORMING("Deworming");
         private String value;
+
         GROWTH_TYPE(String value) {
             this.value = value;
         }
+
         public String getValue() {
             return value;
         }
@@ -596,7 +596,7 @@ public class CoreConstants {
         public static final String MALARIA_REGISTER_ACTIVITY = "MALARIA_REGISTER_ACTIVITY";
     }
 
-    public interface SERVICE_GROUPS{
+    public interface SERVICE_GROUPS {
         String CHILD = "child";
         String WOMAN = "woman";
         String PNC = "pnc";

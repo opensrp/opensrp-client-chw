@@ -463,12 +463,6 @@ public abstract class CoreChildUtils {
 
     }
 
-    public static String getServiceDueStatus(String dueDate) {
-        ServiceRule serviceRule = new ServiceRule(dueDate);
-        CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(serviceRule, CoreConstants.RULE_FILE.SERVICE);
-        return serviceRule.getButtonStatus();
-    }
-
     public static SpannableString dueOverdueCalculation(Context context, String status, String dueDate) {
         SpannableString spannableString;
         Date date = org.smartregister.family.util.Utils.dobStringToDate(dueDate);
