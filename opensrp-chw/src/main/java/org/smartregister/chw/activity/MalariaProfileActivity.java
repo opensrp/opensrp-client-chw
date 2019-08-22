@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
+import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.malaria.domain.MemberObject;

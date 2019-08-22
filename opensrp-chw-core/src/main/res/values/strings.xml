@@ -277,4 +277,9 @@
 
     <string name="child_details">Child details %1$s</string>
 
+    <!-- Other family member profile -->
+    <string name="return_to_family_name">Return to %1$s Family</string>
+    <string name="return_to_family_members">Return to family members</string>
+    <string name="edit_member_form_title">Edit Family Member</string>
+
 </resources>

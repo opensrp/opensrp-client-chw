@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 
-public class CoreFamilyMemberFloatingMenu extends LinearLayout implements View.OnClickListener {
+public abstract class CoreFamilyMemberFloatingMenu extends LinearLayout implements View.OnClickListener {
     public FloatingActionButton fab;
     public OnClickFloatingMenu onClickFloatingMenu;
     private RelativeLayout activityMain;
@@ -24,6 +24,16 @@ public class CoreFamilyMemberFloatingMenu extends LinearLayout implements View.O
 
     public CoreFamilyMemberFloatingMenu(Context context) {
         super(context);
+        initUi();
+    }
+
+    public CoreFamilyMemberFloatingMenu(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initUi();
+    }
+
+    public CoreFamilyMemberFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         initUi();
     }
 
@@ -48,16 +58,6 @@ public class CoreFamilyMemberFloatingMenu extends LinearLayout implements View.O
         referLayout.setClickable(false);
 
         menuBar.setVisibility(GONE);
-    }
-
-    public CoreFamilyMemberFloatingMenu(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        initUi();
-    }
-
-    public CoreFamilyMemberFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        initUi();
     }
 
     public View getCallLayout() {
@@ -106,4 +106,6 @@ public class CoreFamilyMemberFloatingMenu extends LinearLayout implements View.O
     public void onClick(View v) {
         onClickFloatingMenu.onClickMenu(v.getId());
     }
+
+    public abstract void reDraw(boolean has_phone);
 }
