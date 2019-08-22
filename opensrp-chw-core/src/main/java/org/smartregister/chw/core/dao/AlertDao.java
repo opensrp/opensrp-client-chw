@@ -12,7 +12,7 @@ public class AlertDao extends AbstractDao {
 
     public static List<Alert> getActiveAlerts(String baseEntityID) {
         String sql = "select (case when status = 'urgent' then 1 else 2 end) state , * from alerts " +
-                " where caseID = '" + baseEntityID + "'and status in ('normal','urgent') " +
+                " where caseID = '" + baseEntityID + "'and status in ('normal','urgent') and expiryDate > date() " +
                 " order by state asc , startDate asc ";
 
         DataMap<Alert> dataMap = cursor -> new Alert(
@@ -34,8 +34,7 @@ public class AlertDao extends AbstractDao {
                 " alerts.completionDate , vaccines.date , strftime('%Y-%m-%d', vaccines.date / 1000, 'unixepoch') dateGiven " +
                 " from alerts " +
                 " inner join vaccines on vaccines.base_entity_id = alerts.caseID and replace(vaccines.name,'_','') = alerts.visitCode " +
-                " where alerts.caseID = '" + baseEntityID + "' and alerts.status not in ('complete','expired','inProcess') " +
-                " and expiryDate < date() ";
+                " where alerts.caseID = '" + baseEntityID + "' and alerts.status not in ('complete','expired','inProcess') ";
 
         DataMap<AlertState> dataMap = c -> new AlertState(
                 getCursorValue(c, "caseID"),
