@@ -4,11 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.repository.HomeVisitRepository;
-import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.chw.core.utils.WashCheck;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -19,7 +20,6 @@ import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceRecord;
@@ -78,7 +78,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 }
 
                 processEvents(clientClassification, vaccineTable, serviceTable, eventClient, event, eventType);
-
             }
 
         }
@@ -120,16 +119,19 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 }
                 processService(eventClient, serviceTable);
                 break;
-            case HomeVisitRepository.EVENT_TYPE:
-            case HomeVisitRepository.NOT_DONE_EVENT_TYPE:
-                processHomeVisit(eventClient);
+            case CoreConstants.EventType.CHILD_HOME_VISIT:
+                processVisitEvent(Utils.processOldEvents(eventClient));
+                processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                break;
+            case CoreConstants.EventType.CHILD_VISIT_NOT_DONE:
+                processVisitEvent(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
             case CoreConstants.EventType.MINIMUM_DIETARY_DIVERSITY:
             case CoreConstants.EventType.MUAC:
             case CoreConstants.EventType.LLITN:
             case CoreConstants.EventType.ECD:
-                processHomeVisitService(eventClient);
+                processVisitEvent(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
             case CoreConstants.EventType.ANC_HOME_VISIT:
@@ -163,7 +165,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 if (eventClient.getClient() == null) {
                     return;
                 }
-                processVaccineCardEvent(eventClient);
+                processVisitEvent(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
             case CoreConstants.EventType.WASH_CHECK:
@@ -275,7 +277,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     value = contentValues.getAsString(RecurringServiceRecordRepository.VALUE);
                 }
 
-                RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().getInstance().recurringServiceTypeRepository();
+                RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
                 List<ServiceType> serviceTypeList = recurringServiceTypeRepository.searchByName(name);
                 if (serviceTypeList == null || serviceTypeList.isEmpty()) {
                     return false;
@@ -285,7 +287,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     return false;
                 }
 
-                RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().getInstance().recurringServiceRecordRepository();
+                RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
                 ServiceRecord serviceObj = new ServiceRecord();
                 serviceObj.setBaseEntityId(contentValues.getAsString(RecurringServiceRecordRepository.BASE_ENTITY_ID));
                 serviceObj.setName(name);
@@ -314,22 +316,18 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         }
     }
 
-    private void processHomeVisit(EventClient eventClient) {
-        List<Obs> observations = eventClient.getEvent().getObs();
-
-        CoreChildUtils.addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), eventClient.getEvent().getFormSubmissionId(), observations);
-    }
-
-    private void processHomeVisitService(EventClient eventClient) {
-        CoreChildUtils.addToHomeVisitService(eventClient.getEvent().getEventType(), eventClient.getEvent().getObs(), eventClient.getEvent().getEventDate().toDate(), CoreChildUtils.gsonConverter.toJson(eventClient.getEvent()));
-    }
-
     // possible to delegate
     private void processVisitEvent(EventClient eventClient) {
         try {
             NCUtils.processAncHomeVisit(eventClient); // save locally
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    private void processVisitEvent(List<EventClient> eventClients) {
+        for (EventClient eventClient : eventClients) {
+            processVisitEvent(eventClient); // save locally
         }
     }
 
@@ -438,13 +436,8 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         }
     }
 
-    private void processVaccineCardEvent(EventClient eventClient) {
-        List<Obs> observations = eventClient.getEvent().getObs();
-        CoreChildUtils.addToChildTable(eventClient.getEvent().getBaseEntityId(), observations);
-    }
-
     private void processWashCheckEvent(EventClient eventClient) {
-        utils.WashCheck washCheck = new utils.WashCheck();
+        WashCheck washCheck = new WashCheck();
         for (Obs obs : eventClient.getEvent().getObs()) {
 
             if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID)) {

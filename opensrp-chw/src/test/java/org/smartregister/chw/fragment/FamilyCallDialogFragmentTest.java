@@ -17,6 +17,8 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.model.FamilyCallDialogModel;
 
+import timber.log.Timber;
+
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.spy;
@@ -51,6 +53,7 @@ public class FamilyCallDialogFragmentTest {
         try {
             spyFragment.refreshHeadOfFamilyView(model);
         } catch (Exception e) {
+            Timber.e(e);
         }
         verify(llFamilyHead).setVisibility(View.GONE);
 
@@ -59,6 +62,7 @@ public class FamilyCallDialogFragmentTest {
         try {
             spyFragment.refreshHeadOfFamilyView(model);
         } catch (Exception e) {
+            Timber.e(e);
         }
         verify(llFamilyHead, times(2)).setVisibility(View.GONE);
 
@@ -69,6 +73,7 @@ public class FamilyCallDialogFragmentTest {
         try {
             spyFragment.refreshHeadOfFamilyView(model);
         } catch (Exception e) {
+            Timber.e(e);
         }
         verify(llFamilyHead).setVisibility(View.VISIBLE);
     }
@@ -87,6 +92,7 @@ public class FamilyCallDialogFragmentTest {
         try {
             spyFragment.refreshCareGiverView(model);
         } catch (Exception e) {
+            Timber.e(e);
         }
         verify(llCareGiver).setVisibility(View.GONE);
 
@@ -95,6 +101,7 @@ public class FamilyCallDialogFragmentTest {
         try {
             spyFragment.refreshCareGiverView(model);
         } catch (Exception e) {
+            Timber.e(e);
         }
         verify(llCareGiver, times(2)).setVisibility(View.GONE);
 
@@ -105,6 +112,7 @@ public class FamilyCallDialogFragmentTest {
         try {
             spyFragment.refreshCareGiverView(model);
         } catch (Exception e) {
+            Timber.e(e);
         }
         verify(llCareGiver).setVisibility(View.VISIBLE);
     }

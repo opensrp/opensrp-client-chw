@@ -10,13 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.core.utils.WashCheck;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import utils.WashCheck;
 
 public class WashCheckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<WashCheck> contentList;

@@ -11,6 +11,8 @@ import org.smartregister.repository.Repository;
 
 import java.util.HashMap;
 
+import timber.log.Timber;
+
 public class AncRegisterRepository extends BaseRepository {
 
     public static final String TABLE_NAME = "ec_family_member";
@@ -55,7 +57,7 @@ public class AncRegisterRepository extends BaseRepository {
                 return detailsMap;
             }
         } catch (Exception e) {
-
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -83,7 +85,7 @@ public class AncRegisterRepository extends BaseRepository {
                 return cursor.getString(cursor.getColumnIndex(LAST_MENSTRUAL_PERIOD));
             }
         } catch (Exception e) {
-
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -110,7 +112,7 @@ public class AncRegisterRepository extends BaseRepository {
             return cursor.getCount();
 
         } catch (Exception e) {
-
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();

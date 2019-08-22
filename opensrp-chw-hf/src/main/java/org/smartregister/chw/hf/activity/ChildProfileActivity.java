@@ -12,19 +12,18 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
+import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.core.activity.CoreChildHomeVisitActivity;
 import org.smartregister.chw.core.activity.CoreChildMedicalHistoryActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
-import org.smartregister.chw.core.fragment.CoreChildHomeVisitFragment;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
-import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.adapter.ReferralCardViewAdapter;
-import org.smartregister.chw.hf.fragement.HfChildHomeVisitFragment;
 import org.smartregister.chw.hf.presenter.HfChildProfilePresenter;
 import org.smartregister.domain.Task;
 import org.smartregister.family.util.Constants;
@@ -65,8 +64,8 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
     @Override
     protected void initializePresenter() {
-        childBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        isComesFromFamily = getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, false);
+        //childBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        //isComesFromFamily = getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, false);
         String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         if (familyName == null) {
             familyName = "";
@@ -155,19 +154,16 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     private void openMedicalHistoryScreen() {
         Map<String, Date> vaccine = ((HfChildProfilePresenter) presenter()).getVaccineList();
         CoreChildMedicalHistoryActivity.startMedicalHistoryActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
-                ((HfChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine));
+                ((HfChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine), CoreChildMedicalHistoryActivity.class);
     }
 
     private void openUpcomingServicePage() {
         CoreUpcomingServicesActivity.startUpcomingServicesActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient());
     }
 
+    //TODO Child Refactor
     private void openVisitHomeScreen(boolean isEditMode) {
-        HfChildHomeVisitFragment childHomeVisitFragment = HfChildHomeVisitFragment.newInstance();
-        childHomeVisitFragment.setEditMode(isEditMode);
-        childHomeVisitFragment.setContext(this);
-        childHomeVisitFragment.setChildClient(((CoreChildProfilePresenter) presenter()).getChildClient());
-        childHomeVisitFragment.show(getFragmentManager(), CoreChildHomeVisitFragment.DIALOG_TAG);
+        CoreChildHomeVisitActivity.startMe(this, new MemberObject(((HfChildProfilePresenter) presenter()).getChildClient()), isEditMode);
     }
 
     public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final HfChildProfilePresenter presenter) {

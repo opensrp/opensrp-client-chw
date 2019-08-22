@@ -14,9 +14,6 @@ import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.repository.PlanDefinitionRepository;
-import org.smartregister.repository.PlanDefinitionSearchRepository;
-import org.smartregister.repository.TaskRepository;
 
 import timber.log.Timber;
 
@@ -47,9 +44,6 @@ public class HfChwRepository extends CoreChwRepository {
                     break;
                 case 5:
                     upgradeToVersion5(db);
-                    break;
-                case 6:
-                    upgradeToVersion6(db);
                     break;
                 default:
                     break;
@@ -120,16 +114,6 @@ public class HfChwRepository extends CoreChwRepository {
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion5 ");
-        }
-    }
-
-    private static void upgradeToVersion6(SQLiteDatabase database) {
-        try {
-            PlanDefinitionRepository.createTable(database);
-            PlanDefinitionSearchRepository.createTable(database);
-            TaskRepository.createTable(database);
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion6");
         }
     }
 }
