@@ -9,6 +9,7 @@ import org.smartregister.chw.core.contract.ImmunizationContact;
 import org.smartregister.chw.core.model.ImmunizationModel;
 import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.core.utils.ChwServiceSchedule;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitVaccineGroup;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -102,17 +103,17 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
             if (!TextUtils.isEmpty(dobString)) {
                 DateTime dateTime = new DateTime(dobString);
                 try {
-                    VaccineSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime, "child");
+                    VaccineSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime, CoreConstants.SERVICE_GROUPS.CHILD);
                 } catch (Exception e) {
 
                 }
                 try {
-                    ChwServiceSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime, "child");
+                    ChwServiceSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime, CoreConstants.SERVICE_GROUPS.CHILD);
                 } catch (Exception e) {
 
                 }
             }
-            List<Alert> alerts = alertService.findByEntityIdAndAlertNames(childClient.getCaseId(), VaccinateActionUtils.allAlertNames("child"));
+            List<Alert> alerts = alertService.findByEntityIdAndAlertNames(childClient.getCaseId(), VaccinateActionUtils.allAlertNames(CoreConstants.SERVICE_GROUPS.CHILD));
             List<Vaccine> vaccines = vaccineRepository.findByEntityId(childClient.getCaseId());
             Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
             int size = notDoneVaccines.size();
@@ -120,7 +121,7 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
                 recievedVaccines.put(notDoneVaccines.get(i).getName().toLowerCase(), new Date());
             }
 
-            List<Map<String, Object>> sch = generateScheduleList("child", dob, recievedVaccines, alerts);
+            List<Map<String, Object>> sch = generateScheduleList(CoreConstants.SERVICE_GROUPS.CHILD, dob, recievedVaccines, alerts);
             VaccineTaskModel vaccineTaskModel = new VaccineTaskModel();
             vaccineTaskModel.setAlerts(alerts);
             vaccineTaskModel.setVaccines(vaccines);
