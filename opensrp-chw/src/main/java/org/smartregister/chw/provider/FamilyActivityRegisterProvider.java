@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
+import timber.log.Timber;
+
 import static org.smartregister.family.util.Utils.getName;
 
 public class FamilyActivityRegisterProvider extends org.smartregister.family.provider.FamilyActivityRegisterProvider {
@@ -115,7 +117,7 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
         try {
             res = Long.valueOf(string);
         } catch (Exception e) {
-
+            Timber.e(e);
         }
         return res;
     }

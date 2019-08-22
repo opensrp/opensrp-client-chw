@@ -13,8 +13,9 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.core.model.VaccineTaskModel;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.util.ContactUtil;
-import org.smartregister.chw.util.VaccineScheduleUtil;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.VaccineWrapper;
@@ -115,7 +116,7 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
 
     private Pair<String, Date> getNextIPTP(MemberObject memberObject) {
         DateTime lmp = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
-        Map<String, ServiceWrapper> serviceWrapperMap = getRecurringServices(memberObject.getBaseEntityId(), lmp, "woman");
+        Map<String, ServiceWrapper> serviceWrapperMap = getRecurringServices(memberObject.getBaseEntityId(), lmp, CoreConstants.SERVICE_GROUPS.WOMAN);
         ServiceWrapper serviceWrapper = serviceWrapperMap.get("IPTp-SP");
 
 
