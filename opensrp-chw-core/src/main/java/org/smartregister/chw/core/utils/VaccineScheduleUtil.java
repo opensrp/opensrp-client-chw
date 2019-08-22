@@ -1,4 +1,4 @@
-package org.smartregister.chw.util;
+package org.smartregister.chw.core.utils;
 
 import android.content.Context;
 
@@ -6,10 +6,9 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
 import org.smartregister.chw.anc.domain.VaccineDisplay;
-import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.dao.AlertDao;
 import org.smartregister.chw.core.model.VaccineTaskModel;
-import org.smartregister.chw.core.utils.ChwServiceSchedule;
-import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
@@ -104,11 +103,11 @@ public class VaccineScheduleUtil {
      * @return
      */
     public static VaccineTaskModel getLocalUpdatedVaccines(String baseEntityID, DateTime anchorDate, List<VaccineWrapper> inMemoryVaccines, String vaccineGroupName) {
-        AlertService alertService = ChwApplication.getInstance().getContext().alertService();
-        VaccineRepository vaccineRepository = ChwApplication.getInstance().vaccineRepository();
+        AlertService alertService = CoreChwApplication.getInstance().getContext().alertService();
+        VaccineRepository vaccineRepository = CoreChwApplication.getInstance().vaccineRepository();
 
         // updates the local vaccines and services for the mother
-        VaccineSchedule.updateOfflineAlerts(baseEntityID, anchorDate, vaccineGroupName);
+        VaccineScheduleUtil.updateOfflineAlerts(baseEntityID, anchorDate, vaccineGroupName);
         ChwServiceSchedule.updateOfflineAlerts(baseEntityID, anchorDate, vaccineGroupName); // get services
 
         // retrieve related information from the local db
@@ -236,7 +235,7 @@ public class VaccineScheduleUtil {
     public static Pair<VaccineTaskModel, List<VaccineWrapper>> getChildDueVaccines(String baseEntityID, Date dob, List<VaccineWrapper> excludedVaccines, int group) {
         List<VaccineWrapper> vaccineWrappers = new ArrayList<>();
         try {
-            VaccineGroup groupMap = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD).get(group);
+            VaccineGroup groupMap = VaccineScheduleUtil.getVaccineGroups(CoreChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD).get(group);
 
             // get all vaccines that are not given
             VaccineTaskModel taskModel = VaccineScheduleUtil.getLocalUpdatedVaccines(baseEntityID, new DateTime(dob), excludedVaccines, CoreConstants.SERVICE_GROUPS.CHILD);
@@ -259,5 +258,12 @@ public class VaccineScheduleUtil {
             Timber.e(e);
         }
         return Pair.of(null, vaccineWrappers);
+    }
+
+    public static void updateOfflineAlerts(String baseEntityID, DateTime anchorDate, String vaccineGroupName) {
+        // recompute offline alerts
+        VaccineSchedule.updateOfflineAlerts(baseEntityID, anchorDate, vaccineGroupName);
+        // delete all vaccine alerts that have been administered
+        AlertDao.updateOfflineVaccineAlerts(baseEntityID);
     }
 }

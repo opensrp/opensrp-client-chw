@@ -2,6 +2,8 @@ package org.smartregister.chw.core.dao;
 
 import android.database.Cursor;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.core.application.CoreChwApplication;
 
@@ -31,6 +33,15 @@ public class AbstractDao {
             NATIVE_FORMS_DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
         return NATIVE_FORMS_DATE_FORMAT;
+    }
+
+    protected static void updateDB(String sql) {
+        try {
+            SQLiteDatabase db = CoreChwApplication.getInstance().getRepository().getWritableDatabase();
+            db.rawExecSQL(sql);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     /**

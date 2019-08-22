@@ -5,7 +5,7 @@ import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.core.model.VaccineTaskModel;
-import org.smartregister.chw.util.VaccineScheduleUtil;
+import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
