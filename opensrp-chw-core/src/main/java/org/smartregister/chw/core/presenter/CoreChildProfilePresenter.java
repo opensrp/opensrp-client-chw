@@ -147,14 +147,13 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
             getView().setClientTasks(taskList);
         }
     }
-    //TODO Child Refactor
+
     public CommonPersonObjectClient getChildClient() {
-        return null;
+        return ((CoreChildProfileInteractor) interactor).getpClient();
     }
 
-    //TODO Child Refactor
     public Map<String, Date> getVaccineList() {
-        return new HashMap<>();
+        return ((CoreChildProfileInteractor) interactor).getVaccineList();
     }
 
     public String getDateOfBirth() {
@@ -261,7 +260,6 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
 
     }
 
-    //TODO Child Refactor
     @Override
     public void updateChildService(CoreChildService childService) {
         if (getView() != null) {

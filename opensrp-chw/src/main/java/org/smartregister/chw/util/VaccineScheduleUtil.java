@@ -9,6 +9,7 @@ import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.core.utils.ChwServiceSchedule;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
@@ -175,7 +176,7 @@ public class VaccineScheduleUtil {
      * @return
      */
     public static VaccineTaskModel getChildVaccine(String baseEntityID, DateTime anchorDate, List<VaccineWrapper> notDoneVaccines) {
-        return getLocalUpdatedVaccines(baseEntityID, anchorDate, notDoneVaccines, "child");
+        return getLocalUpdatedVaccines(baseEntityID, anchorDate, notDoneVaccines, CoreConstants.SERVICE_GROUPS.CHILD);
     }
 
     /**

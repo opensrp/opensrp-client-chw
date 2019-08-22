@@ -7,26 +7,27 @@ import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
-import org.smartregister.chw.core.enums.ImmunizationState;
+import org.smartregister.chw.core.dao.AlertDao;
 import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.ChwServiceSchedule;
 import org.smartregister.chw.core.utils.CoreChildService;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-import org.smartregister.chw.core.utils.GrowthServiceData;
-import org.smartregister.chw.core.utils.HomeVisitVaccineGroup;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.domain.Alert;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.Task;
 import org.smartregister.family.FamilyLibrary;
@@ -34,8 +35,7 @@ import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
-import org.smartregister.immunization.db.VaccineRepo;
-import org.smartregister.immunization.domain.ServiceWrapper;
+import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
@@ -49,6 +49,7 @@ import org.smartregister.view.LocationPickerView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -56,6 +57,7 @@ import java.util.UUID;
 import io.reactivex.Observable;
 import timber.log.Timber;
 
+import static org.smartregister.domain.AlertStatus.complete;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class CoreChildProfileInteractor implements CoreChildProfileContract.Interactor {
@@ -82,9 +84,40 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
         this.vaccineList = vaccineList;
     }
 
+    private List<Alert> filterActiveAlerts(List<Alert> alerts) {
+        List<Alert> activeAlerts = new ArrayList<Alert>();
+        for (Alert alert : alerts) {
+            LocalDate today = LocalDate.now();
+            if (LocalDate.parse(alert.expiryDate()).isAfter(today) || (
+                    complete.equals(alert.status()) && LocalDate.parse(alert.completionDate())
+                            .isAfter(today.minusDays(3)))) {
+                activeAlerts.add(alert);
+            }
+        }
+        return activeAlerts;
+    }
+
     //TODO Child Refactor
-    public Observable<CoreChildService> updateUpcomingServices(Context context){
-        return null;
+    public Observable<CoreChildService> updateUpcomingServices(Context context) {
+        return Observable.create(e -> {
+            // load all the services pending
+            String dobString = org.smartregister.util.Utils.getValue(pClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+            DateTime dob = new DateTime(Utils.dobStringToDate(dobString));
+
+            VaccineSchedule.updateOfflineAlerts(childBaseEntityId, dob, CoreConstants.SERVICE_GROUPS.CHILD);
+            ChwServiceSchedule.updateOfflineAlerts(childBaseEntityId, dob, CoreConstants.SERVICE_GROUPS.CHILD);
+
+            List<Alert> alertList = AlertDao.getActiveAlerts(childBaseEntityId);
+            Alert alert = (alertList.size() > 0) ? alertList.get(0) : null;
+
+            CoreChildService childService = new CoreChildService();
+            childService.setServiceName(alert != null ? alert.scheduleName() : "");
+            childService.setServiceDate(alert != null ? alert.startDate() : "");
+            childService.setServiceStatus(alert != null ? alert.status().name() : "");
+            // emit the fist object in the array
+
+            e.onNext(childService);
+        });
     }
 
     public CommonPersonObjectClient getpClient() {

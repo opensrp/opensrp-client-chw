@@ -1,5 +1,6 @@
 package org.smartregister.chw.dao;
 
+import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.domain.PncBaby;
 import org.smartregister.chw.util.Constants;

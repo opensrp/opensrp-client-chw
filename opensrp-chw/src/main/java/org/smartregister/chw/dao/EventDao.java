@@ -3,6 +3,7 @@ package org.smartregister.chw.dao;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.sync.helper.ECSyncHelper;
 

@@ -1,9 +1,9 @@
-package org.smartregister.chw.dao;
+package org.smartregister.chw.core.dao;
 
 import android.database.Cursor;
 
 import org.jetbrains.annotations.Nullable;
-import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.application.CoreChwApplication;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class AbstractDao {
         Cursor cursor = null;
         try {
             List<T> list = new ArrayList<>();
-            cursor = ChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, new String[]{});
+            cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, new String[]{});
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 list.add(dataMap.readCursor(cursor));
@@ -71,7 +71,7 @@ public class AbstractDao {
      */
     protected static List<Map<String, String>> readData(String query, String[] selectionArgs) {
         List<Map<String, String>> list = new ArrayList<>();
-        Cursor cursor = ChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, selectionArgs);
+        Cursor cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, selectionArgs);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Map<String, String> res = new HashMap<>();

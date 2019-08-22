@@ -12,6 +12,7 @@ import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.ChildHomeVisit;
+import org.smartregister.chw.core.utils.CoreChildService;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
@@ -67,7 +68,6 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
 
     @Override
     public void updateVisitNotDone(final long value, final CoreChildProfileContract.InteractorCallBack callback) {
-
         updateHomeVisitAsEvent(value)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -187,7 +187,6 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
 
     //TODO Child Refactor
     private void updateUpcomingServices(final CoreChildProfileContract.InteractorCallBack callback, Context context) {
-        /*
         updateUpcomingServices(context)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -214,7 +213,6 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
                         callback.hideProgressBar();
                     }
                 });
-                */
     }
 
     private void updateFamilyDueStatus(Context context, String familyId, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
