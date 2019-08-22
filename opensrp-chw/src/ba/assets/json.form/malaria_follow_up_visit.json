@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Malaria Followup Visit",
+  "encounter_type": "Malaria Follow-up Visit",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Malaria follow up",
+    "title": "Follow-up Visit",
     "fields": [
       {
         "key": "date_chw_mfollowup",
@@ -152,6 +152,13 @@
         "v_required": {
           "value": "true",
           "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "malaria_followup_relevance.yml"
+            }
+          }
         }
       },
       {

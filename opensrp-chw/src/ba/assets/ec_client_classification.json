@@ -37,6 +37,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "Malaria Follow-up Visit",
+            "creates_case": [
+              "ec_malaria_follow_up_visit"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Update Family Registration",
             "creates_case": [
               "ec_family"
