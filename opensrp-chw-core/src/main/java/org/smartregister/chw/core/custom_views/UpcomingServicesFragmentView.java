@@ -9,18 +9,26 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.smartregister.chw.core.R;
+import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
+import org.smartregister.chw.core.contract.ImmunizationContact;
+import org.smartregister.chw.core.enums.ImmunizationState;
+import org.smartregister.chw.core.interactor.HomeVisitGrowthNutritionInteractor;
+import org.smartregister.chw.core.presenter.ImmunizationViewPresenter;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.GrowthServiceData;
 import org.smartregister.chw.core.utils.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.db.VaccineRepo;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public class UpcomingServicesFragmentView extends LinearLayout implements View.OnClickListener {
+public class UpcomingServicesFragmentView extends LinearLayout implements View.OnClickListener, ImmunizationContact.View {
+    private ImmunizationViewPresenter presenter;
     private Map<String, View> viewMap = new LinkedHashMap<>();
     private CommonPersonObjectClient childClient;
     private Activity context;
@@ -38,6 +46,34 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
     private void initUi() {
         inflate(getContext(), R.layout.view_upcoming_service, this);
         setOrientation(VERTICAL);
+        initializePresenter();
+
+    }
+
+    @Override
+    public ImmunizationContact.Presenter initializePresenter() {
+        presenter = new ImmunizationViewPresenter(this);
+        return presenter;
+    }
+
+    @Override
+    public void allDataLoaded() {
+        //// TODO: 15/08/19
+    }
+
+    @Override
+    public void updateAdapter(int position, Context context) {
+        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupList = presenter.getHomeVisitVaccineGroupDetails();
+        for (HomeVisitVaccineGroup homeVisitVaccineGroup : homeVisitVaccineGroupList) {
+            if (homeVisitVaccineGroup.getNotGivenVaccines().size() > 0 && (homeVisitVaccineGroup.getAlert().equals(ImmunizationState.DUE)
+                    || homeVisitVaccineGroup.getAlert().equals(ImmunizationState.OVERDUE)
+                    || homeVisitVaccineGroup.getAlert().equals(ImmunizationState.UPCOMING))) {
+                addView(createUpcomingServicesCard(homeVisitVaccineGroup));
+            }
+        }
+
+        getUpcomingGrowthNutritonData(context);
+
     }
 
     private View createUpcomingServicesCard(HomeVisitVaccineGroup homeVisitVaccineGroupDetail) {
@@ -64,8 +100,52 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         return view;
     }
 
-    // TODO upcoming services
     private void getUpcomingGrowthNutritonData(final Context context) {
+        final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
+        homeVisitGrowthNutritionInteractor.parseRecordServiceData(childClient, stringServiceWrapperMap -> {
+            try {
+                ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap, context);
+                String lastDate = "";
+                View lastView = null;
+                for (Iterator<GrowthServiceData> i = growthServiceDataList.iterator(); i.hasNext(); ) {
+                    GrowthServiceData growthServiceData = i.next();
+                    View existView = isExistView(growthServiceData);
+                    if (existView != null) {
+                        TextView growth = existView.findViewById(R.id.growth_service_name_title);
+                        if (growth.getVisibility() == GONE) {
+                            growth.setVisibility(VISIBLE);
+                            growth.setText(growthServiceData.getDisplayName());
+                        } else {
+                            growth.append("\n" + growthServiceData.getDisplayName());
+                        }
+                        lastDate = growthServiceData.getDisplayAbleDate();
+                        i.remove();
+                    } else {
+                        if (!lastDate.equalsIgnoreCase(growthServiceData.getDisplayAbleDate())) {
+                            lastDate = growthServiceData.getDisplayAbleDate();
+                            lastView = createGrowthCard(growthServiceData);
+                            addView(lastView);
+                        } else {
+                            if (lastView != null) {
+                                TextView growth = lastView.findViewById(R.id.growth_service_name_title);
+                                growth.append("\n" + growthServiceData.getDisplayName());
+                            }
+
+                        }
+                    }
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (context instanceof CoreUpcomingServicesActivity) {
+                    CoreUpcomingServicesActivity activity = (CoreUpcomingServicesActivity) context;
+                    activity.progressBarVisibility(false);
+
+                }
+            }
+        });
     }
 
     private View isExistView(GrowthServiceData growthServiceData) {
@@ -92,6 +172,14 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         return view;
     }
 
+    @Override
+    public Context getMyContext() {
+        if (context == null) {
+            return getContext();
+        }
+        return context;
+    }
+
 
     public UpcomingServicesFragmentView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -103,6 +191,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         this.childClient = childClient;
         this.context = context;
         removeAllViews();
+        presenter.fetchImmunizationData(childClient, "");
     }
 
     @Override
