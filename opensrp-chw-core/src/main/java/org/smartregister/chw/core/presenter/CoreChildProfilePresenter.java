@@ -22,7 +22,6 @@ import org.smartregister.util.FormUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
