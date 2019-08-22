@@ -1,4 +1,4 @@
-package org.smartregister.chw.util;
+package org.smartregister.chw.core.utils;
 
 import org.smartregister.chw.core.model.ChildVisit;
 

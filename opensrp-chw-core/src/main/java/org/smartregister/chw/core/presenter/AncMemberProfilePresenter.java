@@ -1,4 +1,4 @@
-package org.smartregister.chw.presenter;
+package org.smartregister.chw.core.presenter;
 
 
 import org.apache.commons.lang3.tuple.Triple;
@@ -16,6 +16,7 @@ public class AncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
         super(view, interactor, memberObject);
     }
 
+    @Override
     public void startFormForEdit(CommonPersonObjectClient commonPersonObject) {
 //        TODO Implement
     }
@@ -43,6 +44,7 @@ public class AncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
         Timber.d("onRegistrationSaved unimplemented");
     }
 
+    @Override
     public BaseAncMemberProfileContract.View getView() {
         if (view != null) {
             return view.get();

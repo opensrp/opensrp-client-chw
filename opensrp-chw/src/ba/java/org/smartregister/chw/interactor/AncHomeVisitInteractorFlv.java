@@ -54,8 +54,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         boolean isFirst = (StringUtils.isBlank(memberObject.getLastContactVisit()));
         LocalDate lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastMenstrualPeriod());
 
-        if (StringUtils.isNotBlank(memberObject.getLastContactVisit()))
+        if (StringUtils.isNotBlank(memberObject.getLastContactVisit())) {
             lastContact = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastContactVisit());
+        }
 
         Map<Integer, LocalDate> dateMap = new LinkedHashMap<>();
 
@@ -231,8 +232,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(danger_signs_counseling))
+            if (StringUtils.isBlank(danger_signs_counseling)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             if (danger_signs_counseling.equalsIgnoreCase("Yes")) {
                 return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -304,8 +306,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(anc_hf_visit))
+            if (StringUtils.isBlank(anc_hf_visit)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             if (anc_hf_visit.equalsIgnoreCase("Yes")) {
                 return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -367,8 +370,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(fam_planning))
+            if (StringUtils.isBlank(fam_planning)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             if (fam_planning.equalsIgnoreCase("Yes")) {
                 return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -429,8 +433,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(nutrition_status))
+            if (StringUtils.isBlank(nutrition_status)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             return BaseAncHomeVisitAction.Status.COMPLETED;
         }
@@ -488,8 +493,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(counselling_given))
+            if (StringUtils.isBlank(counselling_given)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             return BaseAncHomeVisitAction.Status.COMPLETED;
         }
@@ -560,8 +566,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(fam_llin))
+            if (StringUtils.isBlank(fam_llin)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             if (fam_llin.equalsIgnoreCase("Yes") && llin_2days.equalsIgnoreCase("Yes") && llin_condition.equalsIgnoreCase("Okay")) {
                 return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -623,8 +630,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public String evaluateSubTitle() {
-            if (illnessDate == null)
+            if (illnessDate == null) {
                 return "";
+            }
 
             return MessageFormat.format("{0}: {1}\n {2}: {3}",
                     DateTimeFormat.forPattern("dd MMM yyyy").print(illnessDate),
@@ -634,8 +642,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(date_of_illness))
+            if (StringUtils.isBlank(date_of_illness)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             return BaseAncHomeVisitAction.Status.COMPLETED;
         }
@@ -693,8 +702,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(chw_comment_anc))
+            if (StringUtils.isBlank(chw_comment_anc)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             return BaseAncHomeVisitAction.Status.COMPLETED;
         }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import org.smartregister.chw.anc.activity.BaseAncUpcomingServicesActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncUpcomingServicesPresenter;
+import org.smartregister.chw.core.activity.AncUpcomingServicesActivity;
 import org.smartregister.chw.interactor.AncUpcomingServicesInteractor;
 
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;

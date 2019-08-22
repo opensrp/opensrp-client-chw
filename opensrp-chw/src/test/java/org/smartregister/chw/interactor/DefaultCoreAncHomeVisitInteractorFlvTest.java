@@ -39,7 +39,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @Config(application = TestChwApplication.class, sdk = 22)
 @PowerMockIgnore({"org.mockito.*", "org.robolectric.*", "android.*", "androidx.*"})
 @PrepareForTest({ImmunizationLibrary.class, Utils.class, JsonFormUtils.class})
-public class DefaultAncHomeVisitInteractorFlvTest {
+public class DefaultCoreAncHomeVisitInteractorFlvTest {
 
     @Rule
     public PowerMockRule rule = new PowerMockRule();

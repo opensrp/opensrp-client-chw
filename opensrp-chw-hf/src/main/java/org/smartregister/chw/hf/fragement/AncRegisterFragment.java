@@ -1,17 +1,18 @@
-package org.smartregister.chw.fragment;
+package org.smartregister.chw.hf.fragement;
 
-import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.fragment.CoreAncRegisterFragment;
 import org.smartregister.chw.core.presenter.AncRegisterFragmentPresenter;
 import org.smartregister.chw.core.utils.Utils;
-import org.smartregister.chw.model.AncRegisterFragmentModel;
+import org.smartregister.chw.hf.activity.AncMemberProfileActivity;
+import org.smartregister.chw.hf.model.AncRegisterFragmentModel;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.HashMap;
 
 public class AncRegisterFragment extends CoreAncRegisterFragment {
+
     @Override
     protected void initializePresenter() {
         if (getActivity() == null) {

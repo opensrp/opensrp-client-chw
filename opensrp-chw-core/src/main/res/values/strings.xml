@@ -1,29 +1,31 @@
 <resources>
     <!--Login and app strings-->
+    <color name="chw_primary">#218CC5</color>
+    <color name="chw_primary_dark">#0d384e</color>
     <string name="powered_by">Powered by</string>
     <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="nav_logo">Boresha Afya App</string>
 
     <!-- Date manipulation-->
+    <string name="password">Password</string>
+    <string name="nav_logo">Boresha Afya App</string>
     <string name="day">day</string>
     <string name="days">days</string>
     <string name="week">week</string>
     <string name="weeks">weeks</string>
     <string name="month">month</string>
     <string name="months">months</string>
+
+
     <string name="year">year</string>
     <string name="years">years</string>
 
-
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
-
     <string name="action_log_out">Logging Out</string>
-    <string name="action_start_sync">Sync Started</string>
-    <string name="action_sync_failed">Sync Failed</string>
 
     <!-- Navigation Strings -->
+    <string name="action_start_sync">Sync Started</string>
+    <string name="action_sync_failed">Sync Failed</string>
     <string name="nav_registers">Registers</string>
     <string name="nav_logout_as">Logout as</string>
     <string name="nav_sync">Sync</string>
@@ -31,10 +33,10 @@
     <string name="nav_last_sync_time">HH:mm a , MMM DD</string>
     <string name="all_registers">All Registers</string>
     <string name="log_out_as">Log out as</string>
-    <string name="device_to_device">Device-to-device sync</string>
-    <string name="choose_language">Choose language</string>
 
     <!--Navigation side menu -->
+    <string name="device_to_device">Device-to-device sync</string>
+    <string name="choose_language">Choose language</string>
     <string name="menu_all_clients">All Clients</string>
     <string name="menu_all_families">All Families</string>
     <string name="menu_anc_clients">ANC Clients</string>
@@ -44,43 +46,43 @@
     <string name="menu_pnc">PNC</string>
     <string name="menu_child">Child</string>
     <string name="menu_family_planning">Family Planning</string>
-    <string name="menu_malaria">Malaria</string>
-    <string name="menu_referrals">Referrals</string>
 
     <!-- Family Register -->
+    <string name="menu_malaria">Malaria</string>
+    <string name="menu_referrals">Referrals</string>
     <string name="search_name_or_id">Search name or ID</string>
     <string name="visit_not_done">Visit not \ndone</string>
     <string name="visit_done">Visit done</string>
     <string name="record_visit">Record visit</string>
-    <string name="due_visit">Last visit \n %1$s</string>
-    <string name="record_home_visit">Record \nHome visit</string>
 
     <!-- Floating menu -->
+    <string name="due_visit">Last visit \n %1$s</string>
+    <string name="record_home_visit">Record \nHome visit</string>
     <string name="family_details">Family details</string>
     <string name="add_new_family_member">Add new family member</string>
     <string name="remove_existing_family_member">Remove existing family member</string>
     <string name="change_family_head">Change family head</string>
-    <string name="change_primary_caregiver">Change primary caregiver</string>
-    <string name="care_giver">Caregiver</string>
 
     <!-- Call dialog and clipboard -->
+    <string name="change_primary_caregiver">Change primary caregiver</string>
+    <string name="care_giver">Caregiver</string>
     <string name="allow_calls_denied">Kindly allow calls to be made here</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
     <string name="copied_phone_number">PhoneNumber copied to clipboard</string>
     <string name="call_prompt">CALL %s</string>
     <string name="call_caregiver">Call caregiver</string>
     <string name="caregiver">Caregiver</string>
-    <string name="call">Call</string>
-    <string name="call_no_number_provided">(no number provided)</string>
 
 
     <!--Add family fragment -->
+    <string name="call">Call</string>
+    <string name="call_no_number_provided">(no number provided)</string>
     <string name="add_member_title">Add family member</string>
     <string name="add_member_title_question">What kind of family member do you want to add?</string>
     <string name="add_other_family_member">Other family member</string>
+
     <string name="add_child_under_five">Child under 5 years</string>
     <string name="return_to_all_children">Return to all children</string>
-
     <string name="january">January</string>
     <string name="february">February</string>
     <string name="march">March</string>
@@ -93,16 +95,14 @@
     <string name="october">October</string>
     <string name="november">November</string>
     <string name="december">December</string>
+
     <string name="no_services_due">No services are due</string>
     <string name="due_details">When a service becomes due for a family member, it will show up here.</string>
-
     <string name="due_only">Due only</string>
     <string name="care_giver_initials">CG</string>
+
     <string name="less_than_twenty_four">less than 24 hrs</string>
     <string name="child_register_title">Child Clients</string>
-
-    <color name="chw_primary">#218CC5</color>
-    <color name="chw_primary_dark">#0d384e</color>
 
 
     <string name="minimum_dietary_title">Minimum dietary diversity </string>
@@ -274,5 +274,11 @@
     <string name="abv_twelfth">12th</string>
 
     <string name="anc_register">ANC Register</string>
+    <string name="edit_member_form_title">Edit Family Member</string>
+    <string name="edit_anc_registration_form_title">Edit ANC Registration</string>
+    <string name="anc_registration_form_title">ANC Registration</string>
+    <string name="anc_pregnancy_outcome_form_title">Pregnancy Outcome</string>
+    <string name="anc_registration_info">ANC Registration info</string>
+    <string name="anc_pregnancy_out_come">Pregnancy outcome</string>
 
 </resources>

@@ -140,8 +140,9 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
     }
 
     private void evaluateANCCard() throws Exception {
-        if (memberObject.getHasAncCard() != null && memberObject.getHasAncCard().equals("Yes"))
+        if (memberObject.getHasAncCard() != null && memberObject.getHasAncCard().equals("Yes")) {
             return;
+        }
 
         BaseAncHomeVisitAction anc_card = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_anc_card_received))
                 .withOptional(false)

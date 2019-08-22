@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.smartregister.chw.core.activity.IndividualProfileRemoveActivity;
 import org.smartregister.chw.fragment.IndividualProfileRemoveFragment;
 
 import static org.mockito.Mockito.doNothing;
