@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 
@@ -29,7 +30,7 @@ import static org.smartregister.chw.util.JsonFormUtils.getValue;
 import static org.smartregister.util.JsonFormUtils.fields;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
-public class IPTPAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
+public class IPTPAction extends HomeVisitActionHelper {
     private Context context;
     private String serviceIteration;
     private String str_date;
@@ -60,11 +61,6 @@ public class IPTPAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelp
     }
 
     @Override
-    public String getPreProcessed() {
-        return null;
-    }
-
-    @Override
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
@@ -73,28 +69,12 @@ public class IPTPAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelp
             try {
                 parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(str_date);
             } catch (ParseException e) {
-                Timber.e(e);
                 parsedDate = null;
             }
 
         } catch (JSONException e) {
             Timber.e(e);
         }
-    }
-
-    @Override
-    public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-        return null;
-    }
-
-    @Override
-    public String getPreProcessedSubTitle() {
-        return null;
-    }
-
-    @Override
-    public String postProcess(String s) {
-        return null;
     }
 
     @Override

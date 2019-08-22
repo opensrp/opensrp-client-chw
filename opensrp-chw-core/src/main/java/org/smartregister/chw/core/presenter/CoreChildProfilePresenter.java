@@ -233,25 +233,25 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     @Override
     public void updateChildVisit(ChildVisit childVisit) {
         if (childVisit != null) {
-            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.DUE.name())) {
+            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name())) {
                 getView().setVisitButtonDueStatus();
             }
-            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
+            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.OVERDUE.name())) {
                 getView().setVisitButtonOverdueStatus();
             }
-            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
+            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.LESS_TWENTY_FOUR.name())) {
                 getView().setVisitLessTwentyFourView(childVisit.getLastVisitMonthName());
             }
-            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
+            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.VISIT_THIS_MONTH.name())) {
                 getView().setVisitAboveTwentyFourView();
             }
-            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
+            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.NOT_VISIT_THIS_MONTH.name())) {
                 getView().setVisitNotDoneThisMonth();
             }
             if (childVisit.getLastVisitTime() != 0) {
                 getView().setLastVisitRowView(childVisit.getLastVisitDays());
             }
-            if (!childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name()) && childVisit.getLastVisitTime() != 0) {
+            if (!childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.NOT_VISIT_THIS_MONTH.name()) && childVisit.getLastVisitTime() != 0) {
                 getView().enableEdit(new Period(new DateTime(childVisit.getLastVisitTime()), DateTime.now()).getHours() <= 24);
             }
 
@@ -263,9 +263,9 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     public void updateChildService(CoreChildService childService) {
         if (getView() != null) {
             if (childService != null) {
-                if (childService.getServiceStatus().equalsIgnoreCase(CoreChildProfileInteractor.ServiceType.UPCOMING.name())) {
+                if (childService.getServiceStatus().equalsIgnoreCase(CoreConstants.ServiceType.UPCOMING.name())) {
                     getView().setServiceNameUpcoming(childService.getServiceName().trim(), childService.getServiceDate());
-                } else if (childService.getServiceStatus().equalsIgnoreCase(CoreChildProfileInteractor.ServiceType.OVERDUE.name())) {
+                } else if (childService.getServiceStatus().equalsIgnoreCase(CoreConstants.ServiceType.OVERDUE.name())) {
                     getView().setServiceNameOverDue(childService.getServiceName().trim(), childService.getServiceDate());
                 } else {
                     getView().setServiceNameDue(childService.getServiceName().trim(), childService.getServiceDate());
@@ -279,9 +279,9 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     @Override
     public void updateFamilyMemberServiceDue(String serviceDueStatus) {
         if (getView() != null) {
-            if (serviceDueStatus.equalsIgnoreCase(CoreChildProfileInteractor.FamilyServiceType.DUE.name())) {
+            if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.DUE.name())) {
                 getView().setFamilyHasServiceDue();
-            } else if (serviceDueStatus.equalsIgnoreCase(CoreChildProfileInteractor.FamilyServiceType.OVERDUE.name())) {
+            } else if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.OVERDUE.name())) {
                 getView().setFamilyHasServiceOverdue();
             } else {
                 getView().setFamilyHasNothingDue();

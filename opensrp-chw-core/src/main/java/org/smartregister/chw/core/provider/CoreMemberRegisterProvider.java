@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import org.smartregister.chw.core.R;
-import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -117,9 +116,9 @@ public class CoreMemberRegisterProvider extends FamilyMemberRegisterProvider {
         viewHolder.statusLayout.setVisibility(View.VISIBLE);
         if (childVisit != null) {
             viewHolder.status.setVisibility(View.VISIBLE);
-            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.DUE.name())) {
+            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name())) {
                 viewHolder.status.setImageResource(Utils.getDueProfileImageResourceIDentifier());
-            } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
+            } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.OVERDUE.name())) {
                 viewHolder.status.setImageResource(Utils.getOverDueProfileImageResourceIDentifier());
             } else {
                 viewHolder.status.setVisibility(View.INVISIBLE);

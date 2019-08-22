@@ -15,10 +15,10 @@ import timber.log.Timber;
 public abstract class CoreFamilyInteractor {
 
     public static ImmunizationState getImmunizationStatus(String visitStatus) {
-        if (visitStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
+        if (visitStatus.equalsIgnoreCase(CoreConstants.VisitType.OVERDUE.name())) {
             return ImmunizationState.OVERDUE;
         }
-        if (visitStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.DUE.name())) {
+        if (visitStatus.equalsIgnoreCase(CoreConstants.VisitType.DUE.name())) {
             return ImmunizationState.DUE;
         }
         return ImmunizationState.NO_ALERT;
@@ -71,11 +71,11 @@ public abstract class CoreFamilyInteractor {
 
     private static String toStringFamilyState(ImmunizationState state) {
         if (state.equals(ImmunizationState.DUE)) {
-            return CoreChildProfileInteractor.FamilyServiceType.DUE.name();
+            return CoreConstants.FamilyServiceType.DUE.name();
         } else if (state.equals(ImmunizationState.OVERDUE)) {
-            return CoreChildProfileInteractor.FamilyServiceType.OVERDUE.name();
+            return CoreConstants.FamilyServiceType.OVERDUE.name();
         } else {
-            return CoreChildProfileInteractor.FamilyServiceType.NOTHING.name();
+            return CoreConstants.FamilyServiceType.NOTHING.name();
         }
     }
 

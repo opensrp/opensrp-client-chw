@@ -7,8 +7,8 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.smartregister.chw.core.R;
-import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.utils.CoreChildUtils;
+import org.smartregister.chw.core.utils.CoreConstants;
 
 //All date formats ISO 8601 yyyy-mm-dd
 
@@ -18,7 +18,7 @@ import org.smartregister.chw.core.utils.CoreChildUtils;
 public class HomeAlertRule implements ICommonRule {
 
     private final int[] monthNames = {R.string.january, R.string.february, R.string.march, R.string.april, R.string.may, R.string.june, R.string.july, R.string.august, R.string.september, R.string.october, R.string.november, R.string.december};
-    public String buttonStatus = CoreChildProfileInteractor.VisitType.DUE.name();
+    public String buttonStatus = CoreConstants.VisitType.DUE.name();
     public String noOfMonthDue;
     public String noOfDayDue;
     public String visitMonthName;

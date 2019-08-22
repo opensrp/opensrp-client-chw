@@ -20,7 +20,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.fragment.JobAidsDashboardFragment;
 import org.smartregister.chw.fragment.JobAidsGuideBooksFragment;
-import org.smartregister.chw.job.ChwIndicatorGeneratingJob;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.reporting.domain.TallyStatus;
 import org.smartregister.reporting.event.IndicatorTallyEvent;
@@ -152,7 +151,6 @@ public class JobAidsActivity extends FamilyRegisterActivity {
     public void refreshIndicatorData() {
         // Compute everything afresh. Last processed date is set to null to avoid messing with the processing timeline
         ChwApplication.getInstance().getContext().allSharedPreferences().savePreference(REPORT_LAST_PROCESSED_DATE, null);
-        ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
         Timber.d("ChwIndicatorGeneratingJob scheduled immediately to compute latest counts...");
         Toast.makeText(getApplicationContext(), getString(R.string.indicators_udpating), Toast.LENGTH_LONG).show();
     }

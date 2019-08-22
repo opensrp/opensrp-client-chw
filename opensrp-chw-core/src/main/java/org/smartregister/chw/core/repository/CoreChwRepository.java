@@ -24,8 +24,11 @@ import org.smartregister.reporting.repository.IndicatorRepository;
 import org.smartregister.repository.DrishtiRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.LocationRepository;
+import org.smartregister.repository.PlanDefinitionRepository;
+import org.smartregister.repository.PlanDefinitionSearchRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
+import org.smartregister.repository.TaskRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.util.Session;
 
@@ -47,15 +50,12 @@ public class CoreChwRepository extends Repository {
         this.databaseVersion = databaseVersion;
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase database) {
         super.onCreate(database);
         EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
         EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
 
-        HomeVisitRepository.createTable(database);
-        HomeVisitServiceRepository.createTable(database);
         VaccineRepository.createTable(database);
         VaccineNameRepository.createTable(database);
         VaccineTypeRepository.createTable(database);
@@ -72,10 +72,14 @@ public class CoreChwRepository extends Repository {
         IndicatorRepository.createTable(database);
         IndicatorQueryRepository.createTable(database);
         DailyIndicatorCountRepository.createTable(database);
-        HomeVisitIndicatorInfoRepository.createTable(database);
 
         VisitRepository.createTable(database);
         VisitDetailsRepository.createTable(database);
+
+        PlanDefinitionRepository.createTable(database);
+        PlanDefinitionSearchRepository.createTable(database);
+        TaskRepository.createTable(database);
+        //LocationRepository.createTable(database);    //TODO verify why this causes a break in code
 
         RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
         IMDatabaseUtils.populateRecurringServices(context, database, recurringServiceTypeRepository);
@@ -135,7 +139,7 @@ public class CoreChwRepository extends Repository {
             }
             return readableDatabase;
         } catch (Exception e) {
-            Timber.e("Database Error. " + e.getMessage());
+            Timber.e("Database Error. %s", e.getMessage());
             return null;
         }
 

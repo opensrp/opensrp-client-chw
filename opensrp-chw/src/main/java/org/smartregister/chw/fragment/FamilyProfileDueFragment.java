@@ -19,6 +19,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.WashCheck;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileDueModel;
 import org.smartregister.chw.presenter.FamilyProfileDuePresenter;
@@ -36,7 +37,6 @@ import java.util.HashMap;
 import java.util.Set;
 
 import timber.log.Timber;
-import utils.WashCheck;
 
 import static org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH;
 import static org.smartregister.family.util.Utils.metadata;

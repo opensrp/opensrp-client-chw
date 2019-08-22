@@ -7,8 +7,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
+import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
-import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.interactor.ChildMedicalHistoryInteractor;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -32,8 +32,10 @@ public class CoreChildMedicalHistoryActivityPresenterTest {
 
     @Mock
     private CommonPersonObjectClient commonPersonObjectClient;
+
     @Mock
-    private HomeVisitServiceRepository homeVisitServiceRepository;
+    private VisitRepository homeVisitServiceRepository;
+
     @Mock
     private AppExecutors appExecutors;
 
