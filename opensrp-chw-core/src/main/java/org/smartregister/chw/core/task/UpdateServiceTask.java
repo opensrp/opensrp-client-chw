@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartregister.chw.core.listener.UpdateServiceListener;
 import org.smartregister.chw.core.model.RecurringServiceModel;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
@@ -40,7 +41,7 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, RecurringServiceMod
             dateOfBirth = new DateTime(dobString);
         }
 
-        return RecurringServiceUtil.getServiceModel(childDetails.entityId(), dateOfBirth, "child");
+        return RecurringServiceUtil.getServiceModel(childDetails.entityId(), dateOfBirth, CoreConstants.SERVICE_GROUPS.CHILD);
     }
 
     @Override
