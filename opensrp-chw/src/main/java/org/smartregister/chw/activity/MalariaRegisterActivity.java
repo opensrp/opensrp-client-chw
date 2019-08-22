@@ -21,11 +21,15 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getMalariaConfirmation;
+import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.isMultiPartForm;
+
 public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
 
     public static void startMalariaRegistrationActivity(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, MalariaRegisterActivity.class);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.MALARIA_FORM_NAME, getMalariaConfirmation());
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
         activity.startActivity(intent);
     }
@@ -37,10 +41,6 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
     }
 
     @Override
-    public String getRegistrationForm() {
-        return Constants.JSON_FORM.getMalariaConfirmation();
-    }
-
     public void startFormActivity(JSONObject jsonForm) {
 
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
@@ -48,11 +48,15 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
 
         Form form = new Form();
         form.setActionBarBackground(R.color.family_actionbar);
-        form.setNavigationBackground(R.color.family_navigation);
-        form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
-        form.setName(this.getString(R.string.malaria_registration));
-        form.setNextLabel(this.getResources().getString(R.string.next));
-        form.setPreviousLabel(this.getResources().getString(R.string.back));
+        form.setWizard(false);
+        if (isMultiPartForm(jsonForm)) {
+            form.setWizard(true);
+            form.setNavigationBackground(R.color.family_navigation);
+            form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
+            form.setName(this.getString(R.string.malaria_registration));
+            form.setNextLabel(this.getResources().getString(R.string.next));
+            form.setPreviousLabel(this.getResources().getString(R.string.back));
+        }
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
