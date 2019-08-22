@@ -19,7 +19,6 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
-import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.core.domain.Person;
@@ -68,8 +67,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         }
 
         children = PersonDao.getMothersChildren(memberObject.getBaseEntityId());
-        if (children == null)
+        if (children == null) {
             children = new ArrayList<>();
+        }
 
         try {
             evaluateDangerSignsMother();
@@ -114,8 +114,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (danger_signs_present_mama == null)
+                if (danger_signs_present_mama == null) {
                     return BaseAncHomeVisitAction.Status.PENDING;
+                }
 
                 if (StringUtils.isNotBlank(danger_signs_present_mama)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -155,8 +156,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(danger_signs_present_child))
+                if (StringUtils.isBlank(danger_signs_present_child)) {
                     return BaseAncHomeVisitAction.Status.PENDING;
+                }
 
                 if (StringUtils.isNotBlank(danger_signs_present_child)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -245,16 +247,18 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                if (StringUtils.isBlank(exclusive_breast_feeding))
+                if (StringUtils.isBlank(exclusive_breast_feeding)) {
                     return "";
+                }
 
                 return "No".equalsIgnoreCase(exclusive_breast_feeding) ? context.getString(R.string.yes) : context.getString(R.string.no);
             }
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(exclusive_breast_feeding))
+                if (StringUtils.isBlank(exclusive_breast_feeding)) {
                     return BaseAncHomeVisitAction.Status.PENDING;
+                }
 
                 if (exclusive_breast_feeding.equalsIgnoreCase("Yes")) {
                     return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
@@ -340,8 +344,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(nutrition_status_mama))
+                if (StringUtils.isBlank(nutrition_status_mama)) {
                     return BaseAncHomeVisitAction.Status.PENDING;
+                }
 
                 if (StringUtils.isNotBlank(nutrition_status_mama)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -435,8 +440,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(fam_llin))
+                if (StringUtils.isBlank(fam_llin)) {
                     return BaseAncHomeVisitAction.Status.PENDING;
+                }
 
                 if (fam_llin.equalsIgnoreCase("Yes") && llin_2days.equalsIgnoreCase("Yes") && llin_condition.equalsIgnoreCase("Okay")) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -477,8 +483,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                if (illnessDate == null)
+                if (illnessDate == null) {
                     return "";
+                }
 
                 return MessageFormat.format("{0}: {1}\n {2}: {3}",
                         DateTimeFormat.forPattern("dd MMM yyyy").print(illnessDate),
@@ -488,8 +495,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(date_of_illness))
+                if (StringUtils.isBlank(date_of_illness)) {
                     return BaseAncHomeVisitAction.Status.PENDING;
+                }
 
                 return BaseAncHomeVisitAction.Status.COMPLETED;
             }
@@ -526,8 +534,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                if (illnessDate == null)
+                if (illnessDate == null) {
                     return "";
+                }
 
                 return MessageFormat.format("{0}: {1}\n {2}: {3}",
                         DateTimeFormat.forPattern("dd MMM yyyy").print(illnessDate),
@@ -537,8 +546,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(date_of_illness))
+                if (StringUtils.isBlank(date_of_illness)) {
                     return BaseAncHomeVisitAction.Status.PENDING;
+                }
 
                 return BaseAncHomeVisitAction.Status.COMPLETED;
             }
@@ -557,6 +567,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         }
     }
 
+    @Override
     protected void evaluatePNCHealthFacilityVisit() throws Exception {
 
         PNCHealthFacilityVisitSummary summary = PNCDao.getLastHealthFacilityVisitSummary(memberObject.getBaseEntityId());
@@ -596,6 +607,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         }
     }
 
+    @Override
     protected void evaluateImmunization() throws Exception {
         for (Person baby : children) {
             if (getAgeInDays(baby.getDob()) <= 28) {
@@ -607,7 +619,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         .withBaseEntityID(baby.getBaseEntityID())
                         .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
                         .withVaccineWrapper(wrappers)
-                        .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), baby.getDob(), details, wrappers))
+                        .withDestinationFragment(null)
                         .withHelper(new ImmunizationActionHelper(context, wrappers))
                         .build();
                 actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
@@ -704,8 +716,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     ifa_mother = getValue(jsonObject, "ifa_mother");
                 }
 
-                if (StringUtils.isNotBlank(pnc_hf_visit_date))
+                if (StringUtils.isNotBlank(pnc_hf_visit_date)) {
                     date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(pnc_hf_visit_date);
+                }
             } catch (JSONException e) {
                 Timber.e(e);
             } catch (ParseException e) {
@@ -755,8 +768,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
         @Override
         public String evaluateSubTitle() {
-            if (date == null)
+            if (date == null) {
                 return null;
+            }
 
             return MessageFormat.format("{0} : {1}", context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date));
         }
@@ -764,8 +778,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(pnc_visit))
+            if (StringUtils.isBlank(pnc_visit)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             if (pnc_visit.equalsIgnoreCase("Yes")) {
                 return BaseAncHomeVisitAction.Status.COMPLETED;
