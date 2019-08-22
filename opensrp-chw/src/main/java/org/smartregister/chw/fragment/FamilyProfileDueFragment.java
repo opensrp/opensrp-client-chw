@@ -139,15 +139,12 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         final int count = clientAdapter.getTotalcount();
 
         if (getActivity() != null && count != dueCount) {
-            if(washCheckView.getVisibility() == View.VISIBLE){
-                dueCount = count +1;
-            }else {
-                dueCount = count;
-            }
+            dueCount = count;
             ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
         }
         if (getActivity() != null)
-            getActivity().runOnUiThread(() -> onEmptyRegisterCount(dueCount < 1));
+            getActivity().runOnUiThread(() -> onEmptyRegisterCount(count < 1));
+
     }
 
     public void onEmptyRegisterCount(final boolean has_no_records) {
@@ -198,11 +195,12 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             washCheckView.setVisibility(View.GONE);
         }
         ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
+        if (getActivity() != null)
+            getActivity().runOnUiThread(() -> onEmptyRegisterCount(dueCount < 1));
     }
 
     public void updateWashCheckBar(WashCheck washCheck) {
         if (washCheckView.getVisibility() == View.VISIBLE) return;
-        addWashCheckView();
         CustomFontTextView name = washCheckView.findViewById(R.id.patient_name_age);
         name.setFontVariant(FontVariant.REGULAR);
         name.setTextColor(Color.BLACK);
@@ -229,12 +227,6 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         } else {
             washCheckView.setVisibility(View.GONE);
         }
-
-    }
-
-    private void addWashCheckView() {
-        View inflatLayout = getLayoutInflater().inflate(R.layout.view_wash_check, null);
-        washCheckView.addView(inflatLayout);
         washCheckView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -250,13 +242,14 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
                     intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
                     intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, true);
-                    getActivity().startActivityForResult(intent, REQUEST_CODE_GET_JSON_WASH);
+                    if(getActivity()!= null) getActivity().startActivityForResult(intent, REQUEST_CODE_GET_JSON_WASH);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
             }
         });
+
     }
 
     public interface Flavor {
