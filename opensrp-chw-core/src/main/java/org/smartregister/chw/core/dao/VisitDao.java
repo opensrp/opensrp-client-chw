@@ -64,7 +64,7 @@ public class VisitDao extends AbstractDao {
 
         Long date = calendar.getTime().getTime();
 
-        String sql = "delete from visits where base_entity_id = '" + baseEntityID + "' and visit_type < '" +
+        String sql = "delete from visits where base_entity_id = '" + baseEntityID + "' and visit_type = '" +
                 CoreConstants.EventType.CHILD_VISIT_NOT_DONE + "' and visit_date >= " + date + " and created_at >=  " + date + "";
         updateDB(sql);
     }
