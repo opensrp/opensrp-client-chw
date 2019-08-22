@@ -1,7 +1,6 @@
 package org.smartregister.chw.hf.provider;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,16 +41,12 @@ public class HfAncRegisterProvider extends ChwAncRegisterProvider {
 
     @Override
     protected void populatePatientColumn(@NotNull CommonPersonObjectClient pc, SmartRegisterClient client, @NotNull final AncRegisterProvider.RegisterViewHolder viewHolder) {
-
-
         String fname = getName(
                 Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true),
                 Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true)
         );
 
         String patientName = getName(fname, Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true));
-        viewHolder.patientName.setText(patientName);
-        viewHolder.villageTown.setText(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, true));
 
         // calculate LMP
         String dobString = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
@@ -59,15 +54,16 @@ public class HfAncRegisterProvider extends ChwAncRegisterProvider {
         if (StringUtils.isNotBlank(dobString) && StringUtils.isNotBlank(lmpString)) {
             int age = Years.yearsBetween(new DateTime(dobString), new DateTime()).getYears();
 
-            String dates = MessageFormat.format("{0}: {1}, {2}: {3} {4}",
-                    context.getString(R.string.age),
-                    age,
+            String gaLocation = MessageFormat.format("{0}: {1} {2} {3} {4}",
                     context.getString(R.string.gestation_age_initial),
                     NCUtils.gestationAgeString(lmpString, context, false),
-                    context.getString(R.string.weeks)
-            );
+                    context.getString(R.string.abbrv_weeks),
+                    context.getString(R.string.interpunct),
+                    Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, true));
 
-            viewHolder.patientAge.setText(dates);
+            String patientNameAge = MessageFormat.format("{0}, {1}", patientName, age);
+            viewHolder.patientName.setText(patientNameAge);
+            viewHolder.patientAge.setText(gaLocation);
         }
 
         // add patient listener
@@ -92,7 +88,7 @@ public class HfAncRegisterProvider extends ChwAncRegisterProvider {
     }
 
     // implement place holder view
-    public class RegisterViewHolder extends RecyclerView.ViewHolder {
+    public class RegisterViewHolder extends AncRegisterProvider.RegisterViewHolder {
         TextView patientName;
         TextView patientAge;
         TextView villageTown;

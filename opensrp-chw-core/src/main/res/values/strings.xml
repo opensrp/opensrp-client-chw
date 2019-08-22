@@ -281,4 +281,6 @@
     <string name="anc_registration_info">ANC Registration info</string>
     <string name="anc_pregnancy_out_come">Pregnancy outcome</string>
 
+    <string name="interpunct" translatable="false"> &#183; </string>
+
 </resources>
