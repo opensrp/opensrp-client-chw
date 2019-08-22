@@ -12,7 +12,7 @@ public class MalariaFollowUpRule implements ICommonRule {
     public static final String RULE_KEY = "malariaFollowUpRule";
 
     private Date testDate;
-    public String buttonStatus = DUE;
+    private String buttonStatus = DUE;
 
     public MalariaFollowUpRule(Date testDate) {
         this.testDate = testDate;
@@ -20,6 +20,10 @@ public class MalariaFollowUpRule implements ICommonRule {
 
     public int getDatesDiff() {
         return Days.daysBetween(new DateTime(testDate), new DateTime()).getDays();
+    }
+
+    public void setButtonStatus(String buttonStatus) {
+        this.buttonStatus = buttonStatus;
     }
 
     @Override

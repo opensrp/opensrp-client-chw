@@ -2,20 +2,22 @@
 name: visit_due
 description: visit due
 priority: 3
-condition: "malariaFollowUpRule.getDatesDiff() >= 7"
+condition: "malariaFollowUpRule.getDatesDiff() >= 7 "
 actions:
-  - "malariaFollowUpRule.buttonStatus = 'DUE'"
+  - "malariaFollowUpRule.setButtonStatus('DUE') "
+
 ---
 name: visit_overdue
 description: visit overdue
 priority: 2
 condition: "malariaFollowUpRule.getDatesDiff() >= 10 "
 actions:
-  - "malariaFollowUpRule.buttonStatus = 'OVERDUE'"
+  - "malariaFollowUpRule.setButtonStatus('OVERDUE')"
+
 ---
 name: visit_expiry
 description: visit expired
 priority: 1
 condition: "malariaFollowUpRule.getDatesDiff() >= 14 "
 actions:
-  - "malariaFollowUpRule.buttonStatus = 'EXPIRED'"
+  - "malariaFollowUpRule.setButtonStatus('EXPIRED')"

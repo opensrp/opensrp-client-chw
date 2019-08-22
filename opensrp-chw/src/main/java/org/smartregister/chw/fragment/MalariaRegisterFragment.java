@@ -13,6 +13,7 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.MalariaProfileActivity;
+import org.smartregister.chw.activity.MalariaRegisterActivity;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.QueryBuilder;
@@ -172,6 +173,14 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     }
 
     @Override
+    protected void openFollowUpVisit(CommonPersonObjectClient client) {
+//        MalariaRegisterActivity.startMalariaRegistrationActivity(getActivity(), client.getCaseId());
+
+//        implement
+    }
+
+
+    @Override
     protected void onResumption() {
         if (dueFilterActive && dueOnlyLayout != null) {
             dueFilter(dueOnlyLayout);
@@ -299,7 +308,6 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
             clientAdapter.setCurrentlimit(20);
             clientAdapter.setCurrentoffset(0);
 
-
         } catch (Exception e) {
             Timber.e(e);
         } finally {
@@ -307,9 +315,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
                 c.close();
             }
         }
-
     }
-
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
