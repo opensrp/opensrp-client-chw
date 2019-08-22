@@ -2,6 +2,8 @@ package org.smartregister.chw.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -27,6 +29,8 @@ import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.util.Constants;
 import org.smartregister.util.FormUtils;
+import org.smartregister.view.customcontrols.CustomFontTextView;
+import org.smartregister.view.customcontrols.FontVariant;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -133,12 +137,17 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     public void countExecute() {
         super.countExecute();
         final int count = clientAdapter.getTotalcount();
+
         if (getActivity() != null && count != dueCount) {
-            dueCount = count;
+            if(washCheckView.getVisibility() == View.VISIBLE){
+                dueCount = count +1;
+            }else {
+                dueCount = count;
+            }
             ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
         }
         if (getActivity() != null)
-            getActivity().runOnUiThread(() -> onEmptyRegisterCount(count < 1));
+            getActivity().runOnUiThread(() -> onEmptyRegisterCount(dueCount < 1));
     }
 
     public void onEmptyRegisterCount(final boolean has_no_records) {
@@ -194,7 +203,10 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     public void updateWashCheckBar(WashCheck washCheck) {
         if (washCheckView.getVisibility() == View.VISIBLE) return;
         addWashCheckView();
-        TextView name = washCheckView.findViewById(R.id.patient_name_age);
+        CustomFontTextView name = washCheckView.findViewById(R.id.patient_name_age);
+        name.setFontVariant(FontVariant.REGULAR);
+        name.setTextColor(Color.BLACK);
+        name.setTypeface(name.getTypeface(), Typeface.NORMAL);
         TextView lastVisit = washCheckView.findViewById(R.id.last_visit);
         ImageView status = washCheckView.findViewById(R.id.status);
         if (washCheck == null || washCheck.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
