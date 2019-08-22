@@ -30,7 +30,7 @@ import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.PNCVisitUtil;
-import org.smartregister.chw.util.VaccineScheduleUtil;
+import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.text.MessageFormat;

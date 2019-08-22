@@ -139,7 +139,7 @@ public class CoreChwRepository extends Repository {
             }
             return readableDatabase;
         } catch (Exception e) {
-            Timber.e("Database Error. " + e.getMessage());
+            Timber.e("Database Error. %s", e.getMessage());
             return null;
         }
 

@@ -23,14 +23,12 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.domain.VisitSummary;
 import org.smartregister.chw.core.enums.ImmunizationState;
@@ -42,7 +40,6 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
-import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -54,9 +51,6 @@ import timber.log.Timber;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartregister.chw.anc.AncLibrary.getInstance;
-import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getValue;
-import static org.smartregister.chw.core.utils.CoreJsonFormUtils.tagSyncMetadata;
-import static org.smartregister.util.JsonFormUtils.TAG;
 
 public abstract class CoreChildUtils {
     public static final String[] firstSecondNumber = {"Zero", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"};
@@ -248,17 +242,6 @@ public abstract class CoreChildUtils {
         return objects;
     }
 
-    public static String getFirstSecondAsNumber(String number) {
-        try {
-            int index = Integer.parseInt(number);
-            return firstSecondNumber[index];
-        } catch (Exception e) {
-            Timber.tag(TAG).e(e);
-        }
-        return "";
-
-    }
-
     public static String getFirstSecondAsNumber(String number, Context context) {
         try {
             int index = Integer.parseInt(number);
@@ -297,7 +280,11 @@ public abstract class CoreChildUtils {
 
     }
 
-    public static void visitNotDone(String entityId){
+    /**
+     * Add visit not done to visits table
+     * @param entityId
+     */
+    public static void visitNotDone(String entityId) {
         try {
             Event event = JsonFormUtils.createUntaggedEvent(entityId, CoreConstants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLES.EC_CHILD);
             Visit visit = NCUtils.eventToVisit(event, JsonFormUtils.generateRandomUUIDString());
@@ -308,7 +295,11 @@ public abstract class CoreChildUtils {
         }
     }
 
-    public static void undoVisitNotDone(String entityId){
+    /**
+     * remove visit not done from visits table
+     * @param entityId
+     */
+    public static void undoVisitNotDone(String entityId) {
         // deletes the last visit not done event if it was create less than 24hrs ago
         VisitDao.undoChildVisitNotDone(entityId);
     }
