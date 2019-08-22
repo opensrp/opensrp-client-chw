@@ -7,7 +7,6 @@ import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +14,7 @@ import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.dao.AlertDao;
+import org.smartregister.chw.core.enums.ImmunizationState;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.ChwServiceSchedule;
 import org.smartregister.chw.core.utils.CoreChildService;
@@ -28,6 +28,7 @@ import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.Alert;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.Task;
 import org.smartregister.family.FamilyLibrary;
@@ -57,7 +58,6 @@ import java.util.UUID;
 import io.reactivex.Observable;
 import timber.log.Timber;
 
-import static org.smartregister.domain.AlertStatus.complete;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class CoreChildProfileInteractor implements CoreChildProfileContract.Interactor {
@@ -84,19 +84,6 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
         this.vaccineList = vaccineList;
     }
 
-    private List<Alert> filterActiveAlerts(List<Alert> alerts) {
-        List<Alert> activeAlerts = new ArrayList<Alert>();
-        for (Alert alert : alerts) {
-            LocalDate today = LocalDate.now();
-            if (LocalDate.parse(alert.expiryDate()).isAfter(today) || (
-                    complete.equals(alert.status()) && LocalDate.parse(alert.completionDate())
-                            .isAfter(today.minusDays(3)))) {
-                activeAlerts.add(alert);
-            }
-        }
-        return activeAlerts;
-    }
-
     //TODO Child Refactor
     public Observable<CoreChildService> updateUpcomingServices(Context context) {
         return Observable.create(e -> {
@@ -113,11 +100,26 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
             CoreChildService childService = new CoreChildService();
             childService.setServiceName(alert != null ? alert.scheduleName() : "");
             childService.setServiceDate(alert != null ? alert.startDate() : "");
-            childService.setServiceStatus(alert != null ? alert.status().name() : "");
+            childService.setServiceStatus(alert != null ? getImmunizationStateFromAlert(alert.status()).name() : "");
             // emit the fist object in the array
 
             e.onNext(childService);
         });
+    }
+
+    private ImmunizationState getImmunizationStateFromAlert(AlertStatus alertStatus) {
+        switch (alertStatus) {
+            case normal:
+                return ImmunizationState.DUE;
+            case urgent:
+                return ImmunizationState.OVERDUE;
+            case upcoming:
+                return ImmunizationState.UPCOMING;
+            case expired:
+                return ImmunizationState.EXPIRED;
+            default:
+                return ImmunizationState.NO_ALERT;
+        }
     }
 
     public CommonPersonObjectClient getpClient() {
