@@ -97,13 +97,15 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
             List<Alert> alertList = AlertDao.getActiveAlerts(childBaseEntityId);
             Alert alert = (alertList.size() > 0) ? alertList.get(0) : null;
 
-            CoreChildService childService = new CoreChildService();
-            childService.setServiceName(alert != null ? alert.scheduleName() : "");
-            childService.setServiceDate(alert != null ? alert.startDate() : "");
-            childService.setServiceStatus(alert != null ? getImmunizationStateFromAlert(alert.status()).name() : "");
-            // emit the fist object in the array
-
-            e.onNext(childService);
+            if (alert != null) {
+                CoreChildService childService = new CoreChildService();
+                childService.setServiceName(alert.scheduleName());
+                childService.setServiceDate(alert.startDate());
+                childService.setServiceStatus(getImmunizationStateFromAlert(alert.status()).name());
+                e.onNext(childService);
+            } else {
+                e.onNext(null);
+            }
         });
     }
 
