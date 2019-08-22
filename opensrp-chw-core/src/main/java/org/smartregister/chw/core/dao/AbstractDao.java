@@ -94,6 +94,11 @@ public class AbstractDao {
         return c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? null : c.getString(c.getColumnIndex(column_name));
     }
 
+    @Nullable
+    protected static Long getCursorLongValue(Cursor c, String column_name) {
+        return c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? null : c.getLong(c.getColumnIndex(column_name));
+    }
+
     public interface DataMap<T> {
         T readCursor(Cursor cursor);
     }

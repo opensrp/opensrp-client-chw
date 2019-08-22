@@ -173,7 +173,7 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
 
             }
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
+            Timber.e(e, e.toString());
         }
 
         return query;

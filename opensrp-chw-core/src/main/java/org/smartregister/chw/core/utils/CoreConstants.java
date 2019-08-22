@@ -39,6 +39,7 @@ public class CoreConstants {
         public static final String UPDATE_CHILD_REGISTRATION = "Update Child Registration";
         public static final String CHILD_HOME_VISIT = "Child Home Visit";
         public static final String CHILD_VISIT_NOT_DONE = "Visit not done";
+        public static final String UNDO_CHILD_VISIT_NOT_DONE = "Undo child visit not done";
         public static final String CHILD_REFERRAL = "Sick Child Referral";
         public static final String VACCINE_CARD_RECEIVED = "Child vaccine card received";
         public static final String MINIMUM_DIETARY_DIVERSITY = "Minimum dietary diversity";

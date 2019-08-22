@@ -1,7 +1,6 @@
 package org.smartregister.chw.core.utils;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.os.Build;
 import android.text.Html;
 import android.text.Spannable;
@@ -26,6 +25,8 @@ import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.dao.VisitDao;
+import org.smartregister.chw.core.domain.VisitSummary;
 import org.smartregister.chw.core.enums.ImmunizationState;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.rule.HomeAlertRule;
@@ -88,47 +89,25 @@ public abstract class CoreChildUtils {
     }
 
     public static ChildHomeVisit getLastHomeVisit(String tableName, String childId) {
-        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, new String[]{ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED});
-        String query = queryBUilder.mainCondition(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + childId + "'");
 
         ChildHomeVisit childHomeVisit = new ChildHomeVisit();
-        Cursor cursor = null;
-        try {
-            cursor = Utils.context().commonrepository(CoreConstants.TABLE_NAME.CHILD).queryTable(query);
-            if (cursor != null && cursor.moveToFirst()) {
-                String lastVisitStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.LAST_HOME_VISIT));
-                if (!TextUtils.isEmpty(lastVisitStr)) {
-                    try {
-                        childHomeVisit.setLastHomeVisitDate(Long.parseLong(lastVisitStr));
-                    } catch (Exception e) {
-                        Timber.e(e);
-                    }
-                }
-                String visitNotDoneStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.VISIT_NOT_DONE));
-                if (!TextUtils.isEmpty(visitNotDoneStr)) {
-                    try {
-                        childHomeVisit.setVisitNotDoneDate(Long.parseLong(visitNotDoneStr));
-                    } catch (Exception e) {
-                        Timber.e(e.toString());
-                    }
-                }
-                String strDateCreated = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.DATE_CREATED));
-                if (!TextUtils.isEmpty(strDateCreated)) {
-                    try {
-                        childHomeVisit.setDateCreated(org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis());
-                    } catch (Exception e) {
-                        Timber.e(e.toString());
-                    }
-                }
-            }
-        } catch (Exception ex) {
-            Timber.e(ex.toString());
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
+        Map<String, VisitSummary> map = VisitDao.getVisitSummary(childId);
+        if (map == null)
+            return childHomeVisit;
+
+        VisitSummary notDone = map.get(CoreConstants.EventType.CHILD_VISIT_NOT_DONE);
+        VisitSummary lastVisit = map.get(CoreConstants.EventType.CHILD_HOME_VISIT);
+
+        if (lastVisit != null)
+            childHomeVisit.setLastHomeVisitDate(lastVisit.getVisitDate().getTime());
+
+        if (notDone != null)
+            childHomeVisit.setVisitNotDoneDate(notDone.getVisitDate().getTime());
+
+
+        Long datecreated = VisitDao.getChildDateCreated(childId);
+        if (datecreated != null)
+            childHomeVisit.setDateCreated(datecreated);
 
         return childHomeVisit;
     }
