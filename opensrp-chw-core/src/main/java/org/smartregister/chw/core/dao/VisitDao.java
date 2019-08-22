@@ -1,8 +1,10 @@
 package org.smartregister.chw.core.dao;
 
 import org.smartregister.chw.core.domain.VisitSummary;
+import org.smartregister.chw.core.utils.CoreConstants;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,5 +56,16 @@ public class VisitDao extends AbstractDao {
             Timber.e(e);
             return null;
         }
+    }
+
+    public static void undoChildVisitNotDone(String baseEntityID) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR_OF_DAY, -24);
+
+        Long date = calendar.getTime().getTime();
+
+        String sql = "delete from visits where base_entity_id = '" + baseEntityID + "' and visit_type < '" +
+                CoreConstants.EventType.CHILD_VISIT_NOT_DONE + "' and visit_date >= " + date + " and created_at >=  " + date + "";
+        updateDB(sql);
     }
 }

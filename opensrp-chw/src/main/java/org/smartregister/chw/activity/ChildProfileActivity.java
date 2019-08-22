@@ -129,7 +129,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         CoreUpcomingServicesActivity.startUpcomingServicesActivity(this, ((ChildProfilePresenter) presenter()).getChildClient());
     }
 
-    //TODO Child Refactor
     private void openVisitHomeScreen(boolean isEditMode) {
         ChildHomeVisitActivity.startMe(this, memberObject, isEditMode, ChildHomeVisitActivity.class);
     }

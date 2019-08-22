@@ -13,7 +13,7 @@ public class AlertDao extends AbstractDao {
     public static List<Alert> getActiveAlerts(String baseEntityID) {
         String sql = "select (case when status = 'urgent' then 1 else 2 end) state , * from alerts " +
                 " where caseID = '" + baseEntityID + "'and status in ('normal','urgent') and expiryDate > date() " +
-                " order by state asc , startDate asc ";
+                " order by state asc , startDate asc  , visitCode asc";
 
         DataMap<Alert> dataMap = cursor -> new Alert(
                 cursor.getString(cursor.getColumnIndex(AlertRepository.ALERTS_CASEID_COLUMN)),
