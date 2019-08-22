@@ -12,6 +12,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.MalariaRegisterFragment;
 import org.smartregister.chw.malaria.activity.BaseMalariaFollowUpActivityActivity;
+import org.smartregister.chw.malaria.activity.BaseMalariaRegisterActivity;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -21,11 +22,11 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.Arrays;
 import java.util.List;
 
-public class MalariaFollowUpVisitActivity extends BaseMalariaFollowUpActivityActivity {
+public class MalariaFollowUpVisitActivity extends BaseMalariaRegisterActivity {
 
-    public static void startMalariaRegistrationActivity(Activity activity, String memberBaseEntityID) {
-        Intent intent = new Intent(activity, MalariaFollowUpVisitActivity.class);
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
+    public static void startMalariaRegistrationActivity(Activity activity, String baseEntityID) {
+        Intent intent = new Intent(activity, MalariaRegisterActivity.class);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
         activity.startActivity(intent);
     }
@@ -90,5 +91,4 @@ public class MalariaFollowUpVisitActivity extends BaseMalariaFollowUpActivityAct
                     .setSelectedView(Constants.DrawerMenu.MALARIA);
         }
     }
-
 }

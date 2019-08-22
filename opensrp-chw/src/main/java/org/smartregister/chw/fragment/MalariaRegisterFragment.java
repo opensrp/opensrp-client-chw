@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.MalariaFollowUpVisitActivity;
 import org.smartregister.chw.activity.MalariaProfileActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
 import org.smartregister.chw.anc.util.DBConstants;
@@ -175,8 +176,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     @Override
     protected void openFollowUpVisit(CommonPersonObjectClient client) {
 //        MalariaRegisterActivity.startMalariaRegistrationActivity(getActivity(), client.getCaseId());
-
-//        implement
+        MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(getActivity(), client.getCaseId());
     }
 
 

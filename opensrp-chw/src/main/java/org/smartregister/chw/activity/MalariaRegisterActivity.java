@@ -23,9 +23,9 @@ import java.util.List;
 
 public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
 
-    public static void startMalariaRegistrationActivity(Activity activity, String memberBaseEntityID) {
+    public static void startMalariaRegistrationActivity(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, MalariaRegisterActivity.class);
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
         activity.startActivity(intent);
     }
