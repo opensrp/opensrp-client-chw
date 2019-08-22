@@ -36,7 +36,9 @@ import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
+import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
@@ -94,6 +96,9 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
             VaccineSchedule.updateOfflineAlerts(childBaseEntityId, dob, CoreConstants.SERVICE_GROUPS.CHILD);
             ChwServiceSchedule.updateOfflineAlerts(childBaseEntityId, dob, CoreConstants.SERVICE_GROUPS.CHILD);
 
+            List<Vaccine> vaccines = CoreChwApplication.getInstance().vaccineRepository().findByEntityId(childBaseEntityId); // add vaccines given to the user
+            Map<String, Date> receivedVaccines = VaccinatorUtils.receivedVaccines(vaccines);
+            setVaccineList(receivedVaccines);
             List<Alert> alertList = AlertDao.getActiveAlerts(childBaseEntityId);
             Alert alert = (alertList.size() > 0) ? alertList.get(0) : null;
 
