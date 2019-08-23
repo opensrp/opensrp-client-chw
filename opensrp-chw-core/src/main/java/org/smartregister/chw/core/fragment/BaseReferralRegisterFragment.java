@@ -22,8 +22,6 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-import static org.smartregister.commonregistry.CommonFtsObject.searchTableName;
-
 public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragment implements BaseReferralRegisterFragmentContract.View {
 
     @Override
@@ -86,7 +84,7 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
             String query;
             if (isValidFilterForFts(commonRepository())) {
                 String sql = sqb.countQueryFts(tablename, joinTable, mainCondition, filters);
-                sql = sql.replace("WHERE", String.format("JOIN %s ON task.%s = %s.%s WHERE", CoreConstants.TABLE_NAME.TASK, CoreConstants.DB_CONSTANTS.FOR, searchTableName(tablename), CommonFtsObject.idColumn));
+                sql = sql.replace("WHERE", String.format("JOIN %s ON task.%s = %s.%s WHERE", CoreConstants.TABLE_NAME.TASK, CoreConstants.DB_CONSTANTS.FOR, CommonFtsObject.searchTableName(tablename), CommonFtsObject.idColumn));
                 Timber.i("FTS query %s", sql);
 
                 clientAdapter.setTotalcount(commonRepository().countSearchIds(sql));
@@ -157,7 +155,7 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
                 String sql = sqb
                         .searchQueryFts(tablename, joinTable, mainCondition, filters, Sortqueries,
                                 clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
-                sql = sql.replace("WHERE", String.format("JOIN %s ON task.%s = %s.%s WHERE", CoreConstants.TABLE_NAME.TASK, CoreConstants.DB_CONSTANTS.FOR, searchTableName(tablename), CommonFtsObject.idColumn));
+                sql = sql.replace("WHERE", String.format("JOIN %s ON task.%s = %s.%s WHERE", CoreConstants.TABLE_NAME.TASK, CoreConstants.DB_CONSTANTS.FOR, CommonFtsObject.searchTableName(tablename), CommonFtsObject.idColumn));
                 Timber.i("FTS query %s", sql);
 
                 List<String> ids = commonRepository().findSearchIds(sql);

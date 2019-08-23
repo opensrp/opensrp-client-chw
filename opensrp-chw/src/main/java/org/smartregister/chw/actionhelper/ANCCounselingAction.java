@@ -11,6 +11,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.util.JsonFormUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -18,10 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.JsonFormUtils.getValue;
-import static org.smartregister.util.JsonFormUtils.fields;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class ANCCounselingAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
     private Context context;
@@ -48,7 +45,7 @@ public class ANCCounselingAction implements BaseAncHomeVisitAction.AncHomeVisitA
 
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            JSONArray fields = fields(jsonObject);
+            JSONArray fields = JsonFormUtils.fields(jsonObject);
             int x = 1;
             StringBuilder builder = new StringBuilder();
             for (Map.Entry<Integer, LocalDate> entry : dateMap.entrySet()) {
@@ -60,7 +57,7 @@ public class ANCCounselingAction implements BaseAncHomeVisitAction.AncHomeVisitA
                 x++;
             }
 
-            JSONObject visit_field = getFieldJSONObject(fields, "anc_counseling_toaster");
+            JSONObject visit_field = JsonFormUtils.getFieldJSONObject(fields, "anc_counseling_toaster");
             visit_field.put("text", MessageFormat.format(visit_field.getString("text"), builder.toString()));
 
             return jsonObject.toString();
@@ -75,9 +72,9 @@ public class ANCCounselingAction implements BaseAncHomeVisitAction.AncHomeVisitA
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            anc_counseling = getValue(jsonObject, "anc_counseling");
-            birth_hf_counseling = getValue(jsonObject, "birth_hf_counseling");
-            nutrition_counseling = getValue(jsonObject, "nutrition_counseling");
+            anc_counseling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "anc_counseling");
+            birth_hf_counseling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "birth_hf_counseling");
+            nutrition_counseling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "nutrition_counseling");
         } catch (JSONException e) {
             e.printStackTrace();
         }

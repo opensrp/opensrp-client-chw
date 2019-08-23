@@ -19,6 +19,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
@@ -27,8 +28,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 import timber.log.Timber;
-
-import static org.smartregister.util.AssetHandler.jsonStringToJava;
 
 public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
     public static final String TITLE = "title";
@@ -177,7 +176,7 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
             cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {
-                ecClient = jsonStringToJava(cursor.getString(0), Client.class);
+                ecClient = AssetHandler.jsonStringToJava(cursor.getString(0), Client.class);
                 cursor.moveToNext();
             }
         } catch (Exception e) {
@@ -195,7 +194,7 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
             cursor1.moveToFirst();
 
             while (!cursor1.isAfterLast()) {
-                ecEvent = jsonStringToJava(cursor1.getString(0), Event.class);
+                ecEvent = AssetHandler.jsonStringToJava(cursor1.getString(0), Event.class);
                 cursor1.moveToNext();
             }
         } catch (Exception e) {

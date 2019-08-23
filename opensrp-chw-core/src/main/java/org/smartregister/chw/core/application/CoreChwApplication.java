@@ -9,6 +9,7 @@ import org.smartregister.chw.core.helper.RulesEngineHelper;
 import org.smartregister.chw.core.repository.AncRegisterRepository;
 import org.smartregister.chw.core.repository.WashCheckRepository;
 import org.smartregister.chw.core.sync.ChwClientProcessor;
+import org.smartregister.chw.core.utils.ApplicationUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -35,8 +36,6 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.core.utils.ApplicationUtils.getCommonFtsObject;
-
 public class CoreChwApplication extends DrishtiApplication implements CoreApplication {
 
     private static ClientProcessorForJava clientProcessor;
@@ -62,7 +61,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     }
 
     public static CommonFtsObject createCommonFtsObject() {
-        return getCommonFtsObject(commonFtsObject);
+        return ApplicationUtils.getCommonFtsObject(commonFtsObject);
     }
 
     public static AncRegisterRepository ancRegisterRepository() {

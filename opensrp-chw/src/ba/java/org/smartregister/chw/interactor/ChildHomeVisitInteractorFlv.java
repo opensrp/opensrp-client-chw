@@ -8,14 +8,13 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.immunization.domain.ServiceWrapper;
 
 import java.text.MessageFormat;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.JsonFormUtils.getValue;
 
 public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor {
 
@@ -48,9 +47,9 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    date_of_illness = getValue(jsonObject, "date_of_illness");
-                    illness_description = getValue(jsonObject, "illness_description");
-                    action_taken = getValue(jsonObject, "action_taken_1m5yr");
+                    date_of_illness = JsonFormUtils.getValue(jsonObject, "date_of_illness");
+                    illness_description = JsonFormUtils.getValue(jsonObject, "illness_description");
+                    action_taken = JsonFormUtils.getValue(jsonObject, "action_taken_1m5yr");
                     illnessDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(date_of_illness);
                 } catch (Exception e) {
                     Timber.e(e);

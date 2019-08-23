@@ -255,7 +255,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 return false;
             }
 
-            Timber.d("Starting processService table: " + serviceTable.name);
+            Timber.d("Starting processService table: %s", serviceTable.name);
 
             ContentValues contentValues = processCaseModel(service, serviceTable);
 
@@ -305,7 +305,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
                 recurringServiceRecordRepository.add(serviceObj);
 
-                Timber.d("Ending processService table: " + serviceTable.name);
+                Timber.d("Ending processService table: %s", serviceTable.name);
             }
             return true;
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.contract.ImmunizationContact;
@@ -24,8 +25,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class UpcomingServicesFragmentView extends LinearLayout implements View.OnClickListener, ImmunizationContact.View {
     private ImmunizationViewPresenter presenter;
@@ -90,7 +89,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         groupDateStatus.setText(CoreChildUtils.daysAway(homeVisitVaccineGroupDetail.getDueDate()));
         groupNameTitle.setText(String.format(getContext().getString(R.string.immunizations), homeVisitVaccineGroupDetail.getGroup()));
         for (VaccineRepo.Vaccine vaccine : homeVisitVaccineGroupDetail.getNotGivenVaccines()) {
-            if (isBlank(groupVaccineTitle.getText().toString())) {
+            if (StringUtils.isBlank(groupVaccineTitle.getText().toString())) {
                 groupVaccineTitle.append(vaccine.display().toUpperCase());
             } else {
                 groupVaccineTitle.append("\n" + vaccine.display().toUpperCase());

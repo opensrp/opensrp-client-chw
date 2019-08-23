@@ -27,6 +27,7 @@ import org.smartregister.chw.core.loggers.CrashlyticsTree;
 import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.sync.ChwClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
@@ -55,8 +56,6 @@ import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.FormUtils.getFamilyMetadata;
 
 public class ChwApplication extends CoreChwApplication {
     @Override
@@ -96,7 +95,7 @@ public class ChwApplication extends CoreChwApplication {
         // init libraries
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         ConfigurableViewsLibrary.init(context, getRepository());
-        FamilyLibrary.init(context, getRepository(), getFamilyMetadata(new FamilyProfileActivity()), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        FamilyLibrary.init(context, getRepository(), FormUtils.getFamilyMetadata(new FamilyProfileActivity()), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         AncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);

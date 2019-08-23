@@ -42,6 +42,7 @@ import org.smartregister.chw.util.PNCVisitUtil;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.util.JsonFormUtils;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -54,10 +55,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.JsonFormUtils.getValue;
-import static org.smartregister.util.JsonFormUtils.fields;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.Flavor {
     protected LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
@@ -188,7 +185,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    vaccine_card = getValue(jsonObject, "vaccine_card");
+                    vaccine_card = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "vaccine_card");
                 } catch (JSONException e) {
                     Timber.e(e);
                 }
@@ -266,7 +263,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    cord_care = getValue(jsonObject, "cord_care");
+                    cord_care = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "cord_care");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -364,7 +361,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    kangaroo = getValue(jsonObject, "kangaroo");
+                    kangaroo = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "kangaroo");
                 } catch (JSONException e) {
                     Timber.e(e);
                 }
@@ -421,9 +418,9 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    fp_counseling = getValue(jsonObject, "fp_counseling");
-                    fp_method = getValue(jsonObject, "fp_method");
-                    fp_start_date = getValue(jsonObject, "fp_start_date");
+                    fp_counseling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_counseling");
+                    fp_method = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_method");
+                    fp_start_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_start_date");
 
                     if (StringUtils.isNotBlank(fp_start_date))
                         start_date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(fp_start_date);
@@ -583,13 +580,13 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
                 subTitle = MessageFormat.format("{0} {1}", due, DateTimeFormat.forPattern("dd MMM yyyy").print(visitRule.getOverDueDate().toLocalDate()));
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                JSONArray fields = fields(jsonObject);
+                JSONArray fields = JsonFormUtils.fields(jsonObject);
 
 
                 String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString(JsonFormConstants.STEP_TITLE);
                 jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, visitRule.getVisitName()));
 
-                JSONObject pnc_visit = getFieldJSONObject(fields, "pnc_visit_{0}");
+                JSONObject pnc_visit = JsonFormUtils.getFieldJSONObject(fields, "pnc_visit_{0}");
                 pnc_visit.put(JsonFormConstants.KEY, MessageFormat.format("pnc_visit_{0}", visit_num));
                 pnc_visit.put("hint",
                         MessageFormat.format(pnc_visit.getString(JsonFormConstants.HINT),
@@ -599,14 +596,14 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         )
                 );
 
-                JSONObject pnc_visit_date = getFieldJSONObject(fields, "pnc_hf_visit{0}_date");
+                JSONObject pnc_visit_date = JsonFormUtils.getFieldJSONObject(fields, "pnc_hf_visit{0}_date");
                 pnc_visit_date.put(JsonFormConstants.KEY, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
                 pnc_visit_date.put("hint",
                         MessageFormat.format(pnc_visit_date.getString(JsonFormConstants.HINT), visitRule.getVisitName())
                 );
                 updateObjectRelevance(pnc_visit_date);
-                updateObjectRelevance(getFieldJSONObject(fields, "baby_weight"));
-                updateObjectRelevance(getFieldJSONObject(fields, "baby_temp"));
+                updateObjectRelevance(JsonFormUtils.getFieldJSONObject(fields, "baby_weight"));
+                updateObjectRelevance(JsonFormUtils.getFieldJSONObject(fields, "baby_temp"));
 
                 return jsonObject.toString();
             } catch (Exception e) {
@@ -626,10 +623,10 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                pnc_visit = getValue(jsonObject, MessageFormat.format("pnc_visit_{0}", visit_num));
-                pnc_hf_visit_date = getValue(jsonObject, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
-                baby_weight = getValue(jsonObject, "baby_weight");
-                baby_temp = getValue(jsonObject, "baby_temp");
+                pnc_visit = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("pnc_visit_{0}", visit_num));
+                pnc_hf_visit_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
+                baby_weight = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "baby_weight");
+                baby_temp = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "baby_temp");
 
                 if (StringUtils.isNotBlank(pnc_hf_visit_date))
                     date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(pnc_hf_visit_date);
@@ -655,13 +652,13 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             try {
                 JSONObject jsonObject = new JSONObject(s);
 
-                JSONArray field = fields(jsonObject);
-                JSONObject confirmed_visits = getFieldJSONObject(field, "confirmed_health_facility_visits");
-                JSONObject facility_visit_date = getFieldJSONObject(field, "last_health_facility_visit_date");
-                pnc_hf_visit_date = getValue(jsonObject, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
+                JSONArray field = JsonFormUtils.fields(jsonObject);
+                JSONObject confirmed_visits = JsonFormUtils.getFieldJSONObject(field, "confirmed_health_facility_visits");
+                JSONObject facility_visit_date = JsonFormUtils.getFieldJSONObject(field, "last_health_facility_visit_date");
+                pnc_hf_visit_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
 
                 String count = String.valueOf(visit_num);
-                String value = getValue(jsonObject, MessageFormat.format("pnc_visit_{0}", visit_num));
+                String value = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("pnc_visit_{0}", visit_num));
                 if (value.equalsIgnoreCase("Yes")) {
                     count = String.valueOf(visit_num + 1);
                     facility_visit_date.put(JsonFormConstants.VALUE, pnc_hf_visit_date);

@@ -63,8 +63,6 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy;
-
 public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVisitInteractor.Flavor {
     protected LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
     protected Context context;
@@ -160,7 +158,7 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
             public String getPreProcessedSubTitle() {
                 return MessageFormat.format("{0} {1}",
                         context.getString(isOverDue() ? org.smartregister.chw.core.R.string.overdue : org.smartregister.chw.core.R.string.due),
-                        dd_MMM_yyyy.format(birthDate.toDate())
+                        org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy.format(birthDate.toDate())
                 );
             }
 
@@ -306,7 +304,7 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
             public String getPreProcessedSubTitle() {
                 return MessageFormat.format("{0} {1}",
                         context.getString(isOverDue() ? org.smartregister.chw.core.R.string.overdue : org.smartregister.chw.core.R.string.due),
-                        dd_MMM_yyyy.format(birthDate.toDate())
+                        org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy.format(birthDate.toDate())
                 );
             }
 

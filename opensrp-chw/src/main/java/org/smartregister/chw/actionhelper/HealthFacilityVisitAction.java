@@ -14,6 +14,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.util.JsonFormUtils;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -25,11 +26,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue;
-import static org.smartregister.chw.util.JsonFormUtils.getValue;
-import static org.smartregister.util.JsonFormUtils.fields;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class HealthFacilityVisitAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
     private Context context;
@@ -64,7 +60,7 @@ public class HealthFacilityVisitAction implements BaseAncHomeVisitAction.AncHome
 
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            JSONArray fields = fields(jsonObject);
+            JSONArray fields = JsonFormUtils.fields(jsonObject);
 
             if (dateMap.size() > 0) {
                 List<LocalDate> dateList = new ArrayList<>(dateMap.values());
@@ -78,18 +74,18 @@ public class HealthFacilityVisitAction implements BaseAncHomeVisitAction.AncHome
                 String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString(JsonFormConstants.STEP_TITLE);
                 jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, memberObject.getConfirmedContacts() + 1));
 
-                JSONObject visit_field = getFieldJSONObject(fields, "anc_hf_visit");
+                JSONObject visit_field = JsonFormUtils.getFieldJSONObject(fields, "anc_hf_visit");
                 visit_field.put("label_info_title", MessageFormat.format(visit_field.getString(JsonFormConstants.LABEL_INFO_TITLE), memberObject.getConfirmedContacts() + 1));
                 visit_field.put("hint", MessageFormat.format(visit_field.getString(JsonFormConstants.HINT), memberObject.getConfirmedContacts() + 1, visitDate));
 
 
                 if (dateList.size() > 1) {
-                    JSONObject anc_hf_next_visit_date = getFieldJSONObject(fields, "anc_hf_next_visit_date");
+                    JSONObject anc_hf_next_visit_date = JsonFormUtils.getFieldJSONObject(fields, "anc_hf_next_visit_date");
                     anc_hf_next_visit_date.put(JsonFormConstants.VALUE, DateTimeFormat.forPattern("dd-MM-yyyy").print(dateList.get(1)));
                 }
 
                 // current visit count
-                getFieldJSONObject(fields, "confirmed_visits").put(JsonFormConstants.VALUE, memberObject.getConfirmedContacts());
+                JsonFormUtils.getFieldJSONObject(fields, "confirmed_visits").put(JsonFormConstants.VALUE, memberObject.getConfirmedContacts());
             }
 
             return jsonObject.toString();
@@ -103,14 +99,14 @@ public class HealthFacilityVisitAction implements BaseAncHomeVisitAction.AncHome
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            anc_hf_visit = getValue(jsonObject, "anc_hf_visit");
-            anc_hf_visit_date = getValue(jsonObject, "anc_hf_visit_date");
-            weight = getValue(jsonObject, "weight");
-            sys_bp = getValue(jsonObject, "sys_bp");
-            dia_bp = getValue(jsonObject, "dia_bp");
-            hb_level = getValue(jsonObject, "hb_level");
-            ifa_received = getValue(jsonObject, "ifa_received");
-            tests_done = getCheckBoxValue(jsonObject, "tests_done");
+            anc_hf_visit = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "anc_hf_visit");
+            anc_hf_visit_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "anc_hf_visit_date");
+            weight = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "weight");
+            sys_bp = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "sys_bp");
+            dia_bp = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "dia_bp");
+            hb_level = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "hb_level");
+            ifa_received = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "ifa_received");
+            tests_done = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "tests_done");
         } catch (JSONException e) {
             Timber.e(e);
         }
@@ -131,12 +127,12 @@ public class HealthFacilityVisitAction implements BaseAncHomeVisitAction.AncHome
         try {
             JSONObject jsonObject = new JSONObject(s);
 
-            JSONArray field = fields(jsonObject);
-            JSONObject confirmed_visits = getFieldJSONObject(field, "confirmed_visits");
-            JSONObject anc_hf_next_visit_date = getFieldJSONObject(field, "anc_hf_next_visit_date");
+            JSONArray field = JsonFormUtils.fields(jsonObject);
+            JSONObject confirmed_visits = JsonFormUtils.getFieldJSONObject(field, "confirmed_visits");
+            JSONObject anc_hf_next_visit_date = JsonFormUtils.getFieldJSONObject(field, "anc_hf_next_visit_date");
 
             String count = String.valueOf(memberObject.getConfirmedContacts());
-            String value = getValue(jsonObject, "anc_hf_visit");
+            String value = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "anc_hf_visit");
             if (value.equalsIgnoreCase("Yes")) {
                 count = String.valueOf(memberObject.getConfirmedContacts() + 1);
             } else {
