@@ -376,6 +376,8 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
 
         ExclusiveBreastFeedingAction helper = new ExclusiveBreastFeedingAction(context, alert);
         JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), memberObject.getBaseEntityId());
+        if (details != null && details.size() > 0)
+            JsonFormUtils.populateForm(jsonObject, details);
 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
                 .withHelper(helper)
@@ -412,6 +414,8 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         VitaminaAction helper = new VitaminaAction(context, serviceIteration, alert);
         JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getVitaminA(), memberObject.getBaseEntityId());
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
+        if (details != null && details.size() > 0)
+            JsonFormUtils.populateForm(jsonObject, details);
 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
                 .withHelper(helper)
@@ -447,6 +451,8 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         DewormingAction helper = new DewormingAction(context, serviceIteration, alert);
         JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getDEWORMING(), memberObject.getBaseEntityId());
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
+        if (details != null && details.size() > 0)
+            JsonFormUtils.populateForm(jsonObject, details);
 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
                 .withHelper(helper)
