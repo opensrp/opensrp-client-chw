@@ -13,7 +13,6 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.rule.PncVisitAlertRule;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.HomeVisitUtil;

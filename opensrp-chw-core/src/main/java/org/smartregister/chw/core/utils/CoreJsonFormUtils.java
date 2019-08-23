@@ -170,8 +170,7 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
         JSONObject jsonForm = toJSONObject(jsonString);
         JSONArray fields = fields(jsonForm);
 
-        Triple<Boolean, JSONObject, JSONArray> registrationFormParams = Triple.of(jsonForm != null && fields != null, jsonForm, fields);
-        return registrationFormParams;
+        return Triple.of(jsonForm != null && fields != null, jsonForm, fields);
     }
 
     public static Event tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
@@ -304,9 +303,9 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
 
 
         } else {
-            Timber.w("Unsupported form requested for launch " + formName);
+            Timber.w("Unsupported form requested for launch %s", formName);
         }
-        Timber.d("form is " + form.toString());
+        Timber.d("form is %s", form.toString());
         return form;
     }
 
@@ -434,7 +433,7 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
             LocationPickerView lpv = new LocationPickerView(context);
             lpv.init();
             // JsonFormUtils.addWomanRegisterHierarchyQuestions(form);
-            Timber.d("Form is " + form.toString());
+            Timber.d("Form is %s", form.toString());
             if (form != null) {
                 form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
                 form.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, eventType);

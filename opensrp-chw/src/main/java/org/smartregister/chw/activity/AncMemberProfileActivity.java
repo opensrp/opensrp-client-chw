@@ -132,7 +132,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Timber.e(e);
                     }
                 }
                 break;
