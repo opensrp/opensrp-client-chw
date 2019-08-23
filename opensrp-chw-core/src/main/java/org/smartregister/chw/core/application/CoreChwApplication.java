@@ -6,11 +6,9 @@ import org.smartregister.Context;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.helper.RulesEngineHelper;
 import org.smartregister.chw.core.repository.AncRegisterRepository;
-import org.smartregister.chw.core.repository.HomeVisitIndicatorInfoRepository;
-import org.smartregister.chw.core.repository.HomeVisitRepository;
-import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.core.repository.WashCheckRepository;
 import org.smartregister.chw.core.sync.ChwClientProcessor;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -41,10 +39,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     private static ClientProcessorForJava clientProcessor;
 
     private static CommonFtsObject commonFtsObject = null;
-    private static HomeVisitRepository homeVisitRepository;
-    private static HomeVisitServiceRepository homeVisitServiceRepository;
     private static AncRegisterRepository ancRegisterRepository;
-    private static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository;
     private static TaskRepository taskRepository;
     private static PlanDefinitionRepository planDefinitionRepository;
     private static WashCheckRepository washCheckRepository;
@@ -67,32 +62,11 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         return getCommonFtsObject(commonFtsObject);
     }
 
-    public static HomeVisitRepository homeVisitRepository() {
-        if (homeVisitRepository == null) {
-            homeVisitRepository = new HomeVisitRepository(getInstance().getRepository(), getInstance().getContext().commonFtsObject(), getInstance().getContext().alertService());
-        }
-        return homeVisitRepository;
-    }
-
-    public static HomeVisitServiceRepository getHomeVisitServiceRepository() {
-        if (homeVisitServiceRepository == null) {
-            homeVisitServiceRepository = new HomeVisitServiceRepository(getInstance().getRepository());
-        }
-        return homeVisitServiceRepository;
-    }
-
     public static AncRegisterRepository ancRegisterRepository() {
         if (ancRegisterRepository == null) {
             ancRegisterRepository = new AncRegisterRepository(getInstance().getRepository());
         }
         return ancRegisterRepository;
-    }
-
-    public static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository() {
-        if (homeVisitIndicatorInfoRepository == null) {
-            homeVisitIndicatorInfoRepository = new HomeVisitIndicatorInfoRepository(getInstance().getRepository());
-        }
-        return homeVisitIndicatorInfoRepository;
     }
 
     public static WashCheckRepository getWashCheckRepository() {
@@ -176,7 +150,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
             // child schedules
             List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
             List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
-            VaccineSchedule.init(childVaccines, specialVaccines, "child");
+            VaccineSchedule.init(childVaccines, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -184,7 +158,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         try {
             // mother vaccines
             List<VaccineGroup> womanVaccines = VaccinatorUtils.getSupportedWomanVaccines(this);
-            VaccineSchedule.init(womanVaccines, null, "woman");
+            VaccineSchedule.init(womanVaccines, null, CoreConstants.SERVICE_GROUPS.WOMAN);
         } catch (Exception e) {
             Timber.e(e);
         }
