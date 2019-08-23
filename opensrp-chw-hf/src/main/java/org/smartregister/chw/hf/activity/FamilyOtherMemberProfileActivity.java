@@ -3,9 +3,14 @@ package org.smartregister.chw.hf.activity;
 import android.content.Context;
 import android.view.Menu;
 
+import org.json.JSONObject;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
+import org.smartregister.chw.core.utils.BAJsonFormUtils;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.chw.hf.HealthFacilityApplication;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.hf.fragment.FamilyOtherMemberProfileFragment;
@@ -15,10 +20,19 @@ import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.view.contract.BaseProfileContract;
 
+import timber.log.Timber;
+
 import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
 
 public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
     private FamilyMemberFloatingMenu familyFloatingMenu;
+    private BAJsonFormUtils baJsonFormUtils;
+
+    @Override
+    protected void onCreation() {
+        super.onCreation();
+        baJsonFormUtils = new BAJsonFormUtils(HealthFacilityApplication.getInstance());
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -37,21 +51,33 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     @Override
     protected void removeIndividualProfile() {
-
+        Timber.d("Remove member action is not required in HF");
     }
 
     @Override
     protected void startMalariaRegister() {
-
+        //TODO implement start anc malaria for HF
     }
 
     @Override
     protected void startAncRegister() {
-
+        //TODO implement start anc register for HF
     }
 
     @Override
     protected void startEditMemberJsonForm(Integer title_resource, CommonPersonObjectClient client) {
+        JSONObject form;
+        if (title_resource != null)
+            form = baJsonFormUtils.getAutoJsonEditMemberFormString(getResources().getString(title_resource), CoreConstants.JSON_FORM.getFamilyMemberRegister(),
+                    this, client, Utils.metadata().familyMemberRegister.updateEventType, familyName, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
+        else
+            form = baJsonFormUtils.getAutoJsonEditMemberFormString(null, CoreConstants.JSON_FORM.getFamilyMemberRegister(),
+                    this, client, Utils.metadata().familyMemberRegister.updateEventType, familyName, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
+        try {
+            startFormActivity(form);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override
@@ -81,6 +107,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
+        menu.findItem(R.id.action_remove_member).setVisible(false);
         if (isWomanOfReproductiveAge(commonPersonObject)) {
             menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {

@@ -35,10 +35,9 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
             if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
                 goToProfileActivity(view);
             }
-        } else if (i == R.id.next_arrow) {
-            if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NEXT_ARROW) {
-                goToProfileActivity(view);
-            }
+        } else if (i == R.id.next_arrow && view.getTag() != null &&
+                view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NEXT_ARROW) {
+            goToProfileActivity(view);
         }
     }
 

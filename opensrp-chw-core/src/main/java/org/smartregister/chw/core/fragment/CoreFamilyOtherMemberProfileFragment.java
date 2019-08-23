@@ -31,10 +31,8 @@ public abstract class CoreFamilyOtherMemberProfileFragment extends BaseFamilyOth
     @Override
     protected void onViewClicked(View view) {
         super.onViewClicked(view);
-        if (view.getId() == R.id.patient_column) {
-            if (view.getTag() != null) { // && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
+        if (view.getId() == R.id.patient_column && view.getTag() != null && getActivity() != null) {
                 getActivity().finish();
-            }
         }
     }
 
