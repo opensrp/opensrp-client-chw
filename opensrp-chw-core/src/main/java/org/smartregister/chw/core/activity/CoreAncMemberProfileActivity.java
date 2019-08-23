@@ -9,9 +9,7 @@ import android.view.View;
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
-import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
-import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.interactor.AncMemberProfileInteractor;
@@ -22,14 +20,6 @@ import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.core.utils.VisitSummary;
 
 public class CoreAncMemberProfileActivity extends BaseAncMemberProfileActivity {
-
-    public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
-        Intent intent = new Intent(activity, CoreAncMemberProfileActivity.class);
-        intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
-        intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
-        intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhoneNumber);
-        activity.startActivity(intent);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -58,13 +48,11 @@ public class CoreAncMemberProfileActivity extends BaseAncMemberProfileActivity {
     @Override // to chw
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
-            if (resultCode == Activity.RESULT_OK) {
-                Intent intent = new Intent(CoreAncMemberProfileActivity.this, CoreAncRegisterActivity.class);
-                intent.putExtras(getIntent().getExtras());
-                startActivity(intent);
-                finish();
-            }
+        if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED && resultCode == Activity.RESULT_OK) {
+            Intent intent = new Intent(CoreAncMemberProfileActivity.this, CoreAncRegisterActivity.class);
+            intent.putExtras(getIntent().getExtras());
+            startActivity(intent);
+            finish();
         }
     }
 

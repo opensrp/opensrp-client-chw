@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -86,31 +84,4 @@ public class HfAncRegisterProvider extends ChwAncRegisterProvider {
         View view = inflater.inflate(R.layout.anc_register_list_row, parent, false);
         return new AncRegisterProvider.RegisterViewHolder(view);
     }
-
-    // implement place holder view
-    public class RegisterViewHolder extends AncRegisterProvider.RegisterViewHolder {
-        TextView patientName;
-        TextView patientAge;
-        TextView villageTown;
-        Button dueButton;
-        View patientColumn;
-        View registerColumns;
-        View dueWrapper;
-
-        public RegisterViewHolder(View itemView) {
-            super(itemView);
-
-            patientName = itemView.findViewById(R.id.patient_name);
-            patientAge = itemView.findViewById(R.id.age_and_period);
-
-            villageTown = itemView.findViewById(R.id.village_town);
-            dueButton = itemView.findViewById(R.id.due_button);
-
-            patientColumn = itemView.findViewById(R.id.patient_column);
-
-            registerColumns = itemView.findViewById(R.id.register_columns);
-            dueWrapper = itemView.findViewById(R.id.due_button_wrapper);
-        }
-    }
-
 }

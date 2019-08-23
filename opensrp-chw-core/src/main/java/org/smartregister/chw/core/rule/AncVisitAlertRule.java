@@ -24,20 +24,19 @@ public class AncVisitAlertRule implements ICommonRule, RegisterAlert {
     private LocalDate lastVisitDate;
     private LocalDate visitNotDoneDate;
     private Context context;
-    private LocalDate lmpDate;
 
     public AncVisitAlertRule(Context context, String lmpDate, String visitDate, String visitNotDoneDate, LocalDate dateCreated) {
         this.context = context;
 
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
-        this.lmpDate = formatter.parseDateTime(lmpDate).toLocalDate();
+        LocalDate lmpDate1 = formatter.parseDateTime(lmpDate).toLocalDate();
 
         this.todayDate = new LocalDate();
         if (StringUtils.isNotBlank(visitDate)) {
             this.lastVisitDate = formatter.parseDateTime(visitDate).toLocalDate();
         }
 
-        noOfDayDue = ((lastVisitDate == null) ? dayDifference(this.lmpDate, todayDate) : dayDifference(lastVisitDate, todayDate)) + " days";
+        noOfDayDue = ((lastVisitDate == null) ? dayDifference(lmpDate1, todayDate) : dayDifference(lastVisitDate, todayDate)) + " days";
 
         if (StringUtils.isNotBlank(visitNotDoneDate)) {
             this.visitNotDoneDate = formatter.parseDateTime(visitNotDoneDate).toLocalDate();
