@@ -68,4 +68,34 @@ public class VisitDao extends AbstractDao {
                 CoreConstants.EventType.CHILD_VISIT_NOT_DONE + "' and visit_date >= " + date + " and created_at >=  " + date + "";
         updateDB(sql);
     }
+
+    public static boolean memberHasBirthCert(String baseEntityID) {
+        String sql = "select count(*) certificates " +
+                "from visit_details d " +
+                "inner join visits v on v.visit_id = d.visit_id " +
+                "where base_entity_id = '" + baseEntityID + "' and v.processed = 1 " +
+                "and (visit_key in ('birth_certificate','birth_cert') and details = 'GIVEN' or human_readable_details = 'Yes')";
+
+        DataMap<String> dataMap = c -> getCursorValue(c, "certificates");
+        List<String> values = AbstractDao.readData(sql, dataMap);
+        if (values == null || values.size() == 0)
+            return false;
+
+        return Integer.valueOf(values.get(0)) > 0;
+    }
+
+    public static boolean memberHasVaccineCard(String baseEntityID) {
+        String sql = "select count(*) certificates " +
+                "from visit_details d " +
+                "inner join visits v on v.visit_id = d.visit_id " +
+                "where base_entity_id = '" + baseEntityID + "' and v.processed = 1 " +
+                "and (visit_key in ('vaccine_card') and human_readable_details = 'Yes')";
+
+        DataMap<String> dataMap = c -> getCursorValue(c, "certificates");
+        List<String> values = AbstractDao.readData(sql, dataMap);
+        if (values == null || values.size() == 0)
+            return false;
+
+        return Integer.valueOf(values.get(0)) > 0;
+    }
 }

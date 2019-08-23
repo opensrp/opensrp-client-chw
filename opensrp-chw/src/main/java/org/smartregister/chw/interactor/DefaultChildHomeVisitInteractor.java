@@ -32,6 +32,7 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.interactor.CoreChildHomeVisitInteractor;
 import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -71,8 +72,6 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
     protected Boolean hasBirthCert = false;
     protected Boolean editMode = false;
 
-
-    //TODO get vaccineCardReceived FROM DB
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
         actionList = new LinkedHashMap<>();
@@ -92,6 +91,9 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
                 details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
         }
+
+        hasBirthCert = VisitDao.memberHasBirthCert(memberObject.getBaseEntityId());
+        vaccineCardReceived = VisitDao.memberHasVaccineCard(memberObject.getBaseEntityId());
 
         Map<String, ServiceWrapper> serviceWrapperMap =
                 RecurringServiceUtil.getRecurringServices(

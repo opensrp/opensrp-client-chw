@@ -112,8 +112,10 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
         while (nextFragment != null && nextFragment.getVaccineDisplays().size() == 0) {
             lastValidKeyPosition++;
             next++;
-            skey = keyPositions.get(next);
-            nextFragment = fragments.get(skey);
+            if(next < keyPositions.size()){
+                skey = keyPositions.get(next);
+                nextFragment = fragments.get(skey);
+            }
         }
 
     }
