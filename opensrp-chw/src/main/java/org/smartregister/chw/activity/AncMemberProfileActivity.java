@@ -133,7 +133,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Timber.e(e);
                     }
                 }
                 break;
@@ -169,7 +169,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, MEMBER_OBJECT.getLastMenstrualPeriod(), MEMBER_OBJECT.getLastContactVisit(), null, new DateTime(MEMBER_OBJECT.getDateCreated()).toLocalDate());
         String visitStatus = visitSummary.getVisitStatus();
 
-        if (!visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()) &&
+        if (!visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) &&
                 !visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             textview_record_anc_visit.setVisibility(View.GONE);
             view_anc_record.setVisibility(View.GONE);
@@ -178,51 +178,51 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
         Visit lastVisit = getVisit(Constants.EVENT_TYPE.ANC_HOME_VISIT);
         boolean within24Hours = isVisitWithin24Hours(lastVisit);
-        if (visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name()) && !within24Hours) {
+        if (visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE) && !within24Hours) {
             textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
             layoutRecordView.setVisibility(View.VISIBLE);
             record_reccuringvisit_done_bar.setVisibility(View.GONE);
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        super.onClick(view);
+        @Override
+        public void onClick (View view){
+            super.onClick(view);
 
-        switch (view.getId()) {
-            case R.id.textview_record_visit:
-            case R.id.textview_record_reccuring_visit:
-                AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
-                break;
-            case R.id.textview_edit:
-                AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, true);
-                break;
-            default:
-                break;
+            switch (view.getId()) {
+                case R.id.textview_record_visit:
+                case R.id.textview_record_reccuring_visit:
+                    AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
+                    break;
+                case R.id.textview_edit:
+                    AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, true);
+                    break;
+                default:
+                    break;
+            }
         }
+
+        @Override
+        public void openMedicalHistory () {
+            AncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+        }
+
+        @Override
+        public void openUpcomingService () {
+            AncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
+        }
+
+        @Override
+        public void openFamilyDueServices () {
+            Intent intent = new Intent(this, FamilyProfileActivity.class);
+
+            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
+            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
+            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
+            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
+
+            intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
+            startActivity(intent);
+        }
+
     }
-
-    @Override
-    public void openMedicalHistory() {
-        AncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
-    }
-
-    @Override
-    public void openUpcomingService() {
-        AncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
-    }
-
-    @Override
-    public void openFamilyDueServices() {
-        Intent intent = new Intent(this, FamilyProfileActivity.class);
-
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
-
-        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
-        startActivity(intent);
-    }
-
-}

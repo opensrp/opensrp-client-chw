@@ -6,13 +6,12 @@ import android.text.TextUtils;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.smartregister.chw.core.utils.WashCheck;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import utils.WashCheck;
 
 public class WashCheckRepository extends BaseRepository {
     public static final String WASH_CHECK_TABLE_NAME = "ec_wash_check_log";

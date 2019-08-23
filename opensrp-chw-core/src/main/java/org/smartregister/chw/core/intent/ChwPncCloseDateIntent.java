@@ -1,4 +1,4 @@
-package intent;
+package org.smartregister.chw.core.intent;
 
 import android.app.IntentService;
 import android.content.Intent;

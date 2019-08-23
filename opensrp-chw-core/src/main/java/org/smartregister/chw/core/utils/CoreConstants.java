@@ -39,6 +39,7 @@ public class CoreConstants {
         public static final String UPDATE_CHILD_REGISTRATION = "Update Child Registration";
         public static final String CHILD_HOME_VISIT = "Child Home Visit";
         public static final String CHILD_VISIT_NOT_DONE = "Visit not done";
+        public static final String UNDO_CHILD_VISIT_NOT_DONE = "Undo child visit not done";
         public static final String CHILD_REFERRAL = "Sick Child Referral";
         public static final String VACCINE_CARD_RECEIVED = "Child vaccine card received";
         public static final String MINIMUM_DIETARY_DIVERSITY = "Minimum dietary diversity";
@@ -158,6 +159,34 @@ public class CoreConstants {
 
         public static String getWashCheck() {
             return Utils.getLocalForm(WASH_CHECK, locale, assetManager);
+        }
+
+        public static class CHILD_HOME_VISIT {
+            private static final String VACCINE_CARD = "child_hv_vaccine_card_received";
+            private static final String VITAMIN_A = "child_hv_vitamin_a";
+            private static final String DEWORMING = "child_hv_deworming";
+            private static final String MUAC = "child_hv_muac";
+            private static final String DIETARY = "child_hv_dietary_diversity";
+
+            public static String getVaccineCard() {
+                return Utils.getLocalForm(VACCINE_CARD, locale, assetManager);
+            }
+
+            public static String getVitaminA() {
+                return Utils.getLocalForm(VITAMIN_A, locale, assetManager);
+            }
+
+            public static String getDEWORMING() {
+                return Utils.getLocalForm(DEWORMING, locale, assetManager);
+            }
+
+            public static String getMUAC() {
+                return Utils.getLocalForm(MUAC, locale, assetManager);
+            }
+
+            public static String getDIETARY() {
+                return Utils.getLocalForm(DIETARY, locale, assetManager);
+            }
         }
 
         public static class ANC_HOME_VISIT {
@@ -379,8 +408,6 @@ public class CoreConstants {
         public static final String HOME_VISIT = "home-visit-rules.yml";
         public static final String ANC_HOME_VISIT = "anc-home-visit-rules.yml";
         public static final String PNC_HOME_VISIT = "pnc-home-visit-rules.yml";
-        public static final String BIRTH_CERT = "birth-cert-rules.yml";
-        public static final String SERVICE = "service-rules.yml";
         public static final String IMMUNIZATION_EXPIRED = "immunization-expire-rules.yml";
         public static final String CONTACT_RULES = "contact-rules.yml";
         public static final String PNC_HEALTH_FACILITY_VISIT = "pnc-health-facility-schedule-rule.yml";
@@ -510,11 +537,6 @@ public class CoreConstants {
         public static final String UNIQUE_IDENTIFIER_KEY = "opensrp_id";
     }
 
-    public static class ECClientConfig {
-        public static String LIBERIA_EC_CLIENT_FIELDS = "ec_client_fields.json";
-        public static String TANZANIA_EC_CLIENT_FIELDS = "tz_ec_client_fields.json";
-    }
-
     public static final class RQ_CODE {
         public static final int STORAGE_PERMISIONS = 1;
     }
@@ -540,6 +562,25 @@ public class CoreConstants {
         public static final String VISIT_DONE = "VISIT_DONE";
     }
 
+    public enum VisitType {DUE, OVERDUE, LESS_TWENTY_FOUR, VISIT_THIS_MONTH, NOT_VISIT_THIS_MONTH, EXPIRY}
+
+    public enum ServiceType {DUE, OVERDUE, UPCOMING}
+
+    public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
+
+    public enum GROWTH_TYPE {
+        EXCLUSIVE("Exclusive breastfeeding"), MNP("MNP"), VITAMIN("Vitamin A"), DEWORMING("Deworming");
+        private String value;
+
+        GROWTH_TYPE(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
     public static final class DATE_FORMATS {
         public static final String NATIVE_FORMS = "dd-MM-yyyy";
         public static final String HOME_VISIT_DISPLAY = "dd MMM yyyy";
@@ -554,5 +595,12 @@ public class CoreConstants {
         public static final String PNC_REGISTER_ACTIVITY = "PNC_REGISTER_ACTIVITY";
         public static final String REFERRALS_REGISTER_ACTIVITY = "REFERRALS_REGISTER_ACTIVITY";
         public static final String MALARIA_REGISTER_ACTIVITY = "MALARIA_REGISTER_ACTIVITY";
+    }
+
+    public interface SERVICE_GROUPS {
+        String CHILD = "child";
+        String WOMAN = "woman";
+        String PNC = "pnc";
+        String ANC = "anc";
     }
 }

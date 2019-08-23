@@ -197,7 +197,7 @@ public class RecurringServiceUtil {
                             }
 
                         } catch (Exception e) {
-
+                            Timber.e(e);
                         }
 
 
