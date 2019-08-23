@@ -1,9 +1,9 @@
-package org.smartregister.chw.fragment;
+package org.smartregister.chw.hf.fragement;
 
 import android.os.Bundle;
 
 import org.smartregister.chw.core.fragment.CoreFamilyOtherMemberProfileFragment;
-import org.smartregister.chw.presenter.FamilyOtherMemberProfileFragmentPresenter;
+import org.smartregister.chw.hf.presenter.FamilyOtherMemberProfileFragmentPresenter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileFragmentModel;
 import org.smartregister.view.contract.BaseRegisterFragmentContract;

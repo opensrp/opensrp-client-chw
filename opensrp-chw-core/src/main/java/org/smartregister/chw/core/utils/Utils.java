@@ -11,16 +11,19 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -30,9 +33,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Hours;
+import org.joda.time.Period;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.FamilyCallDialogContract;
+import org.smartregister.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
 import org.smartregister.chw.core.fragment.CopyToClipboardDialog;
 import org.smartregister.chw.core.fragment.GrowthNutritionInputFragment;
 import org.smartregister.clientandeventmodel.Obs;
@@ -55,6 +60,8 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.google.android.gms.common.internal.Preconditions.checkArgument;
 
 public abstract class Utils extends org.smartregister.family.util.Utils {
@@ -387,5 +394,44 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
             return StringUtils.join(subLocationIds, ",");
         }
         return "";
+    }
+
+    public static void redrawWithOption(CoreFamilyMemberFloatingMenu menu, boolean has_phone) {
+        TextView callTextView = menu.findViewById(R.id.CallTextView);
+        TextView callTextViewHint = menu.findViewById(R.id.CallTextViewHint);
+
+        if (has_phone) {
+
+            callTextViewHint.setVisibility(GONE);
+            menu.getCallLayout().setOnClickListener(menu);
+            callTextView.setTypeface(null, Typeface.NORMAL);
+            callTextView.setTextColor(menu.getResources().getColor(android.R.color.black));
+            ((FloatingActionButton) menu.findViewById(R.id.callFab)).getDrawable().setAlpha(255);
+
+        } else {
+
+            callTextViewHint.setVisibility(VISIBLE);
+            menu.getCallLayout().setOnClickListener(null);
+            callTextView.setTypeface(null, Typeface.ITALIC);
+            callTextView.setTextColor(menu.getResources().getColor(R.color.grey));
+            ((FloatingActionButton) menu.findViewById(R.id.callFab)).getDrawable().setAlpha(122);
+        }
+    }
+
+    public static boolean isWomanOfReproductiveAge(CommonPersonObjectClient commonPersonObject) {
+        if (commonPersonObject == null) {
+            return false;
+        }
+
+        // check age and gender
+        String dobString = org.smartregister.util.Utils.getValue(commonPersonObject.getColumnmaps(), "dob", false);
+        String gender = org.smartregister.util.Utils.getValue(commonPersonObject.getColumnmaps(), "gender", false);
+        if (!TextUtils.isEmpty(dobString) && gender.trim().equalsIgnoreCase("Female")) {
+            Period period = new Period(new DateTime(dobString), new DateTime());
+            int age = period.getYears();
+            return age >= 15 && age <= 49;
+        }
+
+        return false;
     }
 }

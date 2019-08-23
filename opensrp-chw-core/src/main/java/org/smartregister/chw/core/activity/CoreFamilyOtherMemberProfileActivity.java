@@ -307,8 +307,8 @@ public abstract class CoreFamilyOtherMemberProfileActivity extends BaseFamilyOth
 
     protected abstract BaseFamilyOtherMemberProfileFragment getFamilyOtherMemberProfileFragment();
 
-    protected abstract BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(String familyBaseEntityId,
-                                                                                           String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName);
+    protected abstract BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(
+            String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName);
 
     private void openFamilyDueTab() {
         Intent intent = new Intent(this, getFamilyProfileActivity());

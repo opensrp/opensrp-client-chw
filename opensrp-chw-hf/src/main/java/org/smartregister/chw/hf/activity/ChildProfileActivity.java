@@ -24,6 +24,7 @@ import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.adapter.ReferralCardViewAdapter;
+import org.smartregister.chw.hf.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.hf.fragement.HfChildHomeVisitFragment;
 import org.smartregister.chw.hf.presenter.HfChildProfilePresenter;
 import org.smartregister.domain.Task;
@@ -83,7 +84,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         initializeTasksRecyclerView();
         View recordVisitPanel = findViewById(R.id.record_visit_panel);
         recordVisitPanel.setVisibility(View.GONE);
-        familyFloatingMenu = new CoreFamilyMemberFloatingMenu(this);
+        familyFloatingMenu = new FamilyMemberFloatingMenu(this);
         LinearLayout.LayoutParams linearLayoutParams =
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,

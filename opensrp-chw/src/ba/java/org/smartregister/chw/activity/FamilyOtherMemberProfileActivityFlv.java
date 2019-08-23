@@ -12,6 +12,8 @@ import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
+import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
+
 public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {
 
     @Override
@@ -39,20 +41,6 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
 
     @Override
     public boolean isWra(CommonPersonObjectClient commonPersonObject) {
-        if (commonPersonObject == null) {
-            return false;
-        }
-
-        // check age and gender
-        String dobString = org.smartregister.util.Utils.getValue(commonPersonObject.getColumnmaps(), "dob", false);
-        String gender = org.smartregister.util.Utils.getValue(commonPersonObject.getColumnmaps(), "gender", false);
-        if (!TextUtils.isEmpty(dobString) && gender.trim().equalsIgnoreCase("Female")) {
-            Period period = new Period(new DateTime(dobString), new DateTime());
-            int age = period.getYears();
-            return age >= 15 && age <= 49;
-        }
-
-        return false;
+        return isWomanOfReproductiveAge(commonPersonObject);
     }
-
 }

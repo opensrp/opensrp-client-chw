@@ -223,7 +223,7 @@
     <string name="opv_1">OPV 1</string>
     <string name="opv_2">OPV 2</string>
     <string name="yellow_fever">Yellow Fever</string>
-    <string name="follow_up_visit">Follow-up Visit</string>
+
 
     <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number
  as defined in the data dictionary -->
