@@ -1,10 +1,14 @@
 package org.smartregister.chw.interactor;
 
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.core.job.BasePncCloseJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
+<<<<<<< HEAD
 import org.smartregister.chw.job.BasePncCloseJob;
 import org.smartregister.chw.job.ChwIndicatorGeneratingJob;
+=======
+>>>>>>> 6e7397a241ca09e14aa29b28b6d41020877e5d1f
 import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PlanIntentServiceJob;
@@ -33,8 +37,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
         PullUniqueIdsServiceJob.scheduleJob(PullUniqueIdsServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue(BuildConfig.PULL_UNIQUE_IDS_MINUTES));
 
-        ChwIndicatorGeneratingJob.scheduleJob(ChwIndicatorGeneratingJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.REPORT_INDICATOR_GENERATION_MINUTES), getFlexValue(BuildConfig.REPORT_INDICATOR_GENERATION_MINUTES));
-
         HomeVisitServiceJob.scheduleJob(HomeVisitServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.HOME_VISIT_MINUTES), getFlexValue(BuildConfig.HOME_VISIT_MINUTES));
 
         BasePncCloseJob.scheduleJob(BasePncCloseJob.TAG, TimeUnit.HOURS.toHours(BuildConfig.BASE_PNC_CLOSE_HOURS), getFlexValue(BuildConfig.BASE_PNC_CLOSE_HOURS));
@@ -49,7 +51,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
     protected void scheduleJobsImmediately() {
         super.scheduleJobsImmediately();
         // Run initial job immediately on log in since the job will run a bit later (~ 15 mins +)
-        ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
         BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);

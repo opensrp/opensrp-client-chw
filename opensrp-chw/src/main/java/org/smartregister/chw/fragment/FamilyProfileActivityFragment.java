@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.WashCheckAdapter;
+import org.smartregister.chw.core.utils.WashCheck;
 import org.smartregister.chw.model.FamilyProfileActivityModel;
 import org.smartregister.chw.presenter.FamilyProfileActivityPresenter;
 import org.smartregister.chw.provider.FamilyActivityRegisterProvider;
@@ -22,7 +23,6 @@ import java.util.HashMap;
 import java.util.Set;
 
 import timber.log.Timber;
-import utils.WashCheck;
 
 public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFragment {
     private String familyName;
@@ -78,13 +78,10 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
         if (washCheckList.size() > 0) {
             washCheckRecyclerView.setVisibility(android.view.View.VISIBLE);
             if (washCheckAdapter == null) {
-                washCheckAdapter = new WashCheckAdapter(getActivity(), familyName, new WashCheckAdapter.OnClickAdapter() {
-                    @Override
-                    public void onClick(int position, WashCheck washCheck) {
-                        WashCheckDialogFragment dialogFragment = WashCheckDialogFragment.getInstance(washCheck.getDetailsJson());
-                        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-                        dialogFragment.show(ft, WashCheckDialogFragment.DIALOG_TAG);
-                    }
+                washCheckAdapter = new WashCheckAdapter(getActivity(), familyName, (position, washCheck) -> {
+                    WashCheckDialogFragment dialogFragment = WashCheckDialogFragment.getInstance(washCheck.getDetailsJson());
+                    FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                    dialogFragment.show(ft, WashCheckDialogFragment.DIALOG_TAG);
                 });
                 washCheckAdapter.setData(washCheckList);
                 washCheckRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 
+import org.smartregister.chw.core.job.BasePncCloseJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.job.ExtendedSyncServiceJob;
@@ -40,8 +41,6 @@ public class ChwJobCreator implements JobCreator {
                 return new VaccineRecurringServiceJob();
             case ImageUploadServiceJob.TAG:
                 return new ImageUploadServiceJob();
-            case ChwIndicatorGeneratingJob.TAG:
-                return new ChwIndicatorGeneratingJob();
             case P2pServiceJob.TAG:
                 return new P2pServiceJob();
             case HomeVisitServiceJob.TAG:

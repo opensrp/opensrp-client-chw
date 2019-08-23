@@ -5,7 +5,11 @@ import android.app.Activity;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.contract.NavigationContract;
 import org.smartregister.chw.core.interactor.NavigationInteractor;
+<<<<<<< HEAD
 import org.smartregister.chw.core.job.CoreBasePncCloseJob;
+=======
+import org.smartregister.chw.core.job.BasePncCloseJob;
+>>>>>>> 6e7397a241ca09e14aa29b28b6d41020877e5d1f
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.core.model.NavigationModel;

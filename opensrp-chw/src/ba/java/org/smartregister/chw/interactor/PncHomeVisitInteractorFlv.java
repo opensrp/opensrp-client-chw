@@ -16,6 +16,7 @@ import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
@@ -29,6 +30,7 @@ import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.PNCVisitUtil;
+import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.text.MessageFormat;
@@ -599,7 +601,16 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     protected void evaluateImmunization() throws Exception {
         for (Person baby : children) {
             if (getAgeInDays(baby.getDob()) <= 28) {
-                List<VaccineWrapper> wrappers = getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
+                List<VaccineWrapper> wrappers = VaccineScheduleUtil.getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
+
+                List<VaccineDisplay> displays = new ArrayList<>();
+                for (VaccineWrapper vaccineWrapper : wrappers) {
+                    VaccineDisplay display = new VaccineDisplay();
+                    display.setVaccineWrapper(vaccineWrapper);
+                    display.setStartDate(baby.getDob());
+                    display.setEndDate(new Date());
+                    displays.add(display);
+                }
 
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
                         .withOptional(false)
@@ -607,7 +618,11 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         .withBaseEntityID(baby.getBaseEntityID())
                         .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
                         .withVaccineWrapper(wrappers)
+<<<<<<< HEAD
                        // .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), baby.getDob(), details, wrappers))
+=======
+                        .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
+>>>>>>> 6e7397a241ca09e14aa29b28b6d41020877e5d1f
                         .withHelper(new ImmunizationActionHelper(context, wrappers))
                         .build();
                 actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);

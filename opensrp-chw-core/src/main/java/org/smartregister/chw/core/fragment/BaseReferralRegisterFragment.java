@@ -4,7 +4,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.View;
 
 import org.smartregister.chw.core.R;
@@ -173,7 +172,7 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
 
             }
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
+            Timber.e(e, e.toString());
         }
 
         return query;
