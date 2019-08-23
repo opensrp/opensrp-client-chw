@@ -15,6 +15,7 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -164,7 +165,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
                 if (completedBuilder.length() > 0)
                     completedBuilder.append(", ");
 
-                completedBuilder.append(vaccineMap.get(vac).display());
+                completedBuilder.append(getTranslatedValue(vac));
             }
 
             if (completedBuilder.length() > 0) {
@@ -188,7 +189,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
             if (pendingBuilder.length() > 0)
                 pendingBuilder.append(", ");
 
-            pendingBuilder.append(vaccineMap.get(vac).display());
+            pendingBuilder.append(getTranslatedValue(vac));
         }
 
         if (pendingBuilder.length() > 0) {
@@ -221,5 +222,13 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
     @Override
     public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
         Timber.v("onPayloadReceived");
+    }
+
+    private String getTranslatedValue(String name) {
+        VaccineRepo.Vaccine res = vaccineMap.get(name);
+        if (res == null)
+            return name;
+
+        return Utils.getStringResourceByName(res.display(), context);
     }
 }

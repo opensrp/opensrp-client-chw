@@ -558,6 +558,10 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
     public static String getStringResourceByName(String name, Context context) {
         String packageName = context.getPackageName();
         int resId = context.getResources().getIdentifier(name, "string", packageName);
-        return context.getString(resId);
+        if (resId == 0) {
+            return name;
+        } else {
+            return context.getString(resId);
+        }
     }
 }

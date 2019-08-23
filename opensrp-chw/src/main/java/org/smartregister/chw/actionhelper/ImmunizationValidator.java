@@ -137,6 +137,8 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
             if (next < keyPositions.size()) {
                 next_key = keyPositions.get(next);
                 nextFragment = fragments.get(next_key);
+            } else {
+                nextFragment = null;
             }
         }
 

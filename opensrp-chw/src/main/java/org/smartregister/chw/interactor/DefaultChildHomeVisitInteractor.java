@@ -379,6 +379,9 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         }
 
         Alert alert = serviceWrapper.getAlert();
+        if (alert == null || new LocalDate().isBefore(new LocalDate(alert.startDate())))
+            return;
+
         final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
         String title = context.getString(R.string.exclusive_breastfeeding_months, serviceIteration);
@@ -416,6 +419,9 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         }
 
         Alert alert = serviceWrapper.getAlert();
+        if (alert == null || new LocalDate().isBefore(new LocalDate(alert.startDate())))
+            return;
+
         final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
         String title = context.getString(R.string.vitamin_a_number_dose, Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context));
@@ -453,6 +459,9 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         }
 
         Alert alert = serviceWrapper.getAlert();
+        if (alert == null || new LocalDate().isBefore(new LocalDate(alert.startDate())))
+            return;
+
         final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
         String title = context.getString(R.string.deworming_number_dose, Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context));

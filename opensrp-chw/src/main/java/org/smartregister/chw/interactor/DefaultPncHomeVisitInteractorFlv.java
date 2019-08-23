@@ -323,6 +323,9 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 }
 
                 Alert alert = serviceWrapper.getAlert();
+                if (alert == null || new LocalDate().isAfter(new LocalDate(alert.startDate())))
+                    return;
+
                 final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
                 String title = MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName());
