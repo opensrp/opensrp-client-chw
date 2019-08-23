@@ -1,44 +1,21 @@
 ---
-name: expiry
-description: expire dob greter then 5 yr
+name: visit_expiry
+description: visit expired
 priority: 1
-condition: "homeAlertRule.isExpiry(5)"
+condition: "malariaFollowUpRule.getDatesDiff() > 14"
 actions:
-  - "homeAlertRule.buttonStatus = 'EXPIRY'"
+  - "malariaFollowUpRule.setButtonStatus('EXPIRED')"
 ---
-name: visit_not_done
-description: press visit not done in this month
-priority: 1
-condition: "homeAlertRule.isVisitNotDone()"
-actions:
-  - "homeAlertRule.buttonStatus = 'NOT_VISIT_THIS_MONTH'"
----
-name: visit_twenty_four
-description: visit within twenty four hours
+name: visit_overdue
+description: visit overdue
 priority: 2
-condition: "homeAlertRule.isVisitWithinTwentyFour()"
+condition: "malariaFollowUpRule.getDatesDiff() > 10"
 actions:
-  - "homeAlertRule.buttonStatus = 'LESS_TWENTY_FOUR'"
+  - "malariaFollowUpRule.setButtonStatus('OVERDUE')"
 ---
-name: visit_this_month
-description: visit grether than 24 hours but within this month
+name: visit_due
+description: visit due
 priority: 3
-condition: "homeAlertRule.isVisitWithinThisMonth()"
+condition: "malariaFollowUpRule.getDatesDiff() > 7"
 actions:
-  - "homeAlertRule.buttonStatus = 'VISIT_THIS_MONTH'"
----
-name: overdue
-description: previous month not visited
-priority: 2
-condition: "homeAlertRule.isOverdueWithinMonth(1)"
-actions:
-  - "homeAlertRule.buttonStatus = 'OVERDUE'"
----
-name: due
-description: due first day of month and same month
-priority: 3
-condition: "homeAlertRule.isDueWithinMonth()"
-actions:
-  - "homeAlertRule.buttonStatus = 'DUE'"
-
-
+  - "malariaFollowUpRule.setButtonStatus('DUE')"

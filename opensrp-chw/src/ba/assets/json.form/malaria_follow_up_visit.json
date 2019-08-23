@@ -54,14 +54,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "malaria_followup_calculation.yml"
-            }
-          }
-        }
+        "type": "hidden"
       },
       {
         "key": "hf_chw_mfollowup",
