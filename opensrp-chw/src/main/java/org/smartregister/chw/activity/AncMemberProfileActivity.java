@@ -20,6 +20,7 @@ import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.AncMemberProfileInteractor;
@@ -177,7 +178,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         }
 
         Visit lastVisit = getVisit(Constants.EVENT_TYPE.ANC_HOME_VISIT);
-        boolean within24Hours = isVisitWithin24Hours(lastVisit);
+        boolean within24Hours = VisitUtils.isVisitWithin24Hours(lastVisit);
         if (visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE) && !within24Hours) {
             textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
             layoutRecordView.setVisibility(View.VISIBLE);
