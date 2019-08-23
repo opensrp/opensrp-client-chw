@@ -56,6 +56,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private static NavigationMenu.Flavour menuFlavor;
     private static NavigationModel.Flavor modelFlavor;
     private static Map<String, Class> registeredActivities;
+    private static boolean showDeviceToDeviceSync = true;
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private NavigationAdapter navigationAdapter;
@@ -72,11 +73,12 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     }
 
     public static void setupNavigationMenu(CoreChwApplication application, NavigationMenu.Flavour menuFlavor,
-                                           NavigationModel.Flavor modelFlavor, Map<String, Class> registeredActivities) {
+                                           NavigationModel.Flavor modelFlavor, Map<String, Class> registeredActivities, boolean showDeviceToDeviceSync) {
         NavigationMenu.application = application;
         NavigationMenu.menuFlavor = menuFlavor;
         NavigationMenu.modelFlavor = modelFlavor;
         NavigationMenu.registeredActivities = registeredActivities;
+        NavigationMenu.showDeviceToDeviceSync = showDeviceToDeviceSync;
     }
 
     public static NavigationMenu getInstance(Activity activity, View parentView, Toolbar myToolbar) {
@@ -320,11 +322,14 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     }
 
     private void registerDeviceToDeviceSync(@NonNull final Activity activity) {
+        if (!showDeviceToDeviceSync) {
+            rootView.findViewById(R.id.rlIconDevice).setVisibility(View.GONE);
+        }
         rootView.findViewById(R.id.rlIconDevice)
                 .setOnClickListener(v -> startP2PActivity(activity));
     }
 
-    protected void refreshSyncProgressSpinner() {
+    private void refreshSyncProgressSpinner() {
         if (SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
             syncProgressBar.setVisibility(View.VISIBLE);
             ivSync.setVisibility(View.INVISIBLE);

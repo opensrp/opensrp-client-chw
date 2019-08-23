@@ -68,7 +68,8 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
                 HealthFacilityApplication.getInstance().getApplicationContext().getAssets());
 
         //Setup Navigation menu. Done only once when app is created
-        NavigationMenu.setupNavigationMenu(this, new HfNavigationMenu(), new NavigationModel(), getRegisteredActivities());
+        NavigationMenu.setupNavigationMenu(this, new HfNavigationMenu(), new NavigationModel(),
+                getRegisteredActivities(), false);
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
