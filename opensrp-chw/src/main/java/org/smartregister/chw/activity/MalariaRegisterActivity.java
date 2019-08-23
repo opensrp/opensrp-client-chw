@@ -49,10 +49,12 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
         Form form = new Form();
         form.setActionBarBackground(R.color.family_actionbar);
         form.setWizard(false);
+        form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
+        form.setSaveLabel(getString(R.string.submit));
+
         if (isMultiPartForm(jsonForm)) {
             form.setWizard(true);
             form.setNavigationBackground(R.color.family_navigation);
-            form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
             form.setName(this.getString(R.string.malaria_registration));
             form.setNextLabel(this.getResources().getString(R.string.next));
             form.setPreviousLabel(this.getResources().getString(R.string.back));
