@@ -634,6 +634,7 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
             if (lastVisit != null) {
                 details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
+            JsonFormUtils.populateForm(jsonObject, details);
         }
 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.ecd_title))
