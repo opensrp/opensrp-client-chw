@@ -6,11 +6,15 @@ import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
+import org.smartregister.chw.core.utils.VisitVaccineUtil;
 import org.smartregister.domain.Alert;
+import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +27,20 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
     private Map<String, VaccineTaskModel> vaccineTaskModelMap = new LinkedHashMap<>();
     private List<String> keyPositions = new ArrayList<>();
     private int lastValidKeyPosition = 0;
+    private HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules;
+    private Map<String, Date> administeredVaccines = new HashMap<>();
+
+    public ImmunizationValidator(
+            List<VaccineGroup> vaccinesGroups,
+            List<org.smartregister.immunization.domain.jsonmapping.Vaccine> specialVaccines,
+            String vaccineCategory,
+            List<org.smartregister.immunization.domain.Vaccine> vaccines
+    ) {
+        vaccineSchedules = VisitVaccineUtil.getSchedule(vaccinesGroups, specialVaccines, vaccineCategory);
+        for (org.smartregister.immunization.domain.Vaccine vaccine : vaccines) {
+            administeredVaccines.put(vaccine.getName(), vaccine.getDate());
+        }
+    }
 
     public void addFragment(String key, BaseHomeVisitImmunizationFragment fragment, VaccineTaskModel vaccineTaskModel) {
         if (!fragments.containsKey(key)) {
@@ -73,28 +91,32 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
         if (next == keyPositions.size())
             return;
 
-        int y = position + 1;
         int x = position + 1;
         String key = s;
+
+        Map<String, Date> receivedVacs = new HashMap<>(administeredVaccines);
+
         while (x < keyPositions.size()) {
 
             BaseHomeVisitImmunizationFragment prevFragment = fragments.get(key);
-
             key = keyPositions.get(x);
             BaseHomeVisitImmunizationFragment fragment = fragments.get(key);
+
+
             VaccineTaskModel taskModel = vaccineTaskModelMap.get(key);
             if (fragment == null || taskModel == null)
                 continue;
 
-            if (x != y) {
-                // fragment.resetViewPayload();
+            // add all the received vaccines in the map
+            if (prevFragment != null) {
+                for (VaccineDisplay display : prevFragment.getVaccineDisplays().values()) {
+                    if (display.getValid())
+                        receivedVacs.put(display.getVaccineWrapper().getName(), display.getDateGiven());
+                }
             }
 
-            List<VaccineDisplay> vaccineDisplays = new ArrayList<>();
-            if (prevFragment != null)
-                vaccineDisplays.addAll(prevFragment.getVaccineDisplays().values());
-
-            List<VaccineWrapper> wrappers = VaccineScheduleUtil.recomputeSchedule(taskModel, vaccineDisplays);
+            taskModel.setReceivedVaccines(receivedVacs);
+            List<VaccineWrapper> wrappers = VaccineScheduleUtil.recomputeSchedule(vaccineSchedules, taskModel, receivedVacs);
             List<VaccineDisplay> displays = generateDisplaysFromWrappers(wrappers, taskModel.getAnchorDate().toDate());
 
             // update the vaccines
@@ -107,14 +129,14 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
             x++;
         }
 
-        String skey = keyPositions.get(next);
-        BaseHomeVisitImmunizationFragment nextFragment = fragments.get(skey);
+        String next_key = keyPositions.get(next);
+        BaseHomeVisitImmunizationFragment nextFragment = fragments.get(next_key);
         while (nextFragment != null && nextFragment.getVaccineDisplays().size() == 0) {
             lastValidKeyPosition++;
             next++;
-            if(next < keyPositions.size()){
-                skey = keyPositions.get(next);
-                nextFragment = fragments.get(skey);
+            if (next < keyPositions.size()) {
+                next_key = keyPositions.get(next);
+                nextFragment = fragments.get(next_key);
             }
         }
 

@@ -32,6 +32,7 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.interactor.CoreChildHomeVisitInteractor;
 import org.smartregister.chw.core.model.VaccineTaskModel;
@@ -44,7 +45,10 @@ import org.smartregister.chw.util.Utils;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.immunization.domain.jsonmapping.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
+import org.smartregister.immunization.repository.VaccineRepository;
+import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.util.FormUtils;
 
 import java.text.MessageFormat;
@@ -102,10 +106,17 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
                         Constants.SERVICE_GROUPS.CHILD
                 );
 
+        Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
+        bindEvents(serviceWrapperMap);
+        return actionList;
+    }
+
+    protected void bindEvents(Map<String, ServiceWrapper> serviceWrapperMap) throws BaseAncHomeVisitAction.ValidationException {
         try {
-            Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
+
+            evaluateImmunization();
             evaluateChildVaccineCard();
-            //evaluateImmunization();
+            evaluateImmunization();
             evaluateExclusiveBreastFeeding(serviceWrapperMap);
             evaluateVitaminA(serviceWrapperMap);
             evaluateDeworming(serviceWrapperMap);
@@ -120,7 +131,6 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         } catch (Exception e) {
             Timber.e(e);
         }
-        return actionList;
     }
 
     protected void evaluateChildVaccineCard() throws Exception {
@@ -208,15 +218,19 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
 
     protected void evaluateImmunization() throws Exception {
         List<VaccineGroup> groups = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD);
-        int x = 0;
 
         List<VaccineWrapper> previousGroup = new ArrayList<>();
 
-        ImmunizationValidator validator = new ImmunizationValidator();
+        List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(context);
+        List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(context);
+        VaccineRepository vaccineRepository = CoreChwApplication.getInstance().vaccineRepository();
+        List<org.smartregister.immunization.domain.Vaccine> vaccines = vaccineRepository.findByEntityId(memberObject.getBaseEntityId());
+
+        ImmunizationValidator validator = new ImmunizationValidator(childVaccines, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
 
         for (VaccineGroup group : groups) {
 
-            Pair<VaccineTaskModel, List<VaccineWrapper>> listPair = VaccineScheduleUtil.getChildDueVaccines(memberObject.getBaseEntityId(), dob, previousGroup, x);
+            Pair<VaccineTaskModel, List<VaccineWrapper>> listPair = VaccineScheduleUtil.getChildDueVaccines(memberObject.getBaseEntityId(), dob, previousGroup, group);
             List<VaccineWrapper> wrappers = listPair.getRight();
 
             List<VaccineDisplay> displays = new ArrayList<>();
@@ -249,7 +263,6 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
             actionList.put(title, action);
 
             previousGroup.addAll(wrappers);
-            x++;
         }
     }
 
@@ -472,7 +485,7 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
 
     protected void evaluateMNP() throws Exception {
         int age = getAgeInMonths();
-        if (age > 60 || age < 6)
+        if (age > 24 || age < 6)
             return;
 
         HomeVisitActionHelper helper = new HomeVisitActionHelper() {
