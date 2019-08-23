@@ -9,7 +9,7 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.hf.fragement.FamilyProfileMemberFragment;
+import org.smartregister.chw.hf.fragment.FamilyProfileMemberFragment;
 import org.smartregister.chw.hf.model.FamilyProfileModel;
 import org.smartregister.chw.hf.presenter.FamilyProfilePresenter;
 import org.smartregister.family.adapter.ViewPagerAdapter;

@@ -1,4 +1,4 @@
-package org.smartregister.chw.hf.fragement;
+package org.smartregister.chw.hf.fragment;
 
 import android.os.Bundle;
 
@@ -13,7 +13,6 @@ import org.smartregister.chw.hf.model.FamilyProfileMemberModel;
 import org.smartregister.chw.hf.provider.HfMemberRegisterProvider;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.family.activity.BaseFamilyOtherMemberProfileActivity;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.presenter.BaseFamilyProfileMemberPresenter;
 import org.smartregister.family.util.Constants;

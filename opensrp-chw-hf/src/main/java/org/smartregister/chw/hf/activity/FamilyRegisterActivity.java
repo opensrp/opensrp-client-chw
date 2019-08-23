@@ -7,7 +7,7 @@ import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.BuildConfig;
 import org.smartregister.chw.hf.HealthFacilityApplication;
-import org.smartregister.chw.hf.fragement.FamilyRegisterFragment;
+import org.smartregister.chw.hf.fragment.FamilyRegisterFragment;
 import org.smartregister.chw.hf.listener.HfFamilyBottomNavListener;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 

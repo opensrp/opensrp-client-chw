@@ -1,19 +1,23 @@
-package org.smartregister.chw.hf.fragement;
+package org.smartregister.chw.hf.fragment;
 
 import android.os.Bundle;
 
 import org.smartregister.chw.core.fragment.CoreFamilyProfileChangeHead;
-import org.smartregister.chw.core.fragment.CoreFamilyProfileChangePrimaryCG;
 import org.smartregister.chw.core.presenter.CoreFamilyChangePresenter;
 import org.smartregister.chw.hf.presenter.FamilyChangePresenter;
 
-public class FamilyProfileChangePrimaryCG extends CoreFamilyProfileChangePrimaryCG {
+
+public class FamilyProfileChangeHead extends CoreFamilyProfileChangeHead {
     private FamilyChangePresenter familyChangePresenter;
 
-    public static CoreFamilyProfileChangePrimaryCG newInstance(String familyID) {
-        CoreFamilyProfileChangePrimaryCG fragment = new FamilyProfileChangePrimaryCG();
+    public FamilyProfileChangeHead() {
+        phoneNumberLengthFlavor = null;
+    }
+
+    public static FamilyProfileChangeHead newInstance(String familyID) {
+        FamilyProfileChangeHead fragment = new FamilyProfileChangeHead();
         Bundle args = new Bundle();
-        args.putString(CoreFamilyProfileChangeHead.FAMILY_ID, familyID);
+        args.putString(FAMILY_ID, familyID);
         fragment.setArguments(args);
         return fragment;
     }
