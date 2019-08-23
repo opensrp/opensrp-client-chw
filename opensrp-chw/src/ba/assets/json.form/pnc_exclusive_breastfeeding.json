@@ -57,7 +57,7 @@
         "openmrs_data_type": "exclusive_breast_feeding",
         "type": "spinner",
         "image": "ic_form_bf",
-        "hint": "Did the child receive any liquid or food other than breast milk yesterday and last night?",
+        "hint": "Has the child been exclusively breastfeeding only?",
         "values": [
           "Yes",
           "No"
