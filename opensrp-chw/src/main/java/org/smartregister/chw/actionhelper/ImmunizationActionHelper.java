@@ -117,7 +117,10 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
 
     @Override
     public String getPreProcessedSubTitle() {
-        String due = (status.name().equals(AlertStatus.urgent.name()) ? context.getString(R.string.overdue) : context.getString(R.string.due));
+        String due = context.getString(R.string.due);
+        if (status != null && status.name().equals(AlertStatus.urgent.name()))
+            due = context.getString(R.string.overdue);
+
         return MessageFormat.format("{0} {1}", due, DateTimeFormat.forPattern("dd MMM yyyy").print(dueDate));
     }
 

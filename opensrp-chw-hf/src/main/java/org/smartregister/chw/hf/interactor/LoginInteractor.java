@@ -1,5 +1,6 @@
 package org.smartregister.chw.hf.interactor;
 
+import org.smartregister.chw.core.job.BasePncCloseJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.hf.BuildConfig;
@@ -51,7 +52,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
         SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
-        job.BasePncCloseJob.scheduleJobImmediately(job.BasePncCloseJob.TAG);
+        BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
         PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
