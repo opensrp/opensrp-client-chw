@@ -18,7 +18,7 @@ import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.presenter.PncMemberProfilePresenter;
-import org.smartregister.chw.util.VisitSummary;
+import org.smartregister.chw.rule.PncVisitAlertRule;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -150,8 +150,8 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     @Override
     public void setupViews() {
         super.setupViews();
-        VisitSummary visitSummary = basePncMemberProfileInteractor.visitSummary(clientObject());
-        String visitStatus = visitSummary.getVisitStatus();
+        PncVisitAlertRule visitSummary = basePncMemberProfileInteractor.visitSummary(clientObject());
+        String visitStatus = visitSummary.getButtonStatus();
 
         if (ChildProfileInteractor.VisitType.OVERDUE.name().equals(visitStatus) || ChildProfileInteractor.VisitType.EXPIRY.name().equals(visitStatus)) {
             textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);

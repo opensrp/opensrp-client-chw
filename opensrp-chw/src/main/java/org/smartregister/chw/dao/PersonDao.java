@@ -1,7 +1,6 @@
 package org.smartregister.chw.dao;
 
-import android.database.Cursor;
-
+import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.domain.PncBaby;
 import org.smartregister.chw.util.Constants;
@@ -26,23 +25,20 @@ public class PersonDao extends AbstractDao {
                 "and ec_child.date_removed is null and ec_family_member.date_removed is null " +
                 "order by ec_family_member.first_name , ec_family_member.last_name , ec_family_member.middle_name ";
 
-        DataMap<Person> dataMap = new DataMap<Person>() {
-            @Override
-            public Person readCursor(Cursor c) {
-                Date dob = null;
-                try {
-                    dob = getDobDateFormat().parse(c.getString(c.getColumnIndex("dob")));
-                } catch (ParseException e) {
-                    Timber.e(e);
-                }
-                return new Person(
-                        getCursorValue(c, "base_entity_id"),
-                        getCursorValue(c, "first_name"),
-                        getCursorValue(c, "last_name"),
-                        getCursorValue(c, "middle_name"),
-                        dob
-                );
+        DataMap<Person> dataMap = c -> {
+            Date dob = null;
+            try {
+                dob = getDobDateFormat().parse(c.getString(c.getColumnIndex("dob")));
+            } catch (ParseException e) {
+                Timber.e(e);
             }
+            return new Person(
+                    getCursorValue(c, "base_entity_id"),
+                    getCursorValue(c, "first_name"),
+                    getCursorValue(c, "last_name"),
+                    getCursorValue(c, "middle_name"),
+                    dob
+            );
         };
 
         return AbstractDao.readData(sql, dataMap);
@@ -73,24 +69,21 @@ public class PersonDao extends AbstractDao {
             }
         }
 
-        DataMap<PncBaby> dataMap = new DataMap<PncBaby>() {
-            @Override
-            public PncBaby readCursor(Cursor c) {
-                Date dob = null;
-                try {
-                    dob = getDobDateFormat().parse(c.getString(c.getColumnIndex("dob")));
-                } catch (ParseException e) {
-                    Timber.e(e);
-                }
-                return new PncBaby(
-                        getCursorValue(c, "base_entity_id"),
-                        getCursorValue(c, "first_name"),
-                        getCursorValue(c, "last_name"),
-                        getCursorValue(c, "middle_name"),
-                        dob,
-                        lbw[0]
-                );
+        DataMap<PncBaby> dataMap = c -> {
+            Date dob = null;
+            try {
+                dob = getDobDateFormat().parse(c.getString(c.getColumnIndex("dob")));
+            } catch (ParseException e) {
+                Timber.e(e);
             }
+            return new PncBaby(
+                    getCursorValue(c, "base_entity_id"),
+                    getCursorValue(c, "first_name"),
+                    getCursorValue(c, "last_name"),
+                    getCursorValue(c, "middle_name"),
+                    dob,
+                    lbw[0]
+            );
         };
 
         return AbstractDao.readData(sql, dataMap);

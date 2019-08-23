@@ -1,6 +1,6 @@
 package org.smartregister.chw.intent;
 
-import intent.ChwPncCloseDateIntent;
+import org.smartregister.chw.core.intent.ChwPncCloseDateIntent;
 
 public abstract class DefaultChwPncCloseDateIntentFlv implements ChwPncCloseDateIntent.Flavor {
     @Override
