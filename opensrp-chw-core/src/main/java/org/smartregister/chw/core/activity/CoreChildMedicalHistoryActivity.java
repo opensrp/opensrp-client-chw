@@ -16,8 +16,8 @@ public class CoreChildMedicalHistoryActivity extends BaseChildMedicalHistory {
     private Flavor flavor;
 
     public static void startMedicalHistoryActivity(Activity activity, CommonPersonObjectClient childClient, String childName, String lastVisitDays, String dateOfirth,
-                                                   LinkedHashMap<String, Date> receivedVaccine) {
-        Intent intent = new Intent(activity, CoreChildMedicalHistoryActivity.class);
+                                                   LinkedHashMap<String, Date> receivedVaccine, Class<?> cls) {
+        Intent intent = new Intent(activity, cls);
         intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, childClient);
         intent.putExtra(CoreConstants.INTENT_KEY.CHILD_NAME, childName);
         intent.putExtra(CoreConstants.INTENT_KEY.CHILD_DATE_OF_BIRTH, dateOfirth);

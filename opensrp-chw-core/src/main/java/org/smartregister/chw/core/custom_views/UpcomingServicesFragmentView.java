@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
-import org.smartregister.chw.core.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.core.contract.ImmunizationContact;
 import org.smartregister.chw.core.enums.ImmunizationState;
 import org.smartregister.chw.core.interactor.HomeVisitGrowthNutritionInteractor;
@@ -20,7 +19,6 @@ import org.smartregister.chw.core.utils.GrowthServiceData;
 import org.smartregister.chw.core.utils.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.db.VaccineRepo;
-import org.smartregister.immunization.domain.ServiceWrapper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -104,61 +102,48 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     private void getUpcomingGrowthNutritonData(final Context context) {
         final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
-        homeVisitGrowthNutritionInteractor.parseRecordServiceData(childClient, new HomeVisitGrowthNutritionContract.InteractorCallBack() {
-            @Override
-            public void allDataLoaded() {
-                //// TODO: 15/08/19
-            }
-
-            @Override
-            public void updateGivenRecordVisitData(final Map<String, ServiceWrapper> stringServiceWrapperMap) {
-                try {
-                    ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap, context);
-                    String lastDate = "";
-                    View lastView = null;
-                    for (Iterator<GrowthServiceData> i = growthServiceDataList.iterator(); i.hasNext(); ) {
-                        GrowthServiceData growthServiceData = i.next();
-                        View existView = isExistView(growthServiceData);
-                        if (existView != null) {
-                            TextView growth = existView.findViewById(R.id.growth_service_name_title);
-                            if (growth.getVisibility() == GONE) {
-                                growth.setVisibility(VISIBLE);
-                                growth.setText(growthServiceData.getDisplayName());
-                            } else {
+        homeVisitGrowthNutritionInteractor.parseRecordServiceData(childClient, stringServiceWrapperMap -> {
+            try {
+                ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap, context);
+                String lastDate = "";
+                View lastView = null;
+                for (Iterator<GrowthServiceData> i = growthServiceDataList.iterator(); i.hasNext(); ) {
+                    GrowthServiceData growthServiceData = i.next();
+                    View existView = isExistView(growthServiceData);
+                    if (existView != null) {
+                        TextView growth = existView.findViewById(R.id.growth_service_name_title);
+                        if (growth.getVisibility() == GONE) {
+                            growth.setVisibility(VISIBLE);
+                            growth.setText(growthServiceData.getDisplayName());
+                        } else {
+                            growth.append("\n" + growthServiceData.getDisplayName());
+                        }
+                        lastDate = growthServiceData.getDisplayAbleDate();
+                        i.remove();
+                    } else {
+                        if (!lastDate.equalsIgnoreCase(growthServiceData.getDisplayAbleDate())) {
+                            lastDate = growthServiceData.getDisplayAbleDate();
+                            lastView = createGrowthCard(growthServiceData);
+                            addView(lastView);
+                        } else {
+                            if (lastView != null) {
+                                TextView growth = lastView.findViewById(R.id.growth_service_name_title);
                                 growth.append("\n" + growthServiceData.getDisplayName());
                             }
-                            lastDate = growthServiceData.getDisplayAbleDate();
-                            i.remove();
-                        } else {
-                            if (!lastDate.equalsIgnoreCase(growthServiceData.getDisplayAbleDate())) {
-                                lastDate = growthServiceData.getDisplayAbleDate();
-                                lastView = createGrowthCard(growthServiceData);
-                                addView(lastView);
-                            } else {
-                                if (lastView != null) {
-                                    TextView growth = lastView.findViewById(R.id.growth_service_name_title);
-                                    growth.append("\n" + growthServiceData.getDisplayName());
-                                }
 
-                            }
                         }
-
                     }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (context instanceof CoreUpcomingServicesActivity) {
-                        CoreUpcomingServicesActivity activity = (CoreUpcomingServicesActivity) context;
-                        activity.progressBarVisibility(false);
-
-                    }
                 }
-            }
 
-            @Override
-            public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
-                //No need to do anything
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (context instanceof CoreUpcomingServicesActivity) {
+                    CoreUpcomingServicesActivity activity = (CoreUpcomingServicesActivity) context;
+                    activity.progressBarVisibility(false);
+
+                }
             }
         });
     }
@@ -185,16 +170,6 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         growth.setText(growthServiceData.getDisplayName());
 
         return view;
-    }
-
-    @Override
-    public void updateSubmitBtn() {
-        //no need to do
-    }
-
-    @Override
-    public void onUpdateNextPosition() {
-        //no need to do
     }
 
     @Override

@@ -137,7 +137,7 @@ public class ChwServiceSchedule {
                 return AlertStatus.normal;
             }
         } catch (Exception e) {
-            Timber.e(ChwServiceSchedule.class.getName(), e.toString(), e);
+            Timber.e(e, ChwServiceSchedule.class.getName(), e.toString());
         }
         return null;
 
