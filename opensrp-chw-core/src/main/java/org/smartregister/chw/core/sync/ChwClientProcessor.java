@@ -120,7 +120,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 processService(eventClient, serviceTable);
                 break;
             case CoreConstants.EventType.CHILD_HOME_VISIT:
-                processVisitEvent(Utils.processOldEvents(eventClient));
+                processVisitEvent(Utils.processOldEvents(eventClient), CoreConstants.EventType.CHILD_HOME_VISIT);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
             case CoreConstants.EventType.CHILD_VISIT_NOT_DONE:
@@ -131,7 +131,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             case CoreConstants.EventType.MUAC:
             case CoreConstants.EventType.LLITN:
             case CoreConstants.EventType.ECD:
-                processVisitEvent(eventClient);
+                processVisitEvent(eventClient, CoreConstants.EventType.CHILD_HOME_VISIT);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
             case CoreConstants.EventType.ANC_HOME_VISIT:
@@ -324,9 +324,17 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         }
     }
 
-    private void processVisitEvent(List<EventClient> eventClients) {
+    private void processVisitEvent(EventClient eventClient, String parentEventName) {
+        try {
+            NCUtils.processSubHomeVisit(eventClient, parentEventName); // save locally
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void processVisitEvent(List<EventClient> eventClients, String parentEventName) {
         for (EventClient eventClient : eventClients) {
-            processVisitEvent(eventClient); // save locally
+            processVisitEvent(eventClient, parentEventName); // save locally
         }
     }
 

@@ -10,6 +10,7 @@ import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,27 +69,33 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
         int position = keyPositions.indexOf(s);
         lastValidKeyPosition = position + 1;
 
-        int x = lastValidKeyPosition + 1;
+        int next = position + 1;
+        if (next == keyPositions.size())
+            return;
+
+        int y = position + 1;
+        int x = position + 1;
+        String key = s;
         while (x < keyPositions.size()) {
-            String key = keyPositions.get(x);
+
+            BaseHomeVisitImmunizationFragment prevFragment = fragments.get(key);
+
+            key = keyPositions.get(x);
             BaseHomeVisitImmunizationFragment fragment = fragments.get(key);
             VaccineTaskModel taskModel = vaccineTaskModelMap.get(key);
             if (fragment == null || taskModel == null)
                 continue;
 
-            List<VaccineDisplay> vaccineDisplays = new ArrayList<>(fragment.getVaccineDisplays().values());
-            List<VaccineWrapper> wrappers = VaccineScheduleUtil.recomputeSchedule(taskModel, vaccineDisplays);
-
-            List<VaccineDisplay> displays = new ArrayList<>();
-            for (VaccineWrapper vaccineWrapper : wrappers) {
-                Alert alert = vaccineWrapper.getAlert();
-                VaccineDisplay display = new VaccineDisplay();
-                display.setVaccineWrapper(vaccineWrapper);
-                display.setStartDate(alert != null ? new LocalDate(alert.startDate()).toDate() : taskModel.getAnchorDate().toDate());
-                display.setEndDate(alert != null && alert.expiryDate() != null ? new LocalDate(alert.expiryDate()).toDate() : taskModel.getAnchorDate().toDate());
-                display.setValid(false);
-                displays.add(display);
+            if (x != y) {
+                // fragment.resetViewPayload();
             }
+
+            List<VaccineDisplay> vaccineDisplays = new ArrayList<>();
+            if (prevFragment != null)
+                vaccineDisplays.addAll(prevFragment.getVaccineDisplays().values());
+
+            List<VaccineWrapper> wrappers = VaccineScheduleUtil.recomputeSchedule(taskModel, vaccineDisplays);
+            List<VaccineDisplay> displays = generateDisplaysFromWrappers(wrappers, taskModel.getAnchorDate().toDate());
 
             // update the vaccines
             Map<String, VaccineDisplay> linkedHashMap = new LinkedHashMap<>();
@@ -100,7 +107,29 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
             x++;
         }
 
+        String skey = keyPositions.get(next);
+        BaseHomeVisitImmunizationFragment nextFragment = fragments.get(skey);
+        while (nextFragment != null && nextFragment.getVaccineDisplays().size() == 0) {
+            lastValidKeyPosition++;
+            next++;
+            skey = keyPositions.get(next);
+            nextFragment = fragments.get(skey);
+        }
+
     }
 
+    private List<VaccineDisplay> generateDisplaysFromWrappers(List<VaccineWrapper> wrappers, Date startDate) {
+        List<VaccineDisplay> displays = new ArrayList<>();
+        for (VaccineWrapper vaccineWrapper : wrappers) {
+            Alert alert = vaccineWrapper.getAlert();
+            VaccineDisplay display = new VaccineDisplay();
+            display.setVaccineWrapper(vaccineWrapper);
+            display.setStartDate(alert != null ? new LocalDate(alert.startDate()).toDate() : startDate);
+            display.setEndDate(alert != null && alert.expiryDate() != null ? new LocalDate(alert.expiryDate()).toDate() : new Date());
+            display.setValid(false);
+            displays.add(display);
+        }
+        return displays;
+    }
 
 }

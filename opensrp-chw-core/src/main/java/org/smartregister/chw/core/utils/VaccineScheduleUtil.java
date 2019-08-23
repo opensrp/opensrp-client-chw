@@ -1,6 +1,7 @@
 package org.smartregister.chw.core.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
@@ -10,6 +11,7 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.dao.AlertDao;
 import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.domain.Alert;
+import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
@@ -22,6 +24,7 @@ import org.smartregister.service.AlertService;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;

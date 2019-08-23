@@ -101,7 +101,7 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         try {
             Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
             evaluateChildVaccineCard();
-            evaluateImmunization();
+            //evaluateImmunization();
             evaluateExclusiveBreastFeeding(serviceWrapperMap);
             evaluateVitaminA(serviceWrapperMap);
             evaluateDeworming(serviceWrapperMap);
@@ -184,6 +184,8 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
             BaseAncHomeVisitAction vaccine_card = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.vaccine_card_title))
                     .withOptional(false)
                     .withDetails(details)
+                    .withBaseEntityID(memberObject.getBaseEntityId())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withHelper(new ChildVaccineCardHelper(dob))
                     .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getVaccineCard(), null, details, null))
                     .build();
@@ -226,7 +228,6 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
                     .withOptional(false)
                     .withDetails(details)
-                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
                     .withVaccineWrapper(wrappers)
                     .withDestinationFragment(fragment)
                     .withHelper(new ImmunizationActionHelper(context, wrappers))
@@ -327,6 +328,8 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.birth_certification))
                     .withOptional(false)
                     .withDetails(details)
+                    .withBaseEntityID(memberObject.getBaseEntityId())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withHelper(new BirthCertHelper(dob))
                     .withFormName(Constants.JSON_FORM.getBirthCertification())
                     .build();
@@ -490,6 +493,8 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.minimum_dietary_title))
                 .withOptional(false)
                 .withDetails(details)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withHelper(helper)
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getDIETARY(), null, details, null))
                 .build();
@@ -547,6 +552,8 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.muac_title))
                 .withOptional(false)
                 .withDetails(details)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withHelper(helper)
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getMUAC(), null, details, null))
                 .build();
@@ -561,6 +568,8 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         BaseAncHomeVisitAction sleeping = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_sleeping_under_llitn_net))
                 .withOptional(false)
                 .withDetails(details)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withHelper(new SleepingUnderLLITNAction())
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.ANC_HOME_VISIT.getSleepingUnderLlitn(), null, details, null))
                 .build();
@@ -579,6 +588,8 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.ecd_title))
                 .withOptional(false)
                 .withDetails(details)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withHelper(new ECDAction())
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment())
                 .withJsonPayload(jsonObject.toString())
@@ -591,6 +602,8 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         BaseAncHomeVisitAction observation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_observations_n_illnes))
                 .withOptional(true)
                 .withDetails(details)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withHelper(new ObservationAction())
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
                 .build();

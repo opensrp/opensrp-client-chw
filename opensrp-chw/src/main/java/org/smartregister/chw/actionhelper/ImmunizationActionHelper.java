@@ -109,7 +109,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
 
     @Override
     public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-        if (status.value().equals(AlertStatus.urgent.value()))
+        if (status != null && status.value().equals(AlertStatus.urgent.value()))
             return BaseAncHomeVisitAction.ScheduleStatus.OVERDUE;
 
         return BaseAncHomeVisitAction.ScheduleStatus.DUE;
