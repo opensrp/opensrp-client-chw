@@ -13,7 +13,7 @@ import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
-import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.pnc.interactor.BasePncMemberProfileInteractor;
 import org.smartregister.chw.rule.PncVisitAlertRule;
 import org.smartregister.chw.util.HomeVisitUtil;
@@ -33,6 +33,8 @@ import static org.smartregister.chw.anc.AncLibrary.getInstance;
 
 public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
     private Context context;
+    private Date lastVisitDate;
+    private Date deliveryDate;
 
     public PncMemberProfileInteractor(Context context) {
         this.context = context;
@@ -47,7 +49,6 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
     @Override
     public void refreshProfileInfo(final MemberObject memberObject, final BaseAncMemberProfileContract.InteractorCallBack callback) {
         Runnable runnable = new Runnable() {
-
             Date lastVisitDate = getLastVisitDate(memberObject);
 
             @Override
@@ -83,6 +84,35 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
         appExecutors.diskIO().execute(runnable);
     }
 
+    private Date getDeliveryDate(String motherBaseID) {
+        String deliveryDateString = PncLibrary.getInstance().profileRepository().getDeliveryDate(motherBaseID);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        try {
+            deliveryDate = sdf.parse(deliveryDateString);
+        } catch (ParseException e) {
+            Timber.e(e);
+        }
+        return deliveryDate;
+    }
+
+    private Date getLastDateVisit(String motherBaseID) {
+        Visit lastVisit = getInstance().visitRepository().getLatestVisit(motherBaseID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
+        if (lastVisit != null){
+            lastVisitDate = lastVisit.getDate();
+            return  lastVisitDate;
+        }
+        else {
+            return lastVisitDate = getDeliveryDate(motherBaseID);
+        }
+
+    }
+
+    public PncVisitAlertRule getVisitSummary(String motherBaseID) {
+        Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(org.smartregister.chw.util.Constants.RULE_FILE.PNC_HOME_VISIT);
+        Date lastVisitDate = getLastDateVisit(motherBaseID);
+        Date deliveryDate = getDeliveryDate(motherBaseID);
+        return HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, deliveryDate);
+    }
 
     public PncVisitAlertRule visitSummary(CommonPersonObjectClient pc) {
         Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(org.smartregister.chw.util.Constants.RULE_FILE.ANC_HOME_VISIT);
@@ -103,4 +133,6 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
 
         return HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, deliveryDate);
     }
+
+
 }

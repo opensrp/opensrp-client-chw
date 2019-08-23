@@ -587,7 +587,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
         }
     }
 
-    public enum VisitType {DUE, OVERDUE, LESS_TWENTY_FOUR, VISIT_THIS_MONTH, NOT_VISIT_THIS_MONTH, EXPIRY}
+    public enum VisitType {DUE, OVERDUE, LESS_TWENTY_FOUR, VISIT_THIS_MONTH, NOT_VISIT_THIS_MONTH, EXPIRY, VISIT_DONE}
 
     public enum ServiceType {DUE, OVERDUE, UPCOMING}
 

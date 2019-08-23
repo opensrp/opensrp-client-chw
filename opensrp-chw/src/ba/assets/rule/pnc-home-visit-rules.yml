@@ -3,7 +3,7 @@ description: after two days
 priority: 1
 condition: "pncVisitAlertRule.isValid(0,10000,2)"
 actions:
-  - "pncVisitAlertRule.setVisitID('2')"
+  - "pncVisitAlertRule.setVisitID('1')"
 ---
 name: three
 description: after three days

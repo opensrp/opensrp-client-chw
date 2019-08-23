@@ -5,6 +5,7 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.smartregister.chw.core.rule.ICommonRule;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.provider.ChwPncRegisterProvider;
 
 import java.util.Date;
 
@@ -45,31 +46,37 @@ public class PncVisitAlertRule implements ICommonRule {
         return "pncVisitAlertRule";
     }
 
-    public DateTime getPrevVisitDate() {
+   /* public DateTime getPrevVisitDate() {
         if (lastVisitDate == null)
             return deliveryDate;
 
         return lastVisitDate;
-    }
+    }*/
 
     @Override
     public String getButtonStatus() {
-        DateTime lastVisit = getPrevVisitDate();
+        //DateTime lastVisit = getPrevVisitDate();
+        DateTime lastVisit = lastVisitDate;
         DateTime currentDate = new DateTime(new LocalDate().toDate());
 
-        if ((lastVisit.isAfter(dueDate) || lastVisit.isEqual(dueDate)) && lastVisit.isBefore(expiryDate))
-            return CoreConstants.VISIT_STATE.VISIT_DONE;
+        if(lastVisitDate != null){
+            if ((lastVisit.isAfter(dueDate) || lastVisit.isEqual(dueDate)) && lastVisit.isBefore(expiryDate))
+                return CoreConstants.VISIT_STATE.VISIT_DONE;
+            if (lastVisit.isBefore(dueDate)) {
+                if (currentDate.isBefore(overDueDate) && (currentDate.isAfter(dueDate) || currentDate.isEqual(dueDate)))
+                    return CoreConstants.VISIT_STATE.DUE;
 
-        if (lastVisit.isBefore(dueDate)) {
-
+                if (currentDate.isBefore(expiryDate) && (currentDate.isAfter(overDueDate) || currentDate.isEqual(overDueDate)))
+                    return CoreConstants.VISIT_STATE.OVERDUE;
+            }
+        }
+        else {
             if (currentDate.isBefore(overDueDate) && (currentDate.isAfter(dueDate) || currentDate.isEqual(dueDate)))
                 return CoreConstants.VISIT_STATE.DUE;
 
             if (currentDate.isBefore(expiryDate) && (currentDate.isAfter(overDueDate) || currentDate.isEqual(overDueDate)))
                 return CoreConstants.VISIT_STATE.OVERDUE;
-
         }
-
         return CoreConstants.VISIT_STATE.EXPIRED;
     }
 }
