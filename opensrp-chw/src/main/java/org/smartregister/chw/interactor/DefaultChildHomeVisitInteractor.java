@@ -69,6 +69,7 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
     protected Date dob;
     protected Boolean vaccineCardReceived = false;
     protected Boolean hasBirthCert = false;
+    protected Boolean editMode = false;
 
 
     //TODO get vaccineCardReceived FROM DB
@@ -77,6 +78,7 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         actionList = new LinkedHashMap<>();
         context = view.getContext();
         this.memberObject = memberObject;
+        editMode = view.getEditMode();
         try {
             this.dob = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(memberObject.getDob());
         } catch (ParseException e) {
@@ -181,6 +183,14 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
 
         // expires after 24 months. verify that vaccine card is not received
         if (!new LocalDate().isAfter(new LocalDate(dob).plusMonths(24)) && !vaccineCardReceived) {
+            Map<String, List<VisitDetail>> details = null;
+            if (editMode) {
+                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.VACCINE_CARD_RECEIVED);
+                if (lastVisit != null) {
+                    details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                }
+            }
+
             BaseAncHomeVisitAction vaccine_card = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.vaccine_card_title))
                     .withOptional(false)
                     .withDetails(details)
@@ -325,6 +335,15 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         }
 
         if (!hasBirthCert) {
+
+            Map<String, List<VisitDetail>> details = null;
+            if (editMode) {
+                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.BIRTH_CERTIFICATION);
+                if (lastVisit != null) {
+                    details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                }
+            }
+
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.birth_certification))
                     .withOptional(false)
                     .withDetails(details)
@@ -490,6 +509,14 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
             }
         };
 
+        Map<String, List<VisitDetail>> details = null;
+        if (editMode) {
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.MINIMUM_DIETARY_DIVERSITY);
+            if (lastVisit != null) {
+                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            }
+        }
+
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.minimum_dietary_title))
                 .withOptional(false)
                 .withDetails(details)
@@ -549,6 +576,14 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
             }
         };
 
+        Map<String, List<VisitDetail>> details = null;
+        if (editMode) {
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.MUAC);
+            if (lastVisit != null) {
+                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            }
+        }
+
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.muac_title))
                 .withOptional(false)
                 .withDetails(details)
@@ -564,6 +599,14 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
     protected void evaluateLLITN() throws Exception {
         if (getAgeInMonths() < 60)
             return;
+
+        Map<String, List<VisitDetail>> details = null;
+        if (editMode) {
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.LLITN);
+            if (lastVisit != null) {
+                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            }
+        }
 
         BaseAncHomeVisitAction sleeping = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_sleeping_under_llitn_net))
                 .withOptional(false)
@@ -585,6 +628,14 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
         JSONObject jsonObject = FormUtils.getInstance(context).getFormJson(CoreConstants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment());
         jsonObject = CoreJsonFormUtils.getEcdWithDatePass(jsonObject, memberObject.getDob());
 
+        Map<String, List<VisitDetail>> details = null;
+        if (editMode) {
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.ECD);
+            if (lastVisit != null) {
+                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            }
+        }
+
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.ecd_title))
                 .withOptional(false)
                 .withDetails(details)
@@ -599,6 +650,14 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
     }
 
     protected void evaluateObsAndIllness() throws Exception {
+        Map<String, List<VisitDetail>> details = null;
+        if (editMode) {
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.OBS_ILLNESS);
+            if (lastVisit != null) {
+                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            }
+        }
+
         BaseAncHomeVisitAction observation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_observations_n_illnes))
                 .withOptional(true)
                 .withDetails(details)
