@@ -1,9 +1,7 @@
 package org.smartregister.chw.core.utils;
 
-import android.content.Context;
 import android.text.TextUtils;
 
-import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -51,7 +49,7 @@ public class VisitVaccineUtil {
     }
 
     private static void initVaccine(String vaccineCategory,
-                             org.smartregister.immunization.domain.jsonmapping.Vaccine curVaccine) {
+                                    org.smartregister.immunization.domain.jsonmapping.Vaccine curVaccine) {
         if (TextUtils.isEmpty(curVaccine.vaccine_separator)) {
             String vaccineName = curVaccine.name;
             VaccineSchedule vaccineSchedule;
