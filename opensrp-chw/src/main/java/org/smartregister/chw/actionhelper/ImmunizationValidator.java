@@ -1,10 +1,10 @@
 package org.smartregister.chw.actionhelper;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
-import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.core.utils.VisitVaccineUtil;
 import org.smartregister.domain.Alert;
@@ -24,7 +24,8 @@ import java.util.Map;
  */
 public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
     private Map<String, BaseHomeVisitImmunizationFragment> fragments = new LinkedHashMap<>();
-    private Map<String, VaccineTaskModel> vaccineTaskModelMap = new LinkedHashMap<>();
+    private Map<String, DateTime> anchorDates = new HashMap<>();
+    private Map<String, VaccineGroup> vaccineGroupMap = new HashMap<>();
     private List<String> keyPositions = new ArrayList<>();
     private int lastValidKeyPosition = 0;
     private HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules;
@@ -42,12 +43,13 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
         }
     }
 
-    public void addFragment(String key, BaseHomeVisitImmunizationFragment fragment, VaccineTaskModel vaccineTaskModel) {
+    public void addFragment(String key, BaseHomeVisitImmunizationFragment fragment, VaccineGroup vaccineGroup, DateTime anchorDate) {
         if (!fragments.containsKey(key)) {
             keyPositions.add(key);
         }
         fragments.put(key, fragment);
-        vaccineTaskModelMap.put(key, vaccineTaskModel);
+        anchorDates.put(key, anchorDate);
+        vaccineGroupMap.put(key, vaccineGroup);
     }
 
     /**
@@ -102,9 +104,7 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
             key = keyPositions.get(x);
             BaseHomeVisitImmunizationFragment fragment = fragments.get(key);
 
-
-            VaccineTaskModel taskModel = vaccineTaskModelMap.get(key);
-            if (fragment == null || taskModel == null)
+            if (fragment == null)
                 continue;
 
             // add all the received vaccines in the map
@@ -115,9 +115,11 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
                 }
             }
 
-            taskModel.setReceivedVaccines(receivedVacs);
-            List<VaccineWrapper> wrappers = VaccineScheduleUtil.recomputeSchedule(vaccineSchedules, taskModel, receivedVacs);
-            List<VaccineDisplay> displays = generateDisplaysFromWrappers(wrappers, taskModel.getAnchorDate().toDate());
+            DateTime anchorDate = anchorDates.get(key);
+            VaccineGroup vaccineGroup = vaccineGroupMap.get(key);
+
+            List<VaccineWrapper> wrappers = VaccineScheduleUtil.recomputeSchedule(vaccineSchedules, anchorDate, vaccineGroup, receivedVacs);
+            List<VaccineDisplay> displays = generateDisplaysFromWrappers(wrappers, anchorDate.toDate());
 
             // update the vaccines
             Map<String, VaccineDisplay> linkedHashMap = new LinkedHashMap<>();

@@ -1,14 +1,19 @@
 package org.smartregister.chw.core.utils;
 
 import android.text.TextUtils;
+import android.util.Pair;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineCondition;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineTrigger;
+import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.domain.jsonmapping.Condition;
 import org.smartregister.immunization.domain.jsonmapping.Due;
 import org.smartregister.immunization.domain.jsonmapping.Expiry;
@@ -16,8 +21,11 @@ import org.smartregister.immunization.domain.jsonmapping.Schedule;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VisitVaccineUtil {
 
@@ -120,12 +128,135 @@ public class VisitVaccineUtil {
             if (vaccineSchedules != null && vaccineSchedules.containsKey(vaccineCategory)) {
                 for (VaccineSchedule curSchedule : vaccineSchedules.get(vaccineCategory).values()) {
                     Alert curAlert = curSchedule.getOfflineAlert(baseEntityId, dob.toDate(), issuedVaccines);
-                    generatedAlerts.add(curAlert);
+                    if (curAlert != null)
+                        generatedAlerts.add(curAlert);
                 }
             }
             return generatedAlerts;
         } catch (Exception e) {
             return new ArrayList<>();
         }
+    }
+
+    /**
+     * Returns an ordered map of the vaccine title and the list of vaccines to be displayed.
+     *
+     * @return
+     */
+    public static Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> generateVisitVaccines(
+            String baseEntityID,
+            Map<String, VaccineRepo.Vaccine> vaccinesRepo,
+            DateTime dob,
+            List<VaccineGroup> vaccineGroups,
+            List<org.smartregister.immunization.domain.jsonmapping.Vaccine> specialVaccines,
+            List<Vaccine> issuedVaccines
+    ) {
+
+        // prepare tools
+
+        /// compute the alerts
+        HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules =
+                getSchedule(vaccineGroups, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD);
+
+        List<Alert> alerts =
+                getInMemoryAlerts(vaccineSchedules, baseEntityID, dob, CoreConstants.SERVICE_GROUPS.CHILD, issuedVaccines);
+
+        Map<String, Alert> alertMap = new HashMap<>();
+        for (Alert alert : alerts) {
+            alertMap.put(alert.visitCode(), alert);
+        }
+
+        /// prepare the given vaccines map
+        Map<String, Vaccine> givenVaccines = new HashMap<>();
+        for (Vaccine vaccine : issuedVaccines) {
+            givenVaccines.put(vaccine.getName().replace("_", ""), vaccine);
+        }
+
+
+        // compute screen results
+        Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> res = new LinkedHashMap<>();
+
+        LocalDate today = new LocalDate();
+
+        // add the vaccines to the final group
+        for (VaccineGroup group : vaccineGroups) {
+
+            List<Pair<VaccineRepo.Vaccine, Alert>> pairList = new ArrayList<>();
+            for (org.smartregister.immunization.domain.jsonmapping.Vaccine jsonVaccine : group.vaccines) {
+                String code = jsonVaccine.name.toLowerCase().replace(" ", "");
+
+                Alert alert = alertMap.get(code);
+                Vaccine vaccine = givenVaccines.get(code);
+                VaccineRepo.Vaccine repoVac = vaccinesRepo.get(code);
+
+                // get all vaccine that are yet to expire
+                // and are active
+                if (
+                        alert != null
+                                && vaccine == null
+                                && repoVac != null
+                                && today.isAfter(new LocalDate(alert.startDate()))
+                                && (StringUtils.isBlank(alert.expiryDate()) || new LocalDate(alert.expiryDate()).isAfter(today))
+
+                ) {
+                    pairList.add(Pair.create(repoVac, alert));
+                }
+            }
+
+            if (pairList.size() > 0)
+                res.put(group, pairList);
+        }
+
+        return res;
+    }
+
+    /**
+     * generate wrapper object
+     *
+     * @param vaccine, alert
+     * @return
+     */
+    public static VaccineWrapper wrapVaccine(VaccineRepo.Vaccine vaccine, Alert alert) {
+        VaccineWrapper vaccineWrapper = new VaccineWrapper();
+        vaccineWrapper.setVaccine(vaccine);
+        vaccineWrapper.setName(vaccine.display());
+        vaccineWrapper.setDefaultName(vaccine.display());
+        vaccineWrapper.setAlert(alert);
+        return vaccineWrapper;
+    }
+
+    /**
+     * generate wrapper objects
+     *
+     * @param pairs
+     * @return
+     */
+    public static List<VaccineWrapper> wrapVaccines(List<Pair<VaccineRepo.Vaccine, Alert>> pairs) {
+        List<VaccineWrapper> vaccineWrappers = new ArrayList<>();
+        for (Pair<VaccineRepo.Vaccine, Alert> pair : pairs) {
+            vaccineWrappers.add(wrapVaccine(pair.first, pair.second));
+        }
+        return vaccineWrappers;
+    }
+
+    /**
+     * convert wrappers to displa objects
+     *
+     * @param wrappers
+     * @return
+     */
+    public static List<VaccineDisplay> toDisplays(List<VaccineWrapper> wrappers) {
+        List<VaccineDisplay> displays = new ArrayList<>();
+        for (VaccineWrapper vaccineWrapper : wrappers) {
+            Alert alert = vaccineWrapper.getAlert();
+            VaccineDisplay display = new VaccineDisplay();
+            display.setVaccineWrapper(vaccineWrapper);
+            display.setStartDate(new LocalDate(alert.startDate()).toDate());
+            display.setEndDate(alert.expiryDate() != null ? new LocalDate(alert.expiryDate()).toDate() : new Date());
+            display.setValid(false);
+            displays.add(display);
+        }
+
+        return displays;
     }
 }

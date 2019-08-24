@@ -18,7 +18,7 @@ public class VisitDao extends AbstractDao {
     @Nullable
     public static Map<String, VisitSummary> getVisitSummary(String baseEntityID) {
         String sql = "select base_entity_id , visit_type , max(visit_date) visit_date from visits " +
-                " where base_entity_id = '" + baseEntityID + "' " +
+                " where base_entity_id = '" + baseEntityID + "' COLLATE NOCASE " +
                 " group by base_entity_id , visit_type ";
 
         DataMap<VisitSummary> dataMap = c -> {
@@ -43,7 +43,7 @@ public class VisitDao extends AbstractDao {
     }
 
     public static Long getChildDateCreated(String baseEntityID) {
-        String sql = "select date_created from ec_child where base_entity_id = '" + baseEntityID + "'";
+        String sql = "select date_created from ec_child where base_entity_id = '" + baseEntityID + "' COLLATE NOCASE ";
 
         DataMap<String> dataMap = c -> getCursorValue(c, "date_created");
         List<String> values = AbstractDao.readData(sql, dataMap);
@@ -64,7 +64,7 @@ public class VisitDao extends AbstractDao {
 
         long date = calendar.getTime().getTime();
 
-        String sql = "delete from visits where base_entity_id = '" + baseEntityID + "' and visit_type = '" +
+        String sql = "delete from visits where base_entity_id = '" + baseEntityID + "' COLLATE NOCASE and visit_type = '" +
                 CoreConstants.EventType.CHILD_VISIT_NOT_DONE + "' and visit_date >= " + date + " and created_at >=  " + date + "";
         updateDB(sql);
     }
@@ -72,8 +72,8 @@ public class VisitDao extends AbstractDao {
     public static boolean memberHasBirthCert(String baseEntityID) {
         String sql = "select count(*) certificates " +
                 "from visit_details d " +
-                "inner join visits v on v.visit_id = d.visit_id " +
-                "where base_entity_id = '" + baseEntityID + "' and v.processed = 1 " +
+                "inner join visits v on v.visit_id = d.visit_id COLLATE NOCASE " +
+                "where base_entity_id = '" + baseEntityID + "' COLLATE NOCASE and v.processed = 1 " +
                 "and (visit_key in ('birth_certificate','birth_cert') and details = 'GIVEN' or human_readable_details = 'Yes')";
 
         DataMap<String> dataMap = c -> getCursorValue(c, "certificates");
@@ -87,8 +87,8 @@ public class VisitDao extends AbstractDao {
     public static boolean memberHasVaccineCard(String baseEntityID) {
         String sql = "select count(*) certificates " +
                 "from visit_details d " +
-                "inner join visits v on v.visit_id = d.visit_id " +
-                "where base_entity_id = '" + baseEntityID + "' and v.processed = 1 " +
+                "inner join visits v on v.visit_id = d.visit_id COLLATE NOCASE " +
+                "where base_entity_id = '" + baseEntityID + "' COLLATE NOCASE and v.processed = 1 " +
                 "and (visit_key in ('vaccine_card') and human_readable_details = 'Yes')";
 
         DataMap<String> dataMap = c -> getCursorValue(c, "certificates");

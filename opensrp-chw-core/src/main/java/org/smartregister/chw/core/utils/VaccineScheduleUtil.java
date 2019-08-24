@@ -137,7 +137,10 @@ public class VaccineScheduleUtil {
     }
 
     public static List<VaccineWrapper> recomputeSchedule(
-            HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules, VaccineTaskModel vaccineTaskModel, Map<String, Date> receivedVacs
+            HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules,
+            DateTime anchorDate,
+            VaccineGroup vaccineGroup,
+            Map<String, Date> receivedVacs
     ) {
         List<VaccineWrapper> vaccineWrappers = new ArrayList<>();
 
@@ -150,23 +153,21 @@ public class VaccineScheduleUtil {
         }
 
         // get new alerts
-        List<Alert> alerts = VisitVaccineUtil.getInMemoryAlerts(vaccineSchedules, "", vaccineTaskModel.getAnchorDate(), CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
+        List<Alert> alerts = VisitVaccineUtil.getInMemoryAlerts(vaccineSchedules, "", anchorDate, CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
 
         Map<String, Alert> alertMap = new HashMap<>();
         for (Alert alert : alerts) {
-            if (alert != null)
-                alertMap.put(alert.scheduleName().toLowerCase().replace(" ", ""), alert);
+            alertMap.put(alert.scheduleName().toLowerCase().replace(" ", ""), alert);
         }
 
         // get all the vaccines
-        for (org.smartregister.immunization.domain.jsonmapping.Vaccine domain_vaccine : vaccineTaskModel.getGroupMap().vaccines) {
+        for (org.smartregister.immunization.domain.jsonmapping.Vaccine domain_vaccine : vaccineGroup.vaccines) {
             Alert alert = alertMap.get(domain_vaccine.getName().toLowerCase().replace(" ", ""));
             if (alert != null && new DateTime(new LocalDate(alert.startDate()).toDate()).isBefore(new DateTime())) {
                 VaccineRepo.Vaccine vaccine = VaccineRepo.getVaccine(domain_vaccine.getName(), CoreConstants.SERVICE_GROUPS.CHILD);
                 VaccineWrapper vaccineWrapper = new VaccineWrapper();
                 vaccineWrapper.setVaccine(vaccine);
                 vaccineWrapper.setName(vaccine.display());
-                vaccineWrapper.setDbKey(getVaccineId(vaccine.display(), vaccineTaskModel));
                 vaccineWrapper.setDefaultName(vaccine.display());
                 vaccineWrapper.setAlert(alert);
 

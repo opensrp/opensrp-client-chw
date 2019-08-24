@@ -3,7 +3,6 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Pair;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
@@ -35,14 +34,15 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.interactor.CoreChildHomeVisitInteractor;
-import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
+import org.smartregister.chw.core.utils.VisitVaccineUtil;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.domain.Alert;
+import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.domain.jsonmapping.Vaccine;
@@ -54,8 +54,8 @@ import org.smartregister.util.FormUtils;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -215,43 +215,48 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
     }
 
     protected void evaluateImmunization() throws Exception {
-        List<VaccineGroup> groups = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD);
 
-        List<VaccineWrapper> previousGroup = new ArrayList<>();
-
-        List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(context);
+        List<VaccineGroup> childVaccineGroups = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD);
         List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(context);
         VaccineRepository vaccineRepository = CoreChwApplication.getInstance().vaccineRepository();
         List<org.smartregister.immunization.domain.Vaccine> vaccines = vaccineRepository.findByEntityId(memberObject.getBaseEntityId());
 
-        ImmunizationValidator validator = new ImmunizationValidator(childVaccines, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
 
-        for (VaccineGroup group : groups) {
+        List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(CoreConstants.SERVICE_GROUPS.CHILD);
+        Map<String, VaccineRepo.Vaccine> vaccinesRepo = new HashMap<>();
+        for (VaccineRepo.Vaccine vaccine : allVacs) {
+            vaccinesRepo.put(vaccine.display().toLowerCase().replace(" ", ""), vaccine);
+        }
 
-            Pair<VaccineTaskModel, List<VaccineWrapper>> listPair = VaccineScheduleUtil.getChildDueVaccines(memberObject.getBaseEntityId(), dob, previousGroup, group);
-            List<VaccineWrapper> wrappers = listPair.getRight();
+        Map<VaccineGroup, List<android.util.Pair<VaccineRepo.Vaccine, Alert>>> pendingVaccines =
+                VisitVaccineUtil.generateVisitVaccines(
+                        memberObject.getBaseEntityId(),
+                        vaccinesRepo,
+                        new DateTime(dob),
+                        childVaccineGroups,
+                        specialVaccines,
+                        vaccines
+                );
 
-            List<VaccineDisplay> displays = new ArrayList<>();
-            for (VaccineWrapper vaccineWrapper : wrappers) {
-                Alert alert = vaccineWrapper.getAlert();
+        ImmunizationValidator validator = new ImmunizationValidator(childVaccineGroups, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
 
-                VaccineDisplay display = new VaccineDisplay();
-                display.setVaccineWrapper(vaccineWrapper);
-                display.setStartDate(alert != null ? new LocalDate(alert.startDate()).toDate() : dob);
-                display.setEndDate(alert != null && alert.expiryDate() != null ? new LocalDate(alert.expiryDate()).toDate() : dob);
-                display.setValid(false);
-                displays.add(display);
-            }
+        for (Map.Entry<VaccineGroup, List<android.util.Pair<VaccineRepo.Vaccine, Alert>>> entry : pendingVaccines.entrySet()) {
+            // add the objects to be displayed here
 
-            String title = MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.immunizations_count), getVaccineTitle(group.name));
+            List<VaccineWrapper> wrappers = VisitVaccineUtil.wrapVaccines(entry.getValue());
+            List<VaccineDisplay> displays = VisitVaccineUtil.toDisplays(wrappers);
+
+            String title = MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.immunizations_count), getVaccineTitle(entry.getKey().name));
             BaseHomeVisitImmunizationFragment fragment =
                     BaseHomeVisitImmunizationFragment.getInstance(view, memberObject.getBaseEntityId(), details, displays);
 
-            validator.addFragment(title, fragment, listPair.getLeft());
+            validator.addFragment(title, fragment, entry.getKey(), new DateTime(dob));
 
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
                     .withOptional(false)
                     .withDetails(details)
+                    .withBaseEntityID(memberObject.getBaseEntityId())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withVaccineWrapper(wrappers)
                     .withDestinationFragment(fragment)
                     .withHelper(new ImmunizationActionHelper(context, wrappers))
@@ -259,9 +264,8 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
                     .withValidator(validator)
                     .build();
             actionList.put(title, action);
-
-            previousGroup.addAll(wrappers);
         }
+
     }
 
     private String getVaccineTitle(String name) {
