@@ -252,10 +252,15 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
         switch (view.getId()) {
             case R.id.textview_record_visit:
+            case R.id.textview_record_reccuring_visit:
                 PncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
+                break;
+            case R.id.textview_edit:
+                PncHomeVisitActivity.startMe(this, MEMBER_OBJECT, true);
                 break;
             default:
                 break;
+
         }
     }
 
