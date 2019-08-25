@@ -229,6 +229,7 @@
     <string name="week_full">weeks</string>
     <string name="month_full">months</string>
     <string name="at_birth">at birth</string>
+    <string name="pnc_health_facility_visit_num">PNC health facility visit {0}</string>
     <string name="child">child</string>
     <string name="birth_cap">Birth</string>
     <string name="done">done</string>

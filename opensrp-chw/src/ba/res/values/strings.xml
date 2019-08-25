@@ -4,4 +4,5 @@
     <string name="nav_logo">USAID Boresha Afya</string>
     <string name="menu_anc">ANC</string>
     <string name="menu_pnc">PNC</string>
+    <string name="pnc_health_facility_visit_num">PNC health facility visit {0}</string>
 </resources>
