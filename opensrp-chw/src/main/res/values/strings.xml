@@ -191,7 +191,7 @@
 
     <string name="anc_last_visit">LAST VISIT</string>
     <string name="anc_health_facility_visits">ANC HEALTH FACILITY VISITS</string>
-    <string name="anc_card">ANC CARD</string>
+    <string name="anc_card">ANC card</string>
     <string name="anc_tt_immunization">TT IMMUNIZATION</string>
     <string name="anc_iptp_sp">IPTp-SP DOSE</string>
 

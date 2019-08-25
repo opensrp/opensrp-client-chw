@@ -1,5 +1,8 @@
 package org.smartregister.chw.dao;
 
+import android.database.Cursor;
+
+import org.joda.time.DateTime;
 import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.domain.PncBaby;
@@ -87,6 +90,27 @@ public class PersonDao extends AbstractDao {
         };
 
         return AbstractDao.readData(sql, dataMap);
+    }
+
+    public String getAncCreatedDate(String baseEntityId){
+        String sql = "SELECT date_created FROM ec_anc_log " +
+                " INNER JOIN ec_family_member on ec_family_member.base_entity_id = ec_anc_log.base_entity_id " +
+                " WHERE ec_family_member.base_entity_id = '" + baseEntityId + "'";
+
+        DataMap<String> dataMap = new DataMap<String>() {
+            @Override
+            public String readCursor(Cursor c) {
+                return getCursorValue(c, "date_created");
+            }
+        };
+
+        List<String> res = AbstractDao.readData(sql, dataMap);
+        if (res == null || res.size() == 0)
+            return null;
+
+        String date = res.get(0);
+
+        return date;
     }
 
 }

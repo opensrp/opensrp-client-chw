@@ -15,6 +15,7 @@ import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
+import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.util.ContactUtil;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
@@ -39,7 +40,9 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
 
         Date createDate = null;
         try {
-            createDate = new SimpleDateFormat("YYYY-MM-dd", Locale.getDefault()).parse(memberObject.getDateCreated());
+            PersonDao dao = new PersonDao();
+           String x =  dao.getAncCreatedDate(memberObject.getBaseEntityId());
+            createDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(x);
         } catch (ParseException e) {
             e.printStackTrace();
         }
