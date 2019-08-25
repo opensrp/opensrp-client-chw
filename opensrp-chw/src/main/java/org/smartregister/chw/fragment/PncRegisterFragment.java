@@ -68,7 +68,7 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
     }
 
     private void dueFilter(View dueOnlyLayout) {
-        filter(searchText(), "", getCondition());
+        filter(searchText(), "", getDueCondition());
         dueOnlyLayout.setTag(DUE_FILTER_TAG);
         switchViews(dueOnlyLayout, true);
     }

@@ -140,7 +140,8 @@ public class VaccineScheduleUtil {
         if (inMemoryVaccines != null) {
             for (VaccineDisplay vaccineDisplay : inMemoryVaccines) {
                 if (vaccineDisplay.getValid())
-                    vaccineTaskModel.getReceivedVaccines().put(vaccineDisplay.getVaccineWrapper().getName().toLowerCase(), vaccineDisplay.getDateGiven());
+                    return null;
+                    //vaccineTaskModel.getReceivedVaccines().put(vaccineDisplay.getVaccineWrapper().getName().toLowerCase(), vaccineDisplay.getDateGiven());
             }
         }
 

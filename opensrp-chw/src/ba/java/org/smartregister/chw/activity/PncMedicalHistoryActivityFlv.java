@@ -9,7 +9,7 @@ import org.joda.time.Days;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
-import org.smartregister.chw.dao.AbstractDao;
+import org.smartregister.chw.core.dao.AbstractDao;
 
 import java.text.DateFormat;
 import java.text.MessageFormat;
