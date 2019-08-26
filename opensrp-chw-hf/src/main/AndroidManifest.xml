@@ -51,11 +51,15 @@
             android:name="org.smartregister.chw.hf.activity.ChildRegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.hf.activity.AncMedicalHistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HFTheme.NoActionBar" />
 
         <activity
             android:name="org.smartregister.chw.hf.activity.ChildHomeVisitActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/HFTheme.NoActionBar"/>
+            android:theme="@style/HFTheme.NoActionBar" />
 
         <activity
             android:name="org.smartregister.chw.hf.activity.ChildProfileActivity"

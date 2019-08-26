@@ -1,11 +1,11 @@
-package org.smartregister.chw.activity;
+package org.smartregister.chw.hf.activity;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
+import org.smartregister.chw.hf.R;
 
 import java.text.MessageFormat;
 import java.util.List;

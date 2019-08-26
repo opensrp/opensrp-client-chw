@@ -5,7 +5,9 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import org.ei.drishti.dto.AlertStatus;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -28,6 +30,8 @@ import org.smartregister.family.interactor.FamilyProfileInteractor;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
+
+import java.util.Date;
 
 import timber.log.Timber;
 
@@ -119,6 +123,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     }
 
     @Override
+    public void openMedicalHistory() {
+        AncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+    }
+
+    @Override
     public void openUpcomingService() {
         //to
     }
@@ -134,5 +143,17 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
         intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
+    }
+
+    @Override
+    public void setUpComingServicesStatus(String service, AlertStatus status, Date date) {
+        view_most_due_overdue_row.setVisibility(View.GONE);
+        rlUpcomingServices.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setFamilyStatus(AlertStatus status) {
+        view_family_row.setVisibility(View.GONE);
+        rlFamilyServicesDue.setVisibility(View.GONE);
     }
 }

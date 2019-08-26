@@ -1,4 +1,4 @@
-package org.smartregister.chw.activity;
+package org.smartregister.chw.core.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,10 +10,9 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
-import org.smartregister.chw.core.activity.CoreAncMedicalHistoryActivity;
+import org.smartregister.chw.core.R;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
