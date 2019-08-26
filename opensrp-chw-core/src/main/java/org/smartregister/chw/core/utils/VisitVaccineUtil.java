@@ -197,7 +197,7 @@ public class VisitVaccineUtil {
                 Alert alert = alertMap.get(code);
                 Vaccine vaccine = givenVaccines.get(code);
                 VaccineRepo.Vaccine repoVac = vaccinesRepo.get(code);
-                String date = repoVac != null ? NCUtils.getText(edit_details.get(NCUtils.removeSpaces(repoVac.display()))) : "";
+                String date = repoVac != null && edit_details != null ? NCUtils.getText(edit_details.get(NCUtils.removeSpaces(repoVac.display()))) : "";
 
                 // get all vaccine that are yet to expire
                 // and are active

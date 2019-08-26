@@ -320,7 +320,8 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         try {
             NCUtils.processAncHomeVisit(eventClient); // save locally
         } catch (Exception e) {
-            Timber.e(e);
+            String formID = (eventClient != null && eventClient.getEvent() != null) ? eventClient.getEvent().getFormSubmissionId() : "no form id";
+            Timber.e("Form id " + formID + ". " + e.toString());
         }
     }
 
@@ -328,7 +329,8 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         try {
             NCUtils.processSubHomeVisit(eventClient, parentEventName); // save locally
         } catch (Exception e) {
-            Timber.e(e);
+            String formID = (eventClient != null && eventClient.getEvent() != null) ? eventClient.getEvent().getFormSubmissionId() : "no form id";
+            Timber.e("Form id " + formID + ". " + e.toString());
         }
     }
 
