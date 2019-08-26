@@ -99,7 +99,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
                             presenter().updateFamilyMember(jsonString);
-
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

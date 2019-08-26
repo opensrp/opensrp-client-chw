@@ -205,9 +205,9 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.MIDDLE_NAME, filters));
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ) ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.UNIQUE_ID, filters));
 
-            if (dueFilterActive) {
-                customFilter.append(MessageFormat.format(" and ( {0}) ", presenter().getDueFilterCondition()));
-            }
+        }
+        if (dueFilterActive) {
+            customFilter.append(MessageFormat.format(" and ( {0}) ", presenter().getDueFilterCondition()));
         }
         try {
             if (isValidFilterForFts(commonRepository())) {
