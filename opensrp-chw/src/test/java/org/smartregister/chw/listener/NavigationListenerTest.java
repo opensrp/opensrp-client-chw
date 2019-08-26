@@ -99,7 +99,6 @@ public class NavigationListenerTest {
     @Test
     public void testStartRegisterActivity() {
         navigationListenerSpy.startRegisterActivity(MalariaRegisterActivity.class);
-
         verify(activity).overridePendingTransition(anyInt(), anyInt());
         verify(activity).finish();
     }

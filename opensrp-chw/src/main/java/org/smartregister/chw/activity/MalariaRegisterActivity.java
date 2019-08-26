@@ -7,6 +7,9 @@ import android.os.Bundle;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -21,8 +24,12 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.smartregister.chw.core.utils.CoreConstants.ENTITY_ID;
 import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getMalariaConfirmation;
 import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.isMultiPartForm;
+import static org.smartregister.chw.malaria.util.JsonFormUtils.validateParameters;
+import static org.smartregister.util.JsonFormUtils.VALUE;
+import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
 
@@ -83,8 +90,38 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String FEVER_STILL = "fever_still";
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == org.smartregister.chw.malaria.util.Constants.REQUEST_CODE_GET_JSON) {
+            String jsonString = data.getStringExtra(org.smartregister.chw.malaria.util.Constants.JSON_FORM_EXTRA.JSON);
+            try {
+                JSONObject form = new JSONObject(jsonString);
+                Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(form.toString());
+                JSONObject jsonForm = registrationFormParams.getMiddle();
+                JSONArray fields = registrationFormParams.getRight();
+                String encounter_type = jsonForm.optString(org.smartregister.chw.malaria.util.Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
 
+                if (org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.MALARIA_FOLLOW_UP_VISIT.equals(encounter_type)) {
+                    JSONObject fever_still_object = getFieldJSONObject(fields, FEVER_STILL);
+                    if (fever_still_object != null && "Yes".equalsIgnoreCase(fever_still_object.optString(VALUE))) {
+                        MalariaRegisterActivity.startMalariaRegistrationActivity(this, jsonForm.optString(ENTITY_ID));
+                    }
+                }else{
+                    finish();
+                    startRegisterActivity(MalariaRegisterActivity.class);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+    private void startRegisterActivity(Class registerClass) {
+        Intent intent = new Intent(this, registerClass);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.startActivity(intent);
+        this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+        this.finish();
     }
 
     @Override

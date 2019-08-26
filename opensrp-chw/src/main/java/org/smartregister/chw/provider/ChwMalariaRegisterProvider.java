@@ -34,6 +34,7 @@ public class ChwMalariaRegisterProvider extends MalariaRegisterProvider {
         super.getView(cursor, client, viewHolder);
 
         viewHolder.dueButton.setVisibility(View.GONE);
+        viewHolder.dueButton.setOnClickListener(null);
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         Utils.startAsyncTask(new UpdateAsyncTask(viewHolder, pc), null);
     }
@@ -44,10 +45,12 @@ public class ChwMalariaRegisterProvider extends MalariaRegisterProvider {
             case CoreConstants.VISIT_STATE.DUE:
                 viewHolder.dueButton.setBackgroundResource(R.drawable.blue_btn_selector);
                 viewHolder.dueButton.setVisibility(View.VISIBLE);
+                viewHolder.dueButton.setOnClickListener(onClickListener);
                 break;
             case CoreConstants.VISIT_STATE.OVERDUE:
                 viewHolder.dueButton.setBackgroundResource(R.drawable.overdue_red_btn_selector);
                 viewHolder.dueButton.setVisibility(View.VISIBLE);
+                viewHolder.dueButton.setOnClickListener(onClickListener);
                 break;
             default:
                 break;
