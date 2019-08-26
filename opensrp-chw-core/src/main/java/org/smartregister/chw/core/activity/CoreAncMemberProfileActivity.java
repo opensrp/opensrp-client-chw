@@ -87,7 +87,7 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
             view_anc_record.setVisibility(View.GONE);
             textViewAncVisitNot.setVisibility(View.GONE);
         }
-chow
+
         Visit lastVisit = getVisit(Constants.EVENT_TYPE.ANC_HOME_VISIT);
         boolean within24Hours = VisitUtils.isVisitWithin24Hours(lastVisit);
         if (visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE) && !within24Hours) {
