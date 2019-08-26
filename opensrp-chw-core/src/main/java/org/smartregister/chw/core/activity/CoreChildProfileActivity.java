@@ -52,8 +52,6 @@ import java.util.Set;
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
 
-import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
-
 public class CoreChildProfileActivity extends BaseProfileActivity implements CoreChildProfileContract.View, CoreChildRegisterContract.InteractorCallBack {
     public static IntentFilter sIntentFilter;
 
@@ -81,13 +79,15 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
             }
         }
     };
+    public RelativeLayout layoutFamilyHasRow;
     protected TextView textViewParentName, textViewLastVisit, textViewMedicalHistory;
     protected CircleImageView imageViewProfile;
     protected View recordVisitPanel;
+    protected MemberObject memberObject;
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private TextView textViewTitle, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot, tvEdit;
-    private RelativeLayout layoutNotRecordView, layoutLastVisitRow, layoutMostDueOverdue, layoutFamilyHasRow;
+    private RelativeLayout layoutNotRecordView, layoutLastVisitRow, layoutMostDueOverdue;
     private RelativeLayout layoutRecordButtonDone;
     private LinearLayout layoutRecordView;
     private View viewLastVisitRow, viewMostDueRow, viewFamilyRow;
@@ -96,11 +96,9 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     private ProgressBar progressBar;
     private String gender;
 
-    protected MemberObject memberObject;
-
     public static void startMe(Activity activity, MemberObject memberObject, Class<?> cls) {
         Intent intent = new Intent(activity, cls);
-        intent.putExtra(MEMBER_PROFILE_OBJECT, memberObject);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         activity.startActivity(intent);
     }
 
@@ -113,7 +111,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            memberObject = (MemberObject) getIntent().getSerializableExtra(MEMBER_PROFILE_OBJECT);
+            memberObject = (MemberObject) getIntent().getSerializableExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT);
             childBaseEntityId = memberObject.getBaseEntityId();
             isComesFromFamily = getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, false);
         }
@@ -125,7 +123,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
             upArrow.setColorFilter(getResources().getColor(R.color.text_blue), PorterDuff.Mode.SRC_ATOP);
             actionBar.setHomeAsUpIndicator(upArrow);
         }
-        toolbar.setNavigationOnClickListener(v -> finish());
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
         appBarLayout = findViewById(R.id.collapsing_toolbar_appbarlayout);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             appBarLayout.setOutlineProvider(null);
@@ -271,7 +269,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
      * it'll update the child client because for edit it's need the vaccine card,illness,birthcert.
      */
     public void processBackgroundEvent() {
-
         layoutMostDueOverdue.setVisibility(View.GONE);
         viewMostDueRow.setVisibility(View.GONE);
         presenter().fetchVisitStatus(childBaseEntityId);
@@ -302,7 +299,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         if (fetchStatus.equals(FetchStatus.fetched)) {
             handler.postDelayed(() -> presenter().fetchProfileData(), 100);
         }
-
     }
 
     @Override
@@ -325,10 +321,10 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     public void setGender(String gender) {
         this.gender = gender;
         textViewGender.setText(gender);
-        updateTopbar();
+        updateTopBar();
     }
 
-    protected void updateTopbar() {
+    protected void updateTopBar() {
         if (gender.equalsIgnoreCase(Gender.MALE.toString())) {
             imageViewProfile.setBorderColor(getResources().getColor(R.color.light_blue));
         } else if (gender.equalsIgnoreCase(Gender.FEMALE.toString())) {
@@ -339,7 +335,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     @Override
     public void setAddress(String address) {
         textViewAddress.setText(address);
-
     }
 
     @Override
@@ -449,7 +444,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         layoutRecordButtonDone.setVisibility(View.VISIBLE);
         layoutNotRecordView.setVisibility(View.GONE);
         layoutRecordView.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -457,7 +451,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         layoutFamilyHasRow.setVisibility(View.VISIBLE);
         viewFamilyRow.setVisibility(View.VISIBLE);
         textViewFamilyHas.setText(getString(R.string.family_has_nothing_due));
-
     }
 
     @Override
@@ -581,7 +574,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         } else if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION)) {
                     presenter().updateChildProfile(jsonString);
@@ -589,7 +581,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
                     presenter().createSickChildEvent(Utils.getAllSharedPreferences(), jsonString);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Timber.e(e, "CoreChildProfileActivity --> onActivityResult");
             }
         }
     }

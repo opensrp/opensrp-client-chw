@@ -23,6 +23,19 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private FamilyProfileActivityFragment profileActivityFragment;
     private BaseFamilyProfileDueFragment profileDueFragment;
+
+    public void updateWashCheckActivity() {
+        profileActivityFragment.updateWashCheck();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && profileDueFragment != null) {
+            profileDueFragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     @Override
     protected void refreshPresenter() {
         this.presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName),
@@ -88,15 +101,4 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         return viewPager;
     }
 
-    public void updateWashCheckActivity() {
-        profileActivityFragment.updateWashCheck();
-
-}
-@Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && profileDueFragment!= null) {
-            profileDueFragment.onActivityResult(requestCode, resultCode, data);
-        }
-    }
 }

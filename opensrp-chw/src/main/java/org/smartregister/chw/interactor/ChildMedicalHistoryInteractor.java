@@ -45,17 +45,6 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_ACTION;
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DATE;
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.VACCINE_CARD;
-import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
-import static org.smartregister.util.Utils.getValue;
-
 public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContract.Interactor {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
@@ -81,16 +70,16 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     @Override
     public void fetchBirthCertificateData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
 
-        String birthCert = getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT, true);
+        String birthCert = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT, true);
         final ArrayList<String> birthCertificationContent = new ArrayList<>();
         if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase(getContext().getString(R.string.yes))) {
             birthCertificationContent.add(getContext().getString(R.string.birth_cert_value, birthCert));
-            birthCertificationContent.add(getContext().getString(R.string.birth_cert_date, getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_ISSUE_DATE, true)));
-            birthCertificationContent.add(getContext().getString(R.string.birth_cert_number, getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_NUMBER, true)));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_date, org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE, true)));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_number, org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_NUMBER, true)));
 
         } else if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase(getContext().getString(R.string.no))) {
             birthCertificationContent.add(getContext().getString(R.string.birth_cert_value, birthCert));
-            String notification = getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_NOTIFIICATION, true);
+            String notification = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION, true);
 
             if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase(getContext().getString(R.string.yes))) {
                 birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification, getContext().getString(R.string.yes)));
@@ -112,10 +101,10 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
         final ArrayList<String> illnessContent = new ArrayList<>();
 
-        String illnessDate = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DATE, true);
+        String illnessDate = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ILLNESS_DATE, true);
         if (!TextUtils.isEmpty(illnessDate)) {
-            String illnessDescription = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DESCRIPTION, true);
-            String illnessAction = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_ACTION, true);
+            String illnessDescription = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ILLNESS_DESCRIPTION, true);
+            String illnessAction = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ILLNESS_ACTION, true);
             illnessContent.add(getContext().getString(R.string.illness_date_with_value, illnessDate));
             illnessContent.add(getContext().getString(R.string.illness_des_with_value, illnessDescription));
             illnessContent.add(getContext().getString(R.string.illness_action_value, illnessAction));
@@ -123,7 +112,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         }
         Runnable runnable2 = () -> appExecutors.mainThread().execute(() -> callBack.updateIllnessData(illnessContent));
         appExecutors.diskIO().execute(runnable2);
-        final String vaccineCard = getValue(commonPersonObjectClient.getColumnmaps(), VACCINE_CARD, true);
+        final String vaccineCard = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.VACCINE_CARD, true);
         if (!TextUtils.isEmpty(vaccineCard)) {
             Runnable runnable3 = () -> appExecutors.mainThread().execute(() -> callBack.updateVaccineCard(vaccineCard));
             appExecutors.diskIO().execute(runnable3);
@@ -142,7 +131,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                     String stateKey = VaccinateActionUtils.stateKey(vaccine);
                     ReceivedVaccine receivedVaccine = new ReceivedVaccine();
                     receivedVaccine.setVaccineCategory(stateKey);
-                    receivedVaccine.setVaccineName(fixVaccineCasing(name).replace("MEASLES", "MCV"));
+                    receivedVaccine.setVaccineName(CoreChildUtils.fixVaccineCasing(name).replace("MEASLES", "MCV"));
                     if (receivedVaccine.getVaccineName().contains("MEASLES")) {
                         receivedVaccine.setVaccineName(receivedVaccine.getVaccineName().replace("MEASLES", "MCV"));
                     }
@@ -191,7 +180,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
     @Override
     public void fetchGrowthNutritionData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
-        String initialFeedingValue = getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.CHILD_BF_HR, true);
+        String initialFeedingValue = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.CHILD_BF_HR, true);
         RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
         List<ServiceRecord> serviceRecordList = recurringServiceRecordRepository.findByEntityId(commonPersonObjectClient.entityId());
         baseServiceArrayList.clear();
@@ -323,7 +312,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
     @Override
     public void fetchEcdData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
-        String dateOfBirth = getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+        String dateOfBirth = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
         List<Visit> homeVisitEcd = visitRepository.getUniqueDayLatestThreeVisits(commonPersonObjectClient.getCaseId(), Constants.EventType.ECD);
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
         if (homeVisitEcd.size() > 0) {

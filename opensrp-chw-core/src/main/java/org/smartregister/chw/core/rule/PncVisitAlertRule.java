@@ -1,11 +1,9 @@
-package org.smartregister.chw.rule;
+package org.smartregister.chw.core.rule;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
-import org.smartregister.chw.core.rule.ICommonRule;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.provider.ChwPncRegisterProvider;
 
 import java.util.Date;
 
@@ -59,7 +57,7 @@ public class PncVisitAlertRule implements ICommonRule {
         DateTime lastVisit = lastVisitDate;
         DateTime currentDate = new DateTime(new LocalDate().toDate());
 
-        if(lastVisitDate != null){
+        if (lastVisitDate != null) {
             if ((lastVisit.isAfter(dueDate) || lastVisit.isEqual(dueDate)) && lastVisit.isBefore(expiryDate))
                 return CoreConstants.VISIT_STATE.VISIT_DONE;
             if (lastVisit.isBefore(dueDate)) {
@@ -69,8 +67,7 @@ public class PncVisitAlertRule implements ICommonRule {
                 if (currentDate.isBefore(expiryDate) && (currentDate.isAfter(overDueDate) || currentDate.isEqual(overDueDate)))
                     return CoreConstants.VISIT_STATE.OVERDUE;
             }
-        }
-        else {
+        } else {
             if (currentDate.isBefore(overDueDate) && (currentDate.isAfter(dueDate) || currentDate.isEqual(dueDate)))
                 return CoreConstants.VISIT_STATE.DUE;
 

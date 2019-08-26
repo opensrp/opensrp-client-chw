@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ANC Registration",
+  "encounter_type": "Mid-upper arm circumference (MUAC)",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -53,7 +53,7 @@
         "key": "muac",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1719AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "160908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "radio",
         "image": "ic_muac",
@@ -64,21 +64,21 @@
             "text": "Green",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "green"
+            "openmrs_entity_id": "160909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_yellow",
             "text": "Yellow",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "yellow"
+            "openmrs_entity_id": "160910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_red",
             "text": "Red",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "red"
+            "openmrs_entity_id": "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       }

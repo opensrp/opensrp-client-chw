@@ -6,15 +6,14 @@ import android.content.Intent;
 import org.smartregister.chw.anc.activity.BaseAncUpcomingServicesActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncUpcomingServicesPresenter;
+import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.interactor.PncUpcomingServiceInteractor;
-
-import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
 
 public class PncUpcomingServicesActivity extends BaseAncUpcomingServicesActivity {
 
     public static void startMe(Activity activity, MemberObject memberObject) {
         Intent intent = new Intent(activity, PncUpcomingServicesActivity.class);
-        intent.putExtra(MEMBER_PROFILE_OBJECT, memberObject);
+        intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         activity.startActivity(intent);
     }
 

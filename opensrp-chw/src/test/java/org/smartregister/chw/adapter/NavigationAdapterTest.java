@@ -1,6 +1,7 @@
 package org.smartregister.chw.adapter;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +10,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
@@ -18,14 +18,12 @@ import org.smartregister.chw.core.adapter.NavigationAdapter;
 import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.util.Constants;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
-
 @RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
+@Config(application = ChwApplication.class, sdk = 22)
 public class NavigationAdapterTest {
 
     private LoginActivity activity;
@@ -59,9 +57,9 @@ public class NavigationAdapterTest {
 
         Map<String, Class> registeredActivities = new HashMap<>();
         registeredActivities.put(Constants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
-        NavigationAdapter adapter = new NavigationAdapter(asList(model1, model2), activity, registeredActivities);
+        NavigationAdapter adapter = new NavigationAdapter(Arrays.asList(model1, model2), activity, registeredActivities);
 
-        assertEquals(adapter.getItemCount(), 2);
+        Assert.assertEquals(adapter.getItemCount(), 2);
     }
 
 }

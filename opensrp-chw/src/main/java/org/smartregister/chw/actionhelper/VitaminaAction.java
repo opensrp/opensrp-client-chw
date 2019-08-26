@@ -17,6 +17,7 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.domain.Alert;
+import org.smartregister.util.JsonFormUtils;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -27,10 +28,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.JsonFormUtils.getValue;
-import static org.smartregister.util.JsonFormUtils.fields;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class VitaminaAction extends HomeVisitActionHelper {
     private Context context;
@@ -50,20 +47,6 @@ public class VitaminaAction extends HomeVisitActionHelper {
         // prevent default behavoiur
     }
 
-    public JSONObject preProcess(JSONObject jsonObject, String iteration) throws JSONException {
-        JSONArray fields = fields(jsonObject);
-
-        String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
-        String formatted_count = MessageFormat.format("{0}", Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context));
-        jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, formatted_count));
-
-        JSONObject visit_field = getFieldJSONObject(fields, "vitamin_a{0}_date");
-        visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration, context));
-        visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context)));
-
-        return jsonObject;
-    }
-
     @Override
     public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
         return isOverDue() ? BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
@@ -74,10 +57,44 @@ public class VitaminaAction extends HomeVisitActionHelper {
     }
 
     @Override
+    public void onPayloadReceived(BaseAncHomeVisitAction ba) {
+        try {
+            JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+            String value = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("vitamin_a{0}_date", serviceIteration));
+
+            try {
+                if (ba.getServiceWrapper() != null && ba.getServiceWrapper().size() > 0) {
+                    DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
+                    ba.getServiceWrapper().get(0).setUpdatedVaccineDate(updateDate, false);
+                }
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+    }
+
+    public JSONObject preProcess(JSONObject jsonObject, String iteration) throws JSONException {
+        JSONArray fields = JsonFormUtils.fields(jsonObject);
+
+        String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
+        String formatted_count = MessageFormat.format("{0}", Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context));
+        jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, formatted_count));
+
+        JSONObject visit_field = JsonFormUtils.getFieldJSONObject(fields, "vitamin_a{0}_date");
+        visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration, context));
+        visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context)));
+
+        return jsonObject;
+    }
+
+    @Override
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            str_date = getValue(jsonObject, MessageFormat.format("vitamin_a{0}_date", serviceIteration));
+            str_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("vitamin_a{0}_date", serviceIteration));
 
             try {
                 parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(str_date);
@@ -102,33 +119,14 @@ public class VitaminaAction extends HomeVisitActionHelper {
 
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-        if (StringUtils.isBlank(str_date))
+        if (StringUtils.isBlank(str_date)) {
             return BaseAncHomeVisitAction.Status.PENDING;
+        }
 
         if (parsedDate != null) {
             return BaseAncHomeVisitAction.Status.COMPLETED;
         } else {
             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-        }
-    }
-
-    @Override
-    public void onPayloadReceived(BaseAncHomeVisitAction ba) {
-        try {
-            JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
-            String value = getValue(jsonObject, MessageFormat.format("vitamin_a{0}_date", serviceIteration));
-
-            try {
-                if (ba.getServiceWrapper() != null && ba.getServiceWrapper().size() > 0) {
-                    DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
-                    ba.getServiceWrapper().get(0).setUpdatedVaccineDate(updateDate, false);
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-
-        } catch (JSONException e) {
-            Timber.e(e);
         }
     }
 }

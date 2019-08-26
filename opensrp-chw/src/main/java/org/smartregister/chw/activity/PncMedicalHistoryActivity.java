@@ -7,11 +7,10 @@ import android.view.View;
 
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.pnc.activity.BasePncMedicalHistoryActivity;
 
 import java.util.List;
-
-import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
 
 public class PncMedicalHistoryActivity extends BasePncMedicalHistoryActivity {
 
@@ -19,7 +18,7 @@ public class PncMedicalHistoryActivity extends BasePncMedicalHistoryActivity {
 
     public static void startMe(Activity activity, MemberObject memberObject) {
         Intent intent = new Intent(activity, PncMedicalHistoryActivity.class);
-        intent.putExtra(MEMBER_PROFILE_OBJECT, memberObject);
+        intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         activity.startActivity(intent);
     }
 
