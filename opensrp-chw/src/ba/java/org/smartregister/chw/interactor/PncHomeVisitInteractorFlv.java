@@ -627,6 +627,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         .withBaseEntityID(baby.getBaseEntityID())
                         .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
                         .withVaccineWrapper(wrappers)
+                       // .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), baby.getDob(), details, wrappers))
                         .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
                         .withHelper(new ImmunizationActionHelper(context, wrappers))
                         .build();
