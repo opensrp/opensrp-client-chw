@@ -108,4 +108,8 @@ public abstract class CoreFamilyMemberFloatingMenu extends LinearLayout implemen
     }
 
     public abstract void reDraw(boolean has_phone);
+
+    public void hideFab() {
+        fab.hide();
+    }
 }

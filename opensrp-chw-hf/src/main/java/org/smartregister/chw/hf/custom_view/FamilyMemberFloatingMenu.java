@@ -12,6 +12,12 @@ public class FamilyMemberFloatingMenu extends CoreFamilyMemberFloatingMenu {
     }
 
     @Override
+    public void initUi() {
+        super.initUi();
+        fab.setOnClickListener(v -> animateFAB());
+    }
+
+    @Override
     public void reDraw(boolean has_phone) {
         redrawWithOption(this, has_phone);
     }

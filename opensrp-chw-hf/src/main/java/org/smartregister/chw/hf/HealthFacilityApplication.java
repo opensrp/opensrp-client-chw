@@ -32,7 +32,6 @@ import org.smartregister.chw.hf.model.NavigationModel;
 import org.smartregister.chw.hf.repository.HfChwRepository;
 import org.smartregister.chw.hf.sync.HfSyncConfiguration;
 import org.smartregister.chw.malaria.MalariaLibrary;
-import org.smartregister.chw.malaria.activity.BaseMalariaRegisterActivity;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;

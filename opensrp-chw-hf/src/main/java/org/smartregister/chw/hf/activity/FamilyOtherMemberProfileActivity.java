@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
+import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.utils.BAJsonFormUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
@@ -44,7 +45,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected CoreFamilyMemberFloatingMenu getFamilyMemberFloatingMenu() {
         if (familyFloatingMenu == null) {
-            familyFloatingMenu = new FamilyMemberFloatingMenu(this);
+            prepareFab();
         }
         return familyFloatingMenu;
     }
@@ -86,6 +87,25 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
+    public void updateHasPhone(boolean hasPhone) {
+        super.updateHasPhone(hasPhone);
+        if (!hasPhone) {
+            familyFloatingMenu.hideFab();
+        }
+
+    }
+
+    @Override
+    protected void initializePresenter() {
+        super.initializePresenter();
+        onClickFloatingMenu = viewId -> {
+            if (viewId == R.id.call_layout) {
+                FamilyCallDialogFragment.launchDialog(this, familyBaseEntityId);
+            }
+        };
+    }
+
+    @Override
     protected BaseFamilyOtherMemberProfileFragment getFamilyOtherMemberProfileFragment() {
         return FamilyOtherMemberProfileFragment.newInstance(getIntent().getExtras());
     }
@@ -113,5 +133,10 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         } else {
             menu.findItem(R.id.action_anc_registration).setVisible(false);
         }
+    }
+
+    private void prepareFab() {
+        familyFloatingMenu = new FamilyMemberFloatingMenu(this);
+        familyFloatingMenu.fab.setOnClickListener(v -> FamilyCallDialogFragment.launchDialog(this, familyBaseEntityId));
     }
 }

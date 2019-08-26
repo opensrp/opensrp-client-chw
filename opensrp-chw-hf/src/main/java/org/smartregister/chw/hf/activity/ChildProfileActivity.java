@@ -85,13 +85,11 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         View recordVisitPanel = findViewById(R.id.record_visit_panel);
         recordVisitPanel.setVisibility(View.GONE);
         familyFloatingMenu = new FamilyMemberFloatingMenu(this);
-        LinearLayout.LayoutParams linearLayoutParams =
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
         addContentView(familyFloatingMenu, linearLayoutParams);
-        familyFloatingMenu.setClickListener(onClickFloatingMenu);
+        prepareFab();
         fetchProfileData();
         presenter().fetchTasks();
     }
@@ -99,6 +97,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     @Override
     public void updateHasPhone(boolean hasPhone) {
         hideProgressBar();
+        if (!hasPhone) {
+            familyFloatingMenu.hideFab();
+        }
     }
 
     @Override
@@ -139,6 +140,12 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    private void prepareFab() {
+        familyFloatingMenu.fab.setOnClickListener(v -> FamilyCallDialogFragment.launchDialog(
+                this, ((HfChildProfilePresenter) presenter).getFamilyId()));
+
     }
 
     private void openMedicalHistoryScreen() {
