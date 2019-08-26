@@ -128,11 +128,7 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
             return doneLess24;
         } else if (done != null) {
             return done;
-        } else if (notDone != null) {
-            return notDone;
-        } else {
-            return null;
-        }
+        } else return notDone;
     }
 ////////////////////////////////////////////////////////////////
     // Inner classes

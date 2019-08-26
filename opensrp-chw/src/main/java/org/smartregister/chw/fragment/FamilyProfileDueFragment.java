@@ -2,6 +2,8 @@ package org.smartregister.chw.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -27,16 +29,16 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
+import org.smartregister.util.JsonFormUtils;
+import org.smartregister.view.customcontrols.CustomFontTextView;
+import org.smartregister.view.customcontrols.FontVariant;
 
 import java.util.HashMap;
 import java.util.Set;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH;
-import static org.smartregister.family.util.Utils.metadata;
-import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
@@ -85,8 +87,8 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         ChwDueRegisterProvider chwDueRegisterProvider = new ChwDueRegisterProvider(this.getActivity(), this.commonRepository(), visibleColumns, this.registerActionHandler, this.paginationViewHandler);
-        this.clientAdapter = new FamilyRecyclerViewCustomAdapter(null, chwDueRegisterProvider, this.context().commonrepository(this.tablename), metadata().familyDueRegister.showPagination);
-        this.clientAdapter.setCurrentlimit(metadata().familyDueRegister.currentLimit);
+        this.clientAdapter = new FamilyRecyclerViewCustomAdapter(null, chwDueRegisterProvider, this.context().commonrepository(this.tablename), Utils.metadata().familyDueRegister.showPagination);
+        this.clientAdapter.setCurrentlimit(Utils.metadata().familyDueRegister.currentLimit);
         this.clientsView.setAdapter(this.clientAdapter);
         //need some delay to ready the adapter
         new Handler().postDelayed(() -> {
@@ -133,12 +135,14 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     public void countExecute() {
         super.countExecute();
         final int count = clientAdapter.getTotalcount();
+
         if (getActivity() != null && count != dueCount) {
             dueCount = count;
             ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
         }
         if (getActivity() != null)
             getActivity().runOnUiThread(() -> onEmptyRegisterCount(count < 1));
+
     }
 
     public void onEmptyRegisterCount(final boolean has_no_records) {
@@ -150,7 +154,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case REQUEST_CODE_GET_JSON_WASH:
+            case org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH:
                 if (resultCode == Activity.RESULT_OK) {
                     try {
                         String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
@@ -189,12 +193,16 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             washCheckView.setVisibility(View.GONE);
         }
         ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
+        if (getActivity() != null)
+            getActivity().runOnUiThread(() -> onEmptyRegisterCount(dueCount < 1));
     }
 
     public void updateWashCheckBar(WashCheck washCheck) {
         if (washCheckView.getVisibility() == View.VISIBLE) return;
-        addWashCheckView();
-        TextView name = washCheckView.findViewById(R.id.patient_name_age);
+        CustomFontTextView name = washCheckView.findViewById(R.id.patient_name_age);
+        name.setFontVariant(FontVariant.REGULAR);
+        name.setTextColor(Color.BLACK);
+        name.setTypeface(name.getTypeface(), Typeface.NORMAL);
         TextView lastVisit = washCheckView.findViewById(R.id.last_visit);
         ImageView status = washCheckView.findViewById(R.id.status);
         if (washCheck == null || washCheck.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
@@ -217,19 +225,13 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         } else {
             washCheckView.setVisibility(View.GONE);
         }
-
-    }
-
-    private void addWashCheckView() {
-        View inflatLayout = getLayoutInflater().inflate(R.layout.view_wash_check, null);
-        washCheckView.addView(inflatLayout);
         washCheckView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.getWashCheck());
-                    jsonForm.put(ENTITY_ID, familyBaseEntityId);
-                    Intent intent = new Intent(getActivity(), metadata().familyMemberFormActivity);
+                    jsonForm.put(JsonFormUtils.ENTITY_ID, familyBaseEntityId);
+                    Intent intent = new Intent(getActivity(), Utils.metadata().familyMemberFormActivity);
                     intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
                     Form form = new Form();
@@ -238,13 +240,14 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
                     intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
                     intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, true);
-                    getActivity().startActivityForResult(intent, REQUEST_CODE_GET_JSON_WASH);
+                    if(getActivity()!= null) getActivity().startActivityForResult(intent, org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
             }
         });
+
     }
 
     public interface Flavor {

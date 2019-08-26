@@ -1,5 +1,7 @@
 package org.smartregister.chw.interactor;
 
+import junit.framework.TestCase;
+
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -32,10 +34,6 @@ import org.smartregister.immunization.repository.RecurringServiceRecordRepositor
 
 import java.util.LinkedHashMap;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.powermock.api.mockito.PowerMockito.when;
-
 @RunWith(RobolectricTestRunner.class)
 @Config(application = TestChwApplication.class, constants = BuildConfig.class, sdk = 22)
 @PowerMockIgnore({"org.mockito.*", "org.robolectric.*", "android.*", "androidx.*"})
@@ -66,15 +64,15 @@ public class DefaultAncHomeVisitInteractorFlvTest {
         MockitoAnnotations.initMocks(this);
         PowerMockito.mockStatic(JsonFormUtils.class);
 
-        BDDMockito.given(JsonFormUtils.getFormAsJson(anyString())).willReturn(Mockito.mock(JSONObject.class));
+        BDDMockito.given(JsonFormUtils.getFormAsJson(ArgumentMatchers.anyString())).willReturn(Mockito.mock(JSONObject.class));
     }
 
     @Test
     public void testCalculateActions() throws Exception {
         PowerMockito.mockStatic(ImmunizationLibrary.class);
 
-        when(immunizationLibrary.recurringServiceRecordRepository()).thenReturn(recurringServiceRecordRepository);
-        when(ImmunizationLibrary.getInstance()).thenReturn(immunizationLibrary);
+        PowerMockito.when(immunizationLibrary.recurringServiceRecordRepository()).thenReturn(recurringServiceRecordRepository);
+        PowerMockito.when(ImmunizationLibrary.getInstance()).thenReturn(immunizationLibrary);
 
         DefaultAncHomeVisitInteractorFlv flv = Mockito.mock(DefaultAncHomeVisitInteractorFlv.class, Mockito.CALLS_REAL_METHODS);
 
@@ -82,14 +80,14 @@ public class DefaultAncHomeVisitInteractorFlvTest {
 
         VaccineTaskModel vaccineTaskModel = Mockito.mock(VaccineTaskModel.class);
 
-        Mockito.doReturn(vaccineTaskModel).when(flv).getWomanVaccine(anyString(), ArgumentMatchers.any(DateTime.class), ArgumentMatchers.anyList());
+        Mockito.doReturn(vaccineTaskModel).when(flv).getWomanVaccine(ArgumentMatchers.anyString(), ArgumentMatchers.any(DateTime.class), ArgumentMatchers.anyList());
 
         MemberObject memberObject = new MemberObject();
         Whitebox.setInternalState(memberObject, "lastMenstrualPeriod", "01-01-2019");
         Whitebox.setInternalState(memberObject, "baseEntityId", "12345");
 
         LinkedHashMap<String, BaseAncHomeVisitAction> actions = flv.calculateActions(view, memberObject, callBack);
-        assertTrue(actions.size() > 0);
+        TestCase.assertTrue(actions.size() > 0);
     }
 
 }

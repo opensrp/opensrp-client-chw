@@ -20,6 +20,7 @@ import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.VaccinateActionUtils;
+import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.service.AlertService;
 
 import java.util.ArrayList;
@@ -33,9 +34,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-
-import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
-import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 
 public class ImmunizationViewInteractor implements ImmunizationContact.Interactor {
 
@@ -115,13 +113,13 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
             }
             List<Alert> alerts = alertService.findByEntityIdAndAlertNames(childClient.getCaseId(), VaccinateActionUtils.allAlertNames(CoreConstants.SERVICE_GROUPS.CHILD));
             List<Vaccine> vaccines = vaccineRepository.findByEntityId(childClient.getCaseId());
-            Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
+            Map<String, Date> recievedVaccines = VaccinatorUtils.receivedVaccines(vaccines);
             int size = notDoneVaccines.size();
             for (int i = 0; i < size; i++) {
                 recievedVaccines.put(notDoneVaccines.get(i).getName().toLowerCase(), new Date());
             }
 
-            List<Map<String, Object>> sch = generateScheduleList(CoreConstants.SERVICE_GROUPS.CHILD, dob, recievedVaccines, alerts);
+            List<Map<String, Object>> sch = VaccinatorUtils.generateScheduleList(CoreConstants.SERVICE_GROUPS.CHILD, dob, recievedVaccines, alerts);
             VaccineTaskModel vaccineTaskModel = new VaccineTaskModel();
             vaccineTaskModel.setAlerts(alerts);
             vaccineTaskModel.setVaccines(vaccines);

@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Sleeping under a LLITN",
+  "encounter_type": "Mid-upper arm circumference (MUAC)",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,27 +47,40 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Sleeping under a LLITN",
+    "title": "Périmètre brachial (PB)",
     "fields": [
       {
-        "key": "sleeping_llitn",
+        "key": "muac",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "160908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
-        "type": "spinner",
-        "image": "form_llitn",
-        "hint": "Is the woman sleeping under a Long Lasting Insecticide-Treated Net (LLITN)?",
-        "label_info_title": "Whether the pregnant woman sleeps under a LLITN",
-        "label_info_text": "Malaria is very dangerous for pregnant women. Wherever malaria is common, women should prevent malaria by taking anti-malarial tablets recommended by a trained health worker and by sleeping under an insecticide-treated mosquito net.",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        }
+        "type": "radio",
+        "image": "ic_muac",
+        "hint": "Quel est la couleur du ruban PB pour l'enfant?",
+        "options": [
+          {
+            "key": "chk_green",
+            "text": "Vert",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_yellow",
+            "text": "Jaune",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_red",
+            "text": "Rouge",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
       }
     ]
   }

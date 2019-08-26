@@ -13,8 +13,6 @@ import org.smartregister.chw.core.listener.MemberAdapterListener;
 
 import java.util.ArrayList;
 
-import static org.mockito.Mockito.verify;
-
 public class MemberAdapterTest extends BaseUnitTest {
 
     @Mock
@@ -34,6 +32,6 @@ public class MemberAdapterTest extends BaseUnitTest {
 
         memberAdapter.setSelected(myViewHolder, "12345");
 
-        verify(listener).onMenuChoiceChange();
+        Mockito.verify(listener).onMenuChoiceChange();
     }
 }

@@ -155,7 +155,7 @@
         "text_color": "#CF0800",
         "toaster_type": "problem",
         "relevance": {
-          "step1:danger_signs_present": {
+          "step1:danger_signs_present_child": {
             "ex-checkbox": [
               {
                 "or": [

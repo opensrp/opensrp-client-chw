@@ -2,6 +2,8 @@ package org.smartregister.chw.util;
 
 import android.content.Intent;
 
+import junit.framework.TestCase;
+
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.junit.After;
@@ -21,8 +23,6 @@ import org.smartregister.chw.application.ChwApplication;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static junit.framework.TestCase.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
@@ -75,7 +75,7 @@ public class ContactUtilTest {
 
         Map<Integer, LocalDate> contacts = ContactUtil.getContactWeeks(false, lastContact, lastMenstrualPeriod);
 
-        assertNotNull(contacts);
+        TestCase.assertNotNull(contacts);
         //assertTrue(isEqual(contacts, expectedResult));
     }
 

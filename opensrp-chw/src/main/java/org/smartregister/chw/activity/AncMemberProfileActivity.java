@@ -40,10 +40,6 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import timber.log.Timber;
 
-import static org.smartregister.util.JsonFormUtils.fields;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
-import static org.smartregister.util.Utils.getAllSharedPreferences;
-
 public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
@@ -115,13 +111,13 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                                     new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
                             new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, ancMemberProfilePresenter());
                         } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION)) {
-                            AllSharedPreferences allSharedPreferences = getAllSharedPreferences();
+                            AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
                             Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, Constants.TABLES.ANC_MEMBERS);
                             NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
                             AllCommonsRepository commonsRepository = ChwApplication.getInstance().getAllCommonsRepository(CoreConstants.TABLE_NAME.ANC_MEMBER);
 
-                            JSONArray field = fields(form);
-                            JSONObject phoneNumberObject = getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER);
+                            JSONArray field = org.smartregister.util.JsonFormUtils.fields(form);
+                            JSONObject phoneNumberObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER);
                             String phoneNumber = phoneNumberObject.getString(org.smartregister.chw.util.JsonFormUtils.VALUE);
                             String baseEntityId = baseEvent.getBaseEntityId();
                             if (commonsRepository != null) {

@@ -62,8 +62,6 @@ import java.util.UUID;
 
 import timber.log.Timber;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
-
 /**
  * Created by keyman on 13/11/2018.
  */
@@ -294,7 +292,7 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
 //                insurance_provider.put(CoreConstants.JsonAssets.INSURANCE_PROVIDER, insurance_provider);
 //            }
 
-            if (!isBlank(familyID)) {
+            if (!StringUtils.isBlank(familyID)) {
                 JSONObject metaDataJson = form.getJSONObject("metadata");
                 JSONObject lookup = metaDataJson.getJSONObject("look_up");
                 lookup.put("entity_id", "family");
@@ -367,7 +365,7 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
     }
 
     public static void saveImage(String providerId, String entityId, String imageLocation) {
-        if (isBlank(imageLocation)) {
+        if (StringUtils.isBlank(imageLocation)) {
             return;
         }
 
@@ -383,7 +381,7 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
     }
 
     private static void saveStaticImageToDisk(Bitmap image, String providerId, String entityId) {
-        if (image == null || isBlank(providerId) || isBlank(entityId)) {
+        if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
             return;
         }
         OutputStream os = null;
