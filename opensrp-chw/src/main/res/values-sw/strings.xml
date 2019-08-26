@@ -348,6 +348,7 @@
     <string name="anc_tt_immunization">CHANJO YA PEPOPUNDA</string>
     <string name="anc_iptp_sp">DOZI YA IPTp-SP</string>
 
+
     <string name="days_ago">{0} Siku zilizopita</string>
     <string name="vaccines_done_date">{0} - Imefanyika {1}</string>
     <string name="anc_visit_date">Hudhurio kwenye kliniki ya wajawazito {0}: {1}</string>

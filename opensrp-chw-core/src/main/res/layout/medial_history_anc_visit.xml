@@ -16,6 +16,8 @@
         android:textColor="@color/medical_text_inner"
         android:textSize="16sp" />
 
+
+
     <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/weight"
         style="@style/CustomFontTextViewStyle.ClientList"
