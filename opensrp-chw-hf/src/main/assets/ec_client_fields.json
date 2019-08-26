@@ -1004,6 +1004,42 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_close_referral",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "referral_task",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "referral_task"
+          }
+        },
+        {
+          "column_name": "referral_task_previous_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "referral_task_previous_status"
+          }
+        },
+        {
+          "column_name": "referral_task_previous_business_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "referral_task_previous_business_status"
+          }
+        }
+      ]
     }
   ]
 }

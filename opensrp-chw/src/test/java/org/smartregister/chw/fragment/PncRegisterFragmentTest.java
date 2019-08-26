@@ -2,6 +2,8 @@ package org.smartregister.chw.fragment;
 
 import android.support.v4.app.FragmentActivity;
 
+import junit.framework.TestCase;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -10,8 +12,6 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.smartregister.chw.BaseUnitTest;
-
-import static junit.framework.TestCase.assertNotNull;
 
 @PrepareForTest(PncRegisterFragment.class)
 public class PncRegisterFragmentTest extends BaseUnitTest {
@@ -34,7 +34,7 @@ public class PncRegisterFragmentTest extends BaseUnitTest {
         Mockito.doReturn(activity).when(pncRegisterFragment).getActivity();
 
         pncRegisterFragment.initializePresenter();
-        assertNotNull(pncRegisterFragment.presenter());
+        TestCase.assertNotNull(pncRegisterFragment.presenter());
     }
 
 

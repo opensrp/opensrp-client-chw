@@ -24,9 +24,6 @@ import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 
-import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
-import static org.smartregister.immunization.util.VaccinatorUtils.nextServiceDue;
-
 public class RecurringServiceUtil {
 
     public static Map<String, ServiceWrapper> getRecurringServices(String baseEntityID, DateTime anchorDate, String group) {
@@ -127,7 +124,7 @@ public class RecurringServiceUtil {
 
         Map<String, Date> receivedServices = VaccinatorUtils.receivedServices(serviceRecordList);
 
-        List<Map<String, Object>> sch = generateScheduleList(serviceTypes, anchorDate, receivedServices, alertList);
+        List<Map<String, Object>> sch = VaccinatorUtils.generateScheduleList(serviceTypes, anchorDate, receivedServices, alertList);
 
         Map<String, Object> nv = null;
         if (serviceRecordList.isEmpty()) {
@@ -141,7 +138,7 @@ public class RecurringServiceUtil {
             }
 
             if (lastServiceRecord != null) {
-                nv = nextServiceDue(sch, lastServiceRecord);
+                nv = VaccinatorUtils.nextServiceDue(sch, lastServiceRecord);
             }
         }
 
@@ -152,7 +149,7 @@ public class RecurringServiceUtil {
                 lastVaccine = serviceRecord.getDate();
             }
 
-            nv = nextServiceDue(sch, lastVaccine);
+            nv = VaccinatorUtils.nextServiceDue(sch, lastVaccine);
         }
 
         if (nv != null) {
@@ -192,7 +189,7 @@ public class RecurringServiceUtil {
                     if (v == null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
                         try {
                             Alert mAlert = (Alert) m.get("alert");
-                            if (!mAlert.status().equals(AlertStatus.expired)) {
+                            if (mAlert != null && !mAlert.status().equals(AlertStatus.expired)) {
                                 v = m;
                             }
 
@@ -201,20 +198,20 @@ public class RecurringServiceUtil {
                         }
 
 
-                    } else if (v.get("alert") == null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
+                    } else if (v != null &&v.get("alert") == null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
                         Alert mAlert = (Alert) m.get("alert");
-                        if (!mAlert.status().equals(AlertStatus.expired)) {
+                        if (mAlert != null && !mAlert.status().equals(AlertStatus.expired)) {
                             v = m;
                         }
 
 
-                    } else if (v.get("alert") != null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
+                    } else if (v != null &&  v.get("alert") != null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
                         Alert vAlert = (Alert) v.get("alert");
                         Alert mAlert = (Alert) m.get("alert");
-                        if (!vAlert.status().equals(AlertStatus.urgent)) {
-                            if (vAlert.status().equals(AlertStatus.upcoming) && (mAlert.status().equals(AlertStatus.normal) || mAlert.status().equals(AlertStatus.urgent))) {
+                        if (vAlert != null && !vAlert.status().equals(AlertStatus.urgent)) {
+                            if (vAlert.status().equals(AlertStatus.upcoming) && (mAlert != null && (mAlert.status().equals(AlertStatus.normal) || mAlert.status().equals(AlertStatus.urgent)))) {
                                 v = m;
-                            } else if (vAlert.status().equals(AlertStatus.normal) && mAlert.status().equals(AlertStatus.urgent)) {
+                            } else if (vAlert.status().equals(AlertStatus.normal) && mAlert != null && mAlert.status().equals(AlertStatus.urgent)) {
                                 v = m;
                             }
                         }

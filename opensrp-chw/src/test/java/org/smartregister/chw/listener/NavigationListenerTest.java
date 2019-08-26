@@ -5,6 +5,7 @@ import android.view.View;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
@@ -22,28 +23,21 @@ import org.smartregister.chw.util.Constants;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.mockito.Mockito.anyInt;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 public class NavigationListenerTest {
 
     @Mock
-    protected Activity activity = mock(Activity.class);
+    protected Activity activity = Mockito.mock(Activity.class);
     @Mock
-    protected View view = mock(View.class);
+    protected View view = Mockito.mock(View.class);
     @Spy
     protected NavigationListener navigationListenerSpy;
     @Mock
-    private NavigationAdapter navigationAdapter = mock(NavigationAdapter.class);
+    private NavigationAdapter navigationAdapter = Mockito.mock(NavigationAdapter.class);
 
     @Before
     public void setUp() {
         NavigationListener navigationListener = new NavigationListener(activity, navigationAdapter);
-        navigationListenerSpy = spy(navigationListener);
+        navigationListenerSpy = Mockito.spy(navigationListener);
 
         Map<String, Class> registeredActivities = new HashMap<>();
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, AncRegisterActivity.class);
@@ -58,50 +52,50 @@ public class NavigationListenerTest {
 
     @Test
     public void testOnClickWithChildClients() {
-        when(view.getTag()).thenReturn(Constants.DrawerMenu.CHILD_CLIENTS);
-        doNothing().when(navigationListenerSpy).startRegisterActivity(ChildRegisterActivity.class);
+        Mockito.when(view.getTag()).thenReturn(Constants.DrawerMenu.CHILD_CLIENTS);
+        Mockito.doNothing().when(navigationListenerSpy).startRegisterActivity(ChildRegisterActivity.class);
         navigationListenerSpy.onClick(view);
-        verify(navigationListenerSpy).startRegisterActivity(ChildRegisterActivity.class);
+        Mockito.verify(navigationListenerSpy).startRegisterActivity(ChildRegisterActivity.class);
     }
 
     @Test
     public void testOnClickWithAllFamilies() {
-        when(view.getTag()).thenReturn(Constants.DrawerMenu.ALL_FAMILIES);
-        doNothing().when(navigationListenerSpy).startRegisterActivity(FamilyRegisterActivity.class);
+        Mockito.when(view.getTag()).thenReturn(Constants.DrawerMenu.ALL_FAMILIES);
+        Mockito.doNothing().when(navigationListenerSpy).startRegisterActivity(FamilyRegisterActivity.class);
         navigationListenerSpy.onClick(view);
-        verify(navigationListenerSpy).startRegisterActivity(FamilyRegisterActivity.class);
+        Mockito.verify(navigationListenerSpy).startRegisterActivity(FamilyRegisterActivity.class);
     }
 
     @Test
     public void testOnClickWithAnc() {
-        when(view.getTag()).thenReturn(Constants.DrawerMenu.ANC);
-        doNothing().when(navigationListenerSpy).startRegisterActivity(AncRegisterActivity.class);
+        Mockito.when(view.getTag()).thenReturn(Constants.DrawerMenu.ANC);
+        Mockito.doNothing().when(navigationListenerSpy).startRegisterActivity(AncRegisterActivity.class);
         navigationListenerSpy.onClick(view);
-        verify(navigationListenerSpy).startRegisterActivity(AncRegisterActivity.class);
+        Mockito.verify(navigationListenerSpy).startRegisterActivity(AncRegisterActivity.class);
     }
 
     @Test
     public void testOnClickWithPnc() {
-        when(view.getTag()).thenReturn(Constants.DrawerMenu.PNC);
-        doNothing().when(navigationListenerSpy).startRegisterActivity(PncRegisterActivity.class);
+        Mockito.when(view.getTag()).thenReturn(Constants.DrawerMenu.PNC);
+        Mockito.doNothing().when(navigationListenerSpy).startRegisterActivity(PncRegisterActivity.class);
         navigationListenerSpy.onClick(view);
-        verify(navigationListenerSpy).startRegisterActivity(PncRegisterActivity.class);
+        Mockito.verify(navigationListenerSpy).startRegisterActivity(PncRegisterActivity.class);
     }
 
     @Test
     public void testOnClickWithMalaria() {
-        when(view.getTag()).thenReturn(Constants.DrawerMenu.MALARIA);
-        doNothing().when(navigationListenerSpy).startRegisterActivity(MalariaRegisterActivity.class);
+        Mockito.when(view.getTag()).thenReturn(Constants.DrawerMenu.MALARIA);
+        Mockito.doNothing().when(navigationListenerSpy).startRegisterActivity(MalariaRegisterActivity.class);
         navigationListenerSpy.onClick(view);
-        verify(navigationListenerSpy).startRegisterActivity(MalariaRegisterActivity.class);
+        Mockito.verify(navigationListenerSpy).startRegisterActivity(MalariaRegisterActivity.class);
     }
 
     @Test
     public void testStartRegisterActivity() {
         navigationListenerSpy.startRegisterActivity(MalariaRegisterActivity.class);
 
-        verify(activity).overridePendingTransition(anyInt(), anyInt());
-        verify(activity).finish();
+        Mockito.verify(activity).overridePendingTransition(ArgumentMatchers.anyInt(), ArgumentMatchers.anyInt());
+        Mockito.verify(activity).finish();
     }
 
 }

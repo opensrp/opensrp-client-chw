@@ -13,8 +13,6 @@ import org.robolectric.android.controller.ActivityController;
 
 import timber.log.Timber;
 
-import static com.ibm.icu.impl.Assert.fail;
-
 public abstract class BaseActivityTest<T extends Activity> extends BaseUnitTest {
 
     private T activity;
@@ -68,7 +66,7 @@ public abstract class BaseActivityTest<T extends Activity> extends BaseUnitTest 
         try {
             getActivityController().pause();
         } catch (Exception e) {
-            fail("Should not have thrown any exception");
+            com.ibm.icu.impl.Assert.fail("Should not have thrown any exception");
         }
     }
 
@@ -78,7 +76,7 @@ public abstract class BaseActivityTest<T extends Activity> extends BaseUnitTest 
             getActivityController().pause();
             getActivityController().resume();
         } catch (Exception e) {
-            fail("Should not have thrown any exception");
+            com.ibm.icu.impl.Assert.fail("Should not have thrown any exception");
         }
     }
 
@@ -87,7 +85,7 @@ public abstract class BaseActivityTest<T extends Activity> extends BaseUnitTest 
         try {
             getActivityController().restart();
         } catch (Exception e) {
-            fail("Should not have thrown any exception");
+            com.ibm.icu.impl.Assert.fail("Should not have thrown any exception");
         }
     }
 
@@ -96,7 +94,7 @@ public abstract class BaseActivityTest<T extends Activity> extends BaseUnitTest 
         try {
             getActivityController().stop();
         } catch (Exception e) {
-            fail("Should not have thrown any exception");
+            com.ibm.icu.impl.Assert.fail("Should not have thrown any exception");
         }
     }
 }

@@ -38,9 +38,6 @@ public class ChwRepositoryFlv {
                 case 5:
                     upgradeToVersion5(db);
                     break;
-                case 6:
-                    upgradeToVersion6(db);
-                    break;
                 case 7:
                     upgradeToVersion7(db);
                     break;
@@ -52,9 +49,6 @@ public class ChwRepositoryFlv {
                     break;
                 case 10:
                     upgradeToVersion10(db);
-                    break;
-                case 11:
-                    upgradeToVersion11(db);
                     break;
                 default:
                     break;
@@ -131,20 +125,11 @@ public class ChwRepositoryFlv {
         }
     }
 
-    private static void upgradeToVersion6(SQLiteDatabase db) {
-        try {
-            for (String query : RepositoryUtilsFlv.UPGRADE_V6) {
-                db.execSQL(query);
-            }
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion6 ");
-        }
-    }
-
     private static void upgradeToVersion7(SQLiteDatabase db) {
         try {
-            //db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN);
-            //db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN)
+            for (String query : RepositoryUtilsFlv.UPGRADE_V8) {
+                db.execSQL(query);
+            }
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion7 ");
         }
@@ -152,7 +137,7 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion8(SQLiteDatabase db) {
         try {
-            for (String query : RepositoryUtilsFlv.UPGRADE_V8) {
+            for (String query : RepositoryUtilsFlv.UPGRADE_V9) {
                 db.execSQL(query);
             }
         } catch (Exception e) {
@@ -162,9 +147,8 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion9(SQLiteDatabase db) {
         try {
-            for (String query : RepositoryUtilsFlv.UPGRADE_V9) {
-                db.execSQL(query);
-            }
+            VisitRepository.createTable(db);
+            VisitDetailsRepository.createTable(db);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion9 ");
         }
@@ -172,20 +156,11 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion10(SQLiteDatabase db) {
         try {
-            VisitRepository.createTable(db);
-            VisitDetailsRepository.createTable(db);
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion10 ");
-        }
-    }
-
-    private static void upgradeToVersion11(SQLiteDatabase db) {
-        try {
             for (String query : RepositoryUtils.UPGRADE_V10) {
                 db.execSQL(query);
             }
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion11 ");
+            Timber.e(e, "upgradeToVersion10 ");
         }
     }
 }

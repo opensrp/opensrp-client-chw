@@ -1,4 +1,4 @@
-package org.smartregister.chw.rule;
+package org.smartregister.chw.core.rule;
 
 import android.content.Context;
 
@@ -8,15 +8,14 @@ import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.smartregister.chw.R;
-import org.smartregister.chw.contract.RegisterAlert;
-import org.smartregister.chw.core.rule.ICommonRule;
-import org.smartregister.chw.interactor.ChildProfileInteractor;
+import org.smartregister.chw.core.R;
+import org.smartregister.chw.core.contract.RegisterAlert;
+import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 
 public class AncVisitAlertRule implements ICommonRule, RegisterAlert {
 
     private final int[] monthNames = {R.string.january, R.string.february, R.string.march, R.string.april, R.string.may, R.string.june, R.string.july, R.string.august, R.string.september, R.string.october, R.string.november, R.string.december};
-    public String buttonStatus = ChildProfileInteractor.VisitType.DUE.name();
+    public String buttonStatus = CoreChildProfileInteractor.VisitType.DUE.name();
     public String noOfMonthDue;
     public String noOfDayDue;
     public String visitMonthName;
@@ -25,20 +24,19 @@ public class AncVisitAlertRule implements ICommonRule, RegisterAlert {
     private LocalDate lastVisitDate;
     private LocalDate visitNotDoneDate;
     private Context context;
-    private LocalDate lmpDate;
 
     public AncVisitAlertRule(Context context, String lmpDate, String visitDate, String visitNotDoneDate, LocalDate dateCreated) {
         this.context = context;
 
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
-        this.lmpDate = formatter.parseDateTime(lmpDate).toLocalDate();
+        LocalDate lmpDate1 = formatter.parseDateTime(lmpDate).toLocalDate();
 
         this.todayDate = new LocalDate();
         if (StringUtils.isNotBlank(visitDate)) {
             this.lastVisitDate = formatter.parseDateTime(visitDate).toLocalDate();
         }
 
-        noOfDayDue = ((lastVisitDate == null) ? dayDifference(this.lmpDate, todayDate) : dayDifference(lastVisitDate, todayDate)) + " days";
+        noOfDayDue = ((lastVisitDate == null) ? dayDifference(lmpDate1, todayDate) : dayDifference(lastVisitDate, todayDate)) + " days";
 
         if (StringUtils.isNotBlank(visitNotDoneDate)) {
             this.visitNotDoneDate = formatter.parseDateTime(visitNotDoneDate).toLocalDate();

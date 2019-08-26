@@ -1,10 +1,9 @@
 package org.smartregister.chw.core.domain;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.util.Utils;
 
 import java.util.Date;
-
-import static org.smartregister.util.Utils.getName;
 
 public class Person {
     private String baseEntityID;
@@ -45,6 +44,6 @@ public class Person {
     }
 
     public String getFullName() {
-        return getName(getName(firstName, middleName), lastName);
+        return Utils.getName(Utils.getName(firstName, middleName), lastName);
     }
 }

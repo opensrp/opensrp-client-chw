@@ -10,7 +10,7 @@ import org.smartregister.chw.application.TestChwApplication;
  */
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = TestChwApplication.class, constants = BuildConfig.class, sdk = 22)
+@Config(application = TestChwApplication.class, sdk = 22)
 public abstract class BaseUnitTest {
 
 }

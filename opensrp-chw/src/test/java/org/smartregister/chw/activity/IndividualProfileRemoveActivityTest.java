@@ -11,9 +11,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.fragment.IndividualProfileRemoveFragment;
 
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.never;
-
 public class IndividualProfileRemoveActivityTest {
     @Mock
     private IndividualProfileRemoveActivity individualProfileRemoveActivity;
@@ -34,15 +31,15 @@ public class IndividualProfileRemoveActivityTest {
 
     @Test
     public void testOnActivityResultWithResultCanceled() {
-        doNothing().when(individualProfileRemoveFragment).confirmRemove(jsonObject);
+        Mockito.doNothing().when(individualProfileRemoveFragment).confirmRemove(jsonObject);
         individualProfileRemoveActivity.onActivityResult(org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED, Activity.RESULT_CANCELED, intent);
-        Mockito.verify(individualProfileRemoveFragment, never()).confirmRemove(jsonObject);
+        Mockito.verify(individualProfileRemoveFragment, Mockito.never()).confirmRemove(jsonObject);
     }
 
     @Test
     public void testOnActivityResultWithResultFirstUser() {
-        doNothing().when(individualProfileRemoveFragment).confirmRemove(jsonObject);
+        Mockito.doNothing().when(individualProfileRemoveFragment).confirmRemove(jsonObject);
         individualProfileRemoveActivity.onActivityResult(org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED, Activity.RESULT_FIRST_USER, intent);
-        Mockito.verify(individualProfileRemoveFragment, never()).confirmRemove(jsonObject);
+        Mockito.verify(individualProfileRemoveFragment, Mockito.never()).confirmRemove(jsonObject);
     }
 }

@@ -1,6 +1,8 @@
 package org.smartregister.chw.fragment;
 
+import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -15,10 +17,8 @@ import android.widget.RadioButton;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-
-import static org.smartregister.util.JsonFormUtils.VALUE;
-import static org.smartregister.util.JsonFormUtils.fields;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
+import org.smartregister.chw.util.Utils;
+import org.smartregister.util.JsonFormUtils;
 
 public class WashCheckDialogFragment extends DialogFragment implements View.OnClickListener {
 
@@ -29,6 +29,7 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
     private String jsonData;
     private RadioButton handwashingYes, handwashingNo, drinkingYes, drinkingNo;
     private RadioButton latrineYes, latrineNo;
+    private Activity activity;
 
     public static WashCheckDialogFragment getInstance(String jsonString) {
         WashCheckDialogFragment washCheckDialogFragment = new WashCheckDialogFragment();
@@ -36,6 +37,12 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
         bundle.putString(EXTRA_DETAILS, jsonString);
         washCheckDialogFragment.setArguments(bundle);
         return washCheckDialogFragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activity = (Activity) context;
     }
 
     @Override
@@ -82,19 +89,19 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
 
         try {
             JSONObject jsonObject = new JSONObject(jsonData);
-            JSONArray field = fields(jsonObject);
-            JSONObject handwashing_facilities = getFieldJSONObject(field, "handwashing_facilities");
-            handwashingValue = handwashing_facilities.optString(VALUE);
-            JSONObject drinking_water = getFieldJSONObject(field, "drinking_water");
-            drinkingValue = drinking_water.optString(VALUE);
-            JSONObject hygienic_latrine = getFieldJSONObject(field, "hygienic_latrine");
-            latrineValue = hygienic_latrine.optString(VALUE);
+            JSONArray field = JsonFormUtils.fields(jsonObject);
+            JSONObject handwashing_facilities = JsonFormUtils.getFieldJSONObject(field, "handwashing_facilities");
+            handwashingValue = handwashing_facilities.optString(JsonFormUtils.VALUE);
+            JSONObject drinking_water = JsonFormUtils.getFieldJSONObject(field, "drinking_water");
+            drinkingValue = drinking_water.optString(JsonFormUtils.VALUE);
+            JSONObject hygienic_latrine = JsonFormUtils.getFieldJSONObject(field, "hygienic_latrine");
+            latrineValue = hygienic_latrine.optString(JsonFormUtils.VALUE);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         if (!TextUtils.isEmpty(handwashingValue)) {
-            if ((handwashingValue.equalsIgnoreCase(getString(R.string.yes)))) {
+            if ((Utils.getYesNoAsLanguageSpecific(activity, handwashingValue).equalsIgnoreCase(getString(R.string.yes)))) {
                 handwashingYes.setChecked(true);
                 handwashingNo.setEnabled(false);
             } else {
@@ -103,7 +110,7 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
             }
         }
         if (!TextUtils.isEmpty(drinkingValue)) {
-            if ((drinkingValue.equalsIgnoreCase(getString(R.string.yes)))) {
+            if (((Utils.getYesNoAsLanguageSpecific(activity, drinkingValue).equalsIgnoreCase(getString(R.string.yes))))) {
                 drinkingYes.setChecked(true);
                 drinkingNo.setEnabled(false);
             } else {
@@ -112,7 +119,7 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
             }
         }
         if (!TextUtils.isEmpty(latrineValue)) {
-            if ((latrineValue.equalsIgnoreCase(getString(R.string.yes)))) {
+            if (((Utils.getYesNoAsLanguageSpecific(activity, latrineValue).equalsIgnoreCase(getString(R.string.yes))))) {
                 latrineYes.setChecked(true);
                 latrineNo.setEnabled(false);
             } else {

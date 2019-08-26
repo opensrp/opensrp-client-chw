@@ -9,13 +9,14 @@ import android.widget.Button;
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.rule.PncVisitAlertRule;
+import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.HomeVisitUtil;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.util.Utils;
@@ -29,8 +30,6 @@ import java.util.Set;
 
 import provider.PncRegisterProvider;
 import timber.log.Timber;
-
-import static org.smartregister.chw.anc.AncLibrary.getInstance;
 
 public class ChwPncRegisterProvider extends PncRegisterProvider {
 
@@ -114,9 +113,10 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
                 Timber.e(e);
             }
 
-            Visit lastVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
-            if (lastVisit != null)
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
+            if (lastVisit != null) {
                 lastVisitDate = lastVisit.getDate();
+            }
 
             pncVisitAlertRule = HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, deliveryDate);
             return null;
@@ -125,8 +125,9 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
         @Override
         protected void onPostExecute(Void param) {
             // Update status column
-            if(pncVisitAlertRule == null || StringUtils.isBlank(pncVisitAlertRule.getVisitID()))
+            if (pncVisitAlertRule == null || StringUtils.isBlank(pncVisitAlertRule.getVisitID())) {
                 return;
+            }
 
             if (pncVisitAlertRule != null
                     && StringUtils.isNotBlank(pncVisitAlertRule.getVisitID())

@@ -6,10 +6,9 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.util.JsonFormUtils;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.JsonFormUtils.getValue;
 
 public class ANCCardAction extends HomeVisitActionHelper {
     private String anc_card;
@@ -18,7 +17,7 @@ public class ANCCardAction extends HomeVisitActionHelper {
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            anc_card = getValue(jsonObject, "anc_card");
+            anc_card = JsonFormUtils.getValue(jsonObject, "anc_card");
         } catch (JSONException e) {
             Timber.e(e);
         }

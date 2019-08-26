@@ -43,12 +43,10 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
-import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import timber.log.Timber;
 
 public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity implements FamilyOtherMemberProfileExtendedContract.View {
-
     private String familyBaseEntityId;
     private String baseEntityId;
     private String familyHead;
@@ -174,7 +172,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     }
 
     public void startFormForEdit(Integer title_resource) {
-
         CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
 
         final CommonPersonObject personObject = commonRepository.findByBaseEntityId(commonPersonObject.getCaseId());
@@ -194,7 +191,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     }
 
     public void startFormActivity(JSONObject jsonForm) {
-
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
@@ -278,7 +274,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     }
 
     private void refreshList(Fragment fragment) {
-        if (fragment instanceof BaseRegisterFragment && fragment instanceof FamilyOtherMemberProfileFragment) {
+        if (fragment instanceof FamilyOtherMemberProfileFragment) {
             FamilyOtherMemberProfileFragment familyOtherMemberProfileFragment = ((FamilyOtherMemberProfileFragment) fragment);
             if (familyOtherMemberProfileFragment.presenter() != null) {
                 familyOtherMemberProfileFragment.refreshListView();
@@ -288,14 +284,10 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
     @Override
     public void onClick(View view) {
-
-        switch (view.getId()) {
-            case R.id.family_has_row:
-                openFamilyDueTab();
-                break;
-            default:
-                super.onClick(view);
-                break;
+        if (view.getId() == R.id.family_has_row) {
+            openFamilyDueTab();
+        } else {
+            super.onClick(view);
         }
     }
 
