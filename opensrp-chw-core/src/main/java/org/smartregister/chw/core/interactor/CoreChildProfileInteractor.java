@@ -60,8 +60,6 @@ import java.util.UUID;
 import io.reactivex.Observable;
 import timber.log.Timber;
 
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
-
 public class CoreChildProfileInteractor implements CoreChildProfileContract.Interactor {
     public static final String TAG = CoreChildProfileInteractor.class.getName();
     private AppExecutors appExecutors;
@@ -397,7 +395,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
         allowedLevels.add(CoreConstants.CONFIGURATION.HEALTH_FACILITY_TAG);
         task.setGroupIdentifier(locationHelper.getOpenMrsLocationId(locationHelper.generateDefaultLocationHierarchy(allowedLevels).get(0)));
         task.setStatus(Task.TaskStatus.READY);
-        task.setBusinessStatus("Referred");
+        task.setBusinessStatus(CoreConstants.BUSINESS_STATUS.REFERRED);
         task.setPriority(3);
         task.setCode("Referral");
         task.setDescription("Review and perform the referral for the client"); //set to string
@@ -519,7 +517,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
 
         String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, false);
 
-        JSONObject sameAsFamName = getFieldJSONObject(jsonArray, SAME_AS_FAM_NAME);
+        JSONObject sameAsFamName = org.smartregister.util.JsonFormUtils.getFieldJSONObject(jsonArray, SAME_AS_FAM_NAME);
         JSONObject sameOptions = sameAsFamName.getJSONArray(Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
 
         if (familyName.equals(lastName)) {
@@ -528,7 +526,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
             sameOptions.put(JsonFormUtils.VALUE, false);
         }
 
-        JSONObject surname = getFieldJSONObject(jsonArray, SURNAME);
+        JSONObject surname = org.smartregister.util.JsonFormUtils.getFieldJSONObject(jsonArray, SURNAME);
         if (!familyName.equals(lastName)) {
             surname.put(JsonFormUtils.VALUE, lastName);
         } else {

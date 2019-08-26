@@ -1,4 +1,4 @@
-package org.smartregister.chw.util;
+package org.smartregister.chw.core.utils;
 
 import android.content.Context;
 
@@ -6,10 +6,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
-import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.contract.RegisterAlert;
-import org.smartregister.chw.rule.AncVisitAlertRule;
-import org.smartregister.chw.rule.PncVisitAlertRule;
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.contract.RegisterAlert;
+import org.smartregister.chw.core.rule.AncVisitAlertRule;
+import org.smartregister.chw.core.rule.PncVisitAlertRule;
 
 import java.util.Date;
 
@@ -17,7 +17,7 @@ public class HomeVisitUtil {
 
     public static VisitSummary getAncVisitStatus(Context context, Rules rules, String lmpDate, String visitDate, String visitNotDate, LocalDate dateCreated) {
         AncVisitAlertRule ancVisitAlertRule = new AncVisitAlertRule(context, lmpDate, visitDate, visitNotDate, dateCreated);
-        ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(ancVisitAlertRule, rules);
+        CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(ancVisitAlertRule, rules);
         Date date = null;
         if (StringUtils.isNotBlank(visitDate)) {
             date = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(visitDate).toDate();
@@ -40,7 +40,7 @@ public class HomeVisitUtil {
 
     public static PncVisitAlertRule getPncVisitStatus(Rules rules, Date lastVisitDate, Date deliveryDate) {
         PncVisitAlertRule pncVisitAlertRule = new PncVisitAlertRule(lastVisitDate, deliveryDate);
-        ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(pncVisitAlertRule, rules);
+        CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(pncVisitAlertRule, rules);
         return pncVisitAlertRule;
     }
 }

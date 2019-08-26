@@ -77,6 +77,15 @@ public class CoreChildRegisterActivity extends BaseRegisterActivity implements C
     }
 
     @Override
+    protected void onResumption() {
+        super.onResumption();
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if (menu != null) {
+            menu.getNavigationAdapter().setSelectedView(CoreConstants.DrawerMenu.CHILD_CLIENTS);
+        }
+    }
+
+    @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (mBaseFragment instanceof CoreChildRegisterFragment) {
@@ -149,12 +158,5 @@ public class CoreChildRegisterActivity extends BaseRegisterActivity implements C
     @Override
     public void startRegistration() {
         startFormActivity(Utils.metadata().familyRegister.formName, null, null);
-    }
-
-    protected void onResumption() {
-        super.onResumption();
-        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
-        if (menu != null)
-            menu.getNavigationAdapter().setSelectedView(CoreConstants.DrawerMenu.CHILD_CLIENTS);
     }
 }

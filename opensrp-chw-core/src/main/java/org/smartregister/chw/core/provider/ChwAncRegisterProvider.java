@@ -1,4 +1,4 @@
-package org.smartregister.chw.provider;
+package org.smartregister.chw.core.provider;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -10,17 +10,18 @@ import android.widget.Button;
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.smartregister.chw.R;
+import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.provider.AncRegisterProvider;
 import org.smartregister.chw.anc.util.DBConstants;
-import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.R;
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.utils.ChwDBConstants;
-import org.smartregister.chw.interactor.ChildProfileInteractor;
-import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.HomeVisitUtil;
-import org.smartregister.chw.util.Utils;
-import org.smartregister.chw.util.VisitSummary;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.HomeVisitUtil;
+import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.chw.core.utils.VisitSummary;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.view.contract.SmartRegisterClient;
@@ -28,8 +29,6 @@ import org.smartregister.view.contract.SmartRegisterClient;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Set;
-
-import static org.smartregister.chw.anc.AncLibrary.getInstance;
 
 public class ChwAncRegisterProvider extends AncRegisterProvider {
 
@@ -52,15 +51,15 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
 
     private void updateDueColumn(Context context, RegisterViewHolder viewHolder, VisitSummary visitSummary) {
         viewHolder.dueButton.setVisibility(View.VISIBLE);
-        if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
+        if (visitSummary.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.DUE.name())) {
             setVisitButtonDueStatus(context, viewHolder.dueButton);
-        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
             setVisitButtonOverdueStatus(context, viewHolder.dueButton, visitSummary.getNoOfMonthDue());
-        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
             setVisitLessTwentyFourView(context, viewHolder.dueButton);
-        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
             setVisitAboveTwentyFourView(context, viewHolder.dueButton);
-        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
             setVisitNotDone(context, viewHolder.dueButton);
         }
     }
@@ -113,7 +112,7 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
             this.context = context;
             this.viewHolder = viewHolder;
             this.pc = pc;
-            this.rules = ChwApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.ANC_HOME_VISIT);
+            this.rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.ANC_HOME_VISIT);
         }
 
         @Override
@@ -126,16 +125,16 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
 
             LocalDate dateCreated = (new DateTime(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DATE_CREATED, false))).toLocalDate();
 
-            Visit lastNotDoneVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
+            Visit lastNotDoneVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
             if (lastNotDoneVisit != null) {
-                Visit lastNotDoneVisitUndo = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO);
+                Visit lastNotDoneVisitUndo = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO);
                 if (lastNotDoneVisitUndo != null
                         && lastNotDoneVisitUndo.getDate().after(lastNotDoneVisit.getDate())) {
                     lastNotDoneVisit = null;
                 }
             }
 
-            Visit lastVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT);
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT);
             String visitDate = lastVisit != null ? sdf.format(lastVisit.getDate()) : null;
             String lastVisitNotDone = lastNotDoneVisit != null ? sdf.format(lastNotDoneVisit.getDate()) : null;
 
@@ -146,7 +145,7 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
         @Override
         protected void onPostExecute(Void param) {
             // Update status column
-            if (visitSummary != null && !visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.EXPIRY.name())) {
+            if (visitSummary != null && !visitSummary.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.EXPIRY.name())) {
                 updateDueColumn(context, viewHolder, visitSummary);
             }
         }

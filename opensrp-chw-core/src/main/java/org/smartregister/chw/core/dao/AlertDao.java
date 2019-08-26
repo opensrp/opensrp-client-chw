@@ -2,11 +2,10 @@ package org.smartregister.chw.core.dao;
 
 import org.smartregister.chw.core.domain.AlertState;
 import org.smartregister.domain.Alert;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.repository.AlertRepository;
 
 import java.util.List;
-
-import static org.smartregister.domain.AlertStatus.from;
 
 public class AlertDao extends AbstractDao {
 
@@ -19,7 +18,7 @@ public class AlertDao extends AbstractDao {
                 cursor.getString(cursor.getColumnIndex(AlertRepository.ALERTS_CASEID_COLUMN)),
                 cursor.getString(cursor.getColumnIndex(AlertRepository.ALERTS_SCHEDULE_NAME_COLUMN)),
                 cursor.getString(cursor.getColumnIndex(AlertRepository.ALERTS_VISIT_CODE_COLUMN)),
-                from(cursor.getString(cursor.getColumnIndex(AlertRepository.ALERTS_STATUS_COLUMN))),
+                AlertStatus.from(cursor.getString(cursor.getColumnIndex(AlertRepository.ALERTS_STATUS_COLUMN))),
                 cursor.getString(cursor.getColumnIndex(AlertRepository.ALERTS_STARTDATE_COLUMN)),
                 cursor.getString(cursor.getColumnIndex(AlertRepository.ALERTS_EXPIRYDATE_COLUMN)),
                 cursor.getInt(cursor.getColumnIndex(AlertRepository.ALERTS_OFFLINE_COLUMN)) == 1)

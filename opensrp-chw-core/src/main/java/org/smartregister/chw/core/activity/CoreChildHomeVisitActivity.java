@@ -18,25 +18,17 @@ import org.smartregister.util.LangUtils;
 
 import java.text.MessageFormat;
 
-import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.EDIT_MODE;
-import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
-
 public abstract class CoreChildHomeVisitActivity extends BaseAncHomeVisitActivity {
 
     public static void startMe(Activity activity, MemberObject memberObject, Boolean isEditMode, Class<?> cls) {
         Intent intent = new Intent(activity, cls);
-        intent.putExtra(MEMBER_PROFILE_OBJECT, memberObject);
-        intent.putExtra(EDIT_MODE, isEditMode);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.EDIT_MODE, isEditMode);
         activity.startActivity(intent);
     }
 
     @Override
     protected abstract void registerPresenter();
-
-    @Override
-    public void redrawHeader(MemberObject memberObject) {
-        tvTitle.setText(MessageFormat.format("{0}, {1} {2}", memberObject.getFullName(), org.smartregister.util.Utils.getDuration(memberObject.getDob()), getString(R.string.home_visit_suffix)));
-    }
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
@@ -50,6 +42,11 @@ public abstract class CoreChildHomeVisitActivity extends BaseAncHomeVisitActivit
         intent.putExtra(Constants.WizardFormActivity.EnableOnCloseDialog, false);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public void redrawHeader(MemberObject memberObject) {
+        tvTitle.setText(MessageFormat.format("{0}, {1} {2}", memberObject.getFullName(), org.smartregister.util.Utils.getDuration(memberObject.getDob()), getString(R.string.home_visit_suffix)));
     }
 
     @Override

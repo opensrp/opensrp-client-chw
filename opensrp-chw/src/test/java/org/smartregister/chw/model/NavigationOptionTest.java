@@ -1,11 +1,10 @@
 package org.smartregister.chw.model;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.util.Constants;
-
-import static org.junit.Assert.assertEquals;
 
 public class NavigationOptionTest {
 
@@ -13,9 +12,9 @@ public class NavigationOptionTest {
     public void navigationModel_TestConstructor() {
         NavigationOption navigationOption = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, R.string.menu_all_families, Constants.DrawerMenu.ALL_FAMILIES, 0);
 
-        assertEquals(navigationOption.getMenuTitle(), Constants.DrawerMenu.ALL_FAMILIES);
-        assertEquals(navigationOption.getResourceID(), R.mipmap.sidemenu_families);
-        assertEquals(navigationOption.getRegisterCount(), 0);
+        Assert.assertEquals(navigationOption.getMenuTitle(), Constants.DrawerMenu.ALL_FAMILIES);
+        Assert.assertEquals(navigationOption.getResourceID(), R.mipmap.sidemenu_families);
+        Assert.assertEquals(navigationOption.getRegisterCount(), 0);
     }
 
     @Test
@@ -27,9 +26,9 @@ public class NavigationOptionTest {
         model.setResourceID(R.mipmap.sidemenu_families);
 
 
-        assertEquals(model.getRegisterCount(), 2);
-        assertEquals(model.getResourceID(), R.mipmap.sidemenu_families);
-        assertEquals(model.getMenuTitle(), "Test Menu");
+        Assert.assertEquals(model.getRegisterCount(), 2);
+        Assert.assertEquals(model.getResourceID(), R.mipmap.sidemenu_families);
+        Assert.assertEquals(model.getMenuTitle(), "Test Menu");
 
     }
 }

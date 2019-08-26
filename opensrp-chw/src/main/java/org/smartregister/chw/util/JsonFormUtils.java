@@ -41,6 +41,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
 
@@ -55,9 +56,6 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import timber.log.Timber;
-
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.smartregister.util.AssetHandler.jsonStringToJava;
 
 /**
  * Created by keyman on 13/11/2018.
@@ -135,7 +133,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             JSONArray fields = registrationFormParams.getRight();
 
             String entityId = getString(jsonForm, ENTITY_ID);
-            if (isBlank(entityId)) {
+            if (StringUtils.isBlank(entityId)) {
                 entityId = generateRandomUUIDString();
             }
 
@@ -699,7 +697,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {
-                ecEvent = jsonStringToJava(cursor.getString(0), Event.class);
+                ecEvent = AssetHandler.jsonStringToJava(cursor.getString(0), Event.class);
                 cursor.moveToNext();
             }
         } catch (Exception e) {

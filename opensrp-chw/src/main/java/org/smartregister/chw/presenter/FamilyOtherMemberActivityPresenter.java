@@ -26,8 +26,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-import static org.smartregister.util.Utils.getName;
-
 public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberProfileActivityPresenter implements FamilyOtherMemberProfileExtendedContract.Presenter, FamilyProfileContract.InteractorCallBack, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String TAG = FamilyOtherMemberActivityPresenter.class.getCanonicalName();
 
@@ -105,7 +103,7 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
             String dob = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true);
             int age = StringUtils.isNotBlank(dob) ? Utils.getAgeFromDate(dob) : 0;
 
-            this.getView().setProfileName(MessageFormat.format("{0}, {1}", getName(getName(firstName, middleName), lastName), age));
+            this.getView().setProfileName(MessageFormat.format("{0}, {1}", org.smartregister.util.Utils.getName(org.smartregister.util.Utils.getName(firstName, middleName), lastName), age));
             String gestationAge = ChwApplication.ancRegisterRepository().getGaIfAncWoman(client.getCaseId());
             if (gestationAge != null) {
                 this.getView().setProfileDetailOne(NCUtils.gestationAgeString(gestationAge, viewReference.get().getContext(), true));

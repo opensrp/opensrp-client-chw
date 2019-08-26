@@ -13,7 +13,7 @@ public class ReferralsTaskViewClickListener implements View.OnClickListener {
         if (view.getId() == R.id.view_profile) {
             getReferralTaskViewActivity().finish();
         } else if (view.getId() == R.id.mark_ask_done) {
-            getReferralTaskViewActivity().closeTask();
+            getReferralTaskViewActivity().closeReferral();
         }
     }
 
