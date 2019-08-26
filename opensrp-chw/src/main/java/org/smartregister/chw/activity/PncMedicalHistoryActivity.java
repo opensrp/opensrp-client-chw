@@ -4,12 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.pnc.activity.BasePncMedicalHistoryActivity;
-
 import java.util.List;
 
 public class PncMedicalHistoryActivity extends BasePncMedicalHistoryActivity {
