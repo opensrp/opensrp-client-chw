@@ -7,7 +7,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.smartregister.chw.anc.domain.VaccineDisplay;
+import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.core.dao.AbstractDao;
+import org.smartregister.chw.core.dao.AlertDao;
 import org.smartregister.domain.Alert;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineCondition;
@@ -26,6 +32,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import timber.log.Timber;
 
 public class VisitVaccineUtil {
 
@@ -149,7 +157,8 @@ public class VisitVaccineUtil {
             DateTime dob,
             List<VaccineGroup> vaccineGroups,
             List<org.smartregister.immunization.domain.jsonmapping.Vaccine> specialVaccines,
-            List<Vaccine> issuedVaccines
+            List<Vaccine> issuedVaccines,
+            Map<String, List<VisitDetail>> edit_details
     ) {
 
         // prepare tools
@@ -188,26 +197,48 @@ public class VisitVaccineUtil {
                 Alert alert = alertMap.get(code);
                 Vaccine vaccine = givenVaccines.get(code);
                 VaccineRepo.Vaccine repoVac = vaccinesRepo.get(code);
+                String date = repoVac != null ? NCUtils.getText(edit_details.get(NCUtils.removeSpaces(repoVac.display()))) : "";
 
                 // get all vaccine that are yet to expire
                 // and are active
-                if (
-                        alert != null
+                if (StringUtils.isNotBlank(date) ||
+                        (alert != null
                                 && vaccine == null
                                 && repoVac != null
                                 && today.isAfter(new LocalDate(alert.startDate()))
-                                && (StringUtils.isBlank(alert.expiryDate()) || new LocalDate(alert.expiryDate()).isAfter(today))
-
+                                && (StringUtils.isBlank(alert.expiryDate()) || new LocalDate(alert.expiryDate()).isAfter(today)))
                 ) {
+                    // in edit mode alerts may be null. create a default alert with the start and end date to be today
+                    alert = getVisitPseudoAlert(alert, date, repoVac);
                     pairList.add(Pair.create(repoVac, alert));
                 }
             }
 
-            if (pairList.size() > 0)
+            if (pairList.size() > 0 || res.size() > 0)
                 res.put(group, pairList);
         }
 
         return res;
+    }
+
+    private static Alert getVisitPseudoAlert(Alert alert, String date, VaccineRepo.Vaccine repoVac) {
+        if (alert != null)
+            return alert;
+
+        String startDate = AbstractDao.getNativeFormsDateFormat().format(new Date());
+        String endDate = AbstractDao.getNativeFormsDateFormat().format(new Date());
+        if (!StringUtils.isBlank(date) && !Constants.HOME_VISIT.VACCINE_NOT_GIVEN.equalsIgnoreCase(date)) {
+            try {
+                Date d = AlertDao.getNativeFormsDateFormat().parse(date);
+                startDate = AlertDao.getDobDateFormat().format(d);
+                endDate = AlertDao.getDobDateFormat().format(d);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
+
+        String code = repoVac.name().toLowerCase().replace(" ", "");
+        return new Alert("", repoVac.display(), code, AlertStatus.complete, startDate, endDate);
     }
 
     /**

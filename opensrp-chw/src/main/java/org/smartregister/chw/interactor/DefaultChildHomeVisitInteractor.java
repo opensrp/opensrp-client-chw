@@ -235,7 +235,8 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
                         new DateTime(dob),
                         childVaccineGroups,
                         specialVaccines,
-                        vaccines
+                        vaccines,
+                        details
                 );
 
         ImmunizationValidator validator = new ImmunizationValidator(childVaccineGroups, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
@@ -255,8 +256,6 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
                     .withOptional(false)
                     .withDetails(details)
-                    .withBaseEntityID(memberObject.getBaseEntityId())
-                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withVaccineWrapper(wrappers)
                     .withDestinationFragment(fragment)
                     .withHelper(new ImmunizationActionHelper(context, wrappers))
