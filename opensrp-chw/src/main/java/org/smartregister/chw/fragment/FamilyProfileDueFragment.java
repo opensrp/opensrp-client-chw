@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.WashCheck;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
@@ -121,12 +122,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     public void goToChildProfileActivity(View view) {
         if (view.getTag() instanceof CommonPersonObjectClient) {
             CommonPersonObjectClient patient = (CommonPersonObjectClient) view.getTag();
-
-            Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
-            intent.putExtras(getArguments());
-            intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, true);
-            intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-            startActivity(intent);
+            ChildProfileActivity.startMe(getActivity(),true,new MemberObject(patient),ChildProfileActivity.class);
         }
 
     }
