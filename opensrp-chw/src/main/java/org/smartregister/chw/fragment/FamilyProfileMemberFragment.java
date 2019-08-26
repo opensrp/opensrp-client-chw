@@ -104,13 +104,11 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
         Integer yearOfBirth = ChildUtils.dobStringToYear(dobString);
         if (yearOfBirth != null && yearOfBirth >= 5) {
-            Intent intent = new Intent(getActivity(), AboveFiveChildProfileActivity.class);
-            intent.putExtras(getArguments());
-            intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, true);
-            intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-            startActivity(intent);
+            ChildProfileActivity.startMe(getActivity(),true,new MemberObject(patient),AboveFiveChildProfileActivity.class);
+
         } else {
-            ChildProfileActivity.startMe(getActivity(), new MemberObject(patient), ChildProfileActivity.class);
+            ChildProfileActivity.startMe(getActivity(),true,new MemberObject(patient),ChildProfileActivity.class);
+
         }
     }
 
