@@ -3,6 +3,7 @@ package org.smartregister.chw.core.model;
 import android.content.Context;
 import android.text.TextUtils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Months;
 import org.joda.time.Weeks;
@@ -18,6 +19,7 @@ import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.util.VaccinateActionUtils;
+import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.util.DateUtil;
 
 import java.util.ArrayList;
@@ -26,9 +28,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 
 public class ImmunizationModel {
     private List<Vaccine> vaccines;
@@ -49,7 +48,7 @@ public class ImmunizationModel {
         }
         this.vaccines = vaccines;
         setAgeVaccineListElligibleGroups(client);
-        Map<String, Date> receivedVaccines = receivedVaccines(vaccines);
+        Map<String, Date> receivedVaccines = VaccinatorUtils.receivedVaccines(vaccines);
         VaccineRepo.Vaccine[] vList = VaccineRepo.Vaccine.values();
 
         ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupArrayList = new ArrayList<>();
@@ -66,7 +65,7 @@ public class ImmunizationModel {
                 if (stateKey.equalsIgnoreCase("18 " + context.getString(R.string.month_full))) {
                     continue;
                 }
-                if (isNotBlank(stateKey)) {
+                if (StringUtils.isNotBlank(stateKey)) {
 
                     Integer position = vaccineGroupMap.get(stateKey);
                     // create a group if missing

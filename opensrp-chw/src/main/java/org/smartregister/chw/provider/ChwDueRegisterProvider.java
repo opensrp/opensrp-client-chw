@@ -26,9 +26,6 @@ import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Set;
 
-import static org.smartregister.chw.core.utils.Utils.actualDaysBetweenDateAndNow;
-import static org.smartregister.family.util.Utils.getName;
-
 public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
     private static final String TAG = ChwDueRegisterProvider.class.getCanonicalName();
 
@@ -58,7 +55,7 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
 
-        String patientName = getName(firstName, middleName, lastName);
+        String patientName = org.smartregister.family.util.Utils.getName(firstName, middleName, lastName);
 
         String dob = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
         String dobString = Utils.getDuration(dob);
@@ -75,7 +72,7 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         String lastVisit = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
         if (StringUtils.isNotBlank(lastVisit)) {
             // String lastVisitString = Utils.actualDuration(context, Utils.getDuration(lastVisit));
-            String lastVisitString = actualDaysBetweenDateAndNow(context, lastVisit);
+            String lastVisitString = org.smartregister.chw.core.utils.Utils.actualDaysBetweenDateAndNow(context, lastVisit);
             viewHolder.lastVisit.setText(String.format(context.getString(R.string.last_visit_prefix), lastVisitString));
             viewHolder.lastVisit.setVisibility(View.VISIBLE);
         } else {

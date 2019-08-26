@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
@@ -15,9 +16,6 @@ import org.smartregister.chw.util.ServiceHeader;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 public class GrowthAdapterTest extends BaseUnitTest {
 
     private Context context = RuntimeEnvironment.application;
@@ -28,7 +26,7 @@ public class GrowthAdapterTest extends BaseUnitTest {
         int count = 10;
         adapter.addItem(getSamples(count));
 
-        assertEquals(adapter.getItemCount(), count);
+        Assert.assertEquals(adapter.getItemCount(), count);
     }
 
     private ArrayList<BaseService> getSamples(int count) {
@@ -48,9 +46,9 @@ public class GrowthAdapterTest extends BaseUnitTest {
         ViewGroup viewGroup = Mockito.mock(ViewGroup.class);
         Mockito.doReturn(context).when(viewGroup).getContext();
 
-        assertTrue(adapter.onCreateViewHolder(viewGroup, BaseService.TYPE_HEADER) instanceof GrowthAdapter.HeaderViewHolder);
-        assertTrue(adapter.onCreateViewHolder(viewGroup, BaseService.TYPE_CONTENT) instanceof GrowthAdapter.ContentViewHolder);
-        assertTrue(adapter.onCreateViewHolder(viewGroup, BaseService.TYPE_LINE) instanceof GrowthAdapter.HeaderViewHolder);
+        Assert.assertTrue(adapter.onCreateViewHolder(viewGroup, BaseService.TYPE_HEADER) instanceof GrowthAdapter.HeaderViewHolder);
+        Assert.assertTrue(adapter.onCreateViewHolder(viewGroup, BaseService.TYPE_CONTENT) instanceof GrowthAdapter.ContentViewHolder);
+        Assert.assertTrue(adapter.onCreateViewHolder(viewGroup, BaseService.TYPE_LINE) instanceof GrowthAdapter.HeaderViewHolder);
     }
 
     @Test

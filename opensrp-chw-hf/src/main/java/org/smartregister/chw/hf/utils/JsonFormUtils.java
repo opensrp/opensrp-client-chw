@@ -23,8 +23,6 @@ import org.smartregister.repository.EventClientRepository;
 
 import timber.log.Timber;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
-
 /**
  * Created by keyman on 13/11/2018.
  */
@@ -43,7 +41,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             JSONObject jsonForm = registrationFormParams.getMiddle();
             JSONArray fields = registrationFormParams.getRight();
             String entityId = getString(jsonForm, ENTITY_ID);
-            if (isBlank(entityId)) {
+            if (StringUtils.isBlank(entityId)) {
                 entityId = generateRandomUUIDString();
             }
             lastInteractedWith(fields);
