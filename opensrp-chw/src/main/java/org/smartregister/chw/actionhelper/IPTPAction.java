@@ -58,6 +58,26 @@ public class IPTPAction extends HomeVisitActionHelper {
     }
 
     @Override
+    public void onPayloadReceived(BaseAncHomeVisitAction ba) {
+        try {
+            JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+            String value = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("iptp{0}_date", serviceIteration));
+
+            try {
+                if (ba.getServiceWrapper() != null && ba.getServiceWrapper().size() > 0) {
+                    DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
+                    ba.getServiceWrapper().get(0).setUpdatedVaccineDate(updateDate, false);
+                }
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
@@ -86,33 +106,14 @@ public class IPTPAction extends HomeVisitActionHelper {
 
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-        if (StringUtils.isBlank(str_date))
+        if (StringUtils.isBlank(str_date)) {
             return BaseAncHomeVisitAction.Status.PENDING;
+        }
 
         if (parsedDate != null) {
             return BaseAncHomeVisitAction.Status.COMPLETED;
         } else {
             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-        }
-    }
-
-    @Override
-    public void onPayloadReceived(BaseAncHomeVisitAction ba) {
-        try {
-            JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
-            String value = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("iptp{0}_date", serviceIteration));
-
-            try {
-                if (ba.getServiceWrapper() != null && ba.getServiceWrapper().size() > 0) {
-                    DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
-                    ba.getServiceWrapper().get(0).setUpdatedVaccineDate(updateDate, false);
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-
-        } catch (JSONException e) {
-            Timber.e(e);
         }
     }
 }

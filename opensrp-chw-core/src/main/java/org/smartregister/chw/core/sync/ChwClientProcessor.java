@@ -174,6 +174,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
                 break;
             case CoreConstants.EventType.CHILD_REFERRAL:
+            case CoreConstants.EventType.CLOSE_REFERRAL:
                 if (eventClient.getClient() != null) {
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 }
@@ -315,6 +316,12 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         }
     }
 
+    private void processVisitEvent(List<EventClient> eventClients, String parentEventName) {
+        for (EventClient eventClient : eventClients) {
+            processVisitEvent(eventClient, parentEventName); // save locally
+        }
+    }
+
     // possible to delegate
     private void processVisitEvent(EventClient eventClient) {
         try {
@@ -331,12 +338,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         } catch (Exception e) {
             String formID = (eventClient != null && eventClient.getEvent() != null) ? eventClient.getEvent().getFormSubmissionId() : "no form id";
             Timber.e("Form id " + formID + ". " + e.toString());
-        }
-    }
-
-    private void processVisitEvent(List<EventClient> eventClients, String parentEventName) {
-        for (EventClient eventClient : eventClients) {
-            processVisitEvent(eventClient, parentEventName); // save locally
         }
     }
 
@@ -557,6 +558,12 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         Timber.d("Started updateClientDetailsTable");
         event.addDetails("detailsUpdated", Boolean.TRUE.toString());
         Timber.d("Finished updateClientDetailsTable");
+    }
+
+    private void processVisitEvent(List<EventClient> eventClients) {
+        for (EventClient eventClient : eventClients) {
+            processVisitEvent(eventClient); // save locally
+        }
     }
 
     private Float parseFloat(String string) {

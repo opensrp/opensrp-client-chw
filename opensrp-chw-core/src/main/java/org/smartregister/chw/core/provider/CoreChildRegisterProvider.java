@@ -139,9 +139,7 @@ public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterV
         String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
         //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName) + ", " + WordUtils.capitalize(Utils.getTranslatedDate(dobString, context)));
-        String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
-        String gender = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
-        fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);
+        setAddressAndGender(pc, viewHolder);
 
         addButtonClickListeners(client, viewHolder);
 
@@ -156,6 +154,12 @@ public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterV
             v.setText(value);
         }
 
+    }
+
+    public void setAddressAndGender(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+        String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
+        String gender = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
+        fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);
     }
 
     public void addButtonClickListeners(SmartRegisterClient client, RegisterViewHolder viewHolder) {

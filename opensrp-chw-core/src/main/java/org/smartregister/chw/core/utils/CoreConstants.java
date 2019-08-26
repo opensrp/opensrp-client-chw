@@ -9,6 +9,25 @@ public class CoreConstants {
     public static final String ENTITY_ID = "entity_id";
     public static String EC_CLIENT_FIELDS = "ec_client_fields.json";
 
+    public enum VisitType {DUE, OVERDUE, LESS_TWENTY_FOUR, VISIT_THIS_MONTH, NOT_VISIT_THIS_MONTH, EXPIRY}
+
+    public enum ServiceType {DUE, OVERDUE, UPCOMING}
+
+    public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
+
+    public enum GROWTH_TYPE {
+        EXCLUSIVE("Exclusive breastfeeding"), MNP("MNP"), VITAMIN("Vitamin A"), DEWORMING("Deworming");
+        private String value;
+
+        GROWTH_TYPE(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
     public interface DB_CONSTANTS {
         String ID = "_id";
         String FOR = "for";
@@ -16,6 +35,13 @@ public class CoreConstants {
         String REQUESTER = "requester";
         String OWNER = "owner";
         String START = "start";
+    }
+
+    public interface SERVICE_GROUPS {
+        String CHILD = "child";
+        String WOMAN = "woman";
+        String PNC = "pnc";
+        String ANC = "anc";
     }
 
     public static class CONFIGURATION {
@@ -59,9 +85,13 @@ public class CoreConstants {
         public static final String ANC_HOME_VISIT = "ANC Home Visit";
         public static final String PNC_HOME_VISIT = "PNC Home Visit";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
-        public static final String REFERRAL_TASK_MASK_AS_DONE = "Referral Task Mark as Done";
+        public static final String CLOSE_REFERRAL = "Close Referral";
         public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
         public static final String WASH_CHECK = "WASH check";
+    }
+
+    public static final class EncounterType {
+        public static final String CLOSE_REFERRAL = "Close Referral";
     }
 
     /**
@@ -365,6 +395,7 @@ public class CoreConstants {
         public static final String TASK = "task";
         public static final String WASH_CHECK_LOG = "ec_wash_check_log";
         public static final String CHILD_REFERRAL = "ec_child_referral";
+        public static final String CLOSE_REFERRAL = "ec_close_referral";
     }
 
     public static final class INTENT_KEY {
@@ -518,6 +549,9 @@ public class CoreConstants {
             public static final String WASH_CHECK_DETAILS = "details_info";
             public static final String WASH_CHECK_LAST_VISIT = "last_visit";
             public static final String FAMILY_ID = "family_id";
+            public static final String REFERRAL_TASK = "referral_task";
+            public static final String REFERRAL_TASK_PREVIOUS_STATUS = "referral_task_previous_status";
+            public static final String REFERRAL_TASK_PREVIOUS_BUSINESS_STATUS = "referral_task_previous_business_status";
 
 
         }
@@ -562,25 +596,6 @@ public class CoreConstants {
         public static final String VISIT_DONE = "VISIT_DONE";
     }
 
-    public enum VisitType {DUE, OVERDUE, LESS_TWENTY_FOUR, VISIT_THIS_MONTH, NOT_VISIT_THIS_MONTH, EXPIRY}
-
-    public enum ServiceType {DUE, OVERDUE, UPCOMING}
-
-    public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
-
-    public enum GROWTH_TYPE {
-        EXCLUSIVE("Exclusive breastfeeding"), MNP("MNP"), VITAMIN("Vitamin A"), DEWORMING("Deworming");
-        private String value;
-
-        GROWTH_TYPE(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
-
     public static final class DATE_FORMATS {
         public static final String NATIVE_FORMS = "dd-MM-yyyy";
         public static final String HOME_VISIT_DISPLAY = "dd MMM yyyy";
@@ -597,10 +612,10 @@ public class CoreConstants {
         public static final String MALARIA_REGISTER_ACTIVITY = "MALARIA_REGISTER_ACTIVITY";
     }
 
-    public interface SERVICE_GROUPS {
-        String CHILD = "child";
-        String WOMAN = "woman";
-        String PNC = "pnc";
-        String ANC = "anc";
+    public static final class BUSINESS_STATUS {
+        public static final String REFERRED = "Referred";
+        public static final String IN_PROGRESS = "In-Progress";
+        public static final String COMPLETE = "Complete";
+        public static final String EXPIRED = "Expired";
     }
 }

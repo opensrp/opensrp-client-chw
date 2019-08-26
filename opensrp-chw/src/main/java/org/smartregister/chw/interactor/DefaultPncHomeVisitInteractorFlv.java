@@ -78,8 +78,9 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             }
         }
 
-        if (children == null)
+        if (children == null) {
             children = new ArrayList<>();
+        }
 
         children.addAll(PersonDao.getMothersPNCBabies(memberObject.getBaseEntityId()));
 
@@ -198,8 +199,9 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(vaccine_card))
+                if (StringUtils.isBlank(vaccine_card)) {
                     return BaseAncHomeVisitAction.Status.PENDING;
+                }
 
                 if (vaccine_card.equalsIgnoreCase("Yes")) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -283,8 +285,9 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(cord_care))
+                if (StringUtils.isBlank(cord_care)) {
                     return BaseAncHomeVisitAction.Status.PENDING;
+                }
 
                 if ("Chlorhexidine".equalsIgnoreCase(cord_care)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -320,8 +323,9 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 }
 
                 Alert alert = serviceWrapper.getAlert();
-                if (alert == null || new LocalDate().isAfter(new LocalDate(alert.startDate())))
+                if (alert == null || new LocalDate().isAfter(new LocalDate(alert.startDate()))) {
                     return;
+                }
 
                 final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
@@ -369,16 +373,18 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
             @Override
             public String evaluateSubTitle() {
-                if (StringUtils.isBlank(kangaroo))
+                if (StringUtils.isBlank(kangaroo)) {
                     return null;
+                }
 
                 return kangaroo.equalsIgnoreCase("Yes") ? context.getString(R.string.yes) : context.getString(R.string.no);
             }
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(kangaroo))
+                if (StringUtils.isBlank(kangaroo)) {
                     return BaseAncHomeVisitAction.Status.PENDING;
+                }
 
                 if (kangaroo.equalsIgnoreCase("Yes")) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -422,8 +428,9 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     fp_method = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_method");
                     fp_start_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_start_date");
 
-                    if (StringUtils.isNotBlank(fp_start_date))
+                    if (StringUtils.isNotBlank(fp_start_date)) {
                         start_date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(fp_start_date);
+                    }
                 } catch (JSONException e) {
                     Timber.e(e);
                 } catch (ParseException e) {
@@ -494,8 +501,9 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(fp_counseling))
+                if (StringUtils.isBlank(fp_counseling)) {
                     return BaseAncHomeVisitAction.Status.PENDING;
+                }
 
 
                 if ("Yes".equalsIgnoreCase(fp_counseling)) {
@@ -628,8 +636,9 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 baby_weight = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "baby_weight");
                 baby_temp = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "baby_temp");
 
-                if (StringUtils.isNotBlank(pnc_hf_visit_date))
+                if (StringUtils.isNotBlank(pnc_hf_visit_date)) {
                     date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(pnc_hf_visit_date);
+                }
             } catch (JSONException e) {
                 Timber.e(e);
             } catch (ParseException e) {
@@ -679,11 +688,13 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
         @Override
         public String evaluateSubTitle() {
-            if (pnc_visit == null)
+            if (pnc_visit == null) {
                 return null;
+            }
 
-            if (pnc_visit.equalsIgnoreCase("No"))
+            if (pnc_visit.equalsIgnoreCase("No")) {
                 return context.getString(R.string.visit_not_done).replace("\n", "");
+            }
 
 
             StringBuilder builder = new StringBuilder();
@@ -707,8 +718,9 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(pnc_visit))
+            if (StringUtils.isBlank(pnc_visit)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             if (pnc_visit.equalsIgnoreCase("Yes")) {
                 return BaseAncHomeVisitAction.Status.COMPLETED;

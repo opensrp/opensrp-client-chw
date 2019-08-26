@@ -8,7 +8,7 @@ import android.view.View;
 
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.BaseReferralRegisterFragmentContract;
-import org.smartregister.chw.core.provider.BasereferralRegisterProvider;
+import org.smartregister.chw.core.provider.BaseReferralRegisterProvider;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonRepository;
@@ -26,7 +26,7 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns, String tableName) {
-        BasereferralRegisterProvider registerProvider = new BasereferralRegisterProvider(getActivity(), registerActionHandler, paginationViewHandler);
+        BaseReferralRegisterProvider registerProvider = new BaseReferralRegisterProvider(getActivity(), registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
@@ -133,7 +133,7 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
                         // Select register query
 
 
-                        query = filterandSortQuery();
+                        query = filterAndSortQuery();
 
                         return commonRepository().rawCustomQueryForAdapter(query);
                     }
@@ -146,7 +146,7 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
     }
 
 
-    private String filterandSortQuery() {
+    private String filterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
         String query = "";

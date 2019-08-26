@@ -452,8 +452,9 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
         // remove all nested events and add them to this object
         List<EventClient> events = new ArrayList<>();
 
-        if (eventClient.getEvent() == null)
+        if (eventClient.getEvent() == null) {
             return new ArrayList<>();
+        }
 
         Event event = eventClient.getEvent();
         List<org.smartregister.domain.db.Obs> observations = new ArrayList<>();

@@ -42,8 +42,9 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if (createDate == null)
+        if (createDate == null) {
             return services;
+        }
 
         // anc card
         evaluateANCCard(services, memberObject, context, createDate);

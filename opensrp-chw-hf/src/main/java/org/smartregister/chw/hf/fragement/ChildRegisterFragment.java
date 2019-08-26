@@ -1,7 +1,5 @@
 package org.smartregister.chw.hf.fragement;
 
-import android.content.Intent;
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreChildHomeVisitActivity;
@@ -39,9 +37,7 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
             Timber.i(patient.name);
         }
 
-        Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-        startActivity(intent);
+        ChildProfileActivity.startMe(getActivity(), new MemberObject(patient), ChildProfileActivity.class);
     }
 
     @Override

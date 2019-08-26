@@ -92,22 +92,26 @@ public abstract class CoreChildUtils {
 
         ChildHomeVisit childHomeVisit = new ChildHomeVisit();
         Map<String, VisitSummary> map = VisitDao.getVisitSummary(childId);
-        if (map == null)
+        if (map == null) {
             return childHomeVisit;
+        }
 
         VisitSummary notDone = map.get(CoreConstants.EventType.CHILD_VISIT_NOT_DONE);
         VisitSummary lastVisit = map.get(CoreConstants.EventType.CHILD_HOME_VISIT);
 
-        if (lastVisit != null)
+        if (lastVisit != null) {
             childHomeVisit.setLastHomeVisitDate(lastVisit.getVisitDate().getTime());
+        }
 
-        if (notDone != null)
+        if (notDone != null) {
             childHomeVisit.setVisitNotDoneDate(notDone.getVisitDate().getTime());
+        }
 
 
         Long datecreated = VisitDao.getChildDateCreated(childId);
-        if (datecreated != null)
+        if (datecreated != null) {
             childHomeVisit.setDateCreated(datecreated);
+        }
 
         return childHomeVisit;
     }
@@ -281,6 +285,7 @@ public abstract class CoreChildUtils {
 
     /**
      * Add visit not done to visits table
+     *
      * @param entityId
      */
     public static void visitNotDone(String entityId) {
@@ -296,6 +301,7 @@ public abstract class CoreChildUtils {
 
     /**
      * remove visit not done from visits table
+     *
      * @param entityId
      */
     public static void undoVisitNotDone(String entityId) {

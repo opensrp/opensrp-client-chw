@@ -21,7 +21,6 @@ import org.powermock.reflect.Whitebox;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
@@ -35,10 +34,10 @@ import org.smartregister.immunization.repository.RecurringServiceRecordRepositor
 import java.util.LinkedHashMap;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = TestChwApplication.class, constants = BuildConfig.class, sdk = 22)
+@Config(application = TestChwApplication.class, sdk = 22)
 @PowerMockIgnore({"org.mockito.*", "org.robolectric.*", "android.*", "androidx.*"})
 @PrepareForTest({ImmunizationLibrary.class, Utils.class, JsonFormUtils.class})
-public class DefaultAncHomeVisitInteractorFlvTest {
+public class DefaultCoreAncHomeVisitInteractorFlvTest {
 
     @Rule
     public PowerMockRule rule = new PowerMockRule();

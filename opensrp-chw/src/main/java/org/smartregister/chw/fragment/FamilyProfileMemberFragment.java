@@ -8,6 +8,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AboveFiveChildProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.FamilyProfileMemberModel;
@@ -102,16 +103,15 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
     public void goToChildProfileActivity(CommonPersonObjectClient patient) {
         String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
         Integer yearOfBirth = ChildUtils.dobStringToYear(dobString);
-        Intent intent;
         if (yearOfBirth != null && yearOfBirth >= 5) {
-            intent = new Intent(getActivity(), AboveFiveChildProfileActivity.class);
+            Intent intent = new Intent(getActivity(), AboveFiveChildProfileActivity.class);
+            intent.putExtras(getArguments());
+            intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, true);
+            intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
+            startActivity(intent);
         } else {
-            intent = new Intent(getActivity(), ChildProfileActivity.class);
+            ChildProfileActivity.startMe(getActivity(), new MemberObject(patient), ChildProfileActivity.class);
         }
-        intent.putExtras(getArguments());
-        intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, true);
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-        startActivity(intent);
     }
 
 }

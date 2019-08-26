@@ -31,11 +31,6 @@ public abstract class CoreChildHomeVisitActivity extends BaseAncHomeVisitActivit
     protected abstract void registerPresenter();
 
     @Override
-    public void redrawHeader(MemberObject memberObject) {
-        tvTitle.setText(MessageFormat.format("{0}, {1} {2}", memberObject.getFullName(), org.smartregister.util.Utils.getDuration(memberObject.getDob()), getString(R.string.home_visit_suffix)));
-    }
-
-    @Override
     public void startFormActivity(JSONObject jsonForm) {
 
         Form form = new Form();
@@ -47,6 +42,11 @@ public abstract class CoreChildHomeVisitActivity extends BaseAncHomeVisitActivit
         intent.putExtra(Constants.WizardFormActivity.EnableOnCloseDialog, false);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public void redrawHeader(MemberObject memberObject) {
+        tvTitle.setText(MessageFormat.format("{0}, {1} {2}", memberObject.getFullName(), org.smartregister.util.Utils.getDuration(memberObject.getDob()), getString(R.string.home_visit_suffix)));
     }
 
     @Override

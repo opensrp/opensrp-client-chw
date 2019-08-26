@@ -21,9 +21,21 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/anc_danger_signs_outcome"
+        android:enabled="true"
+        android:title="Anc danger signs outcome"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_pregnancy_out_come"
         android:enabled="true"
         android:title="@string/anc_pregnancy_out_come"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_malaria_diagnosis"
+        android:enabled="true"
+        android:title="@string/malaria_diagnosis"
         app:showAsAction="never" />
 
 </menu>

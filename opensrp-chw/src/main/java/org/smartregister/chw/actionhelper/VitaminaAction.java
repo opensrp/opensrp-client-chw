@@ -47,6 +47,35 @@ public class VitaminaAction extends HomeVisitActionHelper {
         // prevent default behavoiur
     }
 
+    @Override
+    public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+        return isOverDue() ? BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
+    }
+
+    private boolean isOverDue() {
+        return new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
+    }
+
+    @Override
+    public void onPayloadReceived(BaseAncHomeVisitAction ba) {
+        try {
+            JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+            String value = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("vitamin_a{0}_date", serviceIteration));
+
+            try {
+                if (ba.getServiceWrapper() != null && ba.getServiceWrapper().size() > 0) {
+                    DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
+                    ba.getServiceWrapper().get(0).setUpdatedVaccineDate(updateDate, false);
+                }
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+    }
+
     public JSONObject preProcess(JSONObject jsonObject, String iteration) throws JSONException {
         JSONArray fields = JsonFormUtils.fields(jsonObject);
 
@@ -59,15 +88,6 @@ public class VitaminaAction extends HomeVisitActionHelper {
         visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context)));
 
         return jsonObject;
-    }
-
-    @Override
-    public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-        return isOverDue() ? BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
-    }
-
-    private boolean isOverDue() {
-        return new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
     }
 
     @Override
@@ -99,33 +119,14 @@ public class VitaminaAction extends HomeVisitActionHelper {
 
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-        if (StringUtils.isBlank(str_date))
+        if (StringUtils.isBlank(str_date)) {
             return BaseAncHomeVisitAction.Status.PENDING;
+        }
 
         if (parsedDate != null) {
             return BaseAncHomeVisitAction.Status.COMPLETED;
         } else {
             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-        }
-    }
-
-    @Override
-    public void onPayloadReceived(BaseAncHomeVisitAction ba) {
-        try {
-            JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
-            String value = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("vitamin_a{0}_date", serviceIteration));
-
-            try {
-                if (ba.getServiceWrapper() != null && ba.getServiceWrapper().size() > 0) {
-                    DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
-                    ba.getServiceWrapper().get(0).setUpdatedVaccineDate(updateDate, false);
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-
-        } catch (JSONException e) {
-            Timber.e(e);
         }
     }
 }
