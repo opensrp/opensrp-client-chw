@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
@@ -20,6 +22,19 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private FamilyProfileActivityFragment profileActivityFragment;
+    private BaseFamilyProfileDueFragment profileDueFragment;
+
+    public void updateWashCheckActivity() {
+        profileActivityFragment.updateWashCheck();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && profileDueFragment != null) {
+            profileDueFragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
     @Override
     protected void refreshPresenter() {
@@ -70,7 +85,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
-        BaseFamilyProfileDueFragment profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
+        profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
         profileActivityFragment = (FamilyProfileActivityFragment) FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
 
         adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
@@ -85,9 +100,4 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
         return viewPager;
     }
-
-    public void updateWashCheckActivity() {
-        profileActivityFragment.updateWashCheck();
-    }
-
 }

@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.activity.BaseAncRegisterActivity;
+import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -21,8 +22,6 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
 
 public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
     protected static String phone_number;
@@ -42,7 +41,7 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
         familyName = family_name;
         unique_id = uniqueId;
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
-        intent.putExtra(TABLE_NAME, getFormTable());
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.TABLE_NAME, getFormTable());
         activity.startActivity(intent);
     }
 

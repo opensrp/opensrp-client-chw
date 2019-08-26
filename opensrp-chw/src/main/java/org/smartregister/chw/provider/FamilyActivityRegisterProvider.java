@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
-import static org.smartregister.family.util.Utils.getName;
+import timber.log.Timber;
 
 public class FamilyActivityRegisterProvider extends org.smartregister.family.provider.FamilyActivityRegisterProvider {
     public FamilyActivityRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
@@ -63,7 +63,7 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
             fillValue(viewHolder.lastVisit, String.format(context.getString(R.string.profile_activity_completed), new SimpleDateFormat("dd MMM yyyy").format(new Date(dateVisited))));
         }
 
-        String patientName = getName(firstName, middleName, lastName);
+        String patientName = Utils.getName(firstName, middleName, lastName);
 
         String dob = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
         String dobString = Utils.getDuration(dob);
@@ -115,7 +115,7 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
         try {
             res = Long.valueOf(string);
         } catch (Exception e) {
-
+            Timber.e(e);
         }
         return res;
     }

@@ -16,6 +16,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
@@ -23,6 +24,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
 
+import com.google.android.gms.common.internal.Preconditions;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -30,23 +32,28 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Hours;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.FamilyCallDialogContract;
 import org.smartregister.chw.core.fragment.CopyToClipboardDialog;
-import org.smartregister.chw.core.fragment.GrowthNutritionInputFragment;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.domain.db.Event;
+import org.smartregister.domain.db.EventClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.PermissionUtils;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,8 +61,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static com.google.android.gms.common.internal.Preconditions.checkArgument;
 
 public abstract class Utils extends org.smartregister.family.util.Utils {
     public static final SimpleDateFormat dd_MMM_yyyy = new SimpleDateFormat("dd MMM yyyy");
@@ -92,11 +97,11 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
     }
 
     public static String getServiceTypeLanguageSpecific(Context context, String value) {
-        if (value.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
+        if (value.equalsIgnoreCase(CoreConstants.GROWTH_TYPE.EXCLUSIVE.getValue())) {
             return context.getString(R.string.exclusive_breastfeeding);
-        } else if (value.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue())) {
+        } else if (value.equalsIgnoreCase(CoreConstants.GROWTH_TYPE.VITAMIN.getValue())) {
             return context.getString(R.string.vitamin_a);
-        } else if (value.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())) {
+        } else if (value.equalsIgnoreCase(CoreConstants.GROWTH_TYPE.DEWORMING.getValue())) {
             return context.getString(R.string.deworming);
         }
         return value;
@@ -223,12 +228,59 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
         return " " + context.getString(resId);
     }
 
+    @Nullable
+    public static String getDayOfMonthWithSuffix(int day, Context context) {
+        Preconditions.checkArgument(day >= 1 && day <= 31, "illegal day of month: " + day);
+        switch (day) {
+            case 1:
+                return context.getString(R.string.abv_first);
+            case 2:
+                return context.getString(R.string.abv_second);
+            case 3:
+                return context.getString(R.string.abv_third);
+            case 4:
+                return context.getString(R.string.abv_fourth);
+            case 5:
+                return context.getString(R.string.abv_fifth);
+            case 6:
+                return context.getString(R.string.abv_sixth);
+            case 7:
+                return context.getString(R.string.abv_seventh);
+            case 8:
+                return context.getString(R.string.abv_eigth);
+            case 9:
+                return context.getString(R.string.abv_nineth);
+            case 10:
+                return context.getString(R.string.abv_tenth);
+            case 11:
+                return context.getString(R.string.abv_eleventh);
+            case 12:
+                return context.getString(R.string.abv_twelfth);
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * use  translated equivalent  {@link #getDayOfMonthWithSuffix(int, Context)}
+     *
+     * @param n
+     * @return
+     */
+    @Deprecated
     public static String getDayOfMonthSuffix(String n) {
         return getDayOfMonthSuffix(Integer.parseInt(n));
     }
 
+    /**
+     * use  translated equivalent  {@link #getDayOfMonthWithSuffix(int, Context)}
+     *
+     * @param n
+     * @return
+     */
+    @Deprecated
     public static String getDayOfMonthSuffix(final int n) {
-        checkArgument(n >= 1 && n <= 31, "illegal day of month: " + n);
+        Preconditions.checkArgument(n >= 1 && n <= 31, "illegal day of month: " + n);
         if (n >= 11 && n <= 13) {
             return "th";
         }
@@ -351,7 +403,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
 
     public static String getFamilyMembersSql(String familyID) {
 
-        String info_columns = DBConstants.KEY.RELATIONAL_ID + " , " +
+        return DBConstants.KEY.RELATIONAL_ID + " , " +
                 DBConstants.KEY.BASE_ENTITY_ID + " , " +
                 DBConstants.KEY.FIRST_NAME + " , " +
                 DBConstants.KEY.MIDDLE_NAME + " , " +
@@ -361,8 +413,6 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
                 DBConstants.KEY.DOB + " , " +
                 DBConstants.KEY.DOD + " , " +
                 DBConstants.KEY.GENDER;
-
-        return info_columns;
     }
 
     public static String formatReferralDuration(DateTime referralTime, Context context) {
@@ -387,5 +437,131 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
             return StringUtils.join(subLocationIds, ",");
         }
         return "";
+    }
+
+
+    /**
+     * This is a compatibility class to process the old child home visit events to
+     * the new visits structure
+     *
+     * @param eventClient
+     * @return
+     */
+    public static List<EventClient> processOldEvents(EventClient eventClient) {
+
+        // remove all nested events and add them to this object
+        List<EventClient> events = new ArrayList<>();
+
+        if (eventClient.getEvent() == null) {
+            return new ArrayList<>();
+        }
+
+        Event event = eventClient.getEvent();
+        List<org.smartregister.domain.db.Obs> observations = new ArrayList<>();
+        for (org.smartregister.domain.db.Obs obs : event.getObs()) {
+            switch (obs.getFieldCode()) {
+                case "illness_information":
+                    try {
+                        JSONObject jsonObject = new JSONObject(obs.getValues().get(0).toString());
+                        if (jsonObject.has("obsIllness")) {
+                            Event obsEvent = convert(jsonObject.getString("obsIllness"), Event.class);
+                            events.add(new EventClient(obsEvent, eventClient.getClient()));
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                    break;
+                case "birth_certificate":
+                    try {
+                        String val = obs.getValues().get(0).toString();
+                        if (val.equalsIgnoreCase("NOT_GIVEN") || val.equalsIgnoreCase("GIVEN")) {
+                            observations.add(obs);
+                            continue;
+                        }
+
+                        JSONObject jsonObject = new JSONObject(val);
+                        if (jsonObject.has("birtCert")) {
+                            Event obsEvent = convert(jsonObject.getString("birtCert"), Event.class);
+                            events.add(new EventClient(obsEvent, eventClient.getClient()));
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                    break;
+                case "service":
+                    try {
+                        JSONArray jsonArray = new JSONArray(obs.getValues());
+                        int length = jsonArray.length();
+                        int x = 0;
+                        while (x < length) {
+                            String value_raw = jsonArray.getString(x);
+                            String values = value_raw.substring(1, value_raw.length() - 1);
+                            String[] services = values.split(",");
+                            for (String service_str : services) {
+                                String[] service = service_str.split(":");
+                                if (service.length == 2) {
+                                    String key = service[0].substring(1, service[0].length() - 1);
+                                    String val = service[1].substring(1, service[1].length() - 1);
+
+                                    org.smartregister.domain.db.Obs obs1 = new org.smartregister.domain.db.Obs();
+                                    obs1.setFieldType("formsubmissionField");
+                                    obs1.setFieldDataType("text");
+                                    obs1.setFieldCode(key);
+                                    obs1.setFormSubmissionField(key);
+                                    obs1.setParentCode("");
+                                    obs1.setValues(new ArrayList<>(Arrays.asList(val)));
+                                    obs1.setHumanReadableValues(new ArrayList<>(Arrays.asList(val)));
+                                    observations.add(obs1);
+                                }
+                            }
+                            x++;
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                    break;
+                default:
+                    observations.add(obs);
+                    break;
+            }
+
+        }
+
+        // exclude these events
+        // fieldCode : singleVaccine , service ,  vaccineNotGiven , groupVaccine , serviceNotGiven
+
+
+        // convert the json in these events
+        // fieldCode : birth_certificate
+
+        event.setObs(null);
+        event.setObs(observations);
+
+        events.add(new EventClient(event, eventClient.getClient()));
+
+        return events;
+    }
+
+    private static <T> T convert(String jsonString, Class<T> t) {
+        if (StringUtils.isBlank(jsonString)) {
+            return null;
+        }
+        try {
+            return JsonFormUtils.gson.fromJson(jsonString, t);
+        } catch (Exception e) {
+            Timber.e(e);
+            Timber.e(jsonString);
+            return null;
+        }
+    }
+
+    public static String getStringResourceByName(String name, Context context) {
+        String packageName = context.getPackageName();
+        int resId = context.getResources().getIdentifier(name, "string", packageName);
+        if (resId == 0) {
+            return name;
+        } else {
+            return context.getString(resId);
+        }
     }
 }

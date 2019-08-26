@@ -15,6 +15,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.immunization.db.VaccineRepo;
+import org.smartregister.util.JsonFormUtils;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -25,10 +26,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.JsonFormUtils.getValue;
-import static org.smartregister.util.JsonFormUtils.fields;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class TTAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
     private Context context;
@@ -42,12 +39,12 @@ public class TTAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper
     }
 
     public JSONObject preProcess(JSONObject jsonObject, String iteration) throws JSONException {
-        JSONArray fields = fields(jsonObject);
+        JSONArray fields = JsonFormUtils.fields(jsonObject);
 
         String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
         jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, iteration));
 
-        JSONObject visit_field = getFieldJSONObject(fields, "tt{0}_date");
+        JSONObject visit_field = JsonFormUtils.getFieldJSONObject(fields, "tt{0}_date");
         visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration));
         visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), iteration));
 
@@ -68,7 +65,7 @@ public class TTAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            str_date = getValue(jsonObject, MessageFormat.format("tt{0}_date", vaccineStringTriple.getRight()));
+            str_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("tt{0}_date", vaccineStringTriple.getRight()));
 
             try {
                 parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(str_date);
@@ -122,7 +119,7 @@ public class TTAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper
     public void onPayloadReceived(BaseAncHomeVisitAction ba) {
         try {
             JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
-            String value = getValue(jsonObject, MessageFormat.format("tt{0}_date", vaccineStringTriple.getRight()));
+            String value = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("tt{0}_date", vaccineStringTriple.getRight()));
 
             try {
                 if (ba.getVaccineWrapper() != null && ba.getVaccineWrapper().size() > 0) {

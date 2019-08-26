@@ -28,9 +28,10 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.model.VaccineTaskModel;
+import org.smartregister.chw.core.utils.RecurringServiceUtil;
+import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
-import org.smartregister.chw.util.VaccineScheduleUtil;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.VaccineWrapper;
@@ -42,8 +43,6 @@ import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.RecurringServiceUtil.getRecurringServices;
 
 public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor {
 
@@ -140,8 +139,9 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
     }
 
     private void evaluateANCCard() throws Exception {
-        if (memberObject.getHasAncCard() != null && memberObject.getHasAncCard().equals("Yes"))
+        if (memberObject.getHasAncCard() != null && memberObject.getHasAncCard().equals("Yes")) {
             return;
+        }
 
         BaseAncHomeVisitAction anc_card = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_anc_card_received))
                 .withOptional(false)
@@ -203,7 +203,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
     private void evaluateIPTP() throws Exception {
         // if there are no pending vaccines
         DateTime lmp = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
-        Map<String, ServiceWrapper> serviceWrapperMap = getRecurringServices(memberObject.getBaseEntityId(), lmp, "woman");
+        Map<String, ServiceWrapper> serviceWrapperMap = RecurringServiceUtil.getRecurringServices(memberObject.getBaseEntityId(), lmp, "woman");
         ServiceWrapper serviceWrapper = serviceWrapperMap.get("IPTp-SP");
 
         if (serviceWrapper == null) {

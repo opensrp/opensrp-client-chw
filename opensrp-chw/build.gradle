@@ -65,7 +65,6 @@ android {
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '30'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
-            buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '180'
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
             buildConfigField "int", "BASE_PNC_CLOSE_HOURS", '24'
         }
@@ -79,7 +78,6 @@ android {
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '30'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '15'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '15'
-            buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
             buildConfigField "int", "BASE_PNC_CLOSE_HOURS", '24'
             testCoverageEnabled true
@@ -124,42 +122,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'true'
-            buildConfigField "int", "DATABASE_VERSION", '12'
-        }
-        wcaro {
-            dimension = 'baseDimension'
-            versionCode 1
-            versionName "0.1.7"
-            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
-            buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "int", "DATABASE_VERSION", '6'
-        }
-        togo {
-            dimension = 'baseDimension'
-            applicationIdSuffix ".togo"
-            versionCode 1
-            versionName "0.0.6"
-            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"CHW"'
-            buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "int", "DATABASE_VERSION", '9'
-        }
-        guinea {
-            dimension = 'baseDimension'
-            applicationIdSuffix ".guinea"
-            versionCode 1
-            versionName "0.0.1"
-            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
-            buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "int", "DATABASE_VERSION", '6'
+            buildConfigField "int", "DATABASE_VERSION", '11'
         }
         chad {
             dimension = 'baseDimension'
@@ -185,6 +148,41 @@ android {
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
+        guinea {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".guinea"
+            versionCode 1
+            versionName "0.0.1"
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "int", "DATABASE_VERSION", '6'
+        }
+        togo {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".togo"
+            versionCode 1
+            versionName "0.0.6"
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"CHW"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "int", "DATABASE_VERSION", '9'
+        }
+        wcaro {
+            dimension = 'baseDimension'
+            versionCode 1
+            versionName "0.1.7"
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "int", "DATABASE_VERSION", '6'
+        }
     }
 }
 
@@ -203,7 +201,7 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.8.47'
-    testImplementation 'org.robolectric:robolectric:3.8'
+    testImplementation 'org.robolectric:robolectric:4.0.1'
     testImplementation 'org.robolectric:shadows-multidex:3.8'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
 

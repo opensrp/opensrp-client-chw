@@ -2,12 +2,10 @@ package org.smartregister.chw.custom_view;
 
 import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
+import android.view.View;
 import android.widget.TextView;
 
 import org.smartregister.chw.R;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 public class FamilyMemberFloatingMenuFlv implements FamilyMemberFloatingMenu.Flavor {
 
@@ -22,7 +20,7 @@ public class FamilyMemberFloatingMenuFlv implements FamilyMemberFloatingMenu.Fla
 
         if (has_phone) {
 
-            callTextViewHint.setVisibility(GONE);
+            callTextViewHint.setVisibility(View.GONE);
             menu.getCallLayout().setOnClickListener(menu);
             callTextView.setTypeface(null, Typeface.NORMAL);
             callTextView.setTextColor(menu.getResources().getColor(android.R.color.black));
@@ -30,7 +28,7 @@ public class FamilyMemberFloatingMenuFlv implements FamilyMemberFloatingMenu.Fla
 
         } else {
 
-            callTextViewHint.setVisibility(VISIBLE);
+            callTextViewHint.setVisibility(View.VISIBLE);
             menu.getCallLayout().setOnClickListener(null);
             callTextView.setTypeface(null, Typeface.ITALIC);
             callTextView.setTextColor(menu.getResources().getColor(R.color.grey));

@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
@@ -22,7 +23,6 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
@@ -36,13 +36,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.powermock.api.mockito.PowerMockito.verifyPrivate;
-
 @RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
+@Config(application = ChwApplication.class, sdk = 22)
 public class FamilyProfileActivityTest {
 
     private final String TEST_CARE_GIVER = "45645sdfs64564544";
@@ -98,7 +93,7 @@ public class FamilyProfileActivityTest {
     public void refreshPresenter() throws Exception {
 
         FamilyProfileActivity spyActivity = Mockito.spy(activity);
-        FamilyProfilePresenter presenter = mock(FamilyProfilePresenter.class);
+        FamilyProfilePresenter presenter = Mockito.mock(FamilyProfilePresenter.class);
 
         Whitebox.setInternalState(spyActivity, presenter);
         // verify current presenter
@@ -116,7 +111,7 @@ public class FamilyProfileActivityTest {
         FamilyProfileActivity spyActivity = Mockito.spy(activity);
         JSONObject form = getFormJson(RuntimeEnvironment.application, CoreConstants.JSON_FORM.getFamilyMemberRegister());
 
-        FamilyProfilePresenter presenter = mock(FamilyProfilePresenter.class);
+        FamilyProfilePresenter presenter = Mockito.mock(FamilyProfilePresenter.class);
         Whitebox.setInternalState(spyActivity, "presenter", presenter);
 
         int resultCode = Activity.RESULT_OK;
@@ -124,11 +119,11 @@ public class FamilyProfileActivityTest {
         Intent data = new Intent();
         data.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, form.toString());
 
-        when(presenter.updatePrimaryCareGiver(spyActivity.getApplicationContext(), form.toString(), null, null)).thenReturn(true);
+        Mockito.when(presenter.updatePrimaryCareGiver(spyActivity.getApplicationContext(), form.toString(), null, null)).thenReturn(true);
 
         spyActivity.onActivityResult(requestCode, resultCode, data);
 
-        verify(presenter).updatePrimaryCareGiver(spyActivity.getApplicationContext(), form.toString(), null, null);
+        Mockito.verify(presenter).updatePrimaryCareGiver(spyActivity.getApplicationContext(), form.toString(), null, null);
     }
 
     public JSONObject getFormJson(Application mContext, String formIdentity) {
@@ -167,14 +162,14 @@ public class FamilyProfileActivityTest {
         data.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, TEST_FAMILY_HEAD);
 
 
-        BaseFamilyProfileMemberFragment profileMemberFragment = mock(BaseFamilyProfileMemberFragment.class);
-        when(spyActivity.getProfileMemberFragment()).thenReturn(profileMemberFragment);
+        BaseFamilyProfileMemberFragment profileMemberFragment = Mockito.mock(BaseFamilyProfileMemberFragment.class);
+        Mockito.when(spyActivity.getProfileMemberFragment()).thenReturn(profileMemberFragment);
 
         // execute
         spyActivity.onActivityResult(requestCode, resultCode, data);
 
         // verify
-        verifyPrivate(spyActivity).invoke("refreshMemberFragment", TEST_CARE_GIVER, TEST_FAMILY_HEAD);
+        PowerMockito.verifyPrivate(spyActivity).invoke("refreshMemberFragment", TEST_CARE_GIVER, TEST_FAMILY_HEAD);
     }
 
     @Test
@@ -186,8 +181,8 @@ public class FamilyProfileActivityTest {
     public void testRefreshMemberFragment() throws Exception {
 
         FamilyProfileActivity spyActivity = Mockito.spy(activity);
-        BaseFamilyProfileMemberFragment fragment = mock(BaseFamilyProfileMemberFragment.class);
-        when(spyActivity.getProfileMemberFragment()).thenReturn(fragment);
+        BaseFamilyProfileMemberFragment fragment = Mockito.mock(BaseFamilyProfileMemberFragment.class);
+        Mockito.when(spyActivity.getProfileMemberFragment()).thenReturn(fragment);
 
         String careGiverID = "123456";
         String familyHeadID = "7234556";
@@ -195,11 +190,11 @@ public class FamilyProfileActivityTest {
         // test that updates are sent to the member fragment
         Whitebox.invokeMethod(spyActivity, "refreshMemberFragment", careGiverID, familyHeadID);
 
-        verify(fragment).setPrimaryCaregiver(careGiverID);
-        verify(fragment).setFamilyHead(familyHeadID);
+        Mockito.verify(fragment).setPrimaryCaregiver(careGiverID);
+        Mockito.verify(fragment).setFamilyHead(familyHeadID);
 
         // test that updates are sent to the refresh member list
 
-        verify(spyActivity).refreshMemberList(FetchStatus.fetched);
+        Mockito.verify(spyActivity).refreshMemberList(FetchStatus.fetched);
     }
 }

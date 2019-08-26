@@ -14,14 +14,13 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.smartregister.chw.BaseActivityTest;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.helper.ImageRenderHelper;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
+@Config(application = ChwApplication.class, sdk = 22)
 public class AboveFiveChildProfileActivityTest extends BaseActivityTest<AboveFiveChildProfileActivity> {
     @Mock
     RelativeLayout layoutLastVisitRow;

@@ -9,16 +9,18 @@ import android.widget.Button;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.dao.VisitDao;
+import org.smartregister.chw.core.domain.VisitSummary;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
-import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
-import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+
+import java.util.Map;
 
 public class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
     private final Context context;
@@ -43,26 +45,23 @@ public class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         if (commonRepository != null) {
             commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
-            if (commonPersonObject != null) {
-                String strDateCreated = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.DATE_CREATED, false);
-                String lastVisitDate = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-                String visitNotDone = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
+
+            Map<String, VisitSummary> map = VisitDao.getVisitSummary(baseEntityId);
+            if (map != null) {
+                VisitSummary notDoneSummary = map.get(CoreConstants.EventType.CHILD_VISIT_NOT_DONE);
+                VisitSummary lastVisitSummary = map.get(CoreConstants.EventType.CHILD_HOME_VISIT);
+
                 long lastVisit = 0;
                 long visitNot = 0;
                 long dateCreated = 0;
-                if (!TextUtils.isEmpty(visitNotDone)) {
-                    visitNot = Long.parseLong(visitNotDone);
-                }
-                if (!TextUtils.isEmpty(lastVisitDate)) {
-                    lastVisit = Long.parseLong(lastVisitDate);
-                }
-                if (!TextUtils.isEmpty(strDateCreated)) {
-                    dateCreated = Utils.dobStringToDateTime(strDateCreated).getMillis();
-                }
+                if (lastVisitSummary != null)
+                    lastVisit = lastVisitSummary.getVisitDate().getTime();
+
+                if (notDoneSummary != null)
+                    visitNot = notDoneSummary.getVisitDate().getTime();
 
                 String dobString = Utils.getDuration(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
                 childVisit = CoreChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
-
             }
             return null;
         }
@@ -73,15 +72,15 @@ public class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void param) {
         if (commonPersonObject != null) {
             viewHolder.dueButton.setVisibility(View.VISIBLE);
-            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.DUE.name())) {
+            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name())) {
                 setVisitButtonDueStatus(context, viewHolder.dueButton);
-            } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
+            } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.OVERDUE.name())) {
                 setVisitButtonOverdueStatus(context, viewHolder.dueButton, childVisit.getNoOfMonthDue());
-            } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
+            } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.LESS_TWENTY_FOUR.name())) {
                 setVisitLessTwentyFourView(context, viewHolder.dueButton);
-            } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
+            } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.VISIT_THIS_MONTH.name())) {
                 setVisitAboveTwentyFourView(context, viewHolder.dueButton);
-            } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
+            } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.NOT_VISIT_THIS_MONTH.name())) {
                 setVisitNotDone(context, viewHolder.dueButton);
             }
         } else {

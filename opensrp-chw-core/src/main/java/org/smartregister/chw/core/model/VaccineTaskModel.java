@@ -1,8 +1,10 @@
 package org.smartregister.chw.core.model;
 
+import org.joda.time.DateTime;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 public class VaccineTaskModel {
+    private String vaccineGroupName;
+    private VaccineGroup groupMap;
+    private DateTime anchorDate;
     private List<Alert> alerts;
     private Map<String, Alert> alertsMap = null;
     private List<Vaccine> vaccines;
@@ -37,6 +42,30 @@ public class VaccineTaskModel {
             }
         }
         return alertsMap;
+    }
+
+    public String getVaccineGroupName() {
+        return vaccineGroupName;
+    }
+
+    public void setVaccineGroupName(String vaccineGroupName) {
+        this.vaccineGroupName = vaccineGroupName;
+    }
+
+    public VaccineGroup getGroupMap() {
+        return groupMap;
+    }
+
+    public void setGroupMap(VaccineGroup groupMap) {
+        this.groupMap = groupMap;
+    }
+
+    public DateTime getAnchorDate() {
+        return anchorDate;
+    }
+
+    public void setAnchorDate(DateTime anchorDate) {
+        this.anchorDate = anchorDate;
     }
 
     public List<Vaccine> getVaccines() {

@@ -79,8 +79,10 @@ public class CoreChildRegisterActivity extends BaseRegisterActivity implements C
     @Override
     protected void onResumption() {
         super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(CoreConstants.DrawerMenu.CHILD_CLIENTS);
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if (menu != null) {
+            menu.getNavigationAdapter().setSelectedView(CoreConstants.DrawerMenu.CHILD_CLIENTS);
+        }
     }
 
     @Override

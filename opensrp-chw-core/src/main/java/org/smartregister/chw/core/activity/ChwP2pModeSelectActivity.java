@@ -1,4 +1,4 @@
-package activity;
+package org.smartregister.chw.core.activity;
 
 import android.content.Context;
 import android.os.Bundle;

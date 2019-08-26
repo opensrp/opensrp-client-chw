@@ -7,7 +7,7 @@ public abstract class DefaultFamilyChangeContractInteractorFlv implements CoreFa
     @Override
     public String getFamilyMembersSql(String familyID) {
 
-        String info_columns = DBConstants.KEY.RELATIONAL_ID + " , " +
+        return DBConstants.KEY.RELATIONAL_ID + " , " +
                 DBConstants.KEY.BASE_ENTITY_ID + " , " +
                 DBConstants.KEY.FIRST_NAME + " , " +
                 DBConstants.KEY.MIDDLE_NAME + " , " +
@@ -18,7 +18,5 @@ public abstract class DefaultFamilyChangeContractInteractorFlv implements CoreFa
                 DBConstants.KEY.DOD + " , " +
                 DBConstants.KEY.GENDER + " , " +
                 DBConstants.KEY.HIGHEST_EDU_LEVEL;
-
-        return info_columns;
     }
 }

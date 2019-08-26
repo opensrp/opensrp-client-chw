@@ -11,8 +11,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.util.JsonFormUtils;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -24,12 +27,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.core.utils.Utils.getDayOfMonthSuffix;
-import static org.smartregister.chw.util.JsonFormUtils.getValue;
-import static org.smartregister.util.JsonFormUtils.fields;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
-
-public class IPTPAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
+public class IPTPAction extends HomeVisitActionHelper {
     private Context context;
     private String serviceIteration;
     private String str_date;
@@ -41,13 +39,13 @@ public class IPTPAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelp
     }
 
     public JSONObject preProcess(JSONObject jsonObject, String iteration) throws JSONException {
-        JSONArray fields = fields(jsonObject);
+        JSONArray fields = JsonFormUtils.fields(jsonObject);
 
         String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
-        String formatted_count = MessageFormat.format("{0}{1}", iteration, getDayOfMonthSuffix(iteration));
+        String formatted_count = MessageFormat.format("{0}{1}", iteration, Utils.getDayOfMonthSuffix(iteration));
         jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, formatted_count));
 
-        JSONObject visit_field = getFieldJSONObject(fields, "iptp{0}_date");
+        JSONObject visit_field = JsonFormUtils.getFieldJSONObject(fields, "iptp{0}_date");
         visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration));
         visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), iteration));
 
@@ -60,21 +58,18 @@ public class IPTPAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelp
     }
 
     @Override
-    public String getPreProcessed() {
-        return null;
-    }
-
-    @Override
-    public void onPayloadReceived(String jsonPayload) {
+    public void onPayloadReceived(BaseAncHomeVisitAction ba) {
         try {
-            JSONObject jsonObject = new JSONObject(jsonPayload);
-            str_date = getValue(jsonObject, MessageFormat.format("iptp{0}_date", serviceIteration));
+            JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+            String value = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("iptp{0}_date", serviceIteration));
 
             try {
-                parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(str_date);
-            } catch (ParseException e) {
+                if (ba.getServiceWrapper() != null && ba.getServiceWrapper().size() > 0) {
+                    DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
+                    ba.getServiceWrapper().get(0).setUpdatedVaccineDate(updateDate, false);
+                }
+            } catch (Exception e) {
                 Timber.e(e);
-                parsedDate = null;
             }
 
         } catch (JSONException e) {
@@ -83,18 +78,20 @@ public class IPTPAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelp
     }
 
     @Override
-    public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-        return null;
-    }
+    public void onPayloadReceived(String jsonPayload) {
+        try {
+            JSONObject jsonObject = new JSONObject(jsonPayload);
+            str_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("iptp{0}_date", serviceIteration));
 
-    @Override
-    public String getPreProcessedSubTitle() {
-        return null;
-    }
+            try {
+                parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(str_date);
+            } catch (ParseException e) {
+                parsedDate = null;
+            }
 
-    @Override
-    public String postProcess(String s) {
-        return null;
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
     }
 
     @Override
@@ -109,33 +106,14 @@ public class IPTPAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelp
 
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-        if (StringUtils.isBlank(str_date))
+        if (StringUtils.isBlank(str_date)) {
             return BaseAncHomeVisitAction.Status.PENDING;
+        }
 
         if (parsedDate != null) {
             return BaseAncHomeVisitAction.Status.COMPLETED;
         } else {
             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-        }
-    }
-
-    @Override
-    public void onPayloadReceived(BaseAncHomeVisitAction ba) {
-        try {
-            JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
-            String value = getValue(jsonObject, MessageFormat.format("iptp{0}_date", serviceIteration));
-
-            try {
-                if (ba.getServiceWrapper() != null && ba.getServiceWrapper().size() > 0) {
-                    DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
-                    ba.getServiceWrapper().get(0).setUpdatedVaccineDate(updateDate, false);
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-
-        } catch (JSONException e) {
-            Timber.e(e);
         }
     }
 }

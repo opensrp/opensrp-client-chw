@@ -26,8 +26,6 @@ import java.util.HashMap;
 
 import timber.log.Timber;
 
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
-
 public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
     public static final String TITLE = "title";
     private HashMap<String, String> JSON_DB_MAP;
@@ -206,7 +204,7 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
 
         String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, false);
 
-        JSONObject sameAsFamName = getFieldJSONObject(jsonArray, SAME_AS_FAM_NAME);
+        JSONObject sameAsFamName = org.smartregister.util.JsonFormUtils.getFieldJSONObject(jsonArray, SAME_AS_FAM_NAME);
         JSONObject sameOptions = sameAsFamName.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
 
         if (familyName.equals(lastName)) {
@@ -215,7 +213,7 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
             sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, false);
         }
 
-        JSONObject surname = getFieldJSONObject(jsonArray, SURNAME);
+        JSONObject surname = org.smartregister.util.JsonFormUtils.getFieldJSONObject(jsonArray, SURNAME);
         if (!familyName.equals(lastName)) {
             surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, lastName);
         } else {
