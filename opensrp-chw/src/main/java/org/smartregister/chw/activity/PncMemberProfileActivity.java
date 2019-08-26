@@ -162,6 +162,11 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     }
 
     @Override
+    public void openMedicalHistory() {
+        PncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+    }
+
+    @Override
     protected void registerPresenter() {
         presenter = new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
     }
@@ -177,11 +182,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
             default:
                 break;
         }
-    }
-
-    @Override
-    public void openMedicalHistory() {
-        PncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
     }
 
     @Override

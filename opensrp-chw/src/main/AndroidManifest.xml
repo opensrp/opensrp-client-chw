@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="org.smartregister.chw">
 
     <application
         android:name=".application.ChwApplication"
         android:allowBackup="true"
         android:supportsRtl="true"
-        android:theme="@style/ChwTheme"
-        tools:replace="android:theme">
+        android:theme="@style/ChwTheme">
 
         <activity
-            android:name=".core.activity.AncUpcomingServicesActivity"
+            android:name=".activity.AncUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".core.activity.CoreAncMedicalHistoryActivity"
+            android:name=".activity.AncMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".core.activity.BaseChildMedicalHistory"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".core.activity.AncHomeVisitActivity"
+            android:name=".activity.AncHomeVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.AncRegisterActivity"
@@ -44,7 +46,7 @@
             android:name=".activity.MalariaRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
-        <activity android:name="activity.ChwP2pModeSelectActivity" />
+        <activity android:name=".core.activity.ChwP2pModeSelectActivity" />
 
         <activity
             android:name=".activity.JobAidsActivity"

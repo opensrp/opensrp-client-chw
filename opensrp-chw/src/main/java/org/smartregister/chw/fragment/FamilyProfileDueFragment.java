@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
-import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.utils.WashCheck;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileDueModel;
@@ -90,8 +90,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         this.clientsView.setAdapter(this.clientAdapter);
         //need some delay to ready the adapter
         new Handler().postDelayed(() -> {
-            if (flavorWashCheck.isWashCheckVisible())
+            if (flavorWashCheck.isWashCheckVisible()) {
                 ((FamilyProfileDuePresenter) presenter).fetchLastWashCheck(dateFamilyCreated);
+            }
 
         }, 500);
 
@@ -119,12 +120,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     public void goToChildProfileActivity(View view) {
         if (view.getTag() instanceof CommonPersonObjectClient) {
             CommonPersonObjectClient patient = (CommonPersonObjectClient) view.getTag();
-
-            Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
-            intent.putExtras(getArguments());
-            intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, true);
-            intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-            startActivity(intent);
+            ChildProfileActivity.startMe(getActivity(), new MemberObject(patient), ChildProfileActivity.class);
         }
 
     }
@@ -137,8 +133,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             dueCount = count;
             ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
         }
-        if (getActivity() != null)
+        if (getActivity() != null) {
             getActivity().runOnUiThread(() -> onEmptyRegisterCount(count < 1));
+        }
     }
 
     public void onEmptyRegisterCount(final boolean has_no_records) {
@@ -192,7 +189,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     }
 
     public void updateWashCheckBar(WashCheck washCheck) {
-        if (washCheckView.getVisibility() == View.VISIBLE) return;
+        if (washCheckView.getVisibility() == View.VISIBLE) {
+            return;
+        }
         addWashCheckView();
         TextView name = washCheckView.findViewById(R.id.patient_name_age);
         TextView lastVisit = washCheckView.findViewById(R.id.last_visit);

@@ -453,8 +453,9 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
         // remove all nested events and add them to this object
         List<EventClient> events = new ArrayList<>();
 
-        if (eventClient.getEvent() == null)
+        if (eventClient.getEvent() == null) {
             return new ArrayList<>();
+        }
 
         Event event = eventClient.getEvent();
         List<org.smartregister.domain.db.Obs> observations = new ArrayList<>();
@@ -481,7 +482,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
 
                         JSONObject jsonObject = new JSONObject(val);
                         if (jsonObject.has("birtCert")) {
-                            Event obsEvent = convert(jsonObject.getString("birtCert").toString(), Event.class);
+                            Event obsEvent = convert(jsonObject.getString("birtCert"), Event.class);
                             events.add(new EventClient(obsEvent, eventClient.getClient()));
                         }
                     } catch (Exception e) {

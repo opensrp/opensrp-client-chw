@@ -85,6 +85,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     protected TextView textViewParentName, textViewLastVisit, textViewMedicalHistory;
     protected CircleImageView imageViewProfile;
     protected View recordVisitPanel;
+    protected MemberObject memberObject;
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private TextView textViewTitle, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot, tvEdit;
@@ -96,8 +97,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     private ImageView imageViewCross;
     private ProgressBar progressBar;
     private String gender;
-
-    protected MemberObject memberObject;
 
     public static void startMe(Activity activity, MemberObject memberObject, Class<?> cls) {
         Intent intent = new Intent(activity, cls);

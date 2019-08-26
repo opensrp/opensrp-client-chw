@@ -119,6 +119,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     }
 
     @Override
+    public void openUpcomingService() {
+        //to
+    }
+
+    @Override
     public void openFamilyDueServices() {
         Intent intent = new Intent(this, FamilyProfileActivity.class);
 

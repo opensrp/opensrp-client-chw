@@ -19,7 +19,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.core.utils.VisitSummary;
 
-public class CoreAncMemberProfileActivity extends BaseAncMemberProfileActivity {
+public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -94,12 +94,6 @@ public class CoreAncMemberProfileActivity extends BaseAncMemberProfileActivity {
     @Override
     public void onClick(View view) {
         super.onClick(view);
-        int id = view.getId();
-        if (id == R.id.textview_record_visit || id == R.id.textview_record_reccuring_visit) {
-            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
-        } else if (id == R.id.textview_edit) {
-            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, true);
-        }
     }
 
     @Override
@@ -108,13 +102,9 @@ public class CoreAncMemberProfileActivity extends BaseAncMemberProfileActivity {
     }
 
     @Override
-    public void openUpcomingService() {
-        AncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
-    }
+    public abstract void openUpcomingService();
 
     @Override
-    public void openFamilyDueServices() {
-        //// TODO: 22/08/19
-    }
+    public abstract void openFamilyDueServices();
 
 }

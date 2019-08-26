@@ -1,4 +1,4 @@
-package org.smartregister.chw.core.activity;
+package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +12,7 @@ import org.smartregister.chw.anc.activity.BaseAncHomeVisitActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
 import org.smartregister.chw.core.R;
-import org.smartregister.chw.core.interactor.CoreAncHomeVisitInteractor;
+import org.smartregister.chw.interactor.AncHomeVisitInteractor;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -32,7 +32,7 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
 
     @Override
     protected void registerPresenter() {
-        presenter = new BaseAncHomeVisitPresenter(memberObject, this, new CoreAncHomeVisitInteractor());
+        presenter = new BaseAncHomeVisitPresenter(memberObject, this, new AncHomeVisitInteractor());
     }
 
     @Override

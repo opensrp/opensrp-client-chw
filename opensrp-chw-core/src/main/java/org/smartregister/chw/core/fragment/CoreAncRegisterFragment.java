@@ -14,7 +14,6 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.fragment.BaseAncRegisterFragment;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.R;
-import org.smartregister.chw.core.activity.AncHomeVisitActivity;
 import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -39,7 +38,7 @@ import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.Utils.convertDpToPixel;
 
-public class CoreAncRegisterFragment extends BaseAncRegisterFragment {
+public abstract class CoreAncRegisterFragment extends BaseAncRegisterFragment {
 
     private static final String DUE_FILTER_TAG = "PRESSED";
     private View view;
@@ -188,9 +187,7 @@ public class CoreAncRegisterFragment extends BaseAncRegisterFragment {
     }
 
     @Override
-    protected void openHomeVisit(CommonPersonObjectClient client) {
-        AncHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
-    }
+    protected abstract void openHomeVisit(CommonPersonObjectClient client);
 
     @Override
     public void onResume() {

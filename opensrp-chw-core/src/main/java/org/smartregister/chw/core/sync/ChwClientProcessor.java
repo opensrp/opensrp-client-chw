@@ -316,18 +316,18 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         }
     }
 
+    private void processVisitEvent(List<EventClient> eventClients) {
+        for (EventClient eventClient : eventClients) {
+            processVisitEvent(eventClient); // save locally
+        }
+    }
+
     // possible to delegate
     private void processVisitEvent(EventClient eventClient) {
         try {
             NCUtils.processAncHomeVisit(eventClient); // save locally
         } catch (Exception e) {
             Timber.e(e);
-        }
-    }
-
-    private void processVisitEvent(List<EventClient> eventClients) {
-        for (EventClient eventClient : eventClients) {
-            processVisitEvent(eventClient); // save locally
         }
     }
 

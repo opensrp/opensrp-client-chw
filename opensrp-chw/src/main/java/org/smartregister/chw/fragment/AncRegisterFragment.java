@@ -1,5 +1,6 @@
 package org.smartregister.chw.fragment;
 
+import org.smartregister.chw.activity.AncHomeVisitActivity;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -33,5 +34,10 @@ public class AncRegisterFragment extends CoreAncRegisterFragment {
         }
 
         AncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), familyName, familyHeadPhone);
+    }
+
+    @Override
+    protected void openHomeVisit(CommonPersonObjectClient client) {
+        AncHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
     }
 }

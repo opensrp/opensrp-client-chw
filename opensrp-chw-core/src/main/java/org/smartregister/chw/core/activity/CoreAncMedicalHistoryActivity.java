@@ -13,9 +13,7 @@ import java.util.List;
 
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
 
-public class CoreAncMedicalHistoryActivity extends BaseAncMedicalHistoryActivity {
-
-    private Flavor flavor;
+public abstract class CoreAncMedicalHistoryActivity extends BaseAncMedicalHistoryActivity {
 
     public static void startMe(Activity activity, MemberObject memberObject) {
         Intent intent = new Intent(activity, CoreAncMedicalHistoryActivity.class);
@@ -23,25 +21,7 @@ public class CoreAncMedicalHistoryActivity extends BaseAncMedicalHistoryActivity
         activity.startActivity(intent);
     }
 
-    public Flavor getFlavor() {
-        return flavor;
-    }
-
-    public void setFlavor(Flavor flavor) {
-        this.flavor = flavor;
-    }
-
-    @Override
-    public View renderView(List<Visit> visits) {
-        View view = flavor.bindViews(this);
-        displayLoadingState(true);
-        flavor.processViewData(visits, this);
-        displayLoadingState(false);
-        return view;
-    }
-
     public interface Flavor {
-
         View bindViews(Activity activity);
 
         void processViewData(List<Visit> visits, Context context);

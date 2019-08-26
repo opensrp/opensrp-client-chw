@@ -4,6 +4,7 @@ import org.smartregister.chw.core.contract.ImmunizationContact;
 import org.smartregister.chw.core.interactor.ImmunizationViewInteractor;
 import org.smartregister.chw.core.utils.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,27 +43,27 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
     @Override
     public void updateData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails, Map<String, Date> vaccines) {
 
-            this.homeVisitVaccineGroupDetails = homeVisitVaccineGroupDetails;
-            //if all due vaccine is same as given vaccine so remove the row.
-            // has an issue after 24 hours/next visit all given vaccine showing again
-            for (Iterator<HomeVisitVaccineGroup> iterator = this.homeVisitVaccineGroupDetails.iterator(); iterator.hasNext(); ) {
-                HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
-                if (homeVisitVaccineGroup.getDueVaccines().size() == 0 ||
-                        (homeVisitVaccineGroup.getDueVaccines().size() == homeVisitVaccineGroup.getGivenVaccines().size())) {
-                    iterator.remove();
-                }
+        this.homeVisitVaccineGroupDetails = homeVisitVaccineGroupDetails;
+        //if all due vaccine is same as given vaccine so remove the row.
+        // has an issue after 24 hours/next visit all given vaccine showing again
+        for (Iterator<HomeVisitVaccineGroup> iterator = this.homeVisitVaccineGroupDetails.iterator(); iterator.hasNext(); ) {
+            HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
+            if (homeVisitVaccineGroup.getDueVaccines().size() == 0 ||
+                    (homeVisitVaccineGroup.getDueVaccines().size() == homeVisitVaccineGroup.getGivenVaccines().size())) {
+                iterator.remove();
+            }
 
+        }
+        for (int i = 0; i < this.homeVisitVaccineGroupDetails.size(); i++) {
+            HomeVisitVaccineGroup homeVisitVaccineGroup = this.homeVisitVaccineGroupDetails.get(i);
+            if (i == 0) {
+                homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
+            } else {
+                homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_INACTIVE);
             }
-            for (int i = 0; i < this.homeVisitVaccineGroupDetails.size(); i++) {
-                HomeVisitVaccineGroup homeVisitVaccineGroup = this.homeVisitVaccineGroupDetails.get(i);
-                if (i == 0) {
-                    homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
-                } else {
-                    homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_INACTIVE);
-                }
-            }
-            getView().allDataLoaded();
-            getView().updateAdapter(0, view.get().getMyContext());
+        }
+        getView().allDataLoaded();
+        getView().updateAdapter(0, view.get().getMyContext());
 
 
     }

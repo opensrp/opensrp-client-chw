@@ -18,6 +18,7 @@ import org.smartregister.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.Map;
+
 import timber.log.Timber;
 
 import static org.smartregister.util.Utils.startAsyncTask;

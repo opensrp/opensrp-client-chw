@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -118,6 +119,27 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        int id = view.getId();
+        if (id == R.id.textview_record_visit || id == R.id.textview_record_reccuring_visit) {
+            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
+        } else if (id == R.id.textview_edit) {
+            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, true);
+        }
+    }
+
+    @Override
+    public void openMedicalHistory() {
+        AncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+    }
+
+    @Override
+    public void openUpcomingService() {
+        AncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
     }
 
     @Override
