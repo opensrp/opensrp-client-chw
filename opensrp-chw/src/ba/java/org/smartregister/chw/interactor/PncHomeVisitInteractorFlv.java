@@ -46,9 +46,6 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue;
-import static org.smartregister.chw.util.JsonFormUtils.getValue;
-
 public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv {
     protected List<Person> children;
     protected BaseAncHomeVisitContract.View view;
@@ -103,7 +100,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             public void onPayloadReceived(String s) {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
-                    danger_signs_present_mama = getCheckBoxValue(jsonObject, "danger_signs_present_mama");
+                    danger_signs_present_mama = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "danger_signs_present_mama");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -145,7 +142,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             public void onPayloadReceived(String s) {
                 try {
                     JSONObject jsonObject = new JSONObject(s);
-                    danger_signs_present_child = getCheckBoxValue(jsonObject, "danger_signs_present_child");
+                    danger_signs_present_child = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "danger_signs_present_child");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -193,7 +190,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    fp_counseling = getValue(jsonObject, "fp_counseling");
+                    fp_counseling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_counseling");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -241,7 +238,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    exclusive_breast_feeding = getValue(jsonObject, "exclusive_breast_feeding");
+                    exclusive_breast_feeding = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "exclusive_breast_feeding");
                 } catch (JSONException e) {
                     Timber.e(e);
                 }
@@ -295,7 +292,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    couselling_pnc = getCheckBoxValue(jsonObject, "couselling_pnc");
+                    couselling_pnc = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "couselling_pnc");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -333,7 +330,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    nutrition_status_mama = getValue(jsonObject, "nutrition_status_mama");
+                    nutrition_status_mama = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "nutrition_status_mama");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -375,7 +372,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    nutrition_status_1m = getValue(jsonObject, "nutrition_status_1m");
+                    nutrition_status_1m = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "nutrition_status_1m");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -419,9 +416,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    fam_llin = getValue(jsonObject, "fam_llin");
-                    llin_2days = getValue(jsonObject, "llin_2days");
-                    llin_condition = getValue(jsonObject, "llin_condition");
+                    fam_llin = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fam_llin");
+                    llin_2days = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "llin_2days");
+                    llin_condition = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "llin_condition");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -474,9 +471,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    date_of_illness = getValue(jsonObject, "date_of_illness_mama");
-                    illness_description = getValue(jsonObject, "illness_description_mama");
-                    action_taken = getCheckBoxValue(jsonObject, "action_taken_mama");
+                    date_of_illness = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "date_of_illness_mama");
+                    illness_description = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "illness_description_mama");
+                    action_taken = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "action_taken_mama");
                     illnessDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(date_of_illness);
                 } catch (Exception e) {
                     Timber.e(e);
@@ -525,9 +522,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    date_of_illness = getValue(jsonObject, "date_of_illness_child");
-                    illness_description = getValue(jsonObject, "illness_description_child");
-                    action_taken = getCheckBoxValue(jsonObject, "action_taken_child");
+                    date_of_illness = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "date_of_illness_child");
+                    illness_description = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "illness_description_child");
+                    action_taken = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "action_taken_child");
                     illnessDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(date_of_illness);
                 } catch (Exception e) {
                     Timber.e(e);
@@ -719,12 +716,12 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                pnc_visit = getValue(jsonObject, MessageFormat.format("pnc_visit_{0}", visit_num));
-                pnc_hf_visit_date = getValue(jsonObject, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
+                pnc_visit = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("pnc_visit_{0}", visit_num));
+                pnc_hf_visit_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
 
                 if (visit_num == 1) {
-                    vit_a_mother = getValue(jsonObject, "vit_a_mother");
-                    ifa_mother = getValue(jsonObject, "ifa_mother");
+                    vit_a_mother = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "vit_a_mother");
+                    ifa_mother = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "ifa_mother");
                 }
 
                 if (StringUtils.isNotBlank(pnc_hf_visit_date)) {
@@ -755,10 +752,10 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 JSONArray field = JsonFormUtils.fields(jsonObject);
                 JSONObject confirmed_visits = JsonFormUtils.getFieldJSONObject(field, "confirmed_health_facility_visits");
                 JSONObject facility_visit_date = JsonFormUtils.getFieldJSONObject(field, "last_health_facility_visit_date");
-                pnc_hf_visit_date = getValue(jsonObject, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
+                pnc_hf_visit_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
 
                 String count = String.valueOf(visit_num);
-                String value = getValue(jsonObject, MessageFormat.format("pnc_visit_{0}", visit_num));
+                String value = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("pnc_visit_{0}", visit_num));
                 if (value.equalsIgnoreCase("Yes")) {
                     count = String.valueOf(visit_num + 1);
                     facility_visit_date.put(JsonFormConstants.VALUE, pnc_hf_visit_date);

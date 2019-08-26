@@ -29,7 +29,9 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 import org.smartregister.view.customcontrols.FontVariant;
 
@@ -37,10 +39,6 @@ import java.util.HashMap;
 import java.util.Set;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH;
-import static org.smartregister.family.util.Utils.metadata;
-import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
@@ -89,8 +87,8 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         ChwDueRegisterProvider chwDueRegisterProvider = new ChwDueRegisterProvider(this.getActivity(), this.commonRepository(), visibleColumns, this.registerActionHandler, this.paginationViewHandler);
-        this.clientAdapter = new FamilyRecyclerViewCustomAdapter(null, chwDueRegisterProvider, this.context().commonrepository(this.tablename), metadata().familyDueRegister.showPagination);
-        this.clientAdapter.setCurrentlimit(metadata().familyDueRegister.currentLimit);
+        this.clientAdapter = new FamilyRecyclerViewCustomAdapter(null, chwDueRegisterProvider, this.context().commonrepository(this.tablename), Utils.metadata().familyDueRegister.showPagination);
+        this.clientAdapter.setCurrentlimit(Utils.metadata().familyDueRegister.currentLimit);
         this.clientsView.setAdapter(this.clientAdapter);
         //need some delay to ready the adapter
         new Handler().postDelayed(() -> {
@@ -152,7 +150,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case REQUEST_CODE_GET_JSON_WASH:
+            case org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH:
                 if (resultCode == Activity.RESULT_OK) {
                     try {
                         String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
@@ -231,8 +229,8 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             public void onClick(View v) {
                 try {
                     JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.getWashCheck());
-                    jsonForm.put(ENTITY_ID, familyBaseEntityId);
-                    Intent intent = new Intent(getActivity(), metadata().familyMemberFormActivity);
+                    jsonForm.put(JsonFormUtils.ENTITY_ID, familyBaseEntityId);
+                    Intent intent = new Intent(getActivity(), Utils.metadata().familyMemberFormActivity);
                     intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
                     Form form = new Form();
@@ -242,7 +240,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                     intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
                     intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, true);
                     if (getActivity() != null) {
-                        getActivity().startActivityForResult(intent, REQUEST_CODE_GET_JSON_WASH);
+                        getActivity().startActivityForResult(intent, org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

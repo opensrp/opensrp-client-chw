@@ -16,9 +16,8 @@ import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.custom_views.UpcomingServicesFragmentView;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
-
-import static org.smartregister.util.Utils.getValue;
 
 public class CoreUpcomingServicesActivity extends SecuredActivity {
 
@@ -43,8 +42,8 @@ public class CoreUpcomingServicesActivity extends SecuredActivity {
         setContentView(R.layout.activity_upcoming_services);
         progressBar = findViewById(R.id.progress_bar);
         CommonPersonObjectClient childClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON);
-        name = getValue(childClient.getColumnmaps(), "first_name", true) + " " +
-                getValue(childClient.getColumnmaps(), "last_name", true);
+        name = Utils.getValue(childClient.getColumnmaps(), "first_name", true) + " " +
+                Utils.getValue(childClient.getColumnmaps(), "last_name", true);
         UpcomingServicesFragmentView upcomingServicesView = findViewById(R.id.upcomingServicesHolder);
         upcomingServicesView.setChildClient(this, childClient);
 

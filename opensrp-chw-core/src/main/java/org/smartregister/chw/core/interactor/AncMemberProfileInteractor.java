@@ -3,6 +3,7 @@ package org.smartregister.chw.core.interactor;
 import android.content.Context;
 
 import org.ei.drishti.dto.AlertStatus;
+import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
@@ -11,8 +12,6 @@ import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.R;
 
 import java.util.Date;
-
-import static org.smartregister.chw.anc.AncLibrary.getInstance;
 
 public class AncMemberProfileInteractor extends BaseAncMemberProfileInteractor {
     private Context context;
@@ -47,7 +46,7 @@ public class AncMemberProfileInteractor extends BaseAncMemberProfileInteractor {
 
     private Date getLastVisitDate(MemberObject memberObject) {
         Date lastVisitDate = null;
-        Visit lastVisit = getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.ANC_HOME_VISIT);
+        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.ANC_HOME_VISIT);
         if (lastVisit != null) {
             lastVisitDate = lastVisit.getDate();
         }

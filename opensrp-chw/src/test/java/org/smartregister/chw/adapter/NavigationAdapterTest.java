@@ -1,6 +1,7 @@
 package org.smartregister.chw.adapter;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,11 +18,9 @@ import org.smartregister.chw.core.adapter.NavigationAdapter;
 import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.util.Constants;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(application = ChwApplication.class, sdk = 22)
@@ -58,9 +57,9 @@ public class NavigationAdapterTest {
 
         Map<String, Class> registeredActivities = new HashMap<>();
         registeredActivities.put(Constants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
-        NavigationAdapter adapter = new NavigationAdapter(asList(model1, model2), activity, registeredActivities);
+        NavigationAdapter adapter = new NavigationAdapter(Arrays.asList(model1, model2), activity, registeredActivities);
 
-        assertEquals(adapter.getItemCount(), 2);
+        Assert.assertEquals(adapter.getItemCount(), 2);
     }
 
 }

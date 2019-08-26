@@ -1,17 +1,15 @@
 package org.smartregister.chw.custom_view;
 
 import android.support.design.widget.FloatingActionButton;
+import android.view.View;
 
 import timber.log.Timber;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 public abstract class DefaultFamilyMemberFloatingMenuFlv implements FamilyMemberFloatingMenu.Flavor {
 
     @Override
     public void reDraw(FamilyMemberFloatingMenu menu, boolean has_phone) {
-        menu.setVisibility(has_phone ? VISIBLE : GONE);
+        menu.setVisibility(has_phone ? View.VISIBLE : View.GONE);
     }
 
     @Override

@@ -24,6 +24,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
 
+import com.google.android.gms.common.internal.Preconditions;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -60,8 +61,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static com.google.android.gms.common.internal.Preconditions.checkArgument;
 
 public abstract class Utils extends org.smartregister.family.util.Utils {
     public static final SimpleDateFormat dd_MMM_yyyy = new SimpleDateFormat("dd MMM yyyy");
@@ -231,7 +230,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
 
     @Nullable
     public static String getDayOfMonthWithSuffix(int day, Context context) {
-        checkArgument(day >= 1 && day <= 31, "illegal day of month: " + day);
+        Preconditions.checkArgument(day >= 1 && day <= 31, "illegal day of month: " + day);
         switch (day) {
             case 1:
                 return context.getString(R.string.abv_first);
@@ -281,7 +280,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
      */
     @Deprecated
     public static String getDayOfMonthSuffix(final int n) {
-        checkArgument(n >= 1 && n <= 31, "illegal day of month: " + n);
+        Preconditions.checkArgument(n >= 1 && n <= 31, "illegal day of month: " + n);
         if (n >= 11 && n <= 13) {
             return "th";
         }
@@ -553,6 +552,16 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
             Timber.e(e);
             Timber.e(jsonString);
             return null;
+        }
+    }
+
+    public static String getStringResourceByName(String name, Context context) {
+        String packageName = context.getPackageName();
+        int resId = context.getResources().getIdentifier(name, "string", packageName);
+        if (resId == 0) {
+            return name;
+        } else {
+            return context.getString(resId);
         }
     }
 }

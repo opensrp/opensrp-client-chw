@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Sleeping under a LLITN",
+  "encounter_type": "ANC Registration",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,26 +47,21 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Sleeping under a LLITN",
+    "title": "Vitamine A {0} dose",
     "fields": [
       {
-        "key": "sleeping_llitn",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "image": "form_llitn",
-        "hint": "Is the woman sleeping under a Long Lasting Insecticide-Treated Net (LLITN)?",
-        "label_info_title": "Whether the pregnant woman sleeps under a LLITN",
-        "label_info_text": "Malaria is very dangerous for pregnant women. Wherever malaria is common, women should prevent malaria by taking anti-malarial tablets recommended by a trained health worker and by sleeping under an insecticide-treated mosquito net.",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        "key": "vitamin_a{0}_date",
+        "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "image": "ic_form_vitamin",
+        "hint": "Quand est-ce que le Vitamine A {0} dose de Vitamine A a été donné?",
+        "min_date": "today-120y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date vitamin a was given"
         }
       }
     ]

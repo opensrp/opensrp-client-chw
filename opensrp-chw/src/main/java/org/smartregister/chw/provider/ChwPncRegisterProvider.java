@@ -9,6 +9,7 @@ import android.widget.Button;
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
@@ -29,8 +30,6 @@ import java.util.Set;
 
 import provider.PncRegisterProvider;
 import timber.log.Timber;
-
-import static org.smartregister.chw.anc.AncLibrary.getInstance;
 
 public class ChwPncRegisterProvider extends PncRegisterProvider {
 
@@ -114,7 +113,7 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
                 Timber.e(e);
             }
 
-            Visit lastVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
             if (lastVisit != null) {
                 lastVisitDate = lastVisit.getDate();
             }

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
@@ -12,9 +13,6 @@ import org.robolectric.RuntimeEnvironment;
 import org.smartregister.chw.BaseUnitTest;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class BirthAndIllnessAdapterTest extends BaseUnitTest {
 
@@ -26,7 +24,7 @@ public class BirthAndIllnessAdapterTest extends BaseUnitTest {
         int count = 10;
         adapter.setData(getSamples(count));
 
-        assertEquals(adapter.getItemCount(), count);
+        Assert.assertEquals(adapter.getItemCount(), count);
     }
 
     private ArrayList<String> getSamples(int count) {
@@ -50,7 +48,7 @@ public class BirthAndIllnessAdapterTest extends BaseUnitTest {
 
         boolean valid = sample instanceof BirthAndIllnessAdapter.ContentViewHolder;
 
-        assertTrue(valid);
+        Assert.assertTrue(valid);
     }
 
     @Test
