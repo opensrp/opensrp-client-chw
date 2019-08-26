@@ -17,7 +17,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceInteractor {
+public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceInteractorFlv {
     protected MemberObject memberObject;
     protected Context context;
 
@@ -30,8 +30,6 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
         List<BaseUpcomingService> serviceList = new ArrayList<>();
         evaluateHealthFacility(serviceList);
         return serviceList;
-
-
     }
 
 
@@ -66,9 +64,6 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
                 upcomingService.setServiceName(MessageFormat.format(context.getString(R.string.pnc_health_facility_visit_num),visit_num));
                 serviceList.add(upcomingService);
             }
-
         }
     }
-
-
 }

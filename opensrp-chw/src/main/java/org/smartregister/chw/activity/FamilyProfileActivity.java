@@ -100,5 +100,4 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
         return viewPager;
     }
-
 }
