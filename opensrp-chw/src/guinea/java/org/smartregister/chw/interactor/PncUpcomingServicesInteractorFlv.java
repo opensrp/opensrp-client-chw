@@ -1,5 +1,5 @@
 package org.smartregister.chw.interactor;
 
-public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceInteractor {
+public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceInteractorFlv{
 }
 
