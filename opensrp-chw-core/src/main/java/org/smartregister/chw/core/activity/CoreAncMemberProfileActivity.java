@@ -9,7 +9,10 @@ import android.view.View;
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
+import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.interactor.AncMemberProfileInteractor;
@@ -84,7 +87,10 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
             view_anc_record.setVisibility(View.GONE);
             textViewAncVisitNot.setVisibility(View.GONE);
         }
-        if (visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE)) {
+
+        Visit lastVisit = getVisit(Constants.EVENT_TYPE.ANC_HOME_VISIT);
+        boolean within24Hours = VisitUtils.isVisitWithin24Hours(lastVisit);
+        if (visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE) && !within24Hours) {
             textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
             layoutRecordView.setVisibility(View.VISIBLE);
             record_reccuringvisit_done_bar.setVisibility(View.GONE);
