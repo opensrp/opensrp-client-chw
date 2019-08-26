@@ -17,7 +17,7 @@ public class ReferralRecyclerClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getCommonPersonObjectClient(), getTask());
+        ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getCommonPersonObjectClient(), getTask(), false);
     }
 
     public Activity getActivity() {

@@ -12,7 +12,7 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
     @Override
     public void onRegistrationSaved(boolean isEdit) {
         /*if (hasChildRegistration) {
-            startRegisterActivity(PncRegisterActivity.class);
+            startReferralsRegisterActivity(PncRegisterActivity.class);
         } else*/
         if (!hasChildRegistration) {
             startRegisterActivity(AncRegisterActivity.class);

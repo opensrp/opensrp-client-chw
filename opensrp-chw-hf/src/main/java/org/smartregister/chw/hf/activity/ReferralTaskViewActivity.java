@@ -42,6 +42,7 @@ import timber.log.Timber;
 
 public class ReferralTaskViewActivity extends SecuredActivity {
     protected AppBarLayout appBarLayout;
+    protected boolean isFromReferrals;
     private CommonPersonObjectClient personObjectClient;
     private Task task;
     private CustomFontTextView clientName;
@@ -55,10 +56,11 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     private String name;
     private String baseEntityId;
 
-    public static void startReferralTaskViewActivity(Activity activity, CommonPersonObjectClient personObjectClient, Task task) {
+    public static void startReferralTaskViewActivity(Activity activity, CommonPersonObjectClient personObjectClient, Task task, boolean isFromReferrals) {
         Intent intent = new Intent(activity, ReferralTaskViewActivity.class);
         intent.putExtra(CoreConstants.INTENT_KEY.USERS_TASKS, task);
         intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, personObjectClient);
+        intent.putExtra("isFromReferrals", isFromReferrals);
         activity.startActivity(intent);
     }
 
@@ -73,8 +75,10 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         if (getIntent().getExtras() != null) {
             extractPersonObjectClient();
             extraClientTask();
+            setFromReferrals((Boolean) getIntent().getSerializableExtra("isFromReferrals"));
         }
         referralsTaskViewClickListener.setReferralTaskViewActivity(this);
+        referralsTaskViewClickListener.setiSFromReferral(isFromReferrals);
         inflateToolbar();
         setUpViews();
         if (getPersonObjectClient() == null) {
@@ -194,6 +198,14 @@ public class ReferralTaskViewActivity extends SecuredActivity {
 
     public void setPersonObjectClient(CommonPersonObjectClient personObjectClient) {
         this.personObjectClient = personObjectClient;
+    }
+
+    public boolean isFromReferrals() {
+        return isFromReferrals;
+    }
+
+    public void setFromReferrals(boolean fromReferrals) {
+        isFromReferrals = fromReferrals;
     }
 
     public void closeReferral() {

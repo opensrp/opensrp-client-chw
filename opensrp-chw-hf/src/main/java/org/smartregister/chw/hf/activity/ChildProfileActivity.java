@@ -64,8 +64,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
     @Override
     protected void initializePresenter() {
-        //childBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        //isComesFromFamily = getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, false);
         String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         if (familyName == null) {
             familyName = "";
