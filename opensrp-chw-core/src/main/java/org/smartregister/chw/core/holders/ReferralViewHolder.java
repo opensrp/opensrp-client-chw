@@ -9,13 +9,9 @@ import org.smartregister.chw.core.R;
 
 
 public class ReferralViewHolder extends RecyclerView.ViewHolder {
-
     private TextView nameTextView;
-
     private TextView reasonTextView;
-
     private TextView referredByTextView;
-
     private TextView executionStartTextView;
 
     public ReferralViewHolder(@NonNull View itemView) {

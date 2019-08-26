@@ -1,4 +1,4 @@
 package org.smartregister.chw.interactor;
 
-public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractorFlv {
+public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor {
 }

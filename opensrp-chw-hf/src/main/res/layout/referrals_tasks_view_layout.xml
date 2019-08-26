@@ -301,72 +301,71 @@
                     android:textSize="15sp"
                     android:textStyle="normal" />
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/chw_details_phone_layout"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="30dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp">
-
-                <View
-                    android:id="@+id/view_referal_row"
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/light_grey"
-                    android:visibility="visible" />
-
-                <LinearLayout
-                    android:id="@+id/record_visit_bar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/view_referal_row"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:visibility="visible"
-                    android:weightSum="2">
-
-                    <org.smartregister.view.customcontrols.CustomFontTextView
-                        android:id="@+id/mark_ask_done"
-                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_weight="1"
-                        android:background="@drawable/record_btn_selector"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:paddingStart="30dp"
-                        android:paddingTop="10dp"
-                        android:paddingEnd="30dp"
-                        android:paddingBottom="10dp"
-                        android:text="@string/mark_as_done"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white" />
-
-                    <org.smartregister.view.customcontrols.CustomFontTextView
-                        android:id="@+id/view_profile"
-                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center_horizontal"
-                        android:paddingStart="30dp"
-                        android:paddingTop="10dp"
-                        android:paddingEnd="30dp"
-                        android:paddingBottom="10dp"
-                        android:text="@string/view_profile"
-                        android:textAllCaps="true"
-                        android:textColor="@color/opensrp_primary" />
-                </LinearLayout>
-            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="30dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
+
+        <View
+            android:id="@+id/view_referal_row"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/light_grey"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/record_visit_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_referal_row"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="visible"
+            android:weightSum="2">
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/mark_ask_done"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_weight="1"
+                android:background="@drawable/record_btn_selector"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:paddingStart="30dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="10dp"
+                android:text="@string/mark_as_done"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/view_profile"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_horizontal"
+                android:paddingStart="30dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="10dp"
+                android:text="@string/view_profile"
+                android:textAllCaps="true"
+                android:textColor="@color/opensrp_primary" />
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

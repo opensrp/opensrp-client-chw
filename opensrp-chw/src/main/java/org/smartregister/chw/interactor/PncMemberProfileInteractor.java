@@ -6,6 +6,7 @@ import android.util.Pair;
 import org.ei.drishti.dto.AlertStatus;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
@@ -13,9 +14,9 @@ import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
+import org.smartregister.chw.core.rule.PncVisitAlertRule;
+import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.pnc.interactor.BasePncMemberProfileInteractor;
-import org.smartregister.chw.rule.PncVisitAlertRule;
-import org.smartregister.chw.util.HomeVisitUtil;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -27,8 +28,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.anc.AncLibrary.getInstance;
 
 public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
     private Context context;
@@ -63,7 +62,7 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
 
     private Date getLastVisitDate(MemberObject memberObject) {
         Date lastVisitDate = null;
-        Visit lastVisit = getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.PNC_HOME_VISIT);
+        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.PNC_HOME_VISIT);
         if (lastVisit != null) {
             lastVisitDate = lastVisit.getDate();
         }
@@ -95,9 +94,10 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
             Timber.e(e);
         }
 
-        Visit lastVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
-        if (lastVisit != null)
+        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
+        if (lastVisit != null) {
             lastVisitDate = lastVisit.getDate();
+        }
 
         return HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, deliveryDate);
     }

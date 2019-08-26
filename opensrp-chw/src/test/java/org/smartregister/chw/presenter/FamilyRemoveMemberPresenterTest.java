@@ -17,8 +17,6 @@ import org.smartregister.family.util.DBConstants;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.mockito.Mockito.mock;
-
 public class FamilyRemoveMemberPresenterTest {
 
 
@@ -102,7 +100,7 @@ public class FamilyRemoveMemberPresenterTest {
     public void testRemoveEveryone() {
         String familyName = "familyName";
         String details = "details";
-        JSONObject form = mock(JSONObject.class);
+        JSONObject form = Mockito.mock(JSONObject.class);
 
         Whitebox.setInternalState(presenter, "familyBaseEntityId", familyBaseEntityId);
         Mockito.when(model.prepareFamilyRemovalForm(familyBaseEntityId, familyName, details)).thenReturn(form);

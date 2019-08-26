@@ -30,11 +30,6 @@ public abstract class CoreAboveFiveChildProfileActivity extends CoreChildProfile
     }
 
     @Override
-    protected void updateTopbar() {
-        //no need to do anything
-    }
-
-    @Override
     public void setLastVisitRowView(String days) {
         super.setLastVisitRowView(days);
         textViewLastVisit.setVisibility(View.GONE);

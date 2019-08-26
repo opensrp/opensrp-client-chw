@@ -10,9 +10,10 @@ import org.json.JSONObject;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
-import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.ChildHomeVisit;
 import org.smartregister.chw.core.utils.CoreChildService;
+import org.smartregister.chw.core.utils.CoreChildUtils;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
@@ -27,7 +28,6 @@ import org.smartregister.util.FormUtils;
 import org.smartregister.view.LocationPickerView;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -37,9 +37,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.Constants.EventType;
-import static org.smartregister.chw.util.Constants.TABLE_NAME;
 
 public class ChildProfileInteractor extends CoreChildProfileInteractor {
     public static final String TAG = ChildProfileInteractor.class.getName();
@@ -68,7 +65,6 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
 
     @Override
     public void updateVisitNotDone(final long value, final CoreChildProfileContract.InteractorCallBack callback) {
-
         updateHomeVisitAsEvent(value)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -100,6 +96,9 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
 
     @Override
     public void refreshChildVisitBar(Context context, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
+        if (getpClient() == null) {
+            return;
+        }
         ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(Constants.TABLE_NAME.CHILD, baseEntityId);
 
         String dobString = Utils.getDuration(Utils.getValue(getpClient().getColumnmaps(), DBConstants.KEY.DOB, false));
@@ -142,7 +141,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
             lpv.init();
             if (form != null) {
                 form.put(JsonFormUtils.ENTITY_ID, client.getCaseId());
-                form.put(JsonFormUtils.ENCOUNTER_TYPE, EventType.UPDATE_CHILD_REGISTRATION);
+                form.put(JsonFormUtils.ENCOUNTER_TYPE, CoreConstants.EventType.UPDATE_CHILD_REGISTRATION);
 
                 JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
                 String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
@@ -183,6 +182,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
         appExecutors.diskIO().execute(runnable);
     }
 
+    //TODO Child Refactor
     private void updateUpcomingServices(final CoreChildProfileContract.InteractorCallBack callback, Context context) {
         updateUpcomingServices(context)
                 .subscribeOn(Schedulers.io())
@@ -242,11 +242,12 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
 
     private Observable<Object> updateHomeVisitAsEvent(final long value) {
         return Observable.create(objectObservableEmitter -> {
-            final String homeVisitId = org.smartregister.chw.util.JsonFormUtils.generateRandomUUIDString();
+            if (value == 0) {
+                CoreChildUtils.undoVisitNotDone(getpClient().entityId());
+            } else {
+                CoreChildUtils.visitNotDone(getpClient().entityId());
+            }
 
-            Map<String, JSONObject> fields = new HashMap<>();
-            ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), EventType.CHILD_VISIT_NOT_DONE, TABLE_NAME.CHILD,
-                    fields, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", homeVisitId);
             objectObservableEmitter.onNext("");
         });
     }

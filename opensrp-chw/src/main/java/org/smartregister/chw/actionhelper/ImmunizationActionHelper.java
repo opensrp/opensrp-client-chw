@@ -2,18 +2,23 @@ package org.smartregister.chw.actionhelper;
 
 import android.content.Context;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.Constants;
-import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
+import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.text.MessageFormat;
@@ -37,11 +42,15 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
     private List<String> keys = new ArrayList<>();
     private Map<String, List<String>> completedVaccines = new HashMap<>();
     private List<String> notDoneVaccines = new ArrayList<>();
+    private Map<String, VaccineRepo.Vaccine> vaccineMap = new HashMap<>();
 
     public ImmunizationActionHelper(Context context, List<VaccineWrapper> wrappers) {
         this.context = context;
         this.wrappers = wrappers;
-
+        List<VaccineRepo.Vaccine> repo = VaccineRepo.getVaccines(CoreConstants.SERVICE_GROUPS.CHILD);
+        for (VaccineRepo.Vaccine v : repo) {
+            vaccineMap.put(v.display().toLowerCase().replace(" ", "_"), v);
+        }
         initialize();
     }
 
@@ -87,8 +96,14 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
             completedVaccines.clear();
 
             // key / name pair
-            for (String key : keys) {
-                String val = JsonFormUtils.getValue(jsonObject, key);
+            JSONArray jsonArray = jsonObject.getJSONObject("step1").getJSONArray("fields");
+            int totalVacs = jsonArray.length();
+            int x = 0;
+            while (x < totalVacs) {
+                JSONObject fieldObject = jsonArray.getJSONObject(x);
+                String key = fieldObject.has(JsonFormConstants.KEY) ? fieldObject.getString(JsonFormConstants.KEY) : "";
+                String val = fieldObject.has(JsonFormConstants.VALUE) ? fieldObject.getString(JsonFormConstants.VALUE) : "";
+
                 if (val.equalsIgnoreCase(Constants.HOME_VISIT.VACCINE_NOT_GIVEN)) {
                     notDoneVaccines.add(key);
                 } else {
@@ -100,6 +115,8 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
 
                     completedVaccines.put(val, vacs);
                 }
+
+                x++;
             }
 
         } catch (JSONException e) {
@@ -109,7 +126,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
 
     @Override
     public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-        if (status.value().equals(AlertStatus.urgent.value()))
+        if (status != null && status.value().equals(AlertStatus.urgent.value()))
             return BaseAncHomeVisitAction.ScheduleStatus.OVERDUE;
 
         return BaseAncHomeVisitAction.ScheduleStatus.DUE;
@@ -117,7 +134,10 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
 
     @Override
     public String getPreProcessedSubTitle() {
-        String due = (status.name().equals(AlertStatus.urgent.name()) ? context.getString(R.string.overdue) : context.getString(R.string.due));
+        String due = context.getString(R.string.due);
+        if (status != null && status.name().equals(AlertStatus.urgent.name()))
+            due = context.getString(R.string.overdue);
+
         return MessageFormat.format("{0} {1}", due, DateTimeFormat.forPattern("dd MMM yyyy").print(dueDate));
     }
 
@@ -145,7 +165,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
                 if (completedBuilder.length() > 0)
                     completedBuilder.append(", ");
 
-                completedBuilder.append(vac);
+                completedBuilder.append(getTranslatedValue(vac));
             }
 
             if (completedBuilder.length() > 0) {
@@ -169,7 +189,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
             if (pendingBuilder.length() > 0)
                 pendingBuilder.append(", ");
 
-            pendingBuilder.append(vac);
+            pendingBuilder.append(getTranslatedValue(vac));
         }
 
         if (pendingBuilder.length() > 0) {
@@ -202,5 +222,13 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
     @Override
     public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
         Timber.v("onPayloadReceived");
+    }
+
+    private String getTranslatedValue(String name) {
+        VaccineRepo.Vaccine res = vaccineMap.get(name);
+        if (res == null)
+            return name;
+
+        return Utils.getStringResourceByName(res.display(), context);
     }
 }

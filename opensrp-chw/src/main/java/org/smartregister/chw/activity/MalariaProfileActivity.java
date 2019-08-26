@@ -27,9 +27,6 @@ import org.smartregister.family.util.Utils;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.Utils.clientForEdit;
-import static org.smartregister.chw.util.Utils.formActivityIntent;
-
 public class MalariaProfileActivity extends BaseMalariaProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String CLIENT = "client";
 
@@ -160,7 +157,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     public void startFormForEdit(Integer title_resource, String formName) {
 
         JSONObject form = null;
-        CommonPersonObjectClient client = clientForEdit(MEMBER_OBJECT.getBaseEntityId());
+        CommonPersonObjectClient client = org.smartregister.chw.core.utils.Utils.clientForEdit(MEMBER_OBJECT.getBaseEntityId());
 
         if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister())) {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
@@ -193,7 +190,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     }
 
     private void startFormActivity(JSONObject jsonForm, MemberObject memberObject) {
-        Intent intent = formActivityIntent(this, jsonForm.toString());
+        Intent intent = org.smartregister.chw.core.utils.Utils.formActivityIntent(this, jsonForm.toString());
         intent.putExtra(Constants.MALARIA_MEMBER_OBJECT.MEMBER_OBJECT, memberObject);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }

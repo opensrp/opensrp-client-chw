@@ -8,6 +8,7 @@
         <!-- item size in menu-->
     </style>
 
+
     <style name="FamilyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/black</item>
@@ -15,6 +16,11 @@
         <item name="colorBackgroundFloating">@color/white</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:colorBackground">@color/white</item>
+    </style>
+
+    <style name="FamilyTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="FamilyTheme.AppBarOverlay.Light" parent="FamilyTheme.AppBarOverlay">
@@ -33,5 +39,11 @@
         <item name="colorBackgroundFloating">@color/white</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:colorBackground">@color/white</item>
+    </style>
+
+    <style name="CustomFontTextViewStyle.ClientList.ThreeLines" parent="CustomFontTextViewStyle">
+        <item name="fontVariant">regular</item>
+        <item name="android:textColor">#737373</item>
+        <item name="android:maxLines">3</item>
     </style>
 </resources>

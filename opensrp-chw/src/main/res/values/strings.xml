@@ -65,7 +65,6 @@
 
     <string name="birth_date">Birth Date</string>
     <string name="age">Age</string>
-
     <string name="edit_anc_registration_form_title">Edit ANC Registration</string>
     <string name="anc_registration_form_title">ANC Registration</string>
     <string name="anc_pregnancy_outcome_form_title">Pregnancy Outcome</string>
@@ -186,19 +185,7 @@
     <string name="counseling_visit">Visit</string>
 
     <string name="anc_last_visit">LAST VISIT</string>
-    <string name="anc_health_facility_visits">ANC HEALTH FACILITY VISITS</string>
-    <string name="anc_card">ANC CARD</string>
-    <string name="anc_tt_immunization">TT IMMUNIZATION</string>
-    <string name="anc_iptp_sp">IPTp-SP DOSE</string>
 
-    <string name="days_ago">{0} days ago</string>
-    <string name="vaccines_done_date">{0} - done {1}</string>
-    <string name="anc_visit_date">ANC visit {0}: {1}</string>
-    <string name="weight_in_kgs">Weight: {0} kgs</string>
-    <string name="bp_in_mmhg">BP: {0}/{1} mmHg</string>
-    <string name="hb_level_in_g_dl">Hb level: {0} g/dl</string>
-    <string name="ifa_received_status">IFA received: {0}</string>
-    <string name="tests_done_details">Tests done: {0}</string>
 
     <string name="danger_signs_counselling">Danger signs counselling</string>
     <string name="anc_visit_counselling">ANC visit counseling</string>
@@ -243,7 +230,7 @@
     <string name="pnc_immunization_at_birth">Immunizations (at birth) ({0})</string>
     <string name="pnc_umblicord_care">Umbilical cord care</string>
     <string name="pnc_exclusive_breastfeeding">Exclusive breastfeeding ({0})</string>
-    <string name="pnc_kangaroo_mother_care">Kangaroo mother care (KNC) - ({0})</string>
+    <string name="pnc_kangaroo_mother_care">Kangaroo mother care (KMC) - ({0})</string>
     <string name="pnc_family_planning">Family planning</string>
     <string name="pnc_observation_and_illness_mother">Observations &amp; illness - mother </string>
     <string name="pnc_observation_and_illness_baby">Observations &amp; illness - baby ({0}) </string>
@@ -261,5 +248,9 @@
     <string name="pnc_visit_day_overdue">DAY %s OVERDUE</string>
     <string name="pnc_visit">PNC Visit</string>
     <string name="anc_visit">ANC Visit</string>
+    <string name="issued">Issued</string>
+    <string name="exclusive_breastfeeding_months">Exclusive breastfeeding %s months</string>
+    <string name="deworming_number_dose">Deworming %s dose</string>
+    <string name="vitamin_a_number_dose">Vitamin A %s dose</string>
 
 </resources>

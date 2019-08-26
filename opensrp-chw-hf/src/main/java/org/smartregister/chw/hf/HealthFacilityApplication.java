@@ -21,6 +21,7 @@ import org.smartregister.chw.core.loggers.CrashlyticsTree;
 import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
+import org.smartregister.chw.hf.activity.AncRegisterActivity;
 import org.smartregister.chw.hf.activity.ChildRegisterActivity;
 import org.smartregister.chw.hf.activity.FamilyProfileActivity;
 import org.smartregister.chw.hf.activity.FamilyRegisterActivity;
@@ -131,7 +132,7 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
 
     public @NotNull Map<String, Class> getRegisteredActivities() {
         Map<String, Class> registeredActivities = new HashMap<>();
-        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, AncRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);

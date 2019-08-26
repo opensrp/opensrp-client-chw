@@ -7,8 +7,10 @@ import android.view.View;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.provider.CoreChildRegisterProvider;
 import org.smartregister.chw.core.task.UpdateLastAsyncTask;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
 
@@ -45,6 +47,17 @@ public class HfChildRegisterProvider extends CoreChildRegisterProvider {
         }
     }
 
+    private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+        Utils.startAsyncTask(new UpdateLastAsyncTask(context, commonRepository, viewHolder, pc.entityId(), onClickListener), null);
+    }
+
+    @Override
+    public void setAddressAndGender(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+        String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
+        String gender = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
+        fillValue(viewHolder.textViewAddressGender, gender + " \u00B7 " + address);
+    }
+
     @Override
     public void addButtonClickListeners(SmartRegisterClient client, RegisterViewHolder viewHolder) {
         viewHolder.dueButtonLayout.setVisibility(View.GONE);
@@ -59,10 +72,6 @@ public class HfChildRegisterProvider extends CoreChildRegisterProvider {
         View goToProfileLayout = viewHolder.goToProfileLayout;
         attachPatientOnclickListener(goToProfileLayout, client);
 
-    }
-
-    private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        Utils.startAsyncTask(new UpdateLastAsyncTask(context, commonRepository, viewHolder, pc.entityId(), onClickListener), null);
     }
 
 }

@@ -13,8 +13,6 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.util.DBConstants;
 
-import static org.smartregister.chw.core.enums.ImmunizationState.NO_ALERT;
-
 public class FamilyInteractor extends CoreFamilyInteractor {
 
     @Override
@@ -37,6 +35,6 @@ public class FamilyInteractor extends CoreFamilyInteractor {
             final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, lastHomeVisit, visitNotDone, dateCreated);
             return getImmunizationStatus(childVisit.getVisitStatus());
         }
-        return NO_ALERT;
+        return ImmunizationState.NO_ALERT;
     }
 }

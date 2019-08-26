@@ -26,7 +26,7 @@ public class FamilyProfileActivityModel extends BaseFamilyProfileActivityModel {
 
     @Override
     protected String[] mainColumns(String tableName) {
-        String[] columns = new String[]{
+        return new String[]{
                 Constants.TABLE_NAME.CHILD + ".relationalid",
                 Constants.TABLE_NAME.CHILD + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
                 Constants.TABLE_NAME.CHILD + "." + DBConstants.KEY.BASE_ENTITY_ID,
@@ -41,7 +41,6 @@ public class FamilyProfileActivityModel extends BaseFamilyProfileActivityModel {
                 tableName + "." + DBConstants.KEY.DATE_VISIT_NOT_DONE,
                 tableName + "." + ChildDBConstants.KEY.EVENT_TYPE,
         };
-        return columns;
     }
 
 }
