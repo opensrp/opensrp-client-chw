@@ -21,7 +21,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefaultPncUpcomingServiceInteractor implements PncUpcomingServiceInteractor.Flavor {
+public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServiceInteractor.Flavor {
     protected MemberObject memberObject;
     protected Context context;
 
