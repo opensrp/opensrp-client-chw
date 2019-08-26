@@ -1,19 +1,17 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-import org.smartregister.chw.anc.activity.BaseAncMedicalHistoryActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.core.activity.CoreAncMedicalHistoryActivity;
 
 import java.util.List;
 
-public class AncMedicalHistoryActivity extends BaseAncMedicalHistoryActivity {
-
+public class AncMedicalHistoryActivity extends CoreAncMedicalHistoryActivity {
     private Flavor flavor = new AncMedicalHistoryActivityFlv();
 
     public static void startMe(Activity activity, MemberObject memberObject) {
@@ -24,17 +22,11 @@ public class AncMedicalHistoryActivity extends BaseAncMedicalHistoryActivity {
 
     @Override
     public View renderView(List<Visit> visits) {
+        super.renderView(visits);
         View view = flavor.bindViews(this);
         displayLoadingState(true);
         flavor.processViewData(visits, this);
         displayLoadingState(false);
         return view;
-    }
-
-    public interface Flavor {
-
-        View bindViews(Activity activity);
-
-        void processViewData(List<Visit> visits, Context context);
     }
 }

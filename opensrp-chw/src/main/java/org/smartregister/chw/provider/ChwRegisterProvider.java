@@ -41,6 +41,7 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
         }
     }
 
+    @Override
     public void updateDueColumn(Context context, RegisterViewHolder viewHolder, ChildVisit childVisit) {
         if (childVisit != null) {
             viewHolder.dueButton.setVisibility(View.VISIBLE);
@@ -61,6 +62,7 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
         }
     }
 
+    @Override
     public List<ChildVisit> retrieveChildVisitList(Rules rules, List<Map<String, String>> list) {
         List<ChildVisit> childVisitList = new ArrayList<>();
         for (Map<String, String> map : list) {
@@ -84,6 +86,7 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
         return childVisitList;
     }
 
+    @Override
     public ChildVisit mergeChildVisits(List<ChildVisit> childVisitList) {
         if (childVisitList == null || childVisitList.isEmpty()) {
             return null;
@@ -128,7 +131,9 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
             return doneLess24;
         } else if (done != null) {
             return done;
-        } else return notDone;
+        } else {
+            return notDone;
+        }
     }
 ////////////////////////////////////////////////////////////////
     // Inner classes

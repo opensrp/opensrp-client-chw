@@ -42,7 +42,7 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity = (Activity)context;
+        activity = (Activity) context;
     }
 
     @Override

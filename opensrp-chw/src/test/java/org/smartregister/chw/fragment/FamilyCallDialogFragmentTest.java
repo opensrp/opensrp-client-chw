@@ -14,7 +14,6 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.model.FamilyCallDialogModel;
@@ -22,7 +21,7 @@ import org.smartregister.chw.core.model.FamilyCallDialogModel;
 import timber.log.Timber;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
+@Config(application = ChwApplication.class, sdk = 22)
 public class FamilyCallDialogFragmentTest {
 
     @Mock

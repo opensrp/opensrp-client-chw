@@ -395,7 +395,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
         allowedLevels.add(CoreConstants.CONFIGURATION.HEALTH_FACILITY_TAG);
         task.setGroupIdentifier(locationHelper.getOpenMrsLocationId(locationHelper.generateDefaultLocationHierarchy(allowedLevels).get(0)));
         task.setStatus(Task.TaskStatus.READY);
-        task.setBusinessStatus("Referred");
+        task.setBusinessStatus(CoreConstants.BUSINESS_STATUS.REFERRED);
         task.setPriority(3);
         task.setCode("Referral");
         task.setDescription("Review and perform the referral for the client"); //set to string

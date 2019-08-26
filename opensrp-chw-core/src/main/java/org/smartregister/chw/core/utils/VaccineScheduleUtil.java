@@ -35,52 +35,6 @@ public class VaccineScheduleUtil {
 
     }
 
-    public static VaccineWrapper getVaccineWrapper(VaccineRepo.Vaccine vaccine, VaccineTaskModel vaccineTaskModel) {
-        VaccineWrapper vaccineWrapper = new VaccineWrapper();
-        vaccineWrapper.setVaccine(vaccine);
-        vaccineWrapper.setName(vaccine.display());
-        vaccineWrapper.setDbKey(getVaccineId(vaccine.display(), vaccineTaskModel));
-        vaccineWrapper.setDefaultName(vaccine.display());
-        vaccineWrapper.setAlert(vaccineTaskModel.getAlertsMap().get(vaccine.display()));
-        return vaccineWrapper;
-    }
-
-    private static Long getVaccineId(String vaccineName, VaccineTaskModel vaccineTaskModel) {
-        for (Vaccine vaccine : vaccineTaskModel.getVaccines()) {
-            if (vaccine.getName().equalsIgnoreCase(vaccineName)) {
-                return vaccine.getId();
-            }
-        }
-        return null;
-    }
-
-    // vaccine utils
-    public static Triple<DateTime, VaccineRepo.Vaccine, String> getIndividualVaccine(VaccineTaskModel vaccineTaskModel, String type) {
-        // compute the due date
-        Map<String, Object> map = null;
-        for (Map<String, Object> mapVac : vaccineTaskModel.getScheduleList()) {
-            VaccineRepo.Vaccine myVac = (VaccineRepo.Vaccine) mapVac.get("vaccine");
-            String status = (String) mapVac.get("status");
-            if (myVac != null && myVac.display().toLowerCase().contains(type.toLowerCase()) && status != null && status.equals("due")) {
-                map = mapVac;
-                break;
-            }
-        }
-
-        if (map == null) {
-            return null;
-        }
-
-        DateTime date = (DateTime) map.get("date");
-        VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) map.get("vaccine");
-        if (vaccine == null || date == null) {
-            return null;
-        }
-        String vc_count = vaccine.name().substring(vaccine.name().length() - 1);
-
-        return Triple.of(date, vaccine, vc_count);
-    }
-
     /**
      * gets vaccines for the woman
      *
@@ -134,6 +88,13 @@ public class VaccineScheduleUtil {
         vaccineTaskModel.setScheduleList(sch);
 
         return vaccineTaskModel;
+    }
+
+    public static void updateOfflineAlerts(String baseEntityID, DateTime anchorDate, String vaccineGroupName) {
+        // recompute offline alerts
+        VaccineSchedule.updateOfflineAlerts(baseEntityID, anchorDate, vaccineGroupName);
+        // delete all vaccine alerts that have been administered
+        AlertDao.updateOfflineVaccineAlerts(baseEntityID);
     }
 
     public static List<VaccineWrapper> recomputeSchedule(
@@ -272,12 +233,49 @@ public class VaccineScheduleUtil {
         return Pair.of(null, vaccineWrappers);
     }
 
-    public static void updateOfflineAlerts(String baseEntityID, DateTime anchorDate, String vaccineGroupName) {
-        // recompute offline alerts
-        VaccineSchedule.updateOfflineAlerts(baseEntityID, anchorDate, vaccineGroupName);
-        // delete all vaccine alerts that have been administered
-        AlertDao.updateOfflineVaccineAlerts(baseEntityID);
+    // vaccine utils
+    public static Triple<DateTime, VaccineRepo.Vaccine, String> getIndividualVaccine(VaccineTaskModel vaccineTaskModel, String type) {
+        // compute the due date
+        Map<String, Object> map = null;
+        for (Map<String, Object> mapVac : vaccineTaskModel.getScheduleList()) {
+            VaccineRepo.Vaccine myVac = (VaccineRepo.Vaccine) mapVac.get("vaccine");
+            String status = (String) mapVac.get("status");
+            if (myVac != null && myVac.display().toLowerCase().contains(type.toLowerCase()) && status != null && status.equals("due")) {
+                map = mapVac;
+                break;
+            }
+        }
+
+        if (map == null) {
+            return null;
+        }
+
+        DateTime date = (DateTime) map.get("date");
+        VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) map.get("vaccine");
+        if (vaccine == null || date == null) {
+            return null;
+        }
+        String vc_count = vaccine.name().substring(vaccine.name().length() - 1);
+
+        return Triple.of(date, vaccine, vc_count);
     }
 
+    public static VaccineWrapper getVaccineWrapper(VaccineRepo.Vaccine vaccine, VaccineTaskModel vaccineTaskModel) {
+        VaccineWrapper vaccineWrapper = new VaccineWrapper();
+        vaccineWrapper.setVaccine(vaccine);
+        vaccineWrapper.setName(vaccine.display());
+        vaccineWrapper.setDbKey(getVaccineId(vaccine.display(), vaccineTaskModel));
+        vaccineWrapper.setDefaultName(vaccine.display());
+        vaccineWrapper.setAlert(vaccineTaskModel.getAlertsMap().get(vaccine.display()));
+        return vaccineWrapper;
+    }
 
+    private static Long getVaccineId(String vaccineName, VaccineTaskModel vaccineTaskModel) {
+        for (Vaccine vaccine : vaccineTaskModel.getVaccines()) {
+            if (vaccine.getName().equalsIgnoreCase(vaccineName)) {
+                return vaccine.getId();
+            }
+        }
+        return null;
+    }
 }

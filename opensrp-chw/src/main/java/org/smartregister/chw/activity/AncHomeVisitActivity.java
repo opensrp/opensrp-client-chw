@@ -8,10 +8,10 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
-import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncHomeVisitActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.interactor.AncHomeVisitInteractor;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;

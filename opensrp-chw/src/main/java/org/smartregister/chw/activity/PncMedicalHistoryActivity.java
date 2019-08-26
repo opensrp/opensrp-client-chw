@@ -13,7 +13,6 @@ import org.smartregister.chw.anc.util.Constants;
 import java.util.List;
 
 public class PncMedicalHistoryActivity extends BaseAncMedicalHistoryActivity {
-
     private Flavor flavor = new PncMedicalHistoryActivityFlv();
 
     public static void startMe(Activity activity, MemberObject memberObject) {

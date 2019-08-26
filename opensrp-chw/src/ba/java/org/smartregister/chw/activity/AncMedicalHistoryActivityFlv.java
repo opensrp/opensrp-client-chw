@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
 
 import java.text.MessageFormat;
 import java.util.List;

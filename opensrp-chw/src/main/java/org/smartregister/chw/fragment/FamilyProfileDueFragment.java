@@ -19,7 +19,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
-import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.WashCheck;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileDueModel;
@@ -93,8 +92,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         this.clientsView.setAdapter(this.clientAdapter);
         //need some delay to ready the adapter
         new Handler().postDelayed(() -> {
-            if (flavorWashCheck.isWashCheckVisible())
+            if (flavorWashCheck.isWashCheckVisible()) {
                 ((FamilyProfileDuePresenter) presenter).fetchLastWashCheck(dateFamilyCreated);
+            }
 
         }, 500);
 
@@ -136,9 +136,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             dueCount = count;
             ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
         }
-        if (getActivity() != null)
+        if (getActivity() != null) {
             getActivity().runOnUiThread(() -> onEmptyRegisterCount(count < 1));
-
+        }
     }
 
     public void onEmptyRegisterCount(final boolean has_no_records) {
@@ -189,12 +189,15 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             washCheckView.setVisibility(View.GONE);
         }
         ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
-        if (getActivity() != null)
+        if (getActivity() != null) {
             getActivity().runOnUiThread(() -> onEmptyRegisterCount(dueCount < 1));
+        }
     }
 
     public void updateWashCheckBar(WashCheck washCheck) {
-        if (washCheckView.getVisibility() == View.VISIBLE) return;
+        if (washCheckView.getVisibility() == View.VISIBLE) {
+            return;
+        }
         CustomFontTextView name = washCheckView.findViewById(R.id.patient_name_age);
         name.setFontVariant(FontVariant.REGULAR);
         name.setTextColor(Color.BLACK);
@@ -236,7 +239,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
                     intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
                     intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, true);
-                    if(getActivity()!= null) getActivity().startActivityForResult(intent, org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH);
+                    if (getActivity() != null) {
+                        getActivity().startActivityForResult(intent, org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

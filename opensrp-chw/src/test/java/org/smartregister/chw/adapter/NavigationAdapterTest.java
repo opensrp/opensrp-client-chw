@@ -10,7 +10,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
@@ -24,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
+@Config(application = ChwApplication.class, sdk = 22)
 public class NavigationAdapterTest {
 
     private LoginActivity activity;

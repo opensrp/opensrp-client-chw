@@ -23,7 +23,6 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
@@ -38,7 +37,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
+@Config(application = ChwApplication.class, sdk = 22)
 public class FamilyProfileActivityTest {
 
     private final String TEST_CARE_GIVER = "45645sdfs64564544";

@@ -17,7 +17,6 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.application.ChwApplication;
 
@@ -25,7 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
+@Config(application = ChwApplication.class, sdk = 22)
 public class ContactUtilTest {
 
     private FamilyProfileActivity activity;
