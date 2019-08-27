@@ -46,6 +46,7 @@ public abstract class CoreFamilyProfileChangeDialog extends DialogFragment imple
     protected Runnable onSaveAndClose;
     protected Runnable onRemoveActivity;
     protected MemberAdapter memberAdapter;
+    protected MemberAdapter.Flavor phoneNumberLengthFlavor;
     private RecyclerView recyclerView;
     private FamilyChangeContract.Presenter presenter;
     private List<FamilyMember> members;
@@ -82,27 +83,24 @@ public abstract class CoreFamilyProfileChangeDialog extends DialogFragment imple
         super.onStart();
         // without a handler, the window sizes itself correctly
         // but the keyboard does not show up
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                Window window = null;
-                if (getDialog() != null) {
-                    window = getDialog().getWindow();
-                }
-
-                if (window == null) {
-                    return;
-                }
-
-                Point size = new Point();
-                Display display = window.getWindowManager().getDefaultDisplay();
-                display.getSize(size);
-
-                int height = size.y;
-
-                window.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, (int) (height * 0.9));
-                window.setGravity(Gravity.CENTER);
+        new Handler().post(() -> {
+            Window window = null;
+            if (getDialog() != null) {
+                window = getDialog().getWindow();
             }
+
+            if (window == null) {
+                return;
+            }
+
+            Point size = new Point();
+            Display display = window.getWindowManager().getDefaultDisplay();
+            display.getSize(size);
+
+            int height = size.y;
+
+            window.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, (int) (height * 0.9));
+            window.setGravity(Gravity.CENTER);
         });
     }
 
@@ -127,27 +125,6 @@ public abstract class CoreFamilyProfileChangeDialog extends DialogFragment imple
 
         return root;
     }
-
-    protected void prepareViews(View view) {
-        view.findViewById(R.id.tvSubmit).setOnClickListener(this);
-        view.findViewById(R.id.tvCancel).setOnClickListener(this);
-        progressBar = view.findViewById(R.id.progressBar);
-        TextView tvInfo = view.findViewById(R.id.tvWarning);
-        TextView tvTitle = view.findViewById(R.id.tvTitle);
-        recyclerView = view.findViewById(R.id.rvList);
-        progressBar.setVisibility(View.INVISIBLE);
-
-
-        if (actionType.equals(CoreConstants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER)) {
-            tvTitle.setText(getString(R.string.select_caregiver));
-            tvInfo.setText(getString(R.string.remove_caregiver_warning_message));
-        } else {
-            tvTitle.setText(getString(R.string.select_family_head));
-            tvInfo.setText(getString(R.string.remove_familyhead_warning_message));
-        }
-    }
-
-    protected abstract CoreFamilyChangePresenter getPresenter();
 
     /**
      * handle backpress from dialog.it'll finish childremoveactivity when back press
@@ -175,6 +152,27 @@ public abstract class CoreFamilyProfileChangeDialog extends DialogFragment imple
             }
         });
     }
+
+    protected void prepareViews(View view) {
+        view.findViewById(R.id.tvSubmit).setOnClickListener(this);
+        view.findViewById(R.id.tvCancel).setOnClickListener(this);
+        progressBar = view.findViewById(R.id.progressBar);
+        TextView tvInfo = view.findViewById(R.id.tvWarning);
+        TextView tvTitle = view.findViewById(R.id.tvTitle);
+        recyclerView = view.findViewById(R.id.rvList);
+        progressBar.setVisibility(View.INVISIBLE);
+
+
+        if (actionType.equals(CoreConstants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER)) {
+            tvTitle.setText(getString(R.string.select_caregiver));
+            tvInfo.setText(getString(R.string.remove_caregiver_warning_message));
+        } else {
+            tvTitle.setText(getString(R.string.select_family_head));
+            tvInfo.setText(getString(R.string.remove_familyhead_warning_message));
+        }
+    }
+
+    protected abstract CoreFamilyChangePresenter getPresenter();
 
     @Override
     public void onClick(View v) {
@@ -213,6 +211,7 @@ public abstract class CoreFamilyProfileChangeDialog extends DialogFragment imple
             if (memberAdapter == null) {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 memberAdapter = new MemberAdapter(getActivity(), members, this);
+                memberAdapter.setFlavorPhoneNumberLength(phoneNumberLengthFlavor);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(memberAdapter);
             } else {
