@@ -6,12 +6,17 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.interactor.PncMemberProfileInteractor;
@@ -28,12 +33,13 @@ import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import timber.log.Timber;
 
 public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
-
+    private ImageView imageViewCross;
     private PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
@@ -83,6 +89,10 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.pnc_member_profile_menu, menu);
         return true;
+    }
+
+    private PncVisitAlertRule getVisitDetails() {
+        return basePncMemberProfileInteractor.getVisitSummary(MEMBER_OBJECT.getBaseEntityId());
     }
 
     @Override
@@ -151,12 +161,72 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     @Override
     public void setupViews() {
         super.setupViews();
-        PncVisitAlertRule visitSummary = basePncMemberProfileInteractor.visitSummary(clientObject());
-        String visitStatus = visitSummary.getButtonStatus();
+        imageViewCross = findViewById(R.id.cross_image);
+        imageViewCross.setOnClickListener(this);
 
-        if (ChildProfileInteractor.VisitType.OVERDUE.name().equals(visitStatus) || ChildProfileInteractor.VisitType.EXPIRY.name().equals(visitStatus)) {
-            textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
+        PncVisitAlertRule summaryVisit = getVisitDetails();
+        String statusVisit = summaryVisit.getButtonStatus();
+        if (statusVisit.equals("OVERDUE")) {
+            textview_record_visit.setVisibility(View.VISIBLE);
+            textview_record_visit.setBackgroundResource(R.drawable.rounded_red_btn);
+        } else if (statusVisit.equals("DUE")) {
+            textview_record_visit.setVisibility(View.VISIBLE);
+            textview_record_visit.setBackgroundResource(R.drawable.rounded_blue_btn);
+        } else if (ChildProfileInteractor.VisitType.VISIT_DONE.name().equals(statusVisit)) {
+            Visit lastVisit = getVisit(Constants.EVENT_TYPE.PNC_HOME_VISIT);
+            if (lastVisit != null) {
+                boolean within24Hours;
+                if ((Days.daysBetween(new DateTime(lastVisit.getCreatedAt()), new DateTime()).getDays() < 1) &&
+                        (Days.daysBetween(new DateTime(lastVisit.getDate()), new DateTime()).getDays() <= 1)) {
+                    within24Hours = true;
+                    setUpEditViews(true, within24Hours, lastVisit.getDate().getTime());
+                } else {
+                    textview_record_visit.setVisibility(View.VISIBLE);
+                    textview_record_visit.setBackgroundResource(R.drawable.rounded_white_btn);
+                    textview_record_visit.setTextColor(getResources().getColor(R.color.scan_qr_code_bg_stk_grey));
+                }
+
+            } else {
+                textview_record_visit.setVisibility(View.VISIBLE);
+                textview_record_visit.setBackgroundResource(R.drawable.record_btn_anc_selector);
+            }
+        } else {
+            textview_record_visit.setBackgroundResource(R.drawable.rounded_white_btn);
+            textview_record_visit.setTextColor(getResources().getColor(R.color.scan_qr_code_bg_stk_grey));
         }
+
+    }
+
+
+    private void setUpEditViews(boolean enable, boolean within24Hours, Long longDate) {
+        if (enable) {
+            if (within24Hours) {
+                String pncDay = basePncMemberProfileInteractor.getPncDay(MEMBER_OBJECT.getBaseEntityId());
+                layoutNotRecordView.setVisibility(View.VISIBLE);
+                tvEdit.setVisibility(View.VISIBLE);
+                textViewUndo.setVisibility(View.GONE);
+                textViewNotVisitMonth.setVisibility(View.VISIBLE);
+                textViewNotVisitMonth.setText(MessageFormat.format(getContext().getString(R.string.pnc_visit_done), pncDay));
+                imageViewCross.setImageResource(R.drawable.activityrow_visited);
+                textview_record_visit.setVisibility(View.GONE);
+            } else {
+                layoutNotRecordView.setVisibility(View.VISIBLE);
+
+            }
+        } else {
+            layoutNotRecordView.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    @Override
+    public void updateVisitNotDone(long value) {
+        return;
+    }
+
+    @Override
+    public void openVisitMonthView() {
+        return;
     }
 
     @Override
@@ -175,16 +245,35 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
         switch (view.getId()) {
             case R.id.textview_record_visit:
+            case R.id.textview_record_reccuring_visit:
                 PncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
+                break;
+            case R.id.textview_edit:
+                PncHomeVisitActivity.startMe(this, MEMBER_OBJECT, true);
                 break;
             default:
                 break;
+
         }
     }
 
     @Override
     public void openUpcomingService() {
         PncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
+    }
+
+
+    @Override
+    public void openFamilyDueServices() {
+        Intent intent = new Intent(this, FamilyProfileActivity.class);
+
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
+
+        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
+        startActivity(intent);
     }
 
 }
