@@ -32,4 +32,9 @@ public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
     public boolean showMalariaConfirmationMenu() {
         return true;
     }
+
+    @Override
+    public boolean showFollowUpVisit() {
+        return true;
+    }
 }
