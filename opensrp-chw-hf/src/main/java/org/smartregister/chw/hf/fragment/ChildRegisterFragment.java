@@ -31,13 +31,12 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
     }
 
     @Override
-    public void goToChildDetailActivity(CommonPersonObjectClient patient,
-                                        boolean launchDialog) {
+    public void goToChildDetailActivity(CommonPersonObjectClient patient, boolean launchDialog) {
         if (launchDialog) {
             Timber.i(patient.name);
         }
 
-        ChildProfileActivity.startMe(getActivity(), false,new MemberObject(patient), ChildProfileActivity.class);
+        ChildProfileActivity.startMe(getActivity(), false, new MemberObject(patient), ChildProfileActivity.class);
     }
 
     @Override

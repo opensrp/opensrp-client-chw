@@ -2,6 +2,7 @@ package org.smartregister.chw.core.fragment;
 
 import android.content.Intent;
 
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
@@ -86,6 +87,7 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
             intent.putExtras(getArguments());
         intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, true);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, new MemberObject(patient));
         startActivity(intent);
     }
 

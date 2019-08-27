@@ -2,7 +2,6 @@ package org.smartregister.chw.dao;
 
 import android.database.Cursor;
 
-import org.joda.time.DateTime;
 import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.domain.PncBaby;
