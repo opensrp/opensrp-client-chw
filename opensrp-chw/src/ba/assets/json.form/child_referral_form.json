@@ -71,7 +71,7 @@
       {
         "key": "referral_problem_child",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Health problem / condition",
@@ -262,9 +262,9 @@
       {
         "key": "referral_problem_child_other",
         "type": "edit_text",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity_parent": "",
+        "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
         "hint": "Other symptom",
         "relevance": {
@@ -278,7 +278,7 @@
       {
         "key": "service_before_child",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Pre-referral management given",
@@ -328,9 +328,9 @@
       {
         "key": "service_before_child_other",
         "type": "edit_text",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity_parent": "",
+        "openmrs_entity_parent": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
         "hint": "Other treatment",
         "v_required": {
@@ -363,7 +363,7 @@
         "key": "referral_time_child",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "referral_time_child",
         "type": "hidden",
         "calculation": {
           "rules-engine": {

@@ -67,6 +67,8 @@ public class CoreConstants {
         public static final String CHILD_VISIT_NOT_DONE = "Visit not done";
         public static final String UNDO_CHILD_VISIT_NOT_DONE = "Undo child visit not done";
         public static final String CHILD_REFERRAL = "Sick Child Referral";
+        public static final String ANC_REFERRAL = "ANC Referral";
+        public static final String PNC_REFERRAL = "PNC Referral";
         public static final String VACCINE_CARD_RECEIVED = "Child vaccine card received";
         public static final String MINIMUM_DIETARY_DIVERSITY = "Minimum dietary diversity";
         public static final String MUAC = "Mid-upper arm circumference (MUAC)";
@@ -395,6 +397,8 @@ public class CoreConstants {
         public static final String TASK = "task";
         public static final String WASH_CHECK_LOG = "ec_wash_check_log";
         public static final String CHILD_REFERRAL = "ec_child_referral";
+        public static final String ANC_REFERRAL = "ec_anc_referral";
+        public static final String PNC_REFERRAL = "ec_pnc_referral";
         public static final String CLOSE_REFERRAL = "ec_close_referral";
     }
 
