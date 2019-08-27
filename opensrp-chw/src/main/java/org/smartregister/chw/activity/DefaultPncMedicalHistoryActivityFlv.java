@@ -100,10 +100,12 @@ public abstract class DefaultPncMedicalHistoryActivityFlv implements PncMedicalH
                         case "pnc_visit_3":
 
                             String date_key = "pnc_hf_visit1_date";
-                            if (entry.getKey().equals("pnc_visit_2"))
+                            if (entry.getKey().equals("pnc_visit_2")) {
                                 date_key = "pnc_hf_visit2_date";
-                            if (entry.getKey().equals("pnc_visit_3"))
+                            }
+                            if (entry.getKey().equals("pnc_visit_3")) {
                                 date_key = "pnc_hf_visit3_date";
+                            }
 
                             if ("Yes".equalsIgnoreCase(val)) {
                                 Map<String, String> map = new HashMap<>();
@@ -123,8 +125,9 @@ public abstract class DefaultPncMedicalHistoryActivityFlv implements PncMedicalH
 
                         // vaccine card
                         case "vaccine_card":
-                            if ("No".equalsIgnoreCase(vaccineCard) && "Yes".equalsIgnoreCase(val))
+                            if ("No".equalsIgnoreCase(vaccineCard) && "Yes".equalsIgnoreCase(val)) {
                                 vaccineCard = "Yes";
+                            }
                             break;
                         // immunization
                         case "opv0":
@@ -152,56 +155,27 @@ public abstract class DefaultPncMedicalHistoryActivityFlv implements PncMedicalH
         }
     }
 
-    protected void processLastVisit(int days, Context context) {
-        linearLayoutLastVisit.setVisibility(View.VISIBLE);
-        customFontTextViewLastVisit.setText(StringUtils.capitalize(MessageFormat.format(context.getString(R.string.days_ago), String.valueOf(days))));
-    }
-
-
-    /**
-     * Extract value from VisitDetail
-     *
-     * @return
-     */
-    @NotNull
-    protected String getText(@Nullable VisitDetail visitDetail) {
-        if (visitDetail == null)
-            return "";
-
-        String val = visitDetail.getHumanReadable();
-        if (StringUtils.isNotBlank(val))
-            return val.trim();
-
-        return (StringUtils.isNotBlank(visitDetail.getDetails())) ? visitDetail.getDetails().trim() : "";
-    }
-
     @NotNull
     protected String getText(@Nullable List<VisitDetail> visitDetails) {
-        if (visitDetails == null)
+        if (visitDetails == null) {
             return "";
+        }
 
         List<String> vals = new ArrayList<>();
         for (VisitDetail vd : visitDetails) {
             String val = getText(vd);
-            if (StringUtils.isNotBlank(val))
+            if (StringUtils.isNotBlank(val)) {
                 vals.add(val);
+            }
         }
 
         return toCSV(vals);
     }
 
-    protected static String toCSV(List<String> list) {
-        String result = "";
-        if (list.size() > 0) {
-            StringBuilder sb = new StringBuilder();
-            for (String s : list) {
-                sb.append(s).append(",");
-            }
-            result = sb.deleteCharAt(sb.length() - 1).toString();
-        }
-        return result;
+    protected void processLastVisit(int days, Context context) {
+        linearLayoutLastVisit.setVisibility(View.VISIBLE);
+        customFontTextViewLastVisit.setText(StringUtils.capitalize(MessageFormat.format(context.getString(R.string.days_ago), String.valueOf(days))));
     }
-
 
     protected void processHealthFacilityVisit(Map<String, Map<String, String>> healthFacility_visit, Context context) {
         if (healthFacility_visit != null && healthFacility_visit.size() > 0) {
@@ -265,10 +239,12 @@ public abstract class DefaultPncMedicalHistoryActivityFlv implements PncMedicalH
                 TextView tvBcg = view.findViewById(R.id.pncBcg);
                 TextView tvOpv0 = view.findViewById(R.id.pncOpv0);
 
-                if (entry.getKey().equals("bcg"))
+                if (entry.getKey().equals("bcg")) {
                     tvBcg.setText(MessageFormat.format(context.getString(R.string.pnc_bcg), entry.getValue()));
-                if (entry.getValue().equals("opv0"))
+                }
+                if (entry.getValue().equals("opv0")) {
                     tvOpv0.setText(MessageFormat.format(context.getString(R.string.pnc_opv0), entry.getValue()));
+                }
                 linearLayoutPncImmunizationDetails.addView(view, 0);
             }
 
@@ -285,11 +261,7 @@ public abstract class DefaultPncMedicalHistoryActivityFlv implements PncMedicalH
 
                 TextView tvPncEarlyInitiationBf = view.findViewById(R.id.pncEarlyInitiationBf);
                 TextView tvpncExcussiveBf = view.findViewById(R.id.pncExcussiveBf);
-
-                if (entry.getKey().equals("breast_feeding")) ;
                 tvpncExcussiveBf.setText(MessageFormat.format(context.getString(R.string.pnc_exclusive_bf_0_months), entry.getValue()));
-
-                if (entry.getKey().equals("early_bf")) ;
                 tvPncEarlyInitiationBf.setText(MessageFormat.format(context.getString(R.string.pnc_early_initiation_bf), entry.getValue()));
 
                 linearLayoutPncGrowthAndNutritionDetails.addView(view, 0);
@@ -297,6 +269,37 @@ public abstract class DefaultPncMedicalHistoryActivityFlv implements PncMedicalH
 
         }
 
+    }
+
+    /**
+     * Extract value from VisitDetail
+     *
+     * @return
+     */
+    @NotNull
+    protected String getText(@Nullable VisitDetail visitDetail) {
+        if (visitDetail == null) {
+            return "";
+        }
+
+        String val = visitDetail.getHumanReadable();
+        if (StringUtils.isNotBlank(val)) {
+            return val.trim();
+        }
+
+        return (StringUtils.isNotBlank(visitDetail.getDetails())) ? visitDetail.getDetails().trim() : "";
+    }
+
+    protected static String toCSV(List<String> list) {
+        String result = "";
+        if (list.size() > 0) {
+            StringBuilder sb = new StringBuilder();
+            for (String s : list) {
+                sb.append(s).append(",");
+            }
+            result = sb.deleteCharAt(sb.length() - 1).toString();
+        }
+        return result;
     }
 
 

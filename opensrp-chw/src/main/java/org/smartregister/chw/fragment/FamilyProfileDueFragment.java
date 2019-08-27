@@ -120,7 +120,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     public void goToChildProfileActivity(View view) {
         if (view.getTag() instanceof CommonPersonObjectClient) {
             CommonPersonObjectClient patient = (CommonPersonObjectClient) view.getTag();
-            ChildProfileActivity.startMe(getActivity(),true, new MemberObject(patient), ChildProfileActivity.class);
+            ChildProfileActivity.startMe(getActivity(), true, new MemberObject(patient), ChildProfileActivity.class);
         }
 
     }

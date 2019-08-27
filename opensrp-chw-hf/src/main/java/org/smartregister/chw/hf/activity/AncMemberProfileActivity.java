@@ -3,9 +3,13 @@ package org.smartregister.chw.hf.activity;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import org.ei.drishti.dto.AlertStatus;
 import org.json.JSONArray;
@@ -19,12 +23,17 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.hf.R;
+import org.smartregister.chw.hf.adapter.ReferralCardViewAdapter;
+import org.smartregister.chw.hf.contract.AncMemberProfileContract;
+import org.smartregister.chw.hf.interactor.HfAncMemberProfileInteractor;
 import org.smartregister.chw.hf.model.FamilyProfileModel;
+import org.smartregister.chw.hf.presenter.AncMemberProfilePresenter;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.domain.Task;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.interactor.FamilyProfileInteractor;
 import org.smartregister.family.util.JsonFormUtils;
@@ -32,17 +41,46 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.Date;
+import java.util.Set;
 
 import timber.log.Timber;
 
-public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
+public class AncMemberProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
+    public RelativeLayout referralRow;
+    public RecyclerView referralRecyclerView;
+    private CommonPersonObjectClient commonPersonObjectClient;
 
-    public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
+    public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber, CommonPersonObjectClient commonPersonObjectClient) {
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhoneNumber);
+        intent.putExtra(CoreConstants.INTENT_KEY.CLIENT, commonPersonObjectClient);
         activity.startActivity(intent);
+    }
+
+    @Override
+    protected void onCreation() {
+        super.onCreation();
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            commonPersonObjectClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CLIENT);
+        }
+
+        ancMemberProfilePresenter().fetchTasks();
+    }
+
+    @Override
+    public void setUpComingServicesStatus(String service, AlertStatus status, Date date) {
+        view_most_due_overdue_row.setVisibility(View.GONE);
+        rlUpcomingServices.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setFamilyStatus(AlertStatus status) {
+        view_family_row.setVisibility(View.GONE);
+        rlFamilyServicesDue.setVisibility(View.GONE);
     }
 
     @Override
@@ -119,6 +157,17 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     }
 
     @Override
+    public AncMemberProfilePresenter ancMemberProfilePresenter() {
+        return new AncMemberProfilePresenter(this, new HfAncMemberProfileInteractor(this), MEMBER_OBJECT);
+    }
+
+    @Override
+    public void setupViews() {
+        super.setupViews();
+        initializeTasksRecyclerView();
+    }
+
+    @Override
     public void openMedicalHistory() {
         AncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
     }
@@ -141,15 +190,24 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
         startActivity(intent);
     }
 
-    @Override
-    public void setUpComingServicesStatus(String service, AlertStatus status, Date date) {
-        view_most_due_overdue_row.setVisibility(View.GONE);
-        rlUpcomingServices.setVisibility(View.GONE);
+    private void initializeTasksRecyclerView() {
+        referralRecyclerView = findViewById(R.id.referral_card_recycler_view);
+        referralRow = findViewById(R.id.referal_row);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        referralRecyclerView.setLayoutManager(layoutManager);
     }
 
     @Override
-    public void setFamilyStatus(AlertStatus status) {
-        view_family_row.setVisibility(View.GONE);
-        rlFamilyServicesDue.setVisibility(View.GONE);
+    public void setClientTasks(Set<Task> taskList) {
+        if (referralRecyclerView != null && taskList.size() > 0) {
+            RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, commonPersonObjectClient, CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY);
+            referralRecyclerView.setAdapter(mAdapter);
+            referralRow.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        // implemented but not used.
     }
 }

@@ -28,13 +28,6 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
 
-    protected FamilyMemberFloatingMenu getFamilyMemberFloatingMenu() {
-        if (familyFloatingMenu == null) {
-            familyFloatingMenu = new FamilyMemberFloatingMenu(this);
-        }
-        return familyFloatingMenu;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -57,9 +50,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
-    protected void removeIndividualProfile() {
-        IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this,
-                commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver, FamilyRegisterActivity.class.getCanonicalName());
+    protected void startAncRegister() {
+        AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber,
+                org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId, familyName);
     }
 
     @Override
@@ -68,14 +61,14 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
-    protected void startAncRegister() {
-        AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber,
-                org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId, familyName);
+    protected void removeIndividualProfile() {
+        IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this,
+                commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver, FamilyRegisterActivity.class.getCanonicalName());
     }
 
     @Override
     protected void startEditMemberJsonForm(Integer title_resource, CommonPersonObjectClient client) {
-            JSONObject form = JsonFormUtils.getAutoPopulatedJsonEditMemberFormString((title_resource != null)
+        JSONObject form = JsonFormUtils.getAutoPopulatedJsonEditMemberFormString((title_resource != null)
                         ? getResources().getString(title_resource) : null, Constants.JSON_FORM.getFamilyMemberRegister(),
                 this, client, Utils.metadata().familyMemberRegister.updateEventType, familyName, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
         try {
@@ -86,8 +79,28 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
+    protected BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(
+            String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName) {
+        return new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(),
+                null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
+    }
+
+    @Override
+    protected FamilyMemberFloatingMenu getFamilyMemberFloatingMenu() {
+        if (familyFloatingMenu == null) {
+            familyFloatingMenu = new FamilyMemberFloatingMenu(this);
+        }
+        return familyFloatingMenu;
+    }
+
+    @Override
     protected Context getFamilyOtherMemberProfileActivity() {
         return FamilyOtherMemberProfileActivity.this;
+    }
+
+    @Override
+    protected Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivity() {
+        return FamilyProfileActivity.class;
     }
 
     @Override
@@ -110,18 +123,6 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected BaseFamilyOtherMemberProfileFragment getFamilyOtherMemberProfileFragment() {
         return FamilyOtherMemberProfileFragment.newInstance(getIntent().getExtras());
-    }
-
-    @Override
-    protected BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(
-            String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName) {
-        return new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(),
-                null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
-    }
-
-    @Override
-    protected Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivity() {
-        return FamilyProfileActivity.class;
     }
 
     /**

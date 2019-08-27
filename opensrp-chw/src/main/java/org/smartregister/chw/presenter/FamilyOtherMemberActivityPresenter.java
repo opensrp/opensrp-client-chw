@@ -9,7 +9,7 @@ import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.family.contract.FamilyOtherMemberContract;
 import org.smartregister.family.contract.FamilyProfileContract;
 
-public class FamilyOtherMemberActivityPresenter extends CoreFamilyOtherMemberActivityPresenter{
+public class FamilyOtherMemberActivityPresenter extends CoreFamilyOtherMemberActivityPresenter {
 
     public FamilyOtherMemberActivityPresenter(FamilyOtherMemberProfileExtendedContract.View view, FamilyOtherMemberContract.Model model, String viewConfigurationIdentifier, String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName) {
         super(view, model, viewConfigurationIdentifier, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
@@ -17,7 +17,7 @@ public class FamilyOtherMemberActivityPresenter extends CoreFamilyOtherMemberAct
 
     @Override
     protected CoreFamilyProfileInteractor getFamilyProfileInteractor() {
-        if (profileInteractor == null){
+        if (profileInteractor == null) {
             this.profileInteractor = new FamilyProfileInteractor();
         }
         return (CoreFamilyProfileInteractor) profileInteractor;
@@ -25,7 +25,7 @@ public class FamilyOtherMemberActivityPresenter extends CoreFamilyOtherMemberAct
 
     @Override
     protected FamilyProfileContract.Model getFamilyProfileModel(String familyName) {
-        if (profileModel == null){
+        if (profileModel == null) {
             this.profileModel = new FamilyProfileModel(familyName);
         }
         return profileModel;
@@ -33,7 +33,7 @@ public class FamilyOtherMemberActivityPresenter extends CoreFamilyOtherMemberAct
 
     @Override
     protected void setProfileInteractor() {
-        if (familyInteractor == null){
+        if (familyInteractor == null) {
             familyInteractor = new FamilyInteractor();
         }
     }

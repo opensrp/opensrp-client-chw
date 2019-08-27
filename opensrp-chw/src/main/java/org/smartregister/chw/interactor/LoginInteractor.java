@@ -1,4 +1,5 @@
 package org.smartregister.chw.interactor;
+
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;

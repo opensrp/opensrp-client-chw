@@ -42,14 +42,6 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
         }
     }
 
-    @Override
-    protected abstract void initializePresenter();
-
-    @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        Timber.v("setAdvancedSearchFormData");
-    }
-
     public void goToProfileActivity(android.view.View view) {
         if (view.getTag() instanceof CommonPersonObjectClient) {
             CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
@@ -72,8 +64,6 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
         startActivity(intent);
     }
 
-    protected abstract Class<?> getFamilyOtherMemberProfileActivityClass();
-
     public void goToChildProfileActivity(CommonPersonObjectClient patient) {
         String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
         Integer yearOfBirth = CoreChildUtils.dobStringToYear(dobString);
@@ -83,16 +73,27 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
         } else {
             intent = new Intent(getActivity(), getChildProfileActivityClass());
         }
-        if (getArguments() != null)
+        if (getArguments() != null) {
             intent.putExtras(getArguments());
+        }
         intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, true);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, new MemberObject(patient));
         startActivity(intent);
     }
 
-    protected abstract Class<? extends CoreChildProfileActivity> getChildProfileActivityClass();
+    protected abstract Class<?> getFamilyOtherMemberProfileActivityClass();
 
     protected abstract Class<? extends CoreAboveFiveChildProfileActivity> getAboveFiveChildProfileActivityClass();
+
+    protected abstract Class<? extends CoreChildProfileActivity> getChildProfileActivityClass();
+
+    @Override
+    protected abstract void initializePresenter();
+
+    @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        Timber.v("setAdvancedSearchFormData");
+    }
 
 }

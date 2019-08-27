@@ -8,7 +8,7 @@ import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileFragmentModel;
 import org.smartregister.view.contract.BaseRegisterFragmentContract;
 
-public class FamilyOtherMemberProfileFragment extends CoreFamilyOtherMemberProfileFragment{
+public class FamilyOtherMemberProfileFragment extends CoreFamilyOtherMemberProfileFragment {
 
     public static BaseFamilyOtherMemberProfileFragment newInstance(Bundle bundle) {
         Bundle args = bundle;

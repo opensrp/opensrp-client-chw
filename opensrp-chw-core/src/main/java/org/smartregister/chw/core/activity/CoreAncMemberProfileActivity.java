@@ -15,9 +15,9 @@ import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.interactor.AncMemberProfileInteractor;
+import org.smartregister.chw.core.interactor.CoreAncMemberProfileInteractor;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
-import org.smartregister.chw.core.presenter.AncMemberProfilePresenter;
+import org.smartregister.chw.core.presenter.CoreAncMemberProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.core.utils.VisitSummary;
@@ -64,13 +64,13 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
         //// TODO: 22/08/19
     }
 
-    public AncMemberProfilePresenter ancMemberProfilePresenter() {
-        return new AncMemberProfilePresenter(this, new AncMemberProfileInteractor(this), MEMBER_OBJECT);
+    public CoreAncMemberProfilePresenter ancMemberProfilePresenter() {
+        return new CoreAncMemberProfilePresenter(this, new CoreAncMemberProfileInteractor(this), MEMBER_OBJECT);
     }
 
     @Override
     protected void registerPresenter() {
-        presenter = new BaseAncMemberProfilePresenter(this, new AncMemberProfileInteractor(this), MEMBER_OBJECT);
+        presenter = new BaseAncMemberProfilePresenter(this, new CoreAncMemberProfileInteractor(this), MEMBER_OBJECT);
     }
 
     @Override

@@ -91,10 +91,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         return true;
     }
 
-    private PncVisitAlertRule getVisitDetails() {
-        return basePncMemberProfileInteractor.getVisitSummary(MEMBER_OBJECT.getBaseEntityId());
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -197,6 +193,9 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
     }
 
+    private PncVisitAlertRule getVisitDetails() {
+        return basePncMemberProfileInteractor.getVisitSummary(MEMBER_OBJECT.getBaseEntityId());
+    }
 
     private void setUpEditViews(boolean enable, boolean within24Hours, Long longDate) {
         if (enable) {
@@ -220,16 +219,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     }
 
     @Override
-    public void updateVisitNotDone(long value) {
-        return;
-    }
-
-    @Override
-    public void openVisitMonthView() {
-        return;
-    }
-
-    @Override
     public void openMedicalHistory() {
         PncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
     }
@@ -237,6 +226,16 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     @Override
     protected void registerPresenter() {
         presenter = new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
+    }
+
+    @Override
+    public void updateVisitNotDone(long value) {
+        return;
+    }
+
+    @Override
+    public void openVisitMonthView() {
+        return;
     }
 
     @Override

@@ -43,16 +43,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
-    protected CoreFamilyMemberFloatingMenu getFamilyMemberFloatingMenu() {
-        if (familyFloatingMenu == null) {
-            prepareFab();
-        }
-        return familyFloatingMenu;
-    }
-
-    @Override
-    protected void removeIndividualProfile() {
-        Timber.d("Remove member action is not required in HF");
+    protected void startAncRegister() {
+        //TODO implement start anc register for HF
     }
 
     @Override
@@ -61,19 +53,20 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
-    protected void startAncRegister() {
-        //TODO implement start anc register for HF
+    protected void removeIndividualProfile() {
+        Timber.d("Remove member action is not required in HF");
     }
 
     @Override
     protected void startEditMemberJsonForm(Integer title_resource, CommonPersonObjectClient client) {
         JSONObject form;
-        if (title_resource != null)
+        if (title_resource != null) {
             form = baJsonFormUtils.getAutoJsonEditMemberFormString(getResources().getString(title_resource), CoreConstants.JSON_FORM.getFamilyMemberRegister(),
                     this, client, Utils.metadata().familyMemberRegister.updateEventType, familyName, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
-        else
+        } else {
             form = baJsonFormUtils.getAutoJsonEditMemberFormString(null, CoreConstants.JSON_FORM.getFamilyMemberRegister(),
                     this, client, Utils.metadata().familyMemberRegister.updateEventType, familyName, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
+        }
         try {
             startFormActivity(form);
         } catch (Exception e) {
@@ -82,8 +75,28 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
+    protected BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(
+            String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName) {
+        return new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(),
+                null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
+    }
+
+    @Override
+    protected CoreFamilyMemberFloatingMenu getFamilyMemberFloatingMenu() {
+        if (familyFloatingMenu == null) {
+            prepareFab();
+        }
+        return familyFloatingMenu;
+    }
+
+    @Override
     protected Context getFamilyOtherMemberProfileActivity() {
         return FamilyOtherMemberProfileActivity.this;
+    }
+
+    @Override
+    protected Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivity() {
+        return FamilyProfileActivity.class;
     }
 
     @Override
@@ -110,16 +123,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         return FamilyOtherMemberProfileFragment.newInstance(getIntent().getExtras());
     }
 
-    @Override
-    protected BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(
-            String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName) {
-        return new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(),
-                null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
-    }
-
-    @Override
-    protected Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivity() {
-        return FamilyProfileActivity.class;
+    private void prepareFab() {
+        familyFloatingMenu = new FamilyMemberFloatingMenu(this);
+        familyFloatingMenu.fab.setOnClickListener(v -> FamilyCallDialogFragment.launchDialog(this, familyBaseEntityId));
     }
 
     private void setupMenuOptions(Menu menu) {
@@ -133,10 +139,5 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         } else {
             menu.findItem(R.id.action_anc_registration).setVisible(false);
         }
-    }
-
-    private void prepareFab() {
-        familyFloatingMenu = new FamilyMemberFloatingMenu(this);
-        familyFloatingMenu.fab.setOnClickListener(v -> FamilyCallDialogFragment.launchDialog(this, familyBaseEntityId));
     }
 }

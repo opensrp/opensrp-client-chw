@@ -40,7 +40,7 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
         Date createDate = null;
         try {
             PersonDao dao = new PersonDao();
-           String x =  dao.getAncCreatedDate(memberObject.getBaseEntityId());
+            String x = dao.getAncCreatedDate(memberObject.getBaseEntityId());
             createDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(x);
         } catch (ParseException e) {
             e.printStackTrace();
