@@ -117,11 +117,11 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
             evaluateExclusiveBreastFeeding(serviceWrapperMap);
             evaluateVitaminA(serviceWrapperMap);
             evaluateDeworming(serviceWrapperMap);
-            evaluateMNP();
-            evaluateMUAC();
-            evaluateLLITN();
-            evaluateECD();
             evaluateBirthCertForm();
+            evaluateMUAC();
+            evaluateMNP();
+            evaluateECD();
+            evaluateLLITN();
             evaluateObsAndIllness();
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
@@ -131,6 +131,9 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
     }
 
     protected void evaluateImmunization() throws Exception {
+        int age = getAgeInMonths();
+        if (age >= 24)
+            return;
 
         List<VaccineGroup> childVaccineGroups = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD);
         List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(context);
@@ -396,7 +399,7 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
 
     protected void evaluateMNP() throws Exception {
         int age = getAgeInMonths();
-        if (age > 24 || age < 6) {
+        if (age > 60 || age < 6) {
             return;
         }
 
