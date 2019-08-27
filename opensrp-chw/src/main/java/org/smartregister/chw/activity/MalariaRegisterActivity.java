@@ -13,7 +13,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.core.job.BasePncCloseJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.fragment.MalariaRegisterFragment;
@@ -97,7 +96,6 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String FEVER_STILL = "fever_still";
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == org.smartregister.chw.malaria.util.Constants.REQUEST_CODE_GET_JSON) {
             String jsonString = data.getStringExtra(org.smartregister.chw.malaria.util.Constants.JSON_FORM_EXTRA.JSON);
@@ -109,7 +107,7 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
                 String encounter_type = jsonForm.optString(org.smartregister.chw.malaria.util.Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
 
                 if (org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.MALARIA_FOLLOW_UP_VISIT.equals(encounter_type)) {
-                    JSONObject fever_still_object = getFieldJSONObject(fields, FEVER_STILL);
+                    JSONObject fever_still_object = getFieldJSONObject(fields, "fever_still");
                     if (fever_still_object != null && "Yes".equalsIgnoreCase(fever_still_object.optString(VALUE))) {
                         MalariaRegisterActivity.startMalariaRegistrationActivity(this, jsonForm.optString(ENTITY_ID));
                     }
@@ -127,7 +125,7 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
     }
 
     private void startRegisterActivity(Class registerClass) {
-        BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
+//        BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);

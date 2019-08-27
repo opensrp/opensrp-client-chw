@@ -42,11 +42,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         super.onCreation();
     }
 
-//    @Override
-//    public void onClick(View view) {
-//        onBackPressed();
-//    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -56,10 +51,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             case R.id.action_registration:
                 startFormForEdit(R.string.registration_info,
                         org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER);
-                return true;
-
-            case R.id.action_malaria_followup_visit:
-                Toast.makeText(getApplicationContext(), R.string.malaria_follow_up, Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.action_remove_member:
@@ -117,7 +108,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     @Override
     public void setProfileImage(String s, String s1) {
         //implement
-
     }
 
     @Override
@@ -142,11 +132,10 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     public void onClick(View view) {
         super.onClick(view);
         int id = view.getId();
-        if (id == R.id.record_visit_malaria) {
+        if (id == R.id.textview_record_malaria) {
             MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, MEMBER_OBJECT.getBaseEntityId());
         }
     }
-
 
     @Override
     public void setProfileDetailThree(String s) {
