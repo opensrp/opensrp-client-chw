@@ -2,134 +2,44 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
-import org.smartregister.chw.core.listener.FloatingMenuListener;
+import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
+import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
-import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
-import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
-import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.JsonFormUtils;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.family.activity.BaseFamilyOtherMemberProfileActivity;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
-import org.smartregister.family.util.Constants;
-import org.smartregister.family.util.JsonFormUtils;
-import org.smartregister.family.util.Utils;
-import org.smartregister.helper.ImageRenderHelper;
+import org.smartregister.view.contract.BaseProfileContract;
 
 import timber.log.Timber;
 
-public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity implements FamilyOtherMemberProfileExtendedContract.View {
-    private String familyBaseEntityId;
-    private String baseEntityId;
-    private String familyHead;
-    private String primaryCaregiver;
-    private String familyName;
-    private String PhoneNumber;
-    private CommonPersonObjectClient commonPersonObject;
+public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
     private FamilyMemberFloatingMenu familyFloatingMenu;
-    private TextView textViewFamilyHas;
-    private RelativeLayout layoutFamilyHasRow;
+    private Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
 
-    private OnClickFloatingMenu onClickFloatingMenu;
-    private FamilyOtherMemberProfileActivityFlv flavor = new FamilyOtherMemberProfileActivityFlv();
-
-    @Override
-    protected void onCreation() {
-        setContentView(R.layout.activity_family_other_member_profile_chw);
-
-        Toolbar toolbar = findViewById(org.smartregister.family.R.id.family_toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("");
+    protected FamilyMemberFloatingMenu getFamilyMemberFloatingMenu() {
+        if (familyFloatingMenu == null) {
+            familyFloatingMenu = new FamilyMemberFloatingMenu(this);
         }
-
-        appBarLayout = findViewById(org.smartregister.family.R.id.toolbar_appbarlayout);
-
-        imageRenderHelper = new ImageRenderHelper(this);
-
-        initializePresenter();
-
-        setupViews();
-    }
-
-    @Override
-    protected void setupViews() {
-        super.setupViews();
-
-        TextView toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText(String.format(getString(R.string.return_to_family_name), presenter().getFamilyName()));
-
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.setSelectedTabIndicatorHeight(0);
-
-        findViewById(R.id.viewpager).setVisibility(View.GONE);
-
-        // add floating menu
-        familyFloatingMenu = new FamilyMemberFloatingMenu(this);
-        LinearLayout.LayoutParams linearLayoutParams =
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
-        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
-        addContentView(familyFloatingMenu, linearLayoutParams);
-
-        familyFloatingMenu.setClickListener(onClickFloatingMenu);
-        textViewFamilyHas = findViewById(R.id.textview_family_has);
-        layoutFamilyHasRow = findViewById(R.id.family_has_row);
-
-        layoutFamilyHasRow.setOnClickListener(this);
-    }
-
-    @Override
-    protected void onResumption() {
-        super.onResumption();
-        FloatingMenuListener.getInstance(this, presenter().getFamilyBaseEntityId());
+        return familyFloatingMenu;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        MenuItem addMember = menu.findItem(R.id.add_member);
-        if (addMember != null) {
-            addMember.setVisible(false);
-        }
-
-        getMenuInflater().inflate(R.menu.other_member_menu, menu);
-
         flavor.onCreateOptionsMenu(menu);
-
         if (flavor.isWra(commonPersonObject)) {
             menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {
@@ -142,167 +52,47 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            case R.id.action_anc_registration:
-                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber,
-                        org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId, familyName);
-                return true;
-            case R.id.action_malaria_registration:
-                MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
-                return true;
-            case R.id.action_registration:
-                startFormForEdit(R.string.edit_member_form_title);
-                return true;
-            case R.id.action_remove_member:
-                IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver, FamilyRegisterActivity.class.getCanonicalName());
-                return true;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public FamilyOtherMemberActivityPresenter presenter() {
         return (FamilyOtherMemberActivityPresenter) presenter;
     }
 
-    public void startFormForEdit(Integer title_resource) {
-        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
+    @Override
+    protected void removeIndividualProfile() {
+        IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this,
+                commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver, FamilyRegisterActivity.class.getCanonicalName());
+    }
 
-        final CommonPersonObject personObject = commonRepository.findByBaseEntityId(commonPersonObject.getCaseId());
-        final CommonPersonObjectClient client =
-                new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
-        client.setColumnmaps(personObject.getColumnmaps());
+    @Override
+    protected void startMalariaRegister() {
+        MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
+    }
 
-        JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
-                (title_resource != null) ? getResources().getString(title_resource) : null,
-                CoreConstants.JSON_FORM.getFamilyMemberRegister(),
-                this, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, familyName, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
+    @Override
+    protected void startAncRegister() {
+        AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber,
+                org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId, familyName);
+    }
+
+    @Override
+    protected void startEditMemberJsonForm(Integer title_resource, CommonPersonObjectClient client) {
+            JSONObject form = JsonFormUtils.getAutoPopulatedJsonEditMemberFormString((title_resource != null)
+                        ? getResources().getString(title_resource) : null, Constants.JSON_FORM.getFamilyMemberRegister(),
+                this, client, Utils.metadata().familyMemberRegister.updateEventType, familyName, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
         try {
             startFormActivity(form);
         } catch (Exception e) {
-            Timber.e(e.getMessage());
-        }
-    }
-
-    public void startFormActivity(JSONObject jsonForm) {
-        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
-        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-
-
-        Form form = new Form();
-        form.setActionBarBackground(R.color.family_actionbar);
-        form.setWizard(false);
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-
-        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case CoreConstants.ProfileActivityResults.CHANGE_COMPLETED:
-                if (resultCode == Activity.RESULT_OK) {
-                    Intent intent = new Intent(FamilyOtherMemberProfileActivity.this, FamilyProfileActivity.class);
-                    intent.putExtras(getIntent().getExtras());
-                    startActivity(intent);
-                    finish();
-                }
-                break;
-            case JsonFormUtils.REQUEST_CODE_GET_JSON:
-                if (resultCode == RESULT_OK) {
-                    try {
-                        String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-                        JSONObject form = new JSONObject(jsonString);
-                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
-                            presenter().updateFamilyMember(jsonString);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                break;
-            default:
-                break;
+            Timber.e(e);
         }
     }
 
     @Override
-    public void refreshList() {
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            for (int i = 0; i < adapter.getCount(); i++) {
-                refreshList(adapter.getItem(i));
-            }
-        } else {
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(() -> {
-                for (int i = 0; i < adapter.getCount(); i++) {
-                    refreshList(adapter.getItem(i));
-                }
-            });
-        }
-    }
-
-    @Override
-    public void updateHasPhone(boolean hasPhone) {
-        if (familyFloatingMenu != null) {
-            familyFloatingMenu.reDraw(hasPhone);
-        }
-    }
-
-    @Override
-    public void setFamilyServiceStatus(String status) {
-        layoutFamilyHasRow.setVisibility(View.VISIBLE);
-        if (status.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.DUE.name())) {
-            textViewFamilyHas.setText(getString(R.string.family_has_services_due));
-        } else if (status.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.OVERDUE.name())) {
-            textViewFamilyHas.setText(ChildUtils.fromHtml(getString(R.string.family_has_service_overdue)));
-        } else {
-            textViewFamilyHas.setText(getString(R.string.family_has_nothing_due));
-        }
-    }
-
-    @Override
-    public Context getContext() {
-        return this;
-    }
-
-    private void refreshList(Fragment fragment) {
-        if (fragment instanceof FamilyOtherMemberProfileFragment) {
-            FamilyOtherMemberProfileFragment familyOtherMemberProfileFragment = ((FamilyOtherMemberProfileFragment) fragment);
-            if (familyOtherMemberProfileFragment.presenter() != null) {
-                familyOtherMemberProfileFragment.refreshListView();
-            }
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.family_has_row) {
-            openFamilyDueTab();
-        } else {
-            super.onClick(view);
-        }
+    protected Context getFamilyOtherMemberProfileActivity() {
+        return FamilyOtherMemberProfileActivity.this;
     }
 
     @Override
     protected void initializePresenter() {
-        commonPersonObject = (CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON);
-        familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
-        primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        String villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
-        familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
-        PhoneNumber = commonPersonObject.getColumnmaps().get(org.smartregister.chw.util.Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
-        presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
-
+        super.initializePresenter();
         onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, familyBaseEntityId);
     }
 
@@ -317,36 +107,32 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         return viewPager;
     }
 
-    private void openFamilyDueTab() {
-        Intent intent = new Intent(this, FamilyProfileActivity.class);
+    @Override
+    protected BaseFamilyOtherMemberProfileFragment getFamilyOtherMemberProfileFragment() {
+        return FamilyOtherMemberProfileFragment.newInstance(getIntent().getExtras());
+    }
 
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, familyBaseEntityId);
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
-        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, familyName);
+    @Override
+    protected BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(
+            String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName) {
+        return new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(),
+                null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
+    }
 
-        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
-        startActivity(intent);
+    @Override
+    protected Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivity() {
+        return FamilyProfileActivity.class;
     }
 
     /**
      * build implementation differences file
      */
     public interface Flavor {
-        /**
-         * Return implementation menu
-         */
         OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId);
 
         Boolean onCreateOptionsMenu(Menu menu);
 
-        /**
-         * calculate wra validity for each implementation
-         *
-         * @param commonPersonObject
-         * @return
-         */
         boolean isWra(CommonPersonObjectClient commonPersonObject);
-
     }
+
 }

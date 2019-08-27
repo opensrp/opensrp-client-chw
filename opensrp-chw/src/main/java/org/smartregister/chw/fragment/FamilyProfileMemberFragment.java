@@ -1,33 +1,23 @@
 package org.smartregister.chw.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
-import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AboveFiveChildProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
-import org.smartregister.chw.anc.domain.MemberObject;
-import org.smartregister.chw.core.utils.ChildDBConstants;
-import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
+import org.smartregister.chw.core.activity.CoreChildProfileActivity;
+import org.smartregister.chw.core.fragment.CoreFamilyProfileMemberFragment;
 import org.smartregister.chw.model.FamilyProfileMemberModel;
 import org.smartregister.chw.provider.ChwMemberRegisterProvider;
-import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.Utils;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.presenter.BaseFamilyProfileMemberPresenter;
 import org.smartregister.family.util.Constants;
-import org.smartregister.family.util.DBConstants;
 
-import java.util.HashMap;
 import java.util.Set;
 
-import timber.log.Timber;
-
-public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
+public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment {
 
     public static BaseFamilyProfileMemberFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -40,19 +30,6 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
     }
 
     @Override
-    protected void initializePresenter() {
-        String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
-        String primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        presenter = new BaseFamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
-    }
-
-    @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        Timber.v("setAdvancedSearchFormData");
-    }
-
-    @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns, String familyHead, String primaryCaregiver) {
         ChwMemberRegisterProvider chwMemberRegisterProvider = new ChwMemberRegisterProvider(this.getActivity(), this.commonRepository(), visibleColumns, this.registerActionHandler, this.paginationViewHandler, familyHead, primaryCaregiver);
         this.clientAdapter = new RecyclerViewPaginatedAdapter(null, chwMemberRegisterProvider, this.context().commonrepository(this.tablename));
@@ -61,55 +38,25 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
     }
 
     @Override
-    protected void onViewClicked(View view) {
-        super.onViewClicked(view);
-        switch (view.getId()) {
-            case R.id.patient_column:
-                if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
-                    goToProfileActivity(view);
-                }
-                break;
-            case R.id.next_arrow:
-                if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NEXT_ARROW) {
-                    goToProfileActivity(view);
-                }
-            default:
-                break;
-        }
+    protected void initializePresenter() {
+        String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
+        String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
+        String primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+        presenter = new BaseFamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
     }
 
-    public void goToProfileActivity(View view) {
-        if (view.getTag() instanceof CommonPersonObjectClient) {
-            CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
-            String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
-            if (CoreConstants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
-                goToOtherMemberProfileActivity(commonPersonObjectClient);
-            } else {
-                goToChildProfileActivity(commonPersonObjectClient);
-            }
-        }
+    @Override
+    protected Class<?> getFamilyOtherMemberProfileActivityClass() {
+        return FamilyOtherMemberProfileActivity.class;
     }
 
-    public void goToOtherMemberProfileActivity(CommonPersonObjectClient patient) {
-        Intent intent = new Intent(getActivity(), FamilyOtherMemberProfileActivity.class);
-        intent.putExtras(getArguments());
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-        intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, patient);
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, ((BaseFamilyProfileMemberPresenter) presenter).getFamilyHead());
-        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((BaseFamilyProfileMemberPresenter) presenter).getPrimaryCaregiver());
-        startActivity(intent);
+    @Override
+    protected Class<? extends CoreChildProfileActivity> getChildProfileActivityClass() {
+        return ChildProfileActivity.class;
     }
 
-    public void goToChildProfileActivity(CommonPersonObjectClient patient) {
-        String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
-        Integer yearOfBirth = ChildUtils.dobStringToYear(dobString);
-        if (yearOfBirth != null && yearOfBirth >= 5) {
-            ChildProfileActivity.startMe(getActivity(), true, new MemberObject(patient), AboveFiveChildProfileActivity.class);
-
-        } else {
-            ChildProfileActivity.startMe(getActivity(), true, new MemberObject(patient), ChildProfileActivity.class);
-
-        }
+    @Override
+    protected Class<? extends CoreAboveFiveChildProfileActivity> getAboveFiveChildProfileActivityClass() {
+        return AboveFiveChildProfileActivity.class;
     }
-
 }
