@@ -42,10 +42,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         flavor.onCreateOptionsMenu(menu);
 
         // Check if woman is already registered
-        if (!presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject)) {
-            if (flavor.isWra(commonPersonObject)) {
-                menu.findItem(R.id.action_anc_registration).setVisible(true);
-            }
+        if (!presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isWra(commonPersonObject)) {
+            menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {
             menu.findItem(R.id.action_anc_registration).setVisible(false);
         }
