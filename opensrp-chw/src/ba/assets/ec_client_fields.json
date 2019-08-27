@@ -1015,8 +1015,6 @@
           "column_name": "referral_date_child",
           "type": "Event",
           "data_type": "date",
-          "source_format": "dd-MM-yyyy",
-          "save_format": "yyyy-MM-dd",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -1027,7 +1025,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": ""
+            "formSubmissionField": "referral_task_previous_status"
           }
         }
       ]
