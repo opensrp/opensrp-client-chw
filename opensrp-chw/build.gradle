@@ -66,6 +66,7 @@ android {
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
+            buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
             buildConfigField "int", "BASE_PNC_CLOSE_HOURS", '24'
         }
 
@@ -79,6 +80,7 @@ android {
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '15'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '15'
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
+            buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
             buildConfigField "int", "BASE_PNC_CLOSE_HOURS", '24'
             testCoverageEnabled true
         }

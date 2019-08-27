@@ -22,4 +22,9 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
     public boolean showMalariaConfirmationMenu() {
         return false;
     }
+
+    @Override
+    public boolean showFollowUpVisit() {
+        return false;
+    }
 }
