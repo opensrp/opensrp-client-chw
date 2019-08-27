@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
+import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
@@ -42,7 +43,8 @@ import timber.log.Timber;
 
 public class ReferralTaskViewActivity extends SecuredActivity {
     protected AppBarLayout appBarLayout;
-    protected boolean isFromReferrals;
+    protected String startingActivity;
+    CustomFontTextView viewProfile;
     private CommonPersonObjectClient personObjectClient;
     private Task task;
     private CustomFontTextView clientName;
@@ -56,11 +58,11 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     private String name;
     private String baseEntityId;
 
-    public static void startReferralTaskViewActivity(Activity activity, CommonPersonObjectClient personObjectClient, Task task, boolean isFromReferrals) {
+    public static void startReferralTaskViewActivity(Activity activity, CommonPersonObjectClient personObjectClient, Task task, String startingActivity) {
         Intent intent = new Intent(activity, ReferralTaskViewActivity.class);
         intent.putExtra(CoreConstants.INTENT_KEY.USERS_TASKS, task);
         intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, personObjectClient);
-        intent.putExtra("isFromReferrals", isFromReferrals);
+        intent.putExtra(CoreConstants.INTENT_KEY.STARTING_ACTIVITY, startingActivity);
         activity.startActivity(intent);
     }
 
@@ -75,10 +77,11 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         if (getIntent().getExtras() != null) {
             extractPersonObjectClient();
             extraClientTask();
-            setFromReferrals((Boolean) getIntent().getSerializableExtra("isFromReferrals"));
+            setStartingActivity((String) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.STARTING_ACTIVITY));
         }
         referralsTaskViewClickListener.setReferralTaskViewActivity(this);
-        referralsTaskViewClickListener.setiSFromReferral(isFromReferrals);
+        referralsTaskViewClickListener.setTaskFocus(getTask().getFocus());
+        referralsTaskViewClickListener.setCommonPersonObjectClient(getPersonObjectClient());
         inflateToolbar();
         setUpViews();
         if (getPersonObjectClient() == null) {
@@ -104,6 +107,14 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         setTask((Task) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.USERS_TASKS));
     }
 
+    public Task getTask() {
+        return task;
+    }
+
+    public CommonPersonObjectClient getPersonObjectClient() {
+        return personObjectClient;
+    }
+
     private void inflateToolbar() {
         Toolbar toolbar = findViewById(R.id.back_referrals_toolbar);
         CustomFontTextView toolBarTextView = toolbar.findViewById(R.id.toolbar_title);
@@ -120,11 +131,16 @@ public class ReferralTaskViewActivity extends SecuredActivity {
 
         toolbar.setNavigationOnClickListener(v -> finish());
 
-        if (TextUtils.isEmpty(name)) {
+        if (getStartingActivity().equals(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY)) {
             toolBarTextView.setText(R.string.back_to_referrals);
         } else {
-            toolBarTextView.setText(getString(R.string.return_to, name));
+            if (TextUtils.isEmpty(name)) {
+                toolBarTextView.setText(R.string.back_to_referrals);
+            } else {
+                toolBarTextView.setText(getString(R.string.return_to, name));
+            }
         }
+        toolBarTextView.setOnClickListener(v -> finish());
         appBarLayout = findViewById(R.id.app_bar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             appBarLayout.setOutlineProvider(null);
@@ -140,18 +156,21 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         clientReferralProblem = findViewById(R.id.client_referral_problem);
         chwDetailsNames = findViewById(R.id.chw_details_names);
         referralDate = findViewById(R.id.referral_date);
+        viewProfile = findViewById(R.id.view_profile);
 
         CustomFontTextView markAskDone = findViewById(R.id.mark_ask_done);
         markAskDone.setOnClickListener(referralsTaskViewClickListener);
 
-        CustomFontTextView viewProfile = findViewById(R.id.view_profile);
-        viewProfile.setOnClickListener(referralsTaskViewClickListener);
-
+        if (getStartingActivity().equals(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY)) {
+            viewProfile.setOnClickListener(referralsTaskViewClickListener);
+        } else {
+            viewProfile.setVisibility(View.INVISIBLE);
+        }
         getReferralDetails();
     }
 
-    public CommonPersonObjectClient getPersonObjectClient() {
-        return personObjectClient;
+    public String getStartingActivity() {
+        return startingActivity;
     }
 
     private void getReferralDetails() {
@@ -173,10 +192,6 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         }
     }
 
-    public Task getTask() {
-        return task;
-    }
-
     private String getFamilyMemberContacts() {
         String phoneNumber = "";
         String familyPhoneNumber = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_MEMBER_PHONENUMBER, true);
@@ -192,20 +207,16 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         return phoneNumber;
     }
 
-    public void setTask(Task task) {
-        this.task = task;
+    public void setStartingActivity(String startingActivity) {
+        this.startingActivity = startingActivity;
     }
 
     public void setPersonObjectClient(CommonPersonObjectClient personObjectClient) {
         this.personObjectClient = personObjectClient;
     }
 
-    public boolean isFromReferrals() {
-        return isFromReferrals;
-    }
-
-    public void setFromReferrals(boolean fromReferrals) {
-        isFromReferrals = fromReferrals;
+    public void setTask(Task task) {
+        this.task = task;
     }
 
     public void closeReferral() {

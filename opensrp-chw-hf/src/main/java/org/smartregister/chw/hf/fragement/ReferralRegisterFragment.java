@@ -3,6 +3,7 @@ package org.smartregister.chw.hf.fragement;
 import android.view.View;
 
 import org.smartregister.chw.core.fragment.BaseReferralRegisterFragment;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.hf.HealthFacilityApplication;
 import org.smartregister.chw.hf.activity.ReferralTaskViewActivity;
@@ -13,6 +14,7 @@ import org.smartregister.family.util.DBConstants;
 
 public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
     private ReferralFragmentPresenter referralFragmentPresenter;
+    private Task task;
 
     @Override
     protected void initializePresenter() {
@@ -26,7 +28,7 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
         CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
         referralFragmentPresenter.setBaseEntityId(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true));
         referralFragmentPresenter.fetchClient();
-        ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getCommonPersonObjectClient(), getTask(Utils.getValue(client.getColumnmaps(), "_id", true)), true);
+        ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getCommonPersonObjectClient(), getTask(Utils.getValue(client.getColumnmaps(), "_id", true)), CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY);
     }
 
     private Task getTask(String taskId) {

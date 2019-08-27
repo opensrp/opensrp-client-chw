@@ -104,10 +104,10 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
         Integer yearOfBirth = ChildUtils.dobStringToYear(dobString);
         if (yearOfBirth != null && yearOfBirth >= 5) {
-            ChildProfileActivity.startMe(getActivity(),true,new MemberObject(patient),AboveFiveChildProfileActivity.class);
+            ChildProfileActivity.startMe(getActivity(), true, new MemberObject(patient), AboveFiveChildProfileActivity.class);
 
         } else {
-            ChildProfileActivity.startMe(getActivity(),true,new MemberObject(patient),ChildProfileActivity.class);
+            ChildProfileActivity.startMe(getActivity(), true, new MemberObject(patient), ChildProfileActivity.class);
 
         }
     }

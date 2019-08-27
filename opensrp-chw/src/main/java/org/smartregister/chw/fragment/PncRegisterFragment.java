@@ -88,9 +88,9 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         return (getSearchView() == null) ? "" : getSearchView().getText().toString();
     }
 
-    private String getCondition() {
-        return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DATE_REMOVED + " is null " +
-                "AND " + Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME + "." + DBConstants.KEY.IS_CLOSED + " is 0 ";
+    private String getDueCondition() {
+        return " ifnull(substr(delivery_date, 7, 4)||'-'||substr(delivery_date, 4, 2)||'-'||substr(delivery_date, 1, 2), '+2 day') < STRFTIME('%Y%m%d', datetime('now')) " +
+                " and julianday() - julianday(substr(delivery_date, 7, 4)||'-'||substr(delivery_date, 4, 2)||'-'||substr(delivery_date, 1, 2)) >= 2   ";
     }
 
     private void switchViews(View dueOnlyLayout, boolean isPress) {
@@ -100,6 +100,11 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         } else {
             dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
         }
+    }
+
+    private String getCondition() {
+        return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DATE_REMOVED + " is null " +
+                "AND " + Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME + "." + DBConstants.KEY.IS_CLOSED + " is 0 ";
     }
 
     @Override
@@ -211,11 +216,6 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         if (syncButton != null) {
             syncButton.setVisibility(View.GONE);
         }
-    }
-
-    private String getDueCondition() {
-        return " ifnull(substr(delivery_date, 7, 4)||'-'||substr(delivery_date, 4, 2)||'-'||substr(delivery_date, 1, 2), '+2 day') < STRFTIME('%Y%m%d', datetime('now')) " +
-                " and julianday() - julianday(substr(delivery_date, 7, 4)||'-'||substr(delivery_date, 4, 2)||'-'||substr(delivery_date, 1, 2)) >= 2   ";
     }
 
 

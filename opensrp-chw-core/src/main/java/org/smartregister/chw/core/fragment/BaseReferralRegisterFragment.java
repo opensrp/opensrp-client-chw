@@ -79,6 +79,14 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
     @Override
     public void showNotFoundPopup(String s) {
         //// TODO: 15/08/19
+    }
+
+    public CommonPersonObjectClient getCommonPersonObjectClient() {
+        return commonPersonObjectClient;
+    }
+
+    public void setCommonPersonObjectClient(CommonPersonObjectClient commonPersonObjectClient) {
+        this.commonPersonObjectClient = commonPersonObjectClient;
     }    @Override
     public void countExecute() {
         Cursor cursor = null;
@@ -120,9 +128,9 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
         }
     }
 
-    public CommonPersonObjectClient getCommonPersonObjectClient() {
-        return commonPersonObjectClient;
-    }    @Override
+
+
+    @Override
     public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
         switch (id) {
             case LOADER_ID:
@@ -150,9 +158,8 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
 
     }
 
-    public void setCommonPersonObjectClient(CommonPersonObjectClient commonPersonObjectClient) {
-        this.commonPersonObjectClient = commonPersonObjectClient;
-    }    private String filterAndSortQuery() {
+
+    private String filterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
         String query = "";
@@ -181,10 +188,6 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
 
         return query;
     }
-
-
-
-
 
 
 }

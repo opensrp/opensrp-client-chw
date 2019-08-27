@@ -22,6 +22,7 @@ import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.adapter.ReferralCardViewAdapter;
 import org.smartregister.chw.hf.presenter.HfChildProfilePresenter;
@@ -114,7 +115,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     public void setClientTasks(Set<Task> taskList) {
         handler.postDelayed(() -> {
             if (referralRecyclerView != null && taskList.size() > 0) {
-                RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, ((HfChildProfilePresenter) presenter()).getChildClient());
+                RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, ((HfChildProfilePresenter) presenter()).getChildClient(), CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY);
                 referralRecyclerView.setAdapter(mAdapter);
                 referralRow.setVisibility(View.VISIBLE);
 

@@ -198,14 +198,14 @@ public class RecurringServiceUtil {
                         }
 
 
-                    } else if (v != null &&v.get("alert") == null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
+                    } else if (v != null && v.get("alert") == null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
                         Alert mAlert = (Alert) m.get("alert");
                         if (mAlert != null && !mAlert.status().equals(AlertStatus.expired)) {
                             v = m;
                         }
 
 
-                    } else if (v != null &&  v.get("alert") != null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
+                    } else if (v != null && v.get("alert") != null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
                         Alert vAlert = (Alert) v.get("alert");
                         Alert mAlert = (Alert) m.get("alert");
                         if (vAlert != null && !vAlert.status().equals(AlertStatus.urgent)) {
