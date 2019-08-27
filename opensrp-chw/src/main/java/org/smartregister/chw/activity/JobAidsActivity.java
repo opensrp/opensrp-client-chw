@@ -18,6 +18,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.fragment.JobAidsDashboardFragment;
 import org.smartregister.chw.fragment.JobAidsGuideBooksFragment;
 import org.smartregister.helper.BottomNavigationHelper;
@@ -104,7 +105,6 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         registerBottomNavigation();
     }
 
-
     private void setUpView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -137,7 +137,6 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         });
     }
 
-
     @Override
     protected void registerBottomNavigation() {
         bottomNavigationHelper = new BottomNavigationHelper();
@@ -151,6 +150,7 @@ public class JobAidsActivity extends FamilyRegisterActivity {
     public void refreshIndicatorData() {
         // Compute everything afresh. Last processed date is set to null to avoid messing with the processing timeline
         ChwApplication.getInstance().getContext().allSharedPreferences().savePreference(REPORT_LAST_PROCESSED_DATE, null);
+        ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
         Timber.d("ChwIndicatorGeneratingJob scheduled immediately to compute latest counts...");
         Toast.makeText(getApplicationContext(), getString(R.string.indicators_udpating), Toast.LENGTH_LONG).show();
     }
