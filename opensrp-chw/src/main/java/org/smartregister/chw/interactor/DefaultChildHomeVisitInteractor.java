@@ -112,7 +112,6 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
     protected void bindEvents(Map<String, ServiceWrapper> serviceWrapperMap) throws BaseAncHomeVisitAction.ValidationException {
         try {
 
-            evaluateImmunization();
             evaluateChildVaccineCard();
             evaluateImmunization();
             evaluateExclusiveBreastFeeding(serviceWrapperMap);
@@ -536,7 +535,7 @@ public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVi
     }
 
     protected void evaluateLLITN() throws Exception {
-        if (getAgeInMonths() < 60) {
+        if (getAgeInMonths() > 60) {
             return;
         }
 

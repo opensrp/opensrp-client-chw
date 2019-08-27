@@ -229,6 +229,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
         if (res == null)
             return name;
 
-        return Utils.getStringResourceByName(res.display(), context);
+        String val = res.display().toLowerCase().replace(" ","_");
+        return Utils.getStringResourceByName(val, context);
     }
 }
