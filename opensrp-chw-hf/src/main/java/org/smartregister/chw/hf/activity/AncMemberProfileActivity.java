@@ -24,10 +24,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.adapter.ReferralCardViewAdapter;
-import org.smartregister.chw.hf.contract.AncMemberProfileContract;
-import org.smartregister.chw.hf.interactor.HfAncMemberProfileInteractor;
 import org.smartregister.chw.hf.model.FamilyProfileModel;
-import org.smartregister.chw.hf.presenter.AncMemberProfilePresenter;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -45,7 +42,7 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-public class AncMemberProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
+public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     public RelativeLayout referralRow;
     public RecyclerView referralRecyclerView;
     private CommonPersonObjectClient commonPersonObjectClient;
@@ -157,11 +154,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
     @Override
-    public AncMemberProfilePresenter ancMemberProfilePresenter() {
-        return new AncMemberProfilePresenter(this, new HfAncMemberProfileInteractor(this), MEMBER_OBJECT);
-    }
-
-    @Override
     public void setupViews() {
         super.setupViews();
         initializeTasksRecyclerView();
@@ -190,13 +182,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         startActivity(intent);
     }
 
-    private void initializeTasksRecyclerView() {
-        referralRecyclerView = findViewById(R.id.referral_card_recycler_view);
-        referralRow = findViewById(R.id.referal_row);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        referralRecyclerView.setLayoutManager(layoutManager);
-    }
-
     @Override
     public void setClientTasks(Set<Task> taskList) {
         if (referralRecyclerView != null && taskList.size() > 0) {
@@ -204,6 +189,13 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             referralRecyclerView.setAdapter(mAdapter);
             referralRow.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void initializeTasksRecyclerView() {
+        referralRecyclerView = findViewById(R.id.referral_card_recycler_view);
+        referralRow = findViewById(R.id.referal_row);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        referralRecyclerView.setLayoutManager(layoutManager);
     }
 
     @Override

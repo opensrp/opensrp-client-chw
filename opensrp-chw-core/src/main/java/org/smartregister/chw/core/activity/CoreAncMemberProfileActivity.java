@@ -15,14 +15,18 @@ import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.contract.AncMemberProfileContract;
 import org.smartregister.chw.core.interactor.CoreAncMemberProfileInteractor;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.presenter.CoreAncMemberProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.core.utils.VisitSummary;
+import org.smartregister.domain.Task;
 
-public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileActivity {
+import java.util.Set;
+
+public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileActivity implements AncMemberProfileContract.View {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -112,5 +116,8 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
 
     @Override
     public abstract void openFamilyDueServices();
+
+    @Override
+    public abstract void setClientTasks(Set<Task> taskList);
 
 }

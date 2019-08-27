@@ -78,15 +78,25 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             extraClientTask();
             setStartingActivity((String) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.STARTING_ACTIVITY));
         }
-        referralsTaskViewClickListener.setReferralTaskViewActivity(this);
-        referralsTaskViewClickListener.setTaskFocus(getTask().getFocus());
-        referralsTaskViewClickListener.setCommonPersonObjectClient(getPersonObjectClient());
-        inflateToolbar();
-        setUpViews();
+
         if (getPersonObjectClient() == null) {
             Timber.d("The person object is null");
             finish();
         }
+
+        if (getTask() == null) {
+            Timber.d("The task object is null");
+            finish();
+        }
+
+        referralsTaskViewClickListener.setReferralTaskViewActivity(this);
+        if (getTask() != null) {
+            referralsTaskViewClickListener.setTaskFocus(getTask().getFocus());
+        }
+        referralsTaskViewClickListener.setCommonPersonObjectClient(getPersonObjectClient());
+        inflateToolbar();
+        setUpViews();
+
     }
 
     @Override
@@ -106,12 +116,12 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         setTask((Task) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.USERS_TASKS));
     }
 
-    public Task getTask() {
-        return task;
-    }
-
     public CommonPersonObjectClient getPersonObjectClient() {
         return personObjectClient;
+    }
+
+    public Task getTask() {
+        return task;
     }
 
     private void inflateToolbar() {
@@ -173,7 +183,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     }
 
     private void getReferralDetails() {
-        if (getPersonObjectClient() != null) {
+        if (getPersonObjectClient() != null && getTask() != null) {
             clientReferralProblem.setText(getTask().getDescription());
             clientName.setText(getString(R.string.client_name_suffix, name));
             clientAge.setText(Utils.getTranslatedDate(Utils.getDuration(Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.DOB, false)), getBaseContext()));
@@ -210,12 +220,12 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         this.startingActivity = startingActivity;
     }
 
-    public void setPersonObjectClient(CommonPersonObjectClient personObjectClient) {
-        this.personObjectClient = personObjectClient;
-    }
-
     public void setTask(Task task) {
         this.task = task;
+    }
+
+    public void setPersonObjectClient(CommonPersonObjectClient personObjectClient) {
+        this.personObjectClient = personObjectClient;
     }
 
     public void closeReferral() {
