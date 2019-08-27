@@ -52,6 +52,7 @@ import java.util.Set;
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
 
+
 public class CoreChildProfileActivity extends BaseProfileActivity implements CoreChildProfileContract.View, CoreChildRegisterContract.InteractorCallBack {
     public static IntentFilter sIntentFilter;
 
@@ -96,8 +97,9 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     private ProgressBar progressBar;
     private String gender;
 
-    public static void startMe(Activity activity, MemberObject memberObject, Class<?> cls) {
+    public static void startMe(Activity activity,boolean isComesFromFamily, MemberObject memberObject, Class<?> cls) {
         Intent intent = new Intent(activity, cls);
+        intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY,isComesFromFamily);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         activity.startActivity(intent);
     }

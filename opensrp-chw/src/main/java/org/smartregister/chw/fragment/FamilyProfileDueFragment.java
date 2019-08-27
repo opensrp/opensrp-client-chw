@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -122,7 +123,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     public void goToChildProfileActivity(View view) {
         if (view.getTag() instanceof CommonPersonObjectClient) {
             CommonPersonObjectClient patient = (CommonPersonObjectClient) view.getTag();
-            ChildProfileActivity.startMe(getActivity(), new MemberObject(patient), ChildProfileActivity.class);
+            ChildProfileActivity.startMe(getActivity(),true,new MemberObject(patient),ChildProfileActivity.class);
         }
 
     }
@@ -199,9 +200,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             return;
         }
         CustomFontTextView name = washCheckView.findViewById(R.id.patient_name_age);
-        name.setFontVariant(FontVariant.REGULAR);
-        name.setTextColor(Color.BLACK);
-        name.setTypeface(name.getTypeface(), Typeface.NORMAL);
+        name.setTextSize(TypedValue.COMPLEX_UNIT_PX, getActivity().getResources().getDimensionPixelSize(R.dimen.member_due_list_title_size));
         TextView lastVisit = washCheckView.findViewById(R.id.last_visit);
         ImageView status = washCheckView.findViewById(R.id.status);
         if (washCheck == null || washCheck.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {

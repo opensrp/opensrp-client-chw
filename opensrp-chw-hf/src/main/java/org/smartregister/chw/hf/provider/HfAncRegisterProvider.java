@@ -23,8 +23,6 @@ import org.smartregister.view.contract.SmartRegisterClient;
 import java.text.MessageFormat;
 import java.util.Set;
 
-import static org.smartregister.util.Utils.getName;
-
 public class HfAncRegisterProvider extends ChwAncRegisterProvider {
     private final LayoutInflater inflater;
     private View.OnClickListener onClickListener;
@@ -39,12 +37,12 @@ public class HfAncRegisterProvider extends ChwAncRegisterProvider {
 
     @Override
     protected void populatePatientColumn(@NotNull CommonPersonObjectClient pc, SmartRegisterClient client, @NotNull final AncRegisterProvider.RegisterViewHolder viewHolder) {
-        String fname = getName(
+        String fname = Utils.getName(
                 Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true),
                 Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true)
         );
 
-        String patientName = getName(fname, Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true));
+        String patientName = Utils.getName(fname, Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true));
 
         // calculate LMP
         String dobString = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);

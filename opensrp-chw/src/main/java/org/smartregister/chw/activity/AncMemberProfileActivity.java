@@ -12,9 +12,13 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -33,10 +37,6 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 
 import timber.log.Timber;
-
-import static org.smartregister.util.JsonFormUtils.fields;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
-import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
@@ -89,13 +89,13 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                             new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
                     new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, ancMemberProfilePresenter());
                 } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_ANC_REGISTRATION)) {
-                    AllSharedPreferences allSharedPreferences = getAllSharedPreferences();
+                    AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
                     Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, Constants.TABLES.ANC_MEMBERS);
                     NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
                     AllCommonsRepository commonsRepository = CoreChwApplication.getInstance().getAllCommonsRepository(CoreConstants.TABLE_NAME.ANC_MEMBER);
 
-                    JSONArray field = fields(form);
-                    JSONObject phoneNumberObject = getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER);
+                    JSONArray field = org.smartregister.util.JsonFormUtils.fields(form);
+                    JSONObject phoneNumberObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER);
                     String phoneNumber = phoneNumberObject.getString(CoreJsonFormUtils.VALUE);
                     String baseEntityId = baseEvent.getBaseEntityId();
                     if (commonsRepository != null) {
@@ -132,24 +132,24 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
         }
     }
 
-    @Override
-    public void openMedicalHistory() {
-        AncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
-    }
+        @Override
+        public void openMedicalHistory () {
+            AncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+        }
 
-    @Override
-    public void openUpcomingService() {
-        AncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
-    }
+        @Override
+        public void openUpcomingService () {
+            AncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
+        }
 
-    @Override
-    public void openFamilyDueServices() {
-        Intent intent = new Intent(this, FamilyProfileActivity.class);
+        @Override
+        public void openFamilyDueServices () {
+            Intent intent = new Intent(this, FamilyProfileActivity.class);
 
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
+            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
+            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
+            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
+            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
 
         intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);

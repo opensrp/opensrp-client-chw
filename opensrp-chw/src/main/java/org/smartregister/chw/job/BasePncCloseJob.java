@@ -1,15 +1,15 @@
-package org.smartregister.chw.core.job;
+package org.smartregister.chw.job;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-
-import org.smartregister.chw.core.intent.ChwPncCloseDateIntent;
+import org.smartregister.chw.core.job.CoreBasePncCloseJob;
+import org.smartregister.chw.intent.ChwPncCloseDateIntent;
 import org.smartregister.family.util.Constants;
-import org.smartregister.job.BaseJob;
 
 import timber.log.Timber;
 
-public class BasePncCloseJob extends BaseJob {
+public class BasePncCloseJob extends CoreBasePncCloseJob {
+
     public static final String TAG = "BasePncCloseJob";
 
     @NonNull

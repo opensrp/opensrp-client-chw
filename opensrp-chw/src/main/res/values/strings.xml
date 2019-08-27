@@ -186,7 +186,6 @@
 
     <string name="anc_last_visit">LAST VISIT</string>
 
-
     <string name="danger_signs_counselling">Danger signs counselling</string>
     <string name="anc_visit_counselling">ANC visit counseling</string>
     <string name="delivery_at_facilty_counselling">Delivery at health facility counseling</string>
@@ -248,9 +247,6 @@
     <string name="pnc_visit_day_overdue">DAY %s OVERDUE</string>
     <string name="pnc_visit">PNC Visit</string>
     <string name="anc_visit">ANC Visit</string>
-    <string name="issued">Issued</string>
-    <string name="exclusive_breastfeeding_months">Exclusive breastfeeding %s months</string>
-    <string name="deworming_number_dose">Deworming %s dose</string>
-    <string name="vitamin_a_number_dose">Vitamin A %s dose</string>
+
 
 </resources>
