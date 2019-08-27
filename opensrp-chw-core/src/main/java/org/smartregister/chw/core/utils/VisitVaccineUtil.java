@@ -98,8 +98,8 @@ public class VisitVaccineUtil {
                         (alert != null
                                 && vaccine == null
                                 && repoVac != null
-                                && today.isAfter(new LocalDate(alert.startDate()))
-                                && (StringUtils.isBlank(alert.expiryDate()) || new LocalDate(alert.expiryDate()).isAfter(today)))
+                                && today.isAfter(new LocalDate(alert.startDate())))
+                                //&& (StringUtils.isBlank(alert.expiryDate()) || new LocalDate(alert.expiryDate()).isAfter(today))) // allow expired vaccines to be entered
                 ) {
                     // in edit mode alerts may be null. create a default alert with the start and end date to be today
                     alert = getVisitPseudoAlert(alert, date, repoVac);
