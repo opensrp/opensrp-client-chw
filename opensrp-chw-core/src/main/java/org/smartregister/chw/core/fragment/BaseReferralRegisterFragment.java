@@ -87,7 +87,9 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
 
     public void setCommonPersonObjectClient(CommonPersonObjectClient commonPersonObjectClient) {
         this.commonPersonObjectClient = commonPersonObjectClient;
-    }    @Override
+    }
+
+    @Override
     public void countExecute() {
         Cursor cursor = null;
 
@@ -127,7 +129,6 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
             }
         }
     }
-
 
 
     @Override

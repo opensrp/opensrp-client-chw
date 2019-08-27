@@ -157,12 +157,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         super.onDestroy();
     }
 
-    private void prepareFab() {
-        familyFloatingMenu.fab.setOnClickListener(v -> FamilyCallDialogFragment.launchDialog(
-                this, ((HfChildProfilePresenter) presenter).getFamilyId()));
-
-    }
-
     private void openMedicalHistoryScreen() {
         Map<String, Date> vaccine = ((HfChildProfilePresenter) presenter()).getVaccineList();
         CoreChildMedicalHistoryActivity.startMedicalHistoryActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
@@ -198,5 +192,11 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         referralRow = findViewById(R.id.referal_row);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         referralRecyclerView.setLayoutManager(layoutManager);
+    }
+
+    private void prepareFab() {
+        familyFloatingMenu.fab.setOnClickListener(v -> FamilyCallDialogFragment.launchDialog(
+                this, ((HfChildProfilePresenter) presenter).getFamilyId()));
+
     }
 }

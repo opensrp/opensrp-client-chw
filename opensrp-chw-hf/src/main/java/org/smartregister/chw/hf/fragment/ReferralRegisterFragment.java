@@ -14,7 +14,6 @@ import org.smartregister.family.util.DBConstants;
 
 public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
     private ReferralFragmentPresenter referralFragmentPresenter;
-    private Task task;
 
     @Override
     protected void initializePresenter() {

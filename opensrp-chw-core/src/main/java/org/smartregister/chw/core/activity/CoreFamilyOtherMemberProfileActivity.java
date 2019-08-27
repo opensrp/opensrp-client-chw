@@ -153,13 +153,9 @@ public abstract class CoreFamilyOtherMemberProfileActivity extends BaseFamilyOth
         return (CoreFamilyOtherMemberActivityPresenter) presenter;
     }
 
-    protected abstract CoreFamilyMemberFloatingMenu getFamilyMemberFloatingMenu();
-
-    protected abstract void removeIndividualProfile();
+    protected abstract void startAncRegister();
 
     protected abstract void startMalariaRegister();
-
-    protected abstract void startAncRegister();
 
     public void startFormForEdit(Integer title_resource) {
 
@@ -173,8 +169,14 @@ public abstract class CoreFamilyOtherMemberProfileActivity extends BaseFamilyOth
         startEditMemberJsonForm(title_resource, client);
     }
 
+    protected abstract void removeIndividualProfile();
+
     protected abstract void startEditMemberJsonForm(Integer title_resource, CommonPersonObjectClient client);
 
+    protected abstract BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(
+            String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName);
+
+    protected abstract CoreFamilyMemberFloatingMenu getFamilyMemberFloatingMenu();
 
     public void startFormActivity(JSONObject jsonForm) {
 
@@ -221,6 +223,8 @@ public abstract class CoreFamilyOtherMemberProfileActivity extends BaseFamilyOth
     }
 
     protected abstract Context getFamilyOtherMemberProfileActivity();
+
+    protected abstract Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivity();
 
     @Override
     public void refreshList() {
@@ -271,7 +275,6 @@ public abstract class CoreFamilyOtherMemberProfileActivity extends BaseFamilyOth
         }
     }
 
-
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.family_has_row) {
@@ -307,9 +310,6 @@ public abstract class CoreFamilyOtherMemberProfileActivity extends BaseFamilyOth
 
     protected abstract BaseFamilyOtherMemberProfileFragment getFamilyOtherMemberProfileFragment();
 
-    protected abstract BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(
-            String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName);
-
     private void openFamilyDueTab() {
         Intent intent = new Intent(this, getFamilyProfileActivity());
 
@@ -321,7 +321,5 @@ public abstract class CoreFamilyOtherMemberProfileActivity extends BaseFamilyOth
         intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
     }
-
-    protected abstract Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivity();
 
 }

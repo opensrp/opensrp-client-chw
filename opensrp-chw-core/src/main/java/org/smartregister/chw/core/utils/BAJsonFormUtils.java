@@ -100,6 +100,42 @@ public class BAJsonFormUtils {
         return null;
     }
 
+    private Pair<Event, Client> getEditMemberLatestProperties(String baseEntityID) {
+
+        Event ecEvent = null;
+        Client ecClient = null;
+
+
+        String query_client = "select json from client where baseEntityId = ? order by updatedAt desc";
+        try (Cursor cursor = coreChwApplication.getRepository().getReadableDatabase().rawQuery(query_client, new String[]{baseEntityID})) {
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                ecClient = jsonStringToJava(cursor.getString(0), Client.class);
+                cursor.moveToNext();
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+
+        String query_event = String.format("select json from event where baseEntityId = '%s' and eventType in ('%s','%s') order by updatedAt desc limit 1;",
+                baseEntityID, CoreConstants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, CoreConstants.EventType.FAMILY_MEMBER_REGISTRATION);
+
+        try (Cursor cursor1 = coreChwApplication.getRepository().getReadableDatabase().rawQuery(query_event, new String[]{})) {
+            cursor1.moveToFirst();
+
+            while (!cursor1.isAfterLast()) {
+                ecEvent = jsonStringToJava(cursor1.getString(0), Event.class);
+                cursor1.moveToNext();
+            }
+        } catch (Exception e) {
+            Timber.e(e, e.toString());
+        }
+
+        return Pair.create(ecEvent, ecClient);
+    }
+
     protected void processFieldsForMemberEdit(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray, String familyName, boolean isPrimaryCaregiver, Event ecEvent, Client ecClient) throws JSONException {
 
 
@@ -162,42 +198,6 @@ public class BAJsonFormUtils {
                 break;
 
         }
-    }
-
-    private Pair<Event, Client> getEditMemberLatestProperties(String baseEntityID) {
-
-        Event ecEvent = null;
-        Client ecClient = null;
-
-
-        String query_client = "select json from client where baseEntityId = ? order by updatedAt desc";
-        try (Cursor cursor = coreChwApplication.getRepository().getReadableDatabase().rawQuery(query_client, new String[]{baseEntityID})) {
-            cursor.moveToFirst();
-
-            while (!cursor.isAfterLast()) {
-                ecClient = jsonStringToJava(cursor.getString(0), Client.class);
-                cursor.moveToNext();
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-
-
-        String query_event = String.format("select json from event where baseEntityId = '%s' and eventType in ('%s','%s') order by updatedAt desc limit 1;",
-                baseEntityID, CoreConstants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, CoreConstants.EventType.FAMILY_MEMBER_REGISTRATION);
-
-        try (Cursor cursor1 = coreChwApplication.getRepository().getReadableDatabase().rawQuery(query_event, new String[]{})) {
-            cursor1.moveToFirst();
-
-            while (!cursor1.isAfterLast()) {
-                ecEvent = jsonStringToJava(cursor1.getString(0), Event.class);
-                cursor1.moveToNext();
-            }
-        } catch (Exception e) {
-            Timber.e(e, e.toString());
-        }
-
-        return Pair.create(ecEvent, ecClient);
     }
 
     private void computeDOBUnknown(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {

@@ -44,7 +44,6 @@ import timber.log.Timber;
 public class ReferralTaskViewActivity extends SecuredActivity {
     protected AppBarLayout appBarLayout;
     protected String startingActivity;
-    CustomFontTextView viewProfile;
     private CommonPersonObjectClient personObjectClient;
     private Task task;
     private CustomFontTextView clientName;
@@ -156,7 +155,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         clientReferralProblem = findViewById(R.id.client_referral_problem);
         chwDetailsNames = findViewById(R.id.chw_details_names);
         referralDate = findViewById(R.id.referral_date);
-        viewProfile = findViewById(R.id.view_profile);
+        CustomFontTextView viewProfile = findViewById(R.id.view_profile);
 
         CustomFontTextView markAskDone = findViewById(R.id.mark_ask_done);
         markAskDone.setOnClickListener(referralsTaskViewClickListener);

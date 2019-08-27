@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 import org.smartregister.chw.hf.R;
-import org.smartregister.chw.hf.fragement.AncRegisterFragment;
+import org.smartregister.chw.hf.fragment.AncRegisterFragment;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 

@@ -261,13 +261,7 @@ public abstract class DefaultPncMedicalHistoryActivityFlv implements PncMedicalH
 
                 TextView tvPncEarlyInitiationBf = view.findViewById(R.id.pncEarlyInitiationBf);
                 TextView tvpncExcussiveBf = view.findViewById(R.id.pncExcussiveBf);
-
-                if (entry.getKey().equals("breast_feeding")) {
-                }
                 tvpncExcussiveBf.setText(MessageFormat.format(context.getString(R.string.pnc_exclusive_bf_0_months), entry.getValue()));
-
-                if (entry.getKey().equals("early_bf")) {
-                }
                 tvPncEarlyInitiationBf.setText(MessageFormat.format(context.getString(R.string.pnc_early_initiation_bf), entry.getValue()));
 
                 linearLayoutPncGrowthAndNutritionDetails.addView(view, 0);

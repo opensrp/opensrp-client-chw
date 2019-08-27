@@ -25,14 +25,14 @@ public abstract class CoreFamilyOtherMemberProfileFragment extends BaseFamilyOth
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
         //TODO Implement
-        Timber.d( "setAdvancedSearchFormData unimplemented");
+        Timber.d("setAdvancedSearchFormData unimplemented");
     }
 
     @Override
     protected void onViewClicked(View view) {
         super.onViewClicked(view);
         if (view.getId() == R.id.patient_column && view.getTag() != null && getActivity() != null) {
-                getActivity().finish();
+            getActivity().finish();
         }
     }
 
