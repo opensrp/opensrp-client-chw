@@ -1,12 +1,9 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.widget.Toast;
 
-import org.joda.time.DateTime;
-import org.joda.time.Period;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;

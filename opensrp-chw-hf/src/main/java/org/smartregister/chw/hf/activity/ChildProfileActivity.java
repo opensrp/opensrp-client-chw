@@ -22,6 +22,7 @@ import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.adapter.ReferralCardViewAdapter;
 import org.smartregister.chw.hf.custom_view.FamilyMemberFloatingMenu;
@@ -65,8 +66,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
     @Override
     protected void initializePresenter() {
-        //childBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        //isComesFromFamily = getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, false);
         String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         if (familyName == null) {
             familyName = "";
@@ -118,7 +117,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     public void setClientTasks(Set<Task> taskList) {
         handler.postDelayed(() -> {
             if (referralRecyclerView != null && taskList.size() > 0) {
-                RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, ((HfChildProfilePresenter) presenter()).getChildClient());
+                RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, ((HfChildProfilePresenter) presenter()).getChildClient(), CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY);
                 referralRecyclerView.setAdapter(mAdapter);
                 referralRow.setVisibility(View.VISIBLE);
 
@@ -158,12 +157,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         super.onDestroy();
     }
 
-    private void prepareFab() {
-        familyFloatingMenu.fab.setOnClickListener(v -> FamilyCallDialogFragment.launchDialog(
-                this, ((HfChildProfilePresenter) presenter).getFamilyId()));
-
-    }
-
     private void openMedicalHistoryScreen() {
         Map<String, Date> vaccine = ((HfChildProfilePresenter) presenter()).getVaccineList();
         CoreChildMedicalHistoryActivity.startMedicalHistoryActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
@@ -199,5 +192,11 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         referralRow = findViewById(R.id.referal_row);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         referralRecyclerView.setLayoutManager(layoutManager);
+    }
+
+    private void prepareFab() {
+        familyFloatingMenu.fab.setOnClickListener(v -> FamilyCallDialogFragment.launchDialog(
+                this, ((HfChildProfilePresenter) presenter).getFamilyId()));
+
     }
 }

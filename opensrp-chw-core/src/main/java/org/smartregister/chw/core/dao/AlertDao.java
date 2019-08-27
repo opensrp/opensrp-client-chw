@@ -11,6 +11,13 @@ public class AlertDao extends AbstractDao {
 
     private static DataMap<Alert> alertDataMap;
 
+    public static List<Alert> getActiveAlerts(String baseEntityID) {
+        String sql = "select (case when status = 'urgent' then 1 else 2 end) state , * from alerts " +
+                " where caseID = '" + baseEntityID + "'and status in ('normal','urgent') and expiryDate > date() " +
+                " order by state asc , startDate asc  , visitCode asc";
+        return AbstractDao.readData(sql, getAlertDataMap());
+    }
+
     private static DataMap<Alert> getAlertDataMap() {
         if (alertDataMap == null) {
             alertDataMap = c -> new Alert(
@@ -26,13 +33,6 @@ public class AlertDao extends AbstractDao {
         }
 
         return alertDataMap;
-    }
-
-    public static List<Alert> getActiveAlerts(String baseEntityID) {
-        String sql = "select (case when status = 'urgent' then 1 else 2 end) state , * from alerts " +
-                " where caseID = '" + baseEntityID + "'and status in ('normal','urgent') and expiryDate > date() " +
-                " order by state asc , startDate asc  , visitCode asc";
-        return AbstractDao.readData(sql, getAlertDataMap());
     }
 
     public static List<Alert> getActiveAlertsForVaccines(String baseEntityID) {
@@ -63,8 +63,9 @@ public class AlertDao extends AbstractDao {
 
         List<AlertState> states = AbstractDao.readData(sql, dataMap);
 
-        if (states == null || states.size() == 0)
+        if (states == null || states.size() == 0) {
             return;
+        }
 
         for (AlertState alertState : states) {
             String alertUpdate =

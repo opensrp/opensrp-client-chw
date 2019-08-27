@@ -128,24 +128,24 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
         }
     }
 
-        @Override
-        public void openMedicalHistory () {
-            AncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
-        }
+    @Override
+    public void openMedicalHistory() {
+        AncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+    }
 
-        @Override
-        public void openUpcomingService () {
-            AncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
-        }
+    @Override
+    public void openUpcomingService() {
+        AncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
+    }
 
-        @Override
-        public void openFamilyDueServices () {
-            Intent intent = new Intent(this, FamilyProfileActivity.class);
+    @Override
+    public void openFamilyDueServices() {
+        Intent intent = new Intent(this, FamilyProfileActivity.class);
 
-            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
-            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
-            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
-            intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
 
         intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);

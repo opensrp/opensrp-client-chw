@@ -13,10 +13,10 @@ import org.smartregister.chw.core.R;
 
 import java.util.Date;
 
-public class AncMemberProfileInteractor extends BaseAncMemberProfileInteractor {
+public class CoreAncMemberProfileInteractor extends BaseAncMemberProfileInteractor {
     private Context context;
 
-    public AncMemberProfileInteractor(Context context) {
+    public CoreAncMemberProfileInteractor(Context context) {
         this.context = context;
     }
 

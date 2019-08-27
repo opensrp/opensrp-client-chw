@@ -16,7 +16,7 @@ public class CoreChwPncCloseDateIntent extends IntentService {
     private Flavor flavor;
 
 
-    public CoreChwPncCloseDateIntent (Flavor flavor) {
+    public CoreChwPncCloseDateIntent(Flavor flavor) {
         super("CoreChwPncCloseDateIntent");
         this.flavor = flavor;
     }
