@@ -10,9 +10,9 @@ import org.smartregister.family.contract.FamilyProfileContract;
 
 import timber.log.Timber;
 
-public class AncMemberProfilePresenter extends BaseAncMemberProfilePresenter implements FamilyProfileContract.InteractorCallBack {
+public class CoreAncMemberProfilePresenter extends BaseAncMemberProfilePresenter implements FamilyProfileContract.InteractorCallBack {
 
-    public AncMemberProfilePresenter(BaseAncMemberProfileContract.View view, BaseAncMemberProfileContract.Interactor interactor, MemberObject memberObject) {
+    public CoreAncMemberProfilePresenter(BaseAncMemberProfileContract.View view, BaseAncMemberProfileContract.Interactor interactor, MemberObject memberObject) {
         super(view, interactor, memberObject);
     }
 

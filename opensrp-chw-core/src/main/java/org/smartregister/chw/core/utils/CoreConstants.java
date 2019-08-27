@@ -413,6 +413,8 @@ public class CoreConstants {
         public static final String USERS_TASKS = "tasks";
         public static final String CLASS = "class";
         public static final String VIEW_REGISTER_CLASS = "view_register_class";
+        public static final String STARTING_ACTIVITY = "starting_activity";
+        public static final String CLIENT = "client";
     }
 
     public static final class IMMUNIZATION_CONSTANT {
@@ -617,5 +619,9 @@ public class CoreConstants {
         public static final String IN_PROGRESS = "In-Progress";
         public static final String COMPLETE = "Complete";
         public static final String EXPIRED = "Expired";
+    }
+
+    public static final class TASKS_FOCUS {
+        public static final String SICK_CHILD = "Sick Child";
     }
 }

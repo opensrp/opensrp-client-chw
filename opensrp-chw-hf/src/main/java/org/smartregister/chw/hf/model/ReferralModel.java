@@ -12,20 +12,20 @@ import java.util.Set;
 public class ReferralModel extends BaseReferralModel {
 
     @Override
-    public String mainSelect(String tableName, String mainCondition) {
+    public String mainSelect(String tableName, String entityTable, String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
-        queryBuilder.selectInitiateMainTable(tableName, mainColumns(tableName), CoreConstants.DB_CONSTANTS.ID);
+        queryBuilder.selectInitiateMainTable(tableName, mainColumns(tableName, entityTable), CoreConstants.DB_CONSTANTS.ID);
         queryBuilder.customJoin(String.format("INNER JOIN %s  ON  %s.%s = %s.%s COLLATE NOCASE ",
-                CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.CHILD, DBConstants.KEY.BASE_ENTITY_ID, tableName, CoreConstants.DB_CONSTANTS.FOR));
+                entityTable, entityTable, DBConstants.KEY.BASE_ENTITY_ID, tableName, CoreConstants.DB_CONSTANTS.FOR));
 
         return queryBuilder.mainCondition(mainCondition);
     }
 
     @Override
-    protected String[] mainColumns(String tableName) {
-        Set<String> columns = new HashSet<>(Arrays.asList(super.mainColumns(tableName)));
-        addClientDetails(CoreConstants.TABLE_NAME.CHILD, columns);
-        addTaskDetails(CoreConstants.TABLE_NAME.TASK, columns);
+    protected String[] mainColumns(String tableName, String entitytable) {
+        Set<String> columns = new HashSet<>(Arrays.asList(super.mainColumns(tableName, entitytable)));
+        addClientDetails(entitytable, columns);
+        addTaskDetails(columns);
         return columns.toArray(new String[]{});
     }
 
@@ -40,11 +40,11 @@ public class ReferralModel extends BaseReferralModel {
 
     }
 
-    private void addTaskDetails(String table, Set<String> columns) {
-        columns.add(table + "." + CoreConstants.DB_CONSTANTS.FOCUS);
-        columns.add(table + "." + CoreConstants.DB_CONSTANTS.OWNER);
-        columns.add(table + "." + CoreConstants.DB_CONSTANTS.REQUESTER);
-        columns.add(table + "." + CoreConstants.DB_CONSTANTS.START);
+    private void addTaskDetails(Set<String> columns) {
+        columns.add(CoreConstants.TABLE_NAME.TASK + "." + CoreConstants.DB_CONSTANTS.FOCUS);
+        columns.add(CoreConstants.TABLE_NAME.TASK + "." + CoreConstants.DB_CONSTANTS.OWNER);
+        columns.add(CoreConstants.TABLE_NAME.TASK + "." + CoreConstants.DB_CONSTANTS.REQUESTER);
+        columns.add(CoreConstants.TABLE_NAME.TASK + "." + CoreConstants.DB_CONSTANTS.START);
 
     }
 }

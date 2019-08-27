@@ -55,6 +55,7 @@ import timber.log.Timber;
 
 public class CoreChildProfileActivity extends BaseProfileActivity implements CoreChildProfileContract.View, CoreChildRegisterContract.InteractorCallBack {
     public static IntentFilter sIntentFilter;
+    private static Activity startActivity;
 
     static {
         sIntentFilter = new IntentFilter();
@@ -97,9 +98,10 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     private ProgressBar progressBar;
     private String gender;
 
-    public static void startMe(Activity activity,boolean isComesFromFamily, MemberObject memberObject, Class<?> cls) {
+    public static void startMe(Activity activity, boolean isComesFromFamily, MemberObject memberObject, Class<?> cls) {
+        startActivity = activity;
         Intent intent = new Intent(activity, cls);
-        intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY,isComesFromFamily);
+        intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, isComesFromFamily);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         activity.startActivity(intent);
     }
@@ -126,6 +128,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
             actionBar.setHomeAsUpIndicator(upArrow);
         }
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        textViewTitle.setOnClickListener(v -> onBackPressed());
         appBarLayout = findViewById(R.id.collapsing_toolbar_appbarlayout);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             appBarLayout.setOutlineProvider(null);
@@ -246,9 +249,18 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         if (isComesFromFamily) {
             textViewTitle.setText(getString(R.string.return_to_family_members));
         } else {
-            textViewTitle.setText(getString(R.string.return_to_all_children));
+            textViewTitle.setText(checkIfStartedFromReferrals() ? getString(R.string.return_to_task_details) : getString(R.string.return_to_all_children));
         }
 
+    }
+
+    private boolean checkIfStartedFromReferrals() {
+        boolean startedFromReferrals = false;
+        String referrerActivity = startActivity.getLocalClassName();
+        if ("activity.ReferralTaskViewActivity".equals(referrerActivity)) {
+            startedFromReferrals = true;
+        }
+        return startedFromReferrals;
     }
 
     /**
@@ -586,5 +598,9 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
                 Timber.e(e, "CoreChildProfileActivity --> onActivityResult");
             }
         }
+    }
+
+    public Activity getStartActivity() {
+        return startActivity;
     }
 }
