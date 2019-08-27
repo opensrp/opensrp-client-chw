@@ -28,12 +28,12 @@ import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.text.MessageFormat;
 
-public class BasereferralRegisterProvider implements RecyclerViewProvider<ReferralViewHolder> {
+public class BaseReferralRegisterProvider implements RecyclerViewProvider<ReferralViewHolder> {
     private Context context;
     private View.OnClickListener onClickListener;
     private View.OnClickListener paginationClickListener;
 
-    public BasereferralRegisterProvider(Context context, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
+    public BaseReferralRegisterProvider(Context context, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
         this.context = context;
         this.onClickListener = onClickListener;
         this.paginationClickListener = paginationClickListener;
@@ -81,8 +81,7 @@ public class BasereferralRegisterProvider implements RecyclerViewProvider<Referr
     public void getFooterView(RecyclerView.ViewHolder viewHolder, int currentPageCount, int totalPageCount, boolean hasNextPage, boolean hasPreviousPage) {
         FooterViewHolder footerViewHolder = (FooterViewHolder) viewHolder;
         footerViewHolder.pageInfoView.setText(
-                MessageFormat.format(context.getString(R.string.str_page_info), currentPageCount,
-                        totalPageCount));
+                MessageFormat.format(context.getString(R.string.str_page_info), currentPageCount, totalPageCount));
 
         footerViewHolder.nextPageView.setVisibility(hasNextPage ? View.VISIBLE : View.INVISIBLE);
         footerViewHolder.previousPageView.setVisibility(hasPreviousPage ? View.VISIBLE : View.INVISIBLE);

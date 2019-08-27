@@ -20,7 +20,7 @@
         android:orientation="vertical">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
-            android:id="@+id/patient_name"
+            android:id="@+id/patient_name_age"
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

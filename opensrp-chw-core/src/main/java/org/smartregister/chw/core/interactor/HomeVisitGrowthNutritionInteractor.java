@@ -18,9 +18,8 @@ import org.smartregister.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.Map;
-import timber.log.Timber;
 
-import static org.smartregister.util.Utils.startAsyncTask;
+import timber.log.Timber;
 
 public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutritionContract.Interactor {
 
@@ -41,7 +40,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
             Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateGivenRecordVisitData(serviceWrapperMap));
             appExecutors.diskIO().execute(runnable);
         });
-        startAsyncTask(updateServiceTask, null);
+        org.smartregister.util.Utils.startAsyncTask(updateServiceTask, null);
     }
 
     @Override

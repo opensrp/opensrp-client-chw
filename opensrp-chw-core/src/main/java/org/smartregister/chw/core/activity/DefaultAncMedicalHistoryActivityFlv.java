@@ -1,4 +1,4 @@
-package org.smartregister.chw.activity;
+package org.smartregister.chw.core.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,9 +10,9 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.core.R;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalHistoryActivity.Flavor {
+public abstract class DefaultAncMedicalHistoryActivityFlv implements CoreAncMedicalHistoryActivity.Flavor {
 
     protected LinearLayout linearLayoutAncCard;
     protected LinearLayout linearLayoutHealthFacilityVisit;
@@ -73,8 +73,9 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalH
                 // anc card
                 if (has_card.equalsIgnoreCase("No")) {
                     List<VisitDetail> details = visits.get(x).getVisitDetails().get("anc_card");
-                    if (details != null && StringUtils.isNotBlank(details.get(0).getHumanReadable()))
+                    if (details != null && StringUtils.isNotBlank(details.get(0).getHumanReadable())) {
                         has_card = details.get(0).getHumanReadable();
+                    }
 
                 }
 
@@ -107,8 +108,9 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalH
                     if (details != null) {
                         for (VisitDetail d : details) {
                             String hr_val = d.getHumanReadable();
-                            if (StringUtils.isBlank(hr_val))
+                            if (StringUtils.isBlank(hr_val)) {
                                 hr_val = d.getDetails();
+                            }
 
                             String cur_val = map.get(param);
                             if (StringUtils.isNotBlank(cur_val)) {

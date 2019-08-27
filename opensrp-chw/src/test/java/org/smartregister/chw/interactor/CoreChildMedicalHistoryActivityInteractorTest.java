@@ -12,20 +12,13 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_ACTION;
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DATE;
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
 
 public class CoreChildMedicalHistoryActivityInteractorTest extends BaseUnitTest {
 
@@ -52,13 +45,13 @@ public class CoreChildMedicalHistoryActivityInteractorTest extends BaseUnitTest 
         String caseId = "cd6f66c8-3587-4c4d-b26d-f8753ba9dfa4";
         String name = "";
         Map<String, String> mapBirth = new HashMap<>();
-        mapBirth.put(BIRTH_CERT, "yes");
-        mapBirth.put(BIRTH_CERT_NOTIFIICATION, "no");
+        mapBirth.put(ChildDBConstants.KEY.BIRTH_CERT, "yes");
+        mapBirth.put(ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION, "no");
         CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient(caseId, mapBirth, name);
         commonPersonObjectClient.setColumnmaps(mapBirth);
         PowerMockito.when(interactor.getContext()).thenReturn(context);
         interactor.fetchBirthCertificateData(commonPersonObjectClient, callBack);
-        verify(callBack, never()).updateBirthCertification(Mockito.any(ArrayList.class));
+        Mockito.verify(callBack, Mockito.never()).updateBirthCertification(Mockito.any(ArrayList.class));
 
     }
 
@@ -69,14 +62,14 @@ public class CoreChildMedicalHistoryActivityInteractorTest extends BaseUnitTest 
         String caseId = "cd6f66c8-3587-4c4d-b26d-f8753ba9dfa4";
         String name = "";
         Map<String, String> mapIllness = new HashMap<>();
-        mapIllness.put(ILLNESS_DATE, "04-02-2019");
-        mapIllness.put(ILLNESS_DESCRIPTION, "description");
-        mapIllness.put(ILLNESS_ACTION, "managed");
+        mapIllness.put(ChildDBConstants.KEY.ILLNESS_DATE, "04-02-2019");
+        mapIllness.put(ChildDBConstants.KEY.ILLNESS_DESCRIPTION, "description");
+        mapIllness.put(ChildDBConstants.KEY.ILLNESS_ACTION, "managed");
         CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient(caseId, mapIllness, name);
         commonPersonObjectClient.setColumnmaps(mapIllness);
         PowerMockito.when(interactor.getContext()).thenReturn(context);
         interactor.fetchBirthCertificateData(commonPersonObjectClient, callBack);
-        verify(callBack, never()).updateBirthCertification(Mockito.any(ArrayList.class));
+        Mockito.verify(callBack, Mockito.never()).updateBirthCertification(Mockito.any(ArrayList.class));
 
     }
 

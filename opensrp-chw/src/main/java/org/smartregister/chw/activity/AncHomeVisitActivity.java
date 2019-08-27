@@ -8,25 +8,22 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
-import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncHomeVisitActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.interactor.AncHomeVisitInteractor;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
 
-import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.EDIT_MODE;
-import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
-
 public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
 
     public static void startMe(Activity activity, MemberObject memberObject, Boolean isEditMode) {
         Intent intent = new Intent(activity, AncHomeVisitActivity.class);
-        intent.putExtra(MEMBER_PROFILE_OBJECT, memberObject);
-        intent.putExtra(EDIT_MODE, isEditMode);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.EDIT_MODE, isEditMode);
         activity.startActivity(intent);
     }
 

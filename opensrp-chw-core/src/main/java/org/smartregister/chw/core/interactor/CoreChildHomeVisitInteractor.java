@@ -55,6 +55,21 @@ public class CoreChildHomeVisitInteractor extends BaseAncHomeVisitInteractor {
         appExecutors.diskIO().execute(runnable);
     }
 
+    /**
+     * Injects implementation specific changes to the event
+     *
+     * @param baseEvent
+     */
+    @Override
+    protected void prepareEvent(Event baseEvent) {
+        if (baseEvent != null) {
+            // add anc date obs and last
+            List<Object> list = new ArrayList<>();
+            list.add(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+            baseEvent.addObs(new Obs("concept", "text", "home_visit_date", "",
+                    list, new ArrayList<>(), null, "home_visit_date"));
+        }
+    }
 
     @Override
     protected String getEncounterType() {
@@ -64,21 +79,6 @@ public class CoreChildHomeVisitInteractor extends BaseAncHomeVisitInteractor {
     @Override
     protected String getTableName() {
         return CoreConstants.TABLE_NAME.CHILD;
-    }
-
-    /**
-     * Injects implementation specific changes to the event
-     *
-     * @param baseEvent
-     */
-    protected void prepareEvent(Event baseEvent) {
-        if (baseEvent != null) {
-            // add anc date obs and last
-            List<Object> list = new ArrayList<>();
-            list.add(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-            baseEvent.addObs(new Obs("concept", "text", "home_visit_date", "",
-                    list, new ArrayList<>(), null, "home_visit_date"));
-        }
     }
 
     public interface Flavor {

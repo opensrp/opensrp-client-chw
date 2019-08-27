@@ -61,8 +61,6 @@ public class HfChwRepository extends CoreChwRepository {
 
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_OUT_OF_AREA_COL);
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_OUT_OF_AREA_COL_INDEX);
-
-//            EventClientRepository.createTable(db, EventClientRepository.Table.path_reports, EventClientRepository.report_column.values());
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
 
             IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);

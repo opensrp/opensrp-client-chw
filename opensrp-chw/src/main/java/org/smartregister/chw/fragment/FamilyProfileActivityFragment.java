@@ -27,7 +27,6 @@ import timber.log.Timber;
 public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFragment {
     private String familyName;
     private RecyclerView washCheckRecyclerView;
-    private WashCheckAdapter washCheckAdapter;
     private FamilyProfileDueFragment.Flavor flavorWashCheck = new WashCheckFlv();
 
     public static BaseFamilyProfileActivityFragment newInstance(Bundle bundle) {
@@ -77,8 +76,7 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
     public void updateWashCheckBar(ArrayList<WashCheck> washCheckList) {
         if (washCheckList.size() > 0) {
             washCheckRecyclerView.setVisibility(android.view.View.VISIBLE);
-            if (washCheckAdapter == null) {
-                washCheckAdapter = new WashCheckAdapter(getActivity(), familyName, (position, washCheck) -> {
+            WashCheckAdapter  washCheckAdapter = new WashCheckAdapter(getActivity(), familyName, (position, washCheck) -> {
                     WashCheckDialogFragment dialogFragment = WashCheckDialogFragment.getInstance(washCheck.getDetailsJson());
                     FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
                     dialogFragment.show(ft, WashCheckDialogFragment.DIALOG_TAG);
@@ -86,11 +84,6 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
                 washCheckAdapter.setData(washCheckList);
                 washCheckRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 washCheckRecyclerView.setAdapter(washCheckAdapter);
-
-            } else {
-                washCheckAdapter.setData(washCheckList);
-                washCheckAdapter.notifyDataSetChanged();
-            }
         }
 
 

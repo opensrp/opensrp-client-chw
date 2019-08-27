@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.activity.BaseAncRegisterActivity;
+import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -22,8 +23,6 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
-
 public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
     protected static String phone_number;
     protected static String form_name;
@@ -31,7 +30,21 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
     protected static String familyBaseEntityId;
     protected static String familyName;
 
-    protected static String getFormTable() {
+    public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
+                                                    String uniqueId, String familyBaseID, String family_name) {
+        Intent intent = new Intent(activity, CoreAncRegisterActivity.class);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
+        phone_number = phoneNumber;
+        familyBaseEntityId = familyBaseID;
+        form_name = formName;
+        familyName = family_name;
+        unique_id = uniqueId;
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.TABLE_NAME, getFormTable());
+        activity.startActivity(intent);
+    }
+
+    public static String getFormTable() {
         if (form_name != null && form_name.equals(CoreConstants.JSON_FORM.getAncRegistration())) {
             return CoreConstants.TABLE_NAME.ANC_MEMBER;
         }

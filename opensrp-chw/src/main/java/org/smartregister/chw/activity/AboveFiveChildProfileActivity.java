@@ -29,7 +29,7 @@ public class AboveFiveChildProfileActivity extends ChildProfileActivity {
     }
 
     @Override
-    protected void updateTopbar() {
+    protected void updateTopBar() {
         //no need to do anything
     }
 

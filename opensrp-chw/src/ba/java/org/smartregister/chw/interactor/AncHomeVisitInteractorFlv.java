@@ -19,6 +19,7 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
+import org.smartregister.chw.util.JsonFormUtils;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -29,9 +30,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue;
-import static org.smartregister.chw.util.JsonFormUtils.getValue;
 
 public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor {
     @Override
@@ -54,8 +52,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         boolean isFirst = (StringUtils.isBlank(memberObject.getLastContactVisit()));
         LocalDate lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastMenstrualPeriod());
 
-        if (StringUtils.isNotBlank(memberObject.getLastContactVisit()))
+        if (StringUtils.isNotBlank(memberObject.getLastContactVisit())) {
             lastContact = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastContactVisit());
+        }
 
         Map<Integer, LocalDate> dateMap = new LinkedHashMap<>();
 
@@ -198,8 +197,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                danger_signs_counseling = getValue(jsonObject, "danger_signs_counseling");
-                danger_signs_present = getCheckBoxValue(jsonObject, "danger_signs_present");
+                danger_signs_counseling = JsonFormUtils.getValue(jsonObject, "danger_signs_counseling");
+                danger_signs_present = JsonFormUtils.getCheckBoxValue(jsonObject, "danger_signs_present");
             } catch (JSONException e) {
                 Timber.e(e);
             }
@@ -231,8 +230,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(danger_signs_counseling))
+            if (StringUtils.isBlank(danger_signs_counseling)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             if (danger_signs_counseling.equalsIgnoreCase("Yes")) {
                 return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -275,11 +275,11 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
 
-                anc_hf_visit = getValue(jsonObject, "anc_hf_visit");
-                anc_hf_visit_date = getValue(jsonObject, "anc_hf_visit_date");
-                tests_done = getCheckBoxValue(jsonObject, "tests_done");
-                imm_medicine_given = getCheckBoxValue(jsonObject, "imm_medicine_given");
-                llin_given = getValue(jsonObject, "llin_given");
+                anc_hf_visit = JsonFormUtils.getValue(jsonObject, "anc_hf_visit");
+                anc_hf_visit_date = JsonFormUtils.getValue(jsonObject, "anc_hf_visit_date");
+                tests_done = JsonFormUtils.getCheckBoxValue(jsonObject, "tests_done");
+                imm_medicine_given = JsonFormUtils.getCheckBoxValue(jsonObject, "imm_medicine_given");
+                llin_given = JsonFormUtils.getValue(jsonObject, "llin_given");
 
                 visitDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(anc_hf_visit_date);
 
@@ -304,8 +304,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(anc_hf_visit))
+            if (StringUtils.isBlank(anc_hf_visit)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             if (anc_hf_visit.equalsIgnoreCase("Yes")) {
                 return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -338,7 +339,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                fam_planning = getValue(jsonObject, "fam_planning").toLowerCase();
+                fam_planning = JsonFormUtils.getValue(jsonObject, "fam_planning").toLowerCase();
             } catch (JSONException e) {
                 Timber.e(e);
             }
@@ -367,8 +368,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(fam_planning))
+            if (StringUtils.isBlank(fam_planning)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             if (fam_planning.equalsIgnoreCase("Yes")) {
                 return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -401,7 +403,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                nutrition_status = getValue(jsonObject, "nutrition_status").toLowerCase();
+                nutrition_status = JsonFormUtils.getValue(jsonObject, "nutrition_status").toLowerCase();
             } catch (JSONException e) {
                 Timber.e(e);
             }
@@ -429,8 +431,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(nutrition_status))
+            if (StringUtils.isBlank(nutrition_status)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             return BaseAncHomeVisitAction.Status.COMPLETED;
         }
@@ -459,7 +462,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                counselling_given = getCheckBoxValue(jsonObject, "counselling_given").toLowerCase();
+                counselling_given = JsonFormUtils.getCheckBoxValue(jsonObject, "counselling_given").toLowerCase();
             } catch (JSONException e) {
                 Timber.e(e);
             }
@@ -488,8 +491,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(counselling_given))
+            if (StringUtils.isBlank(counselling_given)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             return BaseAncHomeVisitAction.Status.COMPLETED;
         }
@@ -520,9 +524,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                fam_llin = getValue(jsonObject, "fam_llin");
-                llin_2days = getValue(jsonObject, "llin_2days");
-                llin_condition = getValue(jsonObject, "llin_condition");
+                fam_llin = JsonFormUtils.getValue(jsonObject, "fam_llin");
+                llin_2days = JsonFormUtils.getValue(jsonObject, "llin_2days");
+                llin_condition = JsonFormUtils.getValue(jsonObject, "llin_condition");
             } catch (JSONException e) {
                 Timber.e(e);
             }
@@ -560,8 +564,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(fam_llin))
+            if (StringUtils.isBlank(fam_llin)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             if (fam_llin.equalsIgnoreCase("Yes") && llin_2days.equalsIgnoreCase("Yes") && llin_condition.equalsIgnoreCase("Okay")) {
                 return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -597,9 +602,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                date_of_illness = getValue(jsonObject, "date_of_illness");
-                illness_description = getValue(jsonObject, "illness_description");
-                action_taken = getCheckBoxValue(jsonObject, "action_taken");
+                date_of_illness = JsonFormUtils.getValue(jsonObject, "date_of_illness");
+                illness_description = JsonFormUtils.getValue(jsonObject, "illness_description");
+                action_taken = JsonFormUtils.getCheckBoxValue(jsonObject, "action_taken");
                 illnessDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(date_of_illness);
             } catch (Exception e) {
                 Timber.e(e);
@@ -623,8 +628,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public String evaluateSubTitle() {
-            if (illnessDate == null)
+            if (illnessDate == null) {
                 return "";
+            }
 
             return MessageFormat.format("{0}: {1}\n {2}: {3}",
                     DateTimeFormat.forPattern("dd MMM yyyy").print(illnessDate),
@@ -634,8 +640,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(date_of_illness))
+            if (StringUtils.isBlank(date_of_illness)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             return BaseAncHomeVisitAction.Status.COMPLETED;
         }
@@ -664,7 +671,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                chw_comment_anc = getValue(jsonObject, "chw_comment_anc");
+                chw_comment_anc = JsonFormUtils.getValue(jsonObject, "chw_comment_anc");
             } catch (JSONException e) {
                 Timber.e(e);
             }
@@ -693,8 +700,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(chw_comment_anc))
+            if (StringUtils.isBlank(chw_comment_anc)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
+            }
 
             return BaseAncHomeVisitAction.Status.COMPLETED;
         }

@@ -32,10 +32,6 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-import static java.util.Calendar.DATE;
-import static java.util.Calendar.MONTH;
-import static java.util.Calendar.YEAR;
-
 public abstract class CoreFamilyChangeContractInteractor implements FamilyChangeContract.Interactor {
 
     protected CoreChwApplication coreChwApplication;
@@ -268,9 +264,9 @@ public abstract class CoreFamilyChangeContractInteractor implements FamilyChange
     public static int getDiffYears(Date first, Date last) {
         Calendar a = getCalendar(first);
         Calendar b = getCalendar(last);
-        int diff = b.get(YEAR) - a.get(YEAR);
-        if (a.get(MONTH) > b.get(MONTH) ||
-                (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
+        int diff = b.get(Calendar.YEAR) - a.get(Calendar.YEAR);
+        if (a.get(Calendar.MONTH) > b.get(Calendar.MONTH) ||
+                (a.get(Calendar.MONTH) == b.get(Calendar.MONTH) && a.get(Calendar.DATE) > b.get(Calendar.DATE))) {
             diff--;
         }
         return diff;

@@ -12,7 +12,7 @@ public class MalariaFollowUpRule implements ICommonRule {
     public static final String RULE_KEY = "malariaFollowUpRule";
 
     private Date testDate;
-    private String buttonStatus = DUE;
+    private String buttonStatus = "";
 
     public MalariaFollowUpRule(Date testDate) {
         this.testDate = testDate;

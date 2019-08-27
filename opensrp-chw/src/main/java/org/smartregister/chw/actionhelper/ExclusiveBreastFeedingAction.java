@@ -10,14 +10,13 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.domain.Alert;
 
 import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.JsonFormUtils.getValue;
 
 public class ExclusiveBreastFeedingAction extends HomeVisitActionHelper {
     private Context context;
@@ -47,7 +46,7 @@ public class ExclusiveBreastFeedingAction extends HomeVisitActionHelper {
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            exclusive_breast_feeding = getValue(jsonObject, "exclusive_breast_feeding");
+            exclusive_breast_feeding = JsonFormUtils.getValue(jsonObject, "exclusive_breast_feeding");
         } catch (JSONException e) {
             Timber.e(e);
         }

@@ -17,12 +17,14 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONException;
+import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.JsonFormUtils;
@@ -48,9 +50,6 @@ import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.apache.commons.lang3.text.WordUtils.capitalize;
-import static org.smartregister.chw.anc.AncLibrary.getInstance;
 
 public abstract class CoreChildUtils {
     public static final String[] firstSecondNumber = {"Zero", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"};
@@ -93,22 +92,26 @@ public abstract class CoreChildUtils {
 
         ChildHomeVisit childHomeVisit = new ChildHomeVisit();
         Map<String, VisitSummary> map = VisitDao.getVisitSummary(childId);
-        if (map == null)
+        if (map == null) {
             return childHomeVisit;
+        }
 
         VisitSummary notDone = map.get(CoreConstants.EventType.CHILD_VISIT_NOT_DONE);
         VisitSummary lastVisit = map.get(CoreConstants.EventType.CHILD_HOME_VISIT);
 
-        if (lastVisit != null)
+        if (lastVisit != null) {
             childHomeVisit.setLastHomeVisitDate(lastVisit.getVisitDate().getTime());
+        }
 
-        if (notDone != null)
+        if (notDone != null) {
             childHomeVisit.setVisitNotDoneDate(notDone.getVisitDate().getTime());
+        }
 
 
         Long datecreated = VisitDao.getChildDateCreated(childId);
-        if (datecreated != null)
+        if (datecreated != null) {
             childHomeVisit.setDateCreated(datecreated);
+        }
 
         return childHomeVisit;
     }
@@ -215,7 +218,7 @@ public abstract class CoreChildUtils {
                 || display.toLowerCase().contains("penta")
                 || display.toLowerCase().contains("yellow fever")
                 || display.toLowerCase().contains("rubella")) {
-            vaccineDisplay = capitalize(vaccineDisplay.toLowerCase());
+            vaccineDisplay = WordUtils.capitalize(vaccineDisplay.toLowerCase());
         }
 
         return vaccineDisplay;
@@ -282,6 +285,7 @@ public abstract class CoreChildUtils {
 
     /**
      * Add visit not done to visits table
+     *
      * @param entityId
      */
     public static void visitNotDone(String entityId) {
@@ -289,7 +293,7 @@ public abstract class CoreChildUtils {
             Event event = JsonFormUtils.createUntaggedEvent(entityId, CoreConstants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLES.EC_CHILD);
             Visit visit = NCUtils.eventToVisit(event, JsonFormUtils.generateRandomUUIDString());
             visit.setPreProcessedJson(new Gson().toJson(event));
-            getInstance().visitRepository().addVisit(visit);
+            AncLibrary.getInstance().visitRepository().addVisit(visit);
         } catch (JSONException e) {
             Timber.e(e);
         }
@@ -297,6 +301,7 @@ public abstract class CoreChildUtils {
 
     /**
      * remove visit not done from visits table
+     *
      * @param entityId
      */
     public static void undoVisitNotDone(String entityId) {

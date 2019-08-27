@@ -13,12 +13,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.core.job.BasePncCloseJob;
+import org.smartregister.chw.core.job.HomeVisitServiceJob;
+import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.fragment.MalariaRegisterFragment;
 import org.smartregister.chw.malaria.activity.BaseMalariaRegisterActivity;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
+import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.PullUniqueIdsServiceJob;
+import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Arrays;
@@ -106,22 +113,31 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
                     if (fever_still_object != null && "Yes".equalsIgnoreCase(fever_still_object.optString(VALUE))) {
                         MalariaRegisterActivity.startMalariaRegistrationActivity(this, jsonForm.optString(ENTITY_ID));
                     }
-                }else{
+                } else {
                     startRegisterActivity(MalariaRegisterActivity.class);
-                    finish();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-        }else{
+        } else {
             finish();
         }
+
     }
 
     private void startRegisterActivity(Class registerClass) {
+        BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
+        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
+        VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
+        ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
+        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+        PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
+        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
+        //PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
+        SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
         Intent intent = new Intent(this, registerClass);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         this.startActivity(intent);
         this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
@@ -133,8 +149,7 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
         super.onResumption();
         NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
         if (menu != null) {
-            menu.getNavigationAdapter()
-                    .setSelectedView(Constants.DrawerMenu.MALARIA);
+            menu.getNavigationAdapter().setSelectedView(Constants.DrawerMenu.MALARIA);
         }
     }
 }

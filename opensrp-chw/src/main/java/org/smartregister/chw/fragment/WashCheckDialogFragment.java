@@ -18,10 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.util.Utils;
-
-import static org.smartregister.util.JsonFormUtils.VALUE;
-import static org.smartregister.util.JsonFormUtils.fields;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
+import org.smartregister.util.JsonFormUtils;
 
 public class WashCheckDialogFragment extends DialogFragment implements View.OnClickListener {
 
@@ -45,7 +42,7 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity = (Activity)context;
+        activity = (Activity) context;
     }
 
     @Override
@@ -92,13 +89,13 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
 
         try {
             JSONObject jsonObject = new JSONObject(jsonData);
-            JSONArray field = fields(jsonObject);
-            JSONObject handwashing_facilities = getFieldJSONObject(field, "handwashing_facilities");
-            handwashingValue = handwashing_facilities.optString(VALUE);
-            JSONObject drinking_water = getFieldJSONObject(field, "drinking_water");
-            drinkingValue = drinking_water.optString(VALUE);
-            JSONObject hygienic_latrine = getFieldJSONObject(field, "hygienic_latrine");
-            latrineValue = hygienic_latrine.optString(VALUE);
+            JSONArray field = JsonFormUtils.fields(jsonObject);
+            JSONObject handwashing_facilities = JsonFormUtils.getFieldJSONObject(field, "handwashing_facilities");
+            handwashingValue = handwashing_facilities.optString(JsonFormUtils.VALUE);
+            JSONObject drinking_water = JsonFormUtils.getFieldJSONObject(field, "drinking_water");
+            drinkingValue = drinking_water.optString(JsonFormUtils.VALUE);
+            JSONObject hygienic_latrine = JsonFormUtils.getFieldJSONObject(field, "hygienic_latrine");
+            latrineValue = hygienic_latrine.optString(JsonFormUtils.VALUE);
 
         } catch (Exception e) {
             e.printStackTrace();

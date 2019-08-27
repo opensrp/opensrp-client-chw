@@ -120,7 +120,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 processService(eventClient, serviceTable);
                 break;
             case CoreConstants.EventType.CHILD_HOME_VISIT:
-                processVisitEvent(Utils.processOldEvents(eventClient));
+                processVisitEvent(Utils.processOldEvents(eventClient), CoreConstants.EventType.CHILD_HOME_VISIT);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
             case CoreConstants.EventType.CHILD_VISIT_NOT_DONE:
@@ -131,7 +131,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             case CoreConstants.EventType.MUAC:
             case CoreConstants.EventType.LLITN:
             case CoreConstants.EventType.ECD:
-                processVisitEvent(eventClient);
+                processVisitEvent(eventClient, CoreConstants.EventType.CHILD_HOME_VISIT);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
             case CoreConstants.EventType.ANC_HOME_VISIT:
@@ -174,6 +174,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
                 break;
             case CoreConstants.EventType.CHILD_REFERRAL:
+            case CoreConstants.EventType.CLOSE_REFERRAL:
                 if (eventClient.getClient() != null) {
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 }
@@ -255,7 +256,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 return false;
             }
 
-            Timber.d("Starting processService table: " + serviceTable.name);
+            Timber.d("Starting processService table: %s", serviceTable.name);
 
             ContentValues contentValues = processCaseModel(service, serviceTable);
 
@@ -305,7 +306,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
                 recurringServiceRecordRepository.add(serviceObj);
 
-                Timber.d("Ending processService table: " + serviceTable.name);
+                Timber.d("Ending processService table: %s", serviceTable.name);
             }
             return true;
 
@@ -315,18 +316,28 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         }
     }
 
+    private void processVisitEvent(List<EventClient> eventClients, String parentEventName) {
+        for (EventClient eventClient : eventClients) {
+            processVisitEvent(eventClient, parentEventName); // save locally
+        }
+    }
+
     // possible to delegate
     private void processVisitEvent(EventClient eventClient) {
         try {
             NCUtils.processAncHomeVisit(eventClient); // save locally
         } catch (Exception e) {
-            Timber.e(e);
+            String formID = (eventClient != null && eventClient.getEvent() != null) ? eventClient.getEvent().getFormSubmissionId() : "no form id";
+            Timber.e("Form id " + formID + ". " + e.toString());
         }
     }
 
-    private void processVisitEvent(List<EventClient> eventClients) {
-        for (EventClient eventClient : eventClients) {
-            processVisitEvent(eventClient); // save locally
+    private void processVisitEvent(EventClient eventClient, String parentEventName) {
+        try {
+            NCUtils.processSubHomeVisit(eventClient, parentEventName); // save locally
+        } catch (Exception e) {
+            String formID = (eventClient != null && eventClient.getEvent() != null) ? eventClient.getEvent().getFormSubmissionId() : "no form id";
+            Timber.e("Form id " + formID + ". " + e.toString());
         }
     }
 
@@ -547,6 +558,12 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         Timber.d("Started updateClientDetailsTable");
         event.addDetails("detailsUpdated", Boolean.TRUE.toString());
         Timber.d("Finished updateClientDetailsTable");
+    }
+
+    private void processVisitEvent(List<EventClient> eventClients) {
+        for (EventClient eventClient : eventClients) {
+            processVisitEvent(eventClient); // save locally
+        }
     }
 
     private Float parseFloat(String string) {

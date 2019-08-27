@@ -10,10 +10,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.when;
-
 public class MalariaRegisterFragmentTest {
     private MalariaRegisterFragment malariaRegisterFragment = new MalariaRegisterFragment();
 
@@ -37,7 +33,7 @@ public class MalariaRegisterFragmentTest {
     @Test
     public void testToggleFilterSelectionCallsDueFilterWhenTagIsNull() {
         dueOnlyLayout.setTag(null);
-        doNothing().when(spy).dueFilter(dueOnlyLayout);
+        Mockito.doNothing().when(spy).dueFilter(dueOnlyLayout);
         spy.toggleFilterSelection(dueOnlyLayout);
         Mockito.verify(spy).dueFilter(dueOnlyLayout);
     }
@@ -45,25 +41,25 @@ public class MalariaRegisterFragmentTest {
     @Test
     public void testToggleFilterSelectionNeverCallsNormalFilterWhenTagIsNull() {
         dueOnlyLayout.setTag(null);
-        doNothing().when(spy).dueFilter(dueOnlyLayout);
+        Mockito.doNothing().when(spy).dueFilter(dueOnlyLayout);
         spy.toggleFilterSelection(dueOnlyLayout);
-        Mockito.verify(spy, never()).normalFilter(dueOnlyLayout);
+        Mockito.verify(spy, Mockito.never()).normalFilter(dueOnlyLayout);
     }
 
     @Test
     public void testToggleFilterSelectionCallsNormalFilterWhenTagIsPressed() {
-        when(dueOnlyLayout.getTag()).thenReturn("PRESSED");
-        doNothing().when(spy).normalFilter(dueOnlyLayout);
+        Mockito.when(dueOnlyLayout.getTag()).thenReturn("PRESSED");
+        Mockito.doNothing().when(spy).normalFilter(dueOnlyLayout);
         spy.toggleFilterSelection(dueOnlyLayout);
         Mockito.verify(spy).normalFilter(dueOnlyLayout);
     }
 
     @Test
     public void testToggleFilterSelectionNeverCallsDueFilterWhenTagIsPressed() {
-        when(dueOnlyLayout.getTag()).thenReturn("PRESSED");
-        doNothing().when(spy).normalFilter(dueOnlyLayout);
+        Mockito.when(dueOnlyLayout.getTag()).thenReturn("PRESSED");
+        Mockito.doNothing().when(spy).normalFilter(dueOnlyLayout);
         spy.toggleFilterSelection(dueOnlyLayout);
-        Mockito.verify(spy, never()).dueFilter(dueOnlyLayout);
+        Mockito.verify(spy, Mockito.never()).dueFilter(dueOnlyLayout);
     }
 
     @Test
