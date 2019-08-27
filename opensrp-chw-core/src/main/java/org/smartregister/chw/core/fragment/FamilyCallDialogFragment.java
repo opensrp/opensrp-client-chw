@@ -41,8 +41,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
     private TextView tvCareGiverName;
     private TextView tvCareGiverPhone;
 
-    public static FamilyCallDialogFragment launchDialog(Activity activity,
-                                                        String familyBaseEntityId) {
+    public static FamilyCallDialogFragment launchDialog(Activity activity, String familyBaseEntityId) {
         FamilyCallDialogFragment dialogFragment = FamilyCallDialogFragment.newInstance(familyBaseEntityId);
         FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
         Fragment prev = activity.getFragmentManager().findFragmentByTag(DIALOG_TAG);
@@ -70,8 +69,6 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.ChwTheme_Dialog_FullWidth);
-
-
     }
 
     @Override
@@ -93,6 +90,15 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
         initUI(dialogView);
         initializePresenter();
         return dialogView;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (getPendingCallRequest() == null) {
+            EventBus.getDefault().unregister(this);
+        }
+        listener = null;
     }
 
     private void setUpPosition() {
@@ -119,15 +125,6 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
         rootView.findViewById(R.id.close).setOnClickListener(listener);
         tvFamilyHeadPhone.setOnClickListener(listener);
         tvCareGiverPhone.setOnClickListener(listener);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (getPendingCallRequest() == null) {
-            EventBus.getDefault().unregister(this);
-        }
-        listener = null;
     }
 
     @Override
