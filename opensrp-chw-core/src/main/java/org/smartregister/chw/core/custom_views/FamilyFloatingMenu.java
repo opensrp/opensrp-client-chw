@@ -41,12 +41,7 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
         rotateForward = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_forward);
         rotateBack = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_back);
 
-        fab.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                animateFAB();
-            }
-        });
+        fab.setOnClickListener(v -> animateFAB());
 
         callLayout = findViewById(R.id.call_layout);
         callLayout.setOnClickListener(this);

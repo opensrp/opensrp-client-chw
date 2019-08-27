@@ -33,7 +33,6 @@ import org.smartregister.chw.hf.model.NavigationModel;
 import org.smartregister.chw.hf.repository.HfChwRepository;
 import org.smartregister.chw.hf.sync.HfSyncConfiguration;
 import org.smartregister.chw.malaria.MalariaLibrary;
-import org.smartregister.chw.malaria.activity.BaseMalariaRegisterActivity;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -69,7 +68,8 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
                 HealthFacilityApplication.getInstance().getApplicationContext().getAssets());
 
         //Setup Navigation menu. Done only once when app is created
-        NavigationMenu.setupNavigationMenu(this, new HfNavigationMenu(), new NavigationModel(), getRegisteredActivities());
+        NavigationMenu.setupNavigationMenu(this, new HfNavigationMenu(), new NavigationModel(),
+                getRegisteredActivities(), false);
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
@@ -137,7 +137,7 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, ReferralRegisterActivity.class);
-        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, BaseMalariaRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         return registeredActivities;
     }
 
