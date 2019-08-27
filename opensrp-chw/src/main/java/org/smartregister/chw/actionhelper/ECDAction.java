@@ -64,13 +64,13 @@ public class ECDAction extends HomeVisitActionHelper {
         if (StringUtils.isBlank(develop_warning_signs))
             return BaseAncHomeVisitAction.Status.PENDING;
 
-        if (
-                "No".equalsIgnoreCase(develop_warning_signs) ||
-                        "No".equalsIgnoreCase(stim_skills) ||
-                        (StringUtils.isNotBlank(early_learning) && "No".equalsIgnoreCase(early_learning))
+        if(
+                "No".equalsIgnoreCase(develop_warning_signs)
+                        && "Yes".equalsIgnoreCase(stim_skills)
+                        && (StringUtils.isBlank(early_learning) || "Yes".equalsIgnoreCase(early_learning))
         )
-            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+            return BaseAncHomeVisitAction.Status.COMPLETED;
 
-        return BaseAncHomeVisitAction.Status.COMPLETED;
+        return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
     }
 }
