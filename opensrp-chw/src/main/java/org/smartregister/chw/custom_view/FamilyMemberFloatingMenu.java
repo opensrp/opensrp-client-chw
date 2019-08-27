@@ -28,6 +28,11 @@ public class FamilyMemberFloatingMenu extends CoreFamilyMemberFloatingMenu {
         flavor.fabInteraction(this);
     }
 
+    @Override
+    public void reDraw(boolean has_phone) {
+        flavor.reDraw(this, has_phone);
+    }
+
     public FamilyMemberFloatingMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -35,10 +40,6 @@ public class FamilyMemberFloatingMenu extends CoreFamilyMemberFloatingMenu {
     public FamilyMemberFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initUi();
-    }
-
-    public void reDraw(boolean has_phone) {
-        flavor.reDraw(this, has_phone);
     }
 
     interface Flavor {

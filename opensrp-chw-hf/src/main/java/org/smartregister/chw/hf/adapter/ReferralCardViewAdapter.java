@@ -25,11 +25,13 @@ public class ReferralCardViewAdapter extends RecyclerView.Adapter<ReferralCardVi
     private CommonPersonObjectClient personObjectClient;
     private Activity context;
     private ReferralRecyclerClickListener referralRecyclerClickListener = new ReferralRecyclerClickListener();
+    private String startingActivity;
 
-    public ReferralCardViewAdapter(Set<Task> taskList, Activity activity, CommonPersonObjectClient personObjectClient) {
+    public ReferralCardViewAdapter(Set<Task> taskList, Activity activity, CommonPersonObjectClient personObjectClient, String startingActivity) {
         this.tasks = new ArrayList<>(taskList);
         this.context = activity;
         this.personObjectClient = personObjectClient;
+        this.startingActivity = startingActivity;
     }
 
     @NonNull
@@ -44,6 +46,7 @@ public class ReferralCardViewAdapter extends RecyclerView.Adapter<ReferralCardVi
         referralRecyclerClickListener.setTask(tasks.get(position));
         referralRecyclerClickListener.setCommonPersonObjectClient(personObjectClient);
         referralRecyclerClickListener.setActivity(context);
+        referralRecyclerClickListener.setStartingActivity(startingActivity);
         referralCardViewHolder.textViewReferralHeader.setText(String.format(context.getApplicationContext().getResources().getString(R.string.referral_for), tasks.get(position).getFocus()));
         referralCardViewHolder.referralRow.setOnClickListener(referralRecyclerClickListener);
     }

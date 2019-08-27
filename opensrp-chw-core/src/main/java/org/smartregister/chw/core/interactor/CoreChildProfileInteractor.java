@@ -399,7 +399,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
         task.setPriority(3);
         task.setCode("Referral");
         task.setDescription("Review and perform the referral for the client"); //set to string
-        task.setFocus("Sick Child");//the same here
+        task.setFocus(CoreConstants.TASKS_FOCUS.SICK_CHILD);//the same here
         task.setForEntity(baseEntityId);
         DateTime now = new DateTime();
         task.setExecutionStartDate(now);

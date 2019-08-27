@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 import org.smartregister.chw.hf.R;
-import org.smartregister.chw.hf.fragement.AncRegisterFragment;
+import org.smartregister.chw.hf.fragment.AncRegisterFragment;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -12,7 +12,7 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
     @Override
     public void onRegistrationSaved(boolean isEdit) {
         /*if (hasChildRegistration) {
-            startRegisterActivity(PncRegisterActivity.class);
+            startReferralsRegisterActivity(PncRegisterActivity.class);
         } else*/
         if (!hasChildRegistration) {
             startRegisterActivity(AncRegisterActivity.class);

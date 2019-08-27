@@ -11,6 +11,7 @@ import org.smartregister.chw.core.contract.BaseReferralRegisterFragmentContract;
 import org.smartregister.chw.core.provider.BaseReferralRegisterProvider;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.CommonFtsObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -23,6 +24,7 @@ import java.util.Set;
 import timber.log.Timber;
 
 public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragment implements BaseReferralRegisterFragmentContract.View {
+    private CommonPersonObjectClient commonPersonObjectClient;
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns, String tableName) {
@@ -32,6 +34,10 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
         clientsView.setAdapter(clientAdapter);
     }
 
+    @Override
+    public void setClient(CommonPersonObjectClient commonPersonObjectClient) {
+        setCommonPersonObjectClient(commonPersonObjectClient);
+    }
 
     @Override
     public void setupViews(View view) {
@@ -47,12 +53,12 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
 
     @Override
     public void setUniqueID(String s) {
-        //// TODO: 15/08/19  
+        //// TODO: 15/08/19
     }
 
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        //// TODO: 15/08/19  
+        //// TODO: 15/08/19
     }
 
     @Override
@@ -67,17 +73,25 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
 
     @Override
     protected void startRegistration() {
-        //// TODO: 15/08/19  
+        //// TODO: 15/08/19
     }
 
     @Override
     public void showNotFoundPopup(String s) {
-        //// TODO: 15/08/19  
+        //// TODO: 15/08/19
+    }
+
+    public CommonPersonObjectClient getCommonPersonObjectClient() {
+        return commonPersonObjectClient;
+    }
+
+    public void setCommonPersonObjectClient(CommonPersonObjectClient commonPersonObjectClient) {
+        this.commonPersonObjectClient = commonPersonObjectClient;
     }
 
     @Override
     public void countExecute() {
-        Cursor c = null;
+        Cursor cursor = null;
 
         try {
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
@@ -97,9 +111,9 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
                 query = sqb.Endquery(query);
 
                 Timber.i(query);
-                c = commonRepository().rawCustomQueryForAdapter(query);
-                c.moveToFirst();
-                clientAdapter.setTotalcount(c.getInt(0));
+                cursor = commonRepository().rawCustomQueryForAdapter(query);
+                cursor.moveToFirst();
+                clientAdapter.setTotalcount(cursor.getInt(0));
                 Timber.v("total count here %s", clientAdapter.getTotalcount());
             }
 
@@ -110,8 +124,8 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
         } catch (Exception e) {
             Timber.e(e);
         } finally {
-            if (c != null) {
-                c.close();
+            if (cursor != null) {
+                cursor.close();
             }
         }
     }

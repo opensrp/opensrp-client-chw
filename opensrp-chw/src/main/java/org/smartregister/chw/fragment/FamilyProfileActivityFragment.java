@@ -76,14 +76,14 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
     public void updateWashCheckBar(ArrayList<WashCheck> washCheckList) {
         if (washCheckList.size() > 0) {
             washCheckRecyclerView.setVisibility(android.view.View.VISIBLE);
-            WashCheckAdapter  washCheckAdapter = new WashCheckAdapter(getActivity(), familyName, (position, washCheck) -> {
-                    WashCheckDialogFragment dialogFragment = WashCheckDialogFragment.getInstance(washCheck.getDetailsJson());
-                    FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-                    dialogFragment.show(ft, WashCheckDialogFragment.DIALOG_TAG);
-                });
-                washCheckAdapter.setData(washCheckList);
-                washCheckRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                washCheckRecyclerView.setAdapter(washCheckAdapter);
+            WashCheckAdapter washCheckAdapter = new WashCheckAdapter(getActivity(), familyName, (position, washCheck) -> {
+                WashCheckDialogFragment dialogFragment = WashCheckDialogFragment.getInstance(washCheck.getDetailsJson());
+                FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                dialogFragment.show(ft, WashCheckDialogFragment.DIALOG_TAG);
+            });
+            washCheckAdapter.setData(washCheckList);
+            washCheckRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            washCheckRecyclerView.setAdapter(washCheckAdapter);
         }
 
 

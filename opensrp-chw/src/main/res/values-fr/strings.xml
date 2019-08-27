@@ -59,7 +59,6 @@
     <string name="view_upcoming_services">Voir les prochains services</string>
     <string name="upcoming_services">Prochains services</string>
     <string name="overdue_3_oct">en retard(3 oct)</string>
-    <string name="penta_1">Penta 1</string>
     <string name="view_medical_history">Voir historique médical</string>
     <string name="last_visit_40_days_ago">Dernier visite il y a %1$s </string>
     <string name="add_member_title">Ajouter un membre du ménage</string>
@@ -376,11 +375,28 @@
     <string name="tt_dose">VAT {0}</string>
     <string name="iptp_sp_dose">SP {0}</string>
 
-    <string name="rubella">Rubéole</string>
     <string name="opv_0">VPO 0</string>
     <string name="opv_1">VPO 1</string>
     <string name="opv_2">VPO 2</string>
+    <string name="bcg">BCG</string>
+    <string name="penta_1">Penta 1</string>
+    <string name="penta_2">Penta 2</string>
+    <string name="penta_3">Penta 3</string>
+    <string name="pcv_1">Pneumo 1</string>
+    <string name="pcv_2">Pneumo 2</string>
+    <string name="pcv_3">Pneumo 3</string>
+    <string name="rota_1">Rota 1</string>
+    <string name="rota_2">Rota 2</string>
+    <string name="rota_3">Rota 3</string>
+    <string name="ipv">IPV</string>
+    <string name="mcv_1">MCV 1</string>
+    <string name="mcv_2">MCV 2</string>
+    <string name="mcv_3">MCV 3</string>
     <string name="yellow_fever">Fièvre Jaune</string>
+    <string name="rubella_1">Rubéole 1</string>
+    <string name="rubella_2">Rubéole 2</string>
+    <string name="mena">MenA</string>
+
     <string name="follow_up_visit">Visite de suivi</string>
 
     <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number

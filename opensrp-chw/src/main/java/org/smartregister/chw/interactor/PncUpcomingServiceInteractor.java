@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PncUpcomingServiceInteractor extends BaseAncUpcomingServicesInteractor {
 
-   private Flavor flavor = new PncUpcomingServicesInteractorFlv();
+    private Flavor flavor = new PncUpcomingServicesInteractorFlv();
 
     @Override
     protected List<BaseUpcomingService> getMemberServices(Context context, MemberObject memberObject) {

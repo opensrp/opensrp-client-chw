@@ -84,15 +84,11 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
         appExecutors.diskIO().execute(runnable);
     }
 
-    private Date getDeliveryDate(String motherBaseID) {
-        String deliveryDateString = PncLibrary.getInstance().profileRepository().getDeliveryDate(motherBaseID);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        try {
-            deliveryDate = sdf.parse(deliveryDateString);
-        } catch (ParseException e) {
-            Timber.e(e);
-        }
-        return deliveryDate;
+    public PncVisitAlertRule getVisitSummary(String motherBaseID) {
+        Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(org.smartregister.chw.util.Constants.RULE_FILE.PNC_HOME_VISIT);
+        Date lastVisitDate = getLastDateVisit(motherBaseID);
+        Date deliveryDate = getDeliveryDate(motherBaseID);
+        return HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, deliveryDate);
     }
 
     private Date getLastDateVisit(String motherBaseID) {
@@ -106,11 +102,15 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
 
     }
 
-    public PncVisitAlertRule getVisitSummary(String motherBaseID) {
-        Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(org.smartregister.chw.util.Constants.RULE_FILE.PNC_HOME_VISIT);
-        Date lastVisitDate = getLastDateVisit(motherBaseID);
-        Date deliveryDate = getDeliveryDate(motherBaseID);
-        return HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, deliveryDate);
+    private Date getDeliveryDate(String motherBaseID) {
+        String deliveryDateString = PncLibrary.getInstance().profileRepository().getDeliveryDate(motherBaseID);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        try {
+            deliveryDate = sdf.parse(deliveryDateString);
+        } catch (ParseException e) {
+            Timber.e(e);
+        }
+        return deliveryDate;
     }
 
     public PncVisitAlertRule visitSummary(CommonPersonObjectClient pc) {

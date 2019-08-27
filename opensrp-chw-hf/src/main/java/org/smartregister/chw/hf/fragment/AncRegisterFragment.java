@@ -1,4 +1,4 @@
-package org.smartregister.chw.hf.fragement;
+package org.smartregister.chw.hf.fragment;
 
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -45,7 +45,7 @@ public class AncRegisterFragment extends CoreAncRegisterFragment {
             familyHeadPhone = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE);
         }
 
-        AncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), familyName, familyHeadPhone);
+        AncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), familyName, familyHeadPhone, client);
     }
 
     @Override

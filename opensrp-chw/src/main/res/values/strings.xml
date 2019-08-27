@@ -3,7 +3,6 @@
     <string name="logo">logo</string>
 
     <string name="title_family_detail">Family Detail</string>
-    <string name="child_details">Child details %1$s</string>
     <string name="not_done">Not done</string>
     <string name="not_provided">Not provided</string>
 
@@ -19,7 +18,6 @@
     <string name="view_upcoming_services">View upcoming services</string>
     <string name="upcoming_services">Upcoming Services</string>
     <string name="overdue_3_oct">overdue(3 oct)</string>
-    <string name="penta_1">Penta 1</string>
     <string name="view_medical_history">View medical history</string>
     <string name="last_visit_40_days_ago">Last visit %1$s ago</string>
 
@@ -27,8 +25,6 @@
     <string name="undo">UNDO</string>
 
     <string name="edit">EDIT</string>
-    <string name="return_to_family_name">Return to %1$s Family</string>
-    <string name="return_to_family_members">Return to family members</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -68,6 +64,9 @@
 
     <string name="birth_date">Birth Date</string>
     <string name="age">Age</string>
+    <string name="edit_anc_registration_form_title">Edit ANC Registration</string>
+    <string name="anc_registration_form_title">ANC Registration</string>
+    <string name="anc_pregnancy_outcome_form_title">Pregnancy Outcome</string>
 
     <string name="birth_cert_value">Does the child have a birth certificate? %s</string>
     <string name="birth_cert_date">Birth certificate issuance date: %s</string>
@@ -204,11 +203,28 @@
     <string name="tt_dose">TT {0}</string>
     <string name="iptp_sp_dose">IPTP-sp {0}</string>
 
-    <string name="rubella">Rubella</string>
     <string name="opv_0">OPV 0</string>
     <string name="opv_1">OPV 1</string>
     <string name="opv_2">OPV 2</string>
+    <string name="bcg">BCG</string>
+    <string name="penta_1">Penta 1</string>
+    <string name="penta_2">Penta 2</string>
+    <string name="penta_3">Penta 3</string>
+    <string name="pcv_1">PCV 1</string>
+    <string name="pcv_2">PCV 2</string>
+    <string name="pcv_3">PCV 3</string>
+    <string name="rota_1">Rota 1</string>
+    <string name="rota_2">Rota 2</string>
+    <string name="rota_3">Rota 3</string>
+    <string name="ipv">IPV</string>
+    <string name="mcv_1">MCV 1</string>
+    <string name="mcv_2">MCV 2</string>
+    <string name="mcv_3">MCV 3</string>
     <string name="yellow_fever">Yellow Fever</string>
+    <string name="rubella_1">Rubella 1</string>
+    <string name="rubella_2">Rubella 2</string>
+    <string name="mena">MenA</string>
+
     <string name="follow_up_visit">Follow-up Visit</string>
 
     <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number

@@ -1,4 +1,4 @@
-package org.smartregister.chw.hf.fragement;
+package org.smartregister.chw.hf.fragment;
 
 import android.view.View;
 

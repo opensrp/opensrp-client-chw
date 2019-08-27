@@ -28,40 +28,37 @@ public class CoreAuthorizationService implements P2PAuthorizationService {
 
     @Override
     public void authorizeConnection(@NonNull final Map<String, Object> peerDeviceMap, @NonNull final AuthorizationCallback authorizationCallback) {
-        getAuthorizationDetails(new OnAuthorizationDetailsProvidedCallback() {
-            @Override
-            public void onAuthorizationDetailsProvided(@NonNull Map<String, Object> map) {
-                Object peerDeviceTeamId = peerDeviceMap.get(AllConstants.PeerToPeer.KEY_TEAM_ID);
-                if (peerDeviceTeamId instanceof String
-                        && peerDeviceTeamId.equals(map.get(AllConstants.PeerToPeer.KEY_TEAM_ID))) {
-                    Object peerDeviceLocationId = peerDeviceMap.get(CoreConstants.PEER_TO_PEER.LOCATION_ID);
-                    Object myLocationId = authorizationDetails.get(CoreConstants.PEER_TO_PEER.LOCATION_ID);
-                    Object myPeerStatus = authorizationDetails.get(org.smartregister.p2p.util.Constants.AuthorizationKeys.PEER_STATUS);
+        getAuthorizationDetails(map -> {
+            Object peerDeviceTeamId = peerDeviceMap.get(AllConstants.PeerToPeer.KEY_TEAM_ID);
+            if (peerDeviceTeamId instanceof String
+                    && peerDeviceTeamId.equals(map.get(AllConstants.PeerToPeer.KEY_TEAM_ID))) {
+                Object peerDeviceLocationId = peerDeviceMap.get(CoreConstants.PEER_TO_PEER.LOCATION_ID);
+                Object myLocationId = authorizationDetails.get(CoreConstants.PEER_TO_PEER.LOCATION_ID);
+                Object myPeerStatus = authorizationDetails.get(org.smartregister.p2p.util.Constants.AuthorizationKeys.PEER_STATUS);
 
-                    if (peerDeviceLocationId instanceof String && myLocationId instanceof String && myPeerStatus instanceof String) {
+                if (peerDeviceLocationId instanceof String && myLocationId instanceof String && myPeerStatus instanceof String) {
 
-                        if (org.smartregister.p2p.util.Constants.PeerStatus.SENDER.equals(myPeerStatus)) {
-                            // If this device is a sender
-                            // Make sure that
-                            if (isLocationEncompassing((String) peerDeviceLocationId, (String) myLocationId)) {
-                                authorizationCallback.onConnectionAuthorized();
-                            } else {
-                                rejectConnection(authorizationCallback);
-                            }
+                    if (org.smartregister.p2p.util.Constants.PeerStatus.SENDER.equals(myPeerStatus)) {
+                        // If this device is a sender
+                        // Make sure that
+                        if (isLocationEncompassing((String) peerDeviceLocationId, (String) myLocationId)) {
+                            authorizationCallback.onConnectionAuthorized();
                         } else {
-                            // If this device is a receiver
-                            if (isLocationEncompassing((String) myLocationId, (String) peerDeviceLocationId)) {
-                                authorizationCallback.onConnectionAuthorized();
-                            } else {
-                                rejectConnection(authorizationCallback);
-                            }
+                            rejectConnection(authorizationCallback);
                         }
                     } else {
-                        rejectConnection(authorizationCallback);
+                        // If this device is a receiver
+                        if (isLocationEncompassing((String) myLocationId, (String) peerDeviceLocationId)) {
+                            authorizationCallback.onConnectionAuthorized();
+                        } else {
+                            rejectConnection(authorizationCallback);
+                        }
                     }
                 } else {
                     rejectConnection(authorizationCallback);
                 }
+            } else {
+                rejectConnection(authorizationCallback);
             }
         });
     }

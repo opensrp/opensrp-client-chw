@@ -3,6 +3,7 @@ package org.smartregister.chw.hf.listener;
 import android.app.Activity;
 import android.view.View;
 
+import org.jetbrains.annotations.Contract;
 import org.smartregister.chw.hf.activity.ReferralTaskViewActivity;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Task;
@@ -14,17 +15,19 @@ public class ReferralRecyclerClickListener implements View.OnClickListener {
     private Task task;
     private CommonPersonObjectClient commonPersonObjectClient;
     private Activity activity;
+    private String startingActivity;
 
     @Override
     public void onClick(View view) {
-        ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getCommonPersonObjectClient(), getTask());
+        ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getCommonPersonObjectClient(), getTask(), getStartingActivity());
     }
 
     public Activity getActivity() {
         return activity;
     }
 
-    public CommonPersonObjectClient getCommonPersonObjectClient() {
+    @Contract(pure = true)
+    private CommonPersonObjectClient getCommonPersonObjectClient() {
         return commonPersonObjectClient;
     }
 
@@ -36,6 +39,15 @@ public class ReferralRecyclerClickListener implements View.OnClickListener {
         this.task = task;
     }
 
+    @Contract(pure = true)
+    private String getStartingActivity() {
+        return startingActivity;
+    }
+
+    public void setStartingActivity(String startingActivity) {
+        this.startingActivity = startingActivity;
+    }
+
     public void setCommonPersonObjectClient(CommonPersonObjectClient commonPersonObjectClient) {
         this.commonPersonObjectClient = commonPersonObjectClient;
     }
@@ -43,5 +55,4 @@ public class ReferralRecyclerClickListener implements View.OnClickListener {
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
-
 }
