@@ -68,7 +68,8 @@ public class ChwApplication extends CoreChwApplication {
 
 
         //Setup Navigation menu. Done only once when app is created
-        NavigationMenu.setupNavigationMenu(this, new NavigationMenuFlv(), new NavigationModelFlv(), getRegisteredActivities());
+        NavigationMenu.setupNavigationMenu(this, new NavigationMenuFlv(), new NavigationModelFlv(),
+                getRegisteredActivities(), true);
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());

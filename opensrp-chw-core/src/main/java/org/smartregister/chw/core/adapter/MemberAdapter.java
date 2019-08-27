@@ -44,10 +44,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_up);
     }
 
-    public Flavor getFlavorPhoneNumberLength() {
-        return flavorPhoneNumberLength;
-    }
-
     public void setFlavorPhoneNumberLength(Flavor flavorPhoneNumberLength) {
         this.flavorPhoneNumberLength = flavorPhoneNumberLength;
     }
@@ -154,7 +150,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
     private boolean validateTextView(TextView textView) {
         String text = textView.getText().toString().trim();
-        if (flavorPhoneNumberLength.isPhoneNumberLength16Digit()) {
+        if (flavorPhoneNumberLength != null && flavorPhoneNumberLength.isPhoneNumberLength16Digit()) {
             if (text.length() < 8) {
                 textView.setError(context.getString(R.string.number_8_16));
                 return false;
@@ -243,7 +239,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
                 @Override
                 public void afterTextChanged(Editable s) {
                     String text = et.getText().toString().trim();
-                    if (flavorPhoneNumberLength.isPhoneNumberLength16Digit()) {
+                    if (flavorPhoneNumberLength != null && flavorPhoneNumberLength.isPhoneNumberLength16Digit()) {
                         if (text.length() < 8) {
                             et.setError(context.getString(R.string.number_8_16));
                         }

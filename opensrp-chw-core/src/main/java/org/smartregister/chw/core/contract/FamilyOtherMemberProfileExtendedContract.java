@@ -1,4 +1,4 @@
-package org.smartregister.chw.contract;
+package org.smartregister.chw.core.contract;
 
 import android.content.Context;
 

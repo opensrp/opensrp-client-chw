@@ -1,4 +1,4 @@
-package org.smartregister.chw.hf.fragement;
+package org.smartregister.chw.hf.fragment;
 
 import android.os.Bundle;
 
@@ -9,6 +9,10 @@ import org.smartregister.chw.hf.presenter.FamilyChangePresenter;
 
 public class FamilyProfileChangeHead extends CoreFamilyProfileChangeHead {
     private FamilyChangePresenter familyChangePresenter;
+
+    public FamilyProfileChangeHead() {
+        phoneNumberLengthFlavor = null;
+    }
 
     public static FamilyProfileChangeHead newInstance(String familyID) {
         FamilyProfileChangeHead fragment = new FamilyProfileChangeHead();

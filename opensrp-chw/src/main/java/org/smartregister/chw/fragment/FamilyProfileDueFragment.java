@@ -2,8 +2,6 @@ package org.smartregister.chw.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.TypedValue;
@@ -34,7 +32,6 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
-import org.smartregister.view.customcontrols.FontVariant;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -123,7 +120,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     public void goToChildProfileActivity(View view) {
         if (view.getTag() instanceof CommonPersonObjectClient) {
             CommonPersonObjectClient patient = (CommonPersonObjectClient) view.getTag();
-            ChildProfileActivity.startMe(getActivity(),true,new MemberObject(patient),ChildProfileActivity.class);
+            ChildProfileActivity.startMe(getActivity(),true, new MemberObject(patient), ChildProfileActivity.class);
         }
 
     }

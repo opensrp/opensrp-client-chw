@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
-import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
+import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.cloudant.models.Client;
 import org.smartregister.cloudant.models.Event;
 import org.smartregister.family.contract.FamilyOtherMemberContract;

@@ -12,19 +12,15 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.BuildConfig;
 import org.smartregister.chw.hf.HealthFacilityApplication;
 import org.smartregister.chw.hf.R;
-import org.smartregister.chw.hf.fragement.FamilyRegisterFragment;
+import org.smartregister.chw.hf.fragment.FamilyRegisterFragment;
 import org.smartregister.chw.hf.listener.HfFamilyBottomNavListener;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
 
-    public static void registerBottomNavigation(
-            BottomNavigationHelper bottomNavigationHelper,
-            BottomNavigationView bottomNavigationView,
-            Activity activity
-    ) {
-
+    public static void registerBottomNavigation(BottomNavigationHelper bottomNavigationHelper,
+                                                BottomNavigationView bottomNavigationView, Activity activity) {
         if (bottomNavigationView != null) {
             bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
 

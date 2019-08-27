@@ -8,8 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.R;
-import org.smartregister.chw.hf.fragement.FamilyProfileChangeHead;
-import org.smartregister.chw.hf.fragement.FamilyProfileChangePrimaryCG;
+import org.smartregister.chw.hf.fragment.FamilyProfileChangeHead;
+import org.smartregister.chw.hf.fragment.FamilyProfileChangePrimaryCG;
 import org.smartregister.family.util.Constants;
 
 public class FamilyProfileMenuActivity extends CoreFamilyProfileMenuActivity {
