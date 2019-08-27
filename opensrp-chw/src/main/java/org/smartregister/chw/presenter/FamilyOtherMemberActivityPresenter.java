@@ -142,6 +142,10 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         }
     }
 
+    public boolean isWomanAlreadyRegisteredOnAnc(CommonPersonObjectClient client) {
+        return ChwApplication.ancRegisterRepository().checkifAncWoman(client.getCaseId());
+    }
+
     @Override
     public void updateFamilyMemberServiceDue(String serviceDueStatus) {
         if (getView() != null) {
