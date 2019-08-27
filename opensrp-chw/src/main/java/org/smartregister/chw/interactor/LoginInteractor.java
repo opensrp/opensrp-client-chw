@@ -1,9 +1,8 @@
 package org.smartregister.chw.interactor;
-
 import org.smartregister.chw.BuildConfig;
-import org.smartregister.chw.core.job.BasePncCloseJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
+import org.smartregister.chw.job.BasePncCloseJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PlanIntentServiceJob;
