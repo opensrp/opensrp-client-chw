@@ -76,6 +76,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
     private static List<String> assets;
 
     public static String getImmunizationHeaderLanguageSpecific(Context context, String value) {
+        if(TextUtils.isEmpty(value)) return "";
         if (value.equalsIgnoreCase("at birth")) {
             return context.getString(R.string.at_birth);
         } else if (value.contains("weeks")) {
@@ -87,6 +88,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
     }
 
     public static String getYesNoAsLanguageSpecific(Context context, String value) {
+        if(TextUtils.isEmpty(value)) return "";
         if (value.equalsIgnoreCase("yes")) {
             return context.getString(R.string.yes);
         } else if (value.equalsIgnoreCase("no")) {
@@ -96,6 +98,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
     }
 
     public static String getGenderLanguageSpecific(Context context, String value) {
+        if(TextUtils.isEmpty(value)) return "";
         if (value.equalsIgnoreCase("male")) {
             return context.getString(org.smartregister.family.R.string.male);
         } else if (value.equalsIgnoreCase("female")) {
