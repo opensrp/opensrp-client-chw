@@ -36,6 +36,7 @@
             android:name="org.smartregister.chw.hf.activity.FamilyRegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
+
         <activity
             android:name="org.smartregister.chw.hf.activity.FamilyProfileActivity"
             android:label="@string/title_family_detail"
@@ -139,7 +140,7 @@
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
-        <service android:name="org.smartregister.chw.anc.intent.HomeVisitIntent" />
+        <service android:name="org.smartregister.chw.anc.intent.HomeVisitIntentService" />
         <service android:name="org.smartregister.sync.intent.LocationIntentService" />
         <service android:name="org.smartregister.chw.hf.sync.intent.HfSyncTaskIntentService" />
         <service android:name="org.smartregister.sync.intent.PlanIntentService" />
