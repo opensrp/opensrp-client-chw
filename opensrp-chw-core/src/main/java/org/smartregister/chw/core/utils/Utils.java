@@ -38,6 +38,7 @@ import org.joda.time.Hours;
 import org.joda.time.Period;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.FamilyCallDialogContract;
@@ -609,5 +610,10 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
         } else {
             return context.getString(resId);
         }
+    }
+
+    //TODO
+    public static MemberObject toMalariaAncMember(org.smartregister.chw.malaria.domain.MemberObject memberObject){
+        return null;
     }
 }

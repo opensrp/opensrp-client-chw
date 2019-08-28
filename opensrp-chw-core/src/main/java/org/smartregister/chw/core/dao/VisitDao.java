@@ -98,4 +98,15 @@ public class VisitDao extends AbstractDao {
 
         return Integer.valueOf(values.get(0)) > 0;
     }
+
+    public static boolean memberHasVisits(String baseEntityID) {
+        String sql = "select count(*) total from visits where base_entity_id = '" + baseEntityID + "'";
+
+        DataMap<String> dataMap = c -> getCursorValue(c, "total");
+        List<String> values = AbstractDao.readData(sql, dataMap);
+        if (values == null || values.size() == 0)
+            return false;
+
+        return Integer.valueOf(values.get(0)) > 0;
+    }
 }
