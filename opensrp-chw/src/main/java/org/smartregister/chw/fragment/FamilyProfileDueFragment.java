@@ -88,13 +88,6 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         this.clientAdapter = new FamilyRecyclerViewCustomAdapter(null, chwDueRegisterProvider, this.context().commonrepository(this.tablename), Utils.metadata().familyDueRegister.showPagination);
         this.clientAdapter.setCurrentlimit(Utils.metadata().familyDueRegister.currentLimit);
         this.clientsView.setAdapter(this.clientAdapter);
-        //need some delay to ready the adapter
-        new Handler().postDelayed(() -> {
-            if (flavorWashCheck.isWashCheckVisible()) {
-                ((FamilyProfileDuePresenter) presenter).fetchLastWashCheck(dateFamilyCreated);
-            }
-
-        }, 500);
 
     }
 
@@ -135,8 +128,19 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
         }
         if (getActivity() != null) {
-            getActivity().runOnUiThread(() -> onEmptyRegisterCount(count < 1));
+            getActivity().runOnUiThread(() -> {
+                onEmptyRegisterCount(count < 1 && (washCheckView!=null && washCheckView.getVisibility()!= View.VISIBLE));
+                //need some delay to ready the adapter
+                new Handler().postDelayed(() -> {
+                    if (flavorWashCheck.isWashCheckVisible()) {
+                        ((FamilyProfileDuePresenter) presenter).fetchLastWashCheck(dateFamilyCreated);
+                    }
+
+                }, 500);
+            });
         }
+
+
     }
 
     public void onEmptyRegisterCount(final boolean has_no_records) {
@@ -181,19 +185,21 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         if ((isVisible)) {
             washCheckView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);
-            dueCount++;
+            dueCount = clientAdapter.getTotalcount() +1;
+            onEmptyRegisterCount(false);
         } else {
-            dueCount--;
+            dueCount = clientAdapter.getTotalcount() -1;
             washCheckView.setVisibility(View.GONE);
+            onEmptyRegisterCount(dueCount < 1);
         }
-        ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
         if (getActivity() != null) {
-            getActivity().runOnUiThread(() -> onEmptyRegisterCount(dueCount < 1));
+            ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
         }
     }
 
     public void updateWashCheckBar(WashCheck washCheck) {
         if (washCheckView.getVisibility() == View.VISIBLE) {
+            visibilityWashView(true);
             return;
         }
         CustomFontTextView name = washCheckView.findViewById(R.id.patient_name_age);

@@ -3,7 +3,6 @@ package org.smartregister.chw.hf.fragment;
 import android.view.View;
 
 import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
-import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.provider.HfRegisterProvider;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -14,8 +13,8 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        CoreRegisterProvider chwRegisterProvider = new HfRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, chwRegisterProvider, context().commonrepository(this.tablename));
+        HfRegisterProvider hfRegisterProvider = new HfRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, hfRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }
