@@ -136,7 +136,7 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
         SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
         Intent intent = new Intent(this, registerClass);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         this.startActivity(intent);
         this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
         this.finish();
