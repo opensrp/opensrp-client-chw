@@ -24,7 +24,7 @@ public abstract class CoreChildHomeVisitActivity extends BaseAncHomeVisitActivit
         Intent intent = new Intent(activity, cls);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.EDIT_MODE, isEditMode);
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent, org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT);
     }
 
     @Override
