@@ -10,7 +10,6 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.dao.AlertDao;
@@ -21,6 +20,7 @@ import org.smartregister.chw.core.utils.CoreChildService;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.clientandeventmodel.Client;
@@ -49,13 +49,11 @@ import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 import io.reactivex.Observable;
 import timber.log.Timber;
@@ -358,58 +356,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
 
     @Override
     public void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception {
-        final Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, setEntityId(jsonString), CoreConstants.TABLE_NAME.CHILD_REFERRAL);
-        NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
-        createReferralTask(baseEvent.getBaseEntityId(), allSharedPreferences);
-    }
-
-    private String setEntityId(String jsonString) {
-        String referralForm = "";
-        try {
-            JSONObject jsonObject = new JSONObject(jsonString);
-            jsonObject.put(CoreConstants.ENTITY_ID, getChildBaseEntityId());
-
-            referralForm = jsonObject.toString();
-        } catch (JSONException e) {
-            Timber.e(e, "CoreChildProfileInteractor --> setEntityId");
-        }
-
-        return referralForm;
-    }
-
-    private void createReferralTask(String baseEntityId, AllSharedPreferences allSharedPreferences) {
-        Task task = new Task();
-        task.setIdentifier(UUID.randomUUID().toString());
-        //TODO Implement plans
-      /*  Iterator<String> iterator = ChwApplication.getInstance().getPlanDefinitionRepository()
-                .findAllPlanDefinitionIds().iterator();
-        if (iterator.hasNext()) {
-            task.setPlanIdentifier(iterator.next());
-        } else {
-
-            Timber.e("No plans exist in the server");
-        }*/
-        task.setPlanIdentifier("5270285b-5a3b-4647-b772-c0b3c52e2b71");
-        LocationHelper locationHelper = LocationHelper.getInstance();
-        ArrayList<String> allowedLevels = new ArrayList<>();
-        allowedLevels.add(CoreConstants.CONFIGURATION.HEALTH_FACILITY_TAG);
-        task.setGroupIdentifier(locationHelper.getOpenMrsLocationId(locationHelper.generateDefaultLocationHierarchy(allowedLevels).get(0)));
-        task.setStatus(Task.TaskStatus.READY);
-        task.setBusinessStatus(CoreConstants.BUSINESS_STATUS.REFERRED);
-        task.setPriority(3);
-        task.setCode("Referral");
-        task.setDescription("Review and perform the referral for the client"); //set to string
-        task.setFocus(CoreConstants.TASKS_FOCUS.SICK_CHILD);//the same here
-        task.setForEntity(baseEntityId);
-        DateTime now = new DateTime();
-        task.setExecutionStartDate(now);
-        task.setAuthoredOn(now);
-        task.setLastModified(now);
-        task.setOwner(allSharedPreferences.fetchRegisteredANM());
-        task.setSyncStatus(BaseRepository.TYPE_Created);
-        task.setRequester(allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM()));
-        task.setLocation(allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM()));
-        CoreChwApplication.getInstance().getTaskRepository().addOrUpdate(task);
+        CoreReferralUtils.createReferralEvent(allSharedPreferences, jsonString, CoreConstants.TABLE_NAME.CHILD_REFERRAL, getChildBaseEntityId());
     }
 
     @Override

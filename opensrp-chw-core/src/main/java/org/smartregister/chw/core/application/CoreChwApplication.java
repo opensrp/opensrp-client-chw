@@ -14,6 +14,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
+import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
 import org.smartregister.family.domain.FamilyMetadata;
 import org.smartregister.immunization.ImmunizationLibrary;
@@ -194,6 +195,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         Locale current = getApplicationContext().getResources().getConfiguration().locale;
         saveLanguage(current.getLanguage());
         CoreConstants.JSON_FORM.setLocaleAndAssetManager(current, getAssets());
+        FamilyLibrary.getInstance().setMetadata(getMetadata());
     }
 
     @Override
