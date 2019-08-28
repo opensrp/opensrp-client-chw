@@ -7,7 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import org.ei.drishti.dto.AlertStatus;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONObject;
@@ -15,6 +17,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
@@ -40,6 +43,7 @@ import timber.log.Timber;
 
 public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     private ImageView imageViewCross;
+    private TextView tvFamilyStatus;
     private PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
@@ -100,6 +104,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                     Intent intent = new Intent(PncMemberProfileActivity.this, PncRegisterActivity.class);
                     intent.putExtras(getIntent().getExtras());
                     startActivity(intent);
+                    setupViews();
                     finish();
                 }
                 break;
@@ -206,7 +211,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                 textViewUndo.setVisibility(View.GONE);
                 textViewNotVisitMonth.setVisibility(View.VISIBLE);
                 textViewNotVisitMonth.setText(MessageFormat.format(getContext().getString(R.string.pnc_visit_done), pncDay));
-                imageViewCross.setImageResource(R.drawable.activityrow_visited);
+               imageViewCross.setImageResource(R.drawable.activityrow_visited);
                 textview_record_visit.setVisibility(View.GONE);
             } else {
                 layoutNotRecordView.setVisibility(View.VISIBLE);
@@ -261,9 +266,24 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         PncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
     }
 
+    @Override
+    public void setFamilyStatus(AlertStatus status) {
+        tvFamilyStatus = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.textview_family_has);
+        view_family_row.setVisibility(View.VISIBLE);
+        rlFamilyServicesDue.setVisibility(View.VISIBLE);
+
+        if (status == AlertStatus.complete) {
+            tvFamilyStatus.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_nothing_due));
+        } else if (status == AlertStatus.normal) {
+            tvFamilyStatus.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_services_due));
+        } else if (status == AlertStatus.urgent) {
+            tvFamilyStatus.setText(NCUtils.fromHtml(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_service_overdue)));
+        }
+    }
 
     @Override
     public void openFamilyDueServices() {
+
         Intent intent = new Intent(this, FamilyProfileActivity.class);
 
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
