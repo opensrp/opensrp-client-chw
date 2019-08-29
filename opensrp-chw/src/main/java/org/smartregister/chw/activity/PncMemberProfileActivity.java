@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +40,8 @@ import java.util.List;
 import timber.log.Timber;
 
 public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
+
+    public Handler handler = new Handler();
     private ImageView imageViewCross;
     private PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
 
@@ -127,6 +130,9 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                     }
                 }
                 break;
+            case org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT:
+                handler.postDelayed(this::displayView, 200);
+                break;
             default:
                 break;
 
@@ -197,7 +203,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         return basePncMemberProfileInteractor.getVisitSummary(MEMBER_OBJECT.getBaseEntityId());
     }
 
-    private void setUpEditViews(boolean enable, boolean within24Hours, Long longDate) {
+    protected void setUpEditViews(boolean enable, boolean within24Hours, Long longDate) {
         if (enable) {
             if (within24Hours) {
                 String pncDay = basePncMemberProfileInteractor.getPncDay(MEMBER_OBJECT.getBaseEntityId());
@@ -206,7 +212,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                 textViewUndo.setVisibility(View.GONE);
                 textViewNotVisitMonth.setVisibility(View.VISIBLE);
                 textViewNotVisitMonth.setText(MessageFormat.format(getContext().getString(R.string.pnc_visit_done), pncDay));
-                imageViewCross.setImageResource(R.drawable.activityrow_visited);
+                //imageViewCross.setImageResource(R.drawable.activityrow_visited);
                 textview_record_visit.setVisibility(View.GONE);
             } else {
                 layoutNotRecordView.setVisibility(View.VISIBLE);
@@ -260,7 +266,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     public void openUpcomingService() {
         PncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
     }
-
 
     @Override
     public void openFamilyDueServices() {
