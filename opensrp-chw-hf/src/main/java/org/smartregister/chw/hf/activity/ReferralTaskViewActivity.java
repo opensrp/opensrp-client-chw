@@ -83,16 +83,6 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             setStartingActivity((String) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.STARTING_ACTIVITY));
         }
 
-        if (getPersonObjectClient() == null) {
-            Timber.e("ReferralTaskViewActivity --> The person object is null");
-            finish();
-        }
-
-        if (getTask() == null) {
-            Timber.e("ReferralTaskViewActivity --> The task object is null");
-            finish();
-        }
-
         referralsTaskViewClickListener.setReferralTaskViewActivity(this);
         if (getTask() != null) {
             referralsTaskViewClickListener.setTaskFocus(getTask().getFocus());
@@ -114,18 +104,28 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             name = Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.FIRST_NAME, true) + " " + Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true) + " " + Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
             setBaseEntityId(Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
         }
+
+        if (getPersonObjectClient() == null) {
+            Timber.e("ReferralTaskViewActivity --> The person object is null");
+            finish();
+        }
     }
 
     private void extraClientTask() {
         setTask((Task) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.USERS_TASKS));
-    }
 
-    public CommonPersonObjectClient getPersonObjectClient() {
-        return personObjectClient;
+        if (getTask() == null) {
+            Timber.e("ReferralTaskViewActivity --> The task object is null");
+            finish();
+        }
     }
 
     public Task getTask() {
         return task;
+    }
+
+    public CommonPersonObjectClient getPersonObjectClient() {
+        return personObjectClient;
     }
 
     private void inflateToolbar() {
@@ -238,12 +238,12 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         this.startingActivity = startingActivity;
     }
 
-    public void setTask(Task task) {
-        this.task = task;
-    }
-
     public void setPersonObjectClient(CommonPersonObjectClient personObjectClient) {
         this.personObjectClient = personObjectClient;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
     }
 
     public void closeReferral() {
