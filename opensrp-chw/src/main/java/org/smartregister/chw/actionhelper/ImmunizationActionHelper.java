@@ -14,6 +14,7 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.domain.Alert;
@@ -154,7 +155,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
 
     @Override
     public String evaluateSubTitle() {
-        SimpleDateFormat native_date = new SimpleDateFormat(Constants.DATE_FORMATS.NATIVE_FORMS, Locale.getDefault());
+        SimpleDateFormat native_date = AbstractDao.getDobDateFormat();
         SimpleDateFormat new_date = new SimpleDateFormat(org.smartregister.chw.util.Constants.DATE_FORMATS.HOME_VISIT_DISPLAY, Locale.getDefault());
 
         StringBuilder builder = new StringBuilder();
