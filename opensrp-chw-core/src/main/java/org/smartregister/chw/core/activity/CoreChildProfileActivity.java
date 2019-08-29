@@ -581,6 +581,10 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
+            this.finish();
+        }
+
         if (resultCode != Activity.RESULT_OK) return;
         switch (requestCode) {
             case JsonFormUtils.REQUEST_CODE_GET_JSON:
@@ -600,7 +604,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
                 updateImmunizationData();
                 break;
             default:
-                this.finish();
                 break;
         }
     }
