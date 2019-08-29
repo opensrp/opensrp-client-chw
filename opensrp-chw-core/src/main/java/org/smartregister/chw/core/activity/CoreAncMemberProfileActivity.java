@@ -82,7 +82,7 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
         super.setupViews();
         Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.ANC_HOME_VISIT);
 
-        VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, MEMBER_OBJECT.getLastMenstrualPeriod(), MEMBER_OBJECT.getLastContactVisit(), null, new DateTime(MEMBER_OBJECT.getDateCreated()).toLocalDate());
+        VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, MEMBER_OBJECT.getLastContactVisit(), null, new DateTime(MEMBER_OBJECT.getDateCreated()).toLocalDate());
         String visitStatus = visitSummary.getVisitStatus();
 
         if (!visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) &&
