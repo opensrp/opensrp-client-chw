@@ -51,9 +51,9 @@
     "fields": [
       {
         "key": "vitamin_a{0}_date",
-        "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "",
-        "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "image": "ic_form_vitamin",
         "hint": "When was Vitamin A {0} dose done?",
