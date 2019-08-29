@@ -31,8 +31,9 @@ public class ECDAction extends HomeVisitActionHelper {
 
     @Override
     public String evaluateSubTitle() {
-        if (StringUtils.isBlank(develop_warning_signs))
+        if (StringUtils.isBlank(develop_warning_signs)) {
             return null;
+        }
 
         StringBuilder builder = new StringBuilder();
         builder.append(MessageFormat.format("{0} {1}\n",
@@ -44,11 +45,12 @@ public class ECDAction extends HomeVisitActionHelper {
                 getTranslatedValue(stim_skills)
         ));
 
-        if (StringUtils.isNotBlank(early_learning))
+        if (StringUtils.isNotBlank(early_learning)) {
             builder.append(MessageFormat.format("\n{0} {1}",
                     context.getString(R.string.early_learning),
                     getTranslatedValue(early_learning)
             ));
+        }
 
         return builder.toString();
     }
@@ -61,15 +63,17 @@ public class ECDAction extends HomeVisitActionHelper {
 
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-        if (StringUtils.isBlank(develop_warning_signs))
+        if (StringUtils.isBlank(develop_warning_signs)) {
             return BaseAncHomeVisitAction.Status.PENDING;
+        }
 
-        if(
+        if (
                 "No".equalsIgnoreCase(develop_warning_signs)
                         && "Yes".equalsIgnoreCase(stim_skills)
                         && (StringUtils.isBlank(early_learning) || "Yes".equalsIgnoreCase(early_learning))
-        )
+        ) {
             return BaseAncHomeVisitAction.Status.COMPLETED;
+        }
 
         return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
     }

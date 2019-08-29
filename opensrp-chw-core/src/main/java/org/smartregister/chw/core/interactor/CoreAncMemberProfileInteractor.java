@@ -4,7 +4,6 @@ import android.content.Context;
 
 import org.ei.drishti.dto.AlertStatus;
 import org.jetbrains.annotations.NotNull;
-import org.joda.time.DateTime;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -18,7 +17,6 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.domain.Task;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.repository.BaseRepository;
 
 import java.util.Date;
 import java.util.Set;
@@ -72,25 +70,6 @@ public class CoreAncMemberProfileInteractor extends BaseAncMemberProfileInteract
     @Override
     public void getClientTasks(String planId, String baseEntityId, @NotNull AncMemberProfileContract.InteractorCallBack callback) {
         Set<Task> taskList = CoreChwApplication.getInstance().getTaskRepository().getTasksByEntityAndStatus(planId, baseEntityId, Task.TaskStatus.READY);
-        Task task = new Task();
-        task.setIdentifier("iudsfsigdfdsyud");
-        task.setFocus("ANC Referral");
-        task.setGroupIdentifier("iudsfsigdfdsyud");
-        task.setStatus(Task.TaskStatus.READY);
-        task.setBusinessStatus(CoreConstants.BUSINESS_STATUS.REFERRED);
-        task.setPriority(3);
-        task.setCode("Referral");
-        task.setDescription("Review and perform the referral for the client"); //set to string
-        task.setForEntity(baseEntityId);
-        DateTime now = new DateTime();
-        task.setExecutionStartDate(now);
-        task.setAuthoredOn(now);
-        task.setLastModified(now);
-        task.setOwner("iudsfsigdfdsyud");
-        task.setSyncStatus(BaseRepository.TYPE_Created);
-        task.setRequester("iudsfsigdfdsyud");
-        task.setLocation("iudsfsigdfdsyud");
-        taskList.add(task);
         callback.setClientTasks(taskList);
     }
 }
