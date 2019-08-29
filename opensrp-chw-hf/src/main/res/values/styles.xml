@@ -18,4 +18,13 @@
         <item name="colorControlActivated">@android:color/black</item>
     </style>
 
+    <style name="CustomFontTextViewStyle.ListView.Normal.MultipleLines">
+        <item name="android:textSize">16sp</item>
+        <item name="fontVariant">regular</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:maxLines">10</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">5dp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
 </resources>

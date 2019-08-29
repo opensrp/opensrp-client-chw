@@ -123,17 +123,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     }
 
     @Override
-    public void onClick(View view) {
-        super.onClick(view);
-        int id = view.getId();
-        if (id == R.id.textview_record_visit || id == R.id.textview_record_reccuring_visit) {
-            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
-        } else if (id == R.id.textview_edit) {
-            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, true);
-        }
-    }
-
-    @Override
     public void openMedicalHistory() {
         AncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
     }
@@ -154,6 +143,17 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
         intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        int id = view.getId();
+        if (id == R.id.textview_record_visit || id == R.id.textview_record_reccuring_visit) {
+            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
+        } else if (id == R.id.textview_edit) {
+            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, true);
+        }
     }
 
     @Override

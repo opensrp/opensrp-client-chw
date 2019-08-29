@@ -48,6 +48,7 @@ public class AncRegisterFragment extends CoreAncRegisterFragment {
         AncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), familyName, familyHeadPhone, client);
     }
 
+
     @Override
     protected void openHomeVisit(CommonPersonObjectClient client) {
         //Not needed on HF
