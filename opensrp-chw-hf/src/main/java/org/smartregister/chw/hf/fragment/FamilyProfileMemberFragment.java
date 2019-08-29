@@ -40,16 +40,13 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
     }
 
     @Override
-    protected void initializePresenter() {
-        String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
-        String primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        presenter = new BaseFamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+    protected Class<?> getFamilyOtherMemberProfileActivityClass() {
+        return FamilyOtherMemberProfileActivity.class;
     }
 
     @Override
-    protected Class<?> getFamilyOtherMemberProfileActivityClass() {
-        return FamilyOtherMemberProfileActivity.class;
+    protected Class<? extends CoreAboveFiveChildProfileActivity> getAboveFiveChildProfileActivityClass() {
+        return AboveFiveChildProfileActivity.class;
     }
 
     @Override
@@ -58,7 +55,10 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
     }
 
     @Override
-    protected Class<? extends CoreAboveFiveChildProfileActivity> getAboveFiveChildProfileActivityClass() {
-        return AboveFiveChildProfileActivity.class;
+    protected void initializePresenter() {
+        String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
+        String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
+        String primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+        presenter = new BaseFamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
     }
 }

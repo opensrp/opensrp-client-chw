@@ -31,6 +31,7 @@
                 android:id="@+id/rlLastVisit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/referal_row"
                 android:background="@drawable/list_item_background_selctor"
                 android:padding="20dp"
                 android:visibility="gone">

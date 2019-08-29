@@ -96,6 +96,7 @@ public abstract class CoreFamilyOtherMemberActivityPresenter extends BaseFamilyO
                 });
     }
 
+    @Override
     public FamilyOtherMemberProfileExtendedContract.View getView() {
         if (viewReference != null) {
             return viewReference.get();
@@ -131,6 +132,7 @@ public abstract class CoreFamilyOtherMemberActivityPresenter extends BaseFamilyO
         return familyName;
     }
 
+    @Override
     public void updateFamilyMember(String jsonString) {
 
         try {
@@ -147,11 +149,6 @@ public abstract class CoreFamilyOtherMemberActivityPresenter extends BaseFamilyO
         }
     }
 
-
-    public boolean isWomanAlreadyRegisteredOnAnc(CommonPersonObjectClient client) {
-        return CoreChwApplication.ancRegisterRepository().checkifAncWoman(client.getCaseId());
-    }
-
     @Override
     public void updateFamilyMemberServiceDue(String serviceDueStatus) {
         if (getView() != null) {
@@ -160,6 +157,11 @@ public abstract class CoreFamilyOtherMemberActivityPresenter extends BaseFamilyO
 
     }
 
+    public boolean isWomanAlreadyRegisteredOnAnc(CommonPersonObjectClient client) {
+        return CoreChwApplication.ancRegisterRepository().checkifAncWoman(client.getCaseId());
+    }
+
+    @Override
     public void startFormForEdit(CommonPersonObjectClient commonPersonObject) {
     }
 

@@ -6,6 +6,7 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.core.contract.AncMemberProfileContract;
 import org.smartregister.chw.core.interactor.CoreAncMemberProfileInteractor;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Task;
 import org.smartregister.family.contract.FamilyProfileContract;
@@ -74,7 +75,7 @@ public class CoreAncMemberProfilePresenter extends BaseAncMemberProfilePresenter
 
     @Override
     public void fetchTasks() {
-        interactor.getClientTasks("5270285b-5a3b-4647-b772-c0b3c52e2b71", getEntityId(), this);
+        interactor.getClientTasks(CoreConstants.REFERRAL_PLAN_ID, getEntityId(), this);
     }
 
     public String getEntityId() {
