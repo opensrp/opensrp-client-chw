@@ -34,7 +34,7 @@ public class CoreReferralUtils {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName, familyTableName, familyMemberTableName));
         queryBUilder.customJoin("LEFT JOIN " + familyTableName + " ON  " + tableName + "." + DBConstants.KEY.RELATIONAL_ID + " = " + familyTableName + ".id COLLATE NOCASE ");
-        queryBUilder.customJoin("LEFT JOIN " + familyMemberTableName + " ON  " + familyMemberTableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + familyTableName + ".primary_caregiver COLLATE NOCASE ");
+        queryBUilder.customJoin("LEFT JOIN " + familyMemberTableName + " ON  " + familyMemberTableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + familyTableName + "." + ChildDBConstants.KEY.PRIMARY_CAREGIVER + " COLLATE NOCASE ");
 
         return queryBUilder.mainCondition(mainCondition);
     }
@@ -140,16 +140,25 @@ public class CoreReferralUtils {
                     if (field.has(JsonFormConstants.TYPE) && JsonFormConstants.CHECK_BOX.equals(field.getString(JsonFormConstants.TYPE))) {
                         if (field.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
                             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-                            formValues.add(getCheckBoxSelectedOptions(options));
+                            String values = getCheckBoxSelectedOptions(options);
+                            if (StringUtils.isNotEmpty(values)) {
+                                formValues.add(values);
+                            }
                         }
                     } else if (field.has(JsonFormConstants.TYPE) && JsonFormConstants.RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE))) {
                         if (field.has(JsonFormConstants.OPTIONS_FIELD_NAME) && field.has(JsonFormConstants.VALUE)) {
                             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
                             String value = field.getString(JsonFormConstants.VALUE);
-                            formValues.add(getRadioButtonSelectedOptions(options, value));
+                            String values = getRadioButtonSelectedOptions(options, value);
+                            if (StringUtils.isNotEmpty(values)) {
+                                formValues.add(values);
+                            }
                         }
                     } else {
-                        formValues.add(getOtherWidgetSelectedItems(field));
+                        String values = getOtherWidgetSelectedItems(field);
+                        if (StringUtils.isNotEmpty(values)) {
+                            formValues.add(values);
+                        }
                     }
                 }
             }
@@ -185,7 +194,7 @@ public class CoreReferralUtils {
         try {
             for (int i = 0; i < options.length(); i++) {
                 JSONObject option = options.getJSONObject(i);
-                if ((option.has(JsonFormConstants.KEY) && value.equals(option.getString(JsonFormConstants.KEY))) && option.has(JsonFormConstants.TEXT)) {
+                if ((option.has(JsonFormConstants.KEY) && value.equals(option.getString(JsonFormConstants.KEY))) && (option.has(JsonFormConstants.TEXT) && StringUtils.isNotEmpty(option.getString(JsonFormConstants.VALUE)))) {
                     selectedOptionValues = option.getString(JsonFormConstants.TEXT);
                 }
             }
@@ -199,7 +208,7 @@ public class CoreReferralUtils {
     private static String getOtherWidgetSelectedItems(JSONObject jsonObject) {
         String value = "";
         try {
-            if (jsonObject.has(JsonFormConstants.VALUE)) {
+            if (jsonObject.has(JsonFormConstants.VALUE) && StringUtils.isNotEmpty(jsonObject.getString(JsonFormConstants.VALUE))) {
                 value = jsonObject.getString(JsonFormConstants.VALUE);
             }
         } catch (JSONException e) {

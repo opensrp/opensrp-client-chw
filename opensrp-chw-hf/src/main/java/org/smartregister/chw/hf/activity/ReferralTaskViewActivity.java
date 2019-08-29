@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.ChildDBConstants;
@@ -111,7 +112,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         setPersonObjectClient((CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON));
         if (getPersonObjectClient() != null) {
             name = Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.FIRST_NAME, true) + " " + Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true) + " " + Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-            setBaseEntityId(Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true));
+            setBaseEntityId(Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
         }
     }
 
@@ -311,6 +312,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
 
     private void completeTask() {
         Task currentTask = getTask();
+        currentTask.setExecutionEndDate(new DateTime());
         currentTask.setForEntity(getBaseEntityId());
         currentTask.setStatus(Task.TaskStatus.COMPLETED);
         currentTask.setBusinessStatus(CoreConstants.BUSINESS_STATUS.COMPLETE);

@@ -218,7 +218,7 @@
 
     <!--Referral-->
     <string name="referred_by">Referred by CHW %1s</string>
-    <string name="hours_ago">1%dh ago</string>
+    <string name="hours_ago">%dh ago</string>
     <string name="yesterday">Yesterday</string>
 
     <string name="change_member_alert">Kindly complete the form before submitting</string>
