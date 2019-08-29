@@ -36,6 +36,7 @@ import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.Task;
 import org.smartregister.family.util.Constants;
@@ -48,8 +49,6 @@ import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getJsonIntent;
 
 
 public class CoreChildProfileActivity extends BaseProfileActivity implements CoreChildProfileContract.View, CoreChildRegisterContract.InteractorCallBack {
@@ -297,9 +296,8 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
-        startActivityForResult(getJsonIntent(this, jsonForm,
-                org.smartregister.family.util.Utils.metadata().familyMemberFormActivity),
-                JsonFormUtils.REQUEST_CODE_GET_JSON);
+        startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, jsonForm,
+                Utils.metadata().familyMemberFormActivity), JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @Override
@@ -588,7 +586,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
                         presenter().updateChildProfile(jsonString);
                     } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.CHILD_REFERRAL)) {
                         presenter().createSickChildEvent(Utils.getAllSharedPreferences(), jsonString);
-                        displayToast(R.string.child_referral_submitted);
+                        displayToast(R.string.referral_submitted);
                     }
                 } catch (Exception e) {
                     Timber.e(e, "CoreChildProfileActivity --> onActivityResult");
