@@ -517,7 +517,7 @@
         "hint": "Mfuko wa bima ya afya mwingine unaotumia",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali taja mfuko wa bima""
+          "err": "Tafadhali taja mfuko wa bima"
         },
         "relevance": {
           "rules-engine": {
