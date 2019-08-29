@@ -109,8 +109,9 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
                     notDoneVaccines.add(key);
                 } else {
                     List<String> vacs = completedVaccines.get(val);
-                    if (vacs == null)
+                    if (vacs == null) {
                         vacs = new ArrayList<>();
+                    }
 
                     vacs.add(key);
 
@@ -127,8 +128,9 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
 
     @Override
     public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-        if (status != null && status.value().equals(AlertStatus.urgent.value()))
+        if (status != null && status.value().equals(AlertStatus.urgent.value())) {
             return BaseAncHomeVisitAction.ScheduleStatus.OVERDUE;
+        }
 
         return BaseAncHomeVisitAction.ScheduleStatus.DUE;
     }
@@ -136,8 +138,9 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
     @Override
     public String getPreProcessedSubTitle() {
         String due = context.getString(R.string.due);
-        if (status != null && status.name().equals(AlertStatus.urgent.name()))
+        if (status != null && status.name().equals(AlertStatus.urgent.name())) {
             due = context.getString(R.string.overdue);
+        }
 
         return MessageFormat.format("{0} {1}", due, DateTimeFormat.forPattern("dd MMM yyyy").print(dueDate));
     }
@@ -163,16 +166,18 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
         for (Map.Entry<String, List<String>> entry : completedVaccines.entrySet()) {
             StringBuilder completedBuilder = new StringBuilder();
             for (String vac : entry.getValue()) {
-                if (completedBuilder.length() > 0)
+                if (completedBuilder.length() > 0) {
                     completedBuilder.append(", ");
+                }
 
                 completedBuilder.append(getTranslatedValue(vac));
             }
 
             if (completedBuilder.length() > 0) {
                 try {
-                    if (builder.length() > 0)
+                    if (builder.length() > 0) {
                         builder.append(" · ");
+                    }
 
                     builder.append(MessageFormat.format("{0} {1} {2}",
                             completedBuilder.toString(),
@@ -187,16 +192,18 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
 
         StringBuilder pendingBuilder = new StringBuilder();
         for (String vac : notDoneVaccines) {
-            if (pendingBuilder.length() > 0)
+            if (pendingBuilder.length() > 0) {
                 pendingBuilder.append(", ");
+            }
 
             pendingBuilder.append(getTranslatedValue(vac));
         }
 
         if (pendingBuilder.length() > 0) {
 
-            if (builder.length() > 0)
+            if (builder.length() > 0) {
                 builder.append(" · ");
+            }
 
             builder.append(MessageFormat.format("{0} {1}",
                     pendingBuilder.toString(),
@@ -227,10 +234,11 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
 
     private String getTranslatedValue(String name) {
         VaccineRepo.Vaccine res = vaccineMap.get(name);
-        if (res == null)
+        if (res == null) {
             return name;
+        }
 
-        String val = res.display().toLowerCase().replace(" ","_");
+        String val = res.display().toLowerCase().replace(" ", "_");
         return Utils.getStringResourceByName(val, context);
     }
 }

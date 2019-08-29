@@ -113,9 +113,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         } else {
             menu.findItem(R.id.action_malaria_registration).setVisible(false);
         }
-        if(flavor.showFollowUpVisit()){
+        if (flavor.showFollowUpVisit()) {
             menu.findItem(R.id.action_malaria_followup_visit).setVisible(true);
-        }else{
+        } else {
             menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         }
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
