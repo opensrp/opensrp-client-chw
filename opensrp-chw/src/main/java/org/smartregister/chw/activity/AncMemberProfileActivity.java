@@ -41,11 +41,7 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getJsonIntent;
-
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
-
-    private OnClickFloatingMenu onClickFloatingMenu;
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
@@ -172,7 +168,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
     @Override
     public void startFormActivity(JSONObject formJson) {
-        startActivityForResult(getJsonIntent(this, formJson,
+        startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, formJson,
                 org.smartregister.family.util.Utils.metadata().familyMemberFormActivity),
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
@@ -182,7 +178,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
         baseAncFloatingMenu = new AncFloatingMenu(this, getAncWomanName(),
                 MEMBER_OBJECT.getPhoneNumber(), getFamilyHeadName(), getFamilyHeadPhoneNumber(), getProfileType());
 
-        onClickFloatingMenu = viewId -> {
+        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
             switch (viewId) {
                 case R.id.anc_fab:
                     ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
@@ -192,6 +188,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                     break;
                 case R.id.refer_to_facility_layout:
                     ancMemberProfilePresenter().startAncReferralForm();
+                    break;
+                default:
+                    Timber.e("Unknown fab action");
                     break;
             }
         };

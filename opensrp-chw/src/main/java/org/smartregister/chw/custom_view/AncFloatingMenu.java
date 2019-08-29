@@ -17,7 +17,10 @@ import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 
 public class AncFloatingMenu extends BaseAncFloatingMenu {
     public FloatingActionButton fab;
-    private Animation fabOpen, fabClose, rotateForward, rotateBack;
+    private Animation fabOpen;
+    private Animation fabClose;
+    private Animation rotateForward;
+    private Animation rotateBack;
     private View callLayout;
     private View referLayout;
     private RelativeLayout activityMain;
@@ -45,7 +48,7 @@ public class AncFloatingMenu extends BaseAncFloatingMenu {
         fabOpen = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
         fabClose = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
         rotateForward = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_forward);
-        rotateBack = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_back);
+        rotateBack = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_back);
 
         activityMain = findViewById(R.id.activity_main);
         menuBar = findViewById(R.id.menu_bar);
