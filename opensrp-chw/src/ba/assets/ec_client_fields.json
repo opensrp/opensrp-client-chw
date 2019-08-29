@@ -962,6 +962,66 @@
       ]
     },
     {
+      "name": "ec_malaria_follow_up_visit",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "date_chw_mfollowup",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_chw_mfollowup"
+          }
+        },
+        {
+          "column_name": "hf_chw_mfollowup",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hf_chw_mfollowup"
+          }
+        },
+        {
+          "column_name": "treat_given_chw_mfollowup",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "treat_given_chw_mfollowup"
+          }
+        },
+        {
+          "column_name": "reason_no_treat",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "reason_no_treat"
+          }
+        },
+        {
+          "column_name": "fever_still",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "fever_still"
+          }
+        },
+        {
+          "column_name": "fever_duration",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "fever_duration"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_child_referral",
       "columns": [
         {

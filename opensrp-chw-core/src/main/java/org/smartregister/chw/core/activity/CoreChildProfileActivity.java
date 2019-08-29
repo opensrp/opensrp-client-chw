@@ -565,9 +565,13 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(mDateTimeChangedReceiver);
-        handler.removeCallbacksAndMessages(null);
+        try {
+            super.onDestroy();
+            unregisterReceiver(mDateTimeChangedReceiver);
+            handler.removeCallbacksAndMessages(null);
+        }catch (Exception e){
+            Timber.e(e);
+        }
     }
 
     @Override
