@@ -285,7 +285,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         return super.onCreateLoader(id, args);
     }
 
-    private void dueFilter(View dueOnlyLayout) {
+    protected void dueFilter(View dueOnlyLayout) {
         filterDue(searchText(), "", presenter().getDueFilterCondition());
         dueOnlyLayout.setTag(DUE_FILTER_TAG);
         switchViews(dueOnlyLayout, true);
