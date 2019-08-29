@@ -14,8 +14,7 @@ public class ReferralsRepository extends BaseRepository {
 
     public int getTasksCount(String query) {
         int count = 0;
-        try {
-            Cursor cursor = getReadableDatabase().rawQuery(query, new String[]{});
+        try (Cursor cursor = getReadableDatabase().rawQuery(query, new String[]{})) {
             count = cursor != null && cursor.moveToFirst() ? cursor.getInt(0) : 0;
         } catch (Exception e) {
             Timber.e(e, "HfChwRepository --> getTasksCount");

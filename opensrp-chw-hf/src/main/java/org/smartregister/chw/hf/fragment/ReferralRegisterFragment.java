@@ -45,9 +45,7 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
         CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
         referralFragmentPresenter.setBaseEntityId(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
         referralFragmentPresenter.fetchClient();
-        handler.postDelayed(() -> {
-            ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getCommonPersonObjectClient(), getTask(Utils.getValue(client.getColumnmaps(), "_id", false)), CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY);
-        }, 100);
+        handler.postDelayed(() -> ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getCommonPersonObjectClient(), getTask(Utils.getValue(client.getColumnmaps(), "_id", false)), CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY), 100);
     }
 
     private Task getTask(String taskId) {

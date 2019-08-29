@@ -34,7 +34,7 @@ public class CoreReferralUtils {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName, familyTableName, familyMemberTableName));
         queryBUilder.customJoin("LEFT JOIN " + familyTableName + " ON  " + tableName + "." + DBConstants.KEY.RELATIONAL_ID + " = " + familyTableName + ".id COLLATE NOCASE ");
-        queryBUilder.customJoin("LEFT JOIN " + familyMemberTableName + " ON  " + familyMemberTableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + familyTableName + "." + ChildDBConstants.KEY.PRIMARY_CAREGIVER + " COLLATE NOCASE ");
+        //queryBUilder.customJoin("LEFT JOIN " + familyMemberTableName + " ON  " + familyMemberTableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + familyTableName + "." + ChildDBConstants.KEY.PRIMARY_CAREGIVER + " COLLATE NOCASE ");
 
         return queryBUilder.mainCondition(mainCondition);
     }
