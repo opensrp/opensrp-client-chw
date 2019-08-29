@@ -1,6 +1,5 @@
 package org.smartregister.chw.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -98,14 +97,6 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
             dialog.show(getFragmentManager(), FamilyRemoveMemberFragment.DIALOG_TAG);
             dialog.setOnRemove(() -> {
                 getPresenter().processRemoveForm(form);
-                Activity activity = getActivity();
-                if (activity != null)
-                    activity.finish();
-                /*
-                Intent intent = new Intent(getActivity(), AncRegisterActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                 */
             });
             dialog.setOnRemoveActivity(() -> {
                 if (getActivity() != null) {
