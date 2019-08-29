@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
@@ -53,6 +54,8 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     private CustomFontTextView clientReferralProblem;
     private CustomFontTextView referralDate;
     private CustomFontTextView chwDetailsNames;
+    private CustomFontTextView womanGa;
+    private LinearLayout womanGaLayout;
     private ReferralsTaskViewClickListener referralsTaskViewClickListener = new ReferralsTaskViewClickListener();
     private String name;
     private String baseEntityId;
@@ -80,12 +83,12 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         }
 
         if (getPersonObjectClient() == null) {
-            Timber.d("The person object is null");
+            Timber.e("ReferralTaskViewActivity --> The person object is null");
             finish();
         }
 
         if (getTask() == null) {
-            Timber.d("The task object is null");
+            Timber.e("ReferralTaskViewActivity --> The task object is null");
             finish();
         }
 
@@ -165,6 +168,9 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         clientReferralProblem = findViewById(R.id.client_referral_problem);
         chwDetailsNames = findViewById(R.id.chw_details_names);
         referralDate = findViewById(R.id.referral_date);
+
+        womanGaLayout = findViewById(R.id.woman_ga_layout);
+        womanGa = findViewById(R.id.woman_ga);
         CustomFontTextView viewProfile = findViewById(R.id.view_profile);
 
         CustomFontTextView markAskDone = findViewById(R.id.mark_ask_done);
@@ -198,6 +204,8 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             careGiverPhone.setText(getFamilyMemberContacts());
 
             chwDetailsNames.setText(getTask().getRequester());
+
+            addGaDisplay();
         }
     }
 
@@ -214,6 +222,15 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         }
 
         return phoneNumber;
+    }
+
+    private void addGaDisplay() {
+        if (CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS.equals(getTask().getFocus())) {
+            womanGaLayout.setVisibility(View.VISIBLE);
+
+            String gaWeeks = Utils.getValue(getPersonObjectClient().getDetails(), CoreConstants.JsonAssets.GESTATION_AGE, true) + " " + getString(R.string.weeks);
+            womanGa.setText(gaWeeks);
+        }
     }
 
     public void setStartingActivity(String startingActivity) {

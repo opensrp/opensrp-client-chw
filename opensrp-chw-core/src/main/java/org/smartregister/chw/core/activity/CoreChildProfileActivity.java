@@ -575,23 +575,30 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
-            if (resultCode == Activity.RESULT_OK) {
+        if (resultCode != Activity.RESULT_OK) return;
+        switch (requestCode) {
+            case CoreConstants.ProfileActivityResults.CHANGE_COMPLETED:
                 finish();
-            }
-        } else if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
-            try {
-                String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-                JSONObject form = new JSONObject(jsonString);
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION)) {
-                    presenter().updateChildProfile(jsonString);
-                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.CHILD_REFERRAL)) {
-                    presenter().createSickChildEvent(Utils.getAllSharedPreferences(), jsonString);
-                    displayToast(R.string.child_referral_submitted);
+                break;
+            case JsonFormUtils.REQUEST_CODE_GET_JSON:
+                try {
+                    String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+                    JSONObject form = new JSONObject(jsonString);
+                    if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION)) {
+                        presenter().updateChildProfile(jsonString);
+                    } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.CHILD_REFERRAL)) {
+                        presenter().createSickChildEvent(Utils.getAllSharedPreferences(), jsonString);
+                        displayToast(R.string.child_referral_submitted);
+                    }
+                } catch (Exception e) {
+                    Timber.e(e, "CoreChildProfileActivity --> onActivityResult");
                 }
-            } catch (Exception e) {
-                Timber.e(e, "CoreChildProfileActivity --> onActivityResult");
-            }
+                break;
+            case org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT:
+                updateImmunizationData();
+                break;
+            default:
+                break;
         }
     }
 

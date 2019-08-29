@@ -79,7 +79,7 @@ public class CoreAncMemberProfilePresenter extends BaseAncMemberProfilePresenter
 
     @Override
     public void fetchTasks() {
-        interactor.getClientTasks("5270285b-5a3b-4647-b772-c0b3c52e2b71", getEntityId(), this);
+        interactor.getClientTasks(CoreConstants.REFERRAL_PLAN_ID, getEntityId(), this);
     }
 
     public String getEntityId() {

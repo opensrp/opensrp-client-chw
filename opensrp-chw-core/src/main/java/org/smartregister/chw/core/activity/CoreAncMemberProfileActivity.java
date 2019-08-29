@@ -78,6 +78,22 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
     }
 
     @Override
+    public void openMedicalHistory() {
+        CoreAncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+    }
+
+    @Override
+    public abstract void openUpcomingService();
+
+    @Override
+    public abstract void openFamilyDueServices();
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+    }
+
+    @Override
     public void setupViews() {
         super.setupViews();
         Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.ANC_HOME_VISIT);
@@ -100,22 +116,6 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
             record_reccuringvisit_done_bar.setVisibility(View.GONE);
         }
     }
-
-    @Override
-    public void onClick(View view) {
-        super.onClick(view);
-    }
-
-    @Override
-    public void openMedicalHistory() {
-        CoreAncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
-    }
-
-    @Override
-    public abstract void openUpcomingService();
-
-    @Override
-    public abstract void openFamilyDueServices();
 
     @Override
     public abstract void setClientTasks(Set<Task> taskList);

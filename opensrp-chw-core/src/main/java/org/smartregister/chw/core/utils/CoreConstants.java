@@ -7,6 +7,7 @@ import java.util.Locale;
 public class CoreConstants {
 
     public static final String ENTITY_ID = "entity_id";
+    public static final String REFERRAL_PLAN_ID = "5270285b-5a3b-4647-b772-c0b3c52e2b71";
     public static String EC_CLIENT_FIELDS = "ec_client_fields.json";
 
     public enum VisitType {DUE, OVERDUE, LESS_TWENTY_FOUR, VISIT_THIS_MONTH, NOT_VISIT_THIS_MONTH, EXPIRY}
@@ -487,6 +488,8 @@ public class CoreConstants {
         public static final String BIRTH_REGIST_NUMBER = "birth_regist_number";
         public static final String RHC_CARD = "rhc_card";
         public static final String NUTRITION_STATUS = "nutrition_status";
+        public static final String GESTATION_AGE = "gestation_age";
+        public static final String IS_PROBLEM = "is_problem";
 
 
         public static class FAMILY_MEMBER {
@@ -632,5 +635,6 @@ public class CoreConstants {
 
     public static final class TASKS_FOCUS {
         public static final String SICK_CHILD = "Sick Child";
+        public static final String ANC_DANGER_SIGNS = "ANC Danger Signs";
     }
 }
