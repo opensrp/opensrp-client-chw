@@ -159,12 +159,16 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         return client;
     }
 
+
+    @Override
+    public void setProfileImage(String baseEntityId, String entityType) {
+    }
+
     @Override
     public void setupViews() {
         super.setupViews();
         imageViewCross = findViewById(R.id.cross_image);
         imageViewCross.setOnClickListener(this);
-
         PncVisitAlertRule summaryVisit = getVisitDetails();
         String statusVisit = summaryVisit.getButtonStatus();
         if (statusVisit.equals("OVERDUE")) {
@@ -269,6 +273,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     @Override
     public void setFamilyStatus(AlertStatus status) {
         tvFamilyStatus = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.textview_family_has);
+
         view_family_row.setVisibility(View.VISIBLE);
         rlFamilyServicesDue.setVisibility(View.VISIBLE);
 

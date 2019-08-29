@@ -286,13 +286,16 @@
     <string name="anc_card">ANC CARD</string>
     <string name="anc_tt_immunization">TT IMMUNIZATION</string>
     <string name="anc_iptp_sp">IPTp-SP DOSE</string>
+    <string name="urine_analysis">Urine analysis</string>
+    <string name="hiv_test">HIV test</string>
+    <string name="syphilis_test">Syphilis test</string>
 
     <string name="days_ago">{0} days ago</string>
     <string name="vaccines_done_date">{0} - done {1}</string>
     <string name="anc_visit_date">ANC visit {0}: {1}</string>
     <string name="weight_in_kgs">Weight: {0} kgs</string>
     <string name="bp_in_mmhg">BP: {0}/{1} mmHg</string>
-    <string name="hb_level_in_g_dl">Hb level: {0} g/dl</string>
+    <string name="hb_level_in_g_dl">Hb level: %s g/dl</string>
     <string name="ifa_received_status">IFA received: {0}</string>
     <string name="tests_done_details">Tests done: {0}</string>
     <string name="anc_home_visit_anc_card_received">ANC card received</string>
