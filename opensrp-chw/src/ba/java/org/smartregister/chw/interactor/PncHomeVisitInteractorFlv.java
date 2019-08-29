@@ -108,7 +108,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_danger_signs), danger_signs_present_mama);
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.pnc_danger_signs_mama), danger_signs_present_mama);
             }
 
             @Override
@@ -150,7 +150,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_danger_signs), danger_signs_present_child);
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.pnc_danger_signs_baby_task), danger_signs_present_child);
             }
 
             @Override
