@@ -6,20 +6,25 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.core.contract.AncMemberProfileContract;
 import org.smartregister.chw.core.interactor.CoreAncMemberProfileInteractor;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Task;
 import org.smartregister.family.contract.FamilyProfileContract;
+import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.FormUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.Set;
 
 import timber.log.Timber;
 
-public class CoreAncMemberProfilePresenter extends BaseAncMemberProfilePresenter implements FamilyProfileContract.InteractorCallBack, AncMemberProfileContract.Presenter, AncMemberProfileContract.InteractorCallBack {
+public class CoreAncMemberProfilePresenter extends BaseAncMemberProfilePresenter implements
+        FamilyProfileContract.InteractorCallBack, AncMemberProfileContract.Presenter, AncMemberProfileContract.InteractorCallBack {
     private String entityId;
     private WeakReference<AncMemberProfileContract.View> view;
     private AncMemberProfileContract.Interactor interactor;
+    private FormUtils formUtils;
 
     public CoreAncMemberProfilePresenter(AncMemberProfileContract.View view, AncMemberProfileContract.Interactor interactor, MemberObject memberObject) {
         super(view, interactor, memberObject);
@@ -87,8 +92,29 @@ public class CoreAncMemberProfilePresenter extends BaseAncMemberProfilePresenter
     }
 
     @Override
-    public void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception {
-        interactor.createSickChildEvent(allSharedPreferences, jsonString, getEntityId());
+    public void createReferralEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception {
+        interactor.createReferralEvent(allSharedPreferences, jsonString, getEntityId());
+    }
+
+    @Override
+    public void startAncReferralForm() {
+        try {
+            getView().startFormActivity(getFormUtils().getFormJson(CoreConstants.JSON_FORM.getAncReferralForm()));
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private FormUtils getFormUtils() {
+
+        if (formUtils == null) {
+            try {
+                formUtils = FormUtils.getInstance(Utils.context().applicationContext());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
+        return formUtils;
     }
 }
 

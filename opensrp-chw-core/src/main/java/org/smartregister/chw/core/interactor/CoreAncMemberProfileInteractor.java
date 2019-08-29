@@ -65,32 +65,13 @@ public class CoreAncMemberProfileInteractor extends BaseAncMemberProfileInteract
     }
 
     @Override
-    public void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString, String entityId) throws Exception {
+    public void createReferralEvent(AllSharedPreferences allSharedPreferences, String jsonString, String entityId) throws Exception {
         CoreReferralUtils.createReferralEvent(allSharedPreferences, jsonString, CoreConstants.TABLE_NAME.ANC_REFERRAL, entityId);
     }
 
     @Override
     public void getClientTasks(String planId, String baseEntityId, @NotNull AncMemberProfileContract.InteractorCallBack callback) {
         Set<Task> taskList = CoreChwApplication.getInstance().getTaskRepository().getTasksByEntityAndStatus(planId, baseEntityId, Task.TaskStatus.READY);
-        Task task = new Task();
-        task.setIdentifier("iudsfsigdfdsyud");
-        task.setFocus("ANC Referral");
-        task.setGroupIdentifier("iudsfsigdfdsyud");
-        task.setStatus(Task.TaskStatus.READY);
-        task.setBusinessStatus(CoreConstants.BUSINESS_STATUS.REFERRED);
-        task.setPriority(3);
-        task.setCode("Referral");
-        task.setDescription("Review and perform the referral for the client"); //set to string
-        task.setForEntity(baseEntityId);
-        DateTime now = new DateTime();
-        task.setExecutionStartDate(now);
-        task.setAuthoredOn(now);
-        task.setLastModified(now);
-        task.setOwner("iudsfsigdfdsyud");
-        task.setSyncStatus(BaseRepository.TYPE_Created);
-        task.setRequester("iudsfsigdfdsyud");
-        task.setLocation("iudsfsigdfdsyud");
-        taskList.add(task);
         callback.setClientTasks(taskList);
     }
 }

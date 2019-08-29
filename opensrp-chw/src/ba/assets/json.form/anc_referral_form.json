@@ -55,10 +55,25 @@
         "title": "ANC referral form",
         "fields": [
             {
+                "key": "chw_referral_hf_anc",
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "type": "hidden",
+                "is_problem": false,
+                "calculation": {
+                    "rules-engine": {
+                        "ex-rules": {
+                            "rules-file": "anc_referral_calculation.yml"
+                        }
+                    }
+                }
+            },
+            {
                 "key": "problem_hf_anc",
                 "openmrs_entity_parent": "",
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "type": "check_box",
                 "label": "Client condition / problem",
                 "label_text_style": "bold",
@@ -281,13 +296,20 @@
                 "key": "problem_hf_anc_other",
                 "type": "edit_text",
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": "",
                 "edit_type": "name",
                 "hint": "Other symptom",
                 "v_required": {
                     "value": "true",
                     "err": "Please specify other symptom"
+                },
+                "relevance": {
+                    "rules-engine": {
+                        "ex-rules": {
+                            "rules-file": "anc_referral_relevance.yml"
+                        }
+                    }
                 }
             },
             {
@@ -356,6 +378,36 @@
                     "rules-engine": {
                         "ex-rules": {
                             "rules-file": "anc_referral_relevance.yml"
+                        }
+                    }
+                }
+            },
+            {
+                "key": "referral_date_anc",
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "type": "hidden",
+                "is_problem": false,
+                "calculation": {
+                    "rules-engine": {
+                        "ex-rules": {
+                            "rules-file": "anc_referral_calculation.yml"
+                        }
+                    }
+                }
+            },
+            {
+                "key": "referral_time_anc",
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "referral_time_anc",
+                "type": "hidden",
+                "is_problem": false,
+                "calculation": {
+                    "rules-engine": {
+                        "ex-rules": {
+                            "rules-file": "anc_referral_calculation.yml"
                         }
                     }
                 }

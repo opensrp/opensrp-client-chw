@@ -24,9 +24,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.domain.Form;
-
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
@@ -51,6 +48,8 @@ import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getJsonIntent;
 
 
 public class CoreChildProfileActivity extends BaseProfileActivity implements CoreChildProfileContract.View, CoreChildRegisterContract.InteractorCallBack {
@@ -106,6 +105,14 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         activity.startActivity(intent);
     }
 
+    public static IntentFilter getsIntentFilter() {
+        return sIntentFilter;
+    }
+
+    public static void setsIntentFilter(IntentFilter sIntentFilter) {
+        CoreChildProfileActivity.sIntentFilter = sIntentFilter;
+    }
+
     @Override
     protected void onCreation() {
         setContentView(R.layout.activity_child_profile);
@@ -137,14 +144,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         registerReceiver(mDateTimeChangedReceiver, getsIntentFilter());
     }
 
-    public static IntentFilter getsIntentFilter() {
-        return sIntentFilter;
-    }
-
-    public static void setsIntentFilter(IntentFilter sIntentFilter) {
-        CoreChildProfileActivity.sIntentFilter = sIntentFilter;
-    }
-
     @Override
     public void onClick(View view) {
         int i = view.getId();
@@ -156,10 +155,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
             showProgressBar();
             presenter().updateVisitNotDone(0);
         }
-    }
-
-    private void showProgressBar() {
-        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -245,6 +240,10 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
 
     }
 
+    private void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
     public void setUpToolbar() {
         if (isComesFromFamily) {
             textViewTitle.setText(getString(R.string.return_to_family_members));
@@ -298,14 +297,9 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
-        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
-        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-
-        Form form = new Form();
-        form.setActionBarBackground(R.color.family_actionbar);
-        form.setWizard(false);
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+        startActivityForResult(getJsonIntent(this, jsonForm,
+                org.smartregister.family.util.Utils.metadata().familyMemberFormActivity),
+                JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @Override
@@ -338,14 +332,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         updateTopBar();
     }
 
-    protected void updateTopBar() {
-        if (gender.equalsIgnoreCase(Gender.MALE.toString())) {
-            imageViewProfile.setBorderColor(getResources().getColor(R.color.light_blue));
-        } else if (gender.equalsIgnoreCase(Gender.FEMALE.toString())) {
-            imageViewProfile.setBorderColor(getResources().getColor(R.color.light_pink));
-        }
-    }
-
     @Override
     public void setAddress(String address) {
         textViewAddress.setText(address);
@@ -372,12 +358,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         openVisitButtonView();
         textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_due);
         textViewRecord.setTextColor(getResources().getColor(R.color.white));
-    }
-
-    private void openVisitButtonView() {
-        layoutNotRecordView.setVisibility(View.GONE);
-        layoutRecordButtonDone.setVisibility(View.GONE);
-        layoutRecordView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -454,12 +434,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         textViewRecord.setTextColor(getResources().getColor(R.color.light_grey_text));
     }
 
-    private void openVisitRecordDoneView() {
-        layoutRecordButtonDone.setVisibility(View.VISIBLE);
-        layoutNotRecordView.setVisibility(View.GONE);
-        layoutRecordView.setVisibility(View.GONE);
-    }
-
     @Override
     public void setFamilyHasNothingDue() {
         layoutFamilyHasRow.setVisibility(View.VISIBLE);
@@ -528,6 +502,26 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     @Override
     public void setClientTasks(Set<Task> taskList) {
         //// TODO: 06/08/19
+    }
+
+    protected void updateTopBar() {
+        if (gender.equalsIgnoreCase(Gender.MALE.toString())) {
+            imageViewProfile.setBorderColor(getResources().getColor(R.color.light_blue));
+        } else if (gender.equalsIgnoreCase(Gender.FEMALE.toString())) {
+            imageViewProfile.setBorderColor(getResources().getColor(R.color.light_pink));
+        }
+    }
+
+    private void openVisitButtonView() {
+        layoutNotRecordView.setVisibility(View.GONE);
+        layoutRecordButtonDone.setVisibility(View.GONE);
+        layoutRecordView.setVisibility(View.VISIBLE);
+    }
+
+    private void openVisitRecordDoneView() {
+        layoutRecordButtonDone.setVisibility(View.VISIBLE);
+        layoutNotRecordView.setVisibility(View.GONE);
+        layoutRecordView.setVisibility(View.GONE);
     }
 
     @Override

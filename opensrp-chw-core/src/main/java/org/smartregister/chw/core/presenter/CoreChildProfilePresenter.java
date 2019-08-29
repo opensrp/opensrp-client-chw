@@ -210,10 +210,6 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
         interactor.refreshUpcomingServiceAndFamilyDue(view.get().getContext(), getFamilyId(), childBaseEntityId, this);
     }
 
-    public String getFamilyId() {
-        return familyID;
-    }
-
     @Override
     public void processBackGroundEvent() {
         interactor.processBackGroundEvent(this);
@@ -227,6 +223,10 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
 
     public void setView(WeakReference<CoreChildProfileContract.View> view) {
         this.view = view;
+    }
+
+    public String getFamilyId() {
+        return familyID;
     }
 
     @Override

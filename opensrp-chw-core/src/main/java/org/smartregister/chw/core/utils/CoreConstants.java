@@ -118,6 +118,7 @@ public class CoreConstants {
         private static final String MALARIA_CONFIRMATION = "malaria_confirmation";
         private static final String WASH_CHECK = "wash_check";
         private static final String CHILD_REFERRAL_FORM = "child_referral_form";
+        private static final String ANC_REFERRAL_FORM = "anc_referral_form";
         public static AssetManager assetManager;
         public static Locale locale;
 
@@ -135,6 +136,10 @@ public class CoreConstants {
 
         public static String getChildReferralForm() {
             return CHILD_REFERRAL_FORM;
+        }
+
+        public static String getAncReferralForm() {
+            return ANC_REFERRAL_FORM;
         }
 
         public static String getBirthCertification() {

@@ -3,9 +3,11 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,8 +20,10 @@ import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -37,7 +41,27 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getJsonIntent;
+
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
+
+    private OnClickFloatingMenu onClickFloatingMenu;
+
+    {
+        onClickFloatingMenu = viewId -> {
+            switch (viewId) {
+                case R.id.anc_fab:
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                case R.id.call_layout:
+                    ((AncFloatingMenu) baseAncFloatingMenu).launchCallWidget();
+                    break;
+                case R.id.refer_to_facility_layout:
+                    ancMemberProfilePresenter().startAncReferralForm();
+                    break;
+            }
+        };
+    }
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
@@ -104,7 +128,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                     }
 
                 } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.ANC_REFERRAL)) {
-                    ancMemberProfilePresenter().createSickChildEvent(Utils.getAllSharedPreferences(), jsonString);
+                    ancMemberProfilePresenter().createReferralEvent(Utils.getAllSharedPreferences(), jsonString);
                 }
             } catch (Exception e) {
                 Timber.e(e, "AncMemberProfileActivity -- > onActivityResult");
@@ -158,6 +182,23 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
     @Override
     public void setClientTasks(Set<Task> taskList) {
-        // not needed
+        //overridden
+    }
+
+    @Override
+    public void startFormActivity(JSONObject formJson) {
+        startActivityForResult(getJsonIntent(this, formJson,
+                org.smartregister.family.util.Utils.metadata().familyMemberFormActivity ),
+                JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public void initializeFloatingMenu() {
+        baseAncFloatingMenu = new AncFloatingMenu(this, getAncWomanName(), MEMBER_OBJECT.getPhoneNumber(), getFamilyHeadName(), getFamilyHeadPhoneNumber(), getProfileType());
+        ((AncFloatingMenu) baseAncFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
+        baseAncFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        addContentView(baseAncFloatingMenu, linearLayoutParams);
     }
 }

@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class ChildProfileActivity extends CoreChildProfileActivity {
     public FamilyMemberFloatingMenu familyFloatingMenu;
-    private ChildProfileActivityFlv flavor = new ChildProfileActivityFlv();
+    private Flavor flavor = new ChildProfileActivityFlv();
 
     @Override
     protected void onCreation() {

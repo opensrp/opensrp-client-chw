@@ -191,6 +191,12 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
         }
     }
 
+    @Override
+    public void startFormActivity(JSONObject formJson) {
+        //Overridden
+        //TODO implement start form activity HFh
+    }
+
     private void initializeTasksRecyclerView() {
         referralRecyclerView = findViewById(R.id.referral_card_recycler_view);
         referralRow = findViewById(R.id.referal_row);
