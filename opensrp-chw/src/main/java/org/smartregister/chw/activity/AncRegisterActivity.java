@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import org.smartregister.chw.R;
@@ -8,7 +9,23 @@ import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
+
 public class AncRegisterActivity extends CoreAncRegisterActivity {
+
+    public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
+                                                    String uniqueId, String familyBaseID, String family_name) {
+        Intent intent = new Intent(activity, AncRegisterActivity.class);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
+        phone_number = phoneNumber;
+        familyBaseEntityId = familyBaseID;
+        form_name = formName;
+        familyName = family_name;
+        unique_id = uniqueId;
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
+        intent.putExtra(TABLE_NAME, getFormTable());
+        activity.startActivity(intent);
+    }
 
     @Override
     public void onRegistrationSaved(boolean isEdit) {

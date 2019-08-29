@@ -87,7 +87,6 @@
           }
         }
       },
-
       {
         "key": "last_menstrual_period_unknown",
         "openmrs_entity_parent": "",
@@ -104,7 +103,6 @@
           }
         ]
       },
-
       {
         "key": "edd",
         "openmrs_entity_parent": "",
@@ -118,6 +116,10 @@
               "rules-file": "anc_member_registration_calculation.yml"
             }
           }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Required"
         }
       },
       {
@@ -125,7 +127,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
+        "type": "hidden",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
