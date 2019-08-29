@@ -168,8 +168,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
     @Override
     public void startFormActivity(JSONObject formJson) {
-        startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, formJson,
-                org.smartregister.family.util.Utils.metadata().familyMemberFormActivity),
+        startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, formJson, Utils.metadata().familyMemberFormActivity),
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
