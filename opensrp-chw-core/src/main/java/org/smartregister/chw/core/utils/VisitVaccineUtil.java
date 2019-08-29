@@ -64,13 +64,13 @@ public class VisitVaccineUtil {
 
         Map<String, Alert> alertMap = new HashMap<>();
         for (Alert alert : alerts) {
-            alertMap.put(alert.visitCode(), alert);
+            alertMap.put(alert.scheduleName().toLowerCase().replace(" ", ""), alert);
         }
 
         /// prepare the given vaccines map
         Map<String, Vaccine> givenVaccines = new HashMap<>();
         for (Vaccine vaccine : issuedVaccines) {
-            givenVaccines.put(vaccine.getName().replace("_", ""), vaccine);
+            givenVaccines.put(vaccine.getName().replace("_", "").replace(" ", ""), vaccine);
         }
 
 

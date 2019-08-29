@@ -190,14 +190,13 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
             textview_record_visit.setBackgroundResource(R.drawable.rounded_white_btn);
             textview_record_visit.setTextColor(getResources().getColor(R.color.scan_qr_code_bg_stk_grey));
         }
-
     }
 
     private PncVisitAlertRule getVisitDetails() {
         return basePncMemberProfileInteractor.getVisitSummary(MEMBER_OBJECT.getBaseEntityId());
     }
 
-    private void setUpEditViews(boolean enable, boolean within24Hours, Long longDate) {
+    protected void setUpEditViews(boolean enable, boolean within24Hours, Long longDate) {
         if (enable) {
             if (within24Hours) {
                 String pncDay = basePncMemberProfileInteractor.getPncDay(MEMBER_OBJECT.getBaseEntityId());

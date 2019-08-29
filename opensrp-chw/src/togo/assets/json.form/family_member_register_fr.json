@@ -57,7 +57,7 @@
       {
         "key": "photo",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "choose_image",
         "uploadButtonText": "Prenez un photo de la personne"
@@ -103,7 +103,7 @@
         "key": "surname",
         "type": "edit_text",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "hint": "Nom",
         "edit_type": "name",
@@ -126,7 +126,7 @@
       {
         "key": "same_as_fam_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
         "openmrs_data_type": "text",
@@ -146,7 +146,7 @@
       {
         "key": "fam_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
         "hidden": "true"
@@ -291,7 +291,7 @@
       {
         "key": "primary_caregiver",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "spinner",
         "hint": "Est la gardienne?",
