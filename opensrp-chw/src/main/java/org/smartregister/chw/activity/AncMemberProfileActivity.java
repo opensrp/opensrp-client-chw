@@ -184,14 +184,17 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                     break;
                 case R.id.call_layout:
                     ((AncFloatingMenu) baseAncFloatingMenu).launchCallWidget();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
                     break;
                 case R.id.refer_to_facility_layout:
                     ancMemberProfilePresenter().startAncReferralForm();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
                     break;
                 default:
-                    Timber.e("Unknown fab action");
+                    Timber.d("Unknown fab action");
                     break;
             }
+
         };
 
         ((AncFloatingMenu) baseAncFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);

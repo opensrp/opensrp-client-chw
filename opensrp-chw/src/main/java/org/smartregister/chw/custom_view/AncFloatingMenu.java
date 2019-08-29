@@ -71,7 +71,6 @@ public class AncFloatingMenu extends BaseAncFloatingMenu {
     @Override
     public void onClick(View view) {
         onClickFloatingMenu.onClickMenu(view.getId());
-        animateFAB();
     }
 
     public void animateFAB() {
