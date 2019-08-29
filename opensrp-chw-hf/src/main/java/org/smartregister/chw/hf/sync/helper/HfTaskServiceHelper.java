@@ -37,6 +37,6 @@ public class HfTaskServiceHelper extends TaskServiceHelper {
 
     @Override
     protected Set<String> getPlanDefinitionIds() {
-        return Collections.singleton("5270285b-5a3b-4647-b772-c0b3c52e2b71");
+        return Collections.singleton(CoreConstants.REFERRAL_PLAN_ID);
     }
 }
