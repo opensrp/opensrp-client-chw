@@ -489,4 +489,5 @@
     <string name="managed">Géré</string>
     <string name="referred">Référé</string>
     <string name="no_action_taken">Aucun mesure n\'a été prise</string>
+    <string name="exclusive_breastfeeding_months">Allaitement maternel exclusif %s mois</string>
 </resources>

@@ -56,7 +56,7 @@
         "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "image": "ic_form_deworming",
-        "hint": "Quand est-ce que le déparasitant {0} dose de Vitamine A a été donné?",
+        "hint": "Quand est-ce que le déparasitant {0} dose a été donné?",
         "min_date": "today-120y",
         "max_date": "today",
         "v_required": {

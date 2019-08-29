@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,6 +39,8 @@ import java.util.Set;
 import timber.log.Timber;
 
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
+
+    public Handler handler = new Handler();
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
@@ -79,37 +82,51 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     @Override // to chw
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
-            try {
-                String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                JSONObject form = new JSONObject(jsonString);
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
-                    FamilyEventClient familyEventClient =
-                            new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
-                    new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, ancMemberProfilePresenter());
-                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_ANC_REGISTRATION)) {
-                    AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
-                    Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, Constants.TABLES.ANC_MEMBERS);
-                    NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
-                    AllCommonsRepository commonsRepository = CoreChwApplication.getInstance().getAllCommonsRepository(CoreConstants.TABLE_NAME.ANC_MEMBER);
+        if (resultCode != RESULT_OK) return;
 
-                    JSONArray field = org.smartregister.util.JsonFormUtils.fields(form);
-                    JSONObject phoneNumberObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER);
-                    String phoneNumber = phoneNumberObject.getString(CoreJsonFormUtils.VALUE);
-                    String baseEntityId = baseEvent.getBaseEntityId();
-                    if (commonsRepository != null) {
-                        ContentValues values = new ContentValues();
-                        values.put(DBConstants.KEY.PHONE_NUMBER, phoneNumber);
-                        CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CoreConstants.TABLE_NAME.ANC_MEMBER, values, DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{baseEntityId});
+        switch (requestCode) {
+            case JsonFormUtils.REQUEST_CODE_GET_JSON:
+                try {
+                    String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                    JSONObject form = new JSONObject(jsonString);
+                    if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
+                        FamilyEventClient familyEventClient =
+                                new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
+                        new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, ancMemberProfilePresenter());
+                    } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_ANC_REGISTRATION)) {
+                        AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+                        Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, Constants.TABLES.ANC_MEMBERS);
+                        NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
+                        AllCommonsRepository commonsRepository = CoreChwApplication.getInstance().getAllCommonsRepository(CoreConstants.TABLE_NAME.ANC_MEMBER);
+
+                        JSONArray field = org.smartregister.util.JsonFormUtils.fields(form);
+                        JSONObject phoneNumberObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER);
+                        String phoneNumber = phoneNumberObject.getString(CoreJsonFormUtils.VALUE);
+                        String baseEntityId = baseEvent.getBaseEntityId();
+                        if (commonsRepository != null) {
+                            ContentValues values = new ContentValues();
+                            values.put(DBConstants.KEY.PHONE_NUMBER, phoneNumber);
+                            CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CoreConstants.TABLE_NAME.ANC_MEMBER, values, DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{baseEntityId});
+                        }
+
+                    } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.ANC_REFERRAL)) {
+                        ancMemberProfilePresenter().createSickChildEvent(Utils.getAllSharedPreferences(), jsonString);
                     }
-
-                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.ANC_REFERRAL)) {
-                    ancMemberProfilePresenter().createSickChildEvent(Utils.getAllSharedPreferences(), jsonString);
+                } catch (Exception e) {
+                    Timber.e(e, "AncMemberProfileActivity -- > onActivityResult");
                 }
-            } catch (Exception e) {
-                Timber.e(e, "AncMemberProfileActivity -- > onActivityResult");
-            }
+                break;
+            case org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT:
+                handler.postDelayed(this::displayView, 200);
+                break;
+            default:
+                break;
         }
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
     }
 
     @Override

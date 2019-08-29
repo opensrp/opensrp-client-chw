@@ -16,7 +16,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor {
+public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractorFlv {
 
     @Override
     protected void bindEvents(Map<String, ServiceWrapper> serviceWrapperMap) throws BaseAncHomeVisitAction.ValidationException {
@@ -25,7 +25,6 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             evaluateExclusiveBreastFeeding(serviceWrapperMap);
             evaluateVitaminA(serviceWrapperMap);
             evaluateDeworming(serviceWrapperMap);
-            evaluateLLITN();
             evaluateObsAndIllness();
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
