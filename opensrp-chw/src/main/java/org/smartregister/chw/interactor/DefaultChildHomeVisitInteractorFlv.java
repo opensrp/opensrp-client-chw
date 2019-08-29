@@ -63,7 +63,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public abstract class DefaultChildHomeVisitInteractor implements CoreChildHomeVisitInteractor.Flavor {
+public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHomeVisitInteractor.Flavor {
     protected LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
     protected Context context;
     protected Map<String, List<VisitDetail>> details = null;
