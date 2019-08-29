@@ -4,7 +4,6 @@ import android.content.Context;
 
 import org.ei.drishti.dto.AlertStatus;
 import org.jetbrains.annotations.NotNull;
-import org.joda.time.DateTime;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -18,7 +17,6 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.domain.Task;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.repository.BaseRepository;
 
 import java.util.Date;
 import java.util.Set;

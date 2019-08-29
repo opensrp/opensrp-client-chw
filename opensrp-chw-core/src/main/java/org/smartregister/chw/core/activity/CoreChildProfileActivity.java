@@ -587,6 +587,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
                     presenter().updateChildProfile(jsonString);
                 } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.CHILD_REFERRAL)) {
                     presenter().createSickChildEvent(Utils.getAllSharedPreferences(), jsonString);
+                    displayToast(R.string.child_referral_submitted);
                 }
             } catch (Exception e) {
                 Timber.e(e, "CoreChildProfileActivity --> onActivityResult");

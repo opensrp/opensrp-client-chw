@@ -129,6 +129,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
                 } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.ANC_REFERRAL)) {
                     ancMemberProfilePresenter().createReferralEvent(Utils.getAllSharedPreferences(), jsonString);
+                    showToast(this.getString(R.string.anc_referral_submitted));
                 }
             } catch (Exception e) {
                 Timber.e(e, "AncMemberProfileActivity -- > onActivityResult");
@@ -188,7 +189,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     @Override
     public void startFormActivity(JSONObject formJson) {
         startActivityForResult(getJsonIntent(this, formJson,
-                org.smartregister.family.util.Utils.metadata().familyMemberFormActivity ),
+                org.smartregister.family.util.Utils.metadata().familyMemberFormActivity),
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
