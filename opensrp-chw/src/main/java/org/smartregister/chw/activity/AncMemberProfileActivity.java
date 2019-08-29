@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -50,6 +51,12 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhoneNumber);
         activity.startActivity(intent);
     }
+
+    private void checkPhoneNumberProvided() {
+        ((AncFloatingMenu) baseAncFloatingMenu).redraw(!StringUtils.isBlank(MEMBER_OBJECT.getPhoneNumber())
+                || !StringUtils.isBlank(getFamilyHeadPhoneNumber()));
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -180,6 +187,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
         OnClickFloatingMenu onClickFloatingMenu = viewId -> {
             switch (viewId) {
                 case R.id.anc_fab:
+                    checkPhoneNumberProvided();
                     ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
                     break;
                 case R.id.call_layout:
