@@ -14,7 +14,7 @@ actions:
   - "isRelevant = true"
 ---
 name: step1_lmp_entered
-description: surname relevance
+description: lmp_entered relevance
 priority: 1
 condition: "!step1_last_menstrual_period_unknown.contains('lmp_unknown')"
 actions:

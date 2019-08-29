@@ -71,6 +71,20 @@
         "v_required": {
           "value": "true",
           "err": "LMP required"
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
         }
       },
       {
