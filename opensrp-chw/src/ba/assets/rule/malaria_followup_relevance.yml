@@ -1,0 +1,23 @@
+---
+name: step1_treat_given_chw_mfollowup
+description: determine if treatment was given or not
+priority: 1
+condition: "step1_hf_chw_mfollowup.contains('Yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_reason_no_treat
+description: Reason for client not treated
+priority: 1
+condition: "step1_treat_given_chw_mfollowup.contains('Not_given_treatment')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_fever_duration
+description: Malaria fever duration
+priority: 1
+condition: "step1_fever_still.contains('Yes')"
+actions:
+  - "isRelevant = true"

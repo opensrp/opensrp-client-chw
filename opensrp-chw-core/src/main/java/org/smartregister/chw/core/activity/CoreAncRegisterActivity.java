@@ -28,8 +28,7 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
     protected static String form_name;
     protected static String unique_id;
     protected static String familyBaseEntityId;
-    private static String familyName;
-
+    protected static String familyName;
 
     public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
                                                     String uniqueId, String familyBaseID, String family_name) {
@@ -45,7 +44,7 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
         activity.startActivity(intent);
     }
 
-    private static String getFormTable() {
+    public static String getFormTable() {
         if (form_name != null && form_name.equals(CoreConstants.JSON_FORM.getAncRegistration())) {
             return CoreConstants.TABLE_NAME.ANC_MEMBER;
         }

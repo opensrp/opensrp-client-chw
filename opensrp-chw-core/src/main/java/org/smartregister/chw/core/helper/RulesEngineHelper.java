@@ -10,6 +10,7 @@ import org.jeasy.rules.core.InferenceRulesEngine;
 import org.jeasy.rules.core.RulesEngineParameters;
 import org.jeasy.rules.mvel.MVELRuleFactory;
 import org.smartregister.chw.core.rule.ICommonRule;
+import org.smartregister.chw.core.rule.MalariaFollowUpRule;
 import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
 
 import java.io.BufferedReader;
@@ -126,5 +127,20 @@ public class RulesEngineHelper {
         processDefaultRules(rules, facts);
 
         return visitRule;
+    }
+
+    public MalariaFollowUpRule getMalariaRule(MalariaFollowUpRule malariaFollowUpRule, String rulesFile) {
+
+        Facts facts = new Facts();
+        facts.put(MalariaFollowUpRule.RULE_KEY, malariaFollowUpRule);
+
+        Rules rules = getRulesFromAsset(RULE_FOLDER_PATH + rulesFile);
+        if (rules == null) {
+            return null;
+        }
+
+        processDefaultRules(rules, facts);
+
+        return malariaFollowUpRule;
     }
 }

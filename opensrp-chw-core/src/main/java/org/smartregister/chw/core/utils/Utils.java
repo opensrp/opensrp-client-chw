@@ -37,7 +37,9 @@ import org.joda.time.Days;
 import org.joda.time.Hours;
 import org.joda.time.Period;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.FamilyCallDialogContract;
@@ -613,4 +615,24 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
             return context.getString(resId);
         }
     }
+
+    //TODO
+    public static MemberObject malariaToAncMember(org.smartregister.chw.malaria.domain.MemberObject memberObject) {
+
+        try {
+
+            JSONObject malariaJson = new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(memberObject));
+
+            MemberObject memberObject1 = convert(malariaJson.toString(), MemberObject.class);
+
+            return memberObject1;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
 }
