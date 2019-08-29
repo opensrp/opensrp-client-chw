@@ -8,14 +8,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
+import org.smartregister.chw.core.interactor.CoreMalariaProfileInteractor;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.malaria.domain.MemberObject;
+import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
 import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -26,6 +28,8 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.Utils.malariaToAncMember;
 
 public class MalariaProfileActivity extends BaseMalariaProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String CLIENT = "client";
@@ -38,13 +42,16 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     }
 
     @Override
-    protected void onCreation() {
-        super.onCreation();
+    protected void initializePresenter() {
+        showProgressBar(true);
+        profilePresenter = new BaseMalariaProfilePresenter(this, new CoreMalariaProfileInteractor(), MEMBER_OBJECT);
+        fetchProfileData();
+        profilePresenter.refreshProfileBottom();
     }
 
     @Override
-    public void onClick(View view) {
-        onBackPressed();
+    protected void onCreation() {
+        super.onCreation();
     }
 
     @Override
@@ -56,10 +63,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             case R.id.action_registration:
                 startFormForEdit(R.string.registration_info,
                         org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER);
-                return true;
-
-            case R.id.action_malaria_followup_visit:
-                Toast.makeText(getApplicationContext(), R.string.malaria_follow_up, Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.action_remove_member:
@@ -96,7 +99,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
                             presenter().updateFamilyMember(jsonString);
-
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -118,7 +120,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     @Override
     public void setProfileImage(String s, String s1) {
         //implement
-
     }
 
     @Override
@@ -137,6 +138,15 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     public void setProfileDetailTwo(@NonNull String s) {
         TextView textView = findViewById(org.smartregister.malaria.R.id.textview_address);
         textView.setText(s);
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        int id = view.getId();
+        if (id == R.id.textview_record_malaria) {
+            MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, MEMBER_OBJECT.getBaseEntityId());
+        }
     }
 
     @Override
@@ -223,5 +233,28 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     @Override
     public void notifyHasPhone(boolean hasPhone) {
         //implement
+    }
+
+    @Override
+    public void openMedicalHistory() {
+        PncMedicalHistoryActivity.startMe(this, malariaToAncMember(MEMBER_OBJECT));
+    }
+
+    @Override
+    public void openUpcomingService() {
+        //PncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
+    }
+
+    @Override
+    public void openFamilyDueServices() {
+        Intent intent = new Intent(this, FamilyProfileActivity.class);
+
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
+
+        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
+        startActivity(intent);
     }
 }
