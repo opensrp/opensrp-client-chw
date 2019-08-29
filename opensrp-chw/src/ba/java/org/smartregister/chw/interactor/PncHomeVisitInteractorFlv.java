@@ -184,13 +184,21 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
     private void evaluateFamilyPlanning() throws Exception {
         HomeVisitActionHelper familyPlanningHelper = new HomeVisitActionHelper() {
-            private String fp_counseling;
+            private String fpCounselling;
+            private String fpPeriodReceived;
+            private String fpMethod;
+            private String fpStartDate;
+            private LocalDate startDate;
 
             @Override
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    fp_counseling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_counseling");
+                    fpCounselling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_counseling");
+                    fpPeriodReceived = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "fp_period_received");
+                    fpMethod = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_method");
+                    fpStartDate = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_start_date");
+                    // startDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(fpStartDate);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -198,12 +206,12 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", "Family Planning", fp_counseling);
+                return MessageFormat.format("{0}: {1} \u2022 {2}: {3} \n {4}: {5} \u2022 {6}: {7}", "Family Planning", fpCounselling, "Period received", fpPeriodReceived, "Method chosen", fpMethod, "Start date", fpStartDate);
             }
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isNotBlank(fp_counseling)) {
+                if (StringUtils.isNotBlank(fpCounselling)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else {
                     return BaseAncHomeVisitAction.Status.PENDING;
