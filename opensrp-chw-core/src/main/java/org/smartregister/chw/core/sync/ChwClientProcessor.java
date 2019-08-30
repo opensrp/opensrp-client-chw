@@ -134,6 +134,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             case CoreConstants.EventType.DEWORMING:
             case CoreConstants.EventType.VITAMIN_A:
             case CoreConstants.EventType.EXCLUSIVE_BREASTFEEDING:
+            case CoreConstants.EventType.MNP:
                 processVisitEvent(eventClient, CoreConstants.EventType.CHILD_HOME_VISIT);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;

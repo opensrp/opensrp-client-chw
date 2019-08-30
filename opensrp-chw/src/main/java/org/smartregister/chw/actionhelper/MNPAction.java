@@ -27,14 +27,14 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public class DewormingAction extends HomeVisitActionHelper {
+public class MNPAction extends HomeVisitActionHelper {
     private Context context;
     private String serviceIteration;
     private String str_date;
     private Date parsedDate;
     private Alert alert;
 
-    public DewormingAction(Context context, String serviceIteration, Alert alert) {
+    public MNPAction(Context context, String serviceIteration, Alert alert) {
         this.context = context;
         this.serviceIteration = serviceIteration;
         this.alert = alert;
@@ -61,7 +61,7 @@ public class DewormingAction extends HomeVisitActionHelper {
         String formatted_count = MessageFormat.format("{0}", Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context));
         jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, formatted_count));
 
-        JSONObject visit_field = JsonFormUtils.getFieldJSONObject(fields, "deworming{0}_date");
+        JSONObject visit_field = JsonFormUtils.getFieldJSONObject(fields, "mnp{0}_date");
         visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration, context));
         visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context)));
 
@@ -72,7 +72,7 @@ public class DewormingAction extends HomeVisitActionHelper {
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            str_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("deworming{0}_date", serviceIteration));
+            str_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("mnp{0}_date", serviceIteration));
 
             try {
                 parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(str_date);

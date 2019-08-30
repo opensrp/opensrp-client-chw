@@ -81,6 +81,7 @@ public class CoreConstants {
         public static final String LLITN = "Sleeping under a LLITN";
         public static final String VITAMIN_A = "Vitamin A";
         public static final String DEWORMING = "De-worming";
+        public static final String MNP = "MNP";
         public static final String EXCLUSIVE_BREASTFEEDING = "Exclusive breast feeding";
         public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
         public static final String UPDATE_FAMILY_MEMBER_RELATIONS = "Update Family Member Relations";
@@ -223,6 +224,7 @@ public class CoreConstants {
             private static final String DEWORMING = "child_hv_deworming";
             private static final String MUAC = "child_hv_muac";
             private static final String DIETARY = "child_hv_dietary_diversity";
+            private static final String MNP = "child_hv_mnp";
 
             public static String getVaccineCard() {
                 return Utils.getLocalForm(VACCINE_CARD, locale, assetManager);
@@ -242,6 +244,10 @@ public class CoreConstants {
 
             public static String getDIETARY() {
                 return Utils.getLocalForm(DIETARY, locale, assetManager);
+            }
+
+            public static String getMNP() {
+                return Utils.getLocalForm(MNP, locale, assetManager);
             }
         }
 

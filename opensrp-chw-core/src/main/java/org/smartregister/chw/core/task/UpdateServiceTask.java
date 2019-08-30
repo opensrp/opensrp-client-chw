@@ -41,7 +41,7 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, RecurringServiceMod
             dateOfBirth = new DateTime(dobString);
         }
 
-        return RecurringServiceUtil.getServiceModel(childDetails.entityId(), dateOfBirth, CoreConstants.SERVICE_GROUPS.CHILD);
+        return RecurringServiceUtil.getServiceModel(childDetails.entityId(), dateOfBirth, CoreConstants.SERVICE_GROUPS.CHILD, false);
     }
 
     @Override

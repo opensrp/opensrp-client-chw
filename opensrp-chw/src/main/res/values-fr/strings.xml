@@ -490,4 +490,7 @@
     <string name="referred">Référé</string>
     <string name="no_action_taken">Aucun mesure n\'a été prise</string>
     <string name="exclusive_breastfeeding_months">Allaitement maternel exclusif %s mois</string>
+    <string name="deworming_number_dose">Déparasitage %s dose</string>
+    <string name="vitamin_a_number_dose">Vitamine A %s dose</string>
+    <string name="mnp_number_pack">%s sachet MNP</string>
 </resources>
