@@ -58,13 +58,11 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
     }
 
     private void updatePncAncIcons(RegisterViewHolder viewHolder, int womanCount, String register) {
-        if (womanCount > 0) {
-            for (int i = 1; i <= womanCount; i++) {
-                ImageView imageView = new ImageView(context);
-                imageView.setImageResource(CoreConstants.TABLE_NAME.ANC_MEMBER.equals(register) ? R.mipmap.ic_anc_pink : R.mipmap.row_pnc);
-                LinearLayout linearLayout = (LinearLayout) viewHolder.memberIcon;
-                linearLayout.addView(imageView);
-            }
+        for (int i = 1; i <= womanCount; i++) {
+            ImageView imageView = new ImageView(context);
+            imageView.setImageResource(CoreConstants.TABLE_NAME.ANC_MEMBER.equals(register) ? R.mipmap.ic_anc_pink : R.mipmap.row_pnc);
+            LinearLayout linearLayout = (LinearLayout) viewHolder.memberIcon;
+            linearLayout.addView(imageView);
         }
     }
 
