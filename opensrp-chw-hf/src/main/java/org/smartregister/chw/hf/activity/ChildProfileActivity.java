@@ -164,7 +164,8 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     }
 
     private void openUpcomingServicePage() {
-        CoreUpcomingServicesActivity.startUpcomingServicesActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient());
+        MemberObject memberObject = new MemberObject(((CoreChildProfilePresenter) presenter()).getChildClient());
+        CoreUpcomingServicesActivity.startMe(this, memberObject);
     }
 
     //TODO Child Refactor

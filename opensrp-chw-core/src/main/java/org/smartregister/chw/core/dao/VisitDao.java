@@ -1,9 +1,14 @@
 package org.smartregister.chw.core.dao;
 
+import android.util.Pair;
+
 import org.smartregister.chw.core.domain.VisitSummary;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.immunization.domain.ServiceRecord;
+import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -108,5 +113,67 @@ public class VisitDao extends AbstractDao {
             return false;
 
         return Integer.valueOf(values.get(0)) > 0;
+    }
+
+    public static Map<String, Date> getUnprocessedVaccines(String baseEntityID) {
+        String sql = "select vd.visit_key , vd.details " +
+                "from visit_details vd " +
+                "inner join visits v on v.visit_id = vd.visit_id " +
+                "where v.base_entity_id = '" + baseEntityID + "'" +
+                "and v.processed = 0 and vd.parent_code = 'vaccine' and vd.details <> 'Vaccine not given'";
+
+        Map<String, Date> res = new HashMap<>();
+
+        DataMap<Pair<String, String>> dataMap = c -> Pair.create(getCursorValue(c, "visit_key"), getCursorValue(c, "details"));
+        List<Pair<String, String>> values = AbstractDao.readData(sql, dataMap);
+        if (values == null || values.size() == 0)
+            return res;
+
+        for (Pair<String, String> pair : values) {
+            try {
+                res.put(pair.first, getDobDateFormat().parse(pair.second));
+            } catch (ParseException e) {
+                Timber.e(e);
+            }
+        }
+
+        return res;
+    }
+
+    public static List<ServiceRecord> getUnprocessedServiceRecords(String baseEntityID) {
+        String sql = "select rt.type , rt.name , vd.details , rt._id  from visit_details vd " +
+                "inner join visits v on vd.visit_id = v.visit_id " +
+                "inner join recurring_service_types rt on rt.name = vd.preprocessed_details " +
+                "where v.base_entity_id = '" + baseEntityID + "' " +
+                "and vd.preprocessed_type = 'SERVICE' and details <> 'Dose not given' and v.processed = 0 " +
+                "and vd.details like '____-__-__'";
+
+        DataMap<ServiceRecord> dataMap = c -> {
+            try {
+                ServiceRecord record = new ServiceRecord();
+                record.setBaseEntityId(baseEntityID);
+                record.setRecurringServiceId(getCursorLongValue(c, "_id"));
+                record.setDate(getDobDateFormat().parse(getCursorValue(c, "details")));
+                record.setType(getCursorValue(c, "type"));
+                record.setName(getCursorValue(c, "name"));
+                record.setSyncStatus(RecurringServiceTypeRepository.TYPE_Unsynced);
+                return record;
+            } catch (ParseException e) {
+                Timber.e(e);
+            }
+            return null;
+        };
+
+        List<ServiceRecord> values = AbstractDao.readData(sql, dataMap);
+        if (values == null || values.size() == 0)
+            return new ArrayList<>();
+
+        List<ServiceRecord> res = new ArrayList<>();
+        for (ServiceRecord serviceRecord : values) {
+            if (serviceRecord != null)
+                res.add(serviceRecord);
+        }
+
+        return res;
     }
 }
