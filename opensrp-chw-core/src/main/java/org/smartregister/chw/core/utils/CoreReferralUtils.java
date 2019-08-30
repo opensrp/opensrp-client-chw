@@ -140,25 +140,15 @@ public class CoreReferralUtils {
                     if (field.has(JsonFormConstants.TYPE) && JsonFormConstants.CHECK_BOX.equals(field.getString(JsonFormConstants.TYPE))) {
                         if (field.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
                             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-<<<<<<< HEAD
-                            formValues.add(getCheckBoxSelectedOptions(options));
-=======
                             String values = getCheckBoxSelectedOptions(options);
                             if (StringUtils.isNotEmpty(values)) {
                                 formValues.add(values);
                             }
->>>>>>> f50c93586fab34c6093b0a43f3fd7532e6f6ff65
                         }
                     } else if (field.has(JsonFormConstants.TYPE) && JsonFormConstants.RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE))) {
                         if (field.has(JsonFormConstants.OPTIONS_FIELD_NAME) && field.has(JsonFormConstants.VALUE)) {
                             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
                             String value = field.getString(JsonFormConstants.VALUE);
-<<<<<<< HEAD
-                            formValues.add(getRadioButtonSelectedOptions(options, value));
-                        }
-                    } else {
-                        formValues.add(getOtherWidgetSelectedItems(field));
-=======
                             String values = getRadioButtonSelectedOptions(options, value);
                             if (StringUtils.isNotEmpty(values)) {
                                 formValues.add(values);
@@ -169,7 +159,6 @@ public class CoreReferralUtils {
                         if (StringUtils.isNotEmpty(values)) {
                             formValues.add(values);
                         }
->>>>>>> f50c93586fab34c6093b0a43f3fd7532e6f6ff65
                     }
                 }
             }
@@ -205,11 +194,7 @@ public class CoreReferralUtils {
         try {
             for (int i = 0; i < options.length(); i++) {
                 JSONObject option = options.getJSONObject(i);
-<<<<<<< HEAD
-                if ((option.has(JsonFormConstants.KEY) && value.equals(option.getString(JsonFormConstants.KEY))) && option.has(JsonFormConstants.TEXT)) {
-=======
                 if ((option.has(JsonFormConstants.KEY) && value.equals(option.getString(JsonFormConstants.KEY))) && (option.has(JsonFormConstants.TEXT) && StringUtils.isNotEmpty(option.getString(JsonFormConstants.VALUE)))) {
->>>>>>> f50c93586fab34c6093b0a43f3fd7532e6f6ff65
                     selectedOptionValues = option.getString(JsonFormConstants.TEXT);
                 }
             }
@@ -223,11 +208,7 @@ public class CoreReferralUtils {
     private static String getOtherWidgetSelectedItems(JSONObject jsonObject) {
         String value = "";
         try {
-<<<<<<< HEAD
-            if (jsonObject.has(JsonFormConstants.VALUE)) {
-=======
             if (jsonObject.has(JsonFormConstants.VALUE) && StringUtils.isNotEmpty(jsonObject.getString(JsonFormConstants.VALUE))) {
->>>>>>> f50c93586fab34c6093b0a43f3fd7532e6f6ff65
                 value = jsonObject.getString(JsonFormConstants.VALUE);
             }
         } catch (JSONException e) {

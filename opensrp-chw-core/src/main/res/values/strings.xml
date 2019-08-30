@@ -349,9 +349,6 @@
 
     <!-- Referrals -->
     <string name="return_to_task_details">Return to Referral details</string>
-<<<<<<< HEAD
-=======
     <string name="referral_submitted">Referral sent to facility</string>
->>>>>>> f50c93586fab34c6093b0a43f3fd7532e6f6ff65
     <string name="ga_label">GA</string>
 </resources>

@@ -81,7 +81,7 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements CoreAncMedi
                 }
 
 
-                String[] hf_params = {"anc_visit_date", "weight", "sys_bp", "dia_bp", "hb_level", "ifa_received", "tests_done"};
+                String[] hf_params = {"anc_hf_visit_date", "weight", "sys_bp", "dia_bp", "hb_level", "ifa_received", "tests_done"};
                 extractHFVisit(visits, hf_params, hf_visits, x, context);
                 extractImmunization(visits, immunizations, x);
                 extractIPSp(visits, services, x);
@@ -195,7 +195,7 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements CoreAncMedi
                 TextView tvIfa = view.findViewById(R.id.ifa_received);
                 TextView tvTests = view.findViewById(R.id.tests);
 
-                tvTitle.setText(MessageFormat.format(context.getString(R.string.anc_visit_date), (hf_visits.size() - x), getMapValue(vals, "anc_visit_date")));
+                tvTitle.setText(MessageFormat.format(context.getString(R.string.anc_visit_date), (hf_visits.size() - x), getMapValue(vals, "anc_hf_visit_date")));
                 tvWeight.setText(MessageFormat.format(context.getString(R.string.weight_in_kgs), getMapValue(vals, "weight")));
                 tvBP.setText(MessageFormat.format(context.getString(R.string.bp_in_mmhg), getMapValue(vals, "sys_bp"), getMapValue(vals, "dia_bp")));
                 tvHB.setText(context.getString(R.string.hb_level_in_g_dl, getMapValue(vals, "hb_level")));

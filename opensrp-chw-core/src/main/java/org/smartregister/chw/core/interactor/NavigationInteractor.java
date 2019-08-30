@@ -78,7 +78,6 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.TASK)) {
             mainCondition = " INNER JOIN ec_family_member  ON  ec_family_member.base_entity_id = task.for COLLATE NOCASE WHERE task.status =\"READY\"  ORDER BY task.start desc";
         } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME)) {
-<<<<<<< HEAD
             StringBuilder build = new StringBuilder();
             build.append(MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER));
             build.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
@@ -92,15 +91,7 @@ public class NavigationInteractor implements NavigationContract.Interactor {
             build.append(MessageFormat.format(" where {0}.{1} is not null AND {0}.{2} is 0 ", CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, ChwDBConstants.DELIVERY_DATE, ChwDBConstants.IS_CLOSED));
 
             mainCondition = build.toString();
-=======
-            mainCondition = MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER) +
-                    MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
-                            CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, DBConstants.KEY.BASE_ENTITY_ID) +
-                    MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY) +
-                    MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
-                            CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID) +
-                    MessageFormat.format(" where {0}.{1} is not null AND {0}.{2} is 0 ", CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, ChwDBConstants.DELIVERY_DATE, ChwDBConstants.IS_CLOSED);
->>>>>>> f50c93586fab34c6093b0a43f3fd7532e6f6ff65
+
         } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION)) {
             mainCondition = MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER) +
                     MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
