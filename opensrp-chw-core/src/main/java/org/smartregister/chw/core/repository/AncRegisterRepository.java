@@ -126,7 +126,7 @@ public class AncRegisterRepository extends BaseRepository {
         return false;
     }
 
-    public int getAncWomenCount(String familyBaseID) {
+    public int getAncWomenCount(String familyBaseID, String register) {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = null;
         try {
@@ -136,8 +136,8 @@ public class AncRegisterRepository extends BaseRepository {
             String selection = DBConstants.KEY.RELATIONAL_ID + " = ? " + COLLATE_NOCASE + " AND " +
                     org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = ? " + COLLATE_NOCASE;
             String[] selectionArgs = new String[]{familyBaseID, "0"};
-
-            cursor = database.query(CoreConstants.TABLE_NAME.ANC_MEMBER,
+            String tableName = CoreConstants.TABLE_NAME.ANC_MEMBER.equals(register) ? CoreConstants.TABLE_NAME.ANC_MEMBER : CoreConstants.TABLE_NAME.PNC_MEMBER;
+            cursor = database.query(tableName,
                     ANC_COUNT_TABLE_COLUMNS, selection, selectionArgs, null, null, null);
 
             return cursor.getCount();
