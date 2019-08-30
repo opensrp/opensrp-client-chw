@@ -90,7 +90,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     @Override // to chw
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+        if (resultCode != RESULT_OK) return;
+
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON) {
             try {
                 String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                 JSONObject form = new JSONObject(jsonString);
@@ -121,6 +123,8 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
             } catch (Exception e) {
                 Timber.e(e, "AncMemberProfileActivity -- > onActivityResult");
             }
+        } else if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
+            finish();
         }
     }
 

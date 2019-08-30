@@ -569,7 +569,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
             super.onDestroy();
             unregisterReceiver(mDateTimeChangedReceiver);
             handler.removeCallbacksAndMessages(null);
-        }catch (Exception e){
+        } catch (Exception e) {
             Timber.e(e);
         }
     }
@@ -577,6 +577,10 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
+            this.finish();
+        }
+
         if (resultCode != Activity.RESULT_OK) return;
         switch (requestCode) {
             case CoreConstants.ProfileActivityResults.CHANGE_COMPLETED:

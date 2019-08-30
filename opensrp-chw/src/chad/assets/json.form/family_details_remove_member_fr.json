@@ -57,7 +57,7 @@
       {
         "key": "spacer",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "spacer",
         "spacer_height": "10sp"
@@ -65,7 +65,7 @@
       {
         "key": "details",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
         "text": "",
@@ -74,7 +74,7 @@
       {
         "key": "divider1",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "h_line"
       },
@@ -82,7 +82,7 @@
         "key": "spacer",
         "type": "spacer",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "spacer_height": "15dp"
       },
@@ -117,7 +117,7 @@
       {
         "key": "dob",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "spacer",
         "expanded": false,
@@ -188,7 +188,7 @@
       {
         "key": "age_at_death",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "label": "Âge au décès",
         "hint": "Âge au décès",

@@ -30,18 +30,23 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
             bottomNavigationView.setOnNavigationItemSelectedListener(new CoreBottomNavigationListener(activity));
         }
 
-        if (!BuildConfig.SUPPORT_QR) {
+        if (!BuildConfig.SUPPORT_QR)
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
-        }
+
+        if(!BuildConfig.SUPPORT_REPORT)
+            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_job_aids);
+
     }
 
     @Override
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();
 
-        if (!BuildConfig.SUPPORT_QR) {
+        if (!BuildConfig.SUPPORT_QR)
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
-        }
+
+        if(!BuildConfig.SUPPORT_REPORT)
+            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_job_aids);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new HfFamilyBottomNavListener(this, bottomNavigationView));
     }

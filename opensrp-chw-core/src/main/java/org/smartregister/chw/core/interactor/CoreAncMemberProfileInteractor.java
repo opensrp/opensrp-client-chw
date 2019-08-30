@@ -2,7 +2,6 @@ package org.smartregister.chw.core.interactor;
 
 import android.content.Context;
 
-import org.ei.drishti.dto.AlertStatus;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
@@ -15,6 +14,7 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.AncMemberProfileContract;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.domain.Task;
 import org.smartregister.repository.AllSharedPreferences;
 
