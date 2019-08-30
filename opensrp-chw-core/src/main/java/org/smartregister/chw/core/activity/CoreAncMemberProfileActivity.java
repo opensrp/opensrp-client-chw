@@ -78,11 +78,27 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
     }
 
     @Override
+    public void openMedicalHistory() {
+        CoreAncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+    }
+
+    @Override
+    public abstract void openUpcomingService();
+
+    @Override
+    public abstract void openFamilyDueServices();
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+    }
+
+    @Override
     public void setupViews() {
         super.setupViews();
         Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.ANC_HOME_VISIT);
 
-        VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, MEMBER_OBJECT.getLastMenstrualPeriod(), MEMBER_OBJECT.getLastContactVisit(), null, new DateTime(MEMBER_OBJECT.getDateCreated()).toLocalDate());
+        VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, MEMBER_OBJECT.getLastContactVisit(), null, new DateTime(MEMBER_OBJECT.getDateCreated()).toLocalDate());
         String visitStatus = visitSummary.getVisitStatus();
 
         if (!visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) &&
@@ -100,22 +116,6 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
             record_reccuringvisit_done_bar.setVisibility(View.GONE);
         }
     }
-
-    @Override
-    public void onClick(View view) {
-        super.onClick(view);
-    }
-
-    @Override
-    public void openMedicalHistory() {
-        CoreAncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
-    }
-
-    @Override
-    public abstract void openUpcomingService();
-
-    @Override
-    public abstract void openFamilyDueServices();
 
     @Override
     public abstract void setClientTasks(Set<Task> taskList);

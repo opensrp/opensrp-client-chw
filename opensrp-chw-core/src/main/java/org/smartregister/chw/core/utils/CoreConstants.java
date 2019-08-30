@@ -2,11 +2,17 @@ package org.smartregister.chw.core.utils;
 
 import android.content.res.AssetManager;
 
+import org.json.JSONObject;
+
 import java.util.Locale;
+
+import static org.smartregister.chw.core.utils.CoreJsonFormUtils.ENCOUNTER_TYPE;
+import static org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.MALARIA_FOLLOW_UP_VISIT;
 
 public class CoreConstants {
 
     public static final String ENTITY_ID = "entity_id";
+    public static final String REFERRAL_PLAN_ID = "5270285b-5a3b-4647-b772-c0b3c52e2b71";
     public static String EC_CLIENT_FIELDS = "ec_client_fields.json";
 
     public enum VisitType {DUE, OVERDUE, LESS_TWENTY_FOUR, VISIT_THIS_MONTH, NOT_VISIT_THIS_MONTH, EXPIRY}
@@ -116,6 +122,7 @@ public class CoreConstants {
         private static final String ANC_REGISTRATION = "anc_member_registration";
         private static final String PREGNANCY_OUTCOME = "anc_pregnancy_outcome";
         private static final String MALARIA_CONFIRMATION = "malaria_confirmation";
+        private static final String MALARIA_FOLLOW_UP_VISIT_FORM = "malaria_follow_up_visit";
         private static final String WASH_CHECK = "wash_check";
         private static final String CHILD_REFERRAL_FORM = "child_referral_form";
         public static AssetManager assetManager;
@@ -187,6 +194,15 @@ public class CoreConstants {
 
         public static String getMalariaConfirmation() {
             return Utils.getLocalForm(MALARIA_CONFIRMATION, locale, assetManager);
+        }
+
+        public static boolean isMultiPartForm(JSONObject jsonForm) {
+            String encounterType = jsonForm.optString(ENCOUNTER_TYPE);
+            return encounterType.equals(MALARIA_FOLLOW_UP_VISIT) ? false : true;
+        }
+
+        public static String getMalariaFollowUpVisitForm() {
+            return Utils.getLocalForm(MALARIA_FOLLOW_UP_VISIT_FORM, locale, assetManager);
         }
 
         public static String getWashCheck() {
@@ -391,6 +407,7 @@ public class CoreConstants {
         public static final String CHILD = "ec_child";
         public static final String CHILD_ACTIVITY = "ec_child_activity";
         public static final String ANC_MEMBER = "ec_anc_register";
+        public static final String PNC_MEMBER = "ec_pregnancy_outcome";
         public static final String ANC_MEMBER_LOG = "ec_anc_log";
         public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
         public static final String ANC_PREGNANCY_OUTCOME = "ec_pregnancy_outcome";
@@ -448,6 +465,7 @@ public class CoreConstants {
         public static final String IMMUNIZATION_EXPIRED = "immunization-expire-rules.yml";
         public static final String CONTACT_RULES = "contact-rules.yml";
         public static final String PNC_HEALTH_FACILITY_VISIT = "pnc-health-facility-schedule-rule.yml";
+        public static final String MALARIA_FOLLOW_UP_VISIT = "malaria-followup-rules.yml";
     }
 
     public static class PROFILE_CHANGE_ACTION {
@@ -482,6 +500,8 @@ public class CoreConstants {
         public static final String BIRTH_REGIST_NUMBER = "birth_regist_number";
         public static final String RHC_CARD = "rhc_card";
         public static final String NUTRITION_STATUS = "nutrition_status";
+        public static final String GESTATION_AGE = "gestation_age";
+        public static final String IS_PROBLEM = "is_problem";
 
 
         public static class FAMILY_MEMBER {
@@ -627,5 +647,6 @@ public class CoreConstants {
 
     public static final class TASKS_FOCUS {
         public static final String SICK_CHILD = "Sick Child";
+        public static final String ANC_DANGER_SIGNS = "ANC Danger Signs";
     }
 }
