@@ -136,7 +136,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                 }
                 break;
             case org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT:
-              //  handler.postDelayed(this::displayView, 200);
+               handler.postDelayed(this::displayView, 200);
                 break;
             default:
                 break;
