@@ -38,7 +38,6 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.Date;
-import java.util.Map;
 import java.util.Set;
 
 import timber.log.Timber;
@@ -189,7 +188,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
     @Override
     public void setClientTasks(Set<Task> taskList) {
-        addGA();
         if (referralRecyclerView != null && taskList.size() > 0) {
 <<<<<<< HEAD
             RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, getCommonPersonObjectClient(), CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY);
@@ -199,15 +197,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
             referralRecyclerView.setAdapter(mAdapter);
             referralRow.setVisibility(View.VISIBLE);
         }
-    }
-
-    private void addGA() {
-        CommonPersonObjectClient commonPersonObjectClient = getCommonPersonObjectClient();
-        int ga = MEMBER_OBJECT.getGestationAge();
-        Map<String, String> details = commonPersonObjectClient.getDetails();
-        details.put(CoreConstants.JsonAssets.GESTATION_AGE, String.valueOf(ga));
-        commonPersonObjectClient.setDetails(details);
-        setCommonPersonObjectClient(commonPersonObjectClient);
     }
 
     public CommonPersonObjectClient getCommonPersonObjectClient() {

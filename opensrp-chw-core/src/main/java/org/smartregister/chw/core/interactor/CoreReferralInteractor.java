@@ -11,6 +11,7 @@ import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.AppExecutors;
+import org.smartregister.family.util.DBConstants;
 
 import timber.log.Timber;
 
@@ -27,19 +28,23 @@ public class CoreReferralInteractor implements BaseReferralRegisterFragmentContr
     }
 
     @Override
-    public void getClientDetails(String baseEntityId, BaseReferralRegisterFragmentContract.InteractorCallBack callback) {
+    public void getClientDetails(String baseEntityId, BaseReferralRegisterFragmentContract.InteractorCallBack callback, String taskFocus) {
         Runnable runnable = () -> {
-            String query = CoreReferralUtils.mainSelect(CoreConstants.TABLE_NAME.FAMILY_MEMBER, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+            String query = CoreReferralUtils.mainSelect(CoreConstants.TABLE_NAME.FAMILY_MEMBER, CoreConstants.TABLE_NAME.FAMILY, baseEntityId);
 
             try (Cursor cursor = getCommonRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER).rawCustomQueryForAdapter(query)) {
                 if (cursor != null && cursor.moveToFirst()) {
-                    CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                    CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER).readAllcommonforCursorAdapter(cursor);
                     pClient = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
                     pClient.setColumnmaps(personObject.getColumnmaps());
-                    final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
-                    final CommonPersonObject familyPersonObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyId);
-                    final CommonPersonObjectClient client = new CommonPersonObjectClient(familyPersonObject.getCaseId(), familyPersonObject.getDetails(), "");
-                    client.setColumnmaps(familyPersonObject.getColumnmaps());
+
+                    final String caregiverId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.PRIMARY_CAREGIVER, false);
+                    fetchCareGiverDetails(caregiverId);
+
+                    if (CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS.equals(taskFocus)) {
+                        final String familyAncMemberId = Utils.getValue(pClient.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
+                        fetchAncDetails(familyAncMemberId);
+                    }
 
                     appExecutors.mainThread().execute(() -> callback.clientDetails(pClient));
                 }
@@ -54,5 +59,31 @@ public class CoreReferralInteractor implements BaseReferralRegisterFragmentContr
 
     private CommonRepository getCommonRepository(String tableName) {
         return Utils.context().commonrepository(tableName);
+    }
+
+    private void fetchCareGiverDetails(String careGiverId) {
+        String query = CoreReferralUtils.mainCareGiverSelect(CoreConstants.TABLE_NAME.FAMILY_MEMBER, careGiverId);
+        Timber.d("The caregiver query %s", query);
+        try (Cursor cursor = getCommonRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER).rawCustomQueryForAdapter(query)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER).readAllcommonforCursorAdapter(cursor);
+                pClient.getColumnmaps().putAll(personObject.getColumnmaps());
+            }
+        } catch (Exception e) {
+            Timber.e(e, "CoreReferralInteractor --> fetchCareGiverDetails");
+        }
+    }
+
+    private void fetchAncDetails(String familyMemberId) {
+        String query = CoreReferralUtils.mainAncDetailsSelect(CoreConstants.TABLE_NAME.ANC_MEMBER, familyMemberId);
+        Timber.d("The anc member query %s", query);
+        try (Cursor cursor = getCommonRepository(CoreConstants.TABLE_NAME.ANC_MEMBER).rawCustomQueryForAdapter(query)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.ANC_MEMBER).readAllcommonforCursorAdapter(cursor);
+                pClient.getColumnmaps().putAll(personObject.getColumnmaps());
+            }
+        } catch (Exception e) {
+            Timber.e(e, "CoreReferralInteractor --> fetchAncDetails");
+        }
     }
 }
