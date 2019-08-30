@@ -13,6 +13,9 @@ import java.util.HashMap;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME;
+import static org.smartregister.chw.core.utils.CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION;
+
 public class AncRegisterRepository extends BaseRepository {
 
     public static final String TABLE_NAME = "ec_family_member";
@@ -26,6 +29,7 @@ public class AncRegisterRepository extends BaseRepository {
     public static final String[] TABLE_COLUMNS = {FIRST_NAME, MIDDLE_NAME, LAST_NAME, PHONE_NUMBER};
     public static final String[] ANC_COUNT_TABLE_COLUMNS = {BASE_ENTITY_ID};
     public static final String[] LAST_MENSTRUAL_PERIOD_COLUMNS = {LAST_MENSTRUAL_PERIOD};
+
 
 
     public AncRegisterRepository(Repository repository) {
@@ -126,7 +130,7 @@ public class AncRegisterRepository extends BaseRepository {
         return false;
     }
 
-    public int getAncWomenCount(String familyBaseID) {
+    public int getAncWomenCount(String familyBaseID, String register) {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = null;
         try {
@@ -136,8 +140,8 @@ public class AncRegisterRepository extends BaseRepository {
             String selection = DBConstants.KEY.RELATIONAL_ID + " = ? " + COLLATE_NOCASE + " AND " +
                     org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = ? " + COLLATE_NOCASE;
             String[] selectionArgs = new String[]{familyBaseID, "0"};
-
-            cursor = database.query(CoreConstants.TABLE_NAME.ANC_MEMBER,
+            String tableName = CoreConstants.TABLE_NAME.ANC_MEMBER.equals(register) ? CoreConstants.TABLE_NAME.ANC_MEMBER : CoreConstants.TABLE_NAME.PNC_MEMBER;
+            cursor = database.query(tableName,
                     ANC_COUNT_TABLE_COLUMNS, selection, selectionArgs, null, null, null);
 
             return cursor.getCount();

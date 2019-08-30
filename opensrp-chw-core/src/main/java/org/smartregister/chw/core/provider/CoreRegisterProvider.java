@@ -57,18 +57,25 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
         }
     }
 
-    protected void updateChildIcons(RegisterViewHolder viewHolder, List<Map<String, String>> list, int ancWomanCount) {
-        ImageView imageView;
-        LinearLayout linearLayout;
-        if (ancWomanCount > 0) {
-            for (int i = 1; i <= ancWomanCount; i++) {
-                imageView = new ImageView(context);
-                imageView.setImageResource(R.mipmap.ic_anc_pink);
-                linearLayout = (LinearLayout) viewHolder.memberIcon;
+    private void updatePncAncIcons(RegisterViewHolder viewHolder, int womanCount, String register) {
+        if (womanCount > 0) {
+            for (int i = 1; i <= womanCount; i++) {
+                ImageView imageView = new ImageView(context);
+                imageView.setImageResource(CoreConstants.TABLE_NAME.ANC_MEMBER.equals(register) ? R.mipmap.ic_anc_pink : R.mipmap.row_pnc);
+                LinearLayout linearLayout = (LinearLayout) viewHolder.memberIcon;
                 linearLayout.addView(imageView);
             }
         }
+    }
+
+    protected void updateChildIcons(RegisterViewHolder viewHolder, List<Map<String, String>> list, int ancWomanCount, int pncWomanCount) {
+
+        updatePncAncIcons(viewHolder, ancWomanCount, CoreConstants.TABLE_NAME.ANC_MEMBER);
+        updatePncAncIcons(viewHolder, pncWomanCount, CoreConstants.TABLE_NAME.PNC_MEMBER);
+
         if (list != null && !list.isEmpty()) {
+            ImageView imageView;
+            LinearLayout linearLayout;
             for (Map<String, String> map : list) {
                 imageView = new ImageView(context);
                 String gender = map.get(DBConstants.KEY.GENDER);
@@ -81,7 +88,6 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
                 linearLayout.addView(imageView);
             }
         }
-
     }
 
     public abstract void updateDueColumn(Context context, RegisterViewHolder viewHolder, ChildVisit childVisit);
