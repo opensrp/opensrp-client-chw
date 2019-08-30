@@ -151,7 +151,7 @@
       {
         "key": "birthinstroductions",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
         "text": "Demandez à voir la declaration de naissance et demandez au parent d'enregistrer la naissance auprès des agents d'Etat civil.",
@@ -166,7 +166,7 @@
       {
         "key": "caregiverinstroductions",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
         "text": "Demandez au parent de faire enregistrer la naissance de l'enfant auprès des agents d'Etat civil.",

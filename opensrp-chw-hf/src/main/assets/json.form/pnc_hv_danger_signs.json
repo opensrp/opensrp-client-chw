@@ -141,7 +141,7 @@
       {
         "key": "danger_signs_present_toaster",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Danger sign! \nRefer immediately to health facility.",

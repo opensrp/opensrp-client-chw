@@ -79,6 +79,9 @@ public class CoreConstants {
         public static final String MINIMUM_DIETARY_DIVERSITY = "Minimum dietary diversity";
         public static final String MUAC = "Mid-upper arm circumference (MUAC)";
         public static final String LLITN = "Sleeping under a LLITN";
+        public static final String VITAMIN_A = "Vitamin A";
+        public static final String DEWORMING = "De-worming";
+        public static final String EXCLUSIVE_BREASTFEEDING = "Exclusive breast feeding";
         public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
         public static final String UPDATE_FAMILY_MEMBER_RELATIONS = "Update Family Member Relations";
 
