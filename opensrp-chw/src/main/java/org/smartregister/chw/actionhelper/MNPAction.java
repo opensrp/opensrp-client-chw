@@ -5,8 +5,7 @@ import android.content.Context;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Triple;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,7 +13,8 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
-import org.smartregister.immunization.db.VaccineRepo;
+import org.smartregister.chw.util.Utils;
+import org.smartregister.domain.Alert;
 import org.smartregister.util.JsonFormUtils;
 
 import java.text.MessageFormat;
@@ -27,45 +27,52 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public class TTAction extends HomeVisitActionHelper {
+public class MNPAction extends HomeVisitActionHelper {
     private Context context;
+    private String serviceIteration;
     private String str_date;
     private Date parsedDate;
-    private Triple<DateTime, VaccineRepo.Vaccine, String> vaccineStringTriple;
+    private Alert alert;
 
-    public TTAction(Triple<DateTime, VaccineRepo.Vaccine, String> vaccineStringTriple, Context context) {
-        this.vaccineStringTriple = vaccineStringTriple;
+    public MNPAction(Context context, String serviceIteration, Alert alert) {
         this.context = context;
+        this.serviceIteration = serviceIteration;
+        this.alert = alert;
+    }
+
+    @Override
+    public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
+        // prevent default behavoiur
+    }
+
+    @Override
+    public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+        return isOverDue() ? BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
+    }
+
+    private boolean isOverDue() {
+        return new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
     }
 
     public JSONObject preProcess(JSONObject jsonObject, String iteration) throws JSONException {
         JSONArray fields = JsonFormUtils.fields(jsonObject);
 
         String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
-        jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, iteration));
+        String formatted_count = MessageFormat.format("{0}", Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context));
+        jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, formatted_count));
 
-        JSONObject visit_field = JsonFormUtils.getFieldJSONObject(fields, "tt{0}_date");
-        visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration));
-        visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), iteration));
+        JSONObject visit_field = JsonFormUtils.getFieldJSONObject(fields, "mnp{0}_date");
+        visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration, context));
+        visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context)));
 
         return jsonObject;
-    }
-
-    @Override
-    public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> map) {
-        Timber.v("onJsonFormLoaded");
-    }
-
-    @Override
-    public String getPreProcessed() {
-        return null;
     }
 
     @Override
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            str_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("tt{0}_date", vaccineStringTriple.getRight()));
+            str_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("mnp{0}_date", serviceIteration));
 
             try {
                 parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(str_date);
@@ -76,21 +83,6 @@ public class TTAction extends HomeVisitActionHelper {
         } catch (JSONException e) {
             Timber.e(e);
         }
-    }
-
-    @Override
-    public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-        return null;
-    }
-
-    @Override
-    public String getPreProcessedSubTitle() {
-        return null;
-    }
-
-    @Override
-    public String postProcess(String s) {
-        return null;
     }
 
     @Override
@@ -105,8 +97,9 @@ public class TTAction extends HomeVisitActionHelper {
 
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-        if (StringUtils.isBlank(str_date))
+        if (StringUtils.isBlank(str_date)) {
             return BaseAncHomeVisitAction.Status.PENDING;
+        }
 
         if (parsedDate != null) {
             return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -114,5 +107,4 @@ public class TTAction extends HomeVisitActionHelper {
             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
         }
     }
-
 }
