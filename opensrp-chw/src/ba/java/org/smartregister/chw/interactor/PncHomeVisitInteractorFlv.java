@@ -309,7 +309,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                String counsellingStatus = couselling_pnc.equals("None") ? "Not done" : "Done";
+                String counsellingStatus = "None".equals(couselling_pnc) ? "Not done" : "Done";
                 return MessageFormat.format("{0}: {1}", "Counselling", counsellingStatus);
             }
 
