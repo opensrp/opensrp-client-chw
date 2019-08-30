@@ -351,4 +351,8 @@
     <string name="return_to_task_details">Return to Referral details</string>
     <string name="referral_submitted">Referral sent to facility</string>
     <string name="ga_label">GA</string>
+
+    <string name="phone_not_provided">Phone not provided</string>
+    <string name="anc_danger_sign_prefix">ANC Danger Signs; Symptoms: %s</string>
+    <string name="client_name_age_suffix">%s, %s</string>
 </resources>

@@ -100,19 +100,6 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             setStartingActivity((String) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.STARTING_ACTIVITY));
         }
 
-<<<<<<< HEAD
-        if (getPersonObjectClient() == null) {
-            Timber.e("ReferralTaskViewActivity --> The person object is null");
-            finish();
-        }
-
-        if (getTask() == null) {
-            Timber.e("ReferralTaskViewActivity --> The task object is null");
-            finish();
-        }
-
-=======
->>>>>>> f50c93586fab34c6093b0a43f3fd7532e6f6ff65
         referralsTaskViewClickListener.setReferralTaskViewActivity(this);
         if (getTask() != null) {
             referralsTaskViewClickListener.setTaskFocus(getTask().getFocus());

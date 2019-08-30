@@ -189,11 +189,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     @Override
     public void setClientTasks(Set<Task> taskList) {
         if (referralRecyclerView != null && taskList.size() > 0) {
-<<<<<<< HEAD
-            RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, getCommonPersonObjectClient(), CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY);
-=======
             RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, MEMBER_OBJECT, familyHeadName, familyHeadPhoneNumber, getCommonPersonObjectClient(), CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY);
->>>>>>> f50c93586fab34c6093b0a43f3fd7532e6f6ff65
             referralRecyclerView.setAdapter(mAdapter);
             referralRow.setVisibility(View.VISIBLE);
         }
