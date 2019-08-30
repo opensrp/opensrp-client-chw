@@ -29,26 +29,22 @@ public class CoreReferralInteractor implements BaseReferralRegisterFragmentContr
     @Override
     public void getClientDetails(String baseEntityId, BaseReferralRegisterFragmentContract.InteractorCallBack callback) {
         Runnable runnable = () -> {
-            String query = CoreReferralUtils.mainSelect(CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+            String query = CoreReferralUtils.mainSelect(CoreConstants.TABLE_NAME.FAMILY_MEMBER, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
-            try (Cursor cursor = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query)) {
+            try (Cursor cursor = getCommonRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER).rawCustomQueryForAdapter(query)) {
                 if (cursor != null && cursor.moveToFirst()) {
                     CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
-                    pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                            personObject.getDetails(), "");
+                    pClient = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
                     pClient.setColumnmaps(personObject.getColumnmaps());
                     final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
-
                     final CommonPersonObject familyPersonObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyId);
                     final CommonPersonObjectClient client = new CommonPersonObjectClient(familyPersonObject.getCaseId(), familyPersonObject.getDetails(), "");
                     client.setColumnmaps(familyPersonObject.getColumnmaps());
 
-                    appExecutors.mainThread().execute(() -> {
-                        callback.clientDetails(pClient);
-                    });
+                    appExecutors.mainThread().execute(() -> callback.clientDetails(pClient));
                 }
-            } catch (Exception ex) {
-                Timber.e(ex, "CoreReferralInteractor --> getClientDetails");
+            } catch (Exception e) {
+                Timber.e(e, "CoreReferralInteractor --> getClientDetails");
             }
 
         };
@@ -56,7 +52,7 @@ public class CoreReferralInteractor implements BaseReferralRegisterFragmentContr
         appExecutors.diskIO().execute(runnable);
     }
 
-    public CommonRepository getCommonRepository(String tableName) {
+    private CommonRepository getCommonRepository(String tableName) {
         return Utils.context().commonrepository(tableName);
     }
 }

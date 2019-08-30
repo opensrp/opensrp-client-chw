@@ -56,7 +56,7 @@ public class IPTPAction extends HomeVisitActionHelper {
     public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
         Timber.v("onJsonFormLoaded");
     }
-
+/*
     @Override
     public void onPayloadReceived(BaseAncHomeVisitAction ba) {
         try {
@@ -76,7 +76,7 @@ public class IPTPAction extends HomeVisitActionHelper {
             Timber.e(e);
         }
     }
-
+*/
     @Override
     public void onPayloadReceived(String jsonPayload) {
         try {

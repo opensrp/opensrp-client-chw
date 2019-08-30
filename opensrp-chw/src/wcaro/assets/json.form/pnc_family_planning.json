@@ -106,7 +106,7 @@
       {
         "key": "fp_start_date",
         "openmrs_entity_parent": "163757AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Start date",

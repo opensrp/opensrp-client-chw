@@ -79,7 +79,7 @@
       {
         "key": "anc_counseling_toaster",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Dates de visites à venir:\n\n{0}.",

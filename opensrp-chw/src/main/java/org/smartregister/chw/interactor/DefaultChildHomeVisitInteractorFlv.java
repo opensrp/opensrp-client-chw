@@ -293,6 +293,15 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         ExclusiveBreastFeedingAction helper = new ExclusiveBreastFeedingAction(context, alert);
         JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), memberObject.getBaseEntityId());
+
+        Map<String, List<VisitDetail>> details = null;
+        if (editMode) {
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.EXCLUSIVE_BREASTFEEDING);
+            if (lastVisit != null) {
+                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            }
+        }
+
         if (details != null && details.size() > 0) {
             JsonFormUtils.populateForm(jsonObject, details);
         }
@@ -301,6 +310,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withHelper(helper)
                 .withDetails(details)
                 .withOptional(false)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
+                .withPayloadDetails(MessageFormat.format("Exclusive_breastfeeding{0}", serviceIteration))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, jsonObject, details, serviceIteration))
                 .withServiceWrapper(serviceWrapper)
                 .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
@@ -335,6 +348,15 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         VitaminaAction helper = new VitaminaAction(context, serviceIteration, alert);
         JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getVitaminA(), memberObject.getBaseEntityId());
+
+        Map<String, List<VisitDetail>> details = null;
+        if (editMode) {
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.VITAMIN_A);
+            if (lastVisit != null) {
+                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            }
+        }
+
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
         if (details != null && details.size() > 0) {
             JsonFormUtils.populateForm(jsonObject, details);
@@ -344,6 +366,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withHelper(helper)
                 .withDetails(details)
                 .withOptional(false)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
+                .withPayloadDetails(MessageFormat.format("Vitamin_A{0}", serviceIteration))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
                 .withServiceWrapper(serviceWrapper)
                 .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
@@ -378,6 +404,15 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         DewormingAction helper = new DewormingAction(context, serviceIteration, alert);
         JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getDEWORMING(), memberObject.getBaseEntityId());
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
+
+        Map<String, List<VisitDetail>> details = null;
+        if (editMode) {
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.DEWORMING);
+            if (lastVisit != null) {
+                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            }
+        }
+
         if (details != null && details.size() > 0) {
             JsonFormUtils.populateForm(jsonObject, details);
         }
@@ -386,6 +421,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withHelper(helper)
                 .withDetails(details)
                 .withOptional(false)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
+                .withPayloadDetails(MessageFormat.format("Deworming_{0}", serviceIteration))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
                 .withServiceWrapper(serviceWrapper)
                 .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
