@@ -22,9 +22,9 @@ public class ReferralModel extends BaseReferralModel {
     }
 
     @Override
-    protected String[] mainColumns(String tableName, String entitytable) {
-        Set<String> columns = new HashSet<>(Arrays.asList(super.mainColumns(tableName, entitytable)));
-        addClientDetails(entitytable, columns);
+    protected String[] mainColumns(String tableName, String entityTable) {
+        Set<String> columns = new HashSet<>(Arrays.asList(super.mainColumns(tableName, entityTable)));
+        addClientDetails(entityTable, columns);
         addTaskDetails(columns);
         return columns.toArray(new String[]{});
     }
