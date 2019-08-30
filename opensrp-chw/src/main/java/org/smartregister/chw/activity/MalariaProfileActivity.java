@@ -38,7 +38,6 @@ import static org.smartregister.chw.core.utils.Utils.malariaToAncMember;
 
 public class MalariaProfileActivity extends BaseMalariaProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String CLIENT = "client";
-    private CoreFamilyMemberFloatingMenu familyFloatingMenu;
 
     public static void startMalariaActivity(Activity activity, MemberObject memberObject, CommonPersonObjectClient client) {
         Intent intent = new Intent(activity, MalariaProfileActivity.class);
@@ -49,10 +48,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
     @Override
     protected void setupViews() {
-//        super.setupViews();
-
-        // add floating menu
-        familyFloatingMenu = new FamilyMemberFloatingMenu(this);
+        CoreFamilyMemberFloatingMenu familyFloatingMenu = new FamilyMemberFloatingMenu(this);
         LinearLayout.LayoutParams linearLayoutParams =
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
