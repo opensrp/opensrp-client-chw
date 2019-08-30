@@ -117,7 +117,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                 }
                 break;
             case org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT:
-                handler.postDelayed(this::displayView, 200);
+              //  handler.postDelayed(this::displayView, 200);
                 break;
             default:
                 break;
@@ -136,17 +136,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
             startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (Exception e) {
             Timber.e(e);
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        super.onClick(view);
-        int id = view.getId();
-        if (id == R.id.textview_record_visit || id == R.id.textview_record_reccuring_visit) {
-            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
-        } else if (id == R.id.textview_edit) {
-            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, true);
         }
     }
 
@@ -171,6 +160,17 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
         intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        int id = view.getId();
+        if (id == R.id.textview_record_visit || id == R.id.textview_record_reccuring_visit) {
+            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
+        } else if (id == R.id.textview_edit) {
+            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, true);
+        }
     }
 
     @Override

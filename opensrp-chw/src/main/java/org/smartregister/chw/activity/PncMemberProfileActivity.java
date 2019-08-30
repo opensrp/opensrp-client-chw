@@ -165,15 +165,10 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         return client;
     }
 
-
-    @Override
-    public void setProfileImage(String baseEntityId, String entityType) {
-    }
-
     @Override
     public void setupViews() {
         super.setupViews();
-        imageViewCross = findViewById(R.id.cross_image);
+        imageViewCross = findViewById(R.id.tick_image);
         imageViewCross.setOnClickListener(this);
         PncVisitAlertRule summaryVisit = getVisitDetails();
         String statusVisit = summaryVisit.getButtonStatus();
@@ -199,7 +194,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
             } else {
                 textview_record_visit.setVisibility(View.VISIBLE);
-                textview_record_visit.setBackgroundResource(R.drawable.record_btn_anc_selector);
+                textview_record_visit.setBackgroundResource(R.drawable.rounded_blue_btn);
             }
         } else {
             textview_record_visit.setBackgroundResource(R.drawable.rounded_white_btn);
@@ -244,12 +239,30 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     }
 
     @Override
-    public void updateVisitNotDone(long value) {
+    public void openVisitMonthView() {
         return;
     }
 
     @Override
-    public void openVisitMonthView() {
+    public void openUpcomingService() {
+        PncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
+    }
+
+    @Override
+    public void openFamilyDueServices() {
+        Intent intent = new Intent(this, FamilyProfileActivity.class);
+
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
+
+        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
+        startActivity(intent);
+    }
+
+    @Override
+    public void updateVisitNotDone(long value) {
         return;
     }
 
@@ -271,10 +284,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         }
     }
 
-    @Override
-    public void openUpcomingService() {
-        PncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
-    }
 
     @Override
     public void setFamilyStatus(AlertStatus status) {
@@ -290,19 +299,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         } else if (status == AlertStatus.urgent) {
             tvFamilyStatus.setText(NCUtils.fromHtml(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_service_overdue)));
         }
-    }
-
-    public void openFamilyDueServices() {
-
-        Intent intent = new Intent(this, FamilyProfileActivity.class);
-
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
-
-        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
-        startActivity(intent);
     }
 
 }

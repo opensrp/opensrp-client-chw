@@ -347,4 +347,5 @@
     <string name="vitamin_a_number_dose">Vitamin A %s dose</string>
 
     <string name="return_to_task_details">Return to Referral details</string>
+    <string name="ga_label">GA</string>
 </resources>

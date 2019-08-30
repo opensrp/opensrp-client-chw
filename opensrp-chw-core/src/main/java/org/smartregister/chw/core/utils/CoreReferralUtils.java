@@ -1,6 +1,11 @@
 package org.smartregister.chw.core.utils;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.utils.FormUtils;
+
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.util.NCUtils;
@@ -14,11 +19,13 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import timber.log.Timber;
 
 public class CoreReferralUtils {
+
     public static String mainSelect(String tableName, String familyTableName, String familyMemberTableName, String mainCondition) {
         return mainSelectRegisterWithoutGroupby(tableName, familyTableName, familyMemberTableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + mainCondition + "'");
     }
@@ -56,7 +63,7 @@ public class CoreReferralUtils {
     public static void createReferralEvent(AllSharedPreferences allSharedPreferences, String jsonString, String referralTable, String entityId) throws Exception {
         final Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, setEntityId(jsonString, entityId), referralTable);
         NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
-        createReferralTask(baseEvent.getBaseEntityId(), allSharedPreferences);
+        createReferralTask(baseEvent.getBaseEntityId(), allSharedPreferences, assignReferralFocus(referralTable), getReferralProblems(jsonString));
     }
 
     private static String setEntityId(String jsonString, String entityId) {
@@ -73,7 +80,7 @@ public class CoreReferralUtils {
         return referralForm;
     }
 
-    private static void createReferralTask(String baseEntityId, AllSharedPreferences allSharedPreferences) {
+    private static void createReferralTask(String baseEntityId, AllSharedPreferences allSharedPreferences, String focus, String referralProblems) {
         Task task = new Task();
         task.setIdentifier(UUID.randomUUID().toString());
         //TODO Implement plans
@@ -85,7 +92,7 @@ public class CoreReferralUtils {
 
             Timber.e("No plans exist in the server");
         }*/
-        task.setPlanIdentifier("5270285b-5a3b-4647-b772-c0b3c52e2b71");
+        task.setPlanIdentifier(CoreConstants.REFERRAL_PLAN_ID);
         LocationHelper locationHelper = LocationHelper.getInstance();
         ArrayList<String> allowedLevels = new ArrayList<>();
         allowedLevels.add(CoreConstants.CONFIGURATION.HEALTH_FACILITY_TAG);
@@ -94,8 +101,8 @@ public class CoreReferralUtils {
         task.setBusinessStatus(CoreConstants.BUSINESS_STATUS.REFERRED);
         task.setPriority(3);
         task.setCode("Referral");
-        task.setDescription("Review and perform the referral for the client"); //set to string
-        task.setFocus(CoreConstants.TASKS_FOCUS.SICK_CHILD);//the same here
+        task.setDescription(referralProblems);
+        task.setFocus(focus);
         task.setForEntity(baseEntityId);
         DateTime now = new DateTime();
         task.setExecutionStartDate(now);
@@ -106,5 +113,99 @@ public class CoreReferralUtils {
         task.setRequester(allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM()));
         task.setLocation(allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM()));
         CoreChwApplication.getInstance().getTaskRepository().addOrUpdate(task);
+    }
+
+    private static String assignReferralFocus(String referralTable) {
+        String focus;
+        if (CoreConstants.TABLE_NAME.CHILD_REFERRAL.equals(referralTable)) {
+            focus = CoreConstants.TASKS_FOCUS.SICK_CHILD;
+        } else if (CoreConstants.TABLE_NAME.ANC_REFERRAL.equals(referralTable)) {
+            focus = CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS;
+        } else {
+            focus = "";
+        }
+
+        return focus;
+    }
+
+    private static String getReferralProblems(String jsonString) {
+        String referralProblems = "";
+        List<String> formValues = new ArrayList<>();
+        try {
+            JSONObject problemJson = new JSONObject(jsonString);
+            JSONArray fields = FormUtils.getMultiStepFormFields(problemJson);
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject field = fields.getJSONObject(i);
+                if (field.optBoolean(CoreConstants.JsonAssets.IS_PROBLEM, true)) {
+                    if (field.has(JsonFormConstants.TYPE) && JsonFormConstants.CHECK_BOX.equals(field.getString(JsonFormConstants.TYPE))) {
+                        if (field.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
+                            JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+                            formValues.add(getCheckBoxSelectedOptions(options));
+                        }
+                    } else if (field.has(JsonFormConstants.TYPE) && JsonFormConstants.RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE))) {
+                        if (field.has(JsonFormConstants.OPTIONS_FIELD_NAME) && field.has(JsonFormConstants.VALUE)) {
+                            JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+                            String value = field.getString(JsonFormConstants.VALUE);
+                            formValues.add(getRadioButtonSelectedOptions(options, value));
+                        }
+                    } else {
+                        formValues.add(getOtherWidgetSelectedItems(field));
+                    }
+                }
+            }
+
+            referralProblems = StringUtils.join(formValues, ", ");
+        } catch (JSONException e) {
+            Timber.e(e, "CoreReferralUtils --> getReferralProblems");
+        }
+        return referralProblems;
+    }
+
+    private static String getCheckBoxSelectedOptions(JSONArray options) {
+        String selectedOptionValues = "";
+        List<String> selectedValue = new ArrayList<>();
+        try {
+            for (int i = 0; i < options.length(); i++) {
+                JSONObject option = options.getJSONObject(i);
+                if (option.has(JsonFormConstants.VALUE) && Boolean.valueOf(option.getString(JsonFormConstants.VALUE))) {
+                    selectedValue.add(option.getString(JsonFormConstants.TEXT));
+                }
+
+            }
+            selectedOptionValues = StringUtils.join(selectedValue, ", ");
+        } catch (JSONException e) {
+            Timber.e(e, "CoreReferralUtils --> getSelectedOptions");
+        }
+
+        return selectedOptionValues;
+    }
+
+    private static String getRadioButtonSelectedOptions(JSONArray options, String value) {
+        String selectedOptionValues = "";
+        try {
+            for (int i = 0; i < options.length(); i++) {
+                JSONObject option = options.getJSONObject(i);
+                if ((option.has(JsonFormConstants.KEY) && value.equals(option.getString(JsonFormConstants.KEY))) && option.has(JsonFormConstants.TEXT)) {
+                    selectedOptionValues = option.getString(JsonFormConstants.TEXT);
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, "CoreReferralUtils --> getSelectedOptions");
+        }
+
+        return selectedOptionValues;
+    }
+
+    private static String getOtherWidgetSelectedItems(JSONObject jsonObject) {
+        String value = "";
+        try {
+            if (jsonObject.has(JsonFormConstants.VALUE)) {
+                value = jsonObject.getString(JsonFormConstants.VALUE);
+            }
+        } catch (JSONException e) {
+            Timber.e(e, "CoreReferralUtils --> getOtherWidgetSelectedItems");
+        }
+
+        return value;
     }
 }
