@@ -1,5 +1,6 @@
 package org.smartregister.chw.hf.fragment;
 
+import android.os.Handler;
 import android.view.View;
 
 import org.smartregister.chw.core.fragment.BaseReferralRegisterFragment;
@@ -13,7 +14,24 @@ import org.smartregister.domain.Task;
 import org.smartregister.family.util.DBConstants;
 
 public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
+    public Handler handler = new Handler();
     private ReferralFragmentPresenter referralFragmentPresenter;
+    private CommonPersonObjectClient commonPersonObjectClient;
+
+    @Override
+    public void setClient(CommonPersonObjectClient commonPersonObjectClient) {
+        setCommonPersonObjectClient(commonPersonObjectClient);
+    }
+
+    @Override
+    public CommonPersonObjectClient getCommonPersonObjectClient() {
+        return commonPersonObjectClient;
+    }
+
+    @Override
+    public void setCommonPersonObjectClient(CommonPersonObjectClient commonPersonObjectClient) {
+        this.commonPersonObjectClient = commonPersonObjectClient;
+    }
 
     @Override
     protected void initializePresenter() {
@@ -25,14 +43,12 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
     @Override
     protected void onViewClicked(View view) {
         CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
-        referralFragmentPresenter.setBaseEntityId(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true));
+        referralFragmentPresenter.setBaseEntityId(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
         referralFragmentPresenter.fetchClient();
-        ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getCommonPersonObjectClient(), getTask(Utils.getValue(client.getColumnmaps(), "_id", true)), CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY);
+        handler.postDelayed(() -> ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getCommonPersonObjectClient(), getTask(Utils.getValue(client.getColumnmaps(), "_id", false)), CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY), 100);
     }
 
     private Task getTask(String taskId) {
-        Task task;
-        task = HealthFacilityApplication.getInstance().getTaskRepository().getTaskByIdentifier(taskId);
-        return task;
+        return HealthFacilityApplication.getInstance().getTaskRepository().getTaskByIdentifier(taskId);
     }
 }

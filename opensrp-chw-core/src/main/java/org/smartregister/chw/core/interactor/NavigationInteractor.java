@@ -2,6 +2,7 @@ package org.smartregister.chw.core.interactor;
 
 import android.database.Cursor;
 
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.contract.NavigationContract;
 import org.smartregister.chw.core.utils.ChildDBConstants;
@@ -75,36 +76,24 @@ public class NavigationInteractor implements NavigationContract.Interactor {
                     MessageFormat.format(" and {0}.{1} is 0 ", CoreConstants.TABLE_NAME.ANC_MEMBER, org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED);
 
         } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.TASK)) {
-            mainCondition =
-                    MessageFormat.format(" where {0}.{1} is \''READY'\' AND {0}.{2} is \''Referral'\' ", CoreConstants.TABLE_NAME.CHILD_REFERRAL, ChwDBConstants.TASK_STATUS, ChwDBConstants.TASK_CODE);
+            mainCondition = " INNER JOIN ec_family_member  ON  ec_family_member.base_entity_id = task.for COLLATE NOCASE WHERE task.status =\"READY\"  ORDER BY task.start desc";
         } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME)) {
-            StringBuilder build = new StringBuilder();
-            build.append(MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER));
-            build.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
-                    CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, DBConstants.KEY.BASE_ENTITY_ID));
-
-            build.append(MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY));
-            build.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
-                    CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID));
-
-            build.append(MessageFormat.format(" where {0}.{1} is not null AND {0}.{2} is 0 ", CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, ChwDBConstants.DELIVERY_DATE, ChwDBConstants.IS_CLOSED));
-
-            mainCondition = build.toString();
+            mainCondition = MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER) +
+                    MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
+                            CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, DBConstants.KEY.BASE_ENTITY_ID) +
+                    MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY) +
+                    MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
+                            CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID) +
+                    MessageFormat.format(" where {0}.{1} is not null AND {0}.{2} is 0 ", CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, ChwDBConstants.DELIVERY_DATE, ChwDBConstants.IS_CLOSED);
         } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION)) {
-            StringBuilder stb = new StringBuilder();
-
-            stb.append(MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER));
-            stb.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
-                    CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION, DBConstants.KEY.BASE_ENTITY_ID));
-
-            stb.append(MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY));
-            stb.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
-                    CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID));
-
-            stb.append(MessageFormat.format(" where {0}.{1} is null ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DATE_REMOVED));
-            stb.append(MessageFormat.format(" and {0}.{1} = 1 ", CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION, org.smartregister.chw.malaria.util.DBConstants.KEY.MALARIA));
-
-            mainCondition = stb.toString();
+            mainCondition = MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER) +
+                    MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
+                            CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION, DBConstants.KEY.BASE_ENTITY_ID) +
+                    MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY) +
+                    MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
+                            CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID) +
+                    MessageFormat.format(" where {0}.{1} is null ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DATE_REMOVED) +
+                    MessageFormat.format(" and {0}.{1} = 1 ", CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION, org.smartregister.chw.malaria.util.DBConstants.KEY.MALARIA);
         } else {
             mainCondition = " where 1 = 1 ";
         }
@@ -113,11 +102,14 @@ public class NavigationInteractor implements NavigationContract.Interactor {
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
             String query = MessageFormat.format("select count(*) from {0} {1}", tableName, mainCondition);
             query = sqb.Endquery(query);
-            Timber.i("2%s", query);
+            Timber.i("2 %s", query);
 
-            cursor = commonRepository(tableName).rawCustomQueryForAdapter(query);
-            count = cursor != null && cursor.moveToFirst() ? cursor.getInt(0) : 0;
-
+            if (CoreConstants.TABLE_NAME.TASK.equals(tableName)) {
+                count = CoreChwApplication.getReferralsRepository().getTasksCount(query);
+            } else {
+                cursor = commonRepository(tableName).rawCustomQueryForAdapter(query);
+                count = cursor != null && cursor.moveToFirst() ? cursor.getInt(0) : 0;
+            }
         } finally {
             if (cursor != null) {
                 cursor.close();

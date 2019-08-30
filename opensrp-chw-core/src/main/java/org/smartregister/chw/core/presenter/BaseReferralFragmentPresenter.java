@@ -28,9 +28,9 @@ public class BaseReferralFragmentPresenter implements BaseReferralRegisterFragme
     @Override
     public void initializeQueries(String mainCondition) {
         String countSelect = model.countSelect(CoreConstants.TABLE_NAME.TASK, mainCondition);
-        String mainSelect = model.mainSelect(CoreConstants.TABLE_NAME.TASK, CoreConstants.TABLE_NAME.CHILD, mainCondition);
+        String mainSelect = model.mainSelect(CoreConstants.TABLE_NAME.TASK, CoreConstants.TABLE_NAME.FAMILY_MEMBER, mainCondition);
 
-        view.initializeQueryParams(CoreConstants.TABLE_NAME.CHILD, countSelect, mainSelect);
+        view.initializeQueryParams(CoreConstants.TABLE_NAME.FAMILY_MEMBER, countSelect, mainSelect);
         view.initializeAdapter(new HashSet<>(), CoreConstants.TABLE_NAME.TASK);
 
         view.countExecute();
