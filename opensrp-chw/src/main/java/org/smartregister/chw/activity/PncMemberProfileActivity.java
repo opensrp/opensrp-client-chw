@@ -136,7 +136,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                 }
                 break;
             case org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT:
-              //  handler.postDelayed(this::displayView, 200);
+               handler.postDelayed(this::displayView, 200);
                 break;
             default:
                 break;
@@ -284,7 +284,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         }
     }
 
-
     @Override
     public void setFamilyStatus(AlertStatus status) {
         tvFamilyStatus = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.textview_family_has);
@@ -300,5 +299,4 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
             tvFamilyStatus.setText(NCUtils.fromHtml(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_service_overdue)));
         }
     }
-
 }

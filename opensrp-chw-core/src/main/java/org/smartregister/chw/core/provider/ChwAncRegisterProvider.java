@@ -138,7 +138,7 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
             String visitDate = lastVisit != null ? sdf.format(lastVisit.getDate()) : null;
             String lastVisitNotDone = lastNotDoneVisit != null ? sdf.format(lastNotDoneVisit.getDate()) : null;
 
-            visitSummary = HomeVisitUtil.getAncVisitStatus(context, rules, lmpDate, visitDate, lastVisitNotDone, dateCreated);
+            visitSummary = HomeVisitUtil.getAncVisitStatus(context, rules, visitDate, lastVisitNotDone, dateCreated);
             return null;
         }
 

@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.MalariaFollowUpVisitActivity;
 import org.smartregister.chw.activity.MalariaProfileActivity;
+import org.smartregister.chw.activity.MalariaRegisterActivity;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.QueryBuilder;
@@ -20,11 +22,13 @@ import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.fragment.BaseMalariaRegisterFragment;
 import org.smartregister.chw.model.MalariaRegisterFragmentModel;
 import org.smartregister.chw.presenter.MalariaRegisterFragmentPresenter;
+import org.smartregister.chw.provider.ChwMalariaRegisterProvider;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
@@ -32,6 +36,7 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import timber.log.Timber;
 
@@ -41,6 +46,14 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     private View view;
     private View dueOnlyLayout;
     private boolean dueFilterActive = false;
+
+    @Override
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        ChwMalariaRegisterProvider malariaRegisterProvider = new ChwMalariaRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns, commonRepository());
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, malariaRegisterProvider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
+    }
 
     @Override
     public void setupViews(View view) {
@@ -127,20 +140,6 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         }
     }
 
-    //due filter for the client
-    protected void dueFilter(View dueOnlyLayout) {
-        filter(searchText(), "", presenter().getMainCondition(), false);
-        dueOnlyLayout.setTag(DUE_FILTER_TAG);
-        switchViews(dueOnlyLayout, true);
-    }
-
-    //normal search for the client
-    protected void normalFilter(View dueOnlyLayout) {
-        filter(searchText(), "", presenter().getMainCondition(), false);
-        dueOnlyLayout.setTag(null);
-        switchViews(dueOnlyLayout, false);
-    }
-
     protected String searchText() {
         return (getSearchView() == null) ? "" : getSearchView().getText().toString();
     }
@@ -161,18 +160,17 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     }
 
     @Override
+    protected void openFollowUpVisit(CommonPersonObjectClient client) {
+        MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(getActivity(), client.getCaseId());
+    }
+
+    @Override
     protected void onResumption() {
         if (dueFilterActive && dueOnlyLayout != null) {
             dueFilter(dueOnlyLayout);
         } else {
             super.onResumption();
         }
-    }
-
-    @Override
-    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
-        this.joinTables = new String[]{Constants.TABLE_NAME.MALARIA_CONFIRMATION};
-        super.filter(filterString, joinTableString, mainConditionString, qrCode);
     }
 
     @Override
@@ -196,35 +194,6 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         }
     }
 
-    protected String dueFilterAndSortQuery() {
-        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
-
-        String query = "";
-        try {
-            if (isValidFilterForFts(commonRepository())) {
-                String sql = sqb
-                        .searchQueryFts(tablename, joinTable, mainCondition, filters, Sortqueries,
-                                clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
-                sql = sql.replace(CommonFtsObject.idColumn, CommonFtsObject.relationalIdColumn);
-                sql = sql.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.MALARIA_CONFIRMATION), CommonFtsObject.searchTableName(Constants.TABLE_NAME.MALARIA_CONFIRMATION));
-                List<String> ids = commonRepository().findSearchIds(sql);
-                query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
-                        Sortqueries);
-                query = sqb.Endquery(query);
-            } else {
-                sqb.addCondition(filters);
-                query = sqb.orderbyCondition(Sortqueries);
-                query = sqb.Endquery(sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
-
-            }
-        } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
-        }
-
-        return query;
-    }
-
-
     private String defaultFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
@@ -236,9 +205,9 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.MIDDLE_NAME, filters));
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ) ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.UNIQUE_ID, filters));
 
-            if (dueFilterActive) {
-                customFilter.append(MessageFormat.format(" and ( {0}) ", presenter().getDueFilterCondition()));
-            }
+        }
+        if (dueFilterActive) {
+            customFilter.append(MessageFormat.format(" and ( {0}) ", presenter().getDueFilterCondition()));
         }
         try {
             if (isValidFilterForFts(commonRepository())) {
@@ -288,7 +257,6 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
             clientAdapter.setCurrentlimit(20);
             clientAdapter.setCurrentoffset(0);
 
-
         } catch (Exception e) {
             Timber.e(e);
         } finally {
@@ -296,9 +264,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
                 c.close();
             }
         }
-
     }
-
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
@@ -311,7 +277,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
                     if (args != null && args.getBoolean(COUNT)) {
                         countExecute();
                     }
-                    String query = (dueFilterActive ? dueFilterAndSortQuery() : defaultFilterAndSortQuery());
+                    String query = defaultFilterAndSortQuery();
                     return commonRepository().rawCustomQueryForAdapter(query);
                 }
             };
@@ -319,6 +285,23 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         return super.onCreateLoader(id, args);
     }
 
+    protected void dueFilter(View dueOnlyLayout) {
+        filterDue(searchText(), "", presenter().getDueFilterCondition());
+        dueOnlyLayout.setTag(DUE_FILTER_TAG);
+        switchViews(dueOnlyLayout, true);
+    }
+    protected void normalFilter(View dueOnlyLayout) {
+        filterDue(searchText(), "", presenter().getMainCondition());
+        dueOnlyLayout.setTag(null);
+        switchViews(dueOnlyLayout, false);
+    }
+
+    protected void filterDue(String filterString, String joinTableString, String mainConditionString) {
+        filters = filterString;
+        joinTable = joinTableString;
+        mainCondition = mainConditionString;
+        filterandSortExecute(countBundle());
+    }
 
 }
 
