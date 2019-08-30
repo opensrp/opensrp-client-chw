@@ -23,6 +23,7 @@ import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.FamilyCallDialogContract;
+import org.smartregister.chw.core.custom_views.CoreAncFloatingMenu;
 import org.smartregister.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
 import org.smartregister.chw.core.fragment.CopyToClipboardDialog;
 import org.smartregister.clientandeventmodel.Obs;
@@ -78,7 +80,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
     private static List<String> assets;
 
     public static String getImmunizationHeaderLanguageSpecific(Context context, String value) {
-        if(TextUtils.isEmpty(value)) return "";
+        if (TextUtils.isEmpty(value)) return "";
         if (value.equalsIgnoreCase("at birth")) {
             return context.getString(R.string.at_birth);
         } else if (value.contains("weeks")) {
@@ -90,7 +92,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
     }
 
     public static String getYesNoAsLanguageSpecific(Context context, String value) {
-        if(TextUtils.isEmpty(value)) return "";
+        if (TextUtils.isEmpty(value)) return "";
         if (value.equalsIgnoreCase("yes")) {
             return context.getString(R.string.yes);
         } else if (value.equalsIgnoreCase("no")) {
@@ -100,7 +102,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
     }
 
     public static String getGenderLanguageSpecific(Context context, String value) {
-        if(TextUtils.isEmpty(value)) return "";
+        if (TextUtils.isEmpty(value)) return "";
         if (value.equalsIgnoreCase("male")) {
             return context.getString(org.smartregister.family.R.string.male);
         } else if (value.equalsIgnoreCase("female")) {
@@ -452,27 +454,43 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
         return "";
     }
 
-    public static void redrawWithOption(CoreFamilyMemberFloatingMenu menu, boolean has_phone) {
+    public static void redrawWithOption(LinearLayout menu, boolean has_phone) {
         TextView callTextView = menu.findViewById(R.id.CallTextView);
         TextView callTextViewHint = menu.findViewById(R.id.CallTextViewHint);
-
+        setCallLayoutListener(has_phone, menu);
         if (has_phone) {
-
             callTextViewHint.setVisibility(GONE);
-            menu.getCallLayout().setOnClickListener(menu);
             callTextView.setTypeface(null, Typeface.NORMAL);
             callTextView.setTextColor(menu.getResources().getColor(android.R.color.black));
             ((FloatingActionButton) menu.findViewById(R.id.callFab)).getDrawable().setAlpha(255);
 
         } else {
-
             callTextViewHint.setVisibility(VISIBLE);
-            menu.getCallLayout().setOnClickListener(null);
             callTextView.setTypeface(null, Typeface.ITALIC);
             callTextView.setTextColor(menu.getResources().getColor(R.color.grey));
             ((FloatingActionButton) menu.findViewById(R.id.callFab)).getDrawable().setAlpha(122);
         }
+
     }
+
+    private static void setCallLayoutListener(boolean has_phone, LinearLayout menu) {
+        CoreFamilyMemberFloatingMenu memberFloatingMenu;
+        CoreAncFloatingMenu ancFloatingMenu;
+        if (has_phone && menu instanceof CoreFamilyMemberFloatingMenu) {
+            memberFloatingMenu = (CoreFamilyMemberFloatingMenu) menu;
+            memberFloatingMenu.getCallLayout().setOnClickListener(memberFloatingMenu);
+        } else if (has_phone && menu instanceof CoreAncFloatingMenu) {
+            ancFloatingMenu = (CoreAncFloatingMenu) menu;
+            ancFloatingMenu.getCallLayout().setOnClickListener(ancFloatingMenu);
+        } else if (!has_phone && menu instanceof CoreAncFloatingMenu) {
+            ancFloatingMenu = (CoreAncFloatingMenu) menu;
+            ancFloatingMenu.getCallLayout().setOnClickListener(null);
+        } else if (!has_phone && menu instanceof CoreFamilyMemberFloatingMenu) {
+            memberFloatingMenu = (CoreFamilyMemberFloatingMenu) menu;
+            memberFloatingMenu.getCallLayout().setOnClickListener(null);
+        }
+    }
+
 
     public static boolean isWomanOfReproductiveAge(CommonPersonObjectClient commonPersonObject) {
         if (commonPersonObject == null) {

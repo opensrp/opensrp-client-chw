@@ -63,7 +63,7 @@ public class CoreAncMemberProfileInteractor extends BaseAncMemberProfileInteract
     }
 
     @Override
-    public void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString, String entityId) throws Exception {
+    public void createReferralEvent(AllSharedPreferences allSharedPreferences, String jsonString, String entityId) throws Exception {
         CoreReferralUtils.createReferralEvent(allSharedPreferences, jsonString, CoreConstants.TABLE_NAME.ANC_REFERRAL, entityId);
     }
 

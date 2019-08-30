@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Sick Child Referral",
+  "encounter_type": "PNC Referral",
   "entity_id": "",
   "relational_id": "",
   "metadata": {
@@ -52,32 +52,161 @@
     }
   },
   "step1": {
-    "title": "Sick child form",
+    "title": "PNC referral form",
     "fields": [
       {
-        "key": "chw_referral_hf_child",
+        "key": "problem_hf_pnc",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "is_problem": false,
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "child_referral_calculation.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "referral_problem_child",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Health problem / condition",
+        "label": "Client condition / problem",
         "label_text_style": "bold",
         "options": [
+          {
+            "key": "Vaginal_bleeding",
+            "text": "Vaginal bleeding",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Discoloured_or_watery_liquid_vaginal_discharge",
+            "text": "Discoloured or watery, liquid vaginal discharge with a bad smell",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Severe_abdominal_pain",
+            "text": "Severe abdominal pain",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Severe_anaemia",
+            "text": "Severe anaemia",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Convulsions",
+            "text": "Convulsions",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "A_severe_headache_dizziness",
+            "text": "A severe headache / dizziness",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Swelling_of_the_face_and_or_hands",
+            "text": "Swelling of the face and/or hands",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Fever",
+            "text": "Fever",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Shivering_trembling",
+            "text": "Shivering/trembling",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "158359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Nausea",
+            "text": "Nausea",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Vomiting",
+            "text": "Vomiting",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Cord_prolapse",
+            "text": "Cord prolapse",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "113617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Perineum_bleeding",
+            "text": "Perineum bleeding",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "136938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Fullness_or_pain_of_the_breasts",
+            "text": "Fullness or pain of the breasts or nipples and failure to breast feed",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "118620AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "HIV_care_and_support_services",
+            "text": "HIV care and support services",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "159811AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Family_planning_services",
+            "text": "Family planning services",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "PMTCT_for_mothers",
+            "text": "PMTCT for mothers",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "160538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Fistula",
+            "text": "Fistula",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "160854AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
           {
             "key": "Fast_breathing_and_difficulty_with_breathing",
             "text": "Fast breathing and difficulty with breathing",
@@ -87,7 +216,7 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Umbilical_cord_navel_bleeding",
+            "key": "Umbilical_cord",
             "text": "Umbilical cord/navel bleeding",
             "value": false,
             "openmrs_entity": "",
@@ -100,14 +229,6 @@
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "140944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Convulsions",
-            "text": "Convulsions",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
@@ -127,14 +248,6 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Fever",
-            "text": "Fever",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "Bloating",
             "text": "Bloating",
             "value": false,
@@ -143,7 +256,7 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Redness_around_the_umbilical_cord_foul_smelling_discharge_from_the_umbilical_cord",
+            "key": "Redness_around_the_umbilical_cord_foul",
             "text": "Redness around the umbilical cord, foul-smelling discharge from the umbilical cord",
             "value": false,
             "openmrs_entity": "",
@@ -156,22 +269,6 @@
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "148026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Severe_anaemia",
-            "text": "Severe anaemia",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Severe_abdominal_pain",
-            "text": "Severe abdominal pain",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
@@ -207,14 +304,6 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Vomiting",
-            "text": "Vomiting",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "Disabilities",
             "text": "Disabilities",
             "value": false,
@@ -228,6 +317,14 @@
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "159908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Failure_to_pass_urine_or_stool",
+            "text": "Failure to pass urine or stool within 24 hours after birth",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           },
           {
@@ -257,29 +354,29 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Please specify health problem"
+          "err": "Please specify client condition/problem"
         }
       },
       {
-        "key": "referral_problem_child_other",
+        "key": "problem_hf_pnc_other",
         "type": "edit_text",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "",
         "edit_type": "name",
         "hint": "Other symptom",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "child_referral_relevance.yml"
+              "rules-file": "pnc_referral_relevance.yml"
             }
           }
         }
       },
       {
-        "key": "service_before_child",
+        "key": "service_before_pnc",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Pre-referral management given",
@@ -327,11 +424,11 @@
         }
       },
       {
-        "key": "service_before_child_other",
+        "key": "service_before_pnc_other",
         "type": "edit_text",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity_parent": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
         "edit_type": "name",
         "hint": "Other treatment",
         "v_required": {
@@ -341,37 +438,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "child_referral_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "referral_date_child",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "is_problem": false,
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "child_referral_calculation.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "referral_time_child",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "referral_time_child",
-        "type": "hidden",
-        "is_problem": false,
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "child_referral_calculation.yml"
+              "rules-file": "pnc_referral_relevance.yml"
             }
           }
         }
