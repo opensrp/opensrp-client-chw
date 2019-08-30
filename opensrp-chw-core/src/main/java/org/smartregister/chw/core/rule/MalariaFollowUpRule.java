@@ -5,8 +5,6 @@ import org.joda.time.Days;
 
 import java.util.Date;
 
-import static org.smartregister.chw.core.utils.CoreConstants.VISIT_STATE.DUE;
-
 public class MalariaFollowUpRule implements ICommonRule {
 
     public static final String RULE_KEY = "malariaFollowUpRule";

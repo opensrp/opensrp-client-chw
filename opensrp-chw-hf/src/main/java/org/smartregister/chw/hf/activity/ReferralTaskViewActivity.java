@@ -50,7 +50,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     private CommonPersonObjectClient personObjectClient;
     private Task task;
     private CustomFontTextView clientName;
-    private CustomFontTextView clientAge;
+    private String clientAge;
     private CustomFontTextView careGiverName;
     private CustomFontTextView careGiverPhone;
     private CustomFontTextView clientReferralProblem;
@@ -58,6 +58,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     private CustomFontTextView chwDetailsNames;
     private CustomFontTextView womanGa;
     private LinearLayout womanGaLayout;
+    private LinearLayout careGiverLayout;
     private ReferralsTaskViewClickListener referralsTaskViewClickListener = new ReferralsTaskViewClickListener();
     private String name;
     private String baseEntityId;
@@ -151,6 +152,10 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         return task;
     }
 
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
     public CommonPersonObjectClient getPersonObjectClient() {
         return personObjectClient;
     }
@@ -177,6 +182,10 @@ public class ReferralTaskViewActivity extends SecuredActivity {
 
     public String getFamilyHeadPhoneNumber() {
         return familyHeadPhoneNumber;
+    }
+
+    public void setFamilyHeadPhoneNumber(String familyHeadPhoneNumber) {
+        this.familyHeadPhoneNumber = familyHeadPhoneNumber;
     }
 
     private void inflateToolbar() {
@@ -214,7 +223,6 @@ public class ReferralTaskViewActivity extends SecuredActivity {
 
     public void setUpViews() {
         clientName = findViewById(R.id.client_name);
-        clientAge = findViewById(R.id.client_age);
         careGiverName = findViewById(R.id.care_giver_name);
         careGiverPhone = findViewById(R.id.care_giver_phone);
         clientReferralProblem = findViewById(R.id.client_referral_problem);
@@ -222,6 +230,8 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         referralDate = findViewById(R.id.referral_date);
 
         womanGaLayout = findViewById(R.id.woman_ga_layout);
+        careGiverLayout = findViewById(R.id.care_giver_name_layout);
+
         womanGa = findViewById(R.id.woman_ga);
         CustomFontTextView viewProfile = findViewById(R.id.view_profile);
 
@@ -240,20 +250,29 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         return startingActivity;
     }
 
+    public void setStartingActivity(String startingActivity) {
+        this.startingActivity = startingActivity;
+    }
+
     private void getReferralDetails() {
         if (getPersonObjectClient() != null && getTask() != null) {
             clientReferralProblem.setText(getTask().getDescription());
-            clientName.setText(getString(R.string.client_name_suffix, name));
-            clientAge.setText(Utils.getTranslatedDate(Utils.getDuration(Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.DOB, false)), getBaseContext()));
+            clientAge = (Utils.getTranslatedDate(Utils.getDuration(Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.DOB, false)), getBaseContext()));
+            clientName.setText(getString(R.string.client_name_age_suffix, name, clientAge));
             referralDate.setText(org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy.format(task.getExecutionStartDate().toDate()));
 
             String parentFirstName = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
             String parentLastName = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
             String parentMiddleName = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
-
             String parentName = getString(R.string.care_giver_prefix, org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName));
+
+            //Hide Care giver for ANC referral
+            if(getTask().getFocus().equalsIgnoreCase(CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS)){
+                careGiverLayout.setVisibility(View.GONE);
+            }
+
             careGiverName.setText(parentName);
-            careGiverPhone.setText(getFamilyMemberContacts());
+            careGiverPhone.setText(getFamilyMemberContacts().isEmpty() || getFamilyMemberContacts() == null ? getString(R.string.phone_not_provided) : getFamilyMemberContacts());
 
             chwDetailsNames.setText(getTask().getRequester());
 
@@ -283,18 +302,6 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             String gaWeeks = Utils.getValue(getPersonObjectClient().getDetails(), CoreConstants.JsonAssets.GESTATION_AGE, true) + " " + getString(R.string.weeks);
             womanGa.setText(gaWeeks);
         }
-    }
-
-    public void setStartingActivity(String startingActivity) {
-        this.startingActivity = startingActivity;
-    }
-
-    public void setFamilyHeadPhoneNumber(String familyHeadPhoneNumber) {
-        this.familyHeadPhoneNumber = familyHeadPhoneNumber;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
     }
 
     public void closeReferral() {
