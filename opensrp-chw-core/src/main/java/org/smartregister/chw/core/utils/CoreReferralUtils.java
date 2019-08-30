@@ -26,37 +26,75 @@ import timber.log.Timber;
 
 public class CoreReferralUtils {
 
-    public static String mainSelect(String tableName, String familyTableName, String familyMemberTableName, String mainCondition) {
-        return mainSelectRegisterWithoutGroupby(tableName, familyTableName, familyMemberTableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + mainCondition + "'");
+    public static String mainSelect(String tableName, String familyTableName, String mainCondition) {
+        return mainSelectRegisterWithoutGroupby(tableName, familyTableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + mainCondition + "'");
     }
 
-    public static String mainSelectRegisterWithoutGroupby(String tableName, String familyTableName, String familyMemberTableName, String mainCondition) {
+    private static String mainSelectRegisterWithoutGroupby(String tableName, String familyTableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName, familyTableName, familyMemberTableName));
+        queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName, familyTableName));
         queryBUilder.customJoin("LEFT JOIN " + familyTableName + " ON  " + tableName + "." + DBConstants.KEY.RELATIONAL_ID + " = " + familyTableName + ".id COLLATE NOCASE ");
-        //queryBUilder.customJoin("LEFT JOIN " + familyMemberTableName + " ON  " + familyMemberTableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + familyTableName + "." + ChildDBConstants.KEY.PRIMARY_CAREGIVER + " COLLATE NOCASE ");
 
         return queryBUilder.mainCondition(mainCondition);
     }
 
-    public static String[] mainColumns(String tableName, String familyTable, String familyMemberTable) {
+    public static String[] mainColumns(String tableName, String familyTable) {
         ArrayList<String> columnList = new ArrayList<>();
         columnList.add(tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
         columnList.add(tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH);
         columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
         columnList.add(tableName + "." + DBConstants.KEY.FIRST_NAME);
         columnList.add(tableName + "." + DBConstants.KEY.MIDDLE_NAME);
-        columnList.add(familyMemberTable + "." + DBConstants.KEY.FIRST_NAME + " as " + ChildDBConstants.KEY.FAMILY_FIRST_NAME);
-        columnList.add(familyMemberTable + "." + DBConstants.KEY.LAST_NAME + " as " + ChildDBConstants.KEY.FAMILY_LAST_NAME);
-        columnList.add(familyMemberTable + "." + DBConstants.KEY.MIDDLE_NAME + " as " + ChildDBConstants.KEY.FAMILY_MIDDLE_NAME);
-        columnList.add(familyMemberTable + "." + ChildDBConstants.PHONE_NUMBER + " as " + ChildDBConstants.KEY.FAMILY_MEMBER_PHONENUMBER);
-        columnList.add(familyMemberTable + "." + ChildDBConstants.OTHER_PHONE_NUMBER + " as " + ChildDBConstants.KEY.FAMILY_MEMBER_PHONENUMBER_OTHER);
-        columnList.add(familyTable + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS);
         columnList.add(tableName + "." + DBConstants.KEY.LAST_NAME);
+        columnList.add(familyTable + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS);
+        columnList.add(familyTable + "." + DBConstants.KEY.PRIMARY_CAREGIVER);
+        columnList.add(familyTable + "." + DBConstants.KEY.FAMILY_HEAD);
         columnList.add(tableName + "." + DBConstants.KEY.UNIQUE_ID);
         columnList.add(tableName + "." + DBConstants.KEY.GENDER);
         columnList.add(tableName + "." + DBConstants.KEY.DOB);
         columnList.add(tableName + "." + org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN);
+        return columnList.toArray(new String[columnList.size()]);
+    }
+
+    public static String mainCareGiverSelect(String tableName, String mainCondition) {
+        return createCareGiverSelect(tableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + mainCondition + "'");
+    }
+
+    private static String createCareGiverSelect(String tableName, String mainCondition) {
+        SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
+        smartRegisterQueryBuilder.SelectInitiateMainTable(tableName, mainCareGiverColumns(tableName));
+        return smartRegisterQueryBuilder.mainCondition(mainCondition);
+    }
+
+    private static String[] mainCareGiverColumns(String tableName) {
+        ArrayList<String> columnList = new ArrayList<>();
+        columnList.add(tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
+        columnList.add(tableName + "." + DBConstants.KEY.FIRST_NAME + " as " + ChildDBConstants.KEY.FAMILY_FIRST_NAME);
+        columnList.add(tableName + "." + DBConstants.KEY.MIDDLE_NAME + " as " + ChildDBConstants.KEY.FAMILY_LAST_NAME);
+        columnList.add(tableName + "." + DBConstants.KEY.LAST_NAME + " as " + ChildDBConstants.KEY.FAMILY_MIDDLE_NAME);
+        columnList.add(tableName + "." + DBConstants.KEY.PHONE_NUMBER + " as " + ChildDBConstants.KEY.FAMILY_MEMBER_PHONENUMBER);
+        columnList.add(tableName + "." + DBConstants.KEY.OTHER_PHONE_NUMBER + " as " + ChildDBConstants.KEY.FAMILY_MEMBER_PHONENUMBER_OTHER);
+        return columnList.toArray(new String[columnList.size()]);
+    }
+
+    public static String mainAncDetailsSelect(String tableName, String baseEntityId) {
+        return createAncDetailsSelect(tableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + baseEntityId + "'");
+    }
+
+    private static String createAncDetailsSelect(String tableName, String baseEntityId) {
+        SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
+        smartRegisterQueryBuilder.SelectInitiateMainTable(tableName, mainAncDetailsColumns(tableName));
+        smartRegisterQueryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + " ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + ".id COLLATE NOCASE ");
+        return smartRegisterQueryBuilder.mainCondition(baseEntityId);
+    }
+
+    private static String[] mainAncDetailsColumns(String tableName) {
+        ArrayList<String> columnList = new ArrayList<>();
+        columnList.add(tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.LAST_MENSTRUAL_PERIOD);
+        columnList.add(CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + "." + org.smartregister.chw.anc.util.DBConstants.KEY.DATE_CREATED);
+        columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.CONFIRMED_VISITS);
+        columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.LAST_HOME_VISIT);
         return columnList.toArray(new String[columnList.size()]);
     }
 

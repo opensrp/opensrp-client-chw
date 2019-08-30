@@ -18,8 +18,10 @@
     <string name="referral_date">Referral date</string>
     <string name="problem">Problem</string>
     <string name="phone">Phone</string>
-    <string name="client_name_suffix">%s,</string>
+    <string name="client_name_age_suffix">%s, %s</string>
     <string name="care_giver_prefix">CG: %s</string>
     <string name="mark_as_done_title">Mark as done?</string>
     <string name="mark_as_done_message">Referral will closed and disappear from app</string>
+    <string name="phone_not_provided">Phone not provided</string>
+    <string name="anc_danger_sign_prefix">ANC Danger Signs; Symptoms: %s</string>
 </resources>
