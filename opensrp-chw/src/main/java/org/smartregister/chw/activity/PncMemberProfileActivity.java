@@ -38,6 +38,8 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
 import java.text.MessageFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import timber.log.Timber;
@@ -46,7 +48,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
     public Handler handler = new Handler();
     private ImageView imageViewCross;
-    private TextView tvFamilyStatus;
+
     private PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
@@ -132,8 +134,8 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                     e.printStackTrace();
                 }
                 break;
-            case org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT:
-               handler.postDelayed(this::displayView, 200);
+            case Constants.REQUEST_CODE_HOME_VISIT:
+                handler.postDelayed(this::displayView, 200);
                 break;
             default:
                 break;
@@ -209,6 +211,9 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     private void setEditViews(boolean enable, boolean within24Hours, Long longDate) {
         if (enable) {
             if (within24Hours) {
+                Calendar cal = Calendar.getInstance();
+                int offset = cal.getTimeZone().getOffset(cal.getTimeInMillis());
+                new Date(longDate - (long) offset);
                 String pncDay = basePncMemberProfileInteractor.getPncDay(MEMBER_OBJECT.getBaseEntityId());
                 layoutNotRecordView.setVisibility(View.VISIBLE);
                 tvEdit.setVisibility(View.VISIBLE);
@@ -283,19 +288,20 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         }
     }
 
- @Override
-public void setFamilyStatus(AlertStatus status) {
-    tvFamilyStatus = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.textview_family_has);
+    @Override
+    public void setFamilyStatus(AlertStatus status) {
+        TextView tvFamilyStatus;
+        tvFamilyStatus = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.textview_family_has);
 
-    view_family_row.setVisibility(View.VISIBLE);
-    rlFamilyServicesDue.setVisibility(View.VISIBLE);
+        view_family_row.setVisibility(View.VISIBLE);
+        rlFamilyServicesDue.setVisibility(View.VISIBLE);
 
-    if (status == AlertStatus.complete) {
-        tvFamilyStatus.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_nothing_due));
-    } else if (status == AlertStatus.normal) {
-        tvFamilyStatus.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_services_due));
-    } else if (status == AlertStatus.urgent) {
-        tvFamilyStatus.setText(NCUtils.fromHtml(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_service_overdue)));
+        if (status == AlertStatus.complete) {
+            tvFamilyStatus.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_nothing_due));
+        } else if (status == AlertStatus.normal) {
+            tvFamilyStatus.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_services_due));
+        } else if (status == AlertStatus.urgent) {
+            tvFamilyStatus.setText(NCUtils.fromHtml(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_service_overdue)));
+        }
     }
-}
 }
