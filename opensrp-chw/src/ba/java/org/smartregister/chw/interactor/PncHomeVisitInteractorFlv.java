@@ -347,7 +347,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", "Nutrition Status ", nutrition_status_mama);
+                return MessageFormat.format("{0}: {1}", "Mother's Status ", nutrition_status_mama);
             }
 
             @Override
@@ -389,7 +389,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", "Nutrition Status ", nutrition_status_1m);
+                return MessageFormat.format("{0}: {1}", "Child's Status ", nutrition_status_1m);
             }
 
             @Override
