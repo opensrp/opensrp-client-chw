@@ -57,7 +57,7 @@
         "type": "hidden"
       },
       {
-        "key": "last_menstrual_period",
+        "key": "lmp_entered",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -71,12 +71,62 @@
         "v_required": {
           "value": "true",
           "err": "LMP required"
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
         }
       },
       {
-        "key": "gest_age_note",
+        "key": "last_menstrual_period_unknown",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "lmp_unknown",
+            "text": "LMP unknown?",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "edd",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "Expected Date of Delivery (EDD)",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+
+      {
+        "key": "gest_age_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Gestational Age (GA)",
@@ -95,22 +145,6 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_member_registration_calculation.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "edd",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Expected Date of Delivery (EDD)",
-        "read_only": true,
         "calculation": {
           "rules-engine": {
             "ex-rules": {

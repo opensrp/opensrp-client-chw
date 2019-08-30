@@ -14,9 +14,9 @@ import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import java.util.Date;
 
 public class HomeVisitUtil {
-
-    public static VisitSummary getAncVisitStatus(Context context, Rules rules, String lmpDate, String visitDate, String visitNotDate, LocalDate dateCreated) {
-        AncVisitAlertRule ancVisitAlertRule = new AncVisitAlertRule(context, lmpDate, visitDate, visitNotDate, dateCreated);
+//debug ya ronald
+    public static VisitSummary getAncVisitStatus(Context context, Rules rules, String visitDate, String visitNotDate, LocalDate dateCreated) {
+        AncVisitAlertRule ancVisitAlertRule = new AncVisitAlertRule(context, DateTimeFormat.forPattern("dd-MM-yyyy").print(dateCreated), visitDate, visitNotDate, dateCreated);
         CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(ancVisitAlertRule, rules);
         Date date = null;
         if (StringUtils.isNotBlank(visitDate)) {
