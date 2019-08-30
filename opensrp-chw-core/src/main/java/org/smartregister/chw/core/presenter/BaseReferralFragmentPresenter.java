@@ -13,6 +13,7 @@ public class BaseReferralFragmentPresenter implements BaseReferralRegisterFragme
     protected BaseReferralRegisterFragmentContract.View view;
     protected BaseReferralRegisterFragmentContract.Model model;
     protected BaseReferralRegisterFragmentContract.Interactor interactor;
+    protected String taskFocus;
 
     public BaseReferralFragmentPresenter(BaseReferralRegisterFragmentContract.View view) {
         this.view = view;
@@ -49,7 +50,12 @@ public class BaseReferralFragmentPresenter implements BaseReferralRegisterFragme
 
     @Override
     public void fetchClient() {
-        interactor.getClientDetails(getBaseEntityId(), this);
+        interactor.getClientDetails(getBaseEntityId(), this, "");
+    }
+
+    @Override
+    public void setTasksFocus(String taskFocus) {
+        this.taskFocus = taskFocus;
     }
 
     public String getBaseEntityId() {
@@ -58,6 +64,10 @@ public class BaseReferralFragmentPresenter implements BaseReferralRegisterFragme
 
     public void setBaseEntityId(String baseEntityId) {
         this.baseEntityId = baseEntityId;
+    }
+
+    public String getTaskFocus() {
+        return taskFocus;
     }
 
     @Override

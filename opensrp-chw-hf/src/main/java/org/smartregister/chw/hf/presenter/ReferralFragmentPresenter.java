@@ -30,6 +30,11 @@ public class ReferralFragmentPresenter extends BaseReferralFragmentPresenter {
     }
 
     @Override
+    public void fetchClient() {
+        interactor.getClientDetails(getBaseEntityId(), this, getTaskFocus());
+    }
+
+    @Override
     public void clientDetails(CommonPersonObjectClient client) {
         view.setClient(client);
     }
