@@ -464,7 +464,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.DEWORMING);
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.MNP);
             if (lastVisit != null) {
                 details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }

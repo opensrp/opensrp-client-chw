@@ -7,6 +7,7 @@ import org.joda.time.LocalDate;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.interactor.BaseAncUpcomingServicesInteractor;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -83,7 +84,7 @@ public class CoreChildUpcomingServiceInteractor extends BaseAncUpcomingServicesI
         }
 
         // partially received vaccines
-        Map<String, Date> partialGiven = VisitDao.getUprocessedVaccines(memberObject.getBaseEntityId());
+        Map<String, Date> partialGiven = VisitDao.getUnprocessedVaccines(memberObject.getBaseEntityId());
         for (Map.Entry<String, Date> entry : partialGiven.entrySet()) {
             givenVaccines.put(entry.getKey().replace("_", ""), entry.getValue());
         }
@@ -131,8 +132,35 @@ public class CoreChildUpcomingServiceInteractor extends BaseAncUpcomingServicesI
                 RecurringServiceUtil.getRecurringServices(
                         memberObject.getBaseEntityId(),
                         new DateTime(dob),
-                        CoreConstants.SERVICE_GROUPS.CHILD
+                        CoreConstants.SERVICE_GROUPS.CHILD,
+                        true
                 );
+
+        for (Map.Entry<String, ServiceWrapper> entry : serviceWrapperMap.entrySet()) {
+
+            if ("Exclusive breastfeeding".equalsIgnoreCase(entry.getKey()))
+                continue; // escape breastfeeding
+
+            String serviceIteration = entry.getValue().getName().substring(entry.getValue().getName().length() - 1);
+
+            BaseUpcomingService upcomingService = new BaseUpcomingService();
+            upcomingService.setServiceDate(entry.getValue().getVaccineDate().toDate());
+            upcomingService.setServiceName(getTranslatedService(entry.getKey(), serviceIteration));
+
+            upcomingServices.add(upcomingService);
+        }
+    }
+
+    private String getTranslatedService(String val, String serviceNum) {
+        switch (val) {
+            case "Deworming":
+                return context.getString(R.string.deworming_number_dose, Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceNum), context));
+            case "MNP":
+                return context.getString(R.string.mnp_number_pack, Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceNum), context));
+            case "Vitamin A":
+                return context.getString(R.string.vitamin_a_number_dose, Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceNum), context));
+        }
+        return val;
     }
 
 }
