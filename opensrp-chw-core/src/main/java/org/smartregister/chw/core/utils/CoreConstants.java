@@ -223,6 +223,7 @@ public class CoreConstants {
             private static final String DEWORMING = "child_hv_deworming";
             private static final String MUAC = "child_hv_muac";
             private static final String DIETARY = "child_hv_dietary_diversity";
+            private static final String MNP = "child_hv_mnp";
 
             public static String getVaccineCard() {
                 return Utils.getLocalForm(VACCINE_CARD, locale, assetManager);
@@ -242,6 +243,10 @@ public class CoreConstants {
 
             public static String getDIETARY() {
                 return Utils.getLocalForm(DIETARY, locale, assetManager);
+            }
+
+            public static String getMNP() {
+                return Utils.getLocalForm(MNP, locale, assetManager);
             }
         }
 

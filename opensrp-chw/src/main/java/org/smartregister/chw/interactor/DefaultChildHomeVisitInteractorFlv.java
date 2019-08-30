@@ -15,6 +15,7 @@ import org.smartregister.chw.actionhelper.ECDAction;
 import org.smartregister.chw.actionhelper.ExclusiveBreastFeedingAction;
 import org.smartregister.chw.actionhelper.ImmunizationActionHelper;
 import org.smartregister.chw.actionhelper.ImmunizationValidator;
+import org.smartregister.chw.actionhelper.MNPAction;
 import org.smartregister.chw.actionhelper.ObservationAction;
 import org.smartregister.chw.actionhelper.SleepingUnderLLITNAction;
 import org.smartregister.chw.actionhelper.VitaminaAction;
@@ -117,9 +118,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             evaluateExclusiveBreastFeeding(serviceWrapperMap);
             evaluateVitaminA(serviceWrapperMap);
             evaluateDeworming(serviceWrapperMap);
+            evaluateMNP(serviceWrapperMap);
             evaluateBirthCertForm();
             evaluateMUAC();
-            evaluateMNP();
+            evaluateDietary();
             evaluateECD();
             evaluateLLITN();
             evaluateObsAndIllness();
@@ -252,7 +254,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             List<VaccineWrapper> wrappers = VisitVaccineUtil.wrapVaccines(entry.getValue());
             List<VaccineDisplay> displays = VisitVaccineUtil.toDisplays(wrappers);
 
-            String title = MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.immunizations_count), getVaccineTitle(entry.getKey().name));
+            String title = MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.immunizations_count), VisitVaccineUtil.getVaccineTitle(entry.getKey().name, context));
             BaseHomeVisitImmunizationFragment fragment =
                     BaseHomeVisitImmunizationFragment.getInstance(view, memberObject.getBaseEntityId(), details, displays);
 
@@ -437,6 +439,61 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         }
     }
 
+    protected void evaluateMNP(Map<String, ServiceWrapper> serviceWrapperMap) throws Exception {
+        ServiceWrapper serviceWrapper = serviceWrapperMap.get("MNP");
+        if (serviceWrapper == null) {
+            return;
+        }
+
+        Alert alert = serviceWrapper.getAlert();
+        if (alert == null || new LocalDate().isBefore(new LocalDate(alert.startDate()))) {
+            return;
+        }
+
+        final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
+
+        String title = context.getString(R.string.mnp_number_pack, Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context));
+
+        // alert if overdue after 14 days
+        boolean isOverdue = new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
+        String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
+
+        MNPAction helper = new MNPAction(context, serviceIteration, alert);
+        JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getMNP(), memberObject.getBaseEntityId());
+        JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
+
+        Map<String, List<VisitDetail>> details = null;
+        if (editMode) {
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.DEWORMING);
+            if (lastVisit != null) {
+                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            }
+        }
+
+        if (details != null && details.size() > 0) {
+            JsonFormUtils.populateForm(jsonObject, details);
+        }
+
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
+                .withHelper(helper)
+                .withDetails(details)
+                .withOptional(false)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
+                .withPayloadDetails(MessageFormat.format("MNP{0}", serviceIteration))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
+                .withServiceWrapper(serviceWrapper)
+                .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
+                .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
+                .build();
+
+        // don't show if its after now
+        if (!serviceWrapper.getVaccineDate().isAfterNow()) {
+            actionList.put(title, action);
+        }
+    }
+
     protected void evaluateBirthCertForm() throws Exception {
         class BirthCertHelper extends HomeVisitActionHelper {
             private String birth_cert;
@@ -606,7 +663,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         actionList.put(context.getString(R.string.muac_title), action);
     }
 
-    protected void evaluateMNP() throws Exception {
+    protected void evaluateDietary() throws Exception {
         int age = getAgeInMonths();
         if (age > 60 || age < 6) {
             return;
@@ -757,13 +814,4 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         return Months.monthsBetween(new LocalDate(dob), new LocalDate()).getMonths();
     }
 
-    private String getVaccineTitle(String name) {
-        if ("Birth".equals(name)) {
-            return context.getString(R.string.at_birth);
-        }
-
-        return name.replace("Weeks", context.getString(org.smartregister.chw.core.R.string.abbrv_weeks))
-                .replace("Months", context.getString(org.smartregister.chw.core.R.string.abbrv_months))
-                .replace(" ", "");
-    }
 }

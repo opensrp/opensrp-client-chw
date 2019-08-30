@@ -114,26 +114,5 @@ public class TTAction extends HomeVisitActionHelper {
             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
         }
     }
-/*
-    @Override
-    public void onPayloadReceived(BaseAncHomeVisitAction ba) {
-        try {
-            JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
-            String value = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("tt{0}_date", vaccineStringTriple.getRight()));
 
-            try {
-                if (ba.getVaccineWrapper() != null && ba.getVaccineWrapper().size() > 0) {
-                    DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
-                    ba.getVaccineWrapper().get(0).setUpdatedVaccineDate(updateDate, false);
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-
-        } catch (JSONException e) {
-            Timber.e(e);
-        }
-    }
-
- */
 }
