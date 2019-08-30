@@ -77,15 +77,15 @@ public class CoreReferralUtils {
         return columnList.toArray(new String[columnList.size()]);
     }
 
-    public static String mainAncDetailsSelect(String tableName, String mainCondition) {
-        return createAncDetailsSelect(tableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + mainCondition + "'");
+    public static String mainAncDetailsSelect(String tableName, String baseEntityId) {
+        return createAncDetailsSelect(tableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + baseEntityId + "'");
     }
 
-    private static String createAncDetailsSelect(String tableName, String mainCondition) {
+    private static String createAncDetailsSelect(String tableName, String baseEntityId) {
         SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
         smartRegisterQueryBuilder.SelectInitiateMainTable(tableName, mainAncDetailsColumns(tableName));
         smartRegisterQueryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + " ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + ".id COLLATE NOCASE ");
-        return smartRegisterQueryBuilder.mainCondition(mainCondition);
+        return smartRegisterQueryBuilder.mainCondition(baseEntityId);
     }
 
     private static String[] mainAncDetailsColumns(String tableName) {

@@ -258,7 +258,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
 
     private void getReferralDetails() {
         if (getPersonObjectClient() != null && getTask() != null) {
-            clientReferralProblem.setText(getTask().getDescription());
+            updateProblemDisplay();
             clientAge = (Utils.getTranslatedDate(Utils.getDuration(Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.DOB, false)), getBaseContext()));
             clientName.setText(getString(R.string.client_name_age_suffix, name, clientAge));
             referralDate.setText(org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy.format(task.getExecutionStartDate().toDate()));
@@ -269,7 +269,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             String parentName = getString(R.string.care_giver_prefix, org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName));
 
             //Hide Care giver for ANC referral
-            if(getTask().getFocus().equalsIgnoreCase(CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS)){
+            if (getTask().getFocus().equalsIgnoreCase(CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS)) {
                 careGiverLayout.setVisibility(View.GONE);
             }
 
@@ -279,6 +279,14 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             chwDetailsNames.setText(getTask().getRequester());
 
             addGaDisplay();
+        }
+    }
+
+    private void updateProblemDisplay() {
+        if (CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS.equals(getTask().getFocus())) {
+            clientReferralProblem.setText(getString(R.string.anc_danger_sign_prefix, getTask().getDescription()));
+        } else {
+            clientReferralProblem.setText(getTask().getDescription());
         }
     }
 
