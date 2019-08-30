@@ -198,7 +198,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     fpPeriodReceived = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "fp_period_received");
                     fpMethod = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_method");
                     fpStartDate = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_start_date");
-                    // startDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(fpStartDate);
+                    startDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(fpStartDate);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -206,7 +206,8 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1} \u2022 {2}: {3} \n {4}: {5} \u2022 {6}: {7}", "Family Planning", fpCounselling, "Period received", fpPeriodReceived, "Method chosen", fpMethod, "Start date", fpStartDate);
+                return MessageFormat.format("{0}: {1} \u2022 {2}: {3} \n {4}: {5} \u2022 {6}: {7}",
+                        "Family Planning", fpCounselling, "Period received", fpPeriodReceived, "Method chosen", fpMethod, "Start date", DateTimeFormat.forPattern("dd MMM yyyy").print(startDate));
             }
 
             @Override
