@@ -268,8 +268,7 @@ public abstract class CoreAncRegisterFragment extends BaseAncRegisterFragment {
 
     @Override
     public void countExecute() {
-
-        Cursor c = null;
+        Cursor cursor = null;
         try {
 
             String query = "select count(*) from " + presenter().getMainTable() + " inner join " + CoreConstants.TABLE_NAME.FAMILY_MEMBER +
@@ -285,9 +284,9 @@ public abstract class CoreAncRegisterFragment extends BaseAncRegisterFragment {
                 query = query + " and ( " + presenter().getDueFilterCondition() + " ) ";
             }
 
-            c = commonRepository().rawCustomQueryForAdapter(query);
-            c.moveToFirst();
-            clientAdapter.setTotalcount(c.getInt(0));
+            cursor = commonRepository().rawCustomQueryForAdapter(query);
+            cursor.moveToFirst();
+            clientAdapter.setTotalcount(cursor.getInt(0));
             Timber.v("total count here %d", clientAdapter.getTotalcount());
 
             clientAdapter.setCurrentlimit(20);
@@ -297,8 +296,8 @@ public abstract class CoreAncRegisterFragment extends BaseAncRegisterFragment {
         } catch (Exception e) {
             Timber.e(e);
         } finally {
-            if (c != null) {
-                c.close();
+            if (cursor != null) {
+                cursor.close();
             }
         }
     }
