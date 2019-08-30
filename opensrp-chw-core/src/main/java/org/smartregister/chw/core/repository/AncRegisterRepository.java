@@ -13,9 +13,6 @@ import java.util.HashMap;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.core.utils.CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME;
-import static org.smartregister.chw.core.utils.CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION;
-
 public class AncRegisterRepository extends BaseRepository {
 
     public static final String TABLE_NAME = "ec_family_member";
@@ -29,7 +26,6 @@ public class AncRegisterRepository extends BaseRepository {
     public static final String[] TABLE_COLUMNS = {FIRST_NAME, MIDDLE_NAME, LAST_NAME, PHONE_NUMBER};
     public static final String[] ANC_COUNT_TABLE_COLUMNS = {BASE_ENTITY_ID};
     public static final String[] LAST_MENSTRUAL_PERIOD_COLUMNS = {LAST_MENSTRUAL_PERIOD};
-
 
 
     public AncRegisterRepository(Repository repository) {
