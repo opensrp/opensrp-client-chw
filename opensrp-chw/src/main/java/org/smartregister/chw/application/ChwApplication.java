@@ -59,6 +59,9 @@ import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 public class ChwApplication extends CoreChwApplication {
+
+    private Flavor flavor = new ChwApplicationFlv();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -70,7 +73,7 @@ public class ChwApplication extends CoreChwApplication {
 
         //Setup Navigation menu. Done only once when app is created
         NavigationMenu.setupNavigationMenu(this, new NavigationMenuFlv(), new NavigationModelFlv(),
-                getRegisteredActivities(), true);
+                getRegisteredActivities(), flavor.hasP2P());
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
@@ -186,5 +189,9 @@ public class ChwApplication extends CoreChwApplication {
         preferences.savePreference(AllConstants.DRISHTI_BASE_URL,
                 BuildConfig.DEBUG ? BuildConfig.opensrp_url_debug : BuildConfig.opensrp_url
         );
+    }
+
+    interface Flavor {
+        boolean hasP2P();
     }
 }

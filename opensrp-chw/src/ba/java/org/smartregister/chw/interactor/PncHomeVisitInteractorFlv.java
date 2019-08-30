@@ -173,7 +173,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         .withOptional(false)
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                         .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
                         .withHelper(new PNCDangerSignsBabyHelper())
                         .build();
@@ -284,7 +284,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         .withOptional(false)
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                         .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), null, details, null))
                         .withHelper(new ExclusiveBreastFeedingHelper(baby.getDob()))
                         .build();
@@ -408,7 +408,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     .withOptional(false)
                     .withDetails(details)
                     .withBaseEntityID(baby.getBaseEntityID())
-                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getNutritionStatusInfant())
                     .withHelper(new NutritionStatusBabyHelper())
                     .build();
@@ -635,7 +635,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         .withOptional(false)
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                         .withVaccineWrapper(wrappers)
                         // .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), baby.getDob(), details, wrappers))
                         .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))

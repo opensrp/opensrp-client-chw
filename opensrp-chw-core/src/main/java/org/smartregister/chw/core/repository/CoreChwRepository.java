@@ -156,5 +156,4 @@ public class CoreChwRepository extends Repository {
         }
         super.close();
     }
-
 }

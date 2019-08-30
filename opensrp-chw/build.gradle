@@ -124,6 +124,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'true'
+            buildConfigField "boolean", 'SUPPORT_REPORT', 'false'
             buildConfigField "int", "DATABASE_VERSION", '11'
         }
         chad {
@@ -136,6 +137,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
         drc {
@@ -148,6 +150,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
         guinea {
@@ -160,6 +163,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
         togo {
@@ -172,6 +176,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHW"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '9'
         }
         wcaro {
@@ -183,6 +188,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
     }

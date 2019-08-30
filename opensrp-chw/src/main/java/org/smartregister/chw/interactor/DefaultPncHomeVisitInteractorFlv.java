@@ -121,7 +121,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     .withOptional(false)
                     .withDetails(details)
                     .withBaseEntityID(baby.getBaseEntityID())
-                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
                     .withHelper(new DangerSignsAction())
                     .build();
@@ -158,7 +158,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                             .withOptional(false)
                             .withDetails(details)
                             .withBaseEntityID(baby.getBaseEntityID())
-                            .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
+                            .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                             .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisit())
                             .withHelper(new PNCHealthFacilityVisitHelper(visitRule, visit_num))
                             .build();
@@ -220,7 +220,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         .withOptional(false)
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                         .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getVaccineCard(), null, details, null))
                         .withHelper(new VaccineCardHelper(baby.getDob()))
                         .build();
@@ -247,7 +247,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         .withOptional(false)
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                         .withVaccineWrapper(wrappers)
                         .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
                         .withHelper(new ImmunizationActionHelper(context, wrappers))
@@ -404,7 +404,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         .withOptional(false)
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                         .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getKangarooCare(), null, details, null))
                         .withHelper(new KangarooHelper())
                         .build();
@@ -540,7 +540,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         .withOptional(true)
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                         .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
                         .withHelper(new ObservationAction())
                         .build();

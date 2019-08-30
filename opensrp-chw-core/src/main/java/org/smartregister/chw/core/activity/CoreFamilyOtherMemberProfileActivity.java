@@ -195,26 +195,24 @@ public abstract class CoreFamilyOtherMemberProfileActivity extends BaseFamilyOth
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) return;
+
         switch (requestCode) {
             case CoreConstants.ProfileActivityResults.CHANGE_COMPLETED:
-                if (resultCode == Activity.RESULT_OK) {
-                    Intent intent = new Intent(getFamilyOtherMemberProfileActivity(), getFamilyProfileActivity());
-                    intent.putExtras(getIntent().getExtras());
-                    startActivity(intent);
-                    finish();
-                }
+                Intent intent = new Intent(getFamilyOtherMemberProfileActivity(), getFamilyProfileActivity());
+                intent.putExtras(getIntent().getExtras());
+                startActivity(intent);
+                finish();
                 break;
             case JsonFormUtils.REQUEST_CODE_GET_JSON:
-                if (resultCode == RESULT_OK) {
-                    try {
-                        String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-                        JSONObject form = new JSONObject(jsonString);
-                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
-                            presenter().updateFamilyMember(jsonString);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                try {
+                    String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+                    JSONObject form = new JSONObject(jsonString);
+                    if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
+                        presenter().updateFamilyMember(jsonString);
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
             default:

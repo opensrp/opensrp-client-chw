@@ -3,10 +3,13 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -18,8 +21,10 @@ import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -46,6 +51,12 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhoneNumber);
         activity.startActivity(intent);
     }
+
+    private void checkPhoneNumberProvided() {
+        ((AncFloatingMenu) baseAncFloatingMenu).redraw(!StringUtils.isBlank(MEMBER_OBJECT.getPhoneNumber())
+                || !StringUtils.isBlank(getFamilyHeadPhoneNumber()));
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -79,7 +90,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     @Override // to chw
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+        if (resultCode != RESULT_OK) return;
+
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON) {
             try {
                 String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                 JSONObject form = new JSONObject(jsonString);
@@ -104,11 +117,14 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                     }
 
                 } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.ANC_REFERRAL)) {
-                    ancMemberProfilePresenter().createSickChildEvent(Utils.getAllSharedPreferences(), jsonString);
+                    ancMemberProfilePresenter().createReferralEvent(Utils.getAllSharedPreferences(), jsonString);
+                    showToast(this.getString(R.string.referral_submitted));
                 }
             } catch (Exception e) {
                 Timber.e(e, "AncMemberProfileActivity -- > onActivityResult");
             }
+        } else if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
+            finish();
         }
     }
 
@@ -158,6 +174,45 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
     @Override
     public void setClientTasks(Set<Task> taskList) {
-        // not needed
+        //overridden
+    }
+
+    @Override
+    public void startFormActivity(JSONObject formJson) {
+        startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, formJson, Utils.metadata().familyMemberFormActivity),
+                JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public void initializeFloatingMenu() {
+        baseAncFloatingMenu = new AncFloatingMenu(this, getAncWomanName(),
+                MEMBER_OBJECT.getPhoneNumber(), getFamilyHeadName(), getFamilyHeadPhoneNumber(), getProfileType());
+
+        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
+            switch (viewId) {
+                case R.id.anc_fab:
+                    checkPhoneNumberProvided();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                case R.id.call_layout:
+                    ((AncFloatingMenu) baseAncFloatingMenu).launchCallWidget();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                case R.id.refer_to_facility_layout:
+                    ancMemberProfilePresenter().startAncReferralForm();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                default:
+                    Timber.d("Unknown fab action");
+                    break;
+            }
+
+        };
+
+        ((AncFloatingMenu) baseAncFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
+        baseAncFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        addContentView(baseAncFloatingMenu, linearLayoutParams);
     }
 }

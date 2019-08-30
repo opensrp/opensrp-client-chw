@@ -94,37 +94,35 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) return;
+
         switch (requestCode) {
             case org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
-                if (resultCode == Activity.RESULT_OK) {
-                    Intent intent = new Intent(PncMemberProfileActivity.this, PncRegisterActivity.class);
-                    intent.putExtras(getIntent().getExtras());
-                    startActivity(intent);
-                    finish();
-                }
+                Intent intent = new Intent(PncMemberProfileActivity.this, PncRegisterActivity.class);
+                intent.putExtras(getIntent().getExtras());
+                startActivity(intent);
+                finish();
                 break;
             case JsonFormUtils.REQUEST_CODE_GET_JSON:
-                if (resultCode == RESULT_OK) {
-                    try {
-                        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                        JSONObject form = new JSONObject(jsonString);
-                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
+                try {
+                    String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                    JSONObject form = new JSONObject(jsonString);
+                    if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
 
-                            FamilyEventClient familyEventClient =
-                                    new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
-                            new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, pncMemberProfilePresenter());
-                        }
-
-                        if (org.smartregister.chw.util.Constants.EventType.UPDATE_CHILD_REGISTRATION.equals(form.getString(JsonFormUtils.ENCOUNTER_TYPE))) {
-
-                            Pair<Client, Event> pair = new ChildRegisterModel().processRegistration(jsonString);
-                            if (pair != null) {
-                                basePncMemberProfileInteractor.updateChild(pair, jsonString, null);
-                            }
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        FamilyEventClient familyEventClient =
+                                new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
+                        new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, pncMemberProfilePresenter());
                     }
+
+                    if (org.smartregister.chw.util.Constants.EventType.UPDATE_CHILD_REGISTRATION.equals(form.getString(JsonFormUtils.ENCOUNTER_TYPE))) {
+
+                        Pair<Client, Event> pair = new ChildRegisterModel().processRegistration(jsonString);
+                        if (pair != null) {
+                            basePncMemberProfileInteractor.updateChild(pair, jsonString, null);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
             default:
@@ -190,14 +188,13 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
             textview_record_visit.setBackgroundResource(R.drawable.rounded_white_btn);
             textview_record_visit.setTextColor(getResources().getColor(R.color.scan_qr_code_bg_stk_grey));
         }
-
     }
 
     private PncVisitAlertRule getVisitDetails() {
         return basePncMemberProfileInteractor.getVisitSummary(MEMBER_OBJECT.getBaseEntityId());
     }
 
-    private void setUpEditViews(boolean enable, boolean within24Hours, Long longDate) {
+    protected void setUpEditViews(boolean enable, boolean within24Hours, Long longDate) {
         if (enable) {
             if (within24Hours) {
                 String pncDay = basePncMemberProfileInteractor.getPncDay(MEMBER_OBJECT.getBaseEntityId());
