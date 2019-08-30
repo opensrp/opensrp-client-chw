@@ -7,7 +7,6 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.helper.RulesEngineHelper;
 import org.smartregister.chw.core.repository.AncRegisterRepository;
-import org.smartregister.chw.core.repository.ReferralsRepository;
 import org.smartregister.chw.core.repository.WashCheckRepository;
 import org.smartregister.chw.core.sync.ChwClientProcessor;
 import org.smartregister.chw.core.utils.ApplicationUtils;
@@ -47,7 +46,6 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     private static TaskRepository taskRepository;
     private static PlanDefinitionRepository planDefinitionRepository;
     private static WashCheckRepository washCheckRepository;
-    private static ReferralsRepository referralsRepository;
     public JsonSpecHelper jsonSpecHelper;
     private LocationRepository locationRepository;
     private ECSyncHelper ecSyncHelper;
@@ -80,14 +78,6 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         }
         return washCheckRepository;
     }
-
-    public static ReferralsRepository getReferralsRepository() {
-        if (referralsRepository == null) {
-            referralsRepository = new ReferralsRepository(getInstance().getRepository());
-        }
-        return referralsRepository;
-    }
-
 
     /**
      * Update application contants to fit current context

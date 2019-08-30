@@ -1,19 +1,11 @@
 package org.smartregister.chw.core.interactor;
 
-import android.database.Cursor;
-
-import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.contract.NavigationContract;
-import org.smartregister.chw.core.utils.ChildDBConstants;
-import org.smartregister.chw.core.utils.ChwDBConstants;
+import org.smartregister.chw.core.dao.NavigationDao;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.AppExecutors;
-import org.smartregister.family.util.DBConstants;
 
-import java.text.MessageFormat;
 import java.util.Date;
 
 import timber.log.Timber;
@@ -58,69 +50,54 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     }
 
     private int getCount(String tableName) {
-        int count;
-        Cursor cursor = null;
-        String mainCondition;
-        if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.CHILD)) {
-            mainCondition = String.format(" where %s is null AND %s", DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeLimitFilter());
-        } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.FAMILY)) {
-            mainCondition = String.format(" where %s is null ", DBConstants.KEY.DATE_REMOVED);
-        } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.ANC_MEMBER)) {
-            mainCondition = MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER) +
-                    MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
-                            CoreConstants.TABLE_NAME.ANC_MEMBER, DBConstants.KEY.BASE_ENTITY_ID) +
-                    MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY) +
-                    MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
-                            CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID) +
-                    MessageFormat.format(" where {0}.{1} is null ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DATE_REMOVED) +
-                    MessageFormat.format(" and {0}.{1} is 0 ", CoreConstants.TABLE_NAME.ANC_MEMBER, org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED);
+        switch (tableName.toLowerCase().trim()) {
+            case CoreConstants.TABLE_NAME.CHILD:
+                String sql_child = "select count(*) from ec_child c " +
+                        "inner join ec_family_member m on c.base_entity_id = m.base_entity_id COLLATE NOCASE " +
+                        "inner join ec_family f on f.base_entity_id = m.relational_id COLLATE NOCASE " +
+                        "where m.date_removed is null and m.is_closed = 0 " +
+                        "and ((( julianday('now') - julianday(c.dob))/365.25) < 5) ";
+                return NavigationDao.getQueryCount(sql_child);
 
-        } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.TASK)) {
-            mainCondition = " INNER JOIN ec_family_member  ON  ec_family_member.base_entity_id = task.for COLLATE NOCASE WHERE task.status =\"READY\"  ORDER BY task.start desc";
-        } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME)) {
-            mainCondition = MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER) +
-                    MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
-                            CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, DBConstants.KEY.BASE_ENTITY_ID) +
-                    MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY) +
-                    MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
-                            CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID) +
-                    MessageFormat.format(" where {0}.{1} is not null AND {0}.{2} is 0 ", CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, ChwDBConstants.DELIVERY_DATE, ChwDBConstants.IS_CLOSED);
-        } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION)) {
-            mainCondition = MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER) +
-                    MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
-                            CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION, DBConstants.KEY.BASE_ENTITY_ID) +
-                    MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY) +
-                    MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
-                            CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID) +
-                    MessageFormat.format(" where {0}.{1} is null ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DATE_REMOVED) +
-                    MessageFormat.format(" and {0}.{1} = 1 ", CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION, org.smartregister.chw.malaria.util.DBConstants.KEY.MALARIA);
-        } else {
-            mainCondition = " where 1 = 1 ";
+            case CoreConstants.TABLE_NAME.FAMILY:
+                String sql_family = "select count(*) from ec_family where date_removed is null";
+                return NavigationDao.getQueryCount(sql_family);
+
+            case CoreConstants.TABLE_NAME.ANC_MEMBER:
+                String sql_anc_member = "select count(*) " +
+                        "from ec_anc_register r " +
+                        "inner join ec_family_member m on r.base_entity_id = m.base_entity_id COLLATE NOCASE " +
+                        "inner join ec_family f on f.base_entity_id = m.relational_id COLLATE NOCASE " +
+                        "where m.date_removed is null and m.is_closed = 0 ";
+                return NavigationDao.getQueryCount(sql_anc_member);
+
+            case CoreConstants.TABLE_NAME.TASK:
+                String sql_task = "select count(*) from task t " +
+                        "inner join ec_family_member m on m.base_entity_id = \"t.for\" COLLATE NOCASE " +
+                        "WHERE t.status =\"READY\" and m.date_removed is null ";
+                return NavigationDao.getQueryCount(sql_task);
+
+            case CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME:
+
+                String sql_pregnancy = "select count(*) " +
+                        "from ec_pregnancy_outcome p " +
+                        "inner join ec_family_member m on p.base_entity_id = m.base_entity_id COLLATE NOCASE " +
+                        "inner join ec_family f on f.base_entity_id = m.relational_id COLLATE NOCASE " +
+                        "where m.date_removed is null and p.delivery_date is not null and p.is_closed = 0 ";
+                return NavigationDao.getQueryCount(sql_pregnancy);
+
+            case CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION:
+
+                String sql_malaria = "select count(*) " +
+                        "from ec_malaria_confirmation p " +
+                        "inner join ec_family_member m on p.base_entity_id = m.base_entity_id COLLATE NOCASE " +
+                        "inner join ec_family f on f.base_entity_id = m.relational_id COLLATE NOCASE " +
+                        "where m.date_removed is null and p.is_closed = 0 ";
+                return NavigationDao.getQueryCount(sql_malaria);
+
+            default:
+                return NavigationDao.getTableCount(tableName);
         }
-
-        try {
-            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
-            String query = MessageFormat.format("select count(*) from {0} {1}", tableName, mainCondition);
-            query = sqb.Endquery(query);
-            Timber.i("2 %s", query);
-
-            if (CoreConstants.TABLE_NAME.TASK.equals(tableName)) {
-                count = CoreChwApplication.getReferralsRepository().getTasksCount(query);
-            } else {
-                cursor = commonRepository(tableName).rawCustomQueryForAdapter(query);
-                count = cursor != null && cursor.moveToFirst() ? cursor.getInt(0) : 0;
-            }
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-
-        return count;
-    }
-
-    private CommonRepository commonRepository(String tableName) {
-        return coreApplication.getContext().commonrepository(tableName);
     }
 
     @Override
