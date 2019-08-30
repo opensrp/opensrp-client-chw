@@ -3,7 +3,6 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.util.Pair;
 
-import org.ei.drishti.dto.AlertStatus;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
@@ -22,6 +21,7 @@ import org.smartregister.chw.pnc.interactor.BasePncMemberProfileInteractor;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.util.Utils;
 
 import java.text.ParseException;
