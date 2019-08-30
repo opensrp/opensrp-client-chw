@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -27,7 +28,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public class TTAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
+public class TTAction extends HomeVisitActionHelper {
     private Context context;
     private String str_date;
     private Date parsedDate;
@@ -114,7 +115,7 @@ public class TTAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper
             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
         }
     }
-
+/*
     @Override
     public void onPayloadReceived(BaseAncHomeVisitAction ba) {
         try {
@@ -134,4 +135,6 @@ public class TTAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper
             Timber.e(e);
         }
     }
+
+ */
 }

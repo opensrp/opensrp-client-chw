@@ -5,6 +5,7 @@ import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.repository.AlertRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlertDao extends AbstractDao {
@@ -51,8 +52,16 @@ public class AlertDao extends AbstractDao {
         String sql = "select alerts.caseID , alerts.startDate , alerts.visitCode , " +
                 " alerts.completionDate , vaccines.date , strftime('%Y-%m-%d', vaccines.date / 1000, 'unixepoch') dateGiven " +
                 " from alerts " +
-                " inner join vaccines on vaccines.base_entity_id = alerts.caseID and replace(vaccines.name,'_','') = alerts.visitCode " +
+                " inner join vaccines on vaccines.base_entity_id = alerts.caseID and replace(vaccines.name,'_','') = alerts.visitCode COLLATE NOCASE " +
                 " where alerts.caseID = '" + baseEntityID + "' and alerts.status not in ('complete','expired','inProcess') ";
+
+        String pending_alerts = "select alerts.caseID , alerts.startDate  , alerts.visitCode , " +
+                "alerts.completionDate , vd.details dateGiven " +
+                "from alerts " +
+                "inner join visits v on v.base_entity_id = alerts.caseID COLLATE NOCASE " +
+                "inner join visit_details vd on vd.visit_id = v.visit_id COLLATE NOCASE and vd.visit_key = replace(lower(alerts.scheduleName),' ', '_') " +
+                "and vd.details <> 'Vaccine not given' " +
+                "and alerts.status not in ('complete','expired','inProcess') ";
 
         DataMap<AlertState> dataMap = c -> new AlertState(
                 getCursorValue(c, "caseID"),
@@ -61,9 +70,18 @@ public class AlertDao extends AbstractDao {
                 getCursorValue(c, "dateGiven")
         );
 
-        List<AlertState> states = AbstractDao.readData(sql, dataMap);
+        List<AlertState> states = new ArrayList<>();
 
-        if (states == null || states.size() == 0) {
+        List<AlertState> vaccinated = AbstractDao.readData(sql, dataMap);
+        if (vaccinated != null && vaccinated.size() > 0)
+            states.addAll(vaccinated);
+
+        List<AlertState> pending_vaccinated = AbstractDao.readData(pending_alerts, dataMap);
+        if (pending_vaccinated != null && pending_vaccinated.size() > 0)
+            states.addAll(pending_vaccinated);
+
+
+        if (states.size() == 0) {
             return;
         }
 

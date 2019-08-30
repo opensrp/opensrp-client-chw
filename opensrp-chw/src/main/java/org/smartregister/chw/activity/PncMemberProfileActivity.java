@@ -101,8 +101,11 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) return;
+
         switch (requestCode) {
             case org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
+<<<<<<< HEAD
                 if (resultCode == Activity.RESULT_OK) {
                     Intent intent = new Intent(PncMemberProfileActivity.this, PncRegisterActivity.class);
                     intent.putExtras(getIntent().getExtras());
@@ -110,29 +113,33 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                     setupViews();
                     finish();
                 }
+=======
+                Intent intent = new Intent(PncMemberProfileActivity.this, PncRegisterActivity.class);
+                intent.putExtras(getIntent().getExtras());
+                startActivity(intent);
+                finish();
+>>>>>>> f50c93586fab34c6093b0a43f3fd7532e6f6ff65
                 break;
             case JsonFormUtils.REQUEST_CODE_GET_JSON:
-                if (resultCode == RESULT_OK) {
-                    try {
-                        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                        JSONObject form = new JSONObject(jsonString);
-                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
+                try {
+                    String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                    JSONObject form = new JSONObject(jsonString);
+                    if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
 
-                            FamilyEventClient familyEventClient =
-                                    new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
-                            new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, pncMemberProfilePresenter());
-                        }
-
-                        if (org.smartregister.chw.util.Constants.EventType.UPDATE_CHILD_REGISTRATION.equals(form.getString(JsonFormUtils.ENCOUNTER_TYPE))) {
-
-                            Pair<Client, Event> pair = new ChildRegisterModel().processRegistration(jsonString);
-                            if (pair != null) {
-                                basePncMemberProfileInteractor.updateChild(pair, jsonString, null);
-                            }
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        FamilyEventClient familyEventClient =
+                                new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
+                        new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, pncMemberProfilePresenter());
                     }
+
+                    if (org.smartregister.chw.util.Constants.EventType.UPDATE_CHILD_REGISTRATION.equals(form.getString(JsonFormUtils.ENCOUNTER_TYPE))) {
+
+                        Pair<Client, Event> pair = new ChildRegisterModel().processRegistration(jsonString);
+                        if (pair != null) {
+                            basePncMemberProfileInteractor.updateChild(pair, jsonString, null);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
             case org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT:
@@ -200,7 +207,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
             textview_record_visit.setBackgroundResource(R.drawable.rounded_white_btn);
             textview_record_visit.setTextColor(getResources().getColor(R.color.scan_qr_code_bg_stk_grey));
         }
-
     }
 
     private PncVisitAlertRule getVisitDetails() {
@@ -284,6 +290,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         }
     }
 
+<<<<<<< HEAD
 
     @Override
     public void setFamilyStatus(AlertStatus status) {
@@ -301,4 +308,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         }
     }
 
+=======
+>>>>>>> f50c93586fab34c6093b0a43f3fd7532e6f6ff65
 }

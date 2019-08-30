@@ -2,7 +2,12 @@ package org.smartregister.chw.core.utils;
 
 import android.content.res.AssetManager;
 
+import org.json.JSONObject;
+
 import java.util.Locale;
+
+import static org.smartregister.chw.core.utils.CoreJsonFormUtils.ENCOUNTER_TYPE;
+import static org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.MALARIA_FOLLOW_UP_VISIT;
 
 public class CoreConstants {
 
@@ -74,6 +79,9 @@ public class CoreConstants {
         public static final String MINIMUM_DIETARY_DIVERSITY = "Minimum dietary diversity";
         public static final String MUAC = "Mid-upper arm circumference (MUAC)";
         public static final String LLITN = "Sleeping under a LLITN";
+        public static final String VITAMIN_A = "Vitamin A";
+        public static final String DEWORMING = "De-worming";
+        public static final String EXCLUSIVE_BREASTFEEDING = "Exclusive breast feeding";
         public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
         public static final String UPDATE_FAMILY_MEMBER_RELATIONS = "Update Family Member Relations";
 
@@ -117,8 +125,10 @@ public class CoreConstants {
         private static final String ANC_REGISTRATION = "anc_member_registration";
         private static final String PREGNANCY_OUTCOME = "anc_pregnancy_outcome";
         private static final String MALARIA_CONFIRMATION = "malaria_confirmation";
+        private static final String MALARIA_FOLLOW_UP_VISIT_FORM = "malaria_follow_up_visit";
         private static final String WASH_CHECK = "wash_check";
         private static final String CHILD_REFERRAL_FORM = "child_referral_form";
+        private static final String ANC_REFERRAL_FORM = "anc_referral_form";
         public static AssetManager assetManager;
         public static Locale locale;
 
@@ -136,6 +146,10 @@ public class CoreConstants {
 
         public static String getChildReferralForm() {
             return CHILD_REFERRAL_FORM;
+        }
+
+        public static String getAncReferralForm() {
+            return ANC_REFERRAL_FORM;
         }
 
         public static String getBirthCertification() {
@@ -188,6 +202,15 @@ public class CoreConstants {
 
         public static String getMalariaConfirmation() {
             return Utils.getLocalForm(MALARIA_CONFIRMATION, locale, assetManager);
+        }
+
+        public static boolean isMultiPartForm(JSONObject jsonForm) {
+            String encounterType = jsonForm.optString(ENCOUNTER_TYPE);
+            return encounterType.equals(MALARIA_FOLLOW_UP_VISIT) ? false : true;
+        }
+
+        public static String getMalariaFollowUpVisitForm() {
+            return Utils.getLocalForm(MALARIA_FOLLOW_UP_VISIT_FORM, locale, assetManager);
         }
 
         public static String getWashCheck() {
@@ -392,6 +415,7 @@ public class CoreConstants {
         public static final String CHILD = "ec_child";
         public static final String CHILD_ACTIVITY = "ec_child_activity";
         public static final String ANC_MEMBER = "ec_anc_register";
+        public static final String PNC_MEMBER = "ec_pregnancy_outcome";
         public static final String ANC_MEMBER_LOG = "ec_anc_log";
         public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
         public static final String ANC_PREGNANCY_OUTCOME = "ec_pregnancy_outcome";
@@ -420,6 +444,9 @@ public class CoreConstants {
         public static final String VIEW_REGISTER_CLASS = "view_register_class";
         public static final String STARTING_ACTIVITY = "starting_activity";
         public static final String CLIENT = "client";
+        public static final String MEMBER_OBJECT = "member_object";
+        public static final String FAMILY_HEAD_NAME = "family_head_name";
+        public static final String FAMILY_HEAD_PHONE_NUMBER = "family_head_phone_number";
     }
 
     public static final class IMMUNIZATION_CONSTANT {
@@ -449,6 +476,7 @@ public class CoreConstants {
         public static final String IMMUNIZATION_EXPIRED = "immunization-expire-rules.yml";
         public static final String CONTACT_RULES = "contact-rules.yml";
         public static final String PNC_HEALTH_FACILITY_VISIT = "pnc-health-facility-schedule-rule.yml";
+        public static final String MALARIA_FOLLOW_UP_VISIT = "malaria-followup-rules.yml";
     }
 
     public static class PROFILE_CHANGE_ACTION {

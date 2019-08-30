@@ -126,6 +126,7 @@
     <string name="registration_info">Registration info</string>
     <string name="anc_registration">ANC Registration</string>
     <string name="malaria_registration">Malaria Confirmation</string>
+    <string name="malaria_follow_up">Follow-up Visit</string>
     <string name="malaria_diagnosis">Malaria Diagnosis</string>
     <string name="sick_child_follow_up">Sick child follow-up</string>
     <string name="edit_child_form_title">Edit Child Under 5</string>
@@ -218,7 +219,7 @@
 
     <!--Referral-->
     <string name="referred_by">Referred by CHW %1s</string>
-    <string name="hours_ago">1%dh ago</string>
+    <string name="hours_ago">%dh ago</string>
     <string name="yesterday">Yesterday</string>
 
     <string name="change_member_alert">Kindly complete the form before submitting</string>
@@ -346,6 +347,11 @@
     <string name="deworming_number_dose">Deworming %s dose</string>
     <string name="vitamin_a_number_dose">Vitamin A %s dose</string>
 
+    <!-- Referrals -->
     <string name="return_to_task_details">Return to Referral details</string>
+<<<<<<< HEAD
+=======
+    <string name="referral_submitted">Referral sent to facility</string>
+>>>>>>> f50c93586fab34c6093b0a43f3fd7532e6f6ff65
     <string name="ga_label">GA</string>
 </resources>

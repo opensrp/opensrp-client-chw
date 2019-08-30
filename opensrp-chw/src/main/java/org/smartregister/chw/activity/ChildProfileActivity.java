@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class ChildProfileActivity extends CoreChildProfileActivity {
     public FamilyMemberFloatingMenu familyFloatingMenu;
-    private ChildProfileActivityFlv flavor = new ChildProfileActivityFlv();
+    private Flavor flavor = new ChildProfileActivityFlv();
 
     @Override
     protected void onCreation() {
@@ -120,6 +120,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         }
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
+        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         return true;
     }
 

@@ -52,7 +52,7 @@
       {
         "key": "iptp{0}_date",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "date_picker",
         "image": "form_iptp_sp",

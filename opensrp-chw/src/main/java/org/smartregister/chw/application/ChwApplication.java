@@ -19,6 +19,7 @@ import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
+import org.smartregister.chw.activity.MalariaRegisterActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -58,6 +59,9 @@ import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 public class ChwApplication extends CoreChwApplication {
+
+    private Flavor flavor = new ChwApplicationFlv();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -69,7 +73,7 @@ public class ChwApplication extends CoreChwApplication {
 
         //Setup Navigation menu. Done only once when app is created
         NavigationMenu.setupNavigationMenu(this, new NavigationMenuFlv(), new NavigationModelFlv(),
-                getRegisteredActivities(), true);
+                getRegisteredActivities(), flavor.hasP2P());
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
@@ -164,6 +168,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, PncRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, MalariaRegisterActivity.class);
         return registeredActivities;
     }
 
@@ -184,5 +189,9 @@ public class ChwApplication extends CoreChwApplication {
         preferences.savePreference(AllConstants.DRISHTI_BASE_URL,
                 BuildConfig.DEBUG ? BuildConfig.opensrp_url_debug : BuildConfig.opensrp_url
         );
+    }
+
+    interface Flavor {
+        boolean hasP2P();
     }
 }

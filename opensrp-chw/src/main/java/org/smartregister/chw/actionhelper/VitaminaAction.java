@@ -55,7 +55,7 @@ public class VitaminaAction extends HomeVisitActionHelper {
     private boolean isOverDue() {
         return new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
     }
-
+/*
     @Override
     public void onPayloadReceived(BaseAncHomeVisitAction ba) {
         try {
@@ -75,7 +75,7 @@ public class VitaminaAction extends HomeVisitActionHelper {
             Timber.e(e);
         }
     }
-
+*/
     public JSONObject preProcess(JSONObject jsonObject, String iteration) throws JSONException {
         JSONArray fields = JsonFormUtils.fields(jsonObject);
 

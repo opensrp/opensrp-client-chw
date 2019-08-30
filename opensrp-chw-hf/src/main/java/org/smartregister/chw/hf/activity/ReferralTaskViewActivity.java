@@ -15,7 +15,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.json.JSONObject;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -59,10 +61,24 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     private ReferralsTaskViewClickListener referralsTaskViewClickListener = new ReferralsTaskViewClickListener();
     private String name;
     private String baseEntityId;
+    private MemberObject memberObject;
+    private String familyHeadName;
+    private String familyHeadPhoneNumber;
 
     public static void startReferralTaskViewActivity(Activity activity, CommonPersonObjectClient personObjectClient, Task task, String startingActivity) {
         Intent intent = new Intent(activity, ReferralTaskViewActivity.class);
         intent.putExtra(CoreConstants.INTENT_KEY.USERS_TASKS, task);
+        intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, personObjectClient);
+        intent.putExtra(CoreConstants.INTENT_KEY.STARTING_ACTIVITY, startingActivity);
+        activity.startActivity(intent);
+    }
+
+    public static void startReferralTaskViewActivity(Activity activity, MemberObject memberObject, String familyHeadName, String familiyHeadPhoneNumber, CommonPersonObjectClient personObjectClient, Task task, String startingActivity) {
+        Intent intent = new Intent(activity, ReferralTaskViewActivity.class);
+        intent.putExtra(CoreConstants.INTENT_KEY.USERS_TASKS, task);
+        intent.putExtra(CoreConstants.INTENT_KEY.MEMBER_OBJECT, memberObject);
+        intent.putExtra(CoreConstants.INTENT_KEY.FAMILY_HEAD_NAME, familyHeadName);
+        intent.putExtra(CoreConstants.INTENT_KEY.FAMILY_HEAD_PHONE_NUMBER, familiyHeadPhoneNumber);
         intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, personObjectClient);
         intent.putExtra(CoreConstants.INTENT_KEY.STARTING_ACTIVITY, startingActivity);
         activity.startActivity(intent);
@@ -79,9 +95,11 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         if (getIntent().getExtras() != null) {
             extractPersonObjectClient();
             extraClientTask();
+            extraAncDetails();
             setStartingActivity((String) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.STARTING_ACTIVITY));
         }
 
+<<<<<<< HEAD
         if (getPersonObjectClient() == null) {
             Timber.e("ReferralTaskViewActivity --> The person object is null");
             finish();
@@ -92,11 +110,16 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             finish();
         }
 
+=======
+>>>>>>> f50c93586fab34c6093b0a43f3fd7532e6f6ff65
         referralsTaskViewClickListener.setReferralTaskViewActivity(this);
         if (getTask() != null) {
             referralsTaskViewClickListener.setTaskFocus(getTask().getFocus());
         }
         referralsTaskViewClickListener.setCommonPersonObjectClient(getPersonObjectClient());
+        referralsTaskViewClickListener.setMemberObject(getMemberObject());
+        referralsTaskViewClickListener.setFamilyHeadName(getFamilyHeadName());
+        referralsTaskViewClickListener.setFamilyHeadPhoneNumber(getFamilyHeadPhoneNumber());
         inflateToolbar();
         setUpViews();
 
@@ -111,20 +134,62 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         setPersonObjectClient((CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON));
         if (getPersonObjectClient() != null) {
             name = Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.FIRST_NAME, true) + " " + Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true) + " " + Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-            setBaseEntityId(Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true));
+            setBaseEntityId(Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
+        }
+
+        if (getPersonObjectClient() == null) {
+            Timber.e("ReferralTaskViewActivity --> The person object is null");
+            finish();
         }
     }
 
     private void extraClientTask() {
         setTask((Task) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.USERS_TASKS));
+
+        if (getTask() == null) {
+            Timber.e("ReferralTaskViewActivity --> The task object is null");
+            finish();
+        }
+    }
+
+    private void extraAncDetails() {
+        if (CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY.equals(startingActivity)) {
+            setMemberObject((MemberObject) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.MEMBER_OBJECT));
+            setFamilyHeadName((String) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.FAMILY_HEAD_NAME));
+            setFamilyHeadPhoneNumber((String) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.FAMILY_HEAD_PHONE_NUMBER));
+        }
+    }
+
+    public Task getTask() {
+        return task;
     }
 
     public CommonPersonObjectClient getPersonObjectClient() {
         return personObjectClient;
     }
 
-    public Task getTask() {
-        return task;
+    public void setPersonObjectClient(CommonPersonObjectClient personObjectClient) {
+        this.personObjectClient = personObjectClient;
+    }
+
+    public MemberObject getMemberObject() {
+        return memberObject;
+    }
+
+    public void setMemberObject(MemberObject memberObject) {
+        this.memberObject = memberObject;
+    }
+
+    public String getFamilyHeadName() {
+        return familyHeadName;
+    }
+
+    public void setFamilyHeadName(String familyHeadName) {
+        this.familyHeadName = familyHeadName;
+    }
+
+    public String getFamilyHeadPhoneNumber() {
+        return familyHeadPhoneNumber;
     }
 
     private void inflateToolbar() {
@@ -237,12 +302,12 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         this.startingActivity = startingActivity;
     }
 
-    public void setTask(Task task) {
-        this.task = task;
+    public void setFamilyHeadPhoneNumber(String familyHeadPhoneNumber) {
+        this.familyHeadPhoneNumber = familyHeadPhoneNumber;
     }
 
-    public void setPersonObjectClient(CommonPersonObjectClient personObjectClient) {
-        this.personObjectClient = personObjectClient;
+    public void setTask(Task task) {
+        this.task = task;
     }
 
     public void closeReferral() {
@@ -311,6 +376,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
 
     private void completeTask() {
         Task currentTask = getTask();
+        currentTask.setExecutionEndDate(new DateTime());
         currentTask.setForEntity(getBaseEntityId());
         currentTask.setStatus(Task.TaskStatus.COMPLETED);
         currentTask.setBusinessStatus(CoreConstants.BUSINESS_STATUS.COMPLETE);

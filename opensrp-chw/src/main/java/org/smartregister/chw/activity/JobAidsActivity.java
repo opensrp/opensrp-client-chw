@@ -166,9 +166,12 @@ public class JobAidsActivity extends FamilyRegisterActivity {
 
         }
 
-        if (!BuildConfig.SUPPORT_QR) {
+        if (!BuildConfig.SUPPORT_QR)
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
-        }
+
+        if(!BuildConfig.SUPPORT_REPORT)
+            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_job_aids);
+
     }
 
     /**
