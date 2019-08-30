@@ -296,7 +296,7 @@
         "options": [
           {
             "key": "facility_family_member",
-            "text": "Amejifungulia  katika kituo cha kutolea huduma za afya, na amesindikizwa na mwanafamilia",
+            "text": "Amejifungulia  katika kituo cha kutolea huduma za afya, na amesindikizwa na mwanafamilia.",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
