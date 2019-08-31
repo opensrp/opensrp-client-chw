@@ -60,6 +60,8 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
             intent.putExtras(getIntent().getExtras());
             startActivity(intent);
             finish();
+        } else if (requestCode == Constants.REQUEST_CODE_HOME_VISIT) {
+            this.displayView();
         }
     }
 

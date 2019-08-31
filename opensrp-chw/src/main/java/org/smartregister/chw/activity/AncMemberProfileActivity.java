@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.os.Handler;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,8 +43,6 @@ import java.util.Set;
 import timber.log.Timber;
 
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
-
-    public Handler handler = new Handler();
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
