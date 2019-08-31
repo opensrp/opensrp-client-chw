@@ -9,11 +9,13 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.ServiceTask;
 import org.smartregister.chw.core.utils.TaskServiceCalculate;
+import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.chw.util.ChildUtils;
@@ -29,16 +31,13 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.ImmunizationLibrary;
-import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceRecord;
+import org.smartregister.immunization.domain.jsonmapping.Vaccine;
+import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
-import org.smartregister.immunization.util.VaccinateActionUtils;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -124,11 +123,11 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
         ArrayList<ReceivedVaccine> receivedVaccineArrayList = new ArrayList<>();
         final ArrayList<BaseVaccine> baseVaccineArrayList = new ArrayList<>();
-        List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
+        List<VaccineGroup> vaccineGroups = VaccineScheduleUtil.getVaccineGroups(CoreChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD);
         for (String name : recievedVaccines.keySet()) {
-            for (VaccineRepo.Vaccine vaccine : vList) {
-                if (name.equalsIgnoreCase(vaccine.display())) {
-                    String stateKey = VaccinateActionUtils.stateKey(vaccine);
+            VaccineGroup vaccineGroup = getVaccineGroupNameByVaccine(name.replace("_"," ").toLowerCase(),vaccineGroups);
+            if(vaccineGroup == null)continue;
+                    String stateKey = vaccineGroup.name;
                     ReceivedVaccine receivedVaccine = new ReceivedVaccine();
                     receivedVaccine.setVaccineCategory(stateKey);
                     receivedVaccine.setVaccineName(CoreChildUtils.fixVaccineCasing(name).replace("MEASLES", "MCV"));
@@ -136,21 +135,17 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                         receivedVaccine.setVaccineName(receivedVaccine.getVaccineName().replace("MEASLES", "MCV"));
                     }
                     receivedVaccine.setVaccineDate(recievedVaccines.get(name));
-                    receivedVaccine.setVaccineIndex(vList.indexOf(vaccine));
+                    receivedVaccine.setVaccineIndex(vaccineGroups.indexOf(vaccineGroup));
                     receivedVaccineArrayList.add(receivedVaccine);
-                }
-            }
         }
         if (receivedVaccineArrayList.size() > 0) {
-            Collections.sort(receivedVaccineArrayList, new Comparator<ReceivedVaccine>() {
-                public int compare(ReceivedVaccine vaccine1, ReceivedVaccine vaccine2) {
-                    if (vaccine1.getVaccineIndex() < vaccine2.getVaccineIndex()) {
-                        return -1;
-                    } else if (vaccine1.getVaccineIndex() > vaccine2.getVaccineIndex()) {
-                        return 1;
-                    }
-                    return 0;
+            Collections.sort(receivedVaccineArrayList, (vaccine1, vaccine2) -> {
+                if (vaccine1.getVaccineIndex() < vaccine2.getVaccineIndex()) {
+                    return -1;
+                } else if (vaccine1.getVaccineIndex() > vaccine2.getVaccineIndex()) {
+                    return 1;
                 }
+                return 0;
             });
         }
 
@@ -176,6 +171,18 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         }
         Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateVaccineData(baseVaccineArrayList));
         appExecutors.diskIO().execute(runnable);
+    }
+    private VaccineGroup getVaccineGroupNameByVaccine(String name,List<VaccineGroup> vaccineGroups){
+        for(VaccineGroup vaccineGroup : vaccineGroups){
+
+            for(Vaccine vaccine :vaccineGroup.vaccines){
+                if(vaccine.name.toLowerCase().equalsIgnoreCase(name)){
+                    return vaccineGroup;
+                }
+            }
+
+        }
+        return null;
     }
 
     @Override
@@ -346,7 +353,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
         List<String> vacList = new ArrayList<>();
         for (String name : recievedVaccines.keySet()) {
-            String trimLower = name.replace(" ", "").toLowerCase();
+            String trimLower = name.replace(" ", "").replace("_","").toLowerCase();
             vacList.add(trimLower);
         }
         final String fullyImmunizationText = ChildUtils.isFullyImmunized(vacList);
