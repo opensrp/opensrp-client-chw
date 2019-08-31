@@ -158,7 +158,7 @@ public abstract class CoreFamilyOtherMemberActivityPresenter extends BaseFamilyO
     }
 
     public boolean isWomanAlreadyRegisteredOnAnc(CommonPersonObjectClient client) {
-        return CoreChwApplication.ancRegisterRepository().checkifAncWoman(client.getCaseId());
+        return CoreChwApplication.ancRegisterRepository().checkIfAncWoman(client.getCaseId());
     }
 
     @Override
