@@ -1,5 +1,6 @@
 package org.smartregister.chw.core.utils;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Pair;
 
@@ -10,6 +11,7 @@ import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
@@ -290,5 +292,15 @@ public class VisitVaccineUtil {
         }
 
         return displays;
+    }
+
+    public static String getVaccineTitle(String name, Context context) {
+        if ("Birth".equals(name)) {
+            return context.getString(R.string.at_birth);
+        }
+
+        return name.replace("Weeks", context.getString(org.smartregister.chw.core.R.string.abbrv_weeks))
+                .replace("Months", context.getString(org.smartregister.chw.core.R.string.abbrv_months))
+                .replace(" ", "");
     }
 }

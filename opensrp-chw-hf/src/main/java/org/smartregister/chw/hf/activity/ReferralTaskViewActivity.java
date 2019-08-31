@@ -105,9 +105,11 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             referralsTaskViewClickListener.setTaskFocus(getTask().getFocus());
         }
         referralsTaskViewClickListener.setCommonPersonObjectClient(getPersonObjectClient());
-        referralsTaskViewClickListener.setMemberObject(getMemberObject());
-        referralsTaskViewClickListener.setFamilyHeadName(getFamilyHeadName());
-        referralsTaskViewClickListener.setFamilyHeadPhoneNumber(getFamilyHeadPhoneNumber());
+        if (CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS.equals(getTask().getFocus())) {
+            referralsTaskViewClickListener.setMemberObject(getMemberObject());
+            referralsTaskViewClickListener.setFamilyHeadName(getFamilyHeadName());
+            referralsTaskViewClickListener.setFamilyHeadPhoneNumber(getFamilyHeadPhoneNumber());
+        }
         inflateToolbar();
         setUpViews();
 
@@ -141,7 +143,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     }
 
     private void extraAncDetails() {
-        if (CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY.equals(startingActivity)) {
+        if (CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS.equals(getTask().getFocus())) {
             setMemberObject((MemberObject) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.MEMBER_OBJECT));
             setFamilyHeadName((String) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.FAMILY_HEAD_NAME));
             setFamilyHeadPhoneNumber((String) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.FAMILY_HEAD_PHONE_NUMBER));
@@ -256,7 +258,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
 
     private void getReferralDetails() {
         if (getPersonObjectClient() != null && getTask() != null) {
-            clientReferralProblem.setText(getTask().getDescription());
+            updateProblemDisplay();
             clientAge = (Utils.getTranslatedDate(Utils.getDuration(Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.DOB, false)), getBaseContext()));
             clientName.setText(getString(R.string.client_name_age_suffix, name, clientAge));
             referralDate.setText(org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy.format(task.getExecutionStartDate().toDate()));
@@ -267,7 +269,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             String parentName = getString(R.string.care_giver_prefix, org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName));
 
             //Hide Care giver for ANC referral
-            if(getTask().getFocus().equalsIgnoreCase(CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS)){
+            if (getTask().getFocus().equalsIgnoreCase(CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS)) {
                 careGiverLayout.setVisibility(View.GONE);
             }
 
@@ -277,6 +279,14 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             chwDetailsNames.setText(getTask().getRequester());
 
             addGaDisplay();
+        }
+    }
+
+    private void updateProblemDisplay() {
+        if (CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS.equals(getTask().getFocus())) {
+            clientReferralProblem.setText(getString(R.string.anc_danger_sign_prefix, getTask().getDescription()));
+        } else {
+            clientReferralProblem.setText(getTask().getDescription());
         }
     }
 
@@ -299,7 +309,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         if (CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS.equals(getTask().getFocus())) {
             womanGaLayout.setVisibility(View.VISIBLE);
 
-            String gaWeeks = Utils.getValue(getPersonObjectClient().getDetails(), CoreConstants.JsonAssets.GESTATION_AGE, true) + " " + getString(R.string.weeks);
+            String gaWeeks = getMemberObject().getGestationAge() + " " + getString(R.string.weeks);
             womanGa.setText(gaWeeks);
         }
     }
@@ -385,4 +395,6 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     public void setBaseEntityId(String baseEntityId) {
         this.baseEntityId = baseEntityId;
     }
+
+
 }

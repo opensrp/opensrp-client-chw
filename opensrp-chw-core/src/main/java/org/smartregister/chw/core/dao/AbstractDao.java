@@ -4,11 +4,14 @@ import android.database.Cursor;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.core.application.CoreChwApplication;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -108,6 +111,34 @@ public class AbstractDao {
     @Nullable
     protected static Long getCursorLongValue(Cursor c, String column_name) {
         return c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? null : c.getLong(c.getColumnIndex(column_name));
+    }
+
+    @Nullable
+    protected static Integer getCursorIntValue(Cursor c, String column_name) {
+        return c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? null : c.getInt(c.getColumnIndex(column_name));
+    }
+
+    @Nullable
+    protected static Date getCursorValueAsDate(Cursor c, String column_name, SimpleDateFormat formatter) {
+        String value = getCursorValue(c, column_name);
+        if (StringUtils.isBlank(value))
+            return null;
+
+        try {
+            return formatter.parse(value);
+        } catch (ParseException e) {
+            Timber.e(e);
+            return null;
+        }
+    }
+
+    @Nullable
+    protected static Date getCursorValueAsDate(Cursor c, String column_name) {
+        String value = getCursorValue(c, column_name);
+        if (StringUtils.isBlank(value))
+            return null;
+
+        return new Date(Long.parseLong(value));
     }
 
     public interface DataMap<T> {

@@ -286,7 +286,7 @@
         "options": [
           {
             "key": "facility_family_member",
-            "text": "She gave birth in a helath facility, and she was accompanied by family member(s)",
+            "text": "She gave birth in a health facility, and she was accompanied by family member(s)",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",

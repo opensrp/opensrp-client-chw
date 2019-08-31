@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.Set;
 
 public class CoreAncMemberProfileInteractor extends BaseAncMemberProfileInteractor implements AncMemberProfileContract.Interactor {
-    private Context context;
+    protected Context context;
 
     public CoreAncMemberProfileInteractor(Context context) {
         this.context = context;
@@ -52,7 +52,7 @@ public class CoreAncMemberProfileInteractor extends BaseAncMemberProfileInteract
         appExecutors.diskIO().execute(runnable);
     }
 
-    private Date getLastVisitDate(MemberObject memberObject) {
+    protected Date getLastVisitDate(MemberObject memberObject) {
         Date lastVisitDate = null;
         Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.ANC_HOME_VISIT);
         if (lastVisit != null) {

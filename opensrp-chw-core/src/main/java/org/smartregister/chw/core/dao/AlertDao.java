@@ -48,6 +48,15 @@ public class AlertDao extends AbstractDao {
         return AbstractDao.readData(sql, getAlertDataMap());
     }
 
+    public static List<Alert> getActiveAlert(String baseEntityID) {
+        String sql = "SELECT (case when status = 'urgent' then 1 else 2 end) state , alerts.* FROM alerts" +
+                " WHERE alerts.caseID  = '" + baseEntityID + "' " +
+                " and status in ('normal','urgent') and expiryDate > date() " +
+                " order by state asc , startDate asc  , visitCode asc";
+
+        return AbstractDao.readData(sql, getAlertDataMap());
+    }
+
     public static void updateOfflineVaccineAlerts(String baseEntityID) {
         String sql = "select alerts.caseID , alerts.startDate , alerts.visitCode , " +
                 " alerts.completionDate , vaccines.date , strftime('%Y-%m-%d', vaccines.date / 1000, 'unixepoch') dateGiven " +

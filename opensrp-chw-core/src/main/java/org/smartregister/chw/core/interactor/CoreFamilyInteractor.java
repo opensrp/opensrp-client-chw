@@ -25,31 +25,33 @@ public abstract class CoreFamilyInteractor {
     }
 
     public Observable<String> updateFamilyDueStatus(final Context context, final String childId, final String familyId) {
-        return Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(ObservableEmitter<String> e) throws Exception {
-                ImmunizationState familyImmunizationState = ImmunizationState.NO_ALERT;
-                String query = CoreChildUtils.getChildListByFamilyId(CoreConstants.TABLE_NAME.CHILD, familyId);
-                Cursor cursor = null;
-                try {
-                    cursor = org.smartregister.family.util.Utils.context().commonrepository(CoreConstants.TABLE_NAME.CHILD).queryTable(query);
-                    if (cursor != null && cursor.moveToFirst()) {
-                        do {
-                            familyImmunizationState = getImmunizationState(familyImmunizationState, cursor, context, childId);
-                        } while (cursor.moveToNext());
-                    }
-                } catch (Exception ex) {
-                    Timber.e(ex.toString());
-                } finally {
-                    if (cursor != null) {
-                        cursor.close();
-                    }
-                }
-
-                e.onNext(toStringFamilyState(familyImmunizationState));
-            }
+        return Observable.create(e -> {
+            ImmunizationState familyImmunizationState = getFamilyImmunizationState(context, childId, familyId);
+            e.onNext(toStringFamilyState(familyImmunizationState));
         });
 
+    }
+
+    public ImmunizationState getFamilyImmunizationState(final Context context, final String childId, final String familyId) {
+        ImmunizationState familyImmunizationState = ImmunizationState.NO_ALERT;
+        String query = CoreChildUtils.getChildListByFamilyId(CoreConstants.TABLE_NAME.CHILD, familyId);
+        Cursor cursor = null;
+        try {
+            cursor = org.smartregister.family.util.Utils.context().commonrepository(CoreConstants.TABLE_NAME.CHILD).queryTable(query);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    familyImmunizationState = getImmunizationState(familyImmunizationState, cursor, context, childId);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception ex) {
+            Timber.e(ex.toString());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return familyImmunizationState;
     }
 
     private ImmunizationState getImmunizationState(ImmunizationState familyImmunizationState, Cursor cursor, Context context, String childId) {
