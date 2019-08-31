@@ -9,16 +9,18 @@ import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class AncRegisterActivity extends CoreAncRegisterActivity {
+
     @Override
-    public void onRegistrationSaved(boolean isEdit) {
-        /*if (hasChildRegistration) {
-            startReferralsRegisterActivity(PncRegisterActivity.class);
-        } else*/
-        if (!hasChildRegistration) {
-            startRegisterActivity(AncRegisterActivity.class);
-        }
-        finish();
+    public Class getAncRegisterActivity() {
+        return AncRegisterActivity.class;
     }
+
+    //TODO UPDATE THIS TO PNC REGISTER ACTIVITY
+    @Override
+    public Class getPncRegisterActivity() {
+        return AncRegisterActivity.class;
+    }
+
 
     @Override
     protected void registerBottomNavigation() {
@@ -40,7 +42,7 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
         finish();
     }
 
-    private void startRegisterActivity(Class registerClass) {
+    protected void startRegisterActivity(Class registerClass) {
         Intent intent = new Intent(this, registerClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         this.startActivity(intent);

@@ -22,9 +22,11 @@ import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.presenter.CoreAncMemberProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
+import org.smartregister.chw.interactor.AncMemberProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -57,6 +59,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                 || !StringUtils.isBlank(getFamilyHeadPhoneNumber()));
     }
 
+
+    @Override
+    protected void registerPresenter() {
+        presenter = new CoreAncMemberProfilePresenter(this, new AncMemberProfileInteractor(this), MEMBER_OBJECT);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
