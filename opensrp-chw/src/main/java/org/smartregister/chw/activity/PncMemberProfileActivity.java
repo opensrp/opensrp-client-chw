@@ -2,7 +2,6 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,7 +45,6 @@ import timber.log.Timber;
 
 public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
-    public Handler handler = new Handler();
     private ImageView imageViewCross;
 
     private PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
@@ -135,7 +133,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                 }
                 break;
             case Constants.REQUEST_CODE_HOME_VISIT:
-                handler.postDelayed(this::displayView, 200);
+                this.displayView();
                 break;
             default:
                 break;

@@ -10,7 +10,6 @@ import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.Visit;
-import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.core.R;
@@ -71,12 +70,12 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
     }
 
     public CoreAncMemberProfilePresenter ancMemberProfilePresenter() {
-        return new CoreAncMemberProfilePresenter(this, new CoreAncMemberProfileInteractor(this), MEMBER_OBJECT);
+        return (CoreAncMemberProfilePresenter) presenter;
     }
 
     @Override
     protected void registerPresenter() {
-        presenter = new BaseAncMemberProfilePresenter(this, new CoreAncMemberProfileInteractor(this), MEMBER_OBJECT);
+        presenter = new CoreAncMemberProfilePresenter(this, new CoreAncMemberProfileInteractor(this), MEMBER_OBJECT);
     }
 
     @Override

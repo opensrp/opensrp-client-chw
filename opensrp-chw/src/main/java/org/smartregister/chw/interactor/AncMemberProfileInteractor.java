@@ -1,9 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import android.content.Context;
-import android.util.Pair;
 
-import org.jeasy.rules.api.Rules;
 import org.joda.time.LocalDate;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
@@ -11,36 +9,22 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.anc.util.Constants;
-import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.dao.AbstractDao;
-import org.smartregister.chw.core.rule.PncVisitAlertRule;
-import org.smartregister.chw.core.utils.HomeVisitUtil;
-import org.smartregister.chw.pnc.PncLibrary;
-import org.smartregister.chw.pnc.interactor.BasePncMemberProfileInteractor;
+import org.smartregister.chw.core.interactor.CoreAncMemberProfileInteractor;
 import org.smartregister.chw.util.ScheduleUtil;
-import org.smartregister.clientandeventmodel.Client;
-import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import timber.log.Timber;
 
-public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
-    private Context context;
-    private Date lastVisitDate;
-    private Date deliveryDate;
-
-    public PncMemberProfileInteractor(Context context) {
-        this.context = context;
+public class AncMemberProfileInteractor extends CoreAncMemberProfileInteractor {
+    public AncMemberProfileInteractor(Context context) {
+        super(context);
     }
 
     /**
@@ -52,6 +36,7 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
     @Override
     public void refreshProfileInfo(final MemberObject memberObject, final BaseAncMemberProfileContract.InteractorCallBack callback) {
         Runnable runnable = new Runnable() {
+
             Date lastVisitDate = getLastVisitDate(memberObject);
             AlertStatus familyAlert = ScheduleUtil.getFamilyAlertStatus(context, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
             Alert upcomingService = getAlerts(context, memberObject);
@@ -73,18 +58,8 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
         appExecutors.diskIO().execute(runnable);
     }
 
-    private Date getLastVisitDate(MemberObject memberObject) {
-        Date lastVisitDate = null;
-        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.PNC_HOME_VISIT);
-        if (lastVisit != null) {
-            lastVisitDate = lastVisit.getDate();
-        }
-
-        return lastVisitDate;
-    }
-
     private Alert getAlerts(Context context, MemberObject memberObject) {
-        PncUpcomingServicesInteractorFlv upcomingServicesInteractor = new PncUpcomingServicesInteractorFlv();
+        AncUpcomingServicesInteractorFlv upcomingServicesInteractor = new AncUpcomingServicesInteractorFlv();
         try {
             List<BaseUpcomingService> baseUpcomingServices = upcomingServicesInteractor.getMemberServices(context, memberObject);
             if (baseUpcomingServices.size() > 0) {
@@ -109,44 +84,13 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
         return null;
     }
 
-    public void updateChild(final Pair<Client, Event> pair, final String jsonString, final CoreChildProfileContract.InteractorCallBack callBack) {
-        Runnable runnable = () -> appExecutors.mainThread().execute(() -> {
-            try {
-                new ChildProfileInteractor().saveRegistration(pair, jsonString, true, callBack);
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-        });
-        appExecutors.diskIO().execute(runnable);
-    }
-
-    public PncVisitAlertRule getVisitSummary(String motherBaseID) {
-        Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(org.smartregister.chw.util.Constants.RULE_FILE.PNC_HOME_VISIT);
-        Date lastVisitDate = getLastDateVisit(motherBaseID);
-        Date deliveryDate = getDeliveryDate(motherBaseID);
-        return HomeVisitUtil.getPncVisitStatus(rules, lastVisitDate, deliveryDate);
-    }
-
-    private Date getLastDateVisit(String motherBaseID) {
-        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(motherBaseID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
+    protected Date getLastVisitDate(MemberObject memberObject) {
+        Date lastVisitDate = null;
+        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.ANC_HOME_VISIT);
         if (lastVisit != null) {
             lastVisitDate = lastVisit.getDate();
-            return lastVisitDate;
-        } else {
-            return lastVisitDate = getDeliveryDate(motherBaseID);
         }
 
+        return lastVisitDate;
     }
-
-    private Date getDeliveryDate(String motherBaseID) {
-        String deliveryDateString = PncLibrary.getInstance().profileRepository().getDeliveryDate(motherBaseID);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        try {
-            deliveryDate = sdf.parse(deliveryDateString);
-        } catch (ParseException e) {
-            Timber.e(e);
-        }
-        return deliveryDate;
-    }
-
 }
