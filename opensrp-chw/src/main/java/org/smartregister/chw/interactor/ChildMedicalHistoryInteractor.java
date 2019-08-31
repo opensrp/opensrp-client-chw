@@ -176,7 +176,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         for(VaccineGroup vaccineGroup : vaccineGroups){
 
             for(Vaccine vaccine :vaccineGroup.vaccines){
-                if(vaccine.name.toLowerCase().equalsIgnoreCase(name)){
+                if(vaccine.name.equalsIgnoreCase(name)){
                     return vaccineGroup;
                 }
             }
