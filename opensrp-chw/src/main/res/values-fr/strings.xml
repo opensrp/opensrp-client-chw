@@ -346,13 +346,16 @@
     <string name="anc_card">CARNET CPN</string>
     <string name="anc_tt_immunization">VAT</string>
     <string name="anc_iptp_sp">DOSE SP</string>
+    <string name="urine_analysis">Analyse urinaire</string>
+    <string name="hiv_test">Dépistage VIH</string>
+    <string name="syphilis_test">Dépistage Syphilis</string>
 
     <string name="days_ago">il y a {0} jours</string>
     <string name="vaccines_done_date">{0} - fait {1}</string>
     <string name="anc_visit_date">Visite CPN {0}: {1}</string>
     <string name="weight_in_kgs">Poids: {0} kgs</string>
     <string name="bp_in_mmhg">PD: {0}/{1} mmHg</string>
-    <string name="hb_level_in_g_dl">Niveau d\'hémoglobine: {0} g/dl</string>
+    <string name="hb_level_in_g_dl">Niveau d\'hémoglobine: %s g/dl</string>
     <string name="ifa_received_status">FAF reçu: {0}</string>
     <string name="tests_done_details">Examens effectués: {0}</string>
 
