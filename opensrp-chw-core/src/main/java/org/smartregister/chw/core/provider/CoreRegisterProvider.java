@@ -29,6 +29,8 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getDayFromDate;
+
 public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
 
     protected final Context context;
@@ -75,6 +77,12 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
             ImageView imageView;
             LinearLayout linearLayout;
             for (Map<String, String> map : list) {
+                if ("PNC".equals(map.get(CoreConstants.DB_CONSTANTS.ENTRY_POINT))) {
+                    String dob = map.get(DBConstants.KEY.DOB);
+                    if (dob != null && getDayFromDate(dob) < 29) {
+                        return;
+                    }
+                }
                 imageView = new ImageView(context);
                 String gender = map.get(DBConstants.KEY.GENDER);
                 if ("Male".equalsIgnoreCase(gender)) {
@@ -129,7 +137,7 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
 
     protected List<Map<String, String>> getChildren(String familyEntityId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(CoreConstants.TABLE_NAME.CHILD, new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.GENDER, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED, DBConstants.KEY.DOB});
+        queryBUilder.SelectInitiateMainTable(CoreConstants.TABLE_NAME.CHILD, new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.GENDER, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED, DBConstants.KEY.DOB, CoreConstants.DB_CONSTANTS.ENTRY_POINT});
         queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' AND %s ",
                 DBConstants.KEY.DATE_REMOVED,
                 DBConstants.KEY.RELATIONAL_ID,

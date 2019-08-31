@@ -101,7 +101,7 @@ public class AncRegisterRepository extends BaseRepository {
      * @param baseEntityId client base entity id
      * @return true or false based on whether already registered
      */
-    public boolean checkifAncWoman(String baseEntityId) {
+    public boolean checkIfAncWoman(String baseEntityId) {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = null;
         try {
@@ -126,7 +126,7 @@ public class AncRegisterRepository extends BaseRepository {
         return false;
     }
 
-    public int getAncWomenCount(String familyBaseID, String register) {
+    public int getAncPncWomenCount(String familyBaseID, String register) {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = null;
         try {
