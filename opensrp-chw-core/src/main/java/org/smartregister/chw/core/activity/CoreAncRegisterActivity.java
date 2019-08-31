@@ -128,9 +128,14 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
     }
 
     @Override
-    public void onRegistrationSaved(boolean isEdit) {
-        finish();
-        startRegisterActivity(CoreAncRegisterActivity.class);
+    public Class getAncRegisterActivity() {
+        return CoreAncRegisterActivity.class;
+    }
+
+    //TODO GET PNC REGISTER
+    @Override
+    public Class getPncRegisterActivity() {
+        return CoreAncRegisterActivity.class;
     }
 
     @Override
@@ -159,7 +164,7 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
         return super.getRegisterFragment();
     }
 
-    private void startRegisterActivity(Class registerClass) {
+    protected void startRegisterActivity(Class registerClass) {
         Intent intent = new Intent(this, registerClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         this.startActivity(intent);
@@ -167,9 +172,9 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
         this.finish();
     }
 
-    private void updateFormField(JSONArray formFieldArrays, String formFeildKey, String updateValue) {
+    private void updateFormField(JSONArray formFieldArrays, String formFieldKey, String updateValue) {
         if (updateValue != null) {
-            JSONObject formObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(formFieldArrays, formFeildKey);
+            JSONObject formObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(formFieldArrays, formFieldKey);
             if (formObject != null) {
                 try {
                     formObject.remove(org.smartregister.util.JsonFormUtils.VALUE);
