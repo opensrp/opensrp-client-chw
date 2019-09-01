@@ -1,0 +1,21 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="HNPPTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#218CC5</item>
+        <item name="colorPrimaryDark">@color/hnpp_primary_dark</item>
+        <item name="colorAccent">@color/hnpp_accent</item>
+    </style>
+
+    <style name="HNPPTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="HNPPTheme.Login" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:textSize">@dimen/login_font_size</item>
+        <item name="colorControlActivated">@android:color/black</item>
+    </style>
+
+</resources>

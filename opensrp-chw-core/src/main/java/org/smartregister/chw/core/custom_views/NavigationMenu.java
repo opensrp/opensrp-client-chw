@@ -54,6 +54,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private static WeakReference<Activity> activityWeakReference;
     private static CoreChwApplication application;
     private static NavigationMenu.Flavour menuFlavor;
+    private static NavigationMenu.FlavorTop topFlavor;
     private static NavigationModel.Flavor modelFlavor;
     private static Map<String, Class> registeredActivities;
     private static boolean showDeviceToDeviceSync = true;
@@ -75,6 +76,15 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     public static void setupNavigationMenu(CoreChwApplication application, NavigationMenu.Flavour menuFlavor,
                                            NavigationModel.Flavor modelFlavor, Map<String, Class> registeredActivities, boolean showDeviceToDeviceSync) {
         NavigationMenu.application = application;
+        NavigationMenu.menuFlavor = menuFlavor;
+        NavigationMenu.modelFlavor = modelFlavor;
+        NavigationMenu.registeredActivities = registeredActivities;
+        NavigationMenu.showDeviceToDeviceSync = showDeviceToDeviceSync;
+    }
+    public static void setupNavigationMenu(CoreChwApplication application,NavigationMenu.FlavorTop topFlavor, NavigationMenu.Flavour menuFlavor,
+                                           NavigationModel.Flavor modelFlavor, Map<String, Class> registeredActivities, boolean showDeviceToDeviceSync) {
+        NavigationMenu.application = application;
+        NavigationMenu.topFlavor = topFlavor;
         NavigationMenu.menuFlavor = menuFlavor;
         NavigationMenu.modelFlavor = modelFlavor;
         NavigationMenu.registeredActivities = registeredActivities;
@@ -164,10 +174,9 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
         ImageView ivLogo = rootView.findViewById(R.id.ivLogo);
         ivLogo.setContentDescription(activity.getString(R.string.nav_logo));
-        ivLogo.setImageResource(R.drawable.ic_logo);
-
+        ivLogo.setImageResource(topFlavor !=null ? topFlavor.getTopLogo() : R.drawable.ic_logo);
         TextView tvLogo = rootView.findViewById(R.id.tvLogo);
-        tvLogo.setText(activity.getString(R.string.nav_logo));
+        tvLogo.setText(topFlavor !=null ? topFlavor.topText() : activity.getString(R.string.nav_logo));
 
         if (syncProgressBar != null) {
             FadingCircle circle = new FadingCircle();
@@ -300,6 +309,9 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                     case "Kiswahili":
                         LOCALE = new Locale("sw");
                         break;
+                    case "Bangla":
+                        LOCALE = new Locale("bn");
+                        break;
                     default:
                         LOCALE = Locale.ENGLISH;
                         break;
@@ -393,5 +405,9 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     public interface Flavour {
         String[] getSupportedLanguages();
+    }
+    public interface FlavorTop {
+        int getTopLogo();
+        String topText();
     }
 }
