@@ -66,10 +66,14 @@ public class ChwApplication extends CoreChwApplication {
     public void onCreate() {
         super.onCreate();
 
+        mInstance = this;
+        context = Context.getInstance();
+        context.updateApplicationContext(getApplicationContext());
+        context.updateCommonFtsObject(createCommonFtsObject());
+
         //Necessary to determine the right form to pick from assets
         CoreConstants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(),
                 ChwApplication.getInstance().getApplicationContext().getAssets());
-
 
         //Setup Navigation menu. Done only once when app is created
         NavigationMenu.setupNavigationMenu(this, new NavigationMenuFlv(), new NavigationModelFlv(),
@@ -80,13 +84,6 @@ public class ChwApplication extends CoreChwApplication {
         } else {
             Timber.plant(new CrashlyticsTree(ChwApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM()));
         }
-
-
-        mInstance = this;
-        context = Context.getInstance();
-        context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(createCommonFtsObject());
-
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 

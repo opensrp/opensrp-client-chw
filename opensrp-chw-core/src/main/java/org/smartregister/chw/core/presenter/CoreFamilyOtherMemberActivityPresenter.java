@@ -86,7 +86,7 @@ public abstract class CoreFamilyOtherMemberActivityPresenter extends BaseFamilyO
 
                     @Override
                     public void onError(Throwable e) {
-                        Timber.e("initializeServiceStatus " + e.toString());
+                        Timber.e("initializeServiceStatus %s", e.toString());
                     }
 
                     @Override

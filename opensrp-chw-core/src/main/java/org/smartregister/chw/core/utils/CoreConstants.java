@@ -226,6 +226,7 @@ public class CoreConstants {
             private static final String MUAC = "child_hv_muac";
             private static final String DIETARY = "child_hv_dietary_diversity";
             private static final String MNP = "child_hv_mnp";
+            private static final String SLEEPING_UNDER_LLITN = "child_hv_sleeping_under_llitn";
 
             public static String getVaccineCard() {
                 return Utils.getLocalForm(VACCINE_CARD, locale, assetManager);
@@ -249,6 +250,10 @@ public class CoreConstants {
 
             public static String getMNP() {
                 return Utils.getLocalForm(MNP, locale, assetManager);
+            }
+
+            public static String getSleepingUnderLlitn() {
+                return Utils.getLocalForm(SLEEPING_UNDER_LLITN, locale, assetManager);
             }
         }
 
