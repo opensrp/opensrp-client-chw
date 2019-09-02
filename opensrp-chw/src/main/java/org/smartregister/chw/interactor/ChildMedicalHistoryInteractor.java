@@ -11,6 +11,8 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.ChildDBConstants;
@@ -38,6 +40,7 @@ import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.jsonmapping.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,65 +77,77 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     @Override
     public void fetchBirthCertificateData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
 
-       List<Visit> visits =  visitRepository.getVisits(commonPersonObjectClient.getCaseId(),Constants.EventType.BIRTH_CERTIFICATION);
-        String birthCert ="";
-        String birthCertDate  = "";
-        String birthCertNumber = "";
-        String notification = "";
-       for (Visit homeVisitServiceDataModel : visits) {
-            String json = homeVisitServiceDataModel.getJson();
-           birthCert = CoreChildUtils.getValueFromJsonFormSubmission(json,ChildDBConstants.KEY.BIRTH_CERT);
-           birthCertDate = CoreChildUtils.getValueFromJsonFormSubmission(json,ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE);
-           birthCertNumber = CoreChildUtils.getValueFromJsonFormSubmission(json,ChildDBConstants.KEY.BIRTH_CERT_NUMBER);
-           notification =  CoreChildUtils.getValueFromJsonFormSubmission(json,ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION);
-       }
-        final ArrayList<String> birthCertificationContent = new ArrayList<>();
-        if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase(getContext().getString(R.string.yes))) {
-            birthCertificationContent.add(getContext().getString(R.string.birth_cert_value, birthCert));
-            birthCertificationContent.add(getContext().getString(R.string.birth_cert_date, birthCertDate));
-            birthCertificationContent.add(getContext().getString(R.string.birth_cert_number,birthCertNumber));
+        Runnable runnable = () -> {
+            List<Visit> visits = visitRepository.getVisits(commonPersonObjectClient.getCaseId(), Constants.EventType.BIRTH_CERTIFICATION);
+            if (visits == null || visits.size() != 1)
+                return;
 
-        } else if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase(getContext().getString(R.string.no))) {
-            birthCertificationContent.add(getContext().getString(R.string.birth_cert_value, birthCert));
+            Visit visit = visits.get(0);
+            visit.setVisitDetails(VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(visit.getVisitId())));
 
-            if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase(getContext().getString(R.string.yes))) {
-                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification, getContext().getString(R.string.yes)));
-                birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_1));
-            } else if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase(getContext().getString(R.string.no))) {
-                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification, getContext().getString(R.string.no)));
-                birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_2));
-            }
+            String birthCert = NCUtils.getText(visit.getVisitDetails().get(ChildDBConstants.KEY.BIRTH_CERT)).trim();
+            String birthCertDate = NCUtils.getText(visit.getVisitDetails().get(ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE)).trim();
+            String birthCertNumber = NCUtils.getText(visit.getVisitDetails().get(ChildDBConstants.KEY.BIRTH_CERT_NUMBER)).trim();
+            String notification = NCUtils.getText(visit.getVisitDetails().get(ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION)).trim();
+
+            final ArrayList<String> birthCertificationContent = new ArrayList<>();
+            if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("Yes")) {
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_value, birthCert));
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_date, birthCertDate));
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_number, birthCertNumber));
+
+            } else if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("No")) {
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_value, birthCert));
+
+                if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase("Yes")) {
+                    birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification, getContext().getString(R.string.yes)));
+                    birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_1));
+                } else if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase("No")) {
+                    birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification, getContext().getString(R.string.no)));
+                    birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_2));
+                }
 //            else {
 //                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification,"No"));
 //            }
-        }
-        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateBirthCertification(birthCertificationContent));
+            }
+
+            appExecutors.mainThread().execute(() -> callBack.updateBirthCertification(birthCertificationContent));
+        };
+
         appExecutors.diskIO().execute(runnable);
     }
 
     @Override
     public void fetchIllnessData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
 
-        final ArrayList<String> illnessContent = new ArrayList<>();
-        List<Visit> visits =  visitRepository.getVisits(commonPersonObjectClient.getCaseId(),Constants.EventType.OBS_ILLNESS);
+        Runnable runnable = () -> {
+            final ArrayList<String> illnessContent = new ArrayList<>();
+            List<Visit> visits = visitRepository.getVisits(commonPersonObjectClient.getCaseId(), Constants.EventType.OBS_ILLNESS);
 
-        String illnessDate  = "";
-        String illnessDescription = "";
-        String illnessAction = "";
-        for (Visit homeVisitServiceDataModel : visits) {
-            String json = homeVisitServiceDataModel.getJson();
-            illnessDate = CoreChildUtils.getValueFromJsonFormSubmission(json,ChildDBConstants.KEY.ILLNESS_DATE);
-            illnessDescription = CoreChildUtils.getValueFromJsonFormSubmission(json,ChildDBConstants.KEY.ILLNESS_DESCRIPTION);
-            illnessAction = CoreChildUtils.getValueFromJsonFormSubmission(json,ChildDBConstants.KEY.ILLNESS_ACTION);
-        }
-        if (!TextUtils.isEmpty(illnessDate)) {
-            illnessContent.add(getContext().getString(R.string.illness_date_with_value, illnessDate));
-            illnessContent.add(getContext().getString(R.string.illness_des_with_value, illnessDescription));
-            illnessContent.add(getContext().getString(R.string.illness_action_value, illnessAction));
+            if (visits == null || visits.size() != 1)
+                return;
 
-        }
-        Runnable runnable2 = () -> appExecutors.mainThread().execute(() -> callBack.updateIllnessData(illnessContent));
-        appExecutors.diskIO().execute(runnable2);
+            Visit visit = visits.get(0);
+            visit.setVisitDetails(VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(visit.getVisitId())));
+
+            String illnessDate = NCUtils.getText(visit.getVisitDetails().get(ChildDBConstants.KEY.ILLNESS_DATE)).trim();
+            String illnessDescription = NCUtils.getText(visit.getVisitDetails().get(ChildDBConstants.KEY.ILLNESS_DESCRIPTION)).trim();
+            String illnessAction = NCUtils.getText(visit.getVisitDetails().get(ChildDBConstants.KEY.ILLNESS_ACTION)).trim();
+
+            if (!TextUtils.isEmpty(illnessDate)) {
+                illnessContent.add(getContext().getString(R.string.illness_date_with_value, illnessDate));
+                illnessContent.add(getContext().getString(R.string.illness_des_with_value, illnessDescription));
+                illnessContent.add(getContext().getString(R.string.illness_action_value, illnessAction));
+            }
+
+            // return data to main thread
+            appExecutors.mainThread().execute(() -> callBack.updateIllnessData(illnessContent));
+        };
+
+        // execute in a background thread
+        appExecutors.diskIO().execute(runnable);
+
+
         final String vaccineCard = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.VACCINE_CARD, true);
         if (!TextUtils.isEmpty(vaccineCard)) {
             Runnable runnable3 = () -> appExecutors.mainThread().execute(() -> callBack.updateVaccineCard(vaccineCard));
@@ -147,18 +162,18 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         final ArrayList<BaseVaccine> baseVaccineArrayList = new ArrayList<>();
         List<VaccineGroup> vaccineGroups = VaccineScheduleUtil.getVaccineGroups(CoreChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD);
         for (String name : recievedVaccines.keySet()) {
-            VaccineGroup vaccineGroup = getVaccineGroupNameByVaccine(name.replace("_"," ").toLowerCase(),vaccineGroups);
-            if(vaccineGroup == null)continue;
-                    String stateKey = vaccineGroup.name;
-                    ReceivedVaccine receivedVaccine = new ReceivedVaccine();
-                    receivedVaccine.setVaccineCategory(stateKey);
-                    receivedVaccine.setVaccineName(CoreChildUtils.fixVaccineCasing(name).replace("MEASLES", "MCV"));
-                    if (receivedVaccine.getVaccineName().contains("MEASLES")) {
-                        receivedVaccine.setVaccineName(receivedVaccine.getVaccineName().replace("MEASLES", "MCV"));
-                    }
-                    receivedVaccine.setVaccineDate(recievedVaccines.get(name));
-                    receivedVaccine.setVaccineIndex(vaccineGroups.indexOf(vaccineGroup));
-                    receivedVaccineArrayList.add(receivedVaccine);
+            VaccineGroup vaccineGroup = getVaccineGroupNameByVaccine(name.replace("_", " ").toLowerCase(), vaccineGroups);
+            if (vaccineGroup == null) continue;
+            String stateKey = vaccineGroup.name;
+            ReceivedVaccine receivedVaccine = new ReceivedVaccine();
+            receivedVaccine.setVaccineCategory(stateKey);
+            receivedVaccine.setVaccineName(CoreChildUtils.fixVaccineCasing(name).replace("MEASLES", "MCV"));
+            if (receivedVaccine.getVaccineName().contains("MEASLES")) {
+                receivedVaccine.setVaccineName(receivedVaccine.getVaccineName().replace("MEASLES", "MCV"));
+            }
+            receivedVaccine.setVaccineDate(recievedVaccines.get(name));
+            receivedVaccine.setVaccineIndex(vaccineGroups.indexOf(vaccineGroup));
+            receivedVaccineArrayList.add(receivedVaccine);
         }
         if (receivedVaccineArrayList.size() > 0) {
             Collections.sort(receivedVaccineArrayList, (vaccine1, vaccine2) -> {
@@ -194,11 +209,12 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateVaccineData(baseVaccineArrayList));
         appExecutors.diskIO().execute(runnable);
     }
-    private VaccineGroup getVaccineGroupNameByVaccine(String name,List<VaccineGroup> vaccineGroups){
-        for(VaccineGroup vaccineGroup : vaccineGroups){
 
-            for(Vaccine vaccine :vaccineGroup.vaccines){
-                if(vaccine.name.equalsIgnoreCase(name)){
+    private VaccineGroup getVaccineGroupNameByVaccine(String name, List<VaccineGroup> vaccineGroups) {
+        for (VaccineGroup vaccineGroup : vaccineGroups) {
+
+            for (Vaccine vaccine : vaccineGroup.vaccines) {
+                if (vaccine.name.equalsIgnoreCase(name)) {
                     return vaccineGroup;
                 }
             }
@@ -376,7 +392,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
         List<String> vacList = new ArrayList<>();
         for (String name : recievedVaccines.keySet()) {
-            String trimLower = name.replace(" ", "").replace("_","").toLowerCase();
+            String trimLower = name.replace(" ", "").replace("_", "").toLowerCase();
             vacList.add(trimLower);
         }
         final String fullyImmunizationText = ChildUtils.isFullyImmunized(vacList);
