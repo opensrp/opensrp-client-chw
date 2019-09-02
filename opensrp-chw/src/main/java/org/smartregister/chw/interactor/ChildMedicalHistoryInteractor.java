@@ -6,7 +6,10 @@ import android.text.TextUtils;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -52,6 +55,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     private ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
 
     private VisitRepository visitRepository;
+    private VisitDetailsRepository visitDetailsRepository;
 
     private Context context;
 
@@ -63,22 +67,33 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     public ChildMedicalHistoryInteractor(AppExecutors appExecutors, VisitRepository visitRepository, Context context) {
         this.appExecutors = appExecutors;
         this.visitRepository = visitRepository;
+        this.visitDetailsRepository = AncLibrary.getInstance().visitDetailsRepository();
         this.context = context;
     }
 
     @Override
     public void fetchBirthCertificateData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
 
-        String birthCert = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT, true);
+       List<Visit> visits =  visitRepository.getVisits(commonPersonObjectClient.getCaseId(),Constants.EventType.BIRTH_CERTIFICATION);
+        String birthCert ="";
+        String birthCertDate  = "";
+        String birthCertNumber = "";
+        String notification = "";
+       for (Visit homeVisitServiceDataModel : visits) {
+            String json = homeVisitServiceDataModel.getJson();
+           birthCert = CoreChildUtils.getValueFromJsonFormSubmission(json,ChildDBConstants.KEY.BIRTH_CERT);
+           birthCertDate = CoreChildUtils.getValueFromJsonFormSubmission(json,ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE);
+           birthCertNumber = CoreChildUtils.getValueFromJsonFormSubmission(json,ChildDBConstants.KEY.BIRTH_CERT_NUMBER);
+           notification =  CoreChildUtils.getValueFromJsonFormSubmission(json,ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION);
+       }
         final ArrayList<String> birthCertificationContent = new ArrayList<>();
         if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase(getContext().getString(R.string.yes))) {
             birthCertificationContent.add(getContext().getString(R.string.birth_cert_value, birthCert));
-            birthCertificationContent.add(getContext().getString(R.string.birth_cert_date, org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE, true)));
-            birthCertificationContent.add(getContext().getString(R.string.birth_cert_number, org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_NUMBER, true)));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_date, birthCertDate));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_number,birthCertNumber));
 
         } else if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase(getContext().getString(R.string.no))) {
             birthCertificationContent.add(getContext().getString(R.string.birth_cert_value, birthCert));
-            String notification = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION, true);
 
             if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase(getContext().getString(R.string.yes))) {
                 birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification, getContext().getString(R.string.yes)));
@@ -99,11 +114,18 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     public void fetchIllnessData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
 
         final ArrayList<String> illnessContent = new ArrayList<>();
+        List<Visit> visits =  visitRepository.getVisits(commonPersonObjectClient.getCaseId(),Constants.EventType.OBS_ILLNESS);
 
-        String illnessDate = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ILLNESS_DATE, true);
+        String illnessDate  = "";
+        String illnessDescription = "";
+        String illnessAction = "";
+        for (Visit homeVisitServiceDataModel : visits) {
+            String json = homeVisitServiceDataModel.getJson();
+            illnessDate = CoreChildUtils.getValueFromJsonFormSubmission(json,ChildDBConstants.KEY.ILLNESS_DATE);
+            illnessDescription = CoreChildUtils.getValueFromJsonFormSubmission(json,ChildDBConstants.KEY.ILLNESS_DESCRIPTION);
+            illnessAction = CoreChildUtils.getValueFromJsonFormSubmission(json,ChildDBConstants.KEY.ILLNESS_ACTION);
+        }
         if (!TextUtils.isEmpty(illnessDate)) {
-            String illnessDescription = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ILLNESS_DESCRIPTION, true);
-            String illnessAction = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ILLNESS_ACTION, true);
             illnessContent.add(getContext().getString(R.string.illness_date_with_value, illnessDate));
             illnessContent.add(getContext().getString(R.string.illness_des_with_value, illnessDescription));
             illnessContent.add(getContext().getString(R.string.illness_action_value, illnessAction));
@@ -247,6 +269,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             baseServiceArrayList.add(serviceHeader);
 
             for (Visit homeVisitServiceDataModel : homeVisitDietary) {
+                List<VisitDetail> visitDetails = visitDetailsRepository.getVisits(homeVisitServiceDataModel.getVisitId());
                 ServiceTask serviceTask = CoreChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name(),
                         homeVisitServiceDataModel.getJson(), getContext().getString(R.string.minimum_dietary_title),
                         Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MINIMUM_DIETARY);
