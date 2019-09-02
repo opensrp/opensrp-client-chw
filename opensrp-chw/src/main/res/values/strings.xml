@@ -259,8 +259,6 @@
     <string name="pnc_health_facility_visit_days_eight_to_twenty_eight">PNC health facility visit - days 8 - 28</string>
     <string name="pnc_health_facility_visit_days_twenty_nine_to_forty_two">PNC health facility visit - days 29 - 42</string>
 
-    <string name="pnc_visit_day_due">DAY %s VISIT DUE</string>
-    <string name="pnc_visit_day_overdue">DAY %s OVERDUE</string>
     <string name="pnc_visit">PNC Visit</string>
     <string name="anc_visit">ANC Visit</string>
     <string name="exclusive_breastfeeding_months">Exclusive breastfeeding %s months</string>
