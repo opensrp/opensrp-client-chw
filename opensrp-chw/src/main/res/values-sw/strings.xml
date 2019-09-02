@@ -353,7 +353,7 @@
     <string name="anc_visit_date">Hudhurio kwenye kliniki ya wajawazito {0}: {1}</string>
     <string name="weight_in_kgs">Uzito: {0} kgs</string>
     <string name="bp_in_mmhg">BP: {0}/{1} mmHg</string>
-    <string name="hb_level_in_g_dl">Kiwango cha Hb:  {0} g/dl</string>
+    <string name="hb_level_in_g_dl">Kiwango cha Hb:  %s g/dl</string>
     <string name="ifa_received_status">Amepewa IFA: {0}</string>
     <string name="tests_done_details">Vipimo vimefanyika: {0}</string>
 

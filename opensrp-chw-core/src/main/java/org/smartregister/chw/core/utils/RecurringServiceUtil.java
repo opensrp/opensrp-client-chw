@@ -2,6 +2,7 @@ package org.smartregister.chw.core.utils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.model.RecurringServiceModel;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
@@ -27,9 +28,14 @@ import timber.log.Timber;
 public class RecurringServiceUtil {
 
     public static Map<String, ServiceWrapper> getRecurringServices(String baseEntityID, DateTime anchorDate, String group) {
+        return getRecurringServices(baseEntityID, anchorDate, group, false);
+    }
+
+
+    public static Map<String, ServiceWrapper> getRecurringServices(String baseEntityID, DateTime anchorDate, String group, boolean includePartial) {
         Map<String, ServiceWrapper> serviceWrapperMap = new LinkedHashMap<>();
 
-        RecurringServiceModel recurringServiceModel = getServiceModel(baseEntityID, anchorDate, group);
+        RecurringServiceModel recurringServiceModel = getServiceModel(baseEntityID, anchorDate, group, includePartial);
         Map<String, List<ServiceType>> foundServiceTypeMap = getServiceGroup(recurringServiceModel);
 
         for (String type : foundServiceTypeMap.keySet()) {
@@ -46,7 +52,7 @@ public class RecurringServiceUtil {
         return serviceWrapperMap;
     }
 
-    public static RecurringServiceModel getServiceModel(String baseEntityID, DateTime anchorDate, String group) {
+    public static RecurringServiceModel getServiceModel(String baseEntityID, DateTime anchorDate, String group, boolean includePartial) {
         // get the services
         if (anchorDate != null) {
             ChwServiceSchedule.updateOfflineAlerts(baseEntityID, anchorDate, group);
@@ -62,7 +68,11 @@ public class RecurringServiceUtil {
         List<Alert> alertList = new ArrayList<>();
 
         if (recurringServiceRecordRepository != null) {
-            serviceRecords = recurringServiceRecordRepository.findByEntityId(baseEntityID);
+            serviceRecords.addAll(recurringServiceRecordRepository.findByEntityId(baseEntityID));
+        }
+
+        if (includePartial) {
+            serviceRecords.addAll(VisitDao.getUnprocessedServiceRecords(baseEntityID));
         }
 
         if (recurringServiceTypeRepository != null) {

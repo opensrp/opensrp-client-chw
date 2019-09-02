@@ -92,9 +92,9 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
             VaccineScheduleUtil.updateOfflineAlerts(childBaseEntityId, dob, CoreConstants.SERVICE_GROUPS.CHILD);
             ChwServiceSchedule.updateOfflineAlerts(childBaseEntityId, dob, CoreConstants.SERVICE_GROUPS.CHILD);
 
-            List<Vaccine> vaccines = CoreChwApplication.getInstance().vaccineRepository().findByEntityId(childBaseEntityId); // add vaccines given to the user
-            Map<String, Date> receivedVaccines = VaccinatorUtils.receivedVaccines(vaccines);
+            Map<String, Date> receivedVaccines = VaccineScheduleUtil.getReceivedVaccines(childBaseEntityId);
             setVaccineList(receivedVaccines);
+
             List<Alert> alertList = AlertDao.getActiveAlerts(childBaseEntityId);
             Alert alert = (alertList.size() > 0) ? alertList.get(0) : null;
 
