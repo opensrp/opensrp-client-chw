@@ -10,16 +10,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
-import org.smartregister.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
 import org.smartregister.chw.core.interactor.CoreMalariaProfileInteractor;
-import org.smartregister.chw.core.listener.FloatingMenuListener;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.chw.custom_view.MalariaFloatingMenu;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
@@ -46,19 +47,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         activity.startActivity(intent);
     }
 
-    @Override
-    protected void setupViews() {
-        CoreFamilyMemberFloatingMenu familyFloatingMenu = new FamilyMemberFloatingMenu(this);
-        LinearLayout.LayoutParams linearLayoutParams =
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
-        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
-        addContentView(familyFloatingMenu, linearLayoutParams);
-        familyFloatingMenu.setClickListener(
-                FloatingMenuListener.getInstance(this, presenter().getFamilyBaseEntityId())
-        );
-    }
 
     @Override
     protected void initializePresenter() {
@@ -66,11 +54,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         profilePresenter = new BaseMalariaProfilePresenter(this, new CoreMalariaProfileInteractor(), MEMBER_OBJECT);
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
-    }
-
-    @Override
-    protected void onCreation() {
-        super.onCreation();
     }
 
     @Override
@@ -275,5 +258,45 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
         intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
+    }
+
+    private void checkPhoneNumberProvided() {
+        ((MalariaFloatingMenu) baseMalariaFloatingMenu).redraw(!StringUtils.isBlank(MEMBER_OBJECT.getPhoneNumber())
+                || !StringUtils.isBlank(getFamilyHeadPhoneNumber()));
+    }
+
+
+    @Override
+    public void initializeFloatingMenu() {
+        baseMalariaFloatingMenu = new MalariaFloatingMenu(this, getClientName(),
+                MEMBER_OBJECT.getPhoneNumber(), getFamilyHeadName(), getFamilyHeadPhoneNumber());
+
+        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
+            switch (viewId) {
+                case R.id.malaria_fab:
+                    checkPhoneNumberProvided();
+                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
+                    break;
+                case R.id.call_layout:
+                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).launchCallWidget();
+                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
+                    break;
+                case R.id.refer_to_facility_layout:
+                    Toast.makeText(this, "Hey", Toast.LENGTH_SHORT).show();
+//                    ancMemberProfilePresenter().startAncReferralForm();
+//                    ((AncFloatingMenu) baseAncFloatingMenuloatingMenu).animateFAB();
+                    break;
+                default:
+                    Timber.d("Unknown fab action");
+                    break;
+            }
+
+        };
+
+        ((MalariaFloatingMenu) baseMalariaFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
+        baseMalariaFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        addContentView(baseMalariaFloatingMenu, linearLayoutParams);
     }
 }
