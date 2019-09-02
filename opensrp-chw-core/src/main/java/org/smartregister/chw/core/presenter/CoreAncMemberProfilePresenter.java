@@ -1,11 +1,9 @@
 package org.smartregister.chw.core.presenter;
 
-
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.core.contract.AncMemberProfileContract;
-import org.smartregister.chw.core.interactor.CoreAncMemberProfileInteractor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Task;
@@ -30,7 +28,7 @@ public class CoreAncMemberProfilePresenter extends BaseAncMemberProfilePresenter
         super(view, interactor, memberObject);
         setEntityId(memberObject.getBaseEntityId());
         this.view = new WeakReference<>(view);
-        this.interactor = new CoreAncMemberProfileInteractor(view.getContext());
+        this.interactor = interactor;
     }
 
     @Override

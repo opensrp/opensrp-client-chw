@@ -108,6 +108,8 @@ public class ChildDBConstants {
         public static final String VACCINE_CARD = "vaccine_card";
         public static final String MOTHER_ENTITY_ID = "mother_entity_id";
         public static final String PRIMARY_CAREGIVER = "primary_caregiver";
+        public static final String FAMILY_PRIMARY_CAREGIVER = "family_primary_caregiver";
+        public static final String LAST_MENSTRUAL_PERIOD = "last_menstrual_period";
         // Family child visit status
         //public static final String CHILD_VISIT_STATUS = "child_visit_status";
     }

@@ -29,6 +29,8 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getDayFromDate;
+
 public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
 
     protected final Context context;
@@ -57,19 +59,30 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
         }
     }
 
-    protected void updateChildIcons(RegisterViewHolder viewHolder, List<Map<String, String>> list, int ancWomanCount) {
-        ImageView imageView;
-        LinearLayout linearLayout;
-        if (ancWomanCount > 0) {
-            for (int i = 1; i <= ancWomanCount; i++) {
-                imageView = new ImageView(context);
-                imageView.setImageResource(R.mipmap.ic_anc_pink);
-                linearLayout = (LinearLayout) viewHolder.memberIcon;
-                linearLayout.addView(imageView);
-            }
+    private void updatePncAncIcons(RegisterViewHolder viewHolder, int womanCount, String register) {
+        for (int i = 1; i <= womanCount; i++) {
+            ImageView imageView = new ImageView(context);
+            imageView.setImageResource(CoreConstants.TABLE_NAME.ANC_MEMBER.equals(register) ? R.mipmap.ic_anc_pink : R.mipmap.row_pnc);
+            LinearLayout linearLayout = (LinearLayout) viewHolder.memberIcon;
+            linearLayout.addView(imageView);
         }
+    }
+
+    protected void updateChildIcons(RegisterViewHolder viewHolder, List<Map<String, String>> list, int ancWomanCount, int pncWomanCount) {
+
+        updatePncAncIcons(viewHolder, ancWomanCount, CoreConstants.TABLE_NAME.ANC_MEMBER);
+        updatePncAncIcons(viewHolder, pncWomanCount, CoreConstants.TABLE_NAME.PNC_MEMBER);
+
         if (list != null && !list.isEmpty()) {
+            ImageView imageView;
+            LinearLayout linearLayout;
             for (Map<String, String> map : list) {
+                if ("PNC".equals(map.get(CoreConstants.DB_CONSTANTS.ENTRY_POINT))) {
+                    String dob = map.get(DBConstants.KEY.DOB);
+                    if (dob != null && getDayFromDate(dob) < 29) {
+                        return;
+                    }
+                }
                 imageView = new ImageView(context);
                 String gender = map.get(DBConstants.KEY.GENDER);
                 if ("Male".equalsIgnoreCase(gender)) {
@@ -81,7 +94,6 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
                 linearLayout.addView(imageView);
             }
         }
-
     }
 
     public abstract void updateDueColumn(Context context, RegisterViewHolder viewHolder, ChildVisit childVisit);
@@ -125,7 +137,7 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
 
     protected List<Map<String, String>> getChildren(String familyEntityId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(CoreConstants.TABLE_NAME.CHILD, new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.GENDER, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED, DBConstants.KEY.DOB});
+        queryBUilder.SelectInitiateMainTable(CoreConstants.TABLE_NAME.CHILD, new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.GENDER, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED, DBConstants.KEY.DOB, CoreConstants.DB_CONSTANTS.ENTRY_POINT});
         queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' AND %s ",
                 DBConstants.KEY.DATE_REMOVED,
                 DBConstants.KEY.RELATIONAL_ID,

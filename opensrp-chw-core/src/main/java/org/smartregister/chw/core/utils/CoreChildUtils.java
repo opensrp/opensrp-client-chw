@@ -220,7 +220,7 @@ public abstract class CoreChildUtils {
                 || display.toLowerCase().contains("rubella")) {
             vaccineDisplay = WordUtils.capitalize(vaccineDisplay.toLowerCase());
         }
-
+        vaccineDisplay = vaccineDisplay.replace("_"," ");
         return vaccineDisplay;
     }
 

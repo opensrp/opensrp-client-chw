@@ -57,7 +57,7 @@
         "type": "hidden"
       },
       {
-        "key": "lmp_entered",
+        "key": "last_menstrual_period",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -91,7 +91,7 @@
         "key": "last_menstrual_period_unknown",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "last_menstrual_period_unknown",
         "openmrs_data_type": "text",
         "type": "check_box",
         "options": [
@@ -110,10 +110,19 @@
         "openmrs_entity_id": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Date probable d'accouchement (DPA)",
+        "max_date": "today+50w",
+        "min_date": "today",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
             }
           }
         },
@@ -129,6 +138,22 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Âge gestationnel (AG)",
+        "read_only": true,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "edd_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Date probable d'accouchement (DPA)",
         "read_only": true,
         "calculation": {
           "rules-engine": {
@@ -226,22 +251,6 @@
         "v_required": {
           "value": false,
           "err": "Cette réponse est requise"
-        }
-      },
-      {
-        "key": "other_phone_number",
-        "openmrs_entity_parent": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Other phone number",
-        "v_numeric": {
-          "value": "true",
-          "err": "Le numéro doit être composé de 8 à 16 chiffres."
-        },
-        "v_regex": {
-          "value": "([0-9]{8,16})|\\s*",
-          "err": ""
         }
       },
       {

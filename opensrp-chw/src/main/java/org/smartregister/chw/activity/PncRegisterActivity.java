@@ -33,8 +33,6 @@ public class PncRegisterActivity extends AncRegisterActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
     }

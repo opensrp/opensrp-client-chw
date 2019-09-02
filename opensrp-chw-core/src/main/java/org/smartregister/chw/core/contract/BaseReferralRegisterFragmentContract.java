@@ -15,10 +15,12 @@ public interface BaseReferralRegisterFragmentContract {
 
     interface Presenter extends BaseRegisterFragmentContract.Presenter {
         void fetchClient();
+
+        void setTasksFocus(String taskFocus);
     }
 
     interface Interactor {
-        void getClientDetails(String baseEntityId, BaseReferralRegisterFragmentContract.InteractorCallBack callback);
+        void getClientDetails(String baseEntityId, BaseReferralRegisterFragmentContract.InteractorCallBack callback, String taskFocus);
     }
 
     interface InteractorCallBack {
