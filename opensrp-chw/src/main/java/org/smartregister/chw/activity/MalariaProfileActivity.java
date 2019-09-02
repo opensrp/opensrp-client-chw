@@ -262,14 +262,14 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
     private void checkPhoneNumberProvided() {
         ((MalariaFloatingMenu) baseMalariaFloatingMenu).redraw(!StringUtils.isBlank(MEMBER_OBJECT.getPhoneNumber())
-                || !StringUtils.isBlank(getFamilyHeadPhoneNumber()));
+                || !StringUtils.isBlank(MEMBER_OBJECT.getPhoneNumber()));
     }
 
 
     @Override
     public void initializeFloatingMenu() {
-        baseMalariaFloatingMenu = new MalariaFloatingMenu(this, getClientName(),
-                MEMBER_OBJECT.getPhoneNumber(), getFamilyHeadName(), getFamilyHeadPhoneNumber());
+        baseMalariaFloatingMenu = new MalariaFloatingMenu(this, MEMBER_OBJECT.getFirstName(),
+                MEMBER_OBJECT.getPhoneNumber(), MEMBER_OBJECT.getFamilyName(), MEMBER_OBJECT.getPhoneNumber());
 
         OnClickFloatingMenu onClickFloatingMenu = viewId -> {
             switch (viewId) {
