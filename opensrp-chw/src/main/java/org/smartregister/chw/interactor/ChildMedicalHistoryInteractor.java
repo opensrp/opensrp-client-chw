@@ -79,7 +79,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
         Runnable runnable = () -> {
             List<Visit> visits = visitRepository.getVisits(commonPersonObjectClient.getCaseId(), Constants.EventType.BIRTH_CERTIFICATION);
-            if (visits == null || visits.size() != 1)
+            if (visits == null || visits.size() < 1)
                 return;
 
             Visit visit = visits.get(0);
@@ -124,7 +124,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             final ArrayList<String> illnessContent = new ArrayList<>();
             List<Visit> visits = visitRepository.getVisits(commonPersonObjectClient.getCaseId(), Constants.EventType.OBS_ILLNESS);
 
-            if (visits == null || visits.size() != 1)
+            if (visits == null || visits.size() < 1)
                 return;
 
             Visit visit = visits.get(0);
