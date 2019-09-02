@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
@@ -132,7 +133,8 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     }
 
     private void openUpcomingServicePage() {
-        CoreUpcomingServicesActivity.startUpcomingServicesActivity(this, ((ChildProfilePresenter) presenter()).getChildClient());
+        MemberObject memberObject = new MemberObject(((ChildProfilePresenter) presenter()).getChildClient());
+        CoreUpcomingServicesActivity.startMe(this, memberObject);
     }
 
     private void openVisitHomeScreen(boolean isEditMode) {

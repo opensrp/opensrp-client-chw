@@ -11,6 +11,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
@@ -148,6 +149,7 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
 
         private List<Map<String, String>> list;
         private int ancWomanCount;
+        private int pncWomanCount;
         private ChildVisit childVisit;
 
         private UpdateAsyncTask(Context context, RegisterViewHolder viewHolder, String familyBaseEntityId) {
@@ -160,7 +162,8 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
         @Override
         protected Void doInBackground(Void... params) {
             list = getChildren(familyBaseEntityId);
-            ancWomanCount = ChwApplication.ancRegisterRepository().getAncWomenCount(familyBaseEntityId);
+            ancWomanCount = ChwApplication.ancRegisterRepository().getAncPncWomenCount(familyBaseEntityId, CoreConstants.TABLE_NAME.ANC_MEMBER);
+            pncWomanCount = ChwApplication.ancRegisterRepository().getAncPncWomenCount(familyBaseEntityId, CoreConstants.TABLE_NAME.PNC_MEMBER);
             childVisit = mergeChildVisits(retrieveChildVisitList(rules, list));
 
             return null;
@@ -169,7 +172,7 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
         @Override
         protected void onPostExecute(Void param) {
             // Update child Icon
-            updateChildIcons(viewHolder, list, ancWomanCount);
+            updateChildIcons(viewHolder, list, ancWomanCount, pncWomanCount);
 
             // Update due column
             updateDueColumn(context, viewHolder, childVisit);

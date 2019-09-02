@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.dao.AlertDao;
+import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -277,5 +278,14 @@ public class VaccineScheduleUtil {
             }
         }
         return null;
+    }
+
+    public static Map<String, Date> getReceivedVaccines(String baseEntityID) {
+        List<Vaccine> vaccines = CoreChwApplication.getInstance().vaccineRepository().findByEntityId(baseEntityID);
+
+        Map<String, Date> receivedVaccines = VaccinatorUtils.receivedVaccines(vaccines);
+        receivedVaccines.putAll(VisitDao.getUnprocessedVaccines(baseEntityID));
+
+        return receivedVaccines;
     }
 }

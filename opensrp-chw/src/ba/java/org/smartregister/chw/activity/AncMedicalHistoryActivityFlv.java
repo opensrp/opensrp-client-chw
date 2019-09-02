@@ -39,7 +39,7 @@ public class AncMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivi
                 view.findViewById(R.id.ifa_received).setVisibility(View.GONE);
 
 
-                tvTitle.setText(MessageFormat.format(context.getString(R.string.anc_visit_date), (hf_visits.size() - x), vals.get("anc_visit_date")));
+                tvTitle.setText(MessageFormat.format(context.getString(R.string.anc_visit_date), (hf_visits.size() - x), vals.get("anc_hf_visit_date")));
                 tvTests.setText(MessageFormat.format(context.getString(R.string.tests_done_details), vals.get("tests_done")));
 
                 linearLayoutHealthFacilityVisitDetails.addView(view, 0);

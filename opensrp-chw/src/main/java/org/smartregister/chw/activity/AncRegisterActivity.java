@@ -28,13 +28,13 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
     }
 
     @Override
-    public void onRegistrationSaved(boolean isEdit) {
-        if (hasChildRegistration) {
-            startRegisterActivity(PncRegisterActivity.class);
-        } else {
-            startRegisterActivity(AncRegisterActivity.class);
-        }
-        finish();
+    public Class getAncRegisterActivity() {
+        return AncRegisterActivity.class;
+    }
+
+    @Override
+    public Class getPncRegisterActivity() {
+        return PncRegisterActivity.class;
     }
 
     @Override
@@ -54,14 +54,6 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
     public void switchToBaseFragment() {
         Intent intent = new Intent(this, FamilyRegisterActivity.class);
         startActivity(intent);
-        finish();
-    }
-
-    private void startRegisterActivity(Class registerClass) {
-        Intent intent = new Intent(this, registerClass);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        this.startActivity(intent);
-        this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
         this.finish();
     }
 }

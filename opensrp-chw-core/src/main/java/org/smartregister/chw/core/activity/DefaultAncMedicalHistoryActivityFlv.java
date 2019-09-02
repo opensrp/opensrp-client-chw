@@ -12,6 +12,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.R;
 
 import java.text.MessageFormat;
@@ -80,8 +81,8 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements CoreAncMedi
                 }
 
 
-                String[] hf_params = {"anc_visit_date", "weight", "sys_bp", "dia_bp", "hb_level", "ifa_received", "tests_done"};
-                extractHFVisit(visits, hf_params, hf_visits, x);
+                String[] hf_params = {"anc_hf_visit_date", "weight", "sys_bp", "dia_bp", "hb_level", "ifa_received", "tests_done"};
+                extractHFVisit(visits, hf_params, hf_visits, x, context);
                 extractImmunization(visits, immunizations, x);
                 extractIPSp(visits, services, x);
 
@@ -95,8 +96,35 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements CoreAncMedi
             processIPTp(services, context);
         }
     }
+    private String getString(String x, Context context){
+        switch (x.toLowerCase().trim()){
+            case "none":
+                return context.getString(R.string.edu_level_none);
+            case "urine analysis":
+                return context.getString(R.string.urine_analysis);
+            case "hiv test":
+                return context.getString(R.string.hiv_test);
+            case "syphilis test":
+                return context.getString(R.string.syphilis_test);
+                default:
+                    return x;
+        }
+    }
 
-    private void extractHFVisit(List<Visit> sourceVisits, String[] hf_params, List<Map<String, String>> hf_visits, int iteration) {
+    public String getTexts(Context context, List<VisitDetail> visitDetails){
+        if(visitDetails == null)
+            return "";
+
+        List<String> texts = new ArrayList<>();
+        for (VisitDetail vd: visitDetails){
+            String val = NCUtils.getText(vd);
+            if(StringUtils.isNotBlank(val))
+                texts.add(getString(val.trim(), context));
+        }
+        return NCUtils.toCSV(texts);
+    }
+
+    private void extractHFVisit(List<Visit> sourceVisits, String[] hf_params, List<Map<String, String>> hf_visits, int iteration, Context context) {
         List<VisitDetail> hf_details = sourceVisits.get(iteration).getVisitDetails().get("anc_hf_visit");
         if (hf_details != null) {
             String val = hf_details.get(0).getHumanReadable();
@@ -105,22 +133,7 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements CoreAncMedi
                 Map<String, String> map = new HashMap<>();
                 for (String param : hf_params) {
                     List<VisitDetail> details = sourceVisits.get(iteration).getVisitDetails().get(param);
-                    if (details != null) {
-                        for (VisitDetail d : details) {
-                            String hr_val = d.getHumanReadable();
-                            if (StringUtils.isBlank(hr_val)) {
-                                hr_val = d.getDetails();
-                            }
-
-                            String cur_val = map.get(param);
-                            if (StringUtils.isNotBlank(cur_val)) {
-                                cur_val = cur_val + " , " + hr_val;
-                            } else {
-                                cur_val = hr_val;
-                            }
-                            map.put(param, cur_val);
-                        }
-                    }
+                    map.put(param, getTexts(context,details));
                 }
                 hf_visits.add(map);
             }
@@ -164,7 +177,7 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements CoreAncMedi
 
     protected void processAncCard(String has_card, Context context) {
         linearLayoutAncCard.setVisibility(View.VISIBLE);
-        customFontTextViewAncCard.setText(MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_anc_card_received), has_card.toLowerCase()));
+        customFontTextViewAncCard.setText(MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_anc_card_received),getTranslatedText(context, has_card.toLowerCase())));
     }
 
     protected void processHealthFacilityVisit(List<Map<String, String>> hf_visits, Context context) {
@@ -182,11 +195,11 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements CoreAncMedi
                 TextView tvIfa = view.findViewById(R.id.ifa_received);
                 TextView tvTests = view.findViewById(R.id.tests);
 
-                tvTitle.setText(MessageFormat.format(context.getString(R.string.anc_visit_date), (hf_visits.size() - x), getMapValue(vals, "anc_visit_date")));
+                tvTitle.setText(MessageFormat.format(context.getString(R.string.anc_visit_date), (hf_visits.size() - x), getMapValue(vals, "anc_hf_visit_date")));
                 tvWeight.setText(MessageFormat.format(context.getString(R.string.weight_in_kgs), getMapValue(vals, "weight")));
                 tvBP.setText(MessageFormat.format(context.getString(R.string.bp_in_mmhg), getMapValue(vals, "sys_bp"), getMapValue(vals, "dia_bp")));
-                tvHB.setText(MessageFormat.format(context.getString(R.string.hb_level_in_g_dl), getMapValue(vals, "hb_level")));
-                tvIfa.setText(MessageFormat.format(context.getString(R.string.ifa_received_status), getMapValue(vals, "ifa_received")));
+                tvHB.setText(context.getString(R.string.hb_level_in_g_dl, getMapValue(vals, "hb_level")));
+                tvIfa.setText(MessageFormat.format(context.getString(R.string.ifa_received_status), getTranslatedText(context, getMapValue(vals, "ifa_received"))));
                 tvTests.setText(MessageFormat.format(context.getString(R.string.tests_done_details), getMapValue(vals, "tests_done")));
 
                 linearLayoutHealthFacilityVisitDetails.addView(view, 0);
@@ -194,6 +207,19 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements CoreAncMedi
                 x++;
             }
         }
+    }
+
+    private String getTranslatedText(Context context, String val){
+
+        switch (val.toLowerCase()){
+            case "yes":
+                return context.getString(R.string.yes);
+            case "no":
+                return context.getString(R.string.no);
+                default:
+                    return val;
+        }
+
     }
 
     private void processTTImmunization(Map<String, String> immunizations, Context context) {
