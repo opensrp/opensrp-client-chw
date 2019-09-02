@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.jeasy.rules.api.Rules;
+import org.mvel2.sh.text.TextUtil;
 import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
@@ -129,18 +130,23 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, final HouseHoldRegisterProvider viewHolder) {
 
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
-
+        setText(viewHolder.houseHoldName, context.getString(R.string.name,firstName));
         String houseHoldId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, true);
-
-        fillValue(viewHolder.houseHoldName, firstName);
-
-        fillValue(viewHolder.houseHoldId, context.getString(R.string.house_hold_id,houseHoldId));
+        if(!TextUtils.isEmpty(houseHoldId)){
+            houseHoldId = houseHoldId.replace(Constants.IDENTIFIER.FAMILY_SUFFIX,"")
+                    .replace(HnppConstants.IDENTIFIER.FAMILY_TEXT,"");
+        }
+        setText(viewHolder.houseHoldId,context.getString(R.string.house_hold_id,houseHoldId));
 
         String phoneNumber = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, true);
-        fillValue((viewHolder.mobileNumber), phoneNumber);
+        if(!TextUtils.isEmpty(phoneNumber) && phoneNumber.length() > 1){
+            setText(viewHolder.mobileNumber,phoneNumber);
+        }else{
+            setText(viewHolder.mobileNumber,context.getString(R.string.phone_no,phoneNumber));
+        }
 
         String totalMember = Utils.getValue(pc.getColumnmaps(), HnppConstants.KEY.TOTAL_MEMBER, true);
-        fillValue((viewHolder.totalMember),context.getString(R.string.member_count,totalMember));
+        setText(viewHolder.totalMember,context.getString(R.string.member_count,TextUtils.isEmpty(totalMember)?"0":totalMember));
 
         View patient = viewHolder.patientColumn;
         attachPatientOnclickListener(patient, client);
@@ -155,6 +161,15 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
             }
         });
     }
+    private void setText(TextView textView,String value){
+        if(textView == null) return;
+        if(!TextUtils.isEmpty(value)){
+            textView.setVisibility(View.VISIBLE);
+            textView.setText(value);
+        }else{
+            textView.setVisibility(View.GONE);
+        }
+    }
 
     private void populateMemberIconView(CommonPersonObjectClient pc, HouseHoldRegisterProvider viewHolder) {
         String familyBaseEntityId = pc.getCaseId();
@@ -164,6 +179,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
     }
     protected void updateChildIcons(HouseHoldRegisterProvider viewHolder, List<Map<String, String>> list, int ancWomanCount) {
         if (ancWomanCount > 0) {
+            viewHolder.memberIcon.setVisibility(View.VISIBLE);
             View view = LayoutInflater.from(context).inflate(R.layout.member_with_count, null);
             ImageView ancImage = view.findViewById(R.id.member_image);
             TextView textViewCount = view.findViewById(R.id.count_tv);
@@ -174,6 +190,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
         }
         int maleChildCount = 0,femaleChildCount = 0;
         if (list != null && !list.isEmpty()) {
+            viewHolder.memberIcon.setVisibility(View.VISIBLE);
             for (Map<String, String> map : list) {
                 String gender = map.get(DBConstants.KEY.GENDER);
                 if ("Male".equalsIgnoreCase(gender)) {
@@ -294,6 +311,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
             patientColumn = itemView.findViewById(R.id.patient_column);
 
             memberIcon = itemView.findViewById(R.id.member_icon_layout);
+            memberIcon.setVisibility(View.GONE);
 
             registerColumns = itemView.findViewById(org.smartregister.family.R.id.register_columns);
         }

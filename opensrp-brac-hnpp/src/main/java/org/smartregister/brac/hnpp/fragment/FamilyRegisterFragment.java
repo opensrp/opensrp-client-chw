@@ -1,10 +1,14 @@
 package org.smartregister.brac.hnpp.fragment;
 
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.smartregister.brac.hnpp.model.HnppFamilyRegisterFragmentModel;
+import org.smartregister.brac.hnpp.presenter.HnppFamilyRegisterFragmentPresenter;
 import org.smartregister.brac.hnpp.provider.HHRegisterProvider;
 import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
+import org.smartregister.chw.core.presenter.FamilyRegisterFragmentPresenter;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -20,12 +24,21 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }
+    @Override
+    protected void initializePresenter() {
+        if (getActivity() == null) {
+            return;
+        }
+        presenter = new HnppFamilyRegisterFragmentPresenter(this, new HnppFamilyRegisterFragmentModel(), null);
+    }
 
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
+        ((TextView)view.findViewById(org.smartregister.chw.core.R.id.filter_text_view)).setText("");
         view.findViewById(org.smartregister.chw.core.R.id.filter_sort_layout).setVisibility(View.VISIBLE);
         dueOnlyLayout.setVisibility(View.GONE);
+        view.findViewById(org.smartregister.chw.core.R.id.filter_sort_layout).setOnClickListener(registerActionHandler);
     }
 
     @Override

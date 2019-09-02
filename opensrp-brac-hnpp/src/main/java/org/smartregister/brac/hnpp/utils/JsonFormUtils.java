@@ -18,6 +18,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 
@@ -30,6 +31,52 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     public static final String METADATA = "metadata";
     public static final String ENCOUNTER_TYPE = "encounter_type";
 
+    public static JSONObject getFormAsJson(JSONObject form,
+                                           String formName, String id,
+                                           String currentLocationId) throws Exception {
+        if (form == null) {
+            return null;
+        }
+
+        String entityId = id;
+        form.getJSONObject(METADATA).put(ENCOUNTER_LOCATION, currentLocationId);
+
+        if (Utils.metadata().familyRegister.formName.equals(formName) || Utils.metadata().familyMemberRegister.formName.equals(formName)) {
+            if (StringUtils.isNotBlank(entityId)) {
+                entityId = entityId.replace("-", "");
+            }
+
+            JSONArray field = fields(form, STEP1);
+            JSONObject uniqueId = getFieldJSONObject(field, Constants.JSON_FORM_KEY.UNIQUE_ID);
+
+            if (formName.equals(Utils.metadata().familyRegister.formName)) {
+                if (uniqueId != null) {
+                    uniqueId.remove(org.smartregister.family.util.JsonFormUtils.VALUE);
+                   uniqueId.put(org.smartregister.family.util.JsonFormUtils.VALUE, entityId);
+                }
+
+                // Inject opensrp id into the form
+                field = fields(form, STEP2);
+                uniqueId = getFieldJSONObject(field, Constants.JSON_FORM_KEY.UNIQUE_ID);
+                if (uniqueId != null) {
+                    uniqueId.remove(org.smartregister.family.util.JsonFormUtils.VALUE);
+                    uniqueId.put(org.smartregister.family.util.JsonFormUtils.VALUE, entityId);
+                }
+            } else {
+                if (uniqueId != null) {
+                    uniqueId.remove(org.smartregister.family.util.JsonFormUtils.VALUE);
+                    uniqueId.put(org.smartregister.family.util.JsonFormUtils.VALUE, entityId);
+                }
+            }
+
+            org.smartregister.family.util.JsonFormUtils.addLocHierarchyQuestions(form);
+
+        } else {
+            Timber.w("Unsupported form requested for launch " + formName);
+        }
+        Timber.d("form is " + form.toString());
+        return form;
+    }
 
     public static Pair<Client, Event> processChildRegistrationForm(AllSharedPreferences allSharedPreferences, String jsonString) {
         try {

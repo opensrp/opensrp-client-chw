@@ -58,7 +58,7 @@
         "key": "village_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "village_name",
         "type": "spinner",
         "hint": "স্বাস্থ্য সেবিকার/গ্রামের নামঃ",
         "values": [
@@ -74,12 +74,23 @@
         "key": "claster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "claster",
         "type": "spinner",
         "hint": "ক্লাস্টার",
         "values": [
+          "ক্লাস্টার ১",
+          "ক্লাস্টার ২",
+          "ক্লাস্টার ৩",
+          "ক্লাস্টার ৪",
+          "ক্লাস্টার ৫"
+
         ],
         "openmrs_choice_ids": {
+          "ক্লাস্টার ১":"claster_1",
+          "ক্লাস্টার ২":"claster_2",
+          "ক্লাস্টার ৩":"claster_3",
+          "ক্লাস্টার ৪":"claster_4",
+          "ক্লাস্টার ৫":"claster_5"
         },
         "v_required": {
           "value": "true",
@@ -89,8 +100,8 @@
       {
         "key": "house_hold_type",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "house_hold_type",
         "type": "spinner",
         "hint": "খানার ধরণ",
         "values": [
@@ -107,16 +118,28 @@
         }
       },
       {
-        "key": "house_hold_name",
+        "key": "unique_id",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "opensrp_id",
+        "type": "edit_text",
+        "hint": "খানা নাম্বার",
+        "v_numeric": {
+          "value": "false",
+          "err": "Please enter a valid ID"
+        }
+      },
+      {
+        "key": "firstName",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
         "type": "edit_text",
         "hint": "খানা প্রধানের নাম",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the surname"
+          "err": "Please enter the name"
         }
       },
       {
@@ -151,8 +174,8 @@
       {
         "key": "member_count",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "member_count",
         "type": "edit_text",
         "hint": "খানার মোট সদস্য সংখ্যা",
         "v_numeric": {
@@ -188,14 +211,6 @@
           "value": "true",
           "err": "Please answer the question"
         }
-      },
-      {
-        "key": "HHID",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "householdCode",
-        "type": "edit_text",
-        "hint": "খানা নাম্বার"
       },
       {
         "key": "is_house_hold_divided",
@@ -242,37 +257,6 @@
         }
       },
       {
-        "key": "hh_list_if_divided",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "text",
-        "type": "spinner",
-        "hint": "খানা বাছাই করুন",
-        "v_required": {
-          "value": true,
-          "err": "Please Select"
-        },
-        "values": [
-        ],
-        "openmrs_choice_ids": {
-        },
-        "relevance": {
-          "step1:is_house_hold_divided": {
-            "type": "string",
-            "ex": "equalTo(., \"হ্যাঁ\")"
-          }
-        }
-      },
-      {
-        "key": "gps",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "text",
-        "type": "gps"
-      },
-      {
         "key": "member_list_if_divided",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
@@ -300,6 +284,15 @@
             "ex": "equalTo(., \"হ্যাঁ\")"
           }
         }
+      },
+
+      {
+        "key": "gps",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "gps"
       }
     ]
   }

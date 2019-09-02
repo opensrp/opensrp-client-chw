@@ -14,7 +14,6 @@ public class NavigationModel implements org.smartregister.chw.core.model.Navigat
     @Override
     public List<NavigationOption> getNavigationItems() {
         if (navigationOptions.size() == 0) {
-            navigationOptions.add(new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, R.string.menu_all_clients, CoreConstants.DrawerMenu.ALL_CLIENTS, 0));
             navigationOptions.add(new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, R.string.menu_all_families, CoreConstants.DrawerMenu.ALL_FAMILIES, 0));
             navigationOptions.add(new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, R.string.menu_elco_clients, HnppConstants.DrawerMenu.ELCO_CLIENT, 0));
             navigationOptions.add(new NavigationOption(R.mipmap.sidemenu_anc, R.mipmap.sidemenu_anc_active, R.string.menu_anc_clients, CoreConstants.DrawerMenu.ANC, 0));

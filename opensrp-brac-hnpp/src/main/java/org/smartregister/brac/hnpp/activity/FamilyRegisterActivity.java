@@ -1,11 +1,18 @@
 package org.smartregister.brac.hnpp.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.design.widget.BottomNavigationView;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
+import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
+import org.smartregister.brac.hnpp.model.FamilyRegisterModel;
+import org.smartregister.brac.hnpp.presenter.FamilyRegisterPresenter;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.listener.CoreBottomNavigationListener;
@@ -14,8 +21,15 @@ import org.smartregister.brac.hnpp.BuildConfig;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.fragment.FamilyRegisterFragment;
 import org.smartregister.brac.hnpp.listener.HfFamilyBottomNavListener;
+import org.smartregister.family.contract.FamilyRegisterContract;
+import org.smartregister.family.model.BaseFamilyRegisterModel;
+import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
+
+import timber.log.Timber;
 
 public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
 
@@ -56,6 +70,47 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
         if (action != null && action.equals(CoreConstants.ACTION.START_REGISTRATION)) {
             startRegistration();
         }
+    }
+
+    @Override
+    public void startFormActivity(JSONObject jsonForm) {
+        Intent intent = new Intent(this, Utils.metadata().familyFormActivity);
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+
+        Form form = new Form();
+        form.setName(getString(R.string.add_family));
+        form.setSaveLabel(getString(R.string.save));
+        form.setWizard(false);
+        form.setActionBarBackground(org.smartregister.family.R.color.family_actionbar);
+        form.setNavigationBackground(org.smartregister.family.R.color.family_navigation);
+        form.setHomeAsUpIndicator(org.smartregister.family.R.mipmap.ic_cross_white);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+            try {
+                String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+                Timber.d(jsonString);
+
+                JSONObject form = new JSONObject(jsonString);
+                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType)) {
+                    presenter().saveForm(jsonString, false);
+                }
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+
+        }
+
+    }
+
+    @Override
+    public FamilyRegisterContract.Presenter presenter() {
+        return new FamilyRegisterPresenter(this,new FamilyRegisterModel());
     }
 
     @Override

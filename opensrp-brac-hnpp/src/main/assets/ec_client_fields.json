@@ -14,7 +14,7 @@
           "column_name": "unique_id",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.unique_id"
+            "field": "identifiers.opensrp_id"
           }
         },
         {
@@ -57,7 +57,7 @@
           "column_name": "member_count",
           "type": "Client",
           "json_mapping": {
-            "field": "member_count"
+            "field": "attributes.member_count"
           }
         },
         {
