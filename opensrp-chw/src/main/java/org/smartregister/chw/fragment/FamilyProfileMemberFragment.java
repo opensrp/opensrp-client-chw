@@ -9,13 +9,11 @@ import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
-import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.fragment.CoreFamilyProfileMemberFragment;
 import org.smartregister.chw.model.FamilyProfileMemberModel;
 import org.smartregister.chw.provider.ChwMemberRegisterProvider;
-import org.smartregister.chw.util.Utils;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.presenter.BaseFamilyProfileMemberPresenter;
@@ -72,6 +70,11 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
     @Override
     protected HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId) {
         return ChwApplication.ancRegisterRepository().getFamilyNameAndPhone(baseEntityId);
+    }
+
+    @Override
+    protected CommonPersonObject getAncCommonPersonObject(String baseEntityId) {
+        return ChwApplication.ancRegisterRepository().getAncCommonPersonObject(baseEntityId);
     }
 
     @Override

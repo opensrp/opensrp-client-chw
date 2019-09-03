@@ -11,6 +11,7 @@ import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
@@ -89,6 +90,7 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
     }
 
     public void goToAncProfileActivity(CommonPersonObjectClient patient) {
+        patient.getColumnmaps().putAll(getAncCommonPersonObject(patient.entityId()).getColumnmaps());
         HashMap<String, String> familyHeadDetails = getAncFamilyHeadNameAndPhone(((BaseFamilyProfileMemberPresenter) presenter).getFamilyHead());
         String familyName = "";
         String familyHeadPhone = "";
@@ -116,6 +118,8 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
     protected abstract boolean isAncMember(String baseEntityId);
 
     protected abstract  HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId);
+
+    protected abstract CommonPersonObject getAncCommonPersonObject(String baseEntityId);
 
     @Override
     protected abstract void initializePresenter();
