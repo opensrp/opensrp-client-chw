@@ -5,6 +5,9 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreReferralUtils;
+import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
@@ -151,5 +154,30 @@ public class AncRegisterRepository extends BaseRepository {
         }
         return 0;
 
+    }
+
+    public CommonPersonObject getAncCommonPersonObject(String baseEntityId) {
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor = null;
+        CommonPersonObject personObject = null;
+        String query = CoreReferralUtils.mainAncDetailsSelect(CoreConstants.TABLE_NAME.ANC_MEMBER, baseEntityId);
+        Timber.d("ANC Member CommonPersonObject Query %s", query);
+
+        try {
+            if (database == null) {
+                return null;
+            }
+            cursor = database.rawQuery(query, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                personObject = Utils.context().commonrepository(CoreConstants.TABLE_NAME.ANC_MEMBER).readAllcommonforCursorAdapter(cursor);
+            }
+        } catch (Exception ex) {
+            Timber.e(ex);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return personObject;
     }
 }
