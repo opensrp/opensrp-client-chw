@@ -525,6 +525,7 @@ public class CoreConstants {
         public static final String NUTRITION_STATUS = "nutrition_status";
         public static final String GESTATION_AGE = "gestation_age";
         public static final String IS_PROBLEM = "is_problem";
+        public static final String REFERRAL_CODE = "Referral";
 
 
         public static class FAMILY_MEMBER {
