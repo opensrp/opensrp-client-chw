@@ -50,7 +50,13 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         // get contact
         LocalDate lastContact = new DateTime(memberObject.getDateCreated()).toLocalDate();
         boolean isFirst = (StringUtils.isBlank(memberObject.getLastContactVisit()));
-        LocalDate lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastMenstrualPeriod());
+        LocalDate lastMenstrualPeriod = new LocalDate();
+        try {
+            lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastMenstrualPeriod());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
 
         if (StringUtils.isNotBlank(memberObject.getLastContactVisit())) {
             lastContact = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastContactVisit());
