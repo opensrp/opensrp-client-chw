@@ -18,4 +18,8 @@ public class PncRegisterFragment extends CorePncRegisterFragment {
         PncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), getFamilyName(), getFamilyHeadPhone());
     }
 
+    @Override
+    public void initializePresenter() {
+        super.initializePresenter();
+    }
 }

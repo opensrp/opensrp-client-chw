@@ -42,7 +42,6 @@ public abstract class CorePncRegisterFragment extends BasePncRegisterFragment {
     private static final String DUE_FILTER_TAG = "PRESSED";
     private View view;
     private boolean dueFilterActive = false;
-    private HashMap<String, String> detailsMap;
     private CommonPersonObjectClient client;
 
     @Override
@@ -137,7 +136,7 @@ public abstract class CorePncRegisterFragment extends BasePncRegisterFragment {
         View searchBarLayout = view.findViewById(R.id.search_bar_layout);
         searchBarLayout.setLayoutParams(params);
         searchBarLayout.setBackgroundResource(R.color.chw_primary);
-        searchBarLayout.setPadding(searchBarLayout.getPaddingLeft(), searchBarLayout.getPaddingTop(), searchBarLayout.getPaddingRight(), (int) org.smartregister.chw.core.utils.Utils.convertDpToPixel(10, getActivity()));
+        searchBarLayout.setPadding(searchBarLayout.getPaddingLeft(), searchBarLayout.getPaddingTop(), searchBarLayout.getPaddingRight(), (int) Utils.convertDpToPixel(10, getActivity()));
 
         CustomFontTextView titleView = view.findViewById(R.id.txt_title_label);
         if (titleView != null) {
@@ -322,12 +321,8 @@ public abstract class CorePncRegisterFragment extends BasePncRegisterFragment {
     }
 
     public HashMap<String, String> getDetailsMap() {
-
-        this.detailsMap = CoreChwApplication.ancRegisterRepository().getFamilyNameAndPhone(
+        return CoreChwApplication.ancRegisterRepository().getFamilyNameAndPhone(
                 Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false));
-
-        return this.detailsMap;
-
     }
 
     public void setClient(CommonPersonObjectClient client) {
