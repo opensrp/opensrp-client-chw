@@ -22,6 +22,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
+import org.smartregister.family.presenter.BaseFamilyOtherMemberProfileFragmentPresenter;
 import org.smartregister.view.contract.BaseProfileContract;
 
 import java.util.HashMap;
@@ -59,18 +60,26 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         return true;
     }
 
-    // Qualify family member and show appropriate profile view
+    /**
+     * Qualify family member and show appropriate profile view
+     * @param commonPersonObjectClient
+     */
     protected void qualifyFamilyMember(CommonPersonObjectClient commonPersonObjectClient) {
-        if (presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObjectClient)) {
-            HashMap<String, String> detailsMap = ChwApplication.ancRegisterRepository().getFamilyNameAndPhone(Utils.getValue(commonPersonObjectClient.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.FAMILY_HEAD, false));
-
-            String familyName = "";
+        FamilyOtherMemberActivityPresenter otherMemberActivityPresenter = presenter();
+        // Do checks
+        if (otherMemberActivityPresenter != null && otherMemberActivityPresenter.isWomanAlreadyRegisteredOnAnc(commonPersonObjectClient)) {
+            HashMap<String, String> detailsMap = ChwApplication.ancRegisterRepository().getFamilyNameAndPhone(otherMemberActivityPresenter.getFamilyHeadBaseEntityId());
+            String familyHeadName = "";
             String familyHeadPhone = "";
             if (detailsMap != null) {
-                familyName = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME);
+                familyHeadName = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME);
                 familyHeadPhone = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE);
             }
-            AncMemberProfileActivity.startMe(this, new MemberObject(commonPersonObjectClient), familyName, familyHeadPhone);
+            AncMemberProfileActivity.startMe(this, new MemberObject(commonPersonObjectClient), familyHeadName, familyHeadPhone);
+        }
+        else {
+            // Proceed to FamilyOtherMemberProfile
+            super.onCreation();
         }
     }
 
