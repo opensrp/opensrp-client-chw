@@ -6,7 +6,6 @@ import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
-import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildUtils;
@@ -52,7 +51,7 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
             if (CoreConstants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
                 if (isAncMember(commonPersonObjectClient.entityId())) {
                     goToAncProfileActivity(commonPersonObjectClient);
-                }else { // TODO -> Handle PNC as well
+                } else { // TODO -> Handle PNC as well
                     goToOtherMemberProfileActivity(commonPersonObjectClient);
                 }
             } else {
@@ -117,7 +116,7 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
 
     protected abstract boolean isAncMember(String baseEntityId);
 
-    protected abstract  HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId);
+    protected abstract HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId);
 
     protected abstract CommonPersonObject getAncCommonPersonObject(String baseEntityId);
 
