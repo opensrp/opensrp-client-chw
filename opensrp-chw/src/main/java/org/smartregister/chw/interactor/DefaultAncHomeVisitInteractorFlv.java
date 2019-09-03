@@ -224,6 +224,8 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .withHelper(helper)
                 .withDetails(details)
                 .withOptional(false)
+                .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
+                .withPayloadDetails(MessageFormat.format("IPTp-SP_dose_{0}", serviceIteration))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
                 .withServiceWrapper(serviceWrapper)
                 .withScheduleStatus((overdueMonth < 1) ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)

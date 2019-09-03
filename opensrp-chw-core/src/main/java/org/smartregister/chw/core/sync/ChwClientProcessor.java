@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.schedulers.ScheduleTaskExecutor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.core.utils.WashCheck;
@@ -122,10 +123,12 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             case CoreConstants.EventType.CHILD_HOME_VISIT:
                 processVisitEvent(Utils.processOldEvents(eventClient), CoreConstants.EventType.CHILD_HOME_VISIT);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                ScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType());
                 break;
             case CoreConstants.EventType.CHILD_VISIT_NOT_DONE:
                 processVisitEvent(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                ScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType());
                 break;
             case CoreConstants.EventType.MINIMUM_DIETARY_DIVERSITY:
             case CoreConstants.EventType.MUAC:
@@ -146,24 +149,28 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 }
                 processVisitEvent(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                ScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType());
                 break;
             case CoreConstants.EventType.REMOVE_FAMILY:
                 if (eventClient.getClient() == null) {
                     return;
                 }
                 processRemoveFamily(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
+                ScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType());
                 break;
             case CoreConstants.EventType.REMOVE_MEMBER:
                 if (eventClient.getClient() == null) {
                     return;
                 }
                 processRemoveMember(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
+                ScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType());
                 break;
             case CoreConstants.EventType.REMOVE_CHILD:
                 if (eventClient.getClient() == null) {
                     return;
                 }
                 processRemoveChild(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
+                ScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType());
                 break;
             case CoreConstants.EventType.VACCINE_CARD_RECEIVED:
                 if (eventClient.getClient() == null) {
@@ -175,7 +182,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             case CoreConstants.EventType.WASH_CHECK:
                 processWashCheckEvent(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-
+                ScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType());
                 break;
             case CoreConstants.EventType.CHILD_REFERRAL:
             case CoreConstants.EventType.CLOSE_REFERRAL:
