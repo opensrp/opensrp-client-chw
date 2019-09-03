@@ -63,7 +63,6 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             int due = visits_due == null ?0 : visits_due;
             int over_due = visits_over_due == null ? 0 : visits_over_due;
             over_due = over_due + due;
-
             if(over_due > 0){
 
             }else if(due > 0){

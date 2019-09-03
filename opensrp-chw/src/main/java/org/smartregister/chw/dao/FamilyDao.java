@@ -2,7 +2,6 @@ package org.smartregister.chw.dao;
 
 import android.util.Pair;
 
-import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.core.dao.AbstractDao;
 
 import java.util.HashMap;
