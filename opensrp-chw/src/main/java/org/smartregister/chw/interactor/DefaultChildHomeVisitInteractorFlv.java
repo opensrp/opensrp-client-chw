@@ -216,9 +216,13 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         }
     }
 
+    protected int immunizationCeiling(){
+        return 24;
+    }
+
     protected void evaluateImmunization() throws Exception {
         int age = getAgeInMonths();
-        if (age >= 24) {
+        if (age >= immunizationCeiling()) {
             return;
         }
 
