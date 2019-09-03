@@ -31,7 +31,7 @@ import timber.log.Timber;
 public class CoreChildRegisterInteractor implements CoreChildRegisterContract.Interactor {
 
     public static final String TAG = CoreChildRegisterInteractor.class.getName();
-    private AppExecutors appExecutors;
+    protected AppExecutors appExecutors;
 
 
     public CoreChildRegisterInteractor() {
