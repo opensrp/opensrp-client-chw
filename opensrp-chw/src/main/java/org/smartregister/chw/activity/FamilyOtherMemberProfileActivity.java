@@ -7,8 +7,6 @@ import android.view.Menu;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.anc.domain.MemberObject;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
@@ -22,24 +20,13 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
-import org.smartregister.family.presenter.BaseFamilyOtherMemberProfileFragmentPresenter;
 import org.smartregister.view.contract.BaseProfileContract;
-
-import java.util.HashMap;
 
 import timber.log.Timber;
 
 public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
-
-    @Override
-    protected void onCreation() {
-        // TODO -> Umm do this here?
-        initializePresenter();
-        qualifyFamilyMember(commonPersonObject);
-        // TODO -> This has to go somewhere super.onCreation();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -58,29 +45,6 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         return true;
-    }
-
-    /**
-     * Qualify family member and show appropriate profile view
-     * @param commonPersonObjectClient
-     */
-    protected void qualifyFamilyMember(CommonPersonObjectClient commonPersonObjectClient) {
-        FamilyOtherMemberActivityPresenter otherMemberActivityPresenter = presenter();
-        // Do checks
-        if (otherMemberActivityPresenter != null && otherMemberActivityPresenter.isWomanAlreadyRegisteredOnAnc(commonPersonObjectClient)) {
-            HashMap<String, String> detailsMap = ChwApplication.ancRegisterRepository().getFamilyNameAndPhone(otherMemberActivityPresenter.getFamilyHeadBaseEntityId());
-            String familyHeadName = "";
-            String familyHeadPhone = "";
-            if (detailsMap != null) {
-                familyHeadName = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME);
-                familyHeadPhone = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE);
-            }
-            AncMemberProfileActivity.startMe(this, new MemberObject(commonPersonObjectClient), familyHeadName, familyHeadPhone);
-        }
-        else {
-            // Proceed to FamilyOtherMemberProfile
-            super.onCreation();
-        }
     }
 
     @Override

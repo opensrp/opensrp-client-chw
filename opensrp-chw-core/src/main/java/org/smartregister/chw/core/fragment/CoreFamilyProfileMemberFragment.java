@@ -2,9 +2,11 @@ package org.smartregister.chw.core.fragment;
 
 import android.content.Intent;
 
+import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
+import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildUtils;
@@ -47,7 +49,11 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
             CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
             String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
             if (CoreConstants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
-                goToOtherMemberProfileActivity(commonPersonObjectClient);
+                if (isAncMember(commonPersonObjectClient.entityId())) {
+                    goToAncProfileActivity(commonPersonObjectClient);
+                }else { // TODO -> Handle PNC as well
+                    goToOtherMemberProfileActivity(commonPersonObjectClient);
+                }
             } else {
                 goToChildProfileActivity(commonPersonObjectClient);
             }
@@ -82,11 +88,34 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
         startActivity(intent);
     }
 
+    public void goToAncProfileActivity(CommonPersonObjectClient patient) {
+        HashMap<String, String> familyHeadDetails = getAncFamilyHeadNameAndPhone(((BaseFamilyProfileMemberPresenter) presenter).getFamilyHead());
+        String familyName = "";
+        String familyHeadPhone = "";
+        if (familyHeadDetails != null) {
+            familyName = familyHeadDetails.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME);
+            familyHeadPhone = familyHeadDetails.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE);
+        }
+        Intent intent = new Intent(getActivity(), getAncMemberProfileActivityClass());
+        // intent.putExtras(getArguments());
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, new MemberObject(patient));
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyName);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhone);
+        intent.putExtra(CoreConstants.INTENT_KEY.CLIENT, patient);
+        startActivity(intent);
+    }
+
     protected abstract Class<?> getFamilyOtherMemberProfileActivityClass();
 
     protected abstract Class<? extends CoreAboveFiveChildProfileActivity> getAboveFiveChildProfileActivityClass();
 
     protected abstract Class<? extends CoreChildProfileActivity> getChildProfileActivityClass();
+
+    protected abstract Class<? extends BaseAncMemberProfileActivity> getAncMemberProfileActivityClass();
+
+    protected abstract boolean isAncMember(String baseEntityId);
+
+    protected abstract  HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId);
 
     @Override
     protected abstract void initializePresenter();

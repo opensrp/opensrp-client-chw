@@ -4,6 +4,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +35,6 @@ public class CoreReferralUtils {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName, familyTableName));
         queryBUilder.customJoin("LEFT JOIN " + familyTableName + " ON  " + tableName + "." + DBConstants.KEY.RELATIONAL_ID + " = " + familyTableName + ".id COLLATE NOCASE ");
-
         return queryBUilder.mainCondition(mainCondition);
     }
 
@@ -138,7 +138,7 @@ public class CoreReferralUtils {
         task.setStatus(Task.TaskStatus.READY);
         task.setBusinessStatus(CoreConstants.BUSINESS_STATUS.REFERRED);
         task.setPriority(3);
-        task.setCode("Referral");
+        task.setCode(CoreConstants.JsonAssets.REFERRAL_CODE);
         task.setDescription(referralProblems);
         task.setFocus(focus);
         task.setForEntity(baseEntityId);
@@ -208,7 +208,7 @@ public class CoreReferralUtils {
         return referralProblems;
     }
 
-    private static String getCheckBoxSelectedOptions(JSONArray options) {
+    private static String getCheckBoxSelectedOptions(@NotNull JSONArray options) {
         String selectedOptionValues = "";
         List<String> selectedValue = new ArrayList<>();
         try {
@@ -227,7 +227,7 @@ public class CoreReferralUtils {
         return selectedOptionValues;
     }
 
-    private static String getRadioButtonSelectedOptions(JSONArray options, String value) {
+    private static String getRadioButtonSelectedOptions(@NotNull JSONArray options, String value) {
         String selectedOptionValues = "";
         try {
             for (int i = 0; i < options.length(); i++) {
@@ -243,7 +243,7 @@ public class CoreReferralUtils {
         return selectedOptionValues;
     }
 
-    private static String getOtherWidgetSelectedItems(JSONObject jsonObject) {
+    private static String getOtherWidgetSelectedItems(@NotNull JSONObject jsonObject) {
         String value = "";
         try {
             if (jsonObject.has(JsonFormConstants.VALUE) && StringUtils.isNotEmpty(jsonObject.getString(JsonFormConstants.VALUE))) {

@@ -3,18 +3,25 @@ package org.smartregister.chw.fragment;
 import android.os.Bundle;
 
 import org.smartregister.chw.activity.AboveFiveChildProfileActivity;
+import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
+import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
+import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.fragment.CoreFamilyProfileMemberFragment;
 import org.smartregister.chw.model.FamilyProfileMemberModel;
 import org.smartregister.chw.provider.ChwMemberRegisterProvider;
+import org.smartregister.chw.util.Utils;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.presenter.BaseFamilyProfileMemberPresenter;
 import org.smartregister.family.util.Constants;
 
+import java.util.HashMap;
 import java.util.Set;
 
 public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment {
@@ -50,6 +57,21 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
     @Override
     protected Class<? extends CoreChildProfileActivity> getChildProfileActivityClass() {
         return ChildProfileActivity.class;
+    }
+
+    @Override
+    protected Class<? extends BaseAncMemberProfileActivity> getAncMemberProfileActivityClass() {
+        return AncMemberProfileActivity.class;
+    }
+
+    @Override
+    protected boolean isAncMember(String baseEntityId) {
+        return ChwApplication.ancRegisterRepository().checkIfAncWoman(baseEntityId);
+    }
+
+    @Override
+    protected HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId) {
+        return ChwApplication.ancRegisterRepository().getFamilyNameAndPhone(baseEntityId);
     }
 
     @Override
