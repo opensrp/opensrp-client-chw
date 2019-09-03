@@ -111,16 +111,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
         return value;
     }
 
-    public static String getServiceTypeLanguageSpecific(Context context, String value) {
-        if (value.equalsIgnoreCase(CoreConstants.GROWTH_TYPE.EXCLUSIVE.getValue())) {
-            return context.getString(R.string.exclusive_breastfeeding);
-        } else if (value.equalsIgnoreCase(CoreConstants.GROWTH_TYPE.VITAMIN.getValue())) {
-            return context.getString(R.string.vitamin_a);
-        } else if (value.equalsIgnoreCase(CoreConstants.GROWTH_TYPE.DEWORMING.getValue())) {
-            return context.getString(R.string.deworming);
-        }
-        return value;
-    }
+
 
     public static String firstCharacterUppercase(String str) {
         if (TextUtils.isEmpty(str)) {
