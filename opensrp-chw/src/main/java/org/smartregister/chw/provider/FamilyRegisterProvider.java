@@ -38,6 +38,7 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         super.getView(cursor, client, viewHolder);
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
+        viewHolder.dueButton.setVisibility(View.GONE);
         String familyBaseEntityId = pc.getCaseId();
         if (updateAsyncTask == null) { //Ensure this task is only called once
             Utils.startAsyncTask(new UpdateAsyncTask(context, viewHolder, familyBaseEntityId), null);
@@ -64,7 +65,7 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
     }
 
     private void setTasksOverdueStatus(Context context, Button dueButton, Integer count) {
-        dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.alert_urgent_red));
+        dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.white));
         dueButton.setText(MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.tasks_status),count));
         dueButton.setBackgroundResource(org.smartregister.chw.core.R.drawable.overdue_red_btn_selector);
         dueButton.setOnClickListener(onClickListener);
@@ -90,7 +91,7 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
     }
 
     private void updateButtonState(Context context, RegisterViewHolder viewHolder, Map<String, Integer> services) {
-        if (services != null) {
+        if (services != null && !services.isEmpty()) {
             viewHolder.dueButton.setVisibility(View.VISIBLE);
             Integer visits_done = services.get(CoreConstants.VisitType.DONE.name());
             Integer visits_due = services.get(CoreConstants.VisitType.DUE.name());
@@ -111,6 +112,8 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
                 setTaskNotDone(context,viewHolder.dueButton);
             }
 
+        }else{
+            viewHolder.dueButton.setVisibility(View.GONE);
         }
     }
 
@@ -142,6 +145,8 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         @Override
         protected void onPostExecute(Void param) {
             // Update child Icon
+            services.size();
+            services.size();
             updateChildIcons(viewHolder, list, ancWomanCount, pncWomanCount);
             updateButtonState(context, viewHolder, services);
         }
