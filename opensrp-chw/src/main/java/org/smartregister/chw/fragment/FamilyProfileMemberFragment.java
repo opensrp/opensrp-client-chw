@@ -93,6 +93,11 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
     }
 
     @Override
+    protected CommonPersonObject getPncCommonPersonObject(String baseEntityId) {
+        return getFamilyProfileActivity().getFamilyProfilePresenter().getPncCommonPersonObject(baseEntityId);
+    }
+
+    @Override
     protected void initializePresenter() {
         String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
         String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);

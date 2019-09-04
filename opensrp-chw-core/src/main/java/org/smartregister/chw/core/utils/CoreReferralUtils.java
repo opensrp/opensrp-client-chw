@@ -98,6 +98,22 @@ public class CoreReferralUtils {
         return columnList.toArray(new String[columnList.size()]);
     }
 
+    public static String pncFamilyMemberProfileDetailsSelect(String familyTableName, String baseEntityId) {
+        SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
+        queryBuilder.SelectInitiateMainTable(familyTableName, pncFamilyMemberProfileDetails(familyTableName));
+        queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + " ON  " + familyTableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.RELATIONAL_ID);
+        return queryBuilder.mainCondition(CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + baseEntityId + "'");
+    }
+
+    private static String[] pncFamilyMemberProfileDetails(String familyTable) {
+        ArrayList<String> columnList = new ArrayList<>();
+        columnList.add(familyTable + "." + ChildDBConstants.KEY.RELATIONAL_ID);
+        columnList.add(familyTable + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS);
+        columnList.add(familyTable + "." + DBConstants.KEY.PRIMARY_CAREGIVER);
+        columnList.add(familyTable + "." + DBConstants.KEY.FAMILY_HEAD);
+        return columnList.toArray(new String[columnList.size()]);
+    }
+
     public static void createReferralEvent(AllSharedPreferences allSharedPreferences, String jsonString, String referralTable, String entityId) throws Exception {
         final Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, setEntityId(jsonString, entityId), referralTable);
         NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));

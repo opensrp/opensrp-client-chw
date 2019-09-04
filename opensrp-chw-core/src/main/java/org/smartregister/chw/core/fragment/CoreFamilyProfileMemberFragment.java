@@ -110,6 +110,7 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
     }
 
     public void gotToPncProfileActivity(CommonPersonObjectClient patient) {
+        patient.getColumnmaps().putAll(getPncCommonPersonObject(patient.entityId()).getColumnmaps());
         HashMap<String, String> familyHeadDetails = getAncFamilyHeadNameAndPhone(((BaseFamilyProfileMemberPresenter) presenter).getFamilyHead());
         String familyHeadName = "";
         String familyHeadPhone = "";
@@ -139,6 +140,8 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
     protected abstract HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId);
 
     protected abstract CommonPersonObject getAncCommonPersonObject(String baseEntityId);
+
+    protected abstract CommonPersonObject getPncCommonPersonObject(String baseEntityId);
 
     protected abstract boolean isPncMember(String baseEntityId);
 

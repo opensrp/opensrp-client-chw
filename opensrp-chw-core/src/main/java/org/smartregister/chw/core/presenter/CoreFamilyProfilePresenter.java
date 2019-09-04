@@ -175,6 +175,10 @@ public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresen
         return getAncRegisterRepository().getAncCommonPersonObject(baseEntityId);
     }
 
+    public CommonPersonObject getPncCommonPersonObject(String baseEntityId) {
+        return getPncRegisterRepository().getPncCommonPersonObject(baseEntityId);
+    }
+
     public boolean isPncMember(String baseEntityId) {
         return getPncRegisterRepository().checkIfPncWoman(baseEntityId);
     }
