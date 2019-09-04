@@ -8,6 +8,7 @@ import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.helper.RulesEngineHelper;
 import org.smartregister.chw.core.repository.AncRegisterRepository;
 import org.smartregister.chw.core.repository.PncRegisterRepository;
+import org.smartregister.chw.core.repository.ScheduleRepository;
 import org.smartregister.chw.core.repository.WashCheckRepository;
 import org.smartregister.chw.core.sync.ChwClientProcessor;
 import org.smartregister.chw.core.utils.ApplicationUtils;
@@ -48,6 +49,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     private static TaskRepository taskRepository;
     private static PlanDefinitionRepository planDefinitionRepository;
     private static WashCheckRepository washCheckRepository;
+    private static ScheduleRepository scheduleRepository;
     public JsonSpecHelper jsonSpecHelper;
     private LocationRepository locationRepository;
     private ECSyncHelper ecSyncHelper;
@@ -107,6 +109,13 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
             planDefinitionRepository = new PlanDefinitionRepository(getRepository());
         }
         return planDefinitionRepository;
+    }
+
+    public ScheduleRepository getScheduleRepository() {
+        if (scheduleRepository == null) {
+            scheduleRepository = new ScheduleRepository(getRepository());
+        }
+        return scheduleRepository;
     }
 
     @Override

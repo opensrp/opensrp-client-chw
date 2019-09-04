@@ -55,20 +55,4 @@ public class FamilyProfilePresenter extends CoreFamilyProfilePresenter {
         }
         return res;
     }
-
-    public boolean isAncMember(String baseEntityId) {
-        return getAncRegisterRepository().checkIfAncWoman(baseEntityId);
-    }
-
-    public HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId) {
-        return getAncRegisterRepository().getFamilyNameAndPhone(baseEntityId);
-    }
-
-    public CommonPersonObject getAncCommonPersonObject(String baseEntityId) {
-        return getAncRegisterRepository().getAncCommonPersonObject(baseEntityId);
-    }
-
-    private AncRegisterRepository getAncRegisterRepository() {
-        return ChwApplication.ancRegisterRepository();
-    }
 }

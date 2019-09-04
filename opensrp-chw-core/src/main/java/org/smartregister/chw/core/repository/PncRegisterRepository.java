@@ -14,4 +14,9 @@ public class PncRegisterRepository extends BaseRepository {
     public PncRegisterRepository(Repository repository) {
         super(repository);
     }
+
+    public boolean checkIfPncWoman(String baseEntityId) {
+        // TODO -> Implement check
+        return true;
+    }
 }

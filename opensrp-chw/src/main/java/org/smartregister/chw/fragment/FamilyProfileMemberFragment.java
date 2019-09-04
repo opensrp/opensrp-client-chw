@@ -7,12 +7,16 @@ import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
+import org.smartregister.chw.activity.PncMemberProfileActivity;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.fragment.CoreFamilyProfileMemberFragment;
+import org.smartregister.chw.core.presenter.CoreFamilyProfilePresenter;
 import org.smartregister.chw.model.FamilyProfileMemberModel;
+import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
+import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.chw.provider.ChwMemberRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -64,6 +68,11 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
     }
 
     @Override
+    protected Class<? extends BasePncMemberProfileActivity> getPncMemberProfileActivityClass() {
+        return PncMemberProfileActivity.class;
+    }
+
+    @Override
     protected boolean isAncMember(String baseEntityId) {
         return getFamilyProfileActivity().getFamilyProfilePresenter().isAncMember(baseEntityId);
     }
@@ -76,6 +85,11 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
     @Override
     protected CommonPersonObject getAncCommonPersonObject(String baseEntityId) {
         return getFamilyProfileActivity().getFamilyProfilePresenter().getAncCommonPersonObject(baseEntityId);
+    }
+
+    @Override
+    protected boolean isPncMember(String baseEntityId) {
+        return getFamilyProfileActivity().getFamilyProfilePresenter().isPncMember(baseEntityId);
     }
 
     @Override

@@ -61,6 +61,22 @@
             android:textSize="@dimen/child_register_list_desc_size"
             android:textStyle="bold" />
 
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/text_view_referral"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_horizontal"
+            android:backgroundTint="@color/toaster_note_red"
+            android:paddingStart="0dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
+            android:text="Referral 2d ago"
+            android:textColor="@color/due_vaccine_red"
+            android:textSize="@dimen/child_register_list_desc_size"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
 
