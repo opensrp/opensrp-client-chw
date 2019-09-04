@@ -13,6 +13,7 @@ import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.service.AlertService;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,41 @@ public class ChwServiceSchedule {
         for (String type : types) {
             updateOfflineAlerts(type, baseEntityId, dob);
         }
+    }
+
+    public static List<Alert> getPendingAlerts(String type, String baseEntityId, DateTime dob, List<ServiceRecord> issuedServices) {
+        try {
+            if (baseEntityId == null || dob == null) {
+                return new ArrayList<>();
+            }
+
+            RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
+            List<ServiceType> serviceTypes = recurringServiceTypeRepository.findByType(type);
+            List<Alert> res = new ArrayList<>();
+
+            for (ServiceType serviceType : serviceTypes) {
+                Alert curAlert = getOfflineAlert(serviceType, issuedServices, baseEntityId, dob);
+
+                boolean exists = false;
+                // Check if service is already given
+                for (ServiceRecord serviceRecord : issuedServices) {
+                    if (curAlert != null && curAlert.scheduleName().equalsIgnoreCase(serviceRecord.getName())
+                            || curAlert != null && curAlert.visitCode().equalsIgnoreCase(serviceRecord.getName().toLowerCase().replace("_",""))) {
+                        exists = true;
+                        break;
+                    }
+                }
+
+                // Insert alert into table
+                if (!exists && curAlert != null && !curAlert.status().value().equalsIgnoreCase(AlertStatus.expired.value())) {
+                    res.add(curAlert);
+                }
+            }
+            return res;
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return new ArrayList<>();
     }
 
     public static void updateOfflineAlerts(String type, String baseEntityId, DateTime dob) {
