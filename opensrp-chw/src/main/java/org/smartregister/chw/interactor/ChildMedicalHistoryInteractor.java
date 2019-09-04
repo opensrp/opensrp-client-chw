@@ -18,6 +18,8 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.ServiceTask;
+import org.smartregister.chw.core.utils.TaskServiceCalculate;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
@@ -267,7 +269,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             if(visitDetails!=null && visitDetails.size()>0){
 
                 serviceRecord.setType(Constants.EventType.VITAMIN_A);
-                serviceRecord.setName(visitDetails.get(0).getHumanReadable());
+                serviceRecord.setName(visitDetails.get(0).getDetails());
                 serviceRecord.setDate(visitDetails.get(0).getCreatedAt());
                 serviceRecord.setRecurringServiceId(serviceId);
                 serviceRecordList.add(serviceRecord);
@@ -284,7 +286,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             if(visitDetails!=null && visitDetails.size()>0){
 
                 serviceRecord.setType(Constants.EventType.DEWORMING);
-                serviceRecord.setName(visitDetails.get(0).getHumanReadable());
+                serviceRecord.setName(visitDetails.get(0).getDetails());
                 serviceRecord.setDate(visitDetails.get(0).getCreatedAt());
                 serviceRecord.setRecurringServiceId(serviceId);
                 serviceRecordList.add(serviceRecord);
@@ -368,7 +370,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             for (Visit homeVisitServiceDataModel : homeVisitDietary) {
                 List<VisitDetail> visitDetails = visitDetailsRepository.getVisits(homeVisitServiceDataModel.getVisitId());
                 if(visitDetails!=null && visitDetails.size()>0){
-                    String dietaryText = visitDetails.get(0).getHumanReadable();
+                    String dietaryText = visitDetails.get(0).getDetails();
                     if (!TextUtils.isEmpty(dietaryText)) {
                         ServiceContent content = new ServiceContent();
                         String date = DATE_FORMAT.format(homeVisitServiceDataModel.getDate());
@@ -398,7 +400,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             for (Visit homeVisitServiceDataModel : homeVisitMUAC) {
                 List<VisitDetail> visitDetails = visitDetailsRepository.getVisits(homeVisitServiceDataModel.getVisitId());
                 if(visitDetails!=null && visitDetails.size()>0){
-                    String muacText = visitDetails.get(0).getHumanReadable();
+                    String muacText = visitDetails.get(0).getDetails();
                     if (!TextUtils.isEmpty(muacText)) {
                         ServiceContent content = new ServiceContent();
                         String date = DATE_FORMAT.format(homeVisitServiceDataModel.getDate());
@@ -443,23 +445,21 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
 
             for (Visit homeVisitServiceDataModel : homeVisitEcd) {
-                List<VisitDetail> visitDetails = visitDetailsRepository.getVisits(homeVisitServiceDataModel.getVisitId());
-                if(visitDetails!=null && visitDetails.size()>0){
-                    String date = DATE_FORMAT.format(homeVisitServiceDataModel.getDate());
-                    String difference = ChildUtils.getDurationFromTwoDate(Utils.dobStringToDate(dateOfBirth), homeVisitServiceDataModel.getDate());
-                    ServiceHeader serviceHeader = new ServiceHeader();
-                    serviceHeader.setServiceHeaderName(date + " (" + org.smartregister.family.util.Utils.getTranslatedDate(difference, getContext()) + ")");
-                    baseServiceArrayList.add(serviceHeader);
-                    String[] label = ChildUtils.splitStringByNewline(visitDetails.get(0).getHumanReadable());
-                    for (String s : label) {
-                        ServiceContent content = new ServiceContent();
-                        content.setServiceName(s);
-                        baseServiceArrayList.add(content);
-                    }
+                ServiceTask serviceTask = ChildUtils.createECDTaskFromEvent(getContext(), TaskServiceCalculate.TASK_TYPE.ECD.name(),
+                        homeVisitServiceDataModel.getJson(),
+                        getContext().getString(R.string.ecd_title));
+
+                String date = DATE_FORMAT.format(homeVisitServiceDataModel.getDate());
+                String difference = ChildUtils.getDurationFromTwoDate(Utils.dobStringToDate(dateOfBirth), homeVisitServiceDataModel.getDate());
+                ServiceHeader serviceHeader = new ServiceHeader();
+                serviceHeader.setServiceHeaderName(date + " (" + org.smartregister.family.util.Utils.getTranslatedDate(difference, getContext()) + ")");
+                baseServiceArrayList.add(serviceHeader);
+                String[] label = ChildUtils.splitStringByNewline(serviceTask.getTaskLabel());
+                for (String s : label) {
+                    ServiceContent content = new ServiceContent();
+                    content.setServiceName(s);
+                    baseServiceArrayList.add(content);
                 }
-
-
-
             }
         }
         Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateEcdDataData(baseServiceArrayList));
