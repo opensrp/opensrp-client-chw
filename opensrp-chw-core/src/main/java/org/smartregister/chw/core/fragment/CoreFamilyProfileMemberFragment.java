@@ -25,6 +25,8 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.TITLE_VIEW_TEXT;
+
 
 public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
 
@@ -101,11 +103,10 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
             familyHeadPhone = familyHeadDetails.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE);
         }
         Intent intent = new Intent(getActivity(), getAncMemberProfileActivityClass());
-        // intent.putExtras(getArguments());
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, new MemberObject(patient));
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhone);
-        intent.putExtra(CoreConstants.INTENT_KEY.CLIENT, patient);
+        intent.putExtra(TITLE_VIEW_TEXT, String.format(getString(R.string.return_to_family_name), ""));
         startActivity(intent);
     }
 
@@ -122,6 +123,7 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, new MemberObject(patient));
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhone);
+        intent.putExtra(TITLE_VIEW_TEXT, String.format(getString(R.string.return_to_family_name), ""));
         startActivity(intent);
     }
 
