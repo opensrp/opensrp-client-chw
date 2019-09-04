@@ -10,9 +10,12 @@ import org.smartregister.chw.core.domain.BaseScheduleTask;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -30,19 +33,20 @@ public class ScheduleRepository extends BaseRepository {
     private static final String UPDATED_AT = "updated_at";
     private static final String CREATED_AT = "created_at";
 
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
     private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "(" +
-            ID + "  VARCHAR NOT NULL, " +
-            BASE_ENTITY_ID + "  VARCHAR NOT NULL, " +
+            ID + "  VARCHAR , " +
+            BASE_ENTITY_ID + "  VARCHAR, " +
             SCHEDULE_GROUP_NAME + "  VARCHAR, " +
-            SCHEDULE_NAME + "  VARCHAR NOT NULL, " +
-            DUE_DATE + " VARCHAR NOT NULL, " +
-            NOT_DONE_DATE + " VARCHAR NOT NULL, " +
-            OVER_DUE_DATE + " VARCHAR NOT NULL, " +
-            EXPIRY_DATE + " VARCHAR NOT NULL, " +
-            COMPLETION_DATE + " VARCHAR NOT NULL, " +
-            UPDATED_AT + " DATETIME NOT NULL, " +
-            CREATED_AT + " DATETIME NOT NULL " +
+            SCHEDULE_NAME + "  VARCHAR, " +
+            DUE_DATE + " VARCHAR, " +
+            NOT_DONE_DATE + " VARCHAR, " +
+            OVER_DUE_DATE + " VARCHAR, " +
+            EXPIRY_DATE + " VARCHAR, " +
+            COMPLETION_DATE + " VARCHAR, " +
+            UPDATED_AT + " VARCHAR, " +
+            CREATED_AT + " VARCHAR " +
             ")";
 
 
@@ -89,16 +93,17 @@ public class ScheduleRepository extends BaseRepository {
 
     private ContentValues createValues(ScheduleTask scheduleTask) {
         ContentValues values = new ContentValues();
+        values.put(ID, scheduleTask.getID());
         values.put(BASE_ENTITY_ID, scheduleTask.getBaseEntityID());
         values.put(SCHEDULE_GROUP_NAME, scheduleTask.getScheduleGroupName());
         values.put(SCHEDULE_NAME, scheduleTask.getScheduleName());
-        values.put(DUE_DATE, scheduleTask.getScheduleDueDate() != null ? scheduleTask.getScheduleDueDate().getTime() : null);
-        values.put(NOT_DONE_DATE, scheduleTask.getScheduleNotDoneDate() != null ? scheduleTask.getScheduleNotDoneDate().getTime() : null);
-        values.put(OVER_DUE_DATE, scheduleTask.getScheduleOverDueDate() != null ? scheduleTask.getScheduleOverDueDate().getTime() : null);
-        values.put(EXPIRY_DATE, scheduleTask.getScheduleExpiryDate() != null ? scheduleTask.getScheduleExpiryDate().getTime() : null);
-        values.put(EXPIRY_DATE, scheduleTask.getScheduleCompletionDate() != null ? scheduleTask.getScheduleCompletionDate().getTime() : null);
-        values.put(UPDATED_AT, new Date().getTime());
-        values.put(CREATED_AT, new Date().getTime());
+        values.put(DUE_DATE, getDateForDB(scheduleTask.getScheduleDueDate()));
+        values.put(NOT_DONE_DATE, getDateForDB(scheduleTask.getScheduleNotDoneDate()));
+        values.put(OVER_DUE_DATE, getDateForDB(scheduleTask.getScheduleOverDueDate()));
+        values.put(EXPIRY_DATE, getDateForDB(scheduleTask.getScheduleExpiryDate()));
+        values.put(COMPLETION_DATE, getDateForDB(scheduleTask.getScheduleCompletionDate()));
+        values.put(UPDATED_AT, getDateForDB(new Date()));
+        values.put(CREATED_AT, getDateForDB(new Date()));
         return values;
     }
 
@@ -117,8 +122,8 @@ public class ScheduleRepository extends BaseRepository {
                     task.setScheduleOverDueDate(getCursorDate(cursor, OVER_DUE_DATE));
                     task.setScheduleExpiryDate(getCursorDate(cursor, EXPIRY_DATE));
                     task.setScheduleCompletionDate(getCursorDate(cursor, COMPLETION_DATE));
-                    task.setCreatedAt(new Date(Long.parseLong(cursor.getString(cursor.getColumnIndex(CREATED_AT)))));
-                    task.setUpdatedAt(new Date(Long.parseLong(cursor.getString(cursor.getColumnIndex(UPDATED_AT)))));
+                    task.setCreatedAt(getCursorDate(cursor, CREATED_AT));
+                    task.setUpdatedAt(getCursorDate(cursor, UPDATED_AT));
 
                     scheduleTasks.add(task);
                     cursor.moveToNext();
@@ -152,6 +157,23 @@ public class ScheduleRepository extends BaseRepository {
     public void deleteScheduleByName(String name) {
         try {
             getWritableDatabase().delete(TABLE_NAME, SCHEDULE_NAME + "= ?", new String[]{name});
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    public void deleteScheduleByName(String name, String baseEntityID) {
+        try {
+            getWritableDatabase().delete(TABLE_NAME, SCHEDULE_NAME + "= ? and " + BASE_ENTITY_ID + "= ?", new String[]{name, baseEntityID});
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    public void deleteSchedulesByName(String name, Date last_edit_date) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            getWritableDatabase().delete(TABLE_NAME, SCHEDULE_NAME + "= ? and " + CREATED_AT + "<= ?", new String[]{name, sdf.format(last_edit_date)});
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -205,11 +227,22 @@ public class ScheduleRepository extends BaseRepository {
         return scheduleTasks;
     }
 
+    private String getDateForDB(Date date) {
+        if (date == null) return null;
+
+        return sdf.format(date);
+    }
+
     private Date getCursorDate(Cursor c, String column_name) {
-        Long val = c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? null : c.getLong(c.getColumnIndex(column_name));
+        String val = c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? null : c.getString(c.getColumnIndex(column_name));
         if (val == null)
             return null;
 
-        return new Date(val);
+        try {
+            return sdf.parse(val);
+        } catch (ParseException e) {
+            Timber.e(e);
+            return null;
+        }
     }
 }

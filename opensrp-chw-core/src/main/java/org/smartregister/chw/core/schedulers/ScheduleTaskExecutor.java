@@ -4,33 +4,19 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.ScheduleService;
 import org.smartregister.chw.core.contract.ScheduleTask;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Run extensions of this class is a singleton instance to execute all the schedules
  */
-public class ScheduleTaskExecutor {
-
-    private ScheduleTaskExecutor(){
-        //scheduleServiceMap.put();
-    }
-
-    private static ScheduleTaskExecutor scheduleTaskExecutor;
-
-    public static ScheduleTaskExecutor getInstance() {
-        if (scheduleTaskExecutor == null) {
-            scheduleTaskExecutor = new ScheduleTaskExecutor();
-        }
-        return scheduleTaskExecutor;
-    }
+public abstract class ScheduleTaskExecutor {
 
     /**
      * This object contains the list of schedules that must be regenerated with every event action
      * The event name is the reference to the schedules
      */
-    protected Map<String, List<ScheduleService>> scheduleServiceMap = new HashMap<>();
+    protected Map<String, List<ScheduleService>> scheduleServiceMap;
 
     /**
      * this function is notified every time an action the affects the schedule is called
@@ -39,13 +25,21 @@ public class ScheduleTaskExecutor {
      * @param eventName
      */
     public void execute(String baseEntityID, String eventName) {
-        List<ScheduleService> values = scheduleServiceMap.get(eventName);
+        List<ScheduleService> values = getClassifier().get(eventName);
         if (values == null || values.size() == 0) return;
 
         for (ScheduleService service : values) {
             service.resetSchedule(baseEntityID, service.getScheduleName());
             List<ScheduleTask> services = service.generateTasks(baseEntityID);
-            CoreChwApplication.getInstance().getScheduleRepository().addSchedules(services);
+            if (services != null && services.size() > 0)
+                CoreChwApplication.getInstance().getScheduleRepository().addSchedules(services);
         }
     }
+
+    /**
+     * use this function in all overrides to initialize event classifiers
+     *
+     * @return
+     */
+    protected abstract Map<String, List<ScheduleService>> getClassifier();
 }

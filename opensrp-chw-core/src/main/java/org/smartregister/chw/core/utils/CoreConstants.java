@@ -97,6 +97,7 @@ public class CoreConstants {
         public static final String ANC_REGISTRATION = "ANC Registration";
         public static final String ANC_HOME_VISIT = "ANC Home Visit";
         public static final String PNC_HOME_VISIT = "PNC Home Visit";
+        public static final String MALARIA_FOLLOW_UP_VISIT = "Malaria Follow-up Visit";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
         public static final String CLOSE_REFERRAL = "Close Referral";
         public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
@@ -671,5 +672,13 @@ public class CoreConstants {
     public static final class TASKS_FOCUS {
         public static final String SICK_CHILD = "Sick Child";
         public static final String ANC_DANGER_SIGNS = "ANC Danger Signs";
+    }
+
+    public interface SCHEDULE_TYPES {
+        String CHILD_VISIT = "CHILD_VISIT";
+        String ANC_VISIT = "ANC_VISIT";
+        String PNC_VISIT = "PNC_VISIT";
+        String WASH_CHECK = "WASH_CHECK";
+        String MALARIA_VISIT = "MALARIA_VISIT";
     }
 }
