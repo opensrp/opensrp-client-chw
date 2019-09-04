@@ -214,10 +214,16 @@ public class CoreReferralUtils {
         try {
             for (int i = 0; i < options.length(); i++) {
                 JSONObject option = options.getJSONObject(i);
-                if (option.has(JsonFormConstants.VALUE) && Boolean.valueOf(option.getString(JsonFormConstants.VALUE))) {
-                    selectedValue.add(option.getString(JsonFormConstants.TEXT));
+                boolean useItem = true;
+
+                if (option.optBoolean(CoreConstants.IGNORE, false)) {
+                    useItem = false;
                 }
 
+                if (option.has(JsonFormConstants.VALUE) && Boolean.valueOf(option.getString(JsonFormConstants.VALUE))
+                        && useItem) { //Don't add values for  items with other
+                    selectedValue.add(option.getString(JsonFormConstants.TEXT));
+                }
             }
             selectedOptionValues = StringUtils.join(selectedValue, ", ");
         } catch (JSONException e) {
