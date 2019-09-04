@@ -1,5 +1,6 @@
 package org.smartregister.chw.task;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.ScheduleService;
@@ -46,5 +47,18 @@ public abstract class BaseTaskExecutor implements ScheduleService {
             res.addAll(Arrays.asList(tasks));
 
         return res;
+    }
+
+    protected Date getFirstDayOfNextMonth(Date refDate) {
+        return new DateTime(refDate).withDayOfMonth(1).toDate();
+    }
+
+    protected Date getFirstDayOfMonth(Date refDate) {
+        return new DateTime(refDate).withDayOfMonth(1).toDate();
+    }
+
+    protected Date getLastDayOfMonth(Date refDate) {
+        DateTime first = new DateTime(refDate).withDayOfMonth(1);
+        return first.plusMonths(1).minusDays(1).toDate();
     }
 }

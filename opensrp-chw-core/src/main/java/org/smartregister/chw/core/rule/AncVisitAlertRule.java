@@ -3,6 +3,7 @@ package org.smartregister.chw.core.rule;
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
@@ -11,6 +12,8 @@ import org.joda.time.format.DateTimeFormatter;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.RegisterAlert;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
+
+import java.util.Date;
 
 public class AncVisitAlertRule implements ICommonRule, RegisterAlert {
 
@@ -98,6 +101,53 @@ public class AncVisitAlertRule implements ICommonRule, RegisterAlert {
         }
 
         return !isVisitThisMonth(lastVisitDate, todayDate);
+    }
+
+    private Date getFirstDayOfMonth(Date refDate) {
+        return new DateTime(refDate).withDayOfMonth(1).toDate();
+    }
+
+    /**
+     * visit is due the first day of the month
+     *
+     * @return
+     */
+    public Date getDueDate() {
+        Date lastDueDate = getLastDueDate();
+        if (lastDueDate.getTime() < getFirstDayOfMonth(new Date()).getTime()) {
+            return getFirstDayOfMonth(new Date());
+        } else {
+            return lastDueDate;
+        }
+    }
+
+    private Date getLastDueDate(){
+        if (lastVisitDate != null && getFirstDayOfMonth(lastVisitDate.toDate()).getTime() < dateCreated.toDate().getTime()) {
+            return getFirstDayOfMonth(lastVisitDate.toDate());
+        } else {
+            return getLastDayOfMonth(dateCreated.toDate());
+        }
+    }
+
+    public Date getCompletionDate() {
+        if (lastVisitDate != null && lastVisitDate.toDate().getTime() >= getDueDate().getTime()) {
+            return lastVisitDate.toDate();
+        }
+        return null;
+    }
+
+    public Date getExpiryDate() {
+        return getLastDayOfMonth(new Date());
+    }
+
+    public Date getOverDueDate() {
+        Date anchor = (lastVisitDate != null ? lastVisitDate.toDate() : dateCreated.toDate());
+        return getLastDayOfMonth(anchor);
+    }
+
+    protected Date getLastDayOfMonth(Date refDate) {
+        DateTime first = new DateTime(refDate).withDayOfMonth(1);
+        return first.plusMonths(1).minusDays(1).toDate();
     }
 
     private boolean isVisitThisMonth(LocalDate lastVisit, LocalDate todayDate) {

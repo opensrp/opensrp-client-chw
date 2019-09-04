@@ -82,7 +82,7 @@ public class VisitVaccineUtil {
     public static Map<String, Date> getIssuedVaccines(String baseEntityID, boolean includePending) {
         Map<String, Date> vaccines = new LinkedHashMap<>();
         VaccineRepository vaccineRepository = CoreChwApplication.getInstance().vaccineRepository();
-        List<org.smartregister.immunization.domain.Vaccine> savedVaccines = vaccineRepository.findByEntityId(baseEntityID);
+        List<Vaccine> savedVaccines = vaccineRepository.findByEntityId(baseEntityID);
         if (savedVaccines != null && !savedVaccines.isEmpty()) {
             for (Vaccine vaccine : savedVaccines) {
                 vaccines.put(vaccine.getName().replace("_", "").replace(" ", ""), vaccine.getDate());

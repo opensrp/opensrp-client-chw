@@ -39,6 +39,26 @@ public class PncVisitAlertRule implements ICommonRule {
         return (deliveryDiff >= dueDay && deliveryDiff < expiry);
     }
 
+    public Date getDueDate() {
+        return dueDate != null ? dueDate.toDate() : null;
+    }
+
+    public Date getOverDueDate() {
+        return overDueDate != null ? overDueDate.toDate() : null;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate != null ? expiryDate.toDate() : null;
+    }
+
+    public Date getCompletionDate() {
+        if (lastVisitDate != null) {
+            if ((lastVisitDate.isAfter(dueDate) || lastVisitDate.isEqual(dueDate)) && lastVisitDate.isBefore(expiryDate))
+                return lastVisitDate.toDate();
+        }
+        return null;
+    }
+
     @Override
     public String getRuleKey() {
         return "pncVisitAlertRule";
