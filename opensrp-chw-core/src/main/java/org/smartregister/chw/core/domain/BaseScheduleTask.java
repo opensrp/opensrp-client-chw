@@ -9,6 +9,7 @@ public class BaseScheduleTask implements ScheduleTask {
     private String scheduleGroupName;
     private String scheduleName;
     private Date scheduleDueDate;
+    private Date scheduleNotDoneDate;
     private Date scheduleOverDueDate;
     private Date scheduleExpiryDate;
     private Date scheduleCompletionDate;
@@ -49,6 +50,15 @@ public class BaseScheduleTask implements ScheduleTask {
 
     public void setScheduleDueDate(Date scheduleDueDate) {
         this.scheduleDueDate = scheduleDueDate;
+    }
+
+    @Override
+    public Date getScheduleNotDoneDate() {
+        return scheduleNotDoneDate;
+    }
+
+    public void setScheduleNotDoneDate(Date scheduleNotDoneDate) {
+        this.scheduleNotDoneDate = scheduleNotDoneDate;
     }
 
     @Override

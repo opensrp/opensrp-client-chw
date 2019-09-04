@@ -12,6 +12,8 @@ public interface ScheduleTask {
 
     Date getScheduleDueDate();
 
+    Date getScheduleNotDoneDate();
+
     Date getScheduleOverDueDate();
 
     Date getScheduleExpiryDate();

@@ -23,6 +23,7 @@ public class ScheduleRepository extends BaseRepository {
     public static final String SCHEDULE_GROUP_NAME = "schedule_group_name";
     public static final String SCHEDULE_NAME = "schedule_name";
     public static final String DUE_DATE = "due_date";
+    public static final String NOT_DONE_DATE = "not_done_date";
     public static final String OVER_DUE_DATE = "over_due_date";
     public static final String EXPIRY_DATE = "expiry_date";
     public static final String COMPLETION_DATE = "completion_date";
@@ -36,6 +37,7 @@ public class ScheduleRepository extends BaseRepository {
             SCHEDULE_GROUP_NAME + "  VARCHAR, " +
             SCHEDULE_NAME + "  VARCHAR NOT NULL, " +
             DUE_DATE + " VARCHAR NOT NULL, " +
+            NOT_DONE_DATE + " VARCHAR NOT NULL, " +
             OVER_DUE_DATE + " VARCHAR NOT NULL, " +
             EXPIRY_DATE + " VARCHAR NOT NULL, " +
             COMPLETION_DATE + " VARCHAR NOT NULL, " +
@@ -44,7 +46,7 @@ public class ScheduleRepository extends BaseRepository {
             ")";
 
 
-    private String[] COLUMNS = {BASE_ENTITY_ID, SCHEDULE_GROUP_NAME, SCHEDULE_NAME, DUE_DATE, OVER_DUE_DATE, EXPIRY_DATE, COMPLETION_DATE, UPDATED_AT, CREATED_AT};
+    private String[] COLUMNS = {BASE_ENTITY_ID, SCHEDULE_GROUP_NAME, SCHEDULE_NAME, DUE_DATE, NOT_DONE_DATE, OVER_DUE_DATE, EXPIRY_DATE, COMPLETION_DATE, UPDATED_AT, CREATED_AT};
 
     private static final String BASE_ID_INDEX = "CREATE UNIQUE INDEX " + TABLE_NAME + "_" + ID + "_index ON " + TABLE_NAME + "(" + ID + " COLLATE NOCASE " + ")";
     private static final String BASE_ENTITY_ID_INDEX = "CREATE INDEX " + TABLE_NAME + "_" + BASE_ENTITY_ID + "_index ON " + TABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE " + ")";
@@ -91,6 +93,7 @@ public class ScheduleRepository extends BaseRepository {
         values.put(SCHEDULE_GROUP_NAME, scheduleTask.getScheduleGroupName());
         values.put(SCHEDULE_NAME, scheduleTask.getScheduleName());
         values.put(DUE_DATE, scheduleTask.getScheduleDueDate() != null ? scheduleTask.getScheduleDueDate().getTime() : null);
+        values.put(NOT_DONE_DATE, scheduleTask.getScheduleNotDoneDate() != null ? scheduleTask.getScheduleNotDoneDate().getTime() : null);
         values.put(OVER_DUE_DATE, scheduleTask.getScheduleOverDueDate() != null ? scheduleTask.getScheduleOverDueDate().getTime() : null);
         values.put(EXPIRY_DATE, scheduleTask.getScheduleExpiryDate() != null ? scheduleTask.getScheduleExpiryDate().getTime() : null);
         values.put(EXPIRY_DATE, scheduleTask.getScheduleCompletionDate() != null ? scheduleTask.getScheduleCompletionDate().getTime() : null);
@@ -110,6 +113,7 @@ public class ScheduleRepository extends BaseRepository {
                     task.setScheduleGroupName(cursor.getString(cursor.getColumnIndex(SCHEDULE_GROUP_NAME)));
                     task.setScheduleName(cursor.getString(cursor.getColumnIndex(SCHEDULE_NAME)));
                     task.setScheduleDueDate(getCursorDate(cursor, DUE_DATE));
+                    task.setScheduleNotDoneDate(getCursorDate(cursor, NOT_DONE_DATE));
                     task.setScheduleOverDueDate(getCursorDate(cursor, OVER_DUE_DATE));
                     task.setScheduleExpiryDate(getCursorDate(cursor, EXPIRY_DATE));
                     task.setScheduleCompletionDate(getCursorDate(cursor, COMPLETION_DATE));
