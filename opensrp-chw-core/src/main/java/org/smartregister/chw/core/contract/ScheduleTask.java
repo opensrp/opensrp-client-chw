@@ -4,6 +4,8 @@ import java.util.Date;
 
 public interface ScheduleTask {
 
+    String getID();
+
     String getBaseEntityID();
 
     String getScheduleGroupName();

@@ -5,6 +5,7 @@ import org.smartregister.chw.core.contract.ScheduleTask;
 import java.util.Date;
 
 public class BaseScheduleTask implements ScheduleTask {
+    private String ID;
     private String baseEntityID;
     private String scheduleGroupName;
     private String scheduleName;
@@ -15,6 +16,15 @@ public class BaseScheduleTask implements ScheduleTask {
     private Date scheduleCompletionDate;
     private Date updatedAt;
     private Date createdAt;
+
+    @Override
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     @Override
     public String getBaseEntityID() {
