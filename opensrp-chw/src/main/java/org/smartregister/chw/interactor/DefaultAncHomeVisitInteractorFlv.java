@@ -224,10 +224,11 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .withHelper(helper)
                 .withDetails(details)
                 .withOptional(false)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
                 .withPayloadDetails(MessageFormat.format("IPTp-SP_dose_{0}", serviceIteration))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
-                .withServiceWrapper(serviceWrapper)
                 .withScheduleStatus((overdueMonth < 1) ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                 .build();
