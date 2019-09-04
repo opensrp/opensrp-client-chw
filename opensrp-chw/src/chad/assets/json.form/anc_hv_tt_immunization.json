@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ANC Registration",
+  "encounter_type": "TT Vaccination",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -51,7 +51,7 @@
     "fields": [
       {
         "key": "tt{0}_date",
-        "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "vaccine",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",

@@ -135,6 +135,8 @@ public class CoreClientProcessor extends ClientProcessorForJava {
             case CoreConstants.EventType.VITAMIN_A:
             case CoreConstants.EventType.EXCLUSIVE_BREASTFEEDING:
             case CoreConstants.EventType.MNP:
+            case CoreConstants.EventType.IPTP_SP:
+            case CoreConstants.EventType.TT:
                 processVisitEvent(eventClient, CoreConstants.EventType.CHILD_HOME_VISIT);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
