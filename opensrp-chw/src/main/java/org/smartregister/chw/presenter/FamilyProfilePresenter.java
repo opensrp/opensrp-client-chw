@@ -2,17 +2,23 @@ package org.smartregister.chw.presenter;
 
 import android.content.Context;
 
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.model.CoreChildRegisterModel;
 import org.smartregister.chw.core.presenter.CoreFamilyProfilePresenter;
+import org.smartregister.chw.core.repository.AncRegisterRepository;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.interactor.FamilyChangeContractInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.view.LocationPickerView;
+
+import java.util.HashMap;
 
 import timber.log.Timber;
 
@@ -48,5 +54,21 @@ public class FamilyProfilePresenter extends CoreFamilyProfilePresenter {
             Timber.e(e);
         }
         return res;
+    }
+
+    public boolean isAncMember(String baseEntityId) {
+        return getAncRegisterRepository().checkIfAncWoman(baseEntityId);
+    }
+
+    public HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId) {
+        return getAncRegisterRepository().getFamilyNameAndPhone(baseEntityId);
+    }
+
+    public CommonPersonObject getAncCommonPersonObject(String baseEntityId) {
+        return getAncRegisterRepository().getAncCommonPersonObject(baseEntityId);
+    }
+
+    private AncRegisterRepository getAncRegisterRepository() {
+        return ChwApplication.ancRegisterRepository();
     }
 }

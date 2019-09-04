@@ -65,17 +65,17 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
 
     @Override
     protected boolean isAncMember(String baseEntityId) {
-        return ChwApplication.ancRegisterRepository().checkIfAncWoman(baseEntityId);
+        return getFamilyProfileActivity().getFamilyProfilePresenter().isAncMember(baseEntityId);
     }
 
     @Override
     protected HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId) {
-        return ChwApplication.ancRegisterRepository().getFamilyNameAndPhone(baseEntityId);
+        return getFamilyProfileActivity().getFamilyProfilePresenter().getAncFamilyHeadNameAndPhone(baseEntityId);
     }
 
     @Override
     protected CommonPersonObject getAncCommonPersonObject(String baseEntityId) {
-        return ChwApplication.ancRegisterRepository().getAncCommonPersonObject(baseEntityId);
+        return getFamilyProfileActivity().getFamilyProfilePresenter().getAncCommonPersonObject(baseEntityId);
     }
 
     @Override
@@ -84,5 +84,9 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
         String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
         String primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         presenter = new BaseFamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+    }
+
+    private FamilyProfileActivity getFamilyProfileActivity() {
+        return (FamilyProfileActivity) getActivity();
     }
 }
