@@ -16,6 +16,7 @@ public class FamilyDao extends AbstractDao {
                 "from ( " +
                 "SELECT base_entity_id , CASE" +
                 "WHEN completion_date is NOT NULL  AND completion_date >= due_date AND completion_date < expiry_date  THEN  visit_done  " +
+                "WHEN not_done_date is NOT NULL " +
                 "WHEN strftime('%Y-%m-%d') BETWEEN due_date AND over_due_date THEN due " +
                 "WHEN strftime('%Y-%m-%d') BETWEEN over_due_date AND expiry_date THEN overdue " +
                 "WHEN strftime('%Y-%m-%d')  >= expiry_date  THEN  expiry end visit_state " +

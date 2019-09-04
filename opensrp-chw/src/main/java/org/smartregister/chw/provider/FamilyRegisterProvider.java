@@ -3,7 +3,9 @@ package org.smartregister.chw.provider;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.application.ChwApplication;
@@ -16,15 +18,21 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class FamilyRegisterProvider extends CoreRegisterProvider {
+    protected final Context context;
+    private final View.OnClickListener onClickListener;
 
     public FamilyRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
         super(context, commonRepository, visibleColumns, onClickListener, paginationClickListener);
+        this.context = context;
+        this.onClickListener = onClickListener;
     }
+
 
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
@@ -47,6 +55,35 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         return null;
     }
 
+
+    protected void setTasksDoneStatus(Context context, Button dueButton) {
+        dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.alert_complete_green));
+        dueButton.setText(context.getString(org.smartregister.chw.core.R.string.visit_done));
+        dueButton.setBackgroundColor(context.getResources().getColor(org.smartregister.chw.core.R.color.transparent));
+        dueButton.setOnClickListener(null);
+    }
+
+    private void setTasksOverdueStatus(Context context, Button dueButton, Integer count) {
+        dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.alert_urgent_red));
+        dueButton.setText(MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.tasks_status),count));
+        dueButton.setBackgroundResource(org.smartregister.chw.core.R.drawable.overdue_red_btn_selector);
+        dueButton.setOnClickListener(onClickListener);
+    }
+
+      private void setTasksDueStatus(Context context, Button dueButton, Integer count) {
+        dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.alert_in_progress_blue));
+        dueButton.setText(MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.tasks_status),count));
+        dueButton.setBackgroundResource(org.smartregister.chw.core.R.drawable.blue_btn_selector);
+        dueButton.setOnClickListener(onClickListener);
+    }
+
+    private void setTaskNotDone(Context context, Button dueButton){
+        dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.progress_orange));
+        dueButton.setText(context.getString(org.smartregister.chw.core.R.string.tasks_not_done));
+        dueButton.setBackgroundColor(context.getResources().getColor(org.smartregister.chw.core.R.color.transparent));
+        dueButton.setOnClickListener(onClickListener);
+    }
+
     @Override
     public ChildVisit mergeChildVisits(List<ChildVisit> childVisitList) {
         return null;
@@ -63,16 +100,15 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             int due = visits_due == null ?0 : visits_due;
             int over_due = visits_over_due == null ? 0 : visits_over_due;
             over_due = over_due + due;
+
             if(over_due > 0){
-
+                setTasksOverdueStatus(context,viewHolder.dueButton,over_due);
             }else if(due > 0){
-
+                setTasksDueStatus(context,viewHolder.dueButton,due);
             }else if (visits_done != null && visits_done > 0){
-
-            }else if (visits_done != null && visits_done > 0){
-
-            }else{
-
+                setTasksDoneStatus(context,viewHolder.dueButton);
+            }else if(visits_not_done != null && visits_not_done > 0){
+                setTaskNotDone(context,viewHolder.dueButton);
             }
 
         }
