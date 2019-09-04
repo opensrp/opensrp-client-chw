@@ -3,6 +3,11 @@ package org.smartregister.chw.schedulers;
 import org.smartregister.chw.core.contract.ScheduleService;
 import org.smartregister.chw.core.schedulers.ScheduleTaskExecutor;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.task.ANCVisitScheduler;
+import org.smartregister.chw.task.ChildHomeVisitScheduler;
+import org.smartregister.chw.task.MalariaScheduler;
+import org.smartregister.chw.task.PNCVisitScheduler;
+import org.smartregister.chw.task.WashCheckScheduler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +16,7 @@ import java.util.Map;
 
 public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
-    protected ChwScheduleTaskExecutor(){
+    protected ChwScheduleTaskExecutor() {
         //scheduleServiceMap.put();
     }
 
@@ -25,8 +30,8 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
     }
 
     @Override
-    protected Map<String, List<ScheduleService>> getClassifier(){
-        if(scheduleServiceMap == null || scheduleServiceMap.size() == 0){
+    protected Map<String, List<ScheduleService>> getClassifier() {
+        if (scheduleServiceMap == null || scheduleServiceMap.size() == 0) {
             scheduleServiceMap = new HashMap<>();
 
             initializeChildClassifier(scheduleServiceMap);
@@ -39,30 +44,38 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         return scheduleServiceMap;
     }
 
-    private void initializeChildClassifier(Map<String, List<ScheduleService>> classifier){
+    private void initializeChildClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new ChildHomeVisitScheduler());
 
         classifier.put(CoreConstants.EventType.CHILD_HOME_VISIT, scheduleServices);
     }
 
-    private void initializeANCClassifier(Map<String, List<ScheduleService>> classifier){
+    private void initializeANCClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new ANCVisitScheduler());
+
         classifier.put(CoreConstants.EventType.ANC_HOME_VISIT, scheduleServices);
     }
 
-    private void initializePNCClassifier(Map<String, List<ScheduleService>> classifier){
+    private void initializePNCClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new PNCVisitScheduler());
+
         classifier.put(CoreConstants.EventType.PNC_HOME_VISIT, scheduleServices);
     }
 
-    private void initializeMalariaClassifier(Map<String, List<ScheduleService>> classifier){
+    private void initializeMalariaClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new MalariaScheduler());
         classifier.put(CoreConstants.EventType.MALARIA_FOLLOW_UP_VISIT, scheduleServices);
+        classifier.put(CoreConstants.EventType.MALARIA_CONFIRMATION, scheduleServices);
     }
 
-    private void initializeWashClassifier(Map<String, List<ScheduleService>> classifier){
+    private void initializeWashClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new WashCheckScheduler());
+
         classifier.put(CoreConstants.EventType.WASH_CHECK, scheduleServices);
     }
 }

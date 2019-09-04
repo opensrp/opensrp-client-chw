@@ -98,6 +98,7 @@ public class CoreConstants {
         public static final String ANC_HOME_VISIT = "ANC Home Visit";
         public static final String PNC_HOME_VISIT = "PNC Home Visit";
         public static final String MALARIA_FOLLOW_UP_VISIT = "Malaria Follow-up Visit";
+        public static final String MALARIA_CONFIRMATION = "Malaria Confirmation";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
         public static final String CLOSE_REFERRAL = "Close Referral";
         public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
@@ -680,5 +681,9 @@ public class CoreConstants {
         String PNC_VISIT = "PNC_VISIT";
         String WASH_CHECK = "WASH_CHECK";
         String MALARIA_VISIT = "MALARIA_VISIT";
+    }
+
+    public interface SCHEDULE_GROUPS {
+        String HOME_VISIT = "HOME_VISIT";
     }
 }

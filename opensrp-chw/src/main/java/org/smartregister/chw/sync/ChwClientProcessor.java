@@ -27,6 +27,6 @@ public class ChwClientProcessor extends CoreClientProcessor {
     @Override
     protected void processEvents(ClientClassification clientClassification, Table vaccineTable, Table serviceTable, EventClient eventClient, Event event, String eventType) throws Exception {
         super.processEvents(clientClassification, vaccineTable, serviceTable, eventClient, event, eventType);
-        ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType());
+        ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
     }
 }

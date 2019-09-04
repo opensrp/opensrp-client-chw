@@ -1,4 +1,4 @@
-package org.smartregister.chw.schedulers;
+package org.smartregister.chw.task;
 
 import org.smartregister.chw.core.contract.ScheduleTask;
 import org.smartregister.chw.core.dao.VisitDao;
@@ -6,29 +6,23 @@ import org.smartregister.chw.core.domain.BaseScheduleTask;
 import org.smartregister.chw.core.domain.VisitSummary;
 import org.smartregister.chw.core.utils.CoreConstants;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class ChildHomeVisitScheduler extends BaseTaskExecutor {
 
     @Override
-    public List<ScheduleTask> generateTasks(String baseEntityID) {
+    public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate) {
 
         // get the necessary info to generate the schedule
         Date fom = getFirstDateOfCurrentMonth();
         Date lom = getLastDateOfMonth();
 
         // recompute the home visit task for this child
-        BaseScheduleTask baseScheduleTask = new BaseScheduleTask();
-        baseScheduleTask.setBaseEntityID(baseEntityID);
-        baseScheduleTask.setCreatedAt(new Date());
-        baseScheduleTask.setUpdatedAt(new Date());
-        baseScheduleTask.setID(UUID.randomUUID().toString());
-        baseScheduleTask.setScheduleName(getScheduleName());
+        BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
+        baseScheduleTask.setScheduleGroupName(CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
 
         Map<String, VisitSummary> map = VisitDao.getVisitSummary(baseEntityID);
         if (map != null) {
@@ -53,6 +47,7 @@ public class ChildHomeVisitScheduler extends BaseTaskExecutor {
             // visit is due the start of the next month from the last visit
             // visit i
             /*
+
             if(lastVisit < start_of_last_month && lastVisit < ){
                 baseScheduleTask.setScheduleOverDueDate();
             }
@@ -61,10 +56,8 @@ public class ChildHomeVisitScheduler extends BaseTaskExecutor {
         }
 
         baseScheduleTask.setScheduleExpiryDate(lom);
-        List<ScheduleTask> res = new ArrayList<>();
-        res.add(baseScheduleTask);
 
-        return res;
+        return toScheduleList(baseScheduleTask);
     }
 
     private Date getFirstDateOfCurrentMonth() {
