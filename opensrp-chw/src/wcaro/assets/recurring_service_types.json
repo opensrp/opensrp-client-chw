@@ -2,6 +2,7 @@
   {
     "type": "Exclusive breastfeeding",
     "service_logic": "",
+    "service_group": "child",
     "openmrs_service_name": {
       "parent_entity": "",
       "entity": "concept",
@@ -207,6 +208,7 @@
   {
     "type": "Vitamin A",
     "service_logic": "",
+    "service_group": "child",
     "openmrs_service_name": {
       "parent_entity": "",
       "entity": "concept",
@@ -357,6 +359,7 @@
   {
     "type": "Deworming",
     "service_logic": "",
+    "service_group": "child",
     "openmrs_service_name": {
       "parent_entity": "",
       "entity": "concept",
@@ -492,6 +495,7 @@
   {
     "type": "IPTp-SP",
     "service_logic": "",
+    "service_group": "woman",
     "openmrs_service_name": {
       "parent_entity": "",
       "entity": "concept",

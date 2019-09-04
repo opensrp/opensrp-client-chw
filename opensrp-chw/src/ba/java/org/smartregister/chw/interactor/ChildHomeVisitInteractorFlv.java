@@ -75,6 +75,11 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
     }
 
     @Override
+    protected int immunizationCeiling() {
+        return 60;
+    }
+
+    @Override
     protected void evaluateObsAndIllness() throws BaseAncHomeVisitAction.ValidationException {
         class ObsIllnessBabyHelper extends HomeVisitActionHelper {
             private String date_of_illness;
