@@ -12,7 +12,9 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.R;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.dao.AbstractDao;
+import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -26,6 +28,8 @@ import org.smartregister.immunization.domain.jsonmapping.Due;
 import org.smartregister.immunization.domain.jsonmapping.Expiry;
 import org.smartregister.immunization.domain.jsonmapping.Schedule;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
+import org.smartregister.immunization.repository.VaccineRepository;
+import org.smartregister.immunization.util.VaccinatorUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,6 +43,83 @@ import timber.log.Timber;
 public class VisitVaccineUtil {
 
     private static HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules;
+
+
+    public static List<Alert> getNextVaccines(String baseEntityID, DateTime anchorDate, String category, boolean includePending) {
+
+        /// compute the alerts
+        HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules = getVaccineSchedules(category);
+
+        List<Vaccine> vaccines = new ArrayList<>();
+        List<Alert> alerts = VisitVaccineUtil.getInMemoryAlerts(vaccineSchedules, baseEntityID, anchorDate, category, vaccines);
+
+        /// prepare the given vaccines map
+        Map<String, Date> issuedVaccines = getIssuedVaccines(baseEntityID, includePending);
+
+        List<Alert> pending = new ArrayList<>();
+        for (Alert alert : alerts) {
+            String code = alert.scheduleName().toLowerCase().replace(" ", "");
+            Date dateIssued = issuedVaccines.get(code);
+
+            if (dateIssued == null) {
+                pending.add(alert);
+            }
+        }
+
+        return pending;
+    }
+
+    private static HashMap<String, HashMap<String, VaccineSchedule>> getVaccineSchedules(String category) {
+        List<VaccineGroup> vaccineGroups =
+                VaccineScheduleUtil.getVaccineGroups(CoreChwApplication.getInstance().getApplicationContext(), category);
+
+        List<org.smartregister.immunization.domain.jsonmapping.Vaccine> specialVaccines =
+                VaccinatorUtils.getSpecialVaccines(CoreChwApplication.getInstance().getApplicationContext());
+
+        return getSchedule(vaccineGroups, specialVaccines, category);
+    }
+
+    public static Map<String, Date> getIssuedVaccines(String baseEntityID, boolean includePending) {
+        Map<String, Date> vaccines = new LinkedHashMap<>();
+        VaccineRepository vaccineRepository = CoreChwApplication.getInstance().vaccineRepository();
+        List<org.smartregister.immunization.domain.Vaccine> savedVaccines = vaccineRepository.findByEntityId(baseEntityID);
+        if (savedVaccines != null && !savedVaccines.isEmpty()) {
+            for (Vaccine vaccine : savedVaccines) {
+                vaccines.put(vaccine.getName().replace("_", "").replace(" ", ""), vaccine.getDate());
+            }
+        }
+
+        if (includePending) {
+            Map<String, Date> vac = VisitDao.getUnprocessedVaccines(baseEntityID);
+            for(Map.Entry<String,Date> entry: vac.entrySet()){
+                vaccines.put(entry.getKey().replace("_", "").replace(" ", ""), entry.getValue());
+            }
+        }
+
+        return vaccines;
+    }
+
+    public static String getAlertIteration(Alert alert) {
+        return alert.scheduleName().substring(alert.scheduleName().length() - 1);
+    }
+
+    public static Map<String, List<Alert>> groupByType(List<Alert> alerts) {
+        Map<String, List<Alert>> map = new LinkedHashMap<>();
+
+        for (Alert alert : alerts) {
+            String type = alert.scheduleName().substring(0, alert.scheduleName().length() - 1).trim();
+
+            List<Alert> all = map.get(type);
+            if (all == null) {
+                all = new ArrayList<>();
+            }
+            all.add(alert);
+
+            map.put(type, all);
+        }
+
+        return map;
+    }
 
     /**
      * Returns an ordered map of the vaccine title and the list of vaccines to be displayed.

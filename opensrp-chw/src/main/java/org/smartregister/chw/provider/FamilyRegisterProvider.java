@@ -3,7 +3,6 @@ package org.smartregister.chw.provider;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
@@ -66,19 +65,19 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
 
     private void setTasksOverdueStatus(Context context, Button dueButton, Integer count) {
         dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.white));
-        dueButton.setText(MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.tasks_status),count));
+        dueButton.setText(MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.tasks_status), count));
         dueButton.setBackgroundResource(org.smartregister.chw.core.R.drawable.overdue_red_btn_selector);
         dueButton.setOnClickListener(onClickListener);
     }
 
-      private void setTasksDueStatus(Context context, Button dueButton, Integer count) {
+    private void setTasksDueStatus(Context context, Button dueButton, Integer count) {
         dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.alert_in_progress_blue));
-        dueButton.setText(MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.tasks_status),count));
+        dueButton.setText(MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.tasks_status), count));
         dueButton.setBackgroundResource(org.smartregister.chw.core.R.drawable.blue_btn_selector);
         dueButton.setOnClickListener(onClickListener);
     }
 
-    private void setTaskNotDone(Context context, Button dueButton){
+    private void setTaskNotDone(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.progress_orange));
         dueButton.setText(context.getString(org.smartregister.chw.core.R.string.tasks_not_done));
         dueButton.setBackgroundColor(context.getResources().getColor(org.smartregister.chw.core.R.color.transparent));
@@ -98,21 +97,21 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             Integer visits_not_done = services.get(CoreConstants.VisitType.NOT_VISIT_THIS_MONTH.name());
             Integer visits_over_due = services.get(CoreConstants.VisitType.OVERDUE.name());
 
-            int due = visits_due == null ?0 : visits_due;
+            int due = visits_due == null ? 0 : visits_due;
             int over_due = visits_over_due == null ? 0 : visits_over_due;
             over_due = over_due + due;
 
-            if(over_due > 0){
-                setTasksOverdueStatus(context,viewHolder.dueButton,over_due);
-            }else if(due > 0){
-                setTasksDueStatus(context,viewHolder.dueButton,due);
-            }else if (visits_done != null && visits_done > 0){
-                setTasksDoneStatus(context,viewHolder.dueButton);
-            }else if(visits_not_done != null && visits_not_done > 0){
-                setTaskNotDone(context,viewHolder.dueButton);
+            if (over_due > 0) {
+                setTasksOverdueStatus(context, viewHolder.dueButton, over_due);
+            } else if (due > 0) {
+                setTasksDueStatus(context, viewHolder.dueButton, due);
+            } else if (visits_done != null && visits_done > 0) {
+                setTasksDoneStatus(context, viewHolder.dueButton);
+            } else if (visits_not_done != null && visits_not_done > 0) {
+                setTaskNotDone(context, viewHolder.dueButton);
             }
 
-        }else{
+        } else {
             viewHolder.dueButton.setVisibility(View.GONE);
         }
     }

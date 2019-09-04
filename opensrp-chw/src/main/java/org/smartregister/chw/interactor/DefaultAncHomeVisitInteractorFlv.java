@@ -196,6 +196,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         }
 
         BaseAncHomeVisitAction tt_immunization = new BaseAncHomeVisitAction.Builder(context, title)
+                .withOptional(false)
                 .withHelper(helper)
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
