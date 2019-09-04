@@ -108,7 +108,7 @@ public class CoreReferralUtils {
     private static String[] pncFamilyMemberProfileDetails(String familyTable) {
         ArrayList<String> columnList = new ArrayList<>();
         columnList.add(familyTable + "." + ChildDBConstants.KEY.RELATIONAL_ID);
-        columnList.add(familyTable + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS);
+        columnList.add(familyTable + "." + DBConstants.KEY.VILLAGE_TOWN);
         columnList.add(familyTable + "." + DBConstants.KEY.PRIMARY_CAREGIVER);
         columnList.add(familyTable + "." + DBConstants.KEY.FAMILY_HEAD);
         return columnList.toArray(new String[columnList.size()]);
