@@ -39,7 +39,7 @@ public class CoreBaseAncMedicalHistoryInteractor extends BaseAncMedicalHistoryIn
         if (visit_kids != null && !visit_kids.isEmpty()) {
             int x = 0;
             while (x < visit_kids.size()) {
-                Visit v = visit_kids.get(0);
+                Visit v = visit_kids.get(x);
                 List<VisitDetail> visitDetails = AncLibrary.getInstance().visitDetailsRepository().getVisits(v.getVisitId());
                 visit_kids.get(x).setVisitDetails(VisitUtils.getVisitGroups(visitDetails));
                 x++;
