@@ -72,6 +72,10 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         return viewPager;
     }
 
+    public FamilyProfilePresenter getFamilyProfilePresenter() {
+        return (FamilyProfilePresenter) presenter;
+    }
+
     private void setupMenuOptions(Menu menu) {
 
         MenuItem removeMember = menu.findItem(org.smartregister.chw.core.R.id.action_remove_member);
