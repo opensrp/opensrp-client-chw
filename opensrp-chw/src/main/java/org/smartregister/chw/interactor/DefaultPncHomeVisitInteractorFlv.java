@@ -248,7 +248,6 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
                         .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                        .withVaccineWrapper(wrappers)
                         .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
                         .withHelper(new ImmunizationActionHelper(context, wrappers))
                         .build();
@@ -342,8 +341,10 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         .withHelper(helper)
                         .withDetails(details)
                         .withOptional(false)
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                        .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
+                        .withPayloadDetails(MessageFormat.format("Exclusive_breastfeeding{0}", serviceIteration))
                         .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, jsonObject, details, serviceIteration))
-                        .withServiceWrapper(serviceWrapper)
                         .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                         .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                         .build();
