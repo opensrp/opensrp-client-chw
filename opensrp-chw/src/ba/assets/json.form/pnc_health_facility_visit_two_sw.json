@@ -16,7 +16,6 @@
       "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     },
     "today": {
-      "openmrs_entity_parent": "",
       "openmrs_entity": "encounter",
       "openmrs_entity_id": "encounter_date"
     },
@@ -80,7 +79,6 @@
         "hint": "Tarehe ya hudhurio la {0} la huduma ya  mama na  mtoto baada ya kujifungua",
         "expanded": false,
         "max_date": "today",
-        "min_date": "",
         "v_required": {
           "value": "true",
           "err": "Tafadhali ingiza tarehe"
