@@ -356,4 +356,11 @@
     <string name="phone_not_provided">Phone not provided</string>
     <string name="anc_danger_sign_prefix">ANC Danger Signs; Symptoms: %s</string>
     <string name="client_name_age_suffix">%s, %s</string>
+
+    <!-- Completed tasks subtitles (text) -->
+    <string name="family_planning">Family Planning</string>
+    <string name="period_received">Period received</string>
+    <string name="method_chosed">Method chosen</string>
+    <string name="start_date">Start date</string>
+    <string name="visit_not_done">Visit not done</string>
 </resources>

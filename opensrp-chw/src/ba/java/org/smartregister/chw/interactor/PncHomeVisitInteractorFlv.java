@@ -207,7 +207,8 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             @Override
             public String evaluateSubTitle() {
                 return MessageFormat.format("{0}: {1} \u2022 {2}: {3} \n {4}: {5} \u2022 {6}: {7}",
-                        "Family Planning", fpCounselling, "Period received", fpPeriodReceived, "Method chosen", fpMethod, "Start date", DateTimeFormat.forPattern("dd MMM yyyy").print(startDate));
+                        context.getString(R.string.family_planning), fpCounselling, context.getString(R.string.period_received), fpPeriodReceived, context.getString(R.string.method_chosed),
+                        fpMethod, context.getString(R.string.start_date), DateTimeFormat.forPattern("dd MMM yyyy").print(startDate));
             }
 
             @Override
@@ -791,7 +792,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 return null;
             }
             if ("No".equals(pnc_visit)) {
-                return "Visit not done";
+                return context.getString(R.string.visit_not_done);
             } else {
                 if (visit_num == 1) {
                     return MessageFormat.format(" {0}: {1} \n {2}: {3} \n {4}: {5}",
