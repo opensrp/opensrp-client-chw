@@ -380,7 +380,9 @@ public class ReferralTaskViewActivity extends SecuredActivity {
 
     private void completeTask() {
         Task currentTask = getTask();
-        currentTask.setExecutionEndDate(new DateTime());
+        DateTime now = new DateTime();
+        currentTask.setExecutionEndDate(now);
+        currentTask.setLastModified(now);
         currentTask.setForEntity(getBaseEntityId());
         currentTask.setStatus(Task.TaskStatus.COMPLETED);
         currentTask.setBusinessStatus(CoreConstants.BUSINESS_STATUS.COMPLETE);

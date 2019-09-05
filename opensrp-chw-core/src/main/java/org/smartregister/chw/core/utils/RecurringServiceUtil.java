@@ -1,6 +1,7 @@
 package org.smartregister.chw.core.utils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.model.RecurringServiceModel;
@@ -18,6 +19,7 @@ import org.smartregister.service.AlertService;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +32,6 @@ public class RecurringServiceUtil {
     public static Map<String, ServiceWrapper> getRecurringServices(String baseEntityID, DateTime anchorDate, String group) {
         return getRecurringServices(baseEntityID, anchorDate, group, false);
     }
-
 
     public static Map<String, ServiceWrapper> getRecurringServices(String baseEntityID, DateTime anchorDate, String group, boolean includePartial) {
         Map<String, ServiceWrapper> serviceWrapperMap = new LinkedHashMap<>();
@@ -50,6 +51,84 @@ public class RecurringServiceUtil {
         }
 
         return serviceWrapperMap;
+    }
+
+    /**
+     * Returns a list of wrappers that are
+     *
+     * @param baseEntityID
+     * @param anchorDate
+     * @param serviceGroup
+     * @param includePartial
+     * @return
+     */
+    public static Map<String, List<ServiceWrapper>> getNextWrappers(String baseEntityID, DateTime anchorDate, String serviceGroup, boolean includePartial) {
+        Map<String, List<ServiceWrapper>> result = new HashMap<>();
+
+        RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
+        List<ServiceType> serviceTypes = recurringServiceTypeRepository.fetchAll();
+
+        // compute the next alerts
+        for (ServiceType serviceType : serviceTypes) {
+            if (!serviceType.getServiceGroup().equalsIgnoreCase(serviceGroup.trim()) || result.get(serviceType.getType()) != null)
+                continue;
+
+            List<ServiceRecord> issuedServices = getServiceRecords(baseEntityID, includePartial);
+            List<Alert> alerts = ChwServiceSchedule.getPendingAlerts(serviceType.getType(), baseEntityID, anchorDate, issuedServices);
+            List<ServiceWrapper> serviceWrappers = toServiceWrappers(alerts, anchorDate);
+            if (serviceWrappers != null)
+                result.put(serviceType.getType(), serviceWrappers);
+        }
+
+        return result;
+    }
+
+    /**
+     * return a list of all member services optionally including those in the visit table
+     *
+     * @param baseEntityID
+     * @param includePartial
+     * @return
+     */
+    public static List<ServiceRecord> getServiceRecords(String baseEntityID, boolean includePartial) {
+        List<ServiceRecord> records = new ArrayList<>();
+
+        RecurringServiceRecordRepository repository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
+        List<ServiceRecord> given = repository.findByEntityId(baseEntityID);
+        if (given != null && !given.isEmpty())
+            records.addAll(given);
+
+        if (includePartial) {
+            List<ServiceRecord> partial = VisitDao.getUnprocessedServiceRecords(baseEntityID);
+            if (partial != null && !partial.isEmpty())
+                records.addAll(partial);
+        }
+
+        return records;
+    }
+
+    @Nullable
+    public static List<ServiceWrapper> toServiceWrappers(List<Alert> alerts, DateTime anchorDate) {
+        if (alerts == null || alerts.isEmpty()) return null;
+
+        RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
+
+        List<ServiceWrapper> serviceWrappers = new ArrayList<>();
+        for (Alert alert : alerts) {
+
+            ServiceType serviceType = recurringServiceTypeRepository.getByName(alert.scheduleName());
+
+            ServiceWrapper serviceWrapper = new ServiceWrapper();
+            serviceWrapper.setId(alert.caseId());
+            serviceWrapper.setDefaultName(alert.visitCode());
+            serviceWrapper.setDob(anchorDate);
+            serviceWrapper.setServiceType(serviceType);
+            serviceWrapper.setVaccineDate(new DateTime(alert.startDate()));
+
+            serviceWrappers.add(serviceWrapper);
+        }
+
+        return serviceWrappers;
     }
 
     public static RecurringServiceModel getServiceModel(String baseEntityID, DateTime anchorDate, String group, boolean includePartial) {

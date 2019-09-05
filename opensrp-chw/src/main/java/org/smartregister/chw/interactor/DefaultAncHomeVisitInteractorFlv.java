@@ -51,6 +51,8 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
     private LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
     private Map<String, List<VisitDetail>> details = null;
     private Context context;
+    protected Boolean editMode = false;
+
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
@@ -58,6 +60,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         this.view = view;
         actionList = new LinkedHashMap<>();
         context = view.getContext();
+        editMode = view.getEditMode();
         // get the preloaded data
         if (view.getEditMode()) {
             Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.ANC_HOME_VISIT);
@@ -184,10 +187,21 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.ANC_HOME_VISIT.getTtImmunization(), memberObject.getBaseEntityId());
         JSONObject preProcessObject = helper.preProcess(jsonObject, individualVaccine.getRight());
 
+        Map<String, List<VisitDetail>> details = null;
+        if (editMode) {
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.TT);
+            if (lastVisit != null) {
+                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            }
+        }
+
         BaseAncHomeVisitAction tt_immunization = new BaseAncHomeVisitAction.Builder(context, title)
                 .withHelper(helper)
                 .withDetails(details)
-                .withOptional(false)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                .withPayloadType(BaseAncHomeVisitAction.PayloadType.VACCINE)
+                .withPayloadDetails(MessageFormat.format("tt_{0}", individualVaccine.getRight()))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, individualVaccine.getRight()))
                 .withVaccineWrapper(VaccineScheduleUtil.getVaccineWrapper(individualVaccine.getMiddle(), vaccineTaskModel))
                 .withScheduleStatus((overdueMonth < 1) ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
@@ -220,12 +234,23 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.ANC_HOME_VISIT.getIptpSp(), memberObject.getBaseEntityId());
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
 
+        Map<String, List<VisitDetail>> details = null;
+        if (editMode) {
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.IPTP_SP);
+            if (lastVisit != null) {
+                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            }
+        }
+
         BaseAncHomeVisitAction iptp_action = new BaseAncHomeVisitAction.Builder(context, iptp)
                 .withHelper(helper)
                 .withDetails(details)
                 .withOptional(false)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
+                .withPayloadDetails(MessageFormat.format("IPTp-SP_dose_{0}", serviceIteration))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
-                .withServiceWrapper(serviceWrapper)
                 .withScheduleStatus((overdueMonth < 1) ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                 .build();

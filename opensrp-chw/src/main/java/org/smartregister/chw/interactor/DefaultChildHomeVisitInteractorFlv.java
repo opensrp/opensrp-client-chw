@@ -17,7 +17,6 @@ import org.smartregister.chw.actionhelper.ImmunizationActionHelper;
 import org.smartregister.chw.actionhelper.ImmunizationValidator;
 import org.smartregister.chw.actionhelper.MNPAction;
 import org.smartregister.chw.actionhelper.ObservationAction;
-import org.smartregister.chw.actionhelper.SleepingUnderLLITNAction;
 import org.smartregister.chw.actionhelper.VitaminaAction;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
@@ -217,9 +216,13 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         }
     }
 
+    protected int immunizationCeiling(){
+        return 24;
+    }
+
     protected void evaluateImmunization() throws Exception {
         int age = getAgeInMonths();
-        if (age >= 24) {
+        if (age >= immunizationCeiling()) {
             return;
         }
 
@@ -768,6 +771,42 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             return;
         }
 
+        HomeVisitActionHelper helper = new HomeVisitActionHelper() {
+            private String llitn;
+
+            @Override
+            public void onPayloadReceived(String jsonPayload) {
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonPayload);
+                    llitn = JsonFormUtils.getValue(jsonObject, "llitn");
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
+            }
+
+            @Override
+            public String evaluateSubTitle() {
+                if (StringUtils.isBlank(llitn))
+                    return null;
+
+                return llitn.equalsIgnoreCase("Yes") ? context.getString(R.string.yes) : context.getString(R.string.no);
+            }
+
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (StringUtils.isBlank(llitn))
+                    return BaseAncHomeVisitAction.Status.PENDING;
+
+                if (llitn.equalsIgnoreCase("Yes")) {
+                    return BaseAncHomeVisitAction.Status.COMPLETED;
+                } else if (llitn.equalsIgnoreCase("No")) {
+                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                } else {
+                    return BaseAncHomeVisitAction.Status.PENDING;
+                }
+            }
+        };
+
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
             Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.LLITN);
@@ -781,8 +820,8 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                .withHelper(new SleepingUnderLLITNAction())
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.ANC_HOME_VISIT.getSleepingUnderLlitn(), null, details, null))
+                .withHelper(helper)
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getSleepingUnderLlitn(), null, details, null))
                 .build();
 
         actionList.put(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), sleeping);
