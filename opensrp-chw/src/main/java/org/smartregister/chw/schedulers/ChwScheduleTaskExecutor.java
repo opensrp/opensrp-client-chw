@@ -49,20 +49,28 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         scheduleServices.add(new ChildHomeVisitScheduler());
 
         classifier.put(CoreConstants.EventType.CHILD_HOME_VISIT, scheduleServices);
+        classifier.put(CoreConstants.EventType.CHILD_REGISTRATION, scheduleServices);
     }
 
     private void initializeANCClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new ANCVisitScheduler());
 
+        classifier.put(CoreConstants.EventType.ANC_REGISTRATION, scheduleServices);
         classifier.put(CoreConstants.EventType.ANC_HOME_VISIT, scheduleServices);
+        classifier.put(CoreConstants.EventType.ANC_HOME_VISIT_NOT_DONE, scheduleServices);
+        classifier.put(CoreConstants.EventType.ANC_HOME_VISIT_NOT_DONE_UNDO, scheduleServices);
     }
 
     private void initializePNCClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new PNCVisitScheduler());
 
+        classifier.put(CoreConstants.EventType.PREGNANCY_OUTCOME, scheduleServices);
+        classifier.put(CoreConstants.EventType.PNC_REGISTRATION, scheduleServices);
         classifier.put(CoreConstants.EventType.PNC_HOME_VISIT, scheduleServices);
+        classifier.put(CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE, scheduleServices);
+        classifier.put(CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE_UNDO, scheduleServices);
     }
 
     private void initializeMalariaClassifier(Map<String, List<ScheduleService>> classifier) {

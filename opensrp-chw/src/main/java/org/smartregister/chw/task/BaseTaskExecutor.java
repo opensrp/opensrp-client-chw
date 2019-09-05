@@ -26,7 +26,7 @@ public abstract class BaseTaskExecutor implements ScheduleService {
     @Override
     public void resetSchedule(String baseEntityID, String scheduleName) {
         // delete from the repo all the old schedules by this name
-        ChwApplication.getInstance().getScheduleRepository().deleteScheduleByName(baseEntityID, scheduleName);
+        ChwApplication.getInstance().getScheduleRepository().deleteScheduleByName(scheduleName, baseEntityID);
     }
 
     protected BaseScheduleTask prepareNewTaskObject(String baseEntityID) {
