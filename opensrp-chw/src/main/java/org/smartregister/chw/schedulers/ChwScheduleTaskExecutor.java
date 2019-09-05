@@ -49,6 +49,7 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         scheduleServices.add(new ChildHomeVisitScheduler());
 
         classifier.put(CoreConstants.EventType.CHILD_HOME_VISIT, scheduleServices);
+        classifier.put(CoreConstants.EventType.CHILD_REGISTRATION, scheduleServices);
     }
 
     private void initializeANCClassifier(Map<String, List<ScheduleService>> classifier) {

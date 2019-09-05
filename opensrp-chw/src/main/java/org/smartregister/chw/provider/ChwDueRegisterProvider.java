@@ -27,7 +27,6 @@ import org.smartregister.view.contract.SmartRegisterClient;
 import java.util.Set;
 
 public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
-    private static final String TAG = ChwDueRegisterProvider.class.getCanonicalName();
 
     private final Context context;
 
@@ -79,19 +78,9 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
             viewHolder.lastVisit.setVisibility(View.INVISIBLE);
         }
 
-        viewHolder.nextArrowColumn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewHolder.nextArrow.performClick();
-            }
-        });
+        viewHolder.nextArrowColumn.setOnClickListener(v -> viewHolder.nextArrow.performClick());
 
-        viewHolder.statusColumn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewHolder.patientColumn.performClick();
-            }
-        });
+        viewHolder.statusColumn.setOnClickListener(v -> viewHolder.patientColumn.performClick());
 
         attachPatientOnclickListener(viewHolder.patientColumn, client);
 
