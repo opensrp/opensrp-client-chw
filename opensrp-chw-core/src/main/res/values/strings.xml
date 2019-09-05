@@ -363,6 +363,11 @@
     <string name="method_chosen">Method chosen</string>
     <string name="start_date">Start date</string>
     <string name="subtask_visit_not_done">Visit not done</string>
+    <string name="subtask_done">Done</string>
+    <string name="subtask_not_done">Not done</string>
+    <string name="counselling">Counselling</string>
+    <string name="mother_status">Mother\'s status\u0020</string>
+    <string name="child_status">Child\'s status\u0020</string>
 
     <!-- Family Register -->
     <string name="tasks_status">{0}</string>

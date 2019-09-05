@@ -309,8 +309,8 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                String counsellingStatus = "None".equals(couselling_pnc) ? "Not done" : "Done";
-                return MessageFormat.format("{0}: {1}", "Counselling", counsellingStatus);
+                String counsellingStatus = "None".equals(couselling_pnc) ? context.getString(R.string.subtask_not_done) : context.getString(R.string.subtask_done);
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.counselling), counsellingStatus);
             }
 
             @Override
@@ -348,7 +348,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", "Mother's Status ", nutrition_status_mama);
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.mother_status), nutrition_status_mama);
             }
 
             @Override
@@ -390,7 +390,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", "Child's Status ", nutrition_status_1m);
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.child_status), nutrition_status_1m);
             }
 
             @Override
