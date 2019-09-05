@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
@@ -29,7 +28,6 @@ import org.smartregister.chw.presenter.FamilyProfileDuePresenter;
 import org.smartregister.chw.provider.ChwDueRegisterProvider;
 import org.smartregister.chw.util.WashCheckFlv;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.util.Constants;

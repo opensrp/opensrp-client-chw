@@ -52,10 +52,9 @@ public class PncVisitAlertRule implements ICommonRule {
     }
 
     public Date getCompletionDate() {
-        if (lastVisitDate != null) {
-            if ((lastVisitDate.isAfter(dueDate) || lastVisitDate.isEqual(dueDate)) && lastVisitDate.isBefore(expiryDate))
-                return lastVisitDate.toDate();
-        }
+        if (lastVisitDate != null && ((lastVisitDate.isAfter(dueDate) || lastVisitDate.isEqual(dueDate)) && lastVisitDate.isBefore(expiryDate)))
+            return lastVisitDate.toDate();
+
         return null;
     }
 
@@ -63,13 +62,6 @@ public class PncVisitAlertRule implements ICommonRule {
     public String getRuleKey() {
         return "pncVisitAlertRule";
     }
-
-   /* public DateTime getPrevVisitDate() {
-        if (lastVisitDate == null)
-            return deliveryDate;
-
-        return lastVisitDate;
-    }*/
 
     @Override
     public String getButtonStatus() {
