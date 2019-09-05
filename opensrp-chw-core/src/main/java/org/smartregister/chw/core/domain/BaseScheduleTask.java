@@ -5,15 +5,26 @@ import org.smartregister.chw.core.contract.ScheduleTask;
 import java.util.Date;
 
 public class BaseScheduleTask implements ScheduleTask {
+    private String ID;
     private String baseEntityID;
     private String scheduleGroupName;
     private String scheduleName;
     private Date scheduleDueDate;
+    private Date scheduleNotDoneDate;
     private Date scheduleOverDueDate;
     private Date scheduleExpiryDate;
     private Date scheduleCompletionDate;
     private Date updatedAt;
     private Date createdAt;
+
+    @Override
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     @Override
     public String getBaseEntityID() {
@@ -49,6 +60,15 @@ public class BaseScheduleTask implements ScheduleTask {
 
     public void setScheduleDueDate(Date scheduleDueDate) {
         this.scheduleDueDate = scheduleDueDate;
+    }
+
+    @Override
+    public Date getScheduleNotDoneDate() {
+        return scheduleNotDoneDate;
+    }
+
+    public void setScheduleNotDoneDate(Date scheduleNotDoneDate) {
+        this.scheduleNotDoneDate = scheduleNotDoneDate;
     }
 
     @Override
