@@ -2,9 +2,7 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
@@ -12,15 +10,13 @@ import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
-import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
-import org.smartregister.chw.core.utils.VaccineScheduleUtil;
+import org.smartregister.chw.core.utils.VisitVaccineUtil;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.util.ContactUtil;
-import org.smartregister.immunization.db.VaccineRepo;
+import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.ServiceWrapper;
-import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -80,11 +76,11 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
     }
 
     protected void evaluateTT(List<BaseUpcomingService> services, MemberObject memberObject, Context context) {
-        Triple<DateTime, VaccineRepo.Vaccine, String> ttIteration = getNextTT(memberObject);
-        if (ttIteration != null && StringUtils.isNotBlank(ttIteration.getRight())) {
+        Alert alert = getNextTT(memberObject);
+        if (alert != null) {
             BaseUpcomingService ttService = new BaseUpcomingService();
-            ttService.setServiceName(MessageFormat.format(context.getString(R.string.tt_dose), ttIteration.getRight()));
-            ttService.setServiceDate(ttIteration.getLeft().toDate());
+            ttService.setServiceName(MessageFormat.format(context.getString(R.string.tt_dose), VisitVaccineUtil.getAlertIteration(alert)));
+            ttService.setServiceDate(new DateTime(alert.startDate()).toDate());
             services.add(ttService);
         }
     }
@@ -99,33 +95,33 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
         }
     }
 
-    private Triple<DateTime, VaccineRepo.Vaccine, String> getNextTT(MemberObject memberObject) {
-        VaccineTaskModel vaccineTaskModel = null;
-
+    private Alert getNextTT(MemberObject memberObject) {
         DateTime lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
         int ga = Days.daysBetween(lastMenstrualPeriod, new DateTime()).getDays() / 7;
 
         if (ga >= 13) {
-            vaccineTaskModel = VaccineScheduleUtil.getWomanVaccine(memberObject.getBaseEntityId(), lastMenstrualPeriod, new ArrayList<VaccineWrapper>());
+            List<Alert> alerts = VisitVaccineUtil.getNextVaccines(memberObject.getBaseEntityId(), lastMenstrualPeriod, CoreConstants.SERVICE_GROUPS.WOMAN, true);
+            Map<String, List<Alert>> map = VisitVaccineUtil.groupByType(alerts);
+            List<Alert> res = map.get("TT");
+            if (res != null && !res.isEmpty())
+                return res.get(0);
         }
 
-        if (vaccineTaskModel == null || vaccineTaskModel.getScheduleList().size() < 1) {
-            return null;
-        }
-        // compute the due date
-
-        return VaccineScheduleUtil.getIndividualVaccine(vaccineTaskModel, "TT");
+        return null;
     }
 
     private Pair<String, Date> getNextIPTP(MemberObject memberObject) {
         DateTime lmp = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
-        Map<String, ServiceWrapper> serviceWrapperMap = RecurringServiceUtil.getRecurringServices(memberObject.getBaseEntityId(), lmp, CoreConstants.SERVICE_GROUPS.WOMAN);
-        ServiceWrapper serviceWrapper = serviceWrapperMap.get("IPTp-SP");
 
+        Map<String, List<ServiceWrapper>> nextWrappers = RecurringServiceUtil.getNextWrappers(memberObject.getBaseEntityId(), lmp, CoreConstants.SERVICE_GROUPS.WOMAN, true);
+        if (nextWrappers == null) return null;
 
-        if (serviceWrapper == null) {
-            return null;
-        }
+        List<ServiceWrapper> wrappers = nextWrappers.get("IPTp-SP");
+        if (wrappers != null && nextWrappers.isEmpty()) return null;
+
+        ServiceWrapper serviceWrapper = wrappers.get(0);
+        if (serviceWrapper == null) return null;
+
 
         String iteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
         return Pair.of(iteration, serviceWrapper.getVaccineDate().toDate());

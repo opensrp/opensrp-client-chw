@@ -9,7 +9,7 @@ import org.smartregister.chw.core.helper.RulesEngineHelper;
 import org.smartregister.chw.core.repository.AncRegisterRepository;
 import org.smartregister.chw.core.repository.ScheduleRepository;
 import org.smartregister.chw.core.repository.WashCheckRepository;
-import org.smartregister.chw.core.sync.ChwClientProcessor;
+import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.ApplicationUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -141,7 +141,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
 
     public static ClientProcessorForJava getClientProcessor(android.content.Context context) {
         if (clientProcessor == null) {
-            clientProcessor = ChwClientProcessor.getInstance(context);
+            clientProcessor = CoreClientProcessor.getInstance(context);
         }
         return clientProcessor;
     }
