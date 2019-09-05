@@ -41,19 +41,19 @@ import java.util.List;
 import timber.log.Timber;
 
 
-public class ChwClientProcessor extends ClientProcessorForJava {
+public class CoreClientProcessor extends ClientProcessorForJava {
 
     private ClientClassification classification;
     private Table vaccineTable;
     private Table serviceTable;
 
-    private ChwClientProcessor(Context context) {
+    protected CoreClientProcessor(Context context) {
         super(context);
     }
 
     public static ClientProcessorForJava getInstance(Context context) {
         if (instance == null) {
-            instance = new ChwClientProcessor(context);
+            instance = new CoreClientProcessor(context);
         }
         return instance;
     }
@@ -104,7 +104,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         return serviceTable;
     }
 
-    private void processEvents(ClientClassification clientClassification, Table vaccineTable, Table serviceTable, EventClient eventClient, Event event, String eventType) throws Exception {
+    protected void processEvents(ClientClassification clientClassification, Table vaccineTable, Table serviceTable, EventClient eventClient, Event event, String eventType) throws Exception {
         switch (eventType) {
             case VaccineIntentService.EVENT_TYPE:
             case VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT:
@@ -135,6 +135,8 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             case CoreConstants.EventType.VITAMIN_A:
             case CoreConstants.EventType.EXCLUSIVE_BREASTFEEDING:
             case CoreConstants.EventType.MNP:
+            case CoreConstants.EventType.IPTP_SP:
+            case CoreConstants.EventType.TT:
                 processVisitEvent(eventClient, CoreConstants.EventType.CHILD_HOME_VISIT);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
@@ -175,7 +177,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             case CoreConstants.EventType.WASH_CHECK:
                 processWashCheckEvent(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-
                 break;
             case CoreConstants.EventType.CHILD_REFERRAL:
             case CoreConstants.EventType.CLOSE_REFERRAL:

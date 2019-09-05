@@ -8,7 +8,9 @@ import android.view.View;
 import org.smartregister.chw.anc.activity.BaseAncMedicalHistoryActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.presenter.BaseAncMedicalHistoryPresenter;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.core.CoreBaseAncMedicalHistoryInteractor;
 
 import java.util.List;
 
@@ -18,6 +20,11 @@ public abstract class CoreAncMedicalHistoryActivity extends BaseAncMedicalHistor
         Intent intent = new Intent(activity, CoreAncMedicalHistoryActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void initializePresenter() {
+        presenter = new BaseAncMedicalHistoryPresenter(new CoreBaseAncMedicalHistoryInteractor(), this, memberObject.getBaseEntityId());
     }
 
     public interface Flavor {
