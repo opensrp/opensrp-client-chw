@@ -121,11 +121,11 @@ public class AncVisitAlertRule implements ICommonRule, RegisterAlert {
         }
     }
 
-    private Date getLastDueDate(){
+    private Date getLastDueDate() {
         if (lastVisitDate != null && getFirstDayOfMonth(lastVisitDate.toDate()).getTime() < dateCreated.toDate().getTime()) {
             return getFirstDayOfMonth(lastVisitDate.toDate());
         } else {
-            return getLastDayOfMonth(dateCreated.toDate());
+            return dateCreated.toDate();
         }
     }
 
