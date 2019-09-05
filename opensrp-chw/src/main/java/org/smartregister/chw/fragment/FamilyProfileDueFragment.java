@@ -2,8 +2,11 @@ package org.smartregister.chw.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -79,7 +82,6 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         super.setupViews(view);
         emptyView = view.findViewById(R.id.empty_view);
         washCheckView = view.findViewById(R.id.wash_check_layout);
-
     }
 
     @Override
@@ -88,7 +90,6 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         this.clientAdapter = new FamilyRecyclerViewCustomAdapter(null, chwDueRegisterProvider, this.context().commonrepository(this.tablename), Utils.metadata().familyDueRegister.showPagination);
         this.clientAdapter.setCurrentlimit(Utils.metadata().familyDueRegister.currentLimit);
         this.clientsView.setAdapter(this.clientAdapter);
-
     }
 
     @Override
@@ -115,13 +116,16 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             CommonPersonObjectClient patient = (CommonPersonObjectClient) view.getTag();
             ChildProfileActivity.startMe(getActivity(), true, new MemberObject(patient), ChildProfileActivity.class);
         }
+    }
 
+    public FamilyProfileDuePresenter getPresenter() {
+        return (FamilyProfileDuePresenter) presenter;
     }
 
     @Override
     public void countExecute() {
-        super.countExecute();
-        final int count = clientAdapter.getTotalcount();
+        final int count = getPresenter().getDueCount();
+        clientAdapter.setTotalcount(count);
 
         if (getActivity() != null && count != dueCount) {
             dueCount = count;
@@ -129,7 +133,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         }
         if (getActivity() != null) {
             getActivity().runOnUiThread(() -> {
-                onEmptyRegisterCount(count < 1 && (washCheckView!=null && washCheckView.getVisibility()!= View.VISIBLE));
+                onEmptyRegisterCount(count < 1 && (washCheckView != null && washCheckView.getVisibility() != View.VISIBLE));
                 //need some delay to ready the adapter
                 new Handler().postDelayed(() -> {
                     if (flavorWashCheck.isWashCheckVisible()) {
@@ -139,7 +143,6 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                 }, 500);
             });
         }
-
 
     }
 
@@ -165,13 +168,11 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                                 if (getActivity() != null && getActivity() instanceof FamilyProfileActivity) {
                                     FamilyProfileActivity familyProfileActivity = (FamilyProfileActivity) getActivity();
                                     familyProfileActivity.updateWashCheckActivity();
-
                                 }
                             }
                         }
-
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Timber.e(e);
                     }
 
                 }
@@ -185,10 +186,10 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         if ((isVisible)) {
             washCheckView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);
-            dueCount = clientAdapter.getTotalcount() +1;
+            dueCount = clientAdapter.getTotalcount() + 1;
             onEmptyRegisterCount(false);
         } else {
-            dueCount = clientAdapter.getTotalcount() -1;
+            dueCount = clientAdapter.getTotalcount() - 1;
             washCheckView.setVisibility(View.GONE);
             onEmptyRegisterCount(dueCount < 1);
         }
@@ -226,30 +227,48 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         } else {
             washCheckView.setVisibility(View.GONE);
         }
-        washCheckView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.getWashCheck());
-                    jsonForm.put(JsonFormUtils.ENTITY_ID, familyBaseEntityId);
-                    Intent intent = new Intent(getActivity(), Utils.metadata().familyMemberFormActivity);
-                    intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+        washCheckView.setOnClickListener(v -> {
+            try {
+                JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.getWashCheck());
+                jsonForm.put(JsonFormUtils.ENTITY_ID, familyBaseEntityId);
+                Intent intent = new Intent(getActivity(), Utils.metadata().familyMemberFormActivity);
+                intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
-                    Form form = new Form();
-                    form.setWizard(false);
-                    form.setActionBarBackground(org.smartregister.family.R.color.customAppThemeBlue);
+                Form form = new Form();
+                form.setWizard(false);
+                form.setActionBarBackground(org.smartregister.family.R.color.customAppThemeBlue);
 
-                    intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-                    intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, true);
-                    if (getActivity() != null) {
-                        getActivity().startActivityForResult(intent, org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+                intent.putExtra(Constants.WizardFormActivity.EnableOnCloseDialog, true);
+                if (getActivity() != null) {
+                    getActivity().startActivityForResult(intent, org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH);
                 }
-
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
+
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
+        switch (id) {
+            case LOADER_ID:
+                // Returns a new CursorLoader
+                return new CursorLoader(getActivity()) {
+                    @Override
+                    public Cursor loadInBackground() {
+                        // Count query
+                        if (args != null && args.getBoolean("count_execute")) {
+                            countExecute();
+                        }
+                        return commonRepository().rawCustomQueryForAdapter(mainSelect);
+                    }
+                };
+            default:
+                // An invalid id was passed in
+                return null;
+        }
 
     }
 
