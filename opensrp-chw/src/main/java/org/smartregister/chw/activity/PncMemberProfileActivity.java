@@ -133,7 +133,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                 }
                 break;
             case Constants.REQUEST_CODE_HOME_VISIT:
-                this.displayView();
+                this.setupViews();
                 break;
             default:
                 break;
