@@ -187,7 +187,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             private String fpCounselling;
             private String fpPeriodReceived;
             private String fpMethod;
-            private String fpStartDate;
             private LocalDate startDate;
 
             @Override
@@ -197,7 +196,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     fpCounselling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_counseling");
                     fpPeriodReceived = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "fp_period_received");
                     fpMethod = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_method");
-                    fpStartDate = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_start_date");
+                    String fpStartDate = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_start_date");
                     startDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(fpStartDate);
                 } catch (JSONException e) {
                     e.printStackTrace();
