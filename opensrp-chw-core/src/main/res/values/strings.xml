@@ -360,7 +360,12 @@
     <!-- Completed tasks subtitles (text) -->
     <string name="family_planning">Family Planning</string>
     <string name="period_received">Period received</string>
-    <string name="method_chosed">Method chosen</string>
+    <string name="method_chosen">Method chosen</string>
     <string name="start_date">Start date</string>
-    <string name="visit_not_done">Visit not done</string>
+    <string name="subtask_visit_not_done">Visit not done</string>
+
+    <!-- Family Register -->
+    <string name="tasks_status">{0}</string>
+    <string name="tasks_not_done">Tasks not done</string>
+    <string name="tasks_done">Tasks done</string>
 </resources>

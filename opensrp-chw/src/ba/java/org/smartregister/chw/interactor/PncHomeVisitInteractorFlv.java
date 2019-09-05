@@ -206,7 +206,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             @Override
             public String evaluateSubTitle() {
                 return MessageFormat.format("{0}: {1} \u2022 {2}: {3} \n {4}: {5} \u2022 {6}: {7}",
-                        context.getString(R.string.family_planning), fpCounselling, context.getString(R.string.period_received), fpPeriodReceived, context.getString(R.string.method_chosed),
+                        context.getString(R.string.family_planning), fpCounselling, context.getString(R.string.period_received), fpPeriodReceived, context.getString(R.string.subtask_visit_not_done),
                         fpMethod, context.getString(R.string.start_date), DateTimeFormat.forPattern("dd MMM yyyy").print(startDate));
             }
 
@@ -636,8 +636,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
                         .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                        .withVaccineWrapper(wrappers)
-                        // .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), baby.getDob(), details, wrappers))
                         .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
                         .withHelper(new ImmunizationActionHelper(context, wrappers))
                         .build();
