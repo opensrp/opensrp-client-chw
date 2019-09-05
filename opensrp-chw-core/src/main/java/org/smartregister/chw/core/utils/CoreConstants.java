@@ -16,7 +16,7 @@ public class CoreConstants {
     public static String EC_CLIENT_FIELDS = "ec_client_fields.json";
     public static String IGNORE = "ignore";
 
-    public enum VisitType {DUE, OVERDUE, LESS_TWENTY_FOUR, VISIT_THIS_MONTH, NOT_VISIT_THIS_MONTH, EXPIRY}
+    public enum VisitType {DUE, OVERDUE, LESS_TWENTY_FOUR, VISIT_THIS_MONTH, NOT_VISIT_THIS_MONTH, DONE, EXPIRY}
 
     public enum ServiceType {DUE, OVERDUE, UPCOMING}
 
@@ -83,6 +83,8 @@ public class CoreConstants {
         public static final String LLITN = "Sleeping under a LLITN";
         public static final String VITAMIN_A = "Vitamin A";
         public static final String DEWORMING = "De-worming";
+        public static final String TT = "TT Vaccination";
+        public static final String IPTP_SP = "IPTp-SP Service";
         public static final String MNP = "MNP";
         public static final String EXCLUSIVE_BREASTFEEDING = "Exclusive breast feeding";
         public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
@@ -98,6 +100,8 @@ public class CoreConstants {
         public static final String ANC_REGISTRATION = "ANC Registration";
         public static final String ANC_HOME_VISIT = "ANC Home Visit";
         public static final String PNC_HOME_VISIT = "PNC Home Visit";
+        public static final String MALARIA_FOLLOW_UP_VISIT = "Malaria Follow-up Visit";
+        public static final String MALARIA_CONFIRMATION = "Malaria Confirmation";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
         public static final String CLOSE_REFERRAL = "Close Referral";
         public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
@@ -672,5 +676,17 @@ public class CoreConstants {
     public static final class TASKS_FOCUS {
         public static final String SICK_CHILD = "Sick Child";
         public static final String ANC_DANGER_SIGNS = "ANC Danger Signs";
+    }
+
+    public interface SCHEDULE_TYPES {
+        String CHILD_VISIT = "CHILD_VISIT";
+        String ANC_VISIT = "ANC_VISIT";
+        String PNC_VISIT = "PNC_VISIT";
+        String WASH_CHECK = "WASH_CHECK";
+        String MALARIA_VISIT = "MALARIA_VISIT";
+    }
+
+    public interface SCHEDULE_GROUPS {
+        String HOME_VISIT = "HOME_VISIT";
     }
 }

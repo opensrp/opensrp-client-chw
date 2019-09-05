@@ -4,6 +4,8 @@ import java.util.Date;
 
 public interface ScheduleTask {
 
+    String getID();
+
     String getBaseEntityID();
 
     String getScheduleGroupName();
@@ -11,6 +13,8 @@ public interface ScheduleTask {
     String getScheduleName();
 
     Date getScheduleDueDate();
+
+    Date getScheduleNotDoneDate();
 
     Date getScheduleOverDueDate();
 
