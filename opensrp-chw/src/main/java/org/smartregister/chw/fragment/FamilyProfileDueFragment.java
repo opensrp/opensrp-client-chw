@@ -2,8 +2,11 @@ package org.smartregister.chw.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
@@ -25,6 +29,7 @@ import org.smartregister.chw.presenter.FamilyProfileDuePresenter;
 import org.smartregister.chw.provider.ChwDueRegisterProvider;
 import org.smartregister.chw.util.WashCheckFlv;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.util.Constants;
@@ -244,6 +249,28 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                 e.printStackTrace();
             }
         });
+
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
+        switch (id) {
+            case LOADER_ID:
+                // Returns a new CursorLoader
+                return new CursorLoader(getActivity()) {
+                    @Override
+                    public Cursor loadInBackground() {
+                        // Count query
+                        if (args != null && args.getBoolean("count_execute")) {
+                            countExecute();
+                        }
+                        return commonRepository().rawCustomQueryForAdapter(mainSelect);
+                    }
+                };
+            default:
+                // An invalid id was passed in
+                return null;
+        }
 
     }
 

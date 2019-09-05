@@ -3,7 +3,6 @@ package org.smartregister.chw.presenter;
 import org.smartregister.chw.core.dao.NavigationDao;
 import org.smartregister.chw.core.enums.ImmunizationState;
 import org.smartregister.chw.core.rule.WashCheckAlertRule;
-import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.WashCheck;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
@@ -11,7 +10,6 @@ import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.model.WashCheckModel;
 import org.smartregister.family.contract.FamilyProfileDueContract;
 import org.smartregister.family.presenter.BaseFamilyProfileDuePresenter;
-import org.smartregister.family.util.DBConstants;
 
 public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
     private WashCheckModel washCheckModel;
@@ -21,24 +19,22 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
         washCheckModel = new WashCheckModel(familyBaseEntityId);
     }
 
-/*
     @Override
-    public String getMainCondition() {
-        return String.format(" %s AND %s ", super.getMainCondition(), getDueQuery());
+    public void initializeQueries(String mainCondition) {
+        String tableName = CoreConstants.TABLE_NAME.FAMILY_MEMBER;
+
+        String countSelect = model.countSelect(tableName, mainCondition);
+        String mainSelect = model.mainSelect(tableName, " ec_family_member.relational_id = '" + this.familyBaseEntityId + "' AND " + getDueQuery());
+
+        getView().initializeQueryParams(tableName, countSelect, mainSelect);
+        getView().initializeAdapter(visibleColumns);
+
+        getView().countExecute();
+        getView().filterandSortInInitializeQueries();
     }
 
-*/
     private String getDueQuery() {
         return " (ifnull(schedule_service.completion_date,'') = '' and schedule_service.expiry_date >= strftime('%Y-%m-%d') and schedule_service.due_date <= strftime('%Y-%m-%d')) ";
-    }
-
-    public String getMailTableFilter() {
-        return String.format(" %s = '%s' and %s is null ", DBConstants.KEY.BASE_ENTITY_ID, familyBaseEntityId, DBConstants.KEY.DATE_REMOVED);
-    }
-
-    @Override
-    public String getDefaultSortQuery() {
-        return ChildDBConstants.KEY.LAST_HOME_VISIT + ", " + ChildDBConstants.KEY.VISIT_NOT_DONE + " ASC ";
     }
 
     public boolean saveData(String jsonObject) {
