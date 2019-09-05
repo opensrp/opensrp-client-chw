@@ -160,7 +160,8 @@ public class AncRegisterRepository extends BaseRepository {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = null;
         CommonPersonObject personObject = null;
-        String query = CoreReferralUtils.mainAncDetailsSelect(CoreConstants.TABLE_NAME.ANC_MEMBER, baseEntityId);
+        String[] tablesOfInterest = {CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.ANC_MEMBER};
+        String query = CoreReferralUtils.mainAncDetailsSelect(tablesOfInterest,0, 1, baseEntityId);
         Timber.d("ANC Member CommonPersonObject Query %s", query);
 
         try {

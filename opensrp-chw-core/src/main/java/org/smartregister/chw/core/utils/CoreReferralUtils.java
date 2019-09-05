@@ -81,11 +81,23 @@ public class CoreReferralUtils {
         return createAncDetailsSelect(tableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + baseEntityId + "'");
     }
 
-    private static String createAncDetailsSelect(String tableName, String baseEntityId) {
+    public static String mainAncDetailsSelect(String[] tableNames, int familyTableIndex, int ancDetailsColumnsTableIndex, String baseEntityId) {
+        return createAncDetailsSelect(tableNames, ancDetailsColumnsTableIndex, tableNames[ancDetailsColumnsTableIndex] + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + baseEntityId +
+                "' AND " + tableNames[familyTableIndex] + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + tableNames[ancDetailsColumnsTableIndex] + "." + DBConstants.KEY.RELATIONAL_ID);
+    }
+
+    private static String createAncDetailsSelect(String tableName, String selectCondition) {
         SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
         smartRegisterQueryBuilder.SelectInitiateMainTable(tableName, mainAncDetailsColumns(tableName));
         smartRegisterQueryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + " ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + ".id COLLATE NOCASE ");
-        return smartRegisterQueryBuilder.mainCondition(baseEntityId);
+        return smartRegisterQueryBuilder.mainCondition(selectCondition);
+    }
+
+    private static String createAncDetailsSelect(String[] tableNames, int ancDetailsColumnsTableIndex, String selectCondition) {
+        SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
+        smartRegisterQueryBuilder.SelectInitiateMainTable(tableNames, mainAncDetailsColumns(tableNames[ancDetailsColumnsTableIndex]));
+        smartRegisterQueryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + " ON  " + tableNames[ancDetailsColumnsTableIndex] + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + ".id COLLATE NOCASE ");
+        return smartRegisterQueryBuilder.mainCondition(selectCondition);
     }
 
     private static String[] mainAncDetailsColumns(String tableName) {
@@ -93,6 +105,7 @@ public class CoreReferralUtils {
         columnList.add(tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
         columnList.add(tableName + "." + ChildDBConstants.KEY.LAST_MENSTRUAL_PERIOD);
         columnList.add(CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + "." + org.smartregister.chw.anc.util.DBConstants.KEY.DATE_CREATED);
+        columnList.add(CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.VILLAGE_TOWN);
         columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.CONFIRMED_VISITS);
         columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.LAST_HOME_VISIT);
         return columnList.toArray(new String[columnList.size()]);
