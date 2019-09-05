@@ -356,4 +356,10 @@
     <string name="phone_not_provided">Phone not provided</string>
     <string name="anc_danger_sign_prefix">ANC Danger Signs; Symptoms: %s</string>
     <string name="client_name_age_suffix">%s, %s</string>
+
+
+    <!-- Family Register -->
+    <string name="tasks_status">{0}</string>
+    <string name="tasks_not_done">Tasks not done</string>
+    <string name="tasks_done">Tasks done</string>
 </resources>

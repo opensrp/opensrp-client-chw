@@ -116,7 +116,7 @@ public class VisitDao extends AbstractDao {
     }
 
     public static Map<String, Date> getUnprocessedVaccines(String baseEntityID) {
-        String sql = "select vd.visit_key , vd.details " +
+        String sql = "select (case when vd.preprocessed_type = 'VACCINE' then preprocessed_details else vd.visit_key end) visit_key , vd.details " +
                 "from visit_details vd " +
                 "inner join visits v on v.visit_id = vd.visit_id " +
                 "where v.base_entity_id = '" + baseEntityID + "'" +

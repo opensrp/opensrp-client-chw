@@ -129,7 +129,6 @@ public class ChwServiceSchedule {
 
     }
 
-
     public static Alert getOfflineAlert(final ServiceType serviceType, final List<ServiceRecord> issuedServices, final String baseEntityId, final DateTime dateOfBirth) {
 
         try {
