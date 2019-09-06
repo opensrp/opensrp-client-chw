@@ -133,13 +133,16 @@ public class AncRegisterRepository extends BaseRepository {
             if (database == null) {
                 return 0;
             }
-            String selection = DBConstants.KEY.RELATIONAL_ID + " = ? " + COLLATE_NOCASE + " AND " +
-                    org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = ? " + COLLATE_NOCASE;
-            String[] selectionArgs = new String[]{familyBaseID, "0"};
             String tableName = CoreConstants.TABLE_NAME.ANC_MEMBER.equals(register) ? CoreConstants.TABLE_NAME.ANC_MEMBER : CoreConstants.TABLE_NAME.PNC_MEMBER;
-            cursor = database.query(tableName,
-                    ANC_COUNT_TABLE_COLUMNS, selection, selectionArgs, null, null, null);
 
+            String query = "select * from " + tableName  + " inner join " +
+                    CoreConstants.TABLE_NAME.FAMILY_MEMBER + " on " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID +
+                    " = " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID
+                    + " and  " +  CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." +  org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = 0 "
+                    + " and " + tableName  + "."  + org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = 0 "
+                    + " and " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." +  DBConstants.KEY.RELATIONAL_ID + " = ? ";
+
+            cursor = database.rawQuery(query,new String[]{familyBaseID});
             return cursor.getCount();
 
         } catch (Exception e) {

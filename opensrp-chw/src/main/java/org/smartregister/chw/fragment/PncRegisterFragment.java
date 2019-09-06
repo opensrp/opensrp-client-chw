@@ -89,8 +89,7 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
     }
 
     private String getDueCondition() {
-        return " ifnull(substr(delivery_date, 7, 4)||'-'||substr(delivery_date, 4, 2)||'-'||substr(delivery_date, 1, 2), '+2 day') < STRFTIME('%Y%m%d', datetime('now')) " +
-                " and julianday() - julianday(substr(delivery_date, 7, 4)||'-'||substr(delivery_date, 4, 2)||'-'||substr(delivery_date, 1, 2)) >= 2   ";
+        return " ec_pregnancy_outcome.base_entity_id in (select base_entity_id from schedule_service where strftime('%Y-%m-%d') BETWEEN due_date and expiry_date and schedule_name = 'PNC_VISIT')  ";
     }
 
     private void switchViews(View dueOnlyLayout, boolean isPress) {
