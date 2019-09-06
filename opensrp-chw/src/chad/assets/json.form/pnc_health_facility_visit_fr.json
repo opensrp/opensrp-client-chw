@@ -79,7 +79,6 @@
         "hint": "Date de la visite",
         "expanded": false,
         "max_date": "today",
-        "min_date": "",
         "v_required": {
           "value": "true",
           "err": "Veuillez sélectionner une date"
