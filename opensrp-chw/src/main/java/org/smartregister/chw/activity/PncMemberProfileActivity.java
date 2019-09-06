@@ -26,6 +26,7 @@ import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.presenter.PncMemberProfilePresenter;
+import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -134,6 +135,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                 break;
             case Constants.REQUEST_CODE_HOME_VISIT:
                 this.setupViews();
+                ChwScheduleTaskExecutor.getInstance().execute(MEMBER_OBJECT.getBaseEntityId(),CoreConstants.EventType.PNC_HOME_VISIT, new Date());
                 break;
             default:
                 break;
