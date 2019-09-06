@@ -5,10 +5,14 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreReferralUtils;
+import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import timber.log.Timber;
@@ -154,5 +158,39 @@ public class AncRegisterRepository extends BaseRepository {
         }
         return 0;
 
+    }
+
+    public CommonPersonObject getAncCommonPersonObject(String baseEntityId) {
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor = null;
+        CommonPersonObject personObject = null;
+
+        ArrayList<String> tablesOfInterestList = new ArrayList<>();
+        tablesOfInterestList.add(CoreConstants.TABLE_NAME.FAMILY);
+        tablesOfInterestList.add(CoreConstants.TABLE_NAME.ANC_MEMBER);
+
+        // NOTE: Doing this so that we avoid possible bugs when passing/determining the indices for respective tables to be used in the building the query
+        String[] tablesOfInterest = new String[tablesOfInterestList.size()];
+        tablesOfInterest = tablesOfInterestList.toArray(tablesOfInterest);
+
+        String query = CoreReferralUtils.mainAncDetailsSelect(tablesOfInterest, tablesOfInterestList.indexOf(CoreConstants.TABLE_NAME.FAMILY), tablesOfInterestList.indexOf(CoreConstants.TABLE_NAME.ANC_MEMBER), baseEntityId);
+        Timber.d("ANC Member CommonPersonObject Query %s", query);
+
+        try {
+            if (database == null) {
+                return null;
+            }
+            cursor = database.rawQuery(query, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                personObject = Utils.context().commonrepository(CoreConstants.TABLE_NAME.ANC_MEMBER).readAllcommonforCursorAdapter(cursor);
+            }
+        } catch (Exception ex) {
+            Timber.e(ex);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return personObject;
     }
 }
