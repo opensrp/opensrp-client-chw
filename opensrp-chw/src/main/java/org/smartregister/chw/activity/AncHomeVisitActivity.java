@@ -18,6 +18,8 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
 
+import timber.log.Timber;
+
 public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
 
     public static void startMe(Activity activity, MemberObject memberObject, Boolean isEditMode) {
@@ -51,5 +53,14 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
         // get language from prefs
         String lang = LangUtils.getLanguage(base.getApplicationContext());
         super.attachBaseContext(LangUtils.setAppLocale(base, lang));
+    }
+
+    @Override
+    public void onDestroy() {
+        try {
+            super.onDestroy();
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 }

@@ -179,7 +179,6 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                             .withOptional(false)
                             .withDetails(details)
                             .withBaseEntityID(baby.getBaseEntityID())
-                            .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                             .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisit())
                             .withHelper(new PNCHealthFacilityVisitHelper(visitRule, visit_num))
                             .build();
@@ -277,7 +276,6 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         .withOptional(false)
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                         .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
                         .withHelper(new ImmunizationActionHelper(context, wrappers))
                         .build();
