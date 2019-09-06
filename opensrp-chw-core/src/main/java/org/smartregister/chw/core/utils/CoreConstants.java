@@ -42,6 +42,7 @@ public class CoreConstants {
         String OWNER = "owner";
         String START = "start";
         String ENTRY_POINT = "entry_point";
+        String STATUS = "status";
     }
 
     public interface SERVICE_GROUPS {
