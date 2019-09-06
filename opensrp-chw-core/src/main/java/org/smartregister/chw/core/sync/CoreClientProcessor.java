@@ -137,12 +137,19 @@ public class CoreClientProcessor extends ClientProcessorForJava {
             case CoreConstants.EventType.MNP:
             case CoreConstants.EventType.IPTP_SP:
             case CoreConstants.EventType.TT:
+            case CoreConstants.EventType.VACCINE_CARD_RECEIVED:
+            case CoreConstants.EventType.DANGER_SIGNS_BABY:
+            case CoreConstants.EventType.PNC_HEALTH_FACILITY_VISIT:
+            case CoreConstants.EventType.KANGAROO_CARE:
+            case CoreConstants.EventType.OBSERVATIONS_AND_ILLNESS:
                 processVisitEvent(eventClient, CoreConstants.EventType.CHILD_HOME_VISIT);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
             case CoreConstants.EventType.ANC_HOME_VISIT:
             case org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE:
             case org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO:
+            case CoreConstants.EventType.PNC_HOME_VISIT:
+            case CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE:
                 if (eventClient.getEvent() == null) {
                     return;
                 }
@@ -167,7 +174,7 @@ public class CoreClientProcessor extends ClientProcessorForJava {
                 }
                 processRemoveChild(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
                 break;
-            case CoreConstants.EventType.VACCINE_CARD_RECEIVED:
+            case CoreConstants.EventType.CHILD_VACCINE_CARD_RECEIVED:
                 if (eventClient.getClient() == null) {
                     return;
                 }

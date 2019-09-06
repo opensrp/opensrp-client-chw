@@ -11,6 +11,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -88,7 +89,11 @@ public class PersonDao extends AbstractDao {
             );
         };
 
-        return AbstractDao.readData(sql, dataMap);
+        List<PncBaby> babies = AbstractDao.readData(sql, dataMap);
+        if (babies != null)
+            return babies;
+
+        return new ArrayList<>();
     }
 
     public String getAncCreatedDate(String baseEntityId) {
