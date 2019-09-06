@@ -27,7 +27,6 @@ import timber.log.Timber;
 
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.TITLE_VIEW_TEXT;
 
-
 public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
 
     @Override
