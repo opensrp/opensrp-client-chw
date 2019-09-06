@@ -110,6 +110,7 @@ public class ChildDBConstants {
         public static final String PRIMARY_CAREGIVER = "primary_caregiver";
         public static final String FAMILY_PRIMARY_CAREGIVER = "family_primary_caregiver";
         public static final String LAST_MENSTRUAL_PERIOD = "last_menstrual_period";
+        public static final String SCHEDULE_GROUP_NAME = "schedule_group_name";
         // Family child visit status
         //public static final String CHILD_VISIT_STATUS = "child_visit_status";
     }

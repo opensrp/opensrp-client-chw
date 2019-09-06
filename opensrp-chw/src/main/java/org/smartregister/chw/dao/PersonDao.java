@@ -113,4 +113,15 @@ public class PersonDao extends AbstractDao {
         return date;
     }
 
+    public static String getDob(String baseEntityID) {
+        String sql = "select dob from ec_family_member where base_entity_id = '" + baseEntityID + "'";
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "dob");
+
+        List<String> res = readData(sql, dataMap);
+        if (res == null || res.size() != 1)
+            return null;
+
+        return res.get(0);
+    }
 }
