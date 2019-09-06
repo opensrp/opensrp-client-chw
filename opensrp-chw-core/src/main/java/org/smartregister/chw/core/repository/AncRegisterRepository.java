@@ -14,7 +14,6 @@ import org.smartregister.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import timber.log.Timber;
 
