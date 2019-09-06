@@ -191,6 +191,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     private void initializeTasksRecyclerView() {
         referralRecyclerView = findViewById(R.id.referral_card_recycler_view);
         referralRow = findViewById(R.id.referal_row);
+        referralRow.setVisibility(View.VISIBLE);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         referralRecyclerView.setLayoutManager(layoutManager);
     }
