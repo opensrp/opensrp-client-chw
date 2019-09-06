@@ -8,11 +8,12 @@ import org.smartregister.chw.anc.interactor.BaseAncMedicalHistoryInteractor;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.PncBaby;
+import org.smartregister.chw.pnc.interactor.BasePncMedicalHistoryInteractor;
 import org.smartregister.chw.util.Constants;
 
 import java.util.List;
 
-public class PncMedicalHistoryActivityInteractor extends BaseAncMedicalHistoryInteractor {
+public class PncMedicalHistoryActivityInteractor extends BasePncMedicalHistoryInteractor {
 
     @Override
     public void getMemberHistory(final String memberID, final Context context, final BaseAncMedicalHistoryContract.InteractorCallBack callBack) {
