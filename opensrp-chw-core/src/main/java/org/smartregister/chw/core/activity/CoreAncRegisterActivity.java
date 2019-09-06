@@ -206,4 +206,5 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
         startActivity(intent);
         finish();*/
     }
+
 }

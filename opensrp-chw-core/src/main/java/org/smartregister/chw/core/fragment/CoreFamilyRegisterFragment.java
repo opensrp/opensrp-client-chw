@@ -36,7 +36,7 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
     private static final String DUE_FILTER_TAG = "PRESSED";
     protected View dueOnlyLayout;
     private View view;
-    private boolean dueFilterActive = false;
+    protected boolean dueFilterActive = false;
 
     @Override
     protected void initializePresenter() {
@@ -235,7 +235,7 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
         switchViews(dueOnlyLayout, false);
     }
 
-    private String dueFilterAndSortQuery() {
+    protected String dueFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
         String query = "";
@@ -263,7 +263,7 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
         return query;
     }
 
-    private String defaultFilterAndSortQuery() {
+    protected String defaultFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
         String query = "";

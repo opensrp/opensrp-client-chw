@@ -3,7 +3,9 @@ package org.smartregister.chw.sync;
 
 import android.content.Context;
 
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
@@ -26,6 +28,22 @@ public class ChwClientProcessor extends CoreClientProcessor {
 
     @Override
     protected void processEvents(ClientClassification clientClassification, Table vaccineTable, Table serviceTable, EventClient eventClient, Event event, String eventType) throws Exception {
+        if (eventClient != null && eventClient.getEvent() != null) {
+            String baseEntityID = eventClient.getEvent().getBaseEntityId();
+
+            switch (eventType) {
+                case CoreConstants.EventType.REMOVE_FAMILY:
+                    ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByFamilyEntityID(baseEntityID);
+                case CoreConstants.EventType.REMOVE_MEMBER:
+                    ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByEntityID(baseEntityID);
+                case CoreConstants.EventType.REMOVE_CHILD:
+                    ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByEntityID(baseEntityID);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         super.processEvents(clientClassification, vaccineTable, serviceTable, eventClient, event, eventType);
         ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
     }

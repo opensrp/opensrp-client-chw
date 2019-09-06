@@ -16,4 +16,9 @@ public class WashCheckScheduler extends BaseTaskExecutor {
     public String getScheduleName() {
         return CoreConstants.SCHEDULE_TYPES.WASH_CHECK;
     }
+
+    @Override
+    public String getScheduleGroup() {
+        return null;
+    }
 }

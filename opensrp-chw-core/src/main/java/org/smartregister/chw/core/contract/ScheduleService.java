@@ -20,6 +20,8 @@ public interface ScheduleService {
 
     String getScheduleName();
 
+    String getScheduleGroup();
+
     /**
      * clears the schedules from the database
      */
