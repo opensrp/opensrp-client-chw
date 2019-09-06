@@ -197,7 +197,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         if (!new LocalDate().isAfter(new LocalDate(dob).plusMonths(24)) && !vaccineCardReceived) {
             Map<String, List<VisitDetail>> details = null;
             if (editMode) {
-                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.VACCINE_CARD_RECEIVED);
+                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.CHILD_VACCINE_CARD_RECEIVED);
                 if (lastVisit != null) {
                     details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
                 }

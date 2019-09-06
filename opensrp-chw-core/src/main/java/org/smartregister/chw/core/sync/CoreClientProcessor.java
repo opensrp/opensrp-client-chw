@@ -167,7 +167,7 @@ public class CoreClientProcessor extends ClientProcessorForJava {
                 }
                 processRemoveChild(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
                 break;
-            case CoreConstants.EventType.VACCINE_CARD_RECEIVED:
+            case CoreConstants.EventType.CHILD_VACCINE_CARD_RECEIVED:
                 if (eventClient.getClient() == null) {
                     return;
                 }
