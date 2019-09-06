@@ -45,6 +45,7 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.activity.BaseProfileActivity;
 
+import java.util.Date;
 import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;

@@ -21,7 +21,10 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
     protected static String phone_number;
@@ -206,4 +209,5 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
         startActivity(intent);
         finish();*/
     }
+
 }

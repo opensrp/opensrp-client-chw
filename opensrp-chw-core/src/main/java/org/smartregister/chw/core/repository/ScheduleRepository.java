@@ -170,6 +170,14 @@ public class ScheduleRepository extends BaseRepository {
         }
     }
 
+    public void deleteScheduleByGroup(String name, String baseEntityID) {
+        try {
+            getWritableDatabase().delete(TABLE_NAME, SCHEDULE_GROUP_NAME + "= ? and " + BASE_ENTITY_ID + "= ?", new String[]{name, baseEntityID});
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
     public void deleteSchedulesByName(String name, Date last_edit_date) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());

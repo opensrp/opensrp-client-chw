@@ -15,7 +15,6 @@ public class MalariaScheduler extends BaseTaskExecutor {
     public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate) {
 
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
-        baseScheduleTask.setScheduleGroupName(CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
 
         Date malaria_date = MalariaDao.getMalariaTestDate(baseEntityID);
         if (malaria_date != null) {
@@ -41,6 +40,11 @@ public class MalariaScheduler extends BaseTaskExecutor {
 
     @Override
     public String getScheduleName() {
+        return CoreConstants.SCHEDULE_TYPES.MALARIA_VISIT;
+    }
+
+    @Override
+    public String getScheduleGroup() {
         return CoreConstants.SCHEDULE_TYPES.MALARIA_VISIT;
     }
 }
