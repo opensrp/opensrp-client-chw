@@ -12,7 +12,9 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -160,8 +162,16 @@ public class AncRegisterRepository extends BaseRepository {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = null;
         CommonPersonObject personObject = null;
-        String[] tablesOfInterest = {CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.ANC_MEMBER};
-        String query = CoreReferralUtils.mainAncDetailsSelect(tablesOfInterest,0, 1, baseEntityId);
+
+        ArrayList<String> tablesOfInterestList = new ArrayList<>();
+        tablesOfInterestList.add(CoreConstants.TABLE_NAME.FAMILY);
+        tablesOfInterestList.add(CoreConstants.TABLE_NAME.ANC_MEMBER);
+
+        // NOTE: Doing this so that we avoid possible bugs when passing/determining the indices for respective tables to be used in the building the query
+        String[] tablesOfInterest = new String[tablesOfInterestList.size()];
+        tablesOfInterest = tablesOfInterestList.toArray(tablesOfInterest);
+
+        String query = CoreReferralUtils.mainAncDetailsSelect(tablesOfInterest, tablesOfInterestList.indexOf(CoreConstants.TABLE_NAME.FAMILY), tablesOfInterestList.indexOf(CoreConstants.TABLE_NAME.ANC_MEMBER), baseEntityId);
         Timber.d("ANC Member CommonPersonObject Query %s", query);
 
         try {
