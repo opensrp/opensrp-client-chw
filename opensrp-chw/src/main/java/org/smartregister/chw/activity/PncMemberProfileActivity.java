@@ -133,7 +133,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                 }
                 break;
             case Constants.REQUEST_CODE_HOME_VISIT:
-                this.displayView();
+                this.setupViews();
                 break;
             default:
                 break;
@@ -185,6 +185,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                     setEditViews(true, within24Hours, lastVisit.getDate().getTime());
                 } else {
                     textview_record_visit.setVisibility(View.GONE);
+                    layoutRecordView.setVisibility(View.GONE);
                 }
 
             } else {
@@ -193,6 +194,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
             }
         } else {
             textview_record_visit.setVisibility(View.GONE);
+           layoutRecordView.setVisibility(View.GONE);
         }
     }
 
