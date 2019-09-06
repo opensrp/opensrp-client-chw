@@ -4,7 +4,6 @@ import android.content.Context;
 
 import org.smartregister.chw.anc.contract.BaseAncMedicalHistoryContract;
 import org.smartregister.chw.anc.domain.Visit;
-import org.smartregister.chw.anc.interactor.BaseAncMedicalHistoryInteractor;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.PncBaby;
