@@ -154,6 +154,22 @@ public class ScheduleRepository extends BaseRepository {
         }
     }
 
+    public void deleteSchedulesByEntityID(String baseEntityID) {
+        try {
+            getWritableDatabase().delete(TABLE_NAME, BASE_ENTITY_ID + "= ?", new String[]{baseEntityID});
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    public void deleteSchedulesByFamilyEntityID(String baseEntityID) {
+        try {
+            getWritableDatabase().execSQL("DELETE from schedule_service where base_entity_id in ( select base_entity_id from ec_family_member where relational_id = '" + baseEntityID + "' )");
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
     public void deleteScheduleByName(String name) {
         try {
             getWritableDatabase().delete(TABLE_NAME, SCHEDULE_NAME + "= ?", new String[]{name});

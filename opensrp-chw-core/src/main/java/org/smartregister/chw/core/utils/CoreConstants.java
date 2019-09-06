@@ -700,5 +700,6 @@ public class CoreConstants {
 
     public interface SCHEDULE_GROUPS {
         String HOME_VISIT = "HOME_VISIT";
+        String FAMILY = "FAMILY";
     }
 }
