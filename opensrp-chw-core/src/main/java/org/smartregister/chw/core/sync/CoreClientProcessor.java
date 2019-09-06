@@ -137,6 +137,11 @@ public class CoreClientProcessor extends ClientProcessorForJava {
             case CoreConstants.EventType.MNP:
             case CoreConstants.EventType.IPTP_SP:
             case CoreConstants.EventType.TT:
+            case CoreConstants.EventType.VACCINE_CARD_RECEIVED:
+            case CoreConstants.EventType.DANGER_SIGNS_BABY:
+            case CoreConstants.EventType.PNC_HEALTH_FACILITY_VISIT:
+            case CoreConstants.EventType.KANGAROO_CARE:
+            case CoreConstants.EventType.OBSERVATIONS_AND_ILLNESS:
                 processVisitEvent(eventClient, CoreConstants.EventType.CHILD_HOME_VISIT);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
