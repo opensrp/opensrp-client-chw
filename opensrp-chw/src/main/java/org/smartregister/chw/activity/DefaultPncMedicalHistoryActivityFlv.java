@@ -71,7 +71,6 @@ public abstract class DefaultPncMedicalHistoryActivityFlv implements PncMedicalH
 
             int days = 0;
             int x = 0;
-            Map<String, String> hf_visits = new LinkedHashMap<>();
             Map<String, Map<String, String>> healthFacility_visit = new HashMap<>();
             Map<String, String> family_planning = new HashMap<>();
             String vaccineCard = "No";

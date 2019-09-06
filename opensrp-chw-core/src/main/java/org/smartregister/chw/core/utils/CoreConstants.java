@@ -77,7 +77,8 @@ public class CoreConstants {
         public static final String CHILD_REFERRAL = "Sick Child Referral";
         public static final String ANC_REFERRAL = "ANC Referral";
         public static final String PNC_REFERRAL = "PNC Referral";
-        public static final String VACCINE_CARD_RECEIVED = "Child vaccine card received";
+        public static final String CHILD_VACCINE_CARD_RECEIVED = "Child vaccine card received";
+        public static final String VACCINE_CARD_RECEIVED = "Vaccine Card Received";
         public static final String MINIMUM_DIETARY_DIVERSITY = "Minimum dietary diversity";
         public static final String MUAC = "Mid-upper arm circumference (MUAC)";
         public static final String LLITN = "Sleeping under a LLITN";
@@ -86,7 +87,11 @@ public class CoreConstants {
         public static final String TT = "TT Vaccination";
         public static final String IPTP_SP = "IPTp-SP Service";
         public static final String MNP = "MNP";
+        public static final String DANGER_SIGNS_BABY = "Danger signs - Baby";
+        public static final String PNC_HEALTH_FACILITY_VISIT = "PNC health facility visit";
         public static final String EXCLUSIVE_BREASTFEEDING = "Exclusive breast feeding";
+        public static final String KANGAROO_CARE = "Kangaroo Care";
+        public static final String OBSERVATIONS_AND_ILLNESS = "Observations Illness";
         public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
         public static final String UPDATE_FAMILY_MEMBER_RELATIONS = "Update Family Member Relations";
 
