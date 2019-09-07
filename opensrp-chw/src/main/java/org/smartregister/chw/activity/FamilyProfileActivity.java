@@ -80,6 +80,10 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
 
+    public FamilyProfilePresenter getFamilyProfilePresenter() {
+        return (FamilyProfilePresenter) presenter;
+    }
+
     @Override
     protected ViewPager setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());

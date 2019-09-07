@@ -19,11 +19,15 @@ import java.util.List;
 import java.util.Locale;
 
 public class ANCVisitScheduler extends BaseTaskExecutor {
+    @Override
+    public void resetSchedule(String baseEntityID, String scheduleName) {
+        super.resetSchedule(baseEntityID, scheduleName);
+        ChwApplication.getInstance().getScheduleRepository().deleteScheduleByGroup(getScheduleGroup(), baseEntityID);
+    }
 
     @Override
     public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate) {
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
-        baseScheduleTask.setScheduleGroupName(CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
 
         Visit lastNotDoneVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
         if (lastNotDoneVisit != null) {
@@ -62,5 +66,10 @@ public class ANCVisitScheduler extends BaseTaskExecutor {
     @Override
     public String getScheduleName() {
         return CoreConstants.SCHEDULE_TYPES.ANC_VISIT;
+    }
+
+    @Override
+    public String getScheduleGroup() {
+        return CoreConstants.SCHEDULE_GROUPS.HOME_VISIT;
     }
 }

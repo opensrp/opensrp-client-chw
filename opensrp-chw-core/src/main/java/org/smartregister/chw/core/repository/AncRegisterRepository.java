@@ -5,10 +5,14 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreReferralUtils;
+import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import timber.log.Timber;
@@ -133,13 +137,16 @@ public class AncRegisterRepository extends BaseRepository {
             if (database == null) {
                 return 0;
             }
-            String selection = DBConstants.KEY.RELATIONAL_ID + " = ? " + COLLATE_NOCASE + " AND " +
-                    org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = ? " + COLLATE_NOCASE;
-            String[] selectionArgs = new String[]{familyBaseID, "0"};
             String tableName = CoreConstants.TABLE_NAME.ANC_MEMBER.equals(register) ? CoreConstants.TABLE_NAME.ANC_MEMBER : CoreConstants.TABLE_NAME.PNC_MEMBER;
-            cursor = database.query(tableName,
-                    ANC_COUNT_TABLE_COLUMNS, selection, selectionArgs, null, null, null);
 
+            String query = "select * from " + tableName  + " inner join " +
+                    CoreConstants.TABLE_NAME.FAMILY_MEMBER + " on " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID +
+                    " = " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID
+                    + " and  " +  CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." +  org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = 0 "
+                    + " and " + tableName  + "."  + org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = 0 "
+                    + " and " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." +  DBConstants.KEY.RELATIONAL_ID + " = ? ";
+
+            cursor = database.rawQuery(query,new String[]{familyBaseID});
             return cursor.getCount();
 
         } catch (Exception e) {
@@ -151,5 +158,39 @@ public class AncRegisterRepository extends BaseRepository {
         }
         return 0;
 
+    }
+
+    public CommonPersonObject getAncCommonPersonObject(String baseEntityId) {
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor = null;
+        CommonPersonObject personObject = null;
+
+        ArrayList<String> tablesOfInterestList = new ArrayList<>();
+        tablesOfInterestList.add(CoreConstants.TABLE_NAME.FAMILY);
+        tablesOfInterestList.add(CoreConstants.TABLE_NAME.ANC_MEMBER);
+
+        // NOTE: Doing this so that we avoid possible bugs when passing/determining the indices for respective tables to be used in the building the query
+        String[] tablesOfInterest = new String[tablesOfInterestList.size()];
+        tablesOfInterest = tablesOfInterestList.toArray(tablesOfInterest);
+
+        String query = CoreReferralUtils.mainAncDetailsSelect(tablesOfInterest, tablesOfInterestList.indexOf(CoreConstants.TABLE_NAME.FAMILY), tablesOfInterestList.indexOf(CoreConstants.TABLE_NAME.ANC_MEMBER), baseEntityId);
+        Timber.d("ANC Member CommonPersonObject Query %s", query);
+
+        try {
+            if (database == null) {
+                return null;
+            }
+            cursor = database.rawQuery(query, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                personObject = Utils.context().commonrepository(CoreConstants.TABLE_NAME.ANC_MEMBER).readAllcommonforCursorAdapter(cursor);
+            }
+        } catch (Exception ex) {
+            Timber.e(ex);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return personObject;
     }
 }

@@ -7,6 +7,7 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.helper.RulesEngineHelper;
 import org.smartregister.chw.core.repository.AncRegisterRepository;
+import org.smartregister.chw.core.repository.PncRegisterRepository;
 import org.smartregister.chw.core.repository.ScheduleRepository;
 import org.smartregister.chw.core.repository.WashCheckRepository;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
@@ -44,6 +45,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
 
     private static CommonFtsObject commonFtsObject = null;
     private static AncRegisterRepository ancRegisterRepository;
+    private static PncRegisterRepository pncRegisterRepository;
     private static TaskRepository taskRepository;
     private static PlanDefinitionRepository planDefinitionRepository;
     private static WashCheckRepository washCheckRepository;
@@ -72,6 +74,13 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
             ancRegisterRepository = new AncRegisterRepository(getInstance().getRepository());
         }
         return ancRegisterRepository;
+    }
+
+    public static PncRegisterRepository pncRegisterRepository() {
+        if (pncRegisterRepository == null) {
+            pncRegisterRepository = new PncRegisterRepository(getInstance().getRepository());
+        }
+        return pncRegisterRepository;
     }
 
     public static WashCheckRepository getWashCheckRepository() {
