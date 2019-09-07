@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.chw.core.R;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.domain.FamilyMember;
@@ -14,11 +15,14 @@ import org.smartregister.chw.core.interactor.CoreChildRegisterInteractor;
 import org.smartregister.chw.core.interactor.CoreFamilyProfileInteractor;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.model.CoreChildRegisterModel;
+import org.smartregister.chw.core.repository.AncRegisterRepository;
+import org.smartregister.chw.core.repository.PncRegisterRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
@@ -26,6 +30,7 @@ import org.smartregister.family.presenter.BaseFamilyProfilePresenter;
 import org.smartregister.view.LocationPickerView;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 
 import timber.log.Timber;
 
@@ -156,5 +161,33 @@ public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresen
             Timber.e(e);
         }
         return res;
+    }
+
+    public boolean isAncMember(String baseEntityId) {
+        return getAncRegisterRepository().checkIfAncWoman(baseEntityId);
+    }
+
+    public HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId) {
+        return getAncRegisterRepository().getFamilyNameAndPhone(baseEntityId);
+    }
+
+    public CommonPersonObject getAncCommonPersonObject(String baseEntityId) {
+        return getAncRegisterRepository().getAncCommonPersonObject(baseEntityId);
+    }
+
+    public CommonPersonObject getPncCommonPersonObject(String baseEntityId) {
+        return getPncRegisterRepository().getPncCommonPersonObject(baseEntityId);
+    }
+
+    public boolean isPncMember(String baseEntityId) {
+        return getPncRegisterRepository().checkIfPncWoman(baseEntityId);
+    }
+
+    private AncRegisterRepository getAncRegisterRepository() {
+        return CoreChwApplication.ancRegisterRepository();
+    }
+
+    private PncRegisterRepository getPncRegisterRepository() {
+        return CoreChwApplication.pncRegisterRepository();
     }
 }
