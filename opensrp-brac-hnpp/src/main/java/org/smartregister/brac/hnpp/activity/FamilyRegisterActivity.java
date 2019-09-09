@@ -11,7 +11,7 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
-import org.smartregister.brac.hnpp.model.FamilyRegisterModel;
+import org.smartregister.brac.hnpp.model.HnppFamilyRegisterModel;
 import org.smartregister.brac.hnpp.presenter.FamilyRegisterPresenter;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -22,7 +22,6 @@ import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.fragment.FamilyRegisterFragment;
 import org.smartregister.brac.hnpp.listener.HfFamilyBottomNavListener;
 import org.smartregister.family.contract.FamilyRegisterContract;
-import org.smartregister.family.model.BaseFamilyRegisterModel;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -110,7 +109,7 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
 
     @Override
     public FamilyRegisterContract.Presenter presenter() {
-        return new FamilyRegisterPresenter(this,new FamilyRegisterModel());
+        return new FamilyRegisterPresenter(this,new HnppFamilyRegisterModel());
     }
 
     @Override

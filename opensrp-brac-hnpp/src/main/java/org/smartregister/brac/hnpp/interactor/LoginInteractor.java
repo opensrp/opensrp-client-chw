@@ -1,15 +1,8 @@
 package org.smartregister.brac.hnpp.interactor;
 
-import org.smartregister.chw.core.job.CoreBasePncCloseJob;
-import org.smartregister.chw.core.job.HomeVisitServiceJob;
-import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
+import org.smartregister.brac.hnpp.job.SSLocationFetchJob;
 import org.smartregister.brac.hnpp.BuildConfig;
-import org.smartregister.immunization.job.VaccineServiceJob;
-import org.smartregister.job.ImageUploadServiceJob;
-import org.smartregister.job.PlanIntentServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
-import org.smartregister.job.SyncServiceJob;
-import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.login.interactor.BaseLoginInteractor;
 import org.smartregister.view.contract.BaseLoginContract;
 
@@ -31,6 +24,8 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 //
         PullUniqueIdsServiceJob.scheduleJob(PullUniqueIdsServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
                 BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue(BuildConfig.PULL_UNIQUE_IDS_MINUTES));
+        SSLocationFetchJob.scheduleJob(PullUniqueIdsServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
+                BuildConfig.PULL_SSLOCATION), getFlexValue(BuildConfig.PULL_SSLOCATION));
 //
 //        VaccineRecurringServiceJob.scheduleJob(VaccineRecurringServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
 //                BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES), getFlexValue(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES));
@@ -45,6 +40,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
     @Override
     protected void scheduleJobsImmediately() {
+        SSLocationFetchJob.scheduleJobImmediately(SSLocationFetchJob.TAG);
         //TODO need to open later
 //        super.scheduleJobsImmediately();
 //        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);

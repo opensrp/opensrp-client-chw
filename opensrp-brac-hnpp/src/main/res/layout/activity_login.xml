@@ -84,7 +84,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:lines="1"
-                android:text="test@ha.1"
+                android:text="royal@hnpp.com"
                 android:paddingLeft="10dp"
                 android:textColor="#666666"
                 android:textColorHint="#bfbfbf"

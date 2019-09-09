@@ -10,7 +10,8 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
-import org.smartregister.brac.hnpp.repository.HfChwRepository;
+import org.smartregister.brac.hnpp.location.SSLocationForm;
+import org.smartregister.brac.hnpp.repository.HnppChwRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
@@ -22,6 +23,8 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 
+import java.util.ArrayList;
+
 import timber.log.Timber;
 
 /**
@@ -29,11 +32,26 @@ import timber.log.Timber;
  */
 public class JsonFormUtils extends CoreJsonFormUtils {
     public static final String METADATA = "metadata";
+    public static final String VILLAGE_NAME = "village_name";
     public static final String ENCOUNTER_TYPE = "encounter_type";
 
+    public static JSONObject updateFormWithSSLocation(JSONObject form, ArrayList<SSLocationForm> ssLocationForms) throws Exception{
+
+        JSONArray jsonArray = new JSONArray();
+        for(SSLocationForm ssLocationForm : ssLocationForms){
+            jsonArray.put(ssLocationForm.name+" ("+ssLocationForm.locations.village.name+")");
+        }
+        JSONArray field = fields(form, STEP1);
+        JSONObject spinner = getFieldJSONObject(field, VILLAGE_NAME);
+        spinner.put(org.smartregister.family.util.JsonFormUtils.VALUE,jsonArray);
+        return form;
+
+
+    }
+
     public static JSONObject getFormAsJson(JSONObject form,
-                                           String formName, String id,
-                                           String currentLocationId) throws Exception {
+                                                      String formName, String id,
+                                                      String currentLocationId) throws Exception {
         if (form == null) {
             return null;
         }
@@ -116,7 +134,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
                 Context context = HnppApplication.getInstance().getContext().applicationContext();
                 addRelationship(context, ss, baseClient);
                 SQLiteDatabase db = HnppApplication.getInstance().getRepository().getReadableDatabase();
-                HfChwRepository pathRepository = new HfChwRepository(context, HnppApplication.getInstance().getContext());
+                HnppChwRepository pathRepository = new HnppChwRepository(context, HnppApplication.getInstance().getContext());
                 EventClientRepository eventClientRepository = new EventClientRepository(pathRepository);
                 JSONObject clientjson = eventClientRepository.getClient(db, lookUpBaseEntityId);
                 baseClient.setAddresses(getAddressFromClientJson(clientjson));

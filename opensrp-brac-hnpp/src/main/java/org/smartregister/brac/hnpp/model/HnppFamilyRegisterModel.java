@@ -2,26 +2,33 @@ package org.smartregister.brac.hnpp.model;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.smartregister.brac.hnpp.location.SSLocationForm;
+import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.utils.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.model.BaseFamilyRegisterModel;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.Utils;
-import org.smartregister.util.FormUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import timber.log.Timber;
+public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
 
-public class FamilyRegisterModel extends BaseFamilyRegisterModel {
+    public ArrayList<SSLocationForm> getSsLocationForms() {
+        return ssLocationForms;
+    }
+
+    private ArrayList<SSLocationForm> ssLocationForms = new ArrayList<>();
     @Override
     public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception {
         JSONObject form = getFormUtils().getFormJson(formName);
         if (form == null) {
             return null;
         }
+        updateSSNameLocation();
+        JsonFormUtils.updateFormWithSSLocation(form,getSsLocationForms());
         return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
     }
 
@@ -54,5 +61,9 @@ public class FamilyRegisterModel extends BaseFamilyRegisterModel {
         familyEventClientList.add(familyEventClient);
         //familyEventClientList.add(headEventClient);
         return familyEventClientList;
+    }
+
+    public void updateSSNameLocation(){
+        ssLocationForms.addAll(SSLocationHelper.getInstance().getSsLocationForms());
     }
 }

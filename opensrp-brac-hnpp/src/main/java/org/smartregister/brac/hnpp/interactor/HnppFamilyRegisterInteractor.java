@@ -3,12 +3,13 @@ package org.smartregister.brac.hnpp.interactor;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
+import org.smartregister.brac.hnpp.contract.HnppFamilyRegisterContract;
+import org.smartregister.brac.hnpp.location.SSLocationHelper;
+import org.smartregister.brac.hnpp.location.SSLocations;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.domain.UniqueId;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.family.contract.FamilyRegisterContract;
 import org.smartregister.family.domain.FamilyEventClient;
@@ -20,22 +21,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import timber.log.Timber;
+public class HnppFamilyRegisterInteractor extends org.smartregister.family.interactor.FamilyRegisterInteractor {
 
-public class FamilyRegisterInteractor extends org.smartregister.family.interactor.FamilyRegisterInteractor {
-    @Override
-    public void getNextUniqueId(Triple<String, String, String> triple, FamilyRegisterContract.InteractorCallBack callBack) {
+    public void getHouseHoldId(final SSLocations locationForm, HnppFamilyRegisterContract.InteractorCallBack callBack){
         Runnable runnable = new Runnable() {
             public void run() {
-                UniqueId uniqueId = getUniqueIdRepository().getNextUniqueId();
-                final String entityId = uniqueId != null ? uniqueId.getOpenmrsId() : "";
-                Log.v("HHID","uniqueId>>"+entityId);
+                String lastFourDigit = "";
+                String houseHoldId = SSLocationHelper.getInstance().generateHouseHoldId(locationForm,lastFourDigit);
+                Log.v("HHID","houseHoldId>>"+houseHoldId);
                 appExecutors.mainThread().execute(new Runnable() {
                     public void run() {
-                        if (StringUtils.isBlank(entityId)) {
-                            callBack.onNoUniqueId();
-                        } else {
-                            callBack.onUniqueIdFetched(triple, entityId);
+                        if (!StringUtils.isBlank(houseHoldId)) {
+                            callBack.updateHouseHoldId(houseHoldId);
                         }
 
                     }

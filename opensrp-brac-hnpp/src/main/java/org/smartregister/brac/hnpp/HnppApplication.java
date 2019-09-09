@@ -1,6 +1,5 @@
 package org.smartregister.brac.hnpp;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 
@@ -14,9 +13,9 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.P2POptions;
 import org.smartregister.brac.hnpp.custom_view.HnppNavigationTopView;
-import org.smartregister.brac.hnpp.repository.HfChwRepository;
+import org.smartregister.brac.hnpp.repository.HnppChwRepository;
+import org.smartregister.brac.hnpp.repository.SSLocationRepository;
 import org.smartregister.chw.anc.AncLibrary;
-import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -28,10 +27,9 @@ import org.smartregister.brac.hnpp.activity.AncRegisterActivity;
 import org.smartregister.brac.hnpp.activity.ChildRegisterActivity;
 import org.smartregister.brac.hnpp.activity.FamilyProfileActivity;
 import org.smartregister.brac.hnpp.activity.FamilyRegisterActivity;
-import org.smartregister.brac.hnpp.activity.LoginActivity;
 import org.smartregister.brac.hnpp.activity.ReferralRegisterActivity;
 import org.smartregister.brac.hnpp.custom_view.HnppNavigationMenu;
-import org.smartregister.brac.hnpp.job.HfJobCreator;
+import org.smartregister.brac.hnpp.job.HnppJobCreator;
 import org.smartregister.brac.hnpp.model.NavigationModel;
 import org.smartregister.brac.hnpp.sync.HfSyncConfiguration;
 import org.smartregister.chw.malaria.MalariaLibrary;
@@ -60,12 +58,14 @@ import timber.log.Timber;
 
 public class HnppApplication extends CoreChwApplication implements CoreApplication {
 
+    private static SSLocationRepository locationRepository;
+
     @Override
     public void onCreate() {
         super.onCreate();
         //init Job Manager
         SyncStatusBroadcastReceiver.init(this);
-        JobManager.create(this).addJobCreator(new HfJobCreator());
+        JobManager.create(this).addJobCreator(new HnppJobCreator());
 
         //Necessary to determine the right form to pick from assets
         CoreConstants.JSON_FORM.setLocaleAndAssetManager(HnppApplication.getCurrentLocale(),
@@ -121,6 +121,12 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
             saveLanguage(Locale.FRENCH.getLanguage());
         }
     }
+    public static SSLocationRepository getSSLocationRepository() {
+        if ( locationRepository == null) {
+            locationRepository = new SSLocationRepository(getInstance().getRepository());
+        }
+        return locationRepository;
+    }
 
     @Override
     public void logoutCurrentUser() {
@@ -150,7 +156,7 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
     public Repository getRepository() {
         try {
             if (repository == null) {
-                repository = new HfChwRepository(getInstance().getApplicationContext(), context);
+                repository = new HnppChwRepository(getInstance().getApplicationContext(), context);
             }
         } catch (UnsatisfiedLinkError e) {
             Timber.e(e);

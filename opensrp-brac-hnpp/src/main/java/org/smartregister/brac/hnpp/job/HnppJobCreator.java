@@ -23,11 +23,13 @@ import timber.log.Timber;
 /**
  *
  */
-public class HfJobCreator implements JobCreator {
+public class HnppJobCreator implements JobCreator {
     @Nullable
     @Override
     public Job create(@NonNull String tag) {
         switch (tag) {
+            case SSLocationFetchJob.TAG:
+                return new SSLocationFetchJob();
             case SyncServiceJob.TAG:
                 return new SyncServiceJob(SyncIntentService.class);
             case ExtendedSyncServiceJob.TAG:
