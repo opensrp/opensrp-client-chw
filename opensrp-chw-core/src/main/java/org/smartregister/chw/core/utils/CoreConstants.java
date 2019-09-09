@@ -14,6 +14,7 @@ public class CoreConstants {
     public static final String ENTITY_ID = "entity_id";
     public static final String REFERRAL_PLAN_ID = "5270285b-5a3b-4647-b772-c0b3c52e2b71";
     public static String EC_CLIENT_FIELDS = "ec_client_fields.json";
+    public static String IGNORE = "ignore";
 
     public enum VisitType {DUE, OVERDUE, LESS_TWENTY_FOUR, VISIT_THIS_MONTH, NOT_VISIT_THIS_MONTH, DONE, EXPIRY}
 
