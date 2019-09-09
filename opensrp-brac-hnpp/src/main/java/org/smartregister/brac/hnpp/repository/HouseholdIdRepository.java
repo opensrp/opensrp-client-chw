@@ -128,7 +128,8 @@ public class HouseholdIdRepository extends BaseRepository {
         Cursor cursor = null;
         try{
             cursor = getWritableDatabase().
-                    rawQuery("select village_id, count(*) as uncount from household_ids where status = 'not_used' group by village_id",null);
+                    rawQuery("select "+VILLAGE_ID_COLUMN+" , count(*) as uncount from " +
+                            HouseholdIds_TABLE_NAME + " where "+STATUS_COLUMN+" = 'not_used' group by "+VILLAGE_ID_COLUMN,null);
             if(cursor!=null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 while (cursor.getCount() > 0 && !cursor.isAfterLast()) {
