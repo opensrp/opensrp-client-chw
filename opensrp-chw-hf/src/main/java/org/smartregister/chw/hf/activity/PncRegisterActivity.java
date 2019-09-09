@@ -1,8 +1,8 @@
-package org.smartregister.chw.activity;
+package org.smartregister.chw.hf.activity;
 
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
-import org.smartregister.chw.fragment.PncRegisterFragment;
+import org.smartregister.chw.hf.fragment.PncRegisterFragment;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class PncRegisterActivity extends CorePncRegisterActivity {

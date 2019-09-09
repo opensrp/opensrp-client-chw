@@ -37,8 +37,6 @@ import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
-import org.smartregister.immunization.domain.Vaccine;
-import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
