@@ -28,6 +28,7 @@ import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.interactor.AncMemberProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileModel;
+import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -40,6 +41,7 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 
+import java.util.Date;
 import java.util.Set;
 
 import timber.log.Timber;
@@ -131,6 +133,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                 Timber.e(e, "AncMemberProfileActivity -- > onActivityResult");
             }
         } else if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
+            ChwScheduleTaskExecutor.getInstance().execute(MEMBER_OBJECT.getBaseEntityId(),CoreConstants.EventType.ANC_HOME_VISIT, new Date());
             finish();
         }
     }
