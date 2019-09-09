@@ -174,7 +174,7 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
         @Override
         protected void onPostExecute(Void param) {
             // Update child Icon
-            updateChildIcons(viewHolder, list, ancWomanCount, pncWomanCount, malariaCount);
+            updateChildIcons(viewHolder, list, ancWomanCount, pncWomanCount);
 
             // Update due column
             updateDueColumn(context, viewHolder, childVisit);
