@@ -357,6 +357,10 @@
     <string name="anc_danger_sign_prefix">ANC Danger Signs; Symptoms: %s</string>
     <string name="client_name_age_suffix">%s, %s</string>
 
+    <!--PNC -->
+    <string name="pnc_visit_day_due">DAY %s VISIT DUE</string>
+    <string name="pnc_visit_day_overdue">DAY %s OVERDUE</string>
+
     <!-- Completed tasks subtitles (text) -->
     <string name="family_planning">Family Planning</string>
     <string name="period_received">Period received</string>

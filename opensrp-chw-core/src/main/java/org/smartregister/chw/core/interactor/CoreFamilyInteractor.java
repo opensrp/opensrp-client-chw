@@ -8,8 +8,6 @@ import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import timber.log.Timber;
 
 public abstract class CoreFamilyInteractor {
