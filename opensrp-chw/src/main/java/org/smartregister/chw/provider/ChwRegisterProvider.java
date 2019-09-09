@@ -150,6 +150,7 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
         private List<Map<String, String>> list;
         private int ancWomanCount;
         private int pncWomanCount;
+        private int malariaCount;
         private ChildVisit childVisit;
 
         private UpdateAsyncTask(Context context, RegisterViewHolder viewHolder, String familyBaseEntityId) {
@@ -164,6 +165,7 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
             list = getChildren(familyBaseEntityId);
             ancWomanCount = ChwApplication.ancRegisterRepository().getAncPncWomenCount(familyBaseEntityId, CoreConstants.TABLE_NAME.ANC_MEMBER);
             pncWomanCount = ChwApplication.ancRegisterRepository().getAncPncWomenCount(familyBaseEntityId, CoreConstants.TABLE_NAME.PNC_MEMBER);
+            malariaCount = ChwApplication.malariaRegisterRepository().getMalariaCount(familyBaseEntityId, CoreConstants.TABLE_NAME.PNC_MEMBER);
             childVisit = mergeChildVisits(retrieveChildVisitList(rules, list));
 
             return null;
@@ -172,7 +174,7 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
         @Override
         protected void onPostExecute(Void param) {
             // Update child Icon
-            updateChildIcons(viewHolder, list, ancWomanCount, pncWomanCount);
+            updateChildIcons(viewHolder, list, ancWomanCount, pncWomanCount, malariaCount);
 
             // Update due column
             updateDueColumn(context, viewHolder, childVisit);
