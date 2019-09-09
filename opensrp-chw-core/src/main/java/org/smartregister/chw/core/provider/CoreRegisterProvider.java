@@ -68,7 +68,7 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
         }
     }
 
-    private void updateMalariaIcons(RegisterViewHolder viewHolder, int malariaCount) {
+    protected void updateMalariaIcons(RegisterViewHolder viewHolder, int malariaCount) {
         for (int i = 1; i <= malariaCount; i++) {
             ImageView imageView = new ImageView(context);
             imageView.setImageResource(R.drawable.row_malaria);
@@ -77,11 +77,10 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
         }
     }
 
-    protected void updateChildIcons(RegisterViewHolder viewHolder, List<Map<String, String>> list, int ancWomanCount, int pncWomanCount, int malariaCount) {
+    protected void updateChildIcons(RegisterViewHolder viewHolder, List<Map<String, String>> list, int ancWomanCount, int pncWomanCount) {
 
         updatePncAncIcons(viewHolder, ancWomanCount, CoreConstants.TABLE_NAME.ANC_MEMBER);
         updatePncAncIcons(viewHolder, pncWomanCount, CoreConstants.TABLE_NAME.PNC_MEMBER);
-        updateMalariaIcons(viewHolder, malariaCount);
 
         if (list != null && !list.isEmpty()) {
             ImageView imageView;

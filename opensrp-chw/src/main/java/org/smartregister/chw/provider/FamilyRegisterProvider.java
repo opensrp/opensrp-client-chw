@@ -146,7 +146,8 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         @Override
         protected void onPostExecute(Void param) {
             // Update child Icon
-            updateChildIcons(viewHolder, list, ancWomanCount, pncWomanCount, malariaCount);
+            updateChildIcons(viewHolder, list, ancWomanCount, pncWomanCount);
+            updateMalariaIcons(viewHolder, malariaCount);
             updateButtonState(context, viewHolder, services);
         }
     }
