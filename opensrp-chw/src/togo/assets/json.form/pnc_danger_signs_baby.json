@@ -140,10 +140,12 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "chk_fever",
-                  "chk_prolonged_bleeding",
-                  "chk_severe_headache",
-                  "chk_convulsions",
+                  "chk_fast_breathing",
+                  "chk_chest_indrawing",
+                  "chk_low_or_high_temp",
+                  "chk_refuses_to_suckle",
+                  "chk_unable_to_suck",
+                  "chk_no_movement",
                   "chk_convulsion",
                   "chk_jaundice"
                 ]

@@ -16,11 +16,15 @@ import java.util.Date;
 import java.util.List;
 
 public class PNCVisitScheduler extends BaseTaskExecutor {
+    @Override
+    public void resetSchedule(String baseEntityID, String scheduleName) {
+        super.resetSchedule(baseEntityID, scheduleName);
+        ChwApplication.getInstance().getScheduleRepository().deleteScheduleByGroup(getScheduleGroup(), baseEntityID);
+    }
 
     @Override
     public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate) {
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
-        baseScheduleTask.setScheduleGroupName(CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
 
         Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.PNC_HOME_VISIT);
         Date deliveryDate = PNCDao.getPNCDeliveryDate(baseEntityID);
@@ -44,5 +48,10 @@ public class PNCVisitScheduler extends BaseTaskExecutor {
     @Override
     public String getScheduleName() {
         return CoreConstants.SCHEDULE_TYPES.PNC_VISIT;
+    }
+
+    @Override
+    public String getScheduleGroup() {
+        return CoreConstants.SCHEDULE_GROUPS.HOME_VISIT;
     }
 }

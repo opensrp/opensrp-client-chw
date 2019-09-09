@@ -15,12 +15,16 @@ import java.util.Date;
 import java.util.List;
 
 public class ChildHomeVisitScheduler extends BaseTaskExecutor {
+    @Override
+    public void resetSchedule(String baseEntityID, String scheduleName) {
+        super.resetSchedule(baseEntityID, scheduleName);
+        ChwApplication.getInstance().getScheduleRepository().deleteScheduleByGroup(getScheduleGroup(), baseEntityID);
+    }
 
     @Override
     public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate) {
         // recompute the home visit task for this child
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
-        baseScheduleTask.setScheduleGroupName(CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
 
         ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(Constants.TABLE_NAME.CHILD, baseEntityID);
         String yearOfBirth = PersonDao.getDob(baseEntityID);
@@ -41,6 +45,11 @@ public class ChildHomeVisitScheduler extends BaseTaskExecutor {
     @Override
     public String getScheduleName() {
         return CoreConstants.SCHEDULE_TYPES.CHILD_VISIT;
+    }
+
+    @Override
+    public String getScheduleGroup() {
+        return CoreConstants.SCHEDULE_GROUPS.HOME_VISIT;
     }
 
 }

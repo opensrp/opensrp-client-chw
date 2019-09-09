@@ -42,6 +42,7 @@
 
     <!-- Referrals-->
     <dimen name="referral_list_item_width">100dp</dimen>
+    <dimen name="referral_item_margin">8dp</dimen>
 
 
 </resources>
