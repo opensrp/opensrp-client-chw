@@ -3,6 +3,7 @@ package org.smartregister.chw.core.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
@@ -11,12 +12,14 @@ import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
+import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.custom_views.FamilyFloatingMenu;
@@ -24,6 +27,8 @@ import org.smartregister.chw.core.event.PermissionEvent;
 import org.smartregister.chw.core.listener.FloatingMenuListener;
 import org.smartregister.chw.core.presenter.CoreFamilyProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
@@ -31,6 +36,8 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.PermissionUtils;
+
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
@@ -193,13 +200,6 @@ public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivit
         return (CoreFamilyProfilePresenter) presenter;
     }
 
-    protected void setPrimaryCaregiver(String caregiver) {
-        if (StringUtils.isNotBlank(caregiver)) {
-            this.primaryCaregiver = caregiver;
-            getIntent().putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, caregiver);
-        }
-    }
-
     protected abstract void refreshPresenter();
 
     private void refreshMemberFragment(String careGiverID, String familyHeadID) {
@@ -215,10 +215,25 @@ public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivit
         }
     }
 
+    protected String getFamilyHead() {
+        return this.familyHead;
+    }
+
     protected void setFamilyHead(String head) {
         if (StringUtils.isNotBlank(head)) {
             this.familyHead = head;
             getIntent().putExtra(Constants.INTENT_KEY.FAMILY_HEAD, head);
+        }
+    }
+
+    protected String getPrimaryCaregiver() {
+        return this.primaryCaregiver;
+    }
+
+    protected void setPrimaryCaregiver(String caregiver) {
+        if (StringUtils.isNotBlank(caregiver)) {
+            this.primaryCaregiver = caregiver;
+            getIntent().putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, caregiver);
         }
     }
 
@@ -284,4 +299,26 @@ public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivit
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(() -> adapter.updateCount(Pair.create(1, dueCount)));
     }
+
+    protected abstract void goToProfileActivity(View view, Bundle fragmentArguments);
+
+    protected abstract Class<?> getFamilyOtherMemberProfileActivityClass();
+
+    protected abstract Class<? extends CoreAboveFiveChildProfileActivity> getAboveFiveChildProfileActivityClass();
+
+    protected abstract Class<? extends CoreChildProfileActivity> getChildProfileActivityClass();
+
+    protected abstract Class<? extends BaseAncMemberProfileActivity> getAncMemberProfileActivityClass();
+
+    protected abstract Class<? extends BasePncMemberProfileActivity> getPncMemberProfileActivityClass();
+
+    protected abstract boolean isAncMember(String baseEntityId);
+
+    protected abstract HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId);
+
+    protected abstract CommonPersonObject getAncCommonPersonObject(String baseEntityId);
+
+    protected abstract CommonPersonObject getPncCommonPersonObject(String baseEntityId);
+
+    protected abstract boolean isPncMember(String baseEntityId);
 }
