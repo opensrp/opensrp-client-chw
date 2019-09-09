@@ -76,29 +76,24 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
 
         String baseID = (isHead && StringUtils.isNotBlank(familyHeadID)) ? familyHeadID : primaryCaregiverID;
 
-
         final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyMemberRegister.tableName).findByBaseEntityId(baseID);
-        final CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
-        client.setColumnmaps(personObject.getColumnmaps());
-
-        String phoneNumber = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, false);
-        String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
-        String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, false);
-        String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, false);
-
         FamilyCallDialogModel model = new FamilyCallDialogModel();
-        model.setPhoneNumber(phoneNumber);
-        model.setName(
-                String.format("%s %s",
-                        String.format("%s %s", firstName, middleName).trim(),
-                        lastName
-                )
-        );
 
-        model.setRole((primaryCaregiverID.toLowerCase().equals(familyHeadID.toLowerCase()))
-                ? String.format("%s, %s", context.getString(R.string.head_of_family), context.getString(R.string.care_giver))
-                : (isHead ? context.getString(R.string.head_of_family)
-                : context.getString(R.string.care_giver)));
+        if (personObject != null) {
+            final CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
+            client.setColumnmaps(personObject.getColumnmaps());
+            String phoneNumber = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, false);
+            String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
+            String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, false);
+            String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, false);
+            model.setPhoneNumber(phoneNumber);
+            model.setName(String.format("%s %s", String.format("%s %s", firstName, middleName).trim(), lastName));
+
+            model.setRole((primaryCaregiverID.toLowerCase().equals(familyHeadID.toLowerCase()))
+                    ? String.format("%s, %s", context.getString(R.string.head_of_family), context.getString(R.string.care_giver))
+                    : (isHead ? context.getString(R.string.head_of_family)
+                    : context.getString(R.string.care_giver)));
+        }
 
         return model;
     }
