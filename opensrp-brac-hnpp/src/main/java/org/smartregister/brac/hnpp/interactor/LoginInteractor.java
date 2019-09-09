@@ -1,6 +1,10 @@
 package org.smartregister.brac.hnpp.interactor;
 
 import org.smartregister.brac.hnpp.job.SSLocationFetchJob;
+import org.smartregister.brac.hnpp.job.PullHouseholdIdsServiceJob;
+import org.smartregister.chw.core.job.CoreBasePncCloseJob;
+import org.smartregister.chw.core.job.HomeVisitServiceJob;
+import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.brac.hnpp.BuildConfig;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.login.interactor.BaseLoginInteractor;
@@ -26,6 +30,8 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
                 BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue(BuildConfig.PULL_UNIQUE_IDS_MINUTES));
         SSLocationFetchJob.scheduleJob(PullUniqueIdsServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
                 BuildConfig.PULL_SSLOCATION), getFlexValue(BuildConfig.PULL_SSLOCATION));
+        PullHouseholdIdsServiceJob.scheduleJob(PullHouseholdIdsServiceJob.TAG,
+                TimeUnit.MINUTES.toMinutes(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue(BuildConfig.PULL_UNIQUE_IDS_MINUTES));
 //
 //        VaccineRecurringServiceJob.scheduleJob(VaccineRecurringServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
 //                BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES), getFlexValue(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES));

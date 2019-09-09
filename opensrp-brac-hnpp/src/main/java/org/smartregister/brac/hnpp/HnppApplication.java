@@ -15,6 +15,7 @@ import org.smartregister.P2POptions;
 import org.smartregister.brac.hnpp.custom_view.HnppNavigationTopView;
 import org.smartregister.brac.hnpp.repository.HnppChwRepository;
 import org.smartregister.brac.hnpp.repository.SSLocationRepository;
+import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreApplication;
@@ -58,6 +59,8 @@ import timber.log.Timber;
 
 public class HnppApplication extends CoreChwApplication implements CoreApplication {
 
+    private HouseholdIdRepository householdIdRepository;
+
     private static SSLocationRepository locationRepository;
 
     @Override
@@ -72,7 +75,7 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
                 HnppApplication.getInstance().getApplicationContext().getAssets());
 
         //Setup Navigation menu. Done only once when app is created
-        NavigationMenu.setupNavigationMenu(this,new HnppNavigationTopView(), new HnppNavigationMenu(), new NavigationModel(),
+        NavigationMenu.setupNavigationMenu(this, new HnppNavigationTopView(), new HnppNavigationMenu(), new NavigationModel(),
                 getRegisteredActivities(), false);
 
         if (BuildConfig.DEBUG) {
@@ -128,16 +131,20 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
         return locationRepository;
     }
 
+    public static synchronized HnppApplication getHNPPInstance() {
+        return (HnppApplication) mInstance;
+    }
+
     @Override
     public void logoutCurrentUser() {
         //TODO need_to_open
-//        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.addCategory(Intent.CATEGORY_HOME);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        getApplicationContext().startActivity(intent);
-//        context.userService().logoutSession();
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getApplicationContext().startActivity(intent);
+        context.userService().logoutSession();
 //        Timber.i("Logged out user %s", getContext().allSharedPreferences().fetchRegisteredANM());
     }
 
@@ -164,6 +171,13 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
         return repository;
     }
 
+    public HouseholdIdRepository getHouseholdIdRepository() {
+        if (householdIdRepository == null) {
+            householdIdRepository = new HouseholdIdRepository((HfChwRepository) getRepository());
+        }
+        return householdIdRepository;
+    }
+
     public void setOpenSRPUrl() {
         AllSharedPreferences preferences = Utils.getAllSharedPreferences();
         if (BuildConfig.DEBUG) {
@@ -172,6 +186,7 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
             preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url);
         }
     }
+
     @Override
     public FamilyMetadata getMetadata() {
         FamilyMetadata metadata = new FamilyMetadata(FamilyWizardFormActivity.class, FamilyWizardFormActivity.class, FamilyProfileActivity.class, CoreConstants.IDENTIFIER.UNIQUE_IDENTIFIER_KEY, false);
