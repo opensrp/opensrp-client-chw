@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.smartregister.brac.hnpp.R;
+import org.smartregister.brac.hnpp.job.PullHouseholdIdsServiceJob;
 import org.smartregister.brac.hnpp.presenter.LoginPresenter;
+import org.smartregister.brac.hnpp.sync.intent.PullHouseholdIdIntentService;
 import org.smartregister.family.util.Constants;
 import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.util.Utils;
@@ -18,6 +20,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -54,6 +57,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         Intent intent = new Intent(this, FamilyRegisterActivity.class);
         intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
         startActivity(intent);
+        PullHouseholdIdsServiceJob.scheduleJobImmediately(PullHouseholdIdsServiceJob.TAG);
     }
 
 }

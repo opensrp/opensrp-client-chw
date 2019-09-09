@@ -34,6 +34,8 @@ public class HfJobCreator implements JobCreator {
                 return new ExtendedSyncServiceJob();
             case PullUniqueIdsServiceJob.TAG:
                 return new PullUniqueIdsServiceJob();
+            case PullHouseholdIdsServiceJob.TAG:
+                return new PullHouseholdIdsServiceJob();
             case ValidateSyncDataServiceJob.TAG:
                 return new ValidateSyncDataServiceJob();
             case ImageUploadServiceJob.TAG:
