@@ -1,5 +1,6 @@
 package org.smartregister.chw.core.presenter;
 
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.BaseReferralRegisterFragmentContract;
 import org.smartregister.chw.core.interactor.CoreReferralInteractor;
 import org.smartregister.chw.core.model.BaseReferralModel;
@@ -23,7 +24,9 @@ public class BaseReferralFragmentPresenter implements BaseReferralRegisterFragme
 
     @Override
     public void processViewConfigurations() {
-        //// TODO: 15/08/19
+        if (view != null) {
+            view.updateSearchBarHint(view.getContext().getString(R.string.search_name_or_id));
+        }
     }
 
     @Override
