@@ -124,13 +124,28 @@ public class HouseholdIdRepository extends BaseRepository {
 
     public String getUnusedVillageId(){
         String vid = "0";
+        String ids = "";
         Cursor cursor = null;
         try{
             cursor = getWritableDatabase().
-                    rawQuery("select village_id, count(*) as uncount from household_ids where status = 'not_used' group by village_id having uncount =  0",null);
+                    rawQuery("select village_id, count(*) as uncount from household_ids where status = 'not_used' group by village_id",null);
             if(cursor!=null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
-                vid = cursor.getString(0);
+                while (cursor.getCount() > 0 && !cursor.isAfterLast()) {
+                    vid = cursor.getString(0);
+                    int vid_count = cursor.getInt(1);
+                    if(vid_count<10){
+                        ids = ids + vid + ",";
+                    }
+                }
+                if(!ids.isEmpty()){
+                    ids = ids.substring(0,ids.length()-1);
+                    return ids;
+                }else{
+                    return "-1";
+                }
+
+            }else{
                 return vid;
             }
         }catch(SQLException e){
