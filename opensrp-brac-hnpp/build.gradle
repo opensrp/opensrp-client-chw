@@ -35,7 +35,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         buildConfigField "String", 'opensrp_url', '"http://opensrpha.mpower-social.com:8080/opensrp/"'
-        buildConfigField "String", 'opensrp_url_debug', '"http://opensrpha.mpower-social.com:8080/opensrp/"'
+        buildConfigField "String", 'opensrp_url_debug', '"http://192.168.22.152:8080/opensrp/"'
         buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
         buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
         buildConfigField "boolean", 'SUPPORT_QR', 'false'

@@ -26,6 +26,12 @@ public class HfChwRepository extends CoreChwRepository {
     }
 
     @Override
+    public void onCreate(SQLiteDatabase database) {
+        super.onCreate(database);
+        HouseholdIdRepository.createTable(database);
+    }
+
+    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.w(HfChwRepository.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
