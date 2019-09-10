@@ -26,8 +26,6 @@
 
     <string name="edit">EDIT</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="visit_not_done_btn_child_profile">Visit not done</string>
     <string name="medical_history">Medical History</string>
     <string name="fully_immunized_at_age">Fully immunized at age %1$s</string>
@@ -53,7 +51,6 @@
 
     <string name="cancel">CANCEL</string>
     <string name="submit">SUBMIT</string>
-
 
     <string name="dose_not_given">DOSE NOT GIVEN</string>
     <string name="has_birt_cert">Has birth certificate?</string>
