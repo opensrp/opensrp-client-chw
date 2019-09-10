@@ -1,0 +1,293 @@
+<resources>
+
+    <string name="nav_logo">Appli CFC</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="password">Mot de passe</string>
+
+    <string name="menu_all_families">Ménages</string>
+    <string name="menu_anc_clients">Clients CPN</string>
+    <string name="menu_child_clients">Enfants Clients</string>
+    <string name="menu_hiv_clients">Clients VIH</string>
+
+    <string name="child_register_title">Enfants Clients</string>
+    <string name="return_to_all_children">Revenir à tous les enfants</string>
+    <string name="back_to_children">Revenir à %1$s</string>
+    <string name="child_details">Détails sur l\'enfant %1$s</string>
+    <string name="not_given">N\'a pas été donné</string>
+    <string name="given">Donné</string>
+    <string name="provided_on">Fourni le %1$s</string>
+    <string name="given_on">Donné le %1$s</string>
+    <string name="search_name_or_id">Rechercher par nom ou id</string>
+
+    <string name="navigation_drawer_open">Ouvrir</string>
+    <string name="navigation_drawer_close">Fermer</string>
+
+    <string name="action_log_out">Déconnexion</string>
+    <string name="action_start_sync">Synchronisation démarrée</string>
+    <string name="action_sync_failed">Synchronisation échouée</string>
+
+    <!-- Navigation Strings -->
+    <string name="nav_registers">Registres</string>
+    <string name="nav_logout_as">Déconnexion</string>
+    <string name="nav_sync">Synchro.</string>
+    <string name="nav_last">Dernier:</string>
+    <string name="nav_last_sync_time">HH:mm a , MMM DD</string>
+
+    <string name="call">Appel</string>
+    <string name="call_no_number_provided">(aucun numéro fourni)</string>
+    <string name="family_details">Détails sur le ménage</string>
+    <string name="add_new_family_member">Ajouter un nouveau membre au ménage</string>
+    <string name="remove_existing_family_member">Enlever un membre du ménage</string>
+    <string name="change_family_head">Changer le chef de ménage</string>
+    <string name="change_primary_caregiver">Changer la gardienne</string>
+    <string name="add_other_family_member">Autre membre de ménage</string>
+    <string name="add_child_under_five">Enfant de moins de 5 ans</string>
+
+    <string name="add_member_title">Ajouter un membre du ménage</string>
+    <string name="add_member_title_question">Quel type de membre voulez vous ajouter?</string>
+    <string name="change_head_member_title">Changer le chef de ménage</string>
+    <string name="change_head_member_title_question">Sélectionner nouveau chef de ménage</string>
+    <string name="change_caregiver_member_title">Changer la gardienne</string>
+    <string name="change_caregiver_member_title_question">Sélectionner un nouveau gardienne</string>
+    <string name="remove_member_title">Enlever membre </string>
+    <string name="remove_member_prompt">Quel membre voulez vous enlever?</string>
+    <string name="visit_month">Visite de %1$s faite</string>
+    <string name="record_visit">Enregistrer visite</string>
+    <string name="return_to_family_name">Retourner au ménage %1$s</string>
+    <string name="return_to_family_members">Retourner aux membres du ménage</string>
+    <string name="save_title">ENREGISTRER</string>
+
+    <string name="allow_calls_denied">Veuillez autoriser les appels ici</string>
+    <string name="copy_to_clipboard">Copier dans le presse-papier</string>
+    <string name="copied_phone_number">Numéro de téléphone copié dans le presse-papier</string>
+
+    <string name="record_home_visit">Enregistrer \nVisite a Domicile</string>
+    <string name="visit_not_done">Visite n\'a pas \neu lieu</string>
+    <string name="visit_done">Visite faite</string>
+    <string name="due_visit">Dernière visite \n %1$s</string>
+    <string name="medical_title">Retour à profil de %1$s</string>
+    <string name="medical_last_visit">Depuis %1$s </string>
+    <string name="growth_and_nutrition">CROISSANCE ET NUTRITION</string>
+    <string name="immunization">IMMUNISATION</string>
+    <string name="when_vaccines_given_text">Quand est-ce que ces vaccinations ont été effectuées?</string>
+    <string name="fully_immunized_at_age_2">Complètement Vacciné à l\'âge de 2 ans</string>
+    <string name="fully_immunized_at_age_1">Complètement Vacciné à l\'âge de 1 ans</string>
+    <string name="health_child_milestone">Étape -Jalon- importante pour un enfant en bonne santé</string>
+    <string name="exclusive_feeding">L\'enfant a t-il bu ou mangé du liquide ou de la nourriture autre que le lait maternel depuis hier et hier soir?</string>
+    <string name="vitamin_given">Quand est-ce que %1$s a était donné?</string>
+    <string name="exclusive_breastfeeding">Allaitement maternel exclusif</string>
+    <string name="deworming">Déparasitage</string>
+    <string name="vaccine_card_text">L\'enfant a t-il ou elle reçu son carnet de vaccination ou carnet mère et Enfant?</string>
+    <string name="vaccine_card_title">Carnet de vaccination infantile reçu</string>
+    <string name="record_immunizations">Enregistrer les vaccinations</string>
+    <string name="updating">Mise à jour en cours...</string>
+    <string name="birth_certification">Acte de naissance</string>
+    <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optional</i>]]></string>
+    <string name="observations_illness_episodes_medical"><![CDATA[Observations & Épisodes de maladies]]></string>
+    <string name="home_visit_suffix"> &#183; Visite à domicile</string>
+
+    <string name="interpunct">・</string>
+    <string name="home_visit">Visite à domicile</string>
+
+    <string name="day">jour</string>
+    <string name="days">jours</string>
+    <string name="week">semaine</string>
+    <string name="weeks">semaines</string>
+    <string name="month">mois</string>
+    <string name="months">mois</string>
+    <string name="year">année</string>
+    <string name="years">années</string>
+
+    <string name="family">Ménage %s </string>
+    <string name="remove_entire_family">Enlever le ménage</string>
+    <string name="remove_warning_family">Êtes-vous certain de vouloir supprimer le dossier du ménage %s ? Cette action va enlever le dossier au complet ET toutes les données de santé sur le ménage %sseront éffacées de votre appareil. Cette action ne peût pas être annulée.</string>
+    <string name="cancel">ANNULER</string>
+    <string name="profile_change_dialog_message">Avant d\'enlever ce membre du ménage, vous devez sélectionner un nouveau chef de ménage.</string>
+    <string name="select_caregiver">Sélectionner un nouveau gardienne</string>
+    <string name="select_family_head">Sélectionner un nouveau chef de ménage</string>
+    <string name="remove_caregiver_warning_message">Avant d\'enlever ce membre du ménage, vous devez sélectionner un nouveau gardienne.</string>
+    <string name="remove_familyhead_warning_message">Avant d\'enlever ce membre du ménage vous devez sélectionner un nouveau chef de ménage.</string>
+
+    <string name="visit_months">mois</string>
+    <string name="visit_dose">dose</string>
+    <string name="visit_pack">sachet</string>
+    <string name="visit_exclusive_breastfeeding">Allaitement maternel exclusif</string>
+    <string name="visit_mnp_dose">Dose de PMN</string>
+    <string name="visit_vitamin_a_dose">Dose de Vitamine A</string>
+    <string name="visit_deworming_dose">Dose de déparasitant</string>
+
+    <string name="growth_nutrition">Croissance et nutrition</string>
+    <string name="call_prompt">APPELER %s</string>
+    <string name="care_giver">Gardienne</string>
+    <string name="status_saving">Enregistrement</string>
+    <string name="fill_earler_immunization"><![CDATA[<i>Enregistrer les vaccinations effectuées avant aujourd\'hui</i>]]></string>
+    <string name="confirm_remove_text">Êtes-vous certain de vouloir supprimer le dossier de %s? Cette action va enlever le dossier au complet de votre appareil. Cette action ne peût pas être annulée.</string>
+    <string name="remove">ENLEVER</string>
+
+    <string name="when_vaccine">Quand est-ce que la vaccination de %s a été éffectuée?</string>
+    <string name="no_vaccines_were_done">Aucun vaccinations n\'a été effectuée</string>
+    <string name="edit_member_form_title">Corriger membre du ménage</string>
+    <string name="edit_anc_registration_form_title">Corriger Enregistrement CPN</string>
+    <string name="anc_registration_form_title">Enregistrement CPN</string>
+    <string name="anc_pregnancy_outcome_form_title">Issue de la grossesse</string>
+
+    <string name="last_visit">DERNIÈRE VISITE</string>
+    <string name="edit_child_form_title">Corriger enfant de moins de 5 ans</string>
+
+    <string name="remove_family_count">%s adultes et %s enfants de moins de 5 ans</string>
+    <string name="not_given_with_spaces">&#160;n\'a pas été donné&#160;</string>
+    <string name="given_on_with_spaces">&#160;Donné le&#160;</string>
+    <string name="immunizations">Vaccination (%s)</string>
+    <string name="immunizations_count">Vaccination ({0})</string>
+    <string name="phone_number">Numéro de téléphone</string>
+    <string name="other_phone_number">Autre numéro de téléphone</string>
+    <string name="overdue">En retard&#160;</string>
+    <string name="due">Attendu&#160;</string>
+    <string name="remove_this_person">Enlever cette personne</string>
+    <string name="registration_info">Information d\'enregistrement</string>
+    <string name="anc_registration">Enregistrement CPN</string>
+    <string name="malaria_registration">Confirmation pour paludisme</string>
+    <string name="anc_registration_info">Infos d\'Enregistrement CPN</string>
+    <string name="anc_pregnancy_out_come">Issue de la grossesse</string>
+    <string name="log_out_as">Déconnexion</string>
+
+    <string name="powered_by">Réalisé par</string>
+    <string name="call_caregiver">Appellez la gardienne</string>
+    <string name="caregiver">Gardienne</string>
+    <string name="select_a_new_family_head">Sélectionner un nouveau chef de ménage</string>
+    <string name="all_registers">Toutes les registres</string>
+    <string name="menu_child">CH</string>
+    <string name="menu_anc">Clients CPN</string>
+    <string name="menu_pnc">Clients CPoN</string>
+    <string name="menu_malaria">Paludisme</string>
+    <string name="refer_to_facility">Référer au centre de santé</string>
+
+    <string name="due_only">Attendu</string>
+    <string name="care_giver_initials">G</string>
+    <string name="less_than_twenty_four">moins de 24 h</string>
+
+    <string name="january">Janvier</string>
+    <string name="february">Février</string>
+    <string name="march">Mars</string>
+    <string name="april">Avril</string>
+    <string name="may">Mai</string>
+    <string name="june">Juin</string>
+    <string name="july">Juillet</string>
+    <string name="august">Août</string>
+    <string name="september">Septembre</string>
+    <string name="october">Octobre</string>
+    <string name="november">Novembre</string>
+    <string name="december">Décembre</string>
+    <string name="no_services_due">Aucun service attendu</string>
+    <string name="due_details">Quand un membre du ménage doit recevoir une service, il sera affiché ici</string>
+
+    <string name="edu_level_none">Aucun</string>
+    <string name="edu_level_primary">Primaire</string>
+    <string name="edu_level_secondary">Secondaire</string>
+    <string name="edu_level_post_secondary">Université</string>
+
+    <!-- home visit strings-->
+    <string name="anc_home_visit_anc_card_received">Carnet CPN reçu</string>
+
+    <string name="device_to_device">Synchro entre appareils</string>
+    <string name="choose_language">Choisir la langue</string>
+    <string name="minimum_dietary_title">Diversité alimentaire minimum</string>
+    <string name="minimum_question_lebel">L\'enfant a-t-il ou elle reçu des produits animaliers (tels que des oeufs, le foie, le lait) ou des fruits dans les dernières 24 heures?</string>
+    <string name="minimum_dietary_choice_1">0 - aucun produits animal ou fruits</string>
+    <string name="minimum_dietary_choice_2">1 - un produit animal ou un fruit</string>
+    <string name="minimum_dietary_choice_3">2 - un produit animal ET un fruit</string>
+    <string name="muac_title">Périmètre Brachial (PB)</string>
+    <string name="muac_question_label">Quel est la couleur du ruban PB pour l\'enfant?</string>
+    <string name="muac_choice_1">Vert</string>
+    <string name="muac_choice_2">Jaune</string>
+    <string name="muac_choice_3">Rouge</string>
+    <string name="llitn_title">Dors sous un MILDA</string>
+    <string name="ecd_title">Dévéloppement de la petite enfance (DPE)</string>
+
+    <string name="anc_health_facility_visits">VISITE CPN A LA FORMATION SANITAIRE</string>
+    <string name="anc_card">CARNET CPN</string>
+    <string name="anc_tt_immunization">VAT</string>
+    <string name="anc_iptp_sp">DOSE SP</string>
+    <string name="urine_analysis">Analyse urinaire</string>
+    <string name="hiv_test">Dépistage VIH</string>
+    <string name="syphilis_test">Dépistage Syphilis</string>
+
+    <string name="days_ago">il y a {0} jours</string>
+    <string name="vaccines_done_date">{0} - fait {1}</string>
+    <string name="anc_visit_date">Visite CPN {0}: {1}</string>
+    <string name="weight_in_kgs">Poids: {0} kgs</string>
+    <string name="bp_in_mmhg">PD: {0}/{1} mmHg</string>
+    <string name="hb_level_in_g_dl">Niveau d\'hémoglobine: %s g/dl</string>
+    <string name="ifa_received_status">FAF reçu: {0}</string>
+    <string name="tests_done_details">Examens effectués: {0}</string>
+
+    <string name="llitn_label">La femme dors-t-elle sous un moustiquaire imprégnée d\'insecticide de longue d\'Action (MILDA)?</string>
+    <string name="llitn_label_child">L\'enfant dors-t-il ou elle sous un moustiquaire imprégnée d\'insecticides de longue d\'Action (MILDA)?</string>
+    <string name="llitn_info_title">La femme enceinte dors - t-ell sous MILDA</string>
+    <string name="llitn_info_text">Le paludisme est très dangereux pour les femmes enceintes. Dans les zones où le paludisme est présent, les femmes devraient prévenir la maladie en prennant les comprimés antipaludéens tels que recommandées par un agent sanitaires formé et en dormant sou une moustiquaire imprégnée d\'insecticide.</string>
+    <string name="dev_warning_sign">Signes d\'avertissement d\'un retard potentiel dans le développment de l\'enfant:</string>
+    <string name="care_stim_skill">Compétences de stimulation de la gardienne:</string>
+    <string name="early_learning"> Programme d\'apprentissage précoce pour la petite enfance:</string>
+    <string name="malaria_follow_up">Visite de suivi du paludisme</string>
+    <string name="follow_up_visit">Visite de suivi</string>
+
+    <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number
+ as defined in the data dictionary -->
+    <string name="pnc_visit_day_due">JOUR %s VISITE DUE</string>
+    <string name="pnc_visit_day_overdue">JOUR %s VISITE EN RETARD</string>
+    <string name="number_8_16">Le numéro doit être composé de 8 à 16 chiffres</string>
+
+    <string name="handwashing_facilities">Le ménage dispose-t-il d\'un dispositive pour se laver les mains?</string>
+    <string name="drinking_water">Le ménage a-t-il accès à de l\'eau potable propre?</string>
+    <string name="hygienic_latrine">Les membres du ménage utilisent-ils des latrines hygiéniques pour l\'évacuation des excréments?</string>
+    <string name="wash_check">Vérification Eau, Hygiène et Assainissement </string>
+
+    <string name="abv_first">1er</string>
+    <string name="abv_second">2ème</string>
+    <string name="abv_third">3ème</string>
+    <string name="abv_fourth">4ème</string>
+    <string name="abv_fifth">5ème</string>
+    <string name="abv_sixth">6ème</string>
+    <string name="abv_seventh">7ème</string>
+    <string name="abv_eigth">8ème</string>
+    <string name="abv_nineth">9ieme</string>
+    <string name="abv_tenth">10ème</string>
+    <string name="abv_eleventh">11ème</string>
+    <string name="abv_twelfth">12ème</string>
+    <string name="change_member_alert">Veuillez compléter le formulaire avant de le soumettre.</string>
+    <string name="must_start_with_zero">Doit commencer par 0</string>
+    <string name="length_equal_10">Doit être 10 chiffres</string>
+    <string name="dismiss">Rejeter</string>
+    <string name="birth">naissance</string>
+    <string name="week_full">semaines</string>
+    <string name="month_full">mois</string>
+    <string name="at_birth">à la naissance</string>
+    <string name="child">enfant</string>
+    <string name="birth_cap">Naissance</string>
+    <string name="done">fait</string>
+    <string name="on">on</string>
+
+    <string name="babys_weight">Poids de l\'enfant</string>
+    <string name="babys_temperature">Temperature de l\'enfant</string>
+    <string name="degrees_centigrade">°C</string>
+    <string name="no_products">Aucun produit</string>
+    <string name="chlorhexidine">Chlorhexidine</string>
+    <string name="other">Autre</string>
+    <string name="fp_counseling">Conseil planification familial</string>
+    <string name="fp_method_chosen">Méthode de planification familiale choisie</string>
+    <string name="fp_method_start_date">Date de début</string>
+    <string name="none">Aucun</string>
+    <string name="abstinence">Abstinence</string>
+    <string name="condom">Préservatif</string>
+    <string name="tablets">Comprimés</string>
+    <string name="injectable">Injectable</string>
+    <string name="iud">DIU</string>
+    <string name="implant">Implant</string>
+    <string name="managed">Géré</string>
+    <string name="referred">Référé</string>
+    <string name="no_action_taken">Aucun mesure n\'a été prise</string>
+    <string name="exclusive_breastfeeding_months">Allaitement maternel exclusif %s mois</string>
+    <string name="deworming_number_dose">Déparasitage %s dose</string>
+    <string name="vitamin_a_number_dose">Vitamine A %s dose</string>
+    <string name="mnp_number_pack">%s sachet MNP</string>
+</resources>
