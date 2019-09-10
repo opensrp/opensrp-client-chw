@@ -31,6 +31,7 @@ import org.smartregister.chw.hf.custom_view.HfNavigationMenu;
 import org.smartregister.chw.hf.job.HfJobCreator;
 import org.smartregister.chw.hf.model.NavigationModel;
 import org.smartregister.chw.hf.repository.HfChwRepository;
+import org.smartregister.chw.hf.repository.HfTaskRepository;
 import org.smartregister.chw.hf.sync.HfSyncConfiguration;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.pnc.PncLibrary;
@@ -45,6 +46,8 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
+import org.smartregister.repository.TaskNotesRepository;
+import org.smartregister.repository.TaskRepository;
 import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
@@ -173,5 +176,13 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         } else {
             preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url);
         }
+    }
+
+    @Override
+    public TaskRepository getTaskRepository() {
+        if (taskRepository == null) {
+            taskRepository =  new HfTaskRepository(getRepository(), new TaskNotesRepository(getRepository()));
+        }
+        return taskRepository;
     }
 }

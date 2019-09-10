@@ -8,8 +8,11 @@ import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.provider.CoreChildRegisterProvider;
 import org.smartregister.chw.core.task.UpdateLastAsyncTask;
 import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.hf.utils.HfReferralUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.domain.Task;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
@@ -42,13 +45,8 @@ public class HfChildRegisterProvider extends CoreChildRegisterProvider {
             populatePatientColumn(pc, client, viewHolder);
             populateIdentifierColumn(pc, viewHolder);
             populateLastColumn(pc, viewHolder);
-
-            return;
+            showReferralDay(pc, viewHolder);
         }
-    }
-
-    private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        Utils.startAsyncTask(new UpdateLastAsyncTask(context, commonRepository, viewHolder, pc.entityId(), onClickListener), null);
     }
 
     @Override
@@ -71,7 +69,22 @@ public class HfChildRegisterProvider extends CoreChildRegisterProvider {
 
         View goToProfileLayout = viewHolder.goToProfileLayout;
         attachPatientOnclickListener(goToProfileLayout, client);
-
     }
 
+    private void showReferralDay(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+        Task referralTask = HfReferralUtils.getLatestClientReferralTask(pc.entityId(), CoreConstants.TASKS_FOCUS.SICK_CHILD);
+        if (referralTask.getExecutionStartDate() != null) {
+            viewHolder.textViewReferralDay.setVisibility(View.VISIBLE);
+            if (referralTask.getExecutionStartDate() != null) {
+                viewHolder.textViewReferralDay.setText(org.smartregister.chw.core.utils.Utils
+                        .formatReferralDuration(referralTask.getExecutionStartDate(), context));
+            }
+        } else {
+            viewHolder.textViewReferralDay.setVisibility(View.GONE);
+        }
+    }
+
+    private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+        Utils.startAsyncTask(new UpdateLastAsyncTask(context, commonRepository, viewHolder, pc.entityId(), onClickListener), null);
+    }
 }

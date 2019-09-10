@@ -32,9 +32,9 @@ public class CoreReferralInteractor implements BaseReferralRegisterFragmentContr
         Runnable runnable = () -> {
             String query = CoreReferralUtils.mainSelect(CoreConstants.TABLE_NAME.FAMILY_MEMBER, CoreConstants.TABLE_NAME.FAMILY, baseEntityId);
 
-            try (Cursor cursor = getCommonRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER).rawCustomQueryForAdapter(query)) {
+            try (Cursor cursor = CoreReferralUtils.getCommonRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER).rawCustomQueryForAdapter(query)) {
                 if (cursor != null && cursor.moveToFirst()) {
-                    CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER).readAllcommonforCursorAdapter(cursor);
+                    CommonPersonObject personObject = CoreReferralUtils.getCommonRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER).readAllcommonforCursorAdapter(cursor);
                     pClient = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
                     pClient.setColumnmaps(personObject.getColumnmaps());
 
@@ -57,16 +57,13 @@ public class CoreReferralInteractor implements BaseReferralRegisterFragmentContr
         appExecutors.diskIO().execute(runnable);
     }
 
-    private CommonRepository getCommonRepository(String tableName) {
-        return Utils.context().commonrepository(tableName);
-    }
 
     private void fetchCareGiverDetails(String careGiverId) {
         String query = CoreReferralUtils.mainCareGiverSelect(CoreConstants.TABLE_NAME.FAMILY_MEMBER, careGiverId);
         Timber.d("The caregiver query %s", query);
-        try (Cursor cursor = getCommonRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER).rawCustomQueryForAdapter(query)) {
+        try (Cursor cursor = CoreReferralUtils.getCommonRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER).rawCustomQueryForAdapter(query)) {
             if (cursor != null && cursor.moveToFirst()) {
-                CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER).readAllcommonforCursorAdapter(cursor);
+                CommonPersonObject personObject = CoreReferralUtils.getCommonRepository(CoreConstants.TABLE_NAME.FAMILY_MEMBER).readAllcommonforCursorAdapter(cursor);
                 pClient.getColumnmaps().putAll(personObject.getColumnmaps());
             }
         } catch (Exception e) {
@@ -77,9 +74,9 @@ public class CoreReferralInteractor implements BaseReferralRegisterFragmentContr
     private void fetchAncDetails(String familyMemberId) {
         String query = CoreReferralUtils.mainAncDetailsSelect(CoreConstants.TABLE_NAME.ANC_MEMBER, familyMemberId);
         Timber.d("The anc member query %s", query);
-        try (Cursor cursor = getCommonRepository(CoreConstants.TABLE_NAME.ANC_MEMBER).rawCustomQueryForAdapter(query)) {
+        try (Cursor cursor = CoreReferralUtils.getCommonRepository(CoreConstants.TABLE_NAME.ANC_MEMBER).rawCustomQueryForAdapter(query)) {
             if (cursor != null && cursor.moveToFirst()) {
-                CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.ANC_MEMBER).readAllcommonforCursorAdapter(cursor);
+                CommonPersonObject personObject = CoreReferralUtils.getCommonRepository(CoreConstants.TABLE_NAME.ANC_MEMBER).readAllcommonforCursorAdapter(cursor);
                 pClient.getColumnmaps().putAll(personObject.getColumnmaps());
             }
         } catch (Exception e) {

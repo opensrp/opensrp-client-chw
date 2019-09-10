@@ -44,7 +44,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
 
     private static CommonFtsObject commonFtsObject = null;
     private static AncRegisterRepository ancRegisterRepository;
-    private static TaskRepository taskRepository;
+    protected static TaskRepository taskRepository;
     private static PlanDefinitionRepository planDefinitionRepository;
     private static WashCheckRepository washCheckRepository;
     private static ScheduleRepository scheduleRepository;
