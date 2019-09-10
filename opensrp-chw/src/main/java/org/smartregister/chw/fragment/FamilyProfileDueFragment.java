@@ -98,23 +98,16 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         switch (view.getId()) {
             case R.id.patient_column:
                 if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
-                    goToChildProfileActivity(view);
+                    ((FamilyProfileActivity) getActivity()).goToProfileActivity(view, getArguments());
                 }
                 break;
             case R.id.next_arrow:
                 if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NEXT_ARROW) {
-                    goToChildProfileActivity(view);
+                    ((FamilyProfileActivity) getActivity()).goToProfileActivity(view, getArguments());
                 }
                 break;
             default:
                 break;
-        }
-    }
-
-    public void goToChildProfileActivity(View view) {
-        if (view.getTag() instanceof CommonPersonObjectClient) {
-            CommonPersonObjectClient patient = (CommonPersonObjectClient) view.getTag();
-            ChildProfileActivity.startMe(getActivity(), true, new MemberObject(patient), ChildProfileActivity.class);
         }
     }
 

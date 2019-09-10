@@ -36,6 +36,7 @@ public abstract class BaseTaskExecutor implements ScheduleService {
         baseScheduleTask.setUpdatedAt(new Date());
         baseScheduleTask.setID(UUID.randomUUID().toString());
         baseScheduleTask.setScheduleName(getScheduleName());
+        baseScheduleTask.setScheduleGroupName(getScheduleGroup());
         return baseScheduleTask;
     }
 

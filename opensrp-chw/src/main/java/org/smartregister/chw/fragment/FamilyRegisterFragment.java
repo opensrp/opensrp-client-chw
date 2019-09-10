@@ -6,9 +6,13 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.provider.FamilyRegisterProvider;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 
 import java.util.Set;
+
+import timber.log.Timber;
 
 public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
 
@@ -26,5 +30,22 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
         if (view.getId() == R.id.due_only_layout) {
             toggleFilterSelection(view);
         }
+    }
+
+    @Override
+    protected String dueFilterAndSortQuery() {
+
+        String query = "";
+        try {
+            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
+            sqb.addCondition(filters);
+            sqb.addCondition(Utils.getFamilyDueFilter());
+            query = sqb.orderbyCondition(Sortqueries);
+            query = sqb.Endquery(sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+        return query;
     }
 }

@@ -324,7 +324,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         builder.setMessage(getString(R.string.mark_as_done_message));
         builder.setCancelable(true);
 
-        builder.setPositiveButton(this.getString(R.string.mark_as_done), (dialog, id) -> {
+        builder.setPositiveButton(this.getString(R.string.mark_done), (dialog, id) -> {
             try {
                 saveCloseReferralEvent();
                 completeTask();
@@ -333,7 +333,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
                 Timber.e(e, "ReferralTaskViewActivity --> closeReferralDialog");
             }
         });
-        builder.setNegativeButton(this.getString(R.string.dismiss), ((dialog, id) -> dialog.cancel()));
+        builder.setNegativeButton(this.getString(R.string.cancel), ((dialog, id) -> dialog.cancel()));
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();

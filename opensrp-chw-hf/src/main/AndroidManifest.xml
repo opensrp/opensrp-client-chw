@@ -105,10 +105,8 @@
             android:name=".activity.AncMemberProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
-
         <activity
-            android:name="org.smartregister.chw.core.activity.CoreAncMemberProfileActivity"
-            android:screenOrientation="portrait"
+            android:name=".activity.PncRegisterActivity"
             android:theme="@style/HFTheme.NoActionBar" />
 
         <meta-data
