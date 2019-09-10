@@ -26,10 +26,8 @@ public class FamilyProfileDueModel extends BaseFamilyProfileDueModel {
                 CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.UNIQUE_ID,
                 CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.GENDER,
                 CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DOB,
-                CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DOD//,
-                //tableName + "." + ChildDBConstants.KEY.LAST_HOME_VISIT,
-                //tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE,
-                //tableName + "." + ChildDBConstants.KEY.DATE_CREATED
+                CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DOD,
+                CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.ENTITY_TYPE
         };
     }
 }
