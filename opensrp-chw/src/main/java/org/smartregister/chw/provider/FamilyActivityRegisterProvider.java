@@ -94,12 +94,7 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
         String gender = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
         fillValue(viewHolder.gender, gender);
 
-        viewHolder.status.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewHolder.patientColumn.performClick();
-            }
-        });
+        viewHolder.status.setOnClickListener(v -> viewHolder.patientColumn.performClick());
 
         View patient = viewHolder.patientColumn;
         attachPatientOnclickListener(patient, client);
@@ -113,7 +108,8 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
     private long parseLong(String string) {
         long res = 0l;
         try {
-            res = Long.valueOf(string);
+            if (StringUtils.isNotBlank(string))
+                res = Long.valueOf(string);
         } catch (Exception e) {
             Timber.e(e);
         }

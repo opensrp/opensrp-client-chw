@@ -2,11 +2,7 @@ package org.smartregister.chw.fragment;
 
 import android.os.Bundle;
 
-import org.smartregister.chw.activity.AboveFiveChildProfileActivity;
-import org.smartregister.chw.activity.ChildProfileActivity;
-import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
-import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
-import org.smartregister.chw.core.activity.CoreChildProfileActivity;
+import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.core.fragment.CoreFamilyProfileMemberFragment;
 import org.smartregister.chw.model.FamilyProfileMemberModel;
 import org.smartregister.chw.provider.ChwMemberRegisterProvider;
@@ -37,20 +33,6 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
         this.clientsView.setAdapter(this.clientAdapter);
     }
 
-    @Override
-    protected Class<?> getFamilyOtherMemberProfileActivityClass() {
-        return FamilyOtherMemberProfileActivity.class;
-    }
-
-    @Override
-    protected Class<? extends CoreAboveFiveChildProfileActivity> getAboveFiveChildProfileActivityClass() {
-        return AboveFiveChildProfileActivity.class;
-    }
-
-    @Override
-    protected Class<? extends CoreChildProfileActivity> getChildProfileActivityClass() {
-        return ChildProfileActivity.class;
-    }
 
     @Override
     protected void initializePresenter() {
@@ -58,5 +40,23 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
         String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
         String primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         presenter = new BaseFamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+    }
+
+    @Override
+    protected void onViewClicked(android.view.View view) {
+        super.onViewClicked(view);
+        int i = view.getId();
+        if (i == org.smartregister.chw.core.R.id.patient_column) {
+            if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
+                getFamilyProfileActivity().goToProfileActivity(view, getArguments());
+            }
+        } else if (i == org.smartregister.chw.core.R.id.next_arrow && view.getTag() != null &&
+                view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NEXT_ARROW) {
+            getFamilyProfileActivity().goToProfileActivity(view, getArguments());
+        }
+    }
+
+    private FamilyProfileActivity getFamilyProfileActivity() {
+        return (FamilyProfileActivity) getActivity();
     }
 }

@@ -75,7 +75,6 @@
         "hint": "Date of PNC health facility visit {0}",
         "expanded": false,
         "max_date": "today",
-        "min_date": "",
         "v_required": {
           "value": "true",
           "err": "Please enter date"

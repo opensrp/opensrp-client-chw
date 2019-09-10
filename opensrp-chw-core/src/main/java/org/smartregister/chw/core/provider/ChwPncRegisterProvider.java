@@ -1,4 +1,4 @@
-package org.smartregister.chw.provider;
+package org.smartregister.chw.core.provider;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -8,15 +8,14 @@ import android.widget.Button;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
-import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.DBConstants;
-import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.R;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
-import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.util.Utils;
@@ -96,14 +95,14 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
             this.context = context;
             this.viewHolder = viewHolder;
             this.pc = pc;
-            this.rules = ChwApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.PNC_HOME_VISIT);
+            this.rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.PNC_HOME_VISIT);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             //map = getChildDetails(pc.getCaseId());
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-            String baseEntityID = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
+            String baseEntityID = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
             String dayPnc = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DELIVERY_DATE, true);
             Date deliveryDate = null;
             Date lastVisitDate = null;

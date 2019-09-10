@@ -14,7 +14,9 @@ public abstract class CoreAboveFiveChildProfileActivity extends CoreChildProfile
     }
 
     private void invisibleRecordVisitPanel() {
-        recordVisitPanel.setVisibility(View.GONE);
+        if (recordVisitPanel != null) {
+            recordVisitPanel.setVisibility(View.GONE);
+        }
     }
 
     @Override

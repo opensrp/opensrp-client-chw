@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
  * Run extensions of this class is a singleton instance to execute all the schedules
  */
@@ -31,10 +33,14 @@ public abstract class ScheduleTaskExecutor {
         if (values == null || values.size() == 0) return;
 
         for (ScheduleService service : values) {
-            service.resetSchedule(baseEntityID, service.getScheduleName());
-            List<ScheduleTask> services = service.generateTasks(baseEntityID, eventName, eventDate);
-            if (services != null && services.size() > 0)
-                CoreChwApplication.getInstance().getScheduleRepository().addSchedules(services);
+            try {
+                service.resetSchedule(baseEntityID, service.getScheduleName());
+                List<ScheduleTask> services = service.generateTasks(baseEntityID, eventName, eventDate);
+                if (services != null && services.size() > 0)
+                    CoreChwApplication.getInstance().getScheduleRepository().addSchedules(services);
+            }catch (Exception e){
+                Timber.e(e);
+            }
         }
     }
 

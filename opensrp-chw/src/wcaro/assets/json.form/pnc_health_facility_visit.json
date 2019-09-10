@@ -75,7 +75,6 @@
         "hint": "Date of visit",
         "expanded": false,
         "max_date": "today",
-        "min_date": "",
         "v_required": {
           "value": "true",
           "err": "Please enter date"

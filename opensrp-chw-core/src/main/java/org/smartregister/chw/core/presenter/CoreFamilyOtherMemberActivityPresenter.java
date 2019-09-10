@@ -132,6 +132,8 @@ public abstract class CoreFamilyOtherMemberActivityPresenter extends BaseFamilyO
         return familyName;
     }
 
+    public String getFamilyHeadBaseEntityId() { return familyHead; }
+
     @Override
     public void updateFamilyMember(String jsonString) {
 
