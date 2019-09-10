@@ -82,8 +82,6 @@
     <string name="copy_to_clipboard">Copier dans le presse-papier</string>
     <string name="copied_phone_number">Numéro de téléphone copié dans le presse-papier</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Bonjour fragment vierge</string>
     <string name="visit_not_done_btn_child_profile">Visite non effectuée</string>
     <string name="medical_history">Historique médical</string>
     <string name="record_home_visit">Enregistrer \nVisite a Domicile</string>
@@ -273,7 +271,6 @@
     <string name="due_details">Quand un membre du ménage doit recevoir une service, il sera affiché ici</string>
 
     <string name="edu_level_none">Aucun</string>
-    <string name="edu_level_literacy">Alphabétiser</string>
     <string name="edu_level_primary">Primaire</string>
     <string name="edu_level_secondary">Secondaire</string>
     <string name="edu_level_post_secondary">Université</string>
