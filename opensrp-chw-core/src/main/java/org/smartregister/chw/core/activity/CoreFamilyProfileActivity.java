@@ -357,6 +357,8 @@ public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivit
 
     public void goToAncProfileActivity(CommonPersonObjectClient patient, Bundle bundle) {
         patient.getColumnmaps().putAll(getAncCommonPersonObject(patient.entityId()).getColumnmaps());
+        patient.getColumnmaps().put(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, getFamilyHead());
+        patient.getColumnmaps().put(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, getPrimaryCaregiver());
         startActivity(initProfileActivityIntent(patient, bundle, getAncMemberProfileActivityClass()));
     }
 
