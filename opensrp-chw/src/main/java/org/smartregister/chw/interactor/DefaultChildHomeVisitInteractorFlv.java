@@ -197,7 +197,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         if (!new LocalDate().isAfter(new LocalDate(dob).plusMonths(24)) && !vaccineCardReceived) {
             Map<String, List<VisitDetail>> details = null;
             if (editMode) {
-                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.VACCINE_CARD_RECEIVED);
+                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.CHILD_VACCINE_CARD_RECEIVED);
                 if (lastVisit != null) {
                     details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
                 }
@@ -266,7 +266,6 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
                     .withOptional(false)
                     .withDetails(details)
-                    .withVaccineWrapper(wrappers)
                     .withDestinationFragment(fragment)
                     .withHelper(new ImmunizationActionHelper(context, wrappers))
                     .withDisabledMessage(context.getString(org.smartregister.chw.core.R.string.fill_earler_immunization))
@@ -320,7 +319,6 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
                 .withPayloadDetails(MessageFormat.format("Exclusive_breastfeeding{0}", serviceIteration))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, jsonObject, details, serviceIteration))
-                .withServiceWrapper(serviceWrapper)
                 .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0}{1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                 .build();
@@ -376,7 +374,6 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
                 .withPayloadDetails(MessageFormat.format("Vitamin_A{0}", serviceIteration))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
-                .withServiceWrapper(serviceWrapper)
                 .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                 .build();
@@ -431,7 +428,6 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
                 .withPayloadDetails(MessageFormat.format("Deworming_{0}", serviceIteration))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
-                .withServiceWrapper(serviceWrapper)
                 .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                 .build();
@@ -486,7 +482,6 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
                 .withPayloadDetails(MessageFormat.format("MNP{0}", serviceIteration))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
-                .withServiceWrapper(serviceWrapper)
                 .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                 .build();

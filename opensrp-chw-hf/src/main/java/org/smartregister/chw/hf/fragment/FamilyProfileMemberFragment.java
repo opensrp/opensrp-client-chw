@@ -2,13 +2,8 @@ package org.smartregister.chw.hf.fragment;
 
 import android.os.Bundle;
 
-import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
-import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.fragment.CoreFamilyProfileMemberFragment;
 import org.smartregister.chw.core.provider.CoreMemberRegisterProvider;
-import org.smartregister.chw.hf.activity.AboveFiveChildProfileActivity;
-import org.smartregister.chw.hf.activity.ChildProfileActivity;
-import org.smartregister.chw.hf.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.hf.model.FamilyProfileMemberModel;
 import org.smartregister.chw.hf.provider.HfMemberRegisterProvider;
 import org.smartregister.configurableviews.model.View;
@@ -37,21 +32,6 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
         this.clientAdapter = new RecyclerViewPaginatedAdapter(null, chwMemberRegisterProvider, this.context().commonrepository(this.tablename));
         this.clientAdapter.setCurrentlimit(20);
         this.clientsView.setAdapter(this.clientAdapter);
-    }
-
-    @Override
-    protected Class<?> getFamilyOtherMemberProfileActivityClass() {
-        return FamilyOtherMemberProfileActivity.class;
-    }
-
-    @Override
-    protected Class<? extends CoreAboveFiveChildProfileActivity> getAboveFiveChildProfileActivityClass() {
-        return AboveFiveChildProfileActivity.class;
-    }
-
-    @Override
-    protected Class<? extends CoreChildProfileActivity> getChildProfileActivityClass() {
-        return ChildProfileActivity.class;
     }
 
     @Override

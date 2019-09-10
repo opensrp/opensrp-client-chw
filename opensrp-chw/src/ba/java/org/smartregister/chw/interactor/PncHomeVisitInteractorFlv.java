@@ -108,7 +108,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_danger_signs), danger_signs_present_mama);
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.pnc_danger_signs_mama), danger_signs_present_mama);
             }
 
             @Override
@@ -150,7 +150,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_danger_signs), danger_signs_present_child);
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.pnc_danger_signs_baby_task), danger_signs_present_child);
             }
 
             @Override
@@ -184,13 +184,20 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
     private void evaluateFamilyPlanning() throws Exception {
         HomeVisitActionHelper familyPlanningHelper = new HomeVisitActionHelper() {
-            private String fp_counseling;
+            private String fpCounselling;
+            private String fpPeriodReceived;
+            private String fpMethod;
+            private LocalDate startDate;
 
             @Override
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    fp_counseling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_counseling");
+                    fpCounselling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_counseling");
+                    fpPeriodReceived = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "fp_period_received");
+                    fpMethod = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_method");
+                    String fpStartDate = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_start_date");
+                    startDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(fpStartDate);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -198,12 +205,14 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", "Family Planning", fp_counseling);
+                return MessageFormat.format("{0}: {1} \u2022 {2}: {3} \n {4}: {5} \u2022 {6}: {7}",
+                        context.getString(R.string.family_planning), fpCounselling, context.getString(R.string.period_received), fpPeriodReceived, context.getString(R.string.subtask_visit_not_done),
+                        fpMethod, context.getString(R.string.start_date), DateTimeFormat.forPattern("dd MMM yyyy").print(startDate));
             }
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isNotBlank(fp_counseling)) {
+                if (StringUtils.isNotBlank(fpCounselling)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else {
                     return BaseAncHomeVisitAction.Status.PENDING;
@@ -300,7 +309,8 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", "Counselling", couselling_pnc);
+                String counsellingStatus = "None".equals(couselling_pnc) ? context.getString(R.string.subtask_not_done) : context.getString(R.string.subtask_done);
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.counselling), counsellingStatus);
             }
 
             @Override
@@ -338,7 +348,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", "Nutrition Status ", nutrition_status_mama);
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.mother_status), nutrition_status_mama);
             }
 
             @Override
@@ -380,7 +390,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", "Nutrition Status ", nutrition_status_1m);
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.child_status), nutrition_status_1m);
             }
 
             @Override
@@ -626,8 +636,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
                         .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                        .withVaccineWrapper(wrappers)
-                        // .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), baby.getDob(), details, wrappers))
                         .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
                         .withHelper(new ImmunizationActionHelper(context, wrappers))
                         .build();
@@ -780,8 +788,16 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             if (date == null) {
                 return null;
             }
-
-            return MessageFormat.format("{0} : {1}", context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date));
+            if ("No".equals(pnc_visit)) {
+                return context.getString(R.string.visit_not_done);
+            } else {
+                if (visit_num == 1) {
+                    return MessageFormat.format(" {0}: {1} \n {2}: {3} \n {4}: {5}",
+                            context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date), "Vitamin A received", vit_a_mother, "IFA tablets received", ifa_mother);
+                } else {
+                    return MessageFormat.format("{0}: {1}", context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date));
+                }
+            }
         }
 
 

@@ -4,6 +4,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +35,6 @@ public class CoreReferralUtils {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName, familyTableName));
         queryBUilder.customJoin("LEFT JOIN " + familyTableName + " ON  " + tableName + "." + DBConstants.KEY.RELATIONAL_ID + " = " + familyTableName + ".id COLLATE NOCASE ");
-
         return queryBUilder.mainCondition(mainCondition);
     }
 
@@ -81,11 +81,23 @@ public class CoreReferralUtils {
         return createAncDetailsSelect(tableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + baseEntityId + "'");
     }
 
-    private static String createAncDetailsSelect(String tableName, String baseEntityId) {
+    public static String mainAncDetailsSelect(String[] tableNames, int familyTableIndex, int ancDetailsColumnsTableIndex, String baseEntityId) {
+        return createAncDetailsSelect(tableNames, ancDetailsColumnsTableIndex, tableNames[ancDetailsColumnsTableIndex] + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + baseEntityId +
+                "' AND " + tableNames[familyTableIndex] + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + tableNames[ancDetailsColumnsTableIndex] + "." + DBConstants.KEY.RELATIONAL_ID);
+    }
+
+    private static String createAncDetailsSelect(String tableName, String selectCondition) {
         SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
         smartRegisterQueryBuilder.SelectInitiateMainTable(tableName, mainAncDetailsColumns(tableName));
         smartRegisterQueryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + " ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + ".id COLLATE NOCASE ");
-        return smartRegisterQueryBuilder.mainCondition(baseEntityId);
+        return smartRegisterQueryBuilder.mainCondition(selectCondition);
+    }
+
+    private static String createAncDetailsSelect(String[] tableNames, int ancDetailsColumnsTableIndex, String selectCondition) {
+        SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
+        smartRegisterQueryBuilder.SelectInitiateMainTable(tableNames, mainAncDetailsColumns(tableNames[ancDetailsColumnsTableIndex]));
+        smartRegisterQueryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + " ON  " + tableNames[ancDetailsColumnsTableIndex] + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + ".id COLLATE NOCASE ");
+        return smartRegisterQueryBuilder.mainCondition(selectCondition);
     }
 
     private static String[] mainAncDetailsColumns(String tableName) {
@@ -93,8 +105,25 @@ public class CoreReferralUtils {
         columnList.add(tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
         columnList.add(tableName + "." + ChildDBConstants.KEY.LAST_MENSTRUAL_PERIOD);
         columnList.add(CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + "." + org.smartregister.chw.anc.util.DBConstants.KEY.DATE_CREATED);
+        columnList.add(CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.VILLAGE_TOWN);
         columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.CONFIRMED_VISITS);
         columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.LAST_HOME_VISIT);
+        return columnList.toArray(new String[columnList.size()]);
+    }
+
+    public static String pncFamilyMemberProfileDetailsSelect(String familyTableName, String baseEntityId) {
+        SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
+        queryBuilder.SelectInitiateMainTable(familyTableName, pncFamilyMemberProfileDetails(familyTableName));
+        queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + " ON  " + familyTableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.RELATIONAL_ID);
+        return queryBuilder.mainCondition(CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + baseEntityId + "'");
+    }
+
+    private static String[] pncFamilyMemberProfileDetails(String familyTable) {
+        ArrayList<String> columnList = new ArrayList<>();
+        columnList.add(familyTable + "." + ChildDBConstants.KEY.RELATIONAL_ID);
+        columnList.add(familyTable + "." + DBConstants.KEY.VILLAGE_TOWN);
+        columnList.add(familyTable + "." + DBConstants.KEY.PRIMARY_CAREGIVER);
+        columnList.add(familyTable + "." + DBConstants.KEY.FAMILY_HEAD);
         return columnList.toArray(new String[columnList.size()]);
     }
 
@@ -138,7 +167,7 @@ public class CoreReferralUtils {
         task.setStatus(Task.TaskStatus.READY);
         task.setBusinessStatus(CoreConstants.BUSINESS_STATUS.REFERRED);
         task.setPriority(3);
-        task.setCode("Referral");
+        task.setCode(CoreConstants.JsonAssets.REFERRAL_CODE);
         task.setDescription(referralProblems);
         task.setFocus(focus);
         task.setForEntity(baseEntityId);
@@ -208,16 +237,22 @@ public class CoreReferralUtils {
         return referralProblems;
     }
 
-    private static String getCheckBoxSelectedOptions(JSONArray options) {
+    private static String getCheckBoxSelectedOptions(@NotNull JSONArray options) {
         String selectedOptionValues = "";
         List<String> selectedValue = new ArrayList<>();
         try {
             for (int i = 0; i < options.length(); i++) {
                 JSONObject option = options.getJSONObject(i);
-                if (option.has(JsonFormConstants.VALUE) && Boolean.valueOf(option.getString(JsonFormConstants.VALUE))) {
-                    selectedValue.add(option.getString(JsonFormConstants.TEXT));
+                boolean useItem = true;
+
+                if (option.optBoolean(CoreConstants.IGNORE, false)) {
+                    useItem = false;
                 }
 
+                if (option.has(JsonFormConstants.VALUE) && Boolean.valueOf(option.getString(JsonFormConstants.VALUE))
+                        && useItem) { //Don't add values for  items with other
+                    selectedValue.add(option.getString(JsonFormConstants.TEXT));
+                }
             }
             selectedOptionValues = StringUtils.join(selectedValue, ", ");
         } catch (JSONException e) {
@@ -227,7 +262,7 @@ public class CoreReferralUtils {
         return selectedOptionValues;
     }
 
-    private static String getRadioButtonSelectedOptions(JSONArray options, String value) {
+    private static String getRadioButtonSelectedOptions(@NotNull JSONArray options, String value) {
         String selectedOptionValues = "";
         try {
             for (int i = 0; i < options.length(); i++) {
@@ -243,7 +278,7 @@ public class CoreReferralUtils {
         return selectedOptionValues;
     }
 
-    private static String getOtherWidgetSelectedItems(JSONObject jsonObject) {
+    private static String getOtherWidgetSelectedItems(@NotNull JSONObject jsonObject) {
         String value = "";
         try {
             if (jsonObject.has(JsonFormConstants.VALUE) && StringUtils.isNotEmpty(jsonObject.getString(JsonFormConstants.VALUE))) {

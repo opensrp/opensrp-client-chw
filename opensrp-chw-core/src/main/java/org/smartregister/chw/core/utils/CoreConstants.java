@@ -14,6 +14,7 @@ public class CoreConstants {
     public static final String ENTITY_ID = "entity_id";
     public static final String REFERRAL_PLAN_ID = "5270285b-5a3b-4647-b772-c0b3c52e2b71";
     public static String EC_CLIENT_FIELDS = "ec_client_fields.json";
+    public static String IGNORE = "ignore";
 
     public enum VisitType {DUE, OVERDUE, LESS_TWENTY_FOUR, VISIT_THIS_MONTH, NOT_VISIT_THIS_MONTH, DONE, EXPIRY}
 
@@ -42,6 +43,7 @@ public class CoreConstants {
         String OWNER = "owner";
         String START = "start";
         String ENTRY_POINT = "entry_point";
+        String STATUS = "status";
     }
 
     public interface SERVICE_GROUPS {
@@ -76,7 +78,8 @@ public class CoreConstants {
         public static final String CHILD_REFERRAL = "Sick Child Referral";
         public static final String ANC_REFERRAL = "ANC Referral";
         public static final String PNC_REFERRAL = "PNC Referral";
-        public static final String VACCINE_CARD_RECEIVED = "Child vaccine card received";
+        public static final String CHILD_VACCINE_CARD_RECEIVED = "Child vaccine card received";
+        public static final String VACCINE_CARD_RECEIVED = "Vaccine Card Received";
         public static final String MINIMUM_DIETARY_DIVERSITY = "Minimum dietary diversity";
         public static final String MUAC = "Mid-upper arm circumference (MUAC)";
         public static final String LLITN = "Sleeping under a LLITN";
@@ -85,7 +88,11 @@ public class CoreConstants {
         public static final String TT = "TT Vaccination";
         public static final String IPTP_SP = "IPTp-SP Service";
         public static final String MNP = "MNP";
+        public static final String DANGER_SIGNS_BABY = "Danger signs - Baby";
+        public static final String PNC_HEALTH_FACILITY_VISIT = "PNC health facility visit";
         public static final String EXCLUSIVE_BREASTFEEDING = "Exclusive breast feeding";
+        public static final String KANGAROO_CARE = "Kangaroo Care";
+        public static final String OBSERVATIONS_AND_ILLNESS = "Observations Illness";
         public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
         public static final String UPDATE_FAMILY_MEMBER_RELATIONS = "Update Family Member Relations";
 
@@ -99,12 +106,18 @@ public class CoreConstants {
         public static final String ANC_REGISTRATION = "ANC Registration";
         public static final String ANC_HOME_VISIT = "ANC Home Visit";
         public static final String PNC_HOME_VISIT = "PNC Home Visit";
+        public static final String ANC_HOME_VISIT_NOT_DONE = "ANC Home Visit Not Done";
+        public static final String ANC_HOME_VISIT_NOT_DONE_UNDO = "ANC Home Visit Not Done Undo";
         public static final String MALARIA_FOLLOW_UP_VISIT = "Malaria Follow-up Visit";
         public static final String MALARIA_CONFIRMATION = "Malaria Confirmation";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
         public static final String CLOSE_REFERRAL = "Close Referral";
         public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
+        public static final String PNC_REGISTRATION = "PNC Registration";
+        public static final String PNC_HOME_VISIT_NOT_DONE = "PNC Home Visit Not Done";
+        public static final String PNC_HOME_VISIT_NOT_DONE_UNDO = "PNC Home Visit Not Done Undo";
         public static final String WASH_CHECK = "WASH check";
+
     }
 
     public static final class EncounterType {
@@ -441,6 +454,7 @@ public class CoreConstants {
         public static final String ANC_REFERRAL = "ec_anc_referral";
         public static final String PNC_REFERRAL = "ec_pnc_referral";
         public static final String CLOSE_REFERRAL = "ec_close_referral";
+        public static final String SCHEDULE_SERVICE = "schedule_service";
     }
 
     public static final class INTENT_KEY {
@@ -529,6 +543,7 @@ public class CoreConstants {
         public static final String NUTRITION_STATUS = "nutrition_status";
         public static final String GESTATION_AGE = "gestation_age";
         public static final String IS_PROBLEM = "is_problem";
+        public static final String REFERRAL_CODE = "Referral";
 
 
         public static class FAMILY_MEMBER {
@@ -687,5 +702,6 @@ public class CoreConstants {
 
     public interface SCHEDULE_GROUPS {
         String HOME_VISIT = "HOME_VISIT";
+        String FAMILY = "FAMILY";
     }
 }

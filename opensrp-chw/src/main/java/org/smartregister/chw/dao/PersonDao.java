@@ -11,6 +11,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -88,7 +89,11 @@ public class PersonDao extends AbstractDao {
             );
         };
 
-        return AbstractDao.readData(sql, dataMap);
+        List<PncBaby> babies = AbstractDao.readData(sql, dataMap);
+        if (babies != null)
+            return babies;
+
+        return new ArrayList<>();
     }
 
     public String getAncCreatedDate(String baseEntityId) {
@@ -113,4 +118,15 @@ public class PersonDao extends AbstractDao {
         return date;
     }
 
+    public static String getDob(String baseEntityID) {
+        String sql = "select dob from ec_family_member where base_entity_id = '" + baseEntityID + "'";
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "dob");
+
+        List<String> res = readData(sql, dataMap);
+        if (res == null || res.size() != 1)
+            return null;
+
+        return res.get(0);
+    }
 }

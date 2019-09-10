@@ -26,8 +26,6 @@
 
     <string name="edit">EDIT</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="visit_not_done_btn_child_profile">Visit not done</string>
     <string name="medical_history">Medical History</string>
     <string name="fully_immunized_at_age">Fully immunized at age %1$s</string>
@@ -53,7 +51,6 @@
 
     <string name="cancel">CANCEL</string>
     <string name="submit">SUBMIT</string>
-
 
     <string name="dose_not_given">DOSE NOT GIVEN</string>
     <string name="has_birt_cert">Has birth certificate?</string>
@@ -239,6 +236,8 @@
     <string name="anc_indicator7">Pregnant women up to date on TT immunization</string>
     <string name="anc_indicator8">Pregnant women up to date on IPTp-SP doses</string>
 
+    <!-- PNC Home visit-->
+    <!-- PNC home visit tasks labels -->
     <string name="pnc_danger_signs_mother">Danger signs - mother</string>
     <string name="pnc_danger_signs_baby">Danger signs - baby ({0})</string>
     <string name="pnc_health_facility_visit">PNC health facility visit - day {0} ({1})</string>
@@ -255,13 +254,15 @@
     <string name="pnc_nutrition_status">Nutrition status</string>
     <string name="pnc_nutrition_status_baby_name">Nutrition status baby ({0})</string>
     <string name="pnc_malaria_prevention">Malaria prevention</string>
+    <!-- PNC Home visit subtitle text -->
+    <string name="pnc_danger_signs_mama">Danger signs - Mama</string>
+    <string name="pnc_danger_signs_baby_task">Danger signs - Baby</string>
+
     <string name="pnc_health_facility_visit_within_fourty_eight_hours">PNC health facility visit - within 48 hours </string>
     <string name="pnc_health_facility_visit_days_three_to_seven">PNC health facility visit - days 3 - 7</string>
     <string name="pnc_health_facility_visit_days_eight_to_twenty_eight">PNC health facility visit - days 8 - 28</string>
     <string name="pnc_health_facility_visit_days_twenty_nine_to_forty_two">PNC health facility visit - days 29 - 42</string>
 
-    <string name="pnc_visit_day_due">DAY %s VISIT DUE</string>
-    <string name="pnc_visit_day_overdue">DAY %s OVERDUE</string>
     <string name="pnc_visit">PNC Visit</string>
     <string name="anc_visit">ANC Visit</string>
     <string name="exclusive_breastfeeding_months">Exclusive breastfeeding %s months</string>

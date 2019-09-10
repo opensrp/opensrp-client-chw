@@ -11,7 +11,8 @@
     <string name="full_referral_info">View full referral info?</string>
     <string name="back_to_referrals">Back to Referrals</string>
     <string name="return_to">Return to %s</string>
-    <string name="mark_as_done">Mark as Done</string>
+    <string name="mark_done">Mark Done</string>
+    <string name="mark_as_done">Mark as done</string>
     <string name="view_profile">View Profile</string>
     <string name="chw_phone">CHW Phone</string>
     <string name="chw">CHW</string>
@@ -21,7 +22,7 @@
     <string name="client_name_age_suffix">%s, %s</string>
     <string name="care_giver_prefix">CG: %s</string>
     <string name="mark_as_done_title">Mark as done?</string>
-    <string name="mark_as_done_message">Referral will closed and disappear from app</string>
+    <string name="mark_as_done_message">Referral will be closed and disappear from app.</string>
     <string name="phone_not_provided">Phone not provided</string>
     <string name="anc_danger_sign_prefix">ANC Danger Signs; Symptoms: %s</string>
 </resources>
