@@ -370,7 +370,8 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             for (Visit homeVisitServiceDataModel : homeVisitDietary) {
                 List<VisitDetail> visitDetails = visitDetailsRepository.getVisits(homeVisitServiceDataModel.getVisitId());
                 if(visitDetails!=null && visitDetails.size()>0){
-                    String dietaryText = visitDetails.get(0).getDetails();
+                    String dietaryText = visitDetails.get(0).getHumanReadable();
+                    dietaryText = TextUtils.isEmpty(dietaryText)?visitDetails.get(0).getDetails():dietaryText;
                     if (!TextUtils.isEmpty(dietaryText)) {
                         ServiceContent content = new ServiceContent();
                         String date = DATE_FORMAT.format(homeVisitServiceDataModel.getDate());
@@ -400,7 +401,8 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             for (Visit homeVisitServiceDataModel : homeVisitMUAC) {
                 List<VisitDetail> visitDetails = visitDetailsRepository.getVisits(homeVisitServiceDataModel.getVisitId());
                 if(visitDetails!=null && visitDetails.size()>0){
-                    String muacText = visitDetails.get(0).getDetails();
+                    String muacText = visitDetails.get(0).getHumanReadable();
+                    muacText = TextUtils.isEmpty(muacText)?visitDetails.get(0).getDetails():muacText;
                     if (!TextUtils.isEmpty(muacText)) {
                         ServiceContent content = new ServiceContent();
                         String date = DATE_FORMAT.format(homeVisitServiceDataModel.getDate());
