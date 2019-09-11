@@ -24,18 +24,10 @@ public class HNPPJsonFormActivity extends FamilyWizardFormActivity {
         this.getSupportFragmentManager().beginTransaction().add(id.container, jsonWizardFormFragment).commit();
     }
 
-    public HNPPJsonFormActivity() {
-        super();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ssLocationForms = (ArrayList<SSLocationForm>) getIntent().getSerializableExtra("SS_LOCATION");
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    protected void initializeFormFragmentCore() {
-        super.initializeFormFragmentCore();
-    }
 }
