@@ -282,6 +282,7 @@
             "key": "Other_symptoms",
             "text": "Other symptoms",
             "value": false,
+            "ignore": true,
             "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -345,6 +346,7 @@
             "key": "Other_treatment",
             "text": "Other treatment",
             "value": false,
+            "ignore": true,
             "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""

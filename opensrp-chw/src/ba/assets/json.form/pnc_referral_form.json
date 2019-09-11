@@ -347,6 +347,7 @@
             "key": "Other_symptom",
             "text": "Other symptom",
             "value": false,
+            "ignore": true,
             "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -381,6 +382,7 @@
         "type": "check_box",
         "label": "Pre-referral management given",
         "label_text_style": "bold",
+        "is_problem": false,
         "exclusive": [
           "None"
         ],
@@ -405,6 +407,7 @@
             "key": "Other_treatment",
             "text": "Other treatment",
             "value": false,
+            "ignore": true,
             "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -431,6 +434,7 @@
         "openmrs_entity_parent": "",
         "edit_type": "name",
         "hint": "Other treatment",
+        "is_problem": false,
         "v_required": {
           "value": "true",
           "err": "Please specify other treatment"
