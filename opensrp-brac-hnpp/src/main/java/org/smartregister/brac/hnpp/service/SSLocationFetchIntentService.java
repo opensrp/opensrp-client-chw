@@ -8,6 +8,8 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import org.apache.http.NoHttpResponseException;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.CoreLibrary;
 import org.smartregister.brac.hnpp.HnppApplication;
@@ -15,9 +17,11 @@ import org.smartregister.brac.hnpp.location.SSModel;
 import org.smartregister.domain.Response;
 import org.smartregister.service.HTTPAgent;
 
+import java.util.ArrayList;
+
 public class SSLocationFetchIntentService extends IntentService {
 
-    private static final String LOCATION_FETCH = "opensrp/provider/location-tree";
+    private static final String LOCATION_FETCH = "/provider/location-tree?";
     private static final String TAG = "SSLocation";
 
     public SSLocationFetchIntentService() { super(TAG); }
@@ -32,17 +36,25 @@ public class SSLocationFetchIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent( Intent intent) {
-        JSONObject jsonObjectLocation = getLocationList();
+        JSONArray jsonObjectLocation = getLocationList();
         if(jsonObjectLocation!=null){
-           SSModel ssModel =  new Gson().fromJson(jsonObjectLocation.toString(), SSModel.class);
-           if(ssModel != null){
-               HnppApplication.getSSLocationRepository().addOrUpdate(ssModel);
-           }
+            for(int i=0;i<jsonObjectLocation.length();i++){
+                try {
+                    JSONObject object = jsonObjectLocation.getJSONObject(i);
+                    SSModel ssModel =  new Gson().fromJson(object.toString(), SSModel.class);
+                    if(ssModel != null){
+                        HnppApplication.getSSLocationRepository().addOrUpdate(ssModel);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
 
     }
 
-    private JSONObject getLocationList(){
+    private JSONArray getLocationList(){
         try{
             HTTPAgent httpAgent = CoreLibrary.getInstance().context().getHttpAgent();
             String baseUrl = CoreLibrary.getInstance().context().
@@ -63,7 +75,7 @@ public class SSLocationFetchIntentService extends IntentService {
                 throw new NoHttpResponseException(LOCATION_FETCH + " not returned data");
             }
 
-            return new JSONObject((String) resp.payload());
+            return new JSONArray((String) resp.payload());
         }catch (Exception e){
 
         }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.job.PullHouseholdIdsServiceJob;
+import org.smartregister.brac.hnpp.job.SSLocationFetchJob;
 import org.smartregister.brac.hnpp.presenter.LoginPresenter;
 import org.smartregister.brac.hnpp.sync.intent.PullHouseholdIdIntentService;
 import org.smartregister.family.util.Constants;
@@ -57,6 +58,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         Intent intent = new Intent(this, FamilyRegisterActivity.class);
         intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
         startActivity(intent);
+        SSLocationFetchJob.scheduleJobImmediately(SSLocationFetchJob.TAG);
     }
 
 }

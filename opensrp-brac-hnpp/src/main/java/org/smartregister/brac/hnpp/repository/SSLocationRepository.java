@@ -9,6 +9,9 @@ import com.google.gson.GsonBuilder;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.brac.hnpp.location.SSLocations;
 import org.smartregister.brac.hnpp.location.SSModel;
 import org.smartregister.repository.BaseRepository;
@@ -60,10 +63,10 @@ public class SSLocationRepository extends BaseRepository {
 
     public void addOrUpdate(SSModel ssModel) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(SS_NAME, ssModel.name);
+        contentValues.put(SS_NAME, ssModel.username);
         contentValues.put(GEOJSON, gson.toJson(ssModel.locations));
-        if(isExistLocation(ssModel.name)){
-            getWritableDatabase().update(getLocationTableName(),contentValues,SS_NAME+" =? ",new String[]{ssModel.name});
+        if(isExistLocation(ssModel.username)){
+            getWritableDatabase().update(getLocationTableName(),contentValues,SS_NAME+" =? ",new String[]{ssModel.username});
         }else{
             getWritableDatabase().replace(getLocationTableName(), null, contentValues);
         }
@@ -110,8 +113,17 @@ public class SSLocationRepository extends BaseRepository {
         String geoJson = cursor.getString(cursor.getColumnIndex(GEOJSON));
         String name = cursor.getString(cursor.getColumnIndex(SS_NAME));
         SSModel ssModel = new SSModel();
-        ssModel.name = name;
-        ssModel.locations.add(gson.fromJson(geoJson, SSLocations.class));
+        ssModel.username = name;
+        try {
+            JSONArray jsonArray = new JSONArray(geoJson);
+            for(int i = 0; i <jsonArray.length();i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                SSLocations locations = new Gson().fromJson(jsonObject.toString(), SSLocations.class);
+                ssModel.locations.add(locations);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return ssModel;
     }
 
