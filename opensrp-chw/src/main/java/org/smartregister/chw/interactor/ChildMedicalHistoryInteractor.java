@@ -234,7 +234,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             if(visitDetails!=null && visitDetails.size()>0){
 
                 serviceRecord.setType(Constants.EventType.EXCLUSIVE_BREASTFEEDING);
-                serviceRecord.setName(visitDetails.get(0).getHumanReadable());
+                serviceRecord.setName(visitDetails.get(0).getPreProcessedJson());
                 serviceRecord.setValue(visitDetails.get(0).getHumanReadable());
                 serviceRecord.setDate(visitDetails.get(0).getCreatedAt());
                 serviceRecord.setRecurringServiceId(serviceId);
@@ -491,13 +491,13 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             //String[] values = serviceRecord.getValue().split("_");
             if (serviceRecord.getName().equalsIgnoreCase(ChildDBConstants.KEY.CHILD_BF_HR)) {
                 content.setServiceName(getContext().getString(R.string.initial_breastfeed_value, WordUtils.capitalize(serviceRecord.getValue())));
-            } else if (serviceRecord.getName().equalsIgnoreCase("exclusive breastfeeding0")) {
+            } else if (serviceRecord.getName().equalsIgnoreCase("exclusive_breastfeeding0")) {
                 content.setServiceName(getContext().getString(R.string.zero_month_breastfeed_value, WordUtils.capitalize(serviceRecord.getValue())));
             } else {
                 Object[] objects = ChildUtils.getStringWithNumber(serviceRecord.getName());
                 String name = (String) objects[0];
                 String number = (String) objects[1];
-                content.setServiceName(name + " (" + number + "" + getContext().getString(R.string.abbrv_months) + "): " + serviceRecord.getValue());
+                content.setServiceName(name.replace("_","") + " (" + number + "" + getContext().getString(R.string.abbrv_months) + "): " + serviceRecord.getValue());
             }
 
         } else {
