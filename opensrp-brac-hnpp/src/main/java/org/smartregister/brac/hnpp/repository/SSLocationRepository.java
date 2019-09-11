@@ -37,7 +37,7 @@ public class SSLocationRepository extends BaseRepository {
 
     private static final String CREATE_LOCATION_TABLE =
             "CREATE TABLE " + LOCATION_TABLE + " (" +
-                    ID + " VARCHAR NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                    ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                     SS_NAME + " VARCHAR , " +
                     GEOJSON + " VARCHAR NOT NULL ) ";
 

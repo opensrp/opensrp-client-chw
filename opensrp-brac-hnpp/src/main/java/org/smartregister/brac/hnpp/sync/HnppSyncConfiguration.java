@@ -9,7 +9,7 @@ import org.smartregister.brac.hnpp.BuildConfig;
 /**
  * @author Elly Nerdstone
  */
-public class HfSyncConfiguration extends SyncConfiguration {
+public class HnppSyncConfiguration extends SyncConfiguration {
     @Override
     public int getSyncMaxRetries() {
         return BuildConfig.MAX_SYNC_RETRIES;

@@ -10,6 +10,8 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.domain.HouseholdId;
 import org.smartregister.repository.BaseRepository;
+import org.smartregister.repository.ReportRepository;
+import org.smartregister.repository.Repository;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,8 +37,8 @@ public class HouseholdIdRepository extends BaseRepository {
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
-    public HouseholdIdRepository(HfChwRepository hfChwRepository) {
-        super(hfChwRepository);
+    public HouseholdIdRepository(Repository repository) {
+        super(repository);
     }
 
     protected static void createTable(SQLiteDatabase database) {

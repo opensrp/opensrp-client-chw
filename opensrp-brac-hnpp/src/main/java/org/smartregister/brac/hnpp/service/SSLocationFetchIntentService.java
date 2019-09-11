@@ -56,7 +56,6 @@ public class SSLocationFetchIntentService extends IntentService {
                 return null;
             }
             //testing
-            userName = "royal@hnpp.com";
             String url = baseUrl + LOCATION_FETCH + "username=" + userName;
             Log.v("LOCATION_FETCH","getLocationList>>url:"+url);
             Response resp = httpAgent.fetch(url);

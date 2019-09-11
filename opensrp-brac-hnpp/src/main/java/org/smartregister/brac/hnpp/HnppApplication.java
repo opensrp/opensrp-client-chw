@@ -1,5 +1,6 @@
 package org.smartregister.brac.hnpp;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 
@@ -11,17 +12,17 @@ import org.jetbrains.annotations.NotNull;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.P2POptions;
+import org.smartregister.brac.hnpp.activity.LoginActivity;
 import org.smartregister.brac.hnpp.custom_view.HnppNavigationTopView;
 import org.smartregister.brac.hnpp.repository.HnppChwRepository;
 import org.smartregister.brac.hnpp.repository.SSLocationRepository;
 import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
+import org.smartregister.brac.hnpp.sync.HnppSyncConfiguration;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.loggers.CrashlyticsTree;
-import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.brac.hnpp.activity.AncRegisterActivity;
@@ -32,7 +33,6 @@ import org.smartregister.brac.hnpp.activity.ReferralRegisterActivity;
 import org.smartregister.brac.hnpp.custom_view.HnppNavigationMenu;
 import org.smartregister.brac.hnpp.job.HnppJobCreator;
 import org.smartregister.brac.hnpp.model.NavigationModel;
-import org.smartregister.brac.hnpp.sync.HfSyncConfiguration;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
@@ -96,12 +96,13 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
 
-        //Initialize Peer to peer modules
-        P2POptions p2POptions = new P2POptions(true);
-        p2POptions.setAuthorizationService(new CoreAuthorizationService());
-
-        // init libraries
-        CoreLibrary.init(context, new HfSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
+//        //Initialize Peer to peer modules
+//        P2POptions p2POptions = new P2POptions(true);
+//        p2POptions.setAuthorizationService(new CoreAuthorizationService());
+//
+//        // init libraries
+//        CoreLibrary.init(context, new HnppSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
+        CoreLibrary.init(context,new HnppSyncConfiguration());
         ConfigurableViewsLibrary.init(context, getRepository());
         FamilyLibrary.init(context, getRepository(), FormUtils.getFamilyMetadata(new FamilyProfileActivity()), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
@@ -123,12 +124,6 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
         if (language.equals(Locale.FRENCH.getLanguage())) {
             saveLanguage(Locale.FRENCH.getLanguage());
         }
-    }
-    public static SSLocationRepository getSSLocationRepository() {
-        if ( locationRepository == null) {
-            locationRepository = new SSLocationRepository(getInstance().getRepository());
-        }
-        return locationRepository;
     }
 
     public static synchronized HnppApplication getHNPPInstance() {
@@ -173,9 +168,16 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
 
     public HouseholdIdRepository getHouseholdIdRepository() {
         if (householdIdRepository == null) {
-            householdIdRepository = new HouseholdIdRepository((HfChwRepository) getRepository());
+            householdIdRepository = new HouseholdIdRepository(getInstance().getRepository());
         }
         return householdIdRepository;
+    }
+
+    public static SSLocationRepository getSSLocationRepository() {
+        if ( locationRepository == null) {
+            locationRepository = new SSLocationRepository(getInstance().getRepository());
+        }
+        return locationRepository;
     }
 
     public void setOpenSRPUrl() {

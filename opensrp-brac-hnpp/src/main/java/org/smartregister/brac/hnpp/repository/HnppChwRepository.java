@@ -23,6 +23,7 @@ public class HnppChwRepository extends CoreChwRepository {
     public void onCreate(SQLiteDatabase database) {
         super.onCreate(database);
         SSLocationRepository.createTable(database);
+        HouseholdIdRepository.createTable(database);
     }
 
     @Override
