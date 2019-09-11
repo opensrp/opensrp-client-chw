@@ -145,7 +145,7 @@ public class HomeAlertRule implements ICommonRule {
         if (lastVisitDate != null && getFirstDayOfMonth(lastVisitDate.toDate()).getTime() < dateCreated.toDate().getTime()) {
             return getFirstDayOfMonth(lastVisitDate.toDate());
         } else {
-            return dateCreated.toDate();
+            return dateCreated != null ? dateCreated.toDate() : new Date();
         }
     }
 
