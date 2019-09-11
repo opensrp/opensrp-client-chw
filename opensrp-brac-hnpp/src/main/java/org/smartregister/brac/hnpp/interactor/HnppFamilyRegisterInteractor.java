@@ -23,23 +23,26 @@ import java.util.List;
 
 public class HnppFamilyRegisterInteractor extends org.smartregister.family.interactor.FamilyRegisterInteractor {
 
-    public void getHouseHoldId(final SSLocations locationForm, HnppFamilyRegisterContract.InteractorCallBack callBack){
-        Runnable runnable = new Runnable() {
-            public void run() {
-                String lastFourDigit = "";
-                String houseHoldId = SSLocationHelper.getInstance().generateHouseHoldId(locationForm,lastFourDigit);
-                Log.v("HHID","houseHoldId>>"+houseHoldId);
-                appExecutors.mainThread().execute(new Runnable() {
-                    public void run() {
-                        if (!StringUtils.isBlank(houseHoldId)) {
-                            callBack.updateHouseHoldId(houseHoldId);
-                        }
-
-                    }
-                });
-            }
-        };
-        this.appExecutors.diskIO().execute(runnable);
+    public String getHouseHoldId(final SSLocations locationForm, HnppFamilyRegisterContract.InteractorCallBack callBack){
+        String lastFourDigit = locationForm.village.id+"";
+        String houseHoldId = SSLocationHelper.getInstance().generateHouseHoldId(locationForm,lastFourDigit);
+        return houseHoldId;
+//        Runnable runnable = new Runnable() {
+//            public void run() {
+//                String lastFourDigit = "";
+//                String houseHoldId = SSLocationHelper.getInstance().generateHouseHoldId(locationForm,lastFourDigit);
+//                Log.v("HHID","houseHoldId>>"+houseHoldId);
+//                appExecutors.mainThread().execute(new Runnable() {
+//                    public void run() {
+//                        if (!StringUtils.isBlank(houseHoldId)) {
+//                            callBack.updateHouseHoldId(houseHoldId);
+//                        }
+//
+//                    }
+//                });
+//            }
+//        };
+//        this.appExecutors.diskIO().execute(runnable);
     }
 
     @Override

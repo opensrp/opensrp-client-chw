@@ -1,6 +1,8 @@
 package org.smartregister.brac.hnpp.location;
 
-public class BaseLocation {
+import java.io.Serializable;
+
+public class BaseLocation implements Serializable {
     public String name;
     public int id;
     public int code;

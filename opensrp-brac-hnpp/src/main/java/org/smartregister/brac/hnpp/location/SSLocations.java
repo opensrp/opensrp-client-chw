@@ -1,6 +1,8 @@
 package org.smartregister.brac.hnpp.location;
 
-public class SSLocations {
+import java.io.Serializable;
+
+public class SSLocations implements Serializable {
     public BaseLocation division;
     public BaseLocation country;
     public BaseLocation district;

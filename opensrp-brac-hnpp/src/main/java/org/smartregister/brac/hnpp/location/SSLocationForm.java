@@ -1,6 +1,8 @@
 package org.smartregister.brac.hnpp.location;
 
-public class SSLocationForm {
+import java.io.Serializable;
+
+public class SSLocationForm implements Serializable {
     public String name;
     public SSLocations locations;
 }
