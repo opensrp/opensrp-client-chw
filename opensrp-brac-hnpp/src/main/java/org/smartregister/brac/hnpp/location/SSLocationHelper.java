@@ -20,7 +20,7 @@ public class SSLocationHelper {
         return instance;
     }
     public ArrayList<SSLocationForm> getSsLocationForms() {
-        if(ssLocationForms == null){
+        if(ssLocationForms != null && ssLocationForms.isEmpty()){
             setSsLocationForms();
         }
         return ssLocationForms;
@@ -31,7 +31,7 @@ public class SSLocationHelper {
         for(SSModel ssModel : ssModels){
             for (SSLocations ssLocations:ssModel.locations){
                 SSLocationForm ssLocationForm = new SSLocationForm();
-                ssLocationForm.name = ssModel.name;
+                ssLocationForm.name = ssModel.username;
                 ssLocationForm.locations = ssLocations;
                 ssLocationForms.add(ssLocationForm);
             }

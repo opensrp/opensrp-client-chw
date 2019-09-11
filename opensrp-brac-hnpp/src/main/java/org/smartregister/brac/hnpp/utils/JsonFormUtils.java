@@ -43,7 +43,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         }
         JSONArray field = fields(form, STEP1);
         JSONObject spinner = getFieldJSONObject(field, VILLAGE_NAME);
-        spinner.put(org.smartregister.family.util.JsonFormUtils.VALUE,jsonArray);
+        spinner.put(org.smartregister.family.util.JsonFormUtils.VALUES,jsonArray);
         return form;
 
 
