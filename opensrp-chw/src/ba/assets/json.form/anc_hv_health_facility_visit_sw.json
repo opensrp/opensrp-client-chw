@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ANC Registration",
+  "encounter_type": "Home Visit - Facility Visit",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -56,7 +56,7 @@
         "openmrs_entity_id": "1889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "label_info_title": "Je, mama  amehudhuria kliniki ya wajawazito hudhurio la {0} katika kituo cha kutolea huduma za afya?",
-        "label_info_text": "Whether or not the woman attended her ANC visit at the health facility.",
+        "label_info_text": "Je, mama  amehudhuria kliniki ya wajawazito hudhurio la katika kituo cha kutolea huduma za afya?",
         "type": "spinner",
         "hint": "Je, mama  amehudhuria kliniki ya wajawazito hudhurio la {0} katika kituo cha kutolea huduma za afya?\n\nTarehe ya hudhurio lingine: {1}",
         "values": [
@@ -237,7 +237,7 @@
           },
           {
             "key": "chk_calcuim",
-            "text": "Calcuim supplement",
+            "text": "Calcium supplement",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

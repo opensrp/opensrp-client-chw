@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Deworming",
+  "encounter_type": "De-worming",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -56,12 +56,12 @@
         "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "image": "ic_form_deworming",
-        "hint": "When was Deworming {0} dose given?",
+        "hint": "When was deworming {0} dose given?",
         "min_date": "today-120y",
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please enter the date deworming a was given"
+          "err": "Please enter the date deworming was given"
         }
       }
     ]

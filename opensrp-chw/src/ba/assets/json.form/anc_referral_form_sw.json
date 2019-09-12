@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "PNC Referral",
+  "encounter_type": "ANC Referral",
   "entity_id": "",
   "relational_id": "",
   "metadata": {
@@ -52,36 +52,59 @@
     }
   },
   "step1": {
-    "title": "PNC referral form",
+    "title": "Rufaa ya mama mjamzito",
     "fields": [
       {
-        "key": "problem_hf_pnc",
+        "key": "chw_referral_hf_anc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_referral_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "problem_hf_anc",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Client condition / problem",
+        "label": "Tatizo / hali ya afya ya mteja",
         "label_text_style": "bold",
         "options": [
           {
             "key": "Vaginal_bleeding",
-            "text": "Vaginal bleeding",
+            "text": "Kutoka damu ukeni",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Discoloured_or_watery_liquid_vaginal_discharge",
-            "text": "Discoloured or watery, liquid vaginal discharge with a bad smell",
+            "key": "Discoloured_or_watery_liquid_vaginal_discharge_with_a_bad_smell",
+            "text": "Kutoka uchafu / majimaji ukeni yenye harufu mbaya",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
+            "key": "High_blood_pressure",
+            "text": "Shinikizo la damu",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "113088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
             "key": "Severe_abdominal_pain",
-            "text": "Severe abdominal pain",
+            "text": "Maumivu makali ya tumbo",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -89,7 +112,7 @@
           },
           {
             "key": "Severe_anaemia",
-            "text": "Severe anaemia",
+            "text": "Upungufu mkubwa wa damu",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -97,23 +120,47 @@
           },
           {
             "key": "Convulsions",
-            "text": "Convulsions",
+            "text": "Degedege / Mtukutiko wa mwili",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
+            "key": "No_movement_unusual_movement_for_a_child_in_the_womb",
+            "text": "Kutocheza / kucheza kusiko kwa kawaida kwa mtoto aliye tumboni",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Pregnancy_pains_before_9_months",
+            "text": "Uchungu kuanza mapema kabla ya mimba kufikia miezi 9",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "153316AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Early_age_pregnancy_below_18_years",
+            "text": "Kupata mimba katika umri mdogo (chini ya umri wa miaka 18)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "163119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
             "key": "A_severe_headache_dizziness",
-            "text": "A severe headache / dizziness",
+            "text": "Maumivu makali ya kichwa / kizunguzungu",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Swelling_of_the_face_and_or_hands",
-            "text": "Swelling of the face and/or hands",
+            "key": "Swelling_of_the_face_andor_hands",
+            "text": "Kuvimba uso na / au mikono",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -121,7 +168,7 @@
           },
           {
             "key": "Fever",
-            "text": "Fever",
+            "text": "Homa",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -129,55 +176,39 @@
           },
           {
             "key": "Shivering_trembling",
-            "text": "Shivering/trembling",
+            "text": "Kutetemeka",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "158359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Nausea",
-            "text": "Nausea",
+            "key": "Nausea_and_Vomiting",
+            "text": "Kichefuchefu na kutapika",
             "value": false,
             "openmrs_entity": "",
-            "openmrs_entity_id": "5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Vomiting",
-            "text": "Vomiting",
+            "key": "Water_sack_broke_before_contractions",
+            "text": "Chupa kupasuka mapema kabla ya uchungu",
             "value": false,
             "openmrs_entity": "",
-            "openmrs_entity_id": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "129211AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Cord_prolapse",
-            "text": "Cord prolapse",
+            "text": "Kutangulia kitovu cha mtoto",
             "value": false,
             "openmrs_entity": "",
-            "openmrs_entity_id": "113617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Perineum_bleeding",
-            "text": "Perineum bleeding",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "136938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Fullness_or_pain_of_the_breasts",
-            "text": "Breast engorgement",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "118620AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "128419AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
             "key": "HIV_care_and_support_services",
-            "text": "HIV care and support services",
+            "text": "Huduma za wateja / wagonjwa wanaoishi na VVU",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "159811AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -185,7 +216,7 @@
           },
           {
             "key": "Family_planning_services",
-            "text": "Family planning services",
+            "text": "Huduma za uzazi wa mpango",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "5271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -193,7 +224,7 @@
           },
           {
             "key": "PMTCT_for_mothers",
-            "text": "PMTCT for mothers",
+            "text": "Huduma ya kuzuia maambukizi ya VVU toka kwa mama kwenda kwa mtoto",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "160538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -208,144 +239,48 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Fast_breathing_and_difficulty_with_breathing",
-            "text": "Fast breathing and difficulty with breathing",
+            "key": "Difficultly_breathing",
+            "text": "Kupumua kwa shida",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Umbilical_cord",
-            "text": "Umbilical cord/navel bleeding",
+            "key": "Breast_engorgement",
+            "text": "Kujaa au maumivu ya matiti, chuchu na kushindwa kunyonyesha",
             "value": false,
             "openmrs_entity": "",
-            "openmrs_entity_id": "123844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "118620AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Excessive_crying",
-            "text": "Excessive crying",
+            "key": "Blurred_vision",
+            "text": "Kuona kwa shida",
             "value": false,
             "openmrs_entity": "",
-            "openmrs_entity_id": "140944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Unable_to_breastfeed_or_swallow",
-            "text": "Unable to breastfeed or swallow",
+            "key": "Perineum_tear",
+            "text": "Kuchanika msamba",
             "value": false,
             "openmrs_entity": "",
-            "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "136938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Neck_stiffness",
-            "text": "Neck stiffness",
+            "key": "Pregnancy_confirmation",
+            "text": "Kuhakiki uja-uzito",
             "value": false,
             "openmrs_entity": "",
-            "openmrs_entity_id": "112721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "152305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "Bloating",
-            "text": "Bloating",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "147132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Redness_around_the_umbilical_cord_foul",
-            "text": "Redness around the umbilical cord, foul-smelling discharge from the umbilical cord",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "132407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Bacterial_conjunctivitis",
-            "text": "Bacterial conjunctivitis",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "148026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Pale_or_jaundiced",
-            "text": "Pale or jaundiced",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Cyanosis_blueness_of_lips",
-            "text": "Cyanosis (blueness of lips)",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Skin_rash_pustules",
-            "text": "Skin rash / pustules",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Diarrhea",
-            "text": "Diarrhea",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Disabilities",
-            "text": "Congenital Disabilities",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Premature_baby",
-            "text": "Premature baby",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "159908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Failure_to_pass_urine_or_stool",
-            "text": "Failure to pass urine or stool within 24 hours after birth",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Care_of_HIV_exposed_infant",
-            "text": "Care of HIV-exposed infant",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Immunisation",
-            "text": "Immunisation",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "Other_symptom",
-            "text": "Other symptom",
+            "key": "Other_symptoms",
+            "text": "Dalili nyingine",
             "value": false,
             "ignore": true,
             "openmrs_entity": "",
@@ -355,34 +290,38 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Please specify client condition/problem"
+          "err": "Tafadhali taja sababu ya rufaa ya mama mjamzito"
         }
       },
       {
-        "key": "problem_hf_pnc_other",
+        "key": "problem_hf_anc_other",
         "type": "edit_text",
         "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "edit_type": "name",
-        "hint": "Other symptom",
+        "hint": "Dalili nyingine",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja dalili zingine"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "pnc_referral_relevance.yml"
+              "rules-file": "anc_referral_relevance.yml"
             }
           }
         }
       },
       {
-        "key": "service_before_pnc",
+        "key": "service_before_anc",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Pre-referral management given",
-        "label_text_style": "bold",
         "is_problem": false,
+        "label": "Huduma aliyopewa kabla ya rufaa",
+        "label_text_style": "bold",
         "exclusive": [
           "None"
         ],
@@ -405,7 +344,7 @@
           },
           {
             "key": "Other_treatment",
-            "text": "Other treatment",
+            "text": "Matibabu mengine",
             "value": false,
             "ignore": true,
             "openmrs_entity": "",
@@ -414,7 +353,7 @@
           },
           {
             "key": "None",
-            "text": "None",
+            "text": "Hakuna huduma aliyopewa",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -423,26 +362,56 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pre-referral management field is required"
+          "err": "Huduma aliyopewa kabla ya rufaa ni lazima"
         }
       },
       {
-        "key": "service_before_pnc_other",
+        "key": "service_before_anc_other",
         "type": "edit_text",
         "openmrs_entity": "",
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "edit_type": "name",
-        "hint": "Other treatment",
         "is_problem": false,
+        "edit_type": "name",
+        "hint": "Matibabu mengine",
         "v_required": {
           "value": "true",
-          "err": "Please specify other treatment"
+          "err": "Tafadhali taja matibabu mengine"
         },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "pnc_referral_relevance.yml"
+              "rules-file": "anc_referral_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_date_anc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_referral_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_time_anc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "referral_time_anc",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_referral_calculation.yml"
             }
           }
         }

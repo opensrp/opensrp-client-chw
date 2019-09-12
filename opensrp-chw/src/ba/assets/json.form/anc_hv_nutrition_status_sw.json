@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ANC Registration",
+  "encounter_type": "Home Visit - Nutrition Status",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -58,9 +58,9 @@
         "type": "spinner",
         "hint": "Je, hali ya lishe ya mama ikoje?",
         "values": [
-          "Kawaida",
-          "Dhaifu",
-          "Dhaifu sana"
+          "Nzuri/Kijani",
+          "Kadri/Njano",
+          "Dhaifu/Nyekundu"
         ],
         "keys": [
           "Normal",

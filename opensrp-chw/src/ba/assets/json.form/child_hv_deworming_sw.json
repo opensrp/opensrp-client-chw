@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Home Visit - Remarks and comment",
+  "encounter_type": "De-worming",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,18 +47,21 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Remarks/Comments",
+    "title": "Dozi ya {0} ya dawa ya minyoo",
     "fields": [
       {
-        "key": "chw_comment_anc",
-        "openmrs_entity_parent": "",
+        "key": "deworming{0}_date",
+        "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Remarks/Comments",
+        "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "image": "ic_form_deworming",
+        "hint": "Dawa ya minyoo ya {0} lilifanyika lini?",
+        "min_date": "today-120y",
+        "max_date": "today",
         "v_required": {
-          "value": "false",
-          "err": "Please enter the your remarks/comments"
+          "value": "true",
+          "err": "Tafadhali ingiza tarehe ya dozi ya dawa ya minyoo"
         }
       }
     ]

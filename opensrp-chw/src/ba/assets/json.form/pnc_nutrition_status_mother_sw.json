@@ -58,9 +58,9 @@
         "type": "spinner",
         "hint": "Hali ya lishe ya mama",
         "values": [
-          "Kawaida",
-          "Dhaifu",
-          "Dhaifu sana"
+          "Nzuri/Kijani",
+          "Kadri/Njano",
+          "Dhaifu/Nyekundu"
         ],
         "keys": [
           "Normal",

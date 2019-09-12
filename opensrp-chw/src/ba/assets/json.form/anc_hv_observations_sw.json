@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ANC Registration",
+  "encounter_type": "Home Visit - Obs and Illness",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Hali ya ugonjwa",
+    "title": "Uchunguzi na ugonjwa",
     "fields": [
       {
         "key": "date_of_illness",
@@ -105,7 +105,7 @@
           },
           {
             "key": "chk_paracetamol",
-            "text": "Paracetamol",
+            "text": "Panadol",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

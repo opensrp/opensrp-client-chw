@@ -128,40 +128,34 @@
         "values": [
           "Kitanzi",
           "Vidonge vya kumeza (POP)",
-          "Injectable",
           "Kipandikizi",
           "Kondomu",
           "Njia ya uzazi wa mpango kwa unyonyeshaji (LAM)",
           "Shanga",
           "Kufunga kizazi mwanamke",
           "Kufunga kizazi mwanamme",
-          "Kugunga / Kutofanya tendo la ndoa",
           "Hakuchagua njia yoyote"
         ],
         "keys": [
           "PPIUCD",
           "Pills",
-          "Injectable",
           "Implant",
           "Condoms",
           "LAM",
           "Bead Counting",
           "Permanent (BTL)",
           "Permanent (Vascemtomy)",
-          "Abstinence",
           "None"
         ],
         "openmrs_choice_ids": {
           "PPIUCD": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Pills": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Injectable": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Implant": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Condoms": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "LAM": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Bead Counting": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Permanent (BTL)": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Permanent (Vascemtomy)": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Abstinence": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {

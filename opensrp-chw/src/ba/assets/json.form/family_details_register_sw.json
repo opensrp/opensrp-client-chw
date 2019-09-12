@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Maelezo ya familias",
+    "title": "Taarifa ya familia",
     "fields": [
       {
         "key": "fam_name",
@@ -83,7 +83,7 @@
         "scanButtonText": "Scan QR Code",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid ID"
+          "err": "Tafadhali ingiza namba halali"
         }
       },
       {

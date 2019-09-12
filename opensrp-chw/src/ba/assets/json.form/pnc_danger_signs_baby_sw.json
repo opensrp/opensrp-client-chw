@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Does the baby have any danger signs?",
+        "label": "Je, mtoto mchanga ana dalili zozote za hatari?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -70,13 +70,6 @@
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_redness_around_umbilical_cord",
-            "text": "Uambukizo kwenye kitovu",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "132407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "chk_excessive_crying",
             "text": "Mtoto kulia sana",
             "value": false,
@@ -85,17 +78,17 @@
           },
           {
             "key": "chk_fast_breathing",
-            "text": "Mtoto kulia sana",
+            "text": "Kupumua kwa haraka",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "125061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_chest_indrawing",
-            "text": "Kifua kujiondoa",
+            "key": "chk_difficult_breathing",
+            "text": "Kushindwa kupumua",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_unable_to_suck",
@@ -103,6 +96,13 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_umbilical_discharge",
+            "text": "Kutoka damu kwenye kitovu au usaha",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_no_movement",
@@ -119,11 +119,32 @@
             "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
+            "key": "chk_skin_rashes",
+            "text": "Vipele mwilini",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
             "key": "chk_pale",
             "text": "Mwili kuwa njano",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_eye_discharge",
+            "text": "Macho kutoa uchafu / usaha",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "142246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_severe_abdominal_pain",
+            "text": "Maumivu makali ya tumbo",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_lethargy",
@@ -160,14 +181,17 @@
               {
                 "or": [
                   "chk_fever",
-                  "chk_redness_around_umbilical_cord",
                   "chk_excessive_crying",
                   "chk_fast_breathing",
-                  "chk_chest_indrawing",
+                  "chk_difficult_breathing",
                   "chk_unable_to_suck",
+                  "chk_umbilical_discharge",
                   "chk_no_movement",
                   "chk_convulsions",
+                  "chk_skin_rashes",
                   "chk_pale",
+                  "chk_eye_discharge",
+                  "chk_severe_abdominal_pain",
                   "chk_lethargy"
                 ]
               }

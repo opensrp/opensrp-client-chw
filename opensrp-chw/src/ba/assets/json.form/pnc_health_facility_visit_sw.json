@@ -64,8 +64,7 @@
         "values": [
           "Ndiyo",
           "Hapana"
-        ]
-      ,
+        ],
         "keys": [
           "Yes",
           "No"
@@ -101,7 +100,7 @@
         "hint": "Je, mama alipewa Vitamini A ndani ya masaa 24 baada ya kujifungua?",
         "v_required": {
           "value": "true",
-          "err": "Please select option"
+          "err": "Tafadhali chagua chaguo"
         },
         "values": [
           "Ndiyo",
@@ -128,7 +127,7 @@
         "hint": "Je, mama alipewa dawa za kuongeza damu (FEFO) ndani ya masaa 24 baada ya kujifungua?",
         "v_required": {
           "value": "true",
-          "err": "Please select option"
+          "err": "Tafadhali chagua chaguo"
         },
         "values": [
           "Ndiyo",

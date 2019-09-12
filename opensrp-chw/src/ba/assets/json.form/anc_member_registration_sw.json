@@ -64,7 +64,7 @@
         "type": "date_picker",
         "hint": "Tarehe ya kwanza ya hedhi ya kawaida ya mwisho (LNMP)",
         "label_info_title": "LMP",
-        "label_info_text": "LNMP = Siku ya kwanza ya mwisho ya hedhi (LNMP). Kama tarehe halisi haijulikani, lakini kipindi cha mwezi kinajulikana, tumia siku 5 kwa mwanzo wa mwezi, tumia siku 15 kwa katikati ya mwezi, na tumia siku 25 kwa mwisho wa mwezi.",
+        "label_info_text": "LNMP = SSiku ya kwanza ya mwisho ya hedhi (LNMP). Kama tarehe halisi haijulikani, lakini kipindi cha mwezi kinajulikana; \n -tumia siku 5 kwa mwanzo wa mwezi \n -tumia siku 15 kwa katikati ya mwezi \n -na tumia siku 25 kwa mwisho wa mwezi",
         "expanded": false,
         "max_date": "today",
         "min_date": "today-50w",
@@ -184,6 +184,13 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_miscarriage",
+            "text": "Mimba kuharibika",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
@@ -218,6 +225,13 @@
           {
             "key": "chk_cesarean_section",
             "text": "Njia ya upasuaji",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_miscarriage",
+            "text": "Mimba kuharibika",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -271,17 +285,23 @@
         "values": [
           "Ameolewa",
           "Anaishi na mwenza",
-          "Hajaoa / Hajaolewa"
+          "Hajaolewa",
+          "Ameachika",
+          "Mjane"
         ],
         "keys": [
           "Married",
           "Co-habiting",
-          "Single"
+          "Single",
+          "Divorced",
+          "Widowed"
         ],
         "openmrs_choice_ids": {
           "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Co-habiting": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Divorced": "1058AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Widowed": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       },
       {

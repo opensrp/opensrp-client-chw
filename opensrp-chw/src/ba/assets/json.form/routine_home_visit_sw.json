@@ -71,98 +71,98 @@
         "options": [
           {
             "key": "chk_maternal_nutrition",
-            "text": "Lishe kwa mama wakati wa kunyonyesha",
+            "text": "3. Lishe kwa mama wakati wa kunyonyesha",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_hiv_aids",
-            "text": "Umuhimu wa kupata ushauri nasaha na kupima VVU",
+            "text": "5. Umuhimu wa kupata ushauri nasaha na kupima VVU",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_pmtc_for_mother",
-            "text": "Kuzuia mambukizi ya VVU kutoka kwa mama kwenda kwa mtoto",
+            "text": "6. Kuzuia mambukizi ya VVU kutoka kwa mama kwenda kwa mtoto",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_malaria_prevention",
-            "text": "Kuzuia malaria kwa watoto wenye umri chini ya miaka mitano",
+            "text": "7. Kuzuia malaria kwa watoto wenye umri chini ya miaka mitano",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_hiv_exposed_infant",
-            "text": "Ufuatiliaji wa mtoto aliyezaliwa na mama mwenye VVU",
+            "text": "15. Ufuatiliaji wa mtoto aliyezaliwa na mama mwenye VVU",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_breast_feeding",
-            "text": "Unyonyeshaji wa maziwa ya mama",
+            "text": "16. Unyonyeshaji wa maziwa ya mama",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_birth_registration",
-            "text": "Usajili wa vizazi",
+            "text": "19. Usajili wa vizazi",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_complementary_feeding",
-            "text": "Kumlisha mtoto vyakula vya nyongeza",
+            "text": "20. Kumlisha mtoto vyakula vya nyongeza",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_growth_and_dev",
-            "text": "Makuzi na maendeleo ya awali ya mtoto",
+            "text": "21. Makuzi na maendeleo ya awali ya mtoto",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_immunization",
-            "text": "Chanjo",
+            "text": "22. Chanjo",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_newborn_danger",
-            "text": "Dalili za hatari kwa mtoto mchanga",
+            "text": "23. Dalili za hatari kwa mtoto mchanga",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_infection",
-            "text": "Kuzuia maambukizi katika jamii",
+            "text": "24. Kuzuia maambukizi katika jamii",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_prevention_of_accidents",
-            "text": "Kuzuia ajali kwa watoto chini ya miaka Mitano",
+            "text": "25. Kuzuia ajali kwa watoto chini ya miaka Mitano",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_gender_issues",
-            "text": "Jinsia",
+            "text": "26. Jinsia",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""

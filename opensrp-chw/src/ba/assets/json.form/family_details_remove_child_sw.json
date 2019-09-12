@@ -132,7 +132,7 @@
         "openmrs_data_type": "text",
         "type": "date_picker",
         "label": "Tarehe aliyohama",
-        "hint": "Tarehe aliyohamay",
+        "hint": "Tarehe aliyohama",
         "expanded": false,
         "min_date": "",
         "max_date": "today",
