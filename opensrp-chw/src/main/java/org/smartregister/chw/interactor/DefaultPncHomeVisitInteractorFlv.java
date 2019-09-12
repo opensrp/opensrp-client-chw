@@ -174,14 +174,14 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     }
                 }
 
-                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_health_facility_visit), visitRule.getVisitName(), memberObject.getFullName()))
+                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_health_facility_visit_mother), visitRule.getVisitName()))
                         .withOptional(false)
                         .withDetails(details)
                         .withBaseEntityID(memberObject.getBaseEntityId())
                         .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisit())
                         .withHelper(new PNCHealthFacilityVisitHelper(visitRule, visit_num))
                         .build();
-                actionList.put(MessageFormat.format(context.getString(R.string.pnc_health_facility_visit), visitRule.getVisitName(), memberObject.getFullName()), action);
+                actionList.put(MessageFormat.format(context.getString(R.string.pnc_health_facility_visit_mother), visitRule.getVisitName()), action);
 
             }
         }
