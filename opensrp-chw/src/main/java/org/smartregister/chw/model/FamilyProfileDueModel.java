@@ -12,7 +12,7 @@ public class FamilyProfileDueModel extends BaseFamilyProfileDueModel {
     public String mainSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
         queryBuilder.SelectInitiateMainTable(tableName, mainColumns(tableName));
-        queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + " ON  " + CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " COLLATE NOCASE ");
+        queryBuilder.customJoin("INNER JOIN " + CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + " ON  " + CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " COLLATE NOCASE ");
         return queryBuilder.mainCondition(mainCondition);
     }
 

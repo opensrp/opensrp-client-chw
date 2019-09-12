@@ -202,4 +202,32 @@ public class VisitDao extends AbstractDao {
 
         return new ArrayList<>();
     }
+
+    /**
+     * returns a list of visits from visit tables that can be deleted without having any effect
+     * to the home visit (Architecture bug on ANC)
+     *
+     * @return
+     */
+    public static List<String> getVisitsToDelete() {
+        String sql = "delete from visits where visit_id in ( " +
+                "select v.visit_id " +
+                "from visits v  " +
+                "inner join ( " +
+                " select STRFTIME('%Y-%m-%d', datetime(visit_date/1000,'unixepoch')) visit_day, max(visit_date) visit_date " +
+                " from visits " +
+                " where visit_type in ('" + CoreConstants.EventType.ANC_HOME_VISIT_NOT_DONE + "','" + CoreConstants.EventType.ANC_HOME_VISIT_NOT_DONE_UNDO + "') " +
+                " group by STRFTIME('%Y-%m-%d', datetime(visit_date/1000,'unixepoch'))  " +
+                " having count(DISTINCT visit_type) > 1 " +
+                ") x on x.visit_day = STRFTIME('%Y-%m-%d', datetime(v.visit_date/1000,'unixepoch')) and x.visit_date <> v.visit_date " +
+                "where v.visit_type in  ('" + CoreConstants.EventType.ANC_HOME_VISIT_NOT_DONE + "','" + CoreConstants.EventType.ANC_HOME_VISIT_NOT_DONE_UNDO + "')  ";
+
+        DataMap<String> dataMap = c -> getCursorValue(c, "visits");
+
+        List<String> details = readData(sql, dataMap);
+        if (details != null)
+            return details;
+
+        return new ArrayList<>();
+    }
 }
