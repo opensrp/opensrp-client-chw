@@ -165,25 +165,23 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         break;
                 }
 
-                for (Person baby : children) {
-
-                    Map<String, List<VisitDetail>> details = null;
-                    if (editMode) {
-                        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.PNC_HEALTH_FACILITY_VISIT);
-                        if (lastVisit != null) {
-                            details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
-                        }
+                Map<String, List<VisitDetail>> details = null;
+                if (editMode) {
+                    Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.PNC_HEALTH_FACILITY_VISIT);
+                    if (lastVisit != null) {
+                        details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
                     }
-
-                    BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_health_facility_visit), visitRule.getVisitName(), baby.getFullName()))
-                            .withOptional(false)
-                            .withDetails(details)
-                            .withBaseEntityID(baby.getBaseEntityID())
-                            .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisit())
-                            .withHelper(new PNCHealthFacilityVisitHelper(visitRule, visit_num))
-                            .build();
-                    actionList.put(MessageFormat.format(context.getString(R.string.pnc_health_facility_visit), visitRule.getVisitName(), baby.getFullName()), action);
                 }
+
+                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_health_facility_visit_mother), visitRule.getVisitName()))
+                        .withOptional(false)
+                        .withDetails(details)
+                        .withBaseEntityID(memberObject.getBaseEntityId())
+                        .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisit())
+                        .withHelper(new PNCHealthFacilityVisitHelper(visitRule, visit_num))
+                        .build();
+                actionList.put(MessageFormat.format(context.getString(R.string.pnc_health_facility_visit_mother), visitRule.getVisitName()), action);
+
             }
         }
     }
