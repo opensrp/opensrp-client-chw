@@ -1,5 +1,6 @@
 package org.smartregister.chw.hf.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import org.smartregister.chw.hf.model.FamilyProfileModel;
 import org.smartregister.chw.hf.presenter.FamilyProfilePresenter;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.util.Constants;
 
@@ -79,23 +81,9 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         return viewPager;
     }
 
-    private void setupMenuOptions(Menu menu) {
-
-        MenuItem removeMember = menu.findItem(org.smartregister.chw.core.R.id.action_remove_member);
-        MenuItem changeFamHead = menu.findItem(org.smartregister.chw.core.R.id.action_change_head);
-        MenuItem changeCareGiver = menu.findItem(org.smartregister.chw.core.R.id.action_change_care_giver);
-
-        if (removeMember != null) {
-            removeMember.setVisible(false);
-        }
-
-        if (changeFamHead != null) {
-            changeFamHead.setVisible(false);
-        }
-
-        if (changeCareGiver != null) {
-            changeCareGiver.setVisible(false);
-        }
+    @Override
+    public void gotToPncProfileActivity(CommonPersonObjectClient patient, Bundle bundle) {
+        goToOtherMemberProfileActivity(patient, bundle);
     }
 
     @Override
@@ -139,13 +127,32 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     }
 
     @Override
+    protected CommonPersonObject getPncCommonPersonObject(String baseEntityId) {
+        return getFamilyProfilePresenter().getPncCommonPersonObject(baseEntityId);
+    }
+
+    @Override
     protected boolean isPncMember(String baseEntityId) {
         return getFamilyProfilePresenter().isPncMember(baseEntityId);
     }
 
-    @Override
-    protected CommonPersonObject getPncCommonPersonObject(String baseEntityId) {
-        return getFamilyProfilePresenter().getPncCommonPersonObject(baseEntityId);
+    private void setupMenuOptions(Menu menu) {
+
+        MenuItem removeMember = menu.findItem(org.smartregister.chw.core.R.id.action_remove_member);
+        MenuItem changeFamHead = menu.findItem(org.smartregister.chw.core.R.id.action_change_head);
+        MenuItem changeCareGiver = menu.findItem(org.smartregister.chw.core.R.id.action_change_care_giver);
+
+        if (removeMember != null) {
+            removeMember.setVisible(false);
+        }
+
+        if (changeFamHead != null) {
+            changeFamHead.setVisible(false);
+        }
+
+        if (changeCareGiver != null) {
+            changeCareGiver.setVisible(false);
+        }
     }
 
     public FamilyProfilePresenter getFamilyProfilePresenter() {

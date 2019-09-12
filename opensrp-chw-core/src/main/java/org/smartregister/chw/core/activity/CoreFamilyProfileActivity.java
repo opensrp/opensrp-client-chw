@@ -386,7 +386,6 @@ public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivit
         return intent;
     }
 
-
     protected abstract Class<?> getFamilyOtherMemberProfileActivityClass();
 
     protected abstract Class<? extends CoreAboveFiveChildProfileActivity> getAboveFiveChildProfileActivityClass();
