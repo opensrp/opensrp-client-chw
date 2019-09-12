@@ -167,6 +167,13 @@
           }
         },
         {
+          "column_name": "relation_with_household_head",
+          "type": "Client",
+          "json_mapping": {
+            "field": "relation_with_household_head"
+          }
+        },
+        {
           "column_name": "middle_name",
           "type": "Client",
           "json_mapping": {
@@ -229,6 +236,13 @@
           "type": "Client",
           "json_mapping": {
             "field": "attributes.National_ID"
+          }
+        },
+        {
+          "column_name": "birth_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.Birth_ID"
           }
         },
         {
@@ -420,6 +434,34 @@
           "type": "Client",
           "json_mapping": {
             "field": "gender"
+          }
+        },
+        {
+          "column_name": "marital_status",
+          "type": "Client",
+          "json_mapping": {
+            "field": "marital_status"
+          }
+        },
+        {
+          "column_name": "blood_group",
+          "type": "Client",
+          "json_mapping": {
+            "field": "blood_group"
+          }
+        },
+        {
+          "column_name": "pregnant_status",
+          "type": "Client",
+          "json_mapping": {
+            "field": "pregnant_status"
+          }
+        },
+        {
+          "column_name": "simprints",
+          "type": "Client",
+          "json_mapping": {
+            "field": "simprints"
           }
         },
         {

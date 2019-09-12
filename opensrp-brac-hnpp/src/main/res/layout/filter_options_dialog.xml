@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="64dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="আজকের ভিজিটঃ (গ্রাম/এলাকা)" />
+
+    <Spinner
+        android:id="@+id/village_filter_spinner"
+        android:layout_marginBottom="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+    </Spinner>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ক্লাস্টারঃ" />
+    <Spinner
+        android:id="@+id/klaster_filter_spinner"
+        android:layout_marginBottom="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+    </Spinner>
+    <Button
+        android:id="@+id/filter_apply_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="proceed"/>
+</LinearLayout>
