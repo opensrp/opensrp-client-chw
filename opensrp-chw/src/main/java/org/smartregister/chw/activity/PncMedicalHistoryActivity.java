@@ -38,12 +38,4 @@ public class PncMedicalHistoryActivity extends CorePncMedicalHistoryActivity {
         return view;
     }
 
-    public interface Flavor {
-
-        View bindViews(Activity activity);
-
-        void processViewData(List<Visit> visits, Context context);
-    }
-
-
 }
