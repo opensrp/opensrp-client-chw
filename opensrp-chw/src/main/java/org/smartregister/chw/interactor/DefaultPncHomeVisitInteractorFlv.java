@@ -165,7 +165,6 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         break;
                 }
 
-
                 Map<String, List<VisitDetail>> details = null;
                 if (editMode) {
                     Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.PNC_HEALTH_FACILITY_VISIT);
