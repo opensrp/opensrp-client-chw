@@ -17,7 +17,8 @@ public class HnppFamilyRegisterFragmentModel extends BaseFamilyRegisterFramentMo
         Set<String> columnList = new HashSet<>(Arrays.asList(column));
         columnList.add(CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.PHONE_NUMBER);
         columnList.add(CoreConstants.TABLE_NAME.FAMILY + "." + HnppConstants.KEY.TOTAL_MEMBER);
-
+        columnList.add(CoreConstants.TABLE_NAME.FAMILY + "." + HnppConstants.KEY.CLASTER);
+        columnList.add(CoreConstants.TABLE_NAME.FAMILY + "." + HnppConstants.KEY.VILLAGE_NAME);
         return columnList.toArray(new String[columnList.size()]);
     }
 }

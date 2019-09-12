@@ -1,10 +1,19 @@
 package org.smartregister.brac.hnpp.fragment;
 
+import android.app.Dialog;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.smartregister.brac.hnpp.location.SSLocationForm;
+import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.model.HnppFamilyRegisterFragmentModel;
 import org.smartregister.brac.hnpp.presenter.HnppFamilyRegisterFragmentPresenter;
 import org.smartregister.brac.hnpp.provider.HHRegisterProvider;
@@ -13,7 +22,9 @@ import org.smartregister.chw.core.presenter.FamilyRegisterFragmentPresenter;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.location.helper.LocationHelper;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
@@ -49,12 +60,63 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
 //        TextView dueOnly = ((TextView)view.findViewById(org.smartregister.chw.core.R.id.due_only_text_view));
 //        dueOnly.setVisibility(View.VISIBLE);
     }
+    String filterString = "";
+    @Override
+    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
+        super.filter(filterString, joinTableString, mainConditionString, qrCode);
 
+    }
+
+    private final String DEFAULT_MAIN_CONDITION = "date_removed is null";
     @Override
     public void onViewClicked(View view) {
         super.onViewClicked(view);
         if (view.getId() == R.id.filter_sort_layout) {
+
+
+            ArrayList<String> villageSpinnerArray = new ArrayList<>();
+            ArrayList<String> clusterSpinnerArray = new ArrayList<>();
+
+            ArrayList<SSLocationForm> ssLocationForms = SSLocationHelper.getInstance().getSsLocationForms();
+            for(int i=0;i<ssLocationForms.size();i++){
+                villageSpinnerArray.add(ssLocationForms.get(i).locations.village.name);
+            }
+
+            clusterSpinnerArray.add("ক্লাস্টার ১");
+            clusterSpinnerArray.add("ক্লাস্টার ২");
+            clusterSpinnerArray.add("ক্লাস্টার ৩");
+            clusterSpinnerArray.add("ক্লাস্টার ৪");
+            clusterSpinnerArray.add("ক্লাস্টার ৫");
+
+            ArrayAdapter<String> villageSpinnerArrayAdapter = new ArrayAdapter<String>
+                    (getActivity(), android.R.layout.simple_spinner_item,
+                            villageSpinnerArray);
+
+            ArrayAdapter<String> clusterSpinnerArrayAdapter = new ArrayAdapter<String>
+                    (getActivity(), android.R.layout.simple_spinner_item,
+                            clusterSpinnerArray);
+
+            Dialog dialog = new Dialog(getActivity());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.MATCH_PARENT);
+            dialog.setContentView(R.layout.filter_options_dialog);
+
+            Spinner village_spinner = (Spinner)dialog.findViewById(R.id.village_filter_spinner);
+            Spinner cluster_spinner = (Spinner)dialog.findViewById(R.id.klaster_filter_spinner);
+            village_spinner.setAdapter(villageSpinnerArrayAdapter);
+            cluster_spinner.setAdapter(clusterSpinnerArrayAdapter);
+            Button proceed = (Button)dialog.findViewById(R.id.filter_apply_button);
+            proceed.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    filter(" village_name like '%AYUBPUR:WARD 1:GA 1%' AND claster like '%ক্লাস্টার ১%' ","","",false);
+                }
+            });
+            dialog.show();
             Toast.makeText(getContext(), "sdfdafd", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }
