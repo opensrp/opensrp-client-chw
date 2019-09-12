@@ -879,18 +879,14 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
         CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
         client.setColumnmaps(personObject.getColumnmaps());
 
-        if (formName.equals(CoreConstants.JSON_FORM.getFamilyMemberRegister())) {
-            form = CoreJsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
-                    (title_resource != null) ? context.getResources().getString(title_resource) : null,
-                    CoreConstants.JSON_FORM.getFamilyMemberRegister(),
-                    context, client, Utils.metadata().familyMemberRegister.updateEventType, memberObject.getFamilyName(), false);
-        } else if (formName.equals(CoreConstants.JSON_FORM.getAncRegistration())) {
+        if (formName.equals(CoreConstants.JSON_FORM.getAncRegistration())) {
             form = getAutoJsonEditAncFormString(
                     memberObject.getBaseEntityId(), context, formName, CoreConstants.EventType.UPDATE_ANC_REGISTRATION, context.getResources().getString(title_resource));
         }
         return form;
 
     }
+
     public static JSONObject getAutoJsonEditAncFormString(String baseEntityID, Context context, String formName, String eventType, String title) {
         try {
 

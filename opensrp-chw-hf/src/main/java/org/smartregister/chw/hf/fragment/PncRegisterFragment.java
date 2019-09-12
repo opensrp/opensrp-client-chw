@@ -4,6 +4,7 @@ import android.view.View;
 
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.fragment.CorePncRegisterFragment;
+import org.smartregister.chw.hf.activity.PncMemberProfileActivity;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public class PncRegisterFragment extends CorePncRegisterFragment {

@@ -14,6 +14,7 @@ import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.dao.AbstractDao;
+import org.smartregister.chw.core.interactor.CorePncMemberProfileInteractor;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.pnc.PncLibrary;
@@ -34,7 +35,7 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
+public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor {
     private Context context;
     private Date lastVisitDate;
     private Date deliveryDate;
