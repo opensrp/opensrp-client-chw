@@ -10,11 +10,13 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.activity.CorePncMedicalHistoryActivity;
 import org.smartregister.chw.core.activity.DefaultPncMedicalHistoryActivityFlv;
+import org.smartregister.chw.core.helper.BaMedicalHistoryActivityHelper;
 import org.smartregister.chw.hf.interactor.PncMedicalHistoryActivityInteractor;
 
 import java.util.List;
 
 public class PncMedicalHistoryActivity extends CorePncMedicalHistoryActivity {
+
     private HfMedicalHistoryFlavor flavor = new HfMedicalHistoryFlavor();
 
     public static void startMe(Activity activity, MemberObject memberObject) {
@@ -37,6 +39,6 @@ public class PncMedicalHistoryActivity extends CorePncMedicalHistoryActivity {
         return new PncMedicalHistoryActivityInteractor();
     }
 
-    private class HfMedicalHistoryFlavor extends DefaultPncMedicalHistoryActivityFlv {
+    private class HfMedicalHistoryFlavor extends BaMedicalHistoryActivityHelper {
     }
 }
