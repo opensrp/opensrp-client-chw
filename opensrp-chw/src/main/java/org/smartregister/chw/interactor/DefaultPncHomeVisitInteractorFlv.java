@@ -31,6 +31,7 @@ import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.dao.PNCDao;
@@ -272,10 +273,19 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     displays.add(display);
                 }
 
+                Map<String, List<VisitDetail>> details = null;
+                if (editMode) {
+                    Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.IMMUNIZATION_VISIT);
+                    if (lastVisit != null) {
+                        details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                    }
+                }
+
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
                         .withOptional(false)
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                         .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
                         .withHelper(new ImmunizationActionHelper(context, wrappers))
                         .build();
@@ -285,7 +295,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     }
 
     private void evaluateUmbilicalCord() throws Exception {
-        HomeVisitActionHelper umbilicalCordHelper = new HomeVisitActionHelper() {
+        class UmbilicalCordHelper extends HomeVisitActionHelper {
             private String cord_care;
 
             @Override
@@ -322,14 +332,25 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                 }
             }
-        };
+        }
 
         for (Person baby : children) {
+
+            Map<String, List<VisitDetail>> details = null;
+            if (editMode) {
+                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.UMBILICAL_CORD_CARE);
+                if (lastVisit != null) {
+                    details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                }
+            }
+
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_umblicord_care_child), baby.getFullName()))
                     .withOptional(false)
                     .withDetails(details)
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getUmbilicalCord())
-                    .withHelper(umbilicalCordHelper)
+                    .withHelper(new UmbilicalCordHelper())
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_umblicord_care_child), baby.getFullName()), action);
         }
