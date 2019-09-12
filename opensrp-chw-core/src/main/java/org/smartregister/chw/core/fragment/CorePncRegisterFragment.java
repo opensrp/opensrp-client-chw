@@ -90,7 +90,7 @@ public abstract class CorePncRegisterFragment extends BasePncRegisterFragment {
     }
 
     private String getDueCondition() {
-        return "ec_pregnancy_outcome.base_entity_id in (select base_entity_id from schedule_service where strftime('%Y-%m-%d') BETWEEN due_date and expiry_date and schedule_name = 'PNC_VISIT')  ";
+        return "ec_pregnancy_outcome.base_entity_id in (select base_entity_id from schedule_service where strftime('%Y-%m-%d') BETWEEN due_date and expiry_date and schedule_name = 'PNC_VISIT' and ifnull(not_done_date,'') = '' and ifnull(completion_date,'') = '' )  ";
     }
 
     private void switchViews(View dueOnlyLayout, boolean isPress) {

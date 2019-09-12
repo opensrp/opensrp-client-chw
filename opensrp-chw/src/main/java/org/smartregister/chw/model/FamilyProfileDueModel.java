@@ -1,5 +1,6 @@
 package org.smartregister.chw.model;
 
+import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.model.BaseFamilyProfileDueModel;
@@ -27,7 +28,13 @@ public class FamilyProfileDueModel extends BaseFamilyProfileDueModel {
                 CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.GENDER,
                 CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DOB,
                 CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DOD,
-                CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.ENTITY_TYPE
+                CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.ENTITY_TYPE,
+                CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + "." + ChildDBConstants.KEY.SCHEDULE_NAME,
+                CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + "." + ChildDBConstants.KEY.DUE_DATE,
+                CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + "." + ChildDBConstants.KEY.OVER_DUE_DATE,
+                CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + "." + ChildDBConstants.KEY.NOT_DONE_DATE,
+                CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + "." + ChildDBConstants.KEY.EXPIRY_DATE,
+                CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + "." + ChildDBConstants.KEY.COMPLETION_DATE
         };
     }
 }

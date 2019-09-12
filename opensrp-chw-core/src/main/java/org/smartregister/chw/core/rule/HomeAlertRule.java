@@ -149,6 +149,13 @@ public class HomeAlertRule implements ICommonRule {
         }
     }
 
+    public Date getNotDoneDate(){
+        if (getCompletionDate() == null && visitNotDoneDate != null) {
+            return visitNotDoneDate.toDate();
+        }
+        return null;
+    }
+
     public Date getCompletionDate() {
         if (lastVisitDate != null && lastVisitDate.toDate().getTime() >= getDueDate().getTime()) {
             return lastVisitDate.toDate();
