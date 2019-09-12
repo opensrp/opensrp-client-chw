@@ -10,6 +10,10 @@ import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.contract.CoreApplication;
+import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
@@ -23,6 +27,7 @@ import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.DatabaseMigrationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +62,7 @@ public class ChwRepositoryFlv {
                     upgradeToVersion8(db);
                     break;
                 case 10:
-                    upgradeToVersion9(db);
+                    upgradeToVersion10(db);
                     break;
                 default:
                     break;
@@ -150,7 +155,7 @@ public class ChwRepositoryFlv {
         }
     }
 
-    private static void upgradeToVersion9(SQLiteDatabase db) {
+    private static void upgradeToVersion10(SQLiteDatabase db) {
         try {
             for (String query : RepositoryUtilsFlv.UPGRADE_V9) {
                 db.execSQL(query);
@@ -173,6 +178,11 @@ public class ChwRepositoryFlv {
             for (String query : RepositoryUtils.UPDATE_REPOSITORY_TYPES) {
                 db.execSQL(query);
             }
+
+            // add missing columns to the DB
+            List<String>  columns = new ArrayList<>();
+            columns.add(ChildDBConstants.KEY.ENTRY_POINT);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.CHILD, columns);
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion9 ");

@@ -52,12 +52,18 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     private int getCount(String tableName) {
         switch (tableName.toLowerCase().trim()) {
             case CoreConstants.TABLE_NAME.CHILD:
-                String sql_child = "select count(*) from ec_child c " +
-                        "inner join ec_family_member m on c.base_entity_id = m.base_entity_id COLLATE NOCASE " +
-                        "inner join ec_family f on f.base_entity_id = m.relational_id COLLATE NOCASE " +
-                        "where m.date_removed is null and m.is_closed = 0 " +
-                        "and ((( julianday('now') - julianday(c.dob))/365.25) < 5) and c.is_closed = 0 " +
-                        "and (( ifnull(entry_point,'') <> 'PNC' ) or (ifnull(entry_point,'') = 'PNC' and date(c.dob, '+28 days') > date())) ";
+                String sql_child = "Select count(*) " +
+                        "FROM ec_child " +
+                        "LEFT JOIN ec_family ON  ec_child.relational_id = ec_family.id " +
+                        "LEFT JOIN ec_family_member ON  ec_family_member.base_entity_id = ec_family.primary_caregiver " +
+                        "WHERE ec_child.id IN (" +
+                        "SELECT object_id " +
+                        "FROM ec_child_search " +
+                        "WHERE date_removed is null " +
+                        "AND  ((( julianday('now') - julianday(dob))/365.25) <5)   and (( ifnull(entry_point,'') <> 'PNC' ) or (ifnull(entry_point,'') = 'PNC' " +
+                        "and date(dob, '+28 days') < date())) " +
+                        " and ((( julianday('now') - julianday(dob))/365.25) < 5)  ORDER BY last_interacted_with DESC  LIMIT 0,20 " +
+                        ")  ";
                 return NavigationDao.getQueryCount(sql_child);
 
             case CoreConstants.TABLE_NAME.FAMILY:

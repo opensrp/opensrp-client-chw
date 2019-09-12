@@ -10,15 +10,23 @@ public class ChildDBConstants {
     private static final int FIVE_YEAR = 5;
 
     public static String childAgeLimitFilter() {
-        return childAgeLimitFilter(DBConstants.KEY.DOB, FIVE_YEAR);
+        return childAgeLimitFilter(DBConstants.KEY.DOB, FIVE_YEAR, ChildDBConstants.KEY.ENTRY_POINT);
     }
 
-    private static String childAgeLimitFilter(String dateColumn, int age) {
-        return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")";
+    /*private static String childAgeLimitFilter(String dateColumn, int age) {
+        return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ") " +
+                " and (( ifnull(entry_point,'') <> 'PNC' ) or (ifnull(entry_point,'') = 'PNC' and date(dob, '+28 days') > date())) " +
+                " and ((( julianday('now') - julianday(dob))/365.25) < 5) and is_closed = 0 ";
+    }
+*/
+    private static String childAgeLimitFilter(String dateColumn, int age, String entryPoint) {
+        return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")  " +
+                " and (( ifnull(" + entryPoint + ",'') <> 'PNC' ) or (ifnull(" + entryPoint + ",'') = 'PNC' and date(" + dateColumn + ", '+28 days') < date())) " +
+                " and ((( julianday('now') - julianday(" + dateColumn +"))/365.25) < 5) ";
     }
 
     public static String childAgeLimitFilter(String tableName) {
-        return childAgeLimitFilter(tableColConcat(tableName, DBConstants.KEY.DOB), FIVE_YEAR);
+        return childAgeLimitFilter(tableColConcat(tableName, DBConstants.KEY.DOB), FIVE_YEAR, tableColConcat(tableName, ChildDBConstants.KEY.ENTRY_POINT) );
     }
 
     private static String tableColConcat(String tableName, String columnName) {
@@ -36,6 +44,21 @@ public class ChildDBConstants {
                 "< STRFTIME('%Y%m%d%H%M%S', datetime('now','start of month')) " +
                 " ))";
     }
+
+    /*
+    public static String childMainFilter(String mainCondition, String mainMemberCondition, String filters, String sort, int limit, int offset) {
+        return "SELECT " + CommonFtsObject.idColumn + " FROM " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD) + " WHERE " + CommonFtsObject.idColumn + " IN " +
+                " ( SELECT " + CommonFtsObject.idColumn + " FROM " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD) + " WHERE  " + mainCondition + "  AND " + CommonFtsObject.phraseColumn + matchPhrase(filters) +
+                " UNION " +
+                " SELECT " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD), CommonFtsObject.idColumn) + " FROM " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD) +
+                " JOIN " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY) + " on " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD), CommonFtsObject.relationalIdColumn) + " = " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), CommonFtsObject.idColumn) +
+                " JOIN " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER) + " on " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER), CommonFtsObject.idColumn) + " = " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), DBConstants.KEY.PRIMARY_CAREGIVER) +
+                " WHERE  " + mainMemberCondition.trim() + " AND " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER), CommonFtsObject.phraseColumn + matchPhrase(filters)) +
+                " AND " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." +  org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = 0 " +
+                " AND " + "(( ifnull(entry_point,'') <> 'PNC' ) or (ifnull(entry_point,'') = 'PNC' and date(dob, '+28 days') > date()))"  +
+                ")  " + orderByClause(sort) + limitClause(limit, offset);
+    }
+*/
 
     public static String childMainFilter(String mainCondition, String mainMemberCondition, String filters, String sort, int limit, int offset) {
         return "SELECT " + CommonFtsObject.idColumn + " FROM " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD) + " WHERE " + CommonFtsObject.idColumn + " IN " +
@@ -86,6 +109,7 @@ public class ChildDBConstants {
         public static final String FAMILY_LAST_NAME = "family_last_name";
         public static final String FAMILY_HOME_ADDRESS = "family_home_address";
         public static final String ENTITY_TYPE = "entity_type";
+        public static final String ENTRY_POINT = "entry_point";
         public static final String CHILD_BF_HR = "early_bf_1hr";
         public static final String CHILD_PHYSICAL_CHANGE = "physically_challenged";
         public static final String BIRTH_CERT = "birth_cert";

@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
 import org.smartregister.chw.fragment.PncRegisterFragment;
