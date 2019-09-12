@@ -12,7 +12,8 @@
     <string name="menu_pnc_clients">PNC Clients</string>
     <string name="menu_child_clients">Child Clients</string>
 
-
+    <string name="unique_id_form_field">খানা নাম্বার</string>
+    <string name="village_name_form_field">স্বাস্থ্য সেবিকার/গ্রামের নামঃ</string>
 
     <string name="clicked_sick_child">You have clicked the sick child follow-up action</string>
     <string name="clicked_malaria_diagnosis">You have clicked the malaria diagnosis action</string>

@@ -13,18 +13,10 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class FamilyRegisterPresenter extends BaseFamilyRegisterPresenter implements HnppFamilyRegisterContract.InteractorCallBack {
+public class FamilyRegisterPresenter extends BaseFamilyRegisterPresenter  {
     public FamilyRegisterPresenter(FamilyRegisterContract.View view, FamilyRegisterContract.Model model) {
         super(view, model);
         interactor  = new HnppFamilyRegisterInteractor();
-    }
-
-    public String fetchHouseHoldId(int index){
-
-        return ((HnppFamilyRegisterInteractor)interactor).getHouseHoldId(getSSLocation().get(index).locations,this);
-    }
-    public ArrayList<SSLocationForm> getSSLocation(){
-        return ((HnppFamilyRegisterModel) model).getSsLocationForms();
     }
 
     @Override
@@ -53,9 +45,4 @@ public class FamilyRegisterPresenter extends BaseFamilyRegisterPresenter impleme
             return null;
     }
 
-    @Override
-    public void updateHouseHoldId(String houseHoldId) {
-        //update householdid in form
-        System.out.println(houseHoldId);
-    }
 }

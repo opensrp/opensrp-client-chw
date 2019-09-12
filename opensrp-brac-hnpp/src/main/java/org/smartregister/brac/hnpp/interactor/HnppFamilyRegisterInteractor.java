@@ -3,10 +3,14 @@ package org.smartregister.brac.hnpp.interactor;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.contract.HnppFamilyRegisterContract;
+import org.smartregister.brac.hnpp.location.SSLocationForm;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.location.SSLocations;
+import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -23,33 +27,14 @@ import java.util.List;
 
 public class HnppFamilyRegisterInteractor extends org.smartregister.family.interactor.FamilyRegisterInteractor {
 
-    public String getHouseHoldId(final SSLocations locationForm, HnppFamilyRegisterContract.InteractorCallBack callBack){
-        String lastFourDigit = locationForm.village.id+"";
-        String houseHoldId = SSLocationHelper.getInstance().generateHouseHoldId(locationForm,lastFourDigit);
-        return houseHoldId;
-//        Runnable runnable = new Runnable() {
-//            public void run() {
-//                String lastFourDigit = "";
-//                String houseHoldId = SSLocationHelper.getInstance().generateHouseHoldId(locationForm,lastFourDigit);
-//                Log.v("HHID","houseHoldId>>"+houseHoldId);
-//                appExecutors.mainThread().execute(new Runnable() {
-//                    public void run() {
-//                        if (!StringUtils.isBlank(houseHoldId)) {
-//                            callBack.updateHouseHoldId(houseHoldId);
-//                        }
-//
-//                    }
-//                });
-//            }
-//        };
-//        this.appExecutors.diskIO().execute(runnable);
-    }
+
 
     @Override
     public void saveRegistration(List<FamilyEventClient> familyEventClientList, String jsonString, boolean isEditMode, FamilyRegisterContract.InteractorCallBack callBack) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
+
                 saveRegistration(familyEventClientList, jsonString, isEditMode);
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
@@ -66,6 +51,10 @@ public class HnppFamilyRegisterInteractor extends org.smartregister.family.inter
 
         try {
 
+
+            //status change in householdidtable;
+
+//            String address =
             List<EventClient> eventClientList = new ArrayList<>();
             for (int i = 0; i < familyEventClientList.size(); i++) {
                 FamilyEventClient familyEventClient = familyEventClientList.get(i);

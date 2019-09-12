@@ -124,6 +124,7 @@
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
         "hint": "খানা নাম্বার",
+        "read_only": true,
         "v_numeric": {
           "value": "false",
           "err": "Please enter a valid ID"
@@ -292,6 +293,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
+        "hidden": true,
         "type": "gps"
       }
     ]

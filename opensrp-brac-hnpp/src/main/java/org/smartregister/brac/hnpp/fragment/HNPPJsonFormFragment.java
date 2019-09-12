@@ -11,10 +11,17 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.MaterialSpinner;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.brac.hnpp.HnppApplication;
+import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.activity.HNPPJsonFormActivity;
+import org.smartregister.brac.hnpp.domain.HouseholdId;
 import org.smartregister.brac.hnpp.location.SSLocationForm;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.location.SSLocations;
+import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
 import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
@@ -46,7 +53,7 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //        super.onItemSelected(parent, view, position, id);
         if (position != -1 && parent instanceof MaterialSpinner) {
-            if (((MaterialSpinner) parent).getFloatingLabelText().toString().equalsIgnoreCase("স্বাস্থ্য সেবিকার/গ্রামের নামঃ")) {
+            if (((MaterialSpinner) parent).getFloatingLabelText().toString().equalsIgnoreCase(view.getContext().getResources().getString(R.string.village_name_form_field))) {
 
                 processUniqueId(position);
             }
@@ -55,21 +62,26 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
 
     }
 
+    @Override
+    public JSONObject getStep(String stepName) {
+        return super.getStep(stepName);
+    }
+
     public void processUniqueId(final int index) {
 
 
         Utils.startAsyncTask(new AsyncTask() {
 
             String unique_id = "";
-
+            HouseholdId hhid = null;
             @Override
             protected Object doInBackground(Object[] objects) {
-                if (getActivity() instanceof HNPPJsonFormActivity) {
-                    HNPPJsonFormActivity jsonFormActivity = (HNPPJsonFormActivity) getActivity();
-                    ArrayList<SSLocationForm> locationFormList = jsonFormActivity.getSsLocationForms();
-                    SSLocations ssLocations = locationFormList.get(index).locations;
-                    unique_id = SSLocationHelper.getInstance().generateHouseHoldId(ssLocations, ssLocations.village.id + "");
-                }
+                    SSLocations ssLocations = SSLocationHelper.getInstance().getSsLocationForms().get(index).locations;
+
+                    HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
+                    hhid = householdIdRepo.getNextHouseholdId(String.valueOf(ssLocations.village.id));
+                    unique_id = SSLocationHelper.getInstance().generateHouseHoldId(ssLocations, hhid.getOpenmrsId() + "");
+
                 return null;
             }
 
@@ -79,8 +91,16 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
                 ArrayList<View> formdataviews = getJsonApi().getFormDataViews();
                 for (int i = 0; i < formdataviews.size(); i++) {
                     if (formdataviews.get(i) instanceof MaterialEditText) {
-                        if (((MaterialEditText) formdataviews.get(i)).getFloatingLabelText().toString().trim().equalsIgnoreCase("খানা নাম্বার")) {
+                        if (((MaterialEditText) formdataviews.get(i)).getFloatingLabelText().toString().trim().equalsIgnoreCase(formdataviews.get(i).getContext().getResources().getString(R.string.unique_id_form_field))) {
                             ((MaterialEditText) formdataviews.get(i)).setText(unique_id);
+                            try {
+                                getStep("step1").put("index",index);
+                                if(hhid!=null){
+                                    getStep("step1").put("hhid",hhid.getOpenmrsId());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         }
                     }

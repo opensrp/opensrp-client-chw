@@ -11,7 +11,6 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
-import org.smartregister.brac.hnpp.location.SSLocationForm;
 import org.smartregister.brac.hnpp.model.HnppFamilyRegisterModel;
 import org.smartregister.brac.hnpp.presenter.FamilyRegisterPresenter;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
@@ -29,7 +28,6 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
-import java.util.ArrayList;
 
 import timber.log.Timber;
 
@@ -78,7 +76,6 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
     public void startFormActivity(JSONObject jsonForm) {
         Intent intent = new Intent(this, Utils.metadata().familyFormActivity);
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-        intent.putExtra("SS_LOCATION", presenter.getSSLocation());
         Form form = new Form();
         form.setName(getString(R.string.add_family));
         form.setSaveLabel(getString(R.string.save));

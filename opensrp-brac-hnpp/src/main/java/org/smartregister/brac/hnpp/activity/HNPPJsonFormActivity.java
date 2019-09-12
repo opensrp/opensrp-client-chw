@@ -12,12 +12,6 @@ import java.util.ArrayList;
 
 public class HNPPJsonFormActivity extends FamilyWizardFormActivity {
 
-    public ArrayList<SSLocationForm> getSsLocationForms() {
-        return ssLocationForms;
-    }
-
-    private ArrayList<SSLocationForm> ssLocationForms;
-
     @Override
     public void initializeFormFragment() {
         HNPPJsonFormFragment jsonWizardFormFragment = HNPPJsonFormFragment.getFormFragment("step1");
@@ -26,7 +20,6 @@ public class HNPPJsonFormActivity extends FamilyWizardFormActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ssLocationForms = (ArrayList<SSLocationForm>) getIntent().getSerializableExtra("SS_LOCATION");
         super.onCreate(savedInstanceState);
     }
 

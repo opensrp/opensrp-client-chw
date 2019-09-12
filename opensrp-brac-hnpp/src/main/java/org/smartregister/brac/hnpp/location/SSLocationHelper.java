@@ -1,8 +1,10 @@
 package org.smartregister.brac.hnpp.location;
 
 import org.smartregister.brac.hnpp.HnppApplication;
+import org.smartregister.clientandeventmodel.Address;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SSLocationHelper {
@@ -43,6 +45,21 @@ public class SSLocationHelper {
         return  ssLocations.division.code+""+ssLocations.district.code+""+ssLocations.city_corporation_upazila.code+""
                 +ssLocations.pourosava.code+""+ssLocations.union_ward.code+""+ssLocations.mouza.code+""
                 +ssLocations.village.code+""+lastFourDigit;
+    }
+    public Address getSSAddress(SSLocations ssLocations){
+        Address address = new Address();
+        address.setAddressType("usual_residence");
+        HashMap<String,String> addressMap = new HashMap<>();
+        addressMap.put("address1", ssLocations.union_ward.name);
+        addressMap.put("address2", ssLocations.city_corporation_upazila.name);
+        addressMap.put("address3", ssLocations.pourosava.name);
+        addressMap.put("address7", ssLocations.mouza.name);
+        address.setAddressFields(addressMap);
+        address.setStateProvince(ssLocations.division.name);
+        address.setCityVillage(ssLocations.village.name);
+        address.setCountyDistrict(ssLocations.district.name);
+        address.setCountry(ssLocations.country.name);
+        return address;
     }
 
 }
