@@ -44,6 +44,8 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.contract.BaseProfileContract;
 
+import timber.log.Timber;
+
 public abstract class CoreFamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity
         implements FamilyOtherMemberProfileExtendedContract.View {
 
@@ -212,7 +214,7 @@ public abstract class CoreFamilyOtherMemberProfileActivity extends BaseFamilyOth
                         presenter().updateFamilyMember(jsonString);
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
                 break;
             default:

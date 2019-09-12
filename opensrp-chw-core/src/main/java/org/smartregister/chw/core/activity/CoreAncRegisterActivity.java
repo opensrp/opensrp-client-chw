@@ -23,6 +23,8 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.Arrays;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
     protected static String phone_number;
     protected static String form_name;
@@ -123,7 +125,7 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
 
             startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
     }
 
@@ -180,7 +182,7 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
                     formObject.remove(org.smartregister.util.JsonFormUtils.VALUE);
                     formObject.put(org.smartregister.util.JsonFormUtils.VALUE, updateValue);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
             }
         }
