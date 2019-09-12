@@ -324,13 +324,16 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             }
         };
 
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_umblicord_care))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getUmbilicalCord())
-                .withHelper(umbilicalCordHelper)
-                .build();
-        actionList.put(context.getString(R.string.pnc_umblicord_care), action);
+        for (Person baby : children) {
+            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_umblicord_care_child), baby.getFullName()))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getUmbilicalCord())
+                    .withHelper(umbilicalCordHelper)
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_umblicord_care_child), baby.getFullName()), action);
+        }
+
     }
 
     private void evaluateExclusiveBreastFeeding() throws Exception {
