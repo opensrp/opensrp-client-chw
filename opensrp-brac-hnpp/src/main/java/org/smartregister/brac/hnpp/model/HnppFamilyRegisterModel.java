@@ -1,10 +1,15 @@
 package org.smartregister.brac.hnpp.model;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.location.SSLocationForm;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
+import org.smartregister.brac.hnpp.location.SSLocations;
+import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
 import org.smartregister.brac.hnpp.utils.JsonFormUtils;
+import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.model.BaseFamilyRegisterModel;
@@ -16,29 +21,32 @@ import java.util.List;
 
 public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
 
-    public ArrayList<SSLocationForm> getSsLocationForms() {
-        return ssLocationForms;
-    }
 
-    private ArrayList<SSLocationForm> ssLocationForms = new ArrayList<>();
     @Override
     public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception {
         JSONObject form = getFormUtils().getFormJson(formName);
         if (form == null) {
             return null;
         }
-        updateSSNameLocation();
-        JsonFormUtils.updateFormWithSSLocation(form,getSsLocationForms());
+        JsonFormUtils.updateFormWithSSLocation(form,SSLocationHelper.getInstance().getSsLocationForms());
         return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
     }
 
     @Override
     public List<FamilyEventClient> processRegistration(String jsonString) {
-        List<FamilyEventClient> familyEventClientList = new ArrayList<>();
-        FamilyEventClient familyEventClient = JsonFormUtils.processFamilyUpdateForm(Utils.context().allSharedPreferences(), jsonString);
-        if (familyEventClient == null) {
-            return familyEventClientList;
-        }
+        try{
+            JSONObject jobkect = new JSONObject(jsonString).getJSONObject("step1");
+            String index = jobkect.getString("index");
+            String hhid = jobkect.getString("hhid");
+            SSLocations ss = SSLocationHelper.getInstance().getSsLocationForms().get(Integer.parseInt(index)).locations;
+            String villageId = ss.village.id+"";
+            HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
+            householdIdRepo.close(villageId,hhid);
+            List<FamilyEventClient> familyEventClientList = new ArrayList<>();
+            FamilyEventClient familyEventClient = JsonFormUtils.processFamilyUpdateForm(Utils.context().allSharedPreferences(), jsonString);
+            if (familyEventClient == null) {
+                return familyEventClientList;
+            }
 
 //        FamilyEventClient headEventClient = JsonFormUtils.processFamilyHeadRegistrationForm(Utils.context().allSharedPreferences(), jsonString, familyEventClient.getClient().getBaseEntityId());
 //        if (headEventClient == null) {
@@ -51,19 +59,26 @@ public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
                 String familyUniqueId = headUniqueId + Constants.IDENTIFIER.FAMILY_SUFFIX;
                 familyEventClient.getClient().addIdentifier(Utils.metadata().uniqueIdentifierKey, familyUniqueId);
             }
-        //}
+            //}
 
-        // Update the family head and primary caregiver
-        Client familyClient = familyEventClient.getClient();
-        familyClient.addRelationship(Utils.metadata().familyRegister.familyHeadRelationKey, familyEventClient.getClient().getBaseEntityId());
-        familyClient.addRelationship(Utils.metadata().familyRegister.familyCareGiverRelationKey, familyEventClient.getClient().getBaseEntityId());
+            // Update the family head and primary caregiver
+            Client familyClient = familyEventClient.getClient();
+            familyClient.addRelationship(Utils.metadata().familyRegister.familyHeadRelationKey, familyEventClient.getClient().getBaseEntityId());
+            familyClient.addRelationship(Utils.metadata().familyRegister.familyCareGiverRelationKey, familyEventClient.getClient().getBaseEntityId());
+            List<Address> listAddress = new ArrayList<>();
+            listAddress.add(SSLocationHelper.getInstance().getSSAddress(ss));
+            familyClient.setAddresses(listAddress);
+            familyEventClientList.add(familyEventClient);
 
-        familyEventClientList.add(familyEventClient);
-        //familyEventClientList.add(headEventClient);
-        return familyEventClientList;
+            //familyEventClientList.add(headEventClient);
+            return familyEventClientList;
+
+        }catch (Exception e){
+
+        }
+        return null;
+
     }
 
-    public void updateSSNameLocation(){
-        ssLocationForms.addAll(SSLocationHelper.getInstance().getSsLocationForms());
-    }
+
 }

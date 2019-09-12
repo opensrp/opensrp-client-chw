@@ -131,6 +131,11 @@
 
 
         <activity android:name="org.smartregister.chw.core.activity.ChwP2pModeSelectActivity" />
+        <activity android:name=".activity.HNPPJsonFormActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/FamilyTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
 
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />

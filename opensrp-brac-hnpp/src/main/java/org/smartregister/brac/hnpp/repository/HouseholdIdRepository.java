@@ -216,7 +216,7 @@ public class HouseholdIdRepository extends BaseRepository {
             ContentValues values = new ContentValues();
             values.put(STATUS_COLUMN, STATUS_USED);
             values.put(USED_BY_COLUMN, userName);
-            getWritableDatabase().update(HouseholdIds_TABLE_NAME, values, OPENMRS_ID_COLUMN + " = ? AND "+VILLAGE_ID_COLUMN+" =?", new String[]{id,village_id});
+            getWritableDatabase().update(HouseholdIds_TABLE_NAME, values, OPENMRS_ID_COLUMN + " = ? AND "+VILLAGE_ID_COLUMN+" = ?", new String[]{id,village_id});
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }

@@ -1,6 +1,7 @@
 package org.smartregister.brac.hnpp.fragment;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,14 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
         view.findViewById(org.smartregister.chw.core.R.id.filter_sort_layout).setVisibility(View.VISIBLE);
         dueOnlyLayout.setVisibility(View.GONE);
         view.findViewById(org.smartregister.chw.core.R.id.filter_sort_layout).setOnClickListener(registerActionHandler);
+        ViewGroup clients_header_layout = view.findViewById(org.smartregister.chw.core.R.id.clients_header_layout);
+        clients_header_layout.setVisibility(View.VISIBLE);
+        TextView tv = new TextView(getActivity());
+        tv.setBackgroundColor(getActivity().getApplicationContext().getResources().getColor(android.R.color.holo_orange_light));
+        tv.setText("Filter Selected");
+        clients_header_layout.addView(tv);
+//        TextView dueOnly = ((TextView)view.findViewById(org.smartregister.chw.core.R.id.due_only_text_view));
+//        dueOnly.setVisibility(View.VISIBLE);
     }
 
     @Override

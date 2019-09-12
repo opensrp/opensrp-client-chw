@@ -2,24 +2,21 @@ package org.smartregister.brac.hnpp.presenter;
 
 import org.smartregister.brac.hnpp.contract.HnppFamilyRegisterContract;
 import org.smartregister.brac.hnpp.interactor.HnppFamilyRegisterInteractor;
+import org.smartregister.brac.hnpp.location.SSLocationForm;
 import org.smartregister.brac.hnpp.model.HnppFamilyRegisterModel;
 import org.smartregister.family.contract.FamilyRegisterContract;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.presenter.BaseFamilyRegisterPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
 
-public class FamilyRegisterPresenter extends BaseFamilyRegisterPresenter implements HnppFamilyRegisterContract.InteractorCallBack {
+public class FamilyRegisterPresenter extends BaseFamilyRegisterPresenter  {
     public FamilyRegisterPresenter(FamilyRegisterContract.View view, FamilyRegisterContract.Model model) {
         super(view, model);
         interactor  = new HnppFamilyRegisterInteractor();
-    }
-
-    public void fetchHouseHoldId(int index){
-
-        ((HnppFamilyRegisterInteractor)interactor).getHouseHoldId(((HnppFamilyRegisterModel) model).getSsLocationForms().get(index).locations,this);
     }
 
     @Override
@@ -48,9 +45,4 @@ public class FamilyRegisterPresenter extends BaseFamilyRegisterPresenter impleme
             return null;
     }
 
-    @Override
-    public void updateHouseHoldId(String houseHoldId) {
-        //update householdid in form
-
-    }
 }
