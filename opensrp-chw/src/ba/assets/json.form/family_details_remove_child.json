@@ -99,6 +99,11 @@
           "Moved away",
           "Other"
         ],
+        "keys": [
+          "Died",
+          "Moved away",
+          "Other"
+        ],
         "v_required": {
           "value": "true",
           "err": "Select the reason for removing the child's record."

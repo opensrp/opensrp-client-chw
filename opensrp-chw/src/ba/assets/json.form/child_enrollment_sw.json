@@ -264,20 +264,20 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "insurance_provider",
         "type": "spinner",
-        "hint": "Mfuko wa bima ya afya unaotumia",
+        "hint": "Bima ya afya unaotumia",
         "values": [
-          "Mfuko wa bima ya afya ya jamii (CHF)",
-          "Mfuko wa bima ya afya ya jamii ulioboreshwa (iCHF)",
+          "Bima ya afya ya jamii (CHF)",
+          "Bima ya afya ya jamii ulioboreshwa (iCHF)",
           "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
           "Tiba Kwa Kadi (TIKA)",
           "AAR Healthcare",
           "Strategies Insurance",
-          "Milvik Tanzania  Ltd (BIMA Mkononi)",
+          "Milvik Tanzania Ltd (BIMA Mkononi)",
           "Britam Insurance Tanzania",
           "Jubilee Insurance",
           "Resolutions Insurance",
           "Reliance Insurance",
-          "Bima ya afya nyingine",
+          "Bima ya afya nyingezo",
           "Hakuna"
         ],
         "keys": [
@@ -287,7 +287,7 @@
           "Tiba Kwa Kadi (TIKA)",
           "AAR Healthcare",
           "Strategies Insurance",
-          "Milvik Tanzania  Ltd (BIMA Mkononi)",
+          "Milvik Tanzania Ltd (BIMA Mkononi)",
           "Britam Insurance Tanzania",
           "Jubilee Insurance",
           "Resolutions Insurance",
@@ -302,7 +302,7 @@
           "Tiba Kwa Kadi (TIKA)": "Tiba_kwa_Kadi",
           "AAR Healthcare": "AAR_Healthcare",
           "AAR Strategies Insurance": "Strategies_Insurance",
-          "Milvik Tanzania  Ltd (BIMA Mkononi)": "BIMA_Mkononi",
+          "Milvik Tanzania Ltd (BIMA Mkononi)": "BIMA_Mkononi",
           "Britam Insurance Tanzania": "Britam_Insurance_Tanzania",
           "Jubilee Insurance": "Jubilee_Insurance",
           "Resolutions Insurance": "Resolutions_Insurance",
@@ -312,7 +312,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhali ingiza mfuko wa bima"
+          "err": "Tafadhali ingiza bima"
         }
       },
       {
@@ -321,10 +321,10 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Other_Health_Insurance_Type",
         "type": "edit_text",
-        "hint": "Mfuko wa bima ya afya mwingine unaotumia",
+        "hint": "Bima ya afya mwingine unaotumia",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali taja mfuko wa bima"
+          "err": "Tafadhali taja bima"
         },
         "relevance": {
           "rules-engine": {
@@ -340,7 +340,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Health_Insurance_Number",
         "type": "edit_text",
-        "hint": "Namba ya mfuko wa bima ya afya umaotumia",
+        "hint": "Namba ya bima ya afya umaotumia",
         "v_required": {
           "value": "true",
           "err": "Tafadhali ongeza nambari ya bima ya afya"
@@ -458,7 +458,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Je, mtoto ana kadi namba moja ya RCH?",
+        "hint": "Je, mtoto ana RCH kadi namba moja/kitabu cha ukuaji wa mtoto?",
         "values": [
           "Ndiyo",
           "Hapana"
@@ -481,7 +481,7 @@
         "hint": "Hali ya lishe ya mtoto",
         "values": [
           "Kijani",
-          "Kijivu",
+          "Kijivu/Njano",
           "Nyekundu"
         ],
         "keys": [
