@@ -235,9 +235,11 @@ public abstract class CoreFamilyRemoveMemberFragment extends BaseFamilyProfileMe
         public void onClick(final android.view.View v) {
             processingFamily = true;
             HashMap<String, String> payload = (HashMap<String, String>) v.getTag();
-            String message = payload.get("message");
-            memberName = payload.get("name");
-            closeFamily(String.format(getString(R.string.family), memberName), message);
+            if (payload != null) {
+                String message = payload.get("message");
+                memberName = payload.get("name");
+                closeFamily(String.format(getString(R.string.family), memberName), message);
+            }
         }
     }
 
