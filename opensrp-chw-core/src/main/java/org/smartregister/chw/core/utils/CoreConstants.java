@@ -80,6 +80,8 @@ public class CoreConstants {
         public static final String PNC_HEALTH_FACILITY_VISIT = "PNC health facility visit";
         public static final String EXCLUSIVE_BREASTFEEDING = "Exclusive breast feeding";
         public static final String KANGAROO_CARE = "Kangaroo Care";
+        public static final String UMBILICAL_CORD_CARE = "Umbilical cord care";
+        public static final String IMMUNIZATION_VISIT = "Immunization Visit";
         public static final String OBSERVATIONS_AND_ILLNESS = "Observations Illness";
         public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
         public static final String UPDATE_FAMILY_MEMBER_RELATIONS = "Update Family Member Relations";
