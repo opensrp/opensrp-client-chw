@@ -5,6 +5,9 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
+import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
+import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
@@ -12,8 +15,12 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.fragment.FamilyProfileMemberFragment;
 import org.smartregister.chw.hf.model.FamilyProfileModel;
 import org.smartregister.chw.hf.presenter.FamilyProfilePresenter;
+import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.util.Constants;
+
+import java.util.HashMap;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
@@ -72,10 +79,6 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         return viewPager;
     }
 
-    public FamilyProfilePresenter getFamilyProfilePresenter() {
-        return (FamilyProfilePresenter) presenter;
-    }
-
     private void setupMenuOptions(Menu menu) {
 
         MenuItem removeMember = menu.findItem(org.smartregister.chw.core.R.id.action_remove_member);
@@ -93,5 +96,59 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         if (changeCareGiver != null) {
             changeCareGiver.setVisible(false);
         }
+    }
+
+    @Override
+    protected Class<?> getFamilyOtherMemberProfileActivityClass() {
+        return FamilyOtherMemberProfileActivity.class;
+    }
+
+    @Override
+    protected Class<? extends CoreAboveFiveChildProfileActivity> getAboveFiveChildProfileActivityClass() {
+        return AboveFiveChildProfileActivity.class;
+    }
+
+    @Override
+    protected Class<? extends CoreChildProfileActivity> getChildProfileActivityClass() {
+        return ChildProfileActivity.class;
+    }
+
+    @Override
+    protected Class<? extends BaseAncMemberProfileActivity> getAncMemberProfileActivityClass() {
+        return AncMemberProfileActivity.class;
+    }
+
+    @Override
+    protected Class<? extends BasePncMemberProfileActivity> getPncMemberProfileActivityClass() {
+        return null;
+    }
+
+    @Override
+    protected boolean isAncMember(String baseEntityId) {
+        return getFamilyProfilePresenter().isAncMember(baseEntityId);
+    }
+
+    @Override
+    protected HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId) {
+        return getFamilyProfilePresenter().getAncFamilyHeadNameAndPhone(baseEntityId);
+    }
+
+    @Override
+    protected CommonPersonObject getAncCommonPersonObject(String baseEntityId) {
+        return getFamilyProfilePresenter().getAncCommonPersonObject(baseEntityId);
+    }
+
+    @Override
+    protected boolean isPncMember(String baseEntityId) {
+        return getFamilyProfilePresenter().isPncMember(baseEntityId);
+    }
+
+    @Override
+    protected CommonPersonObject getPncCommonPersonObject(String baseEntityId) {
+        return getFamilyProfilePresenter().getPncCommonPersonObject(baseEntityId);
+    }
+
+    public FamilyProfilePresenter getFamilyProfilePresenter() {
+        return (FamilyProfilePresenter) presenter;
     }
 }
