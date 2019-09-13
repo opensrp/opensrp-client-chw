@@ -352,6 +352,7 @@
     <string name="referral_submitted">Referral sent to facility</string>
     <string name="ga_label">GA</string>
     <string name="cancel">Cancel</string>
+    <string name="referral_day">Referral %s</string>
 
     <string name="phone_not_provided">Phone not provided</string>
     <string name="anc_danger_sign_prefix">ANC Danger Signs; Symptoms: %s</string>
