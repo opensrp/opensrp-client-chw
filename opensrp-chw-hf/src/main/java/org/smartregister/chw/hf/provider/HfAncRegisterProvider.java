@@ -1,9 +1,11 @@
 package org.smartregister.chw.hf.provider;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +16,9 @@ import org.smartregister.chw.anc.provider.AncRegisterProvider;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.provider.ChwAncRegisterProvider;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.R;
+import org.smartregister.chw.hf.utils.HfReferralUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.util.Utils;
@@ -80,6 +84,26 @@ public class HfAncRegisterProvider extends ChwAncRegisterProvider {
     @Override
     public AncRegisterProvider.RegisterViewHolder createViewHolder(ViewGroup parent) {
         View view = inflater.inflate(R.layout.anc_register_list_row, parent, false);
-        return new AncRegisterProvider.RegisterViewHolder(view);
+        return new HfRegisterViewHolder(view);
+    }
+
+    @Override
+    public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
+        super.getView(cursor, client, viewHolder);
+        showLatestAncReferralDay((CommonPersonObjectClient) client, (HfRegisterViewHolder) viewHolder);
+    }
+
+    private void showLatestAncReferralDay(CommonPersonObjectClient client, HfRegisterViewHolder viewHolder) {
+        HfReferralUtils.displayReferralDay(client, CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS, viewHolder.textViewReferralDay);
+    }
+
+    public class HfRegisterViewHolder extends AncRegisterProvider.RegisterViewHolder {
+
+        public TextView textViewReferralDay;
+
+        public HfRegisterViewHolder(View itemView) {
+            super(itemView);
+            textViewReferralDay = itemView.findViewById(R.id.text_view_referral_day);
+        }
     }
 }
