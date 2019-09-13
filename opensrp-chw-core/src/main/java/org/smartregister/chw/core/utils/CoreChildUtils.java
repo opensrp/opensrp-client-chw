@@ -367,10 +367,17 @@ public abstract class CoreChildUtils {
         List<org.smartregister.clientandeventmodel.Obs> observations = event.getObs();
         for (org.smartregister.clientandeventmodel.Obs obs : observations) {
             if (obs.getFormSubmissionField().equalsIgnoreCase(formSubmissionId)) {
-                List<Object> hu = obs.getHumanReadableValues();
+                List<Object> values = obs.getValues();
                 String value = "";
-                for (Object object : hu) {
-                    value = (String) object;
+                if(values.size()>0){
+                    for (Object object : values) {
+                        value = (String) object;
+                    }
+                }else{
+                    List<Object> hu = obs.getHumanReadableValues();
+                    for (Object object : hu) {
+                        value = (String) object;
+                    }
                 }
                 serviceTask.setTaskLabel(value);
             }
@@ -379,5 +386,28 @@ public abstract class CoreChildUtils {
         serviceTask.setTaskType(taskType);
         return serviceTask;
 
+    }
+    public static String getValueFromJsonFormSubmission(String details,String formSubmissionId){
+        Event event = CoreChildUtils.gsonConverter.fromJson(details, new TypeToken<Event>() {
+        }.getType());
+        List<org.smartregister.clientandeventmodel.Obs> observations = event.getObs();
+
+        String value = "";
+        for (org.smartregister.clientandeventmodel.Obs obs : observations) {
+            if (obs.getFormSubmissionField().equalsIgnoreCase(formSubmissionId)) {
+                List<Object> values = obs.getValues();
+                if(values.size()>0){
+                    for (Object object : values) {
+                        value = (String) object;
+                    }
+                }else{
+                    List<Object> hu = obs.getHumanReadableValues();
+                    for (Object object : hu) {
+                        value = (String) object;
+                    }
+                }
+            }
+        }
+        return value;
     }
 }

@@ -179,7 +179,7 @@ public class ChwRepositoryFlv {
             }
 
             // add missing columns to the DB
-            List<String> columns = new ArrayList<>();
+            List<String>  columns = new ArrayList<>();
             columns.add(ChildDBConstants.KEY.ENTRY_POINT);
             DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.CHILD, columns);
 

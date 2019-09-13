@@ -1,5 +1,7 @@
 package org.smartregister.chw.core.utils;
 
+import android.app.Activity;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -91,6 +93,7 @@ public class CoreReferralUtils {
         SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
         smartRegisterQueryBuilder.SelectInitiateMainTable(tableName, mainAncDetailsColumns(tableName));
         smartRegisterQueryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + " ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + ".id COLLATE NOCASE ");
+        smartRegisterQueryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.FAMILY + " ON  " + tableName + "." + DBConstants.KEY.RELATIONAL_ID + " = " + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.BASE_ENTITY_ID);
         return smartRegisterQueryBuilder.mainCondition(selectCondition);
     }
 
@@ -295,4 +298,14 @@ public class CoreReferralUtils {
     public static CommonRepository getCommonRepository(String tableName) {
         return Utils.context().commonrepository(tableName);
     }
+
+    public static boolean checkIfStartedFromReferrals(Activity startActivity) {
+        boolean startedFromReferrals = false;
+        String referrerActivity = startActivity.getLocalClassName();
+        if ("activity.ReferralTaskViewActivity".equals(referrerActivity)) {
+            startedFromReferrals = true;
+        }
+        return startedFromReferrals;
+    }
+
 }
