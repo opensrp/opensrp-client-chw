@@ -41,7 +41,7 @@
     <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optional</i>]]></string>
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Épisodes de maladies]]></string>
     <string name="home_visit_suffix"> &#183; Visite à domicile</string>
-    <string name="wash_check_suffix">&#183; Vérification Eau, Hygiène et Assainissement </string>
+    <string name="wash_check_suffix">&#183; Vérif. EHA</string>
     <string name="last_visit_prefix">Dernière visite depuis %1$s </string>
     <string name="completed_on_prefix">Complété le %1$s</string>
 
@@ -153,7 +153,7 @@
     <string name="anc_home_visit_anc_card_received">Carnet CPN reçu</string>
     <string name="anc_home_visit_sleeping_under_llitn_net">Dors sous un MIILD </string>
     <string name="anc_home_visit_counseling">Conseils CPN</string>
-    <string name="anc_home_visit_tt_immunization">VAT {0}</string>
+    <string name="anc_home_visit_tt_immunization">Td {0}</string>
     <string name="anc_home_visit_iptp_sp">SP dose {0}</string>
     <string name="gest_age">AG: %1$s</string>
     <string name="gest_age_weeks">semaines</string>
@@ -197,7 +197,7 @@
     <string name="refer_to_facilty">Se référer au centre de santé</string>
 
     <string name="health_facility_visit_num">Visite CPN {0} à la formation sanitaire</string>
-    <string name="tt_dose">VAT {0}</string>
+    <string name="tt_dose">Td {0}</string>
     <string name="iptp_sp_dose">SP {0}</string>
 
     <string name="opv_0">VPO 0</string>
@@ -218,7 +218,7 @@
     <string name="mcv_1">MCV 1</string>
     <string name="mcv_2">MCV 2</string>
     <string name="mcv_3">MCV 3</string>
-    <string name="yellow_fever">Fièvre Jaune</string>
+    <string name="yellow_fever">VAA</string>
     <string name="rubella_1">Rubéole 1</string>
     <string name="rubella_2">Rubéole 2</string>
     <string name="mena">MenA</string>
@@ -233,7 +233,7 @@
     <string name="anc_indicator4">Femmes enceintes à jour avec leurs visites CPN au centres de santé</string>
     <string name="anc_indicator5">Femmes enceintes dépistée au VIH</string>
     <string name="anc_indicator6">Femmes enceintes dépistées pour la syphilis</string>
-    <string name="anc_indicator7">Femmes enceintes à jour avec leurs VAT</string>
+    <string name="anc_indicator7">Femmes enceintes à jour avec leurs Td</string>
     <string name="anc_indicator8">Femmes enceintes à jour avec leurs Doses de SP</string>
 
     <!-- PNC Home visit-->
@@ -241,6 +241,7 @@
     <string name="pnc_danger_signs_mother">Signes de danger - femme</string>
     <string name="pnc_danger_signs_baby">Signes de danger - enfant ({0})</string>
     <string name="pnc_health_facility_visit">Visite CPoN au centre de santé - Jour {0} ({1})</string>
+    <string name="pnc_health_facility_visit_mother">Visite CPoN au centre de santé - jour {0}</string>
     <string name="pnc_child_vaccine_card_recevied">Carte de vaccination enfant reçu ({0})</string>
     <string name="pnc_immunization_at_birth">Immunisations (à la naissance) ({0})</string>
     <string name="pnc_umblicord_care">Soins du cordon ombilical</string>
