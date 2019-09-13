@@ -260,7 +260,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         for (Person baby : children) {
             if (getAgeInDays(baby.getDob()) <= 28) {
                 List<VaccineWrapper> wrappers = VaccineScheduleUtil.getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
-
+                if(wrappers.size() > 0){
                 List<VaccineDisplay> displays = new ArrayList<>();
                 for (VaccineWrapper vaccineWrapper : wrappers) {
                     VaccineDisplay display = new VaccineDisplay();
@@ -278,6 +278,8 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         .withHelper(new ImmunizationActionHelper(context, wrappers))
                         .build();
                 actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
+
+                }
             }
         }
     }
@@ -292,7 +294,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     JSONObject jsonObject = new JSONObject(jsonPayload);
                     cord_care = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "cord_care");
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
             }
 
@@ -348,7 +350,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 }
 
                 Alert alert = serviceWrapper.getAlert();
-                if (alert == null || new LocalDate().isAfter(new LocalDate(alert.startDate()))) {
+                if (alert == null || !new LocalDate().isAfter(new LocalDate(alert.startDate()))) {
                     return;
                 }
 

@@ -96,6 +96,10 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.pnc_member_profile_menu, menu);
+        List<CommonPersonObjectClient> children = basePncMemberProfileInteractor.pncChildrenUnder29Days(MEMBER_OBJECT.getBaseEntityId());
+        if(children.isEmpty()){
+            menu.findItem(R.id.action_pnc_registration).setVisible(false);
+        }
         return true;
     }
 
@@ -130,7 +134,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
                 break;
             case Constants.REQUEST_CODE_HOME_VISIT:

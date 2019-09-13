@@ -46,8 +46,11 @@ public abstract class CoreFamilyRegisterActivity extends BaseFamilyRegisterActiv
     @Override
     protected void onResumption() {
         super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(CoreConstants.DrawerMenu.ALL_FAMILIES);
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if (menu != null) {
+            menu.getNavigationAdapter()
+                    .setSelectedView(CoreConstants.DrawerMenu.ALL_FAMILIES);
+        }
     }
 
     @Override

@@ -10,7 +10,7 @@ import android.view.View;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.ChildDBConstants;
-import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
@@ -20,7 +20,9 @@ import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.customcontrols.FontVariant;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import timber.log.Timber;
@@ -46,21 +48,18 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-        String eventType = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.EVENT_TYPE, true);
+        String visitType = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.VISIT_TYPE, false);
 
-        eventType = (eventType.equalsIgnoreCase(Constants.EventType.CHILD_HOME_VISIT) ? context.getString(R.string.interpunct) + " " + context.getString(R.string.home_visit) : "");
+        String eventType = getVisitType(visitType);
+        boolean notVisited = notVisited(visitType);
+        long eventDate = parseLong(Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.VISIT_DATE, false));
 
-        long dateNotVisited = parseLong(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DATE_VISIT_NOT_DONE, false));
-        long dateVisited = parseLong(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DATE_LAST_HOME_VISIT, false));
-
-        if (dateNotVisited > 0) {
+        if (notVisited) {
             viewHolder.status.setImageResource(Utils.getActivityProfileImageResourceNotVistedIDentifier());
-            fillValue(viewHolder.lastVisit, String.format(context.getString(R.string.profile_activity_not_visited), new SimpleDateFormat("dd MMM yyyy").format(new Date(dateNotVisited))));
-        }
-
-        if (dateVisited > 0) {
+            fillValue(viewHolder.lastVisit, String.format(context.getString(R.string.profile_activity_not_visited), new SimpleDateFormat("dd MMM yyyy").format(new Date(eventDate))));
+        } else {
             viewHolder.status.setImageResource(Utils.getActivityProfileImageResourceVistedIDentifier());
-            fillValue(viewHolder.lastVisit, String.format(context.getString(R.string.profile_activity_completed), new SimpleDateFormat("dd MMM yyyy").format(new Date(dateVisited))));
+            fillValue(viewHolder.lastVisit, String.format(context.getString(R.string.profile_activity_completed), new SimpleDateFormat("dd MMM yyyy").format(new Date(eventDate))));
         }
 
         String patientName = Utils.getName(firstName, middleName, lastName);
@@ -98,6 +97,31 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
 
         View patient = viewHolder.patientColumn;
         attachPatientOnclickListener(patient, client);
+    }
+
+    private String getVisitType(String visitType) {
+        switch (visitType) {
+            case CoreConstants.EventType.ANC_HOME_VISIT:
+                return context.getString(R.string.anc_visit_suffix);
+            case CoreConstants.EventType.PNC_HOME_VISIT:
+                return context.getString(R.string.pnc_visit_suffix);
+            case CoreConstants.EventType.MALARIA_FOLLOW_UP_VISIT:
+                return context.getString(R.string.malaria_visit_suffix);
+            case CoreConstants.EventType.WASH_CHECK:
+                return context.getString(R.string.wash_check);
+            case CoreConstants.EventType.CHILD_HOME_VISIT:
+                return context.getString(R.string.home_visit_suffix);
+            default:
+                return "";
+        }
+    }
+
+    private boolean notVisited(String visitType) {
+        List<String> notVisited = new ArrayList<>();
+        notVisited.add(CoreConstants.EventType.CHILD_VISIT_NOT_DONE);
+        notVisited.add(CoreConstants.EventType.ANC_HOME_VISIT_NOT_DONE);
+
+        return notVisited.contains(visitType);
     }
 
     private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {

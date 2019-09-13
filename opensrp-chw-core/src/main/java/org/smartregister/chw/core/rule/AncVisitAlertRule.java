@@ -168,6 +168,13 @@ public class AncVisitAlertRule implements ICommonRule, RegisterAlert {
         return (lastVisitDate != null) && isVisitThisMonth(lastVisitDate, todayDate);
     }
 
+    public Date getNotDoneDate(){
+        if (getCompletionDate() == null && visitNotDoneDate != null) {
+            return visitNotDoneDate.toDate();
+        }
+        return null;
+    }
+
     @Override
     public String getRuleKey() {
         return "ancVisitAlertRule";

@@ -15,6 +15,8 @@ import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
 
+import timber.log.Timber;
+
 public class AddMemberFragment extends DialogFragment implements View.OnClickListener {
 
     public static final String DIALOG_TAG = "add_member_dialog";
@@ -84,7 +86,7 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
                 dismiss();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
     }
 
