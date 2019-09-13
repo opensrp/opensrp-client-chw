@@ -71,7 +71,7 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
     protected void updateMalariaIcons(RegisterViewHolder viewHolder, int malariaCount) {
         for (int i = 1; i <= malariaCount; i++) {
             ImageView imageView = new ImageView(context);
-            imageView.setImageResource(R.drawable.row_malaria);
+            imageView.setImageResource(R.drawable.ic_row_malaria);
             LinearLayout linearLayout = (LinearLayout) viewHolder.memberIcon;
             linearLayout.addView(imageView);
         }
