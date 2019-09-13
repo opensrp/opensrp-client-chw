@@ -7,6 +7,7 @@ import org.smartregister.chw.core.provider.ChwPncRegisterProvider;
 import org.smartregister.chw.hf.provider.HfPncRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.util.Utils;
 
 import java.util.Set;
 
@@ -33,5 +34,6 @@ public class PncRegisterFragment extends CorePncRegisterFragment {
     @Override
     protected void openPncMemberProfile(CommonPersonObjectClient client) {
 //        PncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), getFamilyName(), getFamilyHeadPhone());
+        Utils.showToast(getContext(), "Open PNC profile");
     }
 }
