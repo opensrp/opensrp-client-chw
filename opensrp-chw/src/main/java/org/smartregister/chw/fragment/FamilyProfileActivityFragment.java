@@ -85,8 +85,5 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
             washCheckRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             washCheckRecyclerView.setAdapter(washCheckAdapter);
         }
-
-
     }
-
 }
