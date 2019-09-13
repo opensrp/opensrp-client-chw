@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ANC Registration",
+  "encounter_type": "Home Visit - Remarks and comment",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -58,7 +58,7 @@
         "hint": "Remarks/Comments",
         "v_required": {
           "value": "false",
-          "err": "Please enter the surname"
+          "err": "Please enter the your remarks/comments"
         }
       }
     ]
