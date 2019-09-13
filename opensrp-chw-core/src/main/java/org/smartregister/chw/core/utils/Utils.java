@@ -492,7 +492,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
     }
 
 
-    public static boolean isWomanOfReproductiveAge(CommonPersonObjectClient commonPersonObject) {
+    public static boolean isWomanOfReproductiveAge(CommonPersonObjectClient commonPersonObject, int fromAge, int toAge) {
         if (commonPersonObject == null) {
             return false;
         }
@@ -503,7 +503,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
         if (!TextUtils.isEmpty(dobString) && gender.trim().equalsIgnoreCase("Female")) {
             Period period = new Period(new DateTime(dobString), new DateTime());
             int age = period.getYears();
-            return age >= 15 && age <= 49;
+            return age >= fromAge && age <= toAge;
         }
 
         return false;
