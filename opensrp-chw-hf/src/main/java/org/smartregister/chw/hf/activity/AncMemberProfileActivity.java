@@ -21,6 +21,7 @@ import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.adapter.ReferralCardViewAdapter;
 import org.smartregister.chw.hf.model.FamilyProfileModel;
@@ -36,6 +37,7 @@ import org.smartregister.family.interactor.FamilyProfileInteractor;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.Date;
 import java.util.Set;
@@ -43,6 +45,7 @@ import java.util.Set;
 import timber.log.Timber;
 
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
+    private static boolean isStartedFromReferrals;
     public RelativeLayout referralRow;
     public RecyclerView referralRecyclerView;
     private CommonPersonObjectClient commonPersonObjectClient;
@@ -55,6 +58,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhoneNumber);
         intent.putExtra(CoreConstants.INTENT_KEY.CLIENT, commonPersonObjectClient);
+        isStartedFromReferrals = CoreReferralUtils.checkIfStartedFromReferrals(activity);
         activity.startActivity(intent);
     }
 
@@ -68,7 +72,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
             familyHeadName = (String) getIntent().getSerializableExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME);
             familyHeadPhoneNumber = (String) getIntent().getSerializableExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE);
         }
-
+        updateTitleWhenFromReferrals();
         ancMemberProfilePresenter().fetchTasks();
     }
 
@@ -218,5 +222,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         // implemented but not used.
+    }
+
+    private void updateTitleWhenFromReferrals() {
+        if (isStartedFromReferrals) {
+            ((CustomFontTextView) findViewById(R.id.toolbar_title)).setText(getString(R.string.return_to_task_details));
+        }
     }
 }

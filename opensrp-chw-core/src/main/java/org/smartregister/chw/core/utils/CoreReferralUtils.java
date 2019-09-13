@@ -1,5 +1,7 @@
 package org.smartregister.chw.core.utils;
 
+import android.app.Activity;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -296,4 +298,14 @@ public class CoreReferralUtils {
     public static CommonRepository getCommonRepository(String tableName) {
         return Utils.context().commonrepository(tableName);
     }
+
+    public static boolean checkIfStartedFromReferrals(Activity startActivity) {
+        boolean startedFromReferrals = false;
+        String referrerActivity = startActivity.getLocalClassName();
+        if ("activity.ReferralTaskViewActivity".equals(referrerActivity)) {
+            startedFromReferrals = true;
+        }
+        return startedFromReferrals;
+    }
+
 }
