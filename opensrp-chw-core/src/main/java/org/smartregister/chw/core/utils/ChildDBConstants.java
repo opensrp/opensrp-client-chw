@@ -10,15 +10,17 @@ public class ChildDBConstants {
     private static final int FIVE_YEAR = 5;
 
     public static String childAgeLimitFilter() {
-        return childAgeLimitFilter(DBConstants.KEY.DOB, FIVE_YEAR);
+        return childAgeLimitFilter(DBConstants.KEY.DOB, FIVE_YEAR, ChildDBConstants.KEY.ENTRY_POINT);
     }
 
-    private static String childAgeLimitFilter(String dateColumn, int age) {
-        return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")";
+    private static String childAgeLimitFilter(String dateColumn, int age, String entryPoint) {
+        return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")  " +
+                " and (( ifnull(" + entryPoint + ",'') <> 'PNC' ) or (ifnull(" + entryPoint + ",'') = 'PNC' and date(" + dateColumn + ", '+28 days') < date())) " +
+                " and ((( julianday('now') - julianday(" + dateColumn +"))/365.25) < 5) ";
     }
 
     public static String childAgeLimitFilter(String tableName) {
-        return childAgeLimitFilter(tableColConcat(tableName, DBConstants.KEY.DOB), FIVE_YEAR);
+        return childAgeLimitFilter(tableColConcat(tableName, DBConstants.KEY.DOB), FIVE_YEAR, tableColConcat(tableName, ChildDBConstants.KEY.ENTRY_POINT) );
     }
 
     private static String tableColConcat(String tableName, String columnName) {
@@ -86,6 +88,7 @@ public class ChildDBConstants {
         public static final String FAMILY_LAST_NAME = "family_last_name";
         public static final String FAMILY_HOME_ADDRESS = "family_home_address";
         public static final String ENTITY_TYPE = "entity_type";
+        public static final String ENTRY_POINT = "entry_point";
         public static final String CHILD_BF_HR = "early_bf_1hr";
         public static final String CHILD_PHYSICAL_CHANGE = "physically_challenged";
         public static final String BIRTH_CERT = "birth_cert";

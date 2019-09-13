@@ -129,11 +129,12 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                     ancMemberProfilePresenter().createReferralEvent(Utils.getAllSharedPreferences(), jsonString);
                     showToast(this.getString(R.string.referral_submitted));
                 }
+
             } catch (Exception e) {
                 Timber.e(e, "AncMemberProfileActivity -- > onActivityResult");
             }
         } else if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
-            ChwScheduleTaskExecutor.getInstance().execute(MEMBER_OBJECT.getBaseEntityId(),CoreConstants.EventType.ANC_HOME_VISIT, new Date());
+            ChwScheduleTaskExecutor.getInstance().execute(MEMBER_OBJECT.getBaseEntityId(), CoreConstants.EventType.ANC_HOME_VISIT, new Date());
             finish();
         }
     }
