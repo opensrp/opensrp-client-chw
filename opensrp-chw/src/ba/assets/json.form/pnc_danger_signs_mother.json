@@ -98,6 +98,27 @@
             "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
+            "key": "chk_severe_leg_pain",
+            "text": "Severe leg pain",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_unusual_behaviour",
+            "text": "Unusual behaviour (stress, confusion)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "152376AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_swelling of breast",
+            "text": "Swelling of the breast and nipple",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "125212AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
             "key": "chk_severe_abdominal_pain",
             "text": "Severe abdominal pain",
             "value": false,
@@ -110,6 +131,27 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_blurred_vision",
+            "text": "Blurred vision",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_loss_conscioueness",
+            "text": "Loss of consciousness",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "135592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_urination",
+            "text": "Urinate a little or urine leakage",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "118982AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_none",
@@ -143,8 +185,14 @@
                   "chk_server_headache",
                   "chk_convulsions",
                   "chk_difficulty_breathing",
+                  "chk_severe_leg_pain",
+                  "chk_unusual_behaviour",
+                  "chk_swelling of breast",
                   "chk_severe_abdominal_pain",
-                  "chk_vaginal_discharge"
+                  "chk_vaginal_discharge",
+                  "chk_blurred_vision",
+                  "chk_loss_conscioueness",
+                  "chk_urination"
                 ]
               }
             ]
