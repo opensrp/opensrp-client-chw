@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ANC Registration",
+  "encounter_type": "Home Visit - Nutrition Status",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -58,6 +58,11 @@
         "type": "spinner",
         "hint": "What is the nutrition status of the mother?",
         "values": [
+          "Normal/Green",
+          "Moderate/Yellow",
+          "Severe/Red"
+        ],
+        "keys": [
           "Normal",
           "Moderate",
           "Severe"

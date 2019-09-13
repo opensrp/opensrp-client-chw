@@ -9,6 +9,7 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.ScheduleTask;
 import org.smartregister.chw.core.dao.AncDao;
+import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.domain.BaseScheduleTask;
 import org.smartregister.chw.core.rule.AncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -28,6 +29,12 @@ public class ANCVisitScheduler extends BaseTaskExecutor {
     @Override
     public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate) {
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
+
+        // clean the visit db . delete all do and undo events that happened the same day
+        List<String> strings = VisitDao.getVisitsToDelete();
+        for (String visitID : strings) {
+            AncLibrary.getInstance().visitRepository().deleteVisit(visitID);
+        }
 
         Visit lastNotDoneVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
         if (lastNotDoneVisit != null) {
@@ -56,6 +63,7 @@ public class ANCVisitScheduler extends BaseTaskExecutor {
 
 
         baseScheduleTask.setScheduleDueDate(alertRule.getDueDate());
+        baseScheduleTask.setScheduleNotDoneDate(alertRule.getNotDoneDate());
         baseScheduleTask.setScheduleExpiryDate(alertRule.getExpiryDate());
         baseScheduleTask.setScheduleCompletionDate(alertRule.getCompletionDate());
         baseScheduleTask.setScheduleOverDueDate(alertRule.getOverDueDate());

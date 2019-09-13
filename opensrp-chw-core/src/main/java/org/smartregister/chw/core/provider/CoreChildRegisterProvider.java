@@ -54,8 +54,6 @@ public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterV
         if (visibleColumns.isEmpty()) {
             populatePatientColumn(pc, client, viewHolder);
             populateIdentifierColumn(pc, viewHolder);
-
-            return;
         }
     }
 
@@ -122,7 +120,7 @@ public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterV
         return viewHolder instanceof FooterViewHolder;
     }
 
-    public void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
+    protected void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
 
         String parentFirstName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
         String parentLastName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
@@ -145,11 +143,11 @@ public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterV
 
     }
 
-    public void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+    protected void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
         //fillValue(viewHolder.ancId, String.format(context.getString(R.string.unique_id_text), uniqueId));
     }
 
-    public static void fillValue(TextView v, String value) {
+    protected static void fillValue(TextView v, String value) {
         if (v != null) {
             v.setText(value);
         }
@@ -171,13 +169,13 @@ public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterV
         attachDosageOnclickListener(dueButton, client);
     }
 
-    public void attachPatientOnclickListener(View view, SmartRegisterClient client) {
+    protected void attachPatientOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
         view.setTag(R.id.VIEW_ID, BaseFamilyRegisterFragment.CLICK_VIEW_NORMAL);
     }
 
-    public void attachDosageOnclickListener(View view, SmartRegisterClient client) {
+    protected void attachDosageOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
         view.setTag(R.id.VIEW_ID, BaseFamilyRegisterFragment.CLICK_VIEW_DOSAGE_STATUS);

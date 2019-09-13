@@ -101,7 +101,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                             presenter().updateFamilyMember(jsonString);
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Timber.e(e);
                     }
                 }
                 break;

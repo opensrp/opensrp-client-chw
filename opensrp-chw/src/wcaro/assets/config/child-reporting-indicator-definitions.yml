@@ -34,56 +34,95 @@ indicators:
 
   - key: "CHW_006"
     description: "Children (12-59 months) who were dewormed in the last 6 months"
-    indicatorQuery: "select count(distinct ev.baseEntityId) from event ev inner join ec_child ec where ev.baseEntityId = ec.base_entity_id and date(ec.dob) > date('now', '-60 month') and date(ec.dob) <= date('now', '-11 month')
-                     and ifnull(ec.dod,'') = '' and ifnull(ec.date_removed,'') = '' and ev.eventDate = '%s' and ev.eventType = 'Child Home Visit'
-                     and ec.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service like 'Deworming%%' and home_visit_indicator_info.service_given = 1 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month')) or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
+    indicatorQuery: " select count(distinct re.base_entity_id)
+                      from recurring_service_types rt
+                      inner join recurring_service_records re on re.recurring_service_id = rt._id
+                      inner join ec_child ec on ec.base_entity_id = re.base_entity_id and (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+28 days') <= date()))
+                      inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null
+                      where rt.type = 'Deworming' and date(ec.dob) between date('now', '-59 month') and date('now', '-12 month')
+                      and ifnull(re.value,'yes') = 'yes'
+                      and STRFTIME('%Y-%m-%d', datetime(re.date/1000,'unixepoch')) >=date('now', '-6 month') "
 
   - key: "CHW_007"
     description: "Children (12-59 months) who were not dewormed in the last 6 months"
-    indicatorQuery: "select count(distinct ev.baseEntityId) from event ev inner join ec_child ec where ev.baseEntityId = ec.base_entity_id and date(ec.dob) > date('now', '-60 month') and date(ec.dob) <= date('now', '-11 month')
-                     and ev.eventDate = '%s' and ev.eventType = 'Child Home Visit'
-                     and ec.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service like 'Deworming%%'
-                     and home_visit_indicator_info.service_given = 0 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month')) or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
+    indicatorQuery: "select count(distinct ec.base_entity_id)
+                     from ec_child ec
+                     inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null
+                     where (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+28 days') <= date()))
+                     and date(ec.dob) between date('now', '-59 month') and date('now', '-12 month')
+                     and ec.base_entity_id not in (
+                     	select re.base_entity_id from recurring_service_records re
+                     	inner join recurring_service_types rt on re.recurring_service_id = rt._id
+                     	where rt.type = 'Deworming' and ifnull(re.value,'yes') = 'yes'
+                     	and STRFTIME('%Y-%m-%d', datetime(re.date/1000,'unixepoch')) >=date('now', '-6 month')
+                     )"
 
   - key: "CHW_008"
     description: "Children (6-59 months) who received Vitamin A in the last 6 months"
-    indicatorQuery: "select count(ev.baseEntityId) from event ev inner join ec_child ec where ev.baseEntityId = ec.base_entity_id and date(ec.dob) > date('now', '-60 month')
-    and date(ec.dob) <= date('now', '-6 month') and ifnull(ec.dod,'') = '' and ifnull(ec.date_removed,'') = '' and ev.eventDate = '%s'
-    and ev.eventType = 'Child Home Visit' and ec.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service like 'Vitamin A%%'
-    and home_visit_indicator_info.service_given = 1 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month'))
-    or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
+    indicatorQuery: " select count(distinct re.base_entity_id)
+                      from recurring_service_types rt
+                      inner join recurring_service_records re on re.recurring_service_id = rt._id
+                      inner join ec_child ec on ec.base_entity_id = re.base_entity_id and (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+28 days') <= date()))
+                      inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null
+                      where rt.type = 'Vitamin_A' and date(ec.dob) between date('now', '-59 month') and date('now', '-6 month')
+                      and ifnull(re.value,'yes') = 'yes'
+                      and STRFTIME('%Y-%m-%d', datetime(re.date/1000,'unixepoch')) >=date('now', '-6 month') "
 
   - key: "CHW_009"
     description: "Children (6-59 months) who did not receive Vitamin A in the last 6 months"
-    indicatorQuery: "select count(ev.baseEntityId) from event ev inner join ec_child ec where ev.baseEntityId = ec.base_entity_id and date(ec.dob) > date('now', '-60 month')
-    and date(ec.dob) <= date('now', '-6 month') and ifnull(ec.dod,'') = '' and ifnull(ec.date_removed,'') = '' and ev.eventDate = '%s' and ev.eventType = 'Child Home Visit'
-                                       and ec.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service
-                                       like 'Vitamin A%%' and home_visit_indicator_info.service_given = 0 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month')) or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
+    indicatorQuery: " select count(distinct ec.base_entity_id)
+                      from ec_child ec
+                      inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null
+                      where (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+28 days')  <= date()))
+                      and date(ec.dob) between date('now', '-59 month') and date('now', '-6 month')
+                      and ec.base_entity_id not in (
+                      	select re.base_entity_id from recurring_service_records re
+                      	inner join recurring_service_types rt on re.recurring_service_id = rt._id
+                      	where rt.type = 'Vitamin_A' and ifnull(re.value,'yes') = 'yes'
+                        and STRFTIME('%Y-%m-%d', datetime(re.date/1000,'unixepoch')) >=date('now', '-6 month')
+                      ) "
 
   - key: "CHW_010"
     description: "Children (0-5 months) exclusively breastfeeding in their most recent home visit"
-    indicatorQuery: "select count(*)
-                     from
-                     (
-                     select base_entity_id from home_visit_indicator_info
-                     where home_visit_indicator_info.value = 'yes'and home_visit_indicator_info.service = 'Exclusive breastfeeding' group by base_entity_id
-                     ) hi
-                     inner join ec_child ec
-                     on ec.base_entity_id = hi.base_entity_id
-                     where date(ec.dob) > date('now', '-6 month')"
+    indicatorQuery: "select count(DISTINCT ec.base_entity_id)
+                     from ec_child ec
+                     inner join (
+                     	select e.baseEntityId , max(e.eventDate) eventDate
+                     	from event e
+                     	where e.eventType = 'Child Home Visit'
+                     	group by e.baseEntityId
+                     ) e on ec.base_entity_id = e.baseEntityId
+                     inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null
+                     inner join (
+                     	select re.base_entity_id , STRFTIME('%Y-%m-%d', datetime(max(re.date)/1000,'unixepoch')) last_exclusive_date
+                     	from recurring_service_records re
+                     	inner join recurring_service_types rt on re.recurring_service_id = rt._id
+                     	where rt.type = 'Exclusive_breastfeeding' and ifnull(re.value,'yes') = 'yes'
+                     	group by re.base_entity_id
+                     ) ex on ex.base_entity_id = e.baseEntityId and SUBSTR(e.eventDate,1,10) between date(ex.last_exclusive_date, '-1 day') and date(ex.last_exclusive_date, '1 day')
+                     where (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+28 days')  <= date()))
+                     and date(ec.dob) between date('now', '-5 month') and date('now')  "
 
   - key: "CHW_011"
     description: "Children (0-5 months) not exclusively breastfeeding in their most recent home visit"
-    indicatorQuery: "select count(*)
-                 from
-                 (
-                 select base_entity_id from home_visit_indicator_info
-                 where home_visit_indicator_info.value = 'no'and home_visit_indicator_info.service = 'Exclusive breastfeeding' group by base_entity_id
-                 ) hi
-                 inner join ec_child ec
-                 on ec.base_entity_id = hi.base_entity_id
-                 where date(ec.dob) > date('now', '-6 month')"
-
+    indicatorQuery: " select count(ec.base_entity_id)
+                      from ec_child ec
+                      inner join (
+                      	select e.baseEntityId , max(e.eventDate) eventDate
+                      	from event e
+                      	where e.eventType = 'Child Home Visit'
+                      	group by e.baseEntityId
+                      ) e on ec.base_entity_id = e.baseEntityId
+                      inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null
+                      left join (
+                      	select re.base_entity_id , STRFTIME('%Y-%m-%d', datetime(max(re.date)/1000,'unixepoch')) last_exclusive_date
+                      	from recurring_service_records re
+                      	inner join recurring_service_types rt on re.recurring_service_id = rt._id
+                      	where rt.type = 'Exclusive_breastfeeding' and ifnull(re.value,'yes') = 'yes'
+                      	group by re.base_entity_id
+                      ) ex on ex.base_entity_id = e.baseEntityId and SUBSTR(e.eventDate,1,10) between date(ex.last_exclusive_date, '-1 day') and date(ex.last_exclusive_date, '1 day')
+                      where (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+28 days')  <= date()))
+                      and date(ec.dob) between date('now', '-5 month') and date('now') and ex.base_entity_id is null "
 
   - key: "CHW_012"
     description: "Children (6-23 months) up to date on MNP supplementation"
