@@ -1,6 +1,7 @@
 package org.smartregister.chw.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.WashCheck;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileDueModel;
@@ -214,7 +216,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         } else if (washCheck.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             visibilityWashView(true);
             status.setImageResource(org.smartregister.chw.util.Utils.getOverDueProfileImageResourceIDentifier());
-            lastVisit.setText(String.format(getActivity().getString(R.string.last_visit_prefix), washCheck.getLastVisitDate()));
+            lastVisit.setText(String.format(getMyContext().getString(R.string.last_visit_prefix), washCheck.getLastVisitDate()));
             name.setText(getActivity().getString(R.string.family, familyName) + " " + getActivity().getString(R.string.wash_check_suffix));
 
         } else {
@@ -241,6 +243,14 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             }
         });
 
+    }
+
+    private Context getMyContext(){
+        Context context = getActivity();
+        if(context == null)
+            context = CoreChwApplication.getInstance();
+
+        return context;
     }
 
     @Override
