@@ -6,13 +6,13 @@ import android.util.Pair;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.domain.db.EventClient;
-import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -157,7 +157,7 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
     }
 
     public ECSyncHelper getSyncHelper() {
-        return FamilyLibrary.getInstance().getEcSyncHelper();
+        return CoreChwApplication.getInstance().getEcSyncHelper();
     }
 
     public AllSharedPreferences getAllSharedPreferences() {
@@ -165,11 +165,11 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
     }
 
     public ClientProcessorForJava getClientProcessorForJava() {
-        return FamilyLibrary.getInstance().getClientProcessorForJava();
+        return CoreChwApplication.getInstance().getClientProcessorForJava();
     }
 
     public UniqueIdRepository getUniqueIdRepository() {
-        return FamilyLibrary.getInstance().getUniqueIdRepository();
+        return CoreChwApplication.getInstance().getUniqueIdRepository();
     }
 
     public enum type {SAVED, UPDATED}

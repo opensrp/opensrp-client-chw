@@ -30,6 +30,7 @@ import org.smartregister.repository.LocationRepository;
 import org.smartregister.repository.PlanDefinitionRepository;
 import org.smartregister.repository.TaskNotesRepository;
 import org.smartregister.repository.TaskRepository;
+import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -56,6 +57,8 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     private LocationRepository locationRepository;
     private ECSyncHelper ecSyncHelper;
     private String password;
+    protected ClientProcessorForJava clientProcessorForJava;
+    private UniqueIdRepository uniqueIdRepository;
 
     private RulesEngineHelper rulesEngineHelper;
 
@@ -197,6 +200,22 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
 
     public AllCommonsRepository getAllCommonsRepository(String table) {
         return CoreChwApplication.getInstance().getContext().allCommonsRepositoryobjects(table);
+    }
+
+    public ClientProcessorForJava getClientProcessorForJava() {
+        if (this.clientProcessorForJava == null) {
+            this.clientProcessorForJava = ClientProcessorForJava.getInstance(getContext().applicationContext());
+        }
+
+        return this.clientProcessorForJava;
+    }
+
+    public UniqueIdRepository getUniqueIdRepository() {
+        if (this.uniqueIdRepository == null) {
+            this.uniqueIdRepository = new UniqueIdRepository(this.getRepository());
+        }
+
+        return this.uniqueIdRepository;
     }
 
     @Override
