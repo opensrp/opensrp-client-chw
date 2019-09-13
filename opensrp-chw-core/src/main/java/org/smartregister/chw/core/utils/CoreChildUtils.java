@@ -179,7 +179,7 @@ public abstract class CoreChildUtils {
                     return Integer.valueOf(year);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         }
 

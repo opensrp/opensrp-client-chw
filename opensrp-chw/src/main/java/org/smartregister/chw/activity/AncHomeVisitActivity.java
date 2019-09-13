@@ -12,11 +12,16 @@ import org.smartregister.chw.anc.activity.BaseAncHomeVisitActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
 import org.smartregister.chw.core.R;
+import org.smartregister.chw.core.task.RunnableTask;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.AncHomeVisitInteractor;
+import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
+
+import java.util.Date;
 
 import timber.log.Timber;
 
@@ -32,6 +37,14 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
     @Override
     protected void registerPresenter() {
         presenter = new BaseAncHomeVisitPresenter(memberObject, this, new AncHomeVisitInteractor());
+    }
+
+    @Override
+    public void submittedAndClose() {
+        // recompute schedule
+        Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.ANC_HOME_VISIT, new Date());
+        org.smartregister.chw.util.Utils.startAsyncTask(new RunnableTask(runnable), null);
+        super.submittedAndClose();
     }
 
     @Override

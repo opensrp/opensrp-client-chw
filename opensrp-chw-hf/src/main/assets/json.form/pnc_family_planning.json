@@ -61,6 +61,10 @@
           "Yes",
           "No"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -124,27 +128,34 @@
         "values": [
           "PPIUCD",
           "Pills",
-          "Injectable",
+          "Implant",
+          "Condoms",
+          "LAM",
+          "Standard day method",
+          "Permanent (BTL)",
+          "Permanent (Vascemtomy)",
+          "None"
+        ],
+        "keys": [
+          "PPIUCD",
+          "Pills",
           "Implant",
           "Condoms",
           "LAM",
           "Bead Counting",
           "Permanent (BTL)",
           "Permanent (Vascemtomy)",
-          "Abstinence",
           "None"
         ],
         "openmrs_choice_ids": {
           "PPIUCD": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Pills": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Injectable": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Implant": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Condoms": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "LAM": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Bead Counting": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Permanent (BTL)": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Permanent (Vascemtomy)": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Abstinence": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
@@ -169,7 +180,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please enter the date of immunization"
+          "err": "Please enter the start date of method"
         },
         "relevance": {
           "step1:fp_counseling": {

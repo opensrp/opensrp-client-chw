@@ -58,6 +58,11 @@
         "type": "spinner",
         "hint": "Nutrition status of woman",
         "values": [
+          "Normal/Green",
+          "Moderate/Yellow",
+          "Severe/Red"
+        ],
+        "keys": [
           "Normal",
           "Moderate",
           "Severe"
