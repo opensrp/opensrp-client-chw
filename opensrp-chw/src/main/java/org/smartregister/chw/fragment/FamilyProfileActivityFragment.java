@@ -1,7 +1,10 @@
 package org.smartregister.chw.fragment;
 
 import android.app.FragmentTransaction;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -13,6 +16,7 @@ import org.smartregister.chw.presenter.FamilyProfileActivityPresenter;
 import org.smartregister.chw.provider.FamilyActivityRegisterProvider;
 import org.smartregister.chw.util.WashCheckFlv;
 import org.smartregister.configurableviews.model.View;
+import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
 import org.smartregister.family.util.Constants;
@@ -85,8 +89,57 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
             washCheckRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             washCheckRecyclerView.setAdapter(washCheckAdapter);
         }
-
-
     }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
+        switch (id) {
+            case LOADER_ID:
+                // Returns a new CursorLoader
+                return new CursorLoader(getActivity()) {
+                    @Override
+                    public Cursor loadInBackground() {
+                        // Count query
+                        if (args != null && args.getBoolean("count_execute")) {
+                            countExecute();
+                        }
+                        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
+                        String query = sqb.orderbyCondition(Sortqueries);
+                        query = sqb.Endquery(query);
+                        return commonRepository().rawCustomQueryForAdapter(query);
+                    }
+                };
+            default:
+                // An invalid id was passed in
+                return null;
+        }
+    }
+
+    public void countExecute() {
+        Cursor c = null;
+
+        try {
+            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
+            sqb.addCondition(filters);
+            String query = sqb.orderbyCondition(Sortqueries);
+            query = sqb.Endquery(query);
+
+            Timber.i(getClass().getName(), query);
+            c = commonRepository().rawCustomQueryForAdapter(query);
+            c.moveToFirst();
+            clientAdapter.setTotalcount(c.getInt(0));
+            Timber.v("total count here %s", clientAdapter.getTotalcount());
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
+
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+
 
 }

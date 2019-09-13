@@ -1,4 +1,0 @@
-indicators:
-  - key: "anc_report_indicator_2"
-      description: "COUNT of all ANC women who are registered in the ANC register."
-      indicatorQuery:  "SELECT count (*) FROM  ec_anc_register  WHERE is_closed == '0'"

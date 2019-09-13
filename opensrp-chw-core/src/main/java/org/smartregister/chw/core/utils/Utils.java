@@ -135,7 +135,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
             Date date = sdf.parse(timeAsDDMMYYYY);
             return dateFormat.format(date);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
         return "";
     }

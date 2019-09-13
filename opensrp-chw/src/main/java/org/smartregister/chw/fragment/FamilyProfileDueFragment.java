@@ -237,7 +237,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                     getActivity().startActivityForResult(intent, org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         });
 

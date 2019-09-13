@@ -17,6 +17,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import timber.log.Timber;
+
 public abstract class CoreFamilyRemoveMemberModel extends CoreFamilyProfileMemberModel implements FamilyRemoveMemberContract.Model {
 
     @Override
@@ -72,7 +74,7 @@ public abstract class CoreFamilyRemoveMemberModel extends CoreFamilyProfileMembe
 
             return form;
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
             return null;
         }
     }
@@ -105,7 +107,7 @@ public abstract class CoreFamilyRemoveMemberModel extends CoreFamilyProfileMembe
 
             return form;
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
             return null;
         }
     }
