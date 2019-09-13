@@ -36,8 +36,14 @@ public class CoreFamilyProfileInteractor extends org.smartregister.family.intera
     }
 
     private boolean hasPhone(String familyBaseEntityId) {
+        if (StringUtils.isBlank(familyBaseEntityId))
+            return false;
 
         final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyBaseEntityId);
+
+        if (personObject == null)
+            return false;
+
         final CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
         client.setColumnmaps(personObject.getColumnmaps());
 
