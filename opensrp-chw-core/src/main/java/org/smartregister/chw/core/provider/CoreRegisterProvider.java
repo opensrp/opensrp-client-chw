@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -63,6 +64,9 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
         for (int i = 1; i <= womanCount; i++) {
             ImageView imageView = new ImageView(context);
             imageView.setImageResource(CoreConstants.TABLE_NAME.ANC_MEMBER.equals(register) ? R.mipmap.ic_anc_pink : org.smartregister.family.R.mipmap.row_pnc);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            imageView.getLayoutParams().height = 40;
+            imageView.getLayoutParams().width = 40;
             LinearLayout linearLayout = (LinearLayout) viewHolder.memberIcon;
             linearLayout.addView(imageView);
         }
@@ -84,12 +88,16 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
                     }
                 }
                 imageView = new ImageView(context);
+                imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
                 String gender = map.get(DBConstants.KEY.GENDER);
                 if ("Male".equalsIgnoreCase(gender)) {
                     imageView.setImageResource(R.mipmap.ic_boy_child);
                 } else {
                     imageView.setImageResource(R.mipmap.ic_girl_child);
                 }
+                imageView.getLayoutParams().height = 40;
+                imageView.getLayoutParams().width = 40;
                 linearLayout = (LinearLayout) viewHolder.memberIcon;
                 linearLayout.addView(imageView);
             }

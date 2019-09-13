@@ -22,18 +22,6 @@ public class CoreConstants {
 
     public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
 
-    public enum GROWTH_TYPE {
-        EXCLUSIVE("Exclusive breastfeeding"), MNP("MNP"), VITAMIN("Vitamin A"), DEWORMING("Deworming");
-        private String value;
-
-        GROWTH_TYPE(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
 
     public interface DB_CONSTANTS {
         String ID = "_id";
