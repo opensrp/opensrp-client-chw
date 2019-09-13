@@ -31,7 +31,6 @@ import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
-import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.dao.PNCDao;
