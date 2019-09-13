@@ -382,6 +382,7 @@ public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivit
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, new MemberObject(patient));
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhone);
+        intent.putExtra(CoreConstants.INTENT_KEY.CLIENT, patient);
         intent.putExtra(TITLE_VIEW_TEXT, String.format(getString(org.smartregister.chw.core.R.string.return_to_family_name), ""));
         return intent;
     }

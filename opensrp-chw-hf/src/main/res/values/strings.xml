@@ -8,7 +8,7 @@
     <string name="clicked_sick_child">You have clicked the sick child follow-up action</string>
     <string name="clicked_malaria_diagnosis">You have clicked the malaria diagnosis action</string>
     <string name="referral_for">Referral for %s</string>
-    <string name="full_referral_info">View full referral info?</string>
+    <string name="full_referral_info">View full referral info</string>
     <string name="back_to_referrals">Back to Referrals</string>
     <string name="return_to">Return to %s</string>
     <string name="mark_done">Mark Done</string>

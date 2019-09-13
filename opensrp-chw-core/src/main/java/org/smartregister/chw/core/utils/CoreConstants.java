@@ -41,6 +41,19 @@ public class CoreConstants {
         String ANC = "anc";
     }
 
+    public interface SCHEDULE_TYPES {
+        String CHILD_VISIT = "CHILD_VISIT";
+        String ANC_VISIT = "ANC_VISIT";
+        String PNC_VISIT = "PNC_VISIT";
+        String WASH_CHECK = "WASH_CHECK";
+        String MALARIA_VISIT = "MALARIA_VISIT";
+    }
+
+    public interface SCHEDULE_GROUPS {
+        String HOME_VISIT = "HOME_VISIT";
+        String FAMILY = "FAMILY";
+    }
+
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
         public static final String FAMILY_REGISTER = "family_register";
@@ -215,7 +228,7 @@ public class CoreConstants {
 
         public static boolean isMultiPartForm(JSONObject jsonForm) {
             String encounterType = jsonForm.optString(ENCOUNTER_TYPE);
-            return encounterType.equals(MALARIA_FOLLOW_UP_VISIT) ? false : true;
+            return !encounterType.equals(MALARIA_FOLLOW_UP_VISIT);
         }
 
         public static String getMalariaFollowUpVisitForm() {
@@ -668,6 +681,7 @@ public class CoreConstants {
         public static final String PNC_REGISTER_ACTIVITY = "PNC_REGISTER_ACTIVITY";
         public static final String REFERRALS_REGISTER_ACTIVITY = "REFERRALS_REGISTER_ACTIVITY";
         public static final String MALARIA_REGISTER_ACTIVITY = "MALARIA_REGISTER_ACTIVITY";
+        public static final String ALL_CLIENTS_REGISTERED_ACTIVITY = "ALL_CLIENTS";
     }
 
     public static final class BUSINESS_STATUS {
@@ -680,18 +694,5 @@ public class CoreConstants {
     public static final class TASKS_FOCUS {
         public static final String SICK_CHILD = "Sick Child";
         public static final String ANC_DANGER_SIGNS = "ANC Danger Signs";
-    }
-
-    public interface SCHEDULE_TYPES {
-        String CHILD_VISIT = "CHILD_VISIT";
-        String ANC_VISIT = "ANC_VISIT";
-        String PNC_VISIT = "PNC_VISIT";
-        String WASH_CHECK = "WASH_CHECK";
-        String MALARIA_VISIT = "MALARIA_VISIT";
-    }
-
-    public interface SCHEDULE_GROUPS {
-        String HOME_VISIT = "HOME_VISIT";
-        String FAMILY = "FAMILY";
     }
 }
