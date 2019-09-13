@@ -20,6 +20,8 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.util.JsonFormUtils;
 
+import timber.log.Timber;
+
 public class WashCheckDialogFragment extends DialogFragment implements View.OnClickListener {
 
     public static final String DIALOG_TAG = "WashCheckDialogFragment";
@@ -98,7 +100,7 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
             latrineValue = hygienic_latrine.optString(JsonFormUtils.VALUE);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
         if (!TextUtils.isEmpty(handwashingValue)) {
             if ((Utils.getYesNoAsLanguageSpecific(activity, handwashingValue).equalsIgnoreCase(getString(R.string.yes)))) {

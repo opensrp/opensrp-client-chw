@@ -35,6 +35,7 @@ public class ChildHomeVisitScheduler extends BaseTaskExecutor {
 
 
         baseScheduleTask.setScheduleDueDate(alertRule.getDueDate());
+        baseScheduleTask.setScheduleNotDoneDate(alertRule.getNotDoneDate());
         baseScheduleTask.setScheduleExpiryDate(alertRule.getExpiryDate());
         baseScheduleTask.setScheduleCompletionDate(alertRule.getCompletionDate());
         baseScheduleTask.setScheduleOverDueDate(alertRule.getOverDueDate());

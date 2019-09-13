@@ -134,7 +134,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
                 break;
             case Constants.REQUEST_CODE_HOME_VISIT:

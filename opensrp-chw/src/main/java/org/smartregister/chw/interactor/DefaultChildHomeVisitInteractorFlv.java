@@ -146,7 +146,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                     JSONObject jsonObject = new JSONObject(jsonPayload);
                     child_vaccine_card = JsonFormUtils.getValue(jsonObject, "child_vaccine_card");
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
             }
 

@@ -57,7 +57,7 @@ public abstract class CoreFamilyRemoveMemberInteractor implements FamilyRemoveMe
                 // process the json object
                 value = removeUser(familyID, exitForm, lastLocationId);
             } catch (Exception e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
 
             final String finalValue = value;
@@ -143,7 +143,7 @@ public abstract class CoreFamilyRemoveMemberInteractor implements FamilyRemoveMe
 
             };
         } catch (final Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
 
             runnable = () -> appExecutors.mainThread().execute(() -> callback.onError(e));
         }

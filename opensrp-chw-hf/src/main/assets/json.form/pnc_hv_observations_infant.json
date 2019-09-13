@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Observations & Illness",
+    "title": "Observations & Illness - Child",
     "fields": [
       {
         "key": "date_of_illness_child",
@@ -105,7 +105,7 @@
           },
           {
             "key": "chk_paracetamol",
-            "text": "Paracetamol",
+            "text": "Panadol",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

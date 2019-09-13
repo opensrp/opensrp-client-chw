@@ -34,7 +34,7 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
     }
 
     private String getDueQuery() {
-        return " (ifnull(schedule_service.completion_date,'') = '' and schedule_service.expiry_date >= strftime('%Y-%m-%d') and schedule_service.due_date <= strftime('%Y-%m-%d')) ";
+        return " (ifnull(schedule_service.completion_date,'') = '' and schedule_service.expiry_date >= strftime('%Y-%m-%d') and schedule_service.due_date <= strftime('%Y-%m-%d') and ifnull(schedule_service.not_done_date,'') = '' ) ";
     }
 
     public boolean saveData(String jsonObject) {

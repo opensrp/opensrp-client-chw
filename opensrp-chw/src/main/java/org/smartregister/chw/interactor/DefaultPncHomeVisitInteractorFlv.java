@@ -294,7 +294,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     JSONObject jsonObject = new JSONObject(jsonPayload);
                     cord_care = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "cord_care");
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
             }
 

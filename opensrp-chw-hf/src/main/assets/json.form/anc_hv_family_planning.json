@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ANC Registration",
+  "encounter_type": "Home Visit - Family Planning",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -58,6 +58,10 @@
         "type": "spinner",
         "hint": "Was the mother advised on family planning when you visited the health visit?",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],

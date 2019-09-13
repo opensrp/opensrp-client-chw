@@ -38,6 +38,6 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
 
     @Override
     public boolean isWra(CommonPersonObjectClient commonPersonObject) {
-        return isWomanOfReproductiveAge(commonPersonObject);
+        return isWomanOfReproductiveAge(commonPersonObject, 10, 49);
     }
 }
