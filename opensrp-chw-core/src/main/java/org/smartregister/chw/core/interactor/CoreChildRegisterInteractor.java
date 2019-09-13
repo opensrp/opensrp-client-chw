@@ -71,12 +71,14 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
     @Override
     public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final CoreChildRegisterContract.InteractorCallBack callBack) {
 
-        Runnable runnable = () -> {
-            saveRegistration(pair, jsonString, isEditMode);
-            appExecutors.mainThread().execute(() -> callBack.onRegistrationSaved(isEditMode));
-        };
+        //   Runnable runnable = () -> {
+        if (saveRegistration(pair, jsonString, isEditMode)) {
+            callBack.onRegistrationSaved(isEditMode);
+        }
+        //    appExecutors.mainThread().execute(() -> callBack.onRegistrationSaved(isEditMode));
+        // };
 
-        appExecutors.diskIO().execute(runnable);
+        // appExecutors.diskIO().execute(runnable);
     }
 
     @Override
@@ -88,7 +90,7 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
         appExecutors.diskIO().execute(runnable);
     }
 
-    private void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
+    private boolean saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
 
         try {
 
@@ -153,7 +155,9 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
 
         } catch (Exception e) {
             Timber.e(e);
+            return false;
         }
+        return true;
     }
 
     public ECSyncHelper getSyncHelper() {
