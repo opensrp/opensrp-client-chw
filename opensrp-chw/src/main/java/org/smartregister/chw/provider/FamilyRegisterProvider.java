@@ -124,6 +124,7 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         private List<Map<String, String>> list;
         private int ancWomanCount;
         private int pncWomanCount;
+        private int malariaCount;
         private Map<String, Integer> services;
 
         private UpdateAsyncTask(Context context, RegisterViewHolder viewHolder, String familyBaseEntityId) {
@@ -137,6 +138,7 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             list = getChildren(familyBaseEntityId);
             ancWomanCount = ChwApplication.ancRegisterRepository().getAncPncWomenCount(familyBaseEntityId, CoreConstants.TABLE_NAME.ANC_MEMBER);
             pncWomanCount = ChwApplication.ancRegisterRepository().getAncPncWomenCount(familyBaseEntityId, CoreConstants.TABLE_NAME.PNC_MEMBER);
+            malariaCount = ChwApplication.malariaRegisterRepository().getMalariaCount(familyBaseEntityId, CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION);
             services = FamilyDao.getFamilyServiceSchedule(familyBaseEntityId);
             return null;
         }
@@ -145,6 +147,7 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         protected void onPostExecute(Void param) {
             // Update child Icon
             updateChildIcons(viewHolder, list, ancWomanCount, pncWomanCount);
+            updateMalariaIcons(viewHolder, malariaCount);
             updateButtonState(context, viewHolder, services);
         }
     }

@@ -7,6 +7,7 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.helper.RulesEngineHelper;
 import org.smartregister.chw.core.repository.AncRegisterRepository;
+import org.smartregister.chw.core.repository.MalariaRegisterRepository;
 import org.smartregister.chw.core.repository.PncRegisterRepository;
 import org.smartregister.chw.core.repository.ScheduleRepository;
 import org.smartregister.chw.core.repository.WashCheckRepository;
@@ -50,6 +51,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     private static PlanDefinitionRepository planDefinitionRepository;
     private static WashCheckRepository washCheckRepository;
     private static ScheduleRepository scheduleRepository;
+    private static MalariaRegisterRepository malariaRegisterRepository;
     public JsonSpecHelper jsonSpecHelper;
     private LocationRepository locationRepository;
     private ECSyncHelper ecSyncHelper;
@@ -88,6 +90,14 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
             washCheckRepository = new WashCheckRepository(getInstance().getRepository());
         }
         return washCheckRepository;
+    }
+
+    public static MalariaRegisterRepository malariaRegisterRepository() {
+        if (malariaRegisterRepository == null) {
+            malariaRegisterRepository = new MalariaRegisterRepository(getInstance().getRepository());
+        }
+
+        return malariaRegisterRepository;
     }
 
     /**
