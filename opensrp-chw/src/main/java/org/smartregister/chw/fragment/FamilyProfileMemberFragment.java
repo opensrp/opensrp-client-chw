@@ -14,6 +14,7 @@ import java.util.Set;
 
 public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment {
 
+
     public static BaseFamilyProfileMemberFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
         BaseFamilyProfileMemberFragment fragment = new FamilyProfileMemberFragment();
