@@ -69,7 +69,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
         int itemId = item.getItemId();
         if (itemId == org.smartregister.chw.core.R.id.action_remove_member) {
             CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
