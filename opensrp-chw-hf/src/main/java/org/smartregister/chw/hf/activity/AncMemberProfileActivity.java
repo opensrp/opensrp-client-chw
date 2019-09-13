@@ -72,8 +72,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
             familyHeadName = (String) getIntent().getSerializableExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME);
             familyHeadPhoneNumber = (String) getIntent().getSerializableExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE);
         }
-        updateTitleWhenFromReferrals();
-        ancMemberProfilePresenter().fetchTasks();
     }
 
     @Override
@@ -227,6 +225,16 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     private void updateTitleWhenFromReferrals() {
         if (isStartedFromReferrals) {
             ((CustomFontTextView) findViewById(R.id.toolbar_title)).setText(getString(R.string.return_to_task_details));
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateTitleWhenFromReferrals();
+        ancMemberProfilePresenter().fetchTasks();
+        if (referralRecyclerView.getAdapter() != null) {
+            referralRecyclerView.getAdapter().notifyDataSetChanged();
         }
     }
 }
