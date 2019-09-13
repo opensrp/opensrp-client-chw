@@ -6,7 +6,6 @@ import android.text.TextUtils;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
-import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
@@ -38,6 +37,7 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.jsonmapping.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,10 +64,10 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         Timber.v("constructor");
     }
 
-    public ChildMedicalHistoryInteractor(AppExecutors appExecutors, VisitRepository visitRepository, Context context) {
+    public ChildMedicalHistoryInteractor(AppExecutors appExecutors, VisitRepository visitRepository, VisitDetailsRepository visitDetailsRepository, Context context) {
         this.appExecutors = appExecutors;
         this.visitRepository = visitRepository;
-        this.visitDetailsRepository = AncLibrary.getInstance().visitDetailsRepository();
+        this.visitDetailsRepository = visitDetailsRepository;
         this.context = context;
     }
 
@@ -222,16 +222,16 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
     @Override
     public void fetchGrowthNutritionData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
-        List<ServiceRecord> serviceRecordList  = new ArrayList<>();
-        Long serviceId=1L;
+        List<ServiceRecord> serviceRecordList = new ArrayList<>();
+        Long serviceId = 1L;
 
         //fetchbfdata()
         List<Visit> visits = visitRepository.getVisits(commonPersonObjectClient.getCaseId(), Constants.EventType.EXCLUSIVE_BREASTFEEDING);
 
-        for(Visit visit : visits){
+        for (Visit visit : visits) {
             ServiceRecord serviceRecord = new ServiceRecord();
             List<VisitDetail> visitDetails = visitDetailsRepository.getVisits(visit.getVisitId());
-            if(visitDetails!=null && visitDetails.size()>0){
+            if (visitDetails != null && visitDetails.size() > 0) {
 
                 serviceRecord.setType(Constants.EventType.EXCLUSIVE_BREASTFEEDING);
                 serviceRecord.setName(visitDetails.get(0).getPreProcessedJson());
@@ -246,10 +246,10 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         //fetchMNp data()
         List<Visit> mnpVisit = visitRepository.getVisits(commonPersonObjectClient.getCaseId(), Constants.EventType.MNP);
 
-        for(Visit visit : mnpVisit){
+        for (Visit visit : mnpVisit) {
             ServiceRecord serviceRecord = new ServiceRecord();
             List<VisitDetail> visitDetails = visitDetailsRepository.getVisits(visit.getVisitId());
-            if(visitDetails!=null && visitDetails.size()>0){
+            if (visitDetails != null && visitDetails.size() > 0) {
 
                 serviceRecord.setType(Constants.EventType.MNP);
                 serviceRecord.setName(visitDetails.get(0).getHumanReadable());
@@ -263,10 +263,10 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         //fetvitamindata
         List<Visit> vitaminVisit = visitRepository.getVisits(commonPersonObjectClient.getCaseId(), Constants.EventType.VITAMIN_A);
 
-        for(Visit visit : vitaminVisit){
+        for (Visit visit : vitaminVisit) {
             ServiceRecord serviceRecord = new ServiceRecord();
             List<VisitDetail> visitDetails = visitDetailsRepository.getVisits(visit.getVisitId());
-            if(visitDetails!=null && visitDetails.size()>0){
+            if (visitDetails != null && visitDetails.size() > 0) {
 
                 serviceRecord.setType(Constants.EventType.VITAMIN_A);
                 serviceRecord.setName(visitDetails.get(0).getDetails());
@@ -280,10 +280,10 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         //fetch deworming
         List<Visit> dewormingVisit = visitRepository.getVisits(commonPersonObjectClient.getCaseId(), Constants.EventType.DEWORMING);
 
-        for(Visit visit : dewormingVisit){
+        for (Visit visit : dewormingVisit) {
             ServiceRecord serviceRecord = new ServiceRecord();
             List<VisitDetail> visitDetails = visitDetailsRepository.getVisits(visit.getVisitId());
-            if(visitDetails!=null && visitDetails.size()>0){
+            if (visitDetails != null && visitDetails.size() > 0) {
 
                 serviceRecord.setType(Constants.EventType.DEWORMING);
                 serviceRecord.setName(visitDetails.get(0).getDetails());
@@ -294,7 +294,6 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             }
 
         }
-
 
 
         baseServiceArrayList.clear();
@@ -311,7 +310,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         //adding exclusive breast feeding initial value from child form some country it has an option to display
         ServiceRecord initialServiceRecord = new ServiceRecord();
         String initialFeedingValue = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.CHILD_BF_HR, true);
-        if(!TextUtils.isEmpty(initialFeedingValue)){
+        if (!TextUtils.isEmpty(initialFeedingValue)) {
             initialServiceRecord.setType(Constants.EventType.EXCLUSIVE_BREASTFEEDING);
             initialServiceRecord.setName(ChildDBConstants.KEY.CHILD_BF_HR);
             initialServiceRecord.setValue(Utils.getYesNoAsLanguageSpecific(getContext(), initialFeedingValue));
@@ -343,6 +342,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateGrowthNutrition(baseServiceArrayList));
         appExecutors.diskIO().execute(runnable);
     }
+
     public static String getServiceTypeLanguageSpecific(Context context, String value) {
         if (value.equalsIgnoreCase(Constants.EventType.EXCLUSIVE_BREASTFEEDING)) {
             return context.getString(org.smartregister.chw.core.R.string.exclusive_breastfeeding);
@@ -369,9 +369,9 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
             for (Visit homeVisitServiceDataModel : homeVisitDietary) {
                 List<VisitDetail> visitDetails = visitDetailsRepository.getVisits(homeVisitServiceDataModel.getVisitId());
-                if(visitDetails!=null && visitDetails.size()>0){
+                if (visitDetails != null && visitDetails.size() > 0) {
                     String dietaryText = visitDetails.get(0).getHumanReadable();
-                    dietaryText = TextUtils.isEmpty(dietaryText)?visitDetails.get(0).getDetails():dietaryText;
+                    dietaryText = TextUtils.isEmpty(dietaryText) ? visitDetails.get(0).getDetails() : dietaryText;
                     if (!TextUtils.isEmpty(dietaryText)) {
                         ServiceContent content = new ServiceContent();
                         String date = DATE_FORMAT.format(homeVisitServiceDataModel.getDate());
@@ -400,9 +400,9 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
             for (Visit homeVisitServiceDataModel : homeVisitMUAC) {
                 List<VisitDetail> visitDetails = visitDetailsRepository.getVisits(homeVisitServiceDataModel.getVisitId());
-                if(visitDetails!=null && visitDetails.size()>0){
+                if (visitDetails != null && visitDetails.size() > 0) {
                     String muacText = visitDetails.get(0).getHumanReadable();
-                    muacText = TextUtils.isEmpty(muacText)?visitDetails.get(0).getDetails():muacText;
+                    muacText = TextUtils.isEmpty(muacText) ? visitDetails.get(0).getDetails() : muacText;
                     if (!TextUtils.isEmpty(muacText)) {
                         ServiceContent content = new ServiceContent();
                         String date = DATE_FORMAT.format(homeVisitServiceDataModel.getDate());
@@ -426,7 +426,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
             for (Visit homeVisitServiceDataModel : homeVisitLlitn) {
                 List<VisitDetail> visitDetails = visitDetailsRepository.getVisits(homeVisitServiceDataModel.getVisitId());
-                if(visitDetails!=null && visitDetails.size()>0){
+                if (visitDetails != null && visitDetails.size() > 0) {
                     ServiceContent content = new ServiceContent();
                     String date = DATE_FORMAT.format(homeVisitServiceDataModel.getDate());
                     content.setServiceName(Utils.getYesNoAsLanguageSpecific(getContext(), visitDetails.get(0).getHumanReadable()) + " " + getContext().getString(R.string.on) + " " + date);
@@ -497,7 +497,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                 Object[] objects = ChildUtils.getStringWithNumber(serviceRecord.getName());
                 String name = (String) objects[0];
                 String number = (String) objects[1];
-                content.setServiceName(name.replace("_","") + " (" + number + "" + getContext().getString(R.string.abbrv_months) + "): " + serviceRecord.getValue());
+                content.setServiceName(name.replace("_", "") + " (" + number + "" + getContext().getString(R.string.abbrv_months) + "): " + serviceRecord.getValue());
             }
 
         } else {

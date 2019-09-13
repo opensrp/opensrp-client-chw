@@ -53,7 +53,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
 
     @Override
     public ChildMedicalHistoryContract.Presenter initializePresenter() {
-        presenter = new ChildMedicalHistoryPresenter(this, new AppExecutors(), AncLibrary.getInstance().visitRepository());
+        presenter = new ChildMedicalHistoryPresenter(this, new AppExecutors(), AncLibrary.getInstance().visitRepository(), AncLibrary.getInstance().visitDetailsRepository());
         return presenter;
     }
 

@@ -65,8 +65,8 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
             ImageView imageView = new ImageView(context);
             imageView.setImageResource(CoreConstants.TABLE_NAME.ANC_MEMBER.equals(register) ? R.mipmap.ic_anc_pink : org.smartregister.family.R.mipmap.row_pnc);
             imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            imageView.getLayoutParams().height = 40;
-            imageView.getLayoutParams().width = 40;
+            imageView.getLayoutParams().height = 25;
+            imageView.getLayoutParams().width = 25;
             LinearLayout linearLayout = (LinearLayout) viewHolder.memberIcon;
             linearLayout.addView(imageView);
         }
@@ -76,9 +76,16 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
         for (int i = 1; i <= malariaCount; i++) {
             ImageView imageView = new ImageView(context);
             imageView.setImageResource(R.drawable.ic_row_malaria);
+            imageView.getLayoutParams().height = 25;
+            imageView.getLayoutParams().width = 25;
             LinearLayout linearLayout = (LinearLayout) viewHolder.memberIcon;
             linearLayout.addView(imageView);
         }
+    }
+
+    private void addImageView(ImageView imageView){
+        imageView.getLayoutParams().height = 25;
+        imageView.getLayoutParams().width = 25;
     }
 
     protected void updateChildIcons(RegisterViewHolder viewHolder, List<Map<String, String>> list, int ancWomanCount, int pncWomanCount) {
@@ -105,8 +112,8 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
                 } else {
                     imageView.setImageResource(R.mipmap.ic_girl_child);
                 }
-                imageView.getLayoutParams().height = 40;
-                imageView.getLayoutParams().width = 40;
+                imageView.getLayoutParams().height = 25;
+                imageView.getLayoutParams().width = 25;
                 linearLayout = (LinearLayout) viewHolder.memberIcon;
                 linearLayout.addView(imageView);
             }

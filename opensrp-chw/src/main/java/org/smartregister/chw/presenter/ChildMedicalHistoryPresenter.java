@@ -1,5 +1,6 @@
 package org.smartregister.chw.presenter;
 
+import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.interactor.ChildMedicalHistoryInteractor;
@@ -23,9 +24,9 @@ public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract
     private ArrayList<String> obsIllnesses;
 
 
-    public ChildMedicalHistoryPresenter(ChildMedicalHistoryContract.View view, AppExecutors appExecutors, VisitRepository visitRepository) {
+    public ChildMedicalHistoryPresenter(ChildMedicalHistoryContract.View view, AppExecutors appExecutors, VisitRepository visitRepository, VisitDetailsRepository visitDetailsRepository) {
         this.view = new WeakReference<>(view);
-        interactor = new ChildMedicalHistoryInteractor(appExecutors, visitRepository, getView().getContext());
+        interactor = new ChildMedicalHistoryInteractor(appExecutors, visitRepository, visitDetailsRepository, getView().getContext());
     }
 
 //    @Override
@@ -140,66 +141,66 @@ public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract
     @Override
     public void updateBirthCertification(ArrayList<String> birthCertification) {
         this.birthCertifications = birthCertification;
-        if(getView()!=null) getView().updateBirthCertification();
+        if (getView() != null) getView().updateBirthCertification();
 
     }
 
     @Override
     public void updateIllnessData(ArrayList<String> obsIllnessArrayList) {
         this.obsIllnesses = obsIllnessArrayList;
-        if(getView()!=null) getView().updateObsIllness();
+        if (getView() != null) getView().updateObsIllness();
 
     }
 
     @Override
     public void updateVaccineData(ArrayList<BaseVaccine> baseVaccines) {
         this.baseVaccineArrayList = baseVaccines;
-        if(getView()!=null) getView().updateVaccinationData();
+        if (getView() != null) getView().updateVaccinationData();
 
     }
 
     @Override
     public void updateGrowthNutrition(ArrayList<BaseService> growthNutritions) {
         this.growthNutritionArrayList = growthNutritions;
-        if(getView()!=null) getView().updateGrowthNutrition();
+        if (getView() != null) getView().updateGrowthNutrition();
 
     }
 
     @Override
     public void updateDietaryData(ArrayList<BaseService> services) {
         this.dietaryArrayList = services;
-        if(getView()!=null) getView().updateDietaryData();
+        if (getView() != null) getView().updateDietaryData();
 
     }
 
     @Override
     public void updateMuacData(ArrayList<BaseService> services) {
         this.muacArrayList = services;
-        if(getView()!=null) getView().updateMuacData();
+        if (getView() != null) getView().updateMuacData();
     }
 
     @Override
     public void updateLLitnDataData(ArrayList<BaseService> services) {
         this.llitnDataArrayList = services;
-        if(getView()!=null) getView().updateLLitnData();
+        if (getView() != null) getView().updateLLitnData();
 
     }
 
     @Override
     public void updateEcdDataData(ArrayList<BaseService> services) {
         this.ecdDataArrayList = services;
-        if(getView()!=null) getView().updateEcdData();
+        if (getView() != null) getView().updateEcdData();
 
     }
 
     @Override
     public void updateFullyImmunization(String text) {
-        if(getView()!=null) getView().updateFullyImmunization(text);
+        if (getView() != null) getView().updateFullyImmunization(text);
     }
 
     @Override
     public void updateVaccineCard(String value) {
-        if(getView()!=null) getView().updateVaccineCard(value);
+        if (getView() != null) getView().updateVaccineCard(value);
     }
 
 }
