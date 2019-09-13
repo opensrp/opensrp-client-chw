@@ -103,6 +103,11 @@
           "Moved away",
           "Other"
         ],
+        "keys": [
+          "Death",
+          "Moved away",
+          "Other"
+        ],
         "openmrs_choice_ids": {
           "Died": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

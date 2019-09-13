@@ -56,8 +56,12 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Do you have a long lasting insecticide net (LLIN)?",
+        "hint": "Does she have a long lasting insecticide net (LLIN)?",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -77,8 +81,12 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Did you sleep under the LLIN last night?",
+        "hint": "Did she sleep under the LLIN last night?",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -106,6 +114,10 @@
         "type": "spinner",
         "hint": "LLIN condition",
         "values": [
+          "Okay",
+          "Bad"
+        ],
+        "keys": [
           "Okay",
           "Bad"
         ],

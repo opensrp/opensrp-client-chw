@@ -8,6 +8,8 @@ import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.provider.CoreChildRegisterProvider;
 import org.smartregister.chw.core.task.UpdateLastAsyncTask;
 import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.hf.utils.HfReferralUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.DBConstants;
@@ -42,13 +44,8 @@ public class HfChildRegisterProvider extends CoreChildRegisterProvider {
             populatePatientColumn(pc, client, viewHolder);
             populateIdentifierColumn(pc, viewHolder);
             populateLastColumn(pc, viewHolder);
-
-            return;
+            showLatestReferralDay(pc, viewHolder);
         }
-    }
-
-    private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        Utils.startAsyncTask(new UpdateLastAsyncTask(context, commonRepository, viewHolder, pc.entityId(), onClickListener), null);
     }
 
     @Override
@@ -71,7 +68,13 @@ public class HfChildRegisterProvider extends CoreChildRegisterProvider {
 
         View goToProfileLayout = viewHolder.goToProfileLayout;
         attachPatientOnclickListener(goToProfileLayout, client);
-
     }
 
+    private void showLatestReferralDay(CommonPersonObjectClient client, RegisterViewHolder viewHolder) {
+        HfReferralUtils.displayReferralDay(client, CoreConstants.TASKS_FOCUS.SICK_CHILD, viewHolder.textViewReferralDay);
+    }
+
+    private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+        Utils.startAsyncTask(new UpdateLastAsyncTask(context, commonRepository, viewHolder, pc.entityId(), onClickListener), null);
+    }
 }

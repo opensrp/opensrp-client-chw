@@ -159,11 +159,11 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please Enter first name"
+          "err": "Please enter first name"
         },
         "v_regex": {
           "value": "[A-Za-z\\s\\-]*",
-          "err": "Please Enter a Valid Name"
+          "err": "Please enter a valid name"
         }
       },
       {
@@ -178,7 +178,7 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please Enter middle name"
+          "err": "Please enter middle name"
         },
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
@@ -272,7 +272,22 @@
           "Tiba Kwa Kadi (TIKA)",
           "AAR Healthcare",
           "Strategies Insurance",
-          "Milvik Tanzania  Ltd (BIMA Mkononi)",
+          "Milvik Tanzania Ltd (BIMA Mkononi)",
+          "Britam Insurance Tanzania",
+          "Jubilee Insurance",
+          "Resolutions Insurance",
+          "Reliance Insurance",
+          "Other",
+          "None"
+        ],
+        "keys": [
+          "Community Health Fund (CHF)",
+          "iCHF",
+          "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
+          "Tiba Kwa Kadi (TIKA)",
+          "AAR Healthcare",
+          "Strategies Insurance",
+          "Milvik Tanzania Ltd (BIMA Mkononi)",
           "Britam Insurance Tanzania",
           "Jubilee Insurance",
           "Resolutions Insurance",
@@ -287,7 +302,7 @@
           "Tiba Kwa Kadi (TIKA)": "Tiba_kwa_Kadi",
           "AAR Healthcare": "AAR_Healthcare",
           "AAR Strategies Insurance": "Strategies_Insurance",
-          "Milvik Tanzania  Ltd (BIMA Mkononi)": "BIMA_Mkononi",
+          "Milvik Tanzania Ltd (BIMA Mkononi)": "BIMA_Mkononi",
           "Britam Insurance Tanzania": "Britam_Insurance_Tanzania",
           "Jubilee Insurance": "Jubilee_Insurance",
           "Resolutions Insurance": "Resolutions_Insurance",
@@ -349,6 +364,10 @@
           "Male",
           "Female"
         ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
         "v_required": {
           "value": "true",
           "err": "Please enter the sex"
@@ -362,6 +381,10 @@
         "type": "spinner",
         "hint": "Physical disabilities",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -405,6 +428,10 @@
           "Yes",
           "No"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -431,8 +458,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Does the child have child growth booklet",
+        "hint": "Does the child have RCH card 1/child growth booklet?",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -449,6 +480,11 @@
         "type": "spinner",
         "hint": "Nutrition status",
         "values": [
+          "Green",
+          "Grey/Yellow",
+          "Red"
+        ],
+        "keys": [
           "Green",
           "Grey",
           "Red"
