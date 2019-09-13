@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.Task;
 import org.smartregister.family.util.DBConstants;
@@ -108,7 +109,7 @@ public class CoreReferralUtils {
         columnList.add(CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.VILLAGE_TOWN);
         columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.CONFIRMED_VISITS);
         columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.LAST_HOME_VISIT);
-        return columnList.toArray(new String[columnList.size()]);
+        return columnList.toArray(new String[0]);
     }
 
     public static String pncFamilyMemberProfileDetailsSelect(String familyTableName, String baseEntityId) {
@@ -289,5 +290,9 @@ public class CoreReferralUtils {
         }
 
         return value;
+    }
+
+    public static CommonRepository getCommonRepository(String tableName) {
+        return Utils.context().commonrepository(tableName);
     }
 }
