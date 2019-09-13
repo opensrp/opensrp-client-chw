@@ -140,6 +140,4 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
             }
         }
     }
-
-
 }
