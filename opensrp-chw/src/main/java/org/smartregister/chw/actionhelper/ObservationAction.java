@@ -43,7 +43,7 @@ public class ObservationAction implements BaseAncHomeVisitAction.AncHomeVisitAct
             illness_description = JsonFormUtils.getValue(jsonObject, "illness_description");
             action_taken = JsonFormUtils.getValue(jsonObject, "action_taken");
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
         if (StringUtils.isNotBlank(date_of_illness)) {

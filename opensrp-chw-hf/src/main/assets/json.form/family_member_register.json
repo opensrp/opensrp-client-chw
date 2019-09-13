@@ -273,7 +273,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "id_avail",
         "type": "check_box",
-        "label": "Do you have any of the following IDs?",
+        "label": "Do have any of the following IDs?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -418,7 +418,22 @@
           "Tiba Kwa Kadi (TIKA)",
           "AAR Healthcare",
           "Strategies Insurance",
-          "Milvik Tanzania  Ltd (BIMA Mkononi)",
+          "Milvik Tanzania Ltd (BIMA Mkononi)",
+          "Britam Insurance Tanzania",
+          "Jubilee Insurance",
+          "Resolutions Insurance",
+          "Reliance Insurance",
+          "Other",
+          "None"
+        ],
+        "keys": [
+          "Community Health Fund (CHF)",
+          "iCHF",
+          "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
+          "Tiba Kwa Kadi (TIKA)",
+          "AAR Healthcare",
+          "Strategies Insurance",
+          "Milvik Tanzania Ltd (BIMA Mkononi)",
           "Britam Insurance Tanzania",
           "Jubilee Insurance",
           "Resolutions Insurance",
@@ -433,7 +448,7 @@
           "Tiba Kwa Kadi (TIKA)": "Tiba_kwa_Kadi",
           "AAR Healthcare": "AAR_Healthcare",
           "AAR Strategies Insurance": "Strategies_Insurance",
-          "Milvik Tanzania  Ltd (BIMA Mkononi)": "BIMA_Mkononi",
+          "Milvik Tanzania Ltd (BIMA Mkononi)": "BIMA_Mkononi",
           "Britam Insurance Tanzania": "Britam_Insurance_Tanzania",
           "Jubilee Insurance": "Jubilee_Insurance",
           "Resolutions Insurance": "Resolutions_Insurance",
@@ -495,6 +510,10 @@
           "Male",
           "Female"
         ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
         "v_required": {
           "value": "true",
           "err": "Please enter the sex"
@@ -539,6 +558,10 @@
           "Yes",
           "No"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -563,6 +586,10 @@
         "type": "spinner",
         "hint": "Physical disabilities",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -602,6 +629,10 @@
         "type": "spinner",
         "hint": "Is primary caregiver?",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -674,62 +705,6 @@
         ],
         "options": [
           {
-            "key": "chk_chw",
-            "text": "Community Health Worker (CHW)",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_cbd",
-            "text": "Community Based Distributor",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_cimmci",
-            "text": "Community IMCI",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_hbc",
-            "text": "Home Based Care (HBC)",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "161359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_chmis",
-            "text": "Community HMIS (cHMIS)",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_tba",
-            "text": "Traditional Birth Attendant",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_th",
-            "text": "Traditional Healer",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1821AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_teacher",
-            "text": "Teacher",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "162946AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "chk_farmer",
             "text": "Farmer",
             "value": false,
@@ -749,6 +724,62 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_teacher",
+            "text": "Teacher",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "162946AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_th",
+            "text": "Traditional Healer",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1821AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_chw",
+            "text": "Community Health Worker (CHW)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_tba",
+            "text": "Traditional Birth Attendant",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_chmis",
+            "text": "Community HMIS (cHMIS)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_cbd",
+            "text": "Community Based Distributor",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_hbc",
+            "text": "Home Based Care (HBC)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "161359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_cimmci",
+            "text": "Community IMCI",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_other",
@@ -791,6 +822,13 @@
             "openmrs_entity_id": "Religious_Leader"
           },
           {
+            "key": "chk_traditional",
+            "text": "Traditional leader",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "Traditional_leader"
+          },
+          {
             "key": "chk_political",
             "text": "Political leader",
             "value": false,
@@ -803,13 +841,6 @@
             "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Influential_Leader"
-          },
-          {
-            "key": "chk_traditional",
-            "text": "Traditional leader",
-            "value": false,
-            "openmrs_entity": "person_attribute",
-            "openmrs_entity_id": "Traditional_leader"
           },
           {
             "key": "chk_other",

@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Observations & Illness Episodes",
+    "title": "Observations & Illness",
     "fields": [
       {
         "key": "date_of_illness",
@@ -90,6 +90,12 @@
           "err": "Please select action"
         },
         "values": [
+          "ORS 5",
+          "Zinc 10",
+          "Panadol",
+          "Other treatment"
+        ],
+        "keys": [
           "ORS 5",
           "Zinc 10",
           "Paracetamol",

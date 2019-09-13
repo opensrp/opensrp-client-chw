@@ -90,23 +90,25 @@ public abstract class CoreFamilyRemoveMemberFragment extends BaseFamilyProfileMe
             getPresenter().removeMember(client);
             refreshListView();
         });
-        dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogHF");
+
+        //TODO possibility of crash is the activity is paused
+        if (getActivity() != null)
+            dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogHF");
     }
 
     @Override
     public void displayChangeCareGiverDialog(final CommonPersonObjectClient client, final String careGiverID) {
         CoreFamilyProfileChangeDialog dialog = getChangeFamilyCareGiverDialog();
-        dialog.setOnSaveAndClose(new Runnable() {
-            @Override
-            public void run() {
-                setPrimaryCaregiver(careGiverID);
-                refreshMemberList(FetchStatus.fetched);
-                getPresenter().removeMember(client);
-                refreshListView();
-            }
+        dialog.setOnSaveAndClose(() -> {
+            setPrimaryCaregiver(careGiverID);
+            refreshMemberList(FetchStatus.fetched);
+            getPresenter().removeMember(client);
+            refreshListView();
         });
 
-        dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogPC");
+        //TODO possibility of crash is the activity is paused
+        if (getActivity() != null)
+            dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogPC");
     }
 
     @Override
@@ -235,9 +237,11 @@ public abstract class CoreFamilyRemoveMemberFragment extends BaseFamilyProfileMe
         public void onClick(final android.view.View v) {
             processingFamily = true;
             HashMap<String, String> payload = (HashMap<String, String>) v.getTag();
-            String message = payload.get("message");
-            memberName = payload.get("name");
-            closeFamily(String.format(getString(R.string.family), memberName), message);
+            if (payload != null) {
+                String message = payload.get("message");
+                memberName = payload.get("name");
+                closeFamily(String.format(getString(R.string.family), memberName), message);
+            }
         }
     }
 

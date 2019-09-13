@@ -193,45 +193,33 @@ public class VaccineScheduleUtil {
      * @return
      */
     public static List<VaccineWrapper> getChildDueVaccines(String baseEntityID, Date dob, int group) {
-        VaccineGroup groupMap = VaccineScheduleUtil.getVaccineGroups(CoreChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD).get(group);
-        Pair<VaccineTaskModel, List<VaccineWrapper>> res = getChildDueVaccines(baseEntityID, dob, new ArrayList<>(), groupMap);
-        return res.getRight();
-    }
+        List<Alert> alerts = VisitVaccineUtil.getNextVaccines(baseEntityID, new DateTime(dob), CoreConstants.SERVICE_GROUPS.CHILD, false);
+        List<VaccineWrapper> wrappers = new ArrayList<>();
+        List<VaccineGroup> vaccineGroups = VaccineScheduleUtil.getVaccineGroups(CoreChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD);
+        VaccineGroup vaccineGroup = vaccineGroups.get(group);
 
-    /**
-     * returns list of vaccines that are pending. you can add vaccine wrappers to exclude
-     *
-     * @param baseEntityID
-     * @param dob
-     * @param excludedVaccines
-     * @param groupMap
-     * @return
-     */
-    public static Pair<VaccineTaskModel, List<VaccineWrapper>> getChildDueVaccines(String baseEntityID, Date dob, List<VaccineWrapper> excludedVaccines, VaccineGroup groupMap) {
-        List<VaccineWrapper> vaccineWrappers = new ArrayList<>();
-        try {
-
-            // get all vaccines that are not given
-            VaccineTaskModel taskModel = VaccineScheduleUtil.getLocalUpdatedVaccines(baseEntityID, new DateTime(dob), excludedVaccines, CoreConstants.SERVICE_GROUPS.CHILD);
-            taskModel.setGroupMap(groupMap);
-
-            for (org.smartregister.immunization.domain.jsonmapping.Vaccine vaccine : groupMap.vaccines) {
-                Triple<DateTime, VaccineRepo.Vaccine, String> individualVaccine = VaccineScheduleUtil.getIndividualVaccine(taskModel, vaccine.type);
-
-                if (individualVaccine == null || individualVaccine.getLeft().isAfter(new DateTime())) {
-                    continue;
+        if (alerts != null && alerts.size() > 0) {
+            Map<String, VaccineRepo.Vaccine> vaccineMap = VisitVaccineUtil.getAllVaccines();
+            LocalDate today = new LocalDate();
+            for (org.smartregister.immunization.domain.jsonmapping.Vaccine jsonVaccine : vaccineGroup.vaccines) {
+                String code = jsonVaccine.name.toLowerCase().replace(" ", "");
+                for (Alert alert : alerts) {
+                    if (
+                            today.isAfter(new LocalDate(alert.startDate()).plusDays(-1)) &&
+                            alert.scheduleName().toLowerCase().replace(" ", "").replace("_", "").equals(code)
+                    ) {
+                        String vaccine_key = alert.visitCode().toLowerCase().replace(" ", "").replace("_", "");
+                        VaccineWrapper vaccineWrapper = new VaccineWrapper();
+                        vaccineWrapper.setVaccine(vaccineMap.get(vaccine_key));
+                        vaccineWrapper.setName(alert.visitCode());
+                        vaccineWrapper.setDefaultName(alert.visitCode());
+                        vaccineWrapper.setAlert(alert);
+                        wrappers.add(vaccineWrapper);
+                    }
                 }
-
-                vaccineWrappers.add(VaccineScheduleUtil.getVaccineWrapper(individualVaccine.getMiddle(), taskModel));
             }
-
-            return Pair.of(taskModel, vaccineWrappers);
-            //
-
-        } catch (Exception e) {
-            Timber.e(e);
         }
-        return Pair.of(null, vaccineWrappers);
+        return wrappers;
     }
 
     // vaccine utils
@@ -259,25 +247,6 @@ public class VaccineScheduleUtil {
         String vc_count = vaccine.name().substring(vaccine.name().length() - 1);
 
         return Triple.of(date, vaccine, vc_count);
-    }
-
-    public static VaccineWrapper getVaccineWrapper(VaccineRepo.Vaccine vaccine, VaccineTaskModel vaccineTaskModel) {
-        VaccineWrapper vaccineWrapper = new VaccineWrapper();
-        vaccineWrapper.setVaccine(vaccine);
-        vaccineWrapper.setName(vaccine.display());
-        vaccineWrapper.setDbKey(getVaccineId(vaccine.display(), vaccineTaskModel));
-        vaccineWrapper.setDefaultName(vaccine.display());
-        vaccineWrapper.setAlert(vaccineTaskModel.getAlertsMap().get(vaccine.display()));
-        return vaccineWrapper;
-    }
-
-    private static Long getVaccineId(String vaccineName, VaccineTaskModel vaccineTaskModel) {
-        for (Vaccine vaccine : vaccineTaskModel.getVaccines()) {
-            if (vaccine.getName().equalsIgnoreCase(vaccineName)) {
-                return vaccine.getId();
-            }
-        }
-        return null;
     }
 
     public static Map<String, Date> getReceivedVaccines(String baseEntityID) {

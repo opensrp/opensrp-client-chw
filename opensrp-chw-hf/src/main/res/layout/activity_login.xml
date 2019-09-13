@@ -24,30 +24,29 @@
             android:orientation="vertical"
             android:paddingTop="@dimen/login_logo_top_padding">
 
+            <ImageView
+                android:id="@+id/login_logo"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="60dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/logo"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_logo" />
+
             <TextView
                 android:id="@+id/login_title_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="5dp"
                 android:gravity="center_horizontal"
                 android:text="@string/login_title"
                 android:textColor="#272727"
                 android:textSize="@dimen/login_title_text_size"
                 android:textStyle="bold"
                 android:typeface="sans" />
-
-            <ImageView
-                android:id="@+id/login_logo"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="60dp"
-
-                android:layout_weight="1"
-                android:contentDescription="@string/logo"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_logo" />
 
             <TextView
                 android:id="@+id/login_build_text_view"

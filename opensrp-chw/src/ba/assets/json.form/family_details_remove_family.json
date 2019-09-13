@@ -107,6 +107,10 @@
           "Relocation",
           "Other"
         ],
+        "keys": [
+          "Relocation",
+          "Other"
+        ],
         "v_required": {
           "value": "true",
           "err": "Select the reason for removing the family's record."
@@ -144,6 +148,10 @@
         "type": "spinner",
         "hint": "Household relocation",
         "values": [
+          "Within the district",
+          "Outside the district"
+        ],
+        "keys": [
           "Within the district",
           "Outside the district"
         ],

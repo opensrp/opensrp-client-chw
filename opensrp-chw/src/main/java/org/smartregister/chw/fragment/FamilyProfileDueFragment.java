@@ -1,6 +1,7 @@
 package org.smartregister.chw.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,16 +19,14 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
-import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.WashCheck;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileDueModel;
 import org.smartregister.chw.presenter.FamilyProfileDuePresenter;
 import org.smartregister.chw.provider.ChwDueRegisterProvider;
 import org.smartregister.chw.util.WashCheckFlv;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.util.Constants;
@@ -214,7 +213,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         } else if (washCheck.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             visibilityWashView(true);
             status.setImageResource(org.smartregister.chw.util.Utils.getOverDueProfileImageResourceIDentifier());
-            lastVisit.setText(String.format(getActivity().getString(R.string.last_visit_prefix), washCheck.getLastVisitDate()));
+            lastVisit.setText(String.format(getMyContext().getString(R.string.last_visit_prefix), washCheck.getLastVisitDate()));
             name.setText(getActivity().getString(R.string.family, familyName) + " " + getActivity().getString(R.string.wash_check_suffix));
 
         } else {
@@ -237,10 +236,18 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                     getActivity().startActivityForResult(intent, org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         });
 
+    }
+
+    private Context getMyContext() {
+        Context context = getActivity();
+        if (context == null)
+            context = CoreChwApplication.getInstance();
+
+        return context;
     }
 
     @Override

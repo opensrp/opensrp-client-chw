@@ -11,12 +11,17 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
+import org.smartregister.chw.core.task.RunnableTask;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.PncHomeVisitInteractor;
 import org.smartregister.chw.pnc.activity.BasePncHomeVisitActivity;
+import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
+
+import java.util.Date;
 
 public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
 
@@ -30,6 +35,14 @@ public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
     @Override
     protected void registerPresenter() {
         presenter = new BaseAncHomeVisitPresenter(memberObject, this, new PncHomeVisitInteractor());
+    }
+
+    @Override
+    public void submittedAndClose() {
+        // recompute schedule
+        Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.PNC_HOME_VISIT, new Date());
+        org.smartregister.chw.util.Utils.startAsyncTask(new RunnableTask(runnable), null);
+        super.submittedAndClose();
     }
 
     @Override
