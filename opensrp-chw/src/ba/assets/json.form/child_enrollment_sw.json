@@ -497,6 +497,13 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali toa hali ya lishe ya watoto"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
         }
       }
     ]

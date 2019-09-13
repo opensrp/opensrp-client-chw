@@ -497,6 +497,13 @@
         "v_required": {
           "value": "true",
           "err": "Please provide child nutrition status"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
         }
       }
     ]
