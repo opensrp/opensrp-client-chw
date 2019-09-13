@@ -12,6 +12,11 @@ public class FamilyProfileMemberPresenter extends CoreFamilyProfileMemberPresent
         super(view, model, viewConfigurationIdentifier, familyBaseEntityId, familyHead, primaryCaregiver);
     }
 
+    @Override
+    public String getDefaultSortQuery() {
+        return CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DOD + ", " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DOB + " ASC ";
+    }
+
     public String getMainCondition() {
         return String.format(" %s.%s = '%s' and %s.%s is null ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID, this.familyBaseEntityId, CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DATE_REMOVED);
     }

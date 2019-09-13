@@ -17,8 +17,6 @@ import java.util.Date;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
-
 public class AncRegisterActivity extends CoreAncRegisterActivity {
 
     public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
@@ -31,7 +29,7 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
         familyName = family_name;
         unique_id = uniqueId;
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
-        intent.putExtra(TABLE_NAME, getFormTable());
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.TABLE_NAME, getFormTable());
         activity.startActivity(intent);
     }
 
