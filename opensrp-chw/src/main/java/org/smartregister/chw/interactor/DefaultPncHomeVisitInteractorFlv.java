@@ -294,7 +294,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     JSONObject jsonObject = new JSONObject(jsonPayload);
                     cord_care = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "cord_care");
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
             }
 
@@ -350,7 +350,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 }
 
                 Alert alert = serviceWrapper.getAlert();
-                if (alert == null || new LocalDate().isAfter(new LocalDate(alert.startDate()))) {
+                if (alert == null || !new LocalDate().isAfter(new LocalDate(alert.startDate()))) {
                     return;
                 }
 

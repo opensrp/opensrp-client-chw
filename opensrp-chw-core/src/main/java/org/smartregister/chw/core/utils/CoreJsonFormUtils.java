@@ -359,7 +359,7 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
                 addresses.add(address);
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
         return addresses;
     }
@@ -731,7 +731,7 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
                 metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
         return form;
 

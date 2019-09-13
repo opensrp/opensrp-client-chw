@@ -36,7 +36,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     private MemberAdapterListener memberAdapterListener;
     private Flavor flavorPhoneNumberLength;
 
-    public MemberAdapter(Context context, List<FamilyMember> myDataset, MemberAdapterListener memberAdapterListener) {
+    public MemberAdapter(@NonNull Context context, List<FamilyMember> myDataset, MemberAdapterListener memberAdapterListener) {
         familyMembers = myDataset;
         this.context = context;
         this.memberAdapterListener = memberAdapterListener;

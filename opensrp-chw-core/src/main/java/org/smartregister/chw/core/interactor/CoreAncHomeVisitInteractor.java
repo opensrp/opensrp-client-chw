@@ -40,7 +40,7 @@ public class CoreAncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
                     actionList.put(entry.getKey(), entry.getValue());
                 }
             } catch (BaseAncHomeVisitAction.ValidationException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
 
             appExecutors.mainThread().execute(() -> callBack.preloadActions(actionList));

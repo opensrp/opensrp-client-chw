@@ -114,6 +114,15 @@ public class ChildDBConstants {
         public static final String FAMILY_PRIMARY_CAREGIVER = "family_primary_caregiver";
         public static final String LAST_MENSTRUAL_PERIOD = "last_menstrual_period";
         public static final String SCHEDULE_GROUP_NAME = "schedule_group_name";
+        public static final String SCHEDULE_NAME = "schedule_name";
+        public static final String DUE_DATE = "due_date";
+        public static final String NOT_DONE_DATE = "not_done_date";
+        public static final String OVER_DUE_DATE = "over_due_date";
+        public static final String EXPIRY_DATE = "expiry_date";
+        public static final String COMPLETION_DATE = "completion_date";
+        public static final String VISIT_TYPE = "visit_type";
+        public static final String VISIT_DATE = "visit_date";
+
         // Family child visit status
         //public static final String CHILD_VISIT_STATUS = "child_visit_status";
     }

@@ -13,6 +13,8 @@ import org.smartregister.repository.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class WashCheckRepository extends BaseRepository {
     public static final String WASH_CHECK_TABLE_NAME = "ec_wash_check_log";
     public static final String FAMILY_ID = "family_id";
@@ -40,7 +42,7 @@ public class WashCheckRepository extends BaseRepository {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
     }
@@ -82,7 +84,7 @@ public class WashCheckRepository extends BaseRepository {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();

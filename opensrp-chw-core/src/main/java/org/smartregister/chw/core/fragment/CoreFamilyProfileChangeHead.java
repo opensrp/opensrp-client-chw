@@ -1,8 +1,10 @@
 package org.smartregister.chw.core.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.adapter.MemberAdapter;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.FamilyChangeContract;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.listener.FloatingMenuListener;
@@ -108,7 +111,7 @@ public abstract class CoreFamilyProfileChangeHead extends Fragment implements Vi
 
             if (memberAdapter == null) {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                memberAdapter = new MemberAdapter(getActivity(), members, this);
+                memberAdapter = new MemberAdapter(getMyContext(), members, this);
                 memberAdapter.setFlavorPhoneNumberLength(phoneNumberLengthFlavor);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(memberAdapter);
@@ -116,6 +119,15 @@ public abstract class CoreFamilyProfileChangeHead extends Fragment implements Vi
                 memberAdapter.notifyDataSetChanged();
             }
         }
+    }
+
+    @NonNull
+    private Context getMyContext() {
+        Context context = getActivity();
+        if (context == null)
+            context = CoreChwApplication.getInstance();
+
+        return context;
     }
 
     @Override
