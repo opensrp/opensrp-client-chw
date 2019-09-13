@@ -350,7 +350,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 }
 
                 Alert alert = serviceWrapper.getAlert();
-                if (alert == null || new LocalDate().isAfter(new LocalDate(alert.startDate()))) {
+                if (alert == null || !new LocalDate().isAfter(new LocalDate(alert.startDate()))) {
                     return;
                 }
 
