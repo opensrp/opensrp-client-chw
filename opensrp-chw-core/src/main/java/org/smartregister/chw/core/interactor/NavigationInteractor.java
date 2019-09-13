@@ -62,7 +62,7 @@ public class NavigationInteractor implements NavigationContract.Interactor {
                         "WHERE date_removed is null " +
                         "AND  ((( julianday('now') - julianday(dob))/365.25) <5)   and (( ifnull(entry_point,'') <> 'PNC' ) or (ifnull(entry_point,'') = 'PNC' " +
                         "and date(dob, '+28 days') < date())) " +
-                        " and ((( julianday('now') - julianday(dob))/365.25) < 5)  ORDER BY last_interacted_with DESC  LIMIT 0,20 " +
+                        " and ((( julianday('now') - julianday(dob))/365.25) < 5)  ORDER BY last_interacted_with DESC " +
                         ")  ";
                 return NavigationDao.getQueryCount(sql_child);
 

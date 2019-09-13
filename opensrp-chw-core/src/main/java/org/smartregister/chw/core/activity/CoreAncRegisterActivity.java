@@ -23,8 +23,6 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.Arrays;
 import java.util.List;
 
-import timber.log.Timber;
-
 public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
     protected static String phone_number;
     protected static String form_name;
@@ -137,7 +135,7 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
     //TODO GET PNC REGISTER
     @Override
     public Class getPncRegisterActivity() {
-        return CorePncRegisterActivity.class;
+        return CoreAncRegisterActivity.class;
     }
 
     @Override
@@ -207,30 +205,6 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
         /*Intent intent = new Intent(this, FamilyRegisterActivity.class);
         startActivity(intent);
         finish();*/
-    }
-
-
-    @Override
-    protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
-        super.onActivityResultExtended(requestCode,resultCode,data);
-        if (resultCode != Activity.RESULT_OK) return;
-
-        if (requestCode == Constants.REQUEST_CODE_GET_JSON) {
-//            process the form
-            try {
-                String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-                Timber.d("JSONResult %s", jsonString);
-
-                JSONObject form = new JSONObject(jsonString);
-                String encounter_type = form.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
-                String table = data.getStringExtra(Constants.ACTIVITY_PAYLOAD.TABLE_NAME);
-                if (encounter_type.equalsIgnoreCase(Constants.EVENT_TYPE.PREGNANCY_OUTCOME)) {
-                    presenter().saveForm(jsonString, false, table);
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-        }
     }
 
 }
