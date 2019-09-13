@@ -111,16 +111,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
         return value;
     }
 
-    public static String getServiceTypeLanguageSpecific(Context context, String value) {
-        if (value.equalsIgnoreCase(CoreConstants.GROWTH_TYPE.EXCLUSIVE.getValue())) {
-            return context.getString(R.string.exclusive_breastfeeding);
-        } else if (value.equalsIgnoreCase(CoreConstants.GROWTH_TYPE.VITAMIN.getValue())) {
-            return context.getString(R.string.vitamin_a);
-        } else if (value.equalsIgnoreCase(CoreConstants.GROWTH_TYPE.DEWORMING.getValue())) {
-            return context.getString(R.string.deworming);
-        }
-        return value;
-    }
+
 
     public static String firstCharacterUppercase(String str) {
         if (TextUtils.isEmpty(str)) {
@@ -654,6 +645,6 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
 
     public static String getFamilyDueFilter() {
         return "and ec_family.base_entity_id in ( select ec_family_member.relational_id from schedule_service inner join ec_family_member on ec_family_member.base_entity_id = schedule_service.base_entity_id " +
-                " where strftime('%Y-%m-%d') BETWEEN schedule_service.due_date and schedule_service.expiry_date ) ";
+                " where strftime('%Y-%m-%d') BETWEEN schedule_service.due_date and schedule_service.expiry_date and ifnull(schedule_service.not_done_date,'') = '' and ifnull(schedule_service.completion_date,'') = ''  ) ";
     }
 }

@@ -165,14 +165,6 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         break;
                 }
 
-                Map<String, List<VisitDetail>> details = null;
-                if (editMode) {
-                    Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.PNC_HEALTH_FACILITY_VISIT);
-                    if (lastVisit != null) {
-                        details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
-                    }
-                }
-
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_health_facility_visit_mother), visitRule.getVisitName()))
                         .withOptional(false)
                         .withDetails(details)
@@ -270,10 +262,19 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     displays.add(display);
                 }
 
+                Map<String, List<VisitDetail>> details = null;
+                if (editMode) {
+                    Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.IMMUNIZATION_VISIT);
+                    if (lastVisit != null) {
+                        details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                    }
+                }
+
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
                         .withOptional(false)
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                         .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
                         .withHelper(new ImmunizationActionHelper(context, wrappers))
                         .build();
@@ -285,7 +286,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     }
 
     private void evaluateUmbilicalCord() throws Exception {
-        HomeVisitActionHelper umbilicalCordHelper = new HomeVisitActionHelper() {
+        class UmbilicalCordHelper extends HomeVisitActionHelper {
             private String cord_care;
 
             @Override
@@ -322,15 +323,29 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                 }
             }
-        };
+        }
 
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_umblicord_care))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getUmbilicalCord())
-                .withHelper(umbilicalCordHelper)
-                .build();
-        actionList.put(context.getString(R.string.pnc_umblicord_care), action);
+        for (Person baby : children) {
+
+            Map<String, List<VisitDetail>> details = null;
+            if (editMode) {
+                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.UMBILICAL_CORD_CARE);
+                if (lastVisit != null) {
+                    details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                }
+            }
+
+            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_umblicord_care_child), baby.getFullName()))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getUmbilicalCord())
+                    .withHelper(new UmbilicalCordHelper())
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_umblicord_care_child), baby.getFullName()), action);
+        }
+
     }
 
     private void evaluateExclusiveBreastFeeding() throws Exception {

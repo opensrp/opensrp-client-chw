@@ -3,27 +3,9 @@ package org.smartregister.chw.core.model;
 import org.apache.commons.lang3.ArrayUtils;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.model.BaseFamilyProfileMemberModel;
-import org.smartregister.family.util.DBConstants;
 
 public class CoreFamilyProfileMemberModel extends BaseFamilyProfileMemberModel {
-
-    @Override
-    public String countSelect(String tableName, String mainCondition) {
-        SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
-        queryBuilder.SelectInitiateMainTable(tableName, mainColumns(tableName));
-        queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.CHILD + " ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + CoreConstants.TABLE_NAME.CHILD + "." + DBConstants.KEY.BASE_ENTITY_ID + " COLLATE NOCASE ");
-        return queryBuilder.mainCondition(mainCondition);
-    }
-
-    @Override
-    public String mainSelect(String tableName, String mainCondition) {
-        SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
-        queryBuilder.SelectInitiateMainTable(tableName, mainColumns(tableName));
-        queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.CHILD + " ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + CoreConstants.TABLE_NAME.CHILD + "." + DBConstants.KEY.BASE_ENTITY_ID + " COLLATE NOCASE ");
-        return queryBuilder.mainCondition(mainCondition);
-    }
 
     @Override
     protected String[] mainColumns(String tableName) {
@@ -34,7 +16,5 @@ public class CoreFamilyProfileMemberModel extends BaseFamilyProfileMemberModel {
         };
 
         return ArrayUtils.addAll(columns, newColumns);
-
-
     }
 }

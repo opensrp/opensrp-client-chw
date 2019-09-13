@@ -7,6 +7,7 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.helper.RulesEngineHelper;
 import org.smartregister.chw.core.repository.AncRegisterRepository;
+import org.smartregister.chw.core.repository.MalariaRegisterRepository;
 import org.smartregister.chw.core.repository.PncRegisterRepository;
 import org.smartregister.chw.core.repository.ScheduleRepository;
 import org.smartregister.chw.core.repository.WashCheckRepository;
@@ -29,6 +30,7 @@ import org.smartregister.repository.LocationRepository;
 import org.smartregister.repository.PlanDefinitionRepository;
 import org.smartregister.repository.TaskNotesRepository;
 import org.smartregister.repository.TaskRepository;
+import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -50,10 +52,13 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     private static PlanDefinitionRepository planDefinitionRepository;
     private static WashCheckRepository washCheckRepository;
     private static ScheduleRepository scheduleRepository;
+    private static MalariaRegisterRepository malariaRegisterRepository;
     public JsonSpecHelper jsonSpecHelper;
     private LocationRepository locationRepository;
     private ECSyncHelper ecSyncHelper;
     private String password;
+    protected ClientProcessorForJava clientProcessorForJava;
+    private UniqueIdRepository uniqueIdRepository;
 
     private RulesEngineHelper rulesEngineHelper;
 
@@ -88,6 +93,14 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
             washCheckRepository = new WashCheckRepository(getInstance().getRepository());
         }
         return washCheckRepository;
+    }
+
+    public static MalariaRegisterRepository malariaRegisterRepository() {
+        if (malariaRegisterRepository == null) {
+            malariaRegisterRepository = new MalariaRegisterRepository(getInstance().getRepository());
+        }
+
+        return malariaRegisterRepository;
     }
 
     /**
@@ -187,6 +200,22 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
 
     public AllCommonsRepository getAllCommonsRepository(String table) {
         return CoreChwApplication.getInstance().getContext().allCommonsRepositoryobjects(table);
+    }
+
+    public ClientProcessorForJava getClientProcessorForJava() {
+        if (this.clientProcessorForJava == null) {
+            this.clientProcessorForJava = ClientProcessorForJava.getInstance(getContext().applicationContext());
+        }
+
+        return this.clientProcessorForJava;
+    }
+
+    public UniqueIdRepository getUniqueIdRepository() {
+        if (this.uniqueIdRepository == null) {
+            this.uniqueIdRepository = new UniqueIdRepository(this.getRepository());
+        }
+
+        return this.uniqueIdRepository;
     }
 
     @Override

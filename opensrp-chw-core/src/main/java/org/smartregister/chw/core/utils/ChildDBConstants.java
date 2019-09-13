@@ -14,13 +14,13 @@ public class ChildDBConstants {
     }
 
     private static String childAgeLimitFilter(String dateColumn, int age, String entryPoint) {
-        return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")  " +
-                " and (( ifnull(" + entryPoint + ",'') <> 'PNC' ) or (ifnull(" + entryPoint + ",'') = 'PNC' and date(" + dateColumn + ", '+28 days') < date())) " +
-                " and ((( julianday('now') - julianday(" + dateColumn +"))/365.25) < 5) ";
+        return " ((( julianday('now') - julianday(" + CoreConstants.TABLE_NAME.CHILD + "." + dateColumn + "))/365.25) <" + age + ")  " +
+                " and (( ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + entryPoint + ",'') <> 'PNC' ) or (ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + entryPoint + ",'') = 'PNC' and date(" + CoreConstants.TABLE_NAME.CHILD + "." + dateColumn + ", '+28 days') < date())) " +
+                " and ((( julianday('now') - julianday(" + CoreConstants.TABLE_NAME.CHILD + "." + dateColumn + "))/365.25) < 5) ";
     }
 
     public static String childAgeLimitFilter(String tableName) {
-        return childAgeLimitFilter(tableColConcat(tableName, DBConstants.KEY.DOB), FIVE_YEAR, tableColConcat(tableName, ChildDBConstants.KEY.ENTRY_POINT) );
+        return childAgeLimitFilter(tableColConcat(tableName, DBConstants.KEY.DOB), FIVE_YEAR, tableColConcat(tableName, ChildDBConstants.KEY.ENTRY_POINT));
     }
 
     private static String tableColConcat(String tableName, String columnName) {
