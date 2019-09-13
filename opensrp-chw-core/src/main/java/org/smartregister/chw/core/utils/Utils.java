@@ -654,6 +654,6 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
 
     public static String getFamilyDueFilter() {
         return "and ec_family.base_entity_id in ( select ec_family_member.relational_id from schedule_service inner join ec_family_member on ec_family_member.base_entity_id = schedule_service.base_entity_id " +
-                " where strftime('%Y-%m-%d') BETWEEN schedule_service.due_date and schedule_service.expiry_date ) ";
+                " where strftime('%Y-%m-%d') BETWEEN schedule_service.due_date and schedule_service.expiry_date and ifnull(schedule_service.not_done_date,'') = '' and ifnull(schedule_service.completion_date,'') = ''  ) ";
     }
 }
