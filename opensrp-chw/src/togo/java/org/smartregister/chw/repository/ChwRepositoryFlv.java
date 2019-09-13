@@ -11,7 +11,6 @@ import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.Constants;
@@ -180,7 +179,7 @@ public class ChwRepositoryFlv {
             }
 
             // add missing columns to the DB
-            List<String>  columns = new ArrayList<>();
+            List<String> columns = new ArrayList<>();
             columns.add(ChildDBConstants.KEY.ENTRY_POINT);
             DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.CHILD, columns);
 

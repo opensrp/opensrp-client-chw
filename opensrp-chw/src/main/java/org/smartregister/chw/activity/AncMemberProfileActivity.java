@@ -21,7 +21,6 @@ import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.presenter.CoreAncMemberProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -135,7 +134,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                 Timber.e(e, "AncMemberProfileActivity -- > onActivityResult");
             }
         } else if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
-            ChwScheduleTaskExecutor.getInstance().execute(MEMBER_OBJECT.getBaseEntityId(),CoreConstants.EventType.ANC_HOME_VISIT, new Date());
+            ChwScheduleTaskExecutor.getInstance().execute(MEMBER_OBJECT.getBaseEntityId(), CoreConstants.EventType.ANC_HOME_VISIT, new Date());
             finish();
         }
     }
