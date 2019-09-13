@@ -20,7 +20,6 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.FamilyProfileActivity;
-import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.WashCheck;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
@@ -243,9 +242,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
     }
 
-    private Context getMyContext(){
+    private Context getMyContext() {
         Context context = getActivity();
-        if(context == null)
+        if (context == null)
             context = CoreChwApplication.getInstance();
 
         return context;
