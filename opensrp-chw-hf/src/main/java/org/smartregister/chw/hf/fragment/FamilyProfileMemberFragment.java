@@ -5,11 +5,11 @@ import android.os.Bundle;
 import org.smartregister.chw.core.fragment.CoreFamilyProfileMemberFragment;
 import org.smartregister.chw.core.provider.CoreMemberRegisterProvider;
 import org.smartregister.chw.hf.model.FamilyProfileMemberModel;
+import org.smartregister.chw.hf.presenter.FamilyProfileMemberPresenter;
 import org.smartregister.chw.hf.provider.HfMemberRegisterProvider;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
-import org.smartregister.family.presenter.BaseFamilyProfileMemberPresenter;
 import org.smartregister.family.util.Constants;
 
 import java.util.Set;
@@ -39,6 +39,6 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
         String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
         String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
         String primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        presenter = new BaseFamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+        presenter = new FamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
     }
 }
