@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildRegisterActivity;
@@ -263,7 +264,9 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
 
         String query = "";
         try {
-            sqb.addCondition(filters);
+            if (StringUtils.isNotBlank(filters))
+                sqb.addCondition(((CoreChildRegisterFragmentPresenter) presenter()).getFilterString(filters));
+
             if (dueFilterActive)
                 sqb.addCondition(((CoreChildRegisterFragmentPresenter) presenter()).getDueCondition());
             query = sqb.orderbyCondition(Sortqueries);

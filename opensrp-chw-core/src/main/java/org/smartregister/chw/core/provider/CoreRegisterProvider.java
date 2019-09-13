@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -68,10 +69,11 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
 
     private void addImageView(RegisterViewHolder viewHolder, int res_id) {
         ImageView imageView = new ImageView(context);
+        int size = convertDpToPixel(25, context);
         imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         imageView.setImageResource(res_id);
-        imageView.getLayoutParams().height = 25;
-        imageView.getLayoutParams().width = 25;
+        imageView.getLayoutParams().height = size;
+        imageView.getLayoutParams().width = size;
         LinearLayout linearLayout = (LinearLayout) viewHolder.memberIcon;
         linearLayout.addView(imageView);
     }
@@ -81,6 +83,10 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
             int res = CoreConstants.TABLE_NAME.ANC_MEMBER.equals(register) ? R.mipmap.ic_anc_pink : org.smartregister.family.R.mipmap.row_pnc;
             addImageView(viewHolder, res);
         }
+    }
+
+    public static int convertDpToPixel(int dp, Context context) {
+        return dp * (context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
     protected void updateMalariaIcons(RegisterViewHolder viewHolder, int malariaCount) {
