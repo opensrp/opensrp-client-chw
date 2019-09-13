@@ -32,7 +32,6 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
         this.clientsView.setAdapter(this.clientAdapter);
     }
 
-
     @Override
     protected void initializePresenter() {
         String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
