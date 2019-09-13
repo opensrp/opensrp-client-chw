@@ -30,6 +30,8 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.Arrays;
 import java.util.List;
 
+import timber.log.Timber;
+
 import static org.smartregister.chw.core.utils.CoreConstants.ENTITY_ID;
 import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getMalariaConfirmation;
 import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.isMultiPartForm;
@@ -115,7 +117,7 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
                     startRegisterActivity(MalariaRegisterActivity.class);
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
 
         } else {
