@@ -69,7 +69,7 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
 
     private void addImageView(RegisterViewHolder viewHolder, int res_id) {
         ImageView imageView = new ImageView(context);
-        int size = convertDpToPixel(20, context);
+        int size = convertDpToPixel(22, context);
         imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         imageView.setImageResource(res_id);
         imageView.getLayoutParams().height = size;
