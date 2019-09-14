@@ -242,8 +242,9 @@
         "openmrs_data_type": "text",
         "type": "spinner",
         "hint": "খানা বাছাই করুন",
+        "hidden": true,
         "v_required": {
-          "value": true,
+          "value": false,
           "err": "Please Select"
         },
         "values": [
@@ -266,6 +267,7 @@
         "label": "কোন কোন সদস্য স্থানান্তরিত হয়েছে বাছাই করুন",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "hidden": true,
         "exclusive": [
           "chk_none"
         ],
