@@ -52,19 +52,34 @@
     }
   },
   "step1": {
-    "title": "Family Details",
+    "title": "Add Family Member",
     "fields": [
+
       {
-        "key": "fam_name",
+        "key": "unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "opensrp_id",
+        "type": "edit_text",
+        "hint": "নাম্বার",
+        "read_only": true,
+        "v_numeric": {
+          "value": "false",
+          "err": "Please enter a valid ID"
+        }
+      },
+
+      {
+        "key": "first_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "hint": "Family name",
+        "hint": "নাম",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the family name"
+          "err": "Please enter the first name"
         },
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
@@ -72,60 +87,370 @@
         }
       },
       {
-        "key": "unique_id",
+        "key": "relation_with_household_head",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_identifier",
-        "openmrs_entity_id": "opensrp_id",
-        "hidden": "true",
-        "type": "barcode",
-        "barcode_type": "qrcode",
-        "hint": "ID *",
-        "scanButtonText": "Scan QR Code",
-        "v_numeric": {
-          "value": "true",
-          "err": "Please enter a valid ID"
-        }
-      },
-      {
-        "key": "village_town",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "cityVillage",
-        "type": "edit_text",
-        "hint": "Village/Town",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the village or town"
-        }
-      },
-      {
-        "key": "landmark",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "landmark",
-        "type": "edit_text",
-        "hint": "Landmark"
-      },
-      {
-        "key": "gps",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "relation_with_household_head",
         "openmrs_data_type": "text",
-        "type": "gps"
-      },
-      {
-        "key": "nearest_facility",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "text",
-        "type": "tree",
-        "hint": "Nearest health facility",
-        "tree": [],
+        "type": "spinner",
+        "hint": "খানা প্রধানের সাথে সম্পর্ক",
+        "values": [
+          "খানা প্রধান",
+          "ছেলে",
+          "মেয়ে",
+          "স্ত্রী",
+          "স্বামী",
+          "নাতি",
+          "নাতনী",
+          "ছেলের বউ",
+          "মেয়ের স্বামী",
+          "অন্যান্য"
+        ],
+        "openmrs_choice_ids": {
+          "খানা প্রধান": "1",
+          "ছেলে": "2",
+          "মেয়ে": "3",
+          "স্ত্রী": "4",
+          "স্বামী": "5",
+          "নাতি": "6",
+          "নাতনী": "7",
+          "ছেলের বউ": "8",
+          "মেয়ের স্বামী": "9",
+          "অন্যান্য": "10"
+        },
         "v_required": {
           "value": true,
-          "err": "Please enter the nearest health facility"
+          "err": "Please select relation"
+        }
+      },
+      {
+        "key": "Mother_Guardian_First_Name_english",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Mother_Guardian_First_Name_english",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "edit_type": "name",
+        "hint": "মাতার নাম (ইংরেজীতে)",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the mother/guardian's first name"
+        }
+      },
+      {
+        "key": "phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "মোবাইল নম্বর",
+        "v_numeric": {
+          "value": true,
+          "err": "Number must be a total of 11 digits in length"
+        },
+        "v_regex": {
+          "value": "(0[0-9][0-9]{9})|\\s*",
+          "err": "Number must be 11 digits and must start with 0."
+        },
+        "v_required": {
+          "value": false,
+          "err": "Please specify the phone number"
+        }
+      },
+      {
+        "key": "id_avail",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "id_avail",
+        "type": "check_box",
+        "label": "Do you have any of the following IDs?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_national_id",
+            "text": "জাতীয় পরিচয় পত্র",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_national_id"
+          },
+          {
+            "key": "chk_birth_id",
+            "text": "জন্ম পরিচয় পত্র",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_birth_id"
+          },
+          {
+            "key": "chk_none",
+            "text": "কোনটিই নেই",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_none"
+          }
+        ]
+      },
+      {
+        "key": "national_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "National_ID",
+        "type": "edit_text",
+        "hint": "জাতীয় পরিচয় পত্র",
+        "edit_type": "name",
+        "relevance": {
+          "step1:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_national_id"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "birth_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Birth_ID",
+        "type": "edit_text",
+        "hint": "জন্ম পরিচয় পত্র",
+        "edit_type": "name",
+        "relevance": {
+          "step1:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_birth_id"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
+        "type": "date_picker",
+        "hint": "জন্ম তারিখ",
+        "expanded": false,
+        "duration": {
+          "label": "Age"
+        },
+        "min_date": "today-120y",
+        "max_date": "today-5y",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of birth"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age_calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_register_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dob_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdateApprox",
+        "type": "check_box",
+        "label": "",
+        "options": [
+          {
+            "key": "dob_unknown",
+            "text": "DOB unknown?",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "edit_text",
+        "hint": "আনুমানিক বয়স",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must begin with 0 and must be a total of 10 digits in length"
+        },
+        "v_min": {
+          "value": "5",
+          "err": "Age must be equal or greater than 5"
+        },
+        "v_max": {
+          "value": "120",
+          "err": "Age must be equal or less than 120"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the age"
+        }
+      },
+      {
+        "key": "sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "spinner",
+        "hint": "লিঙ্গ",
+        "values": [
+          "পুরুষ",
+          "নারী",
+          "তৃতীয় লিঙ্গ"
+
+        ],
+        "openmrs_choice_ids": {
+          "পুরুষ": "1",
+          "নারী":"2",
+          "তৃতীয় লিঙ্গ": "3"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the sex"
+        }
+      },
+      {
+        "key": "marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "marital_status",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "hint": "বৈবাহিক অবস্থা",
+        "values": [
+          "বিবাহিত",
+          "দাম্পত্য বিছিন্ন",
+          "তালাক প্রাপ্ত",
+          "অবিবাহিত",
+          "বিধবা",
+          "বিপত্নীক"
+        ],
+        "openmrs_choice_ids": {
+          "বিবাহিত": "1",
+          "দাম্পত্য বিছিন্ন": "2",
+          "তালাক প্রাপ্ত": "3",
+          "অবিবাহিত": "4",
+          "বিধবা": "5",
+          "বিপত্নীক": "6"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select marital status"
+        }
+      },
+
+
+      {
+        "key": "blood_group",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "blood_group",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "hint": "রক্তের গ্রুপ",
+        "values": [
+          "A+",
+          "A-",
+          "B+",
+          "B-",
+          "O+",
+          "O-",
+          "AB+",
+          "AB-",
+          "রক্তের গ্রুপ জানা নেই"
+        ],
+        "openmrs_choice_ids": {
+          "A+": "1",
+          "A-": "2",
+          "B+": "3",
+          "B-": "4",
+          "O+": "5",
+          "O-": "6",
+          "AB+": "7",
+          "AB-": "8",
+          "রক্তের গ্রুপ জানা নেই": "9"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please Select Blood Group"
+        }
+      },
+      {
+        "key": "pregnant_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "pregnant_status",
+        "openmrs_data_type": "",
+        "type": "spinner",
+        "hint": "আপনি কি গর্ভবতী ?",
+        "values": [
+          "হ্যাঁ",
+          "না"
+        ],
+        "openmrs_choice_ids": {
+          "হ্যাঁ": "1",
+          "না": "2"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "simprints",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "simprints",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "edit_type": "name",
+        "hint": "আঙ্গুলের ছাপ সংগ্রহ",
+        "v_required": {
+          "value": true,
+          "err": "Please enter fingerprint"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sample-relevance-rules.yml"
+            }
+          }
         }
       }
     ]

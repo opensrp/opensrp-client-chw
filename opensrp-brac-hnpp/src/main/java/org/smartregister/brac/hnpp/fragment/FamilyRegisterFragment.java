@@ -110,7 +110,8 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
             proceed.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    filter(" village_name like '%AYUBPUR:WARD 1:GA 1%' AND claster like '%ক্লাস্টার ১%' ","","",false);
+                    //filter(" village_name like '%AYUBPUR:WARD 1:GA 1%' AND claster like '%ক্লাস্টার ১%' ","","",false);
+                    filter("",""," village_name like '%AYUBPUR:WARD 1:GA 1%' AND claster like '%ক্লাস্টার ১%' AND date_removed is null",false);
                 }
             });
             dialog.show();
