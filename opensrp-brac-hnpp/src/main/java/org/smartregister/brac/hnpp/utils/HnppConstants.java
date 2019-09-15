@@ -12,6 +12,7 @@ public class HnppConstants extends CoreConstants {
         public static final String VILLAGE_NAME = "village_name";
         public static final String CLASTER = "claster";
         public static final String MODULE_ID = "module_id";
+        public static final String RELATION_WITH_HOUSEHOLD = "relation_with_household_head";
     }
     public static class IDENTIFIER {
         public static final String FAMILY_TEXT = "Family";

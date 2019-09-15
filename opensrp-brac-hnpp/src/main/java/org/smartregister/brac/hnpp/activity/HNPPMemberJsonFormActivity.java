@@ -15,7 +15,7 @@ import org.smartregister.family.activity.FamilyWizardFormActivity;
 import org.smartregister.simprint.SimprintsConstant;
 import org.smartregister.simprint.SimprintsRegistration;
 
-import static com.vijay.jsonwizard.constants.JsonFormConstants.ACTIVITY_REQUEST_CODE.REQUEST_CODE_REGISTER;
+//import static com.vijay.jsonwizard.constants.JsonFormConstants.ACTIVITY_REQUEST_CODE.REQUEST_CODE_REGISTER;
 import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
 
 public class HNPPMemberJsonFormActivity extends FamilyWizardFormActivity {

@@ -57,8 +57,8 @@ public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
 //        if (headEventClient.getClient() != null && familyEventClient.getClient() != null) {
             String headUniqueId = familyEventClient.getClient().getIdentifier(Utils.metadata().uniqueIdentifierKey);
             if (StringUtils.isNotBlank(headUniqueId)) {
-                String familyUniqueId = headUniqueId + Constants.IDENTIFIER.FAMILY_SUFFIX;
-                familyEventClient.getClient().addIdentifier(Utils.metadata().uniqueIdentifierKey, familyUniqueId);
+                //String familyUniqueId = headUniqueId ;//+ Constants.IDENTIFIER.FAMILY_SUFFIX;
+                familyEventClient.getClient().addIdentifier(Utils.metadata().uniqueIdentifierKey, headUniqueId);
             }
             //}
 
