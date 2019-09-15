@@ -1,6 +1,7 @@
 package org.smartregister.brac.hnpp.fragment;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,16 @@ import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.model.HnppFamilyRegisterFragmentModel;
 import org.smartregister.brac.hnpp.presenter.HnppFamilyRegisterFragmentPresenter;
 import org.smartregister.brac.hnpp.provider.HHRegisterProvider;
+import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
 import org.smartregister.chw.core.presenter.FamilyRegisterFragmentPresenter;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.brac.hnpp.R;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 import org.smartregister.location.helper.LocationHelper;
 
 import java.util.ArrayList;
@@ -42,6 +48,20 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
             return;
         }
         presenter = new HnppFamilyRegisterFragmentPresenter(this, new HnppFamilyRegisterFragmentModel(), null);
+    }
+
+    @Override
+    protected void goToPatientDetailActivity(CommonPersonObjectClient patient, boolean goToDuePage) {
+        Intent intent = new Intent(getActivity(), Utils.metadata().profileActivity);
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, patient.getCaseId());
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false));
+        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false));
+        intent.putExtra(Constants.INTENT_KEY.VILLAGE_TOWN, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, false));
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false));
+        intent.putExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, goToDuePage);
+        intent.putExtra(DBConstants.KEY.UNIQUE_ID, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
+        intent.putExtra(HnppConstants.KEY.MODULE_ID, Utils.getValue(patient.getColumnmaps(), HnppConstants.KEY.MODULE_ID, false));
+        startActivity(intent);
     }
 
     @Override

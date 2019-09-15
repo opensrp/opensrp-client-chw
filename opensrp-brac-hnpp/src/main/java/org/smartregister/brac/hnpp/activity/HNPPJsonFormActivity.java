@@ -1,6 +1,8 @@
 package org.smartregister.brac.hnpp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.vijay.jsonwizard.R.id;
 
@@ -23,4 +25,9 @@ public class HNPPJsonFormActivity extends FamilyWizardFormActivity {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.v("SIMPRINT_SDK","requestCode:"+requestCode+":resultCode:"+resultCode+":intent:"+data);
+    }
 }

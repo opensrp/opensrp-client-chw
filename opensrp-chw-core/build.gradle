@@ -63,7 +63,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api('org.smartregister:opensrp-client-native-form:1.6.29-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-native-form:1.6.39-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'
@@ -88,8 +88,12 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
+    api('org.smartregister:opensrp-client-simprints:1.1.1-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
 
-    api('org.smartregister:opensrp-client-family:1.2.20-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-family:1.2.22-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'

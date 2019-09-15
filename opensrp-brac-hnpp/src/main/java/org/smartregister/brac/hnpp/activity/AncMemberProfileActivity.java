@@ -15,7 +15,7 @@ import org.ei.drishti.dto.AlertStatus;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.adapter.ReferralCardViewAdapter;
-import org.smartregister.brac.hnpp.model.FamilyProfileModel;
+import org.smartregister.brac.hnpp.model.HnppFamilyProfileModel;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
@@ -118,7 +118,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
                     FamilyEventClient familyEventClient =
-                            new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
+                            new HnppFamilyProfileModel(MEMBER_OBJECT.getFamilyName(),null,null).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
                     new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, ancMemberProfilePresenter());
                 } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_ANC_REGISTRATION)) {
                     AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();

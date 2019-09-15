@@ -1,6 +1,6 @@
 package org.smartregister.brac.hnpp.presenter;
 
-import org.smartregister.brac.hnpp.model.FamilyProfileModel;
+import org.smartregister.brac.hnpp.model.HnppFamilyProfileModel;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreFamilyProfileInteractor;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
@@ -29,7 +29,7 @@ public class FamilyOtherMemberActivityPresenter extends CoreFamilyOtherMemberAct
     @Override
     protected FamilyProfileContract.Model getFamilyProfileModel(String familyName) {
         if (profileModel == null) {
-            this.profileModel = new FamilyProfileModel(familyName);
+            this.profileModel = new HnppFamilyProfileModel(familyName,null,null);
         }
         return profileModel;
     }

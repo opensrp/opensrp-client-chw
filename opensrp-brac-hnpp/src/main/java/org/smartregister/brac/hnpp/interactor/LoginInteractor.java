@@ -46,6 +46,8 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
     @Override
     protected void scheduleJobsImmediately() {
+        PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
+        PullHouseholdIdsServiceJob.scheduleJobImmediately(PullHouseholdIdsServiceJob.TAG);
         SSLocationFetchJob.scheduleJobImmediately(SSLocationFetchJob.TAG);
         //TODO need to open later
 //        super.scheduleJobsImmediately();

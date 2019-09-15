@@ -1,6 +1,7 @@
 package org.smartregister.brac.hnpp.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Pair;
 
 import net.sqlcipher.database.SQLiteDatabase;
@@ -8,8 +9,12 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.CoreLibrary;
+import org.smartregister.brac.hnpp.BuildConfig;
 import org.smartregister.brac.hnpp.HnppApplication;
+import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.location.SSLocationForm;
 import org.smartregister.brac.hnpp.repository.HnppChwRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -34,7 +39,25 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     public static final String METADATA = "metadata";
     public static final String VILLAGE_NAME = "village_name";
     public static final String ENCOUNTER_TYPE = "encounter_type";
-
+    public static JSONObject updateFormWithModuleId(JSONObject form,String moduleId) throws JSONException {
+        JSONArray field = fields(form, STEP1);
+        JSONObject fingerPrint = getFieldJSONObject(field, "finger_print");
+        fingerPrint.put("project_id", BuildConfig.SIMPRINT_PROJECT_ID);
+        fingerPrint.put("user_id",CoreLibrary.getInstance().context().allSharedPreferences().fetchRegisteredANM());
+        fingerPrint.put("module_id",moduleId);
+        return form;
+    }
+    public static JSONObject updateFormWithMemberId(JSONObject form,String houseHoldId) throws JSONException {
+        JSONArray field = fields(form, STEP1);
+        JSONObject memberId = getFieldJSONObject(field, "unique_id");
+        if(!TextUtils.isEmpty(houseHoldId)){
+            houseHoldId = houseHoldId.replace(Constants.IDENTIFIER.FAMILY_SUFFIX,"")
+                    .replace(HnppConstants.IDENTIFIER.FAMILY_TEXT,"");
+        }
+        //TODO need to generate
+        memberId.put(org.smartregister.family.util.JsonFormUtils.VALUE, houseHoldId+"01");
+        return form;
+    }
     public static JSONObject updateFormWithSSLocation(JSONObject form, ArrayList<SSLocationForm> ssLocationForms) throws Exception{
 
         JSONArray jsonArray = new JSONArray();

@@ -98,6 +98,13 @@
           }
         },
         {
+          "column_name": "module_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.module_id"
+          }
+        },
+        {
           "column_name": "date_removed",
           "type": "Client",
           "json_mapping": {
@@ -143,6 +150,13 @@
           "type": "Client",
           "json_mapping": {
             "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "gu_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.gu_id"
           }
         },
         {

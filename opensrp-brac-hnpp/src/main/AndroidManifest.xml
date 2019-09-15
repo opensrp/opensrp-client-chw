@@ -136,6 +136,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/FamilyTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+        <activity android:name=".activity.HNPPMemberJsonFormActivity" android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/FamilyTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
 
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
