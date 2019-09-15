@@ -38,8 +38,8 @@ public class HNPPMemberJsonFormActivity extends FamilyWizardFormActivity {
 
             SimprintsRegistration registration = (SimprintsRegistration) data.getSerializableExtra(SimprintsConstant.INTENT_DATA);
 
-            switch (requestCode) {
-                case REQUEST_CODE_REGISTER:
+//            switch (requestCode) {
+//                case REQUEST_CODE_REGISTER:
                     if(registration!=null){
                         String uniqueId = registration.getGuid();
                         JSONObject guIdField = null;
@@ -53,8 +53,8 @@ public class HNPPMemberJsonFormActivity extends FamilyWizardFormActivity {
                     }else{
                         Toast.makeText(this,"GUID not found",Toast.LENGTH_SHORT).show();
                     }
-                    break;
-            }
+//                    break;
+//            }
         }
      }
 }

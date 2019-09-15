@@ -118,7 +118,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
                     FamilyEventClient familyEventClient =
-                            new HnppFamilyProfileModel(MEMBER_OBJECT.getFamilyName(),null,null).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
+                            new HnppFamilyProfileModel(MEMBER_OBJECT.getFamilyName(),null,null,null).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
                     new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, ancMemberProfilePresenter());
                 } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_ANC_REGISTRATION)) {
                     AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();

@@ -9,10 +9,12 @@ import org.smartregister.family.domain.FamilyEventClient;
 public class HnppFamilyProfileModel extends CoreFamilyProfileModel {
     private String moduleId;
     private String houseHoldId;
-    public HnppFamilyProfileModel(String familyName,String moduleId,String houseHoldId) {
+    private String familyBaseEntityId;
+    public HnppFamilyProfileModel(String familyName,String moduleId,String houseHoldId, String familyBaseEntityId) {
         super(familyName);
         this.moduleId = moduleId;
         this.houseHoldId = houseHoldId;
+        this.familyBaseEntityId = familyBaseEntityId;
     }
 
     @Override
@@ -21,7 +23,7 @@ public class HnppFamilyProfileModel extends CoreFamilyProfileModel {
         if (form == null) {
             return null;
         }
-        JsonFormUtils.updateFormWithMemberId(form,houseHoldId);
+        JsonFormUtils.updateFormWithMemberId(form,houseHoldId,familyBaseEntityId);
         JsonFormUtils.updateFormWithModuleId(form,moduleId);
 
         return form;

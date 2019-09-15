@@ -33,7 +33,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     @Override
     protected void refreshPresenter() {
-        presenter = new FamilyProfilePresenter(this, new HnppFamilyProfileModel(familyName,moduleId,houseHoldId), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
+        presenter = new FamilyProfilePresenter(this, new HnppFamilyProfileModel(familyName,moduleId,houseHoldId,familyBaseEntityId), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         moduleId = getIntent().getStringExtra(HnppConstants.KEY.MODULE_ID);
         houseHoldId = getIntent().getStringExtra(DBConstants.KEY.UNIQUE_ID);
         Log.v("SIMPRINT_SDK","familyprofiel>>>moduleId:"+moduleId+":houseHoldId:"+houseHoldId);
-        presenter = new FamilyProfilePresenter(this, new HnppFamilyProfileModel(familyName,moduleId,houseHoldId), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
+        presenter = new FamilyProfilePresenter(this, new HnppFamilyProfileModel(familyName,moduleId,houseHoldId,familyBaseEntityId), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
 
     @Override
