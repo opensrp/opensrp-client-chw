@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.provider.CoreMemberRegisterProvider;
@@ -79,6 +80,7 @@ public class HNPPMemberRegisterProvider extends CoreMemberRegisterProvider {
         String lastName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "last_name", true);
         String patientName = org.smartregister.family.util.Utils.getName(firstName, middleName, lastName);
         String entityType = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "entity_type", false);
+        String relation_with_household_head = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "relation_with_household_head", false);
         String dob = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "dob", false);
         String dobString = org.smartregister.family.util.Utils.getDuration(dob);
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
@@ -93,14 +95,16 @@ public class HNPPMemberRegisterProvider extends CoreMemberRegisterProvider {
             viewHolder.profile.setImageResource(org.smartregister.family.util.Utils.getMemberProfileImageResourceIDentifier(entityType));
             viewHolder.nextArrow.setVisibility(View.GONE);
         } else {
-            patientName = patientName + ", " + org.smartregister.family.util.Utils.getTranslatedDate(dobString, this.context);
+//            patientName = patientName + "\n" + org.smartregister.family.util.Utils.getTranslatedDate(dobString, this.context);
+
             viewHolder.patientNameAge.setFontVariant(FontVariant.REGULAR);
             viewHolder.patientNameAge.setTextColor(-16777216);
             viewHolder.patientNameAge.setTypeface(viewHolder.patientNameAge.getTypeface(), View.VISIBLE);
             this.imageRenderHelper.refreshProfileImage(pc.getCaseId(), viewHolder.profile, org.smartregister.family.util.Utils.getMemberProfileImageResourceIDentifier(entityType));
             viewHolder.nextArrow.setVisibility(View.VISIBLE);
         }
-
+        ((TextView)viewHolder.patientNameAge).setSingleLine(true);
+        ((TextView)viewHolder.gender).setSingleLine(false);
         fillValue(viewHolder.patientNameAge, patientName);
         String gender_key = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "gender", true);
         String gender = "";
@@ -109,8 +113,8 @@ public class HNPPMemberRegisterProvider extends CoreMemberRegisterProvider {
         } else if (gender_key.equalsIgnoreCase("Female")) {
             gender = this.context.getString(org.smartregister.family.R.string.female);
         }
-
-        fillValue(viewHolder.gender, gender);
+        String relationAge = relation_with_household_head + "\nবয়সঃ " + org.smartregister.family.util.Utils.getTranslatedDate(dobString, this.context);
+        fillValue(viewHolder.gender, relationAge);
         viewHolder.nextArrowColumn.setOnClickListener(new View.OnClickListener() {
             public void onClick(android.view.View v) {
                 viewHolder.nextArrow.performClick();

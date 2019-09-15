@@ -295,15 +295,6 @@
           }
         }
       },
-      {
-        "key": "finger_print",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "choose_finger_print",
-        "uploadButtonText": "আঙুলের মুদ্রণ নিন",
-        "image_file": ""
-      },
 
       {
         "key": "gps",

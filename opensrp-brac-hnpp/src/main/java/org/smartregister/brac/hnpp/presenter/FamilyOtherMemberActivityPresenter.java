@@ -29,7 +29,7 @@ public class FamilyOtherMemberActivityPresenter extends CoreFamilyOtherMemberAct
     @Override
     protected FamilyProfileContract.Model getFamilyProfileModel(String familyName) {
         if (profileModel == null) {
-            this.profileModel = new HnppFamilyProfileModel(familyName,null,null);
+            this.profileModel = new HnppFamilyProfileModel(familyName,null,null,null);
         }
         return profileModel;
     }

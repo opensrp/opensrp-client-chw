@@ -177,7 +177,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
             Utils.startAsyncTask(new UpdateAsyncTask(context, viewHolder, familyBaseEntityId), null);
         }
     }
-    protected void updateChildIcons(HouseHoldRegisterProvider viewHolder, List<Map<String, String>> list, int ancWomanCount) {
+    protected void updateChildIcons(HouseHoldRegisterProvider viewHolder, List<Map<String, String>> list, int ancWomanCount,int memberCount) {
         if (ancWomanCount > 0) {
             viewHolder.memberIcon.setVisibility(View.VISIBLE);
             View view = LayoutInflater.from(context).inflate(R.layout.member_with_count, null);
@@ -336,6 +336,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
         private final String familyBaseEntityId;
 
         private List<Map<String, String>> list;
+        private int memberCount;
         private int ancWomanCount;
 
         private UpdateAsyncTask(Context context, HouseHoldRegisterProvider viewHolder, String familyBaseEntityId) {
@@ -347,6 +348,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
         @Override
         protected Void doInBackground(Void... params) {
             list = getChildren(familyBaseEntityId);
+            memberCount = HnppApplication.ancRegisterRepository().getMemberCount(familyBaseEntityId);
             ancWomanCount = HnppApplication.ancRegisterRepository().getAncWomenCount(familyBaseEntityId);
 
             return null;
@@ -355,7 +357,8 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
         @Override
         protected void onPostExecute(Void param) {
             // Update child Icon
-            updateChildIcons(viewHolder, list, ancWomanCount);
+//            updateChildIcons(viewHolder, list, memberCount);
+            updateChildIcons(viewHolder, list, ancWomanCount,memberCount);
         }
     }
 

@@ -152,4 +152,31 @@ public class AncRegisterRepository extends BaseRepository {
         return 0;
 
     }
+
+    public int getMemberCount(String familyBaseID) {
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            if (database == null) {
+                return 0;
+            }
+            String selection = DBConstants.KEY.RELATIONAL_ID + " = ? " + COLLATE_NOCASE + " AND " +
+                    org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = ? " + COLLATE_NOCASE;
+            String[] selectionArgs = new String[]{familyBaseID, "0"};
+
+            cursor = database.query(TABLE_NAME,
+                    ANC_COUNT_TABLE_COLUMNS, selection, selectionArgs, null, null, null);
+
+            return cursor.getCount();
+
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return 0;
+
+    }
 }

@@ -47,16 +47,22 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         fingerPrint.put("module_id",moduleId);
         return form;
     }
-    public static JSONObject updateFormWithMemberId(JSONObject form,String houseHoldId) throws JSONException {
+    public static JSONObject updateFormWithMemberId(JSONObject form,String houseHoldId, String familyBaseEntityId) throws JSONException {
         JSONArray field = fields(form, STEP1);
         JSONObject memberId = getFieldJSONObject(field, "unique_id");
         if(!TextUtils.isEmpty(houseHoldId)){
             houseHoldId = houseHoldId.replace(Constants.IDENTIFIER.FAMILY_SUFFIX,"")
                     .replace(HnppConstants.IDENTIFIER.FAMILY_TEXT,"");
         }
+
         //TODO need to generate
-        memberId.put(org.smartregister.family.util.JsonFormUtils.VALUE, houseHoldId+"01");
+        int memberCount = HnppApplication.ancRegisterRepository().getMemberCount(familyBaseEntityId);
+        memberId.put(org.smartregister.family.util.JsonFormUtils.VALUE, houseHoldId+memberCountWithZero(memberCount+1));
         return form;
+    }
+
+    public static String memberCountWithZero(int count){
+        return count<10 ? "0"+count : String.valueOf(count);
     }
     public static JSONObject updateFormWithSSLocation(JSONObject form, ArrayList<SSLocationForm> ssLocationForms) throws Exception{
 
