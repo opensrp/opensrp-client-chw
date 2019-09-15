@@ -6,16 +6,16 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.simprints.libsimprints.Constants;
-import com.simprints.libsimprints.Registration;
 import com.vijay.jsonwizard.R.id;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.brac.hnpp.fragment.HNPPJsonFormFragment;
 import org.smartregister.brac.hnpp.fragment.HNPPMemberJsonFormFragment;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
+import org.smartregister.simprint.SimprintsConstant;
+import org.smartregister.simprint.SimprintsRegistration;
 
+import static com.vijay.jsonwizard.constants.JsonFormConstants.ACTIVITY_REQUEST_CODE.REQUEST_CODE_REGISTER;
 import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
 
 public class HNPPMemberJsonFormActivity extends FamilyWizardFormActivity {
@@ -34,20 +34,27 @@ public class HNPPMemberJsonFormActivity extends FamilyWizardFormActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.v("SIMPRINT_SDK","HNPPMemberJsonFormActivity >>requestCode:"+requestCode+":resultCode:"+resultCode+":intent:"+data);
-        Registration registration = data.getParcelableExtra(Constants.SIMPRINTS_REGISTRATION);
-        if(registration!=null){
-            String uniqueId = registration.getGuid();
-            JSONObject guIdField = null;
-            try {
-                guIdField = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "gu_id");
-                guIdField.put("value",uniqueId);
+        if(resultCode == RESULT_OK && data !=null) {
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+            SimprintsRegistration registration = (SimprintsRegistration) data.getSerializableExtra(SimprintsConstant.INTENT_DATA);
+
+            switch (requestCode) {
+                case REQUEST_CODE_REGISTER:
+                    if(registration!=null){
+                        String uniqueId = registration.getGuid();
+                        JSONObject guIdField = null;
+                        try {
+                            guIdField = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "gu_id");
+                            guIdField.put("value",uniqueId);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        Toast.makeText(this,"GUID not found",Toast.LENGTH_SHORT).show();
+                    }
+                    break;
             }
-        }else{
-            Toast.makeText(this,"GUID not found",Toast.LENGTH_SHORT).show();
         }
-
      }
 }
