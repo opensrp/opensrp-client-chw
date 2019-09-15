@@ -35,6 +35,7 @@
     <string name="powered_by_brac">copyright © BRAC 2019 </string>
     <string name="powered_by_mpower">copyright © mPower 2019 </string>
     <string name="member_count">খানার মোট সদস্য: %s</string>
+    <string name="registered_count">নিবন্ধভুক্ত মোট সদস্য: %s</string>
     <string name="next_visit_date">পরবর্তী দেখার তারিখ: %s</string>
     <string name="house_hold_id">খানা নাম্বার: %s</string>
     <string name="saving">সংরক্ষণ হচ্ছে ...</string>

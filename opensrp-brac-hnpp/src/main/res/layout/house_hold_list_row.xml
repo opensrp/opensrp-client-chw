@@ -85,6 +85,18 @@
             android:visibility="gone"
             />
         <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/registered_member_count"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="0dp"
+            android:paddingStart="0dp"
+            android:paddingTop="@dimen/register_list_top_bottom_padding"
+            android:textColor="@color/black"
+            android:textSize="@dimen/register_list_desc_size"
+            android:visibility="gone"
+            />
+        <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/next_visit_date"
             android:visibility="gone"
             style="@style/CustomFontTextViewStyle.ClientList.Light"

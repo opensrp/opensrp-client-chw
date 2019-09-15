@@ -36,6 +36,7 @@
     <string name="powered_by_mpower">copyright © mPower 2019 </string>
     <string name="house_hold_id">খানা নাম্বার: %s</string>
     <string name="member_count">খানার মোট সদস্য: %s</string>
+    <string name="registered_count">নিবন্ধভুক্ত মোট সদস্য: %s</string>
     <string name="next_visit_date">Next visit date: %s</string>
     <string name="saving">saving...</string>
     <string name="phone_no">mobile no : %s</string>

@@ -178,6 +178,10 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
         }
     }
     protected void updateChildIcons(HouseHoldRegisterProvider viewHolder, List<Map<String, String>> list, int ancWomanCount,int memberCount) {
+        if (memberCount == 0) return;
+        if( memberCount > 0){
+            setText(viewHolder.registeredMember,context.getString(R.string.registered_count,memberCount+""));
+        }
         if (ancWomanCount > 0) {
             viewHolder.memberIcon.setVisibility(View.VISIBLE);
             View view = LayoutInflater.from(context).inflate(R.layout.member_with_count, null);
@@ -284,6 +288,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
         public TextView houseHoldId;
         public TextView mobileNumber;
         public TextView totalMember;
+        public TextView registeredMember;
         public TextView lastVisitDate;
         public CircleImageView addMemberBtn;
         public CircleImageView profileImage;
@@ -303,6 +308,8 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
             mobileNumber = itemView.findViewById(R.id.house_hold_mobile_number);
 
             totalMember = itemView.findViewById(R.id.house_hold_member_count);
+
+            registeredMember = itemView.findViewById(R.id.registered_member_count);
 
             lastVisitDate = itemView.findViewById(R.id.next_visit_date);
 
