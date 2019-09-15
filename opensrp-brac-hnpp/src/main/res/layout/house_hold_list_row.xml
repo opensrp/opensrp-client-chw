@@ -119,6 +119,7 @@
         android:padding="10dp"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
+        android:visibility="gone"
         android:src="@drawable/add_member"
         android:layout_width="@dimen/member_profile_pic_width"
         android:layout_height="@dimen/member_profile_pic_width" />
