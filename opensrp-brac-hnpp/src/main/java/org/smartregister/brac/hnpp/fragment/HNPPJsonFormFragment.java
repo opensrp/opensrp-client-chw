@@ -62,7 +62,7 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//        super.onItemSelected(parent, view, position, id);
+        super.onItemSelected(parent, view, position, id);
         if (position != -1 && parent instanceof MaterialSpinner) {
             if (((MaterialSpinner) parent).getFloatingLabelText().toString().equalsIgnoreCase(view.getContext().getResources().getString(R.string.village_name_form_field))) {
 
