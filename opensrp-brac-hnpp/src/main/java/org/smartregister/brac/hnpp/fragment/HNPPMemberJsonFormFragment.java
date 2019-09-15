@@ -4,13 +4,16 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.customviews.MaterialSpinner;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
@@ -59,11 +62,14 @@ public class HNPPMemberJsonFormFragment extends JsonWizardFormFragment {
         return super.getStep(stepName);
     }
 
-
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.v("SIMPRINT_SDK","at fragment >> requestCode:"+requestCode+":resultCode:"+resultCode+":intent:"+data);
+    public void startSimprintsRegistration(String projectId,String userId,String moduleId) {
+        if(!TextUtils.isEmpty(projectId) && !TextUtils.isEmpty(userId) &&  !TextUtils.isEmpty(moduleId)){
+            SimprintsLibrary.init(getActivity(),projectId,userId);
+            SimprintsRegisterActivity.startSimprintsRegisterActivity(getActivity(),moduleId, JsonFormConstants.ACTIVITY_REQUEST_CODE.REQUEST_CODE_REGISTER);
 
+        }else {
+            Toast.makeText(getActivity(),"Project Id or user id or module id should not be empty",Toast.LENGTH_LONG).show();
+        }
     }
 }

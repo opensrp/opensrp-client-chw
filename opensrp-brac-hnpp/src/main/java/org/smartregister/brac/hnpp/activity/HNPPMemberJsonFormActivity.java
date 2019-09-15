@@ -2,7 +2,9 @@ package org.smartregister.brac.hnpp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.simprints.libsimprints.Constants;
 import com.simprints.libsimprints.Registration;
@@ -31,18 +33,21 @@ public class HNPPMemberJsonFormActivity extends FamilyWizardFormActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         Log.v("SIMPRINT_SDK","HNPPMemberJsonFormActivity >>requestCode:"+requestCode+":resultCode:"+resultCode+":intent:"+data);
-
         Registration registration = data.getParcelableExtra(Constants.SIMPRINTS_REGISTRATION);
-        String uniqueId = registration.getGuid();
-        JSONObject guIdField = null;
-        try {
-            guIdField = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "gu_id");
-            guIdField.put("value",uniqueId);
+        if(registration!=null){
+            String uniqueId = registration.getGuid();
+            JSONObject guIdField = null;
+            try {
+                guIdField = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "gu_id");
+                guIdField.put("value",uniqueId);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Toast.makeText(this,"GUID not found",Toast.LENGTH_SHORT).show();
         }
+
      }
 }
