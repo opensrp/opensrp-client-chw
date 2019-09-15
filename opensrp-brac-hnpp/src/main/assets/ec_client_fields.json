@@ -184,7 +184,14 @@
           "column_name": "relation_with_household_head",
           "type": "Client",
           "json_mapping": {
-            "field": "relation_with_household_head"
+            "field": "attributes.relation_with_household_head"
+          }
+        },
+        {
+          "column_name": "Mother_Guardian_First_Name_english",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.Mother_Guardian_First_Name_english"
           }
         },
         {
@@ -243,6 +250,13 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "pregnant_status",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.pregnant_status"
           }
         },
         {
@@ -464,13 +478,7 @@
             "field": "blood_group"
           }
         },
-        {
-          "column_name": "pregnant_status",
-          "type": "Client",
-          "json_mapping": {
-            "field": "pregnant_status"
-          }
-        },
+
         {
           "column_name": "simprints",
           "type": "Client",

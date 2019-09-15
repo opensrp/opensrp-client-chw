@@ -32,26 +32,7 @@ public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
         JsonFormUtils.updateFormWithSSLocation(form,SSLocationHelper.getInstance().getSsLocationForms());
         return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
     }
-    private static JSONArray processAttributesWithChoiceIDs(JSONArray fields) {
-        for (int i = 0; i < fields.length(); i++) {
-            try {
-                JSONObject fieldObject = fields.getJSONObject(i);
-//                if(fieldObject.has("openmrs_entity")){
-//                    if(fieldObject.getString("openmrs_entity").equalsIgnoreCase("person_attribute")){
-                if (fieldObject.has("openmrs_choice_ids")) {
-                    if (fieldObject.has("value")) {
-                        String valueEntered = fieldObject.getString("value");
-                        fieldObject.put("value", fieldObject.getJSONObject("openmrs_choice_ids").get(valueEntered));
-                    }
-                }
-//                    }
-//                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return fields;
-    }
+
     @Override
     public List<FamilyEventClient> processRegistration(String jsonString) {
         try{

@@ -228,6 +228,7 @@
         "openmrs_data_type": "text",
         "type": "spinner",
         "hint": "এই খানাটি কি অন্য কোনো খানা ভেঙে তৈরী হয়েছে?",
+        "hidden": true,
         "v_required": {
           "value": true,
           "err": "Please Select"

@@ -10,41 +10,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.MaterialSpinner;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.CoreLibrary;
 import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.R;
-import org.smartregister.brac.hnpp.activity.HNPPJsonFormActivity;
 import org.smartregister.brac.hnpp.domain.HouseholdId;
-import org.smartregister.brac.hnpp.location.SSLocationForm;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.location.SSLocations;
 import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
-import org.smartregister.simprint.SimprintsLibrary;
-import org.smartregister.simprint.SimprintsRegisterActivity;
 import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
 
-import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
-import static com.vijay.jsonwizard.utils.FormUtils.fields;
 import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
 
 public class HNPPJsonFormFragment extends JsonWizardFormFragment {
     public HNPPJsonFormFragment() {
         super();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     public static HNPPJsonFormFragment getFormFragment(String stepName) {
@@ -53,6 +41,11 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
         bundle.putString("stepName", stepName);
         jsonFormFragment.setArguments(bundle);
         return jsonFormFragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
@@ -72,12 +65,13 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
 
 
     }
+
     @Override
     public JSONObject getStep(String stepName) {
         return super.getStep(stepName);
     }
-    public void processUniqueId(final int index) {
 
+    public void processUniqueId(final int index) {
 
 
         Utils.startAsyncTask(new AsyncTask() {
@@ -85,13 +79,14 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
 
             String unique_id = "";
             HouseholdId hhid = null;
+
             @Override
             protected Object doInBackground(Object[] objects) {
-                    SSLocations ssLocations = SSLocationHelper.getInstance().getSsLocationForms().get(index).locations;
-                    moduleId = ssLocations.union_ward.id+"";
-                    HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
-                    hhid = householdIdRepo.getNextHouseholdId(String.valueOf(ssLocations.village.id));
-                    unique_id = SSLocationHelper.getInstance().generateHouseHoldId(ssLocations, hhid.getOpenmrsId() + "");
+                SSLocations ssLocations = SSLocationHelper.getInstance().getSsLocationForms().get(index).locations;
+                moduleId = ssLocations.union_ward.id + "";
+                HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
+                hhid = householdIdRepo.getNextHouseholdId(String.valueOf(ssLocations.village.id));
+                unique_id = SSLocationHelper.getInstance().generateHouseHoldId(ssLocations, hhid.getOpenmrsId() + "");
 
                 return null;
             }
@@ -105,11 +100,11 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
                         if (!TextUtils.isEmpty(((MaterialEditText) formdataviews.get(i)).getFloatingLabelText()) && ((MaterialEditText) formdataviews.get(i)).getFloatingLabelText().toString().trim().equalsIgnoreCase("খানা নাম্বার")) {
                             ((MaterialEditText) formdataviews.get(i)).setText(unique_id);
                             try {
-                                getStep("step1").put("index",index);
+                                getStep("step1").put("index", index);
                                 JSONObject module_id = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "module_id");
-                                module_id.put("value",moduleId);
-                                if(hhid!=null){
-                                    getStep("step1").put("hhid",hhid.getOpenmrsId());
+                                module_id.put("value", moduleId);
+                                if (hhid != null) {
+                                    getStep("step1").put("hhid", hhid.getOpenmrsId());
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -125,7 +120,7 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.v("SIMPRINT_SDK","at fragment >> requestCode:"+requestCode+":resultCode:"+resultCode+":intent:"+data);
+        Log.v("SIMPRINT_SDK", "at fragment >> requestCode:" + requestCode + ":resultCode:" + resultCode + ":intent:" + data);
 
     }
 }

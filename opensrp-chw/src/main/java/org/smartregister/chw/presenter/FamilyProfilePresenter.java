@@ -11,6 +11,7 @@ import org.smartregister.chw.interactor.FamilyChangeContractInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.family.contract.FamilyProfileContract;
+import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.view.LocationPickerView;
 
@@ -29,7 +30,23 @@ public class FamilyProfilePresenter extends CoreFamilyProfilePresenter {
         return new ChildRegisterModel();
     }
 
-
+//    @Override
+//    public String saveChwFamilyMember(String jsonString) {
+//        try {
+//            getView().showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
+//
+//            FamilyEventClient familyEventClient = model.processMemberRegistration(jsonString, familyBaseEntityId);
+//            if (familyEventClient == null) {
+//                return null;
+//            }
+//
+//            interactor.saveRegistration(familyEventClient, jsonString, false, this);
+//            return familyEventClient.getClient().getBaseEntityId();
+//        } catch (Exception e) {
+//            Timber.e(e);
+//        }
+//        return null;
+//    }
     @Override
     public boolean updatePrimaryCareGiver(Context context, String jsonString, String familyBaseEntityId, String entityID) {
 

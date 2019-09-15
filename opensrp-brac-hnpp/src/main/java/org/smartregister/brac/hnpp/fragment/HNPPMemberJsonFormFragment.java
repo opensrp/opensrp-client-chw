@@ -52,6 +52,11 @@ public class HNPPMemberJsonFormFragment extends JsonWizardFormFragment {
     }
 
     @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        super.onItemSelected(parent, view, position, id);
+    }
+
+    @Override
     protected JsonFormFragmentViewState createViewState() {
         return super.createViewState();
     }
@@ -62,14 +67,14 @@ public class HNPPMemberJsonFormFragment extends JsonWizardFormFragment {
         return super.getStep(stepName);
     }
 
-    @Override
-    public void startSimprintsRegistration(String projectId,String userId,String moduleId) {
-        if(!TextUtils.isEmpty(projectId) && !TextUtils.isEmpty(userId) &&  !TextUtils.isEmpty(moduleId)){
-            SimprintsLibrary.init(getActivity(),projectId,userId);
-            SimprintsRegisterActivity.startSimprintsRegisterActivity(getActivity(),moduleId, JsonFormConstants.ACTIVITY_REQUEST_CODE.REQUEST_CODE_REGISTER);
-
-        }else {
-            Toast.makeText(getActivity(),"Project Id or user id or module id should not be empty",Toast.LENGTH_LONG).show();
-        }
-    }
+//    @Override
+//    public void startSimprintsRegistration(String projectId,String userId,String moduleId) {
+//        if(!TextUtils.isEmpty(projectId) && !TextUtils.isEmpty(userId) &&  !TextUtils.isEmpty(moduleId)){
+//            SimprintsLibrary.init(getActivity(),projectId,userId);
+//            SimprintsRegisterActivity.startSimprintsRegisterActivity(getActivity(),moduleId, JsonFormConstants.ACTIVITY_REQUEST_CODE.REQUEST_CODE_REGISTER);
+//
+//        }else {
+//            Toast.makeText(getActivity(),"Project Id or user id or module id should not be empty",Toast.LENGTH_LONG).show();
+//        }
+//    }
 }

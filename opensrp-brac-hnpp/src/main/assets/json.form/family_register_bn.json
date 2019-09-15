@@ -228,6 +228,7 @@
         "openmrs_data_type": "text",
         "type": "spinner",
         "hint": "এই খানাটি কি অন্য কোনো খানা ভেঙে তৈরী হয়েছে?",
+        "hidden": true,
         "v_required": {
           "value": true,
           "err": "Please Select"
@@ -249,6 +250,7 @@
         "openmrs_data_type": "text",
         "type": "spinner",
         "hint": "খানা বাছাই করুন",
+        "hidden": true,
         "v_required": {
           "value": true,
           "err": "Please Select"
@@ -272,6 +274,7 @@
         "type": "check_box",
         "label": "কোন কোন সদস্য স্থানান্তরিত হয়েছে বাছাই করুন",
         "label_text_style": "normal",
+        "hidden": true,
         "text_color": "#C0C0C0",
         "exclusive": [
           "chk_none"
