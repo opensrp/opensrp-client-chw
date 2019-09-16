@@ -36,8 +36,6 @@ android {
         multiDexEnabled true
         buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
         buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
-        buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
-        buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
         buildConfigField "boolean", 'SUPPORT_QR', 'true'
         buildConfigField "int", "DATABASE_VERSION", '5'
         buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
@@ -65,6 +63,8 @@ android {
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'false'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "Health Facility"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Health Facility"'
         }
 
         debug {
@@ -79,6 +79,8 @@ android {
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'false'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             testCoverageEnabled true
         }
     }

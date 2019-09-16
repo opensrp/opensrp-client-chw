@@ -147,6 +147,11 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         return metadata;
     }
 
+    @Override
+    public ArrayList<String> getAllowedLocationLevels() {
+        return new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LOCATION_LEVELS));
+    }
+
     public @NotNull Map<String, Class> getRegisteredActivities() {
         Map<String, Class> registeredActivities = new HashMap<>();
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, AncRegisterActivity.class);
