@@ -1,5 +1,6 @@
 package org.smartregister.brac.hnpp.custom_view;
 
+import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 
@@ -12,6 +13,8 @@ public class HnppNavigationTopView implements NavigationMenu.FlavorTop {
 
     @Override
     public String topText() {
-        return "User name"+" \n"+"019171777111";
+        String userName = HnppApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
+
+        return userName;
     }
 }

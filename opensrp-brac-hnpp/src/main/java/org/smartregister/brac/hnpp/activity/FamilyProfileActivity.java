@@ -45,10 +45,9 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
             }
         }
     }
-
     @Override
-    public void startFormActivity(JSONObject jsonForm) {
-        super.startFormActivity(jsonForm);
+    public void startFormForEdit() {
+        super.startFormForEdit();
     }
 
     @Override

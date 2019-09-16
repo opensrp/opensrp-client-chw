@@ -220,7 +220,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     @Override
     public void logout(Activity activity) {
         Toast.makeText(activity.getApplicationContext(), activity.getResources().getText(R.string.action_log_out), Toast.LENGTH_SHORT).show();
-        application.logoutCurrentUser();
+        application.forceLogout();
     }
 
     @Override

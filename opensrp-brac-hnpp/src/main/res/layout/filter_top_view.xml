@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:weightSum="2"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_marginRight="5dp"
+        android:background="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.vijay.jsonwizard.views.CustomTextView
+            android:id="@+id/village_name_filter"
+            android:layout_width="match_parent"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:text="@string/filter_village_name"
+            android:layout_toLeftOf="@+id/village_filter_img"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:id="@+id/village_filter_img"
+            android:src="@drawable/ic_village_filter"
+            android:padding="5dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginLeft="5dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.vijay.jsonwizard.views.CustomTextView
+            android:id="@+id/claster_name_filter"
+            android:layout_width="match_parent"
+            android:textColor="@color/white"
+            android:layout_toLeftOf="@+id/claster_filter_img"
+            android:text="@string/claster_village_name"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/claster_filter_img"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_village_filter"
+            android:padding="5dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+    </RelativeLayout>
+
+</LinearLayout>

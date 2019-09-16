@@ -118,7 +118,7 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
         MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         setOpenSRPUrl();
 
-        Configuration configuration = getApplicationContext().getResources().getConfiguration();
+//        Configuration configuration = getApplicationContext().getResources().getConfiguration();
 //        String language;
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 //            language = configuration.getLocales().get(0).getLanguage();
@@ -127,8 +127,8 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
 //        }
 //
 //        if (language.equals("bn")) {
-            saveLanguage("bn");
-        //}
+//            saveLanguage("bn");
+//        }
     }
     public static CommonFtsObject createCommonFtsObject() {
         return HNPPApplicationUtils.getCommonFtsObject(commonFtsObject);

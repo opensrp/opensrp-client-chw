@@ -11,4 +11,4 @@ description: simprints for female
 priority: 1
 condition: "step1_marital_status.equalsIgnoreCase('বিবাহিত')  && step1_sex.equalsIgnoreCase('নারী') && step1_age < 50"
 actions:
-  - "isRelevant = false"
+  - "isRelevant = true"

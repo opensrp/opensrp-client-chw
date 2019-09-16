@@ -200,6 +200,10 @@
         "type": "edit_text",
         "hint": "জাতীয় পরিচয় পত্র",
         "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter national id"
+        },
         "relevance": {
           "step1:id_avail": {
             "ex-checkbox": [
@@ -233,6 +237,26 @@
         }
       },
       {
+        "key": "is_birthday_known",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "আপনার জন্মতারিখ কি জানা আছে?",
+        "values": [
+          "হ্যাঁ",
+          "না"
+        ],
+        "openmrs_choice_ids": {
+          "হ্যাঁ": "yes",
+          "না":"no"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select value"
+        }
+      },
+      {
         "key": "dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -250,10 +274,9 @@
           "err": "Please enter the date of birth"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
-            }
+          "step1:is_birthday_known": {
+            "type": "string",
+            "ex": "equalTo(., \"হ্যাঁ\")"
           }
         }
       },
@@ -278,6 +301,7 @@
         "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
         "label": "",
+        "hidden":true,
         "options": [
           {
             "key": "dob_unknown",
@@ -307,10 +331,9 @@
           "err": "Age must be equal or less than 120"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
-            }
+          "step1:is_birthday_known": {
+            "type": "string",
+            "ex": "equalTo(., \"না\")"
           }
         },
         "v_required": {
@@ -426,7 +449,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "sample-relevance-rules.yml"
+              "rules-file": "hnpp_family_member_relevance.yml"
             }
           }
         }
@@ -443,7 +466,14 @@
         "module_id":"",
         "finger_print_option":"register",
         "uploadButtonText": "আঙ্গুলের ছাপ সংগ্রহ করুন",
-        "image_file": ""
+        "image_file": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hnpp_family_member_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "gu_id",

@@ -9,7 +9,7 @@
     android:layout_height="wrap_content">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/hh_profile_img"
-        app:civ_border_color="@color/hnpp_primary"
+        app:civ_border_color="@color/colorPrimary"
         app:civ_border_width="1dp"
         android:padding="10dp"
         android:layout_centerVertical="true"
@@ -126,7 +126,7 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/add_member_btn"
-        app:civ_border_color="@color/hnpp_primary"
+        app:civ_border_color="@color/colorPrimary"
         app:civ_border_width="1dp"
         android:padding="10dp"
         android:layout_centerVertical="true"

@@ -17,16 +17,21 @@ import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.location.SSLocationForm;
 import org.smartregister.brac.hnpp.repository.HnppChwRepository;
+import org.smartregister.chw.core.utils.ChwDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.util.FormUtils;
+import org.smartregister.view.LocationPickerView;
 
 import java.util.ArrayList;
 
@@ -60,6 +65,70 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         memberId.put(org.smartregister.family.util.JsonFormUtils.VALUE, houseHoldId+memberCountWithZero(memberCount+1));
         return form;
     }
+    public static JSONObject getAutoPopulatedJsonEditFormString(String formName, Context context, CommonPersonObjectClient client, String eventType) {
+        try {
+            JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
+            LocationPickerView lpv = new LocationPickerView(context);
+            lpv.init();
+            // JsonFormUtils.addWomanRegisterHierarchyQuestions(form);
+            Timber.d("Form is %s", form.toString());
+            if (form != null) {
+                form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
+                form.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, eventType);
+
+                JSONObject metadata = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.METADATA);
+                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
+
+                metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
+
+                form.put(org.smartregister.family.util.JsonFormUtils.CURRENT_OPENSRP_ID, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
+
+                //inject opensrp id into the form
+                JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+                JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    processPopulatableFields(client, jsonObject);
+
+                }
+
+                org.smartregister.family.util.JsonFormUtils.addLocHierarchyQuestions(form);
+
+                return form;
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+        return null;
+    }
+    protected static void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
+
+        switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()) {
+            case Constants.JSON_FORM_KEY.DOB_UNKNOWN:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
+                JSONObject optionsObject = jsonObject.getJSONArray(Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+                optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
+                break;
+            case "firstName":
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
+                        org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),DBConstants.KEY.FIRST_NAME, false));
+
+            case "contact_phone_number":
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
+                        org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),DBConstants.KEY.PHONE_NUMBER, false));
+
+                break;
+
+            default:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
+                        org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),
+                                jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY), false));
+                break;
+        }
+    }
+
 
     public static String memberCountWithZero(int count){
         return count<10 ? "0"+count : String.valueOf(count);
