@@ -20,6 +20,7 @@ import org.smartregister.brac.hnpp.repository.HnppChwRepository;
 import org.smartregister.brac.hnpp.repository.SSLocationRepository;
 import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
 import org.smartregister.brac.hnpp.sync.HnppSyncConfiguration;
+import org.smartregister.brac.hnpp.utils.HNPPApplicationUtils;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreApplication;
@@ -37,6 +38,7 @@ import org.smartregister.brac.hnpp.job.HnppJobCreator;
 import org.smartregister.brac.hnpp.model.NavigationModel;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.pnc.PncLibrary;
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
@@ -64,6 +66,7 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
     private HouseholdIdRepository householdIdRepository;
 
     private static SSLocationRepository locationRepository;
+    private static CommonFtsObject commonFtsObject = null;
 
     @Override
     public void onCreate() {
@@ -127,7 +130,9 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
             saveLanguage("bn");
         //}
     }
-
+    public static CommonFtsObject createCommonFtsObject() {
+        return HNPPApplicationUtils.getCommonFtsObject(commonFtsObject);
+    }
     public static synchronized HnppApplication getHNPPInstance() {
         return (HnppApplication) mInstance;
     }
