@@ -45,6 +45,12 @@
     <string name="home">হোম</string>
     <string name="job_aids">ড্যাশবোর্ড</string>
     <string name="add_family">খানা নিবন্ধন</string>
+    <string name="add_family_member">সদস্য যোগ করুন</string>
+    <string name="add_member_title">সদস্য যোগ করুন</string>
     <string name="save">জমা দিন</string>
     <string name="all_families">খানার তালিকা</string>
+    <string name="finger_print_added"><![CDATA[<b><font color=#3797ca>ফিঙ্গার প্রিন্ট দ্বারা নিবন্ধিত</font></b>]]></string>
+    <string name="add_member_title_question">আপনি কোন ধরণের পরিবারের সদস্য যুক্ত করতে চান?</string>
+    <string name="add_child_under_five">৫ বছরের কম বয়সী শিশু</string>
+    <string name="add_other_family_member">পরিবারের অন্য সদস্য</string>
 </resources>

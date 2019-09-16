@@ -145,8 +145,8 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
             setText(viewHolder.mobileNumber,context.getString(R.string.phone_no,phoneNumber));
         }
 
-        String totalMember = Utils.getValue(pc.getColumnmaps(), HnppConstants.KEY.TOTAL_MEMBER, true);
-        setText(viewHolder.totalMember,context.getString(R.string.member_count,TextUtils.isEmpty(totalMember)?"0":totalMember));
+//        String totalMember = Utils.getValue(pc.getColumnmaps(), HnppConstants.KEY.TOTAL_MEMBER, true);
+//        setText(viewHolder.totalMember,context.getString(R.string.member_count,TextUtils.isEmpty(totalMember)?"0":totalMember));
 
         View patient = viewHolder.patientColumn;
         attachPatientOnclickListener(patient, client);

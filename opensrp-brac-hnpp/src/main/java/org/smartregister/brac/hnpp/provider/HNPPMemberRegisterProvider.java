@@ -2,7 +2,14 @@ package org.smartregister.brac.hnpp.provider;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.brac.hnpp.R;
+import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.core.provider.CoreMemberRegisterProvider;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -18,6 +27,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
 import org.smartregister.family.provider.FamilyMemberRegisterProvider;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.customcontrols.FontVariant;
@@ -64,8 +74,6 @@ public class HNPPMemberRegisterProvider extends CoreMemberRegisterProvider {
         viewHolder.profile.setLayoutParams(layoutParams);
         viewHolder.patientNameAge.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimensionPixelSize(org.smartregister.chw.core.R.dimen.member_profile_list_title_size));
 
-
-
         viewHolder.statusLayout.setVisibility(View.GONE);
         viewHolder.status.setVisibility(View.GONE);
 
@@ -75,16 +83,17 @@ public class HNPPMemberRegisterProvider extends CoreMemberRegisterProvider {
 //        }
     }
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, final FamilyMemberRegisterProvider.RegisterViewHolder viewHolder) {
-        String firstName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "first_name", true);
-        String middleName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "middle_name", true);
-        String lastName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "last_name", true);
+        String firstName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
+        String middleName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
+        String lastName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String patientName = org.smartregister.family.util.Utils.getName(firstName, middleName, lastName);
-        String entityType = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "entity_type", false);
-        String relation_with_household_head = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "relation_with_household_head", false);
-        String dob = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "dob", false);
+        String entityType = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ENTITY_TYPE, false);
+        String relation_with_household_head = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), HnppConstants.KEY.RELATION_WITH_HOUSEHOLD, false);
+        String dob = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
+        String guId = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(),  HnppConstants.KEY.GU_ID, false);
         String dobString = org.smartregister.family.util.Utils.getDuration(dob);
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
-        String dod = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "dod", false);
+        String dod = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOD, false);
         if (StringUtils.isNotBlank(dod)) {
             dobString = org.smartregister.family.util.Utils.getDuration(dod, dob);
             dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
@@ -106,15 +115,19 @@ public class HNPPMemberRegisterProvider extends CoreMemberRegisterProvider {
         ((TextView)viewHolder.patientNameAge).setSingleLine(true);
         ((TextView)viewHolder.gender).setSingleLine(false);
         fillValue(viewHolder.patientNameAge, patientName);
-        String gender_key = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "gender", true);
-        String gender = "";
-        if (gender_key.equalsIgnoreCase("Male")) {
-            gender = this.context.getString(org.smartregister.family.R.string.male);
-        } else if (gender_key.equalsIgnoreCase("Female")) {
-            gender = this.context.getString(org.smartregister.family.R.string.female);
-        }
-        String relationAge = relation_with_household_head + "\nবয়সঃ " + org.smartregister.family.util.Utils.getTranslatedDate(dobString, this.context);
-        fillValue(viewHolder.gender, relationAge);
+//        String gender_key = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "gender", true);
+//        String gender = "";
+//        if (gender_key.equalsIgnoreCase("Male")) {
+//            gender = this.context.getString(org.smartregister.family.R.string.male);
+//        } else if (gender_key.equalsIgnoreCase("Female")) {
+//            gender = this.context.getString(org.smartregister.family.R.string.female);
+//        }
+        String relationAge = relation_with_household_head + "<br>বয়সঃ " + org.smartregister.family.util.Utils.getTranslatedDate(dobString, this.context);
+
+        if(!TextUtils.isEmpty(guId))relationAge = relationAge.concat("<br>"+this.context.getString(R.string.finger_print_added));
+        viewHolder.gender.setText(Html.fromHtml(relationAge));
+
+
         viewHolder.nextArrowColumn.setOnClickListener(new View.OnClickListener() {
             public void onClick(android.view.View v) {
                 viewHolder.nextArrow.performClick();

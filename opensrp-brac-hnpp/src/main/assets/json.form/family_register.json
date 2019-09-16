@@ -274,8 +274,8 @@
         "type": "check_box",
         "label": "কোন কোন সদস্য স্থানান্তরিত হয়েছে বাছাই করুন",
         "label_text_style": "normal",
-        "text_color": "#C0C0C0",
         "hidden": true,
+        "text_color": "#C0C0C0",
         "exclusive": [
           "chk_none"
         ],

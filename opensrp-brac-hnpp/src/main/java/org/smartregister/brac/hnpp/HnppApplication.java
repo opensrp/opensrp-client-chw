@@ -116,16 +116,16 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
         setOpenSRPUrl();
 
         Configuration configuration = getApplicationContext().getResources().getConfiguration();
-        String language;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            language = configuration.getLocales().get(0).getLanguage();
-        } else {
-            language = configuration.locale.getLanguage();
-        }
-
-        if (language.equals(Locale.FRENCH.getLanguage())) {
-            saveLanguage(Locale.FRENCH.getLanguage());
-        }
+//        String language;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            language = configuration.getLocales().get(0).getLanguage();
+//        } else {
+//            language = configuration.locale.getLanguage();
+//        }
+//
+//        if (language.equals("bn")) {
+            saveLanguage("bn");
+        //}
     }
 
     public static synchronized HnppApplication getHNPPInstance() {

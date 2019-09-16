@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Add Family Member",
+    "title": "সদস্য যোগ করুন",
     "fields": [
       {
         "key": "unique_id",
@@ -162,7 +162,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "id_avail",
         "type": "check_box",
-        "label": "Do you have any of the following IDs?",
+        "label": "আপনার কোন পরিচয় পত্রটি আছে?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -281,7 +281,7 @@
         "options": [
           {
             "key": "dob_unknown",
-            "text": "DOB unknown?",
+            "text": "বয়স অজানা?",
             "text_size": "18px",
             "value": "false"
           }
@@ -431,6 +431,7 @@
           }
         }
       },
+
       {
         "key": "finger_print",
         "openmrs_entity_parent": "",
@@ -441,7 +442,7 @@
         "user_id":"",
         "module_id":"",
         "finger_print_option":"register",
-        "uploadButtonText": "আঙ্গুলের ছাপ সংগ্রহ",
+        "uploadButtonText": "আঙ্গুলের ছাপ সংগ্রহ করুন",
         "image_file": ""
       },
       {

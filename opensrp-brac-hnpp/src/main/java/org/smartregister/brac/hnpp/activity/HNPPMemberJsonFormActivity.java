@@ -19,10 +19,10 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.ACTIVITY_REQUEST_
 import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
 
 public class HNPPMemberJsonFormActivity extends FamilyWizardFormActivity {
-
+    HNPPMemberJsonFormFragment jsonWizardFormFragment;
     @Override
     public void initializeFormFragment() {
-        HNPPMemberJsonFormFragment jsonWizardFormFragment = HNPPMemberJsonFormFragment.getFormFragment("step1");
+        jsonWizardFormFragment = HNPPMemberJsonFormFragment.getFormFragment("step1");
         this.getSupportFragmentManager().beginTransaction().add(id.container, jsonWizardFormFragment).commit();
     }
 
@@ -42,14 +42,7 @@ public class HNPPMemberJsonFormActivity extends FamilyWizardFormActivity {
 //                case REQUEST_CODE_REGISTER:
                     if(registration!=null){
                         String uniqueId = registration.getGuid();
-                        JSONObject guIdField = null;
-                        try {
-                            guIdField = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "gu_id");
-                            guIdField.put("value",uniqueId);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        jsonWizardFormFragment.updateGuid(uniqueId);
                     }else{
                         Toast.makeText(this,"GUID not found",Toast.LENGTH_SHORT).show();
                     }
