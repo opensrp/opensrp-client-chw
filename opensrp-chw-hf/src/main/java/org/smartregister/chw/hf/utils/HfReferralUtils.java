@@ -5,15 +5,11 @@ import android.widget.TextView;
 
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.core.utils.Utils;
-import org.smartregister.chw.hf.BuildConfig;
 import org.smartregister.chw.hf.HealthFacilityApplication;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.repository.HfTaskRepository;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Task;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class HfReferralUtils extends CoreReferralUtils {
 

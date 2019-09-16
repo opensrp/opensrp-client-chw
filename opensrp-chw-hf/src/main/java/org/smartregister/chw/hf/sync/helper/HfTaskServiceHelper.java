@@ -2,15 +2,12 @@ package org.smartregister.chw.hf.sync.helper;
 
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.hf.BuildConfig;
 import org.smartregister.chw.hf.HealthFacilityApplication;
-import org.smartregister.chw.hf.utils.HfReferralUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.TaskRepository;
 import org.smartregister.sync.helper.TaskServiceHelper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
