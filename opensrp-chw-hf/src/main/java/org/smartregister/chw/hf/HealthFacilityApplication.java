@@ -65,6 +65,12 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
     @Override
     public void onCreate() {
         super.onCreate();
+
+        mInstance = this;
+        context = Context.getInstance();
+        context.updateApplicationContext(getApplicationContext());
+        context.updateCommonFtsObject(createCommonFtsObject());
+
         //init Job Manager
         SyncStatusBroadcastReceiver.init(this);
         JobManager.create(this).addJobCreator(new HfJobCreator());
@@ -80,14 +86,8 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
-            Timber.plant(new CrashlyticsTree(HealthFacilityApplication.getInstance().getContext()
-                    .allSharedPreferences().fetchRegisteredANM()));
+            Timber.plant(new CrashlyticsTree(this.context.allSharedPreferences().fetchRegisteredANM()));
         }
-
-        mInstance = this;
-        context = Context.getInstance();
-        context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(createCommonFtsObject());
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder()
                 .disabled(BuildConfig.DEBUG).build()).build());
