@@ -6,17 +6,18 @@ import android.util.Pair;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.domain.db.EventClient;
-import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
@@ -71,12 +72,14 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
     @Override
     public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final CoreChildRegisterContract.InteractorCallBack callBack) {
 
-        Runnable runnable = () -> {
-            saveRegistration(pair, jsonString, isEditMode);
-            appExecutors.mainThread().execute(() -> callBack.onRegistrationSaved(isEditMode));
-        };
+        //   Runnable runnable = () -> {
+        if (saveRegistration(pair, jsonString, isEditMode)) {
+            callBack.onRegistrationSaved(isEditMode);
+        }
+        //    appExecutors.mainThread().execute(() -> callBack.onRegistrationSaved(isEditMode));
+        // };
 
-        appExecutors.diskIO().execute(runnable);
+        // appExecutors.diskIO().execute(runnable);
     }
 
     @Override
@@ -88,7 +91,7 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
         appExecutors.diskIO().execute(runnable);
     }
 
-    private void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
+    private boolean saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
 
         try {
 
@@ -109,7 +112,7 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
 
             if (baseEvent != null) {
                 eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
-                getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson);
+                getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson, BaseRepository.TYPE_Unsynced);
             }
 
             if (isEditMode) {
@@ -153,11 +156,13 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
 
         } catch (Exception e) {
             Timber.e(e);
+            return false;
         }
+        return true;
     }
 
     public ECSyncHelper getSyncHelper() {
-        return FamilyLibrary.getInstance().getEcSyncHelper();
+        return CoreChwApplication.getInstance().getEcSyncHelper();
     }
 
     public AllSharedPreferences getAllSharedPreferences() {
@@ -165,11 +170,11 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
     }
 
     public ClientProcessorForJava getClientProcessorForJava() {
-        return FamilyLibrary.getInstance().getClientProcessorForJava();
+        return CoreChwApplication.getInstance().getClientProcessorForJava();
     }
 
     public UniqueIdRepository getUniqueIdRepository() {
-        return FamilyLibrary.getInstance().getUniqueIdRepository();
+        return CoreChwApplication.getInstance().getUniqueIdRepository();
     }
 
     public enum type {SAVED, UPDATED}

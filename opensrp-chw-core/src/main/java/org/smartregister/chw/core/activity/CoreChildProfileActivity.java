@@ -37,6 +37,7 @@ import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.Task;
 import org.smartregister.family.util.Constants;
@@ -53,7 +54,6 @@ import timber.log.Timber;
 
 public class CoreChildProfileActivity extends BaseProfileActivity implements CoreChildProfileContract.View, CoreChildRegisterContract.InteractorCallBack {
     public static IntentFilter sIntentFilter;
-    private static Activity startActivity;
 
     static {
         sIntentFilter = new IntentFilter();
@@ -95,9 +95,10 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     private ImageView imageViewCross;
     private ProgressBar progressBar;
     private String gender;
+    private static boolean isStartedFromReferrals;
 
     public static void startMe(Activity activity, boolean isComesFromFamily, MemberObject memberObject, Class<?> cls) {
-        startActivity = activity;
+        isStartedFromReferrals = CoreReferralUtils.checkIfStartedFromReferrals(activity);
         Intent intent = new Intent(activity, cls);
         intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, isComesFromFamily);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
@@ -247,18 +248,9 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         if (isComesFromFamily) {
             textViewTitle.setText(getString(R.string.return_to_family_members));
         } else {
-            textViewTitle.setText(checkIfStartedFromReferrals() ? getString(R.string.return_to_task_details) : getString(R.string.return_to_all_children));
+            textViewTitle.setText(isStartedFromReferrals ? getString(R.string.return_to_task_details) : getString(R.string.return_to_all_children));
         }
 
-    }
-
-    private boolean checkIfStartedFromReferrals() {
-        boolean startedFromReferrals = false;
-        String referrerActivity = startActivity.getLocalClassName();
-        if ("activity.ReferralTaskViewActivity".equals(referrerActivity)) {
-            startedFromReferrals = true;
-        }
-        return startedFromReferrals;
     }
 
     /**
@@ -606,9 +598,5 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
             default:
                 break;
         }
-    }
-
-    public Activity getStartActivity() {
-        return startActivity;
     }
 }

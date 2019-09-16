@@ -9,7 +9,6 @@ import org.smartregister.chw.core.fragment.CoreFamilyProfileMemberFragment;
 import org.smartregister.chw.model.FamilyProfileMemberModel;
 import org.smartregister.chw.presenter.FamilyProfileMemberPresenter;
 import org.smartregister.chw.provider.ChwMemberRegisterProvider;
-import org.smartregister.chw.util.Utils;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
@@ -18,6 +17,7 @@ import org.smartregister.family.util.Constants;
 import java.util.Set;
 
 public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment {
+
 
     public static BaseFamilyProfileMemberFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -73,6 +73,5 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
                 // An invalid id was passed in
                 return null;
         }
-
     }
 }

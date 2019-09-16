@@ -18,11 +18,8 @@ import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.model.CoreChildRegisterFragmentModel;
 import org.smartregister.chw.core.presenter.CoreChildRegisterFragmentPresenter;
 import org.smartregister.chw.core.provider.CoreChildRegisterProvider;
-import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.FetchStatus;
@@ -32,7 +29,6 @@ import org.smartregister.util.Utils;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 import timber.log.Timber;
@@ -250,23 +246,17 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        if (StringUtils.isBlank(filters)) {
-            return super.onCreateLoader(id, args);
-        } else {
-            if (id == LOADER_ID) {// Returns a new CursorLoader
-                return new CursorLoader(getActivity()) {
-                    @Override
-                    public Cursor loadInBackground() {
-                        // Count query
-                        String query = "";
-                        // Select register query
-                        query = filterandSortQuery();
-                        return commonRepository().rawCustomQueryForAdapter(query);
-                    }
-                };
-            }// An invalid id was passed in
-            return null;
-        }
+        if (id == LOADER_ID) {// Returns a new CursorLoader
+            return new CursorLoader(getActivity()) {
+                @Override
+                public Cursor loadInBackground() {
+                    // Count query
+                    String query = filterandSortQuery();
+                    return commonRepository().rawCustomQueryForAdapter(query);
+                }
+            };
+        }// An invalid id was passed in
+        return null;
     }
 
     private String filterandSortQuery() {
@@ -274,18 +264,13 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
 
         String query = "";
         try {
-            if (isValidFilterForFts(commonRepository())) {
-                String sql = ChildDBConstants.childMainFilter(mainCondition, presenter().getMainCondition(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER)), filters, Sortqueries, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
-                List<String> ids = commonRepository().findSearchIds(sql);
-                query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
-                        Sortqueries);
-                query = sqb.Endquery(query);
-            } else {
-                sqb.addCondition(filters);
-                query = sqb.orderbyCondition(Sortqueries);
-                query = sqb.Endquery(sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
+            if (StringUtils.isNotBlank(filters))
+                sqb.addCondition(((CoreChildRegisterFragmentPresenter) presenter()).getFilterString(filters));
 
-            }
+            if (dueFilterActive)
+                sqb.addCondition(((CoreChildRegisterFragmentPresenter) presenter()).getDueCondition());
+            query = sqb.orderbyCondition(Sortqueries);
+            query = sqb.Endquery(sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
         } catch (Exception e) {
             Timber.e(e);
         }

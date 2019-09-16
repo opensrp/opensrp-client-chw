@@ -86,8 +86,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
         addContentView(familyFloatingMenu, linearLayoutParams);
         prepareFab();
-        fetchProfileData();
-        presenter().fetchTasks();
     }
 
     @Override
@@ -200,5 +198,15 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         familyFloatingMenu.fab.setOnClickListener(v -> FamilyCallDialogFragment.launchDialog(
                 this, ((HfChildProfilePresenter) presenter).getFamilyId()));
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchProfileData();
+        presenter().fetchTasks();
+        if (referralRecyclerView.getAdapter() != null) {
+            referralRecyclerView.getAdapter().notifyDataSetChanged();
+        }
     }
 }
