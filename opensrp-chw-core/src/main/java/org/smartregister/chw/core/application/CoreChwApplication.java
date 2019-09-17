@@ -36,12 +36,13 @@ import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.activity.LoginActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import timber.log.Timber;
 
-public class CoreChwApplication extends DrishtiApplication implements CoreApplication {
+public abstract class CoreChwApplication extends DrishtiApplication implements CoreApplication {
 
     private static ClientProcessorForJava clientProcessor;
 
@@ -263,4 +264,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         metadata.updateFamilyOtherMemberRegister(CoreConstants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
         return metadata;
     }
+
+    @Override
+    public abstract ArrayList<String> getAllowedLocationLevels();
 }

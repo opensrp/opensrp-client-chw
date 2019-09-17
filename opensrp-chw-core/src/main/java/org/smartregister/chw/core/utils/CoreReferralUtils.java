@@ -165,9 +165,7 @@ public class CoreReferralUtils {
         }*/
         task.setPlanIdentifier(CoreConstants.REFERRAL_PLAN_ID);
         LocationHelper locationHelper = LocationHelper.getInstance();
-        ArrayList<String> allowedLevels = new ArrayList<>();
-        allowedLevels.add(CoreConstants.CONFIGURATION.HEALTH_FACILITY_TAG);
-        task.setGroupIdentifier(locationHelper.getOpenMrsLocationId(locationHelper.generateDefaultLocationHierarchy(allowedLevels).get(0)));
+        task.setGroupIdentifier(locationHelper.getOpenMrsLocationId(locationHelper.generateDefaultLocationHierarchy(CoreChwApplication.getInstance().getAllowedLocationLevels()).get(0)));
         task.setStatus(Task.TaskStatus.READY);
         task.setBusinessStatus(CoreConstants.BUSINESS_STATUS.REFERRED);
         task.setPriority(3);

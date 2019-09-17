@@ -2,6 +2,7 @@ package org.smartregister.chw.hf.sync.helper;
 
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.hf.HealthFacilityApplication;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.TaskRepository;
 import org.smartregister.sync.helper.TaskServiceHelper;
@@ -28,8 +29,7 @@ public class HfTaskServiceHelper extends TaskServiceHelper {
     @Override
     protected List<String> getLocationIds() {
         LocationHelper locationHelper = LocationHelper.getInstance();
-        ArrayList<String> allowedLevels = new ArrayList<>();
-        allowedLevels.add(CoreConstants.CONFIGURATION.HEALTH_FACILITY_TAG);
+        ArrayList<String> allowedLevels = HealthFacilityApplication.getInstance().getAllowedLocationLevels();
         List<String> locations = new ArrayList<>();
         locations.add(locationHelper.getOpenMrsLocationId(locationHelper.generateDefaultLocationHierarchy(allowedLevels).get(0)));
         return locations;
