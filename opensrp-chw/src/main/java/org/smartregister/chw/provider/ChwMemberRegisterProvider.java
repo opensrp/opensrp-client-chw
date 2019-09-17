@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import org.jeasy.rules.api.Rules;
+import org.slf4j.helpers.Util;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.model.ChildVisit;
@@ -32,6 +33,8 @@ import java.util.Map;
 import java.util.Set;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.ChwDBConstants.PREGNANCY_OUTCOME;
 
 public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private Context context;
@@ -58,10 +61,27 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         viewHolder.status.setVisibility(View.GONE);
 
         String entityType = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
+        viewHolder.profile.setImageResource(getMemberProfileImageResourceIdentifier(pc));
         if (Constants.TABLE_NAME.CHILD.equals(entityType)) {
             Utils.startAsyncTask(new UpdateAsyncTask(viewHolder, pc), null);
         }
 
+    }
+
+    private int getMemberProfileImageResourceIdentifier(CommonPersonObjectClient commonPerson) {
+        Map<String, String> details = ChwApplication.pncRegisterRepository().getPncMemberDetails(commonPerson.entityId());
+        if (details.size() > 0) {
+            // Check pregnancy outcome
+            if (details.get(PREGNANCY_OUTCOME).equals("Live birth") || details.get(PREGNANCY_OUTCOME).equals("Stillbirth")) {
+                return Utils.getPnCWomanImageResourceIdentifier();
+            } else{
+                return Utils.getMemberImageResourceIdentifier();
+            }
+        } else if (ChwApplication.ancRegisterRepository().checkIfAncWoman(commonPerson.entityId())) {
+            return Utils.getAnCWomanImageResourceIdentifier();
+        } else {
+            return org.smartregister.family.util.Utils.getMemberProfileImageResourceIDentifier(Utils.getValue(commonPerson.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false));
+        }
     }
 
     private Map<String, String> getChildDetails(String baseEntityId) {

@@ -17,6 +17,7 @@ public interface ChwDBConstants {
     String NEAREST_HEALTH_FACILITY = "nearest_facility";
     String IS_CLOSED = "is_closed";
     String DELIVERY_DATE = "delivery_date";
+    String PREGNANCY_OUTCOME = "preg_outcome";
     String NEXT_VISIT_DATE = "next_visit_date";
     String TASK_STATUS = "status";
     String TASK_CODE = "code";
