@@ -5,6 +5,8 @@ import org.smartregister.chw.core.helper.RulesEngineHelper;
 import org.smartregister.family.domain.FamilyMetadata;
 import org.smartregister.sync.helper.ECSyncHelper;
 
+import java.util.ArrayList;
+
 public interface CoreApplication {
     void saveLanguage(String language);
 
@@ -17,4 +19,6 @@ public interface CoreApplication {
     RulesEngineHelper getRulesEngineHelper();
 
     FamilyMetadata getMetadata();
+
+    ArrayList<String> getAllowedLocationLevels();
 }
