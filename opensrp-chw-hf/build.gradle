@@ -63,8 +63,8 @@ android {
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'false'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "Health Facility"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"Ward"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "Health Facility", "Village", "Village Sublocations"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Health Facility"'
         }
 
         debug {
