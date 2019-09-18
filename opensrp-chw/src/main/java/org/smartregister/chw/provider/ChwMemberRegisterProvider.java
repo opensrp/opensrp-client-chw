@@ -173,24 +173,6 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         view.setTag(R.id.VIEW_ID, BaseFamilyProfileMemberFragment.CLICK_VIEW_NEXT_ARROW);
     }
 
-
-    /*private void updateDueColumn(RegisterViewHolder viewHolder, ChildVisit childVisit) {
-        viewHolder.statusLayout.setVisibility(View.VISIBLE);
-        if (childVisit != null) {
-            viewHolder.status.setVisibility(View.VISIBLE);
-            if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
-                viewHolder.status.setImageResource(Utils.getDueProfileImageResourceIDentifier());
-            } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
-                viewHolder.status.setImageResource(Utils.getOverDueProfileImageResourceIDentifier());
-            } else {
-                viewHolder.status.setVisibility(View.INVISIBLE);
-            }
-        } else {
-            viewHolder.status.setVisibility(View.INVISIBLE);
-        }
-    }*/
-
-
     private void updateDueColumn(RegisterViewHolder viewHolder, String memberBaseEntityId) {
         viewHolder.statusLayout.setVisibility(View.VISIBLE);
         String dueState = FamilyDao.getMemberDueStatus(memberBaseEntityId);
@@ -311,7 +293,6 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         protected void onPostExecute(Void param) {
             // Update status column
             if (childVisit != null) {
-                // updateDueColumn(viewHolder, childVisit);
             }
         }
     }
