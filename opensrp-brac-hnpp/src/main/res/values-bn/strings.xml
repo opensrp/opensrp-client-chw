@@ -56,4 +56,11 @@
     <string name="filter_village_name">গ্রাম : %s</string>
     <string name="claster_village_name">ক্লাস্টার : %s</string>
     <string name="add_new_family_member">নতুন সদস্য যোগ করুন</string>
+    <string name="gender_male">পুরুষ</string>
+    <string name="gender_female">নারী</string>
+    <string name="Male">পুরুষ</string>
+    <string name="Female">নারী</string>
+    <string name="male">পুরুষ</string>
+    <string name="female">নারী</string>
+    <string name="relation_with_member_and_head">সম্পর্ক : %s</string>
 </resources>

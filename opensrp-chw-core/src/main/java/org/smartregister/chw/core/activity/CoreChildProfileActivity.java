@@ -96,7 +96,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     private TextView textViewNotVisitMonth, textViewUndo, textViewNameDue, textViewFamilyHas;
     private ImageView imageViewCross;
     private ProgressBar progressBar;
-    private String gender;
+    protected String gender;
 
     public static void startMe(Activity activity, boolean isComesFromFamily, MemberObject memberObject, Class<?> cls) {
         startActivity = activity;

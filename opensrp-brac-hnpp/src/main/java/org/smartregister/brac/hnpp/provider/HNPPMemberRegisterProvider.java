@@ -122,7 +122,7 @@ public class HNPPMemberRegisterProvider extends CoreMemberRegisterProvider {
 //        } else if (gender_key.equalsIgnoreCase("Female")) {
 //            gender = this.context.getString(org.smartregister.family.R.string.female);
 //        }
-        String relationAge = relation_with_household_head + "<br>বয়সঃ " + org.smartregister.family.util.Utils.getTranslatedDate(dobString, this.context);
+        String relationAge = context.getString(R.string.relation_with_member_and_head,relation_with_household_head) + "<br>বয়সঃ " + org.smartregister.family.util.Utils.getTranslatedDate(dobString, this.context);
 
         if(!TextUtils.isEmpty(guId))relationAge = relationAge.concat("<br>"+this.context.getString(R.string.finger_print_added));
         viewHolder.gender.setText(Html.fromHtml(relationAge));

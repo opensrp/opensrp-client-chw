@@ -3,7 +3,7 @@ package org.smartregister.brac.hnpp.fragment;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.brac.hnpp.activity.ChildProfileActivity;
 import org.smartregister.brac.hnpp.model.HnppChildRegisterFragmentModel;
-import org.smartregister.brac.hnpp.utils.HnppMemberObject;
+import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreChildHomeVisitActivity;
 import org.smartregister.chw.core.fragment.CoreChildRegisterFragment;
@@ -28,7 +28,7 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
             CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
             String baseEntityId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
             if (StringUtils.isNotBlank(baseEntityId)) {
-                CoreChildHomeVisitActivity.startMe(getActivity(), new HnppMemberObject(client), false);
+                CoreChildHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
             }
         }
     }
@@ -49,8 +49,8 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
         if (launchDialog) {
             Timber.i(patient.name);
         }
-
-        ChildProfileActivity.startMe(getActivity(), false, new HnppMemberObject(patient), ChildProfileActivity.class);
+        String houseHoldId = Utils.getValue(patient.getColumnmaps(), HnppConstants.KEY.HOUSE_HOLD_ID, false);
+        ChildProfileActivity.startMe(getActivity(), houseHoldId,false, new MemberObject(patient), ChildProfileActivity.class);
     }
 
     @Override

@@ -38,6 +38,7 @@ import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -178,6 +179,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
             Utils.startAsyncTask(new UpdateAsyncTask(context, viewHolder, familyBaseEntityId, totalMember), null);
         }
     }
+    private Map<String,View> viewMap = new HashMap<>();
     protected void updateChildIcons(HouseHoldRegisterProvider viewHolder, List<Map<String, String>> list, int ancWomanCount,int memberCount , String totalMember) {
 
         //if( memberCount > 0){
@@ -199,27 +201,46 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
             viewHolder.memberIcon.setVisibility(View.VISIBLE);
             for (Map<String, String> map : list) {
                 String gender = map.get(DBConstants.KEY.GENDER);
-                if ("Male".equalsIgnoreCase(gender)) {
+                if (context.getString(R.string.gender_male).equalsIgnoreCase(gender)) {
                     maleChildCount++;
                 } else {
                     femaleChildCount++;
                 }
             }
             if(maleChildCount>0){
-                View view = LayoutInflater.from(context).inflate(R.layout.member_with_count, null);
-                ImageView ancImage = view.findViewById(R.id.member_image);
-                TextView textViewCount = view.findViewById(R.id.count_tv);
-                ancImage.setImageResource(org.smartregister.chw.core.R.mipmap.ic_boy_child);
-                textViewCount.setText(maleChildCount+"");
-                viewHolder.memberIcon.addView(view);
+                View v;
+                if(viewMap.containsKey("Male")){
+                    v = viewMap.get("Male");
+                }else{
+                    v = LayoutInflater.from(context).inflate(R.layout.member_with_count, null);
+                    viewMap.put("Male",v);
+
+                    viewHolder.memberIcon.addView(v);
+                }
+                if(v!=null){
+                    ImageView ancImage = v.findViewById(R.id.member_image);
+                    TextView textViewCount = v.findViewById(R.id.count_tv);
+                    ancImage.setImageResource(org.smartregister.chw.core.R.mipmap.ic_boy_child);
+                    textViewCount.setText(maleChildCount+"");
+                }
+
             }
             if(femaleChildCount>0){
-                View view = LayoutInflater.from(context).inflate(R.layout.member_with_count, null);
-                ImageView ancImage = view.findViewById(R.id.member_image);
-                TextView textViewCount = view.findViewById(R.id.count_tv);
-                ancImage.setImageResource(org.smartregister.chw.core.R.mipmap.ic_girl_child);
-                textViewCount.setText(femaleChildCount+"");
-                viewHolder.memberIcon.addView(view);
+                View v;
+                if(viewMap.containsKey("Female")){
+                    v = viewMap.get("Female");
+                }else{
+                    v = LayoutInflater.from(context).inflate(R.layout.member_with_count, null);
+                    viewMap.put("Female",v);
+
+                    viewHolder.memberIcon.addView(v);
+                }
+                if(v!=null){
+                    ImageView ancImage = v.findViewById(R.id.member_image);
+                    TextView textViewCount = v.findViewById(R.id.count_tv);
+                    ancImage.setImageResource(org.smartregister.chw.core.R.mipmap.ic_girl_child);
+                    textViewCount.setText(femaleChildCount+"");
+                }
             }
         }
 

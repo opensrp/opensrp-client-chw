@@ -71,7 +71,7 @@ public class ChildProfileActivity extends HnppCoreChildProfileActivity {
             familyName = "";
         }
 
-        presenter = new HfChildProfilePresenter(this, new CoreChildProfileModel(familyName), memberObject.getHouseHoldId(), childBaseEntityId);
+        presenter = new HfChildProfilePresenter(this, new CoreChildProfileModel(familyName), houseHoldId, childBaseEntityId);
     }
 
     @Override
