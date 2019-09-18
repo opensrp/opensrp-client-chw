@@ -65,6 +65,10 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
         return form;
     }
     public static JSONObject updateChildFormWithMetaData(JSONObject form,String houseHoldId, String familyBaseEntityId) throws JSONException {
+
+        JSONObject lookUpJSONObject = getJSONObject(getJSONObject(form, METADATA), "look_up");
+        lookUpJSONObject.put("entity_id","family");
+        lookUpJSONObject.put("value",familyBaseEntityId);
         form.put("relational_id", familyBaseEntityId);
         JSONArray field = fields(form, STEP1);
         JSONObject houseHoldIdObject = getFieldJSONObject(field, "house_hold_id");
