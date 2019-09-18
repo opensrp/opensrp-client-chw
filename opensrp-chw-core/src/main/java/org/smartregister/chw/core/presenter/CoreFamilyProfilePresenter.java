@@ -3,6 +3,8 @@ package org.smartregister.chw.core.presenter;
 import android.content.Context;
 import android.util.Pair;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
@@ -70,6 +72,7 @@ public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresen
     @Override
     public void startFormForEdit(CommonPersonObjectClient client) {
         JSONObject form = CoreJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyDetailsRegister(), getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
+        CoreJsonFormUtils.populateLocationsTree(form, JsonFormConstants.STEP1, CoreChwApplication.getInstance().getAllowedLocationLevels(), "nearest_facility");
         try {
             getView().startFormActivity(form);
         } catch (Exception e) {
