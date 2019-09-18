@@ -60,9 +60,15 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
                     .replace(HnppConstants.IDENTIFIER.FAMILY_TEXT,"");
         }
 
-        //TODO need to generate
         int memberCount = HnppApplication.ancRegisterRepository().getMemberCount(familyBaseEntityId);
         memberId.put(org.smartregister.family.util.JsonFormUtils.VALUE, houseHoldId+memberCountWithZero(memberCount+1));
+        return form;
+    }
+    public static JSONObject updateChildFormWithMetaData(JSONObject form,String houseHoldId, String familyBaseEntityId) throws JSONException {
+        form.put("relational_id", familyBaseEntityId);
+        JSONArray field = fields(form, STEP1);
+        JSONObject houseHoldIdObject = getFieldJSONObject(field, "house_hold_id");
+        houseHoldIdObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, houseHoldId);
         return form;
     }
     public static JSONObject getAutoPopulatedJsonEditFormString(String formName, Context context, CommonPersonObjectClient client, String eventType) {
@@ -115,10 +121,11 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
                         org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),DBConstants.KEY.FIRST_NAME, false));
 
-            case "first_name":
+            break;
+                case "first_name":
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
                         org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),DBConstants.KEY.FIRST_NAME, false));
-
+            break;
             case "contact_phone_number":
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
                         org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),DBConstants.KEY.PHONE_NUMBER, false));

@@ -28,7 +28,7 @@ public class HnppChildRegisterModel extends CoreChildRegisterModel {
             return null;
         }
         HnppJsonFormUtils.updateFormWithMemberId(form,houseHoldId,familyBaseEntityId);
-        return form;
+        return HnppJsonFormUtils.updateChildFormWithMetaData(form, houseHoldId,familyBaseEntityId);
     }
 
 }
