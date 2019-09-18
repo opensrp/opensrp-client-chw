@@ -9,11 +9,11 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import org.jeasy.rules.api.Rules;
-import org.slf4j.helpers.Util;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
@@ -70,11 +70,11 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
 
     private int getMemberProfileImageResourceIdentifier(CommonPersonObjectClient commonPerson) {
         Map<String, String> details = ChwApplication.pncRegisterRepository().getPncMemberDetails(commonPerson.entityId());
-        if (details.size() > 0) {
-            // Check pregnancy outcome
-            if (details.get(PREGNANCY_OUTCOME).equals("Live birth") || details.get(PREGNANCY_OUTCOME).equals("Stillbirth")) {
+        String memberId = details.get(DBConstants.KEY.ID.toLowerCase());
+        if (memberId != null && !TextUtils.isEmpty(memberId)) {
+            if (details.get(PREGNANCY_OUTCOME).equals(CoreConstants.FORM_CONSTANTS.PREGNANCY_OUTCOME.LIVE_BIRTH) || details.get(PREGNANCY_OUTCOME).equals(CoreConstants.FORM_CONSTANTS.PREGNANCY_OUTCOME.STILL_BIRTH)) {
                 return Utils.getPnCWomanImageResourceIdentifier();
-            } else{
+            } else {
                 return Utils.getMemberImageResourceIdentifier();
             }
         } else if (ChwApplication.ancRegisterRepository().checkIfAncWoman(commonPerson.entityId())) {
