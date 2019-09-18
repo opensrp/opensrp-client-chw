@@ -35,7 +35,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class ChildProfileActivity extends CoreChildProfileActivity {
+public class ChildProfileActivity extends HnppCoreChildProfileActivity {
     public CoreFamilyMemberFloatingMenu familyFloatingMenu;
     public RelativeLayout referralRow;
     public RecyclerView referralRecyclerView;
@@ -71,7 +71,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
             familyName = "";
         }
 
-        presenter = new HfChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
+        presenter = new HfChildProfilePresenter(this, new CoreChildProfileModel(familyName), memberObject.getHouseHoldId(), childBaseEntityId);
     }
 
     @Override

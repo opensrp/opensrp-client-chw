@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import org.smartregister.brac.hnpp.activity.AboveFiveChildProfileActivity;
 import org.smartregister.brac.hnpp.activity.ChildProfileActivity;
-import org.smartregister.brac.hnpp.activity.FamilyOtherMemberProfileActivity;
+import org.smartregister.brac.hnpp.activity.HnppFamilyOtherMemberProfileActivity;
 import org.smartregister.brac.hnpp.model.HNPPFamilyProfileMemberModel;
 import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
@@ -49,7 +49,7 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
 
     @Override
     protected Class<?> getFamilyOtherMemberProfileActivityClass() {
-        return FamilyOtherMemberProfileActivity.class;
+        return HnppFamilyOtherMemberProfileActivity.class;
     }
 
     @Override

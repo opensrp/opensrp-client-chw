@@ -25,7 +25,7 @@ import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
 
-public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
+public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private BAJsonFormUtils baJsonFormUtils;
 
@@ -91,7 +91,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     @Override
     protected Context getFamilyOtherMemberProfileActivity() {
-        return FamilyOtherMemberProfileActivity.this;
+        return HnppFamilyOtherMemberProfileActivity.this;
     }
 
     @Override
@@ -129,7 +129,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     private void setupMenuOptions(Menu menu) {
-        menu.findItem(R.id.action_malaria_registration).setVisible(true);
+        menu.findItem(R.id.action_malaria_registration).setVisible(false);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);

@@ -40,7 +40,7 @@ import timber.log.Timber;
 /**
  * Created by keyman on 13/11/2018.
  */
-public class JsonFormUtils extends CoreJsonFormUtils {
+public class HnppJsonFormUtils extends CoreJsonFormUtils {
     public static final String METADATA = "metadata";
     public static final String VILLAGE_NAME = "village_name";
     public static final String ENCOUNTER_TYPE = "encounter_type";
@@ -70,7 +70,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
             LocationPickerView lpv = new LocationPickerView(context);
             lpv.init();
-            // JsonFormUtils.addWomanRegisterHierarchyQuestions(form);
+            // HnppJsonFormUtils.addWomanRegisterHierarchyQuestions(form);
             Timber.d("Form is %s", form.toString());
             if (form != null) {
                 form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
@@ -112,6 +112,10 @@ public class JsonFormUtils extends CoreJsonFormUtils {
                 optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
                 break;
             case "firstName":
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
+                        org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),DBConstants.KEY.FIRST_NAME, false));
+
+            case "first_name":
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
                         org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),DBConstants.KEY.FIRST_NAME, false));
 
@@ -209,16 +213,16 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             }
             lastInteractedWith(fields);
             dobUnknownUpdateFromAge(fields);
-            processChildEnrollment(jsonForm, fields);
+
 
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
             Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId, getString(jsonForm, ENCOUNTER_TYPE), CoreConstants.TABLE_NAME.CHILD);
             tagSyncMetadata(allSharedPreferences, baseEvent);
-
-            if (baseClient != null || baseEvent != null) {
-                String imageLocation = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
-                org.smartregister.family.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
-            }
+//
+//            if (baseClient != null || baseEvent != null) {
+//                String imageLocation = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
+//                org.smartregister.family.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
+//            }
 
             JSONObject lookUpJSONObject = getJSONObject(getJSONObject(jsonForm, METADATA), "look_up");
             String lookUpEntityId = "";

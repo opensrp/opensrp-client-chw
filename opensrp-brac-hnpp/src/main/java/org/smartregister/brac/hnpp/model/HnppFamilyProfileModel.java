@@ -1,10 +1,8 @@
 package org.smartregister.brac.hnpp.model;
 
 import org.json.JSONObject;
-import org.smartregister.brac.hnpp.utils.JsonFormUtils;
+import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
 import org.smartregister.chw.core.model.CoreFamilyProfileModel;
-import org.smartregister.chw.core.utils.FormUtils;
-import org.smartregister.family.domain.FamilyEventClient;
 
 public class HnppFamilyProfileModel extends CoreFamilyProfileModel {
     private String moduleId;
@@ -23,8 +21,8 @@ public class HnppFamilyProfileModel extends CoreFamilyProfileModel {
         if (form == null) {
             return null;
         }
-        JsonFormUtils.updateFormWithMemberId(form,houseHoldId,familyBaseEntityId);
-        JsonFormUtils.updateFormWithModuleId(form,moduleId);
+        HnppJsonFormUtils.updateFormWithMemberId(form,houseHoldId,familyBaseEntityId);
+        HnppJsonFormUtils.updateFormWithModuleId(form,moduleId);
 
         return form;
     }

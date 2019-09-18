@@ -107,7 +107,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
 
             }
             populatePatientColumn(pc, client, viewHolder);
-            populateMemberIconView(pc, viewHolder);
+            populateMemberIconView(pc, viewHolder,Utils.getValue(pc.getColumnmaps(), HnppConstants.KEY.TOTAL_MEMBER, true));
 
             return;
         }
@@ -135,6 +135,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
         if(!TextUtils.isEmpty(houseHoldId)){
             houseHoldId = houseHoldId.replace(Constants.IDENTIFIER.FAMILY_SUFFIX,"")
                     .replace(HnppConstants.IDENTIFIER.FAMILY_TEXT,"");
+            houseHoldId = houseHoldId.substring(houseHoldId.length() - 7);
         }
         setText(viewHolder.houseHoldId,context.getString(R.string.house_hold_id,houseHoldId));
 
@@ -171,17 +172,18 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
         }
     }
 
-    private void populateMemberIconView(CommonPersonObjectClient pc, HouseHoldRegisterProvider viewHolder) {
+    private void populateMemberIconView(CommonPersonObjectClient pc, HouseHoldRegisterProvider viewHolder , String totalMember) {
         String familyBaseEntityId = pc.getCaseId();
         if (updateAsyncTask == null) { //Ensure this task is only called once
-            Utils.startAsyncTask(new UpdateAsyncTask(context, viewHolder, familyBaseEntityId), null);
+            Utils.startAsyncTask(new UpdateAsyncTask(context, viewHolder, familyBaseEntityId, totalMember), null);
         }
     }
-    protected void updateChildIcons(HouseHoldRegisterProvider viewHolder, List<Map<String, String>> list, int ancWomanCount,int memberCount) {
+    protected void updateChildIcons(HouseHoldRegisterProvider viewHolder, List<Map<String, String>> list, int ancWomanCount,int memberCount , String totalMember) {
+
+        //if( memberCount > 0){
+            setText(viewHolder.registeredMember,context.getString(R.string.registered_count,memberCount+"",totalMember));
+       // }
         if (memberCount == 0) return;
-        if( memberCount > 0){
-            setText(viewHolder.registeredMember,context.getString(R.string.registered_count,memberCount+""));
-        }
         if (ancWomanCount > 0) {
             viewHolder.memberIcon.setVisibility(View.VISIBLE);
             View view = LayoutInflater.from(context).inflate(R.layout.member_with_count, null);
@@ -345,9 +347,11 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
         private List<Map<String, String>> list;
         private int memberCount;
         private int ancWomanCount;
+        private String totalMember;
 
-        private UpdateAsyncTask(Context context, HouseHoldRegisterProvider viewHolder, String familyBaseEntityId) {
+        private UpdateAsyncTask(Context context, HouseHoldRegisterProvider viewHolder, String familyBaseEntityId ,String totalMember) {
             this.context = context;
+            this.totalMember = totalMember;
             this.viewHolder = viewHolder;
             this.familyBaseEntityId = familyBaseEntityId;
         }
@@ -365,7 +369,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
         protected void onPostExecute(Void param) {
             // Update child Icon
 //            updateChildIcons(viewHolder, list, memberCount);
-            updateChildIcons(viewHolder, list, ancWomanCount,memberCount);
+            updateChildIcons(viewHolder, list, ancWomanCount,memberCount,totalMember);
         }
     }
 

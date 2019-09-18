@@ -49,7 +49,7 @@
         </activity>
 
         <activity
-            android:name="org.smartregister.brac.hnpp.activity.FamilyOtherMemberProfileActivity"
+            android:name="org.smartregister.brac.hnpp.activity.HnppFamilyOtherMemberProfileActivity"
             android:label="@string/title_family_detail"
             android:parentActivityName="org.smartregister.brac.hnpp.activity.FamilyRegisterActivity"
             android:theme="@style/FamilyTheme.NoActionBar">
@@ -140,6 +140,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/FamilyTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+        <activity android:name=".activity.HnppCoreChildProfileActivity" />
 
 
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />

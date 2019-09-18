@@ -105,6 +105,13 @@
           }
         },
         {
+          "column_name": "village_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.village_id"
+          }
+        },
+        {
           "column_name": "date_removed",
           "type": "Client",
           "json_mapping": {
@@ -394,6 +401,13 @@
           }
         },
         {
+          "column_name": "house_hold_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.house_hold_id"
+          }
+        },
+        {
           "column_name": "relational_id",
           "type": "Client",
           "json_mapping": {
@@ -437,6 +451,20 @@
           }
         },
         {
+          "column_name": "relation_with_household_head",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.relation_with_household_head"
+          }
+        },
+        {
+          "column_name": "Mother_Guardian_First_Name_english",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.Mother_Guardian_First_Name_english"
+          }
+        },
+        {
           "column_name": "dob",
           "type": "Client",
           "json_mapping": {
@@ -476,14 +504,6 @@
           "type": "Client",
           "json_mapping": {
             "field": "blood_group"
-          }
-        },
-
-        {
-          "column_name": "simprints",
-          "type": "Client",
-          "json_mapping": {
-            "field": "simprints"
           }
         },
         {

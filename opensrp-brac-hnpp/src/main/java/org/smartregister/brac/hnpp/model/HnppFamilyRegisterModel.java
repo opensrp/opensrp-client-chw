@@ -1,20 +1,16 @@
 package org.smartregister.brac.hnpp.model;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
-import org.smartregister.brac.hnpp.location.SSLocationForm;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.location.SSLocations;
 import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
-import org.smartregister.brac.hnpp.utils.JsonFormUtils;
+import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
 import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.model.BaseFamilyRegisterModel;
-import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.Utils;
 
 import java.util.ArrayList;
@@ -29,8 +25,8 @@ public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
         if (form == null) {
             return null;
         }
-        JsonFormUtils.updateFormWithSSLocation(form,SSLocationHelper.getInstance().getSsLocationForms());
-        return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
+        HnppJsonFormUtils.updateFormWithSSLocation(form,SSLocationHelper.getInstance().getSsLocationForms());
+        return HnppJsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
     }
 
     @Override
@@ -44,12 +40,12 @@ public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
             HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
             householdIdRepo.close(villageId,hhid);
             List<FamilyEventClient> familyEventClientList = new ArrayList<>();
-            FamilyEventClient familyEventClient = JsonFormUtils.processFamilyUpdateForm(Utils.context().allSharedPreferences(), jsonString);
+            FamilyEventClient familyEventClient = HnppJsonFormUtils.processFamilyUpdateForm(Utils.context().allSharedPreferences(), jsonString);
             if (familyEventClient == null) {
                 return familyEventClientList;
             }
 
-//        FamilyEventClient headEventClient = JsonFormUtils.processFamilyHeadRegistrationForm(Utils.context().allSharedPreferences(), jsonString, familyEventClient.getClient().getBaseEntityId());
+//        FamilyEventClient headEventClient = HnppJsonFormUtils.processFamilyHeadRegistrationForm(Utils.context().allSharedPreferences(), jsonString, familyEventClient.getClient().getBaseEntityId());
 //        if (headEventClient == null) {
 //            return familyEventClientList;
 //        }

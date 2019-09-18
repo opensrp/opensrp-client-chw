@@ -54,6 +54,7 @@ public class SSLocationHelper {
         addressMap.put("address2", ssLocations.city_corporation_upazila.name);
         addressMap.put("address3", ssLocations.pourosava.name);
         addressMap.put("address7", ssLocations.mouza.name);
+        addressMap.put("address8", ssLocations.village.id+"");
         address.setAddressFields(addressMap);
         address.setStateProvince(ssLocations.division.name);
         address.setCityVillage(ssLocations.village.name);

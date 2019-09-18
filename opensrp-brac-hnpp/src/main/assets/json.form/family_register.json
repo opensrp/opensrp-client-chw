@@ -62,6 +62,13 @@
         "type": "hidden"
       },
       {
+        "key": "village_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "village_id",
+        "type": "hidden"
+      },
+      {
         "key": "village_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",

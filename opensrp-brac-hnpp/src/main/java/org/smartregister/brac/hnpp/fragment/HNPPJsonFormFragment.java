@@ -76,7 +76,7 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
 
         Utils.startAsyncTask(new AsyncTask() {
             String moduleId = "";
-
+            String village_id = "";
             String unique_id = "";
             HouseholdId hhid = null;
 
@@ -85,7 +85,8 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
                 SSLocations ssLocations = SSLocationHelper.getInstance().getSsLocationForms().get(index).locations;
                 moduleId = ssLocations.union_ward.id + "";
                 HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
-                hhid = householdIdRepo.getNextHouseholdId(String.valueOf(ssLocations.village.id));
+                village_id = String.valueOf(ssLocations.village.id);
+                hhid = householdIdRepo.getNextHouseholdId(village_id);
                 unique_id = SSLocationHelper.getInstance().generateHouseHoldId(ssLocations, hhid.getOpenmrsId() + "");
 
                 return null;
@@ -102,6 +103,8 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
                             try {
                                 getStep("step1").put("index", index);
                                 JSONObject module_id = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "module_id");
+                                JSONObject villageId = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "village_id");
+                                villageId.put("value", village_id);
                                 module_id.put("value", moduleId);
                                 if (hhid != null) {
                                     getStep("step1").put("hhid", hhid.getOpenmrsId());

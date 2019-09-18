@@ -2,6 +2,8 @@ package org.smartregister.brac.hnpp.fragment;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.brac.hnpp.activity.ChildProfileActivity;
+import org.smartregister.brac.hnpp.model.HnppChildRegisterFragmentModel;
+import org.smartregister.brac.hnpp.utils.HnppMemberObject;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreChildHomeVisitActivity;
 import org.smartregister.chw.core.fragment.CoreChildRegisterFragment;
@@ -12,6 +14,7 @@ import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.util.Utils;
+import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.util.Set;
 
@@ -25,9 +28,20 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
             CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
             String baseEntityId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
             if (StringUtils.isNotBlank(baseEntityId)) {
-                CoreChildHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
+                CoreChildHomeVisitActivity.startMe(getActivity(), new HnppMemberObject(client), false);
             }
         }
+    }
+
+    @Override
+    protected void initializePresenter() {
+        if (getActivity() == null) {
+            return;
+        }
+
+        String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        presenter = new HnppChildRegisterFragmentPresenter(this, new HnppChildRegisterFragmentModel(), viewConfigurationIdentifier);
+
     }
 
     @Override
@@ -36,7 +50,7 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
             Timber.i(patient.name);
         }
 
-        ChildProfileActivity.startMe(getActivity(), false, new MemberObject(patient), ChildProfileActivity.class);
+        ChildProfileActivity.startMe(getActivity(), false, new HnppMemberObject(patient), ChildProfileActivity.class);
     }
 
     @Override
@@ -45,5 +59,10 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
         clientAdapter = new RecyclerViewPaginatedAdapter(null, childRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
+    }
+
+    @Override
+    protected String getMainCondition() {
+        return super.getMainCondition();
     }
 }

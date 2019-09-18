@@ -52,101 +52,29 @@
     }
   },
   "step1": {
-    "title": "Add Child Under 5",
+    "title": "৫ বছরের কম বয়সী শিশু যুক্ত করুন",
     "fields": [
-      {
-        "key": "photo",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "choose_image",
-        "uploadButtonText": "Take a picture of the person"
-      },
       {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
-        "type": "barcode",
-        "barcode_type": "qrcode",
-        "hint": "Boresha Afya ID",
-        "scanButtonText": "Scan QR Code",
-        "v_numeric": {
-          "value": "true",
-          "err": "Please enter a valid ID"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the UNIQUE ID"
-        }
-      },
-      {
-        "key": "surname",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Surname",
-        "edit_type": "name",
-        "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "Please enter a valid name"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the surname"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
-            }
-          }
+        "hint": "নাম্বার",
+        "read_only": true,
+        "v_numeric": {
+          "value": "false",
+          "err": "Please enter a valid ID"
         }
       },
       {
-        "key": "same_as_fam_name",
+        "key": "house_hold_id",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "text",
-        "type": "check_box",
-        "label": "",
-        "exclusive": [
-          "none"
-        ],
-        "options": [
-          {
-            "key": "same_as_fam_name",
-            "text": "Surname same as family name",
-            "text_size": "18px",
-            "value": "false"
-          }
-        ]
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "house_hold_id",
+        "type": "hidden"
       },
-      {
-        "key": "fam_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "label",
-        "hidden": "true"
-      },
-      {
-        "key": "surname_calculation",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "hidden",
-        "hint": "Surname as Family name",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family-child-calculation.yml"
-            }
-          }
-        }
-      },
+
       {
         "key": "first_name",
         "openmrs_entity_parent": "",
@@ -154,35 +82,103 @@
         "openmrs_entity_id": "first_name",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "First name",
+        "hint": "নাম",
         "expanded": false,
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please Enter first name"
+          "err": "Please Enter name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\-]*",
-          "err": "Please Enter a Valid Name"
+        "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+        "err": "Please enter a valid name"
+      }
+      },
+      {
+        "key": "relation_with_household_head",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "relation_with_household_head",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "hint": "খানা প্রধানের সাথে সম্পর্ক",
+        "values": [
+          "খানা প্রধান",
+          "ছেলে",
+          "মেয়ে",
+          "নাতি",
+          "নাতনী",
+          "অন্যান্য"
+        ],
+        "openmrs_choice_ids": {
+          "খানা প্রধান": "1",
+          "ছেলে": "2",
+          "মেয়ে": "3",
+          "নাতি": "6",
+          "নাতনী": "7",
+          "অন্যান্য": "10"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select relation"
         }
       },
       {
-        "key": "middle_name",
+        "key": "mother_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "middle_name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "মাতার নাম",
+        "values": [
+          "মাতা রেজিস্টার্ড নয়"
+        ],
+        "openmrs_choice_ids": {
+          "মাতা রেজিস্টার্ড নয়": "1"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select value"
+        }
+      },
+      {
+        "key": "Mother_Guardian_First_Name_english",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Mother_Guardian_First_Name_english",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Middle name",
-        "expanded": false,
         "edit_type": "name",
+        "hint": "মাতার নাম (ইংরেজীতে)",
         "v_required": {
-          "value": "true",
-          "err": "Please Enter middle name"
+          "value": true,
+          "err": "Please enter the mother/guardian's first name"
         },
-        "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "Please Enter a Valid Name"
+        "relevance": {
+          "step1:mother_name": {
+            "type": "string",
+            "ex": "equalTo(., \"মাতা রেজিস্টার্ড নয়\")"
+          }
+        }
+      },
+      {
+        "key": "is_birthday_known",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "আপনার জন্মতারিখ কি জানা আছে?",
+        "values": [
+          "হ্যাঁ",
+          "না"
+        ],
+        "openmrs_choice_ids": {
+          "হ্যাঁ": "yes",
+          "না":"no"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select value"
         }
       },
       {
@@ -191,7 +187,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
         "type": "date_picker",
-        "hint": "Date of birth (DOB)",
+        "hint": "জন্ম তারিখ",
         "expanded": false,
         "duration": {
           "label": "Age"
@@ -203,29 +199,25 @@
           "err": "Please enter the date of birth"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
-            }
+          "step1:is_birthday_known": {
+            "type": "string",
+            "ex": "equalTo(., \"হ্যাঁ\")"
           }
         }
       },
       {
-        "key": "dob_unknown",
+        "key": "age_calculated",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdateApprox",
-        "hidden": "false",
-        "type": "check_box",
-        "label": "",
-        "options": [
-          {
-            "key": "dob_unknown",
-            "text": "DOB unknown?",
-            "text_size": "18px",
-            "value": "false"
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_register_calculation.yml"
+            }
           }
-        ]
+        }
       },
       {
         "key": "age",
@@ -233,7 +225,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "age",
         "type": "edit_text",
-        "hint": "Age",
+        "hint": "আনুমানিক বয়স",
         "v_numeric": {
           "value": "true",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
@@ -247,10 +239,9 @@
           "err": "Age must be equal or less than 5"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
-            }
+          "step1:is_birthday_known": {
+            "type": "string",
+            "ex": "equalTo(., \"না\")"
           }
         },
         "v_required": {
@@ -259,208 +250,61 @@
         }
       },
       {
-        "key": "insurance_provider",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "insurance_provider",
-        "type": "spinner",
-        "hint": "Health insurance provider",
-        "values": [
-          "Community Health Fund (CHF)",
-          "iCHF",
-          "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
-          "Tiba Kwa Kadi (TIKA)",
-          "AAR Healthcare",
-          "Strategies Insurance",
-          "Milvik Tanzania  Ltd (BIMA Mkononi)",
-          "Britam Insurance Tanzania",
-          "Jubilee Insurance",
-          "Resolutions Insurance",
-          "Reliance Insurance",
-          "Other",
-          "None"
-        ],
-        "openmrs_choice_ids": {
-          "Community Health Fund (CHF)": "Community_Health_Fund",
-          "iCHF": "iCHF",
-          "National Social Security Fund - Social Health Insurance Benefit (SHIB)": "National_Social_Security_Fund",
-          "Tiba Kwa Kadi (TIKA)": "Tiba_kwa_Kadi",
-          "AAR Healthcare": "AAR_Healthcare",
-          "AAR Strategies Insurance": "Strategies_Insurance",
-          "Milvik Tanzania  Ltd (BIMA Mkononi)": "BIMA_Mkononi",
-          "Britam Insurance Tanzania": "Britam_Insurance_Tanzania",
-          "Jubilee Insurance": "Jubilee_Insurance",
-          "Resolutions Insurance": "Resolutions_Insurance",
-          "Reliance Insurance": "Reliance_Insurance",
-          "Other": "Other_Health_Insurance_Type",
-          "None": "No_Health_Insurance"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the insurance provider"
-        }
-      },
-      {
-        "key": "insurance_provider_other",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Other_Health_Insurance_Type",
-        "type": "edit_text",
-        "hint": "Other health insurance provider",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify the insurance provider"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_register_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "insurance_provider_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Health_Insurance_Number",
-        "type": "edit_text",
-        "hint": "Health insurance provider number",
-        "v_required": {
-          "value": "true",
-          "err": "Please add the health insurance provider iD Number"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_register_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "gender",
+        "key": "sex",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "spinner",
-        "hint": "Sex",
+        "hint": "লিঙ্গ",
         "values": [
-          "Male",
-          "Female"
+          "পুরুষ",
+          "নারী",
+          "তৃতীয় লিঙ্গ"
+
         ],
+        "openmrs_choice_ids": {
+          "পুরুষ": "1",
+          "নারী":"2",
+          "তৃতীয় লিঙ্গ": "3"
+        },
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please enter the sex"
         }
       },
       {
-        "key": "disabilities",
+        "key": "blood_group",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "blood_group",
+        "openmrs_data_type": "text",
         "type": "spinner",
-        "hint": "Physical disabilities",
+        "hint": "রক্তের গ্রুপ",
         "values": [
-          "Yes",
-          "No"
+          "A+",
+          "A-",
+          "B+",
+          "B-",
+          "O+",
+          "O-",
+          "AB+",
+          "AB-",
+          "রক্তের গ্রুপ জানা নেই"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select one"
-        }
-      },
-      {
-        "key": "type_of_disability",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "edit_type": "name",
-        "hint": "Type of physical disabilities",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
-            }
-          }
+          "A+": "1",
+          "A-": "2",
+          "B+": "3",
+          "B-": "4",
+          "O+": "5",
+          "O-": "6",
+          "AB+": "7",
+          "AB-": "8",
+          "রক্তের গ্রুপ জানা নেই": "9"
         },
         "v_required": {
           "value": true,
-          "err": "Please enter type of physical disabilities"
-        }
-      },
-      {
-        "key": "birth_cert_available",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Birth registration/certificate",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        }
-      },
-      {
-        "key": "birth_regist_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Birth registration number",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "rhc_card",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Does the child have child growth booklet",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        }
-      },
-      {
-        "key": "nutrition_status",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Nutrition status",
-        "values": [
-          "Green",
-          "Grey",
-          "Red"
-        ],
-        "openmrs_choice_ids": {
-          "Green": "160909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Grey": "163639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Red": "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please provide child nutrition status"
+          "err": "Please Select Blood Group"
         }
       }
     ]
