@@ -21,7 +21,7 @@ public class FamilyDao extends AbstractDao {
                 "WHEN strftime('%Y-%m-%d') BETWEEN over_due_date AND expiry_date THEN  'OVERDUE' " +
                 "WHEN strftime('%Y-%m-%d')  >= expiry_date  THEN  'EXPIRY'  end  visit_state " +
                 "FROM schedule_service s " +
-                "inner join ec_family_member m on s.base_entity_id  = m.base_entity_id " +
+                "inner join ec_family_member m on s.base_entity_id  = m.base_entity_id COLLATE NOCASE " +
                 "WHERE visit_state is NOT NULL " +
                 ") counters   where counters.relational_id = '" + familyBaseEntityID + "'" + "COLLATE NOCASE " +
                 "group by relational_id, visit_state";
