@@ -151,12 +151,12 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
     @Override
     public void startFormForEdit(Integer title_resource, String formName) {
-      /*  try {
-            JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAncPncForm(title_resource, formName, MEMBER_OBJECT, this);
-            startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
+        try {
+            JSONObject form = CoreJsonFormUtils.getAncPncForm(title_resource, formName, MEMBER_OBJECT, this);
+            startActivityForResult(CoreJsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (Exception e) {
             Timber.e(e);
-        }*/
+        }
     }
 
     @Override
