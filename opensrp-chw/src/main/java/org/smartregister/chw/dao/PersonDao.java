@@ -59,6 +59,7 @@ public class PersonDao extends AbstractDao {
                 "inner join ec_family_member on ec_child.base_entity_id = ec_family_member.base_entity_id " +
                 "where ec_child.mother_entity_id = '" + baseEntityID + "' " +
                 "and ec_child.date_removed is null and ec_family_member.date_removed is null " +
+                "and date(ec_child.dob, '+28 days') >=  date() " +
                 "order by ec_family_member.first_name , ec_family_member.last_name , ec_family_member.middle_name ";
 
         // extract lbw from the pregnancy outcome form

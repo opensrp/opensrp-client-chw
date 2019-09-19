@@ -169,7 +169,7 @@
           },
           {
             "key": "Fullness_or_pain_of_the_breasts",
-            "text": "Fullness or pain of the breasts or nipples and failure to breast feed",
+            "text": "Breast engorgement",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "118620AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -305,7 +305,7 @@
           },
           {
             "key": "Disabilities",
-            "text": "Disabilities",
+            "text": "Congenital Disabilities",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

@@ -105,7 +105,7 @@ public abstract class CoreFamilyChangeContractInteractor implements FamilyChange
                 try {
                     updateFamilyRelations(context, member, lastLocationId);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
 
                 appExecutors.mainThread().execute(new Runnable() {

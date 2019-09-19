@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import com.google.common.reflect.TypeToken;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -31,6 +32,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
+import org.smartregister.domain.form.FormLocation;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.Constants;
@@ -363,7 +365,7 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
                 addresses.add(address);
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
         return addresses;
     }
@@ -735,7 +737,7 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
                 metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
         return form;
 
@@ -921,15 +923,48 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
                         Timber.e(e);
                     }
                 }
-
                 return form;
+            }
+
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return null;
+    }
+
+    public static void populateLocationsTree(JSONObject form, String stepName,
+                                             ArrayList<String> healthFacilities, String locationTree) {
+        try {
+            JSONArray questions = form.getJSONObject(stepName).getJSONArray(JsonFormConstants.FIELDS);
+            healthFacilities.add(0, "Country");
+            healthFacilities.add(1, "Region");
+            healthFacilities.add(2, "District");
+            List<String> defaultFacility = LocationHelper.getInstance().generateDefaultLocationHierarchy(healthFacilities);
+            List<FormLocation> upToFacilities = LocationHelper.getInstance().generateLocationHierarchyTree(false, healthFacilities);
+
+            String defaultFacilityString = AssetHandler.javaToJsonString(defaultFacility,
+                    new TypeToken<List<String>>() {
+                    }.getType());
+
+            String upToFacilitiesString = AssetHandler.javaToJsonString(upToFacilities,
+                    new TypeToken<List<FormLocation>>() {
+                    }.getType());
+
+            for (int i = 0; i < questions.length(); i++) {
+                if (questions.getJSONObject(i).getString(JsonFormConstants.KEY).equals(locationTree)) {
+                    if (StringUtils.isNotBlank(upToFacilitiesString)) {
+                        questions.getJSONObject(i).put(JsonFormConstants.TREE, new JSONArray(upToFacilitiesString));
+                    }
+                    if (StringUtils.isNotBlank(defaultFacilityString)) {
+                        questions.getJSONObject(i).put(JsonFormConstants.DEFAULT, defaultFacilityString);
+                    }
+                }
             }
         } catch (Exception e) {
             Timber.e(e);
         }
-
-        return null;
     }
+
 
     private static Event getEditAncLatestProperties(String baseEntityID) {
 

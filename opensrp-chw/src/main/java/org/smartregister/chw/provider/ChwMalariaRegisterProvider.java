@@ -23,6 +23,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Set;
 
+import timber.log.Timber;
+
 public class ChwMalariaRegisterProvider extends MalariaRegisterProvider {
 
     private Context context;
@@ -72,7 +74,7 @@ public class ChwMalariaRegisterProvider extends MalariaRegisterProvider {
                 Date date = new SimpleDateFormat(CoreConstants.DATE_FORMATS.NATIVE_FORMS, Locale.getDefault()).parse(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MALARIA_TEST_DATE, false));
                 malariaFollowUpRule = MalariaVisitUtil.getMalariaStatus(date);
             } catch (ParseException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
             return null;
         }

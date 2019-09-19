@@ -18,7 +18,6 @@ import org.smartregister.chw.core.interactor.CorePncMemberProfileInteractor;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.pnc.PncLibrary;
-import org.smartregister.chw.pnc.interactor.BasePncMemberProfileInteractor;
 import org.smartregister.chw.util.ScheduleUtil;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;

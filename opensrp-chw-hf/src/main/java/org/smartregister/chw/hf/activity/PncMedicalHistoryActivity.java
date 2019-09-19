@@ -9,7 +9,6 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.activity.CorePncMedicalHistoryActivity;
-import org.smartregister.chw.core.activity.DefaultPncMedicalHistoryActivityFlv;
 import org.smartregister.chw.core.helper.BaMedicalHistoryActivityHelper;
 import org.smartregister.chw.hf.interactor.PncMedicalHistoryActivityInteractor;
 

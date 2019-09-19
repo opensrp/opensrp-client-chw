@@ -95,7 +95,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             return true;
             // }
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
         return false;
@@ -229,7 +229,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
         return value;
     }

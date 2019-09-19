@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import timber.log.Timber;
+
 public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpcomingServicesInteractor.Flavor {
 
     @Override
@@ -39,7 +41,7 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
             String x = dao.getAncCreatedDate(memberObject.getBaseEntityId());
             createDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(x);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
         if (createDate == null) {
             return services;

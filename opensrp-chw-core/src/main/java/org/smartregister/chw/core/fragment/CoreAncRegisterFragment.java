@@ -222,7 +222,7 @@ public abstract class CoreAncRegisterFragment extends BaseAncRegisterFragment {
         }
 
         if (dueFilterActive) {
-            customFilter.append(MessageFormat.format(" and ( {0} ) ", presenter().getDueFilterCondition()));
+            customFilter.append(getDueCondition());
         }
 
         try {
@@ -265,6 +265,9 @@ public abstract class CoreAncRegisterFragment extends BaseAncRegisterFragment {
         return super.onCreateLoader(id, args);
     }
 
+    public String getDueCondition() {
+        return " and " + CoreConstants.TABLE_NAME.ANC_MEMBER + ".base_entity_id in (select base_entity_id from schedule_service where strftime('%Y-%m-%d') BETWEEN due_date and expiry_date and schedule_name = '" + CoreConstants.SCHEDULE_TYPES.ANC_VISIT + "' and ifnull(not_done_date,'') = '' and ifnull(completion_date,'') = '' )  ";
+    }
 
     @Override
     public void countExecute() {
@@ -281,7 +284,7 @@ public abstract class CoreAncRegisterFragment extends BaseAncRegisterFragment {
             }
 
             if (dueFilterActive) {
-                query = query + " and ( " + presenter().getDueFilterCondition() + " ) ";
+                query = query + getDueCondition();
             }
 
             cursor = commonRepository().rawCustomQueryForAdapter(query);

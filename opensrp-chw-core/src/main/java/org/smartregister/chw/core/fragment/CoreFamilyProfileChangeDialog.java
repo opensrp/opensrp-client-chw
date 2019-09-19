@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.adapter.MemberAdapter;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.FamilyChangeContract;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.listener.MemberAdapterListener;
@@ -210,7 +212,7 @@ public abstract class CoreFamilyProfileChangeDialog extends DialogFragment imple
 
             if (memberAdapter == null) {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                memberAdapter = new MemberAdapter(getActivity(), members, this);
+                memberAdapter = new MemberAdapter(getMyContext(), members, this);
                 memberAdapter.setFlavorPhoneNumberLength(phoneNumberLengthFlavor);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(memberAdapter);
@@ -218,6 +220,15 @@ public abstract class CoreFamilyProfileChangeDialog extends DialogFragment imple
                 memberAdapter.notifyDataSetChanged();
             }
         }
+    }
+
+    @NonNull
+    private Context getMyContext() {
+        Context context = getActivity();
+        if (context == null)
+            context = CoreChwApplication.getInstance();
+
+        return context;
     }
 
     @Override

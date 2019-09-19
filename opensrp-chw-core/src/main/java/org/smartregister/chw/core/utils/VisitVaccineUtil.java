@@ -44,6 +44,24 @@ public class VisitVaccineUtil {
 
     private static HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules;
 
+    private static Map<String, VaccineRepo.Vaccine> vaccineMap;
+
+    public static Map<String, VaccineRepo.Vaccine> getAllVaccines() {
+        if (vaccineMap == null || vaccineMap.size() == 0) {
+            vaccineMap = new HashMap<>();
+
+            List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines("woman");
+            allVacs.addAll(VaccineRepo.getVaccines("child"));
+
+            for (VaccineRepo.Vaccine vaccine : allVacs) {
+                vaccineMap.put(
+                        vaccine.display().toLowerCase().replace(" ", "").replace("_", ""),
+                        vaccine
+                );
+            }
+        }
+        return vaccineMap;
+    }
 
     public static List<Alert> getNextVaccines(String baseEntityID, DateTime anchorDate, String category, boolean includePending) {
 

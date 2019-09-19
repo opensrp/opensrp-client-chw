@@ -1,7 +1,6 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 

@@ -170,7 +170,6 @@
     <string name="deworming">Deworming</string>
     <string name="vaccine_card_title">Child vaccine card received</string>
     <string name="birth_certification">Birth certification</string>
-    <string name="home_visit_suffix"> &#183; Home Visit</string>
     <string name="no_vaccines_were_done">No vaccines were done</string>
     <string name="vaccine_card_text">Did the child receive their vaccine card?</string>
     <string name="record_immunizations">Record vaccinations</string>
@@ -353,6 +352,7 @@
     <string name="referral_submitted">Referral sent to facility</string>
     <string name="ga_label">GA</string>
     <string name="cancel">Cancel</string>
+    <string name="referral_day">Referral %s</string>
 
     <string name="phone_not_provided">Phone not provided</string>
     <string name="anc_danger_sign_prefix">ANC Danger Signs; Symptoms: %s</string>
@@ -378,4 +378,10 @@
     <string name="tasks_status">{0}</string>
     <string name="tasks_not_done">Tasks not done</string>
     <string name="tasks_done">Tasks done</string>
+
+    <!-- Family Register tasks -->
+    <string name="home_visit_suffix"> &#183; Home Visit</string>
+    <string name="anc_visit_suffix"> &#183; ANC Visit</string>
+    <string name="pnc_visit_suffix"> &#183; PNC Visit</string>
+    <string name="malaria_visit_suffix"> &#183; Malaria Visit</string>
 </resources>

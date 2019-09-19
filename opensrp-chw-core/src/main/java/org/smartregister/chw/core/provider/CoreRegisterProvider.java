@@ -4,16 +4,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.provider.FamilyRegisterProvider;
@@ -46,7 +50,11 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
 
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
-        super.getView(cursor, client, viewHolder);
+        CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
+        String familyHeadId = pc.getColumnmaps().get("family_head");
+        if (StringUtils.isNotBlank(familyHeadId)) {
+            super.getView(cursor, client, viewHolder);
+        }
 
         if (!(viewHolder.memberIcon instanceof LinearLayout)) {
             return;
@@ -59,12 +67,31 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
         }
     }
 
+    private void addImageView(RegisterViewHolder viewHolder, int res_id) {
+        ImageView imageView = new ImageView(context);
+        int size = convertDpToPixel(22, context);
+        imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        imageView.setImageResource(res_id);
+        imageView.getLayoutParams().height = size;
+        imageView.getLayoutParams().width = size;
+        LinearLayout linearLayout = (LinearLayout) viewHolder.memberIcon;
+        linearLayout.addView(imageView);
+    }
+
     private void updatePncAncIcons(RegisterViewHolder viewHolder, int womanCount, String register) {
         for (int i = 1; i <= womanCount; i++) {
-            ImageView imageView = new ImageView(context);
-            imageView.setImageResource(CoreConstants.TABLE_NAME.ANC_MEMBER.equals(register) ? R.mipmap.ic_anc_pink : org.smartregister.family.R.mipmap.row_pnc);
-            LinearLayout linearLayout = (LinearLayout) viewHolder.memberIcon;
-            linearLayout.addView(imageView);
+            int res = CoreConstants.TABLE_NAME.ANC_MEMBER.equals(register) ? R.mipmap.ic_anc_pink : org.smartregister.family.R.mipmap.row_pnc;
+            addImageView(viewHolder, res);
+        }
+    }
+
+    public static int convertDpToPixel(int dp, Context context) {
+        return dp * (context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
+
+    protected void updateMalariaIcons(RegisterViewHolder viewHolder, int malariaCount) {
+        for (int i = 1; i <= malariaCount; i++) {
+            addImageView(viewHolder, R.drawable.ic_row_malaria);
         }
     }
 
@@ -74,8 +101,6 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
         updatePncAncIcons(viewHolder, pncWomanCount, CoreConstants.TABLE_NAME.PNC_MEMBER);
 
         if (list != null && !list.isEmpty()) {
-            ImageView imageView;
-            LinearLayout linearLayout;
             for (Map<String, String> map : list) {
                 if ("PNC".equals(map.get(CoreConstants.DB_CONSTANTS.ENTRY_POINT))) {
                     String dob = map.get(DBConstants.KEY.DOB);
@@ -83,17 +108,13 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
                         return;
                     }
                 }
-                imageView = new ImageView(context);
+
                 String gender = map.get(DBConstants.KEY.GENDER);
-                if ("Male".equalsIgnoreCase(gender)) {
-                    imageView.setImageResource(R.mipmap.ic_boy_child);
-                } else {
-                    imageView.setImageResource(R.mipmap.ic_girl_child);
-                }
-                linearLayout = (LinearLayout) viewHolder.memberIcon;
-                linearLayout.addView(imageView);
+                int res = ("Male".equalsIgnoreCase(gender)) ? R.mipmap.ic_boy_child : R.mipmap.ic_girl_child;
+                addImageView(viewHolder, res);
             }
         }
+
     }
 
     public abstract void updateDueColumn(Context context, RegisterViewHolder viewHolder, ChildVisit childVisit);

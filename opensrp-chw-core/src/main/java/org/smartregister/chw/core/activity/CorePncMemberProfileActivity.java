@@ -108,7 +108,7 @@ public abstract class CorePncMemberProfileActivity extends BasePncMemberProfileA
 
     @Override
     public void updateVisitNotDone(long value) {
-        return;
+        //Overridden
     }
 
     @Override

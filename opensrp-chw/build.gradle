@@ -123,12 +123,12 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".ba"
             versionCode 1
-            versionName "0.0.6"
+            versionName "1.0.1"
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"MOH Jhpiego Facility Name" , "Village"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'true'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'false'
@@ -181,8 +181,8 @@ android {
         togo {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
-            versionCode 4
-            versionName "1.0.3"
+            versionCode 5
+            versionName "1.0.4"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-togo.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
@@ -191,7 +191,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
-            buildConfigField "int", "DATABASE_VERSION", '9'
+            buildConfigField "int", "DATABASE_VERSION", '10'
         }
         wcaro {
             dimension = 'baseDimension'

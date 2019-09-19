@@ -168,6 +168,10 @@
           "1",
           "2+"
         ],
+        "keys": [
+          "1",
+          "2+"
+        ],
         "openmrs_choice_ids": {
           "1": "159913AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "2+": "159914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -193,6 +197,12 @@
         "type": "spinner",
         "hint": "The place the mother gave birth",
         "values": [
+          "At home",
+          "At a health facility",
+          "On the way to the health facility",
+          "Other"
+        ],
+        "keys": [
           "At home",
           "At a health facility",
           "On the way to the health facility",
@@ -286,7 +296,7 @@
         "options": [
           {
             "key": "facility_family_member",
-            "text": "She gave birth in a helath facility, and she was accompanied by family member(s)",
+            "text": "She gave birth in a health facility, and she was accompanied by family member(s)",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -436,9 +446,8 @@
         "key": "fam_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "label",
-        "hidden": "true"
+        "openmrs_entity_id": "fam_name",
+        "type": "hidden"
       },
       {
         "key": "surname_calculation",
@@ -524,6 +533,10 @@
           "Male",
           "Female"
         ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
         "v_required": {
           "value": "true",
           "err": "Please enter the sex"
@@ -544,6 +557,10 @@
         "type": "spinner",
         "hint": "Physical disabilities",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -587,6 +604,10 @@
         "type": "spinner",
         "hint": "Early initiation of breastfeeding (1 hr)?",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],

@@ -7,6 +7,7 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.helper.RulesEngineHelper;
 import org.smartregister.chw.core.repository.AncRegisterRepository;
+import org.smartregister.chw.core.repository.MalariaRegisterRepository;
 import org.smartregister.chw.core.repository.PncRegisterRepository;
 import org.smartregister.chw.core.repository.ScheduleRepository;
 import org.smartregister.chw.core.repository.WashCheckRepository;
@@ -29,31 +30,36 @@ import org.smartregister.repository.LocationRepository;
 import org.smartregister.repository.PlanDefinitionRepository;
 import org.smartregister.repository.TaskNotesRepository;
 import org.smartregister.repository.TaskRepository;
+import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.activity.LoginActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import timber.log.Timber;
 
-public class CoreChwApplication extends DrishtiApplication implements CoreApplication {
+public abstract class CoreChwApplication extends DrishtiApplication implements CoreApplication {
 
     private static ClientProcessorForJava clientProcessor;
 
     private static CommonFtsObject commonFtsObject = null;
     private static AncRegisterRepository ancRegisterRepository;
+    protected static TaskRepository taskRepository;
     private static PncRegisterRepository pncRegisterRepository;
-    private static TaskRepository taskRepository;
     private static PlanDefinitionRepository planDefinitionRepository;
     private static WashCheckRepository washCheckRepository;
     private static ScheduleRepository scheduleRepository;
+    private static MalariaRegisterRepository malariaRegisterRepository;
     public JsonSpecHelper jsonSpecHelper;
     private LocationRepository locationRepository;
     private ECSyncHelper ecSyncHelper;
     private String password;
+    protected ClientProcessorForJava clientProcessorForJava;
+    private UniqueIdRepository uniqueIdRepository;
 
     private RulesEngineHelper rulesEngineHelper;
 
@@ -88,6 +94,14 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
             washCheckRepository = new WashCheckRepository(getInstance().getRepository());
         }
         return washCheckRepository;
+    }
+
+    public static MalariaRegisterRepository malariaRegisterRepository() {
+        if (malariaRegisterRepository == null) {
+            malariaRegisterRepository = new MalariaRegisterRepository(getInstance().getRepository());
+        }
+
+        return malariaRegisterRepository;
     }
 
     /**
@@ -189,6 +203,22 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         return CoreChwApplication.getInstance().getContext().allCommonsRepositoryobjects(table);
     }
 
+    public ClientProcessorForJava getClientProcessorForJava() {
+        if (this.clientProcessorForJava == null) {
+            this.clientProcessorForJava = ClientProcessorForJava.getInstance(getContext().applicationContext());
+        }
+
+        return this.clientProcessorForJava;
+    }
+
+    public UniqueIdRepository getUniqueIdRepository() {
+        if (this.uniqueIdRepository == null) {
+            this.uniqueIdRepository = new UniqueIdRepository(this.getRepository());
+        }
+
+        return this.uniqueIdRepository;
+    }
+
     @Override
     public void saveLanguage(String language) {
         CoreChwApplication.getInstance().getContext().allSharedPreferences().saveLanguagePreference(language);
@@ -234,4 +264,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         metadata.updateFamilyOtherMemberRegister(CoreConstants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
         return metadata;
     }
+
+    @Override
+    public abstract ArrayList<String> getAllowedLocationLevels();
 }

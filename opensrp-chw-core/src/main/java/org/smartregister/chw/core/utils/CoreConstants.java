@@ -22,18 +22,6 @@ public class CoreConstants {
 
     public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
 
-    public enum GROWTH_TYPE {
-        EXCLUSIVE("Exclusive breastfeeding"), MNP("MNP"), VITAMIN("Vitamin A"), DEWORMING("Deworming");
-        private String value;
-
-        GROWTH_TYPE(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
 
     public interface DB_CONSTANTS {
         String ID = "_id";
@@ -53,14 +41,25 @@ public class CoreConstants {
         String ANC = "anc";
     }
 
+    public interface SCHEDULE_TYPES {
+        String CHILD_VISIT = "CHILD_VISIT";
+        String ANC_VISIT = "ANC_VISIT";
+        String PNC_VISIT = "PNC_VISIT";
+        String WASH_CHECK = "WASH_CHECK";
+        String MALARIA_VISIT = "MALARIA_VISIT";
+    }
+
+    public interface SCHEDULE_GROUPS {
+        String HOME_VISIT = "HOME_VISIT";
+        String FAMILY = "FAMILY";
+    }
+
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
         public static final String FAMILY_REGISTER = "family_register";
         public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
         public static final String ANC_REGISTER = "anc_register";
         public static final String MALARIA_REGISTER = "anc_malaria_confirmation";
-        public static final String HEALTH_FACILITY_TAG = "MOH Jhpiego Facility Name";
-
     }
 
     public static final class EventType {
@@ -92,6 +91,8 @@ public class CoreConstants {
         public static final String PNC_HEALTH_FACILITY_VISIT = "PNC health facility visit";
         public static final String EXCLUSIVE_BREASTFEEDING = "Exclusive breast feeding";
         public static final String KANGAROO_CARE = "Kangaroo Care";
+        public static final String UMBILICAL_CORD_CARE = "Umbilical cord care";
+        public static final String IMMUNIZATION_VISIT = "Immunization Visit";
         public static final String OBSERVATIONS_AND_ILLNESS = "Observations Illness";
         public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
         public static final String UPDATE_FAMILY_MEMBER_RELATIONS = "Update Family Member Relations";
@@ -225,7 +226,7 @@ public class CoreConstants {
 
         public static boolean isMultiPartForm(JSONObject jsonForm) {
             String encounterType = jsonForm.optString(ENCOUNTER_TYPE);
-            return encounterType.equals(MALARIA_FOLLOW_UP_VISIT) ? false : true;
+            return !encounterType.equals(MALARIA_FOLLOW_UP_VISIT);
         }
 
         public static String getMalariaFollowUpVisitForm() {
@@ -678,6 +679,7 @@ public class CoreConstants {
         public static final String PNC_REGISTER_ACTIVITY = "PNC_REGISTER_ACTIVITY";
         public static final String REFERRALS_REGISTER_ACTIVITY = "REFERRALS_REGISTER_ACTIVITY";
         public static final String MALARIA_REGISTER_ACTIVITY = "MALARIA_REGISTER_ACTIVITY";
+        public static final String ALL_CLIENTS_REGISTERED_ACTIVITY = "ALL_CLIENTS";
     }
 
     public static final class BUSINESS_STATUS {
@@ -690,18 +692,5 @@ public class CoreConstants {
     public static final class TASKS_FOCUS {
         public static final String SICK_CHILD = "Sick Child";
         public static final String ANC_DANGER_SIGNS = "ANC Danger Signs";
-    }
-
-    public interface SCHEDULE_TYPES {
-        String CHILD_VISIT = "CHILD_VISIT";
-        String ANC_VISIT = "ANC_VISIT";
-        String PNC_VISIT = "PNC_VISIT";
-        String WASH_CHECK = "WASH_CHECK";
-        String MALARIA_VISIT = "MALARIA_VISIT";
-    }
-
-    public interface SCHEDULE_GROUPS {
-        String HOME_VISIT = "HOME_VISIT";
-        String FAMILY = "FAMILY";
     }
 }

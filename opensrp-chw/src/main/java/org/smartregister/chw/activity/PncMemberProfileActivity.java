@@ -38,6 +38,8 @@ import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import timber.log.Timber;
+
 public class PncMemberProfileActivity extends CorePncMemberProfileActivity {
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
@@ -79,7 +81,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity {
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
                 break;
             case Constants.REQUEST_CODE_HOME_VISIT:
