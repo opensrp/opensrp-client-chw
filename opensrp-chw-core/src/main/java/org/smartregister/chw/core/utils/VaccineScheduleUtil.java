@@ -2,7 +2,6 @@ package org.smartregister.chw.core.utils;
 
 import android.content.Context;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -27,8 +26,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import timber.log.Timber;
 
 public class VaccineScheduleUtil {
 

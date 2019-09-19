@@ -5,13 +5,9 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.json.JSONObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-import org.smartregister.family.model.BaseFamilyProfileModel;
+import org.smartregister.family.model.BaseFamilyRegisterModel;
 
-public abstract class CoreFamilyProfileModel extends BaseFamilyProfileModel {
-
-    public CoreFamilyProfileModel(String familyName) {
-        super(familyName);
-    }
+public class CoreFamilyRegisterModel extends BaseFamilyRegisterModel {
 
     @Override
     public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception {
@@ -19,4 +15,5 @@ public abstract class CoreFamilyProfileModel extends BaseFamilyProfileModel {
         CoreJsonFormUtils.populateLocationsTree(form, JsonFormConstants.STEP1, CoreChwApplication.getInstance().getAllowedLocationLevels(), "nearest_facility");
         return form;
     }
+
 }
