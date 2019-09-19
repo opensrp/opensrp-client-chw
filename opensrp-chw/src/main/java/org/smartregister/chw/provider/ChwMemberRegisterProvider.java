@@ -46,14 +46,12 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private Context context;
     private View.OnClickListener onClickListener;
     private ImageRenderHelper imageRenderHelper;
-    private ChwDueRegisterProvider provider;
 
     public ChwMemberRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener, String familyHead, String primaryCaregiver) {
         super(context, commonRepository, visibleColumns, onClickListener, paginationClickListener, familyHead, primaryCaregiver);
         this.onClickListener = onClickListener;
         this.context = context;
         this.imageRenderHelper = new ImageRenderHelper(context);
-        provider = new ChwDueRegisterProvider(context, commonRepository, visibleColumns, onClickListener, paginationClickListener);
     }
 
 
