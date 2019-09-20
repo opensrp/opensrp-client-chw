@@ -11,9 +11,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreMalariaProfileInteractor;
@@ -25,6 +30,7 @@ import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
 import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -34,6 +40,7 @@ import org.smartregister.family.util.Utils;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.anc.AncLibrary.getInstance;
 import static org.smartregister.chw.core.utils.Utils.malariaToAncMember;
 
 public class MalariaProfileActivity extends BaseMalariaProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
@@ -160,6 +167,22 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, MEMBER_OBJECT.getBaseEntityId());
         } else if (id == R.id.textview_record_anc) {
             AncHomeVisitActivity.startMe(this, new org.smartregister.chw.anc.domain.MemberObject(client), false);
+        } else if (id == R.id.textview_anc_visit_not_done) {
+            saveVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
+            textViewAncVisitNotDone.setVisibility(View.GONE);
+            textViewRecordAnc.setVisibility(View.GONE);
+            textViewAncVisitNotDone.setVisibility(View.GONE);
+        }
+    }
+
+    private void saveVisit(String eventType) {
+        try {
+            Event event = org.smartregister.chw.anc.util.JsonFormUtils.createUntaggedEvent(MEMBER_OBJECT.getBaseEntityId(), eventType, org.smartregister.chw.anc.util.Constants.TABLES.ANC_MEMBERS);
+            Visit visit = NCUtils.eventToVisit(event, org.smartregister.chw.anc.util.JsonFormUtils.generateRandomUUIDString());
+            visit.setPreProcessedJson(new Gson().toJson(event));
+            getInstance().visitRepository().addVisit(visit);
+        } catch (JSONException e) {
+            Timber.e(e);
         }
     }
 

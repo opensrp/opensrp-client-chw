@@ -198,6 +198,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
+
     @Override
     public void initializeFloatingMenu() {
         baseAncFloatingMenu = new AncFloatingMenu(this, getAncWomanName(),
