@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
@@ -54,6 +53,16 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         profilePresenter = new BaseMalariaProfilePresenter(this, new CoreMalariaProfileInteractor(), MEMBER_OBJECT);
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
+    }
+
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+        if (!isAnc(client)) {
+            textViewRecordAnc.setVisibility(View.GONE);
+            textViewAncVisitNotDone.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -112,6 +121,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         }
     }
 
+
     @NonNull
     @Override
     public FamilyOtherMemberActivityPresenter presenter() {
@@ -148,6 +158,8 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         int id = view.getId();
         if (id == R.id.textview_record_malaria) {
             MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, MEMBER_OBJECT.getBaseEntityId());
+        } else if (id == R.id.textview_record_anc) {
+            AncHomeVisitActivity.startMe(this, new org.smartregister.chw.anc.domain.MemberObject(client), false);
         }
     }
 
@@ -282,7 +294,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                     ((MalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
                     break;
                 case R.id.refer_to_facility_layout:
-                    Toast.makeText(this, "Hey", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, "Hey", Toast.LENGTH_SHORT).show();
 //                    ancMemberProfilePresenter().startAncReferralForm();
 //                    ((AncFloatingMenu) baseAncFloatingMenuloatingMenu).animateFAB();
                     break;
@@ -298,5 +310,10 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         addContentView(baseMalariaFloatingMenu, linearLayoutParams);
+    }
+
+    protected boolean isAnc(CommonPersonObjectClient client) {
+        org.smartregister.chw.anc.domain.MemberObject memberObject = new org.smartregister.chw.anc.domain.MemberObject(client);
+        return !memberObject.getDateCreated().trim().equals("");
     }
 }
