@@ -44,7 +44,7 @@ import static org.smartregister.chw.anc.AncLibrary.getInstance;
 import static org.smartregister.chw.core.utils.Utils.malariaToAncMember;
 
 public class MalariaProfileActivity extends BaseMalariaProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
-    private static final String CLIENT = "client";
+    private static final String CLIENT = "CLIENT";
 
     public static void startMalariaActivity(Activity activity, MemberObject memberObject, CommonPersonObjectClient client) {
         Intent intent = new Intent(activity, MalariaProfileActivity.class);
@@ -168,10 +168,10 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         } else if (id == R.id.textview_record_anc) {
             AncHomeVisitActivity.startMe(this, new org.smartregister.chw.anc.domain.MemberObject(client), false);
         } else if (id == R.id.textview_anc_visit_not_done) {
+            setAncVisitNotDoneView(true);
             saveVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
-            textViewAncVisitNotDone.setVisibility(View.GONE);
-            textViewRecordAnc.setVisibility(View.GONE);
-            textViewAncVisitNotDone.setVisibility(View.GONE);
+        } else if (id == R.id.textview_undo) {
+            setAncVisitNotDoneView(false);
         }
     }
 
@@ -183,6 +183,19 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             getInstance().visitRepository().addVisit(visit);
         } catch (JSONException e) {
             Timber.e(e);
+        }
+    }
+
+    private void setAncVisitNotDoneView(Boolean bool) {
+        if (bool) {
+            visitStatus.setVisibility(View.VISIBLE);
+            textViewRecordAnc.setVisibility(View.GONE);
+            textViewAncVisitNotDone.setVisibility(View.GONE);
+        } else {
+            visitStatus.setVisibility(View.GONE);
+            textViewRecordAnc.setVisibility(View.VISIBLE);
+            textViewAncVisitNotDone.setVisibility(View.VISIBLE);
+
         }
     }
 
