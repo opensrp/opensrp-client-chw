@@ -3,11 +3,7 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Pair;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -16,7 +12,10 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
-import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
+import org.smartregister.chw.core.activity.CorePncMemberProfileActivity;
+import org.smartregister.chw.core.activity.CorePncRegisterActivity;
+import org.smartregister.chw.core.interactor.CorePncMemberProfileInteractor;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
@@ -24,7 +23,6 @@ import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.interactor.PncMemberProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.model.FamilyProfileModel;
-import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.presenter.PncMemberProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.clientandeventmodel.Client;
@@ -32,7 +30,6 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -40,15 +37,10 @@ import org.smartregister.family.util.Utils;
 import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import timber.log.Timber;
 
-public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
-
-    private ImageView imageViewCross;
-
-    private PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
+public class PncMemberProfileActivity extends CorePncMemberProfileActivity {
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
         Intent intent = new Intent(activity, PncMemberProfileActivity.class);
@@ -56,51 +48,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhoneNumber);
         activity.startActivity(intent);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-
-            case R.id.action_pnc_member_registration:
-                JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAncPncForm(R.string.edit_member_form_title, org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(), MEMBER_OBJECT, this);
-                startFormForEdit(form);
-                return true;
-
-            case R.id.action_pnc_registration:
-                ChildProfileInteractor childProfileInteractor = new ChildProfileInteractor();
-
-                List<CommonPersonObjectClient> children = basePncMemberProfileInteractor.pncChildrenUnder29Days(MEMBER_OBJECT.getBaseEntityId());
-                if (!children.isEmpty()) {
-                    CommonPersonObjectClient client = children.get(0);
-                    JSONObject childEnrollmentForm = childProfileInteractor.getAutoPopulatedJsonEditFormString(org.smartregister.chw.util.Constants.JSON_FORM.getChildRegister(), getString(R.string.edit_child_form_title), this, client);
-
-                    startFormForEdit(org.smartregister.chw.anc.util.JsonFormUtils.setRequiredFieldsToFalseForPncChild(childEnrollmentForm, MEMBER_OBJECT.getFamilyBaseEntityId(),
-                            MEMBER_OBJECT.getBaseEntityId()));
-                }
-                return true;
-
-            case R.id.action__pnc_remove_member:
-                IndividualProfileRemoveActivity.startIndividualProfileActivity(PncMemberProfileActivity.this, clientObject(), MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver(), PncRegisterActivity.class.getCanonicalName());
-                return true;
-
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.pnc_member_profile_menu, menu);
-        List<CommonPersonObjectClient> children = basePncMemberProfileInteractor.pncChildrenUnder29Days(MEMBER_OBJECT.getBaseEntityId());
-        if(children.isEmpty()){
-            menu.findItem(R.id.action_pnc_registration).setVisible(false);
-        }
-        return true;
     }
 
     @Override
@@ -130,7 +77,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
                         Pair<Client, Event> pair = new ChildRegisterModel().processRegistration(jsonString);
                         if (pair != null) {
-                            basePncMemberProfileInteractor.updateChild(pair, jsonString, null);
+                            ((PncMemberProfileInteractor) pncMemberProfileInteractor).updateChild(pair, jsonString, null);
                         }
                     }
                 } catch (Exception e) {
@@ -139,7 +86,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                 break;
             case Constants.REQUEST_CODE_HOME_VISIT:
                 this.setupViews();
-                ChwScheduleTaskExecutor.getInstance().execute(MEMBER_OBJECT.getBaseEntityId(),CoreConstants.EventType.PNC_HOME_VISIT, new Date());
+                ChwScheduleTaskExecutor.getInstance().execute(MEMBER_OBJECT.getBaseEntityId(), CoreConstants.EventType.PNC_HOME_VISIT, new Date());
                 break;
             default:
                 break;
@@ -147,32 +94,9 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         }
     }
 
-    public PncMemberProfilePresenter pncMemberProfilePresenter() {
-        return new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
-    }
-
-    public void startFormForEdit(JSONObject form) {
-        try {
-            startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-    }
-
-    private CommonPersonObjectClient clientObject() {
-        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
-        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(MEMBER_OBJECT.getBaseEntityId());
-        final CommonPersonObjectClient client =
-                new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
-        client.setColumnmaps(commonPersonObject.getColumnmaps());
-        return client;
-    }
-
     @Override
     public void setupViews() {
         super.setupViews();
-        imageViewCross = findViewById(R.id.tick_image);
-        imageViewCross.setOnClickListener(this);
         PncVisitAlertRule summaryVisit = getVisitDetails();
         String statusVisit = summaryVisit.getButtonStatus();
         if (statusVisit.equals("OVERDUE")) {
@@ -200,18 +124,45 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
             }
         } else {
             textview_record_visit.setVisibility(View.GONE);
-           layoutRecordView.setVisibility(View.GONE);
+            layoutRecordView.setVisibility(View.GONE);
         }
     }
 
-    private PncVisitAlertRule getVisitDetails() {
-        return basePncMemberProfileInteractor.getVisitSummary(MEMBER_OBJECT.getBaseEntityId());
+    @Override
+    protected Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivityClass() {
+        return FamilyProfileActivity.class;
     }
 
+    @Override
+    protected CorePncMemberProfileInteractor getPncMemberProfileInteractor() {
+        return new PncMemberProfileInteractor(this);
+    }
 
     @Override
-    protected void setUpEditViews(boolean enable, boolean within24Hours, Long longDate) {
+    protected void removePncMember() {
+        IndividualProfileRemoveActivity.startIndividualProfileActivity(PncMemberProfileActivity.this, clientObject(), MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver(), PncRegisterActivity.class.getCanonicalName());
+    }
 
+    @Override
+    protected Class<? extends CorePncRegisterActivity> getPncRegisterActivityClass() {
+        return PncRegisterActivity.class;
+    }
+
+    public PncMemberProfilePresenter pncMemberProfilePresenter() {
+        return new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
+    }
+
+    private CommonPersonObjectClient clientObject() {
+        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
+        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(MEMBER_OBJECT.getBaseEntityId());
+        final CommonPersonObjectClient client =
+                new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+        return client;
+    }
+
+    private PncVisitAlertRule getVisitDetails() {
+        return ((PncMemberProfileInteractor) pncMemberProfileInteractor).getVisitSummary(MEMBER_OBJECT.getBaseEntityId());
     }
 
     private void setEditViews(boolean enable, boolean within24Hours, Long longDate) {
@@ -220,7 +171,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                 Calendar cal = Calendar.getInstance();
                 int offset = cal.getTimeZone().getOffset(cal.getTimeInMillis());
                 new Date(longDate - (long) offset);
-                String pncDay = basePncMemberProfileInteractor.getPncDay(MEMBER_OBJECT.getBaseEntityId());
+                String pncDay = pncMemberProfileInteractor.getPncDay(MEMBER_OBJECT.getBaseEntityId());
                 layoutNotRecordView.setVisibility(View.VISIBLE);
                 tvEdit.setVisibility(View.VISIBLE);
                 textViewUndo.setVisibility(View.GONE);
@@ -259,24 +210,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     }
 
     @Override
-    public void openFamilyDueServices() {
-        Intent intent = new Intent(this, FamilyProfileActivity.class);
-
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
-
-        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
-        startActivity(intent);
-    }
-
-    @Override
-    public void updateVisitNotDone(long value) {
-        return;
-    }
-
-    @Override
     public void onClick(View view) {
         super.onClick(view);
 
@@ -291,23 +224,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
             default:
                 break;
 
-        }
-    }
-
-    @Override
-    public void setFamilyStatus(AlertStatus status) {
-        TextView tvFamilyStatus;
-        tvFamilyStatus = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.textview_family_has);
-
-        view_family_row.setVisibility(View.VISIBLE);
-        rlFamilyServicesDue.setVisibility(View.VISIBLE);
-
-        if (status == AlertStatus.complete) {
-            tvFamilyStatus.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_nothing_due));
-        } else if (status == AlertStatus.normal) {
-            tvFamilyStatus.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_services_due));
-        } else if (status == AlertStatus.urgent) {
-            tvFamilyStatus.setText(NCUtils.fromHtml(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_service_overdue)));
         }
     }
 }
