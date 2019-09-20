@@ -32,6 +32,7 @@ import org.smartregister.chw.hf.custom_view.HfNavigationMenu;
 import org.smartregister.chw.hf.job.HfJobCreator;
 import org.smartregister.chw.hf.model.NavigationModel;
 import org.smartregister.chw.hf.repository.HfChwRepository;
+import org.smartregister.chw.hf.repository.HfTaskRepository;
 import org.smartregister.chw.hf.sync.HfSyncConfiguration;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.pnc.PncLibrary;
@@ -46,6 +47,8 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
+import org.smartregister.repository.TaskNotesRepository;
+import org.smartregister.repository.TaskRepository;
 import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
@@ -62,6 +65,12 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
     @Override
     public void onCreate() {
         super.onCreate();
+
+        mInstance = this;
+        context = Context.getInstance();
+        context.updateApplicationContext(getApplicationContext());
+        context.updateCommonFtsObject(createCommonFtsObject());
+
         //init Job Manager
         SyncStatusBroadcastReceiver.init(this);
         JobManager.create(this).addJobCreator(new HfJobCreator());
@@ -77,14 +86,8 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
-            Timber.plant(new CrashlyticsTree(HealthFacilityApplication.getInstance().getContext()
-                    .allSharedPreferences().fetchRegisteredANM()));
+            Timber.plant(new CrashlyticsTree(this.context.allSharedPreferences().fetchRegisteredANM()));
         }
-
-        mInstance = this;
-        context = Context.getInstance();
-        context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(createCommonFtsObject());
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder()
                 .disabled(BuildConfig.DEBUG).build()).build());
@@ -144,6 +147,11 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         return metadata;
     }
 
+    @Override
+    public ArrayList<String> getAllowedLocationLevels() {
+        return new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LOCATION_LEVELS));
+    }
+
     public @NotNull Map<String, Class> getRegisteredActivities() {
         Map<String, Class> registeredActivities = new HashMap<>();
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, AncRegisterActivity.class);
@@ -174,5 +182,13 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         } else {
             preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url);
         }
+    }
+
+    @Override
+    public TaskRepository getTaskRepository() {
+        if (taskRepository == null) {
+            taskRepository =  new HfTaskRepository(getRepository(), new TaskNotesRepository(getRepository()));
+        }
+        return taskRepository;
     }
 }

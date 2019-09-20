@@ -76,7 +76,7 @@ public class ANCCounselingAction implements BaseAncHomeVisitAction.AncHomeVisitA
             birth_hf_counseling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "birth_hf_counseling");
             nutrition_counseling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "nutrition_counseling");
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
     }
 

@@ -69,7 +69,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
         int itemId = item.getItemId();
         if (itemId == org.smartregister.chw.core.R.id.action_remove_member) {
             CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
@@ -129,11 +128,12 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                     ancMemberProfilePresenter().createReferralEvent(Utils.getAllSharedPreferences(), jsonString);
                     showToast(this.getString(R.string.referral_submitted));
                 }
+
             } catch (Exception e) {
                 Timber.e(e, "AncMemberProfileActivity -- > onActivityResult");
             }
         } else if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
-            ChwScheduleTaskExecutor.getInstance().execute(MEMBER_OBJECT.getBaseEntityId(),CoreConstants.EventType.ANC_HOME_VISIT, new Date());
+            ChwScheduleTaskExecutor.getInstance().execute(MEMBER_OBJECT.getBaseEntityId(), CoreConstants.EventType.ANC_HOME_VISIT, new Date());
             finish();
         }
     }

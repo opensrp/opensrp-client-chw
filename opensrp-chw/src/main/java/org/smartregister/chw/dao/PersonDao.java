@@ -24,7 +24,7 @@ public class PersonDao extends AbstractDao {
         String sql = "select ec_child.base_entity_id , ec_family_member.first_name , ec_family_member.last_name , ec_family_member.middle_name , ec_family_member.dob " +
                 "from ec_child " +
                 "inner join ec_family_member on ec_child.base_entity_id = ec_family_member.base_entity_id " +
-                "where ec_child.mother_entity_id = '" + baseEntityID + "' " +
+                "where ec_child.mother_entity_id = '" + baseEntityID + "'" + " COLLATE NOCASE " +
                 "and ec_child.date_removed is null and ec_family_member.date_removed is null " +
                 "order by ec_family_member.first_name , ec_family_member.last_name , ec_family_member.middle_name ";
 
@@ -57,8 +57,9 @@ public class PersonDao extends AbstractDao {
         String sql = "select ec_child.base_entity_id , ec_family_member.first_name , ec_family_member.last_name , ec_family_member.middle_name , ec_family_member.dob " +
                 "from ec_child " +
                 "inner join ec_family_member on ec_child.base_entity_id = ec_family_member.base_entity_id " +
-                "where ec_child.mother_entity_id = '" + baseEntityID + "' " +
+                "where ec_child.mother_entity_id = '" + baseEntityID + "'" + " COLLATE NOCASE " +
                 "and ec_child.date_removed is null and ec_family_member.date_removed is null " +
+                "and date(ec_child.dob, '+28 days') >=  date() " +
                 "order by ec_family_member.first_name , ec_family_member.last_name , ec_family_member.middle_name ";
 
         // extract lbw from the pregnancy outcome form
@@ -98,8 +99,8 @@ public class PersonDao extends AbstractDao {
 
     public String getAncCreatedDate(String baseEntityId) {
         String sql = "SELECT date_created FROM ec_anc_log " +
-                " INNER JOIN ec_family_member on ec_family_member.base_entity_id = ec_anc_log.base_entity_id " +
-                " WHERE ec_family_member.base_entity_id = '" + baseEntityId + "'";
+                " INNER JOIN ec_family_member on ec_family_member.base_entity_id = ec_anc_log.base_entity_id COLLATE NOCASE " +
+                " WHERE ec_family_member.base_entity_id = '" + "'" + " COLLATE NOCASE ";
 
         DataMap<String> dataMap = new DataMap<String>() {
             @Override
@@ -119,7 +120,7 @@ public class PersonDao extends AbstractDao {
     }
 
     public static String getDob(String baseEntityID) {
-        String sql = "select dob from ec_family_member where base_entity_id = '" + baseEntityID + "'";
+        String sql = "select dob from ec_family_member where base_entity_id = '" + baseEntityID + "'" + " COLLATE NOCASE ";
 
         DataMap<String> dataMap = cursor -> getCursorValue(cursor, "dob");
 

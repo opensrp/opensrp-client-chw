@@ -37,7 +37,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
         HomeVisitServiceJob.scheduleJob(HomeVisitServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.HOME_VISIT_MINUTES), getFlexValue(BuildConfig.HOME_VISIT_MINUTES));
 
-        BasePncCloseJob.scheduleJob(BasePncCloseJob.TAG, TimeUnit.HOURS.toHours(BuildConfig.BASE_PNC_CLOSE_HOURS), getFlexValue(BuildConfig.BASE_PNC_CLOSE_HOURS));
+        BasePncCloseJob.scheduleJob(BasePncCloseJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.BASE_PNC_CLOSE_MINUTES), getFlexValue(BuildConfig.BASE_PNC_CLOSE_MINUTES));
 
         PlanIntentServiceJob.scheduleJob(PlanIntentServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
 

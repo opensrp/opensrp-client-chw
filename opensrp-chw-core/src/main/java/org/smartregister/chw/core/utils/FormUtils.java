@@ -42,7 +42,7 @@ public class FormUtils {
             DateTime date = new DateTime(client.getBirthdate());
             Years years = Years.yearsBetween(date.toLocalDate(), LocalDate.now());
             int age = years.getYears();
-            if (age >= 15 && age <= 49) {
+            if (age >= 10 && age <= 49) {
                 List<Object> list = new ArrayList<>();
                 list.add("true");
                 event.addObs(new Obs("concept", "text", "162849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "",

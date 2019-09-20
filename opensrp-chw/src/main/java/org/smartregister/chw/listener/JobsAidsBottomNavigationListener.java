@@ -13,6 +13,8 @@ import org.smartregister.util.PermissionUtils;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.BarcodeScanActivity;
 
+import timber.log.Timber;
+
 public class JobsAidsBottomNavigationListener extends BottomNavigationListener {
     private Activity context;
 
@@ -44,7 +46,7 @@ public class JobsAidsBottomNavigationListener extends BottomNavigationListener {
             try {
                 ((FamilyRegisterActivity) context).startRegistration();
             } catch (Exception e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
 
         }

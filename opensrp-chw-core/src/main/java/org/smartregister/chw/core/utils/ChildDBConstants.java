@@ -10,15 +10,17 @@ public class ChildDBConstants {
     private static final int FIVE_YEAR = 5;
 
     public static String childAgeLimitFilter() {
-        return childAgeLimitFilter(DBConstants.KEY.DOB, FIVE_YEAR);
+        return childAgeLimitFilter(DBConstants.KEY.DOB, FIVE_YEAR, ChildDBConstants.KEY.ENTRY_POINT);
     }
 
-    private static String childAgeLimitFilter(String dateColumn, int age) {
-        return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")";
+    private static String childAgeLimitFilter(String dateColumn, int age, String entryPoint) {
+        return " ((( julianday('now') - julianday(" + CoreConstants.TABLE_NAME.CHILD + "." + dateColumn + "))/365.25) <" + age + ")  " +
+                " and (( ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + entryPoint + ",'') <> 'PNC' ) or (ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + entryPoint + ",'') = 'PNC' and date(" + CoreConstants.TABLE_NAME.CHILD + "." + dateColumn + ", '+28 days') < date())) " +
+                " and ((( julianday('now') - julianday(" + CoreConstants.TABLE_NAME.CHILD + "." + dateColumn + "))/365.25) < 5) ";
     }
 
     public static String childAgeLimitFilter(String tableName) {
-        return childAgeLimitFilter(tableColConcat(tableName, DBConstants.KEY.DOB), FIVE_YEAR);
+        return childAgeLimitFilter(tableColConcat(tableName, DBConstants.KEY.DOB), FIVE_YEAR, tableColConcat(tableName, ChildDBConstants.KEY.ENTRY_POINT));
     }
 
     private static String tableColConcat(String tableName, String columnName) {
@@ -86,6 +88,7 @@ public class ChildDBConstants {
         public static final String FAMILY_LAST_NAME = "family_last_name";
         public static final String FAMILY_HOME_ADDRESS = "family_home_address";
         public static final String ENTITY_TYPE = "entity_type";
+        public static final String ENTRY_POINT = "entry_point";
         public static final String CHILD_BF_HR = "early_bf_1hr";
         public static final String CHILD_PHYSICAL_CHANGE = "physically_challenged";
         public static final String BIRTH_CERT = "birth_cert";
@@ -111,6 +114,15 @@ public class ChildDBConstants {
         public static final String FAMILY_PRIMARY_CAREGIVER = "family_primary_caregiver";
         public static final String LAST_MENSTRUAL_PERIOD = "last_menstrual_period";
         public static final String SCHEDULE_GROUP_NAME = "schedule_group_name";
+        public static final String SCHEDULE_NAME = "schedule_name";
+        public static final String DUE_DATE = "due_date";
+        public static final String NOT_DONE_DATE = "not_done_date";
+        public static final String OVER_DUE_DATE = "over_due_date";
+        public static final String EXPIRY_DATE = "expiry_date";
+        public static final String COMPLETION_DATE = "completion_date";
+        public static final String VISIT_TYPE = "visit_type";
+        public static final String VISIT_DATE = "visit_date";
+
         // Family child visit status
         //public static final String CHILD_VISIT_STATUS = "child_visit_status";
     }

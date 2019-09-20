@@ -16,7 +16,5 @@ public class CoreFamilyProfileMemberModel extends BaseFamilyProfileMemberModel {
         };
 
         return ArrayUtils.addAll(columns, newColumns);
-
-
     }
 }

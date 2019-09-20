@@ -102,7 +102,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     JSONObject jsonObject = new JSONObject(s);
                     danger_signs_present_mama = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "danger_signs_present_mama");
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
             }
 
@@ -144,7 +144,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     JSONObject jsonObject = new JSONObject(s);
                     danger_signs_present_child = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "danger_signs_present_child");
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
             }
 
@@ -199,7 +199,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     String fpStartDate = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_start_date");
                     startDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(fpStartDate);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
             }
 
@@ -303,7 +303,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     JSONObject jsonObject = new JSONObject(jsonPayload);
                     couselling_pnc = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "couselling_pnc");
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
             }
 
@@ -342,7 +342,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     JSONObject jsonObject = new JSONObject(jsonPayload);
                     nutrition_status_mama = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "nutrition_status_mama");
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
             }
 
@@ -384,7 +384,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     JSONObject jsonObject = new JSONObject(jsonPayload);
                     nutrition_status_1m = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "nutrition_status_1m");
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
             }
 
@@ -430,7 +430,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     llin_2days = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "llin_2days");
                     llin_condition = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "llin_condition");
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
             }
 

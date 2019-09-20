@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.core.model.CoreFamilyRegisterModel;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.family.activity.BaseFamilyRegisterActivity;
 import org.smartregister.family.model.BaseFamilyRegisterModel;
@@ -32,7 +33,7 @@ public abstract class CoreFamilyRegisterActivity extends BaseFamilyRegisterActiv
 
     @Override
     protected void initializePresenter() {
-        presenter = new BaseFamilyRegisterPresenter(this, new BaseFamilyRegisterModel());
+        presenter = new BaseFamilyRegisterPresenter(this, new CoreFamilyRegisterModel());
     }
 
     @Override
@@ -46,8 +47,11 @@ public abstract class CoreFamilyRegisterActivity extends BaseFamilyRegisterActiv
     @Override
     protected void onResumption() {
         super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(CoreConstants.DrawerMenu.ALL_FAMILIES);
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if (menu != null) {
+            menu.getNavigationAdapter()
+                    .setSelectedView(CoreConstants.DrawerMenu.ALL_FAMILIES);
+        }
     }
 
     @Override

@@ -32,6 +32,7 @@
     <dimen name="change_member_padding">8dp</dimen>
     <dimen name="change_member_list_main">20sp</dimen>
     <dimen name="change_member_list_details">16sp</dimen>
+    <dimen name="change_layout_to_start">30dp</dimen>
 
     <!--Remove member -->
     <dimen name="remove_member_padding">25dp</dimen>
@@ -43,6 +44,7 @@
     <!-- Referrals-->
     <dimen name="referral_list_item_width">100dp</dimen>
     <dimen name="referral_item_margin">8dp</dimen>
+    <dimen name="referral_text_size">13sp</dimen>
 
 
 </resources>

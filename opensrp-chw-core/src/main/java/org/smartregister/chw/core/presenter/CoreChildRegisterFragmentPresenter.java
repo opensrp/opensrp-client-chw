@@ -13,6 +13,7 @@ import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.family.util.DBConstants;
 
 import java.lang.ref.WeakReference;
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -95,7 +96,7 @@ public class CoreChildRegisterFragmentPresenter implements CoreChildRegisterFrag
 
     @Override
     public String getMainCondition() {
-        return String.format(" %s is null AND %s", DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeLimitFilter());
+        return String.format(" %s.%s is null AND %s", CoreConstants.TABLE_NAME.CHILD, DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeLimitFilter());
     }
 
     @Override
@@ -105,12 +106,29 @@ public class CoreChildRegisterFragmentPresenter implements CoreChildRegisterFrag
 
     @Override
     public String getDefaultSortQuery() {
-        return DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";// AND "+ChildDBConstants.childAgeLimitFilter();
+        return CoreConstants.TABLE_NAME.CHILD + "." + DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";// AND "+ChildDBConstants.childAgeLimitFilter();
     }
 
     @Override
     public String getDueFilterCondition() {
         return getMainCondition() + " AND " + ChildDBConstants.childDueFilter();
+    }
+
+    public String getDueCondition() {
+        return " and " + CoreConstants.TABLE_NAME.CHILD + ".base_entity_id in (select base_entity_id from schedule_service where strftime('%Y-%m-%d') BETWEEN due_date and expiry_date and schedule_name = '" + CoreConstants.SCHEDULE_TYPES.CHILD_VISIT + "' and ifnull(not_done_date,'') = '' and ifnull(completion_date,'') = '' )  ";
+    }
+
+    public String getFilterString(String filters) {
+
+        StringBuilder customFilter = new StringBuilder();
+        if (StringUtils.isNotBlank(filters)) {
+            customFilter.append(MessageFormat.format(" and ( {0}.{1} like ''%{2}%'' ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, org.smartregister.chw.anc.util.DBConstants.KEY.FIRST_NAME, filters));
+            customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, org.smartregister.chw.anc.util.DBConstants.KEY.LAST_NAME, filters));
+            customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, org.smartregister.chw.anc.util.DBConstants.KEY.MIDDLE_NAME, filters));
+            customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ) ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, org.smartregister.chw.anc.util.DBConstants.KEY.UNIQUE_ID, filters));
+        }
+
+        return customFilter.toString();
     }
 
     public void setModel(CoreChildRegisterFragmentContract.Model model) {
