@@ -11,7 +11,8 @@ public class SSLocationHelper {
 
     private static SSLocationHelper instance;
 
-    private ArrayList<SSLocationForm> ssLocationForms = new ArrayList<>();
+    //private ArrayList<SSLocationForm> ssLocationForms = new ArrayList<>();
+    private ArrayList<SSModel> ssModels  = new ArrayList<>();
     private SSLocationHelper(){
         setSsLocationForms();
     }
@@ -21,23 +22,31 @@ public class SSLocationHelper {
         }
         return instance;
     }
-    public ArrayList<SSLocationForm> getSsLocationForms() {
-        if(ssLocationForms != null && ssLocationForms.isEmpty()){
+
+    public ArrayList<SSModel> getSsModels() {
+        if(ssModels !=null && ssModels.isEmpty()){
             setSsLocationForms();
         }
-        return ssLocationForms;
+        return ssModels;
     }
 
+//    public ArrayList<SSLocationForm> getSsLocationForms() {
+//        if(ssLocationForms != null && ssLocationForms.isEmpty()){
+//            setSsLocationForms();
+//        }
+//        return ssLocationForms;
+//    }
+
     private void setSsLocationForms(){
-        List<SSModel> ssModels =  HnppApplication.getSSLocationRepository().getAllLocations();
-        for(SSModel ssModel : ssModels){
-            for (SSLocations ssLocations:ssModel.locations){
-                SSLocationForm ssLocationForm = new SSLocationForm();
-                ssLocationForm.name = ssModel.username;
-                ssLocationForm.locations = ssLocations;
-                ssLocationForms.add(ssLocationForm);
-            }
-        }
+            ssModels =  HnppApplication.getSSLocationRepository().getAllLocations();
+//        for(SSModel ssModel : ssModels){
+//            for (SSLocations ssLocations:ssModel.locations){
+//                SSLocationForm ssLocationForm = new SSLocationForm();
+//                ssLocationForm.name = ssModel.username;
+//                ssLocationForm.locations = ssLocations;
+//                ssLocationForms.add(ssLocationForm);
+//            }
+//        }
 
     }
 

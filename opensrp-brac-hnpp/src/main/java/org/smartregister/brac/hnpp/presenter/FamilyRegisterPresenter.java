@@ -2,7 +2,6 @@ package org.smartregister.brac.hnpp.presenter;
 
 import org.smartregister.brac.hnpp.contract.HnppFamilyRegisterContract;
 import org.smartregister.brac.hnpp.interactor.HnppFamilyRegisterInteractor;
-import org.smartregister.brac.hnpp.location.SSLocationForm;
 import org.smartregister.brac.hnpp.model.HnppFamilyRegisterModel;
 import org.smartregister.family.contract.FamilyRegisterContract;
 import org.smartregister.family.domain.FamilyEventClient;

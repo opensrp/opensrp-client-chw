@@ -25,7 +25,7 @@ public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
         if (form == null) {
             return null;
         }
-        HnppJsonFormUtils.updateFormWithSSLocation(form,SSLocationHelper.getInstance().getSsLocationForms());
+        HnppJsonFormUtils.updateFormWithSSName(form,SSLocationHelper.getInstance().getSsModels());
         return HnppJsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
     }
 
@@ -33,9 +33,10 @@ public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
     public List<FamilyEventClient> processRegistration(String jsonString) {
         try{
             JSONObject jobkect = new JSONObject(jsonString).getJSONObject("step1");
-            String index = jobkect.getString("index");
+            String villageIndex = jobkect.getString("village_index");
+            String ssIndex = jobkect.getString("ss_index");
             String hhid = jobkect.getString("hhid");
-            SSLocations ss = SSLocationHelper.getInstance().getSsLocationForms().get(Integer.parseInt(index)).locations;
+            SSLocations ss = SSLocationHelper.getInstance().getSsModels().get(Integer.parseInt(ssIndex)).locations.get(Integer.parseInt(villageIndex));
             String villageId = ss.village.id+"";
             HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
             householdIdRepo.close(villageId,hhid);

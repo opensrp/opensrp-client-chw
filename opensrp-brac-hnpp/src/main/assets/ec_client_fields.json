@@ -18,6 +18,13 @@
           }
         },
         {
+          "column_name": "ss_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.ss_name"
+          }
+        },
+        {
           "column_name": "village_name",
           "type": "Client",
           "json_mapping": {

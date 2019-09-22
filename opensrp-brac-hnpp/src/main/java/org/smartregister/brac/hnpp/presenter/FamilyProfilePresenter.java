@@ -7,6 +7,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.model.HnppChildRegisterModel;
+import org.smartregister.brac.hnpp.model.HnppFamilyRegisterModel;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.model.CoreChildRegisterModel;
@@ -18,6 +19,9 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileContract;
+import org.smartregister.family.domain.FamilyEventClient;
+
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -34,12 +38,13 @@ public class FamilyProfilePresenter extends CoreFamilyProfilePresenter {
 
     @Override
     public void startFormForEdit(CommonPersonObjectClient client) {
-        JSONObject form = HnppJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyDetailsRegister(), getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
         try {
-            HnppJsonFormUtils.updateFormWithSSLocation(form, SSLocationHelper.getInstance().getSsLocationForms());
+            JSONObject form = HnppJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyDetailsRegister(), getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
+
+            HnppJsonFormUtils.updateFormWithSSName(form, SSLocationHelper.getInstance().getSsModels());
             getView().startFormActivity(form);
         } catch (Exception e) {
-            Timber.e(e);
+            e.printStackTrace();
         }
     }
 
@@ -69,6 +74,18 @@ public class FamilyProfilePresenter extends CoreFamilyProfilePresenter {
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    @Override
+    public void updateFamilyRegister(String jsonString) {
+
+        List<FamilyEventClient> familyEventClientList = new HnppFamilyRegisterModel().processRegistration(jsonString);
+        if (familyEventClientList == null || familyEventClientList.isEmpty()) {
+            if (getView() != null) getView().hideProgressDialog();
+            return;
+        }
+
+        interactor.saveRegistration(familyEventClientList.get(0), jsonString, true, this);
     }
 
     @Override

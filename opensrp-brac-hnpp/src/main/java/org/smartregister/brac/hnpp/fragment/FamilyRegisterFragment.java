@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,8 +16,9 @@ import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.brac.hnpp.R;
-import org.smartregister.brac.hnpp.location.SSLocationForm;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
+import org.smartregister.brac.hnpp.location.SSLocations;
+import org.smartregister.brac.hnpp.location.SSModel;
 import org.smartregister.brac.hnpp.model.HnppFamilyRegisterFragmentModel;
 import org.smartregister.brac.hnpp.presenter.HnppFamilyRegisterFragmentPresenter;
 import org.smartregister.brac.hnpp.provider.HHRegisterProvider;
@@ -133,10 +133,13 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment implement
             ArrayList<String> villageSpinnerArray = new ArrayList<>();
             ArrayList<String> clusterSpinnerArray = new ArrayList<>();
 
-            ArrayList<SSLocationForm> ssLocationForms = SSLocationHelper.getInstance().getSsLocationForms();
-            for (int i = 0; i < ssLocationForms.size(); i++) {
-                villageSpinnerArray.add(ssLocationForms.get(i).locations.village.name);
+            ArrayList<SSModel> ssLocationForms = SSLocationHelper.getInstance().getSsModels();
+            for(SSModel ssModel : ssLocationForms){
+                for(SSLocations ssLocations : ssModel.locations){
+                    villageSpinnerArray.add(ssLocations.village.name);
+                }
             }
+
 
             clusterSpinnerArray.add("ক্লাস্টার ১");
             clusterSpinnerArray.add("ক্লাস্টার ২");

@@ -1,10 +1,13 @@
 package org.smartregister.brac.hnpp.activity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.model.HnppFamilyProfileModel;
@@ -18,6 +21,10 @@ import org.smartregister.brac.hnpp.presenter.FamilyProfilePresenter;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.family.util.Utils;
+
+import timber.log.Timber;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
@@ -48,6 +55,44 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     @Override
     public void startFormForEdit() {
         super.startFormForEdit();
+    }
+
+    @Override
+    public void startFormActivity(JSONObject jsonForm) {
+        try{
+            if(jsonForm.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)){
+                Intent intent = new Intent(this, Utils.metadata().familyFormActivity);
+                intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+                Form form = new Form();
+                form.setActionBarBackground(org.smartregister.family.R.color.family_actionbar);
+                form.setWizard(false);
+                intent.putExtra("form", form);
+                this.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+            }
+        }catch (Exception e){
+
+        }
+
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+            try {
+                String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+                Timber.d(jsonString);
+
+                JSONObject form = new JSONObject(jsonString);
+                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
+                    presenter().updateFamilyRegister(jsonString);
+                }
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+
+        }
+        //super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

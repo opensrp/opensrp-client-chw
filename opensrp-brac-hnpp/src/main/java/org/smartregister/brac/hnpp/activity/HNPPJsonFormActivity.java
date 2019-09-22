@@ -7,7 +7,6 @@ import android.util.Log;
 import com.vijay.jsonwizard.R.id;
 
 import org.smartregister.brac.hnpp.fragment.HNPPJsonFormFragment;
-import org.smartregister.brac.hnpp.location.SSLocationForm;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
 
 import java.util.ArrayList;

@@ -10,12 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.MaterialSpinner;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
@@ -23,6 +25,7 @@ import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.domain.HouseholdId;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.location.SSLocations;
+import org.smartregister.brac.hnpp.location.SSModel;
 import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
 import org.smartregister.util.Utils;
 
@@ -52,14 +55,17 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
     protected JsonFormFragmentViewState createViewState() {
         return super.createViewState();
     }
+    private int ssIndex = -1;
+    private int villageIndex = -1;
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         super.onItemSelected(parent, view, position, id);
         if (position != -1 && parent instanceof MaterialSpinner) {
-            if (((MaterialSpinner) parent).getFloatingLabelText().toString().equalsIgnoreCase(view.getContext().getResources().getString(R.string.village_name_form_field))) {
-
-                processUniqueId(position);
+            if (((MaterialSpinner) parent).getFloatingLabelText().toString().equalsIgnoreCase(view.getContext().getResources().getString(R.string.ss_name_form_field))) {
+                ssIndex = position;
+                Log.v("SPINNER_SELECT","onItemSelected>>ssIndex:"+ssIndex);
+                processVillageList(position);
             }
         }
 
@@ -71,8 +77,79 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
         return super.getStep(stepName);
     }
 
-    public void processUniqueId(final int index) {
+    public void processVillageList(final int index) {
 
+
+        Utils.startAsyncTask(new AsyncTask() {
+            ArrayList<String> villageList = new ArrayList<>();
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                Log.v("SPINNER_SELECT","processVillageList>>ssIndex:"+ssIndex);
+                ArrayList<SSLocations> ssLocations = SSLocationHelper.getInstance().getSsModels().get(index).locations;
+                for(SSLocations ssLocations1 : ssLocations){
+                    villageList.add(ssLocations1.village.name);
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                ArrayList<View> formdataviews = new ArrayList<>(getJsonApi().getFormDataViews());
+                for (int i = 0; i < formdataviews.size(); i++) {
+                    if (formdataviews.get(i) instanceof MaterialSpinner) {
+                        if (!TextUtils.isEmpty(((MaterialSpinner) formdataviews.get(i)).getFloatingLabelText()) &&
+                                (((MaterialSpinner) formdataviews.get(i)).getFloatingLabelText().toString().trim()
+                                        .equalsIgnoreCase(getContext().getResources().getString(R.string.village_name_form_field)))) {
+
+                            try{
+                                JSONObject villageNames = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "village_name");
+                                JSONArray jsonArray = new JSONArray();
+                                for(String villages : villageList){
+                                    jsonArray.put(villages);
+                                }
+                                villageNames.put(org.smartregister.family.util.JsonFormUtils.VALUES,jsonArray);
+                            }catch (Exception e){
+
+                            }
+
+
+                            MaterialSpinner spinner = (MaterialSpinner) formdataviews.get(i);
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), com.vijay.jsonwizard.R.layout.native_form_simple_list_item_1, villageList);
+                            spinner.setAdapter(adapter);
+                            spinner.setSelection(0, true);
+                            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                                    if (((MaterialSpinner) parent).getFloatingLabelText().toString().equalsIgnoreCase(view.getContext().getResources().getString(R.string.village_name_form_field))) {
+                                        villageIndex = position;
+                                        Log.v("SPINNER_SELECT","processVillageList>>onItemSelectedssIndex:"+villageIndex);
+                                        if(villageIndex!=-1){
+                                            processHouseHoldId(position);
+                                        }
+
+
+                                    }
+
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+                            break;
+                        }
+                    }
+                }
+            }
+        }, null);
+    }
+    public void processHouseHoldId(final int index) {
+
+        if(ssIndex<0) return;
 
         Utils.startAsyncTask(new AsyncTask() {
             String moduleId = "";
@@ -80,9 +157,10 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
             String unique_id = "";
             HouseholdId hhid = null;
 
+
             @Override
             protected Object doInBackground(Object[] objects) {
-                SSLocations ssLocations = SSLocationHelper.getInstance().getSsLocationForms().get(index).locations;
+                SSLocations ssLocations = SSLocationHelper.getInstance().getSsModels().get(ssIndex).locations.get(index);
                 moduleId = ssLocations.union_ward.id + "";
                 HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
                 village_id = String.valueOf(ssLocations.village.id);
@@ -101,11 +179,15 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
                         if (!TextUtils.isEmpty(((MaterialEditText) formdataviews.get(i)).getFloatingLabelText()) && ((MaterialEditText) formdataviews.get(i)).getFloatingLabelText().toString().trim().equalsIgnoreCase("খানা নাম্বার")) {
                             ((MaterialEditText) formdataviews.get(i)).setText(unique_id);
                             try {
-                                getStep("step1").put("index", index);
+                                getStep("step1").put("ss_index", ssIndex);
+                                getStep("step1").put("village_index", index);
                                 JSONObject module_id = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "module_id");
                                 JSONObject villageId = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "village_id");
+
                                 villageId.put("value", village_id);
                                 module_id.put("value", moduleId);
+                                JSONArray jsonArray = new JSONArray();
+
                                 if (hhid != null) {
                                     getStep("step1").put("hhid", hhid.getOpenmrsId());
                                 }

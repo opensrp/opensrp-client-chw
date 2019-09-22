@@ -74,9 +74,9 @@ public class SSLocationRepository extends BaseRepository {
 
     }
 
-    public List<SSModel> getAllLocations() {
+    public ArrayList<SSModel> getAllLocations() {
         Cursor cursor = null;
-        List<SSModel> locations = new ArrayList<>();
+        ArrayList<SSModel> locations = new ArrayList<>();
         try {
             cursor = getReadableDatabase().rawQuery("SELECT * FROM " + getLocationTableName(), null);
             while (cursor.moveToNext()) {
@@ -93,7 +93,7 @@ public class SSLocationRepository extends BaseRepository {
     }
     public boolean isExistLocation(String name) {
         Cursor cursor = null;
-        List<String> locationIds = new ArrayList<>();
+        ArrayList<String> locationIds = new ArrayList<>();
         try {
             cursor = getReadableDatabase().rawQuery("SELECT "+ID+" FROM " + getLocationTableName()+" where "+SS_NAME+" = '"+name+"'", null);
             while (cursor.moveToNext()) {

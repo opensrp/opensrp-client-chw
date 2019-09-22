@@ -69,12 +69,28 @@
         "type": "hidden"
       },
       {
+        "key": "ss_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "ss_name",
+        "type": "spinner",
+        "hint": "স্বাস্থ্য সেবিকার নামঃ",
+        "values": [
+        ],
+        "openmrs_choice_ids": {
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the value"
+        }
+      },
+      {
         "key": "village_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "village_name",
         "type": "spinner",
-        "hint": "স্বাস্থ্য সেবিকার/গ্রামের নামঃ",
+        "hint": "গ্রামের নামঃ",
         "values": [
         ],
         "openmrs_choice_ids": {
