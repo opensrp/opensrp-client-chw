@@ -3,8 +3,11 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Pair;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONObject;
@@ -15,9 +18,13 @@ import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
+import org.smartregister.chw.core.contract.PncMemberProfileContract;
 import org.smartregister.chw.core.interactor.CorePncMemberProfileInteractor;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.interactor.PncMemberProfileInteractor;
@@ -30,6 +37,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -40,7 +48,7 @@ import java.util.Date;
 
 import timber.log.Timber;
 
-public class PncMemberProfileActivity extends CorePncMemberProfileActivity {
+public class PncMemberProfileActivity extends CorePncMemberProfileActivity implements PncMemberProfileContract.View {
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
         Intent intent = new Intent(activity, PncMemberProfileActivity.class);
@@ -70,7 +78,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity {
 
                         FamilyEventClient familyEventClient =
                                 new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
-                        new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, pncMemberProfilePresenter());
+                        new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, (FamilyProfileContract.InteractorCallBack) pncMemberProfilePresenter());
                     }
 
                     if (org.smartregister.chw.util.Constants.EventType.UPDATE_CHILD_REGISTRATION.equals(form.getString(JsonFormUtils.ENCOUNTER_TYPE))) {
@@ -79,7 +87,11 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity {
                         if (pair != null) {
                             ((PncMemberProfileInteractor) pncMemberProfileInteractor).updateChild(pair, jsonString, null);
                         }
+                    } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.PNC_REFERRAL)) {
+                        pncMemberProfilePresenter().createReferralEvent(Utils.getAllSharedPreferences(), jsonString);
+                        showToast(this.getString(R.string.referral_submitted));
                     }
+
                 } catch (Exception e) {
                     Timber.e(e);
                 }
@@ -148,7 +160,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity {
         return PncRegisterActivity.class;
     }
 
-    public PncMemberProfilePresenter pncMemberProfilePresenter() {
+    public PncMemberProfileContract.Presenter pncMemberProfilePresenter() {
         return new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
     }
 
@@ -200,6 +212,38 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity {
     }
 
     @Override
+    public void initializeFloatingMenu() {
+        baseAncFloatingMenu = new AncFloatingMenu(this, getAncWomanName(),
+                MEMBER_OBJECT.getPhoneNumber(), getFamilyHeadName(), getFamilyHeadPhoneNumber(), getProfileType());
+
+        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
+            switch (viewId) {
+                case R.id.anc_fab:
+                    redrawFabWithNoPhone();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                case R.id.call_layout:
+                    ((AncFloatingMenu) baseAncFloatingMenu).launchCallWidget();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                case R.id.refer_to_facility_layout:
+                    pncMemberProfilePresenter().startPncReferralForm();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                default:
+                    Timber.d("Unknown fab action");
+                    break;
+            }
+
+        };
+
+        ((AncFloatingMenu) baseAncFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
+        baseAncFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        addContentView(baseAncFloatingMenu, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+    }
+
+    @Override
     public void openVisitMonthView() {
         return;
     }
@@ -225,5 +269,16 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity {
                 break;
 
         }
+    }
+
+    private void redrawFabWithNoPhone() {
+        ((AncFloatingMenu) baseAncFloatingMenu).redraw(!StringUtils.isBlank(MEMBER_OBJECT.getPhoneNumber())
+                || !StringUtils.isBlank(getFamilyHeadPhoneNumber()));
+    }
+
+    @Override
+    public void startFormActivity(JSONObject formJson) {
+        startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, formJson, Utils.metadata().familyMemberFormActivity),
+                JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 }

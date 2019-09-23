@@ -13,9 +13,12 @@ import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
+import org.smartregister.chw.core.contract.PncMemberProfileContract;
 import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.chw.core.interactor.CorePncMemberProfileInteractor;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.util.ScheduleUtil;
@@ -23,6 +26,7 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,7 +38,7 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor {
+public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor implements PncMemberProfileContract.Interactor {
     private Context context;
     private Date lastVisitDate;
     private Date deliveryDate;
@@ -149,4 +153,8 @@ public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor {
         return deliveryDate;
     }
 
+    @Override
+    public void createReferralEvent(AllSharedPreferences allSharedPreferences, String jsonString, String entityID) throws Exception {
+        CoreReferralUtils.createReferralEvent(allSharedPreferences, jsonString, CoreConstants.TABLE_NAME.PNC_REFERRAL, entityID);
+    }
 }
