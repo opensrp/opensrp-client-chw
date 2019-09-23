@@ -65,6 +65,12 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
     @Override
     public void onCreate() {
         super.onCreate();
+
+        mInstance = this;
+        context = Context.getInstance();
+        context.updateApplicationContext(getApplicationContext());
+        context.updateCommonFtsObject(createCommonFtsObject());
+
         //init Job Manager
         SyncStatusBroadcastReceiver.init(this);
         JobManager.create(this).addJobCreator(new HfJobCreator());
@@ -80,14 +86,8 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
-            Timber.plant(new CrashlyticsTree(HealthFacilityApplication.getInstance().getContext()
-                    .allSharedPreferences().fetchRegisteredANM()));
+            Timber.plant(new CrashlyticsTree(this.context.allSharedPreferences().fetchRegisteredANM()));
         }
-
-        mInstance = this;
-        context = Context.getInstance();
-        context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(createCommonFtsObject());
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder()
                 .disabled(BuildConfig.DEBUG).build()).build());
@@ -145,6 +145,11 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         metadata.updateFamilyActivityRegister(CoreConstants.TABLE_NAME.CHILD_ACTIVITY, Integer.MAX_VALUE, false);
         metadata.updateFamilyOtherMemberRegister(CoreConstants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
         return metadata;
+    }
+
+    @Override
+    public ArrayList<String> getAllowedLocationLevels() {
+        return new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LOCATION_LEVELS));
     }
 
     public @NotNull Map<String, Class> getRegisteredActivities() {

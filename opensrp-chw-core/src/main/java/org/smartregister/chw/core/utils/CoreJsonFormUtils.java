@@ -2,10 +2,12 @@ package org.smartregister.chw.core.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import com.google.common.reflect.TypeToken;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -17,6 +19,7 @@ import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.domain.FamilyMember;
@@ -24,9 +27,12 @@ import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
+import org.smartregister.domain.form.FormLocation;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.Constants;
@@ -867,4 +873,127 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
         return educationLevels;
     }
 
+    public static JSONObject getAncPncForm(Integer title_resource, String formName, MemberObject memberObject, Context context) {
+        JSONObject form = null;
+
+        CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+        CommonPersonObject personObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
+        CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
+        client.setColumnmaps(personObject.getColumnmaps());
+
+        if (formName.equals(CoreConstants.JSON_FORM.getAncRegistration())) {
+            form = getAutoJsonEditAncFormString(
+                    memberObject.getBaseEntityId(), context, formName, CoreConstants.EventType.UPDATE_ANC_REGISTRATION, context.getResources().getString(title_resource));
+        }
+        return form;
+
+    }
+
+    public static JSONObject getAutoJsonEditAncFormString(String baseEntityID, Context context, String formName, String eventType, String title) {
+        try {
+
+            Event event = getEditAncLatestProperties(baseEntityID);
+            final List<Obs> observations = event.getObs();
+            JSONObject form = getFormWithMetaData(baseEntityID, context, formName, eventType);
+            if (form != null) {
+                JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+
+                if (StringUtils.isNotBlank(title)) {
+                    stepOne.put(TITLE, title);
+                }
+                JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    if (jsonObject.getString(KEY).equalsIgnoreCase("last_menstrual_period") ||
+                            jsonObject.getString(KEY).equalsIgnoreCase("delivery_method")) {
+                        jsonObject.put(READ_ONLY, true);
+                    }
+                    try {
+                        for (Obs obs : observations) {
+                            if (obs.getFormSubmissionField().equalsIgnoreCase(jsonObject.getString(KEY))) {
+                                if (jsonObject.getString("type").equals("spinner")) {
+                                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, obs.getHumanReadableValues().get(0));
+                                } else {
+                                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, obs.getValue());
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return form;
+            }
+
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return null;
+    }
+
+    public static void populateLocationsTree(JSONObject form, String stepName,
+                                             ArrayList<String> healthFacilities, String locationTree) {
+        try {
+            JSONArray questions = form.getJSONObject(stepName).getJSONArray(JsonFormConstants.FIELDS);
+            healthFacilities.add(0, "Country");
+            healthFacilities.add(1, "Region");
+            healthFacilities.add(2, "District");
+            List<String> defaultFacility = LocationHelper.getInstance().generateDefaultLocationHierarchy(healthFacilities);
+            List<FormLocation> upToFacilities = LocationHelper.getInstance().generateLocationHierarchyTree(false, healthFacilities);
+
+            String defaultFacilityString = AssetHandler.javaToJsonString(defaultFacility,
+                    new TypeToken<List<String>>() {
+                    }.getType());
+
+            String upToFacilitiesString = AssetHandler.javaToJsonString(upToFacilities,
+                    new TypeToken<List<FormLocation>>() {
+                    }.getType());
+
+            for (int i = 0; i < questions.length(); i++) {
+                if (questions.getJSONObject(i).getString(JsonFormConstants.KEY).equals(locationTree)) {
+                    if (StringUtils.isNotBlank(upToFacilitiesString)) {
+                        questions.getJSONObject(i).put(JsonFormConstants.TREE, new JSONArray(upToFacilitiesString));
+                    }
+                    if (StringUtils.isNotBlank(defaultFacilityString)) {
+                        questions.getJSONObject(i).put(JsonFormConstants.DEFAULT, defaultFacilityString);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+
+    private static Event getEditAncLatestProperties(String baseEntityID) {
+
+        Event ecEvent = null;
+
+        String query_event = String.format("select json from event where baseEntityId = '%s' and eventType in ('%s','%s') order by updatedAt desc limit 1;",
+                baseEntityID, CoreConstants.EventType.UPDATE_ANC_REGISTRATION, CoreConstants.EventType.ANC_REGISTRATION);
+
+        try (Cursor cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query_event, new String[]{})) {
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                ecEvent = AssetHandler.jsonStringToJava(cursor.getString(0), Event.class);
+                cursor.moveToNext();
+            }
+        } catch (Exception e) {
+            Timber.e(e, e.toString());
+        }
+        return ecEvent;
+    }
+
+    public static Intent getAncPncStartFormIntent(JSONObject jsonForm, Context context) {
+        Intent intent = new Intent(context, org.smartregister.family.util.Utils.metadata().familyMemberFormActivity);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+
+        Form form = new Form();
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setWizard(false);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        return intent;
+    }
 }
