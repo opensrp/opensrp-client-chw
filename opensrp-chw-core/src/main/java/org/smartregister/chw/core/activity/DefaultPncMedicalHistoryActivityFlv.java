@@ -1,4 +1,4 @@
-package org.smartregister.chw.activity;
+package org.smartregister.chw.core.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,9 +12,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.core.R;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class DefaultPncMedicalHistoryActivityFlv implements PncMedicalHistoryActivity.Flavor {
+public abstract class DefaultPncMedicalHistoryActivityFlv implements CorePncMedicalHistoryActivity.Flavor {
 
     protected LayoutInflater inflater;
     protected LinearLayout linearLayoutHealthFacilityVisit;
