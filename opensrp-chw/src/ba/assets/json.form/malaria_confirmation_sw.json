@@ -350,30 +350,56 @@
         "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "Mada juu ya ugonjwa wa malaria zilizofundishwa",
-        "values": [
-          "Muktasari kuhusu ugonjwa wa malaria",
-          "Kuzuia malaria",
-          "Malaria isiyokali",
-          "Malaria kali",
-          "Malaria kwa mama mjamzito",
-          "Hajafanya"
+        "options": [
+          {
+            "key": "Overview on malaria",
+            "text": "Muktasari kuhusu ugonjwa wa malaria",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity": "MALARIA",
+            "openmrs_entity_id": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Malaria prevention",
+            "text": "Kuzuia malaria",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity": "Education on malaria control and prevention",
+            "openmrs_entity_id": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Uncomplicated malaria",
+            "text": "Malaria isiyokali",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity": "Uncomplicated malaria",
+            "openmrs_entity_id": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Severe malaria",
+            "text": "Malaria kali",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity": "Severe malaria",
+            "openmrs_entity_id": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Malaria in pregnancy",
+            "text": "Malaria kwa mama mjamzito",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity": "Maternal Malaria During Pregnancy - Baby Not Yet Delivered ",
+            "openmrs_entity_id": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "None",
+            "text": "Hajafanya",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity": "Results not available",
+            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
         ],
-        "keys": [
-          "Overview on malaria",
-          "Malaria prevention",
-          "Uncomplicated malaria",
-          "Severe malaria",
-          "Malaria in pregnancy",
-          "None"
-        ],
-        "openmrs_choice_ids": {
-          "Overview on malaria": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Malaria prevention": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Uncomplicated malaria": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Severe malaria": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Malaria in pregnancy": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua chaguo moja"
