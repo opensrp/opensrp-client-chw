@@ -74,9 +74,7 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         viewHolder.status.setVisibility(View.GONE);
         viewHolder.status.getLayoutParams().height = context.getResources().getDimensionPixelSize(R.dimen.member_profile_pic_width);
 
-
         String entityType = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
-        viewHolder.profile.setImageResource(getMemberProfileImageResourceIdentifier(pc));
         if (Constants.TABLE_NAME.CHILD.equals(entityType)) {
             Utils.startAsyncTask(new UpdateAsyncTask(viewHolder, pc), null);
         }
@@ -107,14 +105,14 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
             viewHolder.patientNameAge.setFontVariant(FontVariant.REGULAR);
             viewHolder.patientNameAge.setTextColor(Color.GRAY);
             viewHolder.patientNameAge.setTypeface(viewHolder.patientNameAge.getTypeface(), Typeface.ITALIC);
-            viewHolder.profile.setImageResource(org.smartregister.family.util.Utils.getMemberProfileImageResourceIDentifier(entityType));
+            viewHolder.profile.setImageResource(getMemberProfileImageResourceIdentifier(pc));
             viewHolder.nextArrow.setVisibility(View.GONE);
         } else {
             patientName = patientName + ", " + org.smartregister.family.util.Utils.getTranslatedDate(dobString, context);
             viewHolder.patientNameAge.setFontVariant(FontVariant.REGULAR);
             viewHolder.patientNameAge.setTextColor(Color.BLACK);
             viewHolder.patientNameAge.setTypeface(viewHolder.patientNameAge.getTypeface(), Typeface.NORMAL);
-            imageRenderHelper.refreshProfileImage(pc.getCaseId(), viewHolder.profile, org.smartregister.family.util.Utils.getMemberProfileImageResourceIDentifier(entityType));
+            imageRenderHelper.refreshProfileImage(pc.getCaseId(), viewHolder.profile,  getMemberProfileImageResourceIdentifier(pc));
             viewHolder.nextArrow.setVisibility(View.VISIBLE);
         }
 
