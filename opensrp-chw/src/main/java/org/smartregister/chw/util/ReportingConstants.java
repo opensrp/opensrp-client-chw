@@ -2,6 +2,11 @@ package org.smartregister.chw.util;
 
 public class ReportingConstants {
 
+    public class PncIndicatorKeys {
+        public static final String COUNT_WOMEN_DELIVERED_IN_HF = "pnc_report_indicator_1_1";
+        public static final String COUNT_WOMEN_DELIVERED_ELSEWHERE = "pnc_report_indicator_1_2";
+    }
+
     public class AncIndicatorKeys {
         public static final String COUNT_WRA = "anc_report_indicator_1";
         public static final String COUNT_PREGNANT_WOMEN = "anc_report_indicator_2";
