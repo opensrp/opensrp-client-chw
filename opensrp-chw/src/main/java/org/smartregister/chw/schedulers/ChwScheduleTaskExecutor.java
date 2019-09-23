@@ -85,6 +85,7 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new WashCheckScheduler());
 
+        classifier.put(CoreConstants.EventType.FAMILY_REGISTRATION, scheduleServices);
         classifier.put(CoreConstants.EventType.WASH_CHECK, scheduleServices);
     }
 }
