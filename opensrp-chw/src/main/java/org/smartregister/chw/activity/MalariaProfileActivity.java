@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -65,6 +64,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     @Override
     protected void setupViews() {
         super.setupViews();
+        setProfileImage(MEMBER_OBJECT.getBaseEntityId(), null);
         if (!isAnc(client)) {
             textViewRecordAnc.setVisibility(View.GONE);
             textViewAncVisitNotDone.setVisibility(View.GONE);
@@ -137,26 +137,23 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     }
 
     @Override
-    public void setProfileImage(String s, String s1) {
-        //implement
+    public void setProfileImage(String baseEntityId, String s1) {
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageView, R.mipmap.ic_member);
     }
 
     @Override
     public void setProfileName(@NonNull String s) {
-        TextView textView = findViewById(org.smartregister.malaria.R.id.textview_name);
-        textView.setText(s);
+        textViewName.setText(s);
     }
 
     @Override
     public void setProfileDetailOne(@NonNull String s) {
-        TextView textView = findViewById(org.smartregister.malaria.R.id.textview_gender);
-        textView.setText(s);
+        textViewGender.setText(s);
     }
 
     @Override
     public void setProfileDetailTwo(@NonNull String s) {
-        TextView textView = findViewById(org.smartregister.malaria.R.id.textview_address);
-        textView.setText(s);
+        textViewLocation.setText(s);
     }
 
     @Override
