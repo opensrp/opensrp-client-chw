@@ -11,7 +11,6 @@ import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.model.CoreFamilyRegisterModel;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.family.activity.BaseFamilyRegisterActivity;
-import org.smartregister.family.model.BaseFamilyRegisterModel;
 import org.smartregister.family.presenter.BaseFamilyRegisterPresenter;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
