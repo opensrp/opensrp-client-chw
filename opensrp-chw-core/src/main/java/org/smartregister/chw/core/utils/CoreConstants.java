@@ -566,7 +566,7 @@ public class CoreConstants {
             public static final String DATE_MOVED = "date_moved";
         }
 
-        public static class PREGNANCY_OUTCOME {
+        public static class PregnancyOutcomeHelper {
             public static final String LIVE_BIRTH = "born_alive";
             public static final String BORN_ALIVE_AND_DIED = "born_alive_died";
             public static final String STILL_BIRTH = "still_born";

@@ -200,7 +200,7 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         Map<String, String> details = ChwApplication.pncRegisterRepository().getPncMemberDetails(commonPerson.entityId());
         String memberId = details.get(DBConstants.KEY.ID.toLowerCase());
         if (memberId != null && !TextUtils.isEmpty(memberId)) {
-            if (details.get(PREGNANCY_OUTCOME).equals(CoreConstants.FORM_CONSTANTS.PREGNANCY_OUTCOME.LIVE_BIRTH) || details.get(PREGNANCY_OUTCOME).equals(CoreConstants.FORM_CONSTANTS.PREGNANCY_OUTCOME.STILL_BIRTH)) {
+            if (details.get(PREGNANCY_OUTCOME).equals(CoreConstants.FORM_CONSTANTS.PregnancyOutcomeHelper.LIVE_BIRTH) || details.get(PREGNANCY_OUTCOME).equals(CoreConstants.FORM_CONSTANTS.PregnancyOutcomeHelper.STILL_BIRTH)) {
                 return Utils.getPnCWomanImageResourceIdentifier();
             } else {
                 return Utils.getMemberImageResourceIdentifier();
