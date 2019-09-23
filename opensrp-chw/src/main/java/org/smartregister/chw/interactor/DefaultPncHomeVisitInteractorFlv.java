@@ -392,6 +392,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         .withHelper(helper)
                         .withDetails(details)
                         .withOptional(false)
+                        .withBaseEntityID(baby.getBaseEntityID())
                         .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                         .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
                         .withPayloadDetails(MessageFormat.format("Exclusive_breastfeeding{0}", serviceIteration))
