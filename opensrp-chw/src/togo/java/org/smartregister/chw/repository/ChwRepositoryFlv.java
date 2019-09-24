@@ -13,6 +13,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.WashCheckDao;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
@@ -63,13 +64,15 @@ public class ChwRepositoryFlv {
                 case 10:
                     upgradeToVersion10(db);
                     break;
+                case 11:
+                    upgradeToVersion11(db);
+                    break;
                 default:
                     break;
             }
             upgradeTo++;
         }
     }
-
 
     private static void upgradeToVersion2(Context context, SQLiteDatabase db) {
         try {
@@ -179,7 +182,7 @@ public class ChwRepositoryFlv {
             }
 
             // add missing columns to the DB
-            List<String>  columns = new ArrayList<>();
+            List<String> columns = new ArrayList<>();
             columns.add(ChildDBConstants.KEY.ENTRY_POINT);
             DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.CHILD, columns);
 
@@ -188,6 +191,27 @@ public class ChwRepositoryFlv {
         }
     }
 
+    private static void upgradeToVersion11(SQLiteDatabase db) {
+        try {
+            // add all the wash check tasks to the visit table // will assist the event
+            List<String> wash_visits = WashCheckDao.getAllWashCheckVisits();
+            for (String visit_id : wash_visits) {
+                db.execSQL("delete from visits where visit_id = '" + visit_id + "'");
+                db.execSQL("delete from visit_details where visit_id = '" + visit_id + "'");
+            }
+
+            // reprocess all wash check events
+            List<EventClient> eventClients = WashCheckDao.getWashCheckEvents();
+            for (EventClient eventClient : eventClients) {
+                if (eventClient == null) continue;
+
+                NCUtils.processAncHomeVisit(eventClient); // save locally
+            }
+
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
 
     // helpers
     private static List<Event> getEvents(SQLiteDatabase db) {
