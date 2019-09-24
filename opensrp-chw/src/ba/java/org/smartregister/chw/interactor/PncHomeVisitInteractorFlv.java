@@ -559,7 +559,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 .build();
         actionList.put(context.getString(R.string.pnc_malaria_prevention), action);
     }
-
     private void evaluateObsIllnessMother() throws Exception {
         HomeVisitActionHelper obsIllnessMotherHelper = new HomeVisitActionHelper() {
             private String date_of_illness;
