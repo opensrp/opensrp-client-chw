@@ -1227,7 +1227,7 @@
           }
         },
         {
-          "column_name": "referral_time_anc",
+          "column_name": "referral_time_pnc",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
