@@ -13,7 +13,7 @@ import java.util.Map;
 public class FamilyDao extends AbstractDao {
 
     public static Map<String, Integer> getFamilyServiceSchedule(String familyBaseEntityID) {
-        String sql = "select counters.relational_id , visit_state , count(*) totals  from (  " +
+        String sql = "select visit_state , count(*) totals  from (  " +
                 "SELECT s.base_entity_id , m.relational_id , CASE  " +
                 "WHEN completion_date  is NOT NULL  THEN  'DONE'  " +
                 "WHEN not_done_date is NOT NULL THEN  'NOT_VISIT_THIS_MONTH' " +
@@ -26,7 +26,7 @@ public class FamilyDao extends AbstractDao {
                 ") counters   where " +
                 " ((counters.relational_id = '" + familyBaseEntityID + "' COLLATE NOCASE) or " +
                 " (counters.base_entity_id = '" + familyBaseEntityID + "' COLLATE NOCASE)) " +
-                "group by relational_id, visit_state";
+                "group by visit_state";
 
 
         DataMap<Pair<String, Integer>> dataMap = c -> Pair.create(getCursorValue(c, "visit_state"), getCursorIntValue(c, "totals"));
