@@ -190,41 +190,106 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             }
         }
     }
-
     private void evaluateFamilyPlanning() throws Exception {
-        HomeVisitActionHelper familyPlanningHelper = new HomeVisitActionHelper() {
-            private String fpCounselling;
-            private String fpPeriodReceived;
-            private String fpMethod;
-            private LocalDate startDate;
+        HomeVisitActionHelper helper = new HomeVisitActionHelper() {
+            private String fp_counseling;
+            private String fp_method;
+            private String fp_start_date;
+            private Date start_date;
 
             @Override
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    fpCounselling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_counseling");
-                    fpPeriodReceived = org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue(jsonObject, "fp_period_received");
-                    fpMethod = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_method");
-                    String fpStartDate = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_start_date");
-                    startDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(fpStartDate);
+                    fp_counseling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_counseling");
+                    fp_method = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_method");
+                    fp_start_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_start_date");
+
+                    if (StringUtils.isNotBlank(fp_start_date)) {
+                        start_date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(fp_start_date);
+                    }
                 } catch (JSONException e) {
+                    Timber.e(e);
+                } catch (ParseException e) {
                     Timber.e(e);
                 }
             }
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1} \u2022 {2}: {3} \n {4}: {5} \u2022 {6}: {7}",
-                        context.getString(R.string.family_planning), fpCounselling, context.getString(R.string.period_received), fpPeriodReceived, context.getString(R.string.subtask_visit_not_done),
-                        fpMethod, context.getString(R.string.start_date), DateTimeFormat.forPattern("dd MMM yyyy").print(startDate));
+                StringBuilder builder = new StringBuilder();
+                builder.append(
+                        MessageFormat.format("{0}: {1}\n",
+                                context.getString(R.string.fp_counseling),
+                                "Yes".equalsIgnoreCase(fp_counseling) ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase()
+                        )
+                );
+
+                if (StringUtils.isNotBlank(fp_method)) {
+                    String method = "";
+                    switch (fp_method) {
+                        case "None":
+                            method = context.getString(R.string.none);
+                            break;
+                        case "PPIUCD":
+                            method = context.getString(R.string.ppiucd);
+                            break;
+                        case "Pills":
+                            method = context.getString(R.string.pills);
+                            break;
+                        case "Implant":
+                            method = context.getString(R.string.implant);
+                            break;
+                        case "Condoms":
+                            method = context.getString(R.string.condoms);
+                            break;
+                        case "LAM":
+                            method = context.getString(R.string.lam);
+                            break;
+                        case "Standard day method":
+                            method = context.getString(R.string.standard_day_method);
+                            break;
+                        case "Permanent (BTL)":
+                            method = context.getString(R.string.permanent_blt);
+                            break;
+                        case "Permanent (Vasectomy)":
+                            method = context.getString(R.string.permanent_vasectomy);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    builder.append(
+                            MessageFormat.format("{0}: {1}",
+                                    context.getString(R.string.fp_method_chosen),
+                                    method
+                            )
+                    );
+                }
+
+                if (StringUtils.isNotBlank(fp_start_date)) {
+                    builder.append(
+                            MessageFormat.format("\n{0}: {1}",
+                                    context.getString(R.string.fp_method_start_date),
+                                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(start_date)
+                            )
+                    );
+                }
+
+                return builder.toString();
             }
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isNotBlank(fpCounselling)) {
+                if (StringUtils.isBlank(fp_counseling)) {
+                    return BaseAncHomeVisitAction.Status.PENDING;
+                }
+
+
+                if ("Yes".equalsIgnoreCase(fp_counseling)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else {
-                    return BaseAncHomeVisitAction.Status.PENDING;
+                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                 }
             }
         };
@@ -233,7 +298,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 .withOptional(false)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getFamilyPlanning())
-                .withHelper(familyPlanningHelper)
+                .withHelper(helper)
                 .build();
         actionList.put(context.getString(R.string.pnc_family_planning), action);
     }
@@ -268,7 +333,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     return "";
                 }
 
-                return "No".equalsIgnoreCase(exclusive_breast_feeding) ? context.getString(R.string.yes) : context.getString(R.string.no);
+                return "Yes".equalsIgnoreCase(exclusive_breast_feeding) ? context.getString(R.string.yes) : context.getString(R.string.no);
             }
 
             @Override
@@ -278,9 +343,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 }
 
                 if (exclusive_breast_feeding.equalsIgnoreCase("Yes")) {
-                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-                } else if (exclusive_breast_feeding.equalsIgnoreCase("No")) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
+                } else if (exclusive_breast_feeding.equalsIgnoreCase("No")) {
+                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                 } else {
                     return BaseAncHomeVisitAction.Status.PENDING;
                 }
@@ -593,8 +658,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
                         .withOptional(true)
                         .withDetails(details)
-                        .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                         .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessInfant())
                         .withHelper(new ObsIllnessBabyHelper())
                         .build();
