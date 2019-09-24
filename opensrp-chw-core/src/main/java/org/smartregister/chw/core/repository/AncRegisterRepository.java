@@ -99,37 +99,6 @@ public class AncRegisterRepository extends BaseRepository {
 
     }
 
-    /**
-     * Check if a woman is already registered in ANC (by checking if they exist in the ANC register)
-     *
-     * @param baseEntityId client base entity id
-     * @return true or false based on whether already registered
-     */
-    public boolean checkIfAncWoman(String baseEntityId) {
-        SQLiteDatabase database = getReadableDatabase();
-        Cursor cursor = null;
-        try {
-            if (database == null) {
-                return false;
-            }
-            String selection = DBConstants.KEY.BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " +
-                    org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = ? " + COLLATE_NOCASE;
-            String[] selectionArgs = new String[]{baseEntityId, "0"};
-            cursor = database.query(CoreConstants.TABLE_NAME.ANC_MEMBER,
-                    ANC_COUNT_TABLE_COLUMNS, selection, selectionArgs, null, null, null);
-            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
-                return true;
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-        return false;
-    }
-
     public int getAncPncWomenCount(String familyBaseID, String register) {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = null;

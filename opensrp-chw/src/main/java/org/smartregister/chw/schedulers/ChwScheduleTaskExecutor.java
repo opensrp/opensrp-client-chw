@@ -8,6 +8,7 @@ import org.smartregister.chw.task.ChildHomeVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
 import org.smartregister.chw.task.PNCVisitScheduler;
 import org.smartregister.chw.task.WashCheckScheduler;
+import org.smartregister.chw.util.WashCheckFlv;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
+
+    private WashCheckFlv washCheckFlv = new WashCheckFlv();
 
     protected ChwScheduleTaskExecutor() {
         //scheduleServiceMap.put();
@@ -38,7 +41,9 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
             initializeANCClassifier(scheduleServiceMap);
             initializePNCClassifier(scheduleServiceMap);
             initializeMalariaClassifier(scheduleServiceMap);
-            initializeWashClassifier(scheduleServiceMap);
+
+            if (washCheckFlv.isWashCheckVisible())
+                initializeWashClassifier(scheduleServiceMap);
         }
 
         return scheduleServiceMap;

@@ -81,4 +81,16 @@ public class FamilyDao extends AbstractDao {
 
         return res.get(0).getTime();
     }
+
+    public static boolean isFamily(String baseEntityID) {
+        String sql = "select count(*) count from ec_family where base_entity_id = '" + baseEntityID + "'";
+
+        DataMap<Integer> dataMap = cursor -> getCursorIntValue(cursor, "count");
+
+        List<Integer> res = readData(sql, dataMap);
+        if (res == null || res.size() != 1)
+            return false;
+
+        return res.get(0) > 0;
+    }
 }
