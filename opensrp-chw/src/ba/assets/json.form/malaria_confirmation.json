@@ -257,6 +257,26 @@
             }
           }
         }
+      },
+      {
+        "key": "referral_not",
+        "type": "label",
+        "text": "Please refer the client for a malaria test",
+        "has_bg": true,
+        "left_padding": "20dp",
+        "right_padding": "20dp",
+        "text_size": "5sp",
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "malaria_confirmation_relevance.yml"
+            }
+          }
+        }
       }
     ]
   },
@@ -396,7 +416,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": "Please select one choice" 
         }
       }
     ]

@@ -34,6 +34,13 @@ condition: "step1_malaria_results.contains('Positive') || step1_fever_malaria_ch
 actions:
   - "isRelevant = true"
 ---
+name: step1_referral_not
+description: referral relevance
+priority: 1
+condition: "step1_fever_malaria_chw.contains('Has a fever')"
+actions:
+  - "isRelevant = true"
+---
 name: step2_llin_2days
 description: sleep under the LLIN last night
 priority: 1
