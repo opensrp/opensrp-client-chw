@@ -82,11 +82,12 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                     }
 
                     if (org.smartregister.chw.util.Constants.EventType.UPDATE_CHILD_REGISTRATION.equals(form.getString(JsonFormUtils.ENCOUNTER_TYPE))) {
-
                         Pair<Client, Event> pair = new ChildRegisterModel().processRegistration(jsonString);
+
                         if (pair != null) {
                             ((PncMemberProfileInteractor) pncMemberProfileInteractor).updateChild(pair, jsonString, null);
                         }
+
                     } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.PNC_REFERRAL)) {
                         pncMemberProfilePresenter().createReferralEvent(Utils.getAllSharedPreferences(), jsonString);
                         showToast(this.getString(R.string.referral_submitted));
