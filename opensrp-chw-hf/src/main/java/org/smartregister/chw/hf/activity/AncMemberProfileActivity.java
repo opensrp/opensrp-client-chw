@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -19,6 +20,7 @@ import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.custom_views.CoreAncFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
@@ -186,6 +188,8 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     public void setupViews() {
         super.setupViews();
         initializeTasksRecyclerView();
+        ((FloatingActionButton) baseAncFloatingMenu.findViewById(R.id.anc_fab))
+                .setImageResource(R.drawable.floating_call);
     }
 
     @Override
