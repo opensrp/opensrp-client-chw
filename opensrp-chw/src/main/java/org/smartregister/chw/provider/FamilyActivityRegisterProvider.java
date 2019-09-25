@@ -49,6 +49,7 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String visitType = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.VISIT_TYPE, false);
+        String familyName = org.smartregister.chw.util.Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
 
         String eventType = getVisitType(visitType);
         boolean notVisited = notVisited(visitType);
@@ -79,7 +80,13 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
             viewHolder.patientNameAge.setTextColor(Color.GRAY);
             viewHolder.patientNameAge.setTypeface(viewHolder.patientNameAge.getTypeface(), Typeface.ITALIC);
         } else {
-            patientName = patientName + ", " + dobString + " " + eventType;
+            if (StringUtils.isNotBlank(firstName) || StringUtils.isNotBlank(middleName) || StringUtils.isNotBlank(lastName)) {
+                patientName = org.smartregister.family.util.Utils.getName(firstName, middleName, lastName);
+                patientName = patientName + ", " + dobString + " " + eventType;
+            } else {
+                patientName = context.getString(R.string.family, familyName)+ " " + eventType;
+            }
+
             viewHolder.patientNameAge.setFontVariant(FontVariant.REGULAR);
             viewHolder.patientNameAge.setTextColor(Color.BLACK);
             viewHolder.patientNameAge.setTypeface(viewHolder.patientNameAge.getTypeface(), Typeface.NORMAL);
@@ -108,7 +115,7 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
             case CoreConstants.EventType.MALARIA_FOLLOW_UP_VISIT:
                 return context.getString(R.string.malaria_visit_suffix);
             case CoreConstants.EventType.WASH_CHECK:
-                return context.getString(R.string.wash_check);
+                return " · " + context.getString(R.string.wash_check);
             case CoreConstants.EventType.CHILD_HOME_VISIT:
                 return context.getString(R.string.home_visit_suffix);
             default:

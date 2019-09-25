@@ -28,12 +28,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.HashMap;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
-    private FamilyProfileActivityFragment profileActivityFragment;
     private BaseFamilyProfileDueFragment profileDueFragment;
-
-    public void updateWashCheckActivity() {
-        profileActivityFragment.updateWashCheck();
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -97,7 +92,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
         BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
         profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
-        profileActivityFragment = (FamilyProfileActivityFragment) FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
+        FamilyProfileActivityFragment profileActivityFragment = (FamilyProfileActivityFragment) FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
 
         adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
         adapter.addFragment(profileDueFragment, this.getString(org.smartregister.family.R.string.due).toUpperCase());

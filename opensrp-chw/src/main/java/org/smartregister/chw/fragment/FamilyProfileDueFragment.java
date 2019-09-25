@@ -171,13 +171,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.WASH_CHECK)
                         ) {
-                            boolean isSave = ((FamilyProfileDuePresenter) presenter).saveData(jsonString);
-                            if (isSave) {
-                                if (getActivity() != null && getActivity() instanceof FamilyProfileActivity) {
-                                    FamilyProfileActivity familyProfileActivity = (FamilyProfileActivity) getActivity();
-                                    familyProfileActivity.updateWashCheckActivity();
-                                }
-                            }
+                            ((FamilyProfileDuePresenter) presenter).saveData(jsonString);
                         }
                     } catch (Exception e) {
                         Timber.e(e);
