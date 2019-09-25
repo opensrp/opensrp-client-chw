@@ -16,6 +16,8 @@ import org.smartregister.family.util.Constants;
 
 import java.util.Set;
 
+import timber.log.Timber;
+
 public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment {
 
 
@@ -47,6 +49,34 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
         String familyHead = bundle.getString(Constants.INTENT_KEY.FAMILY_HEAD);
         String primaryCareGiver = bundle.getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         presenter = new FamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+    }
+
+    public void countExecute() {
+        Cursor c = null;
+
+        try {
+            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
+            sqb.addCondition(filters);
+            String query = sqb.orderbyCondition(Sortqueries);
+            query = sqb.Endquery(query);
+
+            Timber.i(query);
+            c = commonRepository().rawCustomQueryForAdapter(query);
+            c.moveToFirst();
+            clientAdapter.setTotalcount(c.getInt(0));
+            Timber.tag("total count here").v("%s", clientAdapter.getTotalcount());
+
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
+
+
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
     }
 
     @Override
