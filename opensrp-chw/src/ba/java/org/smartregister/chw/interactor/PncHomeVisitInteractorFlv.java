@@ -48,6 +48,7 @@ import timber.log.Timber;
 
 public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv {
     protected List<Person> children;
+    protected  String fp_date;
     protected BaseAncHomeVisitContract.View view;
 
     @Override
@@ -71,11 +72,18 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             children = new ArrayList<>();
         }
 
+
         try {
             evaluateDangerSignsMother();
             evaluateDangerSignsBaby();
             evaluatePNCHealthFacilityVisit();
-            evaluateFamilyPlanning();
+            if(editMode){
+                evaluateFamilyPlanning();
+            }
+            else{
+                if(evaluateIfFamilyPlanning() == null)
+                    evaluateFamilyPlanning();
+            }
             evaluateImmunization();
             evaluateExclusiveBreastFeeding();
             evaluateCounselling();
@@ -92,6 +100,11 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         return actionList;
     }
 
+    private  String evaluateIfFamilyPlanning(){
+        fp_date = PersonDao.getFamilyPlanningDate(memberObject.getBaseEntityId());
+        return  fp_date;
+
+    }
     private void evaluateDangerSignsMother() throws Exception {
 
         HomeVisitActionHelper pncDangerSignsMotherHelper = new HomeVisitActionHelper() {
@@ -190,6 +203,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             }
         }
     }
+
     private void evaluateFamilyPlanning() throws Exception {
         HomeVisitActionHelper helper = new HomeVisitActionHelper() {
             private String fp_counseling;
@@ -710,7 +724,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         for (Person baby : children) {
             if (getAgeInDays(baby.getDob()) <= 28) {
                 List<VaccineWrapper> wrappers = VaccineScheduleUtil.getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
-
+                if(wrappers.size() > 0){
                 List<VaccineDisplay> displays = new ArrayList<>();
                 for (VaccineWrapper vaccineWrapper : wrappers) {
                     VaccineDisplay display = new VaccineDisplay();
@@ -729,6 +743,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         .withHelper(new ImmunizationActionHelper(context, wrappers))
                         .build();
                 actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
+                }
             }
         }
     }

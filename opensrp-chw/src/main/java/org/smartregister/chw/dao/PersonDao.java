@@ -130,4 +130,20 @@ public class PersonDao extends AbstractDao {
 
         return res.get(0);
     }
+
+    public static  String getFamilyPlanningDate(String baseEntityID){
+        String sql = "select details " +
+                " from visit_details " +
+                " inner join visits on visits.base_entity_id = '" + baseEntityID + "'" + " COLLATE NOCASE " +
+                " where visit_details.visit_key = " + "" + "fp_start_date"+ "";
+
+        DataMap<String> dataMap = Cursor -> getCursorValue(Cursor, "details" );
+
+        List<String> res = readData(sql, dataMap);
+        if(res == null || res.size() != 1)
+            return null;
+
+        return res.get(0);
+
+    }
 }
