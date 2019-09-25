@@ -36,6 +36,6 @@ public class PncRegisterFragment extends CorePncRegisterFragment {
 
     @Override
     protected void openPncMemberProfile(CommonPersonObjectClient client) {
-        PncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), getFamilyName(), getFamilyHeadPhone());
+        PncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), getFamilyName(), getFamilyHeadPhone(), client);
     }
 }

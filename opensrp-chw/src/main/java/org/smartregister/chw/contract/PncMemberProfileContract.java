@@ -1,4 +1,4 @@
-package org.smartregister.chw.core.contract;
+package org.smartregister.chw.contract;
 
 import org.json.JSONObject;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;

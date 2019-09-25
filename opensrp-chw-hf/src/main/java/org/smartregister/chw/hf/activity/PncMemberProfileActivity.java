@@ -2,8 +2,12 @@ package org.smartregister.chw.hf.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.util.Constants;
@@ -11,30 +15,38 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
 import org.smartregister.chw.core.interactor.CorePncMemberProfileInteractor;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.R;
+import org.smartregister.chw.hf.adapter.ReferralCardViewAdapter;
+import org.smartregister.chw.hf.contract.PncMemberProfileContract;
 import org.smartregister.chw.hf.interactor.PncMemberProfileInteractor;
+import org.smartregister.chw.hf.presenter.PncMemberProfilePresenter;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.AlertStatus;
+import org.smartregister.domain.Task;
 
 import java.util.Date;
+import java.util.Set;
 
-public class PncMemberProfileActivity extends CorePncMemberProfileActivity {
-    public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
+public class PncMemberProfileActivity extends CorePncMemberProfileActivity implements PncMemberProfileContract.View {
+
+    public RelativeLayout referralRow;
+    public RecyclerView referralRecyclerView;
+    private CommonPersonObjectClient commonPersonObjectClient;
+
+    public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName,
+                               String familyHeadPhoneNumber, CommonPersonObjectClient commonPersonObjectClient) {
         Intent intent = new Intent(activity, PncMemberProfileActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhoneNumber);
+        intent.putExtra(CoreConstants.INTENT_KEY.CLIENT, commonPersonObjectClient);
         activity.startActivity(intent);
     }
 
     @Override
     public void openMedicalHistory() {
         PncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
-    }
-
-    @Override
-    public void setUpComingServicesStatus(String service, AlertStatus status, Date date) {
-        view_most_due_overdue_row.setVisibility(View.GONE);
-        rlUpcomingServices.setVisibility(View.GONE);
     }
 
     @Override
@@ -45,6 +57,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity {
             if (floatingActionButton != null)
                 floatingActionButton.setImageResource(R.drawable.floating_call);
         }
+        initializeReferralsRecyclerView();
     }
 
     @Override
@@ -72,4 +85,59 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity {
     protected Class<? extends CorePncRegisterActivity> getPncRegisterActivityClass() {
         return PncRegisterActivity.class;
     }
+
+    @Override
+    public void setReferralTasks(Set<Task> taskList) {
+        if (referralRecyclerView != null && taskList.size() > 0) {
+            RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, MEMBER_OBJECT, getFamilyHeadName(),
+                    getFamilyHeadPhoneNumber(), getCommonPersonObjectClient(), CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY);
+            referralRecyclerView.setAdapter(mAdapter);
+            referralRow.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onCreation() {
+        super.onCreation();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            setCommonPersonObjectClient((CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CLIENT));
+        }
+    }
+
+    @Override
+    protected void registerPresenter() {
+        presenter = new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(), MEMBER_OBJECT);
+    }
+
+    @Override
+    public void setUpComingServicesStatus(String service, AlertStatus status, Date date) {
+        view_most_due_overdue_row.setVisibility(View.GONE);
+        rlUpcomingServices.setVisibility(View.GONE);
+    }
+
+    public CommonPersonObjectClient getCommonPersonObjectClient() {
+        return commonPersonObjectClient;
+    }
+
+    public void setCommonPersonObjectClient(CommonPersonObjectClient commonPersonObjectClient) {
+        this.commonPersonObjectClient = commonPersonObjectClient;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ((PncMemberProfileContract.Presenter) presenter()).fetchReferralTasks();
+        if (referralRecyclerView.getAdapter() != null) {
+            referralRecyclerView.getAdapter().notifyDataSetChanged();
+        }
+    }
+
+    private void initializeReferralsRecyclerView() {
+        referralRecyclerView = findViewById(R.id.referral_card_recycler_view);
+        referralRow = findViewById(R.id.referal_row);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        referralRecyclerView.setLayoutManager(layoutManager);
+    }
+
 }

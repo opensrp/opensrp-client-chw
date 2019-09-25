@@ -13,7 +13,7 @@ import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
-import org.smartregister.chw.core.contract.PncMemberProfileContract;
+import org.smartregister.chw.contract.PncMemberProfileContract;
 import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.chw.core.interactor.CorePncMemberProfileInteractor;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
