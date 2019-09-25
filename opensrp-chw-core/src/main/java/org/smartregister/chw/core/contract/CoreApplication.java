@@ -1,5 +1,7 @@
 package org.smartregister.chw.core.contract;
 
+import android.util.Pair;
+
 import org.smartregister.Context;
 import org.smartregister.chw.core.helper.RulesEngineHelper;
 import org.smartregister.family.domain.FamilyMetadata;
@@ -21,4 +23,10 @@ public interface CoreApplication {
     FamilyMetadata getMetadata();
 
     ArrayList<String> getAllowedLocationLevels();
+
+    ArrayList<String> getFacilityHierarchy();
+
+    ArrayList<Pair<String, String>> getFamilyLocationFields();
+
+    String getDefaultLocationLevel();
 }

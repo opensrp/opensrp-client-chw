@@ -17,13 +17,7 @@ public class WashCheckModel {
         return ChwApplication.getWashCheckRepository().getAllWashCheckTask(familyId);
     }
 
-    public WashCheck getLatestWashCheck() {
-
-        return ChwApplication.getWashCheckRepository().getLatestEntry(familyId);
-    }
-
     public boolean saveWashCheckEvent(String jsonString) {
-
         return JsonFormUtils.saveWashCheckEvent(jsonString, familyId);
     }
 

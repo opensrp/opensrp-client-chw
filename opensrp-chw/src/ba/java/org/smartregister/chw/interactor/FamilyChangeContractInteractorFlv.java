@@ -19,4 +19,9 @@ public class FamilyChangeContractInteractorFlv implements CoreFamilyChangeContra
 
         return info_columns;
     }
+
+    @Override
+    public int getMinimumCareGiverAge() {
+        return 5;
+    }
 }

@@ -50,18 +50,10 @@ public abstract class CoreFamilyChangeContractInteractor implements FamilyChange
     @Override
     public void getAdultMembersExcludeHOF(final String familyID, final FamilyChangeContract.Presenter presenter) {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
+        Runnable runnable = () -> {
 
-                final Triple<List<FamilyMember>, String, String> family = processFamily(familyID);
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        presenter.renderAdultMembersExcludeHOF(family.getLeft(), family.getMiddle(), family.getRight());
-                    }
-                });
-            }
+            final Triple<List<FamilyMember>, String, String> family = processFamily(familyID);
+            appExecutors.mainThread().execute(() -> presenter.renderAdultMembersExcludeHOF(family.getLeft(), family.getMiddle(), family.getRight()));
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -70,18 +62,10 @@ public abstract class CoreFamilyChangeContractInteractor implements FamilyChange
     @Override
     public void getAdultMembersExcludePCG(final String familyID, final FamilyChangeContract.Presenter presenter) {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
+        Runnable runnable = () -> {
 
-                final Triple<List<FamilyMember>, String, String> family = processFamily(familyID);
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        presenter.renderAdultMembersExcludePCG(family.getLeft(), family.getMiddle(), family.getRight());
-                    }
-                });
-            }
+            final Triple<List<FamilyMember>, String, String> family = processFamily(familyID);
+            appExecutors.mainThread().execute(() -> presenter.renderAdultMembersExcludePCG(family.getLeft(), family.getMiddle(), family.getRight()));
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -90,36 +74,30 @@ public abstract class CoreFamilyChangeContractInteractor implements FamilyChange
     @Override
     public void updateFamilyMember(final Context context, final Pair<String, FamilyMember> familyMember, final String familyID, final String lastLocationId, final FamilyChangeContract.Presenter presenter) {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
+        Runnable runnable = () -> {
 
-                String option = familyMember.first; // familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
+            String option = familyMember.first; // familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
 
-                final FamilyMember member = familyMember.second;
-                member.setFamilyID(familyID);
-                member.setPrimaryCareGiver(CoreConstants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER.equals(option));
-                member.setFamilyHead(CoreConstants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY.equals(option));
+            final FamilyMember member = familyMember.second;
+            member.setFamilyID(familyID);
+            member.setPrimaryCareGiver(CoreConstants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER.equals(option));
+            member.setFamilyHead(CoreConstants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY.equals(option));
 
-                // update the EC client model
-                try {
-                    updateFamilyRelations(context, member, lastLocationId);
-                } catch (Exception e) {
-                    Timber.e(e);
-                }
-
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        if (member.getPrimaryCareGiver()) {
-                            presenter.saveCompleted(null, member.getMemberID());
-                        } else {
-                            presenter.saveCompleted(member.getMemberID(), null);
-                        }
-                    }
-                });
+            // update the EC client model
+            try {
+                updateFamilyRelations(context, member, lastLocationId);
+            } catch (Exception e) {
+                Timber.e(e);
             }
+
+            appExecutors.mainThread().execute(() -> {
+
+                if (member.getPrimaryCareGiver()) {
+                    presenter.saveCompleted(null, member.getMemberID());
+                } else {
+                    presenter.saveCompleted(member.getMemberID(), null);
+                }
+            });
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -194,10 +172,10 @@ public abstract class CoreFamilyChangeContractInteractor implements FamilyChange
             cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {
-                int columncount = cursor.getColumnCount();
+                int column_count = cursor.getColumnCount();
                 FamilyMember columns = new FamilyMember();
                 Date dob = null;
-                for (int i = 0; i < columncount; i++) {
+                for (int i = 0; i < column_count; i++) {
 
                     String value = null;
                     if (!cursor.isNull(i)) {
@@ -245,7 +223,7 @@ public abstract class CoreFamilyChangeContractInteractor implements FamilyChange
                 }
 
                 // add if member is above 5 year
-                if (dob != null && (getDiffYears(dob, new Date()) >= 5)) {
+                if (dob != null && (getDiffYears(dob, new Date()) >= flavor.getMinimumCareGiverAge())) {
                     res.add(columns);
                 }
                 cursor.moveToNext();
@@ -288,5 +266,6 @@ public abstract class CoreFamilyChangeContractInteractor implements FamilyChange
 
     public interface Flavor {
         String getFamilyMembersSql(String familyID);
+        int getMinimumCareGiverAge();
     }
 }
