@@ -67,7 +67,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api('org.smartregister:opensrp-client-native-form:1.6.29-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-native-form:1.6.43-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'
