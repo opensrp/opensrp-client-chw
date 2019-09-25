@@ -185,6 +185,7 @@ public class CoreClientProcessor extends ClientProcessorForJava {
                 break;
             case CoreConstants.EventType.WASH_CHECK:
                 processWashCheckEvent(eventClient);
+                processVisitEvent(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
             case CoreConstants.EventType.CHILD_REFERRAL:

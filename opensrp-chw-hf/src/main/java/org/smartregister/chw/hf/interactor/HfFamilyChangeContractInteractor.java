@@ -8,4 +8,9 @@ public class HfFamilyChangeContractInteractor implements CoreFamilyChangeContrac
     public String getFamilyMembersSql(String familyID) {
         return Utils.getFamilyMembersSql(familyID);
     }
+
+    @Override
+    public int getMinimumCareGiverAge() {
+        return 5;
+    }
 }

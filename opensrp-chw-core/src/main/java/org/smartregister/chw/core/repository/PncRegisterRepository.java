@@ -31,10 +31,6 @@ public class PncRegisterRepository extends BaseRepository {
         super(repository);
     }
 
-    public boolean checkIfPncWoman(String baseEntityId) {
-        return getPncMemberDetails(baseEntityId).get(BASE_ENTITY_ID) != null;
-    }
-
     public Map<String, String> getPncMemberDetails(String baseEntityId) {
         Map<String, String> details = new HashMap<>();
         SQLiteDatabase database = getReadableDatabase();
