@@ -1,5 +1,7 @@
 package org.smartregister.chw.core.utils;
 
+import android.util.Pair;
+
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FormUtils {
-    public static FamilyMetadata getFamilyMetadata(BaseProfileActivity baseProfileActivity) {
+    public static FamilyMetadata getFamilyMetadata(BaseProfileActivity baseProfileActivity, String defaultLocation, ArrayList<String> locationHierarchy, ArrayList<Pair<String, String>> locationFields) {
         FamilyMetadata metadata = new FamilyMetadata(FamilyWizardFormActivity.class, FamilyWizardFormActivity.class,
                 baseProfileActivity.getClass(), CoreConstants.IDENTIFIER.UNIQUE_IDENTIFIER_KEY, false);
 
@@ -32,6 +34,10 @@ public class FormUtils {
         metadata.updateFamilyActivityRegister(CoreConstants.TABLE_NAME.CHILD_ACTIVITY, Integer.MAX_VALUE, false);
 
         metadata.updateFamilyOtherMemberRegister(CoreConstants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
+
+        metadata.setDefaultLocation(defaultLocation);
+        metadata.setLocationHierarchy(locationHierarchy);
+        metadata.setLocationFields(locationFields);
         return metadata;
     }
 
