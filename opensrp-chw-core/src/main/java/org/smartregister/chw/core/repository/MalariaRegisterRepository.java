@@ -70,65 +70,6 @@ public class MalariaRegisterRepository extends BaseRepository {
 
     }
 
-//    public String getGaIfAncWoman(String baseEntityID) {
-//        SQLiteDatabase database = getReadableDatabase();
-//        Cursor cursor = null;
-//        try {
-//            if (database == null) {
-//                return null;
-//            }
-//            String selection = DBConstants.KEY.BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " +
-//                    org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = ? " + COLLATE_NOCASE;
-//            String[] selectionArgs = new String[]{baseEntityID, "0"};
-//
-//
-//            cursor = database.query(CoreConstants.TABLE_NAME.ANC_MEMBER, LAST_MENSTRUAL_PERIOD_COLUMNS, selection, selectionArgs, null, null, null);
-//
-//            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
-//                return cursor.getString(cursor.getColumnIndex(LAST_MENSTRUAL_PERIOD));
-//            }
-//        } catch (Exception e) {
-//            Timber.e(e);
-//        } finally {
-//            if (cursor != null) {
-//                cursor.close();
-//            }
-//        }
-//        return null;
-//
-//    }
-//
-//    /**
-//     * Check if a woman is already registered in ANC (by checking if they exist in the ANC register)
-//     *
-//     * @param baseEntityId client base entity id
-//     * @return true or false based on whether already registered
-//     */
-//    public boolean checkIfAncWoman(String baseEntityId) {
-//        SQLiteDatabase database = getReadableDatabase();
-//        Cursor cursor = null;
-//        try {
-//            if (database == null) {
-//                return false;
-//            }
-//            String selection = DBConstants.KEY.BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " +
-//                    org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = ? " + COLLATE_NOCASE;
-//            String[] selectionArgs = new String[]{baseEntityId, "0"};
-//            cursor = database.query(CoreConstants.TABLE_NAME.ANC_MEMBER,
-//                    ANC_COUNT_TABLE_COLUMNS, selection, selectionArgs, null, null, null);
-//            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
-//                return true;
-//            }
-//        } catch (Exception e) {
-//            Timber.e(e);
-//        } finally {
-//            if (cursor != null) {
-//                cursor.close();
-//            }
-//        }
-//        return false;
-//    }
-
     public int getMalariaCount(String familyBaseID, String register) {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = null;

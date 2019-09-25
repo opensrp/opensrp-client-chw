@@ -25,6 +25,7 @@ import java.util.Set;
 public class FamilyRegisterProvider extends CoreRegisterProvider {
     protected final Context context;
     private final View.OnClickListener onClickListener;
+    private Flavor flavor = new FamilyRegisterProviderFlv();
 
     public FamilyRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
         super(context, commonRepository, visibleColumns, onClickListener, paginationClickListener);
@@ -99,7 +100,7 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
 
             int due = visits_due == null ? 0 : visits_due;
             int over_due = visits_over_due == null ? 0 : visits_over_due;
-            if(due > 0 && over_due > 0){
+            if (due > 0 && over_due > 0) {
                 over_due = over_due + due;
             }
             //over_due = over_due + due;
@@ -141,7 +142,8 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             list = getChildren(familyBaseEntityId);
             ancWomanCount = ChwApplication.ancRegisterRepository().getAncPncWomenCount(familyBaseEntityId, CoreConstants.TABLE_NAME.ANC_MEMBER);
             pncWomanCount = ChwApplication.ancRegisterRepository().getAncPncWomenCount(familyBaseEntityId, CoreConstants.TABLE_NAME.PNC_MEMBER);
-            malariaCount = ChwApplication.malariaRegisterRepository().getMalariaCount(familyBaseEntityId, CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION);
+            if (flavor.hasMalaria())
+                malariaCount = ChwApplication.malariaRegisterRepository().getMalariaCount(familyBaseEntityId, CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION);
             services = FamilyDao.getFamilyServiceSchedule(familyBaseEntityId);
             return null;
         }
@@ -153,5 +155,9 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             updateMalariaIcons(viewHolder, malariaCount);
             updateButtonState(context, viewHolder, services);
         }
+    }
+
+    public interface Flavor {
+        boolean hasMalaria();
     }
 }
