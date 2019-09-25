@@ -1,11 +1,11 @@
 package org.smartregister.chw.hf.fragment;
 
-import android.view.View;
-
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.fragment.CorePncRegisterFragment;
+import org.smartregister.chw.core.model.PncRegisterFragmentModel;
 import org.smartregister.chw.core.provider.ChwPncRegisterProvider;
 import org.smartregister.chw.hf.activity.PncMemberProfileActivity;
+import org.smartregister.chw.hf.presenter.PncRegisterFragmentPresenter;
 import org.smartregister.chw.hf.provider.HfPncRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -22,9 +22,11 @@ public class PncRegisterFragment extends CorePncRegisterFragment {
     }
 
     @Override
-    public void setupViews(View view) {
-        super.setupViews(view);
-        dueOnlyLayout.setVisibility(View.GONE);
+    protected void initializePresenter() {
+        if (getActivity() == null) {
+            return;
+        }
+        presenter = new PncRegisterFragmentPresenter(this, new PncRegisterFragmentModel(), null);
     }
 
     @Override
