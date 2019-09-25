@@ -20,7 +20,6 @@ import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
 import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.custom_views.CoreAncFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
@@ -188,8 +187,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     public void setupViews() {
         super.setupViews();
         initializeTasksRecyclerView();
-        ((FloatingActionButton) baseAncFloatingMenu.findViewById(R.id.anc_fab))
-                .setImageResource(R.drawable.floating_call);
+        if (baseAncFloatingMenu != null) {
+            FloatingActionButton floatingActionButton = baseAncFloatingMenu.findViewById(R.id.anc_fab);
+            if (floatingActionButton != null)
+                floatingActionButton.setImageResource(R.drawable.floating_call);
+        }
     }
 
     @Override

@@ -2,7 +2,6 @@ package org.smartregister.chw.hf.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 
@@ -11,7 +10,6 @@ import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
-import org.smartregister.chw.core.custom_views.CoreAncFloatingMenu;
 import org.smartregister.chw.core.interactor.CorePncMemberProfileInteractor;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.interactor.PncMemberProfileInteractor;
@@ -42,8 +40,11 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity {
     @Override
     public void setupViews() {
         super.setupViews();
-        ((FloatingActionButton) baseAncFloatingMenu.findViewById(R.id.anc_fab))
-                .setImageResource(R.drawable.floating_call);
+        if (baseAncFloatingMenu != null) {
+            FloatingActionButton floatingActionButton = baseAncFloatingMenu.findViewById(R.id.anc_fab);
+            if (floatingActionButton != null)
+                floatingActionButton.setImageResource(R.drawable.floating_call);
+        }
     }
 
     @Override
