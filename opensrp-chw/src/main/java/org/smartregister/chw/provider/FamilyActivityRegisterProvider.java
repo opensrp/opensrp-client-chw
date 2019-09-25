@@ -81,7 +81,7 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
             viewHolder.patientNameAge.setTypeface(viewHolder.patientNameAge.getTypeface(), Typeface.ITALIC);
         } else {
             if (StringUtils.isNotBlank(firstName) || StringUtils.isNotBlank(middleName) || StringUtils.isNotBlank(lastName)) {
-                patientName = org.smartregister.family.util.Utils.getName(firstName, middleName, lastName);
+                patientName = Utils.getName(firstName, middleName, lastName);
                 patientName = patientName + ", " + dobString + " " + eventType;
             } else {
                 patientName = context.getString(R.string.family, familyName) + " " + eventType;
