@@ -84,7 +84,7 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
                 patientName = org.smartregister.family.util.Utils.getName(firstName, middleName, lastName);
                 patientName = patientName + ", " + dobString + " " + eventType;
             } else {
-                patientName = context.getString(R.string.family, familyName)+ " " + eventType;
+                patientName = context.getString(R.string.family, familyName) + " " + eventType;
             }
 
             viewHolder.patientNameAge.setFontVariant(FontVariant.REGULAR);

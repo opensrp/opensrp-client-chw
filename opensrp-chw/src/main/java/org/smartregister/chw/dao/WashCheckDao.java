@@ -52,9 +52,8 @@ public class WashCheckDao extends AbstractDao {
                 || "{}".equals(jsonEventStr)) { // Skip blank/empty json string
             return null;
         }
-        jsonEventStr = jsonEventStr.replaceAll("'", "");
-
-        Event event = convert(jsonEventStr, Event.class);
+        String eventJson = jsonEventStr.replaceAll("'", "");
+        Event event = convert(eventJson, Event.class);
 
         return new EventClient(event, null);
     }
