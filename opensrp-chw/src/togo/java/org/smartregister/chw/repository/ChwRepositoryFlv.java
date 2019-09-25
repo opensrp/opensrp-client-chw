@@ -20,6 +20,7 @@ import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
@@ -207,6 +208,17 @@ public class ChwRepositoryFlv {
 
                 NCUtils.processAncHomeVisit(eventClient); // save locally
             }
+
+            // add missing columns to the DB
+            List<String> columns = new ArrayList<>();
+            columns.add(ChildDBConstants.KEY.RELATIONAL_ID);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.FAMILY_MEMBER, columns);
+
+            // add missing columns
+            List<String> child_columns = new ArrayList<>();
+            child_columns.add(DBConstants.KEY.DOB);
+            child_columns.add(DBConstants.KEY.DATE_REMOVED);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.CHILD, child_columns);
 
         } catch (Exception e) {
             Timber.e(e);

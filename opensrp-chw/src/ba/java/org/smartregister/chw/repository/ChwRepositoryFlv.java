@@ -6,14 +6,23 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
+import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.util.DatabaseMigrationUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -49,6 +58,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 10:
                     upgradeToVersion10(db);
+                    break;
+                case 12:
+                    upgradeToVersion12(db);
                     break;
                 default:
                     break;
@@ -161,6 +173,24 @@ public class ChwRepositoryFlv {
             }
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion10 ");
+        }
+    }
+
+    private static void upgradeToVersion12(SQLiteDatabase db) {
+        try {
+            // add missing columns
+            List<String> columns = new ArrayList<>();
+            columns.add(ChildDBConstants.KEY.RELATIONAL_ID);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.FAMILY_MEMBER, columns);
+
+            // add missing columns
+            List<String> child_columns = new ArrayList<>();
+            child_columns.add(DBConstants.KEY.DOB);
+            child_columns.add(DBConstants.KEY.DATE_REMOVED);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.CHILD, child_columns);
+
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion12 ");
         }
     }
 }
