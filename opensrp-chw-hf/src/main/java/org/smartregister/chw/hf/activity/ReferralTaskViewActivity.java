@@ -19,6 +19,8 @@ import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.dao.PNCDao;
+import org.smartregister.chw.core.model.ChildModel;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.BuildConfig;
@@ -41,6 +43,7 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -52,6 +55,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     private CustomFontTextView clientName;
     private String clientAge;
     private CustomFontTextView careGiverName;
+    private CustomFontTextView childName;
     private CustomFontTextView careGiverPhone;
     private CustomFontTextView clientReferralProblem;
     private CustomFontTextView referralDate;
@@ -59,6 +63,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     private CustomFontTextView womanGa;
     private LinearLayout womanGaLayout;
     private LinearLayout careGiverLayout;
+    private LinearLayout childNameLayout;
     private ReferralsTaskViewClickListener referralsTaskViewClickListener = new ReferralsTaskViewClickListener();
     private String name;
     private String baseEntityId;
@@ -226,6 +231,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     public void setUpViews() {
         clientName = findViewById(R.id.client_name);
         careGiverName = findViewById(R.id.care_giver_name);
+        childName = findViewById(R.id.child_name);
         careGiverPhone = findViewById(R.id.care_giver_phone);
         clientReferralProblem = findViewById(R.id.client_referral_problem);
         chwDetailsNames = findViewById(R.id.chw_details_names);
@@ -233,6 +239,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
 
         womanGaLayout = findViewById(R.id.woman_ga_layout);
         careGiverLayout = findViewById(R.id.care_giver_name_layout);
+        childNameLayout = findViewById(R.id.child_name_layout);
 
         womanGa = findViewById(R.id.woman_ga);
         CustomFontTextView viewProfile = findViewById(R.id.view_profile);
@@ -268,8 +275,17 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             String parentMiddleName = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
             String parentName = getString(R.string.care_giver_prefix, org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName));
 
+            //For PNC get children belonging to the woman
+            String childrenForPncWoman = getChildrenForPncWoman(getPersonObjectClient().entityId());
+            if (getTask().getFocus().equalsIgnoreCase(CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS) &&
+                    StringUtils.isNoneEmpty(childrenForPncWoman)) {
+                childName.setText(childrenForPncWoman);
+                childNameLayout.setVisibility(View.VISIBLE);
+            }
+
             //Hide Care giver for ANC referral
-            if (getTask().getFocus().equalsIgnoreCase(CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS)) {
+            if (getTask().getFocus().equalsIgnoreCase(CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS) ||
+                    getTask().getFocus().equalsIgnoreCase(CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS)) {
                 careGiverLayout.setVisibility(View.GONE);
             }
 
@@ -280,6 +296,23 @@ public class ReferralTaskViewActivity extends SecuredActivity {
 
             addGaDisplay();
         }
+    }
+
+    private String getChildrenForPncWoman(String baseEntityId) {
+        List<ChildModel> childModels = PNCDao.childrenForPncWoman(baseEntityId);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (ChildModel childModel : childModels) {
+            String childAge = (Utils.getTranslatedDate(Utils.getDuration(childModel.getDateOfBirth()), getBaseContext()));
+            stringBuilder.append(childModel.getChildFullName())
+                    .append(", ")
+                    .append(childAge)
+                    .append("; ");
+        }
+
+        String children = stringBuilder.toString().replaceAll("; $", "").trim();
+
+        return childModels.size() > 0 && childModels.size() == 1 ?
+                getString(R.string.child_prefix, children) : getString(R.string.children_prefix, children);
     }
 
     private void updateProblemDisplay() {
@@ -300,6 +333,8 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             phoneNumber = familyPhoneNumberOther;
         } else if (StringUtils.isNoneEmpty(familyPhoneNumber) && StringUtils.isNoneEmpty(familyPhoneNumberOther)) {
             phoneNumber = familyPhoneNumber + ", " + familyPhoneNumberOther;
+        } else if (StringUtils.isNoneEmpty(getFamilyHeadPhoneNumber())) {
+            phoneNumber = getFamilyHeadPhoneNumber();
         }
 
         return phoneNumber;
