@@ -932,6 +932,49 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
         return null;
     }
 
+    public static JSONObject getAutoJsonEditMalariaFormString(String baseEntityID, Context context, String formName, String eventType, String title) {
+        try {
+
+            Event event = getEditMalariaLatestProperties(baseEntityID);
+            final List<Obs> observations = event.getObs();
+            JSONObject form = getFormWithMetaData(baseEntityID, context, formName, eventType);
+            if (form != null) {
+                JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+
+                if (StringUtils.isNotBlank(title)) {
+                    stepOne.put(TITLE, title);
+                }
+                JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                    if (jsonObject.getString(KEY).equalsIgnoreCase("last_menstrual_period") ||
+//                            jsonObject.getString(KEY).equalsIgnoreCase("delivery_method")) {
+//                        jsonObject.put(READ_ONLY, true);
+//                    }
+                    try {
+                        for (Obs obs : observations) {
+                            if (obs.getFormSubmissionField().equalsIgnoreCase(jsonObject.getString(KEY))) {
+                                if (jsonObject.getString("type").equals("spinner")) {
+                                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, obs.getHumanReadableValues().get(0));
+                                } else {
+                                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, obs.getValue());
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return form;
+            }
+
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return null;
+    }
+
     public static void populateLocationsTree(JSONObject form, String stepName,
                                              ArrayList<String> healthFacilities, String locationTree) {
         try {
@@ -972,6 +1015,26 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
 
         String query_event = String.format("select json from event where baseEntityId = '%s' and eventType in ('%s','%s') order by updatedAt desc limit 1;",
                 baseEntityID, CoreConstants.EventType.UPDATE_ANC_REGISTRATION, CoreConstants.EventType.ANC_REGISTRATION);
+
+        try (Cursor cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query_event, new String[]{})) {
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                ecEvent = AssetHandler.jsonStringToJava(cursor.getString(0), Event.class);
+                cursor.moveToNext();
+            }
+        } catch (Exception e) {
+            Timber.e(e, e.toString());
+        }
+        return ecEvent;
+    }
+
+    private static Event getEditMalariaLatestProperties(String baseEntityID) {
+
+        Event ecEvent = null;
+
+        String query_event = String.format("select json from event where baseEntityId = '%s' and eventType in ('%s','%s') order by updatedAt desc limit 1;",
+                baseEntityID, CoreConstants.EventType.UPDATE_MALARIA_CONFIRMATION, CoreConstants.EventType.MALARIA_CONFIRMATION);
 
         try (Cursor cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query_event, new String[]{})) {
             cursor.moveToFirst();

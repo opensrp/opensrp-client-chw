@@ -112,6 +112,7 @@ public class CoreConstants {
         public static final String MALARIA_FOLLOW_UP_VISIT = "Malaria Follow-up Visit";
         public static final String MALARIA_CONFIRMATION = "Malaria Confirmation";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
+        public static final String UPDATE_MALARIA_CONFIRMATION = "Update Malaria Confirmation";
         public static final String CLOSE_REFERRAL = "Close Referral";
         public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
         public static final String PNC_REGISTRATION = "PNC Registration";
@@ -133,6 +134,7 @@ public class CoreConstants {
 
         public static final String OBS_ILLNESS = "observation_illness";
         public static final String FAMILY_REGISTER = "family_register";
+        public static final String MALARIA_REGISTER = "malaria_confirmation";
         public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
         public static final String CHILD_REGISTER = "child_enrollment";
         public static final String FAMILY_DETAILS_REGISTER = "family_details_register";

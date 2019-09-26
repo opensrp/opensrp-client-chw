@@ -147,6 +147,10 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         if (id == R.id.textview_record_malaria) {
             MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, MEMBER_OBJECT.getBaseEntityId());
         }
+        else if (id == R.id.rlMalariaPositiveDate){
+            startFormForEdit(R.string.malaria_info,
+                    org.smartregister.chw.util.Constants.JSON_FORM.MALARIA_REGISTER);
+        }
     }
 
     @Override
@@ -178,6 +182,10 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         } else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration())) {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditAncFormString(
                     MEMBER_OBJECT.getBaseEntityId(), this, formName, org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION, getResources().getString(title_resource));
+        }
+        else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getMalariaConfirmation())) {
+            form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditMalariaFormString(
+                    MEMBER_OBJECT.getBaseEntityId(), this, formName, org.smartregister.chw.util.Constants.EventType.UPDATE_MALARIA_CONFIRMATION, getResources().getString(title_resource));
         }
 
         try {
