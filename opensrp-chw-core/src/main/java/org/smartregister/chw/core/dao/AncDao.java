@@ -37,7 +37,7 @@ public class AncDao extends AlertDao {
                 "m.phone_number , m.other_phone_number , f.first_name family_name , f.primary_caregiver , f.family_head , " +
                 "fh.first_name family_head_first_name , fh.middle_name family_head_middle_name, fh.last_name family_head_last_name, " +
                 "fh.phone_number family_head_phone_number , ar.confirmed_visits , f.village_town , ar.last_interacted_with , " +
-                "ar.last_contact_visit , ar.has_anc_card , ar.visit_not_done , ar.last_menstrual_period  , al.date_created " +
+                "ar.last_contact_visit , ar.visit_not_done , ar.last_menstrual_period  , al.date_created  , ar.* " +
                 "from ec_family_member m " +
                 "inner join ec_family f on m.relational_id = f.base_entity_id " +
                 "inner join ec_anc_register ar on ar.base_entity_id = m.base_entity_id " +
