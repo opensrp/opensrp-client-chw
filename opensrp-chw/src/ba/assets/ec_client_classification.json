@@ -164,6 +164,13 @@
             "creates_case": [
               "ec_anc_referral"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PNC Referral",
+            "creates_case": [
+              "ec_pnc_referral"
+            ]
           }
         ]
       }

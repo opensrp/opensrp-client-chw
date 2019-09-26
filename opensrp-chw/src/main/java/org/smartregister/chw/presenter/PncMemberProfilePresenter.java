@@ -5,15 +5,25 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
+import org.smartregister.chw.contract.PncMemberProfileContract;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileContract;
+import org.smartregister.family.util.Utils;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.FormUtils;
 
 import timber.log.Timber;
 
-public class PncMemberProfilePresenter extends BaseAncMemberProfilePresenter implements FamilyProfileContract.InteractorCallBack {
+public class PncMemberProfilePresenter extends BaseAncMemberProfilePresenter implements
+        PncMemberProfileContract.Presenter, FamilyProfileContract.InteractorCallBack {
+
+    private FormUtils formUtils;
+    private String entityId;
 
     public PncMemberProfilePresenter(BaseAncMemberProfileContract.View view, BaseAncMemberProfileContract.Interactor interactor, MemberObject memberObject) {
         super(view, interactor, memberObject);
+        setEntityId(memberObject.getBaseEntityId());
     }
 
     public void startFormForEdit(CommonPersonObjectClient commonPersonObject) {
@@ -43,12 +53,45 @@ public class PncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
         Timber.d("onRegistrationSaved unimplemented");
     }
 
-    public BaseAncMemberProfileContract.View getView() {
+    public PncMemberProfileContract.View getView() {
         if (view != null) {
-            return view.get();
+            return (PncMemberProfileContract.View) view.get();
         } else {
             return null;
         }
+    }
+
+    @Override
+    public void startPncReferralForm() {
+        try {
+            getView().startFormActivity(getFormUtils().getFormJson(CoreConstants.JSON_FORM.getPncReferralForm()));
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
+    public void createReferralEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception {
+        ((PncMemberProfileContract.Interactor) interactor).createReferralEvent(allSharedPreferences, jsonString, getEntityId());
+    }
+
+    private FormUtils getFormUtils() {
+        if (formUtils == null) {
+            try {
+                formUtils = FormUtils.getInstance(Utils.context().applicationContext());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
+        return formUtils;
+    }
+
+    public String getEntityId() {
+        return entityId;
+    }
+
+    private void setEntityId(String entityId) {
+        this.entityId = entityId;
     }
 }
 

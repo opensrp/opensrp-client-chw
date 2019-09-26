@@ -2,6 +2,7 @@ package org.smartregister.chw.core.dao;
 
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.core.model.ChildModel;
 
 import java.util.Date;
 import java.util.List;
@@ -49,31 +50,31 @@ public class PNCDao extends AbstractDao {
         DataMap<MemberObject> dataMap = cursor -> {
             MemberObject memberObject = new MemberObject();
             memberObject.setLastMenstrualPeriod(getCursorValue(cursor, "last_menstrual_period"));
-            memberObject.setChwMemberId(getCursorValue(cursor, "unique_id",""));
-            memberObject.setBaseEntityId(getCursorValue(cursor, "base_entity_id",""));
-            memberObject.setFamilyBaseEntityId(getCursorValue(cursor, "relational_id",""));
-            memberObject.setFamilyHead(getCursorValue(cursor, "family_head",""));
+            memberObject.setChwMemberId(getCursorValue(cursor, "unique_id", ""));
+            memberObject.setBaseEntityId(getCursorValue(cursor, "base_entity_id", ""));
+            memberObject.setFamilyBaseEntityId(getCursorValue(cursor, "relational_id", ""));
+            memberObject.setFamilyHead(getCursorValue(cursor, "family_head", ""));
 
-            String familyHeadName = getCursorValue(cursor, "family_head_first_name","") + " "
-                    + getCursorValue(cursor, "family_head_middle_name","");
+            String familyHeadName = getCursorValue(cursor, "family_head_first_name", "") + " "
+                    + getCursorValue(cursor, "family_head_middle_name", "");
 
-            familyHeadName = (familyHeadName.trim() + " " + getCursorValue(cursor, "family_head_last_name","")).trim();
+            familyHeadName = (familyHeadName.trim() + " " + getCursorValue(cursor, "family_head_last_name", "")).trim();
 
             memberObject.setFamilyHeadName(familyHeadName);
-            memberObject.setFamilyHeadPhoneNumber(getCursorValue(cursor, "family_head_phone_number",""));
+            memberObject.setFamilyHeadPhoneNumber(getCursorValue(cursor, "family_head_phone_number", ""));
             memberObject.setPrimaryCareGiver(getCursorValue(cursor, "primary_caregiver"));
-            memberObject.setFamilyName(getCursorValue(cursor, "family_name",""));
+            memberObject.setFamilyName(getCursorValue(cursor, "family_name", ""));
             memberObject.setLastContactVisit(getCursorValue(cursor, "last_contact_visit"));
             memberObject.setLastInteractedWith(getCursorValue(cursor, "last_interacted_with"));
-            memberObject.setFirstName(getCursorValue(cursor, "first_name",""));
-            memberObject.setMiddleName(getCursorValue(cursor, "middle_name",""));
-            memberObject.setLastName(getCursorValue(cursor, "last_name",""));
+            memberObject.setFirstName(getCursorValue(cursor, "first_name", ""));
+            memberObject.setMiddleName(getCursorValue(cursor, "middle_name", ""));
+            memberObject.setLastName(getCursorValue(cursor, "last_name", ""));
             memberObject.setDob(getCursorValue(cursor, "dob"));
-            memberObject.setPhoneNumber(getCursorValue(cursor, "phone_number",""));
+            memberObject.setPhoneNumber(getCursorValue(cursor, "phone_number", ""));
             memberObject.setConfirmedContacts(getCursorIntValue(cursor, "confirmed_visits", 0));
             memberObject.setDateCreated(getCursorValue(cursor, "date_created"));
             memberObject.setAddress(getCursorValue(cursor, "village_town"));
-            memberObject.setHasAncCard(getCursorValue(cursor, "has_anc_card",""));
+            memberObject.setHasAncCard(getCursorValue(cursor, "has_anc_card", ""));
 
             return memberObject;
         };
@@ -83,5 +84,15 @@ public class PNCDao extends AbstractDao {
             return null;
 
         return res.get(0);
+    }
+
+    public static List<ChildModel> childrenForPncWoman(String baseEntityId) {
+        String sql = String.format("select first_name || ' ' || middle_name || ' ' || last_name as child_name, dob " +
+                "FROM ec_child WHERE mother_entity_id ='%s' AND  entry_point = '%s'", baseEntityId, "PNC");
+
+        DataMap<ChildModel> dataMap = cursor ->
+                new ChildModel(getCursorValue(cursor, "child_name"), getCursorValue(cursor, "dob"));
+
+        return readData(sql, dataMap);
     }
 }
