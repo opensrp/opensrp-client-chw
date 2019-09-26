@@ -2,7 +2,6 @@ package org.smartregister.chw.hf.fragment;
 
 import android.view.View;
 
-import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.fragment.CorePncRegisterFragment;
 import org.smartregister.chw.core.provider.ChwPncRegisterProvider;
 import org.smartregister.chw.hf.activity.PncMemberProfileActivity;
@@ -34,6 +33,6 @@ public class PncRegisterFragment extends CorePncRegisterFragment {
 
     @Override
     protected void openPncMemberProfile(CommonPersonObjectClient client) {
-        PncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), getFamilyName(), getFamilyHeadPhone());
+        PncMemberProfileActivity.startMe(getActivity(), client.getCaseId());
     }
 }
