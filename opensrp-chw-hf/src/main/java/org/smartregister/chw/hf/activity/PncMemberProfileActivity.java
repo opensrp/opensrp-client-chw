@@ -41,6 +41,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity {
     }
     @Override
     public void openMedicalHistory() {
-        PncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+        PncMedicalHistoryActivity.startMe(this, memberObject);
     }
 }
