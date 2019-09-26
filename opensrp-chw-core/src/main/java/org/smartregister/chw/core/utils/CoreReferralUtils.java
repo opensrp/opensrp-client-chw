@@ -186,12 +186,19 @@ public class CoreReferralUtils {
 
     private static String assignReferralFocus(String referralTable) {
         String focus;
-        if (CoreConstants.TABLE_NAME.CHILD_REFERRAL.equals(referralTable)) {
-            focus = CoreConstants.TASKS_FOCUS.SICK_CHILD;
-        } else if (CoreConstants.TABLE_NAME.ANC_REFERRAL.equals(referralTable)) {
-            focus = CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS;
-        } else {
-            focus = "";
+        switch (referralTable) {
+            case CoreConstants.TABLE_NAME.CHILD_REFERRAL:
+                focus = CoreConstants.TASKS_FOCUS.SICK_CHILD;
+                break;
+            case CoreConstants.TABLE_NAME.ANC_REFERRAL:
+                focus = CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS;
+                break;
+            case CoreConstants.TABLE_NAME.PNC_REFERRAL:
+                focus = CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS;
+                break;
+            default:
+                focus = "";
+                break;
         }
 
         return focus;
