@@ -30,7 +30,7 @@ public class FamilyProfileActivityModel extends BaseFamilyProfileActivityModel {
     @Override
     protected String[] mainColumns(String tableName) {
         return new String[]{
-                Constants.TABLE_NAME.FAMILY_MEMBER + ".relationalid",
+                Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.RELATIONAL_ID,
                 Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
                 Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID,
                 Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.FIRST_NAME,

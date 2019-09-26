@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -186,6 +187,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     public void setupViews() {
         super.setupViews();
         initializeTasksRecyclerView();
+        if (baseAncFloatingMenu != null) {
+            FloatingActionButton floatingActionButton = baseAncFloatingMenu.findViewById(R.id.anc_fab);
+            if (floatingActionButton != null)
+                floatingActionButton.setImageResource(R.drawable.floating_call);
+        }
     }
 
     @Override
