@@ -68,6 +68,9 @@ public class ChwRepositoryFlv {
                 case 11:
                     upgradeToVersion11(db);
                     break;
+                case 12:
+                    upgradeToVersion12(db);
+                    break;
                 default:
                     break;
             }
@@ -222,6 +225,12 @@ public class ChwRepositoryFlv {
 
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion12(SQLiteDatabase db) {
+        for (String query : RepositoryUtilsFlv.UPDATE_V12) {
+            db.execSQL(query);
         }
     }
 

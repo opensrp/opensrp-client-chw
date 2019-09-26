@@ -199,7 +199,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
-            buildConfigField "int", "DATABASE_VERSION", '11'
+            buildConfigField "int", "DATABASE_VERSION", '12'
         }
         wcaro {
             dimension = 'baseDimension'
