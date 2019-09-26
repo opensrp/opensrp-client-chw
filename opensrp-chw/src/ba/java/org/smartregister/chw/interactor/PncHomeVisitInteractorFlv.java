@@ -49,6 +49,7 @@ import timber.log.Timber;
 public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv {
     protected List<Person> children;
     protected  String fp_date;
+    protected  String fp_last_date;
     protected BaseAncHomeVisitContract.View view;
 
     @Override
@@ -78,10 +79,19 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             evaluateDangerSignsBaby();
             evaluatePNCHealthFacilityVisit();
             if(editMode){
-                evaluateFamilyPlanning();
+                if(evaluateIfFamilyPlanningDone() != null){
+                    if(evaluateFamilyPlanningDate() != null){
+                        evaluateFamilyPlanning();
+                    }
+                }
+                else {
+                    evaluateFamilyPlanning();
+
+                }
+
             }
             else{
-                if(evaluateIfFamilyPlanning() == null)
+                if(evaluateIfFamilyPlanningDone() == null)
                     evaluateFamilyPlanning();
             }
             evaluateImmunization();
@@ -100,10 +110,17 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         return actionList;
     }
 
-    private  String evaluateIfFamilyPlanning(){
+    private  String evaluateIfFamilyPlanningDone(){
         fp_date = PersonDao.getFamilyPlanningDate(memberObject.getBaseEntityId());
         return  fp_date;
 
+    }
+
+    private  String evaluateFamilyPlanningDate(){
+        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.PNC_HOME_VISIT);
+
+        fp_last_date = PersonDao.getFamilyPlanningLastVisitDate(memberObject.getBaseEntityId(),lastVisit.getVisitId());
+     return  fp_last_date;
     }
     private void evaluateDangerSignsMother() throws Exception {
 
