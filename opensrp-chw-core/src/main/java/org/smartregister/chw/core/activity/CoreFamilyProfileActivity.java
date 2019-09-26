@@ -351,14 +351,11 @@ public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivit
         }
         intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, true);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, new MemberObject(patient));
         startActivity(intent);
     }
 
     public void goToAncProfileActivity(CommonPersonObjectClient patient, Bundle bundle) {
         patient.getColumnmaps().putAll(getAncCommonPersonObject(patient.entityId()).getColumnmaps());
-        patient.getColumnmaps().put(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, getFamilyHead());
-        patient.getColumnmaps().put(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, getPrimaryCaregiver());
         startActivity(initProfileActivityIntent(patient, bundle, getAncMemberProfileActivityClass()));
     }
 
@@ -368,20 +365,11 @@ public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivit
     }
 
     private Intent initProfileActivityIntent(CommonPersonObjectClient patient, Bundle bundle, Class activityClass) {
-        HashMap<String, String> familyHeadDetails = getAncFamilyHeadNameAndPhone(getFamilyHead());
-        String familyHeadName = "";
-        String familyHeadPhone = "";
-        if (familyHeadDetails != null) {
-            familyHeadName = familyHeadDetails.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME);
-            familyHeadPhone = familyHeadDetails.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE);
-        }
         Intent intent = new Intent(this, activityClass);
         if (bundle != null) {
             intent.putExtras(bundle);
         }
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, new MemberObject(patient));
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhone);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, patient.entityId());
         intent.putExtra(CoreConstants.INTENT_KEY.CLIENT, patient);
         intent.putExtra(TITLE_VIEW_TEXT, String.format(getString(org.smartregister.chw.core.R.string.return_to_family_name), ""));
         return intent;

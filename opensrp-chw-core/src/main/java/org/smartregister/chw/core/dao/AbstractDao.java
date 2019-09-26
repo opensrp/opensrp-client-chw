@@ -108,6 +108,10 @@ public class AbstractDao {
         return c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? null : c.getString(c.getColumnIndex(column_name));
     }
 
+    protected static String getCursorValue(Cursor c, String column_name, String defaultValue) {
+        return c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? defaultValue : c.getString(c.getColumnIndex(column_name));
+    }
+
     @Nullable
     protected static Long getCursorLongValue(Cursor c, String column_name) {
         return c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? null : c.getLong(c.getColumnIndex(column_name));
@@ -116,6 +120,10 @@ public class AbstractDao {
     @Nullable
     protected static Integer getCursorIntValue(Cursor c, String column_name) {
         return c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? null : c.getInt(c.getColumnIndex(column_name));
+    }
+
+    protected static Integer getCursorIntValue(Cursor c, String column_name, int defaultValue) {
+        return c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? defaultValue : c.getInt(c.getColumnIndex(column_name));
     }
 
     @Nullable

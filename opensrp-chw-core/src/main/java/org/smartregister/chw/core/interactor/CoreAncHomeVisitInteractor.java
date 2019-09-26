@@ -5,6 +5,7 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.interactor.BaseAncHomeVisitInteractor;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.core.dao.AncDao;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -47,6 +48,12 @@ public class CoreAncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
         };
 
         appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public MemberObject getMemberClient(String memberID) {
+        // read all the member details from the database
+        return AncDao.getMember(memberID);
     }
 
     public interface Flavor {

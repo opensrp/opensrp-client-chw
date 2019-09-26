@@ -75,12 +75,12 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
 
     @Override
     protected void registerPresenter() {
-        presenter = new CoreAncMemberProfilePresenter(this, new CoreAncMemberProfileInteractor(this), MEMBER_OBJECT);
+        presenter = new CoreAncMemberProfilePresenter(this, new CoreAncMemberProfileInteractor(this), memberObject);
     }
 
     @Override
     public void openMedicalHistory() {
-        CoreAncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+        CoreAncMedicalHistoryActivity.startMe(this, memberObject);
     }
 
     @Override
@@ -99,7 +99,7 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
         super.setupViews();
         Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.ANC_HOME_VISIT);
 
-        VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, MEMBER_OBJECT.getLastContactVisit(), null, new DateTime(MEMBER_OBJECT.getDateCreated()).toLocalDate());
+        VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, memberObject.getLastContactVisit(), null, new DateTime(memberObject.getDateCreated()).toLocalDate());
         String visitStatus = visitSummary.getVisitStatus();
 
         if (!visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) &&
