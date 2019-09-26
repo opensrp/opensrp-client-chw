@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Contract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.hf.activity.AncMemberProfileActivity;
 import org.smartregister.chw.hf.activity.ChildProfileActivity;
+import org.smartregister.chw.hf.activity.PncMemberProfileActivity;
 import org.smartregister.chw.hf.activity.ReferralTaskViewActivity;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Task;
@@ -25,7 +26,7 @@ public class ReferralRecyclerClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (getActivity() instanceof AncMemberProfileActivity) {
+        if (getActivity() instanceof AncMemberProfileActivity || getActivity() instanceof PncMemberProfileActivity) {
             ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getMemberObject(), getFamilyHeadName(), getFamilyHeadPhoneNumber(), getCommonPersonObjectClient(), getTask(), getStartingActivity());
         } else if (getActivity() instanceof ChildProfileActivity) {
             ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getCommonPersonObjectClient(), getTask(), getStartingActivity());
@@ -63,9 +64,17 @@ public class ReferralRecyclerClickListener implements View.OnClickListener {
         return familyHeadPhoneNumber;
     }
 
+    public void setFamilyHeadPhoneNumber(String familyHeadPhoneNumber) {
+        this.familyHeadPhoneNumber = familyHeadPhoneNumber;
+    }
+
     @Contract(pure = true)
     private CommonPersonObjectClient getCommonPersonObjectClient() {
         return commonPersonObjectClient;
+    }
+
+    public void setCommonPersonObjectClient(CommonPersonObjectClient commonPersonObjectClient) {
+        this.commonPersonObjectClient = commonPersonObjectClient;
     }
 
     public Task getTask() {
@@ -83,13 +92,5 @@ public class ReferralRecyclerClickListener implements View.OnClickListener {
 
     public void setStartingActivity(String startingActivity) {
         this.startingActivity = startingActivity;
-    }
-
-    public void setCommonPersonObjectClient(CommonPersonObjectClient commonPersonObjectClient) {
-        this.commonPersonObjectClient = commonPersonObjectClient;
-    }
-
-    public void setFamilyHeadPhoneNumber(String familyHeadPhoneNumber) {
-        this.familyHeadPhoneNumber = familyHeadPhoneNumber;
     }
 }

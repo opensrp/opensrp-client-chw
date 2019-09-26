@@ -153,8 +153,7 @@ public class ChwApplication extends CoreChwApplication {
 
     @Override
     public ArrayList<String> getAllowedLocationLevels() {
-        String [] levels = BuildConfig.DEBUG ? BuildConfig.ALLOWED_LOCATION_LEVELS_DEBUG : BuildConfig.ALLOWED_LOCATION_LEVELS;
-        return new ArrayList<>(Arrays.asList(levels));
+        return new ArrayList<>(Arrays.asList(BuildConfig.DEBUG ? BuildConfig.ALLOWED_LOCATION_LEVELS_DEBUG : BuildConfig.ALLOWED_LOCATION_LEVELS));
     }
 
     @Override

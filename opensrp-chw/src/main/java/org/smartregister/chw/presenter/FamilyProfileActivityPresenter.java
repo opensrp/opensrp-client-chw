@@ -3,7 +3,6 @@ package org.smartregister.chw.presenter;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.model.WashCheckModel;
 import org.smartregister.family.contract.FamilyProfileActivityContract;
 import org.smartregister.family.presenter.BaseFamilyProfileActivityPresenter;

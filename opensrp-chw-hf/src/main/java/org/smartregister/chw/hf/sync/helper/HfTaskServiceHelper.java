@@ -31,7 +31,12 @@ public class HfTaskServiceHelper extends TaskServiceHelper {
         LocationHelper locationHelper = LocationHelper.getInstance();
         ArrayList<String> allowedLevels = HealthFacilityApplication.getInstance().getAllowedLocationLevels();
         List<String> locations = new ArrayList<>();
-        locations.add(locationHelper.getOpenMrsLocationId(locationHelper.generateDefaultLocationHierarchy(allowedLevels).get(0)));
+        if (allowedLevels != null) {
+            List<String> locationIds = locationHelper.generateDefaultLocationHierarchy(allowedLevels);
+            if (locationIds != null) {
+                locations.add(locationHelper.getOpenMrsLocationId(locationIds.get(0)));
+            }
+        }
         return locations;
     }
 
