@@ -64,8 +64,9 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
 
         Task task = getTask(Utils.getValue(client.getColumnmaps(), "_id", false));
         referralFragmentPresenter.setTasksFocus(task.getFocus());
-        if (CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS.equals(task.getFocus())) {
-            goToAncDangerSignsReferralsDetails(client);
+        if (CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS.equals(task.getFocus()) ||
+                CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS.equals(task.getFocus())) {
+            goToPncOrAncReferralsDetails(client);
         } else {
             goToReferralsDetails(client);
         }
@@ -75,7 +76,7 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
         return HealthFacilityApplication.getInstance().getTaskRepository().getTaskByIdentifier(taskId);
     }
 
-    private void goToAncDangerSignsReferralsDetails(CommonPersonObjectClient client) {
+    private void goToPncOrAncReferralsDetails(CommonPersonObjectClient client) {
         HashMap<String, String> detailsMap = CoreChwApplication.ancRegisterRepository().getFamilyNameAndPhone(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false));
 
         String familyName = "";
