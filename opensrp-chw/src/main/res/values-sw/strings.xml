@@ -245,7 +245,7 @@
     <string name="pnc_child_vaccine_card_recevied">Kadi ya chanjo ya mtoto imetolewa ({0})</string>
     <string name="pnc_immunization_at_birth">Chanjo (wakati wa kuzaliwa) ({0})</string>
     <string name="pnc_umblicord_care">Utunzaji wa kitovu</string>
-    <string name="pnc_umblicord_care_child">Umbilical cord care ({0})</string>
+    <string name="pnc_umblicord_care_child">Utunzaji wa kitovu ({0})</string>
     <string name="pnc_exclusive_breastfeeding">Unyonyeshwaji wa maziwa ya mama pekee ({0})</string>
     <string name="pnc_kangaroo_mother_care">Huduma ya Kangaruu (KMC) </string>
     <string name="pnc_family_planning">Uzazi wa Mpango</string>
