@@ -5,11 +5,8 @@ import android.content.Context;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,7 +29,6 @@ import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.dao.PNCDao;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
-import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.PNCVisitUtil;
 import org.smartregister.immunization.domain.VaccineWrapper;
@@ -75,8 +71,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             children = new ArrayList<>();
         }
 
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
-        String deliveryDate = PncLibrary.getInstance().profileRepository().getDeliveryDate(memberObject.getBaseEntityId());
         try {
             evaluateDangerSignsMother();
             evaluateDangerSignsBaby();
@@ -86,8 +80,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             evaluateExclusiveBreastFeeding();
             evaluateCounselling();
             evaluateNutritionStatusMother();
-            if (StringUtils.isNotBlank(deliveryDate) && Days.daysBetween(new DateTime(formatter.parseDateTime(deliveryDate)), new DateTime()).getDays() < 29)
-                evaluateNutritionStatusBaby();
+            evaluateNutritionStatusBaby();
             evaluateMalariaPrevention();
             evaluateObsIllnessMother();
             evaluateObsIllnessBaby();
@@ -497,24 +490,25 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         }
 
         for (Person baby : children) {
-
-            Map<String, List<VisitDetail>> details = null;
-            if (editMode) {
-                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.NUTRITION_STATUS_BABY);
-                if (lastVisit != null) {
-                    details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            if (getAgeInDays(baby.getDob()) <= 28) {
+                Map<String, List<VisitDetail>> details = null;
+                if (editMode) {
+                    Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.NUTRITION_STATUS_BABY);
+                    if (lastVisit != null) {
+                        details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                    }
                 }
-            }
 
-            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()))
-                    .withOptional(false)
-                    .withDetails(details)
-                    .withBaseEntityID(baby.getBaseEntityID())
-                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getNutritionStatusInfant())
-                    .withHelper(new NutritionStatusBabyHelper())
-                    .build();
-            actionList.put(MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()), action);
+                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()))
+                        .withOptional(false)
+                        .withDetails(details)
+                        .withBaseEntityID(baby.getBaseEntityID())
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                        .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getNutritionStatusInfant())
+                        .withHelper(new NutritionStatusBabyHelper())
+                        .build();
+                actionList.put(MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()), action);
+            }
         }
     }
 
