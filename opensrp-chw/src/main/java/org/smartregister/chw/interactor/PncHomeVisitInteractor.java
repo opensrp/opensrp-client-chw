@@ -8,6 +8,7 @@ import org.smartregister.chw.anc.interactor.BaseAncHomeVisitInteractor;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 
@@ -58,6 +59,12 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
     public void submitVisit(boolean editMode, String memberID, Map<String, BaseAncHomeVisitAction> map, BaseAncHomeVisitContract.InteractorCallBack callBack) {
         motherID = memberID;
         super.submitVisit(editMode, memberID, map, callBack);
+    }
+
+    @Override
+    public MemberObject getMemberClient(String memberID) {
+        // read all the member details from the database
+        return PNCDao.getMember(memberID);
     }
 
     /**
