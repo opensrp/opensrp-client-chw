@@ -3,6 +3,7 @@ package org.smartregister.chw.core.repository;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.core.utils.Utils;
@@ -39,7 +40,7 @@ public class PncRegisterRepository extends BaseRepository {
                 return null;
             }
             String selection = DBConstants.KEY.BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " +
-                    org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = ? " + COLLATE_NOCASE;
+                    DBConstants.KEY.IS_CLOSED + " = ? " + COLLATE_NOCASE;
             String[] selectionArgs = new String[]{baseEntityId, "0"};
             cursor = database.query(CoreConstants.TABLE_NAME.PNC_MEMBER, PNC_COUNT_TABLE_COLUMNS, selection, selectionArgs, null, null, null);
             if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
