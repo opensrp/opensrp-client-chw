@@ -48,12 +48,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     public void setupViews() {
         super.setupViews();
-        if (baseAncFloatingMenu != null) {
-            FloatingActionButton floatingActionButton = baseAncFloatingMenu.findViewById(R.id.anc_fab);
-            if (floatingActionButton != null)
-                floatingActionButton.setImageResource(R.drawable.floating_call);
-        }
-        initializeReferralsRecyclerView();
     }
 
     @Override
@@ -107,6 +101,16 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     }
 
     @Override
+    public void initializeFloatingMenu() {
+        super.initializeFloatingMenu();
+        if (baseAncFloatingMenu != null) {
+            FloatingActionButton floatingActionButton = baseAncFloatingMenu.findViewById(R.id.anc_fab);
+            if (floatingActionButton != null)
+                floatingActionButton.setImageResource(R.drawable.floating_call);
+        }
+    }
+
+    @Override
     public void setUpComingServicesStatus(String service, AlertStatus status, Date date) {
         view_most_due_overdue_row.setVisibility(View.GONE);
         rlUpcomingServices.setVisibility(View.GONE);
@@ -120,6 +124,19 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         this.commonPersonObjectClient = commonPersonObjectClient;
     }
 
+    private void initializeReferralsRecyclerView() {
+        referralRecyclerView = findViewById(R.id.referral_card_recycler_view);
+        referralRow = findViewById(R.id.referal_row);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        referralRecyclerView.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initializeReferralsRecyclerView();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -128,12 +145,4 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             referralRecyclerView.getAdapter().notifyDataSetChanged();
         }
     }
-
-    private void initializeReferralsRecyclerView() {
-        referralRecyclerView = findViewById(R.id.referral_card_recycler_view);
-        referralRow = findViewById(R.id.referal_row);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        referralRecyclerView.setLayoutManager(layoutManager);
-    }
-
 }

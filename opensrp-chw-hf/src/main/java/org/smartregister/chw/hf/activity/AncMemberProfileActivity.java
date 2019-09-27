@@ -64,7 +64,17 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            commonPersonObjectClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CLIENT);
+            setCommonPersonObjectClient((CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CLIENT));
+        }
+    }
+
+    @Override
+    public void initializeFloatingMenu() {
+        super.initializeFloatingMenu();
+        if (baseAncFloatingMenu != null) {
+            FloatingActionButton floatingActionButton = baseAncFloatingMenu.findViewById(R.id.anc_fab);
+            if (floatingActionButton != null)
+                floatingActionButton.setImageResource(R.drawable.floating_call);
         }
     }
 
@@ -160,7 +170,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
     @Override
     public void openUpcomingService() {
-        //// TODO: 29/08/19  
+        //// TODO: 29/08/19
     }
 
     @Override
@@ -225,6 +235,12 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
         if (isStartedFromReferrals) {
             ((CustomFontTextView) findViewById(R.id.toolbar_title)).setText(getString(R.string.return_to_task_details));
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initializeTasksRecyclerView();
     }
 
     @Override
