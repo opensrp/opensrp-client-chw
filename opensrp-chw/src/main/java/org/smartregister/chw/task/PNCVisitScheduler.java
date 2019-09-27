@@ -12,6 +12,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.util.Constants;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,10 @@ public class PNCVisitScheduler extends BaseTaskExecutor {
 
         Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.PNC_HOME_VISIT);
         Date deliveryDate = PNCDao.getPNCDeliveryDate(baseEntityID);
+
+        if (deliveryDate == null)
+            return new ArrayList<>();
+
         Date lastVisitDate = null;
 
         Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);

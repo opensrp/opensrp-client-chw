@@ -19,4 +19,9 @@ public abstract class DefaultFamilyChangeContractInteractorFlv implements CoreFa
                 DBConstants.KEY.GENDER + " , " +
                 DBConstants.KEY.HIGHEST_EDU_LEVEL;
     }
+
+    @Override
+    public int getMinimumCareGiverAge() {
+        return 15;
+    }
 }

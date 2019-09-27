@@ -64,6 +64,7 @@ android {
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'false'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "Health Facility", "Village", "Village Sublocations"}'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country","Region","District","Ward" , "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Health Facility"'
         }
 
@@ -80,6 +81,7 @@ android {
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'false'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country","Region","District","Ward" , "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             testCoverageEnabled true
         }
