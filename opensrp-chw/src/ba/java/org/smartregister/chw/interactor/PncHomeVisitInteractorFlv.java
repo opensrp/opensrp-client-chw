@@ -5,8 +5,11 @@ import android.content.Context;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +32,7 @@ import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.dao.PNCDao;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
+import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.PNCVisitUtil;
 import org.smartregister.immunization.domain.VaccineWrapper;
@@ -71,7 +75,8 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             children = new ArrayList<>();
         }
 
-
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
+        String deliveryDate = PncLibrary.getInstance().profileRepository().getDeliveryDate(memberObject.getBaseEntityId());
         try {
             evaluateDangerSignsMother();
             evaluateDangerSignsBaby();
@@ -81,7 +86,8 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             evaluateExclusiveBreastFeeding();
             evaluateCounselling();
             evaluateNutritionStatusMother();
-            evaluateNutritionStatusBaby();
+            if (StringUtils.isNotBlank(deliveryDate) && Days.daysBetween(new DateTime(formatter.parseDateTime(deliveryDate)), new DateTime()).getDays() < 29)
+                evaluateNutritionStatusBaby();
             evaluateMalariaPrevention();
             evaluateObsIllnessMother();
             evaluateObsIllnessBaby();

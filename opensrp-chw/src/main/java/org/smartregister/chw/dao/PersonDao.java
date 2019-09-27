@@ -95,10 +95,10 @@ public class PersonDao extends AbstractDao {
         return new ArrayList<>();
     }
 
-    public String getAncCreatedDate(String baseEntityId) {
+    public static String getAncCreatedDate(String baseEntityId) {
         String sql = "SELECT date_created FROM ec_anc_log " +
                 " INNER JOIN ec_family_member on ec_family_member.base_entity_id = ec_anc_log.base_entity_id COLLATE NOCASE " +
-                " WHERE ec_family_member.base_entity_id = '" + "'" + " COLLATE NOCASE ";
+                " WHERE ec_family_member.base_entity_id = '" + baseEntityId + " COLLATE NOCASE ";
 
         DataMap<String> dataMap = c -> getCursorValue(c, "date_created");
 
@@ -111,7 +111,7 @@ public class PersonDao extends AbstractDao {
     }
 
     public static String getDob(String baseEntityID) {
-        String sql = "select dob from ec_family_member where base_entity_id = '" + baseEntityID + "'" + " COLLATE NOCASE ";
+        String sql = "select dob from ec_family_member where base_entity_id = '" + baseEntityID + "' COLLATE NOCASE ";
 
         DataMap<String> dataMap = cursor -> getCursorValue(cursor, "dob");
 

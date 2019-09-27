@@ -1,6 +1,5 @@
 package org.smartregister.chw.hf.activity;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -18,7 +17,6 @@ import org.smartregister.chw.hf.model.FamilyProfileModel;
 import org.smartregister.chw.hf.presenter.FamilyProfilePresenter;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.commonregistry.CommonPersonObject;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.util.Constants;
 
@@ -82,11 +80,6 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     }
 
     @Override
-    public void gotToPncProfileActivity(CommonPersonObjectClient patient, Bundle bundle) {
-        goToOtherMemberProfileActivity(patient, bundle);
-    }
-
-    @Override
     protected Class<?> getFamilyOtherMemberProfileActivityClass() {
         return FamilyOtherMemberProfileActivity.class;
     }
@@ -108,7 +101,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     @Override
     protected Class<? extends BasePncMemberProfileActivity> getPncMemberProfileActivityClass() {
-        return null;
+        return PncMemberProfileActivity.class;
     }
 
     @Override
