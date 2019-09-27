@@ -140,7 +140,7 @@ public class PersonDao extends AbstractDao {
         DataMap<String> dataMap = Cursor -> getCursorValue(Cursor, "details" );
 
         List<String> res = readData(sql, dataMap);
-        if(res == null || res.size() != 1)
+        if(res == null || res.size() != 1)git
             return null;
 
         return res.get(0);
@@ -151,7 +151,7 @@ public class PersonDao extends AbstractDao {
         String sql = "select details " +
                 " from visit_details " +
                 " inner join visits on visits.base_entity_id = '" + baseEntityID + "'" + " COLLATE NOCASE " +
-                " where visit_details.visit_key is 'fp_start_date' and visit_details.visit_id = visits.visit_id and and visits.visit_id = '" + lastVisitId + "'" + " COLLATE NOCASE ";
+                " where visit_details.visit_key is 'fp_start_date' and visit_details.visit_id = visits.visit_id and visits.visit_id = '" + lastVisitId + "'" + " COLLATE NOCASE ";
 
         DataMap<String> dataMap = Cursor -> getCursorValue(Cursor, "details" );
 
