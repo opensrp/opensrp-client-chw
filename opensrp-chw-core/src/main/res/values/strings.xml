@@ -384,4 +384,13 @@
     <string name="anc_visit_suffix"> &#183; ANC Visit</string>
     <string name="pnc_visit_suffix"> &#183; PNC Visit</string>
     <string name="malaria_visit_suffix"> &#183; Malaria Visit</string>
+
+    <!-- BA family Planning-->
+    <string name="ppiucd"> PPIUCD</string>
+    <string name="pills"> Pills</string>
+    <string name="condoms"> Condoms</string>
+    <string name="lam"> LAM</string>
+    <string name="standard_day_method"> Standard day method</string>
+    <string name="permanent_blt"> Permanent (BTL)</string>
+    <string name="permanent_vasectomy"> Permanent (Vasectomy)</string>
 </resources>
