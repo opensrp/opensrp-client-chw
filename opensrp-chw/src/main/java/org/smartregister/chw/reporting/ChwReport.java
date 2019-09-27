@@ -18,8 +18,8 @@ import java.util.Map;
 public class ChwReport {
 
     public static void createPncReportViews(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies) {
-        PieChartSlice pnc_indicator_1_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeys.COUNT_WOMEN_DELIVERED_IN_HF, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
-        PieChartSlice pnc_indicator_1_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeys.COUNT_WOMEN_DELIVERED_ELSEWHERE, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
+        PieChartSlice pnc_indicator_1_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_WOMEN_DELIVERED_IN_HF, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
+        PieChartSlice pnc_indicator_1_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_WOMEN_DELIVERED_ELSEWHERE, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
         mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(pnc_indicator_1_1, pnc_indicator_1_2), R.string.pnc_indicator_1, null)).createView());
 
     }

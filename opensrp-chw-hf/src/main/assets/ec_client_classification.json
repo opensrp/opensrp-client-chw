@@ -153,6 +153,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "PNC Referral",
+            "creates_case": [
+              "ec_pnc_referral"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Close Referral",
             "creates_case": [
               "ec_close_referral"
