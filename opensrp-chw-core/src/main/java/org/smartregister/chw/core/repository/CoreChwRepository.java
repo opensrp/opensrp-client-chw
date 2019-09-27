@@ -90,8 +90,9 @@ public class CoreChwRepository extends Repository {
         ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
         String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
         String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
+        String pncIndicatorConfigFile = "config/pnc-reporting-indicator-definitions.yml";
         reportingLibraryInstance.initMultipleIndicatorsData(Collections.unmodifiableList(
-                Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile)), database);
+                Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile, pncIndicatorConfigFile)), database);
     }
 
     @Override

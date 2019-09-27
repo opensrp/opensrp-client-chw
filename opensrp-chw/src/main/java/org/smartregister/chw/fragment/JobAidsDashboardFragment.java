@@ -104,7 +104,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         viewGroup.removeAllViews();
         ChwReport.createChildReportViews(viewGroup, indicatorTallies);
         ChwReport.createAncReportViews(viewGroup, indicatorTallies);
-
+        ChwReport.createPncReportViews(viewGroup, indicatorTallies);
     }
 
     public List<Map<String, IndicatorTally>> getIndicatorTallies() {
