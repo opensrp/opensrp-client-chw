@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -205,7 +206,7 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
             } else {
                 return Utils.getMemberImageResourceIdentifier();
             }
-        } else if (ChwApplication.ancRegisterRepository().checkIfAncWoman(commonPerson.entityId())) {
+        } else if (AncDao.isANCMember(commonPerson.entityId())) {
             return Utils.getAnCWomanImageResourceIdentifier();
         } else {
             return org.smartregister.family.util.Utils.getMemberProfileImageResourceIDentifier(Utils.getValue(commonPerson.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false));
