@@ -21,11 +21,14 @@ import org.smartregister.chw.core.presenter.CoreAncMemberProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.core.utils.VisitSummary;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.domain.Task;
 
 import java.util.Set;
 
 public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileActivity implements AncMemberProfileContract.View {
+
+    protected boolean hasDueServices = false;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -43,6 +46,16 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setFamilyStatus(AlertStatus status) {
+        super.setFamilyStatus(status);
+        if (status == AlertStatus.complete) {
+            hasDueServices = false;
+        } else if (status == AlertStatus.normal || status == AlertStatus.urgent) {
+            hasDueServices = true;
+        }
     }
 
     @Override
@@ -75,12 +88,12 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
 
     @Override
     protected void registerPresenter() {
-        presenter = new CoreAncMemberProfilePresenter(this, new CoreAncMemberProfileInteractor(this), MEMBER_OBJECT);
+        presenter = new CoreAncMemberProfilePresenter(this, new CoreAncMemberProfileInteractor(this), memberObject);
     }
 
     @Override
     public void openMedicalHistory() {
-        CoreAncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+        CoreAncMedicalHistoryActivity.startMe(this, memberObject);
     }
 
     @Override
@@ -99,7 +112,7 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
         super.setupViews();
         Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.ANC_HOME_VISIT);
 
-        VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, MEMBER_OBJECT.getLastContactVisit(), null, new DateTime(MEMBER_OBJECT.getDateCreated()).toLocalDate());
+        VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, memberObject.getLastContactVisit(), null, new DateTime(memberObject.getDateCreated()).toLocalDate());
         String visitStatus = visitSummary.getVisitStatus();
 
         if (!visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) &&

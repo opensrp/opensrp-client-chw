@@ -37,12 +37,10 @@ public class ReferralsTaskViewClickListener implements View.OnClickListener {
                         new MemberObject(getCommonPersonObjectClient()), ChildProfileActivity.class);
                 break;
             case CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS:
-                AncMemberProfileActivity.startMe(getReferralTaskViewActivity(), getMemberObject(),
-                        getFamilyHeadName(), getFamilyHeadPhoneNumber(), getCommonPersonObjectClient());
+                AncMemberProfileActivity.startMe(getReferralTaskViewActivity(), getMemberObject().getBaseEntityId(), getCommonPersonObjectClient());
                 break;
             case CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS:
-                PncMemberProfileActivity.startMe(getReferralTaskViewActivity(), getMemberObject(),
-                        getFamilyHeadName(), getFamilyHeadPhoneNumber(), getCommonPersonObjectClient());
+                PncMemberProfileActivity.startMe(getReferralTaskViewActivity(), getMemberObject().getBaseEntityId(), getCommonPersonObjectClient());
                 break;
             default:
                 break;

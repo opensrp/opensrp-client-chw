@@ -25,7 +25,7 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
             CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
             String baseEntityId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
             if (StringUtils.isNotBlank(baseEntityId)) {
-                CoreChildHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
+                CoreChildHomeVisitActivity.startMe(getActivity(), client.getCaseId(), false);
             }
         }
     }
