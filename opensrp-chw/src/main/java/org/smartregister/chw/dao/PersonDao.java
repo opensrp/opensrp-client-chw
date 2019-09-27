@@ -140,7 +140,7 @@ public class PersonDao extends AbstractDao {
         DataMap<String> dataMap = Cursor -> getCursorValue(Cursor, "details" );
 
         List<String> res = readData(sql, dataMap);
-        if(res == null || res.size() != 1)git
+        if(res == null || res.size() != 1)
             return null;
 
         return res.get(0);
