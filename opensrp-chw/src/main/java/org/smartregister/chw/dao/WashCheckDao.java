@@ -1,5 +1,7 @@
 package org.smartregister.chw.dao;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.domain.db.Event;
@@ -25,22 +27,22 @@ public class WashCheckDao extends AbstractDao {
         return res.get(0).getTime();
     }
 
-    public static List<String> getAllWashCheckVisits() {
+    public static List<String> getAllWashCheckVisits(SQLiteDatabase db) {
         String sql = "select visit_id from visits where visit_type = 'WASH check'";
 
         DataMap<String> dataMap = c -> getCursorValue(c, "visit_id");
-        List<String> res = AbstractDao.readData(sql, dataMap);
+        List<String> res = AbstractDao.readData(sql, dataMap, db);
         if (res == null || res.size() == 0)
             return new ArrayList<>();
 
         return res;
     }
 
-    public static List<EventClient> getWashCheckEvents() {
+    public static List<EventClient> getWashCheckEvents(SQLiteDatabase db) {
         String sql = "select json from event where eventType = 'WASH check' order by eventDate asc";
 
         DataMap<EventClient> dataMap = c -> processEventClientCursor(getCursorValue(c, "json"));
-        List<EventClient> res = AbstractDao.readData(sql, dataMap);
+        List<EventClient> res = AbstractDao.readData(sql, dataMap, db);
         if (res == null || res.size() == 0)
             return new ArrayList<>();
 

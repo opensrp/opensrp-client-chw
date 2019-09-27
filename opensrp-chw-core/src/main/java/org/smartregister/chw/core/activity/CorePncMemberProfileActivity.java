@@ -27,9 +27,8 @@ import timber.log.Timber;
 public abstract class CorePncMemberProfileActivity extends BasePncMemberProfileActivity {
 
     protected ImageView imageViewCross;
-
+    protected boolean hasDueServices = false;
     protected CorePncMemberProfileInteractor pncMemberProfileInteractor = getPncMemberProfileInteractor();
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -38,19 +37,19 @@ public abstract class CorePncMemberProfileActivity extends BasePncMemberProfileA
             onBackPressed();
             return true;
         } else if (i == R.id.action_pnc_member_registration) {
-            JSONObject form = CoreJsonFormUtils.getAncPncForm(R.string.edit_member_form_title, CoreConstants.JSON_FORM.getFamilyMemberRegister(), MEMBER_OBJECT, this);
+            JSONObject form = CoreJsonFormUtils.getAncPncForm(R.string.edit_member_form_title, CoreConstants.JSON_FORM.getFamilyMemberRegister(), memberObject, this);
             startFormForEdit(form);
             return true;
         } else if (i == R.id.action_pnc_registration) {
             CoreChildProfileInteractor childProfileInteractor = new CoreChildProfileInteractor();
 
-            List<CommonPersonObjectClient> children = pncMemberProfileInteractor.pncChildrenUnder29Days(MEMBER_OBJECT.getBaseEntityId());
+            List<CommonPersonObjectClient> children = pncMemberProfileInteractor.pncChildrenUnder29Days(memberObject.getBaseEntityId());
             if (!children.isEmpty()) {
                 CommonPersonObjectClient client = children.get(0);
                 JSONObject childEnrollmentForm = childProfileInteractor.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getChildRegister(), getString(R.string.edit_child_form_title), this, client);
 
-                startFormForEdit(org.smartregister.chw.anc.util.JsonFormUtils.setRequiredFieldsToFalseForPncChild(childEnrollmentForm, MEMBER_OBJECT.getFamilyBaseEntityId(),
-                        MEMBER_OBJECT.getBaseEntityId()));
+                startFormForEdit(org.smartregister.chw.anc.util.JsonFormUtils.setRequiredFieldsToFalseForPncChild(childEnrollmentForm, memberObject.getFamilyBaseEntityId(),
+                        memberObject.getBaseEntityId()));
             }
             return true;
         } else if (i == R.id.action__pnc_remove_member) {
@@ -97,12 +96,12 @@ public abstract class CorePncMemberProfileActivity extends BasePncMemberProfileA
     public void openFamilyDueServices() {
         Intent intent = new Intent(this, getFamilyProfileActivityClass());
 
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, memberObject.getFamilyBaseEntityId());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, memberObject.getFamilyHead());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, memberObject.getPrimaryCareGiver());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, memberObject.getFamilyName());
 
-        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
+        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, hasDueServices);
         startActivity(intent);
     }
 
@@ -120,10 +119,13 @@ public abstract class CorePncMemberProfileActivity extends BasePncMemberProfileA
         rlFamilyServicesDue.setVisibility(View.VISIBLE);
 
         if (status == AlertStatus.complete) {
+            hasDueServices = false;
             tvFamilyStatus.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_nothing_due));
         } else if (status == AlertStatus.normal) {
+            hasDueServices = true;
             tvFamilyStatus.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_services_due));
         } else if (status == AlertStatus.urgent) {
+            hasDueServices = true;
             tvFamilyStatus.setText(NCUtils.fromHtml(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_service_overdue)));
         }
     }

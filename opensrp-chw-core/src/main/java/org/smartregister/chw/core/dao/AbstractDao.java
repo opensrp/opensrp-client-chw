@@ -57,10 +57,15 @@ public class AbstractDao {
      * @return
      */
     protected static <T> List<T> readData(String query, DataMap<T> dataMap) {
+        SQLiteDatabase db = CoreChwApplication.getInstance().getRepository().getReadableDatabase();
+        return readData(query, dataMap, db);
+    }
+
+    protected static <T> List<T> readData(String query, DataMap<T> dataMap, SQLiteDatabase db) {
         Cursor cursor = null;
         try {
             List<T> list = new ArrayList<>();
-            cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, new String[]{});
+            cursor = db.rawQuery(query, new String[]{});
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 list.add(dataMap.readCursor(cursor));
@@ -105,17 +110,45 @@ public class AbstractDao {
 
     @Nullable
     protected static String getCursorValue(Cursor c, String column_name) {
-        return c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? null : c.getString(c.getColumnIndex(column_name));
+        int column_index = c.getColumnIndex(column_name);
+        if (column_index < 0)
+            return null;
+
+        return c.getType(column_index) == Cursor.FIELD_TYPE_NULL ? null : c.getString(column_index);
+    }
+
+    protected static String getCursorValue(Cursor c, String column_name, String defaultValue) {
+        int column_index = c.getColumnIndex(column_name);
+        if (column_index < 0)
+            return defaultValue;
+
+        return c.getType(column_index) == Cursor.FIELD_TYPE_NULL ? defaultValue : c.getString(column_index);
     }
 
     @Nullable
     protected static Long getCursorLongValue(Cursor c, String column_name) {
-        return c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? null : c.getLong(c.getColumnIndex(column_name));
+        int column_index = c.getColumnIndex(column_name);
+        if (column_index < 0)
+            return null;
+
+        return c.getType(column_index) == Cursor.FIELD_TYPE_NULL ? null : c.getLong(column_index);
     }
 
     @Nullable
     protected static Integer getCursorIntValue(Cursor c, String column_name) {
-        return c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? null : c.getInt(c.getColumnIndex(column_name));
+        int column_index = c.getColumnIndex(column_name);
+        if (column_index < 0)
+            return null;
+
+        return c.getType(column_index) == Cursor.FIELD_TYPE_NULL ? null : c.getInt(column_index);
+    }
+
+    protected static Integer getCursorIntValue(Cursor c, String column_name, int defaultValue) {
+        int column_index = c.getColumnIndex(column_name);
+        if (column_index < 0)
+            return null;
+
+        return c.getType(column_index) == Cursor.FIELD_TYPE_NULL ? defaultValue : c.getInt(column_index);
     }
 
     @Nullable
