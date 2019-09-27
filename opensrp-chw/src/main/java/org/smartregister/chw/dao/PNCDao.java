@@ -31,4 +31,18 @@ public class PNCDao extends AbstractDao {
         List<PNCHealthFacilityVisitSummary> res = AbstractDao.readData(sql, dataMap);
         return (res != null && res.size() > 0) ? res.get(0) : null;
     }
+
+    public static boolean hasFamilyPlanning(String baseEntityID) {
+        String sql = "select count(*) records from visit_details vd  " +
+                "inner join visits v on vd.visit_id = v.visit_id COLLATE NOCASE and vd.visit_key = 'fp_method' and vd.human_readable_details <> 'None' " +
+                "where v.base_entity_id =  '" + baseEntityID + "' and v.processed = 1 ";
+
+        DataMap<Integer> dataMap = c -> getCursorIntValue(c, "records");
+
+        List<Integer> res = readData(sql, dataMap);
+        if (res == null || res.size() < 1)
+            return false;
+
+        return res.get(0) > 0;
+    }
 }
