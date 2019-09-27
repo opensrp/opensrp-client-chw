@@ -561,7 +561,7 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
                                 String[] service = service_str.split(":");
                                 if (service.length == 2) {
                                     String key = service[0].substring(1, service[0].length() - 1);
-                                    String val = service[1].substring(1, service[1].length() - 1);
+                                    String val = service[1].length() > 1 ? service[1].substring(1, service[1].length() - 1) : service[1];
 
                                     org.smartregister.domain.db.Obs obs1 = new org.smartregister.domain.db.Obs();
                                     obs1.setFieldType("formsubmissionField");

@@ -43,6 +43,7 @@ public abstract class CorePncRegisterFragment extends BasePncRegisterFragment {
     private View view;
     private boolean dueFilterActive = false;
     private CommonPersonObjectClient client;
+    protected View dueOnlyLayout;
 
     @Override
     protected void onViewClicked(View view) {
@@ -154,7 +155,7 @@ public abstract class CorePncRegisterFragment extends BasePncRegisterFragment {
         View filterSortLayout = view.findViewById(R.id.filter_sort_layout);
         filterSortLayout.setVisibility(View.GONE);
 
-        View dueOnlyLayout = view.findViewById(R.id.due_only_layout);
+        dueOnlyLayout = view.findViewById(R.id.due_only_layout);
         dueOnlyLayout.setVisibility(View.VISIBLE);
         dueOnlyLayout.setOnClickListener(registerActionHandler);
 

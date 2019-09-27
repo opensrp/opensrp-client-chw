@@ -1,7 +1,5 @@
 package org.smartregister.chw.dao;
 
-import android.database.Cursor;
-
 import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.domain.PncBaby;
@@ -24,7 +22,7 @@ public class PersonDao extends AbstractDao {
         String sql = "select ec_child.base_entity_id , ec_family_member.first_name , ec_family_member.last_name , ec_family_member.middle_name , ec_family_member.dob " +
                 "from ec_child " +
                 "inner join ec_family_member on ec_child.base_entity_id = ec_family_member.base_entity_id " +
-                "where ec_child.mother_entity_id = '" + baseEntityID + "' " +
+                "where ec_child.mother_entity_id = '" + baseEntityID + "'" + " COLLATE NOCASE " +
                 "and ec_child.date_removed is null and ec_family_member.date_removed is null " +
                 "order by ec_family_member.first_name , ec_family_member.last_name , ec_family_member.middle_name ";
 
@@ -57,7 +55,7 @@ public class PersonDao extends AbstractDao {
         String sql = "select ec_child.base_entity_id , ec_family_member.first_name , ec_family_member.last_name , ec_family_member.middle_name , ec_family_member.dob " +
                 "from ec_child " +
                 "inner join ec_family_member on ec_child.base_entity_id = ec_family_member.base_entity_id " +
-                "where ec_child.mother_entity_id = '" + baseEntityID + "' " +
+                "where ec_child.mother_entity_id = '" + baseEntityID + "'" + " COLLATE NOCASE " +
                 "and ec_child.date_removed is null and ec_family_member.date_removed is null " +
                 "and date(ec_child.dob, '+28 days') >=  date() " +
                 "order by ec_family_member.first_name , ec_family_member.last_name , ec_family_member.middle_name ";
@@ -97,30 +95,23 @@ public class PersonDao extends AbstractDao {
         return new ArrayList<>();
     }
 
-    public String getAncCreatedDate(String baseEntityId) {
+    public static String getAncCreatedDate(String baseEntityId) {
         String sql = "SELECT date_created FROM ec_anc_log " +
-                " INNER JOIN ec_family_member on ec_family_member.base_entity_id = ec_anc_log.base_entity_id " +
-                " WHERE ec_family_member.base_entity_id = '" + baseEntityId + "'";
+                " INNER JOIN ec_family_member on ec_family_member.base_entity_id = ec_anc_log.base_entity_id COLLATE NOCASE " +
+                " WHERE ec_family_member.base_entity_id = '" + baseEntityId + " COLLATE NOCASE ";
 
-        DataMap<String> dataMap = new DataMap<String>() {
-            @Override
-            public String readCursor(Cursor c) {
-                return getCursorValue(c, "date_created");
-            }
-        };
+        DataMap<String> dataMap = c -> getCursorValue(c, "date_created");
 
         List<String> res = AbstractDao.readData(sql, dataMap);
         if (res == null || res.size() == 0) {
             return null;
         }
 
-        String date = res.get(0);
-
-        return date;
+        return res.get(0);
     }
 
     public static String getDob(String baseEntityID) {
-        String sql = "select dob from ec_family_member where base_entity_id = '" + baseEntityID + "'";
+        String sql = "select dob from ec_family_member where base_entity_id = '" + baseEntityID + "' COLLATE NOCASE ";
 
         DataMap<String> dataMap = cursor -> getCursorValue(cursor, "dob");
 

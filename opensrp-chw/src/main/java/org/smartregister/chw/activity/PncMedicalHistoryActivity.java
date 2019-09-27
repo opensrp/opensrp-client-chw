@@ -1,20 +1,19 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import org.smartregister.chw.anc.contract.BaseAncMedicalHistoryContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
-import org.smartregister.chw.anc.presenter.BaseAncMedicalHistoryPresenter;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.core.activity.CorePncMedicalHistoryActivity;
 import org.smartregister.chw.interactor.PncMedicalHistoryActivityInteractor;
-import org.smartregister.chw.pnc.activity.BasePncMedicalHistoryActivity;
 
 import java.util.List;
 
-public class PncMedicalHistoryActivity extends BasePncMedicalHistoryActivity {
+public class PncMedicalHistoryActivity extends CorePncMedicalHistoryActivity {
 
     private Flavor flavor = new PncMedicalHistoryActivityFlv();
 
@@ -25,8 +24,8 @@ public class PncMedicalHistoryActivity extends BasePncMedicalHistoryActivity {
     }
 
     @Override
-    public void initializePresenter() {
-        presenter = new BaseAncMedicalHistoryPresenter(new PncMedicalHistoryActivityInteractor(), this, memberObject.getBaseEntityId());
+    protected BaseAncMedicalHistoryContract.Interactor getPncMedicalHistoryInteractor() {
+        return new PncMedicalHistoryActivityInteractor();
     }
 
     @Override
@@ -37,13 +36,5 @@ public class PncMedicalHistoryActivity extends BasePncMedicalHistoryActivity {
         displayLoadingState(false);
         return view;
     }
-
-    public interface Flavor {
-
-        View bindViews(Activity activity);
-
-        void processViewData(List<Visit> visits, Context context);
-    }
-
 
 }

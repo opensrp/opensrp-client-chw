@@ -8,17 +8,29 @@ import org.smartregister.family.util.DBConstants;
 
 public class FamilyProfileDueModel extends BaseFamilyProfileDueModel {
 
+
+    @Override
+    public String countSelect(String tableName, String mainCondition) {
+        SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
+        countQueryBuilder.SelectInitiateMainTableCounts(tableName);
+        countQueryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + " ON  " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " COLLATE NOCASE ");
+        countQueryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.FAMILY + " ON  " + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " COLLATE NOCASE ");
+        return countQueryBuilder.mainCondition(mainCondition);
+    }
+
     @Override
     public String mainSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
         queryBuilder.SelectInitiateMainTable(tableName, mainColumns(tableName));
-        queryBuilder.customJoin("INNER JOIN " + CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + " ON  " + CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " COLLATE NOCASE ");
+        queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + " ON  " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " COLLATE NOCASE ");
+        queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.FAMILY + " ON  " + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " COLLATE NOCASE ");
         return queryBuilder.mainCondition(mainCondition);
     }
 
     protected String[] mainColumns(String tableName) {
         return new String[]{
                 CoreConstants.TABLE_NAME.FAMILY_MEMBER + ".relationalid",
+                CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID + " AS _id",
                 CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
                 CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID,
                 CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.FIRST_NAME,
@@ -34,7 +46,8 @@ public class FamilyProfileDueModel extends BaseFamilyProfileDueModel {
                 CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + "." + ChildDBConstants.KEY.OVER_DUE_DATE,
                 CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + "." + ChildDBConstants.KEY.NOT_DONE_DATE,
                 CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + "." + ChildDBConstants.KEY.EXPIRY_DATE,
-                CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + "." + ChildDBConstants.KEY.COMPLETION_DATE
+                CoreConstants.TABLE_NAME.SCHEDULE_SERVICE + "." + ChildDBConstants.KEY.COMPLETION_DATE,
+                CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME + " AS " + ChildDBConstants.KEY.FAMILY_FIRST_NAME
         };
     }
 }

@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ANC Registration",
+  "encounter_type": "IPTp-SP Service",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "IPTp-SP dose",
+    "title": "IPTp-SP {0} dose",
     "fields": [
       {
         "key": "iptp{0}_date",

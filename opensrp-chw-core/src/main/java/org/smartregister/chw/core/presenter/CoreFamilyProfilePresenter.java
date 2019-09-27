@@ -10,6 +10,8 @@ import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
+import org.smartregister.chw.core.dao.AncDao;
+import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.interactor.CoreChildRegisterInteractor;
 import org.smartregister.chw.core.interactor.CoreFamilyProfileInteractor;
@@ -164,7 +166,7 @@ public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresen
     }
 
     public boolean isAncMember(String baseEntityId) {
-        return getAncRegisterRepository().checkIfAncWoman(baseEntityId);
+        return AncDao.isANCMember(baseEntityId);
     }
 
     public HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId) {
@@ -180,7 +182,7 @@ public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresen
     }
 
     public boolean isPncMember(String baseEntityId) {
-        return getPncRegisterRepository().checkIfPncWoman(baseEntityId);
+        return PNCDao.isPNCMember(baseEntityId);
     }
 
     private AncRegisterRepository getAncRegisterRepository() {
