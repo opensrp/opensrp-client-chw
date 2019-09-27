@@ -48,8 +48,8 @@ import timber.log.Timber;
 
 public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv {
     protected List<Person> children;
-    protected  String fp_date;
-    protected  String fp_last_date;
+    protected String fp_date;
+    protected String fp_last_date;
     protected BaseAncHomeVisitContract.View view;
 
     @Override
@@ -78,20 +78,18 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             evaluateDangerSignsMother();
             evaluateDangerSignsBaby();
             evaluatePNCHealthFacilityVisit();
-            if(editMode){
-                if(evaluateIfFamilyPlanningDone() != null){
-                    if(evaluateFamilyPlanningDate() != null){
+            if (editMode) {
+                if (evaluateIfFamilyPlanningDone() != null) {
+                    if (evaluateFamilyPlanningDate() != null) {
                         evaluateFamilyPlanning();
                     }
-                }
-                else {
+                } else {
                     evaluateFamilyPlanning();
 
                 }
 
-            }
-            else{
-                if(evaluateIfFamilyPlanningDone() == null)
+            } else {
+                if (evaluateIfFamilyPlanningDone() == null)
                     evaluateFamilyPlanning();
             }
             evaluateImmunization();
@@ -110,18 +108,19 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         return actionList;
     }
 
-    private  String evaluateIfFamilyPlanningDone(){
+    private String evaluateIfFamilyPlanningDone() {
         fp_date = PersonDao.getFamilyPlanningDate(memberObject.getBaseEntityId());
-        return  fp_date;
+        return fp_date;
 
     }
 
-    private  String evaluateFamilyPlanningDate(){
+    private String evaluateFamilyPlanningDate() {
         Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.PNC_HOME_VISIT);
 
-        fp_last_date = PersonDao.getFamilyPlanningLastVisitDate(memberObject.getBaseEntityId(),lastVisit.getVisitId());
-     return  fp_last_date;
+        fp_last_date = PersonDao.getFamilyPlanningLastVisitDate(memberObject.getBaseEntityId(), lastVisit.getVisitId());
+        return fp_last_date;
     }
+
     private void evaluateDangerSignsMother() throws Exception {
 
         HomeVisitActionHelper pncDangerSignsMotherHelper = new HomeVisitActionHelper() {
@@ -590,6 +589,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 .build();
         actionList.put(context.getString(R.string.pnc_malaria_prevention), action);
     }
+
     private void evaluateObsIllnessMother() throws Exception {
         HomeVisitActionHelper obsIllnessMotherHelper = new HomeVisitActionHelper() {
             private String date_of_illness;
@@ -741,25 +741,34 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         for (Person baby : children) {
             if (getAgeInDays(baby.getDob()) <= 28) {
                 List<VaccineWrapper> wrappers = VaccineScheduleUtil.getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
-                if(wrappers.size() > 0){
-                List<VaccineDisplay> displays = new ArrayList<>();
-                for (VaccineWrapper vaccineWrapper : wrappers) {
-                    VaccineDisplay display = new VaccineDisplay();
-                    display.setVaccineWrapper(vaccineWrapper);
-                    display.setStartDate(baby.getDob());
-                    display.setEndDate(new Date());
-                    displays.add(display);
-                }
+                if (wrappers.size() > 0) {
+                    List<VaccineDisplay> displays = new ArrayList<>();
+                    for (VaccineWrapper vaccineWrapper : wrappers) {
+                        VaccineDisplay display = new VaccineDisplay();
+                        display.setVaccineWrapper(vaccineWrapper);
+                        display.setStartDate(baby.getDob());
+                        display.setEndDate(new Date());
+                        displays.add(display);
+                    }
 
-                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
-                        .withOptional(false)
-                        .withDetails(details)
-                        .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                        .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
-                        .withHelper(new ImmunizationActionHelper(context, wrappers))
-                        .build();
-                actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
+                    Map<String, List<VisitDetail>> details = null;
+                    if (editMode) {
+                        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.IMMUNIZATION_VISIT);
+                        if (lastVisit != null) {
+                            details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                        }
+                    }
+
+                    BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
+                            .withOptional(false)
+                            .withDetails(details)
+                            .withBaseEntityID(baby.getBaseEntityID())
+                            .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                            .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
+                            .withHelper(new ImmunizationActionHelper(context, wrappers))
+                            .build();
+                    actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
+
                 }
             }
         }

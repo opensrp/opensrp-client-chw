@@ -252,33 +252,33 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         for (Person baby : children) {
             if (getAgeInDays(baby.getDob()) <= 28) {
                 List<VaccineWrapper> wrappers = VaccineScheduleUtil.getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
-                if(wrappers.size() > 0){
-                List<VaccineDisplay> displays = new ArrayList<>();
-                for (VaccineWrapper vaccineWrapper : wrappers) {
-                    VaccineDisplay display = new VaccineDisplay();
-                    display.setVaccineWrapper(vaccineWrapper);
-                    display.setStartDate(baby.getDob());
-                    display.setEndDate(new Date());
-                    displays.add(display);
-                }
-
-                Map<String, List<VisitDetail>> details = null;
-                if (editMode) {
-                    Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.IMMUNIZATION_VISIT);
-                    if (lastVisit != null) {
-                        details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                if (wrappers.size() > 0) {
+                    List<VaccineDisplay> displays = new ArrayList<>();
+                    for (VaccineWrapper vaccineWrapper : wrappers) {
+                        VaccineDisplay display = new VaccineDisplay();
+                        display.setVaccineWrapper(vaccineWrapper);
+                        display.setStartDate(baby.getDob());
+                        display.setEndDate(new Date());
+                        displays.add(display);
                     }
-                }
 
-                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
-                        .withOptional(false)
-                        .withDetails(details)
-                        .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                        .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
-                        .withHelper(new ImmunizationActionHelper(context, wrappers))
-                        .build();
-                actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
+                    Map<String, List<VisitDetail>> details = null;
+                    if (editMode) {
+                        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.IMMUNIZATION_VISIT);
+                        if (lastVisit != null) {
+                            details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                        }
+                    }
+
+                    BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
+                            .withOptional(false)
+                            .withDetails(details)
+                            .withBaseEntityID(baby.getBaseEntityID())
+                            .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                            .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
+                            .withHelper(new ImmunizationActionHelper(context, wrappers))
+                            .build();
+                    actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
 
                 }
             }
