@@ -1,7 +1,5 @@
 package org.smartregister.chw.dao;
 
-import android.database.Cursor;
-
 import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.domain.PncBaby;
@@ -102,21 +100,14 @@ public class PersonDao extends AbstractDao {
                 " INNER JOIN ec_family_member on ec_family_member.base_entity_id = ec_anc_log.base_entity_id COLLATE NOCASE " +
                 " WHERE ec_family_member.base_entity_id = '" + "'" + " COLLATE NOCASE ";
 
-        DataMap<String> dataMap = new DataMap<String>() {
-            @Override
-            public String readCursor(Cursor c) {
-                return getCursorValue(c, "date_created");
-            }
-        };
+        DataMap<String> dataMap = c -> getCursorValue(c, "date_created");
 
         List<String> res = AbstractDao.readData(sql, dataMap);
         if (res == null || res.size() == 0) {
             return null;
         }
 
-        String date = res.get(0);
-
-        return date;
+        return res.get(0);
     }
 
     public static String getDob(String baseEntityID) {
@@ -131,35 +122,4 @@ public class PersonDao extends AbstractDao {
         return res.get(0);
     }
 
-    public static  String getFamilyPlanningDate(String baseEntityID){
-        String sql = "select details " +
-                " from visit_details " +
-                " inner join visits on visits.base_entity_id = '" + baseEntityID + "'" + " COLLATE NOCASE " +
-                " where visit_details.visit_key is 'fp_start_date' and visit_details.visit_id = visits.visit_id";
-
-        DataMap<String> dataMap = Cursor -> getCursorValue(Cursor, "details" );
-
-        List<String> res = readData(sql, dataMap);
-        if(res == null || res.size() != 1)git
-            return null;
-
-        return res.get(0);
-
-    }
-
-    public static  String getFamilyPlanningLastVisitDate(String baseEntityID, String lastVisitId){
-        String sql = "select details " +
-                " from visit_details " +
-                " inner join visits on visits.base_entity_id = '" + baseEntityID + "'" + " COLLATE NOCASE " +
-                " where visit_details.visit_key is 'fp_start_date' and visit_details.visit_id = visits.visit_id and visits.visit_id = '" + lastVisitId + "'" + " COLLATE NOCASE ";
-
-        DataMap<String> dataMap = Cursor -> getCursorValue(Cursor, "details" );
-
-        List<String> res = readData(sql, dataMap);
-        if(res == null || res.size() != 1)
-            return null;
-
-        return res.get(0);
-
-    }
 }
