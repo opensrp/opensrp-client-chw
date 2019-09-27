@@ -169,7 +169,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, memberObject.getPrimaryCareGiver());
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, memberObject.getFamilyName());
 
-        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
+        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, hasDueServices);
         startActivity(intent);
     }
 

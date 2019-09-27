@@ -27,7 +27,7 @@ import timber.log.Timber;
 public abstract class CorePncMemberProfileActivity extends BasePncMemberProfileActivity {
 
     protected ImageView imageViewCross;
-
+    protected boolean hasDueServices = false;
     protected CorePncMemberProfileInteractor pncMemberProfileInteractor = getPncMemberProfileInteractor();
 
     @Override
@@ -101,7 +101,7 @@ public abstract class CorePncMemberProfileActivity extends BasePncMemberProfileA
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, memberObject.getPrimaryCareGiver());
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, memberObject.getFamilyName());
 
-        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
+        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, hasDueServices);
         startActivity(intent);
     }
 
@@ -119,10 +119,13 @@ public abstract class CorePncMemberProfileActivity extends BasePncMemberProfileA
         rlFamilyServicesDue.setVisibility(View.VISIBLE);
 
         if (status == AlertStatus.complete) {
+            hasDueServices = false;
             tvFamilyStatus.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_nothing_due));
         } else if (status == AlertStatus.normal) {
+            hasDueServices = true;
             tvFamilyStatus.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_services_due));
         } else if (status == AlertStatus.urgent) {
+            hasDueServices = true;
             tvFamilyStatus.setText(NCUtils.fromHtml(getString(org.smartregister.chw.opensrp_chw_anc.R.string.family_has_service_overdue)));
         }
     }

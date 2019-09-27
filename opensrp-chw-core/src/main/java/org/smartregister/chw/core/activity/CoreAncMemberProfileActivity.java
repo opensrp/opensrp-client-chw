@@ -21,11 +21,14 @@ import org.smartregister.chw.core.presenter.CoreAncMemberProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.core.utils.VisitSummary;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.domain.Task;
 
 import java.util.Set;
 
 public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileActivity implements AncMemberProfileContract.View {
+
+    protected boolean hasDueServices = false;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -43,6 +46,16 @@ public abstract class CoreAncMemberProfileActivity extends BaseAncMemberProfileA
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setFamilyStatus(AlertStatus status) {
+        super.setFamilyStatus(status);
+        if (status == AlertStatus.complete) {
+            hasDueServices = false;
+        } else if (status == AlertStatus.normal || status == AlertStatus.urgent) {
+            hasDueServices = true;
+        }
     }
 
     @Override
