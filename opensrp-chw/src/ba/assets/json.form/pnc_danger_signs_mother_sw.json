@@ -169,14 +169,14 @@
       {
         "key": "danger_signs_present_toaster",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Dalili za hatari! \nMpe rufaa haraka kwenda kituo cha afya",
+        "text": "Dalili za hatari! \nMpe rufaa haraka kwenda kituo cha afya.",
         "text_color": "#CF0800",
         "toaster_type": "problem",
         "relevance": {
-          "step1:danger_signs_present": {
+          "step1:danger_signs_present_mama": {
             "ex-checkbox": [
               {
                 "or": [

@@ -121,5 +121,4 @@ public class PersonDao extends AbstractDao {
 
         return res.get(0);
     }
-
 }
