@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePncMemberProfileActivity;
@@ -34,30 +33,21 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     public RecyclerView referralRecyclerView;
     private CommonPersonObjectClient commonPersonObjectClient;
 
-    public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName,
-                               String familyHeadPhoneNumber, CommonPersonObjectClient commonPersonObjectClient) {
+    public static void startMe(Activity activity, String baseEntityID, CommonPersonObjectClient commonPersonObjectClient) {
         Intent intent = new Intent(activity, PncMemberProfileActivity.class);
-        intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
-        intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
-        intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhoneNumber);
+        intent.putExtra(Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, baseEntityID);
         intent.putExtra(CoreConstants.INTENT_KEY.CLIENT, commonPersonObjectClient);
         activity.startActivity(intent);
     }
 
     @Override
     public void openMedicalHistory() {
-        PncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+        PncMedicalHistoryActivity.startMe(this, memberObject);
     }
 
     @Override
     public void setupViews() {
         super.setupViews();
-        if (baseAncFloatingMenu != null) {
-            FloatingActionButton floatingActionButton = baseAncFloatingMenu.findViewById(R.id.anc_fab);
-            if (floatingActionButton != null)
-                floatingActionButton.setImageResource(R.drawable.floating_call);
-        }
-        initializeReferralsRecyclerView();
     }
 
     @Override
@@ -86,10 +76,10 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         return PncRegisterActivity.class;
     }
 
-    @Override
+
     public void setReferralTasks(Set<Task> taskList) {
         if (referralRecyclerView != null && taskList.size() > 0) {
-            RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, MEMBER_OBJECT, getFamilyHeadName(),
+            RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, memberObject, getFamilyHeadName(),
                     getFamilyHeadPhoneNumber(), getCommonPersonObjectClient(), CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY);
             referralRecyclerView.setAdapter(mAdapter);
             referralRow.setVisibility(View.VISIBLE);
@@ -107,7 +97,17 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     @Override
     protected void registerPresenter() {
-        presenter = new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(), MEMBER_OBJECT);
+        presenter = new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(), memberObject);
+    }
+
+    @Override
+    public void initializeFloatingMenu() {
+        super.initializeFloatingMenu();
+        if (baseAncFloatingMenu != null) {
+            FloatingActionButton floatingActionButton = baseAncFloatingMenu.findViewById(R.id.anc_fab);
+            if (floatingActionButton != null)
+                floatingActionButton.setImageResource(R.drawable.floating_call);
+        }
     }
 
     @Override
@@ -124,15 +124,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         this.commonPersonObjectClient = commonPersonObjectClient;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        ((PncMemberProfileContract.Presenter) presenter()).fetchReferralTasks();
-        if (referralRecyclerView.getAdapter() != null) {
-            referralRecyclerView.getAdapter().notifyDataSetChanged();
-        }
-    }
-
     private void initializeReferralsRecyclerView() {
         referralRecyclerView = findViewById(R.id.referral_card_recycler_view);
         referralRow = findViewById(R.id.referal_row);
@@ -140,4 +131,18 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         referralRecyclerView.setLayoutManager(layoutManager);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initializeReferralsRecyclerView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ((PncMemberProfileContract.Presenter) presenter()).fetchReferralTasks();
+        if (referralRecyclerView != null && referralRecyclerView.getAdapter() != null) {
+            referralRecyclerView.getAdapter().notifyDataSetChanged();
+        }
+    }
 }
