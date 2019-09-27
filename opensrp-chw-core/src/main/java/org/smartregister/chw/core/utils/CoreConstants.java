@@ -119,7 +119,6 @@ public class CoreConstants {
         public static final String PNC_HOME_VISIT_NOT_DONE_UNDO = "PNC Home Visit Not Done Undo";
         public static final String WASH_CHECK = "WASH check";
         public static final String NUTRITION_STATUS_BABY = "Nutrition Status - Baby";
-        public static final String OBSERVATION_AND_ILLENESS_BABY = "illness_description_child";
 
     }
 
