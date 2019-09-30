@@ -55,6 +55,21 @@
     "title": "Rufaa kwa mama na mtoto baada ya kujifungua",
     "fields": [
       {
+        "key": "chw_referral_hf_pnc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_referral_calculation.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "problem_hf_pnc",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -443,6 +458,36 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "pnc_referral_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_date_pnc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_referral_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_time_pnc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_referral_calculation.yml"
             }
           }
         }

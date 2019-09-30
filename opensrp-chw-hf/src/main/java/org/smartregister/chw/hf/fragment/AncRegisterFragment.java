@@ -2,8 +2,6 @@ package org.smartregister.chw.hf.fragment;
 
 import android.database.Cursor;
 
-import org.smartregister.chw.anc.domain.MemberObject;
-import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.fragment.CoreAncRegisterFragment;
 import org.smartregister.chw.core.presenter.AncRegisterFragmentPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -45,20 +43,10 @@ public class AncRegisterFragment extends CoreAncRegisterFragment {
 
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
-
-        HashMap<String, String> detailsMap = CoreChwApplication.ancRegisterRepository().getFamilyNameAndPhone(Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.FAMILY_HEAD, false));
-
-        String familyName = "";
-        String familyHeadPhone = "";
-        if (detailsMap != null) {
-            familyName = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME);
-            familyHeadPhone = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE);
-        }
-
         String careGiverId = org.smartregister.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
         client.getColumnmaps().putAll(fetchCareGiverDetails(careGiverId));
 
-        AncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), familyName, familyHeadPhone, client);
+        AncMemberProfileActivity.startMe(getActivity(), client.getCaseId(), client);
     }
 
     @Override

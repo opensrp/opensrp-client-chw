@@ -9,6 +9,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.activity.AncMemberProfileActivity;
 import org.smartregister.chw.hf.activity.ChildProfileActivity;
+import org.smartregister.chw.hf.activity.PncMemberProfileActivity;
 import org.smartregister.chw.hf.activity.ReferralTaskViewActivity;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
@@ -30,10 +31,19 @@ public class ReferralsTaskViewClickListener implements View.OnClickListener {
     }
 
     private void goToClientProfile() {
-        if (getTaskFocus().equals(CoreConstants.TASKS_FOCUS.SICK_CHILD)) {
-            ChildProfileActivity.startMe(getReferralTaskViewActivity(), false, new MemberObject(getCommonPersonObjectClient()), ChildProfileActivity.class);
-        } else if (getTaskFocus().equals(CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS)) {
-            AncMemberProfileActivity.startMe(getReferralTaskViewActivity(), getMemberObject(), getFamilyHeadName(), getFamilyHeadPhoneNumber(), getCommonPersonObjectClient());
+        switch (getTaskFocus()) {
+            case CoreConstants.TASKS_FOCUS.SICK_CHILD:
+                ChildProfileActivity.startMe(getReferralTaskViewActivity(), false,
+                        new MemberObject(getCommonPersonObjectClient()), ChildProfileActivity.class);
+                break;
+            case CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS:
+                AncMemberProfileActivity.startMe(getReferralTaskViewActivity(), getMemberObject().getBaseEntityId(), getCommonPersonObjectClient());
+                break;
+            case CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS:
+                PncMemberProfileActivity.startMe(getReferralTaskViewActivity(), getMemberObject().getBaseEntityId(), getCommonPersonObjectClient());
+                break;
+            default:
+                break;
         }
     }
 
@@ -42,9 +52,17 @@ public class ReferralsTaskViewClickListener implements View.OnClickListener {
         return referralTaskViewActivity;
     }
 
+    public void setReferralTaskViewActivity(ReferralTaskViewActivity referralTaskViewActivity) {
+        this.referralTaskViewActivity = referralTaskViewActivity;
+    }
+
     @Contract(pure = true)
     private String getTaskFocus() {
         return taskFocus;
+    }
+
+    public void setTaskFocus(String iSFromReferral) {
+        this.taskFocus = iSFromReferral;
     }
 
     @Contract(pure = true)
@@ -81,13 +99,5 @@ public class ReferralsTaskViewClickListener implements View.OnClickListener {
 
     public void setFamilyHeadPhoneNumber(String familyHeadPhoneNumber) {
         this.familyHeadPhoneNumber = familyHeadPhoneNumber;
-    }
-
-    public void setTaskFocus(String iSFromReferral) {
-        this.taskFocus = iSFromReferral;
-    }
-
-    public void setReferralTaskViewActivity(ReferralTaskViewActivity referralTaskViewActivity) {
-        this.referralTaskViewActivity = referralTaskViewActivity;
     }
 }
