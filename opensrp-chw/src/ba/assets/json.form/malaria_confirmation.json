@@ -360,7 +360,7 @@
       {
         "key": "malaria_edu_chw",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "EDUCATION/COUNSELING ORDERS",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Malaria topics covered",

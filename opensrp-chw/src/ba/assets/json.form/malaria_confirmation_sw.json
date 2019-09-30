@@ -376,7 +376,7 @@
             "text": "Muktasari kuhusu ugonjwa wa malaria",
             "text_size": "18px",
             "value": "false",
-            "openmrs_entity": "MALARIA",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
@@ -384,7 +384,7 @@
             "text": "Kuzuia malaria",
             "text_size": "18px",
             "value": "false",
-            "openmrs_entity": "Education on malaria control and prevention",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
@@ -392,7 +392,7 @@
             "text": "Malaria isiyokali",
             "text_size": "18px",
             "value": "false",
-            "openmrs_entity": "Uncomplicated malaria",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
@@ -400,7 +400,7 @@
             "text": "Malaria kali",
             "text_size": "18px",
             "value": "false",
-            "openmrs_entity": "Severe malaria",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
@@ -408,7 +408,7 @@
             "text": "Malaria kwa mama mjamzito",
             "text_size": "18px",
             "value": "false",
-            "openmrs_entity": "Maternal Malaria During Pregnancy - Baby Not Yet Delivered ",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
@@ -416,7 +416,7 @@
             "text": "Hajafanya",
             "text_size": "18px",
             "value": "false",
-            "openmrs_entity": "Results not available",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
