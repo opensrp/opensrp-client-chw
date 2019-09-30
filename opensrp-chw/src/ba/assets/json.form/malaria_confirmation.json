@@ -370,7 +370,7 @@
             "text": "Overview on malaria",
             "text_size": "18px",
             "value": "false",
-            "openmrs_entity": "MALARIA",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
@@ -378,7 +378,7 @@
             "text": "Malaria prevention",
             "text_size": "18px",
             "value": "false",
-            "openmrs_entity": "Education on malaria control and prevention",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
@@ -386,7 +386,7 @@
             "text": "Uncomplicated malaria",
             "text_size": "18px",
             "value": "false",
-            "openmrs_entity": "Uncomplicated malaria",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
@@ -394,7 +394,7 @@
             "text": "Severe malaria",
             "text_size": "18px",
             "value": "false",
-            "openmrs_entity": "Severe malaria",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
@@ -402,7 +402,7 @@
             "text": "Malaria in pregnancy",
             "text_size": "18px",
             "value": "false",
-            "openmrs_entity": "Maternal Malaria During Pregnancy - Baby Not Yet Delivered ",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
@@ -410,7 +410,7 @@
             "text": "None",
             "text_size": "18px",
             "value": "false",
-            "openmrs_entity": "Results not available",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
