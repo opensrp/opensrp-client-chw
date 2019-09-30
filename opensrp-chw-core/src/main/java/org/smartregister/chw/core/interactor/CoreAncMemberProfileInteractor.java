@@ -12,6 +12,7 @@ import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.AncMemberProfileContract;
+import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.domain.AlertStatus;
@@ -50,6 +51,12 @@ public class CoreAncMemberProfileInteractor extends BaseAncMemberProfileInteract
             }
         };
         appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public MemberObject getMemberClient(String memberID) {
+        // read all the member details from the database
+        return AncDao.getMember(memberID);
     }
 
     protected Date getLastVisitDate(MemberObject memberObject) {

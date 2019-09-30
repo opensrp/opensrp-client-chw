@@ -6,6 +6,7 @@ import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
+import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.interactor.CoreFamilyInteractor;
 import org.smartregister.chw.core.interactor.CoreFamilyProfileInteractor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -132,7 +133,9 @@ public abstract class CoreFamilyOtherMemberActivityPresenter extends BaseFamilyO
         return familyName;
     }
 
-    public String getFamilyHeadBaseEntityId() { return familyHead; }
+    public String getFamilyHeadBaseEntityId() {
+        return familyHead;
+    }
 
     @Override
     public void updateFamilyMember(String jsonString) {
@@ -160,7 +163,7 @@ public abstract class CoreFamilyOtherMemberActivityPresenter extends BaseFamilyO
     }
 
     public boolean isWomanAlreadyRegisteredOnAnc(CommonPersonObjectClient client) {
-        return CoreChwApplication.ancRegisterRepository().checkIfAncWoman(client.getCaseId());
+        return AncDao.isANCMember(client.entityId());
     }
 
     @Override

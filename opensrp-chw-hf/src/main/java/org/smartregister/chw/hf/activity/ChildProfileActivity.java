@@ -168,7 +168,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
     //TODO Child Refactor
     private void openVisitHomeScreen(boolean isEditMode) {
-        CoreChildHomeVisitActivity.startMe(this, new MemberObject(((HfChildProfilePresenter) presenter()).getChildClient()), isEditMode);
+        CoreChildHomeVisitActivity.startMe(this, ((HfChildProfilePresenter) presenter()).getChildClient().getCaseId(), isEditMode);
     }
 
     public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final HfChildProfilePresenter presenter) {

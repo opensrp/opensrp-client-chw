@@ -3,8 +3,6 @@ package org.smartregister.chw.core.presenter;
 import android.content.Context;
 import android.util.Pair;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
@@ -12,6 +10,8 @@ import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
+import org.smartregister.chw.core.dao.AncDao;
+import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.interactor.CoreChildRegisterInteractor;
 import org.smartregister.chw.core.interactor.CoreFamilyProfileInteractor;
@@ -72,7 +72,6 @@ public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresen
     @Override
     public void startFormForEdit(CommonPersonObjectClient client) {
         JSONObject form = CoreJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyDetailsRegister(), getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
-        CoreJsonFormUtils.populateLocationsTree(form, JsonFormConstants.STEP1, CoreChwApplication.getInstance().getAllowedLocationLevels(), "nearest_facility");
         try {
             getView().startFormActivity(form);
         } catch (Exception e) {
@@ -167,7 +166,7 @@ public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresen
     }
 
     public boolean isAncMember(String baseEntityId) {
-        return getAncRegisterRepository().checkIfAncWoman(baseEntityId);
+        return AncDao.isANCMember(baseEntityId);
     }
 
     public HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId) {
@@ -183,7 +182,7 @@ public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresen
     }
 
     public boolean isPncMember(String baseEntityId) {
-        return getPncRegisterRepository().checkIfPncWoman(baseEntityId);
+        return PNCDao.isPNCMember(baseEntityId);
     }
 
     private AncRegisterRepository getAncRegisterRepository() {

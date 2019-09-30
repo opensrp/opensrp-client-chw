@@ -186,6 +186,10 @@
           "step1:fp_counseling": {
             "type": "string",
             "ex": "equalTo(., \"Yes\")"
+          },
+          "step1:fp_method": {
+            "type": "string",
+            "ex": "notEqualTo(., \"None\")"
           }
         }
       }

@@ -119,6 +119,7 @@ public class CoreConstants {
         public static final String PNC_HOME_VISIT_NOT_DONE = "PNC Home Visit Not Done";
         public static final String PNC_HOME_VISIT_NOT_DONE_UNDO = "PNC Home Visit Not Done Undo";
         public static final String WASH_CHECK = "WASH check";
+        public static final String NUTRITION_STATUS_BABY = "Nutrition Status - Baby";
 
     }
 
@@ -151,6 +152,7 @@ public class CoreConstants {
         private static final String WASH_CHECK = "wash_check";
         private static final String CHILD_REFERRAL_FORM = "child_referral_form";
         private static final String ANC_REFERRAL_FORM = "anc_referral_form";
+        private static final String PNC_REFERRAL_FORM = "pnc_referral_form";
         public static AssetManager assetManager;
         public static Locale locale;
 
@@ -172,6 +174,9 @@ public class CoreConstants {
 
         public static String getAncReferralForm() {
             return ANC_REFERRAL_FORM;
+        }
+        public static String getPncReferralForm() {
+            return PNC_REFERRAL_FORM;
         }
 
         public static String getBirthCertification() {
@@ -694,5 +699,6 @@ public class CoreConstants {
     public static final class TASKS_FOCUS {
         public static final String SICK_CHILD = "Sick Child";
         public static final String ANC_DANGER_SIGNS = "ANC Danger Signs";
+        public static final String PNC_DANGER_SIGNS = "PNC Danger Signs";
     }
 }
