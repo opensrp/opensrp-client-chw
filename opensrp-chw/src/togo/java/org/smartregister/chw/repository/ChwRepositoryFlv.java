@@ -230,9 +230,14 @@ public class ChwRepositoryFlv {
     }
 
     private static void upgradeToVersion12(SQLiteDatabase db) {
+        initializePNCIndicatorDefinitions(db);
+    }
+
+    private static void initializePNCIndicatorDefinitions(SQLiteDatabase sqLiteDatabase) {
+        // Move this to its own separate function
         String pncIndicatorConfigFile = "config/pnc-reporting-indicator-definitions.yml";
         ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
-        reportingLibraryInstance.readConfigFile(pncIndicatorConfigFile, db);
+        reportingLibraryInstance.readConfigFile(pncIndicatorConfigFile, sqLiteDatabase);
     }
 
     // helpers
