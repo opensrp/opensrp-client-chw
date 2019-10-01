@@ -314,7 +314,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
         public TextView registeredMember;
         public TextView lastVisitDate;
         public CircleImageView addMemberBtn;
-        public CircleImageView profileImage;
+        public ImageView profileImage;
         public View patientColumn;
         public LinearLayout memberIcon;
 

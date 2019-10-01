@@ -7,16 +7,20 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/hh_profile_img"
-        app:civ_border_color="@color/colorPrimary"
-        app:civ_border_width="1dp"
-        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/rowavatar_member"
-        android:layout_width="@dimen/member_profile_pic_width"
-        android:layout_height="@dimen/member_profile_pic_width" />
+        android:layout_marginStart="@dimen/register_list_item_margin"
+        android:adjustViewBounds="true"
+        android:maxHeight="@dimen/client_profile_pic_height"
+        android:maxWidth="@dimen/client_profile_pic_width"
+        android:paddingBottom="@dimen/register_list_top_bottom_min_padding"
+        android:paddingStart="@dimen/register_list_top_bottom_min_padding"
+        android:scaleType="centerCrop"
+        android:src="@drawable/rowavatar_member" />
     <LinearLayout
         android:id="@+id/patient_column"
         android:layout_width="match_parent"

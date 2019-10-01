@@ -19,6 +19,7 @@
     </style>
 
     <style name="FamilyTheme.NoActionBar">
+        <item name="android:textColorHint">@color/secondary_text</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

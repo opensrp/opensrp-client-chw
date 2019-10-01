@@ -13,8 +13,10 @@ public class HnppNavigationTopView implements NavigationMenu.FlavorTop {
 
     @Override
     public String topText() {
-        String userName = HnppApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
 
-        return userName;
+        String userName = HnppApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
+        String fullName = HnppApplication.getInstance().getContext().allSharedPreferences().getANMPreferredName(userName);
+
+        return fullName+"\n"+userName;
     }
 }

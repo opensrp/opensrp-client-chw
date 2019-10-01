@@ -31,8 +31,11 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
     public NavigationAdapter(List<NavigationOption> navigationOptions, Activity context, Map<String, Class> registeredActivities) {
         this.navigationOptionList = navigationOptions;
         this.context = context;
-        this.onClickListener = new NavigationListener(context, this);
         this.registeredActivities = registeredActivities;
+    }
+    public void setNavigationListener(NavigationListener navigationListener){
+
+        this.onClickListener = navigationListener;
     }
 
     public String getSelectedView() {

@@ -17,6 +17,7 @@ public class RegisterViewHolder extends RecyclerView.ViewHolder {
     public View dueButtonLayout;
     public View childColumn;
     public ImageView goToProfileImage;
+    public ImageView profileImage;
     public View goToProfileLayout;
 
     public RegisterViewHolder(View itemView) {
@@ -29,7 +30,8 @@ public class RegisterViewHolder extends RecyclerView.ViewHolder {
         dueButtonLayout = itemView.findViewById(R.id.due_button_wrapper);
         goToProfileImage = itemView.findViewById(R.id.go_to_profile_image_view);
         goToProfileLayout = itemView.findViewById(R.id.go_to_profile_layout);
-
+        profileImage = itemView.findViewById(R.id.profile_img);
+        profileImage.setVisibility(View.GONE);
         childColumn = itemView.findViewById(R.id.child_column);
     }
 }

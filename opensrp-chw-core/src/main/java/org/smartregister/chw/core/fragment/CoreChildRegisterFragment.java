@@ -43,7 +43,7 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
     public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
     private static final String DUE_FILTER_TAG = "PRESSED";
     private View view;
-    private View dueOnlyLayout;
+    protected View dueOnlyLayout;
     private boolean dueFilterActive = false;
 
     @Override
@@ -269,7 +269,7 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
         }
     }
 
-    private String filterandSortQuery() {
+    protected String filterandSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
         String query = "";
@@ -292,4 +292,5 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
 
         return query;
     }
+
 }

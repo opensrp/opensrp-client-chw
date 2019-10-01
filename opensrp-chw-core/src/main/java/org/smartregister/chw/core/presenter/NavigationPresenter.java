@@ -27,7 +27,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     private NavigationContract.Model mModel;
     private NavigationContract.Interactor mInteractor;
     private WeakReference<NavigationContract.View> mView;
-    private HashMap<String, String> tableMap = new HashMap<>();
+    protected HashMap<String, String> tableMap = new HashMap<>();
 
     public NavigationPresenter(CoreApplication application, NavigationContract.View view, NavigationModel.Flavor modelFlavor) {
         mView = new WeakReference<>(view);
@@ -41,8 +41,9 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         initialize();
     }
 
-    private void initialize() {
+    protected void initialize() {
         tableMap.put(CoreConstants.DrawerMenu.ALL_FAMILIES, CoreConstants.TABLE_NAME.FAMILY);
+        tableMap.put(CoreConstants.DrawerMenu.ALL_MEMBER, CoreConstants.TABLE_NAME.FAMILY_MEMBER);
         tableMap.put(CoreConstants.DrawerMenu.CHILD_CLIENTS, CoreConstants.TABLE_NAME.CHILD);
         tableMap.put(CoreConstants.DrawerMenu.ANC_CLIENTS, CoreConstants.TABLE_NAME.ANC_MEMBER);
         tableMap.put(CoreConstants.DrawerMenu.ANC, CoreConstants.TABLE_NAME.ANC_MEMBER);
@@ -101,16 +102,21 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         getNavigationView().refreshCurrentUser(mModel.getCurrentUser());
     }
 
+//    @Override
+//    public void sync(Activity activity) {
+//        CoreBasePncCloseJob.scheduleJobImmediately(CoreBasePncCloseJob.TAG);
+//        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
+//        VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
+//        ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
+//        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+//        PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
+//        //PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
+//        SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
+//    }
     @Override
     public void sync(Activity activity) {
-        CoreBasePncCloseJob.scheduleJobImmediately(CoreBasePncCloseJob.TAG);
-        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
-        VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
-        ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
-        //PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
-        SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
     }
 
     @Override

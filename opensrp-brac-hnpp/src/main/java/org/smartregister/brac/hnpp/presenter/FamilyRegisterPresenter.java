@@ -25,7 +25,7 @@ public class FamilyRegisterPresenter extends BaseFamilyRegisterPresenter  {
 //            if (getView() != null)
 //                getView().showProgressDialog(R.string.saving);
 
-            List<FamilyEventClient> familyEventClientList = model.processRegistration(jsonString);
+            List<FamilyEventClient> familyEventClientList = ((HnppFamilyRegisterModel)model).processRegistration(jsonString);
             if (familyEventClientList == null || familyEventClientList.isEmpty()) {
                 if (getView() != null) getView().hideProgressDialog();
                 return;

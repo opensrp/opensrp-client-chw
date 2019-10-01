@@ -81,7 +81,7 @@
           "err": "Please enter the first name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "value": "[A-Za-z\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -95,6 +95,8 @@
         "hint": "খানা প্রধানের সাথে সম্পর্ক",
         "values": [
           "খানা প্রধান",
+          "মা",
+          "বাবা",
           "ছেলে",
           "মেয়ে",
           "স্ত্রী",
@@ -107,15 +109,17 @@
         ],
         "openmrs_choice_ids": {
           "খানা প্রধান": "1",
-          "ছেলে": "2",
-          "মেয়ে": "3",
-          "স্ত্রী": "4",
-          "স্বামী": "5",
-          "নাতি": "6",
-          "নাতনী": "7",
-          "ছেলের বউ": "8",
-          "মেয়ের স্বামী": "9",
-          "অন্যান্য": "10"
+          "মা":"2",
+          "বাবা":"3",
+          "ছেলে": "4",
+          "মেয়ে": "5",
+          "স্ত্রী": "6",
+          "স্বামী": "7",
+          "নাতি": "8",
+          "নাতনী": "9",
+          "ছেলের বউ": "10",
+          "মেয়ের স্বামী": "11",
+          "অন্যান্য": "12"
         },
         "v_required": {
           "value": true,
@@ -143,17 +147,25 @@
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "মোবাইল নম্বর",
-        "v_numeric": {
+        "v_required": {
           "value": true,
-          "err": "Number must be a total of 11 digits in length"
+          "err": "Enter 11 digits Mobile Number."
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must begin with 095, 096, or 097 and must be a total of 11 digits in length"
         },
         "v_regex": {
-          "value": "(0|0[0-9][0-9]{9})|\\s*",
-          "err": "Number must be 11 digits and must start with 0."
+          "value": "0|(01[0-9][0-9]{8})|\s*",
+          "err": "Number must begin with 011, 012, 013, 014, 015, 016,017,018 or 019 and must be a total of 11 digits in length"
         },
-        "v_required": {
-          "value": false,
-          "err": "Please specify the phone number"
+        "v_max_length": {
+          "value": "11",
+          "err": "Please Enter 11 digit Mobile number"
+        },
+        "v_min_length": {
+          "value": "1",
+          "err": "Please Enter 11 digit Mobile number"
         }
       },
       {
@@ -204,6 +216,10 @@
           "value": "true",
           "err": "Please enter national id"
         },
+        "v_regex": {
+          "value": "[0-9]*",
+          "err": "Please enter a valid name"
+        },
         "relevance": {
           "step1:id_avail": {
             "ex-checkbox": [
@@ -224,6 +240,10 @@
         "type": "edit_text",
         "hint": "জন্ম পরিচয় পত্র",
         "edit_type": "name",
+        "v_regex": {
+          "value": "[0-9]*",
+          "err": "Please enter a valid name"
+        },
         "relevance": {
           "step1:id_avail": {
             "ex-checkbox": [
@@ -239,8 +259,8 @@
       {
         "key": "is_birthday_known",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "is_birthday_known",
         "type": "spinner",
         "hint": "আপনার জন্মতারিখ কি জানা আছে?",
         "values": [
@@ -295,27 +315,10 @@
         }
       },
       {
-        "key": "dob_unknown",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdateApprox",
-        "type": "check_box",
-        "label": "",
-        "hidden":true,
-        "options": [
-          {
-            "key": "dob_unknown",
-            "text": "বয়স অজানা?",
-            "text_size": "18px",
-            "value": "false"
-          }
-        ]
-      },
-      {
-        "key": "age",
+        "key": "estimated_age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "age",
+        "openmrs_entity_id": "estimated_age",
         "type": "edit_text",
         "hint": "আনুমানিক বয়স",
         "v_numeric": {
@@ -460,7 +463,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "finger_print",
-        "type": "choose_finger_print",
+        "type": "finger_print",
         "project_id":"",
         "user_id":"",
         "module_id":"",

@@ -30,6 +30,7 @@ import org.smartregister.chw.core.activity.ChwP2pModeSelectActivity;
 import org.smartregister.chw.core.adapter.NavigationAdapter;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.NavigationContract;
+import org.smartregister.chw.core.listener.NavigationListener;
 import org.smartregister.chw.core.model.NavigationModel;
 import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.core.presenter.NavigationPresenter;
@@ -52,11 +53,12 @@ import timber.log.Timber;
 public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
-    private static CoreChwApplication application;
+    public static CoreChwApplication application;
     private static NavigationMenu.Flavour menuFlavor;
     private static NavigationMenu.FlavorTop topFlavor;
     private static NavigationModel.Flavor modelFlavor;
     private static Map<String, Class> registeredActivities;
+    private static NavigationListener navigationListener;
     private static boolean showDeviceToDeviceSync = true;
     private DrawerLayout drawer;
     private Toolbar toolbar;
@@ -66,7 +68,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private View rootView = null;
     private ImageView ivSync;
     private ProgressBar syncProgressBar;
-    private NavigationContract.Presenter mPresenter;
+    private static NavigationContract.Presenter mPresenter;
     private View parentView;
 
     private NavigationMenu() {
@@ -80,8 +82,9 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         NavigationMenu.modelFlavor = modelFlavor;
         NavigationMenu.registeredActivities = registeredActivities;
         NavigationMenu.showDeviceToDeviceSync = showDeviceToDeviceSync;
+        NavigationMenu.navigationListener = new NavigationListener();
     }
-    public static void setupNavigationMenu(CoreChwApplication application,NavigationMenu.FlavorTop topFlavor, NavigationMenu.Flavour menuFlavor,
+    public static void setupNavigationMenu(NavigationListener navigationListener,NavigationPresenter presenter, CoreChwApplication application,NavigationMenu.FlavorTop topFlavor, NavigationMenu.Flavour menuFlavor,
                                            NavigationModel.Flavor modelFlavor, Map<String, Class> registeredActivities, boolean showDeviceToDeviceSync) {
         NavigationMenu.application = application;
         NavigationMenu.topFlavor = topFlavor;
@@ -89,6 +92,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         NavigationMenu.modelFlavor = modelFlavor;
         NavigationMenu.registeredActivities = registeredActivities;
         NavigationMenu.showDeviceToDeviceSync = showDeviceToDeviceSync;
+        NavigationMenu.navigationListener = navigationListener;
+        NavigationMenu.mPresenter = presenter;
     }
 
     public static NavigationMenu getInstance(Activity activity, View parentView, Toolbar myToolbar) {
@@ -114,7 +119,10 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             setParentView(activity, parentView);
             toolbar = myToolbar;
             parentView = myParentView;
-            mPresenter = new NavigationPresenter(application, this, modelFlavor);
+            if(mPresenter == null){
+                mPresenter = new NavigationPresenter(application, this, modelFlavor);
+            }
+
             prepareViews(activity);
         } catch (Exception e) {
             Timber.e(e);
@@ -252,6 +260,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             List<NavigationOption> navigationOptions = mPresenter.getOptions();
             if (navigationAdapter == null) {
                 navigationAdapter = new NavigationAdapter(navigationOptions, parentActivity, registeredActivities);
+                navigationListener.setAdapter(navigationAdapter,parentActivity);
+                navigationAdapter.setNavigationListener(navigationListener);
             }
 
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(parentActivity);

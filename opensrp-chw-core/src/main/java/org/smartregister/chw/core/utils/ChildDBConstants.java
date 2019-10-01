@@ -21,7 +21,7 @@ public class ChildDBConstants {
         return childAgeLimitFilter(tableColConcat(tableName, DBConstants.KEY.DOB), FIVE_YEAR);
     }
 
-    private static String tableColConcat(String tableName, String columnName) {
+    public static String tableColConcat(String tableName, String columnName) {
         if (StringUtils.isBlank(tableName) || StringUtils.isBlank(columnName)) {
             return "";
         }
@@ -48,7 +48,7 @@ public class ChildDBConstants {
                 ")  " + orderByClause(sort) + limitClause(limit, offset);
     }
 
-    private static String matchPhrase(String phrase) {
+    public static String matchPhrase(String phrase) {
         String stringPhrase = phrase;
         if (stringPhrase == null) {
             stringPhrase = "";
@@ -62,14 +62,14 @@ public class ChildDBConstants {
 
     }
 
-    private static String orderByClause(String sort) {
+    public static String orderByClause(String sort) {
         if (StringUtils.isNotBlank(sort)) {
             return " ORDER BY " + sort;
         }
         return "";
     }
 
-    private static String limitClause(int limit, int offset) {
+    public static String limitClause(int limit, int offset) {
         return " LIMIT " + offset + "," + limit;
     }
 

@@ -12,8 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.fragment.HNPPMemberJsonFormFragment;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
-import org.smartregister.simprint.SimprintsConstant;
-import org.smartregister.simprint.SimprintsRegistration;
+import org.smartregister.simprint.SimPrintsConstantHelper;
+import org.smartregister.simprint.SimPrintsRegistration;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.ACTIVITY_REQUEST_CODE.REQUEST_CODE_REGISTER;
 import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
@@ -36,18 +36,18 @@ public class HNPPMemberJsonFormActivity extends FamilyWizardFormActivity {
         Log.v("SIMPRINT_SDK","HNPPMemberJsonFormActivity >>requestCode:"+requestCode+":resultCode:"+resultCode+":intent:"+data);
         if(resultCode == RESULT_OK && data !=null) {
 
-            SimprintsRegistration registration = (SimprintsRegistration) data.getSerializableExtra(SimprintsConstant.INTENT_DATA);
+            SimPrintsRegistration registration = (SimPrintsRegistration) data.getSerializableExtra(SimPrintsConstantHelper.INTENT_DATA);
 
-//            switch (requestCode) {
-//                case REQUEST_CODE_REGISTER:
+            switch (requestCode) {
+                case REQUEST_CODE_REGISTER:
                     if(registration!=null){
                         String uniqueId = registration.getGuid();
                         jsonWizardFormFragment.updateGuid(uniqueId);
                     }else{
                         Toast.makeText(this,"GUID not found",Toast.LENGTH_SHORT).show();
                     }
-//                    break;
-//            }
+                    break;
+            }
         }
      }
 }

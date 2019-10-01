@@ -111,9 +111,7 @@
           "ক্লাস্টার ১",
           "ক্লাস্টার ২",
           "ক্লাস্টার ৩",
-          "ক্লাস্টার ৪",
-          "ক্লাস্টার ৫"
-
+          "ক্লাস্টার ৪"
         ],
         "openmrs_choice_ids": {
           "ক্লাস্টার ১":"claster_1",
@@ -171,6 +169,10 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\.\\-]*",
+          "err": "Please enter a valid name"
         }
       },
       {
@@ -212,6 +214,18 @@
         "v_numeric": {
           "value": "true",
           "err": "Must Contain Numeric Value"
+        },
+        "v_regex": {
+          "value": "(5[0]|[1-4][0-9]|[1-9])|\s*",
+          "err": "Member count minimum 1 maximum 50"
+        },
+        "v_max_length": {
+          "value": "2",
+          "err": "Please Enter max 50"
+        },
+        "v_min_length": {
+          "value": "1",
+          "err": "Please Enter minimum 1"
         }
       },
       {
@@ -221,41 +235,7 @@
         "openmrs_entity_id": "bd437fcc-f42f-40a6-8baf-b3d3af725ad4",
         "openmrs_data_type": "Coded",
         "type": "spinner",
-        "hint": "খানার সদস্যগন কি ধরনের ল্যাট্রিন ব্যবহার করেন?",
-        "values": [
-          "স্যানিটারী",
-          "পাকা",
-          "কাচা",
-          "খােলা জায়গা",
-          "ঝোপ জংগল",
-          "অন্যান্য"
-        ],
-        "openmrs_choice_ids": {
-          "স্যানিটারী": "Sanitary",
-          "পাকা": "Construction",
-          "কাচা": "UnderConstruction",
-          "খােলা জায়গা": "OpenArea",
-          "ঝোপ জংগল" : "Bush",
-          "অন্যান্য": "Latrine_others"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please answer the question"
-        }
-      },
-      {
-        "key": "is_house_hold_divided",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "text",
-        "type": "spinner",
-        "hint": "এই খানাটি কি অন্য কোনো খানা ভেঙে তৈরী হয়েছে?",
-        "hidden": true,
-        "v_required": {
-          "value": true,
-          "err": "Please Select"
-        },
+        "hint": "খানায় স্যানিটারি ল্যাট্রিন আছে কিনা?",
         "values": [
           "হ্যাঁ",
           "না"
@@ -263,60 +243,10 @@
         "openmrs_choice_ids": {
           "হ্যাঁ": "Yes",
           "না": "No"
-        }
-      },
-      {
-        "key": "hh_list_if_divided",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "text",
-        "type": "spinner",
-        "hint": "খানা বাছাই করুন",
-        "hidden": true,
+        },
         "v_required": {
-          "value": false,
-          "err": "Please Select"
-        },
-        "values": [
-        ],
-        "openmrs_choice_ids": {
-        },
-        "relevance": {
-          "step1:is_house_hold_divided": {
-            "type": "string",
-            "ex": "equalTo(., \"হ্যাঁ\")"
-          }
-        }
-      },
-      {
-        "key": "member_list_if_divided",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "member_list_if_divided",
-        "type": "check_box",
-        "label": "কোন কোন সদস্য স্থানান্তরিত হয়েছে বাছাই করুন",
-        "label_text_style": "normal",
-        "hidden": true,
-        "text_color": "#C0C0C0",
-        "exclusive": [
-          "chk_none"
-        ],
-        "options": [
-
-          {
-            "key": "chk_none",
-            "text": "None",
-            "value": false,
-            "openmrs_entity": "person_attribute",
-            "openmrs_entity_id": "chk_none"
-          }
-        ],
-        "relevance": {
-          "step1:is_house_hold_divided": {
-            "type": "string",
-            "ex": "equalTo(., \"হ্যাঁ\")"
-          }
+          "value": "true",
+          "err": "Please answer the question"
         }
       },
 

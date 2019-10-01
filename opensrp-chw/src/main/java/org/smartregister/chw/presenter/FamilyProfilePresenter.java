@@ -30,23 +30,23 @@ public class FamilyProfilePresenter extends CoreFamilyProfilePresenter {
         return new ChildRegisterModel();
     }
 
-//    @Override
-//    public String saveChwFamilyMember(String jsonString) {
-//        try {
-//            getView().showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
-//
-//            FamilyEventClient familyEventClient = model.processMemberRegistration(jsonString, familyBaseEntityId);
-//            if (familyEventClient == null) {
-//                return null;
-//            }
-//
-//            interactor.saveRegistration(familyEventClient, jsonString, false, this);
-//            return familyEventClient.getClient().getBaseEntityId();
-//        } catch (Exception e) {
-//            Timber.e(e);
-//        }
-//        return null;
-//    }
+    @Override
+    public String saveChwFamilyMember(String jsonString) {
+        try {
+            getView().showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
+
+            FamilyEventClient familyEventClient = model.processMemberRegistration(jsonString, familyBaseEntityId);
+            if (familyEventClient == null) {
+                return null;
+            }
+
+            interactor.saveRegistration(familyEventClient, jsonString, false, this);
+            return familyEventClient.getClient().getBaseEntityId();
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return null;
+    }
     @Override
     public boolean updatePrimaryCareGiver(Context context, String jsonString, String familyBaseEntityId, String entityID) {
 

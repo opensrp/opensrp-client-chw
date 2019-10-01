@@ -42,29 +42,19 @@ public class CoreChwRepository extends Repository {
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
     private Context context;
-    private int databaseVersion;
+    protected int databaseVersion;
 
     public CoreChwRepository(Context context, String databaseName, int databaseVersion, Session session, CommonFtsObject commonFtsObject, DrishtiRepository... repositories) {
         super(context, databaseName, databaseVersion, session, commonFtsObject, repositories);
         this.context = context;
         this.databaseVersion = databaseVersion;
     }
-
-    @Override
-    public void onCreate(SQLiteDatabase database) {
-        super.onCreate(database);
-        EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
-        EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
+    protected void onCreation(SQLiteDatabase database){
 
         VaccineRepository.createTable(database);
         VaccineNameRepository.createTable(database);
         VaccineTypeRepository.createTable(database);
         WashCheckRepository.createTable(database);
-        ConfigurableViewsRepository.createTable(database);
-        LocationRepository.createTable(database);
-
-        UniqueIdRepository.createTable(database);
-        SettingsRepository.onUpgrade(database);
 
         RecurringServiceTypeRepository.createTable(database);
         RecurringServiceRecordRepository.createTable(database);
@@ -84,12 +74,26 @@ public class CoreChwRepository extends Repository {
         RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
         IMDatabaseUtils.populateRecurringServices(context, database, recurringServiceTypeRepository);
 
-        onUpgrade(database, 1, databaseVersion);
+
         ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
         String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
         String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
         reportingLibraryInstance.initMultipleIndicatorsData(Collections.unmodifiableList(
                 Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile)), database);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase database) {
+        super.onCreate(database);
+        EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
+        EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
+        UniqueIdRepository.createTable(database);
+        SettingsRepository.onUpgrade(database);
+        ConfigurableViewsRepository.createTable(database);
+        LocationRepository.createTable(database);
+        onUpgrade(database, 1, databaseVersion);
+        onCreation(database);
+
     }
 
     @Override

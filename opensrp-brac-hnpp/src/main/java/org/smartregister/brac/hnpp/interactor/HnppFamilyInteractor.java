@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import org.smartregister.brac.hnpp.utils.HfChildUtils;
+import org.smartregister.brac.hnpp.utils.HnppChildUtils;
 import org.smartregister.chw.core.enums.ImmunizationState;
 import org.smartregister.chw.core.interactor.CoreFamilyInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
@@ -32,7 +32,7 @@ public class HnppFamilyInteractor extends CoreFamilyInteractor {
                 dateCreated = org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
             }
 
-            final ChildVisit childVisit = HfChildUtils.getChildVisitStatus(context, dobString, lastHomeVisit, visitNotDone, dateCreated);
+            final ChildVisit childVisit = HnppChildUtils.getChildVisitStatus(context, dobString, lastHomeVisit, visitNotDone, dateCreated);
             return getImmunizationStatus(childVisit.getVisitStatus());
         }
         return ImmunizationState.NO_ALERT;

@@ -9,12 +9,12 @@ import org.smartregister.brac.hnpp.interactor.HnppFamilyProfileInteractor;
 import org.smartregister.family.contract.FamilyOtherMemberContract;
 import org.smartregister.family.contract.FamilyProfileContract;
 
-public class FamilyOtherMemberActivityPresenter extends CoreFamilyOtherMemberActivityPresenter {
+public class HnppFamilyOtherMemberActivityPresenter extends CoreFamilyOtherMemberActivityPresenter {
 
-    public FamilyOtherMemberActivityPresenter(FamilyOtherMemberProfileExtendedContract.View view,
-                                              FamilyOtherMemberContract.Model model, String viewConfigurationIdentifier,
-                                              String familyBaseEntityId, String baseEntityId, String familyHead,
-                                              String primaryCaregiver, String villageTown, String familyName) {
+    public HnppFamilyOtherMemberActivityPresenter(FamilyOtherMemberProfileExtendedContract.View view,
+                                                  FamilyOtherMemberContract.Model model, String viewConfigurationIdentifier,
+                                                  String familyBaseEntityId, String baseEntityId, String familyHead,
+                                                  String primaryCaregiver, String villageTown, String familyName) {
         super(view, model, viewConfigurationIdentifier, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
     }
 

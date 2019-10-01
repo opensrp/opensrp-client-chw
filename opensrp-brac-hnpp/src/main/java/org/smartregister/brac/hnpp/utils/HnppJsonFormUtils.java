@@ -4,9 +4,12 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import com.google.gson.Gson;
+
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,10 +22,13 @@ import org.smartregister.brac.hnpp.location.SSModel;
 import org.smartregister.brac.hnpp.repository.HnppChwRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.FormEntityConstants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
@@ -33,6 +39,8 @@ import org.smartregister.util.FormUtils;
 import org.smartregister.view.LocationPickerView;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -119,7 +127,6 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
             JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
             LocationPickerView lpv = new LocationPickerView(context);
             lpv.init();
-            // HnppJsonFormUtils.addWomanRegisterHierarchyQuestions(form);
             Timber.d("Form is %s", form.toString());
             if (form != null) {
                 form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
@@ -142,7 +149,6 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
                 }
 
-                org.smartregister.family.util.JsonFormUtils.addLocHierarchyQuestions(form);
 
                 return form;
             }
@@ -166,6 +172,9 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
                         org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),DBConstants.KEY.VILLAGE_TOWN, false));
 
                 break;
+            case Constants.JSON_FORM_KEY.DOB:
+                getDob(client,jsonObject);
+                break;
             case Constants.JSON_FORM_KEY.DOB_UNKNOWN:
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
                 JSONObject optionsObject = jsonObject.getJSONArray(Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
@@ -187,6 +196,17 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
                         org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),DBConstants.KEY.PHONE_NUMBER, false));
 
              break;
+            case "mother_guardian_first_name_english":
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
+                        org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),HnppConstants.KEY.CHILD_MOTHER_NAME, false));
+
+                break;
+
+            case "sex":
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
+                        org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),DBConstants.KEY.GENDER, false));
+
+                break;
 
             default:
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
@@ -195,6 +215,62 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
                 break;
         }
     }
+    private static void getDob(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
+        String dobString = org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+        if (StringUtils.isNotBlank(dobString)) {
+            Date dob = org.smartregister.chw.core.utils.Utils.dobStringToDate(dobString);
+            if (dob != null) {
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, dd_MM_yyyy.format(dob));
+            }
+        }
+    }
+    public static FamilyEventClient processFamilyForm(AllSharedPreferences allSharedPreferences, String jsonString, String familyBaseEntityId, String encounterType) {
+        try {
+            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
+            if (!(Boolean)registrationFormParams.getLeft()) {
+                return null;
+            } else {
+                JSONObject jsonForm = (JSONObject)registrationFormParams.getMiddle();
+                JSONArray fields = (JSONArray)registrationFormParams.getRight();
+                String entityId = getString(jsonForm, "entity_id");
+                if (StringUtils.isBlank(entityId)) {
+                    entityId = generateRandomUUIDString();
+                }
+
+                lastInteractedWith(fields);
+                dobEstimatedUpdateFromAge(fields);
+                Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
+                if (baseClient != null && !baseClient.getBaseEntityId().equals(familyBaseEntityId)) {
+                    baseClient.addRelationship(Utils.metadata().familyMemberRegister.familyRelationKey, familyBaseEntityId);
+                }
+
+                Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, "metadata"), formTag(allSharedPreferences), entityId, encounterType, Utils.metadata().familyMemberRegister.tableName);
+                tagSyncMetadata(allSharedPreferences, baseEvent);
+                return new FamilyEventClient(baseClient, baseEvent);
+            }
+        } catch (Exception var10) {
+            Timber.e(var10);
+            return null;
+        }
+    }
+    protected static void dobEstimatedUpdateFromAge(JSONArray fields) {
+        try {
+            JSONObject dobUnknownObject = getFieldJSONObject(fields, "is_birthday_known");
+            String dobUnKnownString = dobUnknownObject != null ? dobUnknownObject.getString("value") : null;
+            if (StringUtils.isNotBlank(dobUnKnownString) && dobUnKnownString.equalsIgnoreCase("না")) {
+                String ageString = getFieldValue(fields, "estimated_age");
+                if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
+                    int age = Integer.valueOf(ageString);
+                    JSONObject dobJSONObject = getFieldJSONObject(fields, "dob");
+                    dobJSONObject.put("value", Utils.getDob(age));
+                }
+            }
+        } catch (JSONException var9) {
+            Timber.e(var9);
+        }
+
+    }
+
 
 
     public static String memberCountWithZero(int count){
@@ -290,7 +366,7 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
                 HnppChwRepository pathRepository = new HnppChwRepository(context, HnppApplication.getInstance().getContext());
                 EventClientRepository eventClientRepository = new EventClientRepository(pathRepository);
                 JSONObject clientjson = eventClientRepository.getClient(db, lookUpBaseEntityId);
-                baseClient.setAddresses(getAddressFromClientJson(clientjson));
+                baseClient.setAddresses(updateWithSSLocation(clientjson));
             }
 
             return Pair.create(baseClient, baseEvent);
@@ -299,24 +375,21 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
             return null;
         }
     }
-
-    private static void processChildEnrollment(JSONObject jsonForm, JSONArray fields) {
-        try {
-            JSONObject surnam_familyName_SameObject = getFieldJSONObject(fields, "surname_same_as_family_name");
-            JSONArray surnam_familyName_Same_options = getJSONArray(surnam_familyName_SameObject, Constants.JSON_FORM_KEY.OPTIONS);
-            JSONObject surnam_familyName_Same_option = getJSONObject(surnam_familyName_Same_options, 0);
-            String surnam_familyName_SameString = surnam_familyName_Same_option != null ? surnam_familyName_Same_option.getString(VALUE) : null;
-
-            if (StringUtils.isNotBlank(surnam_familyName_SameString) && Boolean.valueOf(surnam_familyName_SameString)) {
-                String familyId = jsonForm.getJSONObject("metadata").getJSONObject("look_up").getString("value");
-                CommonPersonObject familyObject = HnppApplication.getInstance().getContext().commonrepository("ec_family").findByCaseID(familyId);
-                String lastname = familyObject.getColumnmaps().get(DBConstants.KEY.LAST_NAME);
-                JSONObject surname_object = getFieldJSONObject(fields, "surname");
-                surname_object.put(VALUE, lastname);
+    private static List<Address> updateWithSSLocation(JSONObject clientjson){
+        try{
+            String addessJson = clientjson.getString("addresses");
+            JSONArray jsonArray = new JSONArray(addessJson);
+            List<Address> listAddress = new ArrayList<>();
+            for(int i = 0; i <jsonArray.length();i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                Address address = new Gson().fromJson(jsonObject.toString(), Address.class);
+                listAddress.add(address);
             }
-        } catch (Exception e) {
-            Timber.e(e);
+            return listAddress;
+        }catch (Exception e){
+
         }
+        return new ArrayList<>();
 
     }
 }

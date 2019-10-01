@@ -1,8 +1,6 @@
 package org.smartregister.brac.hnpp;
 
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.Build;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -14,14 +12,14 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.brac.hnpp.activity.HNPPJsonFormActivity;
 import org.smartregister.brac.hnpp.activity.HNPPMemberJsonFormActivity;
-import org.smartregister.brac.hnpp.activity.LoginActivity;
+import org.smartregister.brac.hnpp.activity.HnppAllMemberRegisterActivity;
 import org.smartregister.brac.hnpp.custom_view.HnppNavigationTopView;
+import org.smartregister.brac.hnpp.listener.HnppNavigationListener;
 import org.smartregister.brac.hnpp.repository.HnppChwRepository;
 import org.smartregister.brac.hnpp.repository.SSLocationRepository;
 import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
 import org.smartregister.brac.hnpp.sync.HnppSyncConfiguration;
 import org.smartregister.brac.hnpp.utils.HNPPApplicationUtils;
-import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -36,19 +34,14 @@ import org.smartregister.brac.hnpp.activity.FamilyRegisterActivity;
 import org.smartregister.brac.hnpp.activity.ReferralRegisterActivity;
 import org.smartregister.brac.hnpp.custom_view.HnppNavigationMenu;
 import org.smartregister.brac.hnpp.job.HnppJobCreator;
-import org.smartregister.brac.hnpp.model.NavigationModel;
-import org.smartregister.chw.malaria.MalariaLibrary;
-import org.smartregister.chw.pnc.PncLibrary;
+import org.smartregister.brac.hnpp.model.HnppNavigationModel;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
-import org.smartregister.family.activity.FamilyWizardFormActivity;
 import org.smartregister.family.domain.FamilyMetadata;
-import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
-import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.util.Utils;
@@ -56,7 +49,6 @@ import org.smartregister.util.Utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
@@ -81,41 +73,34 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
                 HnppApplication.getInstance().getApplicationContext().getAssets());
 
         //Setup Navigation menu. Done only once when app is created
-        NavigationMenu.setupNavigationMenu(this, new HnppNavigationTopView(), new HnppNavigationMenu(), new NavigationModel(),
+        NavigationMenu.setupNavigationMenu(new HnppNavigationListener(),null,this, new HnppNavigationTopView(), new HnppNavigationMenu(), new HnppNavigationModel(),
                 getRegisteredActivities(), false);
 
-        if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        } else {
-            Timber.plant(new CrashlyticsTree(HnppApplication.getInstance().getContext()
-                    .allSharedPreferences().fetchRegisteredANM()));
-        }
+//        if (BuildConfig.DEBUG) {
+//            Timber.plant(new Timber.DebugTree());
+//        } else {
+//            Timber.plant(new CrashlyticsTree(HnppApplication.getInstance().getContext()
+//                    .allSharedPreferences().fetchRegisteredANM()));
+//        }
 
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
 
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder()
-                .disabled(BuildConfig.DEBUG).build()).build());
+//        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder()
+//                .disabled(BuildConfig.DEBUG).build()).build());
 
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
-
-//        //Initialize Peer to peer modules
-//        P2POptions p2POptions = new P2POptions(true);
-//        p2POptions.setAuthorizationService(new CoreAuthorizationService());
-//
-//        // init libraries
-//        CoreLibrary.init(context, new HnppSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
-        CoreLibrary.init(context,new HnppSyncConfiguration());
+        CoreLibrary.init(context,new HnppSyncConfiguration(),BuildConfig.BUILD_TIMESTAMP);
         ConfigurableViewsLibrary.init(context, getRepository());
         FamilyLibrary.init(context, getRepository(), FormUtils.getFamilyMetadata(new FamilyProfileActivity()), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        //ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEFAULT_LOCATION);
-        ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        AncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        //ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        //AncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        //PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
        // MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         setOpenSRPUrl();
         // set up processor
@@ -146,20 +131,32 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
     @Override
     public void logoutCurrentUser() {
         //TODO need_to_open
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+//        Intent intent = new Intent(getApplicationContext(), org.smartregister.brac.hnpp.activity.LoginActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.addCategory(Intent.CATEGORY_HOME);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        getApplicationContext().startActivity(intent);
+//        context.userService().logoutSession();
+//        Timber.i("Logged out user %s", getContext().allSharedPreferences().fetchRegisteredANM());
+    }
+    @Override
+    public void forceLogout() {
+        Intent intent = new Intent(this,org.smartregister.brac.hnpp.activity.LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        getApplicationContext().startActivity(intent);
+        startActivity(intent);
         context.userService().logoutSession();
-//        Timber.i("Logged out user %s", getContext().allSharedPreferences().fetchRegisteredANM());
     }
 
     public @NotNull Map<String, Class> getRegisteredActivities() {
         Map<String, Class> registeredActivities = new HashMap<>();
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, AncRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ALL_MEMBER_REGISTER_ACTIVITY, HnppAllMemberRegisterActivity.class);
+
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, ReferralRegisterActivity.class);

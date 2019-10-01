@@ -62,7 +62,10 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         String mainCondition;
         if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.CHILD)) {
             mainCondition = String.format(" where %s is null AND %s", DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeLimitFilter());
-        } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.FAMILY)) {
+        }else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.FAMILY_MEMBER)) {
+            mainCondition = String.format(" where %s is null", DBConstants.KEY.DATE_REMOVED);
+        }
+        else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.FAMILY)) {
             mainCondition = String.format(" where %s is null ", DBConstants.KEY.DATE_REMOVED);
         } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.ANC_MEMBER)) {
             mainCondition = MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER) +

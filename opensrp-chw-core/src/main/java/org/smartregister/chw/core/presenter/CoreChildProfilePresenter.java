@@ -33,9 +33,9 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     public CoreChildProfileContract.Model model;
     public String childBaseEntityId;
     public String familyID;
-    private WeakReference<CoreChildProfileContract.View> view;
+    protected WeakReference<CoreChildProfileContract.View> view;
     private CoreChildProfileContract.Interactor interactor;
-    private String dob;
+    protected String dob;
     private String familyName;
     private String familyHeadID;
     private String primaryCareGiverID;

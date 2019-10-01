@@ -4,7 +4,7 @@ import android.view.View;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.smartregister.brac.hnpp.activity.ChildProfileActivity;
+import org.smartregister.brac.hnpp.activity.HnppChildProfileActivity;
 import org.smartregister.brac.hnpp.activity.ReferralTaskViewActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -27,7 +27,7 @@ public class ReferralsTaskViewClickListener implements View.OnClickListener {
 
     private void goToClientProfile() {
         if (getTaskFocus().equals(CoreConstants.TASKS_FOCUS.SICK_CHILD)) {
-            ChildProfileActivity.startMe(getReferralTaskViewActivity(), false, new MemberObject(getCommonPersonObjectClient()), ChildProfileActivity.class);
+            HnppChildProfileActivity.startMe(getReferralTaskViewActivity(), false, new MemberObject(getCommonPersonObjectClient()), HnppChildProfileActivity.class);
         }
     }
 

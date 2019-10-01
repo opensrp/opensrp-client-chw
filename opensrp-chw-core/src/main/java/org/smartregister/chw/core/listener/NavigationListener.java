@@ -14,9 +14,10 @@ public class NavigationListener implements View.OnClickListener {
     private Activity activity;
     private NavigationAdapter navigationAdapter;
 
-    public NavigationListener(Activity activity, NavigationAdapter adapter) {
-        this.activity = activity;
+    public void setAdapter(NavigationAdapter adapter,Activity activity){
+
         this.navigationAdapter = adapter;
+        this.activity = activity;
     }
 
     @Override
@@ -52,7 +53,7 @@ public class NavigationListener implements View.OnClickListener {
         activity.finish();
     }
 
-    private Class getActivity(String key) {
+    protected Class getActivity(String key) {
         return navigationAdapter.getRegisteredActivities().get(key);
     }
 }

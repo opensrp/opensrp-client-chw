@@ -17,7 +17,6 @@ import org.smartregister.brac.hnpp.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreChildHomeVisitActivity;
 import org.smartregister.chw.core.activity.CoreChildMedicalHistoryActivity;
-import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
@@ -26,7 +25,7 @@ import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.brac.hnpp.R;
-import org.smartregister.brac.hnpp.presenter.HfChildProfilePresenter;
+import org.smartregister.brac.hnpp.presenter.HnppChildProfilePresenter;
 import org.smartregister.domain.Task;
 import org.smartregister.family.util.Constants;
 
@@ -35,7 +34,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class ChildProfileActivity extends HnppCoreChildProfileActivity {
+public class HnppChildProfileActivity extends HnppCoreChildProfileActivity {
     public CoreFamilyMemberFloatingMenu familyFloatingMenu;
     public RelativeLayout referralRow;
     public RecyclerView referralRecyclerView;
@@ -44,7 +43,7 @@ public class ChildProfileActivity extends HnppCoreChildProfileActivity {
     protected void onCreation() {
         super.onCreation();
         initializePresenter();
-        onClickFloatingMenu = getOnClickFloatingMenu(this, (HfChildProfilePresenter) presenter);
+        onClickFloatingMenu = getOnClickFloatingMenu(this, (HnppChildProfilePresenter) presenter);
         setupViews();
         setUpToolbar();
     }
@@ -71,7 +70,7 @@ public class ChildProfileActivity extends HnppCoreChildProfileActivity {
             familyName = "";
         }
 
-        presenter = new HfChildProfilePresenter(this, new CoreChildProfileModel(familyName), houseHoldId, childBaseEntityId);
+        presenter = new HnppChildProfilePresenter(this, new CoreChildProfileModel(familyName), houseHoldId, childBaseEntityId);
     }
 
     @Override
@@ -117,7 +116,7 @@ public class ChildProfileActivity extends HnppCoreChildProfileActivity {
     public void setClientTasks(Set<Task> taskList) {
         handler.postDelayed(() -> {
             if (referralRecyclerView != null && taskList.size() > 0) {
-                RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, ((HfChildProfilePresenter) presenter()).getChildClient(), CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY);
+                RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, ((HnppChildProfilePresenter) presenter()).getChildClient(), CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY);
                 referralRecyclerView.setAdapter(mAdapter);
                 referralRow.setVisibility(View.VISIBLE);
 
@@ -147,8 +146,8 @@ public class ChildProfileActivity extends HnppCoreChildProfileActivity {
         menu.findItem(R.id.action_anc_registration).setVisible(false);
         menu.findItem(R.id.action_malaria_registration).setVisible(false);
         menu.findItem(R.id.action_remove_member).setVisible(false);
-        menu.findItem(R.id.action_sick_child_follow_up).setVisible(true);
-        menu.findItem(R.id.action_malaria_diagnosis).setVisible(true);
+        menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
+        menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         return true;
     }
 
@@ -158,9 +157,9 @@ public class ChildProfileActivity extends HnppCoreChildProfileActivity {
     }
 
     private void openMedicalHistoryScreen() {
-        Map<String, Date> vaccine = ((HfChildProfilePresenter) presenter()).getVaccineList();
+        Map<String, Date> vaccine = ((HnppChildProfilePresenter) presenter()).getVaccineList();
         CoreChildMedicalHistoryActivity.startMedicalHistoryActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
-                ((HfChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine), CoreChildMedicalHistoryActivity.class);
+                ((HnppChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine), CoreChildMedicalHistoryActivity.class);
     }
 
     private void openUpcomingServicePage() {
@@ -169,10 +168,10 @@ public class ChildProfileActivity extends HnppCoreChildProfileActivity {
 
     //TODO Child Refactor
     private void openVisitHomeScreen(boolean isEditMode) {
-        CoreChildHomeVisitActivity.startMe(this, new MemberObject(((HfChildProfilePresenter) presenter()).getChildClient()), isEditMode);
+        CoreChildHomeVisitActivity.startMe(this, new MemberObject(((HnppChildProfilePresenter) presenter()).getChildClient()), isEditMode);
     }
 
-    public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final HfChildProfilePresenter presenter) {
+    public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final HnppChildProfilePresenter presenter) {
         return viewId -> {
             switch (viewId) {
                 case R.id.call_layout:
@@ -196,7 +195,7 @@ public class ChildProfileActivity extends HnppCoreChildProfileActivity {
 
     private void prepareFab() {
         familyFloatingMenu.fab.setOnClickListener(v -> FamilyCallDialogFragment.launchDialog(
-                this, ((HfChildProfilePresenter) presenter).getFamilyId()));
+                this, ((HnppChildProfilePresenter) presenter).getFamilyId()));
 
     }
 }

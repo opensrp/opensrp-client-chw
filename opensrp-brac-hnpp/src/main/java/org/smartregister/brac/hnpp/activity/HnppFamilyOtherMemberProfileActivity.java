@@ -1,21 +1,21 @@
 package org.smartregister.brac.hnpp.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.Menu;
 
 import org.json.JSONObject;
-import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
-import org.smartregister.chw.core.utils.BAJsonFormUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.fragment.FamilyOtherMemberProfileFragment;
-import org.smartregister.brac.hnpp.presenter.FamilyOtherMemberActivityPresenter;
+import org.smartregister.brac.hnpp.presenter.HnppFamilyOtherMemberActivityPresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
@@ -27,12 +27,10 @@ import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
 
 public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
     private FamilyMemberFloatingMenu familyFloatingMenu;
-    private BAJsonFormUtils baJsonFormUtils;
 
     @Override
     protected void onCreation() {
         super.onCreation();
-        baJsonFormUtils = new BAJsonFormUtils(HnppApplication.getInstance());
     }
 
     @Override
@@ -59,15 +57,11 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
 
     @Override
     protected void startEditMemberJsonForm(Integer title_resource, CommonPersonObjectClient client) {
-        JSONObject form;
-        if (title_resource != null) {
-            form = baJsonFormUtils.getAutoJsonEditMemberFormString(getResources().getString(title_resource), CoreConstants.JSON_FORM.getFamilyMemberRegister(),
-                    this, client, Utils.metadata().familyMemberRegister.updateEventType, familyName, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
-        } else {
-            form = baJsonFormUtils.getAutoJsonEditMemberFormString(null, CoreConstants.JSON_FORM.getFamilyMemberRegister(),
-                    this, client, Utils.metadata().familyMemberRegister.updateEventType, familyName, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
-        }
+
+
         try {
+            JSONObject form = HnppJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyMemberRegister(), this, client, Utils.metadata().familyMemberRegister.updateEventType);
+
             startFormActivity(form);
         } catch (Exception e) {
             Timber.e(e);
@@ -75,9 +69,14 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     protected BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(
             String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName) {
-        return new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(),
+        return new HnppFamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(),
                 null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
     }
 

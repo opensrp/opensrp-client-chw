@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/register_columns"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white">
-
-    <LinearLayout
-        android:id="@+id/child_column"
+    <ImageView
+        android:id="@+id/profile_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/register_list_item_margin"
+        android:layout_marginStart="@dimen/register_list_item_margin"
+        android:adjustViewBounds="true"
+        android:maxHeight="@dimen/client_profile_pic_height"
+        android:maxWidth="@dimen/client_profile_pic_width"
+        android:paddingBottom="@dimen/register_list_top_bottom_min_padding"
+        android:paddingLeft="@dimen/register_list_top_bottom_min_padding"
+        android:paddingStart="@dimen/register_list_top_bottom_min_padding"
+        android:scaleType="centerCrop"
+        android:src="@drawable/rowavatar_member"  />
+
+    <LinearLayout
+        android:layout_alignWithParentIfMissing="true"
+        android:id="@+id/child_column"
+        android:layout_toEndOf="@+id/profile_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/register_list_item_margin"
         android:layout_marginLeft="@dimen/register_list_item_margin"
@@ -28,9 +47,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
+            android:text="sdfsd"
             android:paddingLeft="0dp"
             android:singleLine="true"
-            android:text="CG:Parent Name"
             android:textColor="@color/text_black"
             android:textSize="@dimen/child_register_title_size" />
 
@@ -43,7 +62,6 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:paddingLeft="0dp"
-            android:text="Patient Name"
             android:textColor="@color/text_black"
             android:textSize="@dimen/child_register_title_size"
             android:textStyle="normal" />
@@ -56,7 +74,6 @@
             android:layout_gravity="left|center_horizontal"
             android:paddingLeft="0dp"
             android:paddingTop="7dp"
-            android:text="Age. 33"
             android:textColor="@color/light_grey_text"
             android:textSize="@dimen/child_register_list_desc_size"
             android:textStyle="bold" />
@@ -65,6 +82,7 @@
 
 
     <LinearLayout
+        android:visibility="invisible"
         android:id="@+id/due_button_wrapper"
         android:layout_width="@dimen/child_register_list_item_width"
         android:layout_height="90dp"
@@ -111,7 +129,7 @@
         android:paddingEnd="@dimen/register_list_item_padding"
         android:paddingRight="@dimen/register_list_item_padding"
         android:paddingBottom="@dimen/register_list_top_bottom_padding"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <com.rey.material.widget.ImageView
             android:id="@+id/go_to_profile_image_view"

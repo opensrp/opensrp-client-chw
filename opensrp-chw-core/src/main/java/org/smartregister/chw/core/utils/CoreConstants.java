@@ -428,6 +428,8 @@ public class CoreConstants {
 
     public static final class DrawerMenu {
         public static final String ALL_CLIENTS = "All Clients";
+        public static final String ALL_MEMBER = "All Member";
+        public static final String ELCO_CLIENT = "Elco Clients";
         public static final String ALL_FAMILIES = "All Families";
         public static final String ANC_CLIENTS = "ANC Clients";
         public static final String CHILD_CLIENTS = "Child Clients";
@@ -611,6 +613,7 @@ public class CoreConstants {
 
     public static final class REGISTERED_ACTIVITIES {
         public static final String CHILD_REGISTER_ACTIVITY = "CHILD_REGISTER_ACTIVITY";
+        public static final String ALL_MEMBER_REGISTER_ACTIVITY = "ALL_MEMBER_REGISTER_ACTIVITY";
         public static final String FAMILY_REGISTER_ACTIVITY = "FAMILY_REGISTER_ACTIVITY";
         public static final String ANC_REGISTER_ACTIVITY = "ANC_REGISTER_ACTIVITY";
         public static final String PNC_REGISTER_ACTIVITY = "PNC_REGISTER_ACTIVITY";

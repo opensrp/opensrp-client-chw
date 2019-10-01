@@ -186,7 +186,7 @@ public class HouseholdIdRepository extends BaseRepository {
         HouseholdId householdId = null;
         Cursor cursor = null;
         try {
-            cursor = getReadableDatabase().query(HouseholdIds_TABLE_NAME, HouseholdIds_TABLE_COLUMNS, STATUS_COLUMN + " = ?", new String[]{STATUS_NOT_USED}, null, null, CREATED_AT_COLUMN + " ASC", "1");
+            cursor = getReadableDatabase().query(HouseholdIds_TABLE_NAME, HouseholdIds_TABLE_COLUMNS, STATUS_COLUMN + " = ? AND "+VILLAGE_ID_COLUMN+" = ? ", new String[]{STATUS_NOT_USED,village_id}, null, null, CREATED_AT_COLUMN + " ASC", "1");
             List<HouseholdId> ids = readAll(cursor);
             householdId = ids.isEmpty() ? null : ids.get(0);
         } catch (Exception e) {

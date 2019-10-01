@@ -255,12 +255,18 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     }
 
     private boolean checkIfStartedFromReferrals() {
-        boolean startedFromReferrals = false;
-        String referrerActivity = startActivity.getLocalClassName();
-        if ("activity.ReferralTaskViewActivity".equals(referrerActivity)) {
-            startedFromReferrals = true;
+        try{
+            boolean startedFromReferrals = false;
+            String referrerActivity = startActivity.getLocalClassName();
+            if ("activity.ReferralTaskViewActivity".equals(referrerActivity)) {
+                startedFromReferrals = true;
+            }
+            return startedFromReferrals;
+        }catch (Exception e){
+
         }
-        return startedFromReferrals;
+        return false;
+
     }
 
     /**

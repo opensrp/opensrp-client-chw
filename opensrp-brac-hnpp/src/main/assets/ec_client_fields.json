@@ -167,24 +167,10 @@
           }
         },
         {
-          "column_name": "gu_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "attributes.gu_id"
-          }
-        },
-        {
           "column_name": "unique_id",
           "type": "Client",
           "json_mapping": {
             "field": "identifiers.opensrp_id"
-          }
-        },
-        {
-          "column_name": "relational_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "relationships.family"
           }
         },
         {
@@ -194,6 +180,7 @@
             "field": "firstName"
           }
         },
+
         {
           "column_name": "relation_with_household_head",
           "type": "Client",
@@ -209,48 +196,6 @@
           }
         },
         {
-          "column_name": "middle_name",
-          "type": "Client",
-          "json_mapping": {
-            "field": "middleName"
-          }
-        },
-        {
-          "column_name": "last_name",
-          "type": "Client",
-          "json_mapping": {
-            "field": "lastName"
-          }
-        },
-        {
-          "column_name": "dob",
-          "type": "Client",
-          "json_mapping": {
-            "field": "birthdate"
-          }
-        },
-        {
-          "column_name": "dod",
-          "type": "Client",
-          "json_mapping": {
-            "field": "deathdate"
-          }
-        },
-        {
-          "column_name": "dob_unknown",
-          "type": "Client",
-          "json_mapping": {
-            "field": "birthdateApprox"
-          }
-        },
-        {
-          "column_name": "gender",
-          "type": "Client",
-          "json_mapping": {
-            "field": "gender"
-          }
-        },
-        {
           "column_name": "phone_number",
           "type": "Event",
           "json_mapping": {
@@ -259,18 +204,10 @@
           }
         },
         {
-          "column_name": "other_phone_number",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "pregnant_status",
+          "column_name": "id_avail",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.pregnant_status"
+            "field": "attributes.id_avail"
           }
         },
         {
@@ -295,76 +232,73 @@
           }
         },
         {
-          "column_name": "driver_license",
+          "column_name": "is_birthday_known",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.Driver_License_Number"
+            "field": "attributes.is_birthday_known"
           }
         },
         {
-          "column_name": "passport",
+          "column_name": "dob",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.Passport_Number"
+            "field": "birthdate"
           }
         },
         {
-          "column_name": "insurance_provider",
+          "column_name": "estimated_age",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.Health_Insurance_Type"
+            "field": "attributes.estimated_age"
           }
         },
         {
-          "column_name": "insurance_provider_other",
+          "column_name": "gender",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.Other_Health_Insurance_Type"
+            "field": "gender"
           }
         },
         {
-          "column_name": "insurance_provider_number",
+          "column_name": "marital_status",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.Health_Insurance_Number"
+            "field": "attributes.marital_status"
           }
         },
         {
-          "column_name": "type_of_disability",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "disabilities",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "service_provider",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "leader",
+          "column_name": "pregnant_status",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.Community_Leader"
+            "field": "attributes.pregnant_status"
           }
         },
         {
-          "column_name": "leader_other",
+          "column_name": "blood_group",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.Other_Community_Leader_Type_Name"
+            "field": "attributes.blood_group"
+          }
+        },
+        {
+          "column_name": "gu_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.gu_id"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "relationships.family"
+          }
+        },
+        {
+          "column_name": "dod",
+          "type": "Client",
+          "json_mapping": {
+            "field": "deathdate"
           }
         },
         {
@@ -386,6 +320,35 @@
           "type": "Client",
           "json_mapping": {
             "field": "attributes.dateRemoved"
+          }
+        },
+        {
+          "column_name": "middle_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "middleName"
+          }
+        },
+        {
+          "column_name": "last_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "lastName"
+          }
+        },
+        {
+          "column_name": "other_phone_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "dob_unknown",
+          "type": "Client",
+          "json_mapping": {
+            "field": "birthdateApprox"
           }
         }
       ]
@@ -472,24 +435,17 @@
           }
         },
         {
+          "column_name": "mother_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.mother_name"
+          }
+        },
+        {
           "column_name": "dob",
           "type": "Client",
           "json_mapping": {
             "field": "birthdate"
-          }
-        },
-        {
-          "column_name": "dod",
-          "type": "Client",
-          "json_mapping": {
-            "field": "deathdate"
-          }
-        },
-        {
-          "column_name": "dob_unknown",
-          "type": "Client",
-          "json_mapping": {
-            "field": "birthdateApprox"
           }
         },
         {
@@ -500,65 +456,17 @@
           }
         },
         {
-          "column_name": "marital_status",
-          "type": "Client",
-          "json_mapping": {
-            "field": "marital_status"
-          }
-        },
-        {
           "column_name": "blood_group",
           "type": "Client",
           "json_mapping": {
-            "field": "blood_group"
+            "field": "attributes.blood_group"
           }
         },
         {
-          "column_name": "early_bf_1hr",
-          "type": "Event",
+          "column_name": "dod",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "physically_challenged",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "type_of_disability",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "birth_cert",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "rhc_card",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "nutrition_status",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "163301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "deathdate"
           }
         },
         {
@@ -568,6 +476,7 @@
             "field": "version"
           }
         },
+
         {
           "column_name": "last_home_visit",
           "type": "Event",
@@ -599,6 +508,37 @@
           }
         },
         {
+          "column_name": "dob_unknown",
+          "type": "Client",
+          "json_mapping": {
+            "field": "birthdateApprox"
+          }
+        },
+        {
+          "column_name": "early_bf_1hr",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "physically_challenged",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "birth_cert",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        }
+      ,{
           "column_name": "birth_cert_issue_date",
           "type": "Event",
           "json_mapping": {
@@ -652,27 +592,6 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "formSubmissionField": "vaccine_card"
-          }
-        },
-        {
-          "column_name": "insurance_provider",
-          "type": "Client",
-          "json_mapping": {
-            "field": "attributes.insurance_provider"
-          }
-        },
-        {
-          "column_name": "insurance_provider_other",
-          "type": "Client",
-          "json_mapping": {
-            "field": "attributes.Other_Health_Insurance_Type"
-          }
-        },
-        {
-          "column_name": "insurance_provider_number",
-          "type": "Client",
-          "json_mapping": {
-            "field": "attributes.Health_Insurance_Number"
           }
         }
       ]

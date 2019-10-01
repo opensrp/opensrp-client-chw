@@ -6,6 +6,7 @@ public class HnppConstants extends CoreConstants {
 
     public static final class DrawerMenu {
         public static final String ELCO_CLIENT = "Elco Clients";
+        public static final String ALL_MEMBER = "All member";
     }
     public static final class FORM_KEY {
         public static final String SS_INDEX = "ss_index";
@@ -19,7 +20,15 @@ public class HnppConstants extends CoreConstants {
         public static final String RELATION_WITH_HOUSEHOLD = "relation_with_household_head";
         public static final String GU_ID = "gu_id";
         public static final String HOUSE_HOLD_ID = "house_hold_id";
+        public static final String HOUSE_HOLD_NAME = "house_hold_name";
         public static final String SS_NAME = "ss_name";
+        public static final String CHILD_MOTHER_NAME_REGISTERED = "mother_name";
+        public static final String CHILD_MOTHER_NAME = "Mother_Guardian_First_Name_english";
+        public static final String ID_AVAIL = "id_avail";
+        public static final String NATIONAL_ID = "national_id";
+        public static final String BIRTH_ID = "birth_id";
+        public static final String IS_BITHDAY_KNOWN = "is_birthday_known";
+        public static final String BLOOD_GROUP = "blood_group";
     }
     public static class IDENTIFIER {
         public static final String FAMILY_TEXT = "Family";

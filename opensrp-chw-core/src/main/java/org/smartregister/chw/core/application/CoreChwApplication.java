@@ -108,13 +108,13 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     @Override
     public void logoutCurrentUser() {
         //TODO need to open in production
-//        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.addCategory(Intent.CATEGORY_HOME);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        getApplicationContext().startActivity(intent);
-//        context.userService().logoutSession();
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getApplicationContext().startActivity(intent);
+        context.userService().logoutSession();
     }
     public void forceLogout() {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);

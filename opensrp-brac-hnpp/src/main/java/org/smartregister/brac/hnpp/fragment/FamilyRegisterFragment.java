@@ -203,7 +203,11 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment implement
         }
     }
     public void updateFilterView(){
-        clients_header_layout.setVisibility(View.VISIBLE);
+        if(StringUtils.isEmpty(mSelectedVillageName) && StringUtils.isEmpty(mSelectedClasterName)){
+            clients_header_layout.setVisibility(View.GONE);
+        }else {
+            clients_header_layout.setVisibility(View.VISIBLE);
+        }
 
         textViewVillageNameFilter.setText(getString(R.string.filter_village_name,mSelectedVillageName));
         textViewClasterNameFilter.setText(getString(R.string.claster_village_name,mSelectedClasterName));

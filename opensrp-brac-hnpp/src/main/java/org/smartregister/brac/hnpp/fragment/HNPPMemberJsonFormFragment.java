@@ -9,29 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.rengwuxian.materialedittext.MaterialEditText;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.customviews.MaterialSpinner;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
-import com.vijay.jsonwizard.widgets.FingerPrintViewFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.CoreLibrary;
-import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.R;
-import org.smartregister.brac.hnpp.domain.HouseholdId;
-import org.smartregister.brac.hnpp.location.SSLocationHelper;
-import org.smartregister.brac.hnpp.location.SSLocations;
-import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
-import org.smartregister.simprint.SimprintsLibrary;
-import org.smartregister.simprint.SimprintsRegisterActivity;
-import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
 

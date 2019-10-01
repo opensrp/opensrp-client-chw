@@ -68,6 +68,8 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
                 form.setWizard(false);
                 intent.putExtra("form", form);
                 this.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+            }else{
+                super.startFormActivity(jsonForm);
             }
         }catch (Exception e){
 
@@ -86,6 +88,8 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
                     presenter().updateFamilyRegister(jsonString);
+                }else {
+                    super.onActivityResult(requestCode, resultCode, data);
                 }
             } catch (Exception e) {
                 Timber.e(e);

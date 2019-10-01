@@ -74,7 +74,7 @@ public class PullHouseholdIdIntentService extends IntentService {
         if (resp.isFailure()) {
             throw new PullHouseholdIdsException(ID_URL + " not returned data");
         }
-
+        Log.i(PullHouseholdIdIntentService.class.getName(), "response: " + (String) resp.payload());
         return new JSONArray((String) resp.payload());
     }
 

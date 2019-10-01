@@ -1,4 +1,4 @@
-package org.smartregister.brac.hnpp.fragment;
+package org.smartregister.brac.hnpp.presenter;
 
 import org.smartregister.chw.core.contract.CoreChildRegisterFragmentContract;
 import org.smartregister.chw.core.presenter.CoreChildRegisterFragmentPresenter;

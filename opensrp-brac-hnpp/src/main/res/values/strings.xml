@@ -5,13 +5,13 @@
     <string name="nav_logo">HEALTH,NUTRITION AND POPULATION PROGRAMME</string>
     <string name="due_only">Referred</string>
 
-    <string name="menu_all_clients">All Clients</string>
-    <string name="menu_all_families">All Families</string>
-    <string name="menu_elco_clients">Elco Clients</string>
-    <string name="menu_anc_clients">ANC Clients</string>
-    <string name="menu_pnc_clients">PNC Clients</string>
-    <string name="menu_child_clients">Child Clients</string>
-
+    <string name="menu_all_clients">সকল ক্লায়েন্ট</string>
+    <string name="menu_all_families">খানার তালিকা</string>
+    <string name="menu_elco_clients">যোগ্য দম্পতি</string>
+    <string name="menu_anc_clients">এএনসি ক্লায়েন্ট</string>
+    <string name="menu_pnc_clients">পিএনসি ক্লায়েন্ট</string>
+    <string name="menu_child_clients">শিশু তালিকা</string>
+    <string name="menu_all_member">সব সদস্য তালিকা</string>
     <string name="unique_id_form_field">খানা নাম্বার</string>
     <string name="ss_name_form_field">স্বাস্থ্য সেবিকার নামঃ</string>
     <string name="village_name_form_field">গ্রামের নামঃ</string>
@@ -64,4 +64,14 @@
     <string name="male">পুরুষ</string>
     <string name="female">নারী</string>
     <string name="relation_with_member_and_head">সম্পর্ক : %s</string>
+    <string name="care_giver_initials">মায়ের নাম :  %s</string>
+    <string name="age">বয়স :  %s</string>
+    <string name="house_hold_head_name">খানা প্রধানের নাম :  %s</string>
+    <string name="child_register_title">শিশু ক্লায়েন্ট</string>
+    <string name="edit_child_form_title">এডিট ৫ বছরের কম বয়সী শিশু</string>
+    <string name="log_out_as">লগ আউট : </string>
+    <string name="nav_sync">সিঙ্ক</string>
+    <string name="simprints_init_fail">প্রকল্প আইডি বা ব্যবহারকারী আইডি বা মডিউল আইডি পাওয়া যায় নি। অ্যাডমিনের সাথে যোগাযোগ করুন</string>
+    <string name="form_back_confirm_dialog_message">আপনি কি ফিরে যেতে চান? আপনার প্রবেশ করা সমস্ত ডেটা
+        এই ফর্মটি সরানো হবে।</string>
 </resources>

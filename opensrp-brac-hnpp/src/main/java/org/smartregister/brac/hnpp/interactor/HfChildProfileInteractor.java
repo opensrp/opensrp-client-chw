@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 
 import org.json.JSONObject;
-import org.smartregister.brac.hnpp.utils.HfChildUtils;
+import org.smartregister.brac.hnpp.utils.HnppChildUtils;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
@@ -92,7 +92,7 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
         if (getpClient() != null) {
             String dobString = Utils.getDuration(Utils.getValue(getpClient().getColumnmaps(), DBConstants.KEY.DOB, false));
 
-            final ChildVisit childVisit = HfChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
+            final ChildVisit childVisit = HnppChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
 
             Runnable runnable = () -> appExecutors.mainThread().execute(() -> callback.updateChildVisit(childVisit));
             appExecutors.diskIO().execute(runnable);
@@ -112,7 +112,7 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
     @Override
     public void processBackGroundEvent(final CoreChildProfileContract.InteractorCallBack callback) {
         Runnable runnable = () -> {
-            HfChildUtils.processClientProcessInBackground();
+            HnppChildUtils.processClientProcessInBackground();
             appExecutors.mainThread().execute(() -> callback.updateAfterBackGroundProcessed());
         };
         appExecutors.diskIO().execute(runnable);
@@ -181,7 +181,7 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
             final String homeVisitId = CoreJsonFormUtils.generateRandomUUIDString();
 
             Map<String, JSONObject> fields = new HashMap<>();
-            HfChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), CoreConstants.EventType.CHILD_VISIT_NOT_DONE, CoreConstants.TABLE_NAME.CHILD,
+            HnppChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), CoreConstants.EventType.CHILD_VISIT_NOT_DONE, CoreConstants.TABLE_NAME.CHILD,
                     fields, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", homeVisitId);
             objectObservableEmitter.onNext("");
         });

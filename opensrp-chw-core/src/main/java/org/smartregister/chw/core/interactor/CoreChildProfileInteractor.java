@@ -60,8 +60,8 @@ import timber.log.Timber;
 
 public class CoreChildProfileInteractor implements CoreChildProfileContract.Interactor {
     public static final String TAG = CoreChildProfileInteractor.class.getName();
-    private AppExecutors appExecutors;
-    private CommonPersonObjectClient pClient;
+    protected AppExecutors appExecutors;
+    protected CommonPersonObjectClient pClient;
     private Map<String, Date> vaccineList = new LinkedHashMap<>();
     private String childBaseEntityId;
 
