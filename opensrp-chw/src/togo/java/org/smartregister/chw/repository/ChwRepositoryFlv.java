@@ -25,6 +25,7 @@ import org.smartregister.immunization.repository.RecurringServiceRecordRepositor
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
+import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
@@ -67,6 +68,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 11:
                     upgradeToVersion11(db);
+                    break;
+                case 12:
+                    upgradeToVersion12(db);
                     break;
                 default:
                     break;
@@ -223,6 +227,12 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    private static void upgradeToVersion12(SQLiteDatabase db) {
+        String pncIndicatorConfigFile = "config/pnc-reporting-indicator-definitions.yml";
+        ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+        reportingLibraryInstance.readConfigFile(pncIndicatorConfigFile, db);
     }
 
     // helpers
