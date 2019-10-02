@@ -10,7 +10,5 @@ public interface RepositoryUtilsFlv {
             "DROP TABLE " + VisitDetailsRepository.VISIT_DETAILS_TABLE + ";",
     };
 
-    String[] UPDATE_V12 = {
-            "ALTER TABLE ec_child ADD COLUMN low_birth_weight VARCHAR;"
-    };
+    String addLbwColumnQuery = "ALTER TABLE ec_child ADD COLUMN low_birth_weight VARCHAR;";
 }

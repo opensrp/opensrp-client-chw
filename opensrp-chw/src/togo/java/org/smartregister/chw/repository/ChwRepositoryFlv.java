@@ -72,7 +72,7 @@ public class ChwRepositoryFlv {
                     upgradeToVersion11(db);
                     break;
                 case 12:
-                    upgradeToVersion12(db);
+                    upgradeToVersion12(db, oldVersion);
                     break;
                 default:
                     break;
@@ -231,11 +231,10 @@ public class ChwRepositoryFlv {
         }
     }
 
-    private static void upgradeToVersion12(SQLiteDatabase db) {
-        for (String query : RepositoryUtilsFlv.UPDATE_V12) {
-            db.execSQL(query);
+    private static void upgradeToVersion12(SQLiteDatabase db, int oldDbVersion) {
+        if (oldDbVersion == 11) {
+            db.execSQL(RepositoryUtilsFlv.addLbwColumnQuery);
         }
-
         initializeIndicatorDefinitions(db);
     }
 
