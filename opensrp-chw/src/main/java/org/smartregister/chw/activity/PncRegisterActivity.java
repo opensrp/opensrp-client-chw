@@ -8,7 +8,6 @@ import org.apache.commons.lang3.EnumUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.util.Constants;
-import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
@@ -18,8 +17,6 @@ import org.smartregister.job.SyncServiceJob;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.Constants.PREG_OUTCOME;
 
 public class PncRegisterActivity extends CorePncRegisterActivity {
 
@@ -71,7 +68,7 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
 
                 if (CoreConstants.EventType.PREGNANCY_OUTCOME.equals(encounter_type)) {
                     JSONArray fields = org.smartregister.util.JsonFormUtils.fields(form);
-                    String pregnancyOutcome = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, PREG_OUTCOME).optString(JsonFormUtils.VALUE);
+                    String pregnancyOutcome = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, org.smartregister.chw.util.Constants.pregnancyOutcome).optString(JsonFormUtils.VALUE);
                     if (EnumUtils.isValidEnum(org.smartregister.chw.util.Constants.FAMILY_REGISTER_OPTIONS.class, pregnancyOutcome)) {
                         startRegisterActivity(FamilyRegisterActivity.class);
                         this.finish();

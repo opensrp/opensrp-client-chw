@@ -4,5 +4,5 @@ import org.smartregister.chw.core.utils.CoreConstants;
 
 public class Constants extends CoreConstants {
     public enum FAMILY_REGISTER_OPTIONS {Miscarriage, Other}
-    public static String PREG_OUTCOME = "preg_outcome";
+    public static String pregnancyOutcome = "preg_outcome";
 }
