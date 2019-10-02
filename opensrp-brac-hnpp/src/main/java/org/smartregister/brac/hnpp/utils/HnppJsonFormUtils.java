@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import org.smartregister.CoreLibrary;
 import org.smartregister.brac.hnpp.BuildConfig;
 import org.smartregister.brac.hnpp.HnppApplication;
+import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.location.SSLocations;
 import org.smartregister.brac.hnpp.location.SSModel;
 import org.smartregister.brac.hnpp.repository.HnppChwRepository;
@@ -73,6 +74,21 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
         memberId.put(org.smartregister.family.util.JsonFormUtils.VALUE, houseHoldId+memberCountWithZero(memberCount+1));
         return form;
     }
+    public static JSONObject updateFormWithSimPrintsEnable(JSONObject form) throws Exception{
+
+        boolean simPrintsEnable = true;
+        ArrayList<SSModel> ssLocationForms = SSLocationHelper.getInstance().getSsModels();
+        if(ssLocationForms.size() > 0){
+            simPrintsEnable = ssLocationForms.get(0).simprints_enable;
+        }
+        JSONArray field = fields(form, STEP1);
+        JSONObject simprintObj = getFieldJSONObject(field, SIMPRINTS_ENABLE);
+        simprintObj.put(org.smartregister.family.util.JsonFormUtils.VALUE,simPrintsEnable);
+
+        return form;
+
+
+    }
     public static JSONObject updateChildFormWithMetaData(JSONObject form,String houseHoldId, String familyBaseEntityId) throws JSONException {
 
         JSONObject lookUpJSONObject = getJSONObject(getJSONObject(form, METADATA), "look_up");
@@ -87,15 +103,12 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
     public static JSONObject updateFormWithSSName(JSONObject form, ArrayList<SSModel> ssLocationForms) throws Exception{
 
         JSONArray jsonArray = new JSONArray();
-        boolean simPrintsEnable = true;
         for(SSModel ssLocationForm : ssLocationForms){
             jsonArray.put(ssLocationForm.username);
-            simPrintsEnable = ssLocationForm.simprints_enable;
         }
         JSONArray field = fields(form, STEP1);
         JSONObject spinner = getFieldJSONObject(field, SS_NAME);
-        JSONObject simprintObj = getFieldJSONObject(field, SIMPRINTS_ENABLE);
-        simprintObj.put(org.smartregister.family.util.JsonFormUtils.VALUE,simPrintsEnable);
+
         spinner.put(org.smartregister.family.util.JsonFormUtils.VALUES,jsonArray);
         return form;
 

@@ -14,7 +14,6 @@
 
         <activity
             android:name="org.smartregister.brac.hnpp.activity.LoginActivity"
-            android:launchMode="singleTask"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:screenOrientation="portrait"
             android:theme="@style/HNPPTheme.Login"
@@ -28,7 +27,6 @@
 
         <activity
             android:name="org.smartregister.family.activity.FamilyWizardFormActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/FamilyTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />

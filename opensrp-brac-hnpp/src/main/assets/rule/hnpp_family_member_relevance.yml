@@ -8,7 +8,7 @@ actions:
 ---
 name: step1_finger_print
 description: simprints for female
-priority: 1
-condition: "step1_marital_status.equalsIgnoreCase('বিবাহিত')  && step1_sex.equalsIgnoreCase('নারী') && step1_age_calculated < 50 && step1_simprints_enable.equalsIgnoreCase(true)"
+priority: 3
+condition: "step1_marital_status.equalsIgnoreCase('বিবাহিত')  && step1_sex.equalsIgnoreCase('নারী') && step1_age_calculated < 50 && step1_simprints_enable == 'true'"
 actions:
   - "isRelevant = true"

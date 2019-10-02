@@ -36,6 +36,7 @@ public class FamilyProfilePresenter extends CoreFamilyProfilePresenter {
         verifyHasPhone();
     }
 
+
     @Override
     public void startFormForEdit(CommonPersonObjectClient client) {
         try {

@@ -32,6 +32,7 @@ public class SSLocationRepository extends BaseRepository {
 
     protected static final String ID = "_id";
     protected static final String SS_NAME = "ss_name";
+    protected static final String IS_SIMPRINT_ENABLE = "simprints_enable";
     protected static final String GEOJSON = "geojson";
 
     protected static final String LOCATION_TABLE = "ss_location";
@@ -41,7 +42,7 @@ public class SSLocationRepository extends BaseRepository {
     private static final String CREATE_LOCATION_TABLE =
             "CREATE TABLE " + LOCATION_TABLE + " (" +
                     ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
-                    SS_NAME + " VARCHAR , " +
+                    SS_NAME + " VARCHAR , " +IS_SIMPRINT_ENABLE + " VARCHAR , " +
                     GEOJSON + " VARCHAR NOT NULL ) ";
 
     private static final String CREATE_LOCATION_NAME_INDEX = "CREATE INDEX "
@@ -64,6 +65,7 @@ public class SSLocationRepository extends BaseRepository {
     public void addOrUpdate(SSModel ssModel) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(SS_NAME, ssModel.username);
+        contentValues.put(IS_SIMPRINT_ENABLE, ssModel.simprints_enable);
         contentValues.put(GEOJSON, gson.toJson(ssModel.locations));
         if(isExistLocation(ssModel.username)){
             getWritableDatabase().update(getLocationTableName(),contentValues,SS_NAME+" =? ",new String[]{ssModel.username});
@@ -112,8 +114,10 @@ public class SSLocationRepository extends BaseRepository {
     protected SSModel readCursor(Cursor cursor) {
         String geoJson = cursor.getString(cursor.getColumnIndex(GEOJSON));
         String name = cursor.getString(cursor.getColumnIndex(SS_NAME));
+        String simprints = cursor.getString(cursor.getColumnIndex(IS_SIMPRINT_ENABLE));
         SSModel ssModel = new SSModel();
         ssModel.username = name;
+        ssModel.simprints_enable = simprints.equalsIgnoreCase("1");
         try {
             JSONArray jsonArray = new JSONArray(geoJson);
             for(int i = 0; i <jsonArray.length();i++){
