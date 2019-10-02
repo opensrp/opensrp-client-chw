@@ -9,10 +9,10 @@ indicators:
 
   - key: "pnc_report_indicator_2_1"
     description: "COUNT of babies born with normal birth weight (last 6 months)"
-    indicatorQuery: "select count(*) from ec_child where ec_child.low_birth_weight = 'No' and ec_child.dob >= date('now', '-6 month') and ec_child.dod ISNULL and ec_child.relational_id in (select ec_pregnancy_outcome.relational_id from ec_pregnancy_outcome where ec_pregnancy_outcome.preg_outcome = 'Live birth' and ec_pregnancy_outcome.delivery_date >= date('now', '-6 month'));"
+    indicatorQuery: "select count(*) from ec_child where ec_child.low_birth_weight = 'No' and ec_child.dob >= date('now', '-6 month') and ec_child.dod ISNULL and ec_child.relational_id in (select ec_pregnancy_outcome.relational_id from ec_pregnancy_outcome where ec_pregnancy_outcome.preg_outcome = 'Live birth' and (substr(ec_pregnancy_outcome.delivery_date, 7, 4) || '-' || substr(ec_pregnancy_outcome.delivery_date, 4, 2) || '-' || substr(ec_pregnancy_outcome.delivery_date, 1, 2)) >= date('now', '-6 month'));"
 
   - key: "pnc_report_indicator_2_2"
     description: "COUNT of babies born with low birth weight"
-    indicatorQuery: "select count(*) from ec_child where ec_child.low_birth_weight = 'Yes' and ec_child.dob >= date('now', '-6 month') and ec_child.dod ISNULL and ec_child.relational_id in (select ec_pregnancy_outcome.relational_id from ec_pregnancy_outcome where ec_pregnancy_outcome.preg_outcome = 'Live birth' and ec_pregnancy_outcome.delivery_date >= date('now', '-6 month'));"
+    indicatorQuery: "select count(*) from ec_child where ec_child.low_birth_weight = 'Yes' and ec_child.dob >= date('now', '-6 month') and ec_child.dod ISNULL and ec_child.relational_id in (select ec_pregnancy_outcome.relational_id from ec_pregnancy_outcome where ec_pregnancy_outcome.preg_outcome = 'Live birth' and (substr(ec_pregnancy_outcome.delivery_date, 7, 4) || '-' || substr(ec_pregnancy_outcome.delivery_date, 4, 2) || '-' || substr(ec_pregnancy_outcome.delivery_date, 1, 2)) >= date('now', '-6 month'));"
 
 
