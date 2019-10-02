@@ -11,6 +11,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.helper.BottomNavigationHelper;
+import org.smartregister.job.SyncServiceJob;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Date;
@@ -34,13 +35,11 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
     }
 
     @Override
-    public Class getAncRegisterActivity() {
-        return AncRegisterActivity.class;
-    }
-
-    @Override
-    public Class getPncRegisterActivity() {
-        return PncRegisterActivity.class;
+    public Class getRegisterActivity(String register) {
+        if (register.equals(Constants.REGISTERS.ANC_REGISTER))
+            return AncRegisterActivity.class;
+        else
+            return PncRegisterActivity.class;
     }
 
     @Override
@@ -78,6 +77,7 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
                 } else if (encounter_type.equalsIgnoreCase(CoreConstants.EventType.ANC_HOME_VISIT)) {
                     ChwScheduleTaskExecutor.getInstance().execute(baseEnityId, CoreConstants.EventType.ANC_HOME_VISIT, new Date());
                 }
+                SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
             } catch (Exception e) {
                 Timber.e(e);
             }
