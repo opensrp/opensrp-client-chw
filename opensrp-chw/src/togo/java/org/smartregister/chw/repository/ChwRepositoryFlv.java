@@ -198,14 +198,14 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion11(SQLiteDatabase db) {
         try {
             // add all the wash check tasks to the visit table // will assist the event
-            List<String> wash_visits = WashCheckDao.getAllWashCheckVisits();
+            List<String> wash_visits = WashCheckDao.getAllWashCheckVisits(db);
             for (String visit_id : wash_visits) {
                 db.execSQL("delete from visits where visit_id = '" + visit_id + "'");
                 db.execSQL("delete from visit_details where visit_id = '" + visit_id + "'");
             }
 
             // reprocess all wash check events
-            List<EventClient> eventClients = WashCheckDao.getWashCheckEvents();
+            List<EventClient> eventClients = WashCheckDao.getWashCheckEvents(db);
             for (EventClient eventClient : eventClients) {
                 if (eventClient == null) continue;
 
