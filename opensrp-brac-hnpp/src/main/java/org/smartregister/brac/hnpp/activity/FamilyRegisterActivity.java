@@ -19,7 +19,7 @@ import org.smartregister.chw.core.listener.CoreBottomNavigationListener;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.brac.hnpp.BuildConfig;
 import org.smartregister.brac.hnpp.R;
-import org.smartregister.brac.hnpp.fragment.FamilyRegisterFragment;
+import org.smartregister.brac.hnpp.fragment.HnppFamilyRegisterFragment;
 import org.smartregister.brac.hnpp.listener.HfFamilyBottomNavListener;
 import org.smartregister.family.contract.FamilyRegisterContract;
 import org.smartregister.family.util.Constants;
@@ -117,6 +117,6 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
-        return new FamilyRegisterFragment();
+        return new HnppFamilyRegisterFragment();
     }
 }

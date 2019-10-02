@@ -163,21 +163,27 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
         else if (view.getId() == R.id.filter_sort_layout) {
 
 
+            ArrayList<String> ssSpinnerArray = new ArrayList<>();
+
+
             ArrayList<String> villageSpinnerArray = new ArrayList<>();
             ArrayList<String> clusterSpinnerArray = new ArrayList<>();
 
             ArrayList<SSModel> ssLocationForms = SSLocationHelper.getInstance().getSsModels();
             for(SSModel ssModel : ssLocationForms){
-                for(SSLocations ssLocations : ssModel.locations){
-                    villageSpinnerArray.add(ssLocations.village.name);
-                }
+                ssSpinnerArray.add(ssModel.username);
             }
+
 
 
             clusterSpinnerArray.add("ক্লাস্টার ১");
             clusterSpinnerArray.add("ক্লাস্টার ২");
             clusterSpinnerArray.add("ক্লাস্টার ৩");
             clusterSpinnerArray.add("ক্লাস্টার ৪");
+
+            ArrayAdapter<String> ssSpinnerArrayAdapter = new ArrayAdapter<String>
+                    (getActivity(), android.R.layout.simple_spinner_item,
+                            ssSpinnerArray);
 
             ArrayAdapter<String> villageSpinnerArrayAdapter = new ArrayAdapter<String>
                     (getActivity(), android.R.layout.simple_spinner_item,
@@ -191,11 +197,29 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(org.smartregister.family.R.color.customAppThemeBlue)));
             dialog.setContentView(R.layout.filter_options_dialog);
-
+            Spinner ss_spinner = dialog.findViewById(R.id.ss_filter_spinner);
             Spinner village_spinner = dialog.findViewById(R.id.village_filter_spinner);
             Spinner cluster_spinner = dialog.findViewById(R.id.klaster_filter_spinner);
             village_spinner.setAdapter(villageSpinnerArrayAdapter);
             cluster_spinner.setAdapter(clusterSpinnerArrayAdapter);
+            ss_spinner.setAdapter(ssSpinnerArrayAdapter);
+            ss_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
+                    if (position != -1) {
+                        ArrayList<SSLocations> ssLocations = SSLocationHelper.getInstance().getSsModels().get(position).locations;
+                        for(SSLocations ssLocations1 : ssLocations){
+                            villageSpinnerArray.add(ssLocations1.village.name);
+                        }
+                        villageSpinnerArrayAdapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
             village_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {

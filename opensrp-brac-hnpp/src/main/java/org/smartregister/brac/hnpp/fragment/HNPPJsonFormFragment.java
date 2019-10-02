@@ -161,7 +161,7 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
             @Override
             protected Object doInBackground(Object[] objects) {
                 SSLocations ssLocations = SSLocationHelper.getInstance().getSsModels().get(ssIndex).locations.get(index);
-                moduleId = ssLocations.union_ward.id + "";
+                moduleId = ssLocations.city_corporation_upazila.name+"-"+ssLocations.union_ward.id;
                 HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
                 village_id = String.valueOf(ssLocations.village.id);
                 hhid = householdIdRepo.getNextHouseholdId(village_id);

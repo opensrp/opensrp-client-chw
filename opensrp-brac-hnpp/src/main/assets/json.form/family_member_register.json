@@ -67,7 +67,13 @@
           "err": "Please enter a valid ID"
         }
       },
-
+      {
+        "key": "simprints_enable",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
       {
         "key": "first_name",
         "openmrs_entity_parent": "",
@@ -476,6 +482,10 @@
               "rules-file": "hnpp_family_member_relevance.yml"
             }
           }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "আঙুলের ছাপ পাওয়া যায়নি"
         }
       },
       {

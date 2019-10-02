@@ -39,15 +39,6 @@ public class SSLocationHelper {
 
     private void setSsLocationForms(){
             ssModels =  HnppApplication.getSSLocationRepository().getAllLocations();
-//        for(SSModel ssModel : ssModels){
-//            for (SSLocations ssLocations:ssModel.locations){
-//                SSLocationForm ssLocationForm = new SSLocationForm();
-//                ssLocationForm.name = ssModel.username;
-//                ssLocationForm.locations = ssLocations;
-//                ssLocationForms.add(ssLocationForm);
-//            }
-//        }
-
     }
 
     public String generateHouseHoldId(SSLocations ssLocations,String lastFourDigit){

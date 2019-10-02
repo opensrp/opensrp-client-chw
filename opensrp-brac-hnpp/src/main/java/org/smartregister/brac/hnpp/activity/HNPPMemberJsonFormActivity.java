@@ -1,5 +1,7 @@
 package org.smartregister.brac.hnpp.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +12,7 @@ import com.vijay.jsonwizard.R.id;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.fragment.HNPPMemberJsonFormFragment;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
 import org.smartregister.simprint.SimPrintsConstantHelper;
@@ -50,4 +53,17 @@ public class HNPPMemberJsonFormActivity extends FamilyWizardFormActivity {
             }
         }
      }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this).setMessage(R.string.form_back_confirm_dialog_message)
+                .setTitle(R.string.form_back_confirm_dialog_title).setCancelable(false)
+                .setPositiveButton(R.string.yes_button_label, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        finish();
+                    }
+                }).setNegativeButton(R.string.no_button_label, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            }
+        }).show();
+    }
 }

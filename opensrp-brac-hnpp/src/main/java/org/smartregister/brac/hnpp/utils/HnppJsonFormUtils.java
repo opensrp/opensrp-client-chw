@@ -50,6 +50,7 @@ import timber.log.Timber;
 public class HnppJsonFormUtils extends CoreJsonFormUtils {
     public static final String METADATA = "metadata";
     public static final String SS_NAME = "ss_name";
+    public static final String SIMPRINTS_ENABLE = "simprints_enable";
     public static final String VILLAGE_NAME = "village_name";
     public static final String ENCOUNTER_TYPE = "encounter_type";
     public static JSONObject updateFormWithModuleId(JSONObject form,String moduleId) throws JSONException {
@@ -86,11 +87,15 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
     public static JSONObject updateFormWithSSName(JSONObject form, ArrayList<SSModel> ssLocationForms) throws Exception{
 
         JSONArray jsonArray = new JSONArray();
+        boolean simPrintsEnable = true;
         for(SSModel ssLocationForm : ssLocationForms){
             jsonArray.put(ssLocationForm.username);
+            simPrintsEnable = ssLocationForm.simprints_enable;
         }
         JSONArray field = fields(form, STEP1);
         JSONObject spinner = getFieldJSONObject(field, SS_NAME);
+        JSONObject simprintObj = getFieldJSONObject(field, SIMPRINTS_ENABLE);
+        simprintObj.put(org.smartregister.family.util.JsonFormUtils.VALUE,simPrintsEnable);
         spinner.put(org.smartregister.family.util.JsonFormUtils.VALUES,jsonArray);
         return form;
 
