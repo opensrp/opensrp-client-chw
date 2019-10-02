@@ -19,6 +19,8 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.util.Constants.PREG_OUTCOME;
+
 public class PncRegisterActivity extends CorePncRegisterActivity {
 
     public static void startPncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
@@ -69,7 +71,7 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
 
                 if (CoreConstants.EventType.PREGNANCY_OUTCOME.equals(encounter_type)) {
                     JSONArray fields = org.smartregister.util.JsonFormUtils.fields(form);
-                    String pregnancyOutcome = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, DBConstants.KEY.PREG_OUTCOME).optString(JsonFormUtils.VALUE);
+                    String pregnancyOutcome = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, PREG_OUTCOME).optString(JsonFormUtils.VALUE);
                     if (EnumUtils.isValidEnum(org.smartregister.chw.util.Constants.FAMILY_REGISTER_OPTIONS.class, pregnancyOutcome)) {
                         startRegisterActivity(FamilyRegisterActivity.class);
                         this.finish();
