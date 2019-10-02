@@ -25,12 +25,15 @@ import org.smartregister.immunization.repository.RecurringServiceRecordRepositor
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
+import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.DatabaseMigrationUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import timber.log.Timber;
@@ -232,6 +235,19 @@ public class ChwRepositoryFlv {
         for (String query : RepositoryUtilsFlv.UPDATE_V12) {
             db.execSQL(query);
         }
+
+        initializeIndicatorDefinitions(db);
+    }
+
+    private static void initializeIndicatorDefinitions(SQLiteDatabase sqLiteDatabase) {
+        ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+
+        String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
+        String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
+        String pncIndicatorConfigFile = "config/pnc-reporting-indicator-definitions.yml";
+
+        reportingLibraryInstance.initMultipleIndicatorsData(Collections.unmodifiableList(
+                Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile, pncIndicatorConfigFile)), sqLiteDatabase);
     }
 
     // helpers
