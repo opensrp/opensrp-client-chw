@@ -1,9 +1,0 @@
-indicators:
-  - key: "pnc_report_indicator_1_1"
-    description: "COUNT of women who delivered in a health facility (last 6 months)"
-    indicatorQuery: "select count(*) from ec_pregnancy_outcome where (preg_outcome = 'Live birth' or preg_outcome = 'Stillbirth') and delivery_place = 'Health facility' and delivery_date >= date('now', '-6 month')"
-
-  - key: "pnc_report_indicator_1_2"
-    description: "COUNT of women who delivered elsewhere (last 6 months)"
-    indicatorQuery: "select count(*) from ec_pregnancy_outcome where (preg_outcome = 'Live birth' or preg_outcome = 'Stillbirth') and (delivery_place = 'Home' or delivery_place = 'Other') and delivery_date >= date('now', '-6 month')"
-
