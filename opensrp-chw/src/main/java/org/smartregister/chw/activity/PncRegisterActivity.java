@@ -69,7 +69,7 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
                 if (CoreConstants.EventType.PREGNANCY_OUTCOME.equals(encounter_type)) {
                     JSONArray fields = org.smartregister.util.JsonFormUtils.fields(form);
                     String pregnancyOutcome = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, org.smartregister.chw.util.Constants.pregnancyOutcome).optString(JsonFormUtils.VALUE);
-                    if (EnumUtils.isValidEnum(org.smartregister.chw.util.Constants.FAMILY_REGISTER_OPTIONS.class, pregnancyOutcome)) {
+                    if (EnumUtils.isValidEnum(org.smartregister.chw.util.Constants.familyRegisterOptions.class, pregnancyOutcome)) {
                         startRegisterActivity(FamilyRegisterActivity.class);
                         this.finish();
                         return;
