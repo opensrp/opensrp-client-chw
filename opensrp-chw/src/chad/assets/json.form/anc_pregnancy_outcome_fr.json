@@ -495,6 +495,13 @@
         "expanded": false,
         "min_date": "today-120y",
         "max_date": "today",
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:delivery_date)",
+            "err": "Date of OPV 0 can't occur before delivery date"
+          }
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -513,6 +520,13 @@
         "expanded": false,
         "min_date": "today-120y",
         "max_date": "today",
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:delivery_date)",
+            "err": "Date of BCG can't occur before delivery date"
+          }
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {

@@ -1,6 +1,0 @@
-name: step1_other_treatment_illness
-description: other_treatment_illness relevance
-priority: 1
-condition: "step1_action_taken.contains('chk_other_treatment')"
-actions:
-  - "isRelevant = true"

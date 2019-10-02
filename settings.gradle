@@ -1,1 +1,1 @@
-include ':opensrp-chw', ':opensrp-chw-hf', ':opensrp-chw-core'
+include ':opensrp-chw'

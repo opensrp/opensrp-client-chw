@@ -22,5 +22,3 @@ indicators:
   - key: "pnc_report_indicator_3_2"
     description: "COUNT of babies born who were not early initiated into breastfeeding"
     indicatorQuery: "select count(*) from ec_child where ec_child.early_bf_1hr = 'No' and ec_child.dob >= date('now', '-6 month') and ec_child.dod ISNULL and ec_child.relational_id in (select ec_pregnancy_outcome.relational_id from ec_pregnancy_outcome where ec_pregnancy_outcome.preg_outcome = 'Live birth' and ec_pregnancy_outcome.delivery_date >= date('now', '-6 month'));"
-
-
