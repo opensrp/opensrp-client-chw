@@ -33,16 +33,6 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
         activity.startActivity(intent);
     }
 
-   /* @Override
-    public Class getAncRegisterActivity() {
-        return AncRegisterActivity.class;
-    }
-
-    @Override
-    public Class getPncRegisterActivity() {
-        return PncRegisterActivity.class;
-    }*/
-
     @Override
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();
