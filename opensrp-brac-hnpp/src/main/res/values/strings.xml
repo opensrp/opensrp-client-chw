@@ -74,7 +74,7 @@
     <string name="simprints_init_fail">প্রকল্প আইডি বা ব্যবহারকারী আইডি বা মডিউল আইডি পাওয়া যায় নি। অ্যাডমিনের সাথে যোগাযোগ করুন</string>
     <string name="form_back_confirm_dialog_message">আপনি কি ফিরে যেতে চান? আপনার প্রবেশ করা সমস্ত ডেটা
         এই ফর্মটি সরানো হবে।</string>
-    <string name="form_back_confirm_dialog_title">বন্ধ ফর্ম করতে চান</string>
+    <string name="form_back_confirm_dialog_title">ফর্ম বন্ধ করতে চান</string>
     <string name="yes_button_label">হ্যাঁ</string>
     <string name="no_button_label">না</string>
 </resources>

@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.fragment.HNPPMemberJsonFormFragment;
+import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
 import org.smartregister.simprint.SimPrintsConstantHelper;
 import org.smartregister.simprint.SimPrintsRegistration;
@@ -46,11 +47,11 @@ public class HNPPMemberJsonFormActivity extends FamilyWizardFormActivity {
                     if(registration!=null){
                         String uniqueId = registration.getGuid();
                         jsonWizardFormFragment.updateGuid(uniqueId);
-                    }else{
-                        Toast.makeText(this,"GUID not found",Toast.LENGTH_SHORT).show();
                     }
                     break;
             }
+        }else if(resultCode == RESULT_CANCELED && requestCode == REQUEST_CODE_REGISTER){
+            jsonWizardFormFragment.updateGuid(HnppConstants.TEST_GU_ID);
         }
      }
     @Override

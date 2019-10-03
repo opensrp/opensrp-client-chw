@@ -50,11 +50,15 @@ public class HNPPMemberJsonFormFragment extends JsonWizardFormFragment {
         return super.getStep(stepName);
     }
 
-    public void updateGuid(String uniqueId){
-        JSONObject guIdField = null;
+    public void updateGuid(String guid){
         try {
-            guIdField = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "gu_id");
-            guIdField.put("value",uniqueId);
+            JSONObject guIdField = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "gu_id");
+            guIdField.put("value",guid);
+
+            JSONObject fingerPrint = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "finger_print");
+            fingerPrint.put("image_path", guid);
+            JSONObject fingerPrintValue = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "finger_print");
+            fingerPrintValue.put("value",guid);
             ArrayList<View> formdataviews = new ArrayList<>(getJsonApi().getFormDataViews());
             for(View view : formdataviews){
                 if (view instanceof ImageView) {

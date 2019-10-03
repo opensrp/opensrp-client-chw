@@ -3,6 +3,7 @@ package org.smartregister.brac.hnpp.utils;
 import org.smartregister.chw.core.utils.CoreConstants;
 
 public class HnppConstants extends CoreConstants {
+    public static final String TEST_GU_ID = "test";
 
     public static final class DrawerMenu {
         public static final String ELCO_CLIENT = "Elco Clients";

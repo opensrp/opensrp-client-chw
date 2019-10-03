@@ -114,27 +114,16 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
 
     }
-    public static JSONObject updateFormWithSSLocation(JSONObject form, ArrayList<SSLocations> ssLocationForms) throws Exception{
+    public static JSONObject updateFormWithMotherName(JSONObject form , ArrayList<String> motherNameList) throws Exception{
 
         JSONArray jsonArray = new JSONArray();
-        for(SSLocations ssLocationForm : ssLocationForms){
-            jsonArray.put(ssLocationForm);
+        for(String name : motherNameList){
+            jsonArray.put(name);
         }
+        jsonArray.put("মাতা রেজিস্টার্ড নয়");
         JSONArray field = fields(form, STEP1);
-        JSONObject spinner = getFieldJSONObject(field, VILLAGE_NAME);
-        spinner.put(org.smartregister.family.util.JsonFormUtils.VALUES,jsonArray);
-        return form;
+        JSONObject spinner = getFieldJSONObject(field, "mother_name");
 
-
-    }
-    public static JSONObject updateFormWithVillageName(JSONObject form, ArrayList<SSLocations> ssVillages) throws Exception{
-
-        JSONArray jsonArray = new JSONArray();
-        for(SSLocations ssLocations : ssVillages){
-            jsonArray.put(ssLocations);
-        }
-        JSONArray field = fields(form, STEP1);
-        JSONObject spinner = getFieldJSONObject(field, VILLAGE_NAME);
         spinner.put(org.smartregister.family.util.JsonFormUtils.VALUES,jsonArray);
         return form;
 
