@@ -239,6 +239,7 @@
     <!-- PNC Reporting indicators labels: Check PNC reporting data dictionary. Strings are named by number
  as defined in the data dictionary -->
     <string name="pnc_indicator_1">Pregnant women who delivered in a health facility (last 6 months)</string>
+    <string name="pnc_indicator_2">Babies born with normal birthweight (last 6 months)</string>
 
     <!-- PNC Home visit-->
     <!-- PNC home visit tasks labels -->

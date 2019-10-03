@@ -394,7 +394,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the sex"
+          "err": "Please select if baby has low the weight"
         },
         "relevance": {
           "rules-engine": {
@@ -421,7 +421,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the sex"
+          "err": "Please enter Early initiation of breastfeeding"
         },
         "relevance": {
           "rules-engine": {
@@ -448,7 +448,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the sex"
+          "err": "Please enter if Physically challenged"
         },
         "relevance": {
           "rules-engine": {

@@ -5,6 +5,8 @@ public class ReportingConstants {
     public class PncIndicatorKeysHelper {
         public static final String COUNT_WOMEN_DELIVERED_IN_HF = "pnc_report_indicator_1_1";
         public static final String COUNT_WOMEN_DELIVERED_ELSEWHERE = "pnc_report_indicator_1_2";
+        public static final String COUNT_BABIES_NORMAL_BIRTHWEIGHT="pnc_report_indicator_2_1";
+        public static final String COUNT_BABIES_LOW_BIRTHWEIGHT="pnc_report_indicator_2_2";
     }
 
     public class AncIndicatorKeys {

@@ -72,7 +72,7 @@ public class ChwRepositoryFlv {
                     upgradeToVersion11(db);
                     break;
                 case 12:
-                    upgradeToVersion12(db);
+                    upgradeToVersion12(db, oldVersion);
                     break;
                 default:
                     break;
@@ -231,19 +231,23 @@ public class ChwRepositoryFlv {
         }
     }
 
-    private static void upgradeToVersion12(SQLiteDatabase db) {
-        initializeIndicatorDefinitions(db);
+    private static void upgradeToVersion12(SQLiteDatabase db, int oldDbVersion) {
+        ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+        if (oldDbVersion == 11) {
+            db.execSQL(RepositoryUtilsFlv.addLbwColumnQuery);
+            reportingLibraryInstance.truncateIndicatorDefinitionTables(db);
+        }
+        initializeIndicatorDefinitions(reportingLibraryInstance, db);
     }
 
-    private static void initializeIndicatorDefinitions(SQLiteDatabase sqLiteDatabase) {
-        ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
-
+    private static void initializeIndicatorDefinitions(ReportingLibrary reportingLibrary, SQLiteDatabase sqLiteDatabase) {
         String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
         String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
         String pncIndicatorConfigFile = "config/pnc-reporting-indicator-definitions.yml";
-
-        reportingLibraryInstance.initMultipleIndicatorsData(Collections.unmodifiableList(
-                Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile, pncIndicatorConfigFile)), sqLiteDatabase);
+        for (String configFile : Collections.unmodifiableList(
+                Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile, pncIndicatorConfigFile))) {
+            reportingLibrary.readConfigFile(configFile, sqLiteDatabase);
+        }
     }
 
     // helpers
