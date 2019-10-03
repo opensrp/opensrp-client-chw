@@ -71,6 +71,24 @@
         }
       },
       {
+        "key": "Date_Birth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
+        "type": "date_picker",
+        "hint": "Child's DOB *",
+        "expanded": false,
+        "duration": {
+          "label": "Age"
+        },
+        "min_date": "today-5y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of birth"
+        }
+      },
+      {
         "key": "birth_cert_issue_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -78,12 +96,19 @@
         "type": "date_picker",
         "hint": "Birth certificate issuance date",
         "expanded": false,
+        "min_date": "today-5y",
         "max_date": "today",
-        "min_date": "",
         "v_required": {
           "value": "true",
           "err": "Please enter Birth certificate issuance date"
         },
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:Date_Birth)",
+            "err": "Birth certificate issuance date can't occur before date of birth"
+          }
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {
