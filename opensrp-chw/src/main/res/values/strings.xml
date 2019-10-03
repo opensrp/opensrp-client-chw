@@ -241,6 +241,8 @@
     <string name="pnc_indicator_1">Pregnant women who delivered in a health facility (last 6 months)</string>
     <string name="pnc_indicator_2">Babies born with normal birthweight (last 6 months)</string>
     <string name="pnc_indicator_3">Newborns initiated early (less than 1 hour) to breastfeeding (last 6 months)</string>
+    <string name="pnc_indicator_4">Children who received BCG vaccine on time (last 6 months)</string>
+    <string name="pnc_indicator_4_note">On time means within four weeks of birth</string>
 
     <!-- PNC Home visit-->
     <!-- PNC home visit tasks labels -->
