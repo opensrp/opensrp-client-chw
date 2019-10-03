@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
+import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.model.HnppFamilyProfileModel;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
@@ -123,7 +124,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras()),
-                this.getString(org.smartregister.family.R.string.member).toUpperCase());
+                this.getString(R.string.member));
 
         viewPager.setAdapter(adapter);
 

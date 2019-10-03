@@ -62,7 +62,7 @@
     <string name="Male">পুরুষ</string>
     <string name="Female">নারী</string>
     <string name="male">পুরুষ</string>
-    <string name="female">নারী</string>
+    <string name="female">নারী</string>F
     <string name="relation_with_member_and_head">সম্পর্ক : %s</string>
     <string name="care_giver_initials">মায়ের নাম :  %s</string>
     <string name="age">বয়স :  %s</string>
@@ -77,4 +77,11 @@
     <string name="form_back_confirm_dialog_title">বন্ধ ফর্ম করতে চান</string>
     <string name="yes_button_label">হ্যাঁ</string>
     <string name="no_button_label">না</string>
+    <string name="return_to_all_families">পরিবারের তালিকা</string>
+    <string name="family_details">পারিবারিক তথ্য</string>
+    <string name="member">সদস্য</string>
+    <string name="return_to_family_name">%1$s পরিবার</string>
+    <string name="return_to_all_children">শিশু তালিকা</string>
+
+
 </resources>
