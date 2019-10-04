@@ -18,9 +18,6 @@ import java.util.Date;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.core.utils.CoreConstants.EventType.ANC_REGISTRATION;
-import static org.smartregister.chw.core.utils.CoreConstants.SERVICE_GROUPS.ANC;
-
 public class AncRegisterActivity extends CoreAncRegisterActivity {
 
     public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
@@ -39,7 +36,7 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
 
     @Override
     public Class getRegisterActivity(String register) {
-        if (register.equals(ANC_REGISTRATION))
+        if (register.equals(org.smartregister.chw.core.utils.CoreConstants.EventType.ANC_REGISTRATION))
             return AncRegisterActivity.class;
         else
             return PncRegisterActivity.class;
