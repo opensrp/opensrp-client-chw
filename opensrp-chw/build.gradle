@@ -220,7 +220,7 @@ android {
 }
 
 dependencies {
-    implementation ('org.smartregister:opensrp-client-chw-core:1.0.3-SNAPSHOT@aar'){
+    implementation ('org.smartregister:opensrp-client-chw-core:1.0.3-ALPHA-SNAPSHOT@aar'){
         transitive = true
     }
 
