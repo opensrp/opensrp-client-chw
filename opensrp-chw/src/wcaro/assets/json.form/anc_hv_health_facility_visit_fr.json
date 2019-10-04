@@ -222,9 +222,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "label_info_title": "FAF reçu??",
+        "label_info_title": "FAF reçu?",
         "label_info_text": "Whether the woman has received IFA tablets.",
-        "hint": "FAF reçu??",
+        "hint": "FAF reçu?",
         "v_required": {
           "value": "true",
           "err": "Cette réponse est requise."

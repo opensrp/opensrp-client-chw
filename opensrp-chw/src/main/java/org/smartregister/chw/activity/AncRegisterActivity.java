@@ -11,14 +11,11 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.helper.BottomNavigationHelper;
-import org.smartregister.job.SyncServiceJob;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Date;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.CoreConstants.SERVICE_GROUPS.ANC;
 
 public class AncRegisterActivity extends CoreAncRegisterActivity {
 
@@ -34,14 +31,6 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.TABLE_NAME, getFormTable());
         activity.startActivity(intent);
-    }
-
-    @Override
-    public Class getRegisterActivity(String register) {
-        if (register.equals(ANC))
-            return AncRegisterActivity.class;
-        else
-            return PncRegisterActivity.class;
     }
 
     @Override
@@ -79,7 +68,6 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
                 } else if (encounter_type.equalsIgnoreCase(CoreConstants.EventType.ANC_HOME_VISIT)) {
                     ChwScheduleTaskExecutor.getInstance().execute(baseEnityId, CoreConstants.EventType.ANC_HOME_VISIT, new Date());
                 }
-                SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
             } catch (Exception e) {
                 Timber.e(e);
             }
