@@ -247,7 +247,7 @@
           "label": "Age"
         },
         "min_date": "today-120y",
-        "max_date": "today-5y",
+        "max_date": "today-15y",
         "v_required": {
           "value": "true",
           "err": "Tafadhali ingiza tarehe ya kuzaliwa"
@@ -302,8 +302,8 @@
           "err": "Nambari lazima ianze na 0 na lazima iwe jumla ya nambari 10 kwa urefu"
         },
         "v_min": {
-          "value": "5",
-          "err": "Umri lazima uwe sawa au mkubwa kuliko 5"
+          "value": "15",
+          "err": "Umri lazima uwe sawa au mkubwa kuliko 15"
         },
         "v_max": {
           "value": "120",
