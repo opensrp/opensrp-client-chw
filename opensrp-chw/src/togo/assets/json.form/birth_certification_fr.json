@@ -108,6 +108,14 @@
           "value": "true",
           "err": "Veuillez entrer le numéro"
         },
+        "v_numeric": {
+          "value": "true",
+          "err": "Numéro doit comporter 15 chiffres ou moins."
+        },
+        "v_regex": {
+          "value": "([0-9]{1,15})|\\s*",
+          "err": "Numéro doit comporter 15 chiffres ou moins."
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
