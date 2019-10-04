@@ -163,8 +163,8 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
         @Override
         protected Void doInBackground(Void... params) {
             list = getChildren(familyBaseEntityId);
-            ancWomanCount = ChwApplication.ancRegisterRepository().getAncPncWomenCount(familyBaseEntityId, CoreConstants.TABLE_NAME.ANC_MEMBER);
-            pncWomanCount = ChwApplication.ancRegisterRepository().getAncPncWomenCount(familyBaseEntityId, CoreConstants.TABLE_NAME.PNC_MEMBER);
+            ancWomanCount = getPncAncWomenCount(familyBaseEntityId, true);
+            pncWomanCount = getPncAncWomenCount(familyBaseEntityId, false);
             malariaCount = ChwApplication.malariaRegisterRepository().getMalariaCount(familyBaseEntityId, CoreConstants.TABLE_NAME.PNC_MEMBER);
             childVisit = mergeChildVisits(retrieveChildVisitList(rules, list));
 
