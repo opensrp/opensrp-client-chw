@@ -84,11 +84,11 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the first name"
+          "err": "প্রথম নাম লিখুন"
         },
         "v_regex": {
-          "value": "[A-Za-z\\.\\-]*",
-          "err": "Please enter a valid name"
+          "value": "[A-Za-z\\.\\- ]*",
+          "err": "একটি বৈধ নাম লিখুন"
         }
       },
       {
@@ -129,7 +129,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please select relation"
+          "err": "সম্পর্ক নির্বাচন করুন"
         }
       },
       {
@@ -143,7 +143,7 @@
         "hint": "মাতার নাম (ইংরেজীতে)",
         "v_required": {
           "value": true,
-          "err": "Please enter the mother/guardian's first name"
+          "err": "মা / অভিভাবকের প্রথম নাম লিখুন"
         }
       },
       {
@@ -155,23 +155,23 @@
         "hint": "মোবাইল নম্বর",
         "v_required": {
           "value": true,
-          "err": "Enter 11 digits Mobile Number."
+          "err": "11 অঙ্কের মোবাইল নম্বর লিখুন"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Number must begin with 095, 096, or 097 and must be a total of 11 digits in length"
+          "err": "সংখ্যাটি অবশ্যই 011, 012, 013, 014, 015, 016,017,018 বা 019 দিয়ে শুরু হওয়া উচিত এবং মোট 11 সংখ্যা হওয়া আবশ্যক"
         },
         "v_regex": {
           "value": "0|(01[0-9][0-9]{8})|\s*",
-          "err": "Number must begin with 011, 012, 013, 014, 015, 016,017,018 or 019 and must be a total of 11 digits in length"
+          "err": "সংখ্যাটি অবশ্যই 011, 012, 013, 014, 015, 016,017,018 বা 019 দিয়ে শুরু হওয়া উচিত এবং মোট 11 সংখ্যা হওয়া আবশ্যক"
         },
         "v_max_length": {
           "value": "11",
-          "err": "Please Enter 11 digit Mobile number"
+          "err": "11 অঙ্কের মোবাইল নম্বর লিখুন"
         },
         "v_min_length": {
           "value": "1",
-          "err": "Please Enter 11 digit Mobile number"
+          "err": "11 অঙ্কের মোবাইল নম্বর লিখুন"
         }
       },
       {
@@ -220,11 +220,11 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter national id"
+          "err": "জাতীয় পরিচয় পত্র আইডি লিখুন"
         },
         "v_regex": {
           "value": "[0-9]*",
-          "err": "Please enter a valid name"
+          "err": "একটি বৈধ নাম লিখুন"
         },
         "relevance": {
           "step1:id_avail": {
@@ -248,7 +248,7 @@
         "edit_type": "name",
         "v_regex": {
           "value": "[0-9]*",
-          "err": "Please enter a valid name"
+          "err": "একটি বৈধ নাম লিখুন"
         },
         "relevance": {
           "step1:id_avail": {
@@ -279,7 +279,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please select value"
+          "err": "মান নির্বাচন করুন"
         }
       },
       {
@@ -297,7 +297,7 @@
         "max_date": "today-5y",
         "v_required": {
           "value": "true",
-          "err": "Please enter the date of birth"
+          "err": "জন্ম তারিখ প্রবেশ করুন"
         },
         "relevance": {
           "step1:is_birthday_known": {
@@ -333,11 +333,11 @@
         },
         "v_min": {
           "value": "5",
-          "err": "Age must be equal or greater than 5"
+          "err": "বয়স সমান বা 5 এর বেশি হতে হবে"
         },
         "v_max": {
           "value": "120",
-          "err": "Age must be equal or less than 120"
+          "err": "বয়স সমান বা 120 এর কম হওয়া উচিত"
         },
         "relevance": {
           "step1:is_birthday_known": {
@@ -347,7 +347,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please enter the age"
+          "err": "বয়স প্রবেশ করুন"
         }
       },
       {
@@ -370,7 +370,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please enter the sex"
+          "err": "লিঙ্গ নির্বাচন করুন"
         }
       },
       {
@@ -399,7 +399,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please select marital status"
+          "err": "বৈবাহিক অবস্থা নির্বাচন করুন"
         }
       },
 
@@ -436,7 +436,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please Select Blood Group"
+          "err": "রক্ত গ্রুপ নির্বাচন করুন"
         }
       },
       {

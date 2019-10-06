@@ -51,28 +51,28 @@ public class HNPPMemberJsonFormFragment extends JsonWizardFormFragment {
     }
 
     public void updateGuid(String guid){
-        try {
-            JSONObject guIdField = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "gu_id");
-            guIdField.put("value",guid);
-
-            JSONObject fingerPrint = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "finger_print");
-            fingerPrint.put("image_path", guid);
-            JSONObject fingerPrintValue = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "finger_print");
-            fingerPrintValue.put("value",guid);
-            ArrayList<View> formdataviews = new ArrayList<>(getJsonApi().getFormDataViews());
-            for(View view : formdataviews){
-                if (view instanceof ImageView) {
-                    ImageView imageView = (ImageView) view;
-                    String key = (String) imageView.getTag(com.vijay.jsonwizard.R.id.key);
-                    if (key.equals("finger_print")) {
-
-                        imageView.setImageResource(R.drawable.finger_print_done);
-                        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            try {
+                JSONObject guIdField = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "gu_id");
+                guIdField.put("value",guid);
+                JSONObject fingerPrint = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "finger_print");
+                fingerPrint.put("image_path", guid);
+                JSONObject fingerPrintValue = getFieldJSONObject(getStep("step1").getJSONArray("fields"), "finger_print");
+                fingerPrintValue.put("value",guid);
+                ArrayList<View> formdataviews = new ArrayList<>(getJsonApi().getFormDataViews());
+                for(View view : formdataviews){
+                    if (view instanceof ImageView) {
+                        ImageView imageView = (ImageView) view;
+                        String key = (String) imageView.getTag(com.vijay.jsonwizard.R.id.key);
+                        if (key.equals("finger_print")) {
+                            imageView.setImageResource(R.drawable.finger_print_done);
+                            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            imageView.setTag(R.id.imagePath, guid);
+                        }
                     }
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
-    }
+
 }

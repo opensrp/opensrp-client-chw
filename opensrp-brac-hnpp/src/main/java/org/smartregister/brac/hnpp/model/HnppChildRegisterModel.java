@@ -41,9 +41,8 @@ public class HnppChildRegisterModel extends CoreChildRegisterModel {
     public ArrayList<String> getAllWomenInHouseHold(){
         String query = "select first_name from ec_family_member where gender = 'নারী' and marital_status != 'অবিবাহিত' and marital_status IS NOT NULL and relational_id = "+familyBaseEntityId+"'";
         Cursor cursor = null;
-        ArrayList<String> womenList;
+        ArrayList<String> womenList = new ArrayList<>();
         try {
-            womenList= new ArrayList<>();
             cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, new String[]{});
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -51,14 +50,13 @@ public class HnppChildRegisterModel extends CoreChildRegisterModel {
                 womenList.add(name);
                 cursor.moveToNext();
             }
-            return womenList;
         } catch (Exception e) {
             Timber.e(e);
         } finally {
             if (cursor != null)
                 cursor.close();
         }
-        return null;
+        return womenList;
     }
 
 }

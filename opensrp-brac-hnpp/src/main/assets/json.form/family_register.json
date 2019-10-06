@@ -81,7 +81,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the value"
+          "err": "মান নির্বাচন করুন"
         }
       },
       {
@@ -97,7 +97,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the value"
+          "err": "মান নির্বাচন করুন"
         }
       },
       {
@@ -122,7 +122,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the value"
+          "err": "মান নির্বাচন করুন"
         }
       },
       {
@@ -142,7 +142,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the value"
+          "err": "মান নির্বাচন করুন"
         }
       },
       {
@@ -155,7 +155,7 @@
         "read_only": true,
         "v_numeric": {
           "value": "false",
-          "err": "Please enter a valid ID"
+          "err": "একটি বৈধ আইডি লিখুন"
         }
       },
       {
@@ -168,11 +168,11 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the name"
+          "err": "নাম লিখুন"
         },
         "v_regex": {
-          "value": "[A-Za-z\\.\\-]*",
-          "err": "Please enter a valid name"
+          "value": "[A-Za-z\\.\\- ]*",
+          "err": "একটি বৈধ নাম লিখুন"
         }
       },
       {
@@ -185,23 +185,23 @@
         "hint": "খানা প্রধানের মোবাইল নম্বর",
         "v_required": {
           "value": true,
-          "err": "Enter 11 digits Mobile Number."
+          "err": "11 ডিজিটের মোবাইল নম্বর লিখুন"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Number must begin with 095, 096, or 097 and must be a total of 11 digits in length"
+          "err": "সংখ্যাটি অবশ্যই 011, 012, 013, 014, 015, 016,017,018 বা 019 দিয়ে শুরু হওয়া উচিত এবং মোট 11 সংখ্যা হওয়া আবশ্যক"
         },
         "v_regex": {
           "value": "0|(01[0-9][0-9]{8})|\s*",
-          "err": "Number must begin with 011, 012, 013, 014, 015, 016,017,018 or 019 and must be a total of 11 digits in length"
+          "err": "সংখ্যাটি অবশ্যই 011, 012, 013, 014, 015, 016,017,018 বা 019 দিয়ে শুরু হওয়া উচিত এবং মোট 11 সংখ্যা হওয়া আবশ্যক"
         },
         "v_max_length": {
           "value": "11",
-          "err": "Please Enter 11 digit Mobile number"
+          "err": "11 ডিজিটের মোবাইল নম্বর লিখুন"
         },
         "v_min_length": {
           "value": "1",
-          "err": "Please Enter 11 digit Mobile number"
+          "err": "11 ডিজিটের মোবাইল নম্বর লিখুন"
         }
       },
       {
@@ -213,19 +213,19 @@
         "hint": "খানার মোট সদস্য সংখ্যা",
         "v_numeric": {
           "value": "true",
-          "err": "Must Contain Numeric Value"
+          "err": "অবশ্যই সংখ্যা হতে হবে"
         },
         "v_regex": {
           "value": "(5[0]|[1-4][0-9]|[1-9])|\s*",
-          "err": "Member count minimum 1 maximum 50"
+          "err": "সদস্য সংখ্যা অবশ্যই সর্বনিম্ন 1 সর্বোচ্চ 50 এর মধ্যে হওয়া উচিত"
         },
         "v_max_length": {
           "value": "2",
-          "err": "Please Enter max 50"
+          "err": "সর্বোচ্চ 50 হতে হবে"
         },
         "v_min_length": {
           "value": "1",
-          "err": "Please Enter minimum 1"
+          "err": "সর্বনিম্ন 1 হতে হবে"
         }
       },
       {
@@ -246,7 +246,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please answer the question"
+          "err": "প্রশ্নের উত্তর দিন"
         }
       },
 

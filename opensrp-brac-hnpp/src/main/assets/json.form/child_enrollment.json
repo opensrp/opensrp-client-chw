@@ -64,7 +64,7 @@
         "read_only": true,
         "v_numeric": {
           "value": "false",
-          "err": "Please enter a valid ID"
+          "err": "একটি বৈধ আইডি লিখুন"
         }
       },
       {
@@ -87,11 +87,11 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please Enter name"
+          "err": "নাম লিখুন"
         },
         "v_regex": {
-        "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-        "err": "Please enter a valid name"
+        "value": "[A-Za-z\\.\\- ]*",
+        "err": "একটি বৈধ নাম লিখুন"
       }
       },
       {
@@ -120,7 +120,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please select relation"
+          "err": "সম্পর্ক নির্বাচন করুন"
         }
       },
       {
@@ -138,7 +138,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please select value"
+          "err": "মান নির্বাচন করুন"
         }
       },
       {
@@ -152,7 +152,7 @@
         "hint": "মাতার নাম (ইংরেজীতে)",
         "v_required": {
           "value": true,
-          "err": "Please enter the mother/guardian's first name"
+          "err": "মা / অভিভাবকের প্রথম নাম লিখুন"
         },
         "relevance": {
           "step1:mother_name": {
@@ -176,7 +176,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please enter the date of birth"
+          "err": "জন্ম তারিখ প্রবেশ করুন"
         }
       },
       {
@@ -199,7 +199,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please enter the sex"
+          "err": "লিঙ্গ প্রবেশ করুন"
         }
       },
       {
@@ -234,7 +234,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please Select Blood Group"
+          "err": "রক্ত গ্রুপ নির্বাচন করুন"
         }
       }
     ]

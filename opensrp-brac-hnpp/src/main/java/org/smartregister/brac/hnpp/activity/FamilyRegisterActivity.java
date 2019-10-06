@@ -1,6 +1,8 @@
 package org.smartregister.brac.hnpp.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
@@ -32,6 +34,20 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import timber.log.Timber;
 
 public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this).setMessage(getString(R.string.exit_app_message))
+                .setTitle(getString(R.string.exit_app_title)).setCancelable(false)
+                .setPositiveButton(R.string.yes_button_label, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        finish();
+                    }
+                }).setNegativeButton(R.string.no_button_label, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            }
+        }).show();
+    }
 
     public static void registerBottomNavigation(BottomNavigationHelper bottomNavigationHelper,
                                                 BottomNavigationView bottomNavigationView, Activity activity) {

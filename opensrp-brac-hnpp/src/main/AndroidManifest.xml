@@ -28,7 +28,7 @@
         <activity
             android:name="org.smartregister.family.activity.FamilyWizardFormActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/FamilyTheme.NoActionBar"
+            android:theme="@style/HNPPTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
         <activity

@@ -77,4 +77,9 @@
     <string name="form_back_confirm_dialog_title">ফর্ম বন্ধ করতে চান</string>
     <string name="yes_button_label">হ্যাঁ</string>
     <string name="no_button_label">না</string>
+    <string name="exit_app_message">আপনি কি অ্যাপটি থেকে বেরিয়ে আসতে চান?</string>
+    <string name="exit_app_title">অ্যাপটি বন্ধ করতে চান</string>
+    <string name="json_form_error_msg" >ফর্মটিতে%d টি ত্রুটি পাওয়া গেছে. জমা দেওয়ার জন্য দয়া করে এগুলি সংশোধন করুন</string>
+    <string name="json_form_on_next_error_msg" >ফর্মটিতে%d টি ত্রুটি পাওয়া গেছে. জমা দেওয়ার জন্য দয়া করে এগুলি সংশোধন করুন</string>
+
 </resources>
