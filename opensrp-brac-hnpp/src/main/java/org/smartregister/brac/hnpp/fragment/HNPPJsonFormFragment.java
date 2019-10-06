@@ -67,6 +67,7 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
                 Log.v("SPINNER_SELECT","onItemSelected>>ssIndex:"+ssIndex);
                 processVillageList(position);
             }
+            hideKeyBoard();
         }
 
 

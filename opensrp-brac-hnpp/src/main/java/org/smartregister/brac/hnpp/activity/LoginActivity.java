@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.R;
@@ -85,15 +84,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     public void onClick(View v) {
         if (v.getId() == org.smartregister.R.id.login_login_btn) {
-            String userName = HnppApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
-            if(!TextUtils.isEmpty(userName)){
-                String userNameTxt =  ((EditText) findViewById(R.id.login_user_name_edit_text)).getText().toString();
-                if(!userNameTxt.isEmpty()) {
-                    if(!userNameTxt.equals(userName)) {
-                        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
 
             v.setAlpha(0.3f);
             new Handler().postDelayed(new Runnable() {
