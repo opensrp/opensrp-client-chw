@@ -394,7 +394,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the sex"
+          "err": "Please select if baby has low the weight"
         },
         "relevance": {
           "rules-engine": {
@@ -421,7 +421,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the sex"
+          "err": "Please enter Early initiation of breastfeeding"
         },
         "relevance": {
           "rules-engine": {
@@ -448,7 +448,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the sex"
+          "err": "Please enter if Physically challenged"
         },
         "relevance": {
           "rules-engine": {
@@ -468,6 +468,13 @@
         "expanded": false,
         "min_date": "today-120y",
         "max_date": "today",
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:delivery_date)",
+            "err": "Date of OPV 0 can't occur before delivery date"
+          }
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -485,6 +492,13 @@
         "hint": "BCG date",
         "expanded": false,
         "max_date": "today",
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:delivery_date)",
+            "err": "Date of BCG can't occur before delivery date"
+          }
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {
