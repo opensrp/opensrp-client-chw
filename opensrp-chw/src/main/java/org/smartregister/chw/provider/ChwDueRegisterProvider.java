@@ -48,18 +48,24 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
+        String familyName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
         String scheduleName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.SCHEDULE_NAME, false);
         String dueDate = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.DUE_DATE, false);
         String overDueDate = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.OVER_DUE_DATE, false);
 
-        String patientName = org.smartregister.family.util.Utils.getName(firstName, middleName, lastName);
 
         String dob = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
         String dobString = Utils.getDuration(dob);
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
 
-        patientName = patientName + ", " + dobString + " " + getVisitType(scheduleName);
-        fillValue(viewHolder.patientNameAge, patientName);
+        if (StringUtils.isNotBlank(firstName) || StringUtils.isNotBlank(middleName) || StringUtils.isNotBlank(lastName)) {
+            String patientName = org.smartregister.family.util.Utils.getName(firstName, middleName, lastName);
+            patientName = patientName + ", " + dobString + " " + getVisitType(scheduleName);
+            fillValue(viewHolder.patientNameAge, patientName);
+        } else {
+            String title = context.getString(R.string.family, familyName) + " " + getVisitType(scheduleName);
+            fillValue(viewHolder.patientNameAge, title);
+        }
 
         // Update UI cutoffs
         viewHolder.patientNameAge.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimensionPixelSize(R.dimen.member_due_list_title_size));
@@ -95,7 +101,7 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
             case CoreConstants.SCHEDULE_TYPES.MALARIA_VISIT:
                 return context.getString(R.string.malaria_visit_suffix);
             case CoreConstants.SCHEDULE_TYPES.WASH_CHECK:
-                return context.getString(R.string.wash_check);
+                return " · " + context.getString(R.string.wash_check);
             default:
                 return context.getString(R.string.home_visit_suffix);
         }

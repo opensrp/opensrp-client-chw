@@ -1,12 +1,6 @@
 package org.smartregister.chw.presenter;
 
-import org.smartregister.chw.core.dao.NavigationDao;
-import org.smartregister.chw.core.enums.ImmunizationState;
-import org.smartregister.chw.core.rule.WashCheckAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.WashCheck;
-import org.smartregister.chw.fragment.FamilyProfileDueFragment;
-import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.model.WashCheckModel;
 import org.smartregister.family.contract.FamilyProfileDueContract;
 import org.smartregister.family.presenter.BaseFamilyProfileDuePresenter;
@@ -21,12 +15,15 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
 
     @Override
     public void initializeQueries(String mainCondition) {
-        String tableName = CoreConstants.TABLE_NAME.FAMILY_MEMBER;
+        String tableName = CoreConstants.TABLE_NAME.SCHEDULE_SERVICE;
 
-        String countSelect = model.countSelect(tableName, mainCondition);
-        String mainSelect = model.mainSelect(tableName, " ec_family_member.relational_id = '" + this.familyBaseEntityId + "' AND " + getDueQuery());
+        String selectCondition = " ( ec_family_member.relational_id = '" + this.familyBaseEntityId + "' or ec_family.base_entity_id = '" + this.familyBaseEntityId + "' ) AND "
+                + getDueQuery();
 
-        getView().initializeQueryParams(tableName, countSelect, mainSelect);
+        String countSelect = model.countSelect(tableName, selectCondition);
+        String mainSelect = model.mainSelect(tableName, selectCondition);
+
+        getView().initializeQueryParams(CoreConstants.TABLE_NAME.FAMILY_MEMBER, countSelect, mainSelect);
         getView().initializeAdapter(visibleColumns);
 
         getView().countExecute();
@@ -41,29 +38,4 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
         return washCheckModel.saveWashCheckEvent(jsonObject);
     }
 
-    public void fetchLastWashCheck(long dateCreatedFamily) {
-        WashCheck washCheck = washCheckModel.getLatestWashCheck();
-        if (washCheck != null) {
-            WashCheckAlertRule washCheckAlertRule = new WashCheckAlertRule(getView().getContext(), washCheck.getLastVisit(), dateCreatedFamily);
-            if (washCheckAlertRule.isOverdueWithinMonth(1)) {
-                washCheck.setStatus(ChildProfileInteractor.VisitType.OVERDUE.name());
-            } else if (washCheckAlertRule.isDueWithinMonth()) {
-                washCheck.setStatus(ChildProfileInteractor.VisitType.DUE.name());
-            } else {
-                washCheck.setStatus(ImmunizationState.NO_ALERT.name());
-            }
-            washCheck.setLastVisitDate(washCheckAlertRule.noOfDayDue);
-        }
-        if (getView() instanceof FamilyProfileDueFragment) {
-            FamilyProfileDueFragment familyProfileDueFragment = (FamilyProfileDueFragment) getView();
-            familyProfileDueFragment.updateWashCheckBar(washCheck);
-        }
-    }
-
-    public Integer getDueCount() {
-        String sql = "select count(*) from schedule_service where " + getDueQuery() +
-                " and schedule_service.base_entity_id in (select object_id from ec_family_member_search  where object_relational_id = '" + this.familyBaseEntityId + "' and date_removed is null ) ";
-
-        return NavigationDao.getQueryCount(sql);
-    }
 }

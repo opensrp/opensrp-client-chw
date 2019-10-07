@@ -104,6 +104,14 @@
           "value": "true",
           "err": "Please enter number"
         },
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must be 15 digits or Less."
+        },
+        "v_regex": {
+          "value": "([0-9]{1,15})|\\s*",
+          "err": "Number must be 15 digits or Less."
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

@@ -13,22 +13,27 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.WashCheckDao;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
+import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.DatabaseMigrationUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import timber.log.Timber;
@@ -63,13 +68,18 @@ public class ChwRepositoryFlv {
                 case 10:
                     upgradeToVersion10(db);
                     break;
+                case 11:
+                    upgradeToVersion11(db);
+                    break;
+                case 12:
+                    upgradeToVersion12(db, oldVersion);
+                    break;
                 default:
                     break;
             }
             upgradeTo++;
         }
     }
-
 
     private static void upgradeToVersion2(Context context, SQLiteDatabase db) {
         try {
@@ -179,7 +189,7 @@ public class ChwRepositoryFlv {
             }
 
             // add missing columns to the DB
-            List<String>  columns = new ArrayList<>();
+            List<String> columns = new ArrayList<>();
             columns.add(ChildDBConstants.KEY.ENTRY_POINT);
             DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.CHILD, columns);
 
@@ -188,6 +198,57 @@ public class ChwRepositoryFlv {
         }
     }
 
+    private static void upgradeToVersion11(SQLiteDatabase db) {
+        try {
+            // add all the wash check tasks to the visit table // will assist the event
+            List<String> wash_visits = WashCheckDao.getAllWashCheckVisits(db);
+            for (String visit_id : wash_visits) {
+                db.execSQL("delete from visits where visit_id = '" + visit_id + "'");
+                db.execSQL("delete from visit_details where visit_id = '" + visit_id + "'");
+            }
+
+            // reprocess all wash check events
+            List<EventClient> eventClients = WashCheckDao.getWashCheckEvents(db);
+            for (EventClient eventClient : eventClients) {
+                if (eventClient == null) continue;
+
+                NCUtils.processAncHomeVisit(eventClient); // save locally
+            }
+
+            // add missing columns to the DB
+            List<String> columns = new ArrayList<>();
+            columns.add(ChildDBConstants.KEY.RELATIONAL_ID);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.FAMILY_MEMBER, columns);
+
+            // add missing columns
+            List<String> child_columns = new ArrayList<>();
+            child_columns.add(DBConstants.KEY.DOB);
+            child_columns.add(DBConstants.KEY.DATE_REMOVED);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.CHILD, child_columns);
+
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion12(SQLiteDatabase db, int oldDbVersion) {
+        ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+        if (oldDbVersion == 11) {
+            db.execSQL(RepositoryUtilsFlv.addLbwColumnQuery);
+            reportingLibraryInstance.truncateIndicatorDefinitionTables(db);
+        }
+        initializeIndicatorDefinitions(reportingLibraryInstance, db);
+    }
+
+    private static void initializeIndicatorDefinitions(ReportingLibrary reportingLibrary, SQLiteDatabase sqLiteDatabase) {
+        String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
+        String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
+        String pncIndicatorConfigFile = "config/pnc-reporting-indicator-definitions.yml";
+        for (String configFile : Collections.unmodifiableList(
+                Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile, pncIndicatorConfigFile))) {
+            reportingLibrary.readConfigFile(configFile, sqLiteDatabase);
+        }
+    }
 
     // helpers
     private static List<Event> getEvents(SQLiteDatabase db) {

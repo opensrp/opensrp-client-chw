@@ -294,7 +294,14 @@
         "keys": [
           "Yes",
           "No"
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "phone_number",

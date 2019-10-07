@@ -34,16 +34,6 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
     }
 
     @Override
-    public Class getAncRegisterActivity() {
-        return AncRegisterActivity.class;
-    }
-
-    @Override
-    public Class getPncRegisterActivity() {
-        return PncRegisterActivity.class;
-    }
-
-    @Override
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();
         bottomNavigationHelper = new BottomNavigationHelper();

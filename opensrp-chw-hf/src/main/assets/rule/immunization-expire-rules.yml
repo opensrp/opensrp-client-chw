@@ -1,7 +1,0 @@
----
-name: not_expired_all_other_vaccine
-description: no vaccine expired after 11 month
-priority: 3
-condition: "immunizationExpireRule.isAllVaccineExpired(11)"
-actions:
-  - "immunizationExpireRule.isExpired = false"
