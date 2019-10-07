@@ -123,7 +123,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".ba"
             versionCode 2
-            versionName "1.0.1"
+            versionName "1.0.2"
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country","Region","District","Ward" , "Health Facility", "Village", "Village Sublocations"}'
@@ -220,7 +220,7 @@ android {
 }
 
 dependencies {
-    implementation ('org.smartregister:opensrp-client-chw-core:1.0.3-ALPHA-SNAPSHOT@aar'){
+    implementation ('org.smartregister:opensrp-client-chw-core:1.0.5-SNAPSHOT@aar'){
         transitive = true
     }
 
