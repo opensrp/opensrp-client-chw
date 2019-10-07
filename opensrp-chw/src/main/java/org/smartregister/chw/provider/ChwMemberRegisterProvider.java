@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.model.ChildVisit;
@@ -50,8 +51,9 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private View.OnClickListener onClickListener;
     private ImageRenderHelper imageRenderHelper;
     private RegisterViewHolder registerViewHolder;
+    private CommonPersonObjectClient commonPersonObject;
+    private String dod;
     private String entityType;
-    private CommonPersonObject commonPersonObject;
 
     public ChwMemberRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener, String familyHead, String primaryCaregiver) {
         super(context, commonRepository, visibleColumns, onClickListener, paginationClickListener, familyHead, primaryCaregiver);
@@ -93,7 +95,6 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         String lastName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String baseEntityId = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
         registerViewHolder = viewHolder;
-        commonPersonObject = (CommonPersonObject) client;
         String patientName = getName(firstName, middleName, lastName);
 
         entityType = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ENTITY_TYPE, false);
@@ -102,7 +103,8 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         String dobString = org.smartregister.family.util.Utils.getDuration(dob);
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
 
-        String dod = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOD, false);
+        dod = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOD, false);
+        commonPersonObject = pc;
         if (StringUtils.isNotBlank(dod)) {
 
             dobString = org.smartregister.family.util.Utils.getDuration(dod, dob);
@@ -204,8 +206,7 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         }
     }
 
-    private void setMemberProfileAvatar(int imageResourceIdentifier, CommonPersonObject commonPersonObject) {
-        String dod = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOD, false);
+    private void setMemberProfileAvatar(int imageResourceIdentifier) {
         if (StringUtils.isNotBlank(dod)) {
             registerViewHolder.profile.setImageResource(imageResourceIdentifier);
         } else {
@@ -214,28 +215,21 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     }
 
 
-    private void setMemberProfileImageResourceIdentifier(CommonPersonObject commonPerson) {
-        if (commonPerson == null) {
-            commonPerson = this.commonPersonObject;
-            if (Utils.getValue(commonPerson.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false).equals(CoreConstants.TABLE_NAME.CHILD)) {
-                setMemberProfileAvatar(org.smartregister.family.util.Utils.getMemberProfileImageResourceIDentifier(Utils.getValue(commonPerson.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false)), commonPerson);
+    private void setMemberProfileImageResourceIdentifier(MemberObject memberObject) {
+        if (memberObject == null) { // Non ANC/PNC family member
+            if (Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false).equals(CoreConstants.TABLE_NAME.CHILD)) {
+                setMemberProfileAvatar(org.smartregister.family.util.Utils.getMemberProfileImageResourceIDentifier(Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false)));
             } else {
-                setMemberProfileAvatar(Utils.getMemberImageResourceIdentifier(), commonPerson);
+                setMemberProfileAvatar(Utils.getMemberImageResourceIdentifier());
             }
         } else {
-            Map<String, String> details = commonPerson.getDetails();
-            String memberId = details.get(DBConstants.KEY.ID.toLowerCase());
-            if (memberId != null && !TextUtils.isEmpty(memberId)) {
-                // Check if PNC
-                if (details.containsKey(org.smartregister.chw.core.utils.ChwDBConstants.PREGNANCY_OUTCOME)) {
-                    if (details.get(org.smartregister.chw.core.utils.ChwDBConstants.PREGNANCY_OUTCOME).equals(CoreConstants.FORM_CONSTANTS.PregnancyOutcomeHelper.LIVE_BIRTH) || details.get(org.smartregister.chw.core.utils.ChwDBConstants.PREGNANCY_OUTCOME).equals(CoreConstants.FORM_CONSTANTS.PregnancyOutcomeHelper.STILL_BIRTH)) {
-                        setMemberProfileAvatar(Utils.getPnCWomanImageResourceIdentifier(), commonPerson);
-                    } else {
-                        setMemberProfileAvatar(Utils.getMemberImageResourceIdentifier(), commonPerson);
-                    }
-                } else { // Member is ANC
-                    setMemberProfileAvatar(Utils.getAnCWomanImageResourceIdentifier(), commonPerson);
+            if (memberObject instanceof org.smartregister.chw.pnc.domain.MemberObject) {
+                if (((org.smartregister.chw.pnc.domain.MemberObject) memberObject).getPregnancyOutcome().equals(CoreConstants.FORM_CONSTANTS.PregnancyOutcomeHelper.LIVE_BIRTH) ||
+                        ((org.smartregister.chw.pnc.domain.MemberObject) memberObject).getPregnancyOutcome().equals(CoreConstants.FORM_CONSTANTS.PregnancyOutcomeHelper.STILL_BIRTH)) {
+                    setMemberProfileAvatar(Utils.getPnCWomanImageResourceIdentifier());
                 }
+            } else {
+                setMemberProfileAvatar(Utils.getAnCWomanImageResourceIdentifier());
             }
         }
     }
@@ -306,23 +300,23 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     // Inner classes
     ////////////////////////////////////////////////////////////////
 
-    private class AncPncMemberTask extends AsyncTask<String, Void, CommonPersonObject> {
+    private class AncPncMemberTask extends AsyncTask<String, Void, org.smartregister.chw.anc.domain.MemberObject> {
 
         @Override
-        protected CommonPersonObject doInBackground(String... strings) {
+        protected org.smartregister.chw.anc.domain.MemberObject doInBackground(String... strings) {
             String baseEntityId = strings[0];
             if (PNCDao.isPncMember(baseEntityId)) {
-                return ChwApplication.pncRegisterRepository().getPncCommonPersonObject(baseEntityId);
+                return org.smartregister.chw.core.dao.PNCDao.getMember(baseEntityId);
             } else if (AncDao.isANCMember(baseEntityId)) {
-                return ChwApplication.ancRegisterRepository().getAncCommonPersonObject(baseEntityId);
+                return org.smartregister.chw.core.dao.AncDao.getMember(baseEntityId);
             } else {
                 return null; // The Member is neither ANC nor PNC
             }
         }
 
         @Override
-        protected void onPostExecute(CommonPersonObject commonPersonObject) {
-            setMemberProfileImageResourceIdentifier(commonPersonObject);
+        protected void onPostExecute(MemberObject memberObject) {
+            setMemberProfileImageResourceIdentifier(memberObject);
         }
     }
 
