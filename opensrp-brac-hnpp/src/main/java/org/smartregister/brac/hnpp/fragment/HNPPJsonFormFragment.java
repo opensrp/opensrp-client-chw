@@ -57,6 +57,7 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
     }
     private int ssIndex = -1;
     private int villageIndex = -1;
+    private boolean isManuallyPressed = false;
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -64,8 +65,10 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
         if (position != -1 && parent instanceof MaterialSpinner) {
             if (((MaterialSpinner) parent).getFloatingLabelText().toString().equalsIgnoreCase(view.getContext().getResources().getString(R.string.ss_name_form_field))) {
                 ssIndex = position;
-                Log.v("SPINNER_SELECT","onItemSelected>>ssIndex:"+ssIndex);
-                processVillageList(position);
+                if(isManuallyPressed){
+                    processVillageList(position);
+                }
+                isManuallyPressed = true;
             }
             hideKeyBoard();
         }

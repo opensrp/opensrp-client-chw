@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.model.HnppChildRegisterModel;
 import org.smartregister.brac.hnpp.model.HnppFamilyRegisterModel;
+import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.model.CoreChildRegisterModel;
@@ -41,8 +42,9 @@ public class FamilyProfilePresenter extends CoreFamilyProfilePresenter {
     public void startFormForEdit(CommonPersonObjectClient client) {
         try {
             JSONObject form = HnppJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyDetailsRegister(), getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
-
+            String ssName = org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.SS_NAME, false);
             HnppJsonFormUtils.updateFormWithSSName(form, SSLocationHelper.getInstance().getSsModels());
+            HnppJsonFormUtils.updateFormWithVillageName(form,ssName);
             getView().startFormActivity(form);
         } catch (Exception e) {
             e.printStackTrace();
