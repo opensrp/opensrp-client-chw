@@ -185,6 +185,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
         //if( memberCount > 0){
             setText(viewHolder.registeredMember,context.getString(R.string.registered_count,memberCount+"",totalMember));
        // }
+        int position = viewHolder.getAdapterPosition();
         if (memberCount == 0) return;
         if (ancWomanCount > 0) {
             viewHolder.memberIcon.setVisibility(View.VISIBLE);
@@ -209,11 +210,11 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
             }
             if(maleChildCount>0){
                 View v;
-                if(viewMap.containsKey("Male")){
-                    v = viewMap.get("Male");
+                if(viewMap.containsKey("Male"+position)){
+                    v = viewMap.get("Male"+position);
                 }else{
                     v = LayoutInflater.from(context).inflate(R.layout.member_with_count, null);
-                    viewMap.put("Male",v);
+                    viewMap.put("Male"+position,v);
 
                     viewHolder.memberIcon.addView(v);
                 }
@@ -227,11 +228,11 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
             }
             if(femaleChildCount>0){
                 View v;
-                if(viewMap.containsKey("Female")){
-                    v = viewMap.get("Female");
+                if(viewMap.containsKey("Female"+position)){
+                    v = viewMap.get("Female"+position);
                 }else{
                     v = LayoutInflater.from(context).inflate(R.layout.member_with_count, null);
-                    viewMap.put("Female",v);
+                    viewMap.put("Female"+position,v);
 
                     viewHolder.memberIcon.addView(v);
                 }
