@@ -101,7 +101,7 @@
         "openmrs_entity_id": "relation_with_household_head",
         "openmrs_data_type": "text",
         "type": "spinner",
-        "hint": "খানা প্রধান এই সদস্যের কি হ্য়?",
+        "hint": "খানা প্রধান এই সদস্যের কি হয়?",
         "values": [
           "খানা প্রধান",
           "ছেলে",
