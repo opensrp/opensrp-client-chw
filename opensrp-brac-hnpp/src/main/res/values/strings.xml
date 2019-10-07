@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HNPP</string>
+    <string name="app_name">mHealth</string>
     <string name="logo">logo</string>
     <string name="login_title">HEALTH,NUTRITION AND POPULATION PROGRAMME</string>
     <string name="nav_logo">HEALTH,NUTRITION AND POPULATION PROGRAMME</string>
@@ -34,7 +34,7 @@
     <string name="mark_as_done_title">Mark as done?</string>
     <string name="mark_as_done_message">Referral will closed and disappear from app</string>
     <string name="powered_by_brac">copyright © BRAC 2019 </string>
-    <string name="powered_by_mpower">copyright © mPower 2019 </string>
+    <string name="powered_by_mpower">powered by mPower </string>
     <string name="member_count">খানার মোট সদস্য: %s</string>
     <string name="registered_count">নিবন্ধভুক্ত সদস্য: %s মোট সদস্য: %s</string>
     <string name="next_visit_date">পরবর্তী দেখার তারিখ: %s</string>
