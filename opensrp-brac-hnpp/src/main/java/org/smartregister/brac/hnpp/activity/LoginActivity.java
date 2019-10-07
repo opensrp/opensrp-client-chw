@@ -3,6 +3,7 @@ package org.smartregister.brac.hnpp.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -25,12 +26,16 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     public static final String TAG = BaseLoginActivity.class.getCanonicalName();
 
     private EditText userNameText,passwordText;
+    private View userNameView, passwordView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userNameText = findViewById(R.id.login_user_name_edit_text);
         passwordText = findViewById(R.id.login_password_edit_text);
+        userNameView = findViewById(R.id.login_user_name_view);
+        passwordView = findViewById(R.id.login_password_view);
+
         userNameText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -69,6 +74,32 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
             }
         });
+
+        userNameText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View arg0, boolean hasfocus) {
+                if (hasfocus) {
+                    userNameView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.hnpp_accent));
+                } else {
+                    userNameView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.black));
+
+                }
+            }
+        });
+
+        passwordText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View arg0, boolean hasfocus) {
+                if (hasfocus) {
+                    passwordView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.hnpp_accent));
+                } else {
+                    passwordView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.black));
+
+                }
+            }
+        });
+
+
     }
     @Override
     protected void onResume() {

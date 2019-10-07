@@ -87,4 +87,6 @@
     <string name="member">সদস্য</string>
     <string name="return_to_family_name">%1$s পরিবার</string>
     <string name="return_to_all_children">শিশু তালিকা</string>
+    <string name="login_text">Log In ></string>
+    <string name="login_text_title">Log in</string>
 </resources>
