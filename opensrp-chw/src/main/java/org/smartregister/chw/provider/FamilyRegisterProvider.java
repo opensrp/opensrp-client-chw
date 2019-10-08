@@ -140,8 +140,8 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         @Override
         protected Void doInBackground(Void... params) {
             list = getChildren(familyBaseEntityId);
-            ancWomanCount = getPncAncWomenCount(familyBaseEntityId, true);
-            pncWomanCount = getPncAncWomenCount(familyBaseEntityId, false);
+            ancWomanCount = getAncWomenCount(familyBaseEntityId);
+            pncWomanCount = getPncWomenCount(familyBaseEntityId);
 
             if (flavor.hasMalaria())
                 malariaCount = ChwApplication.malariaRegisterRepository().getMalariaCount(familyBaseEntityId, CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION);
