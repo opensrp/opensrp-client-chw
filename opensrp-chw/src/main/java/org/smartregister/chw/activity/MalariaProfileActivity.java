@@ -4,17 +4,23 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreMalariaProfileInteractor;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.custom_view.MalariaFloatingMenu;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
@@ -256,5 +262,43 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
         intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
+    }
+
+    private void checkPhoneNumberProvided() {
+        ((MalariaFloatingMenu) baseMalariaFloatingMenu).redraw(!StringUtils.isBlank(MEMBER_OBJECT.getPhoneNumber())
+                || !StringUtils.isBlank(MEMBER_OBJECT.getPhoneNumber()));
+    }
+
+
+    @Override
+    public void initializeFloatingMenu() {
+        baseMalariaFloatingMenu = new MalariaFloatingMenu(this, MEMBER_OBJECT.getFirstName(),
+                MEMBER_OBJECT.getPhoneNumber(), MEMBER_OBJECT.getFamilyName(), MEMBER_OBJECT.getPhoneNumber());
+
+        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
+            switch (viewId) {
+                case R.id.malaria_fab:
+                    checkPhoneNumberProvided();
+                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
+                    break;
+                case R.id.call_layout:
+                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).launchCallWidget();
+                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
+                    break;
+                case R.id.refer_to_facility_layout:
+                    Toast.makeText(this, "Refer", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    Timber.d("Unknown fab action");
+                    break;
+            }
+
+        };
+
+        ((MalariaFloatingMenu) baseMalariaFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
+        baseMalariaFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        addContentView(baseMalariaFloatingMenu, linearLayoutParams);
     }
 }
