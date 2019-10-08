@@ -340,7 +340,7 @@
           "label": "Âge"
         },
         "min_date": "today-120y",
-        "max_date": "today-5y",
+        "max_date": "today-15y",
         "v_required": {
           "value": "true",
           "err": "Veuillez entrer la date de naissance"
@@ -381,8 +381,8 @@
           "err": "Numéro doit commencer avec 0 et doit consister de 10 chiffres au total"
         },
         "v_min": {
-          "value": "5",
-          "err": "l'âge doit être égale ou supérieure à 5"
+          "value": "15",
+          "err": "l'âge doit être égale ou supérieure à 15"
         },
         "v_max": {
           "value": "120",
