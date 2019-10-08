@@ -163,7 +163,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         if (id == R.id.textview_record_malaria) {
             MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, MEMBER_OBJECT.getBaseEntityId());
         } else if (id == R.id.textview_record_anc) {
-            AncHomeVisitActivity.startMe(this, new org.smartregister.chw.anc.domain.MemberObject(client), false);
+            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT.getBaseEntityId(), false);
         } else if (id == R.id.textview_anc_visit_not_done) {
             setAncVisitNotDoneView(true);
             saveVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
