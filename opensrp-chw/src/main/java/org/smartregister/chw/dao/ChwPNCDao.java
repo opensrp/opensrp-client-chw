@@ -2,6 +2,7 @@ package org.smartregister.chw.dao;
 
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.core.dao.AbstractDao;
+import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 
 import java.text.ParseException;
@@ -9,7 +10,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class PNCDao extends AbstractDao {
+public class ChwPNCDao extends PNCDao {
 
     public static @Nullable PNCHealthFacilityVisitSummary getLastHealthFacilityVisitSummary(String baseEntityID) {
         String sql = "select  last_health_facility_visit_date , confirmed_health_facility_visits, delivery_date from ec_pregnancy_outcome " +
@@ -32,17 +33,7 @@ public class PNCDao extends AbstractDao {
         return (res != null && res.size() > 0) ? res.get(0) : null;
     }
 
-    public static boolean hasFamilyPlanning(String baseEntityID) {
-        String sql = "select count(*) records from visit_details vd  " +
-                "inner join visits v on vd.visit_id = v.visit_id COLLATE NOCASE and vd.visit_key = 'fp_method' and vd.human_readable_details <> 'None' " +
-                "where v.base_entity_id =  '" + baseEntityID + "' and v.processed = 1 ";
+    public interface Flavor {
 
-        DataMap<Integer> dataMap = c -> getCursorIntValue(c, "records");
-
-        List<Integer> res = readData(sql, dataMap);
-        if (res == null || res.size() < 1)
-            return false;
-
-        return res.get(0) > 0;
     }
 }

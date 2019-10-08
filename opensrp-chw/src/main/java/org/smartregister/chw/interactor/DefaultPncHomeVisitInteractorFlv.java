@@ -33,7 +33,7 @@ import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
-import org.smartregister.chw.dao.PNCDao;
+import org.smartregister.chw.dao.ChwPNCDao;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.chw.domain.PncBaby;
@@ -143,7 +143,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
     protected void evaluatePNCHealthFacilityVisit() throws Exception {
 
-        PNCHealthFacilityVisitSummary summary = PNCDao.getLastHealthFacilityVisitSummary(memberObject.getBaseEntityId());
+        PNCHealthFacilityVisitSummary summary = ChwPNCDao.getLastHealthFacilityVisitSummary(memberObject.getBaseEntityId());
         if (summary != null) {
             PNCHealthFacilityVisitRule visitRule = PNCVisitUtil.getNextPNCHealthFacilityVisit(summary.getDeliveryDate(), summary.getLastVisitDate());
 
