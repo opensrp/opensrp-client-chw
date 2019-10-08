@@ -16,11 +16,11 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.dao.AncDao;
+import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.FamilyDao;
-import org.smartregister.chw.dao.PNCDao;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
@@ -306,7 +306,7 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         protected org.smartregister.chw.anc.domain.MemberObject doInBackground(String... strings) {
             String baseEntityId = strings[0];
             MemberObject retrievedMember = null;
-            if (PNCDao.isPncMember(baseEntityId)) {
+            if (PNCDao.isPNCMember(baseEntityId)) {
                 retrievedMember = org.smartregister.chw.core.dao.PNCDao.getMember(baseEntityId);
             } else if (AncDao.isANCMember(baseEntityId)) {
                 retrievedMember = org.smartregister.chw.core.dao.AncDao.getMember(baseEntityId);
