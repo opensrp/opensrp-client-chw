@@ -14,11 +14,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
-import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.presenter.CoreAncMemberProfilePresenter;
@@ -126,9 +126,15 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                     showToast(this.getString(R.string.referral_submitted));
                 }
 
+
             } catch (Exception e) {
                 Timber.e(e, "AncMemberProfileActivity -- > onActivityResult");
             }
+        } else if (requestCode == Constants.REQUEST_CODE_HOME_VISIT) {
+            this.displayView();
+            Visit lastVisit = this.getVisit("ANC Home Visit");
+            lastVisit.getDate();
+            this.setLastVisit(lastVisit.getDate());
         } else if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
             ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.ANC_HOME_VISIT, new Date());
             finish();
