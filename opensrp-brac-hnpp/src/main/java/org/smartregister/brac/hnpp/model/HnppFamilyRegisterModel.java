@@ -1,6 +1,9 @@
 package org.smartregister.brac.hnpp.model;
 
+import android.util.Log;
+
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
@@ -15,6 +18,12 @@ import org.smartregister.family.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
+
+import static org.smartregister.util.JsonFormUtils.FIELDS;
+import static org.smartregister.util.JsonFormUtils.VALUE;
+import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
 
@@ -35,9 +44,12 @@ public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
             JSONObject jobkect = new JSONObject(jsonString).getJSONObject("step1");
             String villageIndex = jobkect.getString("village_index");
             String ssIndex = jobkect.getString("ss_index");
-            String hhid = jobkect.getString("hhid");
             SSLocations ss = SSLocationHelper.getInstance().getSsModels().get(Integer.parseInt(ssIndex)).locations.get(Integer.parseInt(villageIndex));
-            String villageId = ss.village.id+"";
+            JSONArray field = jobkect.getJSONArray(FIELDS);
+            JSONObject villageIdObj = getFieldJSONObject(field, "village_id");
+            String villageId = villageIdObj.getString(VALUE);
+            JSONObject hhIdObj = getFieldJSONObject(field, "unique_id");
+            String hhid = hhIdObj.getString(VALUE);
             HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
             householdIdRepo.close(villageId,hhid);
             List<FamilyEventClient> familyEventClientList = new ArrayList<>();
@@ -72,7 +84,7 @@ public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
             return familyEventClientList;
 
         }catch (Exception e){
-
+            Timber.e(e);
         }
         return null;
 

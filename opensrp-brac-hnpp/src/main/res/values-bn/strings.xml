@@ -89,4 +89,8 @@
     <string name="return_to_all_children">শিশু তালিকা</string>
     <string name="login_text">Log In ></string>
     <string name="login_text_title">Log in</string>
+    <string name="action_start_sync">সিঙ্ক শুরু হচ্ছে</string>
+    <string name="action_sync_failed">সিঙ্ক ব্যর্থ হয়েছে</string>
+    <string name="syncing">সিঙ্ক হচ্ছে...</string>
+    <string name="sync_complete">সিঙ্ক সম্পূর্ণ হয়েছে</string>
 </resources>

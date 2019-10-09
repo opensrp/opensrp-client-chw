@@ -21,6 +21,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
+import org.smartregister.family.util.DBConstants;
 
 import java.util.List;
 
@@ -43,8 +44,9 @@ public class FamilyProfilePresenter extends CoreFamilyProfilePresenter {
         try {
             JSONObject form = HnppJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyDetailsRegister(), getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
             String ssName = org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.SS_NAME, false);
+            String villageName = org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, false);
             HnppJsonFormUtils.updateFormWithSSName(form, SSLocationHelper.getInstance().getSsModels());
-            HnppJsonFormUtils.updateFormWithVillageName(form,ssName);
+            HnppJsonFormUtils.updateFormWithVillageName(form,ssName,villageName);
             getView().startFormActivity(form);
         } catch (Exception e) {
             e.printStackTrace();

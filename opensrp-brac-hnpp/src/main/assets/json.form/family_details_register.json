@@ -72,7 +72,7 @@
         "key": "ss_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "ss_name",
+        "openmrs_entity_id": "SS_Name",
         "type": "spinner",
         "hint": "স্বাস্থ্য সেবিকার নামঃ",
         "values": [
@@ -81,14 +81,14 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the value"
+          "err": "মান নির্বাচন করুন"
         }
       },
       {
         "key": "village_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "village_name",
+        "openmrs_entity_id": "Village_Name",
         "type": "spinner",
         "hint": "গ্রামের নামঃ",
         "values": [
@@ -97,14 +97,14 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the value"
+          "err": "মান নির্বাচন করুন"
         }
       },
       {
         "key": "claster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "claster",
+        "openmrs_entity_id": "Cluster",
         "type": "spinner",
         "hint": "ক্লাস্টার",
         "values": [
@@ -114,22 +114,21 @@
           "ক্লাস্টার ৪"
         ],
         "openmrs_choice_ids": {
-          "ক্লাস্টার ১":"claster_1",
-          "ক্লাস্টার ২":"claster_2",
-          "ক্লাস্টার ৩":"claster_3",
-          "ক্লাস্টার ৪":"claster_4",
-          "ক্লাস্টার ৫":"claster_5"
+          "ক্লাস্টার ১":"1st_Cluster",
+          "ক্লাস্টার ২":"2nd_Cluster",
+          "ক্লাস্টার ৩":"3rd_Cluster",
+          "ক্লাস্টার ৪":"4th_Cluster"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the value"
+          "err": "মান নির্বাচন করুন"
         }
       },
       {
         "key": "house_hold_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "house_hold_type",
+        "openmrs_entity_id": "HH_Type",
         "type": "spinner",
         "hint": "খানার ধরণ",
         "values": [
@@ -137,12 +136,12 @@
           "NVO"
         ],
         "openmrs_choice_ids": {
-          "BRAC VO": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "NVO": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "BRAC VO": "BRAC VO",
+          "NVO": "NVO"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the value"
+          "err": "মান নির্বাচন করুন"
         }
       },
       {
@@ -155,7 +154,7 @@
         "read_only": true,
         "v_numeric": {
           "value": "false",
-          "err": "Please enter a valid ID"
+          "err": "একটি বৈধ আইডি লিখুন"
         }
       },
       {
@@ -168,72 +167,71 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the name"
+          "err": "নাম লিখুন"
         },
         "v_regex": {
-          "value": "[A-Za-z\\.\\-]*",
-          "err": "Please enter a valid name"
+          "value": "[A-Za-z\\.\\- ]*",
+          "err": "একটি বৈধ নাম লিখুন"
         }
       },
       {
         "key": "contact_phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "phoneNumber",
+        "openmrs_entity_id": "HOH_Phone_Number",
         "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "খানা প্রধানের মোবাইল নম্বর",
         "v_required": {
           "value": true,
-          "err": "Enter 11 digits Mobile Number."
+          "err": "11 ডিজিটের মোবাইল নম্বর লিখুন"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Number must begin with 095, 096, or 097 and must be a total of 11 digits in length"
+          "err": "সংখ্যাটি অবশ্যই 011, 012, 013, 014, 015, 016,017,018 বা 019 দিয়ে শুরু হওয়া উচিত এবং মোট 11 সংখ্যা হওয়া আবশ্যক"
         },
         "v_regex": {
-          "value": "0|(01[0-9][0-9]{8})|\s*",
-          "err": "Number must begin with 011, 012, 013, 014, 015, 016,017,018 or 019 and must be a total of 11 digits in length"
+          "value": "0|(01[1-9][0-9]{8})|\s*",
+          "err": "সংখ্যাটি অবশ্যই 011, 012, 013, 014, 015, 016,017,018 বা 019 দিয়ে শুরু হওয়া উচিত এবং মোট 11 সংখ্যা হওয়া আবশ্যক"
         },
         "v_max_length": {
           "value": "11",
-          "err": "Please Enter 11 digit Mobile number"
+          "err": "11 ডিজিটের মোবাইল নম্বর লিখুন"
         },
         "v_min_length": {
           "value": "1",
-          "err": "Please Enter 11 digit Mobile number"
+          "err": "11 ডিজিটের মোবাইল নম্বর লিখুন"
         }
       },
       {
         "key": "member_count",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "member_count",
+        "openmrs_entity_id": "Number_of_HH_Member",
         "type": "edit_text",
         "hint": "খানার মোট সদস্য সংখ্যা",
         "v_numeric": {
           "value": "true",
-          "err": "Must Contain Numeric Value"
+          "err": "অবশ্যই সংখ্যা হতে হবে"
         },
         "v_regex": {
           "value": "(5[0]|[1-4][0-9]|[1-9])|\s*",
-          "err": "Member count minimum 1 maximum 50"
+          "err": "সদস্য সংখ্যা অবশ্যই সর্বনিম্ন 1 সর্বোচ্চ 50 এর মধ্যে হওয়া উচিত"
         },
         "v_max_length": {
           "value": "2",
-          "err": "Please Enter max 50"
+          "err": "সর্বোচ্চ 50 হতে হবে"
         },
         "v_min_length": {
           "value": "1",
-          "err": "Please Enter minimum 1"
+          "err": "সর্বনিম্ন 1 হতে হবে"
         }
       },
       {
-        "key": "latrine_structure",
+        "key": "has_latrine",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "bd437fcc-f42f-40a6-8baf-b3d3af725ad4",
-        "openmrs_data_type": "Coded",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Has_Latrine",
         "type": "spinner",
         "hint": "খানায় স্যানিটারি ল্যাট্রিন আছে কিনা?",
         "values": [
@@ -246,7 +244,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please answer the question"
+          "err": "প্রশ্নের উত্তর দিন"
         }
       },
 

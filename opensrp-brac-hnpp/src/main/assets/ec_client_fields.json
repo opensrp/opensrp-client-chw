@@ -21,28 +21,28 @@
           "column_name": "ss_name",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.ss_name"
+            "field": "attributes.SS_Name"
           }
         },
         {
           "column_name": "village_name",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.village_name"
+            "field": "attributes.Village_Name"
           }
         },
         {
           "column_name": "claster",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.claster"
+            "field": "attributes.Cluster"
           }
         },
         {
           "column_name": "house_hold_type",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.house_hold_type"
+            "field": "attributes.HH_Type"
           }
         },
         {
@@ -57,22 +57,21 @@
           "column_name": "phone_number",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.phoneNumber"
+            "field": "attributes.HOH_Phone_Number"
           }
         },
         {
           "column_name": "member_count",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.member_count"
+            "field": "attributes.Number_of_HH_Member"
           }
         },
         {
-          "column_name": "latrine_structure",
-          "type": "Event",
+          "column_name": "has_latrine",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "bd437fcc-f42f-40a6-8baf-b3d3af725ad4"
+            "field": "attributes.Has_Latrine"
           }
         },
         {
@@ -185,14 +184,14 @@
           "column_name": "relation_with_household_head",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.relation_with_household_head"
+            "field": "attributes.Relation_with_HOH"
           }
         },
         {
           "column_name": "Mother_Guardian_First_Name_english",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.Mother_Guardian_First_Name_english"
+            "field": "attributes.motherNameEnglish"
           }
         },
         {
@@ -200,28 +199,28 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "concept": "Mobile_Number"
           }
         },
         {
           "column_name": "id_avail",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.id_avail"
+            "field": "attributes.idtype"
           }
         },
         {
           "column_name": "national_id",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.National_ID"
+            "field": "attributes.nationalId"
           }
         },
         {
           "column_name": "birth_id",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.Birth_ID"
+            "field": "attributes.birthRegistrationID"
           }
         },
         {
@@ -235,7 +234,7 @@
           "column_name": "is_birthday_known",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.is_birthday_known"
+            "field": "attributes.DOB_known"
           }
         },
         {
@@ -249,7 +248,7 @@
           "column_name": "estimated_age",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.estimated_age"
+            "field": "attributes.age"
           }
         },
         {
@@ -263,21 +262,28 @@
           "column_name": "marital_status",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.marital_status"
+            "field": "attributes.Marital_Status"
           }
         },
         {
           "column_name": "pregnant_status",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.pregnant_status"
+            "field": "attributes.Pregnancy_Status"
           }
         },
         {
           "column_name": "blood_group",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.blood_group"
+            "field": "attributes.Blood_Group"
+          }
+        },
+        {
+          "column_name": "finger_print",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.Fingerprint"
           }
         },
         {
@@ -424,14 +430,14 @@
           "column_name": "relation_with_household_head",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.relation_with_household_head"
+            "field": "attributes.Relation_with_HOH"
           }
         },
         {
           "column_name": "Mother_Guardian_First_Name_english",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.Mother_Guardian_First_Name_english"
+            "field": "attributes.motherNameEnglish"
           }
         },
         {
@@ -459,7 +465,7 @@
           "column_name": "blood_group",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.blood_group"
+            "field": "attributes.Blood_Group"
           }
         },
         {

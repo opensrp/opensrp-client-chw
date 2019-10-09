@@ -136,7 +136,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
         if(!TextUtils.isEmpty(houseHoldId)){
             houseHoldId = houseHoldId.replace(Constants.IDENTIFIER.FAMILY_SUFFIX,"")
                     .replace(HnppConstants.IDENTIFIER.FAMILY_TEXT,"");
-            houseHoldId = houseHoldId.substring(houseHoldId.length() - 7);
+            houseHoldId = houseHoldId.substring(houseHoldId.length() - 9);
         }
         setText(viewHolder.houseHoldId,context.getString(R.string.house_hold_id,houseHoldId));
 

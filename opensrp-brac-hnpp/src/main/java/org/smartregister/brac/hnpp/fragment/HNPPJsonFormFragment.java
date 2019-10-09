@@ -3,6 +3,7 @@ package org.smartregister.brac.hnpp.fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -60,6 +61,17 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
     private boolean isManuallyPressed = false;
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isManuallyPressed = true;
+            }
+        }, 2000);
+    }
+
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         super.onItemSelected(parent, view, position, id);
         if (position != -1 && parent instanceof MaterialSpinner) {
@@ -68,7 +80,6 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
                 if(isManuallyPressed){
                     processVillageList(position);
                 }
-                isManuallyPressed = true;
             }
             hideKeyBoard();
         }

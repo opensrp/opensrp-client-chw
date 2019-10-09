@@ -115,7 +115,6 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         super.initializePresenter();
         moduleId = getIntent().getStringExtra(HnppConstants.KEY.MODULE_ID);
         houseHoldId = getIntent().getStringExtra(DBConstants.KEY.UNIQUE_ID);
-        Log.v("SIMPRINT_SDK","familyprofiel>>>moduleId:"+moduleId+":houseHoldId:"+houseHoldId);
         presenter = new FamilyProfilePresenter(this, new HnppFamilyProfileModel(familyName,moduleId,houseHoldId,familyBaseEntityId),houseHoldId, familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
 

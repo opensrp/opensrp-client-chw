@@ -72,7 +72,7 @@
         "key": "ss_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "ss_name",
+        "openmrs_entity_id": "SS_Name",
         "type": "spinner",
         "hint": "স্বাস্থ্য সেবিকার নামঃ",
         "values": [
@@ -88,7 +88,7 @@
         "key": "village_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "village_name",
+        "openmrs_entity_id": "Village_Name",
         "type": "spinner",
         "hint": "গ্রামের নামঃ",
         "values": [
@@ -104,7 +104,7 @@
         "key": "claster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "claster",
+        "openmrs_entity_id": "Cluster",
         "type": "spinner",
         "hint": "ক্লাস্টার",
         "values": [
@@ -114,11 +114,10 @@
           "ক্লাস্টার ৪"
         ],
         "openmrs_choice_ids": {
-          "ক্লাস্টার ১":"claster_1",
-          "ক্লাস্টার ২":"claster_2",
-          "ক্লাস্টার ৩":"claster_3",
-          "ক্লাস্টার ৪":"claster_4",
-          "ক্লাস্টার ৫":"claster_5"
+          "ক্লাস্টার ১":"1st_Cluster",
+          "ক্লাস্টার ২":"2nd_Cluster",
+          "ক্লাস্টার ৩":"3rd_Cluster",
+          "ক্লাস্টার ৪":"4th_Cluster"
         },
         "v_required": {
           "value": "true",
@@ -129,7 +128,7 @@
         "key": "house_hold_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "house_hold_type",
+        "openmrs_entity_id": "HH_Type",
         "type": "spinner",
         "hint": "খানার ধরণ",
         "values": [
@@ -137,8 +136,8 @@
           "NVO"
         ],
         "openmrs_choice_ids": {
-          "BRAC VO": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "NVO": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "BRAC VO": "BRAC VO",
+          "NVO": "NVO"
         },
         "v_required": {
           "value": "true",
@@ -179,7 +178,7 @@
         "key": "contact_phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "phoneNumber",
+        "openmrs_entity_id": "HOH_Phone_Number",
         "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "খানা প্রধানের মোবাইল নম্বর",
@@ -208,7 +207,7 @@
         "key": "member_count",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "member_count",
+        "openmrs_entity_id": "Number_of_HH_Member",
         "type": "edit_text",
         "hint": "খানার মোট সদস্য সংখ্যা",
         "v_numeric": {
@@ -229,11 +228,10 @@
         }
       },
       {
-        "key": "latrine_structure",
+        "key": "has_latrine",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "bd437fcc-f42f-40a6-8baf-b3d3af725ad4",
-        "openmrs_data_type": "Coded",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Has_Latrine",
         "type": "spinner",
         "hint": "খানায় স্যানিটারি ল্যাট্রিন আছে কিনা?",
         "values": [

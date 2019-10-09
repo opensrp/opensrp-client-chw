@@ -33,8 +33,8 @@
     <string name="care_giver_prefix">CG: %s</string>
     <string name="mark_as_done_title">Mark as done?</string>
     <string name="mark_as_done_message">Referral will closed and disappear from app</string>
-    <string name="powered_by_brac">copyright © BRAC 2019 </string>
-    <string name="powered_by_mpower">powered by mPower </string>
+    <string name="powered_by_brac">Copyright © BRAC 2019 </string>
+    <string name="powered_by_mpower">Powered by mPower </string>
     <string name="member_count">খানার মোট সদস্য: %s</string>
     <string name="registered_count">নিবন্ধভুক্ত সদস্য: %s মোট সদস্য: %s</string>
     <string name="next_visit_date">পরবর্তী দেখার তারিখ: %s</string>
@@ -90,6 +90,9 @@
     <string name="return_to_all_children">শিশু তালিকা</string>
     <string name="login_text">Log In ></string>
     <string name="login_text_title">Log in</string>
-
+    <string name="action_start_sync">সিঙ্ক শুরু হচ্ছে</string>
+    <string name="action_sync_failed">সিঙ্ক ব্যর্থ হয়েছে</string>
+    <string name="syncing">সিঙ্ক হচ্ছে...</string>
+    <string name="sync_complete">সিঙ্ক সম্পূর্ণ হয়েছে</string>
 
 </resources>

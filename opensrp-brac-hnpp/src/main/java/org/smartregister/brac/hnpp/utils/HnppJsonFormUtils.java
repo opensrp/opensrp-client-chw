@@ -114,24 +114,35 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
 
     }
-    public static JSONObject updateFormWithVillageName(JSONObject form, String ssName) throws Exception{
+    public static JSONObject updateFormWithVillageName(JSONObject form, String ssName , String villageName) throws Exception{
 
         JSONArray jsonArray = new JSONArray();
         ArrayList<SSLocations> ssLocations = new ArrayList<>();
 
         ArrayList<SSModel> modelList = SSLocationHelper.getInstance().getSsModels();
-
-        for(SSModel ssModel : modelList){
+        int ssIndex = -1,villageIndex = -1;
+        for(int i = 0; i< modelList.size(); i++){
+            SSModel ssModel = modelList.get(i);
             if(ssModel.username.equalsIgnoreCase(ssName)){
                 ssLocations = ssModel.locations;
+                ssIndex = i;
+                break;
             }
         }
-        for(SSLocations ssLocations1 : ssLocations){
+
+        for(int i = 0; i< ssLocations.size(); i++){
+            SSLocations ssLocations1 = ssLocations.get(i);
+            if(ssLocations1.village.name.equalsIgnoreCase(villageName)){
+                villageIndex = i;
+            }
             jsonArray.put(ssLocations1.village.name);
         }
+        JSONObject step1 = form.getJSONObject(STEP1);
+        step1.put("ss_index", ssIndex);
+        step1.put("village_index", villageIndex);
         JSONArray field = fields(form, STEP1);
         JSONObject spinner = getFieldJSONObject(field, VILLAGE_NAME);
-
+        getFieldJSONObject(field, VILLAGE_NAME);
         spinner.put(org.smartregister.family.util.JsonFormUtils.VALUES,jsonArray);
         return form;
 

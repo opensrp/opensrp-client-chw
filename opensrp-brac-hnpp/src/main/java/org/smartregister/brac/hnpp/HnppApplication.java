@@ -1,6 +1,7 @@
 package org.smartregister.brac.hnpp;
 
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -192,11 +193,14 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
 
     public void setOpenSRPUrl() {
         AllSharedPreferences preferences = Utils.getAllSharedPreferences();
-        if (BuildConfig.DEBUG) {
-            preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url_debug);
-        } else {
-            preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url);
+        if(TextUtils.isEmpty(preferences.getPreference(AllConstants.DRISHTI_BASE_URL))){
+            if (BuildConfig.DEBUG) {
+                preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url_debug);
+            } else {
+                preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url);
+            }
         }
+
     }
 
     @Override
