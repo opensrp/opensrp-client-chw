@@ -206,8 +206,8 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         }
     }
 
-    private void setMemberProfileImageResourceIdentifier(MemberObject memberObject, CommonPersonObjectClient commonPersonObject, RegisterViewHolder viewHolder) {
-        if (memberObject == null) { // Non ANC/PNC family member
+    private void setMemberProfileImageResourceIdentifier(Constants.FamilyMemberType memberType, CommonPersonObjectClient commonPersonObject, RegisterViewHolder viewHolder) {
+        if (Constants.FamilyMemberType.Other.equals(memberType)) { // Non ANC/PNC family member
             String entityType = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
             if (CoreConstants.TABLE_NAME.CHILD.equals(entityType)) {
                 setMemberProfileAvatar(org.smartregister.family.util.Utils.getMemberProfileImageResourceIDentifier(entityType), commonPersonObject, viewHolder);
@@ -215,13 +215,10 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
                 setMemberProfileAvatar(Utils.getMemberImageResourceIdentifier(), commonPersonObject, viewHolder);
             }
         } else {
-            if (memberObject instanceof org.smartregister.chw.pnc.domain.MemberObject) {
-                if (CoreConstants.FORM_CONSTANTS.PregnancyOutcomeHelper.LIVE_BIRTH.equals(((org.smartregister.chw.pnc.domain.MemberObject) memberObject).getPregnancyOutcome()) ||
-                        CoreConstants.FORM_CONSTANTS.PregnancyOutcomeHelper.STILL_BIRTH.equals(((org.smartregister.chw.pnc.domain.MemberObject) memberObject).getPregnancyOutcome())) {
-                    setMemberProfileAvatar(Utils.getPnCWomanImageResourceIdentifier(), commonPersonObject, viewHolder);
-                }
-            } else {
+            if (Constants.FamilyMemberType.ANC.equals(memberType)) {
                 setMemberProfileAvatar(Utils.getAnCWomanImageResourceIdentifier(), commonPersonObject, viewHolder);
+            } else if (Constants.FamilyMemberType.PNC.equals(memberType)) {
+                setMemberProfileAvatar(Utils.getPnCWomanImageResourceIdentifier(), commonPersonObject, viewHolder);
             }
         }
     }
@@ -292,7 +289,7 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     // Inner classes
     ////////////////////////////////////////////////////////////////
 
-    private class ReplaceAvatarTask extends AsyncTask<String, Void, org.smartregister.chw.anc.domain.MemberObject> {
+    private class ReplaceAvatarTask extends AsyncTask<String, Void, Constants.FamilyMemberType> {
 
         private WeakReference<RegisterViewHolder> viewHolderWeakReference;
         private CommonPersonObjectClient commonPersonObject;
@@ -303,20 +300,20 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         }
 
         @Override
-        protected org.smartregister.chw.anc.domain.MemberObject doInBackground(String... strings) {
+        protected Constants.FamilyMemberType doInBackground(String... strings) {
             String baseEntityId = strings[0];
-            MemberObject retrievedMember = null;
             if (PNCDao.isPNCMember(baseEntityId)) {
-                retrievedMember = org.smartregister.chw.core.dao.PNCDao.getMember(baseEntityId);
+                return Constants.FamilyMemberType.PNC;
             } else if (AncDao.isANCMember(baseEntityId)) {
-                retrievedMember = org.smartregister.chw.core.dao.AncDao.getMember(baseEntityId);
+                return Constants.FamilyMemberType.ANC;
+            } else {
+                return Constants.FamilyMemberType.Other;
             }
-            return retrievedMember; // Null if Member is neither ANC nor PNC
         }
 
         @Override
-        protected void onPostExecute(MemberObject memberObject) {
-            setMemberProfileImageResourceIdentifier(memberObject, commonPersonObject, viewHolderWeakReference.get());
+        protected void onPostExecute(Constants.FamilyMemberType memberType) {
+            setMemberProfileImageResourceIdentifier(memberType, commonPersonObject, viewHolderWeakReference.get());
         }
     }
 
