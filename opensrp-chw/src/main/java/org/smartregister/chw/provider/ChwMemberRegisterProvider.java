@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
-import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.PNCDao;
