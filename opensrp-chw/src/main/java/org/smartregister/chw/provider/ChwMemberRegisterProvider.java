@@ -14,6 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.dao.AncDao;
+import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -32,6 +34,7 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.customcontrols.FontVariant;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,7 +76,6 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         viewHolder.status.setVisibility(View.GONE);
         viewHolder.status.getLayoutParams().height = context.getResources().getDimensionPixelSize(R.dimen.member_profile_pic_width);
 
-
         String entityType = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
         if (Constants.TABLE_NAME.CHILD.equals(entityType)) {
             Utils.startAsyncTask(new UpdateAsyncTask(viewHolder, pc), null);
@@ -86,11 +88,8 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         String firstName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String middleName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String lastName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-        String baseEntityId = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
+        String baseEntityId = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
         String patientName = getName(firstName, middleName, lastName);
-
-        String entityType = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ENTITY_TYPE, false);
-
         String dob = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
         String dobString = org.smartregister.family.util.Utils.getDuration(dob);
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
@@ -105,14 +104,16 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
             viewHolder.patientNameAge.setFontVariant(FontVariant.REGULAR);
             viewHolder.patientNameAge.setTextColor(Color.GRAY);
             viewHolder.patientNameAge.setTypeface(viewHolder.patientNameAge.getTypeface(), Typeface.ITALIC);
-            viewHolder.profile.setImageResource(org.smartregister.family.util.Utils.getMemberProfileImageResourceIDentifier(entityType));
+            // Replace person avatar
+            new ReplaceAvatarTask(viewHolder, pc).execute(baseEntityId);
             viewHolder.nextArrow.setVisibility(View.GONE);
         } else {
             patientName = patientName + ", " + org.smartregister.family.util.Utils.getTranslatedDate(dobString, context);
             viewHolder.patientNameAge.setFontVariant(FontVariant.REGULAR);
             viewHolder.patientNameAge.setTextColor(Color.BLACK);
             viewHolder.patientNameAge.setTypeface(viewHolder.patientNameAge.getTypeface(), Typeface.NORMAL);
-            imageRenderHelper.refreshProfileImage(pc.getCaseId(), viewHolder.profile, org.smartregister.family.util.Utils.getMemberProfileImageResourceIDentifier(entityType));
+            // Replace person avatar
+            new ReplaceAvatarTask(viewHolder, pc).execute(baseEntityId);
             viewHolder.nextArrow.setVisibility(View.VISIBLE);
         }
 
@@ -195,6 +196,31 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         }
     }
 
+    private void setMemberProfileAvatar(int imageResourceIdentifier, CommonPersonObjectClient commonPersonObject, RegisterViewHolder registerViewHolder) {
+        String dod = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOD, false);
+        if (StringUtils.isNotBlank(dod)) {
+            registerViewHolder.profile.setImageResource(imageResourceIdentifier);
+        } else {
+            imageRenderHelper.refreshProfileImage(commonPersonObject.getCaseId(), registerViewHolder.profile, imageResourceIdentifier);
+        }
+    }
+
+    private void setMemberProfileImageResourceIdentifier(Constants.FamilyMemberType memberType, CommonPersonObjectClient commonPersonObject, RegisterViewHolder viewHolder) {
+        if (Constants.FamilyMemberType.Other.equals(memberType)) { // Non ANC/PNC family member
+            String entityType = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
+            if (CoreConstants.TABLE_NAME.CHILD.equals(entityType)) {
+                setMemberProfileAvatar(org.smartregister.family.util.Utils.getMemberProfileImageResourceIDentifier(entityType), commonPersonObject, viewHolder);
+            } else {
+                setMemberProfileAvatar(Utils.getMemberImageResourceIdentifier(), commonPersonObject, viewHolder);
+            }
+        } else {
+            if (Constants.FamilyMemberType.ANC.equals(memberType)) {
+                setMemberProfileAvatar(Utils.getAnCWomanImageResourceIdentifier(), commonPersonObject, viewHolder);
+            } else if (Constants.FamilyMemberType.PNC.equals(memberType)) {
+                setMemberProfileAvatar(Utils.getPnCWomanImageResourceIdentifier(), commonPersonObject, viewHolder);
+            }
+        }
+    }
 
     private Map<String, String> getChildDetails(String baseEntityId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
@@ -258,10 +284,37 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         return ChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
     }
 
-
     ////////////////////////////////////////////////////////////////
     // Inner classes
     ////////////////////////////////////////////////////////////////
+
+    private class ReplaceAvatarTask extends AsyncTask<String, Void, Constants.FamilyMemberType> {
+
+        private WeakReference<RegisterViewHolder> viewHolderWeakReference;
+        private CommonPersonObjectClient commonPersonObject;
+
+        private ReplaceAvatarTask(RegisterViewHolder registerViewHolder, CommonPersonObjectClient commonPersonObjectClient) {
+            viewHolderWeakReference = new WeakReference<>(registerViewHolder);
+            commonPersonObject = commonPersonObjectClient;
+        }
+
+        @Override
+        protected Constants.FamilyMemberType doInBackground(String... strings) {
+            String baseEntityId = strings[0];
+            if (PNCDao.isPNCMember(baseEntityId)) {
+                return Constants.FamilyMemberType.PNC;
+            } else if (AncDao.isANCMember(baseEntityId)) {
+                return Constants.FamilyMemberType.ANC;
+            } else {
+                return Constants.FamilyMemberType.Other;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Constants.FamilyMemberType memberType) {
+            setMemberProfileImageResourceIdentifier(memberType, commonPersonObject, viewHolderWeakReference.get());
+        }
+    }
 
     private class UpdateAsyncTask extends AsyncTask<Void, Void, Void> {
         private final RegisterViewHolder viewHolder;
