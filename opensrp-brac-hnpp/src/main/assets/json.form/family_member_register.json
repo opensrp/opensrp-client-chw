@@ -111,6 +111,8 @@
           "নাতনী",
           "ছেলের বউ",
           "মেয়ের স্বামী",
+          "শ্বশুর",
+          "শাশুড়ি",
           "অন্যান্য"
         ],
         "openmrs_choice_ids": {
@@ -125,6 +127,8 @@
           "নাতনী": "GrandDaughter",
           "ছেলের বউ": "SonsWife",
           "মেয়ের স্বামী": "DaughtersHusband",
+          "শ্বশুর": "FatherInLaw",
+          "শাশুড়ি": "MotherInLaw",
           "অন্যান্য": "Others"
         },
         "v_required": {

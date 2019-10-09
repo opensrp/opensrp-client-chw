@@ -39,7 +39,7 @@ public class HnppChildRegisterModel extends CoreChildRegisterModel {
         return HnppJsonFormUtils.updateChildFormWithMetaData(form, houseHoldId,familyBaseEntityId);
     }
     public ArrayList<String> getAllWomenInHouseHold(){
-        String query = "select first_name from ec_family_member where gender = 'নারী' and (marital_status != 'অবিবাহিত' and marital_status IS NOT NULL) and relational_id = '"+familyBaseEntityId+"'";
+        String query = "select first_name from ec_family_member where (gender = 'নারী' OR gender = 'F') and ((marital_status != 'অবিবাহিত' OR marital_status != 'Unmarried') and marital_status IS NOT NULL) and relational_id = '"+familyBaseEntityId+"'";
         Cursor cursor = null;
         ArrayList<String> womenList = new ArrayList<>();
         try {

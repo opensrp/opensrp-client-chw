@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.core.provider.CoreMemberRegisterProvider;
@@ -29,6 +31,7 @@ import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
 import org.smartregister.family.provider.FamilyMemberRegisterProvider;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.helper.ImageRenderHelper;
+import org.smartregister.util.AssetHandler;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.customcontrols.FontVariant;
 
@@ -89,6 +92,7 @@ public class HNPPMemberRegisterProvider extends CoreMemberRegisterProvider {
         String patientName = org.smartregister.family.util.Utils.getName(firstName, middleName, lastName);
         String entityType = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ENTITY_TYPE, false);
         String relation_with_household_head = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), HnppConstants.KEY.RELATION_WITH_HOUSEHOLD, false);
+        relation_with_household_head = getRelationWithHouseholdHead(relation_with_household_head);
         String dob = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
         String guId = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(),  HnppConstants.KEY.GU_ID, false);
         String dobString = org.smartregister.family.util.Utils.getDuration(dob);
@@ -191,5 +195,21 @@ public class HNPPMemberRegisterProvider extends CoreMemberRegisterProvider {
             }
         }
 
+    }
+
+    public String getRelationWithHouseholdHead(String value){
+//        AssetHandler.readFileFromAssetsFolder(context)
+        try {
+            JSONObject choiceObject = new JSONObject(HnppConstants.relationshipObject);
+            for (int i = 0; i < choiceObject.names().length(); i++) {
+                if (value.equalsIgnoreCase(choiceObject.getString(choiceObject.names().getString(i)))) {
+                    value = choiceObject.names().getString(i);
+                    return value;
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return value;
     }
 }

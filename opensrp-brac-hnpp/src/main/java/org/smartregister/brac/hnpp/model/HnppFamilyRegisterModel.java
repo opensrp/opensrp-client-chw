@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
@@ -41,19 +42,21 @@ public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
     @Override
     public List<FamilyEventClient> processRegistration(String jsonString) {
         try{
-            JSONObject jobkect = new JSONObject(jsonString).getJSONObject("step1");
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONObject jobkect = jsonObject.getJSONObject("step1");
             String villageIndex = jobkect.getString("village_index");
             String ssIndex = jobkect.getString("ss_index");
             SSLocations ss = SSLocationHelper.getInstance().getSsModels().get(Integer.parseInt(ssIndex)).locations.get(Integer.parseInt(villageIndex));
             JSONArray field = jobkect.getJSONArray(FIELDS);
             JSONObject villageIdObj = getFieldJSONObject(field, "village_id");
             String villageId = villageIdObj.getString(VALUE);
-            JSONObject hhIdObj = getFieldJSONObject(field, "unique_id");
-            String hhid = hhIdObj.getString(VALUE);
+            String hhid = jobkect.getString( "hhid");
+
             HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
             householdIdRepo.close(villageId,hhid);
             List<FamilyEventClient> familyEventClientList = new ArrayList<>();
-            FamilyEventClient familyEventClient = HnppJsonFormUtils.processFamilyUpdateForm(Utils.context().allSharedPreferences(), jsonString);
+            processAttributesWithChoiceIDsForSave(field);
+            FamilyEventClient familyEventClient = HnppJsonFormUtils.processFamilyUpdateForm(Utils.context().allSharedPreferences(), jsonObject.toString());
             if (familyEventClient == null) {
                 return familyEventClientList;
             }
@@ -89,6 +92,26 @@ public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
         return null;
 
     }
+    private static JSONArray processAttributesWithChoiceIDsForSave(JSONArray fields) {
+        for (int i = 0; i < fields.length(); i++) {
+            try {
+                JSONObject fieldObject = fields.getJSONObject(i);
+//                if(fieldObject.has("openmrs_entity")){
+//                    if(fieldObject.getString("openmrs_entity").equalsIgnoreCase("person_attribute")){
+                if (fieldObject.has("openmrs_choice_ids")&&fieldObject.getJSONObject("openmrs_choice_ids").length()>0) {
+                    if (fieldObject.has("value")) {
+                        String valueEntered = fieldObject.getString("value");
+                        fieldObject.put("value", fieldObject.getJSONObject("openmrs_choice_ids").get(valueEntered));
+                    }
+                }
+//                    }
+//                }
+            } catch (JSONException e) {
 
+                e.printStackTrace();
+            }
+        }
+        return fields;
+    }
 
 }

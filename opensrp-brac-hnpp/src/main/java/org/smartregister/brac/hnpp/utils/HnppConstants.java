@@ -37,4 +37,25 @@ public class HnppConstants extends CoreConstants {
         public IDENTIFIER() {
         }
     }
+
+    public static String relationshipObject = "{" +
+            "  \"খানা প্রধান\": \"Household Head\"," +
+            "  \"মা\": \"Mother\"," +
+            "  \"বাবা\": \"Father\"," +
+            "  \"ছেলে\": \"Son\"," +
+            "  \"মেয়ে\": \"Daughter\"," +
+            "  \"স্ত্রী\": \"Wife\"," +
+            "  \"স্বামী\": \"Husband\"," +
+            "  \"নাতি\": \"Grandson\"," +
+            "  \"নাতনী\": \"GrandDaughter\"," +
+            "  \"ছেলের বউ\": \"SonsWife\"," +
+            "  \"মেয়ের স্বামী\": \"DaughtersHusband\"," +
+            "  \"শ্বশুর\": \"FatherInLaw\"," +
+            "  \"শাশুড়ি\": \"MotherInLaw\"," +
+            "  \"দাদা\": \"GrandfatherPaternal\"," +
+            "  \"দাদি\": \"GrandmotherPaternal\"," +
+            "  \"নানা\": \"GrandfatherPaternal\"," +
+            "  \"নানী\": \"GrandmotherMaternal\"," +
+            "  \"অন্যান্য\": \"Others\"" +
+            "}";
 }

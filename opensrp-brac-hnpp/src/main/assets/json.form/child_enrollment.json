@@ -103,19 +103,21 @@
         "type": "spinner",
         "hint": "খানা প্রধান এই সদস্যের কি হয়?",
         "values": [
-          "খানা প্রধান",
-          "ছেলে",
-          "মেয়ে",
-          "নাতি",
-          "নাতনী",
+          "মা",
+          "বাবা",
+          "দাদা",
+          "দাদি",
+          "নানা",
+          "নানী",
           "অন্যান্য"
         ],
         "openmrs_choice_ids": {
-          "খানা প্রধান": "Household Head",
-          "ছেলে": "Son",
-          "মেয়ে": "Daughter",
-          "নাতি": "Grandson",
-          "নাতনী": "GrandDaughter",
+          "মা":"Mother",
+          "বাবা":"Father",
+          "দাদা":"GrandfatherPaternal",
+          "দাদি":"GrandmotherPaternal",
+          "নানা":"GrandfatherPaternal",
+          "নানী":"GrandmotherMaternal",
           "অন্যান্য": "Others"
         },
         "v_required": {
