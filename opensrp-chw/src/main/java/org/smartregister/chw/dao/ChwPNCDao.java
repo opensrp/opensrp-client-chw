@@ -2,7 +2,6 @@ package org.smartregister.chw.dao;
 
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.core.dao.AbstractDao;
-import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 
 import java.text.ParseException;
@@ -10,7 +9,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class ChwPNCDao extends PNCDao {
+public class ChwPNCDao extends AbstractDao {
 
     public static @Nullable PNCHealthFacilityVisitSummary getLastHealthFacilityVisitSummary(String baseEntityID) {
         String sql = "select  last_health_facility_visit_date , confirmed_health_facility_visits, delivery_date from ec_pregnancy_outcome " +
