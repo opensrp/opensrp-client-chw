@@ -34,6 +34,10 @@ public class ChwReport {
         PieChartSlice pnc_indicator_4_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_BABIES_DID_NOT_RECEIVE_BGC_ON_TIME, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
         mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(pnc_indicator_4_1, pnc_indicator_4_2), R.string.pnc_indicator_4, R.string.pnc_indicator_4_note)).createView());
 
+        PieChartSlice pnc_indicator_5_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_OTHER_WRA_DEATHS, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.black), indicatorTallies);
+        PieChartSlice pnc_indicator_5_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_MATERNAL_DEATHS, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(pnc_indicator_5_1, pnc_indicator_5_2), R.string.pnc_indicator_5, R.string.pnc_indicator_5_note)).createView());
+
     }
 
 

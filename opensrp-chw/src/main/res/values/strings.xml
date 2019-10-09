@@ -243,6 +243,8 @@
     <string name="pnc_indicator_3">Newborns initiated early (less than 1 hour) to breastfeeding (last 6 months)</string>
     <string name="pnc_indicator_4">Children who received BCG vaccine on time (last 6 months)</string>
     <string name="pnc_indicator_4_note">On time means within four weeks of birth</string>
+    <string name="pnc_indicator_5">WRA who have died in the last year</string>
+    <string name="pnc_indicator_5_note">WRA = Women of Reproductive Age (10&#8211;49)</string>
 
     <!-- PNC Home visit-->
     <!-- PNC home visit tasks labels -->

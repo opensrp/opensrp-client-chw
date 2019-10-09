@@ -11,6 +11,8 @@ public class ReportingConstants {
         public static final String COUNT_BABIES_NOT_INITIATED_EARLY_BREASTFEEDING="pnc_report_indicator_3_2";
         public static final String COUNT_BABIES_RECEIVED_BGC_ON_TIME="pnc_report_indicator_4_1";
         public static final String COUNT_BABIES_DID_NOT_RECEIVE_BGC_ON_TIME="pnc_report_indicator_4_2";
+        public static final String COUNT_OTHER_WRA_DEATHS="pnc_report_indicator_5_1";
+        public static final String COUNT_MATERNAL_DEATHS="pnc_report_indicator_5_2";
     }
 
     public class AncIndicatorKeys {
