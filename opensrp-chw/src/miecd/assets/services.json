@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Recurring Services",
+    "id": "Recurring_Services",
+    "services": [
+      {
+        "type": "Exclusive breastfeeding"
+      },
+      {
+        "type": "MNP"
+      },
+      {
+        "type": "Vitamin A"
+      },
+      {
+        "type": "Deworming"
+      },
+      {
+        "type": "IPTp-SP"
+      }
+    ]
+  }
+]
