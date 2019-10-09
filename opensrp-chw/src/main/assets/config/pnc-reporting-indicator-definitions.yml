@@ -26,19 +26,20 @@ indicators:
   - key: "pnc_report_indicator_4_1"
     description: "COUNT of babies born in the last 6 months who received BCG on time (Within 4 weeks of birth)"
     indicatorQuery: "select count(distinct vacc.base_entity_id)
-        from vaccines vacc
-        inner join ec_child ec on ec.base_entity_id = vacc.base_entity_id and (ifnull(ec.entry_point,'') = 'PNC')
-        inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null
-        inner join ec_pregnancy_outcome po on ec.mother_entity_id = po.base_entity_id
-        where vacc.name = 'bcg' and ec.dob >= date('now', '-6 month') and STRFTIME('%Y-%m-%d', datetime(vacc.date/1000,'unixepoch')) <= date(ec.dob, '+28 days')
-        and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month');"
+                                from vaccines vacc
+                                inner join ec_child ec on ec.base_entity_id = vacc.base_entity_id and (ifnull(ec.entry_point,'') = 'PNC')
+                                inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null
+                                inner join ec_pregnancy_outcome po on ec.mother_entity_id = po.base_entity_id
+                                where ec.dob >= date('now', '-6 month') and vacc.name = 'bcg' and STRFTIME('%Y-%m-%d', datetime(vacc.date/1000,'unixepoch')) <= date(ec.dob, '+28 days')
+                                and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month');"
 
   - key: "pnc_report_indicator_4_2"
       description: "COUNT of babies born in the last 6 months who did not receive BCG on time (Within 4 weeks of birth)"
-      indicatorQuery: "select count(distinct vacc.base_entity_id)
+      indicatorQuery: "select count(distinct ec.base_entity_id) from ec_child ec where  ec.dob >= date('now', '-6 month') and ec.base_entity_id not in
+                               (select distinct vacc.base_entity_id
                                from vaccines vacc
                                inner join ec_child ec on ec.base_entity_id = vacc.base_entity_id and (ifnull(ec.entry_point,'') = 'PNC')
                                inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null
                                inner join ec_pregnancy_outcome po on ec.mother_entity_id = po.base_entity_id
-                               where vacc.name = 'bcg' and ec.dob >= date('now', '-6 month') and STRFTIME('%Y-%m-%d', datetime(vacc.date/1000,'unixepoch')) > date(ec.dob, '+28 days')
-                               and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month');"
+                               where ec.dob >= date('now', '-6 month') and vacc.name = 'bcg' and STRFTIME('%Y-%m-%d', datetime(vacc.date/1000,'unixepoch')) <= date(ec.dob, '+28 days')
+                               and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month'));"
