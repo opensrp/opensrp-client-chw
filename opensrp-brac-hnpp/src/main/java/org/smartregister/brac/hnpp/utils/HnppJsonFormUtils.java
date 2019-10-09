@@ -244,15 +244,31 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
                 break;
 
             case "sex":
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
-                        org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),DBConstants.KEY.GENDER, false));
+                if(jsonObject.has("openmrs_choice_ids")&&jsonObject.getJSONObject("openmrs_choice_ids").length()>0){
+                    String value = processValueWithChoiceIdsForEdit(jsonObject,org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),
+                            DBConstants.KEY.GENDER, false));
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,value);
+                }else{
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
+                            org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),DBConstants.KEY.GENDER, false));
+                }
+
 
                 break;
 
             default:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
-                        org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),
-                                jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY), false));
+                if(jsonObject.has("openmrs_choice_ids")&&jsonObject.getJSONObject("openmrs_choice_ids").length()>0){
+                    String value = processValueWithChoiceIdsForEdit(jsonObject,org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),
+                            jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY), false));
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,value);
+                }else{
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
+                            org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),
+                                    jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY), false));
+                }
+
+
+
                 break;
         }
     }
@@ -294,6 +310,34 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
             return null;
         }
     }
+    public static FamilyEventClient processFamilyUpdateForm(AllSharedPreferences allSharedPreferences, String jsonString) {
+        try {
+            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
+            if (!(Boolean)registrationFormParams.getLeft()) {
+                return null;
+            } else {
+                JSONObject jsonForm = (JSONObject)registrationFormParams.getMiddle();
+                JSONArray fields = (JSONArray)registrationFormParams.getRight();
+                String entityId = getString(jsonForm, "entity_id");
+                if (StringUtils.isBlank(entityId)) {
+                    entityId = generateRandomUUIDString();
+                }
+
+                lastInteractedWith(fields);
+                dobEstimatedUpdateFromAge(fields);
+                Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
+                baseClient.setLastName("Family");
+                baseClient.setBirthdate(new Date(0L));
+                baseClient.setGender("Male");
+                Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, "metadata"), formTag(allSharedPreferences), entityId, Utils.metadata().familyRegister.registerEventType, Utils.metadata().familyRegister.tableName);
+                tagSyncMetadata(allSharedPreferences, baseEvent);
+                return new FamilyEventClient(baseClient, baseEvent);
+            }
+        } catch (Exception var8) {
+            Timber.e(var8);
+            return null;
+        }
+    }
     protected static void dobEstimatedUpdateFromAge(JSONArray fields) {
         try {
             JSONObject dobUnknownObject = getFieldJSONObject(fields, "is_birthday_known");
@@ -309,9 +353,49 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
         } catch (JSONException var9) {
             Timber.e(var9);
         }
+        processAttributesWithChoiceIDsForSave(fields);
+    }
+    private static JSONArray processAttributesWithChoiceIDsForSave(JSONArray fields) {
+        for (int i = 0; i < fields.length(); i++) {
+            try {
+                JSONObject fieldObject = fields.getJSONObject(i);
+//                if(fieldObject.has("openmrs_entity")){
+//                    if(fieldObject.getString("openmrs_entity").equalsIgnoreCase("person_attribute")){
+                if (fieldObject.has("openmrs_choice_ids")&&fieldObject.getJSONObject("openmrs_choice_ids").length()>0) {
+                    if (fieldObject.has("value")) {
+                        String valueEntered = fieldObject.getString("value");
+                        fieldObject.put("value", fieldObject.getJSONObject("openmrs_choice_ids").get(valueEntered));
+                    }
+                }
+//                    }
+//                }
+            } catch (JSONException e) {
 
+                e.printStackTrace();
+            }
+        }
+        return fields;
     }
 
+    private static String processValueWithChoiceIdsForEdit(JSONObject jsonObject, String value) {
+        try {
+            //spinner
+            if (jsonObject.has("openmrs_choice_ids")) {
+                JSONObject choiceObject = jsonObject.getJSONObject("openmrs_choice_ids");
+
+                for (int i = 0; i < choiceObject.names().length(); i++) {
+                    if (value.equalsIgnoreCase(choiceObject.getString(choiceObject.names().getString(i)))) {
+                        value = choiceObject.names().getString(i);
+                        return value;
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return value;
+    }
 
 
     public static String memberCountWithZero(int count){
