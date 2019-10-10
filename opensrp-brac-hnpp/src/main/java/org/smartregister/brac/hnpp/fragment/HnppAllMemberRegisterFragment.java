@@ -167,7 +167,7 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
 
 
             ArrayList<String> villageSpinnerArray = new ArrayList<>();
-            ArrayList<String> clusterSpinnerArray = new ArrayList<>();
+
 
             ArrayList<SSModel> ssLocationForms = SSLocationHelper.getInstance().getSsModels();
             for(SSModel ssModel : ssLocationForms){
@@ -175,11 +175,6 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
             }
 
 
-
-            clusterSpinnerArray.add("ক্লাস্টার ১");
-            clusterSpinnerArray.add("ক্লাস্টার ২");
-            clusterSpinnerArray.add("ক্লাস্টার ৩");
-            clusterSpinnerArray.add("ক্লাস্টার ৪");
 
             ArrayAdapter<String> ssSpinnerArrayAdapter = new ArrayAdapter<String>
                     (getActivity(), android.R.layout.simple_spinner_item,
@@ -191,7 +186,7 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
 
             ArrayAdapter<String> clusterSpinnerArrayAdapter = new ArrayAdapter<String>
                     (getActivity(), android.R.layout.simple_spinner_item,
-                            clusterSpinnerArray);
+                            HnppConstants.getClasterSpinnerArray());
 
             Dialog dialog = new Dialog(getActivity(),android.R.style.Theme_NoTitleBar_Fullscreen);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -207,6 +202,7 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
                 @Override
                 public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
                     if (position != -1) {
+                        villageSpinnerArray.clear();
                         ArrayList<SSLocations> ssLocations = SSLocationHelper.getInstance().getSsModels().get(position).locations;
                         for(SSLocations ssLocations1 : ssLocations){
                             villageSpinnerArray.add(ssLocations1.village.name);
@@ -237,7 +233,7 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
                 @Override
                 public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
                     if (position != -1) {
-                        mSelectedClasterName = clusterSpinnerArray.get(position);
+                        mSelectedClasterName = HnppConstants.getClasterNames().get(HnppConstants.getClasterSpinnerArray().get(position));
                     }
                 }
 

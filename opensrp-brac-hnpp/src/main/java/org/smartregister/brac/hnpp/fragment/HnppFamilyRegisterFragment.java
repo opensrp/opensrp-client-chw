@@ -128,21 +128,12 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         if (view.getId() == R.id.filter_sort_layout) {
             ArrayList<String> ssSpinnerArray = new ArrayList<>();
 
-
             ArrayList<String> villageSpinnerArray = new ArrayList<>();
-            ArrayList<String> clusterSpinnerArray = new ArrayList<>();
 
             ArrayList<SSModel> ssLocationForms = SSLocationHelper.getInstance().getSsModels();
             for(SSModel ssModel : ssLocationForms){
                     ssSpinnerArray.add(ssModel.username);
             }
-
-
-
-            clusterSpinnerArray.add("ক্লাস্টার ১");
-            clusterSpinnerArray.add("ক্লাস্টার ২");
-            clusterSpinnerArray.add("ক্লাস্টার ৩");
-            clusterSpinnerArray.add("ক্লাস্টার ৪");
 
             ArrayAdapter<String> ssSpinnerArrayAdapter = new ArrayAdapter<String>
                     (getActivity(), android.R.layout.simple_spinner_item,
@@ -154,7 +145,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
 
             ArrayAdapter<String> clusterSpinnerArrayAdapter = new ArrayAdapter<String>
                     (getActivity(), android.R.layout.simple_spinner_item,
-                            clusterSpinnerArray);
+                            HnppConstants.getClasterSpinnerArray());
 
             Dialog dialog = new Dialog(getActivity(),android.R.style.Theme_NoTitleBar_Fullscreen);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -170,6 +161,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     if (position != -1) {
+                        villageSpinnerArray.clear();
                         ArrayList<SSLocations> ssLocations = SSLocationHelper.getInstance().getSsModels().get(position).locations;
                         for(SSLocations ssLocations1 : ssLocations){
                             villageSpinnerArray.add(ssLocations1.village.name);
@@ -200,7 +192,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     if (position != -1) {
-                        mSelectedClasterName = clusterSpinnerArray.get(position);
+                        mSelectedClasterName = HnppConstants.getClasterNames().get(HnppConstants.getClasterSpinnerArray().get(position));
                     }
                 }
 
@@ -221,6 +213,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
             dialog.show();
         }
     }
+
     public void updateFilterView(){
         if(StringUtils.isEmpty(mSelectedVillageName) && StringUtils.isEmpty(mSelectedClasterName)){
             clients_header_layout.setVisibility(View.GONE);
