@@ -11,18 +11,40 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class HnppConstants extends CoreConstants {
     public static final String TEST_GU_ID = "test";
     public static final String MODULE_ID_TRAINING = "TRAINING";
+
+    public static ArrayList<String> getClasterSpinnerArray() {
+
+        ArrayList<String> clusterSpinnerArray = new ArrayList<>();
+        clusterSpinnerArray.addAll(getClasterNames().keySet());
+
+        return clusterSpinnerArray;
+    }
+
+    public static HashMap<String, String> getClasterNames() {
+        HashMap<String,String>clusterArray = new HashMap<>();
+        clusterArray.put("ক্লাস্টার ১", "1st_Cluster");
+        clusterArray.put("ক্লাস্টার ২", "2nd_Cluster");
+        clusterArray.put("ক্লাস্টার ৩", "3rd_Cluster");
+        clusterArray.put("ক্লাস্টার ৪", "4th_Cluster");
+        return clusterArray;
+    }
 
     public static final class DrawerMenu {
         public static final String ELCO_CLIENT = "Elco Clients";
         public static final String ALL_MEMBER = "All member";
     }
+
     public static final class FORM_KEY {
         public static final String SS_INDEX = "ss_index";
         public static final String VILLAGE_INDEX = "village_index";
     }
+
 
     public static boolean isReleaseBuild(){
         AllSharedPreferences preferences = Utils.getAllSharedPreferences();
@@ -54,6 +76,7 @@ public class HnppConstants extends CoreConstants {
         public static final String IS_BITHDAY_KNOWN = "is_birthday_known";
         public static final String BLOOD_GROUP = "blood_group";
     }
+
     public static class IDENTIFIER {
         public static final String FAMILY_TEXT = "Family";
 
