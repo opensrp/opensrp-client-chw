@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.MaterialSpinner;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
+import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 
 import org.json.JSONArray;
@@ -24,6 +25,7 @@ import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.domain.HouseholdId;
+import org.smartregister.brac.hnpp.interactor.HnppJsonFormInteractor;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.location.SSLocations;
 import org.smartregister.brac.hnpp.location.SSModel;
@@ -54,6 +56,11 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
     }
 
     @Override
+    protected JsonFormFragmentPresenter createPresenter() {
+        return new JsonFormFragmentPresenter(this, HnppJsonFormInteractor.getInstance());
+    }
+
+    @Override
     protected JsonFormFragmentViewState createViewState() {
         return super.createViewState();
     }
@@ -75,7 +82,6 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         super.onItemSelected(parent, view, position, id);
-        Log.v("SPINNER_CHECK","onItemSelected"+position);
         if (position != -1 && parent instanceof MaterialSpinner) {
             if (((MaterialSpinner) parent).getFloatingLabelText().toString().equalsIgnoreCase(view.getContext().getResources().getString(R.string.ss_name_form_field))) {
                 ssIndex = position;
@@ -83,18 +89,12 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
                     processVillageList(position);
                 }
             }
-            hideKeyBoard();
+          //  hideKeyBoard();
         }
 
 
     }
 
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        super.onNothingSelected(parent);
-        Log.v("SPINNER_CHECK","onNothingSelected");
-    }
 
     @Override
     public JSONObject getStep(String stepName) {
@@ -108,7 +108,6 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
             ArrayList<String> villageList = new ArrayList<>();
             @Override
             protected Object doInBackground(Object[] objects) {
-                Log.v("SPINNER_SELECT","processVillageList>>ssIndex:"+ssIndex);
                 ArrayList<SSLocations> ssLocations = SSLocationHelper.getInstance().getSsModels().get(index).locations;
                 for(SSLocations ssLocations1 : ssLocations){
                     villageList.add(ssLocations1.village.name);

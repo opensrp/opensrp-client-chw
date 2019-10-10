@@ -1,5 +1,7 @@
 package org.smartregister.brac.hnpp.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -116,6 +118,11 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     public void onClick(View v) {
         if (v.getId() == org.smartregister.R.id.login_login_btn) {
+            String userName = HnppApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
+            if(!TextUtils.isEmpty(userName) && !userName.equalsIgnoreCase(userNameText.getText().toString())){
+                showClearDataMessage();
+                return;
+            }
 
             v.setAlpha(0.3f);
             new Handler().postDelayed(new Runnable() {
@@ -133,6 +140,15 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
             if(!TextUtils.isEmpty(userName)){
                 userNameText.setText(userName.trim());
             }
+    }
+    private void showClearDataMessage(){
+        new AlertDialog.Builder(this).setMessage(getString(R.string.clear_data))
+                .setTitle(R.string.title_clear_data).setCancelable(false)
+                .setPositiveButton(R.string.yes_button_label, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 
     @Override

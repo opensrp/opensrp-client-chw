@@ -222,7 +222,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         }
 
         textViewVillageNameFilter.setText(getString(R.string.filter_village_name,mSelectedVillageName));
-        textViewClasterNameFilter.setText(getString(R.string.claster_village_name,mSelectedClasterName));
+        textViewClasterNameFilter.setText(getString(R.string.claster_village_name,HnppConstants.getClusterNameFromValue(mSelectedClasterName)));
         String filterString = getFilterString();
         filter(filterString, "", DEFAULT_MAIN_CONDITION, false);
 
@@ -230,10 +230,11 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
     }
 
     public String getFilterString() {
-        return StringUtils.isEmpty(mSelectedVillageName) ?
+        String str = StringUtils.isEmpty(mSelectedVillageName) ?
                 (StringUtils.isEmpty(mSelectedClasterName) ?
                         "" : mSelectedClasterName) : (StringUtils.isEmpty(mSelectedClasterName) ?
                 mSelectedVillageName : " " + mSelectedVillageName + " AND " + mSelectedClasterName + " ");
+        return str;
 
     }
 

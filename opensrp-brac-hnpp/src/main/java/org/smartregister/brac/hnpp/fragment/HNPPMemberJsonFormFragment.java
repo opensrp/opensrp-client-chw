@@ -18,6 +18,7 @@ import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.R;
+import org.smartregister.brac.hnpp.interactor.HnppJsonFormInteractor;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class HNPPMemberJsonFormFragment extends JsonWizardFormFragment {
 
     @Override
     protected JsonFormFragmentPresenter createPresenter() {
-        presenter = new
+        return new JsonFormFragmentPresenter(this, HnppJsonFormInteractor.getInstance());
     }
 
     public static HNPPMemberJsonFormFragment getFormFragment(String stepName) {
@@ -48,7 +49,8 @@ public class HNPPMemberJsonFormFragment extends JsonWizardFormFragment {
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         super.onItemSelected(parent, view, position, id);
-        hideKeyBoard();
+
+       // hideKeyBoard();
     }
 
 

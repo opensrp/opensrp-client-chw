@@ -94,5 +94,7 @@
     <string name="action_sync_failed">সিঙ্ক ব্যর্থ হয়েছে</string>
     <string name="syncing">সিঙ্ক হচ্ছে...</string>
     <string name="sync_complete">সিঙ্ক সম্পূর্ণ হয়েছে</string>
+    <string name="clear_data">লগইন করার পূর্বে পূর্ববর্তী তথ্য মুছে ফেলুন।</string>
+    <string name="title_clear_data">তথ্য মুছে ফেলুন।</string>
 
 </resources>

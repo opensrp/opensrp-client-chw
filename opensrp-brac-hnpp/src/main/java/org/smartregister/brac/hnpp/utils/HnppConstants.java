@@ -13,6 +13,7 @@ import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class HnppConstants extends CoreConstants {
     public static final String TEST_GU_ID = "test";
@@ -20,14 +21,20 @@ public class HnppConstants extends CoreConstants {
 
     public static ArrayList<String> getClasterSpinnerArray() {
 
-        ArrayList<String> clusterSpinnerArray = new ArrayList<>();
-        clusterSpinnerArray.addAll(getClasterNames().keySet());
-
-        return clusterSpinnerArray;
+        return new ArrayList<>(getClasterNames().keySet());
+    }
+    public static String getClusterNameFromValue(String value){
+        HashMap<String, String> keys = getClasterNames();
+        for (String key: keys.keySet()){
+            if(keys.get(key).equalsIgnoreCase(value)){
+                return key;
+            }
+        }
+        return "";
     }
 
     public static HashMap<String, String> getClasterNames() {
-        HashMap<String,String>clusterArray = new HashMap<>();
+        LinkedHashMap<String,String> clusterArray = new LinkedHashMap<>();
         clusterArray.put("ক্লাস্টার ১", "1st_Cluster");
         clusterArray.put("ক্লাস্টার ২", "2nd_Cluster");
         clusterArray.put("ক্লাস্টার ৩", "3rd_Cluster");
