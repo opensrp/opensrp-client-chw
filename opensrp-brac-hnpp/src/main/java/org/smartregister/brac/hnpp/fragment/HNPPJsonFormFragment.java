@@ -28,6 +28,7 @@ import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.location.SSLocations;
 import org.smartregister.brac.hnpp.location.SSModel;
 import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
+import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
@@ -74,6 +75,7 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         super.onItemSelected(parent, view, position, id);
+        Log.v("SPINNER_CHECK","onItemSelected"+position);
         if (position != -1 && parent instanceof MaterialSpinner) {
             if (((MaterialSpinner) parent).getFloatingLabelText().toString().equalsIgnoreCase(view.getContext().getResources().getString(R.string.ss_name_form_field))) {
                 ssIndex = position;
@@ -85,6 +87,13 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
         }
 
 
+    }
+
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        super.onNothingSelected(parent);
+        Log.v("SPINNER_CHECK","onNothingSelected");
     }
 
     @Override
@@ -176,7 +185,12 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
             @Override
             protected Object doInBackground(Object[] objects) {
                 SSLocations ssLocations = SSLocationHelper.getInstance().getSsModels().get(ssIndex).locations.get(index);
-                moduleId = ssLocations.city_corporation_upazila.name+"-"+ssLocations.union_ward.id;
+                if(HnppConstants.isReleaseBuild()){
+                    moduleId = HnppConstants.MODULE_ID_TRAINING;
+                }else{
+                    moduleId = ssLocations.city_corporation_upazila.name+"_"+ssLocations.union_ward.name;
+                }
+
                 HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
                 village_id = String.valueOf(ssLocations.village.id);
                 hhid = householdIdRepo.getNextHouseholdId(village_id);

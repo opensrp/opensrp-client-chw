@@ -57,7 +57,7 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
     public static JSONObject updateFormWithModuleId(JSONObject form,String moduleId) throws JSONException {
         JSONArray field = fields(form, STEP1);
         JSONObject fingerPrint = getFieldJSONObject(field, "finger_print");
-        fingerPrint.put("project_id", BuildConfig.SIMPRINT_PROJECT_ID);
+        fingerPrint.put("project_id", HnppConstants.getSimPrintsProjectId());
         fingerPrint.put("user_id",CoreLibrary.getInstance().context().allSharedPreferences().fetchRegisteredANM());
         fingerPrint.put("module_id",moduleId);
         return form;

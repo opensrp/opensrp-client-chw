@@ -194,11 +194,8 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
     public void setOpenSRPUrl() {
         AllSharedPreferences preferences = Utils.getAllSharedPreferences();
         if(TextUtils.isEmpty(preferences.getPreference(AllConstants.DRISHTI_BASE_URL))){
-            if (BuildConfig.DEBUG) {
-                preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url_debug);
-            } else {
-                preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url);
-            }
+          preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url);
+
         }
 
     }

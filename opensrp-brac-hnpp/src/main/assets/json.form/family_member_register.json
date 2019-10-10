@@ -87,7 +87,7 @@
           "err": "প্রথম নাম লিখুন"
         },
         "v_regex": {
-          "value": "[A-Za-z\\.\\- ]*",
+          "value": "^[a-zA-Z][A-Za-z\\.\\- ]*",
           "err": "একটি বৈধ নাম লিখুন"
         }
       },
@@ -127,8 +127,8 @@
           "নাতনী": "GrandDaughter",
           "ছেলের বউ": "SonsWife",
           "মেয়ের স্বামী": "DaughtersHusband",
-          "শ্বশুর": "FatherInLaw",
-          "শাশুড়ি": "MotherInLaw",
+          "শ্বশুর": "Father in law",
+          "শাশুড়ি": "Mother in law",
           "অন্যান্য": "Others"
         },
         "v_required": {
@@ -175,7 +175,8 @@
         },
         "v_max_length": {
           "value": "11",
-          "err": "11 অঙ্কের মোবাইল নম্বর লিখুন"
+          "err": "11 অঙ্কের মোবাইল নম্বর লিখুন",
+          "is_fixed_size":true
         },
         "v_min_length": {
           "value": "1",

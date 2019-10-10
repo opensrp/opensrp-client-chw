@@ -15,6 +15,7 @@ import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.job.PullHouseholdIdsServiceJob;
 import org.smartregister.brac.hnpp.job.SSLocationFetchJob;
 import org.smartregister.brac.hnpp.presenter.LoginPresenter;
+import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.family.util.Constants;
 import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.util.Utils;

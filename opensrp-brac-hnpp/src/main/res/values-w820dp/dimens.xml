@@ -1,0 +1,4 @@
+<resources>
+
+    <dimen name="floating_label_top_spacing">18dp</dimen>
+</resources>

@@ -170,7 +170,8 @@
           "err": "নাম লিখুন"
         },
         "v_regex": {
-          "value": "[A-Za-z\\.\\- ]*",
+
+          "value": "^[a-zA-Z][A-Za-z\\.\\- ]*",
           "err": "একটি বৈধ নাম লিখুন"
         }
       },
@@ -196,7 +197,8 @@
         },
         "v_max_length": {
           "value": "11",
-          "err": "11 ডিজিটের মোবাইল নম্বর লিখুন"
+          "err": "11 ডিজিটের মোবাইল নম্বর লিখুন",
+          "is_fixed_size":true
         },
         "v_min_length": {
           "value": "1",
@@ -220,7 +222,8 @@
         },
         "v_max_length": {
           "value": "2",
-          "err": "সর্বোচ্চ 50 হতে হবে"
+          "err": "সর্বোচ্চ 50 হতে হবে",
+          "is_fixed_size":true
         },
         "v_min_length": {
           "value": "1",

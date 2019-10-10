@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
+import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 
 import org.json.JSONException;
@@ -31,6 +33,11 @@ public class HNPPMemberJsonFormFragment extends JsonWizardFormFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    @Override
+    protected JsonFormFragmentPresenter createPresenter() {
+        presenter = new
+    }
+
     public static HNPPMemberJsonFormFragment getFormFragment(String stepName) {
         HNPPMemberJsonFormFragment jsonFormFragment = new HNPPMemberJsonFormFragment();
         Bundle bundle = new Bundle();
@@ -38,6 +45,12 @@ public class HNPPMemberJsonFormFragment extends JsonWizardFormFragment {
         jsonFormFragment.setArguments(bundle);
         return jsonFormFragment;
     }
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        super.onItemSelected(parent, view, position, id);
+        hideKeyBoard();
+    }
+
 
     @Override
     protected JsonFormFragmentViewState createViewState() {

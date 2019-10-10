@@ -34,8 +34,11 @@ android {
         versionName "1.1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-        buildConfigField "String", 'opensrp_url', '"http://192.168.22.152:8080/opensrp/"'
-        buildConfigField "String", 'opensrp_url_debug', '"http://192.168.22.152:8080/opensrp/"'
+        buildConfigField "String", 'opensrp_url', '"http://mhealthTest.brac.net:8080/opensrp"'
+        buildConfigField "String", 'opensrp_url_release', '"http://mhealth.brac.net:8080/opensrp/"'
+
+        buildConfigField "String", "SIMPRINT_PROJECT_ID_TRAINING",'"pcmqBbcaB4xWvfRHRELG"'
+        buildConfigField "String", "SIMPRINT_PROJECT_ID_RELEASE",'"pcmqBbcaB4xWvfRHRELG"'
 
 //        buildConfigField "String", 'opensrp_url', '"http://hnpptest.mpower-social.com:8080/opensrp/"'
 //        buildConfigField "String", 'opensrp_url_debug', '"http://hnpptest.mpower-social.com:8080/opensrp/"'
@@ -67,7 +70,6 @@ android {
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
             buildConfigField "int", "PULL_SSLOCATION", '180'
-            buildConfigField "String", "SIMPRINT_PROJECT_ID",'"tZqJnw0ajK04LMYdZzyw"'
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
         }
@@ -82,7 +84,6 @@ android {
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '15'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '15'
             buildConfigField "int", "PULL_SSLOCATION", '180'
-            buildConfigField "String", "SIMPRINT_PROJECT_ID",'"tZqJnw0ajK04LMYdZzyw"'
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
             testCoverageEnabled true

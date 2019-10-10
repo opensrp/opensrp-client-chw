@@ -92,7 +92,7 @@ public class HNPPMemberRegisterProvider extends CoreMemberRegisterProvider {
         String patientName = org.smartregister.family.util.Utils.getName(firstName, middleName, lastName);
         String entityType = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ENTITY_TYPE, false);
         String relation_with_household_head = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), HnppConstants.KEY.RELATION_WITH_HOUSEHOLD, false);
-        relation_with_household_head = getRelationWithHouseholdHead(relation_with_household_head);
+        relation_with_household_head = HnppConstants.getRelationWithHouseholdHead(relation_with_household_head);
         String dob = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
         String guId = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(),  HnppConstants.KEY.GU_ID, false);
         String dobString = org.smartregister.family.util.Utils.getDuration(dob);
@@ -197,19 +197,4 @@ public class HNPPMemberRegisterProvider extends CoreMemberRegisterProvider {
 
     }
 
-    public String getRelationWithHouseholdHead(String value){
-//        AssetHandler.readFileFromAssetsFolder(context)
-        try {
-            JSONObject choiceObject = new JSONObject(HnppConstants.relationshipObject);
-            for (int i = 0; i < choiceObject.names().length(); i++) {
-                if (value.equalsIgnoreCase(choiceObject.getString(choiceObject.names().getString(i)))) {
-                    value = choiceObject.names().getString(i);
-                    return value;
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return value;
-    }
 }

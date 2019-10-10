@@ -90,8 +90,8 @@
           "err": "নাম লিখুন"
         },
         "v_regex": {
-        "value": "[A-Za-z\\.\\- ]*",
-        "err": "একটি বৈধ নাম লিখুন"
+          "value": "^[a-zA-Z][A-Za-z\\.\\- ]*",
+          "err": "একটি বৈধ নাম লিখুন"
       }
       },
       {
@@ -114,10 +114,10 @@
         "openmrs_choice_ids": {
           "মা":"Mother",
           "বাবা":"Father",
-          "দাদা":"GrandfatherPaternal",
-          "দাদি":"GrandmotherPaternal",
-          "নানা":"GrandfatherPaternal",
-          "নানী":"GrandmotherMaternal",
+          "দাদা":"Grandpa",
+          "দাদি":"Grandma",
+          "নানা":"Grandfather",
+          "নানী":"Grandmother",
           "অন্যান্য": "Others"
         },
         "v_required": {
