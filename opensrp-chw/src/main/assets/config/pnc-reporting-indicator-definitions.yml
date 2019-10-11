@@ -44,17 +44,16 @@ indicators:
                                and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month');"
 
   - key: "pnc_report_indicator_5_1"
-    description: ""
-    indicatorQuery: "select count(distinct fme.base_entity_id) from ec_family_member fme
-                     inner join ec_anc_register er on er.base_entity_id = fme.base_entity_id
-                     inner join ec_pregnancy_outcome po on er.base_entity_id = fme.base_entity_id
-                     WHERE fme.is_closed = '0' AND fme.entity_type = 'ec_family_member' AND fme.gender = 'Female'
-                       AND fme.dod >= date('now', '-12 month') AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int)  >= 10 AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int) <= 49;"
+    description: "Count of WRA who have died in the last year"
+    indicatorQuery: "select count (distinct fme.base_entity_id) from ec_family_member fme
+                                          WHERE fme.is_closed = '1' AND fme.entity_type = 'ec_family_member' AND fme.gender = 'Female'
+                                          AND fme.dod >= date('now', '-12 month') AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int)  >= 10 AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int) <= 49
+                                          AND fme.base_entity_id NOT IN (select base_entity_id from ec_details where key = 'preg_outcome' or key = 'last_menstrual_period')"
 
   - key: "pnc_report_indicator_5_2"
-    description: ""
+    description: "Count of maternal deaths in the last year"
     indicatorQuery: "select count(distinct fme.base_entity_id) from ec_family_member fme
-      left join ec_anc_register er on er.base_entity_id = fme.base_entity_id
-      left join ec_pregnancy_outcome po on er.base_entity_id = fme.base_entity_id
-      WHERE fme.is_closed = '0' AND fme.entity_type = 'ec_family_member' AND fme.gender = 'Female' and er.base_entity_id is null and po.base_entity_id is null
-      AND fme.dod >= date('now', '-12 month') AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int)  >= 10 AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int) <= 49;"
+                     inner join ec_details ed on ed.base_entity_id = fme.base_entity_id
+                     WHERE fme.is_closed = '1' AND fme.entity_type = 'ec_family_member' AND fme.gender = 'Female'
+                     AND fme.dod >= date('now', '-12 month') AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int)  >= 10 AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int) <= 49
+                     AND (ed.key = 'preg_outcome' OR ed.key='last_menstrual_period')"
