@@ -542,10 +542,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     }
 
                     builder.append(
-                            MessageFormat.format("{0}: {1}",
-                                    context.getString(R.string.fp_method_chosen),
-                                    method
-                            )
+                            MessageFormat.format("{0}: {1}", context.getString(R.string.fp_method_chosen), method)
                     );
                 }
 
