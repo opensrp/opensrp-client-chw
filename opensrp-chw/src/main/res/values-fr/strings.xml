@@ -153,7 +153,7 @@
     <string name="anc_home_visit_anc_card_received">Carnet CPN reçu</string>
     <string name="anc_home_visit_sleeping_under_llitn_net">Dors sous un MIILD </string>
     <string name="anc_home_visit_counseling">Conseils CPN</string>
-    <string name="anc_home_visit_tt_immunization">Td {0}</string>
+    <string name="anc_home_visit_tt_immunization">VAT{0}</string>f
     <string name="anc_home_visit_iptp_sp">SP dose {0}</string>
     <string name="gest_age">AG: %1$s</string>
     <string name="gest_age_weeks">semaines</string>
@@ -161,6 +161,7 @@
     <string name="action_taken">Action prise</string>
     <string name="date">Date</string>
     <string name="weight">Poids</string>
+    <string name="bp">PA</string>
     <string name="kg">kg</string>
     <string name="mmHg">mmHg</string>
     <string name="hb_level">Hémoglobine-TH</string>
