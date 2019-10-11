@@ -246,6 +246,10 @@
     <string name="pnc_indicator_5">WRA who have died in the last year</string>
     <string name="pnc_indicator_5_note">WRA = Women of Reproductive Age (10&#8211;49)</string>
 
+
+    <string name="maternal_deaths_slice_label">Maternal deaths</string>
+    <string name="other_wra_deaths_slice_label">Other WRA deaths</string>
+
     <!-- PNC Home visit-->
     <!-- PNC home visit tasks labels -->
     <string name="pnc_danger_signs_mother">Danger signs - mother</string>
