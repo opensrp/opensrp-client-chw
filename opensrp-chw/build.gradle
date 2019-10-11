@@ -231,21 +231,6 @@ android {
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
-        afyatek {
-            dimension = 'baseDimension'
-            versionCode 1
-            versionName "0.1.7"
-            buildConfigField "String", 'opensrp_url', '"https://afyatek.smartregister.org/opensrp/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://opensrp-miecd-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country", "Province", "District", "Village"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country", "Province", "District", "Commune", "Village"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Country", "Province", "District", "Commune", "Village"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
-            buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
-            buildConfigField "int", "DATABASE_VERSION", '6'
-        }
     }
 }
 

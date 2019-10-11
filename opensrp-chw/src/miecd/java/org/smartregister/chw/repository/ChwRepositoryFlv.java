@@ -17,8 +17,6 @@ import timber.log.Timber;
 
 public class ChwRepositoryFlv {
 
-    private static final String TAG = ChwRepositoryFlv.class.getCanonicalName();
-
     public static void onUpgrade(Context context, SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.w(ChwRepository.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
@@ -37,9 +35,6 @@ public class ChwRepositoryFlv {
                     break;
                 case 5:
                     upgradeToVersion5(db);
-                    break;
-                case 7:
-                    upgradeToVersion7(db);
                     break;
                 case 8:
                     upgradeToVersion8(db);
@@ -116,15 +111,6 @@ public class ChwRepositoryFlv {
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion5 ");
-        }
-    }
-
-    private static void upgradeToVersion7(SQLiteDatabase db) {
-        try {
-            //db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN);
-            //db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN)
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion7 ");
         }
     }
 
