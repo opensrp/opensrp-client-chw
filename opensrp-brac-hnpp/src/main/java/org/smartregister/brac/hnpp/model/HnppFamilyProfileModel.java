@@ -75,6 +75,23 @@ public class HnppFamilyProfileModel extends CoreFamilyProfileModel {
     }
     public FamilyEventClient processUpdateMemberRegistration(String jsonString, String familyBaseEntityId) {
         FamilyEventClient familyEventClient = HnppJsonFormUtils.processFamilyForm(FamilyLibrary.getInstance().context().allSharedPreferences(), jsonString, familyBaseEntityId,Utils.metadata().familyMemberRegister.updateEventType);
+        EventClientRepository eventClientRepository = FamilyLibrary.getInstance().context().getEventClientRepository();
+        try{
+            JSONObject familyJSON = eventClientRepository.getClientByBaseEntityId(familyBaseEntityId);
+            String addessJson = familyJSON.getString("addresses");
+            JSONArray jsonArray = new JSONArray(addessJson);
+            List<Address> listAddress = new ArrayList<>();
+            for(int i = 0; i <jsonArray.length();i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                Address address = new Gson().fromJson(jsonObject.toString(), Address.class);
+                listAddress.add(address);
+            }
+            Client familyClient = familyEventClient.getClient();
+
+            familyClient.setAddresses(listAddress);
+        }catch (Exception e){
+
+        }
         if (familyEventClient == null) {
             return null;
         } else {
