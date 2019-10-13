@@ -117,12 +117,12 @@ public class HnppConstants extends CoreConstants {
             "  \"নাতনী\": \"GrandDaughter\"," +
             "  \"ছেলের বউ\": \"SonsWife\"," +
             "  \"মেয়ের স্বামী\": \"DaughtersHusband\"," +
-            "  \"শ্বশুর\": \"FatherInLaw\"," +
-            "  \"শাশুড়ি\": \"MotherInLaw\"," +
-            "  \"দাদা\": \"GrandfatherPaternal\"," +
-            "  \"দাদি\": \"GrandmotherPaternal\"," +
-            "  \"নানা\": \"GrandfatherPaternal\"," +
-            "  \"নানী\": \"GrandmotherMaternal\"," +
+            "  \"শ্বশুর\": \"Father in law\"," +
+            "  \"শাশুড়ি\": \"Mother in law\"," +
+            "  \"দাদা\": \"Grandpa\"," +
+            "  \"দাদি\": \"Grandma\"," +
+            "  \"নানা\": \"Grandfather\"," +
+            "  \"নানী\": \"Grandmother\"," +
             "  \"অন্যান্য\": \"Others\"" +
             "}";
 }
