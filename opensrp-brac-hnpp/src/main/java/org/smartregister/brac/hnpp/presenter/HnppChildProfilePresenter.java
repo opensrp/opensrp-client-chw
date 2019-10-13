@@ -1,5 +1,6 @@
 package org.smartregister.brac.hnpp.presenter;
 
+import android.database.Cursor;
 import android.text.TextUtils;
 import android.util.Pair;
 
@@ -9,10 +10,10 @@ import org.smartregister.brac.hnpp.interactor.HnppChildProfileInteractor;
 import org.smartregister.brac.hnpp.model.HnppChildRegisterModel;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.brac.hnpp.R;
-import org.smartregister.brac.hnpp.interactor.HfChildProfileInteractor;
 import org.smartregister.brac.hnpp.interactor.HnppFamilyProfileInteractor;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -23,6 +24,7 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import timber.log.Timber;
 
@@ -41,10 +43,11 @@ public class HnppChildProfilePresenter extends CoreChildProfilePresenter {
         if (client == null || client.getColumnmaps() == null) {
             return;
         }
-        String motherName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME, true);
+        String motherName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME_REGISTERED, true);
         if(TextUtils.isEmpty(motherName)){
-            motherName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME_REGISTERED, true);
+            motherName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME, true);
         }
+
         String parentName = view.get().getContext().getResources().getString(org.smartregister.chw.core.R.string.care_giver_initials,motherName);
         getView().setParentName(parentName);
         String firstName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
@@ -83,7 +86,8 @@ public class HnppChildProfilePresenter extends CoreChildProfilePresenter {
     public void startFormForEdit(String title, CommonPersonObjectClient client) {
         try {
             JSONObject form = HnppJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getChildRegister(), getView().getApplicationContext(), client, CoreConstants.EventType.UPDATE_CHILD_REGISTRATION);
-
+            ArrayList<String> womenList = getAllWomenInHouseHold();
+            HnppJsonFormUtils.updateFormWithMotherName(form,womenList);
             if (!StringUtils.isBlank(client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID))) {
                 JSONObject metaDataJson = form.getJSONObject("metadata");
                 JSONObject lookup = metaDataJson.getJSONObject("look_up");
@@ -106,5 +110,26 @@ public class HnppChildProfilePresenter extends CoreChildProfilePresenter {
         }
 
         getInteractor().saveRegistration(pair, jsonString, true, this);
+    }
+
+    public ArrayList<String> getAllWomenInHouseHold(){
+        String query = "select first_name from ec_family_member where (gender = 'নারী' OR gender = 'F') and ((marital_status != 'অবিবাহিত' OR marital_status != 'Unmarried') and marital_status IS NOT NULL) and relational_id = '"+familyID+"'";
+        Cursor cursor = null;
+        ArrayList<String> womenList = new ArrayList<>();
+        try {
+            cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, new String[]{});
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                String name = cursor.getString(0);
+                womenList.add(name);
+                cursor.moveToNext();
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return womenList;
     }
 }
