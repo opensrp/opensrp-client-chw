@@ -136,7 +136,6 @@
           "মাতা রেজিস্টার্ড নয়"
         ],
         "openmrs_choice_ids": {
-          "মাতা রেজিস্টার্ড নয়": "1"
         },
         "v_required": {
           "value": true,
@@ -156,6 +155,10 @@
           "value": true,
           "err": "মা / অভিভাবকের প্রথম নাম লিখুন"
         },
+        "v_regex": {
+          "value": "^[a-zA-Z][A-Za-z\\.\\- ]*",
+          "err": "একটি বৈধ নাম লিখুন"
+        },
         "relevance": {
           "step1:mother_name": {
             "type": "string",
@@ -174,7 +177,7 @@
         "duration": {
           "label": "Age"
         },
-        "min_date": "today-5y",
+        "min_date": "today-59m",
         "max_date": "today",
         "v_required": {
           "value": "true",

@@ -404,8 +404,11 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     public void onSyncComplete(FetchStatus fetchStatus) {
         // hide the rotating menu
         refreshSyncProgressSpinner();
-        // update the time
-        mPresenter.refreshLastSync();
+        if (!fetchStatus.equals(FetchStatus.noConnection) && !fetchStatus.equals(FetchStatus.fetchedFailed)) {
+            // update the time
+            mPresenter.refreshLastSync();
+        }
+
         // refreshLastSync(new Date());
 
         if (activityWeakReference.get() != null && !activityWeakReference.get().isDestroyed()) {

@@ -73,6 +73,15 @@ public class HnppFamilyProfileModel extends CoreFamilyProfileModel {
 
         return familyEventClient;
     }
+    public FamilyEventClient processUpdateMemberRegistration(String jsonString, String familyBaseEntityId) {
+        FamilyEventClient familyEventClient = HnppJsonFormUtils.processFamilyForm(FamilyLibrary.getInstance().context().allSharedPreferences(), jsonString, familyBaseEntityId,Utils.metadata().familyMemberRegister.updateEventType);
+        if (familyEventClient == null) {
+            return null;
+        } else {
+            this.updateWra(familyEventClient);
+            return familyEventClient;
+        }
+    }
     private FamilyEventClient processRegistration(String jsonString, String familyBaseEntityId) {
         FamilyEventClient familyEventClient = HnppJsonFormUtils.processFamilyForm(FamilyLibrary.getInstance().context().allSharedPreferences(), jsonString, familyBaseEntityId,Utils.metadata().familyMemberRegister.registerEventType);
         if (familyEventClient == null) {

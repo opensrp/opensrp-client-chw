@@ -20,7 +20,7 @@ import org.smartregister.brac.hnpp.location.SSLocations;
 import org.smartregister.brac.hnpp.location.SSModel;
 import org.smartregister.brac.hnpp.model.HnppFamilyRegisterFragmentModel;
 import org.smartregister.brac.hnpp.presenter.HnppFamilyRegisterFragmentPresenter;
-import org.smartregister.brac.hnpp.provider.HHRegisterProvider;
+import org.smartregister.brac.hnpp.provider.HnppFamilyRegisterProvider;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
@@ -46,7 +46,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        CoreRegisterProvider chwRegisterProvider = new HHRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        CoreRegisterProvider chwRegisterProvider = new HnppFamilyRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, chwRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);

@@ -49,7 +49,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by mahmud on 1/9/2019.
  */
 
-public class HHRegisterProvider extends CoreRegisterProvider  {
+public class HnppFamilyRegisterProvider extends CoreRegisterProvider  {
 
     private final LayoutInflater inflater;
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
@@ -61,7 +61,7 @@ public class HHRegisterProvider extends CoreRegisterProvider  {
     private CommonRepository commonRepository;
     private ImageRenderHelper imageRenderHelper;
 
-    public HHRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
+    public HnppFamilyRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
         super(context, commonRepository, visibleColumns, onClickListener, paginationClickListener);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.visibleColumns = visibleColumns;

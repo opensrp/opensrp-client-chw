@@ -50,10 +50,14 @@ public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
             JSONArray field = jobkect.getJSONArray(FIELDS);
             JSONObject villageIdObj = getFieldJSONObject(field, "village_id");
             String villageId = villageIdObj.getString(VALUE);
-            String hhid = jobkect.getString( "hhid");
+            try{
+                String hhid = jobkect.getString( "hhid");
+                HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
+                householdIdRepo.close(villageId,hhid);
+            }catch (Exception e){
 
-            HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
-            householdIdRepo.close(villageId,hhid);
+            }
+
             List<FamilyEventClient> familyEventClientList = new ArrayList<>();
             processAttributesWithChoiceIDsForSave(field);
             FamilyEventClient familyEventClient = HnppJsonFormUtils.processFamilyUpdateForm(Utils.context().allSharedPreferences(), jsonObject.toString());

@@ -293,7 +293,7 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
             clients_header_layout.setVisibility(android.view.View.VISIBLE);
         }
         textViewVillageNameFilter.setText(getString(R.string.filter_village_name,mSelectedVillageName));
-        textViewClasterNameFilter.setText(getString(R.string.claster_village_name,mSelectedClasterName));
+        textViewClasterNameFilter.setText(getString(R.string.claster_village_name,HnppConstants.getClusterNameFromValue(mSelectedClasterName)));
         String filterString = getFilterString();
         filter(filterString, "", DEFAULT_MAIN_CONDITION, false);
 

@@ -64,10 +64,10 @@ public class SSLocationRepository extends BaseRepository {
 
     public void addOrUpdate(SSModel ssModel) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(SS_NAME, ssModel.username);
+        contentValues.put(SS_NAME, ssModel.username.trim());
         contentValues.put(IS_SIMPRINT_ENABLE, ssModel.simprints_enable);
         contentValues.put(GEOJSON, gson.toJson(ssModel.locations));
-        if(isExistLocation(ssModel.username)){
+        if(isExistLocation(ssModel.username.trim())){
             getWritableDatabase().update(getLocationTableName(),contentValues,SS_NAME+" =? ",new String[]{ssModel.username});
         }else{
             getWritableDatabase().replace(getLocationTableName(), null, contentValues);
@@ -97,7 +97,7 @@ public class SSLocationRepository extends BaseRepository {
         Cursor cursor = null;
         ArrayList<String> locationIds = new ArrayList<>();
         try {
-            cursor = getReadableDatabase().rawQuery("SELECT "+ID+" FROM " + getLocationTableName()+" where "+SS_NAME+" = '"+name+"'", null);
+            cursor = getReadableDatabase().rawQuery("SELECT "+ID+" FROM " + getLocationTableName()+" where "+SS_NAME+" = '"+name.trim()+"'", null);
             while (cursor.moveToNext()) {
                 locationIds.add(cursor.getString(0));
             }
@@ -116,7 +116,7 @@ public class SSLocationRepository extends BaseRepository {
         String name = cursor.getString(cursor.getColumnIndex(SS_NAME));
         String simprints = cursor.getString(cursor.getColumnIndex(IS_SIMPRINT_ENABLE));
         SSModel ssModel = new SSModel();
-        ssModel.username = name;
+        ssModel.username = name.trim();
         ssModel.simprints_enable = simprints.equalsIgnoreCase("1");
         try {
             JSONArray jsonArray = new JSONArray(geoJson);
