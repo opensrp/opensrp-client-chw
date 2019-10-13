@@ -22,6 +22,20 @@ import timber.log.Timber;
 
 public class HnppChildUtils extends CoreChildUtils {
 
+
+    public static String matchPhrase(String phrase) {
+        String stringPhrase = phrase;
+        if (stringPhrase == null) {
+            stringPhrase = "";
+        }
+
+        // Underscore does not work well in fts search
+//        if (stringPhrase.contains("_")) {
+//            stringPhrase = stringPhrase.replace("_", "");
+//        }
+        return " MATCH '" + stringPhrase + "*' ";
+
+    }
     public static String mainSelect(String tableName, String familyTableName, String familyMemberTableName, String mainCondition) {
         return mainSelectRegisterWithoutGroupby(tableName, familyTableName, familyMemberTableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + mainCondition + "'");
     }
