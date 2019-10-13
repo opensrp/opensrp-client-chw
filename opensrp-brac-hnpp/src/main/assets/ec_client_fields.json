@@ -196,10 +196,9 @@
         },
         {
           "column_name": "phone_number",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "Mobile_Number"
+            "field": "attributes.Mobile_Number"
           }
         },
         {

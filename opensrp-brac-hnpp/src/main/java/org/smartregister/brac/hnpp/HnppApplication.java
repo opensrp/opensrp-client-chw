@@ -44,6 +44,7 @@ import org.smartregister.family.domain.FamilyMetadata;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.util.Utils;
 
@@ -61,7 +62,7 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
 
     private static SSLocationRepository locationRepository;
     private static CommonFtsObject commonFtsObject = null;
-
+    private EventClientRepository eventClientRepository;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -199,7 +200,12 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
         }
 
     }
-
+    public EventClientRepository getEventClientRepository() {
+        if (eventClientRepository == null) {
+            eventClientRepository = new EventClientRepository(getRepository());
+        }
+        return eventClientRepository;
+    }
     @Override
     public FamilyMetadata getMetadata() {
         FamilyMetadata metadata = new FamilyMetadata(HNPPJsonFormActivity.class, HNPPMemberJsonFormActivity.class, FamilyProfileActivity.class, CoreConstants.IDENTIFIER.UNIQUE_IDENTIFIER_KEY, false);

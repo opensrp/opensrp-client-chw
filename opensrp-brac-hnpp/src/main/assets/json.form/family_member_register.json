@@ -157,7 +157,7 @@
       {
         "key": "phone_number",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Mobile_Number",
         "type": "edit_text",
         "hint": "মোবাইল নম্বর",

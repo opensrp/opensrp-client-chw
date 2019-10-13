@@ -45,6 +45,8 @@ import java.util.List;
 
 import timber.log.Timber;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 /**
  * Created by keyman on 13/11/2018.
  */
@@ -255,7 +257,19 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
 
                 break;
+            case "id_avail":
+                if(jsonObject.has("options")){
+                    String value = processValueWithChoiceIdsForEdit(jsonObject,org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),
+                            "id_avail", false));
+                    if(StringUtils.isEmpty(value)){
+                        jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,new JSONArray());
+                    }else{
+                        jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,new JSONArray(value));
+                    }
 
+
+                }
+                break;
             default:
                 if(jsonObject.has("openmrs_choice_ids")&&jsonObject.getJSONObject("openmrs_choice_ids").length()>0){
                     String value = processValueWithChoiceIdsForEdit(jsonObject,org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),
@@ -303,6 +317,9 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
                 Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, "metadata"), formTag(allSharedPreferences), entityId, encounterType, Utils.metadata().familyMemberRegister.tableName);
                 tagSyncMetadata(allSharedPreferences, baseEvent);
+
+                String entity_id = baseClient.getBaseEntityId();
+                updateFormSubmissionID(encounterType,entity_id,baseEvent);
                 return new FamilyEventClient(baseClient, baseEvent);
             }
         } catch (Exception var10) {
@@ -389,6 +406,14 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
                         return value;
                     }
                 }
+            }else if (jsonObject.has("options")) {
+                JSONArray option_array = jsonObject.getJSONArray("options");
+                for (int i = 0; i < option_array.length(); i++) {
+                    JSONObject option = option_array.getJSONObject(i);
+                    if (value.contains(option.optString("key"))) {
+                        option.put("value", "true");
+                    }
+                }
             }
 
         } catch (Exception e) {
@@ -472,6 +497,9 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
             Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId, getString(jsonForm, ENCOUNTER_TYPE), CoreConstants.TABLE_NAME.CHILD);
             tagSyncMetadata(allSharedPreferences, baseEvent);
+            String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
+            String entity_id = baseClient.getBaseEntityId();
+            updateFormSubmissionID(encounterType,entity_id,baseEvent);
 //
 //            if (baseClient != null || baseEvent != null) {
 //                String imageLocation = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
@@ -532,5 +560,56 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
         }
         return new ArrayList<>();
 
+    }
+    public static FamilyEventClient processFamilyUpdateForm(AllSharedPreferences allSharedPreferences, String jsonString) {
+        try {
+            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
+            if (!(Boolean)registrationFormParams.getLeft()) {
+                return null;
+            } else {
+                JSONObject jsonForm = (JSONObject)registrationFormParams.getMiddle();
+                JSONArray fields = (JSONArray)registrationFormParams.getRight();
+                String entityId = getString(jsonForm, "entity_id");
+                if (StringUtils.isBlank(entityId)) {
+                    entityId = generateRandomUUIDString();
+                }
+
+                lastInteractedWith(fields);
+                dobUnknownUpdateFromAge(fields);
+
+                Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
+                baseClient.setLastName("Family");
+                baseClient.setBirthdate(new Date(0L));
+                baseClient.setGender("Male");
+                Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, "metadata"), formTag(allSharedPreferences), entityId, Utils.metadata().familyRegister.registerEventType, Utils.metadata().familyRegister.tableName);
+                tagSyncMetadata(allSharedPreferences, baseEvent);
+
+                String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
+                String entity_id = baseClient.getBaseEntityId();
+                updateFormSubmissionID(encounterType,entity_id,baseEvent);
+                return new FamilyEventClient(baseClient, baseEvent);
+            }
+        } catch (Exception var8) {
+            Timber.e(var8);
+            return null;
+        }
+    }
+
+    public static void updateFormSubmissionID(String encounterType, String entity_id, Event baseEvent) throws JSONException{
+        String formSubmissionID = "";
+
+        EventClientRepository eventClientRepository = HnppApplication.getHNPPInstance().getEventClientRepository();
+        JSONObject evenjsonobject = eventClientRepository.getEventsByBaseEntityIdAndEventType(entity_id, encounterType);
+        if (evenjsonobject == null) {
+            if (encounterType.contains("Update")) {
+                evenjsonobject = eventClientRepository.getEventsByBaseEntityIdAndEventType(entity_id, encounterType.replace("Update", "").trim());
+            }
+        }
+        if (evenjsonobject != null) {
+            formSubmissionID = evenjsonobject.getString("formSubmissionId");
+        }
+        if (!isBlank(formSubmissionID)) {
+            baseEvent.setFormSubmissionId(formSubmissionID);
+        }
     }
 }
