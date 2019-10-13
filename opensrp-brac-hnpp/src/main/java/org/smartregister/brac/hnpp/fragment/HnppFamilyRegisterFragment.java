@@ -164,7 +164,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
                         villageSpinnerArray.clear();
                         ArrayList<SSLocations> ssLocations = SSLocationHelper.getInstance().getSsModels().get(position).locations;
                         for(SSLocations ssLocations1 : ssLocations){
-                            villageSpinnerArray.add(ssLocations1.village.name);
+                            villageSpinnerArray.add(ssLocations1.village.name.trim());
                         }
                         villageSpinnerArrayAdapter = new ArrayAdapter<String>
                                 (getActivity(), android.R.layout.simple_spinner_item,

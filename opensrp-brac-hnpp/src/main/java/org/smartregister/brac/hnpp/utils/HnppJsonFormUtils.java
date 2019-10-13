@@ -463,6 +463,7 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
             if (StringUtils.isBlank(entityId)) {
                 entityId = generateRandomUUIDString();
             }
+            updateMotherName(fields);
             lastInteractedWith(fields);
             dobUnknownUpdateFromAge(fields);
             processAttributesWithChoiceIDsForSave(fields);
@@ -500,6 +501,20 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
             Timber.e(e);
             return null;
         }
+    }
+    private static void updateMotherName(JSONArray fields) throws Exception{
+        JSONObject motherObj = getFieldJSONObject(fields, "Mother_Guardian_First_Name_english");
+        JSONObject motherAlterObj = getFieldJSONObject(fields, "mother_name");
+        boolean isVisible = motherObj.optBoolean("is_visible",false);
+        if(!isVisible){
+            String motherNameSelected = motherAlterObj.getString(VALUE);
+            if(!TextUtils.isEmpty(motherNameSelected) && !motherNameSelected.equalsIgnoreCase("মাতা রেজিস্টার্ড নয়")){
+                motherObj.put(VALUE,motherNameSelected);
+            }
+
+        }
+
+
     }
     private static List<Address> updateWithSSLocation(JSONObject clientjson){
         try{
