@@ -121,7 +121,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
                 break;
         }
     }
-
+    ArrayAdapter<String> villageSpinnerArrayAdapter;
     @Override
     public void onViewClicked(View view) {
         super.onViewClicked(view);
@@ -139,7 +139,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
                     (getActivity(), android.R.layout.simple_spinner_item,
                             ssSpinnerArray);
 
-            ArrayAdapter<String> villageSpinnerArrayAdapter = new ArrayAdapter<String>
+            villageSpinnerArrayAdapter = new ArrayAdapter<String>
                     (getActivity(), android.R.layout.simple_spinner_item,
                             villageSpinnerArray);
 
@@ -166,7 +166,11 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
                         for(SSLocations ssLocations1 : ssLocations){
                             villageSpinnerArray.add(ssLocations1.village.name);
                         }
-                        villageSpinnerArrayAdapter.notifyDataSetChanged();
+                        villageSpinnerArrayAdapter = new ArrayAdapter<String>
+                                (getActivity(), android.R.layout.simple_spinner_item,
+                                        villageSpinnerArray);
+                        village_spinner.setAdapter(villageSpinnerArrayAdapter);
+                        //villageSpinnerArrayAdapter.notifyDataSetChanged();
                     }
                 }
 

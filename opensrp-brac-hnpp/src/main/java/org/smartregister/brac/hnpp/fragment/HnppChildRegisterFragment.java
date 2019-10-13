@@ -169,7 +169,7 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
                 " WHERE  " + mainMemberCondition.trim() + " AND " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), CommonFtsObject.phraseColumn + HnppChildUtils.matchPhrase(filters)) +
                 ")  " + orderByClause(sort) + limitClause(limit, offset);
     }
-
+    ArrayAdapter<String> villageSpinnerArrayAdapter;
     @Override
     public void onViewClicked(android.view.View view) {
         super.onViewClicked(view);
@@ -198,7 +198,7 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
                     (getActivity(), android.R.layout.simple_spinner_item,
                             ssSpinnerArray);
 
-            ArrayAdapter<String> villageSpinnerArrayAdapter = new ArrayAdapter<String>
+            villageSpinnerArrayAdapter = new ArrayAdapter<String>
                     (getActivity(), android.R.layout.simple_spinner_item,
                             villageSpinnerArray);
 
@@ -225,7 +225,10 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
                         for(SSLocations ssLocations1 : ssLocations){
                             villageSpinnerArray.add(ssLocations1.village.name);
                         }
-                        villageSpinnerArrayAdapter.notifyDataSetChanged();
+                        villageSpinnerArrayAdapter = new ArrayAdapter<String>
+                                (getActivity(), android.R.layout.simple_spinner_item,
+                                        villageSpinnerArray);
+                        village_spinner.setAdapter(villageSpinnerArrayAdapter);
                     }
                 }
 
