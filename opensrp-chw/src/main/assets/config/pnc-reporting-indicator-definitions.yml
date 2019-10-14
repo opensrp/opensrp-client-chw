@@ -84,3 +84,30 @@ indicators:
                      group by vi.base_entity_id
                      ) as latest_visit_details
                      where latest_visit_details.vdetails != '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+
+  - key: "pnc_report_indicator_7_1"
+    description: "Count of newborns with no danger signs in their last PNC home visit"
+    indicatorQuery: "select count(base_entity_id) from
+                  (select vi.visit_id, vi.base_entity_id, vd.details as vdetails, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(vi.visit_date/1000,'unixepoch', 'localtime')) latest_visit_date
+                  from visits vi
+                  inner join visit_details vd on vd.visit_id = vi.visit_id
+                  inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                  where fm.date_removed is null and fm.entity_type = 'ec_child'
+                  and vi.visit_type = 'Danger signs - Baby' and vd.visit_key = 'danger_signs_present'
+                  group by vi.base_entity_id
+                  ) as latest_visit_details
+                  where latest_visit_details.vdetails = '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+
+
+  - key: "pnc_report_indicator_7_2"
+    description: "Count of newborns with danger signs in their last PNC home visit"
+    indicatorQuery: "select count(base_entity_id) from
+                    (select vi.visit_id, vi.base_entity_id, vd.details as vdetails, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(vi.visit_date/1000,'unixepoch', 'localtime')) latest_visit_date
+                    from visits vi
+                    inner join visit_details vd on vd.visit_id = vi.visit_id
+                    inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                    where fm.date_removed is null and fm.entity_type = 'ec_child'
+                    and vi.visit_type = 'Danger signs - Baby' and vd.visit_key = 'danger_signs_present'
+                    group by vi.base_entity_id
+                    ) as latest_visit_details
+                    where latest_visit_details.vdetails != '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
