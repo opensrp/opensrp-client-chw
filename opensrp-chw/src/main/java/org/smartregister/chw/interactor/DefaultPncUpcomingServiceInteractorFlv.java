@@ -34,7 +34,6 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
 
         evaluateHealthFacility(serviceList);
         evaluateImmunization(serviceList);
-
         return serviceList;
     }
 
