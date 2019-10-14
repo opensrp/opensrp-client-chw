@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.interactor.HnppChildProfileInteractor;
 import org.smartregister.brac.hnpp.model.HnppChildRegisterModel;
+import org.smartregister.brac.hnpp.utils.HnppChildUtils;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -83,7 +84,7 @@ public class HnppChildProfilePresenter extends CoreChildProfilePresenter {
     public void startFormForEdit(String title, CommonPersonObjectClient client) {
         try {
             JSONObject form = HnppJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getChildRegister(), getView().getApplicationContext(), client, CoreConstants.EventType.UPDATE_CHILD_REGISTRATION);
-            ArrayList<String> womenList = getAllWomenInHouseHold();
+            ArrayList<String> womenList = HnppChildUtils.getAllWomenInHouseHold(familyID);
             HnppJsonFormUtils.updateFormWithMotherName(form,womenList);
             if (!StringUtils.isBlank(client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID))) {
                 JSONObject metaDataJson = form.getJSONObject("metadata");
@@ -109,24 +110,5 @@ public class HnppChildProfilePresenter extends CoreChildProfilePresenter {
         getInteractor().saveRegistration(pair, jsonString, true, this);
     }
 
-    public ArrayList<String> getAllWomenInHouseHold(){
-        String query = "select first_name from ec_family_member where (gender = 'নারী' OR gender = 'F') and ((marital_status != 'অবিবাহিত' OR marital_status != 'Unmarried') and marital_status IS NOT NULL) and relational_id = '"+familyID+"'";
-        Cursor cursor = null;
-        ArrayList<String> womenList = new ArrayList<>();
-        try {
-            cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, new String[]{});
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                String name = cursor.getString(0);
-                womenList.add(name);
-                cursor.moveToNext();
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-        return womenList;
-    }
+
 }

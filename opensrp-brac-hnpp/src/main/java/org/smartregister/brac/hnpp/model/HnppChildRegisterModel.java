@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.util.Pair;
 
 import org.json.JSONObject;
+import org.smartregister.brac.hnpp.utils.HnppChildUtils;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.model.CoreChildRegisterModel;
@@ -33,30 +34,10 @@ public class HnppChildRegisterModel extends CoreChildRegisterModel {
         if (form == null) {
             return null;
         }
-        ArrayList<String> womenList = getAllWomenInHouseHold();
+        ArrayList<String> womenList = HnppChildUtils.getAllWomenInHouseHold(familyBaseEntityId);
         HnppJsonFormUtils.updateFormWithMotherName(form,womenList);
         HnppJsonFormUtils.updateFormWithMemberId(form,houseHoldId,familyBaseEntityId);
         return HnppJsonFormUtils.updateChildFormWithMetaData(form, houseHoldId,familyBaseEntityId);
-    }
-    public ArrayList<String> getAllWomenInHouseHold(){
-        String query = "select first_name from ec_family_member where (gender = 'নারী' OR gender = 'F') and ((marital_status != 'অবিবাহিত' OR marital_status != 'Unmarried') and marital_status IS NOT NULL) and relational_id = '"+familyBaseEntityId+"'";
-        Cursor cursor = null;
-        ArrayList<String> womenList = new ArrayList<>();
-        try {
-            cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, new String[]{});
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                String name = cursor.getString(0);
-                womenList.add(name);
-                cursor.moveToNext();
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-        return womenList;
     }
 
 }

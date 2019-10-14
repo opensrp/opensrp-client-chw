@@ -1,7 +1,10 @@
 package org.smartregister.brac.hnpp.utils;
 
+import android.database.Cursor;
+
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -22,6 +25,44 @@ import timber.log.Timber;
 
 public class HnppChildUtils extends CoreChildUtils {
 
+    public static ArrayList<String> getAllWomenInHouseHold(String familyID){
+        String query = "select first_name from ec_family_member where (gender = 'নারী' OR gender = 'F') and ((marital_status != 'অবিবাহিত' AND marital_status != 'Unmarried') and marital_status IS NOT NULL) and relational_id = '"+familyID+"'";
+        Cursor cursor = null;
+        ArrayList<String> womenList = new ArrayList<>();
+        try {
+            cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, new String[]{});
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                String name = cursor.getString(0);
+                womenList.add(name);
+                cursor.moveToNext();
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return womenList;
+    }
+    public static String getModuleId(String familyId){
+        String query = "select module_id from ec_family where base_entity_id = '"+familyId+"'";
+        Cursor cursor = null;
+        try {
+            cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, new String[]{});
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                String name = cursor.getString(0);
+                return name;
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return "";
+    }
 
     public static String matchPhrase(String phrase) {
         String stringPhrase = phrase;

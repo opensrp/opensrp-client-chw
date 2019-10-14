@@ -11,6 +11,7 @@ import org.smartregister.family.contract.FamilyProfileContract;
 
 public class HnppFamilyOtherMemberActivityPresenter extends CoreFamilyOtherMemberActivityPresenter {
 
+
     public HnppFamilyOtherMemberActivityPresenter(FamilyOtherMemberProfileExtendedContract.View view,
                                                   FamilyOtherMemberContract.Model model, String viewConfigurationIdentifier,
                                                   String familyBaseEntityId, String baseEntityId, String familyHead,

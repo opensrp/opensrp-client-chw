@@ -6,6 +6,7 @@ import android.view.Menu;
 
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.brac.hnpp.utils.HnppChildUtils;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
@@ -61,7 +62,9 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
 
         try {
             JSONObject form = HnppJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyMemberRegister(), this, client, Utils.metadata().familyMemberRegister.updateEventType);
-
+            String moduleId = HnppChildUtils.getModuleId(familyHead);
+            HnppJsonFormUtils.updateFormWithModuleId(form,moduleId);
+            HnppJsonFormUtils.updateFormWithSimPrintsEnable(form);
             startFormActivity(form);
         } catch (Exception e) {
             Timber.e(e);

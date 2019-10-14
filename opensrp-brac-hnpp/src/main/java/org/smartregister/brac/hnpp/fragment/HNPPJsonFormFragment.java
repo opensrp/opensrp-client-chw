@@ -185,9 +185,9 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
             protected Object doInBackground(Object[] objects) {
                 SSLocations ssLocations = SSLocationHelper.getInstance().getSsModels().get(ssIndex).locations.get(index);
                 if(HnppConstants.isReleaseBuild()){
-                    moduleId = HnppConstants.MODULE_ID_TRAINING;
-                }else{
                     moduleId = ssLocations.city_corporation_upazila.name+"_"+ssLocations.union_ward.name;
+                }else{
+                    moduleId = HnppConstants.MODULE_ID_TRAINING;
                 }
 
                 HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
@@ -233,7 +233,6 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.v("SIMPRINT_SDK", "at fragment >> requestCode:" + requestCode + ":resultCode:" + resultCode + ":intent:" + data);
 
     }
 }
