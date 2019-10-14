@@ -117,6 +117,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     public void sync(Activity activity) {
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
+
     }
 
     @Override

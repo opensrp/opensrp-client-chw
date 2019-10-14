@@ -96,7 +96,9 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         imageViewClasterNameFilter.setOnClickListener(this);
         clients_header_layout.getLayoutParams().height = 100;
         clients_header_layout.setVisibility(View.GONE);
-
+        if(getSearchCancelView()!=null){
+            getSearchCancelView().setOnClickListener(this);
+        }
 //        TextView dueOnly = ((TextView)view.findViewById(org.smartregister.chw.core.R.id.due_only_text_view));
 //        dueOnly.setVisibility(View.VISIBLE);
     }
@@ -118,6 +120,15 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
             case R.id.claster_filter_img:
                 mSelectedClasterName = "";
                 updateFilterView();
+                break;
+            case R.id.btn_search_cancel:
+                mSelectedVillageName = "";
+                mSelectedClasterName = "";
+                if(getSearchView()!=null){
+                    getSearchView().setText("");
+                }
+                clients_header_layout.setVisibility(android.view.View.GONE);
+
                 break;
         }
     }

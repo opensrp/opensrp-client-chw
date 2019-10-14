@@ -135,13 +135,15 @@ public class HouseholdIdRepository extends BaseRepository {
 
             if(cursor!=null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
-                while (cursor.getCount() > 0 && !cursor.isAfterLast()) {
+                while (!cursor.isAfterLast()) {
                     vid = cursor.getString(0);
                     int vid_count = cursor.getInt(1);
                     if(vid_count<10){
                         ids = ids + vid + ",";
                     }
+                    cursor.moveToNext();
                 }
+                cursor.close();
                 if(!ids.isEmpty()){
                     ids = ids.substring(0,ids.length()-1);
                     return ids;

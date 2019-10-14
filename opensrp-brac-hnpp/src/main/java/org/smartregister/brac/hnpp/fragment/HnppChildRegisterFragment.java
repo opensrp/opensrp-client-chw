@@ -12,20 +12,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.activity.HnppChildProfileActivity;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.location.SSLocations;
 import org.smartregister.brac.hnpp.location.SSModel;
 import org.smartregister.brac.hnpp.model.HnppChildRegisterFragmentModel;
 import org.smartregister.brac.hnpp.presenter.HnppChildRegisterFragmentPresenter;
+import org.smartregister.brac.hnpp.provider.HnppChildRegisterProvider;
 import org.smartregister.brac.hnpp.utils.HnppChildUtils;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreChildHomeVisitActivity;
 import org.smartregister.chw.core.fragment.CoreChildRegisterFragment;
-import org.smartregister.brac.hnpp.R;
-import org.smartregister.brac.hnpp.provider.HnppChildRegisterProvider;
-import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -50,10 +49,21 @@ import static org.smartregister.chw.core.utils.ChildDBConstants.tableColConcat;
 
 public class HnppChildRegisterFragment extends CoreChildRegisterFragment implements android.view.View.OnClickListener {
     private final String DEFAULT_MAIN_CONDITION = "date_removed is null";
-    private String mSelectedVillageName,mSelectedClasterName;
-    private TextView textViewVillageNameFilter,textViewClasterNameFilter;
-    private ImageView imageViewVillageNameFilter,imageViewClasterNameFilter;
+    ArrayAdapter<String> villageSpinnerArrayAdapter;
+    private String mSelectedVillageName, mSelectedClasterName;
+    private TextView textViewVillageNameFilter, textViewClasterNameFilter;
+    private ImageView imageViewVillageNameFilter, imageViewClasterNameFilter;
     private ViewGroup clients_header_layout;
+
+    public static String childMainFilter(String mainCondition, String mainMemberCondition, String filters, String sort, int limit, int offset) {
+        return "SELECT " + CommonFtsObject.idColumn + " FROM " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD) + " WHERE " + CommonFtsObject.idColumn + " IN " +
+                " ( " +
+                " SELECT " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD), CommonFtsObject.idColumn) + " FROM " +
+                CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD) + " JOIN " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY) + " ON " +
+                tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD), CommonFtsObject.relationalIdColumn) + " = " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), CommonFtsObject.idColumn) +
+                " WHERE  " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD), mainCondition) + " AND " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), CommonFtsObject.phraseColumn + HnppChildUtils.matchPhrase(filters)) +
+                ")  " + orderByClause(sort) + limitClause(limit, offset);
+    }
 
     @Override
     protected void initializePresenter() {
@@ -72,7 +82,7 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
             Timber.i(patient.name);
         }
         String houseHoldId = Utils.getValue(patient.getColumnmaps(), HnppConstants.KEY.HOUSE_HOLD_ID, false);
-        HnppChildProfileActivity.startMe(getActivity(), houseHoldId,false, new MemberObject(patient), HnppChildProfileActivity.class);
+        HnppChildProfileActivity.startMe(getActivity(), houseHoldId, false, new MemberObject(patient), HnppChildProfileActivity.class);
     }
 
     @Override
@@ -82,6 +92,12 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }
+
+//    @Override
+//    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
+//        super.filter(filterString, joinTableString, mainConditionString, qrCode);
+//
+//    }
 
     @Override
     protected String getMainCondition() {
@@ -99,10 +115,11 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
             getSearchView().setBackgroundResource(org.smartregister.family.R.color.white);
             getSearchView().setCompoundDrawablesWithIntrinsicBounds(org.smartregister.family.R.drawable.ic_action_search, 0, 0, 0);
         }
+
         dueOnlyLayout.setVisibility(android.view.View.GONE);
         view.findViewById(org.smartregister.chw.core.R.id.filter_sort_layout).setOnClickListener(registerActionHandler);
         clients_header_layout = view.findViewById(org.smartregister.chw.core.R.id.clients_header_layout);
-        android.view.View filterView =inflate(getContext(),R.layout.filter_top_view,clients_header_layout);
+        android.view.View filterView = inflate(getContext(), R.layout.filter_top_view, clients_header_layout);
         textViewVillageNameFilter = filterView.findViewById(R.id.village_name_filter);
         textViewClasterNameFilter = filterView.findViewById(R.id.claster_name_filter);
         imageViewVillageNameFilter = filterView.findViewById(R.id.village_filter_img);
@@ -111,31 +128,39 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
         imageViewClasterNameFilter.setOnClickListener(this);
         clients_header_layout.getLayoutParams().height = 100;
         clients_header_layout.setVisibility(android.view.View.GONE);
+        if(getSearchCancelView()!=null){
+            getSearchCancelView().setOnClickListener(this);
+        }
 
 //        TextView dueOnly = ((TextView)view.findViewById(org.smartregister.chw.core.R.id.due_only_text_view));
 //        dueOnly.setVisibility(View.VISIBLE);
     }
 
-//    @Override
-//    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
-//        super.filter(filterString, joinTableString, mainConditionString, qrCode);
-//
-//    }
-
     @Override
     public void onClick(android.view.View v) {
         super.onViewClicked(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.village_filter_img:
-                mSelectedVillageName ="";
+                mSelectedVillageName = "";
                 updateFilterView();
                 break;
             case R.id.claster_filter_img:
                 mSelectedClasterName = "";
                 updateFilterView();
                 break;
+            case R.id.btn_search_cancel:
+                mSelectedVillageName = "";
+                mSelectedClasterName = "";
+                if(getSearchView()!=null){
+                    getSearchView().setText("");
+                }
+                clients_header_layout.setVisibility(android.view.View.GONE);
+
+                break;
         }
+
     }
+
     protected String filterandSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
@@ -159,17 +184,7 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
 
         return query;
     }
-    public static String childMainFilter(String mainCondition, String mainMemberCondition, String filters, String sort, int limit, int offset) {
-        return "SELECT " + CommonFtsObject.idColumn + " FROM " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD) + " WHERE " + CommonFtsObject.idColumn + " IN " +
-                " ( SELECT " + CommonFtsObject.idColumn + " FROM " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD) + " WHERE  " + mainCondition + "  AND " + CommonFtsObject.phraseColumn + HnppChildUtils.matchPhrase(filters) +
-                " UNION " +
-                " SELECT " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD), CommonFtsObject.idColumn) + " FROM " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD) +
-                " JOIN " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY) + " on " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD), CommonFtsObject.relationalIdColumn) + " = " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), CommonFtsObject.idColumn) +
-                " JOIN " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER) + " on " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER), CommonFtsObject.idColumn) + " = " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), DBConstants.KEY.PRIMARY_CAREGIVER) +
-                " WHERE  " + mainMemberCondition.trim() + " AND " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), CommonFtsObject.phraseColumn + HnppChildUtils.matchPhrase(filters)) +
-                ")  " + orderByClause(sort) + limitClause(limit, offset);
-    }
-    ArrayAdapter<String> villageSpinnerArrayAdapter;
+
     @Override
     public void onViewClicked(android.view.View view) {
         super.onViewClicked(view);
@@ -179,8 +194,7 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
             if (StringUtils.isNotBlank(baseEntityId)) {
                 CoreChildHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
             }
-        }
-        else if (view.getId() == R.id.filter_sort_layout) {
+        } else if (view.getId() == R.id.filter_sort_layout) {
 
             ArrayList<String> ssSpinnerArray = new ArrayList<>();
 
@@ -188,10 +202,9 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
             ArrayList<String> villageSpinnerArray = new ArrayList<>();
 
             ArrayList<SSModel> ssLocationForms = SSLocationHelper.getInstance().getSsModels();
-            for(SSModel ssModel : ssLocationForms){
+            for (SSModel ssModel : ssLocationForms) {
                 ssSpinnerArray.add(ssModel.username);
             }
-
 
 
             ArrayAdapter<String> ssSpinnerArrayAdapter = new ArrayAdapter<String>
@@ -206,7 +219,7 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
                     (getActivity(), android.R.layout.simple_spinner_item,
                             HnppConstants.getClasterSpinnerArray());
 
-            Dialog dialog = new Dialog(getActivity(),android.R.style.Theme_NoTitleBar_Fullscreen);
+            Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_NoTitleBar_Fullscreen);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(org.smartregister.family.R.color.customAppThemeBlue)));
             dialog.setContentView(R.layout.filter_options_dialog);
@@ -222,7 +235,7 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
                     if (position != -1) {
                         villageSpinnerArray.clear();
                         ArrayList<SSLocations> ssLocations = SSLocationHelper.getInstance().getSsModels().get(position).locations;
-                        for(SSLocations ssLocations1 : ssLocations){
+                        for (SSLocations ssLocations1 : ssLocations) {
                             villageSpinnerArray.add(ssLocations1.village.name);
                         }
                         villageSpinnerArrayAdapter = new ArrayAdapter<String>
@@ -275,15 +288,16 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
             dialog.show();
         }
     }
-    public void updateFilterView(){
-        if(StringUtils.isEmpty(mSelectedVillageName) && StringUtils.isEmpty(mSelectedClasterName)){
+
+    public void updateFilterView() {
+        if (StringUtils.isEmpty(mSelectedVillageName) && StringUtils.isEmpty(mSelectedClasterName)) {
             clients_header_layout.setVisibility(android.view.View.GONE);
-        }else{
+        } else {
             clients_header_layout.setVisibility(android.view.View.VISIBLE);
         }
 
-        textViewVillageNameFilter.setText(getString(R.string.filter_village_name,mSelectedVillageName));
-        textViewClasterNameFilter.setText(getString(R.string.claster_village_name,HnppConstants.getClusterNameFromValue(mSelectedClasterName)));
+        textViewVillageNameFilter.setText(getString(R.string.filter_village_name, mSelectedVillageName));
+        textViewClasterNameFilter.setText(getString(R.string.claster_village_name, HnppConstants.getClusterNameFromValue(mSelectedClasterName)));
         String filterString = getFilterString();
         filter(filterString, "", DEFAULT_MAIN_CONDITION, false);
 

@@ -60,6 +60,7 @@ public class PullHouseholdIdIntentService extends IntentService {
 //        baseUrl = "http://192.168.22.152:8080/opensrp";
         String userName = HnppApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
         String vid = householdIdRepo.getUnusedVillageId();
+        Log.d("getUnusedVillageId",vid);
         if(vid.equalsIgnoreCase("-1")){
             return new JSONArray();
         }
