@@ -42,6 +42,10 @@ public class ChwReport {
         PieChartSlice pnc_indicator_6_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_WOMEN_WITH_DANGER_SIGNS, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
         mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(pnc_indicator_6_1, pnc_indicator_6_2), R.string.pnc_indicator_6, null)).createView());
 
+        PieChartSlice pnc_indicator_7_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_NEWBORNS_WITH_NO_DANGER_SIGNS, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
+        PieChartSlice pnc_indicator_7_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_NEWBORNS_WITH_DANGER_SIGNS, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(pnc_indicator_7_1, pnc_indicator_7_2), R.string.pnc_indicator_7, null)).createView());
+
     }
 
 

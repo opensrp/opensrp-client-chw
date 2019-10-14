@@ -15,6 +15,8 @@ public class ReportingConstants {
         public static final String COUNT_MATERNAL_DEATHS="pnc_report_indicator_5_2";
         public static final String COUNT_WOMEN_WITH_NO_DANGER_SIGNS="pnc_report_indicator_6_1";
         public static final String COUNT_WOMEN_WITH_DANGER_SIGNS="pnc_report_indicator_6_2";
+        public static final String COUNT_NEWBORNS_WITH_NO_DANGER_SIGNS="pnc_report_indicator_7_1";
+        public static final String COUNT_NEWBORNS_WITH_DANGER_SIGNS="pnc_report_indicator_7_2";
     }
 
     public class AncIndicatorKeys {
