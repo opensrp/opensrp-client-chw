@@ -22,7 +22,7 @@ public class HnppSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-        return Utils.getSyncFilterValue();
+        return "584f7ad8-34de-4498-ba56-c43d62f52c0f";
     }
 
     @Override
