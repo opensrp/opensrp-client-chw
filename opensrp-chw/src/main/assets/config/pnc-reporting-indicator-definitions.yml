@@ -57,3 +57,30 @@ indicators:
                      WHERE fme.is_closed = '1' AND fme.entity_type = 'ec_family_member' AND fme.gender = 'Female'
                      AND fme.dod >= date('now', '-12 month') AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int)  >= 10 AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int) <= 49
                      AND (ed.key = 'preg_outcome' OR ed.key='last_menstrual_period')"
+
+  - key: "pnc_report_indicator_6_1"
+    description: "Count of women with no danger signs in their last PNC home visit"
+    indicatorQuery: "select count(base_entity_id) from
+                     (select vi.visit_id, vi.base_entity_id, vd.details as vdetails, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(vi.visit_date/1000,'unixepoch', 'localtime')) latest_visit_date
+                     from visits vi
+                     inner join visit_details vd on vd.visit_id = vi.visit_id
+                     inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                     where fm.date_removed is null and fm.entity_type = 'ec_family_member'
+                     and vi.visit_type = 'PNC Home Visit' and vd.visit_key = 'danger_signs_present'
+                     group by vi.base_entity_id
+                     ) as latest_visit_details
+                     where latest_visit_details.vdetails = '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+
+
+  - key: "pnc_report_indicator_6_2"
+    description: "Count of women with danger signs in their last PNC home visit"
+    indicatorQuery: "select count(base_entity_id) from
+                     (select vi.visit_id, vi.base_entity_id, vd.details as vdetails, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(vi.visit_date/1000,'unixepoch', 'localtime')) latest_visit_date
+                     from visits vi
+                     inner join visit_details vd on vd.visit_id = vi.visit_id
+                     inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                     where fm.date_removed is null and fm.entity_type = 'ec_family_member'
+                     and vi.visit_type = 'PNC Home Visit' and vd.visit_key = 'danger_signs_present'
+                     group by vi.base_entity_id
+                     ) as latest_visit_details
+                     where latest_visit_details.vdetails != '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
