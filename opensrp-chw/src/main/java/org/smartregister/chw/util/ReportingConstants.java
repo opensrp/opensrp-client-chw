@@ -13,6 +13,8 @@ public class ReportingConstants {
         public static final String COUNT_BABIES_DID_NOT_RECEIVE_BGC_ON_TIME="pnc_report_indicator_4_2";
         public static final String COUNT_OTHER_WRA_DEATHS="pnc_report_indicator_5_1";
         public static final String COUNT_MATERNAL_DEATHS="pnc_report_indicator_5_2";
+        public static final String COUNT_WOMEN_WITH_DANGER_SIGNS="pnc_report_indicator_6_1";
+        public static final String COUNT_WOMEN_WITH_NO_DANGER_SIGNS="pnc_report_indicator_6_2";
     }
 
     public class AncIndicatorKeys {
