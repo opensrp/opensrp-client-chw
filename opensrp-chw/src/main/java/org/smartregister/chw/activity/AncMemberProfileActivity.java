@@ -67,7 +67,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == org.smartregister.chw.core.R.id.action_remove_member) {
+        if (itemId ==  R.id.action_remove_member) {
             CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
 
             final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
@@ -77,7 +77,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
             IndividualProfileRemoveActivity.startIndividualProfileActivity(AncMemberProfileActivity.this, client, memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), AncRegisterActivity.class.getCanonicalName());
             return true;
-        } else if (itemId == org.smartregister.chw.core.R.id.action_pregnancy_out_come) {
+        } else if (itemId == R.id.action_pregnancy_out_come) {
             PncRegisterActivity.startPncRegistrationActivity(AncMemberProfileActivity.this, memberObject.getBaseEntityId(), null, CoreConstants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName());
             return true;
         }
@@ -132,7 +132,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
             }
         } else if (requestCode == Constants.REQUEST_CODE_HOME_VISIT) {
             this.displayView();
-            Visit lastVisit = this.getVisit("ANC Home Visit");
+            Visit lastVisit = this.getVisit(CoreConstants.EventType.ANC_HOME_VISIT);
             lastVisit.getDate();
             this.setLastVisit(lastVisit.getDate());
         } else if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
