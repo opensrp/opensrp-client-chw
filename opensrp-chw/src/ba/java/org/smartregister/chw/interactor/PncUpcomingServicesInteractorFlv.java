@@ -9,7 +9,7 @@ import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
-import org.smartregister.chw.dao.PNCDao;
+import org.smartregister.chw.dao.ChwPNCDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.chw.util.PNCVisitUtil;
 
@@ -35,7 +35,7 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
 
     private void evaluateHealthFacility(List<BaseUpcomingService> serviceList) {
         // create data to display
-        PNCHealthFacilityVisitSummary summary = PNCDao.getLastHealthFacilityVisitSummary(memberObject.getBaseEntityId());
+        PNCHealthFacilityVisitSummary summary = ChwPNCDao.getLastHealthFacilityVisitSummary(memberObject.getBaseEntityId());
         if (summary != null) {
             PNCHealthFacilityVisitRule visitRule = PNCVisitUtil.getNextPNCHealthFacilityVisit(summary.getDeliveryDate(), summary.getLastVisitDate());
 
