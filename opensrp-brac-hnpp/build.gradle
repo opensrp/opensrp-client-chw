@@ -31,7 +31,7 @@ android {
         minSdkVersion 18
         targetSdkVersion 28
         versionCode 2
-        versionName "1.1.2"
+        versionName "1.1.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         buildConfigField "String", 'opensrp_url', '"http://mhealthTest.brac.net:8080/opensrp"'

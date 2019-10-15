@@ -179,23 +179,21 @@ public class HnppFamilyRegisterProvider extends CoreRegisterProvider  {
             Utils.startAsyncTask(new UpdateAsyncTask(context, viewHolder, familyBaseEntityId, totalMember), null);
         }
     }
-    private Map<String,View> viewMap = new HashMap<>();
-    protected void updateChildIcons(HouseHoldRegisterProvider viewHolder, List<Map<String, String>> list, int ancWomanCount,int memberCount , String totalMember) {
+    protected void updateChildIcons(HouseHoldRegisterProvider viewHolder, List<Map<String, String>> list, int ancWomanCount,int memberCount , String totalMember, String familyBaseEntityId) {
 
         //if( memberCount > 0){
             setText(viewHolder.registeredMember,context.getString(R.string.registered_count,memberCount+"",totalMember));
        // }
-        int position = viewHolder.getAdapterPosition();
-        if (memberCount == 0) return;
         if (ancWomanCount > 0) {
             viewHolder.memberIcon.setVisibility(View.VISIBLE);
-            View view = LayoutInflater.from(context).inflate(R.layout.member_with_count, null);
-            ImageView ancImage = view.findViewById(R.id.member_image);
-            TextView textViewCount = view.findViewById(R.id.count_tv);
-            ancImage.setImageResource(org.smartregister.chw.core.R.mipmap.ic_anc_pink);
-            textViewCount.setText(ancWomanCount+"");
-            viewHolder.memberIcon.addView(view);
+            viewHolder.womenImage.setVisibility(View.VISIBLE);
+            viewHolder.womenCount.setVisibility(View.VISIBLE);
+            viewHolder.womenImage.setImageResource(org.smartregister.chw.core.R.mipmap.ic_anc_pink);
+            viewHolder.womenCount.setText(ancWomanCount+"");
 
+        }else{
+            viewHolder.memberIcon.setVisibility(View.GONE);
+            viewHolder.ancView.setVisibility(View.GONE);
         }
         int maleChildCount = 0,femaleChildCount = 0;
         if (list != null && !list.isEmpty()) {
@@ -209,40 +207,23 @@ public class HnppFamilyRegisterProvider extends CoreRegisterProvider  {
                 }
             }
             if(maleChildCount>0){
-                View v;
-                if(viewMap.containsKey("Male"+position)){
-                    v = viewMap.get("Male"+position);
-                }else{
-                    v = LayoutInflater.from(context).inflate(R.layout.member_with_count, null);
-                    viewMap.put("Male"+position,v);
+                viewHolder.maleView.setVisibility(View.VISIBLE);
+                viewHolder.maleImage.setImageResource(org.smartregister.chw.core.R.mipmap.ic_boy_child);
+                viewHolder.maleChildCount.setText(maleChildCount+"");
 
-                    viewHolder.memberIcon.addView(v);
-                }
-                if(v!=null){
-                    ImageView ancImage = v.findViewById(R.id.member_image);
-                    TextView textViewCount = v.findViewById(R.id.count_tv);
-                    ancImage.setImageResource(org.smartregister.chw.core.R.mipmap.ic_boy_child);
-                    textViewCount.setText(maleChildCount+"");
-                }
-
+            }else{
+                viewHolder.maleView.setVisibility(View.GONE);
             }
-            if(femaleChildCount>0){
-                View v;
-                if(viewMap.containsKey("Female"+position)){
-                    v = viewMap.get("Female"+position);
-                }else{
-                    v = LayoutInflater.from(context).inflate(R.layout.member_with_count, null);
-                    viewMap.put("Female"+position,v);
+            if(femaleChildCount>0) {
 
-                    viewHolder.memberIcon.addView(v);
-                }
-                if(v!=null){
-                    ImageView ancImage = v.findViewById(R.id.member_image);
-                    TextView textViewCount = v.findViewById(R.id.count_tv);
-                    ancImage.setImageResource(org.smartregister.chw.core.R.mipmap.ic_girl_child);
-                    textViewCount.setText(femaleChildCount+"");
-                }
+                viewHolder.femaleView.setVisibility(View.VISIBLE);
+                viewHolder.femaleImage.setImageResource(org.smartregister.chw.core.R.mipmap.ic_girl_child);
+                viewHolder.femaleChildCount.setText(femaleChildCount+"");
+            }else{
+                viewHolder.femaleView.setVisibility(View.GONE);
             }
+        }else{
+            viewHolder.memberIcon.setVisibility(View.GONE);
         }
 
     }
@@ -317,9 +298,11 @@ public class HnppFamilyRegisterProvider extends CoreRegisterProvider  {
         public CircleImageView addMemberBtn;
         public ImageView profileImage;
         public View patientColumn;
-        public LinearLayout memberIcon;
+        public LinearLayout memberIcon,maleView,femaleView,ancView;
 
         public View registerColumns;
+        public TextView womenCount,maleChildCount,femaleChildCount;
+        public ImageView womenImage,maleImage,femaleImage;
 
         public HouseHoldRegisterProvider(View itemView) {
             super(itemView);
@@ -344,6 +327,15 @@ public class HnppFamilyRegisterProvider extends CoreRegisterProvider  {
             memberIcon = itemView.findViewById(R.id.member_icon_layout);
             memberIcon.setVisibility(View.GONE);
 
+            womenCount = itemView.findViewById(R.id.women_count_tv);
+            womenImage = itemView.findViewById(R.id.women_member_image);
+            maleChildCount = itemView.findViewById(R.id.male_count_tv);
+            maleImage = itemView.findViewById(R.id.male_member_image);
+            femaleChildCount = itemView.findViewById(R.id.female_count_tv);
+            femaleImage = itemView.findViewById(R.id.female_member_image);
+            maleView = itemView.findViewById(R.id.male_View);
+            femaleView = itemView.findViewById(R.id.female_view);
+            ancView = itemView.findViewById(R.id.anc_view);
             registerColumns = itemView.findViewById(org.smartregister.family.R.id.register_columns);
         }
     }
@@ -391,7 +383,7 @@ public class HnppFamilyRegisterProvider extends CoreRegisterProvider  {
         protected void onPostExecute(Void param) {
             // Update child Icon
 //            updateChildIcons(viewHolder, list, memberCount);
-            updateChildIcons(viewHolder, list, ancWomanCount,memberCount,totalMember);
+            updateChildIcons(viewHolder, list, ancWomanCount,memberCount,totalMember,familyBaseEntityId);
         }
     }
 
