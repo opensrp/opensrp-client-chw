@@ -232,11 +232,11 @@
         },
         "v_numeric": {
           "value": "true",
-          "err": "একটি বৈধ নম্বর লিখুন"
+          "err": "মোট 10/13/17 সংখ্যা হওয়া আবশ্যক"
         },
         "v_regex": {
           "value": "([0-9]{10})|([0-9]{13})|([0-9]{17})|\\s*",
-          "err": "একটি বৈধ নম্বর লিখুন"
+          "err": "মোট 10/13/17 সংখ্যা হওয়া আবশ্যক"
         },
         "relevance": {
           "step1:id_avail": {
@@ -259,11 +259,11 @@
         "hint": "জন্ম পরিচয় পত্র",
         "v_numeric": {
           "value": "true",
-          "err": "একটি বৈধ নম্বর লিখুন"
+          "err": "মোট 17 সংখ্যা হওয়া আবশ্যক"
         },
         "v_regex": {
           "value": "([0-9]{17})|\\s*",
-          "err": "একটি বৈধ নম্বর লিখুন"
+          "err": "মোট 17 সংখ্যা হওয়া আবশ্যক"
         },
         "relevance": {
           "step1:id_avail": {
@@ -341,7 +341,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "age",
         "type": "edit_text",
-        "hint": "আনুমানিক বয়স",
+        "hint": "বয়স ৫ বা ৫ এর বেশি হতে হবে",
         "v_numeric": {
           "value": "true",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
