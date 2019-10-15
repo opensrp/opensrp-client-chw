@@ -1,8 +1,8 @@
 package org.smartregister.chw.dao;
 
 import org.jetbrains.annotations.Nullable;
-import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
+import org.smartregister.dao.AbstractDao;
 
 import java.text.ParseException;
 import java.util.List;
