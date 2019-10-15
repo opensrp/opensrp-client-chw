@@ -56,6 +56,9 @@ public class ChwReport {
         PieChartSlice pnc_indicator_8_8 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_POSTPARTUM_FP_METHOD_OTHER, mainLayout.getContext().getResources().getString(R.string.other), mainLayout.getContext().getResources().getColor(R.color.black), indicatorTallies);
         List<PieChartSlice> slices = ReportingUtil.addPieChartSlices(pnc_indicator_8_1, pnc_indicator_8_2, pnc_indicator_8_3, pnc_indicator_8_4, pnc_indicator_8_5, pnc_indicator_8_6, pnc_indicator_8_7, pnc_indicator_8_8);
         mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(slices, R.string.pnc_indicator_8, null)).createView());
+
+        NumericDisplayModel indicator9 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_DECEASED_NEWBORNS_0_28, R.string.pnc_indicator_9, indicatorTallies);
+        mainLayout.addView(new NumericIndicatorView(mainLayout.getContext(), indicator9).createView());
     }
 
 
