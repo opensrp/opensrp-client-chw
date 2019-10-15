@@ -216,3 +216,9 @@ indicators:
                                                             and vi.visit_type = 'PNC Home Visit' and vd.visit_key = 'fp_method' and (vd.human_readable_details = 'Other' or vd.human_readable_details = 'Autre')
                                                          and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month')
                                                          group by vi.base_entity_id)"
+
+  - key: "pnc_report_indicator_9_1"
+    description: "Count of newborns (0-28 days) who died in the last year"
+    indicatorQuery: "select count(distinct ev.baseEntityId) from event ev
+                     inner join ec_child ec on ec.base_entity_id = ev.baseEntityId
+                     where ev.eventType = 'Remove Child Under 5'and date(ec.dob) >= date('now', '-28 days') and date(ec.dod) >= date('now', '-12 month')"
