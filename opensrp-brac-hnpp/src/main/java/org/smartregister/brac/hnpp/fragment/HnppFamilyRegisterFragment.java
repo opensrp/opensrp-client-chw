@@ -59,7 +59,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         }
         presenter = new HnppFamilyRegisterFragmentPresenter(this, new HnppFamilyRegisterFragmentModel(), null);
     }
-
+    @Override
     protected void goToPatientDetailActivity(CommonPersonObjectClient patient, boolean goToDuePage) {
         Intent intent = new Intent(getActivity(), Utils.metadata().profileActivity);
         intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, patient.getCaseId());
