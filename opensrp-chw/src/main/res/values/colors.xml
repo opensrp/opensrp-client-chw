@@ -19,4 +19,10 @@
     <color name="visit_status_not_yet">@android:color/darker_gray</color>
     <color name="pie_chart_yes">#99CC00</color>
     <color name="pie_chart_no">#FF4444</color>
+    <color name="pie_chart_blue">#1155D7</color>
+    <color name="pie_chart_yellow">#F6C732</color>
+    <color name="pie_chart_green">#38761D</color>
+    <color name="pie_chart_purple">#A64D79</color>
+    <color name="pie_chart_orange">#E69138</color>
+    <color name="pie_chart_brow">#803F04</color>
 </resources>
