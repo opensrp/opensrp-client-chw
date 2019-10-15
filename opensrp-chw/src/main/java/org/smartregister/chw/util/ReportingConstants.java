@@ -17,6 +17,14 @@ public class ReportingConstants {
         public static final String COUNT_WOMEN_WITH_DANGER_SIGNS="pnc_report_indicator_6_2";
         public static final String COUNT_NEWBORNS_WITH_NO_DANGER_SIGNS="pnc_report_indicator_7_1";
         public static final String COUNT_NEWBORNS_WITH_DANGER_SIGNS="pnc_report_indicator_7_2";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_NONE="pnc_report_indicator_8_1";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_ABSTINENCE="pnc_report_indicator_8_2";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_CONDOM="pnc_report_indicator_8_3";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_TABLETS="pnc_report_indicator_8_4";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_INJECTABLE="pnc_report_indicator_8_5";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_IUD="pnc_report_indicator_8_6";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_IMPLANT="pnc_report_indicator_8_7";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_OTHER="pnc_report_indicator_8_8";
     }
 
     public class AncIndicatorKeys {
