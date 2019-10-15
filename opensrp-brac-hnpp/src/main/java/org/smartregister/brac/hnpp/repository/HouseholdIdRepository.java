@@ -155,6 +155,7 @@ public class HouseholdIdRepository extends BaseRepository {
                 return vid;
             }
         }catch(SQLException e){
+            e.printStackTrace();
 
         }
         return vid;

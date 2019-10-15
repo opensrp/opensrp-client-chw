@@ -98,6 +98,13 @@
         "v_required": {
           "value": "true",
           "err": "মান নির্বাচন করুন"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hnpp_family_relevance.yml"
+            }
+          }
         }
       },
       {

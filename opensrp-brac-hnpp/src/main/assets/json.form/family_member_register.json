@@ -346,13 +346,17 @@
           "value": "true",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
         },
+        "v_regex": {
+          "value": "[0-9]*",
+          "err": "দশমিক অনুমোদিত নয়"
+        },
         "v_min": {
           "value": "5",
-          "err": "বয়স সমান বা 5 এর বেশি হতে হবে"
+          "err": "বয়স 5 এর সমান বা 5 এর বেশি হতে হবে"
         },
         "v_max": {
           "value": "120",
-          "err": "বয়স সমান বা 120 এর কম হওয়া উচিত"
+          "err": "বয়স 120 এর সমান বা 120 এর কম হওয়া উচিত"
         },
         "relevance": {
           "step1:is_birthday_known": {

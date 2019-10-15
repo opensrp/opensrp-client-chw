@@ -1,0 +1,7 @@
+---
+name: step1_village_name
+description: after ss name select
+priority: 1
+condition: "!step1_ss_name.contains('স্বাস্থ্য সেবিকার নামঃ')"
+actions:
+  - "isRelevant = true"

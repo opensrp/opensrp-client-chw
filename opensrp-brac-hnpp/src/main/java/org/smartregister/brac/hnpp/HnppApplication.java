@@ -132,7 +132,6 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
 
     @Override
     public void logoutCurrentUser() {
-        //TODO need_to_open
 //        Intent intent = new Intent(getApplicationContext(), org.smartregister.brac.hnpp.activity.LoginActivity.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        intent.addCategory(Intent.CATEGORY_HOME);
