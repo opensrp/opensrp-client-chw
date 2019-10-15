@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.interactor.HnppJsonFormInteractor;
+import org.smartregister.brac.hnpp.widget.HnppFingerPrintFactory;
 
 import java.util.ArrayList;
 
@@ -59,6 +61,13 @@ public class HNPPMemberJsonFormFragment extends JsonWizardFormFragment {
         return super.createViewState();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == com.vijay.jsonwizard.R.id.action_save){
+            HnppFingerPrintFactory.showFingerPrintErrorMessage();
+        }
+            return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public JSONObject getStep(String stepName) {
@@ -79,7 +88,7 @@ public class HNPPMemberJsonFormFragment extends JsonWizardFormFragment {
                         ImageView imageView = (ImageView) view;
                         String key = (String) imageView.getTag(com.vijay.jsonwizard.R.id.key);
                         if (key.equals("finger_print")) {
-                            imageView.setImageResource(R.drawable.finger_print_done);
+                            imageView.setImageResource(R.drawable.fingerprint_given);
                             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             imageView.setTag(R.id.imagePath, guid);
                         }
