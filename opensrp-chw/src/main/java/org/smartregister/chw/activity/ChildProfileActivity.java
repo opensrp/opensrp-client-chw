@@ -17,6 +17,7 @@ import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.chw.dao.MalariaDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
@@ -32,6 +33,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     public FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new ChildProfileActivityFlv();
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+
+    public List<ReferralTypeModel> getReferralTypeModels() {
+        return referralTypeModels;
+    }
 
     @Override
     protected void onCreation() {
@@ -169,9 +174,11 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     }
 
     private void addReferralTypes() {
-        referralTypeModels.add(new ReferralTypeModel("Child", "Sick Child", org.smartregister.chw.util.Constants.JSON_FORM.getChildReferralForm()));
-
-        referralTypeModels.add(new ReferralTypeModel("Child", "Sick Child", org.smartregister.chw.util.Constants.JSON_FORM.getChildReferralForm()));
+        referralTypeModels.add(new ReferralTypeModel("Child", "Sick Child",
+                org.smartregister.chw.util.Constants.JSON_FORM.getChildReferralForm()));
+        if (MalariaDao.isRegisteredForMalaria(childBaseEntityId)) {
+            referralTypeModels.add(new ReferralTypeModel("Child", "Malaria follow-up", null));
+        }
     }
 
     public interface Flavor {

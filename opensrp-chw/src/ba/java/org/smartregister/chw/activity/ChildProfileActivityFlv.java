@@ -18,7 +18,7 @@ public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
                         FamilyCallDialogFragment.launchDialog(activity, presenter.getFamilyId());
                         break;
                     case R.id.refer_to_facility_layout:
-                        presenter.startSickChildReferralForm();
+                        presenter.referToFacility();
                         break;
                     default:
                         break;

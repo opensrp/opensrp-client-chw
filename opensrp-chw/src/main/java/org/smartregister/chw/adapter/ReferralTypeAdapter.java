@@ -16,6 +16,17 @@ import java.util.List;
 public class ReferralTypeAdapter extends RecyclerView.Adapter<ReferralTypeAdapter.ReferralTypeViewHolder> {
 
     private List<ReferralTypeModel> referralTypes = new ArrayList<>();
+    private View.OnClickListener onClickListener;
+
+    public List<ReferralTypeModel> getReferralTypes() {
+        return referralTypes;
+    }
+
+    public void setReferralTypes(List<ReferralTypeModel> referralTypes) {
+        if (referralTypes != null) {
+            this.referralTypes.addAll(referralTypes);
+        }
+    }
 
     @NonNull
     @Override
@@ -37,18 +48,18 @@ public class ReferralTypeAdapter extends RecyclerView.Adapter<ReferralTypeAdapte
         return referralTypes.size();
     }
 
-    public void setReferralTypes(List<ReferralTypeModel> referralTypes) {
-        if (referralTypes != null) {
-            this.referralTypes.addAll(referralTypes);
-        }
+    public void setOnClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
     }
 
-    class ReferralTypeViewHolder extends RecyclerView.ViewHolder {
+    public class ReferralTypeViewHolder extends RecyclerView.ViewHolder {
         private TextView referralType;
 
         private ReferralTypeViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setTag(this);
             referralType = itemView.findViewById(R.id.referralType);
+            itemView.setOnClickListener(v -> onClickListener.onClick(v));
         }
     }
 }

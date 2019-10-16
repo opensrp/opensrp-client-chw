@@ -6,14 +6,14 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-    <TextView
+    <com.vijay.jsonwizard.views.CustomTextView
         android:id="@+id/referralType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
         android:maxLines="1"
         android:paddingStart="0dp"
         android:paddingLeft="0dp"
@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.rey.material.widget.ImageView
+    <ImageView
         android:id="@+id/goToReferralType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,15 +38,21 @@
         android:background="@color/transparent"
         android:gravity="center"
         android:hapticFeedbackEnabled="true"
-        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
         android:src="@drawable/row_goto"
         android:textAllCaps="true"
         android:textAppearance="?android:textAppearanceSmall"
         android:textColor="@color/vaccine_blue_bg_st"
-        android:textSize="15sp"
+        android:textSize="16sp"
         android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_grey"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </android.support.constraint.ConstraintLayout>
 
