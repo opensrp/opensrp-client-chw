@@ -1,6 +1,6 @@
 package org.smartregister.chw.dao;
 
-import org.smartregister.chw.core.dao.AbstractDao;
+import org.smartregister.dao.AbstractDao;
 
 import java.util.List;
 
