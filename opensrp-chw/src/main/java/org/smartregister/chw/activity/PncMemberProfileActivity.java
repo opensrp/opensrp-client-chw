@@ -45,6 +45,14 @@ import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class PncMemberProfileActivity extends CorePncMemberProfileActivity implements PncMemberProfileContract.View {
@@ -97,6 +105,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             case Constants.REQUEST_CODE_HOME_VISIT:
                 this.setupViews();
                 ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.PNC_HOME_VISIT, new Date());
+                refreshOnHomeVisitResult();
                 break;
             default:
                 break;
@@ -136,6 +145,44 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             textview_record_visit.setVisibility(View.GONE);
             layoutRecordView.setVisibility(View.GONE);
         }
+    }
+
+    private void refreshOnHomeVisitResult(){
+        Observable<Visit>observable = Observable.create(new ObservableOnSubscribe<Visit>() {
+            @Override
+            public void subscribe(ObservableEmitter<Visit> e) throws Exception {
+                Visit lastVisit = getVisit(CoreConstants.EventType.PNC_HOME_VISIT);
+                e.onNext(lastVisit);
+                e.onComplete();
+            }
+        });
+
+        final Disposable[] disposable = new Disposable[1];
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Visit>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable[0] = d;
+            }
+
+            @Override
+            public void onNext(Visit visit) {
+                displayView();
+                setLastVisit(visit.getDate());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Timber.e(e);
+            }
+
+            @Override
+            public void onComplete() {
+                disposable[0].dispose();
+                disposable[0] = null;
+            }
+        });
+
+
     }
 
     @Override
