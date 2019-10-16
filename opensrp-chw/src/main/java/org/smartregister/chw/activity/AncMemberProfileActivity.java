@@ -43,6 +43,12 @@ import org.smartregister.repository.AllSharedPreferences;
 import java.util.Date;
 import java.util.Set;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
@@ -67,7 +73,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId ==  R.id.action_remove_member) {
+        if (itemId == R.id.action_remove_member) {
             CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
 
             final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
@@ -131,14 +137,46 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
                 Timber.e(e, "AncMemberProfileActivity -- > onActivityResult");
             }
         } else if (requestCode == Constants.REQUEST_CODE_HOME_VISIT) {
-            this.displayView();
-            Visit lastVisit = this.getVisit(CoreConstants.EventType.ANC_HOME_VISIT);
-            lastVisit.getDate();
-            this.setLastVisit(lastVisit.getDate());
+            refreshViewOnHomeVisitResult();
         } else if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
             ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.ANC_HOME_VISIT, new Date());
             finish();
         }
+    }
+
+    private void refreshViewOnHomeVisitResult() {
+        Observable<Visit> observable = Observable.create(e -> {
+            Visit lastVisit = getVisit(CoreConstants.EventType.ANC_HOME_VISIT);
+            e.onNext(lastVisit);
+            e.onComplete();
+        });
+
+        final Disposable[] disposable = new Disposable[1];
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Visit>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable[0] = d;
+                    }
+
+                    @Override
+                    public void onNext(Visit visit) {
+                        displayView();
+                        setLastVisit(visit.getDate());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.e(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        disposable[0].dispose();
+                        disposable[0] = null;
+                    }
+                });
     }
 
     @Override
