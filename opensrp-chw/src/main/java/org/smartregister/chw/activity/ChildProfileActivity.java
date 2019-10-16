@@ -17,17 +17,21 @@ import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.family.util.Constants;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ChildProfileActivity extends CoreChildProfileActivity {
     public FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new ChildProfileActivityFlv();
+    private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
     @Override
     protected void onCreation() {
@@ -37,6 +41,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         setupViews();
         setUpToolbar();
         registerReceiver(mDateTimeChangedReceiver, sIntentFilter);
+        if (flavor.hasReferrals()) {
+            addReferralTypes();
+        }
     }
 
     @Override
@@ -127,6 +134,12 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
+    }
+
     private void openMedicalHistoryScreen() {
         Map<String, Date> vaccine = ((ChildProfilePresenter) presenter()).getVaccineList();
         ChildMedicalHistoryActivity.startMedicalHistoryActivity(this, ((ChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
@@ -155,17 +168,19 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         startActivity(intent);
     }
 
+    private void addReferralTypes() {
+        referralTypeModels.add(new ReferralTypeModel("Child", "Sick Child", org.smartregister.chw.util.Constants.JSON_FORM.getChildReferralForm()));
+
+        referralTypeModels.add(new ReferralTypeModel("Child", "Sick Child", org.smartregister.chw.util.Constants.JSON_FORM.getChildReferralForm()));
+    }
+
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
 
         boolean showMalariaConfirmationMenu();
 
         boolean showFollowUpVisit();
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
+        boolean hasReferrals();
     }
 }

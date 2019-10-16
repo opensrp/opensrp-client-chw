@@ -27,4 +27,10 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
     public boolean showFollowUpVisit() {
         return false;
     }
+
+    @Override
+    public boolean hasReferrals() {
+        return false;
+    }
+
 }
