@@ -9,7 +9,7 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.anc.util.Constants;
-import org.smartregister.chw.core.dao.AbstractDao;
+import org.smartregister.dao.AbstractDao;
 import org.smartregister.chw.core.interactor.CoreAncMemberProfileInteractor;
 import org.smartregister.chw.util.ScheduleUtil;
 import org.smartregister.domain.Alert;
