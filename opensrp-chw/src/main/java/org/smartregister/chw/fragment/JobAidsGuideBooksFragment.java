@@ -28,6 +28,11 @@ import java.util.List;
 
 public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFragmentContract.View {
 
+    protected RecyclerView.Adapter mAdapter;
+    private List<GuideBooksFragmentContract.Video> videos = new ArrayList<>();
+    protected GuideBooksFragmentContract.Presenter presenter;
+    private ProgressBar progressBar;
+
     public static JobAidsGuideBooksFragment newInstance() {
         JobAidsGuideBooksFragment fragment = new JobAidsGuideBooksFragment();
         Bundle args = new Bundle();
@@ -35,18 +40,12 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
         return fragment;
     }
 
-    private RecyclerView recyclerView;
-    protected RecyclerView.Adapter mAdapter;
-    private List<GuideBooksFragmentContract.Video> videos = new ArrayList<>();
-    protected GuideBooksFragmentContract.Presenter presenter;
-    private ProgressBar progressBar;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_job_aids_guide_books, container, false);
-        recyclerView = rootView.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView);
         progressBar = rootView.findViewById(R.id.progress_bar);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getViewContext());
