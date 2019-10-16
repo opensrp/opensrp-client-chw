@@ -40,7 +40,6 @@ public class ReferralTypeAdapter extends RecyclerView.Adapter<ReferralTypeAdapte
         ReferralTypeModel referralTypeModel = referralTypes.get(position);
         referralTypeViewHolder.referralType.setText(referralTypeModel.getReferralType());
         referralTypeViewHolder.referralType.setTag(R.id.referral_type_form_name, referralTypeModel.getFormName());
-        referralTypeViewHolder.referralType.setTag(R.id.referral_type_client, referralTypeModel.getClient());
     }
 
     @Override

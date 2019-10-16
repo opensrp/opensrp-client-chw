@@ -47,7 +47,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         setUpToolbar();
         registerReceiver(mDateTimeChangedReceiver, sIntentFilter);
         if (flavor.hasReferrals()) {
-            addReferralTypes();
+            addChildReferralTypes();
         }
     }
 
@@ -173,11 +173,11 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         startActivity(intent);
     }
 
-    private void addReferralTypes() {
-        referralTypeModels.add(new ReferralTypeModel("Child", "Sick Child",
+    private void addChildReferralTypes() {
+        referralTypeModels.add(new ReferralTypeModel(getString(R.string.sick_child),
                 org.smartregister.chw.util.Constants.JSON_FORM.getChildReferralForm()));
         if (MalariaDao.isRegisteredForMalaria(childBaseEntityId)) {
-            referralTypeModels.add(new ReferralTypeModel("Child", "Malaria follow-up", null));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
         }
     }
 

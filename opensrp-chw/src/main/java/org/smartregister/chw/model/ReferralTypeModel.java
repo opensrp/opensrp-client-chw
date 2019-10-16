@@ -6,25 +6,21 @@ import android.os.Parcelable;
 public class ReferralTypeModel implements Parcelable {
 
     private String referralType;
-    private String client;
     private String formName;
 
-    public ReferralTypeModel(String client, String referralType, String formName) {
-        this.client = client;
+    public ReferralTypeModel(String referralType, String formName) {
         this.referralType = referralType;
         this.formName = formName;
     }
 
     private ReferralTypeModel(Parcel in) {
         referralType = in.readString();
-        client = in.readString();
         formName = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(referralType);
-        dest.writeString(client);
         dest.writeString(formName);
     }
 
@@ -53,7 +49,4 @@ public class ReferralTypeModel implements Parcelable {
         return formName;
     }
 
-    public String getClient() {
-        return client;
-    }
 }

@@ -70,7 +70,7 @@ public class ClientReferralActivity extends AppCompatActivity implements Facilit
             ReferralTypeModel referralTypeModel = referralTypeAdapter.getReferralTypes().get(referralTypeViewHolder.getAdapterPosition());
             try {
                 if (referralTypeModel.getFormName() == null) {
-                    org.smartregister.util.Utils.showShortToast(this, "Opens referral form");
+                    org.smartregister.util.Utils.showShortToast(this, getString(R.string.open_referral_form, referralTypeModel.getReferralType()));
                 }
                 startReferralForm(getFormUtils().getFormJson(referralTypeModel.getFormName()));
             } catch (Exception e) {
