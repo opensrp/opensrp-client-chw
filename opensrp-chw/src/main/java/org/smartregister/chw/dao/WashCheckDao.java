@@ -3,7 +3,7 @@ package org.smartregister.chw.dao;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.chw.core.dao.AbstractDao;
+import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
 
