@@ -147,7 +147,7 @@
           "value": "false",
           "err": "Required"
         },
-        "v_numeric_integer": {
+        "v_numeric": {
           "value": "true",
           "err": "Must be a rounded number"
         },
@@ -176,7 +176,7 @@
           "value": "false",
           "err": "Required"
         },
-        "v_numeric_integer": {
+        "v_numeric": {
           "value": "true",
           "err": "Must be a rounded number"
         },
