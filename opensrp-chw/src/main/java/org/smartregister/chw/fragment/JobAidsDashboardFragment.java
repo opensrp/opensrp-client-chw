@@ -102,9 +102,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     public void buildVisualization(ViewGroup viewGroup) {
         //Refresh view with new indicators
         viewGroup.removeAllViews();
-        ChwReport.createChildReportViews(viewGroup, indicatorTallies);
-        ChwReport.createAncReportViews(viewGroup, indicatorTallies);
-        ChwReport.createPncReportViews(viewGroup, indicatorTallies);
+        ChwReport.showIndicatorVisualisations(viewGroup, indicatorTallies);
     }
 
     public List<Map<String, IndicatorTally>> getIndicatorTallies() {
