@@ -186,8 +186,8 @@ android {
         togo {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
-            versionCode 7
-            versionName "1.0.6"
+            versionCode 8
+            versionName "1.0.7"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-togo.smartregister.org/opensrp/"'
@@ -220,7 +220,7 @@ android {
 }
 
 dependencies {
-    implementation ('org.smartregister:opensrp-client-chw-core:1.0.10-SNAPSHOT@aar'){
+    implementation('org.smartregister:opensrp-client-chw-core:1.0.10-SNAPSHOT@aar') {
         transitive = true
     }
 
