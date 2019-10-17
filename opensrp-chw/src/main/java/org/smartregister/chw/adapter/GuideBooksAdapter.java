@@ -35,7 +35,12 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
     public void onBindViewHolder(@NonNull GuideBooksAdapter.MyViewHolder myViewHolder, int position) {
         GuideBooksFragmentContract.Video video = videos.get(position);
 
-        myViewHolder.icon.setVisibility(video.isDowloaded() ? View.VISIBLE : View.GONE);
+        myViewHolder.icon.setVisibility(View.VISIBLE);
+        if(video.isDowloaded()){
+            myViewHolder.icon.setImageResource(R.drawable.ic_play_circle_black);
+        }else{
+            myViewHolder.icon.setImageResource(R.drawable.ic_save_outline_black);
+        }
         myViewHolder.progressBar.setVisibility(video.isDowloaded() ? View.GONE : View.VISIBLE);
         myViewHolder.icon.setOnClickListener(v -> {
             if (video.isDowloaded()) {
