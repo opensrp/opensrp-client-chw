@@ -110,7 +110,7 @@
           "value": "false",
           "err": "Required"
         },
-        "v_numeric_integer": {
+        "v_numeric": {
           "value": "true",
           "err": "Doit être un nombre arrondi"
         },
@@ -141,7 +141,7 @@
           "value": "false",
           "err": "Required"
         },
-        "v_numeric_integer": {
+        "v_numeric": {
           "value": "true",
           "err": "Doit être un nombre arrondi"
         },
