@@ -4,8 +4,6 @@ package org.smartregister.chw.presenter;
 import android.app.Activity;
 
 import org.apache.commons.lang3.tuple.Triple;
-import org.smartregister.chw.activity.ChildProfileActivity;
-import org.smartregister.chw.activity.PncMemberProfileActivity;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
@@ -21,8 +19,6 @@ import org.smartregister.util.FormUtils;
 import java.util.List;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.Utils.*;
 
 public class PncMemberProfilePresenter extends BaseAncMemberProfilePresenter implements
         PncMemberProfileContract.Presenter, FamilyProfileContract.InteractorCallBack {

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
@@ -46,7 +47,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         setupViews();
         setUpToolbar();
         registerReceiver(mDateTimeChangedReceiver, sIntentFilter);
-        if (flavor.hasReferrals()) {
+        if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
             addChildReferralTypes();
         }
     }
@@ -187,7 +188,5 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         boolean showMalariaConfirmationMenu();
 
         boolean showFollowUpVisit();
-
-        boolean hasReferrals();
     }
 }

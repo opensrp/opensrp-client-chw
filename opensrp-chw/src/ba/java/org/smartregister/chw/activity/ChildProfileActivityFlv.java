@@ -37,10 +37,4 @@ public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
     public boolean showFollowUpVisit() {
         return true;
     }
-
-    @Override
-    public boolean hasReferrals() {
-        return true;
-    }
-
 }

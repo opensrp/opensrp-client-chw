@@ -195,7 +195,12 @@ public class ChwApplication extends CoreChwApplication {
         );
     }
 
+    public boolean hasReferrals(){
+        return flavor.hasReferrals();
+    }
+
     interface Flavor {
         boolean hasP2P();
+        boolean hasReferrals();
     }
 }

@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.PncMemberProfileContract;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePncMemberProfileActivity;
@@ -24,7 +25,6 @@ import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.dao.MalariaDao;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
@@ -56,7 +56,6 @@ import timber.log.Timber;
 public class PncMemberProfileActivity extends CorePncMemberProfileActivity implements PncMemberProfileContract.View {
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
-    private Flavor flavor = new PncMemberProfileActivityFlv();
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, PncMemberProfileActivity.class);
@@ -73,79 +72,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onCreation() {
-        super.onCreation();
-        if (flavor.hasReferrals()) {
-            addPncReferralTypes();
-        }
-    }
-
-    @Override
-    protected void registerPresenter() {
-        presenter = new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), memberObject);
-    }
-
-    @Override
-    public void initializeFloatingMenu() {
-        baseAncFloatingMenu = new AncFloatingMenu(this, getAncWomanName(),
-                memberObject.getPhoneNumber(), getFamilyHeadName(), getFamilyHeadPhoneNumber(), getProfileType());
-
-        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
-            switch (viewId) {
-                case R.id.anc_fab:
-                    redrawFabWithNoPhone();
-                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
-                    break;
-                case R.id.call_layout:
-                    ((AncFloatingMenu) baseAncFloatingMenu).launchCallWidget();
-                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
-                    break;
-                case R.id.refer_to_facility_layout:
-                    pncMemberProfilePresenter().referToFacility();
-                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
-                    break;
-                default:
-                    Timber.d("Unknown fab action");
-                    break;
-            }
-
-        };
-
-        ((AncFloatingMenu) baseAncFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
-        baseAncFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
-        addContentView(baseAncFloatingMenu, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT));
-    }
-
-    @Override
-    public void openVisitMonthView() {
-        return;
-    }
-
-    @Override
-    public void openUpcomingService() {
-        PncUpcomingServicesActivity.startMe(this, memberObject);
-    }
-
-    @Override
-    public void onClick(View view) {
-        super.onClick(view);
-
-        switch (view.getId()) {
-            case R.id.textview_record_visit:
-            case R.id.textview_record_reccuring_visit:
-                PncHomeVisitActivity.startMe(this, memberObject, false);
-                break;
-            case R.id.textview_edit:
-                PncHomeVisitActivity.startMe(this, memberObject, true);
-                break;
-            default:
-                break;
-
-        }
     }
 
     @Override
@@ -249,6 +175,79 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     protected Class<? extends CorePncRegisterActivity> getPncRegisterActivityClass() {
         return PncRegisterActivity.class;
+    }
+
+    @Override
+    protected void onCreation() {
+        super.onCreation();
+        if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
+            addPncReferralTypes();
+        }
+    }
+
+    @Override
+    protected void registerPresenter() {
+        presenter = new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), memberObject);
+    }
+
+    @Override
+    public void initializeFloatingMenu() {
+        baseAncFloatingMenu = new AncFloatingMenu(this, getAncWomanName(),
+                memberObject.getPhoneNumber(), getFamilyHeadName(), getFamilyHeadPhoneNumber(), getProfileType());
+
+        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
+            switch (viewId) {
+                case R.id.anc_fab:
+                    redrawFabWithNoPhone();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                case R.id.call_layout:
+                    ((AncFloatingMenu) baseAncFloatingMenu).launchCallWidget();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                case R.id.refer_to_facility_layout:
+                    pncMemberProfilePresenter().referToFacility();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                default:
+                    Timber.d("Unknown fab action");
+                    break;
+            }
+
+        };
+
+        ((AncFloatingMenu) baseAncFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
+        baseAncFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        addContentView(baseAncFloatingMenu, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+    }
+
+    @Override
+    public void openVisitMonthView() {
+        return;
+    }
+
+    @Override
+    public void openUpcomingService() {
+        PncUpcomingServicesActivity.startMe(this, memberObject);
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+
+        switch (view.getId()) {
+            case R.id.textview_record_visit:
+            case R.id.textview_record_reccuring_visit:
+                PncHomeVisitActivity.startMe(this, memberObject, false);
+                break;
+            case R.id.textview_edit:
+                PncHomeVisitActivity.startMe(this, memberObject, true);
+                break;
+            default:
+                break;
+
+        }
     }
 
     public PncMemberProfileContract.Presenter pncMemberProfilePresenter() {
