@@ -147,24 +147,27 @@ public class ChwApplication extends CoreChwApplication {
     }
 
     public static void prepareGuideBooksFolder() {
-        // add a suffix because of flavors
-        String[] packageName = ChwApplication.getInstance().getContext().applicationContext().getPackageName().split("\\.");
-        String suffix = packageName[packageName.length - 1];
-        createFolders(suffix, false);
+        String rootFolder = getGuideBooksDirectory();
+        createFolders(rootFolder, false);
         boolean onSdCard = FileUtilities.canWriteToExternalDisk();
         if (onSdCard)
-            createFolders(suffix, onSdCard);
+            createFolders(rootFolder, true);
     }
 
-    private static void createFolders(String suffix, boolean onSdCard) {
+    private static void createFolders(String rootFolder, boolean onSdCard) {
         try {
-            String rootFolder = "opensrp_guidebooks_" + suffix;
-            FileUtilities.createDirectory("opensrp_guidebooks_" + suffix, onSdCard);
+            FileUtilities.createDirectory(rootFolder, onSdCard);
             FileUtilities.createDirectory(rootFolder + File.separator + "en", onSdCard);
             FileUtilities.createDirectory(rootFolder + File.separator + "fr", onSdCard);
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    public static String getGuideBooksDirectory() {
+        String[] packageName = ChwApplication.getInstance().getContext().applicationContext().getPackageName().split("\\.");
+        String suffix = packageName[packageName.length - 1];
+        return "opensrp_guidebooks_" + suffix;
     }
 
     @Override

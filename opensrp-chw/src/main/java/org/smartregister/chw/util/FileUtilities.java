@@ -44,4 +44,9 @@ public class FileUtilities {
 
         return true;
     }
+
+    public static File[] getFiles(String folder) {
+        File directory = new File(Environment.getExternalStorageDirectory() + File.separator + folder);
+        return directory.listFiles();
+    }
 }
