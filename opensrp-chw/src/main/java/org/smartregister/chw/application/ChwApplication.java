@@ -1,6 +1,8 @@
 package org.smartregister.chw.application;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 
@@ -35,6 +37,7 @@ import org.smartregister.chw.model.NavigationModelFlv;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.sync.ChwClientProcessor;
+import org.smartregister.chw.util.FileUtilities;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -47,6 +50,7 @@ import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -132,6 +136,35 @@ public class ChwApplication extends CoreChwApplication {
             saveLanguage(Locale.FRENCH.getLanguage());
         }
 
+        // create a folder for guidebooks
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                prepareGuideBooksFolder();
+            }
+        } else {
+            prepareGuideBooksFolder();
+        }
+    }
+
+    public static void prepareGuideBooksFolder() {
+        // add a suffix because of flavors
+        String[] packageName = ChwApplication.getInstance().getContext().applicationContext().getPackageName().split("\\.");
+        String suffix = packageName[packageName.length - 1];
+        createFolders(suffix, false);
+        boolean onSdCard = FileUtilities.canWriteToExternalDisk();
+        if (onSdCard)
+            createFolders(suffix, onSdCard);
+    }
+
+    private static void createFolders(String suffix, boolean onSdCard) {
+        try {
+            String rootFolder = "opensrp_guidebooks_" + suffix;
+            FileUtilities.createDirectory("opensrp_guidebooks_" + suffix, onSdCard);
+            FileUtilities.createDirectory(rootFolder + File.separator + "en", onSdCard);
+            FileUtilities.createDirectory(rootFolder + File.separator + "fr", onSdCard);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override
