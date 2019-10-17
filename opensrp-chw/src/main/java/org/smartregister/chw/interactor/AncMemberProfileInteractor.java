@@ -23,6 +23,7 @@ import java.util.List;
 import timber.log.Timber;
 
 public class AncMemberProfileInteractor extends CoreAncMemberProfileInteractor {
+
     public AncMemberProfileInteractor(Context context) {
         super(context);
     }

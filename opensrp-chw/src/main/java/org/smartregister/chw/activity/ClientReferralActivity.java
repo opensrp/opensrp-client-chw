@@ -51,13 +51,39 @@ public class ClientReferralActivity extends AppCompatActivity implements Facilit
         closeImageView.setOnClickListener(this);
 
         if (getIntent().getExtras() != null) {
-            referralTypeModels = getIntent().getExtras().getParcelableArrayList(Constants.Referral.REFERRAL_TYPES);
+            referralTypeModels = getIntent().getExtras().getParcelableArrayList(Constants.REFERRAL_TYPES);
             baseEntityId = getIntent().getStringExtra(Constants.ENTITY_ID);
         }
 
         referralTypeAdapter.setReferralTypes(referralTypeModels);
         referralTypesRecyclerView.setAdapter(referralTypeAdapter);
         referralTypesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void startReferralForm(JSONObject jsonObject) {
+        startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, jsonObject,
+                Utils.metadata().familyMemberFormActivity), JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public FormUtils getFormUtils() throws Exception {
+        if (this.formUtils == null) {
+            this.formUtils = new FormUtils(this.getApplicationContext());
+        }
+        return this.formUtils;
+    }
+
+    @Override
+    public boolean isReferralForm(String encounterType) {
+        switch (encounterType) {
+            case CoreConstants.EventType.CHILD_REFERRAL:
+            case CoreConstants.EventType.PNC_REFERRAL:
+            case CoreConstants.EventType.ANC_REFERRAL:
+                return true;
+            default:
+                return false;
+        }
     }
 
     @Override
@@ -79,20 +105,6 @@ public class ClientReferralActivity extends AppCompatActivity implements Facilit
     }
 
     @Override
-    public void startReferralForm(JSONObject jsonObject) {
-        startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, jsonObject,
-                Utils.metadata().familyMemberFormActivity), JsonFormUtils.REQUEST_CODE_GET_JSON);
-    }
-
-    @Override
-    public FormUtils getFormUtils() throws Exception {
-        if (this.formUtils == null) {
-            this.formUtils = new FormUtils(this.getApplicationContext());
-        }
-        return this.formUtils;
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK) return;
@@ -108,17 +120,6 @@ public class ClientReferralActivity extends AppCompatActivity implements Facilit
             } catch (Exception e) {
                 Timber.e(e, "ClientReferralActivity --> onActivityResult");
             }
-    }
-
-    @Override
-    public boolean isReferralForm(String encounterType) {
-        switch (encounterType) {
-            case CoreConstants.EventType.CHILD_REFERRAL:
-            case CoreConstants.EventType.PNC_REFERRAL:
-            case CoreConstants.EventType.ANC_REFERRAL:
-                return true;
-        }
-        return false;
     }
 }
 

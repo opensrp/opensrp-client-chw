@@ -304,5 +304,6 @@
     <string name="client_malaria_follow_up">Malaria follow-up</string>
     <string name="pnc_danger_signs">PNC danger signs</string>
     <string name="fp_post_partum">FP post-partum</string>
+    <string name="anc_danger_signs">ANC danger signs</string>
 
 </resources>

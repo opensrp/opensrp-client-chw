@@ -9,7 +9,5 @@ public class Constants extends CoreConstants {
 
     public enum FamilyMemberType {ANC, PNC, Other}
 
-    public class Referral {
-        public static final String REFERRAL_TYPES ="ReferralTypes";
-    }
+    public static final String REFERRAL_TYPES ="ReferralTypes";
 }

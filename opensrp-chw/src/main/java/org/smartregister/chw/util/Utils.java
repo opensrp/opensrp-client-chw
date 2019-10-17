@@ -15,7 +15,7 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
     public static void launchClientReferralActivity(Activity activity, List<ReferralTypeModel> referralTypeModels, String baseEntityId) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.ENTITY_ID, baseEntityId);
-        bundle.putParcelableArrayList(Constants.Referral.REFERRAL_TYPES, (ArrayList<ReferralTypeModel>) referralTypeModels);
+        bundle.putParcelableArrayList(Constants.REFERRAL_TYPES, (ArrayList<ReferralTypeModel>) referralTypeModels);
         activity.startActivity(new Intent(activity, ClientReferralActivity.class).putExtras(bundle));
     }
 }
