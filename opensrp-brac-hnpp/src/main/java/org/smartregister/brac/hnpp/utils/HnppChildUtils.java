@@ -104,6 +104,7 @@ public class HnppChildUtils extends CoreChildUtils {
         columnList.add(familyMemberTable + "." + ChildDBConstants.OTHER_PHONE_NUMBER + " as " + ChildDBConstants.KEY.FAMILY_MEMBER_PHONENUMBER_OTHER);
         columnList.add(familyTable + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS);
         columnList.add(familyTable + "." + HnppConstants.KEY.CLASTER);
+        columnList.add(familyTable + "." + ChildDBConstants.PHONE_NUMBER);
         columnList.add(tableName + "." + DBConstants.KEY.LAST_NAME);
         columnList.add(tableName + "." + DBConstants.KEY.UNIQUE_ID);
         columnList.add(tableName + "." + DBConstants.KEY.GENDER);

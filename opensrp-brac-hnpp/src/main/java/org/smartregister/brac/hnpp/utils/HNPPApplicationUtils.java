@@ -38,10 +38,10 @@ public class HNPPApplicationUtils {
         switch (tableName) {
             case CoreConstants.TABLE_NAME.FAMILY:
                 return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.VILLAGE_TOWN, HnppConstants.KEY.CLASTER, DBConstants.KEY.FIRST_NAME,
-                        DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID, HnppConstants.KEY.HOUSE_HOLD_NAME};
+                        DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID, HnppConstants.KEY.HOUSE_HOLD_NAME, DBConstants.KEY.PHONE_NUMBER};
             case CoreConstants.TABLE_NAME.FAMILY_MEMBER:
                 return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.MIDDLE_NAME,
-                        DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID};
+                        DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID, DBConstants.KEY.PHONE_NUMBER};
             case CoreConstants.TABLE_NAME.CHILD:
                 return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.MIDDLE_NAME,
                         DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID, HnppConstants.KEY.CHILD_MOTHER_NAME,HnppConstants.KEY.CHILD_MOTHER_NAME_REGISTERED};
