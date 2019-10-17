@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.ReferralTypeAdapter;
-import org.smartregister.chw.contract.FacilityReferralContract;
+import org.smartregister.chw.contract.ClientReferralContract;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
@@ -27,7 +27,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class ClientReferralActivity extends AppCompatActivity implements FacilityReferralContract.View, View.OnClickListener {
+public class ClientReferralActivity extends AppCompatActivity implements ClientReferralContract.View, View.OnClickListener {
 
     private ReferralTypeAdapter referralTypeAdapter;
     private FormUtils formUtils;

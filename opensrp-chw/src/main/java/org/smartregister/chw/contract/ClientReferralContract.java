@@ -3,7 +3,7 @@ package org.smartregister.chw.contract;
 import org.json.JSONObject;
 import org.smartregister.util.FormUtils;
 
-public interface FacilityReferralContract {
+public interface ClientReferralContract {
     interface View {
         void setUpView();
 
