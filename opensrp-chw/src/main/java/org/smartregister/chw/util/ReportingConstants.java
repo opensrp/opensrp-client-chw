@@ -26,6 +26,8 @@ public class ReportingConstants {
         public static final String COUNT_POSTPARTUM_FP_METHOD_IMPLANT="pnc_report_indicator_8_7";
         public static final String COUNT_POSTPARTUM_FP_METHOD_OTHER="pnc_report_indicator_8_8";
         public static final String COUNT_DECEASED_NEWBORNS_0_28="pnc_report_indicator_9_1";
+        public static final String COUNT_WOMEN_UP_TO_DATE_WITH_PNC_HF_VISITS="pnc_report_indicator_10_1";
+        public static final String COUNT_WOMEN_NOT_UP_TO_DATE_WITH_PNC_HF_VISITS="pnc_report_indicator_10_2";
     }
 
     public class AncIndicatorKeys {

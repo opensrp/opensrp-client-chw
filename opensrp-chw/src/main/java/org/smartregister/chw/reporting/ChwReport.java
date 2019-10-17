@@ -19,7 +19,8 @@ public class ChwReport {
 
     /**
      * Create and add indicator chart and numeric visualisations in dashboard
-     * @param mainLayout view holding the visualisations being displayed
+     *
+     * @param mainLayout       view holding the visualisations being displayed
      * @param indicatorTallies list containing indicator counts for display
      */
     public static void showIndicatorVisualisations(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies) {
@@ -67,6 +68,10 @@ public class ChwReport {
         PieChartSlice pnc_indicator_3_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_BABIES_INITIATED_EARLY_BREASTFEEDING, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes_green), indicatorTallies);
         PieChartSlice pnc_indicator_3_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_BABIES_NOT_INITIATED_EARLY_BREASTFEEDING, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no_red), indicatorTallies);
         mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(pnc_indicator_3_1, pnc_indicator_3_2), R.string.pnc_indicator_3, null)).createView());
+
+        PieChartSlice pnc_indicator_4_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_WOMEN_UP_TO_DATE_WITH_PNC_HF_VISITS, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes_green), indicatorTallies);
+        PieChartSlice pnc_indicator_4_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_WOMEN_NOT_UP_TO_DATE_WITH_PNC_HF_VISITS, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no_red), indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(pnc_indicator_4_1, pnc_indicator_4_2), R.string.pnc_indicator_10, null)).createView());
 
         PieChartSlice pnc_indicator_6_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_NEWBORNS_WITH_NO_DANGER_SIGNS, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes_green), indicatorTallies);
         PieChartSlice pnc_indicator_6_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_NEWBORNS_WITH_DANGER_SIGNS, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no_red), indicatorTallies);
