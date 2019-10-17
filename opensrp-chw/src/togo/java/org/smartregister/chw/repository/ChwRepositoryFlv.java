@@ -74,6 +74,8 @@ public class ChwRepositoryFlv {
                 case 12:
                     upgradeToVersion12(db, oldVersion);
                     break;
+                case 13:
+                    upgradeToVersion13(db);
                 default:
                     break;
             }
@@ -166,7 +168,7 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion10(SQLiteDatabase db) {
         try {
-            for (String query : RepositoryUtilsFlv.UPGRADE_V9) {
+            for (String query : RepositoryUtilsFlv.DROP_VISITS_INFO_TABLES) {
                 db.execSQL(query);
             }
 
@@ -174,10 +176,10 @@ public class ChwRepositoryFlv {
             VisitRepository.createTable(db);
             VisitDetailsRepository.createTable(db);
 
-            //reprocess all the anc visit events
-            List<Event> events = getEvents(db);
+            //reprocess all the ANC visit events
+            List<Event> events = getEvents(db, new String[]{Constants.EventType.ANC_HOME_VISIT});
             for (Event event : events) {
-                NCUtils.processAncHomeVisit(new EventClient(event), db);
+                NCUtils.processHomeVisit(new EventClient(event), db);
             }
 
             // update recurring services
@@ -194,7 +196,7 @@ public class ChwRepositoryFlv {
             DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.CHILD, columns);
 
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion9 ");
+            Timber.e(e, "upgradeToVersion10 ");
         }
     }
 
@@ -212,7 +214,7 @@ public class ChwRepositoryFlv {
             for (EventClient eventClient : eventClients) {
                 if (eventClient == null) continue;
 
-                NCUtils.processAncHomeVisit(eventClient); // save locally
+                NCUtils.processHomeVisit(eventClient); // save locally
             }
 
             // add missing columns to the DB
@@ -240,6 +242,28 @@ public class ChwRepositoryFlv {
         initializeIndicatorDefinitions(reportingLibraryInstance, db);
     }
 
+    private static void upgradeToVersion13(SQLiteDatabase sqLiteDatabase) {
+        try {
+            for (String query : RepositoryUtilsFlv.DROP_VISITS_INFO_TABLES) {
+                sqLiteDatabase.execSQL(query);
+            }
+
+            // Recreate tables
+            VisitRepository.createTable(sqLiteDatabase);
+            VisitDetailsRepository.createTable(sqLiteDatabase);
+
+            // Reprocess all the PNC visit events
+            List<Event> events = getEvents(sqLiteDatabase, new String[]{Constants.EventType.PNC_HOME_VISIT});
+            for (Event event : events) {
+                NCUtils.processHomeVisit(new EventClient(event), sqLiteDatabase);
+            }
+        }
+        catch (Exception e) {
+            Timber.e(e);
+        }
+
+    }
+
     private static void initializeIndicatorDefinitions(ReportingLibrary reportingLibrary, SQLiteDatabase sqLiteDatabase) {
         String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
         String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
@@ -251,12 +275,12 @@ public class ChwRepositoryFlv {
     }
 
     // helpers
-    private static List<Event> getEvents(SQLiteDatabase db) {
+    private static List<Event> getEvents(SQLiteDatabase db, String[] selectionArgs) {
         List<Event> events = new ArrayList<>();
         Cursor cursor = null;
         try {
             String[] myStringArray = {"json"};
-            cursor = db.query(EventClientRepository.Table.event.name(), myStringArray, " eventType = ? ", new String[]{Constants.EventType.ANC_HOME_VISIT}, null, null, " eventDate ASC ", null);
+            cursor = db.query(EventClientRepository.Table.event.name(), myStringArray, " eventType = ? ", selectionArgs, null, null, " eventDate ASC ", null);
             events = readEvents(cursor);
         } catch (Exception e) {
             Timber.e(e);
