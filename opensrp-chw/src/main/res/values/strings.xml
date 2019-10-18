@@ -297,4 +297,13 @@
     <string name="vitamin_a_number_dose">Vitamin A %s dose</string>
     <string name="mnp_number_pack">MNP %s pack</string>
 
+    <!--Referral -->
+    <string name="referral_reason">Reason for referral</string>
+    <string name="open_referral_form">Open %s referral form</string>
+    <string name="sick_child">Sick child</string>
+    <string name="client_malaria_follow_up">Malaria follow-up</string>
+    <string name="pnc_danger_signs">PNC danger signs</string>
+    <string name="fp_post_partum">FP post-partum</string>
+    <string name="anc_danger_signs">ANC danger signs</string>
+
 </resources>
