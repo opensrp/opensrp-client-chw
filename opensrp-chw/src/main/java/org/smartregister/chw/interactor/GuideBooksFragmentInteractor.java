@@ -12,6 +12,7 @@ import org.smartregister.family.util.AppExecutors;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.Interactor {
@@ -61,6 +62,7 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
             video.setTitle(toTitle(file.getName()));
             res.add(video);
         }
+        Collections.sort(res, (video1, video2) -> video1.getTitle().compareTo(video2.getTitle()));
         return res;
     }
 
@@ -69,8 +71,6 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
     }
 
     private String toTitle(String s) {
-        String[] vals = s.split("\\.");
-        String[] title = vals[0].toLowerCase().split("_");
-        return StringUtils.capitalize(StringUtils.join(title, " "));
+        return StringUtils.join(s.split("\\.")[0].split("_"), " ");
     }
 }
