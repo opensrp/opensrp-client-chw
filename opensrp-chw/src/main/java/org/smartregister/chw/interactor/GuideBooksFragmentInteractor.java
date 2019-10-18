@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.GuideBooksFragmentContract;
 import org.smartregister.chw.domain.GuideBooksFragmentVideo;
-import org.smartregister.chw.util.FileUtilities;
+import org.smartregister.chw.util.FileUtils;
 import org.smartregister.family.util.AppExecutors;
 
 import java.io.File;
@@ -51,7 +51,7 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
     private List<GuideBooksFragmentContract.Video> getLocalVideos(Context context) {
         List<GuideBooksFragmentContract.Video> res = new ArrayList<>();
         String folder = ChwApplication.getGuideBooksDirectory() + File.separator + context.getResources().getConfiguration().locale.getLanguage();
-        File[] files = FileUtilities.getFiles(folder);
+        File[] files = FileUtils.getFiles(folder);
         if (files == null || files.length == 0) return res;
 
         for (File file : files) {
@@ -67,6 +67,8 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
     }
 
     private List<GuideBooksFragmentContract.Video> getRemoteVideos(Context context) {
+        if (context == null) return new ArrayList<>();
+
         return new ArrayList<>();
     }
 

@@ -5,7 +5,7 @@ import android.os.Environment;
 import java.io.File;
 import java.io.FileOutputStream;
 
-public class FileUtilities {
+public class FileUtils {
 
     public static boolean hasExternalDisk() {
         return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
@@ -39,7 +39,7 @@ public class FileUtilities {
             os.write(bytes);
             os.close();
         } else {
-            throw new Exception("cannot write to sd card");
+            throw new FileException("cannot write to sd card");
         }
 
         return true;
@@ -48,5 +48,11 @@ public class FileUtilities {
     public static File[] getFiles(String folder) {
         File directory = new File(Environment.getExternalStorageDirectory() + File.separator + folder);
         return directory.listFiles();
+    }
+
+    public static class FileException extends Exception {
+        public FileException(String message) {
+            super(message);
+        }
     }
 }

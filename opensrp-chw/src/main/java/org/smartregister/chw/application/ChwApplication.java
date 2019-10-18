@@ -37,7 +37,7 @@ import org.smartregister.chw.model.NavigationModelFlv;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.sync.ChwClientProcessor;
-import org.smartregister.chw.util.FileUtilities;
+import org.smartregister.chw.util.FileUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -149,16 +149,16 @@ public class ChwApplication extends CoreChwApplication {
     public static void prepareGuideBooksFolder() {
         String rootFolder = getGuideBooksDirectory();
         createFolders(rootFolder, false);
-        boolean onSdCard = FileUtilities.canWriteToExternalDisk();
+        boolean onSdCard = FileUtils.canWriteToExternalDisk();
         if (onSdCard)
             createFolders(rootFolder, true);
     }
 
     private static void createFolders(String rootFolder, boolean onSdCard) {
         try {
-            FileUtilities.createDirectory(rootFolder, onSdCard);
-            FileUtilities.createDirectory(rootFolder + File.separator + "en", onSdCard);
-            FileUtilities.createDirectory(rootFolder + File.separator + "fr", onSdCard);
+            FileUtils.createDirectory(rootFolder, onSdCard);
+            FileUtils.createDirectory(rootFolder + File.separator + "en", onSdCard);
+            FileUtils.createDirectory(rootFolder + File.separator + "fr", onSdCard);
         } catch (Exception e) {
             Timber.e(e);
         }
