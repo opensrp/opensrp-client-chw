@@ -254,10 +254,10 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
     private void refreshViewOnHomeVisitResult() {
-        Observable<Visit> observable = Observable.create(e -> {
+        Observable<Visit> observable = Observable.create(visitObservableEmitter -> {
             Visit lastVisit = getVisit(CoreConstants.EventType.ANC_HOME_VISIT);
-            e.onNext(lastVisit);
-            e.onComplete();
+            visitObservableEmitter.onNext(lastVisit);
+            visitObservableEmitter.onComplete();
         });
 
         final Disposable[] disposable = new Disposable[1];

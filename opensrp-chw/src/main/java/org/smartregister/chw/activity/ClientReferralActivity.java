@@ -23,7 +23,9 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -32,14 +34,23 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
     private ReferralTypeAdapter referralTypeAdapter;
     private FormUtils formUtils;
     private String baseEntityId;
+    private Map<String, String> encounterTypeToTableMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_referral);
         referralTypeAdapter = new ReferralTypeAdapter();
+        encounterTypeToTableMap = new HashMap<>();
+        mapEncounterTypeToTable();
         referralTypeAdapter.setOnClickListener(this);
         setUpView();
+    }
+
+    private void mapEncounterTypeToTable() {
+        encounterTypeToTableMap.put(Constants.EncounterType.SICK_CHILD, CoreConstants.TABLE_NAME.CHILD_REFERRAL);
+        encounterTypeToTableMap.put(Constants.EncounterType.PNC_REFERRAL, CoreConstants.TABLE_NAME.PNC_REFERRAL);
+        encounterTypeToTableMap.put(Constants.EncounterType.ANC_REFERRAL, CoreConstants.TABLE_NAME.ANC_REFERRAL);
     }
 
     @Override
@@ -99,7 +110,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
                 }
                 startReferralForm(getFormUtils().getFormJson(referralTypeModel.getFormName()));
             } catch (Exception e) {
-                e.printStackTrace();
+                Timber.e(e, "ClientReferralActivity --> onActivityResult");
             }
         }
     }
@@ -112,9 +123,10 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
             try {
                 String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                 JSONObject form = new JSONObject(jsonString);
-                if (isReferralForm(form.getString(JsonFormUtils.ENCOUNTER_TYPE))) {
+                String encounterType = form.getString(JsonFormUtils.ENCOUNTER_TYPE);
+                if (isReferralForm(encounterType)) {
                     CoreReferralUtils.createReferralEvent(Utils.getAllSharedPreferences(),
-                            jsonString, CoreConstants.TABLE_NAME.CHILD_REFERRAL, baseEntityId);
+                            jsonString, encounterTypeToTableMap.get(encounterType), baseEntityId);
                     Utils.showToast(this, this.getString(R.string.referral_submitted));
                 }
             } catch (Exception e) {

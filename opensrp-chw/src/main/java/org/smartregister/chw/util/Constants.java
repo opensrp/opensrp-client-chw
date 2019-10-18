@@ -10,4 +10,10 @@ public class Constants extends CoreConstants {
     public enum FamilyMemberType {ANC, PNC, Other}
 
     public static final String REFERRAL_TYPES ="ReferralTypes";
+
+    public class EncounterType {
+        public static final String SICK_CHILD ="Sick Child Referral";
+        public static final String PNC_REFERRAL ="PNC Referral";
+        public static final String ANC_REFERRAL ="ANC Referral";
+    }
 }
