@@ -366,8 +366,4 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
         }
     }
-
-    interface Flavor {
-        boolean hasReferrals();
-    }
 }
