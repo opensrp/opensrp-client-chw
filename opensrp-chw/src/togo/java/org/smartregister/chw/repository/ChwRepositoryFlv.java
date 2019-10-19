@@ -76,6 +76,7 @@ public class ChwRepositoryFlv {
                     break;
                 case 13:
                     upgradeToVersion13(db);
+                    break;
                 default:
                     break;
             }
@@ -252,8 +253,14 @@ public class ChwRepositoryFlv {
             VisitRepository.createTable(sqLiteDatabase);
             VisitDetailsRepository.createTable(sqLiteDatabase);
 
+            // Reprocess all the ANC visit events
+            List<Event> events = getEvents(sqLiteDatabase, new String[]{Constants.EventType.ANC_HOME_VISIT});
+            for (Event event : events) {
+                NCUtils.processHomeVisit(new EventClient(event), sqLiteDatabase);
+            }
+
             // Reprocess all the PNC visit events
-            List<Event> events = getEvents(sqLiteDatabase, new String[]{Constants.EventType.PNC_HOME_VISIT});
+            events = getEvents(sqLiteDatabase, new String[]{Constants.EventType.PNC_HOME_VISIT});
             for (Event event : events) {
                 NCUtils.processHomeVisit(new EventClient(event), sqLiteDatabase);
             }
