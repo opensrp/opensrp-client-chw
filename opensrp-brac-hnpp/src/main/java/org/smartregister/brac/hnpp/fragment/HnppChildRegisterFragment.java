@@ -50,6 +50,7 @@ import static org.smartregister.chw.core.utils.ChildDBConstants.tableColConcat;
 public class HnppChildRegisterFragment extends CoreChildRegisterFragment implements android.view.View.OnClickListener {
     private final String DEFAULT_MAIN_CONDITION = "date_removed is null";
     ArrayAdapter<String> villageSpinnerArrayAdapter;
+    String searchFilterString = "";
     private String mSelectedVillageName, mSelectedClasterName;
     private TextView textViewVillageNameFilter, textViewClasterNameFilter;
     private ImageView imageViewVillageNameFilter, imageViewClasterNameFilter;
@@ -93,11 +94,16 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
         clientsView.setAdapter(clientAdapter);
     }
 
-//    @Override
-//    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
-//        super.filter(filterString, joinTableString, mainConditionString, qrCode);
-//
-//    }
+    @Override
+    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
+        searchFilterString = filterString;
+        mSelectedVillageName = "";
+        mSelectedClasterName = "";
+        updateFilterView();
+        filterString = getFilterString();
+        super.filter(filterString, joinTableString, mainConditionString, qrCode);
+
+    }
 
     @Override
     protected String getMainCondition() {
@@ -128,7 +134,7 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
         imageViewClasterNameFilter.setOnClickListener(this);
         clients_header_layout.getLayoutParams().height = 100;
         clients_header_layout.setVisibility(android.view.View.GONE);
-        if(getSearchCancelView()!=null){
+        if (getSearchCancelView() != null) {
             getSearchCancelView().setOnClickListener(this);
         }
 
@@ -151,7 +157,8 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
             case R.id.btn_search_cancel:
                 mSelectedVillageName = "";
                 mSelectedClasterName = "";
-                if(getSearchView()!=null){
+                searchFilterString = "";
+                if (getSearchView() != null) {
                     getSearchView().setText("");
                 }
                 clients_header_layout.setVisibility(android.view.View.GONE);
@@ -299,16 +306,30 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
         textViewVillageNameFilter.setText(getString(R.string.filter_village_name, mSelectedVillageName));
         textViewClasterNameFilter.setText(getString(R.string.claster_village_name, HnppConstants.getClusterNameFromValue(mSelectedClasterName)));
         String filterString = getFilterString();
-        filter(filterString, "", DEFAULT_MAIN_CONDITION, false);
+        filter(filterString, "", DEFAULT_MAIN_CONDITION);
+
+
+    }
+
+    public void filter(String filterString, String joinTableString, String mainConditionString) {
+
+        super.filter(getFilterString(), joinTableString, mainConditionString, false);
 
 
     }
 
     public String getFilterString() {
-        return StringUtils.isEmpty(mSelectedVillageName) ?
+        String str = StringUtils.isEmpty(mSelectedVillageName) ?
                 (StringUtils.isEmpty(mSelectedClasterName) ?
                         "" : mSelectedClasterName) : (StringUtils.isEmpty(mSelectedClasterName) ?
-                mSelectedVillageName : " " + mSelectedVillageName + " AND " + mSelectedClasterName + " ");
+                mSelectedVillageName : "" + mSelectedVillageName + " AND " + mSelectedClasterName + "");
+        if (StringUtils.isEmpty(str)) {
+            return searchFilterString;
+        } else if (!StringUtils.isEmpty(searchFilterString)) {
+            return str + " AND " + searchFilterString;
+        } else {
+            return str;
+        }
 
     }
 }

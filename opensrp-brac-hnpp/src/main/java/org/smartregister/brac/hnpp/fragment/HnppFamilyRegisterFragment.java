@@ -38,11 +38,12 @@ import static android.view.View.inflate;
 public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment implements View.OnClickListener {
 
     private final String DEFAULT_MAIN_CONDITION = "date_removed is null";
-    private String mSelectedVillageName,mSelectedClasterName;
-    private TextView textViewVillageNameFilter,textViewClasterNameFilter;
-    private ImageView imageViewVillageNameFilter,imageViewClasterNameFilter;
+    ArrayAdapter<String> villageSpinnerArrayAdapter;
+    String searchFilterString = "";
+    private String mSelectedVillageName, mSelectedClasterName;
+    private TextView textViewVillageNameFilter, textViewClasterNameFilter;
+    private ImageView imageViewVillageNameFilter, imageViewClasterNameFilter;
     private ViewGroup clients_header_layout;
-
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
@@ -59,6 +60,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         }
         presenter = new HnppFamilyRegisterFragmentPresenter(this, new HnppFamilyRegisterFragmentModel(), null);
     }
+
     @Override
     protected void goToPatientDetailActivity(CommonPersonObjectClient patient, boolean goToDuePage) {
         Intent intent = new Intent(getActivity(), Utils.metadata().profileActivity);
@@ -87,7 +89,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         dueOnlyLayout.setVisibility(View.GONE);
         view.findViewById(org.smartregister.chw.core.R.id.filter_sort_layout).setOnClickListener(registerActionHandler);
         clients_header_layout = view.findViewById(org.smartregister.chw.core.R.id.clients_header_layout);
-        View filterView =inflate(getContext(),R.layout.filter_top_view,clients_header_layout);
+        View filterView = inflate(getContext(), R.layout.filter_top_view, clients_header_layout);
         textViewVillageNameFilter = filterView.findViewById(R.id.village_name_filter);
         textViewClasterNameFilter = filterView.findViewById(R.id.claster_name_filter);
         imageViewVillageNameFilter = filterView.findViewById(R.id.village_filter_img);
@@ -96,7 +98,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         imageViewClasterNameFilter.setOnClickListener(this);
         clients_header_layout.getLayoutParams().height = 100;
         clients_header_layout.setVisibility(View.GONE);
-        if(getSearchCancelView()!=null){
+        if (getSearchCancelView() != null) {
             getSearchCancelView().setOnClickListener(this);
         }
 //        TextView dueOnly = ((TextView)view.findViewById(org.smartregister.chw.core.R.id.due_only_text_view));
@@ -105,6 +107,8 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
 
     @Override
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
+        searchFilterString = filterString;
+        filterString = getFilterString();
         super.filter(filterString, joinTableString, mainConditionString, qrCode);
 
     }
@@ -112,9 +116,9 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
     @Override
     public void onClick(View v) {
         super.onViewClicked(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.village_filter_img:
-                mSelectedVillageName ="";
+                mSelectedVillageName = "";
                 updateFilterView();
                 break;
             case R.id.claster_filter_img:
@@ -124,7 +128,8 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
             case R.id.btn_search_cancel:
                 mSelectedVillageName = "";
                 mSelectedClasterName = "";
-                if(getSearchView()!=null){
+                searchFilterString = "";
+                if (getSearchView() != null) {
                     getSearchView().setText("");
                 }
                 clients_header_layout.setVisibility(android.view.View.GONE);
@@ -132,7 +137,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
                 break;
         }
     }
-    ArrayAdapter<String> villageSpinnerArrayAdapter;
+
     @Override
     public void onViewClicked(View view) {
         super.onViewClicked(view);
@@ -142,8 +147,8 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
             ArrayList<String> villageSpinnerArray = new ArrayList<>();
 
             ArrayList<SSModel> ssLocationForms = SSLocationHelper.getInstance().getSsModels();
-            for(SSModel ssModel : ssLocationForms){
-                    ssSpinnerArray.add(ssModel.username);
+            for (SSModel ssModel : ssLocationForms) {
+                ssSpinnerArray.add(ssModel.username);
             }
 
             ArrayAdapter<String> ssSpinnerArrayAdapter = new ArrayAdapter<String>
@@ -158,7 +163,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
                     (getActivity(), android.R.layout.simple_spinner_item,
                             HnppConstants.getClasterSpinnerArray());
 
-            Dialog dialog = new Dialog(getActivity(),android.R.style.Theme_NoTitleBar_Fullscreen);
+            Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_NoTitleBar_Fullscreen);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(org.smartregister.family.R.color.customAppThemeBlue)));
             dialog.setContentView(R.layout.filter_options_dialog);
@@ -174,7 +179,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
                     if (position != -1) {
                         villageSpinnerArray.clear();
                         ArrayList<SSLocations> ssLocations = SSLocationHelper.getInstance().getSsModels().get(position).locations;
-                        for(SSLocations ssLocations1 : ssLocations){
+                        for (SSLocations ssLocations1 : ssLocations) {
                             villageSpinnerArray.add(ssLocations1.village.name.trim());
                         }
                         villageSpinnerArrayAdapter = new ArrayAdapter<String>
@@ -229,17 +234,25 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         }
     }
 
-    public void updateFilterView(){
-        if(StringUtils.isEmpty(mSelectedVillageName) && StringUtils.isEmpty(mSelectedClasterName)){
+    public void updateFilterView() {
+        if (StringUtils.isEmpty(mSelectedVillageName) && StringUtils.isEmpty(mSelectedClasterName)) {
             clients_header_layout.setVisibility(View.GONE);
-        }else {
+        } else {
             clients_header_layout.setVisibility(View.VISIBLE);
         }
 
-        textViewVillageNameFilter.setText(getString(R.string.filter_village_name,mSelectedVillageName));
-        textViewClasterNameFilter.setText(getString(R.string.claster_village_name,HnppConstants.getClusterNameFromValue(mSelectedClasterName)));
+        textViewVillageNameFilter.setText(getString(R.string.filter_village_name, mSelectedVillageName));
+        textViewClasterNameFilter.setText(getString(R.string.claster_village_name, HnppConstants.getClusterNameFromValue(mSelectedClasterName)));
         String filterString = getFilterString();
-        filter(filterString, "", DEFAULT_MAIN_CONDITION, false);
+
+        filter(filterString, "", DEFAULT_MAIN_CONDITION);
+
+
+    }
+
+    public void filter(String filterString, String joinTableString, String mainConditionString) {
+
+        super.filter(getFilterString(), joinTableString, mainConditionString, false);
 
 
     }
@@ -248,8 +261,14 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         String str = StringUtils.isEmpty(mSelectedVillageName) ?
                 (StringUtils.isEmpty(mSelectedClasterName) ?
                         "" : mSelectedClasterName) : (StringUtils.isEmpty(mSelectedClasterName) ?
-                mSelectedVillageName : " " + mSelectedVillageName + " AND " + mSelectedClasterName + " ");
-        return str;
+                mSelectedVillageName : "" + mSelectedVillageName + " AND " + mSelectedClasterName + "");
+        if (StringUtils.isEmpty(str)) {
+            return searchFilterString;
+        } else if (!StringUtils.isEmpty(searchFilterString)) {
+            return str + " AND " + searchFilterString;
+        } else {
+            return str;
+        }
 
     }
 
