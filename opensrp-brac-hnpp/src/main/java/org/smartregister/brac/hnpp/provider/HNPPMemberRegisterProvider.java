@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -118,6 +119,7 @@ public class HNPPMemberRegisterProvider extends CoreMemberRegisterProvider {
         }
         ((TextView)viewHolder.patientNameAge).setSingleLine(true);
         ((TextView)viewHolder.gender).setSingleLine(false);
+        viewHolder.gender.setTextColor(ContextCompat.getColor(context, android.R.color.black));
         fillValue(viewHolder.patientNameAge, patientName);
 //        String gender_key = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), "gender", true);
 //        String gender = "";

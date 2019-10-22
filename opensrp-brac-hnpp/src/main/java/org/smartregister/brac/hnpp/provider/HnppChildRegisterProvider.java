@@ -2,6 +2,7 @@ package org.smartregister.brac.hnpp.provider;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
@@ -72,6 +73,7 @@ public class HnppChildRegisterProvider extends CoreChildRegisterProvider {
         fillValue(viewHolder.textViewParentName, WordUtils.capitalize(childName) + " " + context.getResources().getString(org.smartregister.chw.core.R.string.age, WordUtils.capitalize(Utils.getTranslatedDate(dobString, context))));
         viewHolder.profileImage.setVisibility(View.VISIBLE);
         viewHolder.profileImage.setImageResource(org.smartregister.family.R.mipmap.ic_child);
+        viewHolder.textViewAddressGender.setTextColor(ContextCompat.getColor(context, android.R.color.black));
 
         setAddressAndGender(pc, viewHolder);
 

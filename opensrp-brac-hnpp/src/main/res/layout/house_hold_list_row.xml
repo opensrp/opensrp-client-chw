@@ -58,7 +58,7 @@
             android:paddingStart="0dp"
             android:paddingTop="@dimen/register_list_top_bottom_padding"
             android:text="House hold name"
-            android:textColor="@color/light_grey_text"
+            android:textColor="@color/black"
             android:textSize="@dimen/register_list_desc_size"
             android:visibility="gone"
             android:textStyle="bold" />
@@ -72,7 +72,7 @@
             android:paddingStart="0dp"
             android:paddingTop="@dimen/register_list_top_bottom_padding"
             android:text="45325345"
-            android:textColor="@color/light_grey_text"
+            android:textColor="@color/black"
             android:textSize="@dimen/register_list_desc_size"
             android:visibility="gone"
              />
