@@ -129,21 +129,22 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
         if (getSearchCancelView() != null) {
             getSearchCancelView().setOnClickListener(this);
         }
-       // setTotalPatients();
+        setTotalPatients();
 //        TextView dueOnly = ((TextView)view.findViewById(org.smartregister.chw.core.R.id.due_only_text_view));
 //        dueOnly.setVisibility(View.VISIBLE);
     }
-//    @Override
-//    public void setTotalPatients() {
-//        if (headerTextDisplay != null) {
-//            headerTextDisplay.setText(
-//                    String.format(getString(R.string.clients_member), clientAdapter.getTotalcount()));
-//            headerTextDisplay.setTextColor(getResources().getColor(android.R.color.black));
-//            headerTextDisplay.setTypeface(Typeface.DEFAULT_BOLD);
-//            ((android.view.View)headerTextDisplay.getParent()).findViewById(R.id.filter_display_view).setVisibility(android.view.View.GONE);
-//            ((android.view.View)headerTextDisplay.getParent()).setVisibility(android.view.View.VISIBLE);
-//        }
-//    }
+
+    @Override
+    public void setTotalPatients() {
+        if (headerTextDisplay != null) {
+            headerTextDisplay.setText(
+                    String.format(getString(R.string.clients_member), HnppConstants.getTotalCountBn(clientAdapter.getTotalcount())));
+            headerTextDisplay.setTextColor(getResources().getColor(android.R.color.black));
+            headerTextDisplay.setTypeface(Typeface.DEFAULT_BOLD);
+            ((android.view.View)headerTextDisplay.getParent()).findViewById(R.id.filter_display_view).setVisibility(android.view.View.GONE);
+            ((android.view.View)headerTextDisplay.getParent()).setVisibility(android.view.View.VISIBLE);
+        }
+    }
     @Override
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
         this.joinTables = new String[]{CoreConstants.TABLE_NAME.FAMILY};
@@ -283,6 +284,29 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
                 }
             });
             dialog.show();
+        }
+    }
+    @Override
+    public void countExecute() {
+        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
+
+        String query = "";
+        try {
+            if (isValidFilterForFts(commonRepository())) {
+                String sql = "";
+                if(!StringUtils.isEmpty(filters)){
+                    sql = mainFilter(mainCondition, presenter().getMainCondition(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER)), filters, Sortqueries, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
+                    sql = sql.substring(0,sql.indexOf("ORDER BY"));
+                }else{
+                    sql = mainSelect;
+                    sql = sql.replace("date_removed","ec_family_member.date_removed");
+                }
+
+                List<String> ids = commonRepository().findSearchIds(sql);
+                clientAdapter.setTotalcount(ids.size());
+            }
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
     protected String filterandSortQuery() {

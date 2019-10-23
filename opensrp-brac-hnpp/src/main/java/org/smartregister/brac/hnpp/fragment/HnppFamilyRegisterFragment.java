@@ -2,6 +2,7 @@ package org.smartregister.brac.hnpp.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,14 +25,20 @@ import org.smartregister.brac.hnpp.provider.HnppFamilyRegisterProvider;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
+import org.smartregister.chw.core.utils.QueryBuilder;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+
+import timber.log.Timber;
 
 import static android.view.View.inflate;
 
@@ -101,21 +108,23 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         if (getSearchCancelView() != null) {
             getSearchCancelView().setOnClickListener(this);
         }
-//        setTotalPatients();
+        setTotalPatients();
 //        TextView dueOnly = ((TextView)view.findViewById(org.smartregister.chw.core.R.id.due_only_text_view));
 //        dueOnly.setVisibility(View.VISIBLE);
     }
-//    @Override
-//    public void setTotalPatients() {
-//        if (headerTextDisplay != null) {
-//            headerTextDisplay.setText(
-//                    String.format(getString(R.string.clients_household), clientAdapter.getTotalcount()));
-//            headerTextDisplay.setTextColor(getResources().getColor(android.R.color.black));
-//            headerTextDisplay.setTypeface(Typeface.DEFAULT_BOLD);
-//            ((View)headerTextDisplay.getParent()).findViewById(R.id.filter_display_view).setVisibility(View.GONE);
-//            ((View)headerTextDisplay.getParent()).setVisibility(View.VISIBLE);
-//        }
-//    }
+
+    @Override
+    public void setTotalPatients() {
+        if (headerTextDisplay != null) {
+            headerTextDisplay.setText(
+                    String.format(getString(R.string.clients_household), HnppConstants.getTotalCountBn(clientAdapter.getTotalcount())));
+            headerTextDisplay.setTextColor(getResources().getColor(android.R.color.black));
+            headerTextDisplay.setTypeface(Typeface.DEFAULT_BOLD);
+            ((View) headerTextDisplay.getParent()).findViewById(R.id.filter_display_view).setVisibility(View.GONE);
+            ((View) headerTextDisplay.getParent()).setVisibility(View.VISIBLE);
+        }
+    }
+
     @Override
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
         searchFilterString = filterString;
@@ -145,6 +154,28 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
                 clients_header_layout.setVisibility(android.view.View.GONE);
 
                 break;
+        }
+    }
+
+    @Override
+    public void countExecute() {
+        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
+
+        String query = "";
+        try {
+            if (isValidFilterForFts(commonRepository())) {
+
+                String myquery = QueryBuilder.getQuery(joinTables, mainCondition,
+                        tablename, filters, clientAdapter, Sortqueries);
+                myquery = myquery.substring(0,myquery.indexOf("ORDER BY"));
+                List<String> ids = commonRepository().findSearchIds(myquery);
+//                query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
+//                        Sortqueries);
+//                query = sqb.Endquery(query);
+                clientAdapter.setTotalcount(ids.size());
+            }
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 
@@ -263,8 +294,8 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
 
     public String getFilterString() {
         String selected_claster = "";
-        if(!StringUtils.isEmpty(mSelectedClasterName)){
-            selected_claster = mSelectedClasterName.replace("_"," AND ");
+        if (!StringUtils.isEmpty(mSelectedClasterName)) {
+            selected_claster = mSelectedClasterName.replace("_", " AND ");
         }
         String str = StringUtils.isEmpty(mSelectedVillageName) ?
                 (StringUtils.isEmpty(mSelectedClasterName) ?

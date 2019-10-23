@@ -52,6 +52,16 @@ public class HnppConstants extends CoreConstants {
         public static final String VILLAGE_INDEX = "village_index";
     }
 
+    public static String getTotalCountBn(int count){
+        char[] bn_numbers = "০১২৩৪৫৬৭৮৯".toCharArray();
+        String c = String.valueOf(count);
+        String number_to_return = "";
+        for(char ch: c.toCharArray()){
+
+            number_to_return+=bn_numbers[Integer.valueOf(ch)%Integer.valueOf('0')];
+        }
+        return number_to_return;
+    }
 
     public static boolean isReleaseBuild(){
         AllSharedPreferences preferences = Utils.getAllSharedPreferences();

@@ -2,6 +2,7 @@ package org.smartregister.brac.hnpp.utils;
 
 import android.database.Cursor;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -66,7 +67,7 @@ public class HnppChildUtils extends CoreChildUtils {
 
     public static String matchPhrase(String phrase) {
         String stringPhrase = phrase;
-        if (stringPhrase == null) {
+        if (StringUtils.isEmpty(stringPhrase)) {
             stringPhrase = "";
         }
 
