@@ -101,16 +101,26 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         if (getSearchCancelView() != null) {
             getSearchCancelView().setOnClickListener(this);
         }
+//        setTotalPatients();
 //        TextView dueOnly = ((TextView)view.findViewById(org.smartregister.chw.core.R.id.due_only_text_view));
 //        dueOnly.setVisibility(View.VISIBLE);
     }
-
+//    @Override
+//    public void setTotalPatients() {
+//        if (headerTextDisplay != null) {
+//            headerTextDisplay.setText(
+//                    String.format(getString(R.string.clients_household), clientAdapter.getTotalcount()));
+//            headerTextDisplay.setTextColor(getResources().getColor(android.R.color.black));
+//            headerTextDisplay.setTypeface(Typeface.DEFAULT_BOLD);
+//            ((View)headerTextDisplay.getParent()).findViewById(R.id.filter_display_view).setVisibility(View.GONE);
+//            ((View)headerTextDisplay.getParent()).setVisibility(View.VISIBLE);
+//        }
+//    }
     @Override
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
         searchFilterString = filterString;
         filterString = getFilterString();
         super.filter(filterString, joinTableString, mainConditionString, qrCode);
-
     }
 
     @Override
@@ -244,24 +254,22 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         textViewVillageNameFilter.setText(getString(R.string.filter_village_name, mSelectedVillageName));
         textViewClasterNameFilter.setText(getString(R.string.claster_village_name, HnppConstants.getClusterNameFromValue(mSelectedClasterName)));
         String filterString = getFilterString();
-
         filter(filterString, "", DEFAULT_MAIN_CONDITION);
-
-
     }
 
     public void filter(String filterString, String joinTableString, String mainConditionString) {
-
-        super.filter(getFilterString(), joinTableString, mainConditionString, false);
-
-
+        super.filter(filterString, joinTableString, mainConditionString, false);
     }
 
     public String getFilterString() {
+        String selected_claster = "";
+        if(!StringUtils.isEmpty(mSelectedClasterName)){
+            selected_claster = mSelectedClasterName.replace("_"," AND ");
+        }
         String str = StringUtils.isEmpty(mSelectedVillageName) ?
                 (StringUtils.isEmpty(mSelectedClasterName) ?
-                        "" : mSelectedClasterName) : (StringUtils.isEmpty(mSelectedClasterName) ?
-                mSelectedVillageName : "" + mSelectedVillageName + " AND " + mSelectedClasterName + "");
+                        "" : selected_claster) : (StringUtils.isEmpty(mSelectedClasterName) ?
+                mSelectedVillageName : "" + mSelectedVillageName + " AND " + selected_claster + "");
         if (StringUtils.isEmpty(str)) {
             return searchFilterString;
         } else if (!StringUtils.isEmpty(searchFilterString)) {

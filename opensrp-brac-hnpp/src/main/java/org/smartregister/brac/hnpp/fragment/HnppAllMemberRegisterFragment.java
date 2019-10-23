@@ -2,6 +2,7 @@ package org.smartregister.brac.hnpp.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -128,10 +129,21 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
         if (getSearchCancelView() != null) {
             getSearchCancelView().setOnClickListener(this);
         }
+       // setTotalPatients();
 //        TextView dueOnly = ((TextView)view.findViewById(org.smartregister.chw.core.R.id.due_only_text_view));
 //        dueOnly.setVisibility(View.VISIBLE);
     }
-
+//    @Override
+//    public void setTotalPatients() {
+//        if (headerTextDisplay != null) {
+//            headerTextDisplay.setText(
+//                    String.format(getString(R.string.clients_member), clientAdapter.getTotalcount()));
+//            headerTextDisplay.setTextColor(getResources().getColor(android.R.color.black));
+//            headerTextDisplay.setTypeface(Typeface.DEFAULT_BOLD);
+//            ((android.view.View)headerTextDisplay.getParent()).findViewById(R.id.filter_display_view).setVisibility(android.view.View.GONE);
+//            ((android.view.View)headerTextDisplay.getParent()).setVisibility(android.view.View.VISIBLE);
+//        }
+//    }
     @Override
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
         this.joinTables = new String[]{CoreConstants.TABLE_NAME.FAMILY};
@@ -139,7 +151,7 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
         mSelectedVillageName = "";
         mSelectedClasterName = "";
         updateFilterView();
-        super.filter(getFilterString(), joinTableString, mainConditionString, qrCode);
+        super.filter(filterString, joinTableString, mainConditionString, qrCode);
 
     }
 
@@ -266,7 +278,6 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
             proceed.setOnClickListener(new android.view.View.OnClickListener() {
                 @Override
                 public void onClick(android.view.View v) {
-
                     updateFilterView();
                     dialog.dismiss();
                 }
@@ -322,25 +333,26 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
     }
 
     public void filter(String filterString, String joinTableString, String mainConditionString) {
-
-        super.filter(getFilterString(), joinTableString, mainConditionString, false);
-
-
+        super.filter(filterString, joinTableString, mainConditionString, false);
     }
 
     public String getFilterString() {
+        String selected_claster = "";
+        if(!StringUtils.isEmpty(mSelectedClasterName)){
+            selected_claster = mSelectedClasterName.replace("_"," AND ");
+        }
         String str = StringUtils.isEmpty(mSelectedVillageName) ?
                 (StringUtils.isEmpty(mSelectedClasterName) ?
-                        "" : mSelectedClasterName) : (StringUtils.isEmpty(mSelectedClasterName) ?
-                mSelectedVillageName : "" + mSelectedVillageName + " AND " + mSelectedClasterName + "");
-        if (StringUtils.isEmpty(str)) {
-            return searchFilterString;
-        } else if (!StringUtils.isEmpty(searchFilterString)) {
-            return str + " AND " + searchFilterString;
-        } else {
-            return str;
-        }
-
+                        "" : selected_claster) : (StringUtils.isEmpty(mSelectedClasterName) ?
+                mSelectedVillageName : "" + mSelectedVillageName + " AND " + selected_claster + "");
+//        if (StringUtils.isEmpty(str)) {
+//            return searchFilterString;
+//        } else if (!StringUtils.isEmpty(searchFilterString)) {
+//            return str + " AND " + searchFilterString;
+//        } else {
+//            return str;
+//        }
+        return str;
     }
 
     @Override

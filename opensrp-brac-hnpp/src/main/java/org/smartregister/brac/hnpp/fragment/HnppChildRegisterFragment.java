@@ -1,6 +1,7 @@
 package org.smartregister.brac.hnpp.fragment;
 
 import android.app.Dialog;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -100,7 +101,7 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
         mSelectedVillageName = "";
         mSelectedClasterName = "";
         updateFilterView();
-        filterString = getFilterString();
+//        filterString = getFilterString();
         super.filter(filterString, joinTableString, mainConditionString, qrCode);
 
     }
@@ -137,11 +138,21 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
         if (getSearchCancelView() != null) {
             getSearchCancelView().setOnClickListener(this);
         }
-
+//        setTotalPatients();
 //        TextView dueOnly = ((TextView)view.findViewById(org.smartregister.chw.core.R.id.due_only_text_view));
 //        dueOnly.setVisibility(View.VISIBLE);
     }
-
+//    @Override
+//    public void setTotalPatients() {
+//        if (headerTextDisplay != null) {
+//            headerTextDisplay.setText(
+//                    String.format(getString(R.string.clients_child), clientAdapter.getTotalcount()));
+//            headerTextDisplay.setTextColor(getResources().getColor(android.R.color.black));
+//            headerTextDisplay.setTypeface(Typeface.DEFAULT_BOLD);
+//            ((android.view.View)headerTextDisplay.getParent()).findViewById(R.id.filter_display_view).setVisibility(android.view.View.GONE);
+//            ((android.view.View)headerTextDisplay.getParent()).setVisibility(android.view.View.VISIBLE);
+//        }
+//    }
     @Override
     public void onClick(android.view.View v) {
         super.onViewClicked(v);
@@ -313,23 +324,27 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
 
     public void filter(String filterString, String joinTableString, String mainConditionString) {
 
-        super.filter(getFilterString(), joinTableString, mainConditionString, false);
+        super.filter(filterString, joinTableString, mainConditionString, false);
 
 
     }
 
     public String getFilterString() {
+        String selected_claster = "";
+        if(!StringUtils.isEmpty(mSelectedClasterName)){
+            selected_claster = mSelectedClasterName.replace("_"," AND ");
+        }
         String str = StringUtils.isEmpty(mSelectedVillageName) ?
                 (StringUtils.isEmpty(mSelectedClasterName) ?
-                        "" : mSelectedClasterName) : (StringUtils.isEmpty(mSelectedClasterName) ?
-                mSelectedVillageName : "" + mSelectedVillageName + " AND " + mSelectedClasterName + "");
-        if (StringUtils.isEmpty(str)) {
-            return searchFilterString;
-        } else if (!StringUtils.isEmpty(searchFilterString)) {
-            return str + " AND " + searchFilterString;
-        } else {
-            return str;
-        }
-
+                        "" : selected_claster) : (StringUtils.isEmpty(mSelectedClasterName) ?
+                mSelectedVillageName : "" + mSelectedVillageName + " AND " + selected_claster + "");
+//        if (StringUtils.isEmpty(str)) {
+//            return searchFilterString;
+//        } else if (!StringUtils.isEmpty(searchFilterString)) {
+//            return str + " AND " + searchFilterString;
+//        } else {
+//            return str;
+//        }
+        return str;
     }
 }

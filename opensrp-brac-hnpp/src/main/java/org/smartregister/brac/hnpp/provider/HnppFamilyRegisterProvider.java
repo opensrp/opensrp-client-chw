@@ -117,6 +117,7 @@ public class HnppFamilyRegisterProvider extends CoreRegisterProvider  {
     @Override
     public void getFooterView(RecyclerView.ViewHolder viewHolder, int currentPageCount, int totalPageCount, boolean hasNext, boolean hasPrevious) {
         FooterViewHolder footerViewHolder = (FooterViewHolder) viewHolder;
+        totalPageCount = totalPageCount == 0 ? 1: totalPageCount;
         footerViewHolder.pageInfoView.setText(
                 MessageFormat.format(context.getString(org.smartregister.R.string.str_page_info), currentPageCount,
                         totalPageCount));
