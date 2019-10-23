@@ -185,6 +185,7 @@
         <service android:name="org.smartregister.sync.intent.PlanIntentService" />
         <service android:name=".intent.ChwPncCloseDateIntent" />
         <service android:name="org.smartregister.reporting.service.IndicatorGeneratorIntentService" />
+        <service android:name="org.smartregister.chw.service.SchedulesIntentService" />
 
         <uses-library
             android:name="org.apache.http.legacy"
