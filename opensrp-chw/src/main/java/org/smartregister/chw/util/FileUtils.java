@@ -25,7 +25,7 @@ public class FileUtils {
             return dir;
 
         if (!dir.mkdirs())
-            throw new Exception("Directory was not created successfully");
+            throw new FileException("Directory was not created successfully");
 
         return dir;
     }
