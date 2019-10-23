@@ -5,21 +5,27 @@ import android.database.Cursor;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.joda.time.format.DateTimeFormat;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.ChwPNCDao;
 import org.smartregister.chw.dao.WashCheckDao;
+import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.PNCVisitUtil;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.domain.db.Obs;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
@@ -253,7 +259,7 @@ public class ChwRepositoryFlv {
             VisitRepository.createTable(sqLiteDatabase);
             VisitDetailsRepository.createTable(sqLiteDatabase);
 
-            // Reprocess all the ANC visit events
+            // Reprocess all the ANC visit events since we dropped the Visits tables
             List<Event> events = getEvents(sqLiteDatabase, new String[]{Constants.EventType.ANC_HOME_VISIT});
             for (Event event : events) {
                 NCUtils.processHomeVisit(new EventClient(event), sqLiteDatabase);
@@ -261,11 +267,11 @@ public class ChwRepositoryFlv {
 
             // Reprocess all the PNC visit events
             events = getEvents(sqLiteDatabase, new String[]{Constants.EventType.PNC_HOME_VISIT});
+            processHFNextVisitDateObs(events);
             for (Event event : events) {
                 NCUtils.processHomeVisit(new EventClient(event), sqLiteDatabase);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Timber.e(e);
         }
 
@@ -317,5 +323,29 @@ public class ChwRepositoryFlv {
             cursor.close();
         }
         return events;
+    }
+
+    private static void processHFNextVisitDateObs(List<Event> events) {
+        String baseEntityId;
+        PNCHealthFacilityVisitRule visitRule;
+        PNCHealthFacilityVisitSummary summary;
+        String pncHfNextVisitDate;
+        for (Event event : events) {
+            baseEntityId = event.getBaseEntityId();
+            summary = ChwPNCDao.getLastHealthFacilityVisitSummary(baseEntityId);
+            if (summary != null) {
+                visitRule = PNCVisitUtil.getNextPNCHealthFacilityVisit(summary.getDeliveryDate(), summary.getLastVisitDate());
+                pncHfNextVisitDate = DateTimeFormat.forPattern("dd-MM-yyyy").print(visitRule.getDueDate());
+                Obs pncHfNextVisitDateObs = new Obs()
+                        .withFormSubmissionField(Constants.FORM_SUBMISSION_FIELD.pncHfNextVisitDateFieldType)
+                        .withFieldDataType("spacer")
+                        .withValue(pncHfNextVisitDate)
+                        .withFieldCode(Constants.FORM_SUBMISSION_FIELD.pncHfNextVisitDateFieldType)
+                        .withFieldType("formsubmissionField")
+                        .withParentCode("")
+                        .withHumanReadableValue(null);
+                event.getObs().add(pncHfNextVisitDateObs);
+            }
+        }
     }
 }
