@@ -6,6 +6,7 @@ public class GuideBooksFragmentVideo implements GuideBooksFragmentContract.Video
 
     private String videoID;
     private String title;
+    private String name;
     private Boolean isDownloaded;
     private String localPath;
     private String severUrl;
@@ -28,6 +29,15 @@ public class GuideBooksFragmentVideo implements GuideBooksFragmentContract.Video
 
     public void setSeverUrl(String severUrl) {
         this.severUrl = severUrl;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
