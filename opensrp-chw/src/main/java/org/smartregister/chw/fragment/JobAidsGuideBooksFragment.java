@@ -22,7 +22,10 @@ import org.smartregister.chw.presenter.GuideBooksFragmentPresenter;
 import org.smartregister.chw.util.DownloadGuideBooksUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFragmentContract.View {
@@ -31,6 +34,7 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
     private List<GuideBooksFragmentContract.Video> videos = new ArrayList<>();
     protected GuideBooksFragmentContract.Presenter presenter;
     private ProgressBar progressBar;
+    private Map<String, GuideBooksFragmentContract.Video> allVideos = new HashMap<>();
 
     public static JobAidsGuideBooksFragment newInstance() {
         JobAidsGuideBooksFragment fragment = new JobAidsGuideBooksFragment();
@@ -69,9 +73,22 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
     }
 
     @Override
-    public void onDataReceived(List<GuideBooksFragmentContract.Video> videos) {
+    public void onDataReceived(List<GuideBooksFragmentContract.Video> receivedVideos) {
+
+        for (GuideBooksFragmentContract.Video video : receivedVideos) {
+            GuideBooksFragmentContract.Video available = allVideos.get(video.getID());
+            if (available == null) {
+                allVideos.put(video.getID(), video);
+            } else if (video.isDowloaded() && !available.isDowloaded()) {
+                allVideos.put(video.getID(), video);
+            }
+        }
+
+        List<GuideBooksFragmentContract.Video> res = new ArrayList<>(allVideos.values());
+        Collections.sort(res, (video1, video2) -> video1.getTitle().compareTo(video2.getTitle()));
+
         this.videos.clear();
-        this.videos.addAll(videos);
+        this.videos.addAll(res);
         this.mAdapter.notifyDataSetChanged();
         this.displayLoadingState(false);
     }

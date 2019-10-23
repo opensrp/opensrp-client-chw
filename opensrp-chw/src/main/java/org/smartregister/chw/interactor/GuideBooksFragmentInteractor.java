@@ -19,16 +19,12 @@ import org.smartregister.family.util.AppExecutors;
 import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import timber.log.Timber;
 
 public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.Interactor {
     private AppExecutors appExecutors;
-    private Map<String, GuideBooksFragmentContract.Video> allVideos = new HashMap<>();
 
     public GuideBooksFragmentInteractor() {
         this(new AppExecutors());
@@ -50,19 +46,7 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
     }
 
     private synchronized void updateVideos(List<GuideBooksFragmentContract.Video> videos, GuideBooksFragmentContract.InteractorCallBack callBack) {
-
-        for (GuideBooksFragmentContract.Video video : videos) {
-            GuideBooksFragmentContract.Video available = allVideos.get(video.getID());
-            if (available == null) {
-                allVideos.put(video.getID(), video);
-            } else if (video.isDowloaded() && !available.isDowloaded()) {
-                allVideos.put(video.getID(), video);
-            }
-        }
-
-        List<GuideBooksFragmentContract.Video> res = new ArrayList<>(allVideos.values());
-        Collections.sort(res, (video1, video2) -> video1.getTitle().compareTo(video2.getTitle()));
-        Runnable runnable1 = () -> appExecutors.mainThread().execute(() -> callBack.onDataFetched(res));
+        Runnable runnable1 = () -> appExecutors.mainThread().execute(() -> callBack.onDataFetched(videos));
         appExecutors.mainThread().execute(runnable1);
     }
 
@@ -74,7 +58,7 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
 
         for (File file : files) {
             GuideBooksFragmentVideo video = new GuideBooksFragmentVideo();
-            video.setVideoID(file.getName().toLowerCase());
+            video.setVideoID(file.getName().toLowerCase().trim());
             video.setDownloaded(true);
             video.setLocalPath(file.getPath());
             video.setTitle(toTitle(file.getName()));
@@ -109,7 +93,7 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
             for (ServerFile serverFile : serverFiles) {
                 if (lang.equalsIgnoreCase(serverFile.getLang())) {
                     GuideBooksFragmentVideo video = new GuideBooksFragmentVideo();
-                    video.setVideoID(serverFile.getName().toLowerCase());
+                    video.setVideoID(serverFile.getName().toLowerCase().trim());
                     video.setDownloaded(false);
                     video.setLocalPath(null);
                     video.setTitle(toTitle(serverFile.getName()));
