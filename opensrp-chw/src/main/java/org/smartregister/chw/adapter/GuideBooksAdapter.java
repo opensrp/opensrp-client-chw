@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.GuideBooksFragmentContract;
-import org.smartregister.chw.util.DownloadGuideBooksUtils;
-import org.smartregister.chw.util.DownloadUtil;
 
 import java.util.List;
 
