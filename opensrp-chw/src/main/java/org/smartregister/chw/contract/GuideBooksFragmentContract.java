@@ -35,7 +35,7 @@ public interface GuideBooksFragmentContract {
 
     interface DownloadListener {
 
-        void onDownloadComplete(boolean successful);
+        void onDownloadComplete(boolean successful, String localPath);
 
         void onStarted();
     }
@@ -64,6 +64,8 @@ public interface GuideBooksFragmentContract {
         void setDownloaded(Boolean downloaded);
 
         String getLocalPath();
+
+        void setLocalPath(String localPath);
 
         String getServerUrl();
     }

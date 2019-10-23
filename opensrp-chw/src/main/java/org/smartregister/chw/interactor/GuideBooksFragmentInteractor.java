@@ -77,7 +77,7 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
 
         GuideBooksFragmentContract.DownloadListener downloadListener = new GuideBooksFragmentContract.DownloadListener() {
             @Override
-            public void onDownloadComplete(boolean successful) {
+            public void onDownloadComplete(boolean successful, String localPath) {
                 readFileContent(folder, fileName, context, callBack);
             }
 

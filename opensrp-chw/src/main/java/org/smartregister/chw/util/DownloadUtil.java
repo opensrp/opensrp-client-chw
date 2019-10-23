@@ -124,6 +124,6 @@ public class DownloadUtil extends AsyncTask<String, String, String> {
         // remove from queue
         removeFromQue(serverUrl);
         if (downloadListener != null)
-            downloadListener.onDownloadComplete(!"Something went wrong".equals(message));
+            downloadListener.onDownloadComplete(!"Something went wrong".equals(message), (folder + fileName));
     }
 }

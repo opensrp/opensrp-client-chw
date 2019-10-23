@@ -51,9 +51,10 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
 
                 GuideBooksFragmentContract.DownloadListener listener = new GuideBooksFragmentContract.DownloadListener() {
                     @Override
-                    public void onDownloadComplete(boolean successful) {
+                    public void onDownloadComplete(boolean successful, String localPath) {
 
                         video.setDownloaded(successful);
+                        video.setLocalPath(localPath);
 
                         myViewHolder.progressBar.setVisibility(View.GONE);
                         myViewHolder.icon.setVisibility(View.VISIBLE);
