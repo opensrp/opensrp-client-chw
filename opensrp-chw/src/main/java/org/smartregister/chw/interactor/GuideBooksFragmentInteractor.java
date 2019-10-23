@@ -66,7 +66,7 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
 
         List<GuideBooksFragmentContract.Video> res = new ArrayList<>();
         GuideBooksFragmentVideo video = new GuideBooksFragmentVideo();
-        String name = "Recording_vaccination_for_a_child.mp4";
+        String name = "ANC_visit.mp4";
 
         video.setVideoID(name.toLowerCase());
         video.setDownloaded(false);

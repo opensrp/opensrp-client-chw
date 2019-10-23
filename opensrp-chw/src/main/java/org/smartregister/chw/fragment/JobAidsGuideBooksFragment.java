@@ -95,7 +95,7 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
     }
 
     @Override
-    public void downloadVideo(ImageView icon, ProgressBar progressBar, GuideBooksFragmentContract.Video video) {
-        new DownloadGuideBooksUtils(icon, progressBar, video.getName(), getViewContext()).execute();
+    public void downloadVideo(GuideBooksFragmentContract.DownloadListener downloadListener, GuideBooksFragmentContract.Video video) {
+        new DownloadGuideBooksUtils(downloadListener, video.getName(), getViewContext()).execute();
     }
 }

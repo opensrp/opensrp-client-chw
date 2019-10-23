@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.GuideBooksFragmentContract;
@@ -42,11 +43,40 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
             myViewHolder.icon.setImageResource(R.drawable.ic_save_outline_black);
         }
         myViewHolder.progressBar.setVisibility(View.GONE);
+
         myViewHolder.icon.setOnClickListener(v -> {
             if (video.isDowloaded()) {
                 view.playVideo(video);
             } else {
-                view.downloadVideo(myViewHolder.icon, myViewHolder.progressBar, video);
+
+                GuideBooksFragmentContract.DownloadListener listener = new GuideBooksFragmentContract.DownloadListener() {
+                    @Override
+                    public void onDownloadComplete(boolean successful) {
+
+                        video.setDownloaded(successful);
+
+                        myViewHolder.progressBar.setVisibility(View.GONE);
+                        myViewHolder.icon.setVisibility(View.VISIBLE);
+
+                        if (successful) {
+                            myViewHolder.icon.setImageResource(R.drawable.ic_play_circle_black);
+                        } else {
+                            myViewHolder.icon.setImageResource(R.drawable.ic_save_outline_black);
+
+                            Toast.makeText(view.getViewContext(),
+                                    view.getViewContext().getString(R.string.jobs_aid_failed_download, video.getTitle())
+                                    , Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onStarted() {
+                        myViewHolder.progressBar.setVisibility(View.VISIBLE);
+                        myViewHolder.icon.setVisibility(View.GONE);
+                    }
+                };
+
+                view.downloadVideo(listener, video);
             }
         });
         myViewHolder.title.setText(video.getTitle());

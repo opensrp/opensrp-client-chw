@@ -1,8 +1,6 @@
 package org.smartregister.chw.contract;
 
 import android.content.Context;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -24,7 +22,7 @@ public interface GuideBooksFragmentContract {
 
         void playVideo(Video video);
 
-        void downloadVideo(ImageView icon, ProgressBar progressBar, Video video);
+        void downloadVideo(DownloadListener downloadListener, Video video);
     }
 
     interface Presenter {
@@ -37,9 +35,7 @@ public interface GuideBooksFragmentContract {
 
     interface DownloadListener {
 
-        void onDownloadComplete();
-
-        void onError(String message);
+        void onDownloadComplete(boolean successful);
 
         void onStarted();
     }
@@ -64,6 +60,8 @@ public interface GuideBooksFragmentContract {
         String getTitle();
 
         Boolean isDowloaded();
+
+        void setDownloaded(Boolean downloaded);
 
         String getLocalPath();
 

@@ -2,14 +2,12 @@ package org.smartregister.chw.util;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.os.Environment;
 import android.widget.Toast;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.contract.GuideBooksFragmentContract;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -20,22 +18,23 @@ import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.net.URLConnection;
 
-import static org.smartregister.chw.activity.LoginActivity.TAG;
+import timber.log.Timber;
 
 public class DownloadGuideBooksUtils extends AsyncTask<String, String, String> {
 
-    private WeakReference<ProgressBar> progressBar;
-    private WeakReference<ImageView> icon;
+    private GuideBooksFragmentContract.DownloadListener downloadListener;
     private String fileName;
     private String folder;
     private WeakReference<Context> context;
+    private Exception exception;
 
-    public DownloadGuideBooksUtils(ImageView icon, ProgressBar progressBar, String fileName, Context context) {
-        this.progressBar = new WeakReference<>(progressBar);
-        this.icon = new WeakReference<>(icon);
+    public DownloadGuideBooksUtils(GuideBooksFragmentContract.DownloadListener downloadListener, String fileName, Context context) {
         this.fileName = fileName;
         this.context = new WeakReference<>(context);
-        folder = ChwApplication.getGuideBooksDirectory() + File.separator + context.getResources().getConfiguration().locale + "/";
+        folder = Environment.getExternalStorageDirectory() + File.separator +
+                ChwApplication.getGuideBooksDirectory() + File.separator +
+                context.getResources().getConfiguration().locale + "/";
+        this.downloadListener = downloadListener;
     }
 
     /**
@@ -45,11 +44,7 @@ public class DownloadGuideBooksUtils extends AsyncTask<String, String, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        if (progressBar.get() != null)
-            progressBar.get().setVisibility(View.VISIBLE);
-
-        if (icon.get() != null)
-            icon.get().setVisibility(View.GONE);
+        downloadListener.onStarted();
     }
 
     /**
@@ -88,7 +83,7 @@ public class DownloadGuideBooksUtils extends AsyncTask<String, String, String> {
                 // publishing the progress....
                 // After this onProgressUpdate will be called
                 publishProgress("" + (int) ((total * 100) / lengthOfFile));
-                Log.d(TAG, "Progress: " + (int) ((total * 100) / lengthOfFile));
+                Timber.d("Progress: %s", (int) ((total * 100) / lengthOfFile));
 
                 // writing data to file
                 output.write(data, 0, count);
@@ -103,7 +98,7 @@ public class DownloadGuideBooksUtils extends AsyncTask<String, String, String> {
             return "Downloaded at: " + folder + fileName;
 
         } catch (Exception e) {
-            Log.e("Error: ", e.getMessage());
+            Timber.e(e);
         }
 
         return "Something went wrong";
@@ -112,14 +107,6 @@ public class DownloadGuideBooksUtils extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String message) {
         // dismiss the dialog after the file was downloaded
-        if (progressBar.get() != null)
-            progressBar.get().setVisibility(View.GONE);
-
-        if (icon.get() != null)
-            icon.get().setVisibility(View.VISIBLE);
-
-        // Display File path after downloading
-        if (context.get() != null)
-            Toast.makeText(context.get(), message, Toast.LENGTH_LONG).show();
+        downloadListener.onDownloadComplete(!"Something went wrong".equals(message));
     }
 }
