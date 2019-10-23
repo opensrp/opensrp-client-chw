@@ -2,8 +2,13 @@ package org.smartregister.chw.util;
 
 import android.os.Environment;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class FileUtils {
 
@@ -28,6 +33,28 @@ public class FileUtils {
             throw new FileException("Directory was not created successfully");
 
         return dir;
+    }
+
+    public static String getStringFromFile(String folder, String name) throws Exception {
+        File fl = new File(folder, name);
+        if (!fl.exists()) return null;
+
+        FileInputStream fin = new FileInputStream(fl);
+        String ret = convertStreamToString(fin);
+        //Make sure you close all streams.
+        fin.close();
+        return ret;
+    }
+
+    public static String convertStreamToString(InputStream is) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append("\n");
+        }
+        reader.close();
+        return sb.toString();
     }
 
     public static boolean writeToExternalDisk(String directoryPath, byte[] bytes, String fileName) throws Exception {
