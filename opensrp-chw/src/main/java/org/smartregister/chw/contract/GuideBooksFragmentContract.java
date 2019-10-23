@@ -22,7 +22,7 @@ public interface GuideBooksFragmentContract {
 
         void playVideo(Video video);
 
-        void downloadVideo(Video video);
+        void downloadVideo(DownloadListener downloadListener, Video video);
     }
 
     interface Presenter {
@@ -31,14 +31,19 @@ public interface GuideBooksFragmentContract {
 
         @Nullable View getView();
 
-        void requestVideoDownload(String url);
+    }
+
+    interface DownloadListener {
+
+        void onDownloadComplete(boolean successful, String localPath);
+
+        void onStarted();
     }
 
     interface Interactor {
 
         void getVideos(Context context, InteractorCallBack callBack);
 
-        void downloadVideo(String url);
     }
 
     interface InteractorCallBack {
@@ -50,11 +55,17 @@ public interface GuideBooksFragmentContract {
 
         String getID();
 
+        String getName();
+
         String getTitle();
 
         Boolean isDowloaded();
 
+        void setDownloaded(Boolean downloaded);
+
         String getLocalPath();
+
+        void setLocalPath(String localPath);
 
         String getServerUrl();
     }
