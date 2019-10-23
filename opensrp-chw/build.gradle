@@ -73,6 +73,7 @@ android {
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
+            buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '720'
         }
 
         debug {
@@ -87,6 +88,7 @@ android {
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
+            buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '360'
             testCoverageEnabled true
         }
     }
