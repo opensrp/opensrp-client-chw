@@ -1,0 +1,92 @@
+package org.smartregister.chw.util;
+
+import android.os.AsyncTask;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+
+import timber.log.Timber;
+
+public class DownloadUtil extends AsyncTask<String, String, String> {
+
+    protected String serverUrl;
+    protected String folder;
+    protected String fileName;
+
+    protected DownloadUtil(){
+
+    }
+
+    public DownloadUtil(String serverUrl, String folder, String fileName) {
+        this.serverUrl = serverUrl;
+        this.folder = folder;
+        this.fileName = fileName;
+    }
+
+
+    /**
+     * Downloading file in background thread
+     */
+    @Override
+    protected String doInBackground(String... strings) {
+        int count;
+        try {
+            URL url = new URL(serverUrl);
+            URLConnection connection = url.openConnection();
+            connection.connect();
+            // getting file length
+            int lengthOfFile = connection.getContentLength();
+
+
+            // input stream to read file - with 8k buffer
+            InputStream input = new BufferedInputStream(url.openStream(), 8192);
+
+            //Create android dest folder if it does not exist
+            File directory = new File(folder);
+
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Output stream to write file
+            OutputStream output = new FileOutputStream(folder + fileName);
+
+            byte data[] = new byte[1024];
+
+            long total = 0;
+
+            while ((count = input.read(data)) != -1) {
+                total += count;
+                // publishing the progress....
+                // After this onProgressUpdate will be called
+                publishProgress("" + (int) ((total * 100) / lengthOfFile));
+                Timber.d("Progress: %s", (int) ((total * 100) / lengthOfFile));
+
+                // writing data to file
+                output.write(data, 0, count);
+            }
+
+            // flushing output
+            output.flush();
+
+            // closing streams
+            output.close();
+            input.close();
+            return "Downloaded at: " + folder + fileName;
+
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+        return "Something went wrong";
+    }
+
+    public static void downloadFile(){
+
+    }
+}
