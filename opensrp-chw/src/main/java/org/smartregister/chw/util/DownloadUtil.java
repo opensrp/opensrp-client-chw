@@ -11,10 +11,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
 import timber.log.Timber;
 
 public class DownloadUtil extends AsyncTask<String, String, String> {
+
+    private static final List<String> downloadQueue = new ArrayList<>();
 
     protected String serverUrl;
     protected String folder;
@@ -23,6 +27,18 @@ public class DownloadUtil extends AsyncTask<String, String, String> {
 
     protected DownloadUtil() {
 
+    }
+
+    private synchronized void addToQue(String url) {
+        downloadQueue.add(url);
+    }
+
+    private synchronized void removeFromQue(String url) {
+        downloadQueue.remove(url);
+    }
+
+    public static boolean isDownloading(String url) {
+        return downloadQueue.contains(url);
     }
 
     public DownloadUtil(GuideBooksFragmentContract.DownloadListener downloadListener, String serverUrl, String folder, String fileName) {
@@ -41,6 +57,7 @@ public class DownloadUtil extends AsyncTask<String, String, String> {
         int count;
         try {
             URL url = new URL(serverUrl);
+            addToQue(serverUrl);
             URLConnection connection = url.openConnection();
             connection.connect();
             // getting file length
@@ -104,6 +121,8 @@ public class DownloadUtil extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String message) {
         // dismiss the dialog after the file was downloaded
+        // remove from queue
+        removeFromQue(serverUrl);
         if (downloadListener != null)
             downloadListener.onDownloadComplete(!"Something went wrong".equals(message));
     }

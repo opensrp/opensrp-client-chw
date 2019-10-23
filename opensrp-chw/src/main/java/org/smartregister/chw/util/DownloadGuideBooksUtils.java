@@ -17,6 +17,10 @@ public class DownloadGuideBooksUtils extends DownloadUtil {
                 ChwApplication.getGuideBooksDirectory() + File.separator +
                 context.getResources().getConfiguration().locale + "/";
         this.downloadListener = downloadListener;
-        this.serverUrl = BuildConfig.guidebooks_url + context.getResources().getConfiguration().locale + "/" + fileName;
+        this.serverUrl = getDownloadUrl(fileName, context);
+    }
+
+    public static String getDownloadUrl(String fileName, Context context) {
+        return BuildConfig.guidebooks_url + context.getResources().getConfiguration().locale + "/" + fileName;
     }
 }
