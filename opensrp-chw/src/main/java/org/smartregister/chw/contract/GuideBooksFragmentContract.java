@@ -1,6 +1,8 @@
 package org.smartregister.chw.contract;
 
 import android.content.Context;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -22,7 +24,7 @@ public interface GuideBooksFragmentContract {
 
         void playVideo(Video video);
 
-        void downloadVideo(Video video);
+        void downloadVideo(ImageView icon, ProgressBar progressBar, Video video);
     }
 
     interface Presenter {
@@ -31,14 +33,21 @@ public interface GuideBooksFragmentContract {
 
         @Nullable View getView();
 
-        void requestVideoDownload(String url);
+    }
+
+    interface DownloadListener {
+
+        void onDownloadComplete();
+
+        void onError(String message);
+
+        void onStarted();
     }
 
     interface Interactor {
 
         void getVideos(Context context, InteractorCallBack callBack);
 
-        void downloadVideo(String url);
     }
 
     interface InteractorCallBack {
@@ -49,6 +58,8 @@ public interface GuideBooksFragmentContract {
     interface Video {
 
         String getID();
+
+        String getName();
 
         String getTitle();
 

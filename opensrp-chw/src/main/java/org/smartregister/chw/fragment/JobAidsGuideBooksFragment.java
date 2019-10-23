@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import org.smartregister.chw.R;
@@ -19,6 +20,7 @@ import org.smartregister.chw.adapter.GuideBooksAdapter;
 import org.smartregister.chw.contract.GuideBooksFragmentContract;
 import org.smartregister.chw.interactor.GuideBooksFragmentInteractor;
 import org.smartregister.chw.presenter.GuideBooksFragmentPresenter;
+import org.smartregister.chw.util.DownloadGuideBooksUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,8 +95,7 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
     }
 
     @Override
-    public void downloadVideo(GuideBooksFragmentContract.Video video) {
-        if (!video.isDowloaded())
-            getPresenter().requestVideoDownload(video.getServerUrl());
+    public void downloadVideo(ImageView icon, ProgressBar progressBar, GuideBooksFragmentContract.Video video) {
+        new DownloadGuideBooksUtils(icon, progressBar, video.getName(), getViewContext()).execute();
     }
 }

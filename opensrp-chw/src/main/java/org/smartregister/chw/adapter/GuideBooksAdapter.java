@@ -36,18 +36,17 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
         GuideBooksFragmentContract.Video video = videos.get(position);
 
         myViewHolder.icon.setVisibility(View.VISIBLE);
-        if(video.isDowloaded()){
+        if (video.isDowloaded()) {
             myViewHolder.icon.setImageResource(R.drawable.ic_play_circle_black);
-        }else{
+        } else {
             myViewHolder.icon.setImageResource(R.drawable.ic_save_outline_black);
         }
-        myViewHolder.progressBar.setVisibility(video.isDowloaded() ? View.GONE : View.VISIBLE);
+        myViewHolder.progressBar.setVisibility(View.GONE);
         myViewHolder.icon.setOnClickListener(v -> {
             if (video.isDowloaded()) {
                 view.playVideo(video);
             } else {
-                myViewHolder.progressBar.setVisibility(View.VISIBLE);
-                view.downloadVideo(video);
+                view.downloadVideo(myViewHolder.icon, myViewHolder.progressBar, video);
             }
         });
         myViewHolder.title.setText(video.getTitle());

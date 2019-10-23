@@ -43,11 +43,6 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
         appExecutors.diskIO().execute(runnable);
     }
 
-    @Override
-    public void downloadVideo(String url) {
-        // TODO
-    }
-
     private List<GuideBooksFragmentContract.Video> getLocalVideos(Context context) {
         List<GuideBooksFragmentContract.Video> res = new ArrayList<>();
         String folder = ChwApplication.getGuideBooksDirectory() + File.separator + context.getResources().getConfiguration().locale.getLanguage();
@@ -69,7 +64,19 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
     private List<GuideBooksFragmentContract.Video> getRemoteVideos(Context context) {
         if (context == null) return new ArrayList<>();
 
-        return new ArrayList<>();
+        List<GuideBooksFragmentContract.Video> res = new ArrayList<>();
+        GuideBooksFragmentVideo video = new GuideBooksFragmentVideo();
+        String name = "Recording_vaccination_for_a_child.mp4";
+
+        video.setVideoID(name.toLowerCase());
+        video.setDownloaded(false);
+        video.setLocalPath(null);
+        video.setTitle(toTitle(name));
+        video.setName(name);
+
+        res.add(video);
+
+        return res;
     }
 
     private String toTitle(String s) {
