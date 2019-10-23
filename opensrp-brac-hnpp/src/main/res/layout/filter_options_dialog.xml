@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="স্বাস্থ্য সেবিকার নাম"
+        android:textColor="@color/white"
         android:textSize="16sp"/>
 
     <Spinner
@@ -22,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="গ্রামের নামঃ"
+        android:textColor="@color/white"
         android:textSize="16sp"/>
 
     <Spinner
@@ -36,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ক্লাস্টারঃ"
+        android:textColor="@color/white"
         android:textSize="16sp"/>
     <Spinner
         android:id="@+id/klaster_filter_spinner"
@@ -44,10 +47,24 @@
         android:layout_height="wrap_content">
 
     </Spinner>
+
     <Button
         android:id="@+id/filter_apply_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_button_bg"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:ems="10"
+        android:shadowColor="#ffffff"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="0.5"
         android:textStyle="bold"
-        android:text="আগান"/>
+        android:text="ফিল্টার"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
 </LinearLayout>
