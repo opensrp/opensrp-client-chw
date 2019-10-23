@@ -74,10 +74,23 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
         String folder = Environment.getExternalStorageDirectory() + File.separator +
                 ChwApplication.getGuideBooksDirectory() + File.separator;
         String fileName = "files.json";
-        new DownloadUtil(BuildConfig.guidebooks_url + fileName, folder, fileName).execute();
 
+        GuideBooksFragmentContract.DownloadListener downloadListener = new GuideBooksFragmentContract.DownloadListener() {
+            @Override
+            public void onDownloadComplete(boolean successful) {
+                readFileContent(folder, fileName, context, callBack);
+            }
 
-        // read the file
+            @Override
+            public void onStarted() {
+                Timber.v("Downloading files list");
+            }
+        };
+        new DownloadUtil(downloadListener, BuildConfig.guidebooks_url + fileName, folder, fileName).execute();
+        readFileContent(folder, fileName, context, callBack);
+    }
+
+    private void readFileContent(String folder, String fileName, Context context, GuideBooksFragmentContract.InteractorCallBack callBack) {
         try {
             String content = FileUtils.getStringFromFile(folder, fileName);
             if (content == null) return;

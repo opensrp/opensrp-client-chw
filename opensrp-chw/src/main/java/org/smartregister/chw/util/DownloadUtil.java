@@ -2,6 +2,8 @@ package org.smartregister.chw.util;
 
 import android.os.AsyncTask;
 
+import org.smartregister.chw.contract.GuideBooksFragmentContract;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,15 +19,17 @@ public class DownloadUtil extends AsyncTask<String, String, String> {
     protected String serverUrl;
     protected String folder;
     protected String fileName;
+    protected GuideBooksFragmentContract.DownloadListener downloadListener;
 
-    protected DownloadUtil(){
+    protected DownloadUtil() {
 
     }
 
-    public DownloadUtil(String serverUrl, String folder, String fileName) {
+    public DownloadUtil(GuideBooksFragmentContract.DownloadListener downloadListener, String serverUrl, String folder, String fileName) {
         this.serverUrl = serverUrl;
         this.folder = folder;
         this.fileName = fileName;
+        this.downloadListener = downloadListener;
     }
 
 
@@ -86,7 +90,21 @@ public class DownloadUtil extends AsyncTask<String, String, String> {
         return "Something went wrong";
     }
 
-    public static void downloadFile(){
 
+    /**
+     * Before starting background thread
+     */
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        if (downloadListener != null)
+            downloadListener.onStarted();
+    }
+
+    @Override
+    protected void onPostExecute(String message) {
+        // dismiss the dialog after the file was downloaded
+        if (downloadListener != null)
+            downloadListener.onDownloadComplete(!"Something went wrong".equals(message));
     }
 }
