@@ -2,11 +2,15 @@ package org.smartregister.brac.hnpp.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.brac.hnpp.utils.HnppChildUtils;
+import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
@@ -20,7 +24,10 @@ import org.smartregister.brac.hnpp.presenter.HnppFamilyOtherMemberActivityPresen
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
+import org.smartregister.family.util.Constants;
+import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.contract.BaseProfileContract;
+import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import timber.log.Timber;
 
@@ -28,11 +35,31 @@ import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
 
 public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
     private FamilyMemberFloatingMenu familyFloatingMenu;
+    private CustomFontTextView textViewDetails3;
+
 
     @Override
     protected void onCreation() {
-        super.onCreation();
+        setContentView(R.layout.activity_other_member_profile);
+
+        Toolbar toolbar = findViewById(org.smartregister.family.R.id.family_toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle("");
+        }
+
+        appBarLayout = findViewById(org.smartregister.family.R.id.toolbar_appbarlayout);
+
+        imageRenderHelper = new ImageRenderHelper(this);
+
+        initializePresenter();
+
+        setupViews();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,6 +81,23 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
     @Override
     protected void removeIndividualProfile() {
         Timber.d("Remove member action is not required in HF");
+    }
+
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+        textViewDetails3 = findViewById(R.id.textview_detail_three);
+    }
+
+    @Override
+    public void setProfileDetailThree(String detailThree) {
+        super.setProfileDetailThree(detailThree);
+        if(!TextUtils.isEmpty(detailThree)) {
+            detailThree = detailThree.replace(Constants.IDENTIFIER.FAMILY_SUFFIX,"")
+                    .replace(HnppConstants.IDENTIFIER.FAMILY_TEXT,"");
+            detailThree = detailThree.substring(detailThree.length() - 9);
+            textViewDetails3.setText("ID: " + detailThree);
+        }
     }
 
     @Override
