@@ -28,7 +28,7 @@ import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
-import org.smartregister.domain.db.Obs;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
@@ -45,6 +45,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -255,8 +256,7 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion13(SQLiteDatabase sqLiteDatabase) {
         try {
-
-            List<Event> events = getEvents(sqLiteDatabase, new String[]{Constants.EventType.PNC_HEALTH_FACILITY_VISIT});
+            List<Event> events = getEvents(sqLiteDatabase, new String[]{Constants.EventType.PREGNANCY_OUTCOME});
             processHFNextVisitDateObs(events, sqLiteDatabase);
         } catch (Exception e) {
             Timber.e(e);
@@ -315,48 +315,48 @@ public class ChwRepositoryFlv {
     private static void processHFNextVisitDateObs(List<Event> events, SQLiteDatabase sqLiteDatabase) {
         // Save missing PNC Health Facility visit (next visit) details
         for (Event event : events) {
-            Visit visit = AncLibrary.getInstance().visitRepository().getVisitByFormSubmissionID(event.getFormSubmissionId());
+            Visit visit = AncLibrary.getInstance().visitRepository().getLatestVisit(event.getBaseEntityId(), Constants.EventType.PNC_HOME_VISIT);
             Obs obs = getPncHfNextVisitObs(event);
-            if (visit != null && obs != null) {
-                VisitDetail detail = new VisitDetail();
-                detail.setVisitDetailsId(org.smartregister.chw.anc.util.JsonFormUtils.generateRandomUUIDString());
-                detail.setVisitId(visit.getVisitId());
-                detail.setVisitKey(obs.getFormSubmissionField());
-                detail.setParentCode(obs.getParentCode());
-                detail.setDetails(NCUtils.getDetailsValue(detail, obs.getValues().toString()));
-                detail.setHumanReadable(NCUtils.getDetailsValue(detail, obs.getHumanReadableValues().toString()));
-                detail.setProcessed(true);
-                detail.setCreatedAt(new Date());
-                detail.setUpdatedAt(new Date());
 
-                if (sqLiteDatabase != null) {
-                    AncLibrary.getInstance().visitDetailsRepository().addVisitDetails(detail, sqLiteDatabase);
-                } else {
-                    AncLibrary.getInstance().visitDetailsRepository().addVisitDetails(detail);
+            if (visit != null && obs != null) {
+                Map<String, List<VisitDetail>> visitDetails = null;
+                List<Obs> obsList = new ArrayList<>();
+                obsList.add(obs);
+                try {
+                    visitDetails = NCUtils.eventsObsToDetails(obsList, visit.getVisitId(), null);
+                } catch (Exception ex) {
+                    Timber.e(ex);
+                }
+
+                if (visitDetails != null && !visitDetails.isEmpty()) {
+                    VisitDetail detail = visitDetails.get(Constants.FORM_SUBMISSION_FIELD.pncHfNextVisitDateFieldType).get(0);
+                    if (sqLiteDatabase != null) {
+                        AncLibrary.getInstance().visitDetailsRepository().addVisitDetails(detail, sqLiteDatabase);
+                    } else {
+                        AncLibrary.getInstance().visitDetailsRepository().addVisitDetails(detail);
+                    }
                 }
             }
+
         }
 
     }
 
     private static Obs getPncHfNextVisitObs(Event event) {
-        PNCHealthFacilityVisitRule visitRule;
-        String pncHfNextVisitDate;
-        Obs pncHfNextVisitDateObs = new Obs();
+        Obs pncHfNextVisitDateObs = null;
 
         String baseEntityId = event.getBaseEntityId();
         PNCHealthFacilityVisitSummary summary = ChwPNCDao.getLastHealthFacilityVisitSummary(baseEntityId);
         if (summary != null) {
-            visitRule = PNCVisitUtil.getNextPNCHealthFacilityVisit(summary.getDeliveryDate(), summary.getLastVisitDate());
-            pncHfNextVisitDate = DateTimeFormat.forPattern("dd-MM-yyyy").print(visitRule.getDueDate());
-            pncHfNextVisitDateObs.withFormSubmissionField(Constants.FORM_SUBMISSION_FIELD.pncHfNextVisitDateFieldType)
+            PNCHealthFacilityVisitRule visitRule = PNCVisitUtil.getNextPNCHealthFacilityVisit(summary.getDeliveryDate(), summary.getLastVisitDate());
+            String pncHfNextVisitDate = DateTimeFormat.forPattern("dd-MM-yyyy").print(visitRule.getDueDate());
+            pncHfNextVisitDateObs = new org.smartregister.clientandeventmodel.Obs().withFormSubmissionField(Constants.FORM_SUBMISSION_FIELD.pncHfNextVisitDateFieldType)
                     .withFieldDataType("spacer")
                     .withValue(pncHfNextVisitDate)
                     .withFieldCode(Constants.FORM_SUBMISSION_FIELD.pncHfNextVisitDateFieldType)
                     .withFieldType("formsubmissionField")
                     .withParentCode("")
-                    .withHumanReadableValue(null);
-            event.getObs().add(pncHfNextVisitDateObs);
+                    .withHumanReadableValues(new ArrayList<>());
         }
 
         return pncHfNextVisitDateObs;
