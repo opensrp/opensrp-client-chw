@@ -44,8 +44,11 @@ public class HnppChildProfilePresenter extends CoreChildProfilePresenter {
         if (client == null || client.getColumnmaps() == null) {
             return;
         }
+        String motherEntityId = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.MOTHER_ENTITY_ID, true);
+        String relationId = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, true);
         String motherName = Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME, true);
 
+        motherName = HnppChildUtils.getMotherName(motherEntityId,relationId,motherName);
         String parentName = view.get().getContext().getResources().getString(org.smartregister.chw.core.R.string.care_giver_initials,motherName);
         getView().setParentName(parentName);
         String firstName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);

@@ -66,7 +66,7 @@ public class HnppConstants extends CoreConstants {
     public static boolean isReleaseBuild(){
         AllSharedPreferences preferences = Utils.getAllSharedPreferences();
         String usingUrl = preferences.getPreference(AllConstants.DRISHTI_BASE_URL);
-        if(!TextUtils.isEmpty(usingUrl) && usingUrl.equalsIgnoreCase(BuildConfig.opensrp_url_release)){
+        if(!TextUtils.isEmpty(usingUrl) && (usingUrl.equalsIgnoreCase(BuildConfig.opensrp_url_release) || usingUrl.equalsIgnoreCase(BuildConfig.opensrp_url_release_without_slash))){
             return true;
         }
         return false;
@@ -117,8 +117,8 @@ public class HnppConstants extends CoreConstants {
     }
     public static String relationshipObject = "{" +
             "  \"খানা প্রধান\": \"Household Head\"," +
-            "  \"মা\": \"Mother\"," +
-            "  \"বাবা\": \"Father\"," +
+            "  \"মা/আম্মা\": \"Mother\"," +
+            "  \"বাবা/আব্বা\": \"Father\"," +
             "  \"ছেলে\": \"Son\"," +
             "  \"মেয়ে\": \"Daughter\"," +
             "  \"স্ত্রী\": \"Wife\"," +

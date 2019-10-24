@@ -21,6 +21,7 @@ import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.location.SSLocations;
 import org.smartregister.brac.hnpp.location.SSModel;
 import org.smartregister.brac.hnpp.repository.HnppChwRepository;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.clientandeventmodel.Address;
@@ -36,6 +37,7 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
 import org.smartregister.view.LocationPickerView;
 
@@ -243,6 +245,14 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
                         org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(),HnppConstants.KEY.CHILD_MOTHER_NAME, false));
 
+                break;
+            case "mother_name":
+                String motherEntityId = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.MOTHER_ENTITY_ID, true);
+                String relationId = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, true);
+                String motherName = Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME, true);
+
+                motherName = HnppChildUtils.getMotherName(motherEntityId,relationId,motherName);
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,motherName);
                 break;
 
             case "sex":
@@ -485,10 +495,11 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
             JSONObject jsonForm = registrationFormParams.getMiddle();
             JSONArray fields = registrationFormParams.getRight();
             String entityId = getString(jsonForm, ENTITY_ID);
+            String familyId = getString(jsonForm, "relational_id");
             if (StringUtils.isBlank(entityId)) {
                 entityId = generateRandomUUIDString();
             }
-            updateMotherName(fields);
+            String motherEntityId = updateMotherName(fields,familyId);
             lastInteractedWith(fields);
             dobUnknownUpdateFromAge(fields);
             processAttributesWithChoiceIDsForSave(fields);
@@ -500,12 +511,6 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
             String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
             String entity_id = baseClient.getBaseEntityId();
             updateFormSubmissionID(encounterType,entity_id,baseEvent);
-//
-//            if (baseClient != null || baseEvent != null) {
-//                String imageLocation = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
-//                org.smartregister.family.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
-//            }
-
             JSONObject lookUpJSONObject = getJSONObject(getJSONObject(jsonForm, METADATA), "look_up");
             String lookUpEntityId = "";
             String lookUpBaseEntityId = "";
@@ -514,9 +519,8 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
                 lookUpBaseEntityId = getString(lookUpJSONObject, "value");
             }
             if ("family".equals(lookUpEntityId) && StringUtils.isNotBlank(lookUpBaseEntityId)) {
-                Client ss = new Client(lookUpBaseEntityId);
                 Context context = HnppApplication.getInstance().getContext().applicationContext();
-                addRelationship(context, ss, baseClient);
+                addRelationship(context, motherEntityId,lookUpBaseEntityId, baseClient);
                 SQLiteDatabase db = HnppApplication.getInstance().getRepository().getReadableDatabase();
                 HnppChwRepository pathRepository = new HnppChwRepository(context, HnppApplication.getInstance().getContext());
                 EventClientRepository eventClientRepository = new EventClientRepository(pathRepository);
@@ -530,9 +534,32 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
             return null;
         }
     }
-    private static void updateMotherName(JSONArray fields) throws Exception{
-        JSONObject motherObj = getFieldJSONObject(fields, "Mother_Guardian_First_Name_english");
-        JSONObject motherAlterObj = getFieldJSONObject(fields, "mother_name");
+    public static void addRelationship(Context context, String motherEntityId, String familyId, Client child) {
+        try {
+            String relationships = AssetHandler.readFileFromAssetsFolder(FormUtils.ecClientRelationships, context);
+            JSONArray jsonArray = null;
+
+            jsonArray = new JSONArray(relationships);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject rObject = jsonArray.getJSONObject(i);
+                if (rObject.has("field") && getString(rObject, "field").equals(ENTITY_ID)) {
+                    if(rObject.getString("client_relationship").equalsIgnoreCase("family")){
+                        child.addRelationship(rObject.getString("client_relationship"), familyId);
+
+                    }else if(rObject.getString("client_relationship").equalsIgnoreCase("mother")){
+                        child.addRelationship(rObject.getString("client_relationship"), motherEntityId);
+
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+    private static String updateMotherName(JSONArray fields , String familyId) throws Exception{
+        JSONObject motherObj = getFieldJSONObject(fields, HnppConstants.KEY.CHILD_MOTHER_NAME);
+        JSONObject motherAlterObj = getFieldJSONObject(fields, HnppConstants.KEY.CHILD_MOTHER_NAME_REGISTERED);
         boolean isVisible = motherObj.optBoolean("is_visible",false);
         if(!isVisible){
             String motherNameSelected = motherAlterObj.getString(VALUE);
@@ -541,9 +568,10 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
             }
 
         }
-
+        return HnppChildUtils.getMotherBaseEntityId(familyId,motherObj.getString(VALUE));
 
     }
+
     private static List<Address> updateWithSSLocation(JSONObject clientjson){
         try{
             String addessJson = clientjson.getString("addresses");

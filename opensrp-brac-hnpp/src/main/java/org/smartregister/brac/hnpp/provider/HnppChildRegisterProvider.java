@@ -8,6 +8,7 @@ import android.view.View;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.brac.hnpp.R;
+import org.smartregister.brac.hnpp.utils.HnppChildUtils;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.provider.CoreChildRegisterProvider;
@@ -52,8 +53,11 @@ public class HnppChildRegisterProvider extends CoreChildRegisterProvider {
     }
     public void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
 
+        String motherEntityId = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.MOTHER_ENTITY_ID, true);
+        String relationId = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, true);
         String motherName = Utils.getValue(pc.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME, true);
 
+        motherName = HnppChildUtils.getMotherName(motherEntityId,relationId,motherName);
         String parentName = context.getResources().getString(org.smartregister.chw.core.R.string.care_giver_initials, motherName);
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);

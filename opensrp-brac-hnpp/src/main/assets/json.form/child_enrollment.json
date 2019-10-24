@@ -3,6 +3,7 @@
   "encounter_type": "Child Registration",
   "entity_id": "",
   "relational_id": "",
+  "mother_entity_id": "",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -103,8 +104,8 @@
         "type": "spinner",
         "hint": "খানা প্রধান এই সদস্যের কি হয়?",
         "values": [
-          "মা",
-          "বাবা",
+          "মা/আম্মা",
+          "বাবা/আব্বা",
           "দাদা",
           "দাদি",
           "নানা",
@@ -112,8 +113,8 @@
           "অন্যান্য"
         ],
         "openmrs_choice_ids": {
-          "মা":"Mother",
-          "বাবা":"Father",
+          "মা/আম্মা":"Mother",
+          "বাবা/আব্বা":"Father",
           "দাদা":"Grandpa",
           "দাদি":"Grandma",
           "নানা":"Grandfather",
@@ -241,6 +242,15 @@
           "value": true,
           "err": "রক্ত গ্রুপ নির্বাচন করুন"
         }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text":"সব তথ্য পূরণ করা হলে জমা দিন",
+        "toaster_type": "info"
       }
     ]
   }

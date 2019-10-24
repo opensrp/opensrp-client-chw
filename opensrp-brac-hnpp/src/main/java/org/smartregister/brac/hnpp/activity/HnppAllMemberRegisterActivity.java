@@ -29,7 +29,8 @@ public class HnppAllMemberRegisterActivity extends CoreChildRegisterActivity {
         if (!BuildConfig.SUPPORT_QR) {
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
-
+        bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_register);
+        bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_job_aids);
         bottomNavigationView.setOnNavigationItemSelectedListener(new HfFamilyBottomNavListener(this, bottomNavigationView));
     }
     @Override
@@ -40,4 +41,5 @@ public class HnppAllMemberRegisterActivity extends CoreChildRegisterActivity {
             menu.getNavigationAdapter().setSelectedView(CoreConstants.DrawerMenu.ALL_MEMBER);
         }
     }
+
 }

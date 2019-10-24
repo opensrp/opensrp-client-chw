@@ -44,6 +44,7 @@ public class HnppChildRegisterFragmentModel extends CoreChildRegisterFragmentMod
         columnList.add(familyTable + "." + DBConstants.KEY.UNIQUE_ID + " as " + HnppConstants.KEY.HOUSE_HOLD_ID);
         columnList.add(familyTable + "." + DBConstants.KEY.FIRST_NAME + " as " + HnppConstants.KEY.HOUSE_HOLD_NAME);
         columnList.add(tableName + "." + HnppConstants.KEY.CHILD_MOTHER_NAME);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.MOTHER_ENTITY_ID);
 
         return columnList.toArray(new String[columnList.size()]);
     }

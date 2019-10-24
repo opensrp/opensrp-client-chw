@@ -54,4 +54,9 @@ public class HnppSyncConfiguration extends SyncConfiguration {
     public boolean updateClientDetailsTable() {
         return false;
     }
+
+    @Override
+    public boolean disableActionService() {
+        return true;
+    }
 }

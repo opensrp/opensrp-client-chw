@@ -1,8 +1,13 @@
 package org.smartregister.brac.hnpp.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +17,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
+import org.smartregister.AllConstants;
+import org.smartregister.brac.hnpp.BuildConfig;
 import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.job.PullHouseholdIdsServiceJob;
@@ -24,12 +31,19 @@ import org.smartregister.util.Utils;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
     public static final String TAG = BaseLoginActivity.class.getCanonicalName();
 
     private EditText userNameText,passwordText;
     private View userNameView, passwordView;
+    private Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +127,23 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
          }
         fillUserIfExists();
         findViewById(R.id.login_login_btn).setAlpha(1.0f);
+        mActivity = this;
 
+        if(!BuildConfig.DEBUG)app_version_status();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mActivity = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mActivity = null;
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == org.smartregister.R.id.login_login_btn) {
@@ -170,6 +199,73 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         getToFamilyList(remote);
 
         finish();
+    }
+    public void app_version_status() {
+        org.smartregister.util.Utils.startAsyncTask(new AsyncTask() {
+            String version_code = "";
+            String version = "";
+
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                try {
+                    String baseUrl = Utils.getAllSharedPreferences().getPreference(AllConstants.DRISHTI_BASE_URL);
+                    // Create a URL for the desired page
+                    baseUrl = baseUrl.replace("opensrp/", "");
+                    URL url = new URL(baseUrl + "opt/multimedia/app-version.txt");
+
+                    // Read all the text returned by the server
+                    BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+                    String str;
+                    str = "";
+                    while ((str = in.readLine()) != null) {
+                        // str is one line of text; readLine() strips the newline character(s)
+                        version_code += str;
+                    }
+                    in.close();
+                } catch (MalformedURLException e) {
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                try {
+                    PackageInfo pInfo = LoginActivity.this.getPackageManager().getPackageInfo(getPackageName(), 0);
+                    version = pInfo.versionName;
+                    if (!version_code.trim().isEmpty()&&!version.equalsIgnoreCase(version_code.trim())) {
+                        android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(LoginActivity.this).create();
+                        alertDialog.setTitle("নতুন ভার্সন আপডেট করুন ");
+                        alertDialog.setCancelable(false);
+
+                        alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE, "আপডেট",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        try {
+                                            final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                                            try {
+                                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                                            } catch (android.content.ActivityNotFoundException anfe) {
+                                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+
+                                            }
+
+
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                        if ( mActivity!=null && alertDialog != null)
+                            alertDialog.show();
+                    }
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, null);
     }
 
     private void getToFamilyList(boolean remote) {

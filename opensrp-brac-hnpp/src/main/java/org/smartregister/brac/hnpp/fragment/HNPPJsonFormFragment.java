@@ -1,5 +1,7 @@
 package org.smartregister.brac.hnpp.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,9 +28,9 @@ import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.domain.HouseholdId;
 import org.smartregister.brac.hnpp.interactor.HnppJsonFormInteractor;
+import org.smartregister.brac.hnpp.job.PullHouseholdIdsServiceJob;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.location.SSLocations;
-import org.smartregister.brac.hnpp.location.SSModel;
 import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.util.Utils;
@@ -76,7 +78,7 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
             public void run() {
                 isManuallyPressed = true;
             }
-        }, 2000);
+        }, 1000);
     }
 
     @Override
@@ -87,6 +89,11 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
                 ssIndex = position;
                 if(isManuallyPressed){
                     processVillageList(position);
+                }
+            }
+            else if (((MaterialSpinner) parent).getFloatingLabelText().toString().equalsIgnoreCase(view.getContext().getResources().getString(R.string.village_name_form_field))) {
+                if(isManuallyPressed){
+                    processHouseHoldId(position);
                 }
             }
           //  hideKeyBoard();
@@ -193,6 +200,9 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
                 HouseholdIdRepository householdIdRepo = HnppApplication.getHNPPInstance().getHouseholdIdRepository();
                 village_id = String.valueOf(ssLocations.village.id);
                 hhid = householdIdRepo.getNextHouseholdId(village_id);
+                if(hhid == null){
+                    return "test";
+                }
                 unique_id = SSLocationHelper.getInstance().generateHouseHoldId(ssLocations, hhid.getOpenmrsId() + "");
 
                 return null;
@@ -201,6 +211,16 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
             @Override
             protected void onPostExecute(Object o) {
                 super.onPostExecute(o);
+                if(o instanceof String){
+                    String str = (String)o;
+                    if(!TextUtils.isEmpty(str) && str.equalsIgnoreCase("test")){
+
+                        showNewIdRetriveaPopup();
+                        PullHouseholdIdsServiceJob.scheduleJobImmediately(PullHouseholdIdsServiceJob.TAG);
+                        return;
+                    }
+
+                }
                 ArrayList<View> formdataviews = new ArrayList<>(getJsonApi().getFormDataViews());
                 for (int i = 0; i < formdataviews.size(); i++) {
                     if (formdataviews.get(i) instanceof MaterialEditText) {
@@ -235,4 +255,16 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
         super.onActivityResult(requestCode, resultCode, data);
 
     }
+        private void showNewIdRetriveaPopup(){
+            new AlertDialog.Builder(getActivity()).setMessage("নতুন আইডি আনা হচ্ছে ........। দয়া করে ইন্টারনেট অন রাখুন")
+                    .setTitle("আইডি শেষ হয়ে গেছে !!!!").setCancelable(false)
+                    .setPositiveButton(R.string.yes_button_label, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            dialog.dismiss();
+                            getActivity().finish();
+
+                        }
+                    }).show();
+        }
+
 }

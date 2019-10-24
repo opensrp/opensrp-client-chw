@@ -26,6 +26,30 @@ import timber.log.Timber;
 
 public class HnppChildUtils extends CoreChildUtils {
 
+    public static String getMotherBaseEntityId(String familyId, String motherName){
+        String query = "select base_entity_id from ec_family_member where  first_name = '"+motherName+"' and relational_id = '"+familyId+"'";
+        Cursor cursor = null;
+        String entityId="";
+        try {
+            cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, new String[]{});
+            if(cursor !=null && cursor.getCount() > 0){
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    entityId = cursor.getString(0);
+                    cursor.moveToNext();
+                }
+
+            }
+
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return entityId;
+    }
+
     public static ArrayList<String> getAllWomenInHouseHold(String familyID){
         String query = "select first_name from ec_family_member where (gender = 'নারী' OR gender = 'F') and ((marital_status != 'অবিবাহিত' AND marital_status != 'Unmarried') and marital_status IS NOT NULL) and relational_id = '"+familyID+"'";
         Cursor cursor = null;
@@ -45,6 +69,23 @@ public class HnppChildUtils extends CoreChildUtils {
                 cursor.close();
         }
         return womenList;
+    }
+    public static String getMotherNameFromMemberTable(String motherEntityId){
+        String query = "select first_name from ec_family_member where base_entity_id = '"+motherEntityId+"'";
+        Cursor cursor = null;
+        String motherName="";
+        try {
+            cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, new String[]{});
+            cursor.moveToFirst();
+            motherName = cursor.getString(0);
+            return motherName;
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return motherName;
     }
     public static String getModuleId(String familyId){
         String query = "select module_id from ec_family where base_entity_id = '"+familyId+"'";
@@ -128,7 +169,13 @@ public class HnppChildUtils extends CoreChildUtils {
         columnList.add(tableName + "." + HnppConstants.KEY.CHILD_MOTHER_NAME);
         columnList.add(tableName + "." + HnppConstants.KEY.CHILD_MOTHER_NAME_REGISTERED);
         columnList.add(tableName + "." + HnppConstants.KEY.BLOOD_GROUP);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.MOTHER_ENTITY_ID);
         return columnList.toArray(new String[columnList.size()]);
+    }
+    public static String getMotherName(String motherEntityId, String relationId, String motherName){
+        if(motherEntityId.isEmpty()) return motherName;
+        if(motherEntityId.equalsIgnoreCase(relationId)) return motherName;
+        return getMotherNameFromMemberTable(motherEntityId);
     }
 
     public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, Map<String, JSONObject> fieldObjects, String visitStatus, String value, String homeVisitId) {

@@ -14,8 +14,11 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.evernote.android.job.JobManager;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.brac.hnpp.R;
+import org.smartregister.brac.hnpp.job.PullHouseholdIdsServiceJob;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.location.SSLocations;
 import org.smartregister.brac.hnpp.location.SSModel;
@@ -29,6 +32,7 @@ import org.smartregister.chw.core.utils.QueryBuilder;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
@@ -311,4 +315,11 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
 
     }
 
+    @Override
+    public void onSyncComplete(FetchStatus fetchStatus) {
+        super.onSyncComplete(fetchStatus);
+        if(JobManager.instance().getAllJobRequestsForTag(PullHouseholdIdsServiceJob.TAG).isEmpty()){
+            PullHouseholdIdsServiceJob.scheduleJobImmediately(PullHouseholdIdsServiceJob.TAG);
+        }
+    }
 }

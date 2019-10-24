@@ -99,4 +99,10 @@
     <string name="clients_household">%1$s টি খানা পাওয়া গিয়েছে</string>
     <string name="clients_member">%1$s টি সদস্য পাওয়া গিয়েছে</string>
     <string name="clients_child">%1$s টি শিশু পাওয়া গিয়েছে</string>
+    <string name="registration_info">রেজিস্ট্রেশন তথ্য</string>
+    <string name="go_to_family_s_profile">পরিবারের প্রোফাইলে যান</string>
+    <string name="family_has_services_due">অন্যান্য সদস্য</string>
+    <string name="sick_child_follow_up">অসুস্থ সন্তানের ফলোআপ</string>
+    অন্যান্য সদস্য
+
 </resources>

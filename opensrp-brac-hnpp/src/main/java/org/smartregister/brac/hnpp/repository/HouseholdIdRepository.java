@@ -129,9 +129,14 @@ public class HouseholdIdRepository extends BaseRepository {
         String ids = "";
         Cursor cursor = null;
         try{
+
+            String rawQuery = "select village_id,\n" +
+                    "sum(case status when 'not_used' then 1 else 0 end) as t2\n" +
+                    "from household_ids group by village_id";
             cursor = getWritableDatabase().
-                    rawQuery("select "+VILLAGE_ID_COLUMN+" , count(*) as uncount from " +
-                            HouseholdIds_TABLE_NAME + " where "+STATUS_COLUMN+" = 'not_used' group by "+VILLAGE_ID_COLUMN,null);
+                    rawQuery(rawQuery,null);
+
+
 
             if(cursor!=null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
