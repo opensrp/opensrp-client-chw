@@ -100,8 +100,10 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
         searchFilterString = filterString;
         mSelectedVillageName = "";
         mSelectedClasterName = "";
-        updateFilterView();
-//        filterString = getFilterString();
+        if(clients_header_layout.getVisibility() == android.view.View.VISIBLE){
+            clients_header_layout.setVisibility(android.view.View.GONE);
+        }
+
         super.filter(filterString, joinTableString, mainConditionString, qrCode);
 
     }
@@ -363,13 +365,7 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
                 (StringUtils.isEmpty(mSelectedClasterName) ?
                         "" : selected_claster) : (StringUtils.isEmpty(mSelectedClasterName) ?
                 mSelectedVillageName : "" + mSelectedVillageName + " AND " + selected_claster + "");
-//        if (StringUtils.isEmpty(str)) {
-//            return searchFilterString;
-//        } else if (!StringUtils.isEmpty(searchFilterString)) {
-//            return str + " AND " + searchFilterString;
-//        } else {
-//            return str;
-//        }
+
         return str;
     }
 }

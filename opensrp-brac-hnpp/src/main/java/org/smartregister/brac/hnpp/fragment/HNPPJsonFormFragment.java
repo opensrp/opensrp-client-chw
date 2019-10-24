@@ -257,7 +257,7 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
     }
         private void showNewIdRetriveaPopup(){
             new AlertDialog.Builder(getActivity()).setMessage("নতুন আইডি আনা হচ্ছে ........। দয়া করে ইন্টারনেট অন রাখুন")
-                    .setTitle("আইডি শেষ হয়ে গেছে !!!!").setCancelable(false)
+                    .setTitle("আইডি শেষ হয়ে গিয়েছে !!!!").setCancelable(false)
                     .setPositiveButton(R.string.yes_button_label, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             dialog.dismiss();
