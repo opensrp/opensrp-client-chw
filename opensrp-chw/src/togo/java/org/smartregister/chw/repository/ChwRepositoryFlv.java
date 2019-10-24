@@ -43,7 +43,6 @@ import org.smartregister.util.DatabaseMigrationUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -261,7 +260,6 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e);
         }
-
     }
 
     private static void initializeIndicatorDefinitions(ReportingLibrary reportingLibrary, SQLiteDatabase sqLiteDatabase) {
@@ -315,8 +313,8 @@ public class ChwRepositoryFlv {
     private static void processHFNextVisitDateObs(List<Event> events, SQLiteDatabase sqLiteDatabase) {
         // Save missing PNC Health Facility visit (next visit) details
         for (Event event : events) {
-            Visit visit = AncLibrary.getInstance().visitRepository().getLatestVisit(event.getBaseEntityId(), Constants.EventType.PNC_HOME_VISIT);
-            Obs obs = getPncHfNextVisitObs(event);
+            Visit visit = AncLibrary.getInstance().visitRepository().getLatestVisit(event.getBaseEntityId(), Constants.EventType.PNC_HOME_VISIT, sqLiteDatabase);
+            Obs obs = getPncHfNextVisitObs(event.getBaseEntityId(), sqLiteDatabase);
 
             if (visit != null && obs != null) {
                 Map<String, List<VisitDetail>> visitDetails = null;
@@ -342,11 +340,9 @@ public class ChwRepositoryFlv {
 
     }
 
-    private static Obs getPncHfNextVisitObs(Event event) {
+    private static Obs getPncHfNextVisitObs(String baseEntityId, SQLiteDatabase sqLiteDatabase) {
         Obs pncHfNextVisitDateObs = null;
-
-        String baseEntityId = event.getBaseEntityId();
-        PNCHealthFacilityVisitSummary summary = ChwPNCDao.getLastHealthFacilityVisitSummary(baseEntityId);
+        PNCHealthFacilityVisitSummary summary = ChwPNCDao.getLastHealthFacilityVisitSummary(baseEntityId, sqLiteDatabase);
         if (summary != null) {
             PNCHealthFacilityVisitRule visitRule = PNCVisitUtil.getNextPNCHealthFacilityVisit(summary.getDeliveryDate(), summary.getLastVisitDate());
             String pncHfNextVisitDate = DateTimeFormat.forPattern("dd-MM-yyyy").print(visitRule.getDueDate());
