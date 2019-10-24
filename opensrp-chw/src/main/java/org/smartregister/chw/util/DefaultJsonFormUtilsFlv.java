@@ -222,9 +222,9 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
     }
 
     private void computePrimaryCareGiver(JSONObject jsonObject, boolean isPrimaryCaregiver) throws JSONException {
+        jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
         if (isPrimaryCaregiver) {
             jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, "Yes");
-            jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
         } else {
             jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, "No");
         }
