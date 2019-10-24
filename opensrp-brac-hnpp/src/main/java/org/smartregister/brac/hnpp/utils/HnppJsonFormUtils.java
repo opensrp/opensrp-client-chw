@@ -247,12 +247,18 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
                 break;
             case "mother_name":
-                String motherEntityId = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.MOTHER_ENTITY_ID, true);
-                String relationId = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, true);
-                String motherName = Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME, true);
+                   String motherNameAlter = Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME_REGISTERED, true);
+                if(!TextUtils.isEmpty(motherNameAlter) && motherNameAlter.equalsIgnoreCase("মাতা রেজিস্টার্ড নয়")){
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,motherNameAlter);
+                }else{
+                    String motherEntityId = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.MOTHER_ENTITY_ID, true);
+                    String relationId = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, true);
+                    String motherName = Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME, true);
 
-                motherName = HnppChildUtils.getMotherName(motherEntityId,relationId,motherName);
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,motherName);
+                    motherName = HnppChildUtils.getMotherName(motherEntityId,relationId,motherName);
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,motherName);
+                }
+
                 break;
 
             case "sex":

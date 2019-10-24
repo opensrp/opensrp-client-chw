@@ -3,6 +3,7 @@ package org.smartregister.brac.hnpp.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 
 import org.opensrp.api.constants.Gender;
 import org.smartregister.brac.hnpp.R;
@@ -27,6 +28,15 @@ public class HnppCoreChildProfileActivity extends CoreChildProfileActivity {
     protected void onCreation() {
         super.onCreation();
         houseHoldId = getIntent().getStringExtra(HnppConstants.KEY.HOUSE_HOLD_ID);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(org.smartregister.chw.core.R.menu.other_member_menu, menu);
+        menu.findItem(org.smartregister.chw.core.R.id.action_anc_registration).setVisible(false);
+        menu.findItem(org.smartregister.chw.core.R.id.action_malaria_followup_visit).setVisible(false);
+        menu.findItem(org.smartregister.chw.core.R.id.action_sick_child_follow_up).setVisible(false);
+        menu.findItem(org.smartregister.chw.core.R.id.action_malaria_diagnosis).setVisible(false);
+        return true;
     }
 
     @Override
