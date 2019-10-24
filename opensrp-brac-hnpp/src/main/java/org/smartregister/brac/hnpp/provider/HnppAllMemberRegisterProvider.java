@@ -2,6 +2,7 @@ package org.smartregister.brac.hnpp.provider;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -67,7 +68,7 @@ public class HnppAllMemberRegisterProvider extends CoreChildRegisterProvider {
         String entityType = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ENTITY_TYPE, false);
         viewHolder.profileImage.setVisibility(View.VISIBLE);
         viewHolder.profileImage.setImageResource(org.smartregister.family.util.Utils.getMemberProfileImageResourceIDentifier(entityType));
-
+        viewHolder.textViewAddressGender.setTextColor(ContextCompat.getColor(context, android.R.color.black));
         addButtonClickListeners(client, viewHolder);
 
     }

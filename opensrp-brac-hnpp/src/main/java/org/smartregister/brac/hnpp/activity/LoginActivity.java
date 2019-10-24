@@ -111,7 +111,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
                     passwordView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.hnpp_accent));
                 } else {
                     passwordView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.black));
-
                 }
             }
         });
