@@ -227,11 +227,11 @@ indicators:
   - key: "pnc_report_indicator_10_1"
     description: "COUNT of PNC women who are currently not due or due for a PNC health facility visit."
     indicatorQuery: "select count(DISTINCT po.base_entity_id) from ec_pregnancy_outcome po
-                                           inner join visits vi on vi.base_entity_id = po.base_entity_id
-                                           inner join visit_details vd on vd.visit_id = vi.visit_id
-                                           inner join ec_family_member fm on fm.base_entity_id = po.base_entity_id
-                                           where vi.visit_id NOT IN (select visit_id from (select vdt.visit_id, max(vdt.details) next_visit_date from visit_details vdt where vdt.visit_key = 'pnc_hf_next_visit_date' group by vdt.visit_id ) rd where rd.next_visit_date < date())
-                                           and po.is_closed = 0 and fm.date_removed IS NULL"
+                      inner join visits vi on vi.base_entity_id = po.base_entity_id
+                      inner join visit_details vd on vd.visit_id = vi.visit_id
+                      inner join ec_family_member fm on fm.base_entity_id = po.base_entity_id
+                      where vi.visit_id IN (select visit_id from (select vdt.visit_id, max(vdt.details) next_visit_date from visit_details vdt where vdt.visit_key = 'pnc_hf_next_visit_date' group by vdt.visit_id ) rd where rd.next_visit_date >= date())
+                      and po.is_closed = 0 and fm.date_removed IS NULL"
 
   - key: "pnc_report_indicator_10_2"
     description: "COUNT of PNC women who are currently overdue for a PNC health facility visit."
