@@ -296,6 +296,8 @@
     <string name="deworming_number_dose">Deworming %s dose</string>
     <string name="vitamin_a_number_dose">Vitamin A %s dose</string>
     <string name="mnp_number_pack">MNP %s pack</string>
+    <string name="permission_denied">Permission Denied</string>
+    <string name="storage_permissions_message">The app needs this permission to list guide book videos. \n Without this permission you cannot view any guidebook videos</string>
 
     <!--Referral -->
     <string name="referral_reason">Reason for referral</string>
@@ -305,5 +307,7 @@
     <string name="pnc_danger_signs">PNC danger signs</string>
     <string name="fp_post_partum">FP post-partum</string>
     <string name="anc_danger_signs">ANC danger signs</string>
+
+    <string name="jobs_aid_failed_download">Jo aid video "%s" failed to download.</string>
 
 </resources>

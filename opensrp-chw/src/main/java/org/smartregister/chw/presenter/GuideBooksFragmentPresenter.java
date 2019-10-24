@@ -33,11 +33,6 @@ public class GuideBooksFragmentPresenter implements GuideBooksFragmentContract.P
     }
 
     @Override
-    public void requestVideoDownload(String url) {
-        interactor.downloadVideo(url);
-    }
-
-    @Override
     public void onDataFetched(List<GuideBooksFragmentContract.Video> videos) {
         if (getView() == null)
             return;
