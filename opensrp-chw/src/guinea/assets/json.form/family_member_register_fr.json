@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Ajouter membre",
+    "title": "Ajouter un membre",
     "fields": [
       {
         "key": "photo",
@@ -60,7 +60,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "choose_image",
-        "uploadButtonText": "Prenez un photo de la personne"
+        "uploadButtonText": "Prendre une photo de la personne"
       },
       {
         "key": "unique_id",
@@ -71,10 +71,10 @@
         "read_only": "true",
         "hint": "ID *",
         "value": "0",
-        "scanButtonText": "Scanner Code QR",
+        "scanButtonText": "Scanner un QR Code",
         "v_numeric": {
           "value": "true",
-          "err": "Veuillez entrer une identifiant unique valide"
+          "err": "Veuillez entrer un identifiant unique valide"
         },
         "v_required": {
           "value": "true",
@@ -129,7 +129,7 @@
         "options": [
           {
             "key": "same_as_fam_name",
-            "text": "Même nom que ménage",
+            "text": "Même nom que le nom de famille",
             "text_size": "18px",
             "value": "false"
           }
@@ -149,7 +149,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",
         "type": "hidden",
-        "hint": "Même nom que ménage",
+        "hint": "Même nom que le nom de famille",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -185,7 +185,7 @@
         "edit_type": "name",
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "Veuillez entrer un deuxième nom valide"
+          "err": "Veuillez entrer un deuxième prénom valide"
         }
       },
       {
@@ -223,7 +223,7 @@
         "options": [
           {
             "key": "dob_unknown",
-            "text": "DDN inconnue?",
+            "text": "Date de naissance inconnue?",
             "text_size": "18px",
             "value": "false"
           }
@@ -238,15 +238,15 @@
         "hint": "Âge",
         "v_numeric": {
           "value": "true",
-          "err": "Le Numéro doit commencer avec 0 et doit consister de 10 chiffres au total"
+          "err": "Le Numéro doit commencer par 0 et comporter 10 chiffres au total"
         },
         "v_min": {
           "value": "5",
-          "err": "l'âge doit être égal ou supérieur à 5"
+          "err": "L'âge doit être égal ou supérieur à 5"
         },
         "v_max": {
           "value": "120",
-          "err": "l'âge doit être égal ou moins de 120"
+          "err": "L'âge doit être égal ou inférieur à 120"
         },
         "relevance": {
           "rules-engine": {
@@ -286,7 +286,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "spinner",
-        "hint": "Est la gardienne?",
+        "hint": "Est le responsable légal de la personne?",
         "values": [
           "Oui",
           "Non"
@@ -312,11 +312,11 @@
         "hint": "Numéro de téléphone",
         "v_numeric": {
           "value": "true",
-          "err": "Numéro doit consister de 10 chiffres au total"
+          "err": "Le numéro doit être composé de 10 chiffres au total"
         },
         "v_regex": {
           "value": "([0-9]{8,16})|\\s*",
-          "err": "Le Numéro doit commencer avec 0 et doit consister de 10 chiffres au total."
+          "err": "Le numéro doit commencer avec 0 et être composé de 10 chiffres au total."
         },
         "v_required": {
           "value": false,
@@ -338,11 +338,11 @@
         "hint": "Autre numéro de téléphone",
         "v_numeric": {
           "value": "true",
-          "err": "Numéro doit consister de 10 chiffres au total"
+          "err": "Le numéro doit être composé de 10 chiffres au total"
         },
         "v_regex": {
           "value": "([0-9]{8,16})|\\s*",
-          "err": "Le Numéro doit commencer avec 0 et doit consister de 10 chiffres au total."
+          "err": "Le numéro doit commencer avec 0 et être composé de 10 chiffres au total."
         },
         "relevance": {
           "step1:primary_caregiver": {
@@ -358,7 +358,7 @@
         "openmrs_entity_id": "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Plus haut niveau d'éducation/de formation",
+        "hint": "Plus haut niveau d'études/de formation",
         "values": [
           "Aucun",
           "Alphabétiser",
