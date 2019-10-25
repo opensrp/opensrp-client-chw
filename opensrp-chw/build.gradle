@@ -177,6 +177,8 @@ android {
             applicationIdSuffix ".guinea"
             versionCode 1
             versionName "1.0.0"
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-guinea.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/guinea/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-guinea-preview.smartregister.org/opensrp/"'
@@ -187,7 +189,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
-            buildConfigField "int", "DATABASE_VERSION", '6'
+            buildConfigField "int", "DATABASE_VERSION", '2'
         }
         togo {
             dimension = 'baseDimension'
