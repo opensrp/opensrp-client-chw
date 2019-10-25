@@ -26,12 +26,23 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
 
     public static final String DIALOG_TAG = "WashCheckDialogFragment";
     private static final String EXTRA_DETAILS = "wash_details";
+    private static final String BASE_ENITY_ID = "base_entity_id";
+    private static final String VISIT_DATE = "visit_date";
 
 
     private String jsonData;
     private RadioButton handwashingYes, handwashingNo, drinkingYes, drinkingNo;
     private RadioButton latrineYes, latrineNo;
     private Activity activity;
+
+    public static WashCheckDialogFragment getInstance(String familyBaseEntityID, Long visitDate) {
+        WashCheckDialogFragment washCheckDialogFragment = new WashCheckDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(BASE_ENITY_ID, familyBaseEntityID);
+        bundle.putLong(VISIT_DATE, visitDate);
+        washCheckDialogFragment.setArguments(bundle);
+        return washCheckDialogFragment;
+    }
 
     public static WashCheckDialogFragment getInstance(String jsonString) {
         WashCheckDialogFragment washCheckDialogFragment = new WashCheckDialogFragment();
