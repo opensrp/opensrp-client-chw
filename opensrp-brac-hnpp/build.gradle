@@ -36,8 +36,8 @@ android {
         applicationId "org.smartregister.brac.hnpp"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.1.4"
+        versionCode 4
+        versionName "1.1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         buildConfigField "String", 'opensrp_url', '"http://mhealth.brac.net:8080/opensrp/"'
@@ -65,6 +65,7 @@ android {
 
     buildTypes {
         release {
+            //keystore pass mhealth2019
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

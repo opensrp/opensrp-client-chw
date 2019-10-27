@@ -75,6 +75,7 @@
         "openmrs_entity_id": "SS_Name",
         "type": "spinner",
         "hint": "স্বাস্থ্য সেবিকার নামঃ",
+        "editable": true,
         "values": [
         ],
         "openmrs_choice_ids": {
@@ -91,6 +92,7 @@
         "openmrs_entity_id": "Village_Name",
         "type": "spinner",
         "hint": "গ্রামের নামঃ",
+        "editable": true,
         "values": [
         ],
         "openmrs_choice_ids": {
@@ -107,6 +109,7 @@
         "openmrs_entity_id": "Cluster",
         "type": "spinner",
         "hint": "ক্লাস্টার",
+        "editable": true,
         "values": [
           "ক্লাস্টার ১",
           "ক্লাস্টার ২",

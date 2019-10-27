@@ -256,7 +256,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "birthRegistrationID",
         "type": "edit_text",
-        "hint": "জন্ম নিবন্ধন পত্র",
+        "hint": "জন্ম নিবন্ধন সনদ",
         "v_numeric": {
           "value": "true",
           "err": "মোট 17 সংখ্যা হওয়া আবশ্যক"
