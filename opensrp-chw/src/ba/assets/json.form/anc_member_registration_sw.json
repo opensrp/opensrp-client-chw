@@ -131,7 +131,7 @@
           "value": "true",
           "err": "Ingiza thamani sawa au kubwa kuliko 0"
         },
-        "v_numeric": {
+        "v_numeric_integer": {
           "value": "true",
           "err": "Ingiza thamani sawa au kubwa kuliko 0"
         },
@@ -261,9 +261,9 @@
           "value": "true",
           "err": "Required"
         },
-        "v_numeric": {
+        "v_numeric_integer": {
           "value": "true",
-          "err": ""
+          "err": "Ingiza thamani sawa au kubwa kuliko 0"
         },
         "v_min": {
           "value": "0",
