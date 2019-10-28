@@ -99,7 +99,7 @@
         },
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Veuillez entrer un nom valide"
         }
       },
@@ -160,7 +160,7 @@
           "err": "Veuillez entrer un nom valide"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Veuillez entrer un nom valide"
         }
       },
@@ -174,7 +174,7 @@
         "hint": "Deuxième prénom",
         "expanded": false,
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Veuillez entrer un prénom valide"
         }
       },
