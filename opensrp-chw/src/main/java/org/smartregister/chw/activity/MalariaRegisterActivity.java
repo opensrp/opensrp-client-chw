@@ -26,12 +26,6 @@ public class MalariaRegisterActivity extends CoreMalariaRegisterActivity {
     }
 
     @Override
-    protected void startMalariaRegisterActivity(Activity activity, String s) {
-        startMalariaRegistrationActivity(activity, s);
-    }
-
-
-    @Override
     protected void registerBottomNavigation() {
 
         bottomNavigationHelper = new BottomNavigationHelper();
