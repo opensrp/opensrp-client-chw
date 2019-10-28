@@ -5,4 +5,9 @@ public class DefaultChwApplicationFlv implements ChwApplication.Flavor {
     public boolean hasP2P() {
         return true;
     }
+
+    @Override
+    public boolean hasReferrals() {
+        return false;
+    }
 }

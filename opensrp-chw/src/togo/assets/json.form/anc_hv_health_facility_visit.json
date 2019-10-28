@@ -119,8 +119,12 @@
           "err": ""
         },
         "v_min": {
-          "value": "0",
-          "err": "Weight must be equal or greater than 0"
+          "value": "30",
+          "err": "Weight must be equal or greater than 30"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Weight must be equal or less than 200"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -147,7 +151,7 @@
           "value": "false",
           "err": "Required"
         },
-        "v_numeric_integer": {
+        "v_numeric": {
           "value": "true",
           "err": "Must be a rounded number"
         },
@@ -176,7 +180,7 @@
           "value": "false",
           "err": "Required"
         },
-        "v_numeric_integer": {
+        "v_numeric": {
           "value": "true",
           "err": "Must be a rounded number"
         },

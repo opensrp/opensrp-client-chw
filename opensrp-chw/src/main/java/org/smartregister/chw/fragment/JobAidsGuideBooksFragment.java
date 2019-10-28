@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.FileProvider;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,10 +19,13 @@ import org.smartregister.chw.adapter.GuideBooksAdapter;
 import org.smartregister.chw.contract.GuideBooksFragmentContract;
 import org.smartregister.chw.interactor.GuideBooksFragmentInteractor;
 import org.smartregister.chw.presenter.GuideBooksFragmentPresenter;
+import org.smartregister.chw.util.DownloadGuideBooksUtils;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFragmentContract.View {
@@ -32,6 +34,7 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
     private List<GuideBooksFragmentContract.Video> videos = new ArrayList<>();
     protected GuideBooksFragmentContract.Presenter presenter;
     private ProgressBar progressBar;
+    private Map<String, GuideBooksFragmentContract.Video> allVideos = new HashMap<>();
 
     public static JobAidsGuideBooksFragment newInstance() {
         JobAidsGuideBooksFragment fragment = new JobAidsGuideBooksFragment();
@@ -70,8 +73,22 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
     }
 
     @Override
-    public void onDataReceived(List<GuideBooksFragmentContract.Video> videos) {
-        this.videos.addAll(videos);
+    public void onDataReceived(List<GuideBooksFragmentContract.Video> receivedVideos) {
+
+        for (GuideBooksFragmentContract.Video video : receivedVideos) {
+            GuideBooksFragmentContract.Video available = allVideos.get(video.getID());
+            if (available == null) {
+                allVideos.put(video.getID(), video);
+            } else if (video.isDowloaded() && !available.isDowloaded()) {
+                allVideos.put(video.getID(), video);
+            }
+        }
+
+        List<GuideBooksFragmentContract.Video> res = new ArrayList<>(allVideos.values());
+        Collections.sort(res, (video1, video2) -> video1.getTitle().compareTo(video2.getTitle()));
+
+        this.videos.clear();
+        this.videos.addAll(res);
         this.mAdapter.notifyDataSetChanged();
         this.displayLoadingState(false);
     }
@@ -88,17 +105,14 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
 
     @Override
     public void playVideo(GuideBooksFragmentContract.Video video) {
-        final File videoFile = new File(video.getLocalPath());
-        Uri fileUri = FileProvider.getUriForFile(getViewContext(), "{yourpackagename}.fileprovider", videoFile);
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(fileUri, "video/*");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);//DO NOT FORGET THIS EVER
+        intent.setDataAndType(Uri.parse(video.getLocalPath()), "video/*");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivity(intent);
     }
 
     @Override
-    public void downloadVideo(GuideBooksFragmentContract.Video video) {
-        if (!video.isDowloaded())
-            getPresenter().requestVideoDownload(video.getServerUrl());
+    public void downloadVideo(GuideBooksFragmentContract.DownloadListener downloadListener, GuideBooksFragmentContract.Video video) {
+        new DownloadGuideBooksUtils(downloadListener, video.getName(), getViewContext()).execute();
     }
 }
