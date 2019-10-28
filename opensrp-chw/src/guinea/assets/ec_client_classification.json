@@ -129,6 +129,13 @@
             "creates_case": [
               "ec_pregnancy_outcome"
             ]
+          },
+          {
+            "field": "PNC Home Visit",
+            "field_value": "PNC Home Visit",
+            "creates_case": [
+              "ec_pregnancy_outcome"
+            ]
           }
         ]
       }
