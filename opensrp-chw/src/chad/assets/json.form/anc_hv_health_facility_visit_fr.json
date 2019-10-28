@@ -116,8 +116,12 @@
           "err": "Entrez un numéro valide"
         },
         "v_min": {
-          "value": "0",
-          "err": "Weight must be equal or greater than 0"
+          "value": "30",
+          "err": "Poids doit être égal ou supérieur à 30"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Poids doit être égal ou inférieur à 200"
         },
         "relevance": {
           "step1:anc_hf_visit": {
