@@ -156,8 +156,6 @@ public class ChwApplication extends CoreChwApplication {
     private static void createFolders(String rootFolder, boolean onSdCard) {
         try {
             FileUtils.createDirectory(rootFolder, onSdCard);
-            //FileUtils.createDirectory(rootFolder + File.separator + "en", onSdCard);
-            //FileUtils.createDirectory(rootFolder + File.separator + "fr", onSdCard);
         } catch (Exception e) {
             Timber.e(e);
         }
