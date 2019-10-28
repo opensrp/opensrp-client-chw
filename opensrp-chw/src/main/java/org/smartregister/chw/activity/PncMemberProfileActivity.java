@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Pair;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -48,6 +49,8 @@ import java.util.Date;
 import timber.log.Timber;
 
 public class PncMemberProfileActivity extends CorePncMemberProfileActivity implements PncMemberProfileContract.View {
+
+    private Flavor flavor = new PncMemberProfileActivityFlv();
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, PncMemberProfileActivity.class);
@@ -136,6 +139,11 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             textview_record_visit.setVisibility(View.GONE);
             layoutRecordView.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    protected void startMalariaRegister() {
+        MalariaRegisterActivity.startMalariaRegistrationActivity(this, memberObject.getBaseEntityId());
     }
 
     @Override
@@ -252,6 +260,13 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        flavor.onCreateOptionsMenu(menu);
+        return true;
+    }
+
+    @Override
     public void onClick(View view) {
         super.onClick(view);
 
@@ -278,5 +293,9 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     public void startFormActivity(JSONObject formJson) {
         startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, formJson, Utils.metadata().familyMemberFormActivity),
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    public interface Flavor {
+        Boolean onCreateOptionsMenu(Menu menu);
     }
 }
