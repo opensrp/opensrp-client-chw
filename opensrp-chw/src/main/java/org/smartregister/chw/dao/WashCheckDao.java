@@ -38,6 +38,21 @@ public class WashCheckDao extends AbstractDao {
         return res;
     }
 
+    public static String getWashCheckDetails(Long washDate, String baseEntityID) {
+        String sql = "select d.details from visits v " +
+                "inner join visit_details d on d.visit_id = v.visit_id and v.base_entity_id = '" + baseEntityID + "' " +
+                "where v.visit_date = " + washDate + " and v.visit_type = 'WASH check' " +
+                "and d.visit_key = 'details_info'";
+
+
+        DataMap<String> dataMap = c -> getCursorValue(c, "details");
+        List<String> res = AbstractDao.readData(sql, dataMap);
+        if (res == null || res.size() == 0)
+            return null;
+
+        return res.get(0);
+    }
+
     public static List<EventClient> getWashCheckEvents(SQLiteDatabase db) {
         String sql = "select json from event where eventType = 'WASH check' order by eventDate asc";
 

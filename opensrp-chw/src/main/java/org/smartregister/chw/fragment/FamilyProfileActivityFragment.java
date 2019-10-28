@@ -1,13 +1,17 @@
 package org.smartregister.chw.fragment;
 
+import android.app.FragmentTransaction;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
+import org.smartregister.chw.R;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.FamilyProfileActivityModel;
 import org.smartregister.chw.presenter.FamilyProfileActivityPresenter;
 import org.smartregister.chw.provider.FamilyActivityRegisterProvider;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
@@ -21,7 +25,7 @@ import java.util.Set;
 import timber.log.Timber;
 
 public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFragment {
-    private String familyName;
+    private String familyBaseEntityId;
 
     public static BaseFamilyProfileActivityFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -43,8 +47,8 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
 
     @Override
     protected void initializePresenter() {
-        String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        familyName = getArguments().getString(Constants.INTENT_KEY.FAMILY_NAME);
+        familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
+        String familyName = getArguments().getString(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyProfileActivityPresenter(this, new FamilyProfileActivityModel(), null, familyBaseEntityId);
     }
 
@@ -108,4 +112,35 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
             }
         }
     }
+
+    @Override
+    protected void onViewClicked(android.view.View view) {
+        super.onViewClicked(view);
+        switch (view.getId()) {
+            case R.id.patient_column:
+                if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
+                    displayWashCheckHistory((CommonPersonObjectClient) view.getTag());
+                }
+                break;
+            case R.id.next_arrow:
+                if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NEXT_ARROW) {
+                    displayWashCheckHistory((CommonPersonObjectClient) view.getTag());
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void displayWashCheckHistory(CommonPersonObjectClient commonPersonObjectClient) {
+        String type = commonPersonObjectClient.getColumnmaps().get("visit_type");
+        Long visitDate = Long.parseLong(commonPersonObjectClient.getColumnmaps().get("visit_date"));
+
+        if (CoreConstants.EventType.WASH_CHECK.equalsIgnoreCase(type)) {
+            WashCheckDialogFragment dialogFragment = WashCheckDialogFragment.getInstance(familyBaseEntityId, visitDate);
+            FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+            dialogFragment.show(ft, WashCheckDialogFragment.DIALOG_TAG);
+        }
+    }
+
 }

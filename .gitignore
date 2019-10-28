@@ -19,10 +19,3 @@ project.properties
 .settings
 build/
 jacoco.exec
-
-ba/
-chad/
-drc/
-guinea/
-togo/
-wcaro/

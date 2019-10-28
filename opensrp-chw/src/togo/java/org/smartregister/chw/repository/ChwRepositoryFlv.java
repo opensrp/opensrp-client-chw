@@ -177,7 +177,7 @@ public class ChwRepositoryFlv {
             //reprocess all the anc visit events
             List<Event> events = getEvents(db);
             for (Event event : events) {
-                NCUtils.processAncHomeVisit(new EventClient(event), db);
+                NCUtils.processHomeVisit(new EventClient(event), db);
             }
 
             // update recurring services
@@ -212,7 +212,7 @@ public class ChwRepositoryFlv {
             for (EventClient eventClient : eventClients) {
                 if (eventClient == null) continue;
 
-                NCUtils.processAncHomeVisit(eventClient); // save locally
+                NCUtils.processHomeVisit(eventClient); // save locally
             }
 
             // add missing columns to the DB
