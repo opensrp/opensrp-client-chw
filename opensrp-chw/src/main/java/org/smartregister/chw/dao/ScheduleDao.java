@@ -1,7 +1,6 @@
 package org.smartregister.chw.dao;
 
 import org.jetbrains.annotations.Nullable;
-import org.smartregister.chw.util.WashCheckFlv;
 import org.smartregister.dao.AbstractDao;
 
 import java.util.List;
@@ -32,12 +31,7 @@ public class ScheduleDao extends AbstractDao {
 
     public static @Nullable List<String> getActiveWashCheckFamilies() {
         String sql = "select base_entity_id from ec_family where is_closed = 0";
-        WashCheckFlv flv = new WashCheckFlv();
-        if (flv.isWashCheckVisible()) {
-            DataMap<String> dataMap = c -> getCursorValue(c, "base_entity_id");
-            return AbstractDao.readData(sql, dataMap);
-        } else {
-            return null;
-        }
+        DataMap<String> dataMap = c -> getCursorValue(c, "base_entity_id");
+        return AbstractDao.readData(sql, dataMap);
     }
 }

@@ -198,7 +198,7 @@
 
     <string name="health_facility_visit_num">ANC health facility visit {0}</string>
     <string name="tt_dose">TT {0}</string>
-    <string name="iptp_sp_dose">IPTP-sp {0}</string>
+    <string name="iptp_sp_dose">IPTp-SP dose {0}</string>
 
     <string name="opv_0">OPV 0</string>
     <string name="opv_1">OPV 1</string>
