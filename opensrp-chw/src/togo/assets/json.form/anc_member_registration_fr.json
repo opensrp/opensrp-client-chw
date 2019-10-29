@@ -189,9 +189,9 @@
           "value": "true",
           "err": "Cette réponse est requise."
         },
-        "v_numeric": {
+        "v_numeric_integer": {
           "value": "true",
-          "err": ""
+          "err": "Le nombre doit être égal ou supérieur à 0r"
         },
         "v_min": {
           "value": "0",
@@ -224,9 +224,9 @@
           "value": "true",
           "err": "Cette réponse est requise."
         },
-        "v_numeric": {
+        "v_numeric_integer": {
           "value": "true",
-          "err": ""
+          "err": "Le nombre doit être égal ou supérieur à 0r"
         },
         "v_min": {
           "value": "0",
