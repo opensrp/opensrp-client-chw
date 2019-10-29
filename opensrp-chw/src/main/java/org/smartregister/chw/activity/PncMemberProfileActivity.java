@@ -166,13 +166,10 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     }
 
     private void refreshOnHomeVisitResult(){
-        Observable<Visit>observable = Observable.create(new ObservableOnSubscribe<Visit>() {
-            @Override
-            public void subscribe(ObservableEmitter<Visit> e) throws Exception {
-                Visit lastVisit = getVisit(CoreConstants.EventType.PNC_HOME_VISIT);
-                e.onNext(lastVisit);
-                e.onComplete();
-            }
+        Observable<Visit>observable = Observable.create(e -> {
+            Visit lastVisit = getVisit(CoreConstants.EventType.PNC_HOME_VISIT);
+            e.onNext(lastVisit);
+            e.onComplete();
         });
 
         final Disposable[] disposable = new Disposable[1];
