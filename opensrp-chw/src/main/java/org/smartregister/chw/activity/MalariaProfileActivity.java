@@ -272,8 +272,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
     @Override
     public void initializeFloatingMenu() {
-        baseMalariaFloatingMenu = new MalariaFloatingMenu(this, MEMBER_OBJECT.getFirstName(),
-                MEMBER_OBJECT.getPhoneNumber(), MEMBER_OBJECT.getFamilyName(), MEMBER_OBJECT.getPhoneNumber());
+        baseMalariaFloatingMenu = new MalariaFloatingMenu(this, MEMBER_OBJECT);
 
         OnClickFloatingMenu onClickFloatingMenu = viewId -> {
             switch (viewId) {
