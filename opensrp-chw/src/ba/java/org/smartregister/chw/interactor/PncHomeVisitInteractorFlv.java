@@ -453,7 +453,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         };
 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_nutrition_status))
-                .withOptional(false)
+                .withOptional(true)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getNutritionStatusMother())
                 .withHelper(nutritionStatusMotherHelper)
@@ -501,7 +501,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 }
 
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()))
-                        .withOptional(false)
+                        .withOptional(true)
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
                         .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)

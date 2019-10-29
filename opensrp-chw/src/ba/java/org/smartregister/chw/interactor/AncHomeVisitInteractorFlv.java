@@ -2,10 +2,13 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -127,7 +130,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                                          Map<String, List<VisitDetail>> details,
                                          final Context context) throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction nutrition_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_nutrition_status))
-                .withOptional(false)
+                .withOptional(true)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getNutritionStatus())
                 .withHelper(new NutritionAction())
@@ -440,7 +443,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             if (StringUtils.isBlank(nutrition_status)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
             }
-
             return BaseAncHomeVisitAction.Status.COMPLETED;
         }
 
