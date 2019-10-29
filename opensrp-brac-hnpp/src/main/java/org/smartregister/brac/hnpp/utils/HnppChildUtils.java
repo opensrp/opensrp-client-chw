@@ -1,6 +1,7 @@
 package org.smartregister.brac.hnpp.utils;
 
 import android.database.Cursor;
+import android.text.TextUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
@@ -76,14 +77,15 @@ public class HnppChildUtils extends CoreChildUtils {
         String motherName="";
         try {
             cursor = CoreChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query, new String[]{});
-            cursor.moveToFirst();
-            motherName = cursor.getString(0);
+            if(cursor !=null && cursor.getCount() >0){
+                cursor.moveToFirst();
+                motherName = cursor.getString(0);
+                cursor.close();
+            }
+
             return motherName;
         } catch (Exception e) {
             Timber.e(e);
-        } finally {
-            if (cursor != null)
-                cursor.close();
         }
         return motherName;
     }
@@ -175,7 +177,8 @@ public class HnppChildUtils extends CoreChildUtils {
     public static String getMotherName(String motherEntityId, String relationId, String motherName){
         if(motherEntityId.isEmpty()) return motherName;
         if(motherEntityId.equalsIgnoreCase(relationId)) return motherName;
-        return getMotherNameFromMemberTable(motherEntityId);
+        String mName = getMotherNameFromMemberTable(motherEntityId);
+        return TextUtils.isEmpty(mName)?motherName:mName;
     }
 
     public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, Map<String, JSONObject> fieldObjects, String visitStatus, String value, String homeVisitId) {

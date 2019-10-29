@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.brac.hnpp.R;
+import org.smartregister.brac.hnpp.activity.HnppChildProfileActivity;
 import org.smartregister.brac.hnpp.activity.HnppFamilyOtherMemberProfileActivity;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.location.SSLocations;
@@ -28,6 +29,7 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreChildHomeVisitActivity;
 import org.smartregister.chw.core.fragment.CoreChildRegisterFragment;
 import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -73,23 +75,31 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
 
     @Override
     public void goToChildDetailActivity(CommonPersonObjectClient patient, boolean launchDialog) {
-
-
         String familyId = Utils.getValue(patient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
-        // HnppChildProfileActivity.startMe(getActivity(), houseHoldId,false, new MemberObject(patient), HnppChildProfileActivity.class);
-        String houseHoldHead = org.smartregister.family.util.Utils.getValue(patient.getColumnmaps(), HnppConstants.KEY.HOUSE_HOLD_NAME, true);
-        String address = org.smartregister.family.util.Utils.getValue(patient.getColumnmaps(), HnppConstants.KEY.VILLAGE_NAME, true);
+        patient.getColumnmaps().put(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
+        String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
+        Integer yearOfBirth = CoreChildUtils.dobStringToYear(dobString);
+        if (yearOfBirth != null && yearOfBirth < 5) {
+            HnppChildProfileActivity.startMe(getActivity(), familyId, false, new MemberObject(patient), HnppChildProfileActivity.class);
 
-        Intent intent = new Intent(getActivity(), HnppFamilyOtherMemberProfileActivity.class);
-        intent.putExtras(getArguments());
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, familyId);
-        intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, patient);
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, familyId);
-        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, familyId);
-        intent.putExtra(Constants.INTENT_KEY.VILLAGE_TOWN, address);
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, houseHoldHead);
-        startActivity(intent);
+        } else {
+            // HnppChildProfileActivity.startMe(getActivity(), houseHoldId,false, new MemberObject(patient), HnppChildProfileActivity.class);
+            String houseHoldHead = org.smartregister.family.util.Utils.getValue(patient.getColumnmaps(), HnppConstants.KEY.HOUSE_HOLD_NAME, true);
+            String address = org.smartregister.family.util.Utils.getValue(patient.getColumnmaps(), HnppConstants.KEY.VILLAGE_NAME, true);
+
+            Intent intent = new Intent(getActivity(), HnppFamilyOtherMemberProfileActivity.class);
+            intent.putExtras(getArguments());
+            intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
+            intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, familyId);
+            intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, patient);
+            intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, familyId);
+            intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, familyId);
+            intent.putExtra(Constants.INTENT_KEY.VILLAGE_TOWN, address);
+            intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, houseHoldHead);
+            startActivity(intent);
+        }
+
+
     }
 
 

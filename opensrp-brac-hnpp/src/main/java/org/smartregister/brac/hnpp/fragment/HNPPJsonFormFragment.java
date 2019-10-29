@@ -146,6 +146,7 @@ public class HNPPJsonFormFragment extends JsonWizardFormFragment {
 
 
                             MaterialSpinner spinner = (MaterialSpinner) formdataviews.get(i);
+                            spinner.setEnabled(true);
                             ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), com.vijay.jsonwizard.R.layout.native_form_simple_list_item_1, villageList);
                             spinner.setAdapter(adapter);
                             spinner.setSelection(0, true);
