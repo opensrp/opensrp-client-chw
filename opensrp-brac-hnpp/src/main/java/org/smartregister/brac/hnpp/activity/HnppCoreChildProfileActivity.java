@@ -18,6 +18,8 @@ import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.helper.ImageRenderHelper;
 
+import static org.smartregister.brac.hnpp.utils.HnppConstants.MEMBER_ID_SUFFIX;
+
 public class HnppCoreChildProfileActivity extends CoreChildProfileActivity {
 
     protected String houseHoldId = "";
@@ -80,6 +82,6 @@ public class HnppCoreChildProfileActivity extends CoreChildProfileActivity {
     }
     @Override
     public void setId(String id) {
-        textViewId.setText("ID:"+id.substring(id.length() - 9));
+        textViewId.setText("ID:"+id.substring(id.length() - MEMBER_ID_SUFFIX));
     }
 }

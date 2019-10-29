@@ -18,6 +18,8 @@ import java.util.LinkedHashMap;
 public class HnppConstants extends CoreConstants {
     public static final String TEST_GU_ID = "test";
     public static final String MODULE_ID_TRAINING = "TRAINING";
+    public static final int MEMBER_ID_SUFFIX = 11;
+    public static final int HOUSE_HOLD_ID_SUFFIX = 9;
 
     public static ArrayList<String> getClasterSpinnerArray() {
 

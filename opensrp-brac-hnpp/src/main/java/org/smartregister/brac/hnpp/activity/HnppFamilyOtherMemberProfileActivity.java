@@ -31,6 +31,7 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import timber.log.Timber;
 
+import static org.smartregister.brac.hnpp.utils.HnppConstants.MEMBER_ID_SUFFIX;
 import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
 
 public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
@@ -95,7 +96,7 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
         if(!TextUtils.isEmpty(detailThree)) {
             detailThree = detailThree.replace(Constants.IDENTIFIER.FAMILY_SUFFIX,"")
                     .replace(HnppConstants.IDENTIFIER.FAMILY_TEXT,"");
-            detailThree = detailThree.substring(detailThree.length() - 9);
+            detailThree = detailThree.substring(detailThree.length() - MEMBER_ID_SUFFIX);
             textViewDetails3.setText("ID: " + detailThree);
         }
     }
