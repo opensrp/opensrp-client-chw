@@ -71,6 +71,64 @@
         "v_required": {
           "value": "true",
           "err": "LNMP inahitajika"
+        },
+        "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "anc_member_registration_calculation.yml"
+          }
+        }
+      },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "last_menstrual_period_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "last_menstrual_period_unknown",
+        "openmrs_data_type": "text",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "lmp_unknown",
+            "text": "Tarehe ya kwanza ya hedhi ya kawaida ya mwisho (LNMP) haijulikani?",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "edd",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "Tarehe ya kutarijia kujifungua (EDD)",
+        "max_date": "today+50w",
+        "min_date": "today",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Required"
         }
       },
       {
@@ -90,11 +148,13 @@
         }
       },
       {
-        "key": "gest_age",
+        "key": "edd_note",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Tarehe ya kutarijia kujifungua (EDD)",
+        "read_only": true,
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -104,13 +164,11 @@
         }
       },
       {
-        "key": "edd",
+        "key": "gest_age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Tarehe ya kutarijia kujifungua (EDD)",
-        "read_only": true,
+        "openmrs_entity_id": "1438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
