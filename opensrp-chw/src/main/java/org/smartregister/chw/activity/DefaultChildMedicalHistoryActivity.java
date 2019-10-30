@@ -28,7 +28,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
     private Context context;
     private List<Visit> visits;
     private Map<String, List<Vaccine>> vaccineMap;
-    private List<ServiceRecord> serviceTypeListMap;
+    //private List<ServiceRecord> serviceTypeListMap;
     private LinearLayout parentView;
 
     @Override
@@ -45,7 +45,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
     public void processViewData(List<Visit> visits, Map<String, List<Vaccine>> vaccineMap, List<ServiceRecord> serviceTypeListMap, Context context) {
         this.visits = visits;
         this.vaccineMap = vaccineMap;
-        this.serviceTypeListMap = serviceTypeListMap;
+        //this.serviceTypeListMap = serviceTypeListMap;
         evaluateLastVisitDate();
         evaluateImmunizations();
         /*
