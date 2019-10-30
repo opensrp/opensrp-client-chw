@@ -2,13 +2,12 @@ package org.smartregister.chw.dao;
 
 import android.util.Pair;
 
-import org.smartregister.chw.core.dao.AbstractDao;
+import org.smartregister.dao.AbstractDao;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 public class FamilyDao extends AbstractDao {
 

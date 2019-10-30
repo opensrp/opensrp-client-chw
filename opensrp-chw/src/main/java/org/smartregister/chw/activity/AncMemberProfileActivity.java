@@ -14,19 +14,24 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.contract.AncMemberProfileContract;
 import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
-import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
-import org.smartregister.chw.core.presenter.CoreAncMemberProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
+import org.smartregister.chw.dao.MalariaDao;
 import org.smartregister.chw.interactor.AncMemberProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileModel;
+import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.presenter.AncMemberProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -40,12 +45,21 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
+public class AncMemberProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
+
+    private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
@@ -60,14 +74,63 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
 
     @Override
-    protected void registerPresenter() {
-        presenter = new CoreAncMemberProfilePresenter(this, new AncMemberProfileInteractor(this), memberObject);
+    protected void onCreation() {
+        super.onCreation();
+        if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
+            addAncReferralTypes();
+        }
+    }
+
+    @Override
+    public void initializeFloatingMenu() {
+        baseAncFloatingMenu = new AncFloatingMenu(this, getAncWomanName(),
+                memberObject.getPhoneNumber(), getFamilyHeadName(), getFamilyHeadPhoneNumber(), getProfileType());
+
+        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
+            switch (viewId) {
+                case R.id.anc_fab:
+                    checkPhoneNumberProvided();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                case R.id.call_layout:
+                    ((AncFloatingMenu) baseAncFloatingMenu).launchCallWidget();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                case R.id.refer_to_facility_layout:
+                    ((AncMemberProfilePresenter) ancMemberProfilePresenter()).referToFacility();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                default:
+                    Timber.d("Unknown fab action");
+                    break;
+            }
+
+        };
+
+        ((AncFloatingMenu) baseAncFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
+        baseAncFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        addContentView(baseAncFloatingMenu, linearLayoutParams);
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+    }
+
+    private void addAncReferralTypes() {
+        referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs),
+                org.smartregister.chw.util.Constants.JSON_FORM.getAncReferralForm()));
+        if (MalariaDao.isRegisteredForMalaria(baseEntityID)) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == org.smartregister.chw.core.R.id.action_remove_member) {
+        if (itemId == R.id.action_remove_member) {
             CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
 
             final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
@@ -77,7 +140,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
 
             IndividualProfileRemoveActivity.startIndividualProfileActivity(AncMemberProfileActivity.this, client, memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), AncRegisterActivity.class.getCanonicalName());
             return true;
-        } else if (itemId == org.smartregister.chw.core.R.id.action_pregnancy_out_come) {
+        } else if (itemId == R.id.action_pregnancy_out_come) {
             PncRegisterActivity.startPncRegistrationActivity(AncMemberProfileActivity.this, memberObject.getBaseEntityId(), null, CoreConstants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName());
             return true;
         }
@@ -129,15 +192,12 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
             } catch (Exception e) {
                 Timber.e(e, "AncMemberProfileActivity -- > onActivityResult");
             }
+        } else if (requestCode == Constants.REQUEST_CODE_HOME_VISIT) {
+            refreshViewOnHomeVisitResult();
         } else if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
             ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.ANC_HOME_VISIT, new Date());
             finish();
         }
-    }
-
-    @Override
-    protected void onResumption() {
-        super.onResumption();
     }
 
     @Override
@@ -148,6 +208,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    @Override
+    protected void registerPresenter() {
+        presenter = new AncMemberProfilePresenter(this, new AncMemberProfileInteractor(this), memberObject);
     }
 
     @Override
@@ -190,41 +255,55 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity {
     }
 
     @Override
+    public void onMemberDetailsReloaded(MemberObject memberObject) {
+        this.memberObject = memberObject;
+        super.onMemberDetailsReloaded(memberObject);
+    }
+
+    private void refreshViewOnHomeVisitResult() {
+        Observable<Visit> observable = Observable.create(visitObservableEmitter -> {
+            Visit lastVisit = getVisit(CoreConstants.EventType.ANC_HOME_VISIT);
+            visitObservableEmitter.onNext(lastVisit);
+            visitObservableEmitter.onComplete();
+        });
+
+        final Disposable[] disposable = new Disposable[1];
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Visit>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable[0] = d;
+                    }
+
+                    @Override
+                    public void onNext(Visit visit) {
+                        displayView();
+                        setLastVisit(visit.getDate());
+                        onMemberDetailsReloaded(memberObject);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.e(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        disposable[0].dispose();
+                        disposable[0] = null;
+                    }
+                });
+    }
+
+    @Override
     public void startFormActivity(JSONObject formJson) {
         startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, formJson, Utils.metadata().familyMemberFormActivity),
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @Override
-    public void initializeFloatingMenu() {
-        baseAncFloatingMenu = new AncFloatingMenu(this, getAncWomanName(),
-                memberObject.getPhoneNumber(), getFamilyHeadName(), getFamilyHeadPhoneNumber(), getProfileType());
-
-        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
-            switch (viewId) {
-                case R.id.anc_fab:
-                    checkPhoneNumberProvided();
-                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
-                    break;
-                case R.id.call_layout:
-                    ((AncFloatingMenu) baseAncFloatingMenu).launchCallWidget();
-                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
-                    break;
-                case R.id.refer_to_facility_layout:
-                    ancMemberProfilePresenter().startAncReferralForm();
-                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
-                    break;
-                default:
-                    Timber.d("Unknown fab action");
-                    break;
-            }
-
-        };
-
-        ((AncFloatingMenu) baseAncFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
-        baseAncFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
-        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        addContentView(baseAncFloatingMenu, linearLayoutParams);
+    public List<ReferralTypeModel> getReferralTypeModels() {
+        return referralTypeModels;
     }
 }
