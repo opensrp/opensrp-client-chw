@@ -15,7 +15,7 @@ public class ChwPNCDao extends AbstractDao {
         String sql = "select  last_health_facility_visit_date , confirmed_health_facility_visits, delivery_date from ec_pregnancy_outcome " +
                 "where base_entity_id = '" + baseEntityID + "'" + " COLLATE NOCASE ";
 
-        DataMap<PNCHealthFacilityVisitSummary> dataMap = c -> {
+        AbstractDao.DataMap<PNCHealthFacilityVisitSummary> dataMap = c -> {
             try {
                 return new PNCHealthFacilityVisitSummary(
                         getCursorValue(c, "delivery_date"),

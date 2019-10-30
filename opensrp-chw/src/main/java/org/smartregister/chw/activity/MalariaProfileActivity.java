@@ -155,7 +155,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         }
         else if (id == R.id.rlMalariaPositiveDate){
             startFormForEdit(R.string.malaria_info,
-                    org.smartregister.chw.util.Constants.JSON_FORM.MALARIA_REGISTER);
+                    CoreConstants.JSON_FORM.MALARIA_REGISTER);
         }
     }
 
