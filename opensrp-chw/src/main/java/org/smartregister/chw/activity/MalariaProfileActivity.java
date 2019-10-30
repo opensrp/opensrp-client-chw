@@ -16,8 +16,8 @@ import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.PNCDao;
-import org.smartregister.chw.core.interactor.CoreMalariaProfileInteractor;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.interactor.MalariaProfileInteractor;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
@@ -50,7 +50,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     @Override
     protected void initializePresenter() {
         showProgressBar(true);
-        profilePresenter = new BaseMalariaProfilePresenter(this, new CoreMalariaProfileInteractor(), MEMBER_OBJECT);
+        profilePresenter = new BaseMalariaProfilePresenter(this, new MalariaProfileInteractor(this), MEMBER_OBJECT);
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
     }
@@ -243,18 +243,46 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
     @Override
     public void openMedicalHistory() {
+        onMemberTypeLoadedListener listener = memberType -> {
 
-        class MemberType {
-            private org.smartregister.chw.anc.domain.MemberObject memberObject;
-            private String memberType;
-
-            public MemberType(org.smartregister.chw.anc.domain.MemberObject memberObject, String memberType) {
-                this.memberObject = memberObject;
-                this.memberType = memberType;
+            switch (memberType.memberType) {
+                case CoreConstants.TABLE_NAME.ANC_MEMBER:
+                    AncMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.memberObject);
+                    break;
+                case CoreConstants.TABLE_NAME.PNC_MEMBER:
+                    PncMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.memberObject);
+                    break;
+                case CoreConstants.TABLE_NAME.CHILD:
+                    ChildMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.memberObject);
+                    break;
+                default:
+                    Timber.v("Member info undefined");
+                    break;
             }
-        }
+        };
+        executeOnLoaded(listener);
+    }
 
-        Observable<MemberType> observable = Observable.create(e -> {
+    @Override
+    public void openUpcomingService() {
+        executeOnLoaded(memberType -> MalariaUpcomingServicesActivity.startMe(MalariaProfileActivity.this, memberType.memberObject));
+    }
+
+    @Override
+    public void openFamilyDueServices() {
+        Intent intent = new Intent(this, FamilyProfileActivity.class);
+
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
+
+        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
+        startActivity(intent);
+    }
+
+    private Observable<MemberType> getMemberType() {
+        return Observable.create(e -> {
             org.smartregister.chw.anc.domain.MemberObject memberObject = PNCDao.getMember(MEMBER_OBJECT.getBaseEntityId());
             String type = null;
 
@@ -270,9 +298,11 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             e.onNext(memberType);
             e.onComplete();
         });
+    }
 
+    private void executeOnLoaded(onMemberTypeLoadedListener listener) {
         final Disposable[] disposable = new Disposable[1];
-        observable.subscribeOn(Schedulers.io())
+        getMemberType().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MemberType>() {
                     @Override
@@ -282,20 +312,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
                     @Override
                     public void onNext(MemberType memberType) {
-                        switch (memberType.memberType) {
-                            case CoreConstants.TABLE_NAME.ANC_MEMBER:
-                                AncMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.memberObject);
-                                break;
-                            case CoreConstants.TABLE_NAME.PNC_MEMBER:
-                                PncMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.memberObject);
-                                break;
-                            case CoreConstants.TABLE_NAME.CHILD:
-                                ChildMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.memberObject);
-                                break;
-                            default:
-                                Timber.v("Member info undefined");
-                                break;
-                        }
+                        listener.onMemberTypeLoaded(memberType);
                     }
 
                     @Override
@@ -311,21 +328,17 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                 });
     }
 
-    @Override
-    public void openUpcomingService() {
-        //PncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
+    private class MemberType {
+        private org.smartregister.chw.anc.domain.MemberObject memberObject;
+        private String memberType;
+
+        private MemberType(org.smartregister.chw.anc.domain.MemberObject memberObject, String memberType) {
+            this.memberObject = memberObject;
+            this.memberType = memberType;
+        }
     }
 
-    @Override
-    public void openFamilyDueServices() {
-        Intent intent = new Intent(this, FamilyProfileActivity.class);
-
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
-
-        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
-        startActivity(intent);
+    interface onMemberTypeLoadedListener {
+        void onMemberTypeLoaded(MemberType memberType);
     }
 }

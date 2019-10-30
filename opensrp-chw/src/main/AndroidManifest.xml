@@ -160,6 +160,8 @@
             android:name=".core.activity.CoreAncRegisterActivity"
             android:label="@string/anc_register"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity android:name=".activity.MalariaUpcomingServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
