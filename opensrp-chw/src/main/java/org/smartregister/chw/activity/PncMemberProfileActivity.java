@@ -52,8 +52,6 @@ import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -165,8 +163,8 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         }
     }
 
-    private void refreshOnHomeVisitResult(){
-        Observable<Visit>observable = Observable.create(e -> {
+    private void refreshOnHomeVisitResult() {
+        Observable<Visit> observable = Observable.create(e -> {
             Visit lastVisit = getVisit(CoreConstants.EventType.PNC_HOME_VISIT);
             e.onNext(lastVisit);
             e.onComplete();
@@ -218,6 +216,11 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     protected Class<? extends CorePncRegisterActivity> getPncRegisterActivityClass() {
         return PncRegisterActivity.class;
+    }
+
+    @Override
+    protected void startMalariaRegister() {
+        Timber.v("startMalariaRegister");
     }
 
     @Override
