@@ -73,6 +73,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     protected Boolean vaccineCardReceived = false;
     protected Boolean hasBirthCert = false;
     protected Boolean editMode = false;
+    protected Boolean vaccinesDefaultChecked = true;
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
@@ -216,7 +217,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         }
     }
 
-    protected int immunizationCeiling(){
+    protected int immunizationCeiling() {
         return 24;
     }
 
@@ -259,7 +260,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
             String title = MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.immunizations_count), VisitVaccineUtil.getVaccineTitle(entry.getKey().name, context));
             BaseHomeVisitImmunizationFragment fragment =
-                    BaseHomeVisitImmunizationFragment.getInstance(view, memberObject.getBaseEntityId(), details, displays);
+                    BaseHomeVisitImmunizationFragment.getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked);
 
             validator.addFragment(title, fragment, entry.getKey(), new DateTime(dob));
 
@@ -846,6 +847,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
     protected int getAgeInMonths() {
         return Months.monthsBetween(new LocalDate(dob), new LocalDate()).getMonths();
+    }
+
+    protected void setVaccinesDefaultChecked(boolean isChecked) {
+        this.vaccinesDefaultChecked = isChecked;
     }
 
 }
