@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -53,8 +52,6 @@ import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -70,16 +67,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         Intent intent = new Intent(activity, PncMemberProfileActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, baseEntityID);
         activity.startActivity(intent);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_pnc_member_registration) {
-            JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAncPncForm(R.string.edit_member_form_title, CoreConstants.JSON_FORM.getFamilyMemberRegister(), memberObject, this);
-            startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -128,6 +115,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 break;
             default:
                 break;
+
         }
     }
 
@@ -166,13 +154,10 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     }
 
     private void refreshOnHomeVisitResult() {
-        Observable<Visit> observable = Observable.create(new ObservableOnSubscribe<Visit>() {
-            @Override
-            public void subscribe(ObservableEmitter<Visit> e) throws Exception {
-                Visit lastVisit = getVisit(CoreConstants.EventType.PNC_HOME_VISIT);
-                e.onNext(lastVisit);
-                e.onComplete();
-            }
+        Observable<Visit> observable = Observable.create(e -> {
+            Visit lastVisit = getVisit(CoreConstants.EventType.PNC_HOME_VISIT);
+            e.onNext(lastVisit);
+            e.onComplete();
         });
 
         final Disposable[] disposable = new Disposable[1];
@@ -199,11 +184,8 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 disposable[0] = null;
             }
         });
-    }
 
-    @Override
-    protected void startMalariaRegister() {
-        MalariaRegisterActivity.startMalariaRegistrationActivity(this, memberObject.getBaseEntityId());
+
     }
 
     @Override
@@ -339,10 +321,12 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 textview_record_visit.setVisibility(View.GONE);
             } else {
                 layoutNotRecordView.setVisibility(View.GONE);
+
             }
         } else {
             layoutNotRecordView.setVisibility(View.GONE);
         }
+
     }
 
     @Override
@@ -361,10 +345,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
-    public interface Flavor {
-        Boolean onCreateOptionsMenu(Menu menu);
-    }
-
     @Override
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
@@ -377,5 +357,14 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         if (MalariaDao.isRegisteredForMalaria(((PncMemberProfilePresenter) presenter()).getEntityId())) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
         }
+    }
+
+    @Override
+    protected void startMalariaRegister() {
+        MalariaRegisterActivity.startMalariaRegistrationActivity(this, memberObject.getBaseEntityId());
+    }
+
+    public interface Flavor {
+        Boolean onCreateOptionsMenu(Menu menu);
     }
 }
