@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Pair;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -59,6 +60,7 @@ import timber.log.Timber;
 
 public class PncMemberProfileActivity extends CorePncMemberProfileActivity implements PncMemberProfileContract.View {
 
+    private Flavor flavor = new PncMemberProfileActivityFlv();
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
     public static void startMe(Activity activity, String baseEntityID) {
@@ -207,11 +209,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     }
 
     @Override
-    protected void startMalariaRegister() {
-        Timber.v("startMalariaRegister");
-    }
-
-    @Override
     protected void onCreation() {
         super.onCreation();
         if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
@@ -264,6 +261,13 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     public void openUpcomingService() {
         PncUpcomingServicesActivity.startMe(this, memberObject);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        flavor.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
@@ -353,5 +357,14 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         if (MalariaDao.isRegisteredForMalaria(((PncMemberProfilePresenter) presenter()).getEntityId())) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
         }
+    }
+
+    @Override
+    protected void startMalariaRegister() {
+        MalariaRegisterActivity.startMalariaRegistrationActivity(this, memberObject.getBaseEntityId());
+    }
+
+    public interface Flavor {
+        Boolean onCreateOptionsMenu(Menu menu);
     }
 }
