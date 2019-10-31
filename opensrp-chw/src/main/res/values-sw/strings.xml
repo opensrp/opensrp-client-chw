@@ -272,4 +272,8 @@
     <string name="vitamin_a_number_dose">%s dozi ya Vitamini A</string>
     <string name="mnp_number_pack">MNP %s pack</string>
 
+    <!--ANC Family Planning Ba-->
+    <string name="family_planning_done">Kituo cha afya cha ushauri wa uzazi wa mpango imefanyika</string>
+    <string name="family_planning_not_done">Kituo cha afya cha ushauri wa uzazi wa mpango haijafanyika</string>
+
 </resources>
