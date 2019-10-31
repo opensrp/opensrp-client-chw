@@ -1,16 +1,12 @@
 package org.smartregister.chw.custom_view;
 
 import android.content.Context;
-import android.util.AttributeSet;
 
 import org.smartregister.chw.core.custom_views.CoreMalariaFloatingMenu;
+import org.smartregister.chw.malaria.domain.MemberObject;
 
 public class MalariaFloatingMenu extends CoreMalariaFloatingMenu {
-    public MalariaFloatingMenu(Context context, String clientName, String clientPhone, String clientFamilyHeadName, String clientFamilyHeadPhone) {
-        super(context, clientName, clientPhone, clientFamilyHeadName, clientFamilyHeadPhone);
-    }
-
-    public MalariaFloatingMenu(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public MalariaFloatingMenu(Context context, MemberObject memberObject) {
+        super(context, memberObject);
     }
 }

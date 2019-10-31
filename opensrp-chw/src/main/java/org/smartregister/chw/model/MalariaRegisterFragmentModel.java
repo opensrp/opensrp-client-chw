@@ -49,6 +49,9 @@ public class MalariaRegisterFragmentModel extends BaseMalariaRegisterFragmentMod
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.PRIMARY_CAREGIVER);
         columnList.add(Constants.TABLE_NAME.PNC_MEMBER + "." + ChwDBConstants.DELIVERY_DATE);
         columnList.add(Constants.TABLE_NAME.ANC_MEMBER + "." + org.smartregister.chw.anc.util.DBConstants.KEY.PHONE_NUMBER);
+        columnList.add(Constants.TABLE_NAME.ANC_MEMBER + "." + ChwDBConstants.IS_CLOSED + " as "  + org.smartregister.chw.malaria.util.DBConstants.KEY.ANC_IS_CLOSED);
+        columnList.add(Constants.TABLE_NAME.ANC_MEMBER + "." + org.smartregister.chw.malaria.util.DBConstants.KEY.GEST_AGE);
+        columnList.add(Constants.TABLE_NAME.PNC_MEMBER + "." + ChwDBConstants.IS_CLOSED + " as " + org.smartregister.chw.malaria.util.DBConstants.KEY.PNC_IS_CLOSED);
         columnList.add(Constants.TABLE_NAME.ANC_MEMBER + "." + org.smartregister.chw.core.utils.ChwDBConstants.LMP);
         columnList.add(CoreConstants.TABLE_NAME.ANC_MEMBER_LOG + "." + org.smartregister.chw.anc.util.DBConstants.KEY.DATE_CREATED);
         columnList.add(Constants.TABLE_NAME.ANC_MEMBER + "." + org.smartregister.chw.anc.util.DBConstants.KEY.CONFIRMED_VISITS);
