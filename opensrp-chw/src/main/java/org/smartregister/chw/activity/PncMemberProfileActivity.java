@@ -171,6 +171,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             public void onNext(Visit visit) {
                 displayView();
                 setLastVisit(visit.getDate());
+                setupViews();
             }
 
             @Override
