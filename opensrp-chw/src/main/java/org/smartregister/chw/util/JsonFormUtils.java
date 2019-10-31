@@ -613,6 +613,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
     public static JSONObject getAncPncForm(Integer title_resource, String formName, MemberObject memberObject, Context context) {
         JSONObject form;
+        boolean isPrimaryCareGiver = memberObject.getPrimaryCareGiver().equals(memberObject.getBaseEntityId());
         CommonRepository commonRepository = org.smartregister.chw.core.utils.Utils.context().commonrepository(org.smartregister.chw.core.utils.Utils.metadata().familyMemberRegister.tableName);
         CommonPersonObject personObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
         CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
@@ -621,7 +622,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
                     (title_resource != null) ? context.getResources().getString(title_resource) : null,
                     org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(),
-                    context, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, memberObject.getFamilyName(), false);
+                    context, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, memberObject.getFamilyName(), isPrimaryCareGiver);
             return form;
         } else {
             return CoreJsonFormUtils.getAncPncForm(title_resource, formName, memberObject, context);

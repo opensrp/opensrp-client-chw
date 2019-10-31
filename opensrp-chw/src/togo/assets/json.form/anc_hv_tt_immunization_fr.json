@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Immunisation Td {0}",
+    "title": "Immunisation VAT {0}",
     "fields": [
       {
         "key": "tt{0}_date",
@@ -56,7 +56,7 @@
         "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "image": "form_immunization",
-        "hint": "Quand est-ce que l''immunisation Td {0} a été administré?",
+        "hint": "Quand est-ce que l''immunisation VAT {0} a été administré?",
         "min_date": "today-120y",
         "max_date": "today",
         "v_required": {

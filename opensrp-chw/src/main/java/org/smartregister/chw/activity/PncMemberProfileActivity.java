@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Pair;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.PncMemberProfileContract;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePncMemberProfileActivity;
@@ -24,11 +26,13 @@ import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
+import org.smartregister.chw.dao.MalariaDao;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.interactor.PncMemberProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.model.FamilyProfileModel;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.PncMemberProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.clientandeventmodel.Client;
@@ -42,17 +46,39 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class PncMemberProfileActivity extends CorePncMemberProfileActivity implements PncMemberProfileContract.View {
+
+    private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, PncMemberProfileActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, baseEntityID);
         activity.startActivity(intent);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_pnc_member_registration) {
+            JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAncPncForm(R.string.edit_member_form_title, CoreConstants.JSON_FORM.getFamilyMemberRegister(), memberObject, this);
+            startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -97,6 +123,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             case Constants.REQUEST_CODE_HOME_VISIT:
                 this.setupViews();
                 ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.PNC_HOME_VISIT, new Date());
+                refreshOnHomeVisitResult();
                 break;
             default:
                 break;
@@ -138,6 +165,44 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         }
     }
 
+    private void refreshOnHomeVisitResult(){
+        Observable<Visit>observable = Observable.create(new ObservableOnSubscribe<Visit>() {
+            @Override
+            public void subscribe(ObservableEmitter<Visit> e) throws Exception {
+                Visit lastVisit = getVisit(CoreConstants.EventType.PNC_HOME_VISIT);
+                e.onNext(lastVisit);
+                e.onComplete();
+            }
+        });
+
+        final Disposable[] disposable = new Disposable[1];
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Visit>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable[0] = d;
+            }
+
+            @Override
+            public void onNext(Visit visit) {
+                displayView();
+                setLastVisit(visit.getDate());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Timber.e(e);
+            }
+
+            @Override
+            public void onComplete() {
+                disposable[0].dispose();
+                disposable[0] = null;
+            }
+        });
+
+
+    }
+
     @Override
     protected Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivityClass() {
         return FamilyProfileActivity.class;
@@ -156,6 +221,79 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     protected Class<? extends CorePncRegisterActivity> getPncRegisterActivityClass() {
         return PncRegisterActivity.class;
+    }
+
+    @Override
+    protected void onCreation() {
+        super.onCreation();
+        if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
+            addPncReferralTypes();
+        }
+    }
+
+    @Override
+    protected void registerPresenter() {
+        presenter = new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), memberObject);
+    }
+
+    @Override
+    public void initializeFloatingMenu() {
+        baseAncFloatingMenu = new AncFloatingMenu(this, getAncWomanName(),
+                memberObject.getPhoneNumber(), getFamilyHeadName(), getFamilyHeadPhoneNumber(), getProfileType());
+
+        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
+            switch (viewId) {
+                case R.id.anc_fab:
+                    redrawFabWithNoPhone();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                case R.id.call_layout:
+                    ((AncFloatingMenu) baseAncFloatingMenu).launchCallWidget();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                case R.id.refer_to_facility_layout:
+                    pncMemberProfilePresenter().referToFacility();
+                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+                    break;
+                default:
+                    Timber.d("Unknown fab action");
+                    break;
+            }
+
+        };
+
+        ((AncFloatingMenu) baseAncFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
+        baseAncFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        addContentView(baseAncFloatingMenu, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+    }
+
+    @Override
+    public void openVisitMonthView() {
+        return;
+    }
+
+    @Override
+    public void openUpcomingService() {
+        PncUpcomingServicesActivity.startMe(this, memberObject);
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+
+        switch (view.getId()) {
+            case R.id.textview_record_visit:
+            case R.id.textview_record_reccuring_visit:
+                PncHomeVisitActivity.startMe(this, memberObject, false);
+                break;
+            case R.id.textview_edit:
+                PncHomeVisitActivity.startMe(this, memberObject, true);
+                break;
+            default:
+                break;
+
+        }
     }
 
     public PncMemberProfileContract.Presenter pncMemberProfilePresenter() {
@@ -204,71 +342,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         PncMedicalHistoryActivity.startMe(this, memberObject);
     }
 
-    @Override
-    protected void registerPresenter() {
-        presenter = new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), memberObject);
-    }
-
-    @Override
-    public void initializeFloatingMenu() {
-        baseAncFloatingMenu = new AncFloatingMenu(this, getAncWomanName(),
-                memberObject.getPhoneNumber(), getFamilyHeadName(), getFamilyHeadPhoneNumber(), getProfileType());
-
-        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
-            switch (viewId) {
-                case R.id.anc_fab:
-                    redrawFabWithNoPhone();
-                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
-                    break;
-                case R.id.call_layout:
-                    ((AncFloatingMenu) baseAncFloatingMenu).launchCallWidget();
-                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
-                    break;
-                case R.id.refer_to_facility_layout:
-                    pncMemberProfilePresenter().startPncReferralForm();
-                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
-                    break;
-                default:
-                    Timber.d("Unknown fab action");
-                    break;
-            }
-
-        };
-
-        ((AncFloatingMenu) baseAncFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
-        baseAncFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
-        addContentView(baseAncFloatingMenu, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT));
-    }
-
-    @Override
-    public void openVisitMonthView() {
-        return;
-    }
-
-    @Override
-    public void openUpcomingService() {
-        PncUpcomingServicesActivity.startMe(this, memberObject);
-    }
-
-    @Override
-    public void onClick(View view) {
-        super.onClick(view);
-
-        switch (view.getId()) {
-            case R.id.textview_record_visit:
-            case R.id.textview_record_reccuring_visit:
-                PncHomeVisitActivity.startMe(this, memberObject, false);
-                break;
-            case R.id.textview_edit:
-                PncHomeVisitActivity.startMe(this, memberObject, true);
-                break;
-            default:
-                break;
-
-        }
-    }
-
     private void redrawFabWithNoPhone() {
         ((AncFloatingMenu) baseAncFloatingMenu).redraw(!StringUtils.isBlank(memberObject.getPhoneNumber())
                 || !StringUtils.isBlank(getFamilyHeadPhoneNumber()));
@@ -278,5 +351,19 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     public void startFormActivity(JSONObject formJson) {
         startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, formJson, Utils.metadata().familyMemberFormActivity),
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public List<ReferralTypeModel> getReferralTypeModels() {
+        return referralTypeModels;
+    }
+
+    private void addPncReferralTypes() {
+        referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_danger_signs),
+                org.smartregister.chw.util.Constants.JSON_FORM.getPncReferralForm()));
+        referralTypeModels.add(new ReferralTypeModel(getString(R.string.fp_post_partum), null));
+        if (MalariaDao.isRegisteredForMalaria(((PncMemberProfilePresenter) presenter()).getEntityId())) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
+        }
     }
 }
