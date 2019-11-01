@@ -9,14 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
@@ -24,7 +22,6 @@ import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.dao.AncDao;
-import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.interactor.CoreMalariaProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
@@ -51,7 +48,6 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static org.smartregister.chw.anc.AncLibrary.getInstance;
-import static org.smartregister.chw.core.utils.Utils.malariaToAncMember;
 
 public class MalariaProfileActivity extends BaseMalariaProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String CLIENT = "CLIENT";
@@ -76,9 +72,9 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     protected void setupViews() {
         super.setupViews();
         setProfileImage(MEMBER_OBJECT.getBaseEntityId(), null);
-        if (!isAnc(client)) {
-            textViewRecordAnc.setVisibility(View.GONE);
-            textViewAncVisitNotDone.setVisibility(View.GONE);
+        if (isAnc(MEMBER_OBJECT)) {
+            textViewRecordAnc.setVisibility(View.VISIBLE);
+            visitStatus.setVisibility(View.VISIBLE);
         }
 
     }
@@ -175,7 +171,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, MEMBER_OBJECT.getBaseEntityId());
         } else if (id == R.id.textview_record_anc) {
             AncHomeVisitActivity.startMe(this, MEMBER_OBJECT.getBaseEntityId(), false);
-        } else if (id == R.id.textview_anc_visit_not_done) {
+        } else if (id == R.id.textview_record_anc_not_done) {
             setAncVisitNotDoneView(true);
             saveVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
         } else if (id == R.id.textview_undo) {
@@ -198,11 +194,11 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         if (bool) {
             visitStatus.setVisibility(View.VISIBLE);
             textViewRecordAnc.setVisibility(View.GONE);
-            textViewAncVisitNotDone.setVisibility(View.GONE);
+            visitStatus.setVisibility(View.GONE);
         } else {
             visitStatus.setVisibility(View.GONE);
             textViewRecordAnc.setVisibility(View.VISIBLE);
-            textViewAncVisitNotDone.setVisibility(View.VISIBLE);
+            visitStatus.setVisibility(View.VISIBLE);
 
         }
     }
@@ -314,9 +310,9 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                 type = CoreConstants.TABLE_NAME.ANC_MEMBER;
             } else if (PNCDao.isPNCMember(memberObject.getBaseEntityId())) {
                 type = CoreConstants.TABLE_NAME.PNC_MEMBER;
-            } else if (ChildDao.isChild(memberObject.getBaseEntityId())) {
-                type = CoreConstants.TABLE_NAME.CHILD;
-            }
+            }// else if (ChildDao.isChild(memberObject.getBaseEntityId())) {
+            // type = CoreConstants.TABLE_NAME.CHILD;
+            //}
 
             MemberType memberType = new MemberType(memberObject, type);
             e.onNext(memberType);
@@ -419,43 +415,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     }
 
 
-
-    @Override
-    public void initializeFloatingMenu() {
-        baseMalariaFloatingMenu = new MalariaFloatingMenu(this, MEMBER_OBJECT.getFirstName(),
-                MEMBER_OBJECT.getPhoneNumber(), MEMBER_OBJECT.getFamilyName(), MEMBER_OBJECT.getPhoneNumber());
-
-        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
-            switch (viewId) {
-                case R.id.malaria_fab:
-                    checkPhoneNumberProvided();
-                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
-                    break;
-                case R.id.call_layout:
-                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).launchCallWidget();
-                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
-                    break;
-                case R.id.refer_to_facility_layout:
-//                    Toast.makeText(this, "Hey", Toast.LENGTH_SHORT).show();
-//                    ancMemberProfilePresenter().startAncReferralForm();
-//                    ((AncFloatingMenu) baseAncFloatingMenuloatingMenu).animateFAB();
-                    break;
-                default:
-                    Timber.d("Unknown fab action");
-                    break;
-            }
-
-        };
-
-        ((MalariaFloatingMenu) baseMalariaFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
-        baseMalariaFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
-        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        addContentView(baseMalariaFloatingMenu, linearLayoutParams);
-    }
-
-    protected boolean isAnc(CommonPersonObjectClient client) {
-        org.smartregister.chw.anc.domain.MemberObject memberObject = new org.smartregister.chw.anc.domain.MemberObject(client);
-        return !memberObject.getDateCreated().trim().equals("");
+    protected boolean isAnc(MemberObject memberObject) {
+        return !memberObject.getAncIsClosed() && memberObject.getGestAge() != null && !memberObject.getGestAge().trim().equals("");
     }
 }
