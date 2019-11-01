@@ -2,7 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.DividerItemDecoration;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +20,7 @@ import org.smartregister.chw.core.activity.CoreChildMedicalHistoryActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.domain.MedicalHistory;
+import org.smartregister.chw.util.CustomDividerItemDecoration;
 import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.Vaccine;
 
@@ -138,7 +139,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
         recyclerView.setAdapter(new MedicalHistoryAdapter(medicalHistories));
 
         if (hasSeparator)
-            recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+            recyclerView.addItemDecoration(new CustomDividerItemDecoration(ContextCompat.getDrawable(context, R.drawable.divider)));
 
         return view;
     }
