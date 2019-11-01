@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;
@@ -88,36 +87,30 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
 
     private void evaluateImmunizations() {
         if (vaccineMap != null && vaccineMap.size() > 0) {
-            View view = inflater.inflate(R.layout.medical_history_item_child_immunization, null);
-            TextView tvTitle = view.findViewById(R.id.tvTitle);
-            tvTitle.setText(context.getString(R.string.immunization));
 
-            RelativeLayout rlAgeOne = view.findViewById(R.id.rlAgeOne);
-            rlAgeOne.setVisibility(View.GONE);
-            RelativeLayout rlAgeTwo = view.findViewById(R.id.rlAgeTwo);
-            rlAgeTwo.setVisibility(View.GONE);
-
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
-
-            LinearLayout llItems = view.findViewById(R.id.llItems);
+            // generate data
+            List<MedicalHistory> medicalHistories = new ArrayList<>();
             for (Map.Entry<String, List<Vaccine>> entry : vaccineMap.entrySet()) {
-                View headerView = inflater.inflate(R.layout.vaccine_header_view, null);
-                TextView tvHeader = headerView.findViewById(R.id.header_text);
-
-                tvHeader.setText(getVaccineTitle(entry.getKey(), context));
-                llItems.addView(headerView);
-
+                MedicalHistory history = new MedicalHistory();
+                history.setTitle(getVaccineTitle(entry.getKey(), context));
+                List<String> content = new ArrayList<>();
                 for (Vaccine vaccine : entry.getValue()) {
-                    View contentView = inflater.inflate(R.layout.vaccine_content_view, null);
-                    TextView tvContentView = contentView.findViewById(R.id.name_date_tv);
-
                     String val = vaccine.getName().toLowerCase().replace(" ", "_");
                     String translated = Utils.getStringResourceByName(val, context);
-                    tvContentView.setText(String.format("%s %s", translated, sdf.format(vaccine.getDate())));
-
-                    llItems.addView(contentView);
+                    content.add(String.format("%s - %s %s", translated, context.getString(R.string.done), sdf.format(vaccine.getDate())));
                 }
+                history.setText(content);
+                medicalHistories.add(history);
+
             }
+
+            View view = renderData(
+                    context.getString(R.string.immunization),
+                    medicalHistories,
+                    false,
+                    R.layout.medical_history_vaccine_item
+            );
+
             parentView.addView(view);
         }
     }
@@ -128,7 +121,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
                         .replace("m", " " + context.getString(R.string.month_full));
     }
 
-    private View renderData(String title, List<MedicalHistory> medicalHistories, boolean hasSeparator) {
+    private View renderData(String title, List<MedicalHistory> medicalHistories, boolean hasSeparator, int layoutID) {
         View view = inflater.inflate(R.layout.medical_history_nested, null);
         TextView tvTitle = view.findViewById(R.id.tvTitle);
         tvTitle.setText(title);
@@ -136,7 +129,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new MedicalHistoryAdapter(medicalHistories));
+        recyclerView.setAdapter(new MedicalHistoryAdapter(medicalHistories, layoutID));
 
         if (hasSeparator)
             recyclerView.addItemDecoration(new CustomDividerItemDecoration(ContextCompat.getDrawable(context, R.drawable.divider)));
@@ -160,9 +153,17 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
                 }
                 history.setText(content);
                 medicalHistories.add(history);
+
             }
 
-            parentView.addView(renderData(context.getString(R.string.growth_and_nutrition), medicalHistories, true));
+            View view = renderData(
+                    context.getString(R.string.growth_and_nutrition),
+                    medicalHistories,
+                    true,
+                    R.layout.medical_history_nested_sub_item
+            );
+
+            parentView.addView(view);
         }
     }
 
@@ -175,7 +176,15 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
                 // generate data
                 List<MedicalHistory> medicalHistories = new ArrayList<>();
 
-                parentView.addView(renderData(context.getString(R.string.ecd_title), medicalHistories, true));
+
+                View view = renderData(
+                        context.getString(R.string.growth_and_nutrition),
+                        medicalHistories,
+                        true,
+                        R.layout.medical_history_nested_sub_item
+                );
+
+                parentView.addView(view);
             }
         }
     }

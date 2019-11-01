@@ -1,11 +1,11 @@
 package org.smartregister.chw.adapter;
 
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,9 +18,11 @@ import java.util.List;
 public class MedicalHistoryAdapter extends RecyclerView.Adapter<MedicalHistoryAdapter.MyViewHolder> {
     private List<MedicalHistory> items;
     private LayoutInflater inflater;
+    private int layoutID;
 
-    public MedicalHistoryAdapter(List<MedicalHistory> items) {
+    public MedicalHistoryAdapter(List<MedicalHistory> items, @LayoutRes int layoutID) {
         this.items = items;
+        this.layoutID = layoutID;
     }
 
     @NonNull
@@ -43,13 +45,9 @@ public class MedicalHistoryAdapter extends RecyclerView.Adapter<MedicalHistoryAd
 
 
         for (String content : item.getText()) {
-            View view = inflater.inflate(R.layout.medical_history_nested_sub_item, null);
-
+            View view = inflater.inflate(layoutID, null);
             TextView tvContent = view.findViewById(R.id.tvContent);
             tvContent.setText(content);
-
-            ImageView ivBullet = view.findViewById(R.id.ivBullet);
-            ivBullet.setImageResource(item.getBulletType());
 
             myViewHolder.llItems.addView(view);
         }
