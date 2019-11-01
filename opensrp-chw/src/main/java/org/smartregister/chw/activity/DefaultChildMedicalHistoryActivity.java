@@ -36,6 +36,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMedicalHistoryActivity.Flavor {
 
@@ -44,7 +45,6 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
     private List<Visit> visits;
     private Map<String, List<Visit>> visitMap = new LinkedHashMap<>();
     private Map<String, List<Vaccine>> vaccineMap = new LinkedHashMap<>();
-    private List<ServiceRecord> serviceTypeListMap;
     private LinearLayout parentView;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
@@ -62,7 +62,6 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
     public void processViewData(List<Visit> visits, Map<String, List<Vaccine>> vaccineMap, List<ServiceRecord> serviceTypeListMap, Context context) {
         this.visits = visits;
         this.vaccineMap = vaccineMap;
-        this.serviceTypeListMap = serviceTypeListMap;
 
         for (Visit v : this.visits) {
             List<Visit> type_visits = visitMap.get(v.getVisitType());
@@ -84,7 +83,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
 
             List<MedicalHistory> medicalHistories = new ArrayList<>();
             MedicalHistory history = new MedicalHistory();
-            int days = Days.daysBetween(new DateTime(visits.get(visits.size() - 1).getDate()), new DateTime()).getDays();
+            int days = Days.daysBetween(new DateTime(visits.get(0).getDate()), new DateTime()).getDays();
             history.setText(context.getString(R.string.last_visit_40_days_ago, Integer.toString(days)));
             medicalHistories.add(history);
 
@@ -142,6 +141,16 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
 
             // generate data
             List<MedicalHistory> medicalHistories = new ArrayList<>();
+            AtomicReference<Integer> count = new AtomicReference<>(0);
+            VisitDetailsFormatter exclusiveBreast = (title, details, visitDate) -> {
+                count.getAndSet(count.get() + 1);
+                return String.format("%s: %s",
+                        context.getString(R.string.exclusive_breastfeeding_months, Integer.toString(count.get())),
+                        context.getString(NCUtils.getText(details).toLowerCase().contains("yes") ? R.string.yes : R.string.no)
+                );
+            };
+
+            medicalHistory(medicalHistories, CoreConstants.EventType.EXCLUSIVE_BREASTFEEDING, context.getString(R.string.exclusive_breastfeeding), exclusiveBreast);
 
             VisitDetailsFormatter vitaminA = (title, details, visitDate) -> {
                 String numberOnly = title.replaceAll("[^0-9]", "");
