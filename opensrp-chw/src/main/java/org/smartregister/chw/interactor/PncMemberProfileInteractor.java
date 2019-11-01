@@ -87,6 +87,7 @@ public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor i
         return lastVisitDate;
     }
 
+
     private Alert getAlerts(Context context, MemberObject memberObject) {
         PncUpcomingServicesInteractorFlv upcomingServicesInteractor = new PncUpcomingServicesInteractorFlv();
         try {
@@ -96,12 +97,14 @@ public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor i
                 Collections.sort(baseUpcomingServices, comparator);
 
                 BaseUpcomingService baseUpcomingService = baseUpcomingServices.get(0);
+                String dateToDisplay = ((baseUpcomingService.getOverDueDate().before(new LocalDate().toDate())) || (baseUpcomingService.getOverDueDate().equals( new LocalDate().toDate()))) ? AbstractDao.getDobDateFormat().format(baseUpcomingService.getOverDueDate()) : AbstractDao.getDobDateFormat().format(baseUpcomingService.getServiceDate());
+
                 return new Alert(
                         memberObject.getBaseEntityId(),
                         baseUpcomingService.getServiceName(),
                         baseUpcomingService.getServiceName(),
-                        baseUpcomingService.getServiceDate().before(new Date()) ? AlertStatus.urgent : AlertStatus.normal,
-                        AbstractDao.getDobDateFormat().format(baseUpcomingService.getServiceDate()),
+                        baseUpcomingService.getOverDueDate().before(new LocalDate().toDate()) || baseUpcomingService.getOverDueDate().equals( new LocalDate().toDate()) ? AlertStatus.urgent : AlertStatus.normal,
+                        dateToDisplay,
                         "",
                         true
                 );
