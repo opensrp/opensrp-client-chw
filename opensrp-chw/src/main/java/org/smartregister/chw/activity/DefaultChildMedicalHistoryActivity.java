@@ -216,11 +216,53 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
 
                 // generate data
                 List<MedicalHistory> medicalHistories = new ArrayList<>();
+                VisitDetailsFormatter formatter = (title, details, visitDate) -> {
+
+                    String translatedTitle = null;
+                    switch (title) {
+                        case "develop_warning_signs":
+                            translatedTitle = context.getString(R.string.dev_warning_sign);
+                            break;
+                        case "stim_skills":
+                            translatedTitle = context.getString(R.string.care_stim_skill);
+                            break;
+                        default:
+                            break;
+                    }
+                    if (StringUtils.isBlank(translatedTitle)) return null;
+
+                    return String.format("%s %s",
+                            translatedTitle,
+                            context.getString(NCUtils.getText(details).toLowerCase().contains("yes") ? R.string.yes : R.string.no)
+                    );
+                };
+
+                List<Visit> content = visitMap.get(CoreConstants.EventType.ECD);
+                if (content != null) {
+
+                    for (Visit v : content) {
+                        MedicalHistory history = new MedicalHistory();
+
+                        String title = sdf.format(v.getDate());
+                        history.setTitle(title);
+
+                        Map<String, List<VisitDetail>> detailsMap = v.getVisitDetails();
+                        if (detailsMap != null && detailsMap.size() > 0) {
+                            for (Map.Entry<String, List<VisitDetail>> entry : detailsMap.entrySet()) {
+                                String text = formatter.format(entry.getKey(), entry.getValue(), v.getDate());
+                                if (StringUtils.isNotBlank(text)) history.setText(text);
+                            }
+                        }
+
+                        medicalHistories.add(history);
+                    }
+                }
 
 
                 View view = new ViewBuilder()
                         .withHistory(medicalHistories)
-                        .withTitle(context.getString(R.string.growth_and_nutrition))
+                        .withTitle(context.getString(R.string.ecd_title))
+                        .withSeparator(false)
                         .build();
 
                 parentView.addView(view);
