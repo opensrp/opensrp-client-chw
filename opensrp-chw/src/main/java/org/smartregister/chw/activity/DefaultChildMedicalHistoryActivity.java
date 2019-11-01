@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -104,12 +105,16 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
 
             }
 
-            View view = renderData(
-                    context.getString(R.string.immunization),
-                    medicalHistories,
-                    false,
-                    R.layout.medical_history_vaccine_item
-            );
+            View view = new ViewBuilder()
+                    .withTitle(context.getString(R.string.immunization))
+                    .withHistory(medicalHistories)
+                    .withSeparator(false)
+                    .withChildLayout(R.layout.medical_history_vaccine_item)
+                    .withRootLayout(R.layout.medical_history_item_child_immunization)
+                    .build();
+
+            view.findViewById(R.id.rlAgeOne).setVisibility(View.GONE);
+            view.findViewById(R.id.rlAgeTwo).setVisibility(View.GONE);
 
             parentView.addView(view);
         }
@@ -121,7 +126,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
                         .replace("m", " " + context.getString(R.string.month_full));
     }
 
-    private View renderData(String title, List<MedicalHistory> medicalHistories, boolean hasSeparator, int layoutID) {
+    private View renderData(String title, List<MedicalHistory> medicalHistories, boolean hasSeparator, @LayoutRes int layoutID) {
         View view = inflater.inflate(R.layout.medical_history_nested, null);
         TextView tvTitle = view.findViewById(R.id.tvTitle);
         tvTitle.setText(title);
@@ -201,6 +206,58 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
             tvInfo.setText(context.getString(R.string.last_visit_40_days_ago, Integer.toString(days)));
 
             parentView.addView(view);
+        }
+    }
+
+
+    private class ViewBuilder {
+        @LayoutRes
+        private int rootLayout = R.layout.medical_history_nested;
+        private String title = null;
+        private List<MedicalHistory> histories = new ArrayList<>();
+        private boolean hasSeparator = true;
+        @LayoutRes
+        private int childLayout = R.layout.medical_history_nested_sub_item;
+
+        public ViewBuilder withRootLayout(int rootLayout) {
+            this.rootLayout = rootLayout;
+            return this;
+        }
+
+        public ViewBuilder withTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public ViewBuilder withHistory(List<MedicalHistory> histories) {
+            this.histories = histories;
+            return this;
+        }
+
+        public ViewBuilder withSeparator(boolean hasSeparator) {
+            this.hasSeparator = hasSeparator;
+            return this;
+        }
+
+        public ViewBuilder withChildLayout(int childLayout) {
+            this.childLayout = childLayout;
+            return this;
+        }
+
+        public View build() {
+            View view = inflater.inflate(rootLayout, null);
+            TextView tvTitle = view.findViewById(R.id.tvTitle);
+            tvTitle.setText(title);
+            tvTitle.setAllCaps(true);
+
+            RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setAdapter(new MedicalHistoryAdapter(histories, childLayout));
+
+            if (hasSeparator)
+                recyclerView.addItemDecoration(new CustomDividerItemDecoration(ContextCompat.getDrawable(context, R.drawable.divider)));
+
+            return view;
         }
     }
 }
