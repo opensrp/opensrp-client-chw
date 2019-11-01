@@ -199,12 +199,14 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
             };
             medicalHistory(medicalHistories, CoreConstants.EventType.MUAC, context.getString(R.string.muac_title), muac);
 
-            View view = new ViewBuilder()
-                    .withHistory(medicalHistories)
-                    .withTitle(context.getString(R.string.growth_and_nutrition))
-                    .build();
+            if (medicalHistories.size() > 0) {
+                View view = new ViewBuilder()
+                        .withHistory(medicalHistories)
+                        .withTitle(context.getString(R.string.growth_and_nutrition))
+                        .build();
 
-            parentView.addView(view);
+                parentView.addView(view);
+            }
         }
     }
 
@@ -259,13 +261,15 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
                 }
 
 
-                View view = new ViewBuilder()
-                        .withHistory(medicalHistories)
-                        .withTitle(context.getString(R.string.ecd_title))
-                        .withSeparator(false)
-                        .build();
+                if (medicalHistories.size() > 0) {
+                    View view = new ViewBuilder()
+                            .withHistory(medicalHistories)
+                            .withTitle(context.getString(R.string.ecd_title))
+                            .withSeparator(false)
+                            .build();
 
-                parentView.addView(view);
+                    parentView.addView(view);
+                }
             }
         }
     }
@@ -285,13 +289,15 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
             };
             medicalHistory(medicalHistories, CoreConstants.EventType.LLITN, null, llitn);
 
-            View view = new ViewBuilder()
-                    .withHistory(medicalHistories)
-                    .withTitle(context.getString(R.string.llitn_title))
-                    .build();
+            if (medicalHistories.size() > 0) {
+                View view = new ViewBuilder()
+                        .withHistory(medicalHistories)
+                        .withTitle(context.getString(R.string.llitn_title))
+                        .build();
 
 
-            parentView.addView(view);
+                parentView.addView(view);
+            }
         }
     }
 
