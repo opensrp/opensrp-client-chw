@@ -1,5 +1,6 @@
 package org.smartregister.chw.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MedicalHistory {
@@ -21,5 +22,12 @@ public class MedicalHistory {
 
     public void setText(List<String> text) {
         this.text = text;
+    }
+
+    public void setText(String text) {
+        if (this.text == null)
+            this.text = new ArrayList<>();
+
+        this.text.add(text);
     }
 }

@@ -11,11 +11,16 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.MedicalHistoryAdapter;
 import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.core.activity.CoreChildMedicalHistoryActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
@@ -26,6 +31,7 @@ import org.smartregister.immunization.domain.Vaccine;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -40,7 +46,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
     private Map<String, List<Vaccine>> vaccineMap = new LinkedHashMap<>();
     private List<ServiceRecord> serviceTypeListMap;
     private LinearLayout parentView;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy", Locale.getDefault());
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
     @Override
     public View bindViews(Activity activity) {
@@ -126,49 +132,55 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
                         .replace("m", " " + context.getString(R.string.month_full));
     }
 
-    private View renderData(String title, List<MedicalHistory> medicalHistories, boolean hasSeparator, @LayoutRes int layoutID) {
-        View view = inflater.inflate(R.layout.medical_history_nested, null);
-        TextView tvTitle = view.findViewById(R.id.tvTitle);
-        tvTitle.setText(title);
-        tvTitle.setAllCaps(true);
-
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new MedicalHistoryAdapter(medicalHistories, layoutID));
-
-        if (hasSeparator)
-            recyclerView.addItemDecoration(new CustomDividerItemDecoration(ContextCompat.getDrawable(context, R.drawable.divider)));
-
-        return view;
-    }
-
     private void evaluateGrowthAndNutrition() {
         if (visitMap.size() > 0) {
 
             // generate data
             List<MedicalHistory> medicalHistories = new ArrayList<>();
-            for (Map.Entry<String, List<Vaccine>> entry : vaccineMap.entrySet()) {
-                MedicalHistory history = new MedicalHistory();
-                history.setTitle(getVaccineTitle(entry.getKey(), context));
-                List<String> content = new ArrayList<>();
-                for (Vaccine vaccine : entry.getValue()) {
-                    String val = vaccine.getName().toLowerCase().replace(" ", "_");
-                    String translated = Utils.getStringResourceByName(val, context);
-                    content.add(String.format("%s - %s %s", translated, context.getString(R.string.done), sdf.format(vaccine.getDate())));
-                }
-                history.setText(content);
-                medicalHistories.add(history);
 
-            }
+            VisitDetailsFormatter vitaminA = (title, details) -> {
+                String numberOnly = title.replaceAll("[^0-9]", "");
 
-            View view = renderData(
-                    context.getString(R.string.growth_and_nutrition),
-                    medicalHistories,
-                    true,
-                    R.layout.medical_history_nested_sub_item
-            );
+                String date = NCUtils.getText(details);
+                String done = context.getString(R.string.done);
+                if (Constants.HOME_VISIT.VACCINE_NOT_GIVEN.equalsIgnoreCase(date))
+                    return null;
+
+                Date vaccineDate = VisitUtils.getDateFromString(date);
+
+                return String.format("%s - %s %s",
+                        context.getString(R.string.dose_number, numberOnly),
+                        done,
+                        sdf.format(vaccineDate)
+                );
+            };
+            medicalHistory(medicalHistories, CoreConstants.EventType.VITAMIN_A, context.getString(R.string.vitamin_a), vitaminA);
+
+
+            View view = new ViewBuilder()
+                    .withHistory(medicalHistories)
+                    .withTitle(context.getString(R.string.growth_and_nutrition))
+                    .build();
 
             parentView.addView(view);
+        }
+    }
+
+    private void medicalHistory(List<MedicalHistory> medicalHistories, String type, String title, VisitDetailsFormatter formatter) {
+        List<Visit> content = visitMap.get(type);
+        if (content != null) {
+            MedicalHistory history = new MedicalHistory();
+            history.setTitle(title);
+            for (Visit v : content) {
+                Map<String, List<VisitDetail>> detailsMap = v.getVisitDetails();
+                if (detailsMap != null && detailsMap.size() > 0) {
+                    for (Map.Entry<String, List<VisitDetail>> entry : detailsMap.entrySet()) {
+                        String text = formatter.format(entry.getKey(), entry.getValue());
+                        if (StringUtils.isNotBlank(text)) history.setText(text);
+                    }
+                }
+            }
+            medicalHistories.add(history);
         }
     }
 
@@ -182,12 +194,10 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
                 List<MedicalHistory> medicalHistories = new ArrayList<>();
 
 
-                View view = renderData(
-                        context.getString(R.string.growth_and_nutrition),
-                        medicalHistories,
-                        true,
-                        R.layout.medical_history_nested_sub_item
-                );
+                View view = new ViewBuilder()
+                        .withHistory(medicalHistories)
+                        .withTitle(context.getString(R.string.growth_and_nutrition))
+                        .build();
 
                 parentView.addView(view);
             }
@@ -209,6 +219,10 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
         }
     }
 
+
+    private interface VisitDetailsFormatter {
+        String format(String title, List<VisitDetail> details);
+    }
 
     private class ViewBuilder {
         @LayoutRes
