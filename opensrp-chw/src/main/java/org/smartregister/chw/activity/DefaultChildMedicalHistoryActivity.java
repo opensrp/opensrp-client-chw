@@ -189,9 +189,18 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
             medicalHistory(medicalHistories, CoreConstants.EventType.DEWORMING, context.getString(R.string.deworming), deworming);
 
             VisitDetailsFormatter dietary = (title, details, visitDate) -> {
-                String translated = NCUtils.getText(details);
+                String diet_diversity = NCUtils.getText(details);
+                String value = "";
+                if ("chk_no_animal_products".equalsIgnoreCase(diet_diversity)) {
+                    value = context.getString(R.string.minimum_dietary_choice_1);
+                } else if ("chw_one_animal_product_or_fruit".equalsIgnoreCase(diet_diversity)) {
+                    value = context.getString(R.string.minimum_dietary_choice_2);
+                } else if ("chw_one_animal_product_and_fruit".equalsIgnoreCase(diet_diversity)) {
+                    value = context.getString(R.string.minimum_dietary_choice_3);
+                }
+
                 return String.format("%s - %s %s",
-                        translated,
+                        value,
                         context.getString(R.string.done),
                         sdf.format(visitDate)
                 );
@@ -199,9 +208,18 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
             medicalHistory(medicalHistories, CoreConstants.EventType.MINIMUM_DIETARY_DIVERSITY, context.getString(R.string.minimum_dietary_title), dietary);
 
             VisitDetailsFormatter muac = (title, details, visitDate) -> {
-                String translated = NCUtils.getText(details);
+                String value = null;
+                String raw_value = NCUtils.getText(details);
+                if ("chk_green".equalsIgnoreCase(raw_value)) {
+                    value = context.getString(R.string.muac_choice_1);
+                } else if ("chk_yellow".equalsIgnoreCase(raw_value)) {
+                    value = context.getString(R.string.muac_choice_2);
+                } else if ("chk_red".equalsIgnoreCase(raw_value)) {
+                    value = context.getString(R.string.muac_choice_3);
+                }
+
                 return String.format("%s - %s %s",
-                        translated,
+                        value,
                         context.getString(R.string.done),
                         sdf.format(visitDate)
                 );
