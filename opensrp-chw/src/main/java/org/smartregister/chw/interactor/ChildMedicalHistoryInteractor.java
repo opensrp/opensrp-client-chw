@@ -345,11 +345,11 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
     public static String getServiceTypeLanguageSpecific(Context context, String value) {
         if (value.equalsIgnoreCase(Constants.EventType.EXCLUSIVE_BREASTFEEDING)) {
-            return context.getString(org.smartregister.chw.core.R.string.exclusive_breastfeeding);
+            return context.getString(R.string.exclusive_breastfeeding);
         } else if (value.equalsIgnoreCase(Constants.EventType.VITAMIN_A)) {
-            return context.getString(org.smartregister.chw.core.R.string.vitamin_a);
+            return context.getString(R.string.vitamin_a);
         } else if (value.equalsIgnoreCase(Constants.EventType.DEWORMING)) {
-            return context.getString(org.smartregister.chw.core.R.string.deworming);
+            return context.getString(R.string.deworming);
         }
         return value;
     }

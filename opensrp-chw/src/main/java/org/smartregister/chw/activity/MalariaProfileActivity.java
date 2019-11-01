@@ -13,8 +13,11 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
-import org.smartregister.chw.core.interactor.CoreMalariaProfileInteractor;
+import org.smartregister.chw.core.dao.AncDao;
+import org.smartregister.chw.core.dao.ChildDao;
+import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.interactor.MalariaProfileInteractor;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
@@ -27,9 +30,12 @@ import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.Utils.malariaToAncMember;
 
 public class MalariaProfileActivity extends BaseMalariaProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String CLIENT = "client";
@@ -44,7 +50,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     @Override
     protected void initializePresenter() {
         showProgressBar(true);
-        profilePresenter = new BaseMalariaProfilePresenter(this, new CoreMalariaProfileInteractor(), MEMBER_OBJECT);
+        profilePresenter = new BaseMalariaProfilePresenter(this, new MalariaProfileInteractor(this), MEMBER_OBJECT);
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
     }
@@ -237,12 +243,29 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
     @Override
     public void openMedicalHistory() {
-        PncMedicalHistoryActivity.startMe(this, malariaToAncMember(MEMBER_OBJECT));
+        onMemberTypeLoadedListener listener = memberType -> {
+
+            switch (memberType.memberType) {
+                case CoreConstants.TABLE_NAME.ANC_MEMBER:
+                    AncMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.memberObject);
+                    break;
+                case CoreConstants.TABLE_NAME.PNC_MEMBER:
+                    PncMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.memberObject);
+                    break;
+                case CoreConstants.TABLE_NAME.CHILD:
+                    ChildMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.memberObject);
+                    break;
+                default:
+                    Timber.v("Member info undefined");
+                    break;
+            }
+        };
+        executeOnLoaded(listener);
     }
 
     @Override
     public void openUpcomingService() {
-        //PncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
+        executeOnLoaded(memberType -> MalariaUpcomingServicesActivity.startMe(MalariaProfileActivity.this, memberType.memberObject));
     }
 
     @Override
@@ -256,5 +279,66 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
         intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
+    }
+
+    private Observable<MemberType> getMemberType() {
+        return Observable.create(e -> {
+            org.smartregister.chw.anc.domain.MemberObject memberObject = PNCDao.getMember(MEMBER_OBJECT.getBaseEntityId());
+            String type = null;
+
+            if (AncDao.isANCMember(memberObject.getBaseEntityId())) {
+                type = CoreConstants.TABLE_NAME.ANC_MEMBER;
+            } else if (PNCDao.isPNCMember(memberObject.getBaseEntityId())) {
+                type = CoreConstants.TABLE_NAME.PNC_MEMBER;
+            } else if (ChildDao.isChild(memberObject.getBaseEntityId())) {
+                type = CoreConstants.TABLE_NAME.CHILD;
+            }
+
+            MemberType memberType = new MemberType(memberObject, type);
+            e.onNext(memberType);
+            e.onComplete();
+        });
+    }
+
+    private void executeOnLoaded(onMemberTypeLoadedListener listener) {
+        final Disposable[] disposable = new Disposable[1];
+        getMemberType().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MemberType>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable[0] = d;
+                    }
+
+                    @Override
+                    public void onNext(MemberType memberType) {
+                        listener.onMemberTypeLoaded(memberType);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.e(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        disposable[0].dispose();
+                        disposable[0] = null;
+                    }
+                });
+    }
+
+    private class MemberType {
+        private org.smartregister.chw.anc.domain.MemberObject memberObject;
+        private String memberType;
+
+        private MemberType(org.smartregister.chw.anc.domain.MemberObject memberObject, String memberType) {
+            this.memberObject = memberObject;
+            this.memberType = memberType;
+        }
+    }
+
+    interface onMemberTypeLoadedListener {
+        void onMemberTypeLoaded(MemberType memberType);
     }
 }
