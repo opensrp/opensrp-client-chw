@@ -138,7 +138,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
             // generate data
             List<MedicalHistory> medicalHistories = new ArrayList<>();
 
-            VisitDetailsFormatter vitaminA = (title, details) -> {
+            VisitDetailsFormatter vitaminA = (title, details, visitDate) -> {
                 String numberOnly = title.replaceAll("[^0-9]", "");
 
                 String date = NCUtils.getText(details);
@@ -151,10 +151,51 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
                 return String.format("%s - %s %s",
                         context.getString(R.string.dose_number, numberOnly),
                         done,
-                        sdf.format(vaccineDate)
+                        vaccineDate != null ? sdf.format(vaccineDate) : ""
                 );
             };
             medicalHistory(medicalHistories, CoreConstants.EventType.VITAMIN_A, context.getString(R.string.vitamin_a), vitaminA);
+
+
+            VisitDetailsFormatter deworming = (title, details, visitDate) -> {
+                String numberOnly = title.replaceAll("[^0-9]", "");
+
+                String date = NCUtils.getText(details);
+                String done = context.getString(R.string.done);
+                if (Constants.HOME_VISIT.VACCINE_NOT_GIVEN.equalsIgnoreCase(date))
+                    return null;
+
+                Date vaccineDate = VisitUtils.getDateFromString(date);
+
+                return String.format("%s - %s %s",
+                        context.getString(R.string.dose_number, numberOnly),
+                        done,
+                        vaccineDate != null ? sdf.format(vaccineDate) : ""
+                );
+            };
+            medicalHistory(medicalHistories, CoreConstants.EventType.DEWORMING, context.getString(R.string.deworming), deworming);
+
+
+            VisitDetailsFormatter dietary = (title, details, visitDate) -> {
+                String translated = NCUtils.getText(details);
+                return String.format("%s - %s %s",
+                        translated,
+                        context.getString(R.string.done),
+                        sdf.format(visitDate)
+                );
+            };
+            medicalHistory(medicalHistories, CoreConstants.EventType.MINIMUM_DIETARY_DIVERSITY, context.getString(R.string.minimum_dietary_title), dietary);
+
+
+            VisitDetailsFormatter muac = (title, details, visitDate) -> {
+                String translated = NCUtils.getText(details);
+                return String.format("%s - %s %s",
+                        translated,
+                        context.getString(R.string.done),
+                        sdf.format(visitDate)
+                );
+            };
+            medicalHistory(medicalHistories, CoreConstants.EventType.MUAC, context.getString(R.string.muac_title), muac);
 
 
             View view = new ViewBuilder()
@@ -175,7 +216,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
                 Map<String, List<VisitDetail>> detailsMap = v.getVisitDetails();
                 if (detailsMap != null && detailsMap.size() > 0) {
                     for (Map.Entry<String, List<VisitDetail>> entry : detailsMap.entrySet()) {
-                        String text = formatter.format(entry.getKey(), entry.getValue());
+                        String text = formatter.format(entry.getKey(), entry.getValue(), v.getDate());
                         if (StringUtils.isNotBlank(text)) history.setText(text);
                     }
                 }
@@ -221,7 +262,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
 
 
     private interface VisitDetailsFormatter {
-        String format(String title, List<VisitDetail> details);
+        String format(String title, List<VisitDetail> details, Date visitDate);
     }
 
     private class ViewBuilder {
