@@ -346,7 +346,7 @@ public class ChwRepositoryFlv {
         if (summary != null) {
             PNCHealthFacilityVisitRule visitRule = PNCVisitUtil.getNextPNCHealthFacilityVisit(summary.getDeliveryDate(), summary.getLastVisitDate());
             String pncHfNextVisitDate = DateTimeFormat.forPattern("dd-MM-yyyy").print(visitRule.getDueDate());
-            pncHfNextVisitDateObs = new org.smartregister.clientandeventmodel.Obs().withFormSubmissionField(Constants.FORM_SUBMISSION_FIELD.pncHfNextVisitDateFieldType)
+            pncHfNextVisitDateObs = new Obs().withFormSubmissionField(Constants.FORM_SUBMISSION_FIELD.pncHfNextVisitDateFieldType)
                     .withFieldDataType("spacer")
                     .withValue(pncHfNextVisitDate)
                     .withFieldCode(Constants.FORM_SUBMISSION_FIELD.pncHfNextVisitDateFieldType)
