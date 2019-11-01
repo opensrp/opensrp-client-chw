@@ -56,7 +56,7 @@
         "openmrs_entity_id": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "image": "ic_form_vitamin",
-        "hint": "Quand est-ce que le Vitamine A {0} dose de a été donné?",
+        "hint": "Quand est-ce que le Vitamine A {0} dose a été donné?",
         "min_date": "today-120y",
         "max_date": "today",
         "v_required": {
