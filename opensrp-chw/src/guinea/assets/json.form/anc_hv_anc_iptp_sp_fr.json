@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "IPTp-SP {0} dose",
+    "title": "SP {0} dose",
     "fields": [
       {
         "key": "iptp{0}_date",

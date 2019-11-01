@@ -198,7 +198,7 @@
 
     <string name="health_facility_visit_num">ANC health facility visit {0}</string>
     <string name="tt_dose">TT {0}</string>
-    <string name="iptp_sp_dose">IPTP-sp {0}</string>
+    <string name="iptp_sp_dose">IPTp-SP dose {0}</string>
 
     <string name="opv_0">OPV 0</string>
     <string name="opv_1">OPV 1</string>
@@ -309,5 +309,12 @@
     <string name="anc_danger_signs">ANC danger signs</string>
 
     <string name="jobs_aid_failed_download">Jo aid video "%s" failed to download.</string>
+
+    <!--ANC Family Planning Ba-->
+    <string name="family_planning_done">"Health facility family planning counselling done</string>
+    <string name="family_planning_not_done">Health facility family planning counselling not done</string>
+
+
+
 
 </resources>

@@ -44,7 +44,7 @@
           },
           {
             "field": "eventType",
-            "field_value": "Malaria Follow-up Visit",
+            "field_value": "Malaria Confirmation",
             "closes_case": [
               "ec_malaria_confirmation"
             ]
