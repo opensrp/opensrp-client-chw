@@ -364,9 +364,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         }
 
         // Before pre-processing
-        Date dob = dateFormat.parse(memberObject.getDob());
-        String dateOfBirth = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(dob);
-        setMinDate(jsonObject, "vitamin_a{0}_date", dateOfBirth);
+        setMinDate(jsonObject, "vitamin_a{0}_date", memberObject.getDob());
 
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
         if (details != null && details.size() > 0) {
@@ -415,9 +413,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getDEWORMING(), memberObject.getBaseEntityId());
 
         // Before pre-processing
-        Date dob = dateFormat.parse(memberObject.getDob());
-        String dateOfBirth = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(dob);
-        setMinDate(jsonObject, "deworming{0}_date", dateOfBirth);
+        setMinDate(jsonObject, "deworming{0}_date", memberObject.getDob());
 
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
 
@@ -862,10 +858,12 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         return Months.monthsBetween(new LocalDate(dob), new LocalDate()).getMonths();
     }
 
-    private void setMinDate(JSONObject jsonObject, String dateFieldKey, String minDate) {
+    private void setMinDate(JSONObject jsonObject, String dateFieldKey, String minDateString) throws Exception {
+        Date minDate = dateFormat.parse(minDateString);
+        String parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(minDate);
         JSONObject fieldJSONObject = org.smartregister.chw.util.JsonFormUtils.getFieldJSONObject(org.smartregister.chw.util.JsonFormUtils.fields(jsonObject), dateFieldKey);
         try {
-            fieldJSONObject.put(JsonFormConstants.MIN_DATE, minDate);
+            fieldJSONObject.put(JsonFormConstants.MIN_DATE, parsedDate);
         } catch (JSONException je) {
             Timber.e(je);
         }
