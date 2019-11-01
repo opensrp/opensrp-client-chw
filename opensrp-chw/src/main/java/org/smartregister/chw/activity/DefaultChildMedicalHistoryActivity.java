@@ -64,7 +64,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
         this.vaccineMap = vaccineMap;
         this.serviceTypeListMap = serviceTypeListMap;
 
-        for (Visit v : visits) {
+        for (Visit v : this.visits) {
             List<Visit> type_visits = visitMap.get(v.getVisitType());
             if (type_visits == null) type_visits = new ArrayList<>();
 
@@ -81,13 +81,18 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
 
     private void evaluateLastVisitDate() {
         if (visits.size() > 0) {
-            View view = inflater.inflate(R.layout.medical_history_item, null);
-            TextView tvTitle = view.findViewById(R.id.tvTitle);
-            tvTitle.setText(context.getString(R.string.last_visit));
 
-            int days = Days.daysBetween(new DateTime(visits.get(0).getDate()), new DateTime()).getDays();
-            TextView tvInfo = view.findViewById(R.id.tvInfo);
-            tvInfo.setText(context.getString(R.string.last_visit_40_days_ago, Integer.toString(days)));
+            List<MedicalHistory> medicalHistories = new ArrayList<>();
+            MedicalHistory history = new MedicalHistory();
+            int days = Days.daysBetween(new DateTime(visits.get(visits.size() - 1).getDate()), new DateTime()).getDays();
+            history.setText(context.getString(R.string.last_visit_40_days_ago, Integer.toString(days)));
+            medicalHistories.add(history);
+
+            View view = new ViewBuilder()
+                    .withHistory(medicalHistories)
+                    .withTitle(context.getString(R.string.last_visit))
+                    .build();
+
             parentView.addView(view);
         }
     }
@@ -156,7 +161,6 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
             };
             medicalHistory(medicalHistories, CoreConstants.EventType.VITAMIN_A, context.getString(R.string.vitamin_a), vitaminA);
 
-
             VisitDetailsFormatter deworming = (title, details, visitDate) -> {
                 String numberOnly = title.replaceAll("[^0-9]", "");
 
@@ -175,7 +179,6 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
             };
             medicalHistory(medicalHistories, CoreConstants.EventType.DEWORMING, context.getString(R.string.deworming), deworming);
 
-
             VisitDetailsFormatter dietary = (title, details, visitDate) -> {
                 String translated = NCUtils.getText(details);
                 return String.format("%s - %s %s",
@@ -185,7 +188,6 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
                 );
             };
             medicalHistory(medicalHistories, CoreConstants.EventType.MINIMUM_DIETARY_DIVERSITY, context.getString(R.string.minimum_dietary_title), dietary);
-
 
             VisitDetailsFormatter muac = (title, details, visitDate) -> {
                 String translated = NCUtils.getText(details);
@@ -197,31 +199,12 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
             };
             medicalHistory(medicalHistories, CoreConstants.EventType.MUAC, context.getString(R.string.muac_title), muac);
 
-
             View view = new ViewBuilder()
                     .withHistory(medicalHistories)
                     .withTitle(context.getString(R.string.growth_and_nutrition))
                     .build();
 
             parentView.addView(view);
-        }
-    }
-
-    private void medicalHistory(List<MedicalHistory> medicalHistories, String type, String title, VisitDetailsFormatter formatter) {
-        List<Visit> content = visitMap.get(type);
-        if (content != null) {
-            MedicalHistory history = new MedicalHistory();
-            history.setTitle(title);
-            for (Visit v : content) {
-                Map<String, List<VisitDetail>> detailsMap = v.getVisitDetails();
-                if (detailsMap != null && detailsMap.size() > 0) {
-                    for (Map.Entry<String, List<VisitDetail>> entry : detailsMap.entrySet()) {
-                        String text = formatter.format(entry.getKey(), entry.getValue(), v.getDate());
-                        if (StringUtils.isNotBlank(text)) history.setText(text);
-                    }
-                }
-            }
-            medicalHistories.add(history);
         }
     }
 
@@ -247,19 +230,48 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
 
     private void evaluateLLITN() {
         if (visits.size() > 0) {
-            View view = inflater.inflate(R.layout.medical_history_item, null);
-            TextView tvTitle = view.findViewById(R.id.tvTitle);
-            tvTitle.setText(context.getString(R.string.llitn_title));
-            tvTitle.setAllCaps(true);
+            List<MedicalHistory> medicalHistories = new ArrayList<>();
 
-            int days = Days.daysBetween(new DateTime(visits.get(0).getDate()), new DateTime()).getDays();
-            TextView tvInfo = view.findViewById(R.id.tvInfo);
-            tvInfo.setText(context.getString(R.string.last_visit_40_days_ago, Integer.toString(days)));
+            VisitDetailsFormatter llitn = (title, details, visitDate) -> {
+                String text = NCUtils.getText(details);
+                String translated = context.getString(text.toLowerCase().contains("yes") ? R.string.yes : R.string.no);
+                return String.format("%s - %s %s",
+                        translated,
+                        context.getString(R.string.done),
+                        sdf.format(visitDate)
+                );
+            };
+            medicalHistory(medicalHistories, CoreConstants.EventType.LLITN, null, llitn);
+
+            View view = new ViewBuilder()
+                    .withHistory(medicalHistories)
+                    .withTitle(context.getString(R.string.llitn_title))
+                    .build();
+
 
             parentView.addView(view);
         }
     }
 
+    private void medicalHistory(List<MedicalHistory> medicalHistories, String type, String title, VisitDetailsFormatter formatter) {
+        List<Visit> content = visitMap.get(type);
+        if (content != null) {
+            MedicalHistory history = new MedicalHistory();
+
+            if (StringUtils.isNotBlank(title)) history.setTitle(title);
+
+            for (Visit v : content) {
+                Map<String, List<VisitDetail>> detailsMap = v.getVisitDetails();
+                if (detailsMap != null && detailsMap.size() > 0) {
+                    for (Map.Entry<String, List<VisitDetail>> entry : detailsMap.entrySet()) {
+                        String text = formatter.format(entry.getKey(), entry.getValue(), v.getDate());
+                        if (StringUtils.isNotBlank(text)) history.setText(text);
+                    }
+                }
+            }
+            medicalHistories.add(history);
+        }
+    }
 
     private interface VisitDetailsFormatter {
         String format(String title, List<VisitDetail> details, Date visitDate);

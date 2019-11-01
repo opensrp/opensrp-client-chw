@@ -43,7 +43,6 @@ public class MedicalHistoryAdapter extends RecyclerView.Adapter<MedicalHistoryAd
 
         if (item.getText() == null) return;
 
-
         for (String content : item.getText()) {
             View view = inflater.inflate(layoutID, null);
             TextView tvContent = view.findViewById(R.id.tvContent);
