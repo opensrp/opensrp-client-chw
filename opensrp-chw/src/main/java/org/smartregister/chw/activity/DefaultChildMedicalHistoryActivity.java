@@ -103,7 +103,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
             List<MedicalHistory> medicalHistories = new ArrayList<>();
             for (Map.Entry<String, List<Vaccine>> entry : vaccineMap.entrySet()) {
                 MedicalHistory history = new MedicalHistory();
-                history.setTitle(getVaccineTitle(entry.getKey(), context));
+                history.setTitle(getVaccineTitle(entry.getKey().toLowerCase().trim(), context));
                 List<String> content = new ArrayList<>();
                 for (Vaccine vaccine : entry.getValue()) {
                     String val = vaccine.getName().toLowerCase().replace(" ", "_");
@@ -112,7 +112,6 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
                 }
                 history.setText(content);
                 medicalHistories.add(history);
-
             }
 
             View view = new ViewBuilder()
@@ -131,9 +130,11 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
     }
 
     private String getVaccineTitle(String name, Context context) {
-        return name.contains("birth") ? context.getString(R.string.at_birth) :
-                name.replace("w", " " + context.getString(R.string.week_full))
-                        .replace("m", " " + context.getString(R.string.month_full));
+        String res =  name.contains("birth") ? context.getString(R.string.at_birth) :
+                name.replace("weeks", " " + context.getString(R.string.week_full))
+                        .replace("months", " " + context.getString(R.string.month_full));
+
+        return StringUtils.capitalize(res);
     }
 
     private void evaluateGrowthAndNutrition() {
