@@ -863,9 +863,9 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     }
 
     private void setMinDate(JSONObject jsonObject, String dateFieldKey, String minDate) {
-        JSONObject vitAObject = org.smartregister.chw.util.JsonFormUtils.getFieldJSONObject(org.smartregister.chw.util.JsonFormUtils.fields(jsonObject), dateFieldKey);
+        JSONObject fieldJSONObject = org.smartregister.chw.util.JsonFormUtils.getFieldJSONObject(org.smartregister.chw.util.JsonFormUtils.fields(jsonObject), dateFieldKey);
         try {
-            vitAObject.put(JsonFormConstants.MIN_DATE, minDate);
+            fieldJSONObject.put(JsonFormConstants.MIN_DATE, minDate);
         } catch (JSONException je) {
             Timber.e(je);
         }
