@@ -146,89 +146,15 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
             // generate data
             List<MedicalHistory> medicalHistories = new ArrayList<>();
             AtomicReference<Integer> count = new AtomicReference<>(0);
-            VisitDetailsFormatter exclusiveBreast = (title, details, visitDate) -> {
-                count.getAndSet(count.get() + 1);
-                return String.format("%s: %s",
-                        context.getString(R.string.exclusive_breastfeeding_months, Integer.toString(count.get())),
-                        context.getString(NCUtils.getText(details).toLowerCase().contains("yes") ? R.string.yes : R.string.no)
-                );
-            };
+            medicalHistory(medicalHistories, CoreConstants.EventType.EXCLUSIVE_BREASTFEEDING, context.getString(R.string.exclusive_breastfeeding), getBreastFeedingFormatter(count));
 
-            medicalHistory(medicalHistories, CoreConstants.EventType.EXCLUSIVE_BREASTFEEDING, context.getString(R.string.exclusive_breastfeeding), exclusiveBreast);
+            medicalHistory(medicalHistories, CoreConstants.EventType.VITAMIN_A, context.getString(R.string.vitamin_a), getVitaminAformatter());
 
-            VisitDetailsFormatter vitaminA = (title, details, visitDate) -> {
-                String numberOnly = title.replaceAll("[^0-9]", "");
+            medicalHistory(medicalHistories, CoreConstants.EventType.DEWORMING, context.getString(R.string.deworming), getDewormingFormatter());
 
-                String date = NCUtils.getText(details);
-                String done = context.getString(R.string.done);
-                if (Constants.HOME_VISIT.VACCINE_NOT_GIVEN.equalsIgnoreCase(date))
-                    return null;
+            medicalHistory(medicalHistories, CoreConstants.EventType.MINIMUM_DIETARY_DIVERSITY, context.getString(R.string.minimum_dietary_title), getDieataryFormatter());
 
-                Date vaccineDate = VisitUtils.getDateFromString(date);
-
-                return String.format("%s - %s %s",
-                        context.getString(R.string.dose_number, numberOnly),
-                        done,
-                        vaccineDate != null ? sdf.format(vaccineDate) : ""
-                );
-            };
-            medicalHistory(medicalHistories, CoreConstants.EventType.VITAMIN_A, context.getString(R.string.vitamin_a), vitaminA);
-
-            VisitDetailsFormatter deworming = (title, details, visitDate) -> {
-                String numberOnly = title.replaceAll("[^0-9]", "");
-
-                String date = NCUtils.getText(details);
-                String done = context.getString(R.string.done);
-                if (Constants.HOME_VISIT.VACCINE_NOT_GIVEN.equalsIgnoreCase(date))
-                    return null;
-
-                Date vaccineDate = VisitUtils.getDateFromString(date);
-
-                return String.format("%s - %s %s",
-                        context.getString(R.string.dose_number, numberOnly),
-                        done,
-                        vaccineDate != null ? sdf.format(vaccineDate) : ""
-                );
-            };
-            medicalHistory(medicalHistories, CoreConstants.EventType.DEWORMING, context.getString(R.string.deworming), deworming);
-
-            VisitDetailsFormatter dietary = (title, details, visitDate) -> {
-                String diet_diversity = NCUtils.getText(details);
-                String value = "";
-                if ("chk_no_animal_products".equalsIgnoreCase(diet_diversity)) {
-                    value = context.getString(R.string.minimum_dietary_choice_1);
-                } else if ("chw_one_animal_product_or_fruit".equalsIgnoreCase(diet_diversity)) {
-                    value = context.getString(R.string.minimum_dietary_choice_2);
-                } else if ("chw_one_animal_product_and_fruit".equalsIgnoreCase(diet_diversity)) {
-                    value = context.getString(R.string.minimum_dietary_choice_3);
-                }
-
-                return String.format("%s - %s %s",
-                        value,
-                        context.getString(R.string.done),
-                        sdf.format(visitDate)
-                );
-            };
-            medicalHistory(medicalHistories, CoreConstants.EventType.MINIMUM_DIETARY_DIVERSITY, context.getString(R.string.minimum_dietary_title), dietary);
-
-            VisitDetailsFormatter muac = (title, details, visitDate) -> {
-                String value = null;
-                String raw_value = NCUtils.getText(details);
-                if ("chk_green".equalsIgnoreCase(raw_value)) {
-                    value = context.getString(R.string.muac_choice_1);
-                } else if ("chk_yellow".equalsIgnoreCase(raw_value)) {
-                    value = context.getString(R.string.muac_choice_2);
-                } else if ("chk_red".equalsIgnoreCase(raw_value)) {
-                    value = context.getString(R.string.muac_choice_3);
-                }
-
-                return String.format("%s - %s %s",
-                        value,
-                        context.getString(R.string.done),
-                        sdf.format(visitDate)
-                );
-            };
-            medicalHistory(medicalHistories, CoreConstants.EventType.MUAC, context.getString(R.string.muac_title), muac);
+            medicalHistory(medicalHistories, CoreConstants.EventType.MUAC, context.getString(R.string.muac_title), getMUACFormatter());
 
             if (medicalHistories.size() > 0) {
                 View view = new ViewBuilder()
@@ -239,6 +165,94 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
                 parentView.addView(view);
             }
         }
+    }
+
+    private VisitDetailsFormatter getBreastFeedingFormatter(AtomicReference<Integer> count) {
+        return (title, details, visitDate) -> {
+            count.getAndSet(count.get() + 1);
+            return String.format("%s: %s",
+                    context.getString(R.string.exclusive_breastfeeding_months, Integer.toString(count.get())),
+                    context.getString(NCUtils.getText(details).toLowerCase().contains("yes") ? R.string.yes : R.string.no)
+            );
+        };
+    }
+
+    private VisitDetailsFormatter getVitaminAformatter() {
+        return (title, details, visitDate) -> {
+            String numberOnly = title.replaceAll("[^0-9]", "");
+
+            String date = NCUtils.getText(details);
+            String done = context.getString(R.string.done);
+            if (Constants.HOME_VISIT.VACCINE_NOT_GIVEN.equalsIgnoreCase(date))
+                return null;
+
+            Date vaccineDate = VisitUtils.getDateFromString(date);
+
+            return String.format("%s - %s %s",
+                    context.getString(R.string.dose_number, numberOnly),
+                    done,
+                    vaccineDate != null ? sdf.format(vaccineDate) : ""
+            );
+        };
+    }
+
+    private VisitDetailsFormatter getDewormingFormatter() {
+        return (title, details, visitDate) -> {
+            String numberOnly = title.replaceAll("[^0-9]", "");
+
+            String date = NCUtils.getText(details);
+            String done = context.getString(R.string.done);
+            if (Constants.HOME_VISIT.VACCINE_NOT_GIVEN.equalsIgnoreCase(date))
+                return null;
+
+            Date vaccineDate = VisitUtils.getDateFromString(date);
+
+            return String.format("%s - %s %s",
+                    context.getString(R.string.dose_number, numberOnly),
+                    done,
+                    vaccineDate != null ? sdf.format(vaccineDate) : ""
+            );
+        };
+    }
+
+    private VisitDetailsFormatter getDieataryFormatter() {
+        return (title, details, visitDate) -> {
+            String diet_diversity = NCUtils.getText(details);
+            String value = "";
+            if ("chk_no_animal_products".equalsIgnoreCase(diet_diversity)) {
+                value = context.getString(R.string.minimum_dietary_choice_1);
+            } else if ("chw_one_animal_product_or_fruit".equalsIgnoreCase(diet_diversity)) {
+                value = context.getString(R.string.minimum_dietary_choice_2);
+            } else if ("chw_one_animal_product_and_fruit".equalsIgnoreCase(diet_diversity)) {
+                value = context.getString(R.string.minimum_dietary_choice_3);
+            }
+
+            return String.format("%s - %s %s",
+                    value,
+                    context.getString(R.string.done),
+                    sdf.format(visitDate)
+            );
+        };
+    }
+
+    private VisitDetailsFormatter getMUACFormatter() {
+        return (title, details, visitDate) -> {
+            String value = null;
+            String raw_value = NCUtils.getText(details);
+            if ("chk_green".equalsIgnoreCase(raw_value)) {
+                value = context.getString(R.string.muac_choice_1);
+            } else if ("chk_yellow".equalsIgnoreCase(raw_value)) {
+                value = context.getString(R.string.muac_choice_2);
+            } else if ("chk_red".equalsIgnoreCase(raw_value)) {
+                value = context.getString(R.string.muac_choice_3);
+            }
+
+            return String.format("%s - %s %s",
+                    value,
+                    context.getString(R.string.done),
+                    sdf.format(visitDate)
+            );
+        };
     }
 
     private void evaluateECD() {
