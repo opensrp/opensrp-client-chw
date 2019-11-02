@@ -31,7 +31,6 @@ import org.smartregister.immunization.domain.Vaccine;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -134,7 +133,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
     }
 
     private String getVaccineTitle(String name, Context context) {
-        String res =  name.contains("birth") ? context.getString(R.string.at_birth) :
+        String res = name.contains("birth") ? context.getString(R.string.at_birth) :
                 name.replace("weeks", " " + context.getString(R.string.week_full))
                         .replace("months", " " + context.getString(R.string.month_full));
 
