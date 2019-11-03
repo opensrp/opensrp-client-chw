@@ -419,6 +419,13 @@
         "v_required": {
           "value": true,
           "err": "বৈবাহিক অবস্থা নির্বাচন করুন"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hnpp_family_member_relevance.yml"
+            }
+          }
         }
       },
 

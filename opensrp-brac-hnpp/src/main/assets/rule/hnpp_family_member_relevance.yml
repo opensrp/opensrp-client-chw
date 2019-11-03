@@ -2,7 +2,7 @@
 name: step1_pregnant_status
 description: pregnant_status for female
 priority: 1
-condition: "!step1_marital_status.equalsIgnoreCase('অবিবাহিত')  && step1_sex.equalsIgnoreCase('নারী')"
+condition: "!step1_marital_status.equalsIgnoreCase('অবিবাহিত')  && step1_sex.equalsIgnoreCase('নারী') && step1_age_calculated < 50 and step1_age_calculated > 10"
 actions:
 - "isRelevant = true"
 ---
@@ -10,5 +10,12 @@ name: step1_finger_print
 description: simprints for female
 priority: 3
 condition: "(step1_pregnant_status.equalsIgnoreCase('হ্যাঁ') && step1_simprints_enable == 'true' && (step1_gu_id.isEmpty() || step1_gu_id.equalsIgnoreCase('test')) ) || (step1_marital_status.equalsIgnoreCase('বিবাহিত')  && step1_sex.equalsIgnoreCase('নারী') && step1_age_calculated < 50 and step1_age_calculated > 10 && step1_simprints_enable == 'true'  && (step1_gu_id.isEmpty() || step1_gu_id.equalsIgnoreCase('test')))"
+actions:
+- "isRelevant = true"
+---
+name: step1_marital_status
+description: marrital status
+priority: 1
+condition: "step1_age_calculated >= 10"
 actions:
 - "isRelevant = true"
