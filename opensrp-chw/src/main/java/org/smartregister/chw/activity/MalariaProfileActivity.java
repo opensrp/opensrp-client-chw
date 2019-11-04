@@ -58,6 +58,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     @Override
     protected void onCreation() {
         super.onCreation();
+//        isAnc(m);
     }
 
     @Override
@@ -152,6 +153,14 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         int id = view.getId();
         if (id == R.id.textview_record_malaria) {
             MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, MEMBER_OBJECT.getBaseEntityId());
+        } else if (id == org.smartregister.malaria.R.id.textview_record_anc) {
+            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT.getBaseEntityId(), false);
+        } else if (id == org.smartregister.malaria.R.id.textview_record_anc_not_done) {
+            textViewRecordAncNotDone.setVisibility(View.GONE);
+        } else if (id == org.smartregister.malaria.R.id.textview_undo) {
+            textViewRecordAnc.setVisibility(View.VISIBLE);
+            textViewRecordAncNotDone.setVisibility(View.VISIBLE);
+            visitStatus.setVisibility(View.GONE);
         }
     }
 
@@ -326,6 +335,25 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                         disposable[0] = null;
                     }
                 });
+    }
+
+    @Override
+    protected void recordAnc(MemberObject memberObject) {
+        if (!memberObject.getAncIsClosed() && memberObject.getGender().toUpperCase().equals("FEMALE")) {
+            textViewRecordAnc.setVisibility(View.VISIBLE);
+            textViewRecordAncNotDone.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void recordPnc(MemberObject memberObject) {
+        if (!memberObject.getPncIsClosed() && memberObject.getGender().toUpperCase().equals("FEMALE")) {
+            textViewRecordAnc.setText("Record PNC");
+            textViewRecordAnc.setVisibility(View.VISIBLE);
+
+            textViewRecordAncNotDone.setText("PNC Visit not Done");
+            textViewRecordAncNotDone.setVisibility(View.VISIBLE);
+        }
     }
 
     private class MemberType {
