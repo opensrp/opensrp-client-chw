@@ -39,6 +39,8 @@ import timber.log.Timber;
 
 public class MalariaProfileActivity extends BaseMalariaProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String CLIENT = "client";
+    private static final String ANC = "anc";
+    private static final String PNC = "pnc";
 
     public static void startMalariaActivity(Activity activity, MemberObject memberObject, CommonPersonObjectClient client) {
         Intent intent = new Intent(activity, MalariaProfileActivity.class);
@@ -154,7 +156,11 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         if (id == R.id.textview_record_malaria) {
             MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, MEMBER_OBJECT.getBaseEntityId());
         } else if (id == org.smartregister.malaria.R.id.textview_record_anc) {
-            AncHomeVisitActivity.startMe(this, MEMBER_OBJECT.getBaseEntityId(), false);
+            if (view.getTag() == ANC) {
+                AncHomeVisitActivity.startMe(this, MEMBER_OBJECT.getBaseEntityId(), false);
+            } else if (view.getTag() == PNC) {
+                PncHomeVisitActivity.startMe(this, PNCDao.getMember(MEMBER_OBJECT.getBaseEntityId()), false);
+            }
         } else if (id == org.smartregister.malaria.R.id.textview_record_anc_not_done) {
             textViewRecordAncNotDone.setVisibility(View.GONE);
         } else if (id == org.smartregister.malaria.R.id.textview_undo) {
@@ -339,20 +345,20 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
     @Override
     protected void recordAnc(MemberObject memberObject) {
-        if (!memberObject.getAncIsClosed() && memberObject.getGender().toUpperCase().equals("FEMALE")) {
+        if (AncDao.isANCMember(memberObject.getBaseEntityId())) {
             textViewRecordAnc.setVisibility(View.VISIBLE);
+            textViewRecordAnc.setTag(ANC);
+
             textViewRecordAncNotDone.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     protected void recordPnc(MemberObject memberObject) {
-        if (!memberObject.getPncIsClosed() && memberObject.getGender().toUpperCase().equals("FEMALE")) {
-            textViewRecordAnc.setText("Record PNC");
+        if (PNCDao.isPNCMember(memberObject.getBaseEntityId())) {
+            textViewRecordAnc.setText(R.string.record_pnc_visit);
+            textViewRecordAnc.setTag(PNC);
             textViewRecordAnc.setVisibility(View.VISIBLE);
-
-            textViewRecordAncNotDone.setText("PNC Visit not Done");
-            textViewRecordAncNotDone.setVisibility(View.VISIBLE);
         }
     }
 
