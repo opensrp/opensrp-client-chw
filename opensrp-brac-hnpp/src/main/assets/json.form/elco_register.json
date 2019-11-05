@@ -1,0 +1,332 @@
+{
+  "count": "1",
+  "encounter_type": "ELCO Registration",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "ELCO Registration",
+    "fields": [
+
+      {
+        "key": "familyplanning_method_known",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "hint": "পরিবার পরিকল্পনা পদ্ধতি ব্যবহার করছেন?",
+        "values": [
+          "হ্যাঁ",
+          "না"
+        ],
+        "openmrs_choice_ids": {
+          "হ্যাঁ": "Yes",
+          "না": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "প্রশ্নের উত্তর দিন"
+        }
+      },
+      {
+        "key": "familyplanning_method",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "hint": "পরিবার পরিকল্পনা পদ্ধতি-",
+        "values": [
+          "বড়ি",
+          "কনডম",
+          "ইঞ্জেকশান",
+          "আই ইউ ডি",
+          "নরপ্লান্ট",
+          "মহিলা বন্ধ্যাকরণ",
+          "পুরুষ বনধ্যাকরণ"
+        ],
+        "openmrs_choice_ids": {
+          "বড়ি": "contraceptive_pill",
+          "কনডম": "condom",
+          "ইঞ্জেকশান": "injection",
+          "আই ইউ ডি": "iud",
+          "নরপ্লান্ট": "norplant",
+          "মহিলা বন্ধ্যাকরণ": "ligation",
+          "পুরুষ বনধ্যাকরণ": "vasectomy"
+        },
+        "v_required": {
+          "value": true,
+          "err": "পরিবার পরিকল্পনা পদ্ধতি নির্বাচন করুন"
+        },
+        "relevance": {
+          "step1:familyplanning_method_known": {
+            "type": "string",
+            "ex": "equalTo(., \"হ্যাঁ\")"
+          }
+        }
+      },
+      {
+        "key": "reasons_for_not_using_the_family_planning_system",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "hint": "পরিবার পরিকল্পনা পদ্ধতি ব্যবহার না করার কারন",
+        "values": [
+          "স্বামী বিদেশ",
+          "মাসিক বন্ধ",
+          "জটিলতা হয়েছিল",
+          "উত্তীর্ন",
+          "অন্যান্য"
+        ],
+        "openmrs_choice_ids": {
+          "স্বামী বিদেশ": "husband_is_abroad",
+          "মাসিক বন্ধ": "closed_monthly",
+          "জটিলতা হয়েছিল": "conplications",
+          "উত্তীর্ন": "passed",
+          "অন্যান্য": "other"
+        },
+        "v_required": {
+          "value": true,
+          "err": "কারন নির্বাচন করুন"
+        },
+        "relevance": {
+          "step1:familyplanning_method_known": {
+            "type": "string",
+            "ex": "equalTo(., \"না\")"
+          }
+        }
+      },
+      {
+        "key": "distribution_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "hint": "পদ্ধতিটি কোথা থেকে বিতরণ করা হয়েছিল",
+        "values": [
+          "ব্র্যাক স্বাস্থ্য কর্মী",
+          "সরকারী",
+          "অন্যান্য"
+        ],
+        "openmrs_choice_ids": {
+          "ব্র্যাক স্বাস্থ্য কর্মী":"brac_health_worker",
+          "সরকারী": "official",
+          "অন্যান্য": "other"
+        },
+        "v_required": {
+          "value": true,
+          "err": "পদ্ধতি কোথা থেকে সংগ্রহ করেছেন নির্বাচন করুন"
+        },
+        "relevance": {
+          "step1:familyplanning_method_known": {
+            "type": "string",
+            "ex": "equalTo(., \"হ্যাঁ\")"
+          }
+        }
+      },
+      {
+        "key": "complications_known",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "hint": "পদ্ধতি ব্যবহারের সময় কোন জটিলতা হয়েছিল?",
+        "values": [
+          "হ্যাঁ",
+          "না"
+        ],
+        "openmrs_choice_ids": {
+          "হ্যাঁ": "Yes",
+          "না": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "প্রশ্নের উত্তর দিন"
+        },
+        "relevance": {
+          "step1:familyplanning_method_known": {
+            "type": "string",
+            "ex": "equalTo(., \"হ্যাঁ\")"
+          }
+        }
+      },
+      {
+        "key": "type_of_complications",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "check_box",
+        "label": "কি ধরণের জটিলতা হয়েছিল?",
+        "exclusive": [
+          "noIdentifier"
+        ],
+        "options": [
+          {
+            "key": "bleeding",
+            "text": "অতিরিক্ত রক্তক্ষরণ",
+            "value": false,
+            "openmrs_choice_id": "bleeding"
+          },
+          {
+            "key": "closed_monthly",
+            "text": "মাসিক বন্ধ",
+            "value": false,
+            "openmrs_choice_id": "closed_monthly"
+          },
+          {
+            "key": "cramps",
+            "text": "তলপেটে ব্যথা",
+            "value": false,
+            "openmrs_choice_id": "cramps"
+          },
+          {
+            "key": "nausea",
+            "text": "মাথা ঘোরা/ বমি বমি ভাব",
+            "value": false,
+            "openmrs_choice_id": "nausea"
+          },
+          {
+            "key": "irregular_menses",
+            "text": "অনিয়মিত মাসিক",
+            "value": false,
+            "openmrs_choice_id": "irregular_menses"
+          },
+          {
+            "key": "tender_breasts",
+            "text": "স্তনে ব্যথা",
+            "value": false,
+            "openmrs_choice_id": "tender_breasts"
+          },
+          {
+            "key": "lactose_deficiency",
+            "text": "বুকের দুধ কমে যাওয়া",
+            "value": false,
+            "openmrs_choice_id": "lactose_deficiency"
+          },
+          {
+            "key": "dyspnoea",
+            "text": "বুকে ব্যথা ও শ্বাসকষ্ট",
+            "value": false,
+            "openmrs_choice_id": "dyspnoea"
+          }
+        ],
+        "relevance": {
+          "step1:reasons_for_not_using_the_family_planning_system": {
+            "type": "string",
+            "ex": "equalTo(., \"জটিলতা হয়েছিল\")"
+          }
+        }
+      },
+      {
+        "key": "familyplanning_referral",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "hint": "পরিবার পরিকল্পনা পদ্ধতির জন্য রেফার করা হয়েছিলো?",
+        "values": [
+          "হ্যাঁ",
+          "না"
+        ],
+        "openmrs_choice_ids": {
+          "হ্যাঁ": "Yes",
+          "না": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "প্রশ্নের উত্তর দিন"
+        },
+        "relevance": {
+          "step1:familyplanning_method_known": {
+            "type": "string",
+            "ex": "equalTo(., \"হ্যাঁ\")"
+          }
+        }
+      },
+      {
+        "key": "familyplanning_referral_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "hint": "কোথায় রেফার করা হয়েছিলো?",
+        "values": [
+          "উপজেলা স্বাস্থ্য কেন্দ্র",
+          "এফডব্লিউসি",
+          "এমসিডব্লিউসি",
+          "এনজিও ক্লিনিক",
+          "মেডিকেল কলেজ হাসপাতাল",
+          "জেলা হাসপাতাল"
+        ],
+        "openmrs_choice_ids": {
+          "উপজেলা স্বাস্থ্য কেন্দ্র": "upazila_health_center",
+          "এফডব্লিউসি":"FWCE",
+          "এমসিডব্লিউসি": "MCWCE",
+          "এনজিও ক্লিনিক": "NGO_Clinic",
+          "মেডিকেল কলেজ হাসপাতাল": "medical_college_hospital",
+          "জেলা হাসপাতাল": "zilla_hospital"
+        },
+        "v_required": {
+          "value": true,
+          "err": "রেফার এর ঠিকানা নির্বাচন করুন "
+        },
+        "relevance": {
+          "step1:familyplanning_referral": {
+            "type": "string",
+            "ex": "equalTo(., \"হ্যাঁ\")"
+          }
+        }
+      }
+    ]
+  }
+}
