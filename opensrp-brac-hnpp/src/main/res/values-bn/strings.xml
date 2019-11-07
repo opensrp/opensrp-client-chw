@@ -104,4 +104,10 @@
     <string name="sick_child_follow_up">অসুস্থ সন্তানের ফলোআপ</string>
     <string name="family_has_nothing_due">অন্যান্য সদস্য</string>
     <string name="return_to_family_members">পরিবারের তালিকা</string>
+    <string name="last_visit_prefix">শেষ পরিদর্শন %1$s আগে</string>
+    <string name="due">বাকি </string>
+    <string name="other_service">অন্যান্য সেবা ও প্যাকেজ </string>
+    <string name="activity">ইতিহাস</string>
+    <string name="profile_activity_not_visited">Marked not visited on %s</string>
+    <string name="profile_activity_completed">Completed on %s</string>
 </resources>

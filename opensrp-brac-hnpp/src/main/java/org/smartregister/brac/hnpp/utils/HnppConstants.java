@@ -6,7 +6,9 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
+import org.smartregister.Context;
 import org.smartregister.brac.hnpp.BuildConfig;
+import org.smartregister.brac.hnpp.R;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
@@ -52,6 +54,15 @@ public class HnppConstants extends CoreConstants {
     public static final class FORM_KEY {
         public static final String SS_INDEX = "ss_index";
         public static final String VILLAGE_INDEX = "village_index";
+    }
+    public static String getGender(String value){
+        if(value.equalsIgnoreCase("F")){
+            return "মহিলা";
+        }
+        if(value.equalsIgnoreCase("M")){
+            return "পুরুষ";
+        }
+        return value;
     }
 
     public static String getTotalCountBn(int count){

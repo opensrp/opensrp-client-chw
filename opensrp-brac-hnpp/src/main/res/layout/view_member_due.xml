@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:paddingBottom="@dimen/register_list_max_padding"
+    android:paddingTop="@dimen/register_list_max_padding">
+    <LinearLayout
+        android:id="@+id/status_layout"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="gone"
+        android:layout_marginLeft="@dimen/register_list_item_margin"
+        android:layout_marginStart="@dimen/register_list_item_margin"
+        android:layout_marginTop="@dimen/register_due_status_top_margin"
+        android:paddingBottom="@dimen/register_list_top_bottom_min_padding"
+        android:paddingLeft="@dimen/register_list_top_bottom_min_padding"
+        android:paddingStart="@dimen/register_list_top_bottom_min_padding"
+        android:paddingTop="@dimen/register_list_top_bottom_min_padding">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/status"
+            android:layout_width="@dimen/register_due_status_size"
+            android:layout_height="@dimen/register_due_status_size"
+            android:src="@color/due_profile_blue"
+            app:civ_border_color="#FFFFFFFF"
+            app:civ_border_width="0dp" />
+    </LinearLayout>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_view"
+        android:layout_toRightOf="@+id/status_layout"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/childrow_family"
+        app:civ_border_color="#FFFFFFFF"
+        app:civ_border_width="0dp" />
+    <LinearLayout
+        android:id="@+id/patient_column"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/register_list_item_end_margin"
+        android:layout_marginLeft="@dimen/register_list_item_margin"
+        android:layout_marginRight="@dimen/register_list_item_end_margin"
+        android:layout_marginStart="@dimen/register_list_item_margin"
+        android:layout_toEndOf="@+id/image_view"
+        android:layout_toLeftOf="@+id/next_arrow_column"
+        android:layout_toRightOf="@+id/image_view"
+        android:layout_toStartOf="@+id/next_arrow_column"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/patient_name_age"
+            style="@style/CustomFontTextViewStyle.ClientList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="0dp"
+            android:paddingStart="0dp"
+            android:singleLine="true"
+            android:text="Boby Smith , 3y &#183; Home Visit"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/register_list_title_size" />
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/last_visit"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="0dp"
+            android:visibility="gone"
+            android:text="Last visit 40 Days ago"
+            android:textColor="@color/light_grey_text"
+            android:textSize="@dimen/register_list_desc_size" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/next_arrow_column"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:paddingEnd="@dimen/register_list_next_arrow_padding"
+        android:paddingRight="@dimen/register_list_next_arrow_padding">
+
+        <ImageView
+            android:id="@+id/next_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/register_list_top_bottom_padding"
+            android:paddingEnd="@dimen/register_list_max_padding"
+            android:paddingLeft="@dimen/register_list_member_item_padding"
+            android:paddingRight="@dimen/register_list_max_padding"
+            android:paddingStart="@dimen/register_list_member_item_padding"
+            android:paddingTop="@dimen/register_list_top_bottom_padding"
+            android:src="@mipmap/ic_arrow_forward" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/image_view"
+        android:background="@color/light_grey"
+        android:visibility="visible" />
+</RelativeLayout>
