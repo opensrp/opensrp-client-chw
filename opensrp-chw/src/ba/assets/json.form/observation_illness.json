@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Observations & Illness Episodes",
+    "title": "Observations & Illness",
     "fields": [
       {
         "key": "date_of_illness",
@@ -92,14 +92,24 @@
         "values": [
           "ORS 5",
           "Zinc 10",
-          "Paracetamol",
-          "Other treatment"
+          "Panadol",
+          "Referred",
+          "Other treatment",
+          "No treatment given"
+        ],
+        "keys": [
+          "ORS 5",
+          "Zinc 10",
+          "Panadol",
+          "Referred",
+          "Other treatment given",
+          "No treatment"
         ]
       },
       {
         "key": "other_treat_1m5yr",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Other treatment",

@@ -1,6 +1,6 @@
 ---
 name: step1_referral_date_child
-description: Calculated age_at_death
+description: Date child referral was submitted
 priority: 1
 condition: "true"
 actions:
@@ -12,7 +12,7 @@ actions:
   - "calculation = getDate('yyyy-MM-dd')"
 ---
 name: step1_referral_time_child
-description: Calculated age_at_death
+description: Time child referral was submitted
 priority: 1
 condition: "true"
 actions:

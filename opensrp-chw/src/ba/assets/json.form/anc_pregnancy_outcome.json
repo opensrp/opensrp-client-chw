@@ -168,6 +168,10 @@
           "1",
           "2+"
         ],
+        "keys": [
+          "1",
+          "2+"
+        ],
         "openmrs_choice_ids": {
           "1": "159913AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "2+": "159914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -193,6 +197,12 @@
         "type": "spinner",
         "hint": "The place the mother gave birth",
         "values": [
+          "At home",
+          "At a health facility",
+          "On the way to the health facility",
+          "Other"
+        ],
+        "keys": [
           "At home",
           "At a health facility",
           "On the way to the health facility",
@@ -286,7 +296,7 @@
         "options": [
           {
             "key": "facility_family_member",
-            "text": "She gave birth in a helath facility, and she was accompanied by family member(s)",
+            "text": "She gave birth in a health facility, and she was accompanied by family member(s)",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -336,7 +346,7 @@
         "text_size": "5sp",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "relevance": {
           "rules-engine": {
@@ -388,7 +398,7 @@
       {
         "key": "surname",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Surname",
@@ -412,7 +422,7 @@
       {
         "key": "same_as_fam_name_chk",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "text",
         "type": "check_box",
@@ -523,6 +533,10 @@
           "Male",
           "Female"
         ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
         "v_required": {
           "value": "true",
           "err": "Please enter the sex"
@@ -543,6 +557,10 @@
         "type": "spinner",
         "hint": "Physical disabilities",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -586,6 +604,10 @@
         "type": "spinner",
         "hint": "Early initiation of breastfeeding (1 hr)?",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],

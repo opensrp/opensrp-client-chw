@@ -50,7 +50,13 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         // get contact
         LocalDate lastContact = new DateTime(memberObject.getDateCreated()).toLocalDate();
         boolean isFirst = (StringUtils.isBlank(memberObject.getLastContactVisit()));
-        LocalDate lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastMenstrualPeriod());
+        LocalDate lastMenstrualPeriod = new LocalDate();
+        try {
+            lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastMenstrualPeriod());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
 
         if (StringUtils.isNotBlank(memberObject.getLastContactVisit())) {
             lastContact = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastContactVisit());
@@ -121,7 +127,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                                          Map<String, List<VisitDetail>> details,
                                          final Context context) throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction nutrition_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_nutrition_status))
-                .withOptional(false)
+                .withOptional(true)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getNutritionStatus())
                 .withHelper(new NutritionAction())
@@ -362,7 +368,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public String evaluateSubTitle() {
-            String subTitle = (fam_planning.equalsIgnoreCase("Yes") ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase());
+            String subTitle = (fam_planning.equalsIgnoreCase("Yes") ? context.getString(R.string.family_planning_done).toLowerCase() : context.getString(R.string.family_planning_not_done).toLowerCase());
             return StringUtils.capitalize(subTitle);
         }
 
@@ -434,7 +440,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             if (StringUtils.isBlank(nutrition_status)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
             }
-
             return BaseAncHomeVisitAction.Status.COMPLETED;
         }
 

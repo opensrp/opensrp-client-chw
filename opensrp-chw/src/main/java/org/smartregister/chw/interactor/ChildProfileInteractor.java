@@ -14,6 +14,7 @@ import org.smartregister.chw.core.utils.ChildHomeVisit;
 import org.smartregister.chw.core.utils.CoreChildService;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
@@ -248,7 +249,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
             } else {
                 CoreChildUtils.visitNotDone(getpClient().entityId());
             }
-
+            ChwScheduleTaskExecutor.getInstance().execute(getpClient().entityId(), CoreConstants.EventType.CHILD_VISIT_NOT_DONE, new Date());
             objectObservableEmitter.onNext("");
         });
     }

@@ -70,13 +70,6 @@
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_redness_around_umbilical_cord",
-            "text": "Redness around the umbilical cord, foul-smelling discharge from the umbilical cord",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "132407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "chk_excessive_crying",
             "text": "Excessive crying",
             "value": false,
@@ -91,11 +84,11 @@
             "openmrs_entity_id": "125061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_chest_indrawing",
-            "text": "Chest indrawing",
+            "key": "chk_difficult_breathing",
+            "text": "Difficulty breathing",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_unable_to_suck",
@@ -103,6 +96,13 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_umbilical_discharge",
+            "text": "Umbilical blood / pus discharge",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_no_movement",
@@ -119,11 +119,32 @@
             "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
+            "key": "chk_skin_rashes",
+            "text": "Skin rashes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
             "key": "chk_pale",
             "text": "Pale or jaundiced",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_eye_discharge",
+            "text": "Eye discharge",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "142246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_severe_abdominal_pain",
+            "text": "Severe abdominal pain",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_lethargy",
@@ -148,7 +169,7 @@
       {
         "key": "danger_signs_present_toaster",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Danger sign! \nRefer immediately to health facility.",
@@ -160,14 +181,17 @@
               {
                 "or": [
                   "chk_fever",
-                  "chk_redness_around_umbilical_cord",
                   "chk_excessive_crying",
                   "chk_fast_breathing",
-                  "chk_chest_indrawing",
+                  "chk_difficult_breathing",
                   "chk_unable_to_suck",
+                  "chk_umbilical_discharge",
                   "chk_no_movement",
                   "chk_convulsions",
+                  "chk_skin_rashes",
                   "chk_pale",
+                  "chk_eye_discharge",
+                  "chk_severe_abdominal_pain",
                   "chk_lethargy"
                 ]
               }

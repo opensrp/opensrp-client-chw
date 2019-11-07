@@ -68,7 +68,7 @@
         "text_size": "5sp",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": ""
       },
       {
@@ -178,7 +178,7 @@
         "text_size": "5sp",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "relevance": {
           "rules-engine": {
@@ -230,7 +230,7 @@
       {
         "key": "surname",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Surname",
@@ -254,7 +254,7 @@
       {
         "key": "same_as_fam_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "text",
         "type": "check_box",
@@ -394,7 +394,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the sex"
+          "err": "Please select if baby has low the weight"
         },
         "relevance": {
           "rules-engine": {
@@ -421,7 +421,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the sex"
+          "err": "Please enter Early initiation of breastfeeding"
         },
         "relevance": {
           "rules-engine": {
@@ -448,7 +448,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the sex"
+          "err": "Please enter if Physically challenged"
         },
         "relevance": {
           "rules-engine": {
@@ -457,53 +457,6 @@
             }
           }
         }
-      },
-      {
-        "key": "essential_newborn_care",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "essential_newborn_care",
-        "type": "check_box",
-        "label": "Essential newborn care received at the health facility",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "exclusive": [
-          "chk_none"
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please pick at least one"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        },
-        "options": [
-          {
-            "key": "chk_none",
-            "text": "None",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_chlorhexidine_applied",
-            "text": "Chlorhexidine applied to umbilical stump",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "73263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_skin_contact",
-            "text": "Skin to skin contact for at least 2 hours",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "164173AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ]
       },
       {
         "key": "opv0_date",
@@ -515,6 +468,13 @@
         "expanded": false,
         "min_date": "today-120y",
         "max_date": "today",
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:delivery_date)",
+            "err": "Date of OPV 0 can't occur before delivery date"
+          }
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -532,6 +492,13 @@
         "hint": "BCG date",
         "expanded": false,
         "max_date": "today",
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:delivery_date)",
+            "err": "Date of BCG can't occur before delivery date"
+          }
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {

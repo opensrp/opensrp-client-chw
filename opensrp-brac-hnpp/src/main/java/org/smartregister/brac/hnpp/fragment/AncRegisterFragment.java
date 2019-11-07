@@ -1,6 +1,6 @@
 package org.smartregister.brac.hnpp.fragment;
 
-import org.smartregister.brac.hnpp.activity.AncMemberProfileActivity;
+
 import org.smartregister.brac.hnpp.model.AncRegisterFragmentModel;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -45,7 +45,7 @@ public class AncRegisterFragment extends CoreAncRegisterFragment {
             familyHeadPhone = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE);
         }
 
-        AncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), familyName, familyHeadPhone, client);
+        //AncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), familyName, familyHeadPhone, client);
     }
 
     @Override

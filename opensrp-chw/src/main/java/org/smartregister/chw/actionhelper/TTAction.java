@@ -7,11 +7,11 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -27,7 +27,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public class TTAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
+public class TTAction extends HomeVisitActionHelper {
     private Context context;
     private String str_date;
     private Date parsedDate;
@@ -115,23 +115,4 @@ public class TTAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper
         }
     }
 
-    @Override
-    public void onPayloadReceived(BaseAncHomeVisitAction ba) {
-        try {
-            JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
-            String value = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("tt{0}_date", vaccineStringTriple.getRight()));
-
-            try {
-                if (ba.getVaccineWrapper() != null && ba.getVaccineWrapper().size() > 0) {
-                    DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
-                    ba.getVaccineWrapper().get(0).setUpdatedVaccineDate(updateDate, false);
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-
-        } catch (JSONException e) {
-            Timber.e(e);
-        }
-    }
 }

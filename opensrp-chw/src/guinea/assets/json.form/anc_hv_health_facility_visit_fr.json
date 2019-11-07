@@ -116,8 +116,12 @@
           "err": "Entrez un numéro valide"
         },
         "v_min": {
-          "value": "0",
-          "err": "Weight must be equal or greater than 0"
+          "value": "30",
+          "err": "Poids doit être égal ou supérieur à 30"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Poids doit être égal ou inférieur à 200"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -151,7 +155,7 @@
           "value": "false",
           "err": "Cette réponse est requise."
         },
-        "v_numeric_integer": {
+        "v_numeric": {
           "value": "true",
           "err": "Doit être un nombre arrondi"
         },
@@ -180,7 +184,7 @@
           "value": "false",
           "err": "Cette réponse est requise."
         },
-        "v_numeric_integer": {
+        "v_numeric": {
           "value": "true",
           "err": "Doit être un nombre arrondi"
         },
@@ -222,9 +226,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "label_info_title": "FAF reçu??",
+        "label_info_title": "FAF reçu?",
         "label_info_text": "Whether the woman has received IFA tablets.",
-        "hint": "FAF reçu??",
+        "hint": "FAF reçu?",
         "v_required": {
           "value": "true",
           "err": "Cette réponse est requise."

@@ -1,10 +1,14 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
+import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
+import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
+import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
@@ -13,20 +17,19 @@ import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
 import org.smartregister.chw.fragment.FamilyProfileMemberFragment;
 import org.smartregister.chw.model.FamilyProfileModel;
+import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
-public class FamilyProfileActivity extends CoreFamilyProfileActivity {
-    private FamilyProfileActivityFragment profileActivityFragment;
-    private BaseFamilyProfileDueFragment profileDueFragment;
+import java.util.HashMap;
 
-    public void updateWashCheckActivity() {
-        profileActivityFragment.updateWashCheck();
-    }
+public class FamilyProfileActivity extends CoreFamilyProfileActivity {
+    private BaseFamilyProfileDueFragment profileDueFragment;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -80,13 +83,17 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
 
+    public FamilyProfilePresenter getFamilyProfilePresenter() {
+        return (FamilyProfilePresenter) presenter;
+    }
+
     @Override
     protected ViewPager setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
         profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
-        profileActivityFragment = (FamilyProfileActivityFragment) FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
+        FamilyProfileActivityFragment profileActivityFragment = (FamilyProfileActivityFragment) FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
 
         adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
         adapter.addFragment(profileDueFragment, this.getString(org.smartregister.family.R.string.due).toUpperCase());
@@ -99,5 +106,60 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         }
 
         return viewPager;
+    }
+
+    @Override
+    protected Class<?> getFamilyOtherMemberProfileActivityClass() {
+        return FamilyOtherMemberProfileActivity.class;
+    }
+
+    @Override
+    protected Class<? extends CoreAboveFiveChildProfileActivity> getAboveFiveChildProfileActivityClass() {
+        return AboveFiveChildProfileActivity.class;
+    }
+
+    @Override
+    protected Class<? extends CoreChildProfileActivity> getChildProfileActivityClass() {
+        return ChildProfileActivity.class;
+    }
+
+    @Override
+    protected Class<? extends BaseAncMemberProfileActivity> getAncMemberProfileActivityClass() {
+        return AncMemberProfileActivity.class;
+    }
+
+    @Override
+    protected Class<? extends BasePncMemberProfileActivity> getPncMemberProfileActivityClass() {
+        return PncMemberProfileActivity.class;
+    }
+
+    @Override
+    protected boolean isAncMember(String baseEntityId) {
+        return getFamilyProfilePresenter().isAncMember(baseEntityId);
+    }
+
+    @Override
+    protected HashMap<String, String> getAncFamilyHeadNameAndPhone(String baseEntityId) {
+        return getFamilyProfilePresenter().getAncFamilyHeadNameAndPhone(baseEntityId);
+    }
+
+    @Override
+    protected CommonPersonObject getAncCommonPersonObject(String baseEntityId) {
+        return getFamilyProfilePresenter().getAncCommonPersonObject(baseEntityId);
+    }
+
+    @Override
+    protected boolean isPncMember(String baseEntityId) {
+        return getFamilyProfilePresenter().isPncMember(baseEntityId);
+    }
+
+    @Override
+    protected CommonPersonObject getPncCommonPersonObject(String baseEntityId) {
+        return getFamilyProfilePresenter().getPncCommonPersonObject(baseEntityId);
+    }
+
+    @Override
+    public Context getApplicationContext() {
+        return this;
     }
 }

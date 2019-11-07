@@ -3,8 +3,6 @@ package org.smartregister.brac.hnpp;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 
 import org.jetbrains.annotations.NotNull;
@@ -24,8 +22,6 @@ import org.smartregister.brac.hnpp.utils.HNPPApplicationUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.core.loggers.CrashlyticsTree;
-import org.smartregister.chw.core.sync.ChwClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.brac.hnpp.activity.AncRegisterActivity;
@@ -36,6 +32,7 @@ import org.smartregister.brac.hnpp.activity.ReferralRegisterActivity;
 import org.smartregister.brac.hnpp.custom_view.HnppNavigationMenu;
 import org.smartregister.brac.hnpp.job.HnppJobCreator;
 import org.smartregister.brac.hnpp.model.HnppNavigationModel;
+import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -53,7 +50,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 public class HnppApplication extends CoreChwApplication implements CoreApplication {
@@ -214,5 +210,20 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
         metadata.updateFamilyActivityRegister(CoreConstants.TABLE_NAME.CHILD_ACTIVITY, Integer.MAX_VALUE, false);
         metadata.updateFamilyOtherMemberRegister(CoreConstants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
         return metadata;
+    }
+
+    @Override
+    public ArrayList<String> getAllowedLocationLevels() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getFacilityHierarchy() {
+        return null;
+    }
+
+    @Override
+    public String getDefaultLocationLevel() {
+        return null;
     }
 }

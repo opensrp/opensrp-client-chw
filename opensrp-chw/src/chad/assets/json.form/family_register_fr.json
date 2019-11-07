@@ -137,7 +137,7 @@
       {
         "key": "spacer",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "spacer",
         "spacer_height": "15dp"
@@ -201,7 +201,7 @@
       {
         "key": "photo",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "choose_image",
         "uploadButtonText": "Prenez un photo de la personne"
@@ -237,7 +237,7 @@
       {
         "key": "surname",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Nom",
@@ -261,7 +261,7 @@
       {
         "key": "same_as_fam_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
         "label": "",
@@ -332,7 +332,7 @@
           "label": "Âge"
         },
         "min_date": "today-120y",
-        "max_date": "today-5y",
+        "max_date": "today-15y",
         "v_required": {
           "value": "true",
           "err": "Veuillez entrer la date de naissance"
@@ -373,8 +373,8 @@
           "err": "Numéro doit commencer avec 0 et doit consister de 10 chiffres au total"
         },
         "v_min": {
-          "value": "5",
-          "err": "l'âge doit être égale ou supérieure à 5"
+          "value": "15",
+          "err": "l'âge doit être égale ou supérieure à 15"
         },
         "v_max": {
           "value": "120",

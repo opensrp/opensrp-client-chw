@@ -26,7 +26,8 @@ public class ChildRegisterFragmentPresenterTest extends BaseUnitTest {
 
     @Test
     public void testMainCondition() {
-        Assert.assertEquals(" date_removed is null AND  ((( julianday('now') - julianday(dob))/365.25) <5)", presenter.getMainCondition());
+        String tableName = "table_a";
+        Assert.assertEquals(" date_removed is null AND  ((( julianday('now') - julianday(dob))/365.25) <5)", presenter.getMainCondition(tableName));
 
     }
 

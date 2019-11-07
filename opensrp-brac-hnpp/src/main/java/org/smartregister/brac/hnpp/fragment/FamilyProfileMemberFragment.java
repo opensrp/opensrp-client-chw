@@ -54,7 +54,6 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
         presenter = new BaseFamilyProfileMemberPresenter(this, new HNPPFamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
     }
 
-    @Override
     public void goToChildProfileActivity(CommonPersonObjectClient patient) {
         String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
         Integer yearOfBirth = CoreChildUtils.dobStringToYear(dobString);
@@ -73,17 +72,14 @@ public class FamilyProfileMemberFragment extends CoreFamilyProfileMemberFragment
         startActivity(intent);
     }
 
-    @Override
     protected Class<?> getFamilyOtherMemberProfileActivityClass() {
         return HnppFamilyOtherMemberProfileActivity.class;
     }
 
-    @Override
     protected Class<? extends CoreChildProfileActivity> getChildProfileActivityClass() {
         return HnppChildProfileActivity.class;
     }
 
-    @Override
     protected Class<? extends CoreAboveFiveChildProfileActivity> getAboveFiveChildProfileActivityClass() {
         return AboveFiveChildProfileActivity.class;
     }

@@ -57,7 +57,7 @@
       {
         "key": "photo",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "choose_image",
         "uploadButtonText": "Prenez un photo de la personne"
@@ -103,7 +103,7 @@
         "key": "surname",
         "type": "edit_text",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "hint": "Nom",
         "edit_type": "name",
@@ -126,7 +126,7 @@
       {
         "key": "same_as_fam_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
         "openmrs_data_type": "text",
@@ -146,7 +146,7 @@
       {
         "key": "fam_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
         "hidden": "true"
@@ -291,7 +291,7 @@
       {
         "key": "primary_caregiver",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "spinner",
         "hint": "Est la gardienne?",
@@ -302,7 +302,14 @@
         "keys": [
           "Yes",
           "No"
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "phone_number",
@@ -313,11 +320,11 @@
         "hint": "Numéro de téléphone",
         "v_numeric": {
           "value": "true",
-          "err": "Numéro doit consister de 10 chiffres au total"
+          "err": "Le numéro doit être composé de 8 à 16 chiffres"
         },
         "v_regex": {
           "value": "([0-9]{8,16})|\\s*",
-          "err": "Le Numéro doit commencer avec 0 et doit consister de 10 chiffres au total."
+          "err": "Le numéro doit être composé de 8 à 16 chiffres."
         },
         "v_required": {
           "value": false,
@@ -339,11 +346,11 @@
         "hint": "Autre numéro de téléphone",
         "v_numeric": {
           "value": "true",
-          "err": "Numéro doit consister de 10 chiffres au total"
+          "err": "Le numéro doit être composé de 8 à 16 chiffres"
         },
         "v_regex": {
           "value": "([0-9]{8,16})|\\s*",
-          "err": "Le Numéro doit commencer avec 0 et doit consister de 10 chiffres au total."
+          "err": "Le numéro doit être composé de 8 à 16 chiffres."
         },
         "relevance": {
           "step1:primary_caregiver": {

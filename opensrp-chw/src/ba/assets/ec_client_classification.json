@@ -37,6 +37,20 @@
           },
           {
             "field": "eventType",
+            "field_value": "Malaria Follow-up Visit",
+            "creates_case": [
+              "ec_malaria_follow_up_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Malaria Confirmation",
+            "closes_case": [
+              "ec_malaria_confirmation"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Update Family Registration",
             "creates_case": [
               "ec_family"
@@ -149,6 +163,13 @@
             "field_value": "ANC Referral",
             "creates_case": [
               "ec_anc_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PNC Referral",
+            "creates_case": [
+              "ec_pnc_referral"
             ]
           }
         ]

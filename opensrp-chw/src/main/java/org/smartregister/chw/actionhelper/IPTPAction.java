@@ -5,8 +5,6 @@ import android.content.Context;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,7 +54,7 @@ public class IPTPAction extends HomeVisitActionHelper {
     public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
         Timber.v("onJsonFormLoaded");
     }
-
+/*
     @Override
     public void onPayloadReceived(BaseAncHomeVisitAction ba) {
         try {
@@ -76,7 +74,7 @@ public class IPTPAction extends HomeVisitActionHelper {
             Timber.e(e);
         }
     }
-
+*/
     @Override
     public void onPayloadReceived(String jsonPayload) {
         try {

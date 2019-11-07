@@ -1,22 +1,57 @@
 package org.smartregister.chw.activity;
 
-import android.content.Intent;
-import android.os.Bundle;
 
-import org.smartregister.chw.core.custom_views.NavigationMenu;
+import android.app.Activity;
+import android.content.Intent;
+
+import org.apache.commons.lang3.EnumUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.anc.util.JsonFormUtils;
+import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
+import org.smartregister.chw.core.activity.CorePncRegisterActivity;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.PncRegisterFragment;
-import org.smartregister.chw.util.Constants;
-import org.smartregister.helper.BottomNavigationHelper;
+import org.smartregister.job.SyncServiceJob;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
-public class PncRegisterActivity extends AncRegisterActivity {
+import timber.log.Timber;
+
+public class PncRegisterActivity extends CorePncRegisterActivity {
+
+    public static void startPncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
+                                                    String uniqueId, String familyBaseID, String family_name) {
+        Intent intent = new Intent(activity, PncRegisterActivity.class);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
+        phone_number = phoneNumber;
+        familyBaseEntityId = familyBaseID;
+        form_name = formName;
+        familyName = family_name;
+        unique_id = uniqueId;
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.TABLE_NAME, getFormTable());
+        activity.startActivity(intent);
+    }
+
+    @Override
+    public void onRegistrationSaved(String encounterType, boolean isEdit, boolean hasChildren) {
+        if (encounterType.equalsIgnoreCase(Constants.EVENT_TYPE.PREGNANCY_OUTCOME)) {
+            Timber.d("We are home - PNC Register");
+        } else {
+            super.onRegistrationSaved(encounterType, isEdit, hasChildren);
+        }
+    }
 
     @Override
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();
-        bottomNavigationHelper = new BottomNavigationHelper();
-        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
         FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
+    }
+
+    @Override
+    protected Class<? extends CoreFamilyRegisterActivity> getFamilyRegisterActivity() {
+        return FamilyRegisterActivity.class;
     }
 
     @Override
@@ -24,28 +59,29 @@ public class PncRegisterActivity extends AncRegisterActivity {
         return new PncRegisterFragment();
     }
 
-    @Override
-    public void switchToBaseFragment() {
-        Intent intent = new Intent(this, FamilyRegisterActivity.class);
-        startActivity(intent);
-        finish();
-    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResultExtended(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            try {
+                JSONObject form = new JSONObject(data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON));
+                String encounter_type = form.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+                if (CoreConstants.EventType.PREGNANCY_OUTCOME.equals(encounter_type)) {
+                    JSONArray fields = org.smartregister.util.JsonFormUtils.fields(form);
+                    String pregnancyOutcome = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, org.smartregister.chw.util.Constants.pregnancyOutcome).optString(JsonFormUtils.VALUE);
+                    if (EnumUtils.isValidEnum(org.smartregister.chw.util.Constants.FamilyRegisterOptionsUtil.class, pregnancyOutcome)) {
+                        startRegisterActivity(FamilyRegisterActivity.class);
+                        this.finish();
+                        return;
+                    }
+                }
+                SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
 
-
-        super.onCreate(savedInstanceState);
-        NavigationMenu.getInstance(this, null, null);
-    }
-
-    @Override
-    protected void onResumption() {
-        super.onResumption();
-        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
-        if (menu != null) {
-            menu.getNavigationAdapter()
-                    .setSelectedView(Constants.DrawerMenu.PNC);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        } else {
+            this.finish();
         }
     }
 }

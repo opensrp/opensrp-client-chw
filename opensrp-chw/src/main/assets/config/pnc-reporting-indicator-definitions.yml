@@ -1,0 +1,224 @@
+indicators:
+  - key: "pnc_report_indicator_1_1"
+    description: "COUNT of women who delivered in a health facility (last 6 months)"
+    indicatorQuery: "select count(*) from ec_pregnancy_outcome where (preg_outcome = 'Live birth' or preg_outcome = 'Stillbirth') and delivery_place = 'Health facility' and (substr(delivery_date, 7, 4) || '-' || substr(delivery_date, 4, 2) || '-' || substr(delivery_date, 1, 2)) >= date('now', '-6 month')"
+
+  - key: "pnc_report_indicator_1_2"
+    description: "COUNT of women who delivered elsewhere (last 6 months)"
+    indicatorQuery: "select count(*) from ec_pregnancy_outcome where (preg_outcome = 'Live birth' or preg_outcome = 'Stillbirth') and (delivery_place = 'Home' or delivery_place = 'Other') and (substr(delivery_date, 7, 4) || '-' || substr(delivery_date, 4, 2) || '-' || substr(delivery_date, 1, 2)) >= date('now', '-6 month')"
+
+  - key: "pnc_report_indicator_2_1"
+    description: "COUNT of babies born with normal birth weight (last 6 months)"
+    indicatorQuery: "select count(*) from ec_child where ec_child.low_birth_weight = 'No' and ec_child.dob >= date('now', '-6 month') and ec_child.dod ISNULL and ec_child.relational_id in (select ec_pregnancy_outcome.relational_id from ec_pregnancy_outcome where ec_pregnancy_outcome.preg_outcome = 'Live birth' and (substr(ec_pregnancy_outcome.delivery_date, 7, 4) || '-' || substr(ec_pregnancy_outcome.delivery_date, 4, 2) || '-' || substr(ec_pregnancy_outcome.delivery_date, 1, 2)) >= date('now', '-6 month'));"
+
+  - key: "pnc_report_indicator_2_2"
+    description: "COUNT of babies born with low birth weight"
+    indicatorQuery: "select count(*) from ec_child where ec_child.low_birth_weight = 'Yes' and ec_child.dob >= date('now', '-6 month') and ec_child.dod ISNULL and ec_child.relational_id in (select ec_pregnancy_outcome.relational_id from ec_pregnancy_outcome where ec_pregnancy_outcome.preg_outcome = 'Live birth' and (substr(ec_pregnancy_outcome.delivery_date, 7, 4) || '-' || substr(ec_pregnancy_outcome.delivery_date, 4, 2) || '-' || substr(ec_pregnancy_outcome.delivery_date, 1, 2)) >= date('now', '-6 month'));"
+
+  - key: "pnc_report_indicator_3_1"
+    description: "COUNT of babies born who were early initiated into breastfeeding (last 6 months)"
+    indicatorQuery: "select count(*) from ec_child where ec_child.early_bf_1hr = 'Yes' and ec_child.dob >= date('now', '-6 month') and ec_child.dod ISNULL and ec_child.relational_id in (select ec_pregnancy_outcome.relational_id from ec_pregnancy_outcome where ec_pregnancy_outcome.preg_outcome = 'Live birth' and (substr(ec_pregnancy_outcome.delivery_date, 7, 4) || '-' || substr(ec_pregnancy_outcome.delivery_date, 4, 2) || '-' || substr(ec_pregnancy_outcome.delivery_date, 1, 2)) >= date('now', '-6 month'));"
+
+  - key: "pnc_report_indicator_3_2"
+    description: "COUNT of babies born who were not early initiated into breastfeeding"
+    indicatorQuery: "select count(*) from ec_child where ec_child.early_bf_1hr = 'No' and ec_child.dob >= date('now', '-6 month') and ec_child.dod ISNULL and ec_child.relational_id in (select ec_pregnancy_outcome.relational_id from ec_pregnancy_outcome where ec_pregnancy_outcome.preg_outcome = 'Live birth' and (substr(ec_pregnancy_outcome.delivery_date, 7, 4) || '-' || substr(ec_pregnancy_outcome.delivery_date, 4, 2) || '-' || substr(ec_pregnancy_outcome.delivery_date, 1, 2)) >= date('now', '-6 month'));"
+
+  - key: "pnc_report_indicator_4_1"
+    description: "COUNT of babies born in the last 6 months who received BCG on time (Within 4 weeks of birth)"
+    indicatorQuery: "select count(distinct vacc.base_entity_id)
+        from vaccines vacc
+        inner join ec_child ec on ec.base_entity_id = vacc.base_entity_id and (ifnull(ec.entry_point,'') = 'PNC')
+        inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null
+        inner join ec_pregnancy_outcome po on ec.mother_entity_id = po.base_entity_id
+        where vacc.name = 'bcg' and ec.dob >= date('now', '-6 month') and STRFTIME('%Y-%m-%d', datetime(vacc.date/1000,'unixepoch')) <= date(ec.dob, '+28 days')
+        and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month');"
+
+  - key: "pnc_report_indicator_4_2"
+    description: "COUNT of babies born in the last 6 months who did not receive BCG on time (Within 4 weeks of birth)"
+    indicatorQuery: "select count(distinct vacc.base_entity_id)
+                               from vaccines vacc
+                               inner join ec_child ec on ec.base_entity_id = vacc.base_entity_id and (ifnull(ec.entry_point,'') = 'PNC')
+                               inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null
+                               inner join ec_pregnancy_outcome po on ec.mother_entity_id = po.base_entity_id
+                               where vacc.name = 'bcg' and ec.dob >= date('now', '-6 month') and STRFTIME('%Y-%m-%d', datetime(vacc.date/1000,'unixepoch')) > date(ec.dob, '+28 days')
+                               and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month');"
+
+  - key: "pnc_report_indicator_5_1"
+    description: "Count of WRA who have died in the last year"
+    indicatorQuery: "select count (distinct fme.base_entity_id) from ec_family_member fme
+                                          WHERE fme.is_closed = '1' AND fme.entity_type = 'ec_family_member' AND fme.gender = 'Female'
+                                          AND fme.dod >= date('now', '-12 month') AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int)  >= 10 AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int) <= 49
+                                          AND fme.base_entity_id NOT IN (select base_entity_id from ec_details where key = 'preg_outcome' or key = 'last_menstrual_period')"
+
+  - key: "pnc_report_indicator_5_2"
+    description: "Count of maternal deaths in the last year"
+    indicatorQuery: "select count(distinct fme.base_entity_id) from ec_family_member fme
+                     inner join ec_details ed on ed.base_entity_id = fme.base_entity_id
+                     WHERE fme.is_closed = '1' AND fme.entity_type = 'ec_family_member' AND fme.gender = 'Female'
+                     AND fme.dod >= date('now', '-12 month') AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int)  >= 10 AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int) <= 49
+                     AND (ed.key = 'preg_outcome' OR ed.key='last_menstrual_period')"
+
+  - key: "pnc_report_indicator_6_1"
+    description: "Count of women with no danger signs in their last PNC home visit"
+    indicatorQuery: "select count(base_entity_id) from
+                     (select vi.visit_id, vi.base_entity_id, vd.details as vdetails, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(vi.visit_date/1000,'unixepoch', 'localtime')) latest_visit_date
+                     from visits vi
+                     inner join visit_details vd on vd.visit_id = vi.visit_id
+                     inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                     where fm.date_removed is null and fm.entity_type = 'ec_family_member'
+                     and vi.visit_type = 'PNC Home Visit' and vd.visit_key = 'danger_signs_present'
+                     group by vi.base_entity_id
+                     ) as latest_visit_details
+                     where latest_visit_details.vdetails = '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+
+
+  - key: "pnc_report_indicator_6_2"
+    description: "Count of women with danger signs in their last PNC home visit"
+    indicatorQuery: "select count(base_entity_id) from
+                     (select vi.visit_id, vi.base_entity_id, vd.details as vdetails, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(vi.visit_date/1000,'unixepoch', 'localtime')) latest_visit_date
+                     from visits vi
+                     inner join visit_details vd on vd.visit_id = vi.visit_id
+                     inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                     where fm.date_removed is null and fm.entity_type = 'ec_family_member'
+                     and vi.visit_type = 'PNC Home Visit' and vd.visit_key = 'danger_signs_present'
+                     group by vi.base_entity_id
+                     ) as latest_visit_details
+                     where latest_visit_details.vdetails != '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+
+  - key: "pnc_report_indicator_7_1"
+    description: "Count of newborns with no danger signs in their last PNC home visit"
+    indicatorQuery: "select count(base_entity_id) from
+                  (select vi.visit_id, vi.base_entity_id, vd.details as vdetails, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(vi.visit_date/1000,'unixepoch', 'localtime')) latest_visit_date
+                  from visits vi
+                  inner join visit_details vd on vd.visit_id = vi.visit_id
+                  inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                  where fm.date_removed is null and fm.entity_type = 'ec_child'
+                  and vi.visit_type = 'Danger signs - Baby' and vd.visit_key = 'danger_signs_present'
+                  group by vi.base_entity_id
+                  ) as latest_visit_details
+                  where latest_visit_details.vdetails = '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+
+
+  - key: "pnc_report_indicator_7_2"
+    description: "Count of newborns with danger signs in their last PNC home visit"
+    indicatorQuery: "select count(base_entity_id) from
+                    (select vi.visit_id, vi.base_entity_id, vd.details as vdetails, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(vi.visit_date/1000,'unixepoch', 'localtime')) latest_visit_date
+                    from visits vi
+                    inner join visit_details vd on vd.visit_id = vi.visit_id
+                    inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                    where fm.date_removed is null and fm.entity_type = 'ec_child'
+                    and vi.visit_type = 'Danger signs - Baby' and vd.visit_key = 'danger_signs_present'
+                    group by vi.base_entity_id
+                    ) as latest_visit_details
+                    where latest_visit_details.vdetails != '1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'"
+
+  - key: "pnc_report_indicator_8_1"
+    description: "Count of woman's chosen family planning method NONE"
+    indicatorQuery: "select count(base_entity_id) from
+                     (select vi.base_entity_id, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(max(vi.visit_date)/1000,'unixepoch', 'localtime'))
+                                          from visits vi
+                                          inner join visit_details vd on vd.visit_id = vi.visit_id
+                                          inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                     					 inner join ec_pregnancy_outcome po on po.base_entity_id = vi.base_entity_id
+                                          where fm.date_removed is null and fm.entity_type = 'ec_family_member'
+                                          and vi.visit_type = 'PNC Home Visit' and vd.visit_key = 'fp_method' and (vd.human_readable_details = 'None' or vd.human_readable_details = 'Aucun')
+                     					 and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month')
+                     					 group by vi.base_entity_id)"
+
+
+  - key: "pnc_report_indicator_8_2"
+    description: "Count of woman's chosen family planning method Abstinence"
+    indicatorQuery: "select count(base_entity_id) from
+                                          (select vi.base_entity_id, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(max(vi.visit_date)/1000,'unixepoch', 'localtime'))
+                                                               from visits vi
+                                                               inner join visit_details vd on vd.visit_id = vi.visit_id
+                                                               inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                                          					 inner join ec_pregnancy_outcome po on po.base_entity_id = vi.base_entity_id
+                                                               where fm.date_removed is null and fm.entity_type = 'ec_family_member'
+                                                               and vi.visit_type = 'PNC Home Visit' and vd.visit_key = 'fp_method' and (vd.human_readable_details = 'Abstinence' or vd.human_readable_details = 'Abstinence')
+                                          					 and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month')
+                                          					 group by vi.base_entity_id)"
+
+  - key: "pnc_report_indicator_8_3"
+    description: "Count of woman's chosen family planning method Condom"
+    indicatorQuery: "select count(base_entity_id) from
+                                         (select vi.base_entity_id, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(max(vi.visit_date)/1000,'unixepoch', 'localtime'))
+                                                              from visits vi
+                                                              inner join visit_details vd on vd.visit_id = vi.visit_id
+                                                              inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                                                           inner join ec_pregnancy_outcome po on po.base_entity_id = vi.base_entity_id
+                                                              where fm.date_removed is null and fm.entity_type = 'ec_family_member'
+                                                              and vi.visit_type = 'PNC Home Visit' and vd.visit_key = 'fp_method' and (vd.human_readable_details = 'Condom' or vd.human_readable_details = 'Préservatif')
+                                                           and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month')
+                                                           group by vi.base_entity_id)"
+
+  - key: "pnc_report_indicator_8_4"
+    description: "Count of woman's chosen family planning method Tablets"
+    indicatorQuery: "select count(base_entity_id) from
+                                        (select vi.base_entity_id, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(max(vi.visit_date)/1000,'unixepoch', 'localtime'))
+                                                             from visits vi
+                                                             inner join visit_details vd on vd.visit_id = vi.visit_id
+                                                             inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                                                          inner join ec_pregnancy_outcome po on po.base_entity_id = vi.base_entity_id
+                                                             where fm.date_removed is null and fm.entity_type = 'ec_family_member'
+                                                             and vi.visit_type = 'PNC Home Visit' and vd.visit_key = 'fp_method' and (vd.human_readable_details = 'Tablets' or vd.human_readable_details = 'Comprimés')
+                                                          and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month')
+                                                          group by vi.base_entity_id)"
+
+  - key: "pnc_report_indicator_8_5"
+    description: "Count of woman's chosen family planning method Injectable"
+    indicatorQuery: "select count(base_entity_id) from
+                                       (select vi.base_entity_id, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(max(vi.visit_date)/1000,'unixepoch', 'localtime'))
+                                                            from visits vi
+                                                            inner join visit_details vd on vd.visit_id = vi.visit_id
+                                                            inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                                                         inner join ec_pregnancy_outcome po on po.base_entity_id = vi.base_entity_id
+                                                            where fm.date_removed is null and fm.entity_type = 'ec_family_member'
+                                                            and vi.visit_type = 'PNC Home Visit' and vd.visit_key = 'fp_method' and (vd.human_readable_details = 'Injectable' or vd.human_readable_details = 'Injectable')
+                                                         and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month')
+                                                         group by vi.base_entity_id)"
+
+  - key: "pnc_report_indicator_8_6"
+    description: "Count of woman's chosen family planning method IUD"
+    indicatorQuery: "select count(base_entity_id) from
+                                        (select vi.base_entity_id, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(max(vi.visit_date)/1000,'unixepoch', 'localtime'))
+                                                             from visits vi
+                                                             inner join visit_details vd on vd.visit_id = vi.visit_id
+                                                             inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                                                          inner join ec_pregnancy_outcome po on po.base_entity_id = vi.base_entity_id
+                                                             where fm.date_removed is null and fm.entity_type = 'ec_family_member'
+                                                             and vi.visit_type = 'PNC Home Visit' and vd.visit_key = 'fp_method' and (vd.human_readable_details = 'IUD' or vd.human_readable_details = 'DIU')
+                                                          and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month')
+                                                          group by vi.base_entity_id)"
+
+  - key: "pnc_report_indicator_8_7"
+    description: "Count of woman's chosen family planning method Implant"
+    indicatorQuery: "select count(base_entity_id) from
+                                       (select vi.base_entity_id, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(max(vi.visit_date)/1000,'unixepoch', 'localtime'))
+                                                            from visits vi
+                                                            inner join visit_details vd on vd.visit_id = vi.visit_id
+                                                            inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                                                         inner join ec_pregnancy_outcome po on po.base_entity_id = vi.base_entity_id
+                                                            where fm.date_removed is null and fm.entity_type = 'ec_family_member'
+                                                            and vi.visit_type = 'PNC Home Visit' and vd.visit_key = 'fp_method' and (vd.human_readable_details = 'Implant' or vd.human_readable_details = 'Implant')
+                                                         and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month')
+                                                         group by vi.base_entity_id)"
+
+  - key: "pnc_report_indicator_8_8"
+    description: "Count of woman's chosen family planning method Other"
+    indicatorQuery: "select count(base_entity_id) from
+                                       (select vi.base_entity_id, STRFTIME('%Y-%m-%d %H:%M:%S', datetime(max(vi.visit_date)/1000,'unixepoch', 'localtime'))
+                                                            from visits vi
+                                                            inner join visit_details vd on vd.visit_id = vi.visit_id
+                                                            inner join ec_family_member fm on fm.base_entity_id = vi.base_entity_id
+                                                         inner join ec_pregnancy_outcome po on po.base_entity_id = vi.base_entity_id
+                                                            where fm.date_removed is null and fm.entity_type = 'ec_family_member'
+                                                            and vi.visit_type = 'PNC Home Visit' and vd.visit_key = 'fp_method' and (vd.human_readable_details = 'Other' or vd.human_readable_details = 'Autre')
+                                                         and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month')
+                                                         group by vi.base_entity_id)"
+
+  - key: "pnc_report_indicator_9_1"
+    description: "Count of newborns (0-28 days) who died in the last year"
+    indicatorQuery: "select count(distinct ev.baseEntityId) from event ev
+                     inner join ec_child ec on ec.base_entity_id = ev.baseEntityId
+                     where ev.eventType = 'Remove Child Under 5'and date(ec.dob) >= date('now', '-28 days') and date(ec.dod) >= date('now', '-12 month')"

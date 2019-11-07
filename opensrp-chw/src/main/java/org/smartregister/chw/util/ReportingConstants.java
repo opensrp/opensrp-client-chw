@@ -2,6 +2,32 @@ package org.smartregister.chw.util;
 
 public class ReportingConstants {
 
+    public class PncIndicatorKeysHelper {
+        public static final String COUNT_WOMEN_DELIVERED_IN_HF = "pnc_report_indicator_1_1";
+        public static final String COUNT_WOMEN_DELIVERED_ELSEWHERE = "pnc_report_indicator_1_2";
+        public static final String COUNT_BABIES_NORMAL_BIRTHWEIGHT="pnc_report_indicator_2_1";
+        public static final String COUNT_BABIES_LOW_BIRTHWEIGHT="pnc_report_indicator_2_2";
+        public static final String COUNT_BABIES_INITIATED_EARLY_BREASTFEEDING="pnc_report_indicator_3_1";
+        public static final String COUNT_BABIES_NOT_INITIATED_EARLY_BREASTFEEDING="pnc_report_indicator_3_2";
+        public static final String COUNT_BABIES_RECEIVED_BGC_ON_TIME="pnc_report_indicator_4_1";
+        public static final String COUNT_BABIES_DID_NOT_RECEIVE_BGC_ON_TIME="pnc_report_indicator_4_2";
+        public static final String COUNT_OTHER_WRA_DEATHS="pnc_report_indicator_5_1";
+        public static final String COUNT_MATERNAL_DEATHS="pnc_report_indicator_5_2";
+        public static final String COUNT_WOMEN_WITH_NO_DANGER_SIGNS="pnc_report_indicator_6_1";
+        public static final String COUNT_WOMEN_WITH_DANGER_SIGNS="pnc_report_indicator_6_2";
+        public static final String COUNT_NEWBORNS_WITH_NO_DANGER_SIGNS="pnc_report_indicator_7_1";
+        public static final String COUNT_NEWBORNS_WITH_DANGER_SIGNS="pnc_report_indicator_7_2";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_NONE="pnc_report_indicator_8_1";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_ABSTINENCE="pnc_report_indicator_8_2";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_CONDOM="pnc_report_indicator_8_3";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_TABLETS="pnc_report_indicator_8_4";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_INJECTABLE="pnc_report_indicator_8_5";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_IUD="pnc_report_indicator_8_6";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_IMPLANT="pnc_report_indicator_8_7";
+        public static final String COUNT_POSTPARTUM_FP_METHOD_OTHER="pnc_report_indicator_8_8";
+        public static final String COUNT_DECEASED_NEWBORNS_0_28="pnc_report_indicator_9_1";
+    }
+
     public class AncIndicatorKeys {
         public static final String COUNT_WRA = "anc_report_indicator_1";
         public static final String COUNT_PREGNANT_WOMEN = "anc_report_indicator_2";

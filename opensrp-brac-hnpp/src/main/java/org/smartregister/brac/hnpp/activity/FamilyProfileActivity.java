@@ -13,17 +13,24 @@ import org.json.JSONObject;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.model.HnppFamilyProfileModel;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
+import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
+import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
+import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.brac.hnpp.fragment.FamilyProfileMemberFragment;
 import org.smartregister.brac.hnpp.presenter.FamilyProfilePresenter;
+import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+
+import java.util.HashMap;
 
 import timber.log.Timber;
 
@@ -133,6 +140,56 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         }
 
         return viewPager;
+    }
+
+    @Override
+    protected Class<?> getFamilyOtherMemberProfileActivityClass() {
+        return null;
+    }
+
+    @Override
+    protected Class<? extends CoreAboveFiveChildProfileActivity> getAboveFiveChildProfileActivityClass() {
+        return null;
+    }
+
+    @Override
+    protected Class<? extends CoreChildProfileActivity> getChildProfileActivityClass() {
+        return null;
+    }
+
+    @Override
+    protected Class<? extends BaseAncMemberProfileActivity> getAncMemberProfileActivityClass() {
+        return null;
+    }
+
+    @Override
+    protected Class<? extends BasePncMemberProfileActivity> getPncMemberProfileActivityClass() {
+        return null;
+    }
+
+    @Override
+    protected boolean isAncMember(String s) {
+        return false;
+    }
+
+    @Override
+    protected HashMap<String, String> getAncFamilyHeadNameAndPhone(String s) {
+        return null;
+    }
+
+    @Override
+    protected CommonPersonObject getAncCommonPersonObject(String s) {
+        return null;
+    }
+
+    @Override
+    protected CommonPersonObject getPncCommonPersonObject(String s) {
+        return null;
+    }
+
+    @Override
+    protected boolean isPncMember(String s) {
+        return false;
     }
 
     private void setupMenuOptions(Menu menu) {

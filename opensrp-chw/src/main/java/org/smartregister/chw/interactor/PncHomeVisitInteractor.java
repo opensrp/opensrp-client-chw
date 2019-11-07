@@ -1,11 +1,14 @@
 package org.smartregister.chw.interactor;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.interactor.BaseAncHomeVisitInteractor;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 
@@ -21,6 +24,8 @@ import timber.log.Timber;
 
 public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
 
+    private String motherID;
+    private String parentVisitID;
     private Flavor flavor = new PncHomeVisitInteractorFlv();
 
     @Override
@@ -50,6 +55,33 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
         appExecutors.diskIO().execute(runnable);
     }
 
+    @Override
+    public void submitVisit(boolean editMode, String memberID, Map<String, BaseAncHomeVisitAction> map, BaseAncHomeVisitContract.InteractorCallBack callBack) {
+        motherID = memberID;
+        super.submitVisit(editMode, memberID, map, callBack);
+    }
+
+    @Override
+    public MemberObject getMemberClient(String memberID) {
+        // read all the member details from the database
+        return PNCDao.getMember(memberID);
+    }
+
+    /**
+     * For PNC events retain the 1st visit ID as the parent id for all the other events
+     *
+     * @param visit
+     * @param parentEventType
+     * @return
+     */
+    @Override
+    protected String getParentVisitEventID(Visit visit, String parentEventType) {
+        if (StringUtils.isBlank(parentEventType))
+            parentVisitID = visit.getVisitId();
+
+        return visit.getVisitId().equalsIgnoreCase(parentVisitID) ? null : parentVisitID;
+    }
+
     /**
      * Injects implementation specific changes to the event
      *
@@ -62,6 +94,16 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
             list.add(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
             baseEvent.addObs(new Obs("concept", "text", "pnc_visit_date", "",
                     list, new ArrayList<>(), null, "pnc_visit_date"));
+        }
+    }
+
+    @Override
+    protected void prepareSubEvent(Event baseEvent) {
+        if (baseEvent != null) {
+            List<Object> mother_id = new ArrayList<>();
+            mother_id.add(motherID);
+            baseEvent.addObs(new Obs("concept", "text", "pnc_mother_id", "",
+                    mother_id, new ArrayList<>(), null, "pnc_mother_id"));
         }
     }
 

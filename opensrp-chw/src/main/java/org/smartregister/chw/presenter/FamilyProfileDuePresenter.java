@@ -1,11 +1,6 @@
 package org.smartregister.chw.presenter;
 
-import org.smartregister.chw.core.enums.ImmunizationState;
-import org.smartregister.chw.core.rule.WashCheckAlertRule;
-import org.smartregister.chw.core.utils.ChildDBConstants;
-import org.smartregister.chw.core.utils.WashCheck;
-import org.smartregister.chw.fragment.FamilyProfileDueFragment;
-import org.smartregister.chw.interactor.ChildProfileInteractor;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.WashCheckModel;
 import org.smartregister.family.contract.FamilyProfileDueContract;
 import org.smartregister.family.presenter.BaseFamilyProfileDuePresenter;
@@ -19,35 +14,28 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
     }
 
     @Override
-    public String getMainCondition() {
-        return String.format(" %s AND %s AND %s ", super.getMainCondition(), ChildDBConstants.childDueFilter(), ChildDBConstants.childAgeLimitFilter());
+    public void initializeQueries(String mainCondition) {
+        String tableName = CoreConstants.TABLE_NAME.SCHEDULE_SERVICE;
+
+        String selectCondition = " ( ec_family_member.relational_id = '" + this.familyBaseEntityId + "' or ec_family.base_entity_id = '" + this.familyBaseEntityId + "' ) AND "
+                + getDueQuery();
+
+        String countSelect = model.countSelect(tableName, selectCondition);
+        String mainSelect = model.mainSelect(tableName, selectCondition);
+
+        getView().initializeQueryParams(CoreConstants.TABLE_NAME.FAMILY_MEMBER, countSelect, mainSelect);
+        getView().initializeAdapter(visibleColumns);
+
+        getView().countExecute();
+        getView().filterandSortInInitializeQueries();
     }
 
-    @Override
-    public String getDefaultSortQuery() {
-        return ChildDBConstants.KEY.LAST_HOME_VISIT + ", " + ChildDBConstants.KEY.VISIT_NOT_DONE + " ASC ";
+    private String getDueQuery() {
+        return " (ifnull(schedule_service.completion_date,'') = '' and schedule_service.expiry_date >= strftime('%Y-%m-%d') and schedule_service.due_date <= strftime('%Y-%m-%d') and ifnull(schedule_service.not_done_date,'') = '' ) ";
     }
 
     public boolean saveData(String jsonObject) {
         return washCheckModel.saveWashCheckEvent(jsonObject);
     }
 
-    public void fetchLastWashCheck(long dateCreatedFamily) {
-        WashCheck washCheck = washCheckModel.getLatestWashCheck();
-        if (washCheck != null) {
-            WashCheckAlertRule washCheckAlertRule = new WashCheckAlertRule(getView().getContext(), washCheck.getLastVisit(), dateCreatedFamily);
-            if (washCheckAlertRule.isOverdueWithinMonth(1)) {
-                washCheck.setStatus(ChildProfileInteractor.VisitType.OVERDUE.name());
-            } else if (washCheckAlertRule.isDueWithinMonth()) {
-                washCheck.setStatus(ChildProfileInteractor.VisitType.DUE.name());
-            } else {
-                washCheck.setStatus(ImmunizationState.NO_ALERT.name());
-            }
-            washCheck.setLastVisitDate(washCheckAlertRule.noOfDayDue);
-        }
-        if (getView() instanceof FamilyProfileDueFragment) {
-            FamilyProfileDueFragment familyProfileDueFragment = (FamilyProfileDueFragment) getView();
-            familyProfileDueFragment.updateWashCheckBar(washCheck);
-        }
-    }
 }

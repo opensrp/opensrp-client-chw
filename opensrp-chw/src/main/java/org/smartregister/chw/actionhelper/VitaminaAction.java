@@ -5,9 +5,7 @@ import android.content.Context;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,7 +53,7 @@ public class VitaminaAction extends HomeVisitActionHelper {
     private boolean isOverDue() {
         return new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
     }
-
+/*
     @Override
     public void onPayloadReceived(BaseAncHomeVisitAction ba) {
         try {
@@ -75,7 +73,7 @@ public class VitaminaAction extends HomeVisitActionHelper {
             Timber.e(e);
         }
     }
-
+*/
     public JSONObject preProcess(JSONObject jsonObject, String iteration) throws JSONException {
         JSONArray fields = JsonFormUtils.fields(jsonObject);
 

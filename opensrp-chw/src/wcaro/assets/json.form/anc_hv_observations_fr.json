@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Home Visit - Observations Illness",
+  "encounter_type": "Observations Illness",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -93,6 +93,11 @@
           "Géré",
           "Reféré",
           "Aucun action prise"
+        ],
+        "keys": [
+          "Managed",
+          "Referred",
+          "No action taken"
         ],
         "openmrs_choice_ids": {
           "Managed": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

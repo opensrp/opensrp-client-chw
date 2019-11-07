@@ -79,7 +79,6 @@
         "hint": "Date de la visite",
         "expanded": false,
         "max_date": "today",
-        "min_date": "",
         "v_required": {
           "value": "true",
           "err": "Veuillez sélectionner une date"
@@ -111,7 +110,7 @@
           "value": "false",
           "err": "Required"
         },
-        "v_numeric_integer": {
+        "v_numeric": {
           "value": "true",
           "err": "Doit être un nombre arrondi"
         },
@@ -142,7 +141,7 @@
           "value": "false",
           "err": "Required"
         },
-        "v_numeric_integer": {
+        "v_numeric": {
           "value": "true",
           "err": "Doit être un nombre arrondi"
         },

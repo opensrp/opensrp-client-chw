@@ -9,13 +9,12 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
-import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.model.CoreFamilyProfileModel;
 import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.domain.FamilyEventClient;
+import org.smartregister.family.model.BaseFamilyProfileModel;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
@@ -26,7 +25,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class HnppFamilyProfileModel extends CoreFamilyProfileModel {
+public class HnppFamilyProfileModel extends BaseFamilyProfileModel {
     private String moduleId;
     private String houseHoldId;
     private String familyBaseEntityId;

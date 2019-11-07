@@ -1,1 +1,1 @@
-include ':opensrp-chw', ':opensrp-chw-hf', ':opensrp-chw-core',':opensrp-brac-hnpp'
+include 'opensrp-chw',':opensrp-brac-hnpp'

@@ -158,17 +158,17 @@ public class HnppChildProfileActivity extends HnppCoreChildProfileActivity {
 
     private void openMedicalHistoryScreen() {
         Map<String, Date> vaccine = ((HnppChildProfilePresenter) presenter()).getVaccineList();
-        CoreChildMedicalHistoryActivity.startMedicalHistoryActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
-                ((HnppChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine), CoreChildMedicalHistoryActivity.class);
+       //CoreChildMedicalHistoryActivity.startMedicalHistoryActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
+       //         ((HnppChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine), CoreChildMedicalHistoryActivity.class);
     }
 
     private void openUpcomingServicePage() {
-        CoreUpcomingServicesActivity.startUpcomingServicesActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient());
+       //CoreUpcomingServicesActivity.startUpcomingServicesActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient());
     }
 
     //TODO Child Refactor
     private void openVisitHomeScreen(boolean isEditMode) {
-        CoreChildHomeVisitActivity.startMe(this, new MemberObject(((HnppChildProfilePresenter) presenter()).getChildClient()), isEditMode);
+        //CoreChildHomeVisitActivity.startMe(this, new MemberObject(((HnppChildProfilePresenter) presenter()).getChildClient()), isEditMode);
     }
 
     public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final HnppChildProfilePresenter presenter) {

@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ANC Registration",
+  "encounter_type": "Home Visit - Malaria",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,17 +47,21 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Malaria Prevention",
+    "title": "Malaria prevention",
     "fields": [
       {
         "key": "fam_llin",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Do you have a long lasting insecticide net (LLIN)?",
+        "hint": "Does the woman have a long lasting insecticide net (LLIN)?",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -73,12 +77,16 @@
       {
         "key": "llin_2days",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Did you sleep under the LLIN last night?",
+        "hint": "Did she sleep under the LLIN last night?",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -100,12 +108,16 @@
       {
         "key": "llin_condition",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "LLIN condition",
         "values": [
+          "Okay",
+          "Bad"
+        ],
+        "keys": [
           "Okay",
           "Bad"
         ],
