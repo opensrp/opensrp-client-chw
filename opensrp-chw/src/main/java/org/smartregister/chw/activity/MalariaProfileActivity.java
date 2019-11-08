@@ -9,14 +9,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import org.jeasy.rules.api.Rules;
+import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.PNCDao;
+import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.HomeVisitUtil;
+import org.smartregister.chw.core.utils.VisitSummary;
 import org.smartregister.chw.interactor.MalariaProfileInteractor;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.malaria.domain.MemberObject;
@@ -36,6 +44,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
+
+import static org.smartregister.chw.anc.AncLibrary.getInstance;
 
 public class MalariaProfileActivity extends BaseMalariaProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String CLIENT = "client";
@@ -163,6 +173,8 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             }
         } else if (id == org.smartregister.malaria.R.id.textview_record_anc_not_done) {
             textViewRecordAncNotDone.setVisibility(View.GONE);
+            textViewRecordAnc.setVisibility(View.GONE);
+            visitStatus.setVisibility(View.VISIBLE);
         } else if (id == org.smartregister.malaria.R.id.textview_undo) {
             textViewRecordAnc.setVisibility(View.VISIBLE);
             textViewRecordAncNotDone.setVisibility(View.VISIBLE);
@@ -346,19 +358,71 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     @Override
     protected void recordAnc(MemberObject memberObject) {
         if (AncDao.isANCMember(memberObject.getBaseEntityId())) {
-            textViewRecordAnc.setVisibility(View.VISIBLE);
-            textViewRecordAnc.setTag(ANC);
+            org.smartregister.chw.anc.domain.MemberObject ancMemberObject = AncDao.getMember(memberObject.getBaseEntityId());
 
-            textViewRecordAncNotDone.setVisibility(View.VISIBLE);
+            Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.ANC_HOME_VISIT);
+
+            VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, ancMemberObject.getLastContactVisit(), null, new DateTime(ancMemberObject.getDateCreated()).toLocalDate());
+            String visitStatus = visitSummary.getVisitStatus();
+
+
+            if (!visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) &&
+                    !visitStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
+                textViewRecordAnc.setVisibility(View.VISIBLE);
+                textViewRecordAnc.setTag(ANC);
+
+                textViewRecordAncNotDone.setVisibility(View.VISIBLE);
+            }
+
+
+            Visit lastVisit = getVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT);
+            boolean within24Hours = VisitUtils.isVisitWithin24Hours(lastVisit);
+            if (visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE) && !within24Hours) {
+                textViewRecordAnc.setVisibility(View.VISIBLE);
+                textViewRecordAnc.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_selector_overdue);
+                textViewRecordAnc.setTag(ANC);
+
+                textViewRecordAncNotDone.setVisibility(View.VISIBLE);
+            }
         }
+    }
+
+
+    public Visit getVisit(String eventType) {
+        return getInstance().visitRepository().getLatestVisit(MEMBER_OBJECT.getBaseEntityId(), eventType);
     }
 
     @Override
     protected void recordPnc(MemberObject memberObject) {
         if (PNCDao.isPNCMember(memberObject.getBaseEntityId())) {
+//            org.smartregister.chw.anc.domain.MemberObject ancMemberObject = AncDao.getMember(memberObject.getBaseEntityId());
+//
+//            Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.PNC_HOME_VISIT);
+//
+//            VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, ancMemberObject.getLastContactVisit(), null, new DateTime(ancMemberObject.getDateCreated()).toLocalDate());
+//            String visitStatus = visitSummary.getVisitStatus();
+
+
+//            if (!visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) &&
+//                    !visitStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
             textViewRecordAnc.setText(R.string.record_pnc_visit);
             textViewRecordAnc.setTag(PNC);
             textViewRecordAnc.setVisibility(View.VISIBLE);
+
+//            }
+
+
+//            Visit lastVisit = getVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT);
+//            boolean within24Hours = VisitUtils.isVisitWithin24Hours(lastVisit);
+//            if (visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE) && !within24Hours) {
+//                textViewRecordAnc.setText(R.string.record_pnc_visit);
+//                textViewRecordAnc.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_selector_overdue);
+//                textViewRecordAnc.setTag(PNC);
+//                textViewRecordAnc.setVisibility(View.VISIBLE);
+//
+//            }
+
+
         }
     }
 
