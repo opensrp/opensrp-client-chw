@@ -892,12 +892,14 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
         @Override
         public String evaluateSubTitle() {
-            if (date == null) {
-                return null;
-            }
             if ("No".equals(pnc_visit)) {
-                return context.getString(R.string.visit_not_done);
-            } else {
+                return context.getString(R.string.visit_not_done).replace("\n", "");
+            }
+            else {
+                if (date == null) {
+                    return null;
+                }
+
                 if (visit_num == 1) {
                     return MessageFormat.format(" {0}: {1} \n {2}: {3} \n {4}: {5}",
                             context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date), "Vitamin A received", vit_a_mother, "IFA tablets received", ifa_mother);
