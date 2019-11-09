@@ -28,6 +28,7 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             evaluateVitaminA(serviceWrapperMap);
             evaluateDeworming(serviceWrapperMap);
             evaluateCounselling();
+            evaluateNutritionStatus();
             evaluateObsAndIllness();
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
@@ -77,6 +78,43 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
     @Override
     protected int immunizationCeiling() {
         return 60;
+    }
+
+    private void evaluateNutritionStatus() throws BaseAncHomeVisitAction.ValidationException {
+        HomeVisitActionHelper nutritionStatusHelper = new HomeVisitActionHelper() {
+            private String nutritionStatus;
+
+            @Override
+            public void onPayloadReceived(String jsonPayload) {
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonPayload);
+                    nutritionStatus = JsonFormUtils.getValue(jsonObject, "nutrition_status_1m5yr").toLowerCase();
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
+            }
+
+            @Override
+            public String evaluateSubTitle() {
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.nutrition_status), nutritionStatus);
+            }
+
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (StringUtils.isBlank(nutritionStatus))
+                    return BaseAncHomeVisitAction.Status.PENDING;
+
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            }
+        };
+
+        BaseAncHomeVisitAction observation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_nutrition_status))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.CHILD_HOME_VISIT.getNutritionStatus())
+                .withHelper(nutritionStatusHelper)
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_nutrition_status), observation);
     }
 
     @Override
