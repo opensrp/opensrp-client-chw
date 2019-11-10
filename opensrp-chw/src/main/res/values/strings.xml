@@ -198,7 +198,7 @@
 
     <string name="health_facility_visit_num">ANC health facility visit {0}</string>
     <string name="tt_dose">TT {0}</string>
-    <string name="iptp_sp_dose">IPTP-sp {0}</string>
+    <string name="iptp_sp_dose">IPTp-SP dose {0}</string>
 
     <string name="opv_0">OPV 0</string>
     <string name="opv_1">OPV 1</string>
@@ -241,6 +241,25 @@
     <string name="pnc_indicator_1">Pregnant women who delivered in a health facility (last 6 months)</string>
     <string name="pnc_indicator_2">Babies born with normal birthweight (last 6 months)</string>
     <string name="pnc_indicator_3">Newborns initiated early (less than 1 hour) to breastfeeding (last 6 months)</string>
+    <string name="pnc_indicator_4">Children who received BCG vaccine on time (last 6 months)</string>
+    <string name="pnc_indicator_4_note">On time means within four weeks of birth</string>
+    <string name="pnc_indicator_5">WRA who have died in the last year</string>
+    <string name="pnc_indicator_5_note">WRA = Women of Reproductive Age (10&#8211;49)</string>
+    <string name="pnc_indicator_6">Women with no danger signs in their last PNC home visit</string>
+    <string name="pnc_indicator_7">Newborns with no danger signs in their last PNC home visit</string>
+    <string name="pnc_indicator_8">Postpartum women\'s chosen family planning methods (last 6 months)</string>
+    <string name="pnc_indicator_9">Newborns (0&#8211;28 days) who died in the last year</string>
+
+    <string name="maternal_deaths_slice_label">Maternal deaths</string>
+    <string name="other_wra_deaths_slice_label">Other WRA deaths</string>
+    <string name="none">None</string>
+    <string name="abstinence">Abstinence</string>
+    <string name="condom">Condom</string>
+    <string name="tablets">Tablets</string>
+    <string name="injectable">Injectable</string>
+    <string name="iud">IUD</string>
+    <string name="implant">Implant</string>
+    <string name="other">Other</string>
 
     <!-- PNC Home visit-->
     <!-- PNC home visit tasks labels -->
@@ -277,5 +296,18 @@
     <string name="deworming_number_dose">Deworming %s dose</string>
     <string name="vitamin_a_number_dose">Vitamin A %s dose</string>
     <string name="mnp_number_pack">MNP %s pack</string>
+    <string name="permission_denied">Permission Denied</string>
+    <string name="storage_permissions_message">The app needs this permission to list guide book videos. \n Without this permission you cannot view any guidebook videos</string>
+
+    <!--Referral -->
+    <string name="referral_reason">Reason for referral</string>
+    <string name="open_referral_form">Open %s referral form</string>
+    <string name="sick_child">Sick child</string>
+    <string name="client_malaria_follow_up">Malaria follow-up</string>
+    <string name="pnc_danger_signs">PNC danger signs</string>
+    <string name="fp_post_partum">FP post-partum</string>
+    <string name="anc_danger_signs">ANC danger signs</string>
+
+    <string name="jobs_aid_failed_download">Jo aid video "%s" failed to download.</string>
 
 </resources>

@@ -1,17 +1,22 @@
 package org.smartregister.chw.presenter;
 
 
+import android.app.Activity;
+
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.contract.PncMemberProfileContract;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.FormUtils;
+
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -21,7 +26,8 @@ public class PncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
     private FormUtils formUtils;
     private String entityId;
 
-    public PncMemberProfilePresenter(BaseAncMemberProfileContract.View view, BaseAncMemberProfileContract.Interactor interactor, MemberObject memberObject) {
+    public PncMemberProfilePresenter(BaseAncMemberProfileContract.View view,
+                                     BaseAncMemberProfileContract.Interactor interactor, MemberObject memberObject) {
         super(view, interactor, memberObject);
         setEntityId(memberObject.getBaseEntityId());
     }
@@ -67,6 +73,16 @@ public class PncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
             getView().startFormActivity(getFormUtils().getFormJson(CoreConstants.JSON_FORM.getPncReferralForm()));
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    @Override
+    public void referToFacility() {
+        List<ReferralTypeModel> referralTypeModels = getView().getReferralTypeModels();
+        if (referralTypeModels.size() == 1) {
+            startPncReferralForm();
+        } else {
+            org.smartregister.chw.util.Utils.launchClientReferralActivity((Activity) getView(), referralTypeModels, getEntityId());
         }
     }
 

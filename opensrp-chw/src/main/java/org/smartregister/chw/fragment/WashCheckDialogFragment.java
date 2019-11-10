@@ -17,26 +17,35 @@ import android.widget.RadioButton;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.util.Utils;
+import org.smartregister.chw.dao.WashCheckDao;
 import org.smartregister.util.JsonFormUtils;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class WashCheckDialogFragment extends DialogFragment implements View.OnClickListener {
 
     public static final String DIALOG_TAG = "WashCheckDialogFragment";
-    private static final String EXTRA_DETAILS = "wash_details";
+    private static final String BASE_ENTITY_ID = "base_entity_id";
+    private static final String VISIT_DATE = "visit_date";
 
 
     private String jsonData;
+    private Long washCheckDate;
+    private String baseEntityID;
     private RadioButton handwashingYes, handwashingNo, drinkingYes, drinkingNo;
     private RadioButton latrineYes, latrineNo;
     private Activity activity;
 
-    public static WashCheckDialogFragment getInstance(String jsonString) {
+    public static WashCheckDialogFragment getInstance(String familyBaseEntityID, Long visitDate) {
         WashCheckDialogFragment washCheckDialogFragment = new WashCheckDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(EXTRA_DETAILS, jsonString);
+        bundle.putString(BASE_ENTITY_ID, familyBaseEntityID);
+        bundle.putLong(VISIT_DATE, visitDate);
         washCheckDialogFragment.setArguments(bundle);
         return washCheckDialogFragment;
     }
@@ -73,7 +82,10 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        jsonData = getArguments().getString(EXTRA_DETAILS);
+
+        baseEntityID = getArguments().getString(BASE_ENTITY_ID);
+        washCheckDate = getArguments().getLong(VISIT_DATE);
+
         handwashingYes = view.findViewById(R.id.choice_1_handwashing);
         handwashingNo = view.findViewById(R.id.choice_2_handwashing);
         drinkingYes = view.findViewById(R.id.choice_1_drinking);
@@ -81,7 +93,38 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
         latrineYes = view.findViewById(R.id.choice_1_latrine);
         latrineNo = view.findViewById(R.id.choice_2_latrine);
         view.findViewById(R.id.close).setOnClickListener(this);
-        parseData();
+
+
+        Observable<String> observable = Observable.create(e -> {
+            String washData = WashCheckDao.getWashCheckDetails(washCheckDate, baseEntityID);
+            e.onNext(washData);
+            e.onComplete();
+        });
+
+        final Disposable[] disposable = new Disposable[1];
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable[0] = d;
+            }
+
+            @Override
+            public void onNext(String s) {
+                jsonData = s;
+                parseData();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Timber.e(e);
+            }
+
+            @Override
+            public void onComplete() {
+                disposable[0].dispose();
+                disposable[0] = null;
+            }
+        });
     }
 
     private void parseData() {
@@ -102,8 +145,14 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
         } catch (Exception e) {
             Timber.e(e);
         }
+
+        // there is a logical bug when parsing legacy data
+        // some values where recorded in french while others in english
+        // to rectify validate that the value is true
+
         if (!TextUtils.isEmpty(handwashingValue)) {
-            if ((Utils.getYesNoAsLanguageSpecific(activity, handwashingValue).equalsIgnoreCase(getString(R.string.yes)))) {
+
+            if (isYes(handwashingValue)) {
                 handwashingYes.setChecked(true);
                 handwashingNo.setEnabled(false);
             } else {
@@ -112,7 +161,8 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
             }
         }
         if (!TextUtils.isEmpty(drinkingValue)) {
-            if (((Utils.getYesNoAsLanguageSpecific(activity, drinkingValue).equalsIgnoreCase(getString(R.string.yes))))) {
+
+            if (isYes(drinkingValue)) {
                 drinkingYes.setChecked(true);
                 drinkingNo.setEnabled(false);
             } else {
@@ -121,7 +171,8 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
             }
         }
         if (!TextUtils.isEmpty(latrineValue)) {
-            if (((Utils.getYesNoAsLanguageSpecific(activity, latrineValue).equalsIgnoreCase(getString(R.string.yes))))) {
+
+            if (isYes(latrineValue)) {
                 latrineYes.setChecked(true);
                 latrineNo.setEnabled(false);
             } else {
@@ -129,6 +180,10 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
                 latrineYes.setEnabled(false);
             }
         }
+    }
+
+    private boolean isYes(String value) {
+        return "Yes".equalsIgnoreCase(value) || "Oui".equalsIgnoreCase(value);
     }
 
     @Override
