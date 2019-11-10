@@ -32,7 +32,8 @@
                 android:layout_height="wrap_content"
 
                 android:gravity="center_horizontal"
-                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:visibility="visible">
 
                 <ImageView
@@ -44,7 +45,7 @@
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/health_child"
-                    style="@style/CustomFontTextViewStyle.ClientList"
+                    style="@style/CustomFontTextViewStyle.ClientList.ThreeLines"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -79,7 +80,8 @@
                 android:id="@+id/rlAgeTwo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:visibility="visible">
 
                 <ImageView
@@ -91,7 +93,7 @@
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/health_child_2"
-                    style="@style/CustomFontTextViewStyle.ClientList"
+                    style="@style/CustomFontTextViewStyle.ClientList.ThreeLines"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -123,13 +125,13 @@
                     android:background="@color/light_grey" />
             </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/llItems"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
 
         </LinearLayout>
 

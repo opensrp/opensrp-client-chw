@@ -93,13 +93,17 @@
           "ORS 5",
           "Zinc 10",
           "Panadol",
-          "Other treatment"
+          "Referred",
+          "Other treatment",
+          "No treatment given"
         ],
         "keys": [
           "ORS 5",
           "Zinc 10",
-          "Paracetamol",
-          "Other treatment"
+          "Panadol",
+          "Referred",
+          "Other treatment given",
+          "No treatment"
         ]
       },
       {
