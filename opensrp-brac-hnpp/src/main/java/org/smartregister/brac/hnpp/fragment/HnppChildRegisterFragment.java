@@ -206,6 +206,7 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
             Timber.e(e);
         }
     }
+    @Override
     protected String filterandSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
