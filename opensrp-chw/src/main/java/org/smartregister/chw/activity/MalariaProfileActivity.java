@@ -356,7 +356,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     }
 
     @Override
-    protected void recordAnc(MemberObject memberObject) {
+    public void recordAnc(MemberObject memberObject) {
         if (AncDao.isANCMember(memberObject.getBaseEntityId())) {
             org.smartregister.chw.anc.domain.MemberObject ancMemberObject = AncDao.getMember(memberObject.getBaseEntityId());
 
@@ -393,7 +393,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     }
 
     @Override
-    protected void recordPnc(MemberObject memberObject) {
+    public void recordPnc(MemberObject memberObject) {
         if (PNCDao.isPNCMember(memberObject.getBaseEntityId())) {
 //            org.smartregister.chw.anc.domain.MemberObject ancMemberObject = AncDao.getMember(memberObject.getBaseEntityId());
 //
