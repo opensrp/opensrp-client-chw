@@ -1,5 +1,6 @@
 package org.smartregister.brac.hnpp.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,17 +9,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+
+import com.rengwuxian.materialedittext.MaterialEditText;
+import com.vijay.jsonwizard.customviews.MaterialSpinner;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.interactor.HnppJsonFormInteractor;
 import org.smartregister.brac.hnpp.widget.HnppFingerPrintFactory;
+import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
 
@@ -47,11 +55,69 @@ public class HNPPMemberJsonFormFragment extends JsonWizardFormFragment {
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         super.onItemSelected(parent, view, position, id);
-
+        if(position == -1)
+            return;
+        if (parent instanceof MaterialSpinner) {
+            if (((MaterialSpinner) parent).getFloatingLabelText().toString().equalsIgnoreCase("খানা প্রধান এই সদস্যের কি হয়?")) {
+                processHouseholdName(position);
+            }
+        }
        // hideKeyBoard();
     }
+    private String family_name = "";
+    private void processHouseholdName(final int position){
+        Utils.startAsyncTask(new AsyncTask() {
+
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                JSONObject formObject = getJsonApi().getmJSONObject();
+                if(StringUtils.isEmpty(family_name)){
+
+                    if (formObject.has("family_name")) {
+                        try {
+                            family_name = formObject.getString("family_name");
+                        } catch (JSONException e) {
+
+                        }
+                    }
+
+                }
 
 
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                    Collection<View> formdataviews =  getJsonApi().getFormDataViews();
+                    MaterialEditText first_name_view = null;
+                Iterator<View> iterator = formdataviews.iterator();
+
+                // while loop
+                while (iterator.hasNext()) {
+                    View field_view = iterator.next();
+                    if (field_view instanceof MaterialEditText) {
+                        if (((MaterialEditText) field_view).getFloatingLabelText()!=null&&((MaterialEditText) field_view).getFloatingLabelText().toString().trim().equalsIgnoreCase("নাম")) {
+                            first_name_view = ((MaterialEditText) field_view);
+                            break;
+                        }
+
+                    }
+                }
+
+                    if(first_name_view!=null){
+
+                        if(position == 0){
+                            first_name_view.setText(family_name);
+                        }else if(first_name_view.getText().toString().equalsIgnoreCase(family_name)){
+                            first_name_view.setText("");
+                        }
+                    }
+
+            }
+        },null);
+    }
     @Override
     protected JsonFormFragmentViewState createViewState() {
         return super.createViewState();

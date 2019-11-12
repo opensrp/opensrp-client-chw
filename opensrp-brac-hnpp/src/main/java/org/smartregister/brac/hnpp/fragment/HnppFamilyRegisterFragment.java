@@ -135,6 +135,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
         searchFilterString = filterString;
         filterString = getFilterString();
+        clientAdapter.setCurrentoffset(0);
         super.filter(filterString, joinTableString, mainConditionString, qrCode);
     }
 
@@ -295,6 +296,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
     }
 
     public void filter(String filterString, String joinTableString, String mainConditionString) {
+        clientAdapter.setCurrentoffset(0);
         super.filter(filterString, joinTableString, mainConditionString, false);
     }
 

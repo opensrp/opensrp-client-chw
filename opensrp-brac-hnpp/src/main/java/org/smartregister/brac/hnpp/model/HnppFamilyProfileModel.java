@@ -1,30 +1,20 @@
 package org.smartregister.brac.hnpp.model;
 
-import android.database.Cursor;
-
 import com.google.gson.Gson;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
-import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.model.CoreFamilyProfileModel;
 import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
-import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.domain.FamilyEventClient;
-import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
-import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import timber.log.Timber;
 
 public class HnppFamilyProfileModel extends CoreFamilyProfileModel {
     private String moduleId;
@@ -44,7 +34,7 @@ public class HnppFamilyProfileModel extends CoreFamilyProfileModel {
             return null;
         }
         HnppJsonFormUtils.updateFormWithMemberId(form,houseHoldId,familyBaseEntityId);
-        HnppJsonFormUtils.updateFormWithModuleId(form,moduleId);
+        HnppJsonFormUtils.updateFormWithModuleId(form,moduleId,familyBaseEntityId);
         HnppJsonFormUtils.updateFormWithSimPrintsEnable(form);
 
         return form;
@@ -74,7 +64,7 @@ public class HnppFamilyProfileModel extends CoreFamilyProfileModel {
         return familyEventClient;
     }
     public FamilyEventClient processUpdateMemberRegistration(String jsonString, String familyBaseEntityId) {
-        FamilyEventClient familyEventClient = HnppJsonFormUtils.processFamilyForm(FamilyLibrary.getInstance().context().allSharedPreferences(), jsonString, familyBaseEntityId,Utils.metadata().familyMemberRegister.updateEventType);
+        FamilyEventClient familyEventClient = HnppJsonFormUtils.processFamilyMemberForm(FamilyLibrary.getInstance().context().allSharedPreferences(), jsonString, familyBaseEntityId,Utils.metadata().familyMemberRegister.updateEventType);
         EventClientRepository eventClientRepository = FamilyLibrary.getInstance().context().getEventClientRepository();
         try{
             JSONObject familyJSON = eventClientRepository.getClientByBaseEntityId(familyBaseEntityId);
@@ -100,7 +90,7 @@ public class HnppFamilyProfileModel extends CoreFamilyProfileModel {
         }
     }
     private FamilyEventClient processRegistration(String jsonString, String familyBaseEntityId) {
-        FamilyEventClient familyEventClient = HnppJsonFormUtils.processFamilyForm(FamilyLibrary.getInstance().context().allSharedPreferences(), jsonString, familyBaseEntityId,Utils.metadata().familyMemberRegister.registerEventType);
+        FamilyEventClient familyEventClient = HnppJsonFormUtils.processFamilyMemberForm(FamilyLibrary.getInstance().context().allSharedPreferences(), jsonString, familyBaseEntityId,Utils.metadata().familyMemberRegister.registerEventType);
         if (familyEventClient == null) {
             return null;
         } else {

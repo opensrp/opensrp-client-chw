@@ -195,6 +195,13 @@
           }
         },
         {
+          "column_name": "mother_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.mother_name"
+          }
+        },
+        {
           "column_name": "Mother_Guardian_First_Name_english",
           "type": "Client",
           "json_mapping": {
@@ -304,6 +311,13 @@
           "type": "Client",
           "json_mapping": {
             "field": "relationships.family"
+          }
+        },
+        {
+          "column_name": "mother_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "relationships.mother"
           }
         },
         {

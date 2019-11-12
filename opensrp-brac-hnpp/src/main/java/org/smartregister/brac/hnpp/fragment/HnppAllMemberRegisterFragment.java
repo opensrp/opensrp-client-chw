@@ -165,6 +165,7 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
         if(clients_header_layout.getVisibility() == android.view.View.VISIBLE){
             clients_header_layout.setVisibility(android.view.View.GONE);
         }
+        clientAdapter.setCurrentoffset(0);
         super.filter(filterString, joinTableString, mainConditionString, qrCode);
 
     }
@@ -370,6 +371,7 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
     }
 
     public void filter(String filterString, String joinTableString, String mainConditionString) {
+        clientAdapter.setCurrentoffset(0);
         super.filter(filterString, joinTableString, mainConditionString, false);
     }
 
