@@ -7,6 +7,7 @@ import android.widget.Toast;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.dao.MalariaDao;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
@@ -30,8 +31,11 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
     }
 
     @Override
-    public Boolean onCreateOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_malaria_registration).setVisible(true);
+    public Boolean onCreateOptionsMenu(Menu menu, String baseEntityId) {
+        if (MalariaDao.isRegisteredForMalaria(baseEntityId))
+            menu.findItem(R.id.action_malaria_registration).setVisible(false);
+        else
+            menu.findItem(R.id.action_malaria_registration).setVisible(true);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         return true;
     }
