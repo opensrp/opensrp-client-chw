@@ -127,7 +127,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         fillUserIfExists();
         findViewById(R.id.login_login_btn).setAlpha(1.0f);
         mActivity = this;
-
+        HnppConstants.updateAppBackground(findViewById(R.id.login_layout));
         if(!BuildConfig.DEBUG)app_version_status();
     }
 

@@ -3,4 +3,6 @@
     <color name="hnpp_primary">#ED008C</color>
     <color name="hnpp_primary_dark">#0d384e</color>
     <color name="hnpp_accent">#3797ca</color>
+    <color name="test_app_color">#f51b00</color>
+
 </resources>

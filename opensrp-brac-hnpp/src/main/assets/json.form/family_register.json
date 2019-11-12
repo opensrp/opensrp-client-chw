@@ -165,6 +165,22 @@
         }
       },
       {
+        "key": "serial_no",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "serial_no",
+        "type": "edit_text",
+        "hint": "সিরিয়াল নাম্বার",
+        "v_numeric": {
+          "value": "true",
+          "err": "একটি বৈধ নাম্বার লিখুন"
+        },
+        "v_regex": {
+          "value": "[0-9]*",
+          "err": "দশমিক অনুমোদিত নয়"
+        }
+      },
+      {
         "key": "firstName",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -267,13 +283,16 @@
         "type": "gps"
       },
       {
-        "key": "toaster_notes",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "toaster_notes",
-        "type": "toaster_notes",
-        "text":"সব তথ্য পূরণ করা হলে জমা দিন",
-        "toaster_type": "info"
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "section",
+        "type": "section_label",
+        "section_background": "#3797ca",
+        "text_color": "#FFFFFF",
+        "text_size": "22px",
+        "label_text_style": "bold",
+        "name": "সব তথ্য পূরণ করা হলে জমা দিন"
       }
     ]
   }

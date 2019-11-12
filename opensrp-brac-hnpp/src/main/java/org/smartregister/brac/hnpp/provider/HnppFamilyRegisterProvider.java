@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -139,18 +140,17 @@ public class HnppFamilyRegisterProvider extends CoreRegisterProvider  {
                     .replace(HnppConstants.IDENTIFIER.FAMILY_TEXT,"");
             houseHoldId = houseHoldId.substring(houseHoldId.length() - HnppConstants.HOUSE_HOLD_ID_SUFFIX);
         }
-        setText(viewHolder.houseHoldId,context.getString(R.string.house_hold_id,houseHoldId));
+        String serialNo = Utils.getValue(pc.getColumnmaps(), HnppConstants.KEY.SERIAL_NO, true);
+        setText(viewHolder.houseHoldId,context.getString(R.string.house_hold_id,serialNo,houseHoldId));
 
-        String phoneNumber = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, true);
-        if(!TextUtils.isEmpty(phoneNumber) && phoneNumber.length() > 1){
-            setText(viewHolder.mobileNumber,phoneNumber);
-        }else{
-            setText(viewHolder.mobileNumber,context.getString(R.string.phone_no,phoneNumber));
-        }
-
-//        String totalMember = Utils.getValue(pc.getColumnmaps(), HnppConstants.KEY.TOTAL_MEMBER, true);
-//        setText(viewHolder.totalMember,context.getString(R.string.member_count,TextUtils.isEmpty(totalMember)?"0":totalMember));
-
+//        String phoneNumber = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, true);
+//        if(!TextUtils.isEmpty(phoneNumber) && phoneNumber.length() > 1){
+//            setText(viewHolder.mobileNumber,phoneNumber);
+//        }else{
+//            setText(viewHolder.mobileNumber,context.getString(R.string.phone_no,phoneNumber));
+//        }
+        String ssName = Utils.getValue(pc.getColumnmaps(), HnppConstants.KEY.SS_NAME, true);
+        setText(viewHolder.mobileNumber,context.getString(R.string.ss_name,ssName));
         View patient = viewHolder.patientColumn;
         attachPatientOnclickListener(patient, client);
 
@@ -168,7 +168,7 @@ public class HnppFamilyRegisterProvider extends CoreRegisterProvider  {
         if(textView == null) return;
         if(!TextUtils.isEmpty(value)){
             textView.setVisibility(View.VISIBLE);
-            textView.setText(value);
+            textView.setText(Html.fromHtml(value));
         }else{
             textView.setVisibility(View.GONE);
         }
@@ -183,7 +183,7 @@ public class HnppFamilyRegisterProvider extends CoreRegisterProvider  {
     protected void updateChildIcons(HouseHoldRegisterProvider viewHolder, List<Map<String, String>> list, int ancWomanCount,int memberCount , String totalMember, String familyBaseEntityId) {
 
         //if( memberCount > 0){
-            setText(viewHolder.registeredMember,context.getString(R.string.registered_count,memberCount+"",totalMember));
+            setText(viewHolder.registeredMember,context.getString(R.string.registered_count,totalMember,memberCount+""));
        // }
         if (ancWomanCount > 0) {
             viewHolder.memberIcon.setVisibility(View.VISIBLE);

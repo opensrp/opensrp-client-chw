@@ -89,6 +89,8 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
+        HnppConstants.updateAppBackground((view.findViewById(R.id.register_nav_bar_container)));
+
         ((TextView) view.findViewById(org.smartregister.chw.core.R.id.filter_text_view)).setText("");
         view.findViewById(org.smartregister.chw.core.R.id.filter_sort_layout).setVisibility(View.VISIBLE);
         View searchBarLayout = view.findViewById(org.smartregister.family.R.id.search_bar_layout);
@@ -133,6 +135,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
         searchFilterString = filterString;
         filterString = getFilterString();
+        clientAdapter.setCurrentoffset(0);
         super.filter(filterString, joinTableString, mainConditionString, qrCode);
     }
 
@@ -293,6 +296,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
     }
 
     public void filter(String filterString, String joinTableString, String mainConditionString) {
+        clientAdapter.setCurrentoffset(0);
         super.filter(filterString, joinTableString, mainConditionString, false);
     }
 
@@ -321,5 +325,10 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         if(JobManager.instance().getAllJobRequestsForTag(PullHouseholdIdsServiceJob.TAG).isEmpty()){
             PullHouseholdIdsServiceJob.scheduleJobImmediately(PullHouseholdIdsServiceJob.TAG);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

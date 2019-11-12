@@ -103,7 +103,7 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
         if(clients_header_layout.getVisibility() == android.view.View.VISIBLE){
             clients_header_layout.setVisibility(android.view.View.GONE);
         }
-
+        clientAdapter.setCurrentoffset(0);
         super.filter(filterString, joinTableString, mainConditionString, qrCode);
 
     }
@@ -116,6 +116,7 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
     @Override
     public void setupViews(android.view.View view) {
         super.setupViews(view);
+        HnppConstants.updateAppBackground((view.findViewById(R.id.register_nav_bar_container)));
         ((TextView) view.findViewById(org.smartregister.chw.core.R.id.filter_text_view)).setText("");
         view.findViewById(org.smartregister.chw.core.R.id.filter_sort_layout).setVisibility(android.view.View.VISIBLE);
         android.view.View searchBarLayout = view.findViewById(org.smartregister.family.R.id.search_bar_layout);
@@ -350,7 +351,7 @@ public class HnppChildRegisterFragment extends CoreChildRegisterFragment impleme
     }
 
     public void filter(String filterString, String joinTableString, String mainConditionString) {
-
+        clientAdapter.setCurrentoffset(0);
         super.filter(filterString, joinTableString, mainConditionString, false);
 
 

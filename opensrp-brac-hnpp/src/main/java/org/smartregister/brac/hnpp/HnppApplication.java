@@ -132,14 +132,13 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
 
     @Override
     public void logoutCurrentUser() {
-//        Intent intent = new Intent(getApplicationContext(), org.smartregister.brac.hnpp.activity.LoginActivity.class);
+//        Intent intent = new Intent(this,org.smartregister.brac.hnpp.activity.LoginActivity.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        intent.addCategory(Intent.CATEGORY_HOME);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        getApplicationContext().startActivity(intent);
+//        startActivity(intent);
 //        context.userService().logoutSession();
-//        Timber.i("Logged out user %s", getContext().allSharedPreferences().fetchRegisteredANM());
     }
     @Override
     public void forceLogout() {

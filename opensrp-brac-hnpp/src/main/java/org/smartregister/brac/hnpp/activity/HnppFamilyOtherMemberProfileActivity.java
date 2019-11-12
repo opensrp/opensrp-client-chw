@@ -51,6 +51,8 @@ import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
 
 public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
     private CustomFontTextView textViewDetails3;
+    private String familyBaseEntityId;
+
     private TextView textViewAge,textViewName;
 
     @Override
@@ -58,6 +60,7 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
         setContentView(R.layout.activity_other_member_profile);
 
         Toolbar toolbar = findViewById(org.smartregister.family.R.id.family_toolbar);
+        HnppConstants.updateAppBackground(toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -164,7 +167,7 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
         try {
             JSONObject form = HnppJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyMemberRegister(), this, client, Utils.metadata().familyMemberRegister.updateEventType);
             String moduleId = HnppChildUtils.getModuleId(familyHead);
-            HnppJsonFormUtils.updateFormWithModuleId(form,moduleId);
+            HnppJsonFormUtils.updateFormWithModuleId(form,moduleId,familyBaseEntityId);
             HnppJsonFormUtils.updateFormWithSimPrintsEnable(form);
             startFormActivity(form);
         } catch (Exception e) {
@@ -180,6 +183,7 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
     @Override
     protected BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(
             String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName) {
+        this.familyBaseEntityId = familyBaseEntityId;
         return new HnppFamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(),
                 null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
     }

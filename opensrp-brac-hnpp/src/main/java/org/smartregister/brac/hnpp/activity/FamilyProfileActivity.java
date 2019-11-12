@@ -40,6 +40,12 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     }
 
     @Override
+    protected void setupViews() {
+        super.setupViews();
+        HnppConstants.updateAppBackground(findViewById(R.id.family_toolbar));
+    }
+
+    @Override
     protected void refreshPresenter() {
         presenter = new FamilyProfilePresenter(this, new HnppFamilyProfileModel(familyName,moduleId,houseHoldId,familyBaseEntityId),houseHoldId, familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
@@ -65,8 +71,13 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
                 Intent intent = new Intent(this, Utils.metadata().familyFormActivity);
                 intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
                 Form form = new Form();
-                form.setActionBarBackground(org.smartregister.family.R.color.family_actionbar);
-                form.setWizard(false);
+                if(!HnppConstants.isReleaseBuild()){
+                    form.setActionBarBackground(R.color.test_app_color);
+
+                }else{
+                    form.setActionBarBackground(org.smartregister.family.R.color.family_actionbar);
+
+                }                form.setWizard(false);
                 intent.putExtra("form", form);
                 this.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
             }else{

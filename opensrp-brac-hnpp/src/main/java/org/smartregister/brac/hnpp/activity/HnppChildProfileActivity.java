@@ -14,6 +14,7 @@ import android.widget.Toast;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.brac.hnpp.adapter.ReferralCardViewAdapter;
 import org.smartregister.brac.hnpp.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreChildHomeVisitActivity;
 import org.smartregister.chw.core.activity.CoreChildMedicalHistoryActivity;
@@ -76,6 +77,7 @@ public class HnppChildProfileActivity extends HnppCoreChildProfileActivity {
     @Override
     protected void setupViews() {
         super.setupViews();
+        HnppConstants.updateAppBackground(findViewById(org.smartregister.chw.core.R.id.collapsing_toolbar));
         initializeTasksRecyclerView();
         View recordVisitPanel = findViewById(R.id.record_visit_panel);
         recordVisitPanel.setVisibility(View.GONE);

@@ -1,7 +1,9 @@
 package org.smartregister.brac.hnpp.utils;
 
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +24,12 @@ public class HnppConstants extends CoreConstants {
     public static final String MODULE_ID_TRAINING = "TRAINING";
     public static final int MEMBER_ID_SUFFIX = 11;
     public static final int HOUSE_HOLD_ID_SUFFIX = 9;
+
+    public static void updateAppBackground(View view){
+        if(!isReleaseBuild()){
+            view.setBackgroundColor(Color.RED);
+        }
+    }
 
     public static ArrayList<String> getClasterSpinnerArray() {
 
@@ -79,7 +87,9 @@ public class HnppConstants extends CoreConstants {
     public static boolean isReleaseBuild(){
         AllSharedPreferences preferences = Utils.getAllSharedPreferences();
         String usingUrl = preferences.getPreference(AllConstants.DRISHTI_BASE_URL);
-        if(!TextUtils.isEmpty(usingUrl) && (usingUrl.equalsIgnoreCase(BuildConfig.opensrp_url_release) || usingUrl.equalsIgnoreCase(BuildConfig.opensrp_url_release_without_slash))){
+        if(!TextUtils.isEmpty(usingUrl) && (usingUrl.equalsIgnoreCase(BuildConfig.opensrp_url_release)
+                || usingUrl.equalsIgnoreCase(BuildConfig.opensrp_url_release_without_slash)
+        || usingUrl.equalsIgnoreCase(BuildConfig.opensrp_url_release_with_https))){
             return true;
         }
         return false;
@@ -98,6 +108,7 @@ public class HnppConstants extends CoreConstants {
         public static final String HOUSE_HOLD_ID = "house_hold_id";
         public static final String HOUSE_HOLD_NAME = "house_hold_name";
         public static final String SS_NAME = "ss_name";
+        public static final String SERIAL_NO = "serial_no";
         public static final String CHILD_MOTHER_NAME_REGISTERED = "mother_name";
         public static final String CHILD_MOTHER_NAME = "Mother_Guardian_First_Name_english";
         public static final String ID_AVAIL = "id_avail";
