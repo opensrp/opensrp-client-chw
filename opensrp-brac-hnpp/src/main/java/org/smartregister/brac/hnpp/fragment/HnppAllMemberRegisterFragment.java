@@ -117,6 +117,8 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
     public void setupViews(android.view.View view) {
         super.setupViews(view);
         HnppConstants.updateAppBackground((view.findViewById(R.id.register_nav_bar_container)));
+        HnppConstants.updateAppBackground(view.findViewById(org.smartregister.R.id.register_toolbar));
+
         ((TextView) view.findViewById(org.smartregister.chw.core.R.id.filter_text_view)).setText("");
         view.findViewById(org.smartregister.chw.core.R.id.filter_sort_layout).setVisibility(android.view.View.VISIBLE);
         android.view.View searchBarLayout = view.findViewById(org.smartregister.family.R.id.search_bar_layout);
