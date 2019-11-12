@@ -13,6 +13,7 @@ import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -22,6 +23,7 @@ import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
+import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.core.utils.VisitSummary;
@@ -30,6 +32,7 @@ import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
 import org.smartregister.chw.malaria.util.Constants;
+import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -37,6 +40,10 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -395,35 +402,47 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     @Override
     public void recordPnc(MemberObject memberObject) {
         if (PNCDao.isPNCMember(memberObject.getBaseEntityId())) {
-//            org.smartregister.chw.anc.domain.MemberObject ancMemberObject = AncDao.getMember(memberObject.getBaseEntityId());
-//
-//            Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.PNC_HOME_VISIT);
-//
-//            VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, ancMemberObject.getLastContactVisit(), null, new DateTime(ancMemberObject.getDateCreated()).toLocalDate());
-//            String visitStatus = visitSummary.getVisitStatus();
+            org.smartregister.chw.anc.domain.MemberObject ancMemberObject = AncDao.getMember(memberObject.getBaseEntityId());
 
+            Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.PNC_HOME_VISIT);
 
-//            if (!visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) &&
-//                    !visitStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
-            textViewRecordAnc.setText(R.string.record_pnc_visit);
-            textViewRecordAnc.setTag(PNC);
-            textViewRecordAnc.setVisibility(View.VISIBLE);
+            PncVisitAlertRule pncVisitAlertRule = HomeVisitUtil.getPncVisitStatus(rules, getLastVisitDate(ancMemberObject.getBaseEntityId()), getDeliveryDate(ancMemberObject.getBaseEntityId()));
 
-//            }
+            if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("DUE") || pncVisitAlertRule.getButtonStatus().toUpperCase().equals("OVERDUE")) {
+                textViewRecordAnc.setText(R.string.record_pnc_visit);
+                textViewRecordAnc.setTag(PNC);
+                textViewRecordAnc.setVisibility(View.VISIBLE);
+            }
 
+            if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("OVERDUE")) {
+                textViewRecordAnc.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_selector_overdue);
 
-//            Visit lastVisit = getVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT);
-//            boolean within24Hours = VisitUtils.isVisitWithin24Hours(lastVisit);
-//            if (visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE) && !within24Hours) {
-//                textViewRecordAnc.setText(R.string.record_pnc_visit);
-//                textViewRecordAnc.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_selector_overdue);
-//                textViewRecordAnc.setTag(PNC);
-//                textViewRecordAnc.setVisibility(View.VISIBLE);
-//
-//            }
+            }
 
 
         }
+    }
+
+    private Date getLastVisitDate(String baseId) {
+        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseId, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
+        if (lastVisit != null) {
+            return lastVisit.getDate();
+        } else {
+            return getDeliveryDate(baseId);
+        }
+
+    }
+
+    private Date getDeliveryDate(String baseId) {
+        Date deliveryDate = null;
+        try {
+            String deliveryDateString = PncLibrary.getInstance().profileRepository().getDeliveryDate(baseId);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            deliveryDate = sdf.parse(deliveryDateString);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return deliveryDate;
     }
 
     private class MemberType {
