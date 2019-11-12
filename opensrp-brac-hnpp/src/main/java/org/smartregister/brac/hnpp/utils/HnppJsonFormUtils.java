@@ -58,12 +58,30 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
     public static final String SIMPRINTS_ENABLE = "simprints_enable";
     public static final String VILLAGE_NAME = "village_name";
     public static final String ENCOUNTER_TYPE = "encounter_type";
-    public static JSONObject updateFormWithModuleId(JSONObject form,String moduleId) throws JSONException {
+    public static JSONObject updateFormWithModuleId(JSONObject form,String moduleId, String familyBaseEntityId) throws JSONException {
         JSONArray field = fields(form, STEP1);
         JSONObject fingerPrint = getFieldJSONObject(field, "finger_print");
         fingerPrint.put("project_id", HnppConstants.getSimPrintsProjectId());
         fingerPrint.put("user_id",CoreLibrary.getInstance().context().allSharedPreferences().fetchRegisteredANM());
         fingerPrint.put("module_id",moduleId);
+        form.put("family_name",HnppChildUtils.getFamilyName(familyBaseEntityId));
+
+        String entity_id = form.getString("entity_id");
+        try {
+
+            if(StringUtils.isEmpty(entity_id)){
+                ArrayList<String> womenList = HnppChildUtils.getAllWomenInHouseHold(familyBaseEntityId);
+                HnppJsonFormUtils.updateFormWithMotherName(form,womenList);
+            }else{
+                ArrayList<String> womenList = HnppChildUtils.getAllWomenInHouseHold(entity_id,familyBaseEntityId);
+                HnppJsonFormUtils.updateFormWithMotherName(form,womenList);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        form.put("relational_id", familyBaseEntityId);
+
         return form;
     }
     public static JSONObject updateFormWithMemberId(JSONObject form,String houseHoldId, String familyBaseEntityId) throws JSONException {
@@ -247,7 +265,7 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
                 break;
             case "mother_name":
-                   String motherNameAlter = Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME_REGISTERED, true);
+                String motherNameAlter = Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME_REGISTERED, true);
                 if(!TextUtils.isEmpty(motherNameAlter) && motherNameAlter.equalsIgnoreCase("মাতা রেজিস্টার্ড নয়")){
                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,motherNameAlter);
                 }else{
@@ -311,7 +329,7 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
             }
         }
     }
-    public static FamilyEventClient processFamilyForm(AllSharedPreferences allSharedPreferences, String jsonString, String familyBaseEntityId, String encounterType) {
+    public static FamilyEventClient processFamilyMemberForm(AllSharedPreferences allSharedPreferences, String jsonString, String familyBaseEntityId, String encounterType) {
         try {
             Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
             if (!(Boolean)registrationFormParams.getLeft()) {
@@ -319,6 +337,7 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
             } else {
                 JSONObject jsonForm = (JSONObject)registrationFormParams.getMiddle();
                 JSONArray fields = (JSONArray)registrationFormParams.getRight();
+                String familyId = getString(jsonForm, "relational_id");
                 String entityId = getString(jsonForm, "entity_id");
                 if (StringUtils.isBlank(entityId)) {
                     entityId = generateRandomUUIDString();
@@ -326,11 +345,15 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
                 lastInteractedWith(fields);
                 dobEstimatedUpdateFromAge(fields);
+                String motherEntityId = updateMotherName(fields,familyId);
+
                 Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
                 if (baseClient != null && !baseClient.getBaseEntityId().equals(familyBaseEntityId)) {
                     baseClient.addRelationship(Utils.metadata().familyMemberRegister.familyRelationKey, familyBaseEntityId);
                 }
 
+                Context context = HnppApplication.getInstance().getContext().applicationContext();
+                addRelationship(context, motherEntityId,familyId, baseClient);
                 Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, "metadata"), formTag(allSharedPreferences), entityId, encounterType, Utils.metadata().familyMemberRegister.tableName);
                 tagSyncMetadata(allSharedPreferences, baseEvent);
 
