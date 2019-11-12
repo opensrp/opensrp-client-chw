@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.model.HnppFamilyRegisterModel;
 import org.smartregister.brac.hnpp.presenter.FamilyRegisterPresenter;
+import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.listener.CoreBottomNavigationListener;
@@ -96,7 +97,13 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
         form.setName(getString(R.string.add_family));
         form.setSaveLabel(getString(R.string.save));
         form.setWizard(false);
-        form.setActionBarBackground(org.smartregister.family.R.color.family_actionbar);
+        if(!HnppConstants.isReleaseBuild()){
+            form.setActionBarBackground(R.color.test_app_color);
+
+        }else{
+            form.setActionBarBackground(org.smartregister.family.R.color.family_actionbar);
+
+        }
         form.setNavigationBackground(org.smartregister.family.R.color.family_navigation);
         form.setHomeAsUpIndicator(org.smartregister.family.R.mipmap.ic_cross_white);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);

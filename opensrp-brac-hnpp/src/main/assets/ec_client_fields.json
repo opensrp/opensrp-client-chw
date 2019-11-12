@@ -18,6 +18,13 @@
           }
         },
         {
+          "column_name": "serial_no",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.serial_no"
+          }
+        },
+        {
           "column_name": "ss_name",
           "type": "Client",
           "json_mapping": {

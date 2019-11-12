@@ -10,12 +10,6 @@ import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.CoreChwRepository;
 import org.smartregister.brac.hnpp.BuildConfig;
-import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
-import org.smartregister.repository.EventClientRepository;
-import org.smartregister.repository.LocationRepository;
-import org.smartregister.repository.SettingsRepository;
-import org.smartregister.repository.UniqueIdRepository;
-
 import timber.log.Timber;
 
 public class HnppChwRepository extends CoreChwRepository {
@@ -48,14 +42,24 @@ public class HnppChwRepository extends CoreChwRepository {
         int upgradeTo = oldVersion + 1;
         while (upgradeTo <= newVersion) {
             switch (upgradeTo) {
-                case 2:
-                    //upgradeToVersion2(context, db);
+                case 7:
+                    upgradeToVersion7(context, db);
                     break;
+
                 default:
                     break;
             }
             upgradeTo++;
         }
+    }
+
+    private void upgradeToVersion7(Context context, SQLiteDatabase db) {
+        try{
+            db.execSQL("ALTER TABLE ec_family ADD COLUMN serial_no VARCHAR;");
+        }catch (Exception e){
+
+        }
+
     }
 
 }

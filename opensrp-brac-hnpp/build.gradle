@@ -42,6 +42,7 @@ android {
         multiDexEnabled true
         buildConfigField "String", 'opensrp_url', '"http://mhealth.brac.net:8080/opensrp/"'
         buildConfigField "String", 'opensrp_url_release', '"http://mhealth.brac.net:8080/opensrp/"'
+        buildConfigField "String", 'opensrp_url_release_with_https', '"https://mhealth.brac.net:8080/opensrp/"'
         buildConfigField "String", 'opensrp_url_release_without_slash', '"http://mhealth.brac.net:8080/opensrp"'
 
         buildConfigField "String", "SIMPRINT_PROJECT_ID_TRAINING",'"pcmqBbcaB4xWvfRHRELG"'
@@ -53,7 +54,7 @@ android {
         buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
         buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
         buildConfigField "boolean", 'SUPPORT_QR', 'false'
-        buildConfigField "int", "DATABASE_VERSION", '5'
+        buildConfigField "int", "DATABASE_VERSION", '7'
         buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '10'
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"

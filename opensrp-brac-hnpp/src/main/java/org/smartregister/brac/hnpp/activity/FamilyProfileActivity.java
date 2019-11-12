@@ -65,8 +65,13 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
                 Intent intent = new Intent(this, Utils.metadata().familyFormActivity);
                 intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
                 Form form = new Form();
-                form.setActionBarBackground(org.smartregister.family.R.color.family_actionbar);
-                form.setWizard(false);
+                if(!HnppConstants.isReleaseBuild()){
+                    form.setActionBarBackground(R.color.test_app_color);
+
+                }else{
+                    form.setActionBarBackground(org.smartregister.family.R.color.family_actionbar);
+
+                }                form.setWizard(false);
                 intent.putExtra("form", form);
                 this.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
             }else{

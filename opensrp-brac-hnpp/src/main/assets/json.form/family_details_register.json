@@ -75,24 +75,6 @@
         "openmrs_entity_id": "SS_Name",
         "type": "spinner",
         "hint": "স্বাস্থ্য সেবিকার নামঃ",
-        "editable": true,
-        "values": [
-        ],
-        "openmrs_choice_ids": {
-        },
-        "v_required": {
-          "value": "true",
-          "err": "মান নির্বাচন করুন"
-        }
-      },
-      {
-        "key": "village_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Village_Name",
-        "type": "spinner",
-        "hint": "গ্রামের নামঃ",
-        "editable": true,
         "values": [
         ],
         "openmrs_choice_ids": {
@@ -103,13 +85,35 @@
         }
       },
       {
+        "key": "village_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Village_Name",
+        "type": "spinner",
+        "hint": "গ্রামের নামঃ",
+        "values": [
+        ],
+        "openmrs_choice_ids": {
+        },
+        "v_required": {
+          "value": "true",
+          "err": "মান নির্বাচন করুন"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hnpp_family_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "claster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Cluster",
         "type": "spinner",
         "hint": "ক্লাস্টার",
-        "editable": true,
         "values": [
           "ক্লাস্টার ১",
           "ক্লাস্টার ২",
@@ -158,6 +162,22 @@
         "v_numeric": {
           "value": "false",
           "err": "একটি বৈধ আইডি লিখুন"
+        }
+      },
+      {
+        "key": "serial_no",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "serial_no",
+        "type": "edit_text",
+        "hint": "সিরিয়াল নাম্বার",
+        "v_numeric": {
+          "value": "true",
+          "err": "একটি বৈধ নাম্বার লিখুন"
+        },
+        "v_regex": {
+          "value": "[0-9]*",
+          "err": "দশমিক অনুমোদিত নয়"
         }
       },
       {
@@ -252,15 +272,6 @@
           "err": "প্রশ্নের উত্তর দিন"
         }
       },
-      {
-        "key": "toaster_notes",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "toaster_notes",
-        "type": "toaster_notes",
-        "text":"সব তথ্য পূরণ করা হলে জমা দিন",
-        "toaster_type": "info"
-      },
 
       {
         "key": "gps",
@@ -270,6 +281,18 @@
         "openmrs_data_type": "text",
         "hidden": true,
         "type": "gps"
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "section",
+        "type": "section_label",
+        "section_background": "#3797ca",
+        "text_color": "#FFFFFF",
+        "text_size": "22px",
+        "label_text_style": "bold",
+        "name": "সব তথ্য পূরণ করা হলে জমা দিন"
       }
     ]
   }

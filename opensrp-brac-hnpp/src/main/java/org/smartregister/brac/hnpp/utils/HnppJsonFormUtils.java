@@ -30,6 +30,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.tag.FormTag;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
@@ -326,12 +327,14 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
                 lastInteractedWith(fields);
                 dobEstimatedUpdateFromAge(fields);
-                Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
+                FormTag formTag = formTag(allSharedPreferences);
+                formTag.appVersionName = BuildConfig.VERSION_NAME;
+                Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
                 if (baseClient != null && !baseClient.getBaseEntityId().equals(familyBaseEntityId)) {
                     baseClient.addRelationship(Utils.metadata().familyMemberRegister.familyRelationKey, familyBaseEntityId);
                 }
 
-                Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, "metadata"), formTag(allSharedPreferences), entityId, encounterType, Utils.metadata().familyMemberRegister.tableName);
+                Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, "metadata"), formTag, entityId, encounterType, Utils.metadata().familyMemberRegister.tableName);
                 tagSyncMetadata(allSharedPreferences, baseEvent);
 
                 String entity_id = baseClient.getBaseEntityId();
@@ -509,10 +512,10 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
             lastInteractedWith(fields);
             dobUnknownUpdateFromAge(fields);
             processAttributesWithChoiceIDsForSave(fields);
-
-
-            Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
-            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId, getString(jsonForm, ENCOUNTER_TYPE), CoreConstants.TABLE_NAME.CHILD);
+            FormTag formTag = formTag(allSharedPreferences);
+            formTag.appVersionName = BuildConfig.VERSION_NAME;
+            Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields,formTag , entityId);
+            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag, entityId, getString(jsonForm, ENCOUNTER_TYPE), CoreConstants.TABLE_NAME.CHILD);
             tagSyncMetadata(allSharedPreferences, baseEvent);
             String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
             String entity_id = baseClient.getBaseEntityId();
@@ -610,12 +613,13 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
                 lastInteractedWith(fields);
                 dobUnknownUpdateFromAge(fields);
-
-                Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
+                FormTag formTag = formTag(allSharedPreferences);
+                formTag.appVersionName = BuildConfig.VERSION_NAME;
+                Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
                 baseClient.setLastName("Family");
                 baseClient.setBirthdate(new Date(0L));
                 baseClient.setGender("Male");
-                Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, "metadata"), formTag(allSharedPreferences), entityId, Utils.metadata().familyRegister.registerEventType, Utils.metadata().familyRegister.tableName);
+                Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, "metadata"), formTag, entityId, Utils.metadata().familyRegister.registerEventType, Utils.metadata().familyRegister.tableName);
                 tagSyncMetadata(allSharedPreferences, baseEvent);
 
                 String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
