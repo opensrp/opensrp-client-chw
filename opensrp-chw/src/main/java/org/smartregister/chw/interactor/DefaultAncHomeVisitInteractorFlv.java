@@ -205,7 +205,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .withPayloadDetails(MessageFormat.format("tt_{0}", individualVaccine.getRight()))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, individualVaccine.getRight()))
                 .withScheduleStatus((overdueMonth < 1) ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
-                .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(individualVaccine.getLeft()))))
+                .withSubtitle(MessageFormat.format("{0}{1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(individualVaccine.getLeft()))))
                 .build();
 
         // don't show if its after now
@@ -252,7 +252,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .withPayloadDetails(MessageFormat.format("IPTp-SP_dose_{0}", serviceIteration))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
                 .withScheduleStatus((overdueMonth < 1) ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
-                .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
+                .withSubtitle(MessageFormat.format("{0}{1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                 .build();
 
         // don't show if its after now
