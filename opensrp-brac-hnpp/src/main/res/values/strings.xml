@@ -36,13 +36,13 @@
     <string name="powered_by_brac">Copyright © BRAC 2019 </string>
     <string name="powered_by_mpower">Powered by mPower </string>
     <string name="member_count">খানার মোট সদস্য: %s</string>
-    <string name="registered_count">সদস্য: %s (নিবন্ধিত: %s)</string>
+    <string name="registered_count"><br>সদস্য:</br> %s (নিবন্ধিত: %s)</string>
     <string name="next_visit_date">পরবর্তী দেখার তারিখ: %s</string>
-    <string name="house_hold_id">খানা নাম্বার: %s (%s)</string>
+    <string name="house_hold_id">খানা: <br>%s</br> (%s)</string>
     <string name="saving">সংরক্ষণ হচ্ছে ...</string>
     <string name="phone_no">মোবাইল নম্বর : %s</string>
-    <string name="ss_name">সেবিকা : %s</string>
-    <string name="name">নাম : %s</string>
+    <string name="ss_name"><br>সেবিকা :</br> %s</string>
+    <string name="name"><br>নাম :</br> %s</string>
     <string name="search_name_or_id">নাম বা আইডি দ্বারা অনুসন্ধান করুন</string>
     <string name="home">হোম</string>
     <string name="job_aids">ড্যাশবোর্ড</string>

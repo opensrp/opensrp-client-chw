@@ -36,8 +36,8 @@ android {
         applicationId "org.smartregister.brac.hnpp"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 5
-        versionName "1.1.6"
+        versionCode 6
+        versionName "1.1.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         buildConfigField "String", 'opensrp_url', '"http://mhealth.brac.net:8080/opensrp/"'
@@ -54,7 +54,7 @@ android {
         buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
         buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
         buildConfigField "boolean", 'SUPPORT_QR', 'false'
-        buildConfigField "int", "DATABASE_VERSION", '7'
+        buildConfigField "int", "DATABASE_VERSION", '6'
         buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '10'
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"

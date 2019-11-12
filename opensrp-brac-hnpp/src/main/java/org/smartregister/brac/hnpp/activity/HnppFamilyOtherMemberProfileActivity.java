@@ -45,6 +45,7 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
         setContentView(R.layout.activity_other_member_profile);
 
         Toolbar toolbar = findViewById(org.smartregister.family.R.id.family_toolbar);
+        HnppConstants.updateAppBackground(toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();

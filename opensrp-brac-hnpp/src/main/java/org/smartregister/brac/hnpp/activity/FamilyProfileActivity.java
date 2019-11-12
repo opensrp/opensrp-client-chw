@@ -40,6 +40,12 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     }
 
     @Override
+    protected void setupViews() {
+        super.setupViews();
+        HnppConstants.updateAppBackground(findViewById(R.id.family_toolbar));
+    }
+
+    @Override
     protected void refreshPresenter() {
         presenter = new FamilyProfilePresenter(this, new HnppFamilyProfileModel(familyName,moduleId,houseHoldId,familyBaseEntityId),houseHoldId, familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }

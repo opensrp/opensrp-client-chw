@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -167,7 +168,7 @@ public class HnppFamilyRegisterProvider extends CoreRegisterProvider  {
         if(textView == null) return;
         if(!TextUtils.isEmpty(value)){
             textView.setVisibility(View.VISIBLE);
-            textView.setText(value);
+            textView.setText(Html.fromHtml(value));
         }else{
             textView.setVisibility(View.GONE);
         }
