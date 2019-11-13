@@ -594,13 +594,16 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
         JSONObject motherAlterObj = getFieldJSONObject(fields, HnppConstants.KEY.CHILD_MOTHER_NAME_REGISTERED);
         boolean isVisible = motherObj.optBoolean("is_visible",false);
         if(!isVisible){
-            String motherNameSelected = motherAlterObj.getString(VALUE);
+            String motherNameSelected = motherAlterObj.optString(VALUE);
             if(!TextUtils.isEmpty(motherNameSelected) && !motherNameSelected.equalsIgnoreCase("মাতা রেজিস্টার্ড নয়")){
                 motherObj.put(VALUE,motherNameSelected);
             }
 
         }
-        return HnppChildUtils.getMotherBaseEntityId(familyId,motherObj.getString(VALUE));
+        String motherName = motherObj.optString(VALUE);
+        if(!TextUtils.isEmpty(motherName))return HnppChildUtils.getMotherBaseEntityId(familyId,motherName);
+        return "";
+
 
     }
 
