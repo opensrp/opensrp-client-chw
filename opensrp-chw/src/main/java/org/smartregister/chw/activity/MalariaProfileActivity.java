@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +43,7 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -186,6 +188,10 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             textViewRecordAnc.setVisibility(View.VISIBLE);
             textViewRecordAncNotDone.setVisibility(View.VISIBLE);
             visitStatus.setVisibility(View.GONE);
+        } else if (id == org.smartregister.malaria.R.id.textview_edit) {
+            if (view.getTag() == "EDIT_PNC") {
+                PncHomeVisitActivity.startMe(this, PNCDao.getMember(MEMBER_OBJECT.getBaseEntityId()), true);
+            }
         }
     }
 
@@ -370,11 +376,11 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.ANC_HOME_VISIT);
 
             VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, ancMemberObject.getLastContactVisit(), null, new DateTime(ancMemberObject.getDateCreated()).toLocalDate());
-            String visitStatus = visitSummary.getVisitStatus();
+            String visitSummaryStatus = visitSummary.getVisitStatus();
 
 
-            if (!visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) &&
-                    !visitStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
+            if (visitSummaryStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) ||
+                    visitSummaryStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
                 textViewRecordAnc.setVisibility(View.VISIBLE);
                 textViewRecordAnc.setTag(ANC);
 
@@ -382,14 +388,23 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             }
 
 
-            Visit lastVisit = getVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT);
-            boolean within24Hours = VisitUtils.isVisitWithin24Hours(lastVisit);
-            if (visitStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE) && !within24Hours) {
-                textViewRecordAnc.setVisibility(View.VISIBLE);
+            if (visitSummaryStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE)) {
                 textViewRecordAnc.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_selector_overdue);
-                textViewRecordAnc.setTag(ANC);
+            }
 
+            if (visitSummaryStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.VISIT_NOT_DONE)) {
+//                textViewRecordAnc.setVisibility(View.VISIBLE);
                 textViewRecordAncNotDone.setVisibility(View.VISIBLE);
+                visitStatus.setVisibility(View.GONE);
+
+            }
+
+            if (visitSummaryStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.VISIT_DONE)) {
+                textViewRecordAncNotDone.setText("Visit Done");
+                textViewRecordAncNotDone.setTextColor(getResources().getColor(R.color.alert_complete_green));
+                textViewRecordAncNotDone.setVisibility(View.VISIBLE);
+                visitStatus.setVisibility(View.GONE);
+
             }
         }
     }
@@ -408,20 +423,51 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
             PncVisitAlertRule pncVisitAlertRule = HomeVisitUtil.getPncVisitStatus(rules, getLastVisitDate(ancMemberObject.getBaseEntityId()), getDeliveryDate(ancMemberObject.getBaseEntityId()));
 
-            if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("DUE") || pncVisitAlertRule.getButtonStatus().toUpperCase().equals("OVERDUE")) {
-                textViewRecordAnc.setText(R.string.record_pnc_visit);
-                textViewRecordAnc.setTag(PNC);
-                textViewRecordAnc.setVisibility(View.VISIBLE);
-            }
+            //check last visit
+            Visit lastVisit = getVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT);
+            if (lastVisit != null) {
+                setUpEditViews(true, VisitUtils.isVisitWithin24Hours(lastVisit), lastVisit.getDate().getTime());
+            } else {
 
-            if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("OVERDUE")) {
-                textViewRecordAnc.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_selector_overdue);
+                if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("DUE") || pncVisitAlertRule.getButtonStatus().toUpperCase().equals("OVERDUE")) {
+                    textViewRecordAnc.setText(R.string.record_pnc_visit);
+                    textViewRecordAnc.setTag(PNC);
+                    textViewRecordAnc.setVisibility(View.VISIBLE);
+                }
 
+                if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("OVERDUE")) {
+                    textViewRecordAnc.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_selector_overdue);
+
+                }
+
+                if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("VISIT_DONE")) {
+                    visitDone.setVisibility(View.VISIBLE);
+                    textViewVisitDoneEdit.setTag("EDIT_PNC");
+                    textViewVisitDone.setTextColor(getResources().getColor(R.color.alert_complete_green));
+                }
             }
 
 
         }
     }
+
+
+    protected void setUpEditViews(boolean enable, boolean within24Hours, Long longDate) {
+//        openVisitMonthView();
+        if (enable) {
+            if (within24Hours) {
+                Calendar cal = Calendar.getInstance();
+                int offset = cal.getTimeZone().getOffset(cal.getTimeInMillis());
+                Date date = new Date(longDate - (long) offset);
+                String monthString = (String) DateFormat.format("MMMM", date);
+                textViewRecordAnc.setText("Visit has been done today");
+            } else {
+                textViewRecordAnc.setText("Visit has been done");
+            }
+            textViewUndo.setVisibility(View.GONE);
+        }
+    }
+
 
     private Date getLastVisitDate(String baseId) {
         Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseId, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
