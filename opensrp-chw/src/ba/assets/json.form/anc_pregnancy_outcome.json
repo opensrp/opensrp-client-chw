@@ -343,7 +343,7 @@
         "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
-        "text_size": "5sp",
+        "text_size": "8sp",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

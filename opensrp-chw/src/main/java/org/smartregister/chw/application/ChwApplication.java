@@ -157,7 +157,7 @@ public class ChwApplication extends CoreChwApplication {
         try {
             FileUtils.createDirectory(rootFolder, onSdCard);
         } catch (Exception e) {
-            Timber.e(e);
+            Timber.v(e);
         }
     }
 
