@@ -27,7 +27,9 @@ public class HnppConstants extends CoreConstants {
 
     public static void updateAppBackground(View view){
         if(!isReleaseBuild()){
-            view.setBackgroundColor(Color.RED);
+            view.setBackgroundColor(Color.parseColor("#B53737"));
+        }else{
+            view.setBackgroundColor(Color.parseColor("#F6F6F6"));
         }
     }
 

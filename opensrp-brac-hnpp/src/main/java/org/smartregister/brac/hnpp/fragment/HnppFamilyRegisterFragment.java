@@ -90,6 +90,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
     public void setupViews(View view) {
         super.setupViews(view);
         HnppConstants.updateAppBackground((view.findViewById(R.id.register_nav_bar_container)));
+        HnppConstants.updateAppBackground(view.findViewById(org.smartregister.R.id.register_toolbar));
 
         ((TextView) view.findViewById(org.smartregister.chw.core.R.id.filter_text_view)).setText("");
         view.findViewById(org.smartregister.chw.core.R.id.filter_sort_layout).setVisibility(View.VISIBLE);
