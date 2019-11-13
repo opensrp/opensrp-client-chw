@@ -44,13 +44,6 @@
           },
           {
             "field": "eventType",
-            "field_value": "Malaria Confirmation",
-            "closes_case": [
-              "ec_malaria_confirmation"
-            ]
-          },
-          {
-            "field": "eventType",
             "field_value": "Update Family Registration",
             "creates_case": [
               "ec_family"
@@ -133,6 +126,13 @@
           {
             "field": "eventType",
             "field_value": "Malaria Confirmation",
+            "creates_case": [
+              "ec_malaria_confirmation"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Update Malaria Confirmation",
             "creates_case": [
               "ec_malaria_confirmation"
             ]
