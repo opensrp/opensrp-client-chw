@@ -23,6 +23,7 @@ import org.smartregister.chw.core.dao.MalariaDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.custom_view.MalariaFloatingMenu;
 import org.smartregister.chw.interactor.MalariaProfileInteractor;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
@@ -93,6 +94,8 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         return true;
     }
 
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -159,6 +162,10 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         int id = view.getId();
         if (id == R.id.textview_record_malaria) {
             MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, MEMBER_OBJECT.getBaseEntityId());
+        }
+        else if (id == R.id.rlMalariaPositiveDate){
+            JSONObject form = CoreJsonFormUtils.getEditMalariaFormString(MEMBER_OBJECT.getBaseEntityId(),this, CoreConstants.JSON_FORM.MALARIA_CONFIRMATION);
+            startFormActivity(form, MEMBER_OBJECT);
         }
     }
 
