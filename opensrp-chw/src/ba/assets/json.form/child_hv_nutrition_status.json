@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Vitamin A",
+  "encounter_type": "Home Visit - Nutrition Status",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,21 +47,34 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Vitamine A {0} dose",
+    "title": "Nutrition status",
     "fields": [
       {
-        "key": "vitamin_a{0}_date",
-        "openmrs_entity_parent": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "key": "nutrition_status_1m5yr",
+        "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160753AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "date_picker",
-        "image": "ic_form_vitamin",
-        "hint": "Quand est-ce que le Vitamine A {0} dose a été donné?",
-        "min_date": "today-120y",
-        "max_date": "today",
+        "openmrs_entity_id": "163301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Nutrition status",
+        "values": [
+          "Normal",
+          "Moderate",
+          "Severe"
+        ],
+        "keys": [
+          "Normal",
+          "Moderate",
+          "Severe"
+        ],
+        "openmrs_choice_ids": {
+          "Normal": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Moderate": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Severe": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
-          "err": "Please enter the date vitamin a was given"
+          "err": "Please select one option"
         }
       }
     ]
