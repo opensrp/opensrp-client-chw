@@ -317,6 +317,12 @@
     <!-- Medical history -->
     <string name="dose_number">Dose %s</string>
 
+    <!--PNC Family Planning Ba-->
+    <string name="during_anc">During ANC</string>
+    <string name="during_pnc">During PNC</string>
+    <string name="during_labour_and_delivery">During Labour and delivery</string>
+
+
 
 
 
