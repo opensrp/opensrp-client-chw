@@ -74,7 +74,14 @@ public class IPTPAction extends HomeVisitActionHelper {
             Timber.e(e);
         }
     }
+
+
 */
+    @Override
+    public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+        return null;
+    }
+
     @Override
     public void onPayloadReceived(String jsonPayload) {
         try {
