@@ -271,10 +271,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         MessageFormat.format("{0}: {1}\n",
                                 context.getString(R.string.fp_counseling),
                                 "Yes".equalsIgnoreCase(fp_counseling) ? evaluateFpPeriod() : context.getString(R.string.not_done).toLowerCase())
-                       /*MessageFormat.format("{0}: {1}\n",
-                                context.getString(R.string.fp_counseling),
-                                "Yes".equalsIgnoreCase(fp_counseling) ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase()
-                        )*/
                 );
 
                 if (StringUtils.isNotBlank(fp_method)) {
@@ -310,25 +306,8 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         default:
                             break;
                     }
-
-                    /*builder.append(
-                            MessageFormat.format("{0}: {1}",
-                                    context.getString(R.string.fp_method_chosen),
-                                    method
-                            )
-                    );*/
                     builder.append(MessageFormat.format("{0}: {1}",method, StringUtils.isNoneBlank(fp_start_date) ? new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(start_date) : ""));
                 }
-
-            /*    if (StringUtils.isNotBlank(fp_start_date)) {
-                    builder.append(
-                            MessageFormat.format("\n{0}: {1}",
-                                    context.getString(R.string.fp_method_start_date),
-                                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(start_date)
-                            )
-                    );
-                }*/
-
                 return builder.toString();
             }
 
@@ -337,8 +316,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 if (StringUtils.isBlank(fp_counseling)) {
                     return BaseAncHomeVisitAction.Status.PENDING;
                 }
-
-
                 if ("Yes".equalsIgnoreCase(fp_counseling)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else {
