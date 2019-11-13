@@ -2,7 +2,7 @@ package org.smartregister.chw.model;
 
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.util.NCUtils;
-import org.smartregister.chw.core.repository.WashCheckRepository;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
 
@@ -18,7 +18,7 @@ public class WashCheckModel {
     public boolean saveWashCheckEvent(String jsonString) {
         try {
             AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().context().allSharedPreferences();
-            Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, WashCheckRepository.WASH_CHECK_TABLE_NAME);
+            Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, CoreConstants.TABLE_NAME.WASH_CHECK_LOG);
             baseEvent.setBaseEntityId(familyId);
 
             NCUtils.addEvent(allSharedPreferences, baseEvent);
