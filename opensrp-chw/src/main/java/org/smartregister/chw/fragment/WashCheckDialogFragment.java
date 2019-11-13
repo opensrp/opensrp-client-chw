@@ -1,6 +1,5 @@
 package org.smartregister.chw.fragment;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -18,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.dao.WashCheckDao;
 import org.smartregister.util.JsonFormUtils;
 
@@ -41,7 +41,6 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
     private String baseEntityID;
     private RadioButton handwashingYes, handwashingNo, drinkingYes, drinkingNo;
     private RadioButton latrineYes, latrineNo;
-    private Activity activity;
     private Map<String, Boolean> selectedOptions = new HashMap<>();
 
     public static WashCheckDialogFragment getInstance(String familyBaseEntityID, Long visitDate) {
@@ -56,7 +55,6 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity = (Activity) context;
     }
 
     @Override
@@ -102,8 +100,11 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
             Map<String, VisitDetail> washData = WashCheckDao.getWashCheckDetails(washCheckDate, baseEntityID);
             if (washData.get("details_info") != null) {
                 parseOldData(washData.get("details_info").getDetails());
-            }else{
-
+            } else {
+                for (Map.Entry<String, VisitDetail> entry : washData.entrySet()) {
+                    String value = NCUtils.getText(entry.getValue());
+                    selectedOptions.put(entry.getKey(), "Yes".equalsIgnoreCase(value));
+                }
             }
 
             e.onNext("");
@@ -119,7 +120,7 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
 
             @Override
             public void onNext(String s) {
-                parseData();
+                refreshUI();
             }
 
             @Override
@@ -160,7 +161,7 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
         return "Yes".equalsIgnoreCase(value) || "Oui".equalsIgnoreCase(value);
     }
 
-    private void parseData() {
+    private void refreshUI() {
         notifyUIValues(handwashingYes, handwashingNo, "handwashing_facilities");
         notifyUIValues(drinkingYes, drinkingNo, "drinking_water");
         notifyUIValues(latrineYes, latrineNo, "hygienic_latrine");
