@@ -25,13 +25,15 @@ import org.smartregister.chw.core.activity.CoreChildMedicalHistoryActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.domain.MedicalHistory;
+import org.smartregister.chw.util.ChildUtils;
+import org.smartregister.chw.util.ChildUtilsFlv;
 import org.smartregister.chw.util.CustomDividerItemDecoration;
 import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.Vaccine;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -100,6 +102,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
     private void evaluateImmunizations() {
         if (vaccineMap != null && vaccineMap.size() > 0) {
 
+            List<String> vaccineGiven = new ArrayList<>();
             // generate data
             List<MedicalHistory> medicalHistories = new ArrayList<>();
             for (Map.Entry<String, List<Vaccine>> entry : vaccineMap.entrySet()) {
@@ -108,14 +111,13 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
                 List<String> content = new ArrayList<>();
                 for (Vaccine vaccine : entry.getValue()) {
                     String val = vaccine.getName().toLowerCase().replace(" ", "_");
+                    vaccineGiven.add(val.replace("_", ""));
                     String translated = Utils.getStringResourceByName(val, context);
                     content.add(String.format("%s - %s %s", translated, context.getString(R.string.done), sdf.format(vaccine.getDate())));
                 }
                 history.setText(content);
                 medicalHistories.add(history);
             }
-
-            Collections.reverse(medicalHistories);
 
             View view = new ViewBuilder()
                     .withTitle(context.getString(R.string.immunization))
@@ -125,8 +127,12 @@ public abstract class DefaultChildMedicalHistoryActivity implements CoreChildMed
                     .withRootLayout(R.layout.medical_history_item_child_immunization)
                     .build();
 
-            view.findViewById(R.id.rlAgeOne).setVisibility(View.GONE);
-            view.findViewById(R.id.rlAgeTwo).setVisibility(View.GONE);
+            ChildUtils.Flavor childUtilsFlv = new ChildUtilsFlv();
+            boolean oneYrFully = vaccineGiven.containsAll(Arrays.asList(childUtilsFlv.getOneYearVaccines()));
+            boolean twoYrFully = vaccineGiven.containsAll(Arrays.asList(childUtilsFlv.getTwoYearVaccines()));
+
+            view.findViewById(R.id.rlAgeOne).setVisibility(oneYrFully ? View.VISIBLE : View.GONE);
+            view.findViewById(R.id.rlAgeTwo).setVisibility(twoYrFully ? View.VISIBLE : View.GONE);
 
             parentView.addView(view);
         }
