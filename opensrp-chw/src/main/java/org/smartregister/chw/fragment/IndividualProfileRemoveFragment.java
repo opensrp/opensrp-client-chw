@@ -97,6 +97,9 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
             dialog.show(getFragmentManager(), FamilyRemoveMemberFragment.DIALOG_TAG);
             dialog.setOnRemove(() -> {
                 getPresenter().processRemoveForm(form);
+                Intent intent = new Intent(getActivity(), getFamilyRegisterActivity());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             });
             dialog.setOnRemoveActivity(() -> {
                 if (getActivity() != null) {
@@ -116,4 +119,8 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
         return AncRegisterActivity.class;
     }
 
+
+    private Class<? extends CoreFamilyRegisterActivity> getFamilyRegisterActivity(){
+        return FamilyRegisterActivity.class;
+    }
 }
