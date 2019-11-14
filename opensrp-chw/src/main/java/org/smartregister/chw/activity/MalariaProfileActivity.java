@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +42,6 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -408,9 +406,15 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                 textViewRecordAnc.setVisibility(View.GONE);
 
                 visitDone.setVisibility(View.VISIBLE);
-                textViewVisitDoneEdit.setTag("EDIT_ANC");
                 textViewVisitDone.setTextColor(getResources().getColor(R.color.alert_complete_green));
                 visitStatus.setVisibility(View.GONE);
+
+                if (VisitUtils.isVisitWithin24Hours(visit)) {
+                    textViewVisitDoneEdit.setTag("EDIT_ANC");
+                    textViewVisitDoneEdit.setVisibility(View.VISIBLE);
+                } else {
+                    textViewVisitDoneEdit.setVisibility(View.GONE);
+                }
 
             }
         }
@@ -433,7 +437,13 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             //check last visit
             Visit lastVisit = getVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT);
             if (lastVisit != null) {
-                setUpEditViews(true, VisitUtils.isVisitWithin24Hours(lastVisit), lastVisit.getDate().getTime());
+                if (VisitUtils.isVisitWithin24Hours(lastVisit)) {
+                    visitDone.setVisibility(View.VISIBLE);
+                    textViewVisitDoneEdit.setTag("EDIT_PNC");
+                    textViewVisitDone.setTextColor(getResources().getColor(R.color.alert_complete_green));
+                } else {
+                    visitDone.setVisibility(View.GONE);
+                }
             } else {
 
                 if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("DUE") || pncVisitAlertRule.getButtonStatus().toUpperCase().equals("OVERDUE")) {
@@ -449,7 +459,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
                 if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("VISIT_DONE")) {
                     visitDone.setVisibility(View.VISIBLE);
-                    textViewVisitDoneEdit.setTag("EDIT_PNC");
+                    textViewVisitDoneEdit.setVisibility(View.GONE);
                     textViewVisitDone.setTextColor(getResources().getColor(R.color.alert_complete_green));
                 }
             }
@@ -457,24 +467,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
         }
     }
-
-
-    protected void setUpEditViews(boolean enable, boolean within24Hours, Long longDate) {
-//        openVisitMonthView();
-        if (enable) {
-            if (within24Hours) {
-                Calendar cal = Calendar.getInstance();
-                int offset = cal.getTimeZone().getOffset(cal.getTimeInMillis());
-                Date date = new Date(longDate - (long) offset);
-                String monthString = (String) DateFormat.format("MMMM", date);
-                textViewRecordAnc.setText("Visit has been done today");
-            } else {
-                textViewRecordAnc.setText("Visit has been done");
-            }
-            textViewUndo.setVisibility(View.GONE);
-        }
-    }
-
 
     private Date getLastVisitDate(String baseId) {
         Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseId, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
