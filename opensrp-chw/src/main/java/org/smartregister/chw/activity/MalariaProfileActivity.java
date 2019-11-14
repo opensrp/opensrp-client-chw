@@ -95,7 +95,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -162,9 +161,8 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         int id = view.getId();
         if (id == R.id.textview_record_malaria) {
             MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, MEMBER_OBJECT.getBaseEntityId());
-        }
-        else if (id == R.id.rlMalariaPositiveDate){
-            JSONObject form = CoreJsonFormUtils.getEditMalariaFormString(MEMBER_OBJECT.getBaseEntityId(),this, CoreConstants.JSON_FORM.MALARIA_CONFIRMATION);
+        } else if (id == R.id.rlMalariaPositiveDate) {
+            JSONObject form = CoreJsonFormUtils.getEditMalariaFormString(MEMBER_OBJECT.getBaseEntityId(), this, CoreConstants.JSON_FORM.MALARIA_CONFIRMATION);
             startFormActivity(form, MEMBER_OBJECT);
         }
     }
@@ -297,15 +295,26 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
     private Observable<MemberType> getMemberType() {
         return Observable.create(e -> {
-            org.smartregister.chw.anc.domain.MemberObject memberObject = PNCDao.getMember(MEMBER_OBJECT.getBaseEntityId());
+            org.smartregister.chw.anc.domain.MemberObject memberObject;
             String type = null;
 
-            if (AncDao.isANCMember(memberObject.getBaseEntityId())) {
+            String baseEntityId = MEMBER_OBJECT.getBaseEntityId();
+
+            if (AncDao.isANCMember(baseEntityId)) {
                 type = CoreConstants.TABLE_NAME.ANC_MEMBER;
-            } else if (PNCDao.isPNCMember(memberObject.getBaseEntityId())) {
+                memberObject = AncDao.getMember(baseEntityId);
+            } else if (PNCDao.isPNCMember(baseEntityId)) {
                 type = CoreConstants.TABLE_NAME.PNC_MEMBER;
-            } else if (ChildDao.isChild(memberObject.getBaseEntityId())) {
+                memberObject = PNCDao.getMember(baseEntityId);
+            } else if (ChildDao.isChild(baseEntityId)) {
                 type = CoreConstants.TABLE_NAME.CHILD;
+                memberObject = ChildDao.getMember(baseEntityId);
+            } else {
+                memberObject = new org.smartregister.chw.anc.domain.MemberObject();
+                memberObject.setBaseEntityId(baseEntityId);
+                memberObject.setFirstName(MEMBER_OBJECT.getFirstName());
+                memberObject.setLastName(MEMBER_OBJECT.getLastName());
+                memberObject.setMiddleName(MEMBER_OBJECT.getMiddleName());
             }
 
             MemberType memberType = new MemberType(memberObject, type);
