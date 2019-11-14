@@ -4,6 +4,10 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatTextView;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -202,15 +206,54 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
 
             ArrayAdapter<String> ssSpinnerArrayAdapter = new ArrayAdapter<String>
                     (getActivity(), android.R.layout.simple_spinner_item,
-                            ssSpinnerArray);
+                            ssSpinnerArray){
+                @Override
+                public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                    convertView = super.getDropDownView(position, convertView,
+                            parent);
+
+                    AppCompatTextView appCompatTextView = (AppCompatTextView)convertView;
+                    appCompatTextView.setGravity(Gravity.CENTER_VERTICAL);
+                    appCompatTextView.setHeight(100);
+
+                    return convertView;
+                }
+            };
 
             villageSpinnerArrayAdapter = new ArrayAdapter<String>
                     (getActivity(), android.R.layout.simple_spinner_item,
-                            villageSpinnerArray);
+                            villageSpinnerArray){
+                @Override
+                public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                    convertView = super.getDropDownView(position, convertView,
+                            parent);
+                    AppCompatTextView appCompatTextView = (AppCompatTextView)convertView;
+                    appCompatTextView.setGravity(Gravity.CENTER_VERTICAL);
+                    appCompatTextView.setHeight(100);
+
+//                    convertView.setVisibility(View.VISIBLE);
+//                    ViewGroup.LayoutParams p = convertView.getLayoutParams();
+//                    p.height = 100; // set the height
+//                    convertView.setLayoutParams(p);
+
+                    return convertView;
+                }
+            };
 
             ArrayAdapter<String> clusterSpinnerArrayAdapter = new ArrayAdapter<String>
                     (getActivity(), android.R.layout.simple_spinner_item,
-                            HnppConstants.getClasterSpinnerArray());
+                            HnppConstants.getClasterSpinnerArray()){
+                @Override
+                public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                    convertView = super.getDropDownView(position, convertView,
+                            parent);
+                    AppCompatTextView appCompatTextView = (AppCompatTextView)convertView;
+                    appCompatTextView.setGravity(Gravity.CENTER_VERTICAL);
+                    appCompatTextView.setHeight(100);
+
+                    return convertView;
+                }
+            };
 
             Dialog dialog = new Dialog(getActivity(), android.R.style.Theme_NoTitleBar_Fullscreen);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -274,7 +317,6 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
             proceed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     updateFilterView();
                     dialog.dismiss();
                 }

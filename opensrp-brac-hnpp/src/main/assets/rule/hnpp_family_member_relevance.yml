@@ -23,13 +23,13 @@ actions:
 name: step1_Mother_Guardian_First_Name_english
 description: Mother_Guardian_First_Name_english
 priority: 1
-condition: "step1_relation_with_household_head != 'স্ত্রী' && step1_mother_name == 'মাতা রেজিস্টার্ড নয়'"
+condition: "step1_relation_with_household_head != 'স্বামী' && step1_mother_name == 'মাতা রেজিস্টার্ড নয়'"
 actions:
   - "isRelevant = true"
 ---
 name: step1_mother_name
 description: mother_name
 priority: 1
-condition: "step1_relation_with_household_head != 'স্ত্রী'"
+condition: "step1_relation_with_household_head != 'স্বামী'"
 actions:
   - "isRelevant = true"
