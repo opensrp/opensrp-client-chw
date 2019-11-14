@@ -189,13 +189,17 @@
           "value": "true",
           "err": "Required"
         },
-        "v_numeric": {
+        "v_numeric_integer": {
           "value": "true",
-          "err": ""
+          "err": "Must be a rounded number"
         },
         "v_min": {
           "value": "0",
           "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "45",
+          "err": "Number must be equal or less than 45"
         }
       },
       {
@@ -224,13 +228,13 @@
           "value": "true",
           "err": "Required"
         },
-        "v_numeric": {
+        "v_numeric_integer": {
           "value": "true",
-          "err": ""
+          "err": "Must be a rounded number"
         },
-        "v_min": {
-          "value": "0",
-          "err": "Number must be equal or greater than 0"
+        "v_relative_max": {
+          "value": "no_prev_preg",
+          "err": "Number must be less than or equal to Number of Previous Pregnancies"
         }
       },
       {

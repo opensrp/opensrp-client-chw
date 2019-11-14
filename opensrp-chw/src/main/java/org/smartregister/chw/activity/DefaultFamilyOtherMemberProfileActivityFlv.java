@@ -8,6 +8,8 @@ import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
+import io.reactivex.annotations.Nullable;
+
 import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
 
 public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {
@@ -21,7 +23,7 @@ public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements Fami
     }
 
     @Override
-    public Boolean onCreateOptionsMenu(Menu menu) {
+    public Boolean onCreateOptionsMenu(Menu menu, @Nullable String baseEntityID) {
         menu.findItem(R.id.action_malaria_registration).setVisible(false);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         return true;
