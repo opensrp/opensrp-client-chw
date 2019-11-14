@@ -191,6 +191,8 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         } else if (id == org.smartregister.malaria.R.id.textview_edit) {
             if (view.getTag() == "EDIT_PNC") {
                 PncHomeVisitActivity.startMe(this, PNCDao.getMember(MEMBER_OBJECT.getBaseEntityId()), true);
+            } else if (view.getTag() == "EDIT_ANC") {
+                AncHomeVisitActivity.startMe(this, MEMBER_OBJECT.getBaseEntityId(), true);
             }
         }
     }
@@ -399,10 +401,15 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
             }
 
-            if (visitSummaryStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.VISIT_DONE)) {
-                textViewRecordAncNotDone.setText("Visit Done");
-                textViewRecordAncNotDone.setTextColor(getResources().getColor(R.color.alert_complete_green));
-                textViewRecordAncNotDone.setVisibility(View.VISIBLE);
+            //when visit is done
+            Visit visit = getVisit(CoreConstants.EventType.ANC_HOME_VISIT);
+            if (visit != null) {
+                textViewRecordAncNotDone.setVisibility(View.GONE);
+                textViewRecordAnc.setVisibility(View.GONE);
+
+                visitDone.setVisibility(View.VISIBLE);
+                textViewVisitDoneEdit.setTag("EDIT_ANC");
+                textViewVisitDone.setTextColor(getResources().getColor(R.color.alert_complete_green));
                 visitStatus.setVisibility(View.GONE);
 
             }
