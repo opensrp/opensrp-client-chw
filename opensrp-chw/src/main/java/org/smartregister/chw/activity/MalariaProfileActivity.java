@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
@@ -21,12 +25,15 @@ import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContr
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.ChildDao;
+import org.smartregister.chw.core.dao.MalariaDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.core.utils.VisitSummary;
+import org.smartregister.chw.custom_view.MalariaFloatingMenu;
 import org.smartregister.chw.interactor.MalariaProfileInteractor;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.malaria.domain.MemberObject;
@@ -498,6 +505,42 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             this.memberObject = memberObject;
             this.memberType = memberType;
         }
+    }
+
+    private void checkPhoneNumberProvided(boolean hasPhoneNumber) {
+        ((MalariaFloatingMenu) baseMalariaFloatingMenu).redraw(hasPhoneNumber);
+    }
+
+    @Override
+    public void initializeFloatingMenu() {
+        MemberObject memberObject = MalariaDao.getMember(MEMBER_OBJECT.getBaseEntityId());
+        baseMalariaFloatingMenu = new MalariaFloatingMenu(this, memberObject);
+
+        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
+            switch (viewId) {
+                case R.id.malaria_fab:
+                    checkPhoneNumberProvided(StringUtils.isNotBlank(memberObject.getPhoneNumber()));
+                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
+                    break;
+                case R.id.call_layout:
+                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).launchCallWidget();
+                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
+                    break;
+                case R.id.refer_to_facility_layout:
+                    Toast.makeText(this, "Refer", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    Timber.d("Unknown fab action");
+                    break;
+            }
+
+        };
+
+        ((MalariaFloatingMenu) baseMalariaFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
+        baseMalariaFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        addContentView(baseMalariaFloatingMenu, linearLayoutParams);
     }
 
     interface onMemberTypeLoadedListener {

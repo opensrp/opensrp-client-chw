@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
@@ -32,7 +33,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        flavor.onCreateOptionsMenu(menu);
+        flavor.onCreateOptionsMenu(menu, baseEntityId);
 
         // Check if woman is already registered
         if (!presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isWra(commonPersonObject)) {
@@ -133,9 +134,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
      */
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId);
-
-        Boolean onCreateOptionsMenu(Menu menu);
-
+        Boolean onCreateOptionsMenu(Menu menu, @Nullable String baseEntityId);
         boolean isWra(CommonPersonObjectClient commonPersonObject);
     }
 

@@ -5,7 +5,7 @@ import android.view.View;
 import org.smartregister.chw.activity.MalariaFollowUpVisitActivity;
 import org.smartregister.chw.activity.MalariaProfileActivity;
 import org.smartregister.chw.core.fragment.CoreMalariaRegisterFragment;
-import org.smartregister.chw.core.model.MalariaRegisterFragmentModel;
+import org.smartregister.chw.core.model.CoreMalariaRegisterFragmentModel;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.presenter.MalariaRegisterFragmentPresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -19,7 +19,7 @@ public class MalariaRegisterFragment extends CoreMalariaRegisterFragment {
             return;
         }
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
-        presenter = new MalariaRegisterFragmentPresenter(this, new MalariaRegisterFragmentModel(), viewConfigurationIdentifier);
+        presenter = new MalariaRegisterFragmentPresenter(this, new CoreMalariaRegisterFragmentModel(), viewConfigurationIdentifier);
     }
 
     @Override
