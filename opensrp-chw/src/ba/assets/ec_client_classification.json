@@ -171,6 +171,20 @@
             "creates_case": [
               "ec_pnc_referral"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Referral Registration",
+            "creates_case": [
+              "ec_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Referral Followup Registration",
+            "creates_case": [
+              "ec_referral_followup"
+            ]
           }
         ]
       }

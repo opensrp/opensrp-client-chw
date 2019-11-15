@@ -5,7 +5,7 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.android.tools.build:gradle:3.5.1'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.5.0-x'
         classpath 'io.fabric.tools:gradle:1.25.4'
     }
@@ -229,6 +229,10 @@ android {
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
+    }
+
+    dataBinding {
+        enabled = true
     }
 }
 

@@ -97,8 +97,14 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
                     ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
                     break;
                 case R.id.refer_to_facility_layout:
-                    ((AncMemberProfilePresenter) ancMemberProfilePresenter()).referToFacility();
+
+                    //TODO Coze: uncomment the above code and remove the below lines until agreed upon during integration with other team members
+                    ((AncMemberProfilePresenter)presenter).startReferralForm(AncMemberProfileActivity.this,baseEntityID);
                     ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
+
+
+//                    ((AncMemberProfilePresenter) ancMemberProfilePresenter()).referToFacility();
+//                    ((AncFloatingMenu) baseAncFloatingMenu).animateFAB();
                     break;
                 default:
                     Timber.d("Unknown fab action");
