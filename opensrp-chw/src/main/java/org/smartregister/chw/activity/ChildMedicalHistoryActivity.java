@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ChildMedicalHistoryActivity extends CoreChildMedicalHistoryActivity {
-    private CoreChildMedicalHistoryActivity.Flavor flavor = new ChildMedicalHistoryActivityFlv();
 
     public static void startMe(Activity activity, MemberObject memberObject) {
         Intent intent = new Intent(activity, ChildMedicalHistoryActivity.class);
@@ -24,14 +23,7 @@ public class ChildMedicalHistoryActivity extends CoreChildMedicalHistoryActivity
     }
 
     @Override
-    public View renderView(List<Visit> visits, Map<String, List<Vaccine>> vaccines, List<ServiceRecord> serviceRecords) {
-        super.renderView(visits, vaccines, serviceRecords);
-        View view = flavor.bindViews(this);
-
-        displayLoadingState(true);
-        flavor.processViewData(visits, vaccines, serviceRecords, this);
-        displayLoadingState(false);
-
-        return view;
+    protected Flavor getFlavor() {
+        return new ChildMedicalHistoryActivityFlv();
     }
 }
