@@ -1,7 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import android.content.Context;
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
 import org.apache.commons.lang3.text.WordUtils;

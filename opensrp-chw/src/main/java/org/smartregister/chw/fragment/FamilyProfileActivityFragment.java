@@ -3,8 +3,8 @@ package org.smartregister.chw.fragment;
 import android.app.FragmentTransaction;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreConstants;
