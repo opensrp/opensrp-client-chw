@@ -61,6 +61,7 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
                 }
                 BaseUpcomingService upcomingService = new BaseUpcomingService();
                 upcomingService.setServiceDate(visitRule.getDueDate().toDate());
+                upcomingService.setOverDueDate(visitRule.getOverDueDate().toDate());
                 upcomingService.setServiceName(MessageFormat.format(context.getString(R.string.pnc_health_facility_visit_num), visit_num));
                 serviceList.add(upcomingService);
             }

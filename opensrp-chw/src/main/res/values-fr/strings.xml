@@ -153,7 +153,7 @@
     <string name="anc_home_visit_anc_card_received">Carnet CPN reçu</string>
     <string name="anc_home_visit_sleeping_under_llitn_net">Dors sous un MIILD </string>
     <string name="anc_home_visit_counseling">Conseils CPN</string>
-    <string name="anc_home_visit_tt_immunization">VAT{0}</string>f
+    <string name="anc_home_visit_tt_immunization">Td {0}</string>
     <string name="anc_home_visit_iptp_sp">SP dose {0}</string>
     <string name="gest_age">AG: %1$s</string>
     <string name="gest_age_weeks">semaines</string>
@@ -161,7 +161,6 @@
     <string name="action_taken">Action prise</string>
     <string name="date">Date</string>
     <string name="weight">Poids</string>
-    <string name="bp">PA</string>
     <string name="kg">kg</string>
     <string name="mmHg">mmHg</string>
     <string name="hb_level">Hémoglobine-TH</string>
@@ -237,6 +236,31 @@
     <string name="anc_indicator7">Femmes enceintes à jour avec leurs Td</string>
     <string name="anc_indicator8">Femmes enceintes à jour avec leurs Doses de SP</string>
 
+    <!-- PNC Reporting indicators labels: Check PNC reporting data dictionary. Strings are named by number
+ as defined in the data dictionary -->
+    <string name="pnc_indicator_1">Femmes enceintes qui ont accouché dans une formation sanitaire (6 derniers mois)</string>
+    <string name="pnc_indicator_2">Bébés avec poids normal à la naissance (6 derniers mois)</string>
+    <string name="pnc_indicator_3">Les nouveau-nés initiée précocement (1 heure) à l\'allaitement maternel (6 derniers mois).</string>
+    <string name="pnc_indicator_4">Enfants ayant reçu le vaccin BCG à temps (6 derniers mois)</string>
+    <string name="pnc_indicator_4_note">à temps signifie dans les quatre semaines suivant la naissance</string>
+    <string name="pnc_indicator_5">FAP qui sont décédés au cours de la dernière année </string>
+    <string name="pnc_indicator_5_note">FAP=Femmes en Age de procrée (10&#8211;49)</string>
+    <string name="pnc_indicator_6">Femmes sans signes de danger lors de leur dernière visite CPoN à domicile</string>
+    <string name="pnc_indicator_7">Nouveau-nés sans signes de danger lors de leur dernière visite CPoN à domicile</string>
+    <string name="pnc_indicator_8">Méthodes de planification familiale choisies par les femmes en postpartum (6 derniers mois)</string>
+    <string name="pnc_indicator_9">Nouveau-nés (0&#8211;28 jours) décédés au cours de la dernière année</string>
+
+    <string name="maternal_deaths_slice_label">Décès maternels</string>
+    <string name="other_wra_deaths_slice_label">Autres décès des FAP</string>
+    <string name="none">Aucun</string>
+    <string name="abstinence">Abstinence</string>
+    <string name="condom">Préservatif</string>
+    <string name="tablets">Comprimés</string>
+    <string name="injectable">Injectable</string>
+    <string name="iud">DIU</string>
+    <string name="implant">Implant</string>
+    <string name="other">Autre</string>
+
     <!-- PNC Home visit-->
     <!-- PNC home visit tasks labels -->
     <string name="pnc_danger_signs_mother">Signes de danger - femme</string>
@@ -246,6 +270,7 @@
     <string name="pnc_child_vaccine_card_recevied">Carte de vaccination enfant reçu ({0})</string>
     <string name="pnc_immunization_at_birth">Immunisations (à la naissance) ({0})</string>
     <string name="pnc_umblicord_care">Soins du cordon ombilical</string>
+    <string name="pnc_umblicord_care_child">Soins du cordon ombilical ({0})</string>
     <string name="pnc_exclusive_breastfeeding">Allaitement maternel exclusif ({0})</string>
     <string name="pnc_kangaroo_mother_care">Soins Maternels Kangourou (SMK) - ({0})</string>
     <string name="pnc_family_planning">Planification familiale</string>
@@ -271,5 +296,16 @@
     <string name="deworming_number_dose">Déparasitage %s dose</string>
     <string name="vitamin_a_number_dose">Vitamine A %s dose</string>
     <string name="mnp_number_pack">%s sachet MNP</string>
+    <string name="permission_denied">Permission refusée</string>
+    <string name="storage_permissions_message">L\'application a besoin de cette permission pour lister les vidéos du guide. \n Sans cette permission, vous ne pouvez pas visionner les vidéos du guide.</string>
+
+    <!--Referral -->
+    <string name="referral_reason">Motif du renvoi</string>
+    <string name="open_referral_form">Formulaire %sde référence ouvert</string>
+    <string name="sick_child">Enfant malade</string>
+    <string name="client_malaria_follow_up">Visite de suivi du paludisme</string>
+    <string name="pnc_danger_signs">Signes de danger CPoN</string>
+    <string name="fp_post_partum">PF post-partum</string>
+    <string name="anc_danger_signs">Signes de danger CPN</string>
 
 </resources>
