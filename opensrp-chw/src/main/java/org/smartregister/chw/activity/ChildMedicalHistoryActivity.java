@@ -2,17 +2,10 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.view.View;
 
 import org.smartregister.chw.anc.domain.MemberObject;
-import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.activity.CoreChildMedicalHistoryActivity;
-import org.smartregister.immunization.domain.ServiceRecord;
-import org.smartregister.immunization.domain.Vaccine;
-
-import java.util.List;
-import java.util.Map;
 
 public class ChildMedicalHistoryActivity extends CoreChildMedicalHistoryActivity {
 
