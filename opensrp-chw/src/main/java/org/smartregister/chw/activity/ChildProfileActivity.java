@@ -6,14 +6,11 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
-import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
