@@ -238,7 +238,7 @@ android {
 
 dependencies {
 
-    implementation('org.smartregister:opensrp-client-chw-core:1.0.29-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.0.30-Test-SNAPSHOT@aar') {
         transitive = true
     }
     implementation 'com.android.support:appcompat-v7:28.0.0'
