@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_bg"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:background="@color/hnpp_accent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:src="@drawable/childrow_family"
+        android:tint="@color/white"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/title_txt"
+        android:text="নিবন্ধিত খানা"
+        android:padding="5dp"
+        android:textSize="22sp"
+        android:layout_toRightOf="@id/image_view"
+        android:layout_toLeftOf="@+id/count_txt"
+        android:layout_centerVertical="true"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/count_txt"
+        android:text="1000"
+        android:textSize="25sp"
+        android:layout_centerVertical="true"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

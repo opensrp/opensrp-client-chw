@@ -17,5 +17,8 @@
         <item name="android:textSize">@dimen/login_font_size</item>
         <item name="colorControlActivated">@android:color/black</item>
     </style>
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
 
 </resources>
