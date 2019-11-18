@@ -85,7 +85,7 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_malaria_prevention))
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getMalariaPrevention())
+                .withFormName(Constants.JSON_FORM.CHILD_HOME_VISIT.getMalariaPrevention())
                 .withHelper(malariaPreventionHelper)
                 .build();
         actionList.put(context.getString(R.string.pnc_malaria_prevention), action);
