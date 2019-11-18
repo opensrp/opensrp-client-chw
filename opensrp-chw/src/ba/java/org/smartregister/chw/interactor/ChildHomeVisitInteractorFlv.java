@@ -47,9 +47,9 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    famllin1m5yr = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fam_llin_1m5yr");
-                    llin2days1m5yr = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "llin_2days_1m5yr");
-                    llinCondition1m5yr = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "llin_condition_1m5yr");
+                    famllin1m5yr = JsonFormUtils.getValue(jsonObject, "fam_llin_1m5yr");
+                    llin2days1m5yr = JsonFormUtils.getValue(jsonObject, "llin_2days_1m5yr");
+                    llinCondition1m5yr = JsonFormUtils.getValue(jsonObject, "llin_condition_1m5yr");
                 } catch (JSONException e) {
                     Timber.e(e);
                 }
