@@ -16,10 +16,12 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
 import org.smartregister.chw.fragment.FamilyProfileMemberFragment;
+import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
@@ -131,6 +133,11 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     @Override
     protected Class<? extends BasePncMemberProfileActivity> getPncMemberProfileActivityClass() {
         return PncMemberProfileActivity.class;
+    }
+
+    @Override
+    public void gotToMalariaProfileActivity(CommonPersonObjectClient client) {
+        MalariaProfileActivity.startMalariaActivity(this, new org.smartregister.chw.malaria.domain.MemberObject(client), client);
     }
 
     @Override
