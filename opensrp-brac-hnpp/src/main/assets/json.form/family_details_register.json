@@ -171,13 +171,10 @@
         "openmrs_entity_id": "serial_no",
         "type": "edit_text",
         "hint": "সিরিয়াল নাম্বার",
-        "v_numeric": {
-          "value": "true",
-          "err": "একটি বৈধ নাম্বার লিখুন"
-        },
+        "value": "H",
         "v_regex": {
-          "value": "[0-9]*",
-          "err": "দশমিক অনুমোদিত নয়"
+          "value": "H[0-9]*",
+          "err": "H দিয়ে শুরু করতে হবে এরপর  ০  থেকে ৯ এর ভিতর নাম্বার দিন"
         }
       },
       {

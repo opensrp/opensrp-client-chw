@@ -36,8 +36,8 @@ android {
         applicationId "org.smartregister.brac.hnpp"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 6
-        versionName "1.1.7"
+        versionCode 7
+        versionName "1.1.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         buildConfigField "String", 'opensrp_url', '"http://mhealth.brac.net:8080/opensrp/"'
