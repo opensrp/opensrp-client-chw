@@ -64,7 +64,7 @@
         "type": "date_picker",
         "hint": "Tarehe ya kwanza ya hedhi ya kawaida ya mwisho (LNMP)",
         "label_info_title": "LMP",
-        "label_info_text": "LNMP = SSiku ya kwanza ya mwisho ya hedhi (LNMP). Kama tarehe halisi haijulikani, lakini kipindi cha mwezi kinajulikana; \n -tumia siku 5 kwa mwanzo wa mwezi \n -tumia siku 15 kwa katikati ya mwezi \n -na tumia siku 25 kwa mwisho wa mwezi",
+        "label_info_text": "LNMP = Siku ya kwanza ya mwisho ya hedhi (LNMP). Kama tarehe halisi haijulikani, lakini kipindi cha mwezi kinajulikana; \n ∙ tumia tarehe 5 kwa mwanzo wa mwezi \n ∙ tumia tarehe 15 kwa katikati ya mwezi \n ∙ tumia tarehe 25 kwa mwisho wa mwezi.",
         "expanded": false,
         "max_date": "today",
         "min_date": "today-50w",
@@ -193,9 +193,9 @@
           "value": "true",
           "err": "Ingiza thamani sawa au kubwa kuliko 0"
         },
-        "v_min": {
-          "value": "0",
-          "err": "Nambari lazima iwe sawa au kubwa kuliko 0"
+        "v_relative_max": {
+          "value": "no_prev_preg",
+          "err": "Nambari lazima iwe chini ya au sawa na Idadi ya Mimba za awali"
         }
       },
       {

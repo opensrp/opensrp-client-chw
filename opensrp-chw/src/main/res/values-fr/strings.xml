@@ -318,6 +318,4 @@
     <string name="dose_number">Dose %s</string>
     <string name="cancel_download_confirmation">Vous êtes sûr de vouloir annuler ce téléchargement ?</string>
     <string name="cancel_download">Annuler le téléchargement</string>
-
-
 </resources>

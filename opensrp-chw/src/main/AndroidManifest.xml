@@ -160,7 +160,8 @@
             android:name=".core.activity.CoreAncRegisterActivity"
             android:label="@string/anc_register"
             android:theme="@style/ChwTheme.NoActionBar" />
-        <activity android:name=".activity.MalariaUpcomingServicesActivity"
+        <activity
+            android:name=".activity.MalariaUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
@@ -180,7 +181,6 @@
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
-        <service android:name="org.smartregister.sync.intent.SyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
@@ -190,10 +190,11 @@
         <service android:name=".intent.ChwPncCloseDateIntent" />
         <service android:name="org.smartregister.reporting.service.IndicatorGeneratorIntentService" />
         <service android:name="org.smartregister.chw.service.SchedulesIntentService" />
+        <service android:name="org.smartregister.chw.sync.ChwSyncIntentService" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
-  
+
 </manifest>
