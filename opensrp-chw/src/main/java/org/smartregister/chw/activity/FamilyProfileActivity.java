@@ -161,6 +161,11 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     }
 
     @Override
+    protected boolean isMalariaMember(String baseEntityId) {
+        return getFamilyProfilePresenter().isMalariaMember(baseEntityId);
+    }
+
+    @Override
     protected CommonPersonObject getPncCommonPersonObject(String baseEntityId) {
         return getFamilyProfilePresenter().getPncCommonPersonObject(baseEntityId);
     }
