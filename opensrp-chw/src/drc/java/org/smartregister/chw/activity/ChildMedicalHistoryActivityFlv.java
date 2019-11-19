@@ -1,4 +1,6 @@
 package org.smartregister.chw.activity;
 
-public class ChildMedicalHistoryActivityFlv extends DefaultChildMedicalHistoryActivity {
+import org.smartregister.chw.core.activity.DefaultChildMedicalHistoryActivityFlv;
+
+public class ChildMedicalHistoryActivityFlv extends DefaultChildMedicalHistoryActivityFlv {
 }
