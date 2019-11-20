@@ -1,8 +1,14 @@
 package org.smartregister.brac.hnpp.contract;
 
+import org.smartregister.brac.hnpp.model.DashBoardModel;
+
+import java.util.ArrayList;
+
 public interface DashBoardContract {
 
     public interface InteractorCallBack{
+
+        void updateList(ArrayList<DashBoardModel> dashBoardModels);
 
     }
     public interface Interactor{
