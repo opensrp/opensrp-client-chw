@@ -25,12 +25,6 @@
               "offset": "+91d",
               "window": "+28d"
             }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+1000d"
-            }
           ]
         }
       }
@@ -62,12 +56,6 @@
               "prerequisite": "TT 1",
               "offset": "+28d",
               "window": "+28d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+1000d"
             }
           ]
         }
@@ -101,12 +89,6 @@
               "offset": "+140d",
               "window": "+28d"
             }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+1000d"
-            }
           ]
         }
       }
@@ -139,12 +121,6 @@
               "offset": "+365d",
               "window": "+30d"
             }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+1000d"
-            }
           ]
         }
       }
@@ -176,12 +152,6 @@
               "prerequisite": "TT 4",
               "offset": "+365d",
               "window": "+30d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+1000d"
             }
           ]
         }
