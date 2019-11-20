@@ -3,7 +3,6 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 
 import org.joda.time.LocalDate;
-import org.smartregister.chw.R;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.ChildDao;
@@ -12,6 +11,7 @@ import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.interactor.CoreMalariaProfileInteractor;
 import org.smartregister.chw.malaria.contract.MalariaProfileContract;
 import org.smartregister.chw.malaria.domain.MemberObject;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
@@ -21,8 +21,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-
-import timber.log.Timber;
 
 public class MalariaProfileInteractor extends CoreMalariaProfileInteractor {
     private Context context;
@@ -61,17 +59,8 @@ public class MalariaProfileInteractor extends CoreMalariaProfileInteractor {
             baseUpcomingServices.addAll(new ChildUpcomingServicesInteractor().getMemberServices(context, memberObject));
         }
 
-        try {
-            // malaria follow up visit
-            BaseUpcomingService followUP = new BaseUpcomingService();
-            followUP.setServiceName(context.getString(R.string.follow_up_visit));
-            followUP.setServiceDate(new Date());
-            followUP.setOverDueDate(LocalDate.now().plusDays(2).toDate());
-
-            baseUpcomingServices.add(followUP);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
+//        malaria follow up visit
+        Utils.malariaUpcomingServices(baseEntityID, context, baseUpcomingServices);
 
         if (baseUpcomingServices.size() > 0) {
             Comparator<BaseUpcomingService> comparator = (o1, o2) -> o1.getServiceDate().compareTo(o2.getServiceDate());
