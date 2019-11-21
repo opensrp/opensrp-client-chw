@@ -8,7 +8,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.BuildConfig;
 import org.smartregister.brac.hnpp.R;
-import org.smartregister.brac.hnpp.listener.HfFamilyBottomNavListener;
+import org.smartregister.brac.hnpp.listener.HnppFamilyBottomNavListener;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.core.activity.CoreChildRegisterActivity;
 import org.smartregister.brac.hnpp.fragment.HnppChildRegisterFragment;
@@ -59,6 +59,6 @@ public class ChildRegisterActivity extends CoreChildRegisterActivity {
         }
         bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_register);
         bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_job_aids);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new HfFamilyBottomNavListener(this, bottomNavigationView));
+        bottomNavigationView.setOnNavigationItemSelectedListener(new HnppFamilyBottomNavListener(this, bottomNavigationView));
     }
 }

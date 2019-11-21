@@ -1,6 +1,7 @@
 package org.smartregister.brac.hnpp.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ public class HnppDashBoardFragment extends Fragment implements View.OnClickListe
     private DashBoardPresenter presenter;
     private String fromDate, toDate, currentDate;
     private DashBoardAdapter adapter;
+    private Runnable runnable;
 
     @Nullable
     @Override
@@ -43,7 +45,11 @@ public class HnppDashBoardFragment extends Fragment implements View.OnClickListe
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH)+1;
         date = calendar.get(Calendar.DAY_OF_MONTH);
-        currentDate   = year+"-"+addZeroForMonth(month+"")+"-"+date;
+        currentDate   = year+"-"+addZeroForMonth(month+"")+"-"+addZeroForMonth(date+"");
+        fromDate = currentDate;
+        toDate = currentDate;
+        textViewFromDate.setText(currentDate);
+        textViewToDate.setText(currentDate);
         return view;
     }
 
@@ -61,7 +67,7 @@ public class HnppDashBoardFragment extends Fragment implements View.OnClickListe
                 DatePickerDialog fromDialog = new DatePickerDialog(getActivity(), R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        fromDate = year + "-" + addZeroForMonth((month+1)+"-"+dayOfMonth);
+                        fromDate = year + "-" + addZeroForMonth((month+1)+"")+"-"+addZeroForMonth(dayOfMonth+"");
 
                         textViewFromDate.setText(fromDate);
                         updateFilter();
@@ -74,7 +80,7 @@ public class HnppDashBoardFragment extends Fragment implements View.OnClickListe
                 DatePickerDialog toDialog = new DatePickerDialog(getActivity(), R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        toDate = year + "-" + addZeroForMonth((month+1)+"-"+dayOfMonth);
+                        toDate = year + "-" + addZeroForMonth((month+1)+"")+"-"+addZeroForMonth(dayOfMonth+"");
 
                         textViewToDate.setText(toDate);
                         updateFilter();
@@ -84,6 +90,10 @@ public class HnppDashBoardFragment extends Fragment implements View.OnClickListe
                 toDialog.show();
                 break;
         }
+    }
+    public void refreshData(Runnable runnable){
+        this.runnable = runnable;
+        updateFilter();
     }
 
     @Override
@@ -96,8 +106,15 @@ public class HnppDashBoardFragment extends Fragment implements View.OnClickListe
 
     }
 
+    @Nullable
+    @Override
+    public Context getContext() {
+        return getActivity();
+    }
+
     @Override
     public void updateAdapter() {
+        if(runnable != null) runnable.run();
         if(adapter == null){
             adapter = new DashBoardAdapter(getActivity(), (position, content) -> {
 

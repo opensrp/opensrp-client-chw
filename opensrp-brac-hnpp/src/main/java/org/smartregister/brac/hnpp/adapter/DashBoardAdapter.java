@@ -38,7 +38,7 @@ public class DashBoardAdapter extends RecyclerView.Adapter<DashBoardViewHolder> 
         final DashBoardData content = contentList.get(position);
         viewHolder.imageView.setImageResource(content.getImageSource());
         viewHolder.textViewTitle.setText(content.getTitle());
-        viewHolder.textViewCount.setText(content.getCount());
+        viewHolder.textViewCount.setText(content.getCount()+"");
         viewHolder.itemView.setOnClickListener(v -> onClickAdapter.onClick(viewHolder.getAdapterPosition(), content));
     }
 

@@ -1,5 +1,7 @@
 package org.smartregister.brac.hnpp.contract;
 
+import android.content.Context;
+
 import org.smartregister.brac.hnpp.model.DashBoardData;
 
 import java.util.ArrayList;
@@ -17,7 +19,10 @@ public interface DashBoardContract {
 
     }
     public interface Model{
+
         Model getDashBoardModel();
+
+        Context getContext();
 
     }
     public interface Presenter{
@@ -34,6 +39,8 @@ public interface DashBoardContract {
         void hideProgressBar();
 
         void updateAdapter();
+
+        Context getContext();
 
     }
 

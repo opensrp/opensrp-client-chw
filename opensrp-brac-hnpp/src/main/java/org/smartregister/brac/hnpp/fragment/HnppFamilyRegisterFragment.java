@@ -199,24 +199,6 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         }
     }
     @Override
-    public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
-        if (id == LOADER_ID) {
-            return new CursorLoader(getActivity()) {
-                @Override
-                public Cursor loadInBackground() {
-                    // Count query
-                    final String COUNT = "count_execute";
-                    if (args != null && args.getBoolean(COUNT)) {
-                        countExecute();
-                    }
-                    String query = (dueFilterActive ? dueFilterAndSortQuery() : defaultFilterAndSortQuery());
-                    return commonRepository().rawCustomQueryForAdapter(query);
-                }
-            };
-        }
-        return super.onCreateLoader(id, args);
-    }
-    @Override
     protected String defaultFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
@@ -281,12 +263,6 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
                     AppCompatTextView appCompatTextView = (AppCompatTextView)convertView;
                     appCompatTextView.setGravity(Gravity.CENTER_VERTICAL);
                     appCompatTextView.setHeight(100);
-
-//                    convertView.setVisibility(View.VISIBLE);
-//                    ViewGroup.LayoutParams p = convertView.getLayoutParams();
-//                    p.height = 100; // set the height
-//                    convertView.setLayoutParams(p);
-
                     return convertView;
                 }
             };

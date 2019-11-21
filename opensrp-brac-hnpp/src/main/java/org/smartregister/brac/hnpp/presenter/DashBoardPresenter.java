@@ -17,7 +17,7 @@ public class DashBoardPresenter implements DashBoardContract.Presenter,DashBoard
 
     public DashBoardPresenter(DashBoardContract.View view){
         this.view = view;
-        this.model = new DashBoardModel();
+        this.model = new DashBoardModel(view.getContext());
         interactor = new DashBoardInteractor(new AppExecutors(), model);
     }
 

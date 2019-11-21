@@ -13,17 +13,17 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
+import org.smartregister.brac.hnpp.listener.HnppBottomNavigationListener;
 import org.smartregister.brac.hnpp.model.HnppFamilyRegisterModel;
 import org.smartregister.brac.hnpp.presenter.FamilyRegisterPresenter;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.core.listener.CoreBottomNavigationListener;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.brac.hnpp.BuildConfig;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.fragment.HnppFamilyRegisterFragment;
-import org.smartregister.brac.hnpp.listener.HfFamilyBottomNavListener;
+import org.smartregister.brac.hnpp.listener.HnppFamilyBottomNavListener;
 import org.smartregister.family.contract.FamilyRegisterContract;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -58,7 +58,7 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
             bottomNavigationView.getMenu().clear();
             bottomNavigationView.inflateMenu(R.menu.bottom_nav_family_menu);
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-            bottomNavigationView.setOnNavigationItemSelectedListener(new CoreBottomNavigationListener(activity));
+            bottomNavigationView.setOnNavigationItemSelectedListener(new HnppBottomNavigationListener(activity));
         }
 
         if (!BuildConfig.SUPPORT_QR) {
@@ -74,7 +74,7 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new HfFamilyBottomNavListener(this, bottomNavigationView));
+        bottomNavigationView.setOnNavigationItemSelectedListener(new HnppFamilyBottomNavListener(this, bottomNavigationView));
     }
 
     @Override

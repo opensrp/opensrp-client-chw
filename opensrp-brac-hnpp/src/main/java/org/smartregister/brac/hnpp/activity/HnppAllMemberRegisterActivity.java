@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import org.smartregister.brac.hnpp.BuildConfig;
 import org.smartregister.brac.hnpp.fragment.HnppAllMemberRegisterFragment;
-import org.smartregister.brac.hnpp.listener.HfFamilyBottomNavListener;
+import org.smartregister.brac.hnpp.listener.HnppFamilyBottomNavListener;
 import org.smartregister.chw.core.activity.CoreChildRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -31,7 +31,7 @@ public class HnppAllMemberRegisterActivity extends CoreChildRegisterActivity {
         }
         bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_register);
         bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_job_aids);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new HfFamilyBottomNavListener(this, bottomNavigationView));
+        bottomNavigationView.setOnNavigationItemSelectedListener(new HnppFamilyBottomNavListener(this, bottomNavigationView));
     }
     @Override
     protected void onResumption() {

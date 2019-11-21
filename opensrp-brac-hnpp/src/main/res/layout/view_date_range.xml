@@ -3,23 +3,34 @@
     android:layout_width="match_parent"
     android:orientation="horizontal"
     android:gravity="center"
+    android:padding="5dp"
+    android:weightSum="2"
     android:layout_height="50dp">
     <Button
         android:text="From"
         android:drawableRight="@drawable/ic_calender"
+        android:background="@drawable/login_button_bg"
         android:id="@+id/from"
-        android:paddingRight="5dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:paddingLeft="5dp"
+        android:layout_weight="1"
         android:layout_marginRight="10dp"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent" />
     <Button
         android:text="To"
         android:drawableRight="@drawable/ic_calender"
+        android:background="@drawable/login_button_bg"
         android:id="@+id/to"
-        android:paddingRight="5dp"
+        android:layout_weight="1"
+        android:paddingRight="15dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:paddingLeft="5dp"
-        android:layout_width="150dp"
-        android:layout_height="match_parent" />
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"  />
 
 </LinearLayout>
