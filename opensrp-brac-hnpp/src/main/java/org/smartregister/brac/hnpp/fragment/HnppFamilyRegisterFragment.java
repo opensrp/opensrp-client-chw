@@ -2,10 +2,14 @@ package org.smartregister.brac.hnpp.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.Gravity;
 import android.view.View;
@@ -30,6 +34,7 @@ import org.smartregister.brac.hnpp.model.HnppFamilyRegisterFragmentModel;
 import org.smartregister.brac.hnpp.presenter.HnppFamilyRegisterFragmentPresenter;
 import org.smartregister.brac.hnpp.provider.HnppFamilyRegisterProvider;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
+import org.smartregister.brac.hnpp.utils.HnppQueryBuilder;
 import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.core.utils.QueryBuilder;
@@ -138,6 +143,9 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
 
     @Override
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
+        if(HnppConstants.isExistSpecialCharacter(filterString)){
+            filterString = "\""+filterString;
+        }
         searchFilterString = filterString;
         filterString = getFilterString();
         clientAdapter.setCurrentoffset(0);
@@ -177,7 +185,7 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         try {
             if (isValidFilterForFts(commonRepository())) {
 
-                String myquery = QueryBuilder.getQuery(joinTables, mainCondition,
+                String myquery = HnppQueryBuilder.getQuery(joinTables, mainCondition,
                         tablename, filters, clientAdapter, Sortqueries);
                 myquery = myquery.substring(0,myquery.indexOf("ORDER BY"));
                 List<String> ids = commonRepository().findSearchIds(myquery);
@@ -189,6 +197,49 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
+        if (id == LOADER_ID) {
+            return new CursorLoader(getActivity()) {
+                @Override
+                public Cursor loadInBackground() {
+                    // Count query
+                    final String COUNT = "count_execute";
+                    if (args != null && args.getBoolean(COUNT)) {
+                        countExecute();
+                    }
+                    String query = (dueFilterActive ? dueFilterAndSortQuery() : defaultFilterAndSortQuery());
+                    return commonRepository().rawCustomQueryForAdapter(query);
+                }
+            };
+        }
+        return super.onCreateLoader(id, args);
+    }
+    @Override
+    protected String defaultFilterAndSortQuery() {
+        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
+
+        String query = "";
+        try {
+            if (isValidFilterForFts(commonRepository())) {
+
+                String myquery = HnppQueryBuilder.getQuery(joinTables, mainCondition, tablename, filters, clientAdapter, Sortqueries);
+                List<String> ids = commonRepository().findSearchIds(myquery);
+                query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
+                        Sortqueries);
+                query = sqb.Endquery(query);
+            } else {
+                sqb.addCondition(filters);
+                query = sqb.orderbyCondition(Sortqueries);
+                query = sqb.Endquery(sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
+
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+        return query;
     }
 
     @Override
