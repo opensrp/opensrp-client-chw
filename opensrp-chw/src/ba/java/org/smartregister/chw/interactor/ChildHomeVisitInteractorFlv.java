@@ -23,17 +23,72 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
     protected void bindEvents(Map<String, ServiceWrapper> serviceWrapperMap) throws BaseAncHomeVisitAction.ValidationException {
         try {
             evaluateImmunization();
-
             evaluateExclusiveBreastFeeding(serviceWrapperMap);
             evaluateVitaminA(serviceWrapperMap);
             evaluateDeworming(serviceWrapperMap);
+            evaluateMalariaPrevention();
             evaluateCounselling();
+            evaluateNutritionStatus();
             evaluateObsAndIllness();
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    private void evaluateMalariaPrevention() throws Exception {
+        HomeVisitActionHelper malariaPreventionHelper = new HomeVisitActionHelper() {
+            private String famllin1m5yr;
+            private String llin2days1m5yr;
+            private String llinCondition1m5yr;
+
+            @Override
+            public void onPayloadReceived(String jsonPayload) {
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonPayload);
+                    famllin1m5yr = JsonFormUtils.getValue(jsonObject, "fam_llin_1m5yr");
+                    llin2days1m5yr = JsonFormUtils.getValue(jsonObject, "llin_2days_1m5yr");
+                    llinCondition1m5yr = JsonFormUtils.getValue(jsonObject, "llin_condition_1m5yr");
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
+            }
+
+            @Override
+            public String evaluateSubTitle() {
+                StringBuilder stringBuilder = new StringBuilder();
+                if (famllin1m5yr.equalsIgnoreCase("No")) {
+                    stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.uses_net), StringUtils.capitalize(famllin1m5yr.trim().toLowerCase())));
+                } else {
+                    stringBuilder.append(MessageFormat.format("{0}: {1} · ", context.getString(R.string.uses_net), StringUtils.capitalize(famllin1m5yr.trim().toLowerCase())));
+                    stringBuilder.append(MessageFormat.format("{0}: {1} · ", context.getString(R.string.slept_under_net), StringUtils.capitalize(llin2days1m5yr.trim().toLowerCase())));
+                    stringBuilder.append(MessageFormat.format("{0}: {1}", context.getString(R.string.net_condition), StringUtils.capitalize(llinCondition1m5yr.trim().toLowerCase())));
+                }
+                return stringBuilder.toString();
+            }
+
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (StringUtils.isBlank(famllin1m5yr)) {
+                    return BaseAncHomeVisitAction.Status.PENDING;
+                }
+
+                if (famllin1m5yr.equalsIgnoreCase("Yes") && llin2days1m5yr.equalsIgnoreCase("Yes") && llinCondition1m5yr.equalsIgnoreCase("Okay")) {
+                    return BaseAncHomeVisitAction.Status.COMPLETED;
+                } else {
+                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                }
+            }
+        };
+
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_malaria_prevention))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.CHILD_HOME_VISIT.getMalariaPrevention())
+                .withHelper(malariaPreventionHelper)
+                .build();
+        actionList.put(context.getString(R.string.pnc_malaria_prevention), action);
     }
 
     private void evaluateCounselling() throws Exception {
@@ -77,6 +132,43 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
     @Override
     protected int immunizationCeiling() {
         return 60;
+    }
+
+    private void evaluateNutritionStatus() throws BaseAncHomeVisitAction.ValidationException {
+        HomeVisitActionHelper nutritionStatusHelper = new HomeVisitActionHelper() {
+            private String nutritionStatus;
+
+            @Override
+            public void onPayloadReceived(String jsonPayload) {
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonPayload);
+                    nutritionStatus = JsonFormUtils.getValue(jsonObject, "nutrition_status_1m5yr").toLowerCase();
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
+            }
+
+            @Override
+            public String evaluateSubTitle() {
+                return MessageFormat.format("{0}: {1}", context.getString(R.string.nutrition_status), nutritionStatus);
+            }
+
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (StringUtils.isBlank(nutritionStatus))
+                    return BaseAncHomeVisitAction.Status.PENDING;
+
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            }
+        };
+
+        BaseAncHomeVisitAction observation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_nutrition_status))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.CHILD_HOME_VISIT.getNutritionStatus())
+                .withHelper(nutritionStatusHelper)
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_nutrition_status), observation);
     }
 
     @Override

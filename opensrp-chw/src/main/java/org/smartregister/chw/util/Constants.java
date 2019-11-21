@@ -8,12 +8,12 @@ public class Constants extends CoreConstants {
 
     public static class FORM_SUBMISSION_FIELD {
         public static String pncHfNextVisitDateFieldType = "pnc_hf_next_visit_date";
+
     }
 
     public enum FamilyRegisterOptionsUtil {Miscarriage, Other}
 
     public enum FamilyMemberType {ANC, PNC, Other}
-
 
     public class EncounterType {
         public static final String SICK_CHILD = "Sick Child Referral";
