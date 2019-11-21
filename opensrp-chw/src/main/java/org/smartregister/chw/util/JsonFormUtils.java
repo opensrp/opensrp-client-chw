@@ -13,10 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
-import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.FamilyMember;
-import org.smartregister.chw.core.repository.WashCheckRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.repository.ChwRepository;
@@ -25,7 +23,6 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.family.FamilyLibrary;
@@ -34,7 +31,6 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.FormUtils;
@@ -64,42 +60,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
     public static final String READ_ONLY = "read_only";
     private static Flavor flavor = new JsonFormUtilsFlv();
-
-    public static boolean saveWashCheckEvent(String jsonString, String familyId) {
-        try {
-            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
-            Event baseEvent = (Event) new Event()
-                    .withBaseEntityId(familyId)
-                    .withEventDate(new Date())
-                    .withEntityType(WashCheckRepository.WASH_CHECK_TABLE_NAME)
-                    .withEventType(org.smartregister.chw.util.Constants.EventType.WASH_CHECK)
-                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
-                    .withDateCreated(new Date());
-            String lastTime = System.currentTimeMillis() + "";
-
-            baseEvent.addObs((new Obs()).withFormSubmissionField(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID).withValue(familyId)
-                    .withFieldCode(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
-            baseEvent.addObs((new Obs()).withFormSubmissionField(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_LAST_VISIT).withValue(lastTime)
-                    .withFieldCode(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_LAST_VISIT).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
-            baseEvent.addObs((new Obs()).withFormSubmissionField(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_DETAILS).withValue(jsonString)
-                    .withFieldCode(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_DETAILS).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
-
-            tagSyncMetadata(org.smartregister.family.util.Utils.context().allSharedPreferences(), baseEvent);// tag docs
-
-            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
-            syncHelper.addEvent(familyId, eventJson);
-            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
-            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-            return true;
-            // }
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-
-        return false;
-    }
 
     public static Event tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
         String providerId = allSharedPreferences.fetchRegisteredANM();
