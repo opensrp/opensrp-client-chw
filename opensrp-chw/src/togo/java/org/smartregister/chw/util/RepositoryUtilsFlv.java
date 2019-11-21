@@ -5,7 +5,7 @@ import org.smartregister.chw.anc.repository.VisitRepository;
 
 public interface RepositoryUtilsFlv {
 
-    String[] UPGRADE_V9 = {
+    String[] DROP_VISITS_INFO_TABLES = {
             "DROP TABLE " + VisitRepository.VISIT_TABLE + ";",
             "DROP TABLE " + VisitDetailsRepository.VISIT_DETAILS_TABLE + ";",
     };
