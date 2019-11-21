@@ -1,6 +1,10 @@
 package org.smartregister.chw.adapter;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +16,10 @@ import android.widget.Toast;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.GuideBooksFragmentContract;
+import org.smartregister.chw.util.DownloadGuideBooksUtils;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.MyViewHolder> {
     private List<GuideBooksFragmentContract.Video> videos;
@@ -43,44 +49,80 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
             myViewHolder.icon.setImageResource(R.drawable.ic_save_outline_black);
         }
         myViewHolder.progressBar.setVisibility(View.GONE);
+        AtomicReference<DownloadGuideBooksUtils> downloadTask = new AtomicReference<>(getDownloadTask(video, myViewHolder));
+
+        myViewHolder.progressBar.setOnClickListener(v -> {
+            if (myViewHolder.progressBar.getVisibility() == View.VISIBLE) {
+                new AlertDialog.Builder(myViewHolder.getContext())
+                        .setTitle(myViewHolder.getContext().getString(R.string.cancel_download))
+                        .setMessage(myViewHolder.getContext().getString(R.string.cancel_download_confirmation))
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                            // Continue with delete operation
+                            if (downloadTask.get() != null)
+                                downloadTask.get().cancelDownload();
+
+                            downloadTask.set(getDownloadTask(video, myViewHolder));
+
+                            dialog.dismiss();
+                            myViewHolder.progressBar.setVisibility(View.GONE);
+                            myViewHolder.icon.setVisibility(View.VISIBLE);
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
 
         myViewHolder.icon.setOnClickListener(v -> {
             if (video.isDowloaded()) {
                 view.playVideo(video);
             } else {
+                if (downloadTask.get() != null) {
+                    if (downloadTask.get().getStatus() == AsyncTask.Status.FINISHED)
+                        downloadTask.set(getDownloadTask(video, myViewHolder));
 
-                GuideBooksFragmentContract.DownloadListener listener = new GuideBooksFragmentContract.DownloadListener() {
-                    @Override
-                    public void onDownloadComplete(boolean successful, String localPath) {
-
-                        video.setDownloaded(successful);
-                        video.setLocalPath(localPath);
-
-                        myViewHolder.progressBar.setVisibility(View.GONE);
-                        myViewHolder.icon.setVisibility(View.VISIBLE);
-
-                        if (successful) {
-                            myViewHolder.icon.setImageResource(R.drawable.ic_play_circle_black);
-                        } else {
-                            myViewHolder.icon.setImageResource(R.drawable.ic_save_outline_black);
-
-                            Toast.makeText(view.getViewContext(),
-                                    view.getViewContext().getString(R.string.jobs_aid_failed_download, video.getTitle())
-                                    , Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onStarted() {
-                        myViewHolder.progressBar.setVisibility(View.VISIBLE);
-                        myViewHolder.icon.setVisibility(View.GONE);
-                    }
-                };
-
-                view.downloadVideo(listener, video);
+                    downloadTask.get().execute();
+                }
             }
         });
         myViewHolder.title.setText(video.getTitle());
+    }
+
+    @Nullable
+    private DownloadGuideBooksUtils getDownloadTask(GuideBooksFragmentContract.Video video, @NonNull GuideBooksAdapter.MyViewHolder myViewHolder) {
+        DownloadGuideBooksUtils downloadTask = null;
+        if (!video.isDowloaded()) {
+            GuideBooksFragmentContract.DownloadListener listener = new GuideBooksFragmentContract.DownloadListener() {
+                @Override
+                public void onDownloadComplete(boolean successful, String localPath) {
+
+                    video.setDownloaded(successful);
+                    video.setLocalPath(localPath);
+
+                    myViewHolder.progressBar.setVisibility(View.GONE);
+                    myViewHolder.icon.setVisibility(View.VISIBLE);
+
+                    if (successful) {
+                        myViewHolder.icon.setImageResource(R.drawable.ic_play_circle_black);
+                    } else {
+                        myViewHolder.icon.setImageResource(R.drawable.ic_save_outline_black);
+
+                        Toast.makeText(view.getViewContext(),
+                                view.getViewContext().getString(R.string.jobs_aid_failed_download, video.getTitle())
+                                , Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onStarted() {
+                    myViewHolder.progressBar.setVisibility(View.VISIBLE);
+                    myViewHolder.icon.setVisibility(View.GONE);
+                }
+            };
+
+            downloadTask = new DownloadGuideBooksUtils(listener, video.getName(), myViewHolder.getContext());
+        }
+        return downloadTask;
     }
 
     @Override
@@ -93,12 +135,18 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
         private TextView title;
         private ImageView icon;
         private ProgressBar progressBar;
+        private View view;
 
         private MyViewHolder(View view) {
             super(view);
+            this.view = view;
             title = view.findViewById(R.id.tvVideoTitle);
             icon = view.findViewById(R.id.ivIcon);
             progressBar = view.findViewById(R.id.progress_bar);
+        }
+
+        private Context getContext() {
+            return view.getContext();
         }
     }
 

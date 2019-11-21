@@ -12,18 +12,11 @@ public class ChildMedicalHistoryActivity extends CoreChildMedicalHistoryActivity
     public static void startMe(Activity activity, MemberObject memberObject) {
         Intent intent = new Intent(activity, ChildMedicalHistoryActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
-        //activity.startActivity(intent);
+        activity.startActivity(intent);
     }
 
     @Override
-    protected void onCreation() {
-        super.onCreation();
-        setFlavor(new ChildMedicalHistoryActivityFlv());
-    }
-
-    @Override
-    public void onViewCreated(Activity activity) {
-        setFlavor(new ChildMedicalHistoryActivityFlv());
-        super.onViewCreated(activity);
+    protected Flavor getFlavor() {
+        return new ChildMedicalHistoryActivityFlv();
     }
 }

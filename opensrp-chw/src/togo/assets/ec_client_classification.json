@@ -131,7 +131,7 @@
             ]
           },
           {
-            "field": "PNC Home Visit",
+            "field": "eventType",
             "field_value": "PNC Home Visit",
             "creates_case": [
               "ec_pregnancy_outcome"

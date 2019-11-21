@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
@@ -253,6 +254,12 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         //overridden
     }
 
+    @Override
+    public void onMemberDetailsReloaded(MemberObject memberObject) {
+        this.memberObject = memberObject;
+        super.onMemberDetailsReloaded(memberObject);
+    }
+
     private void refreshViewOnHomeVisitResult() {
         Observable<Visit> observable = Observable.create(visitObservableEmitter -> {
             Visit lastVisit = getVisit(CoreConstants.EventType.ANC_HOME_VISIT);
@@ -273,6 +280,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
                     public void onNext(Visit visit) {
                         displayView();
                         setLastVisit(visit.getDate());
+                        onMemberDetailsReloaded(memberObject);
                     }
 
                     @Override

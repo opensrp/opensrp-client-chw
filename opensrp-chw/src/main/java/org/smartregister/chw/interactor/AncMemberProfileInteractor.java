@@ -72,7 +72,7 @@ public class AncMemberProfileInteractor extends CoreAncMemberProfileInteractor {
                         memberObject.getBaseEntityId(),
                         baseUpcomingService.getServiceName(),
                         baseUpcomingService.getServiceName(),
-                        baseUpcomingService.getServiceDate().before(new Date()) ? AlertStatus.urgent : AlertStatus.normal,
+                        baseUpcomingService.getServiceDate().before(new LocalDate().toDate()) ? AlertStatus.urgent : AlertStatus.normal,
                         AbstractDao.getDobDateFormat().format(baseUpcomingService.getServiceDate()),
                         "",
                         true
