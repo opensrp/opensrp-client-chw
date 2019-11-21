@@ -25,6 +25,13 @@ public class HnppConstants extends CoreConstants {
     public static final int MEMBER_ID_SUFFIX = 11;
     public static final int HOUSE_HOLD_ID_SUFFIX = 9;
 
+    public static boolean isExistSpecialCharacter(String filters){
+        if(!TextUtils.isEmpty(filters) && filters.contains("/")){
+            return true;
+        }
+        return false;
+    }
+
     public static void updateAppBackground(View view){
         if(!isReleaseBuild()){
             view.setBackgroundColor(Color.parseColor("#B53737"));
