@@ -1,20 +1,16 @@
 package org.smartregister.brac.hnpp.model;
 
-import android.database.Cursor;
 import android.util.Pair;
 
 import org.json.JSONObject;
-import org.smartregister.brac.hnpp.utils.HnppChildUtils;
+import org.smartregister.brac.hnpp.utils.HnppDBUtils;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
-import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.model.CoreChildRegisterModel;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.family.util.Utils;
 
 import java.util.ArrayList;
-
-import timber.log.Timber;
 
 public class HnppChildRegisterModel extends CoreChildRegisterModel {
     private String houseHoldId;
@@ -34,7 +30,7 @@ public class HnppChildRegisterModel extends CoreChildRegisterModel {
         if (form == null) {
             return null;
         }
-        ArrayList<String> womenList = HnppChildUtils.getAllWomenInHouseHold(familyBaseEntityId);
+        ArrayList<String> womenList = HnppDBUtils.getAllWomenInHouseHold(familyBaseEntityId);
         HnppJsonFormUtils.updateFormWithMotherName(form,womenList);
         HnppJsonFormUtils.updateFormWithMemberId(form,houseHoldId,familyBaseEntityId);
         return HnppJsonFormUtils.updateChildFormWithMetaData(form, houseHoldId,familyBaseEntityId);

@@ -27,8 +27,6 @@ import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.clientandeventmodel.FormEntityConstants;
-import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.family.domain.FamilyEventClient;
@@ -65,16 +63,16 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
         fingerPrint.put("project_id", HnppConstants.getSimPrintsProjectId());
         fingerPrint.put("user_id",CoreLibrary.getInstance().context().allSharedPreferences().fetchRegisteredANM());
         fingerPrint.put("module_id",moduleId);
-        form.put("family_name",HnppChildUtils.getFamilyName(familyBaseEntityId));
+        form.put("family_name", HnppDBUtils.getFamilyName(familyBaseEntityId));
 
         String entity_id = form.getString("entity_id");
         try {
 
             if(StringUtils.isEmpty(entity_id)){
-                ArrayList<String> womenList = HnppChildUtils.getAllWomenInHouseHold(familyBaseEntityId);
+                ArrayList<String> womenList = HnppDBUtils.getAllWomenInHouseHold(familyBaseEntityId);
                 HnppJsonFormUtils.updateFormWithMotherName(form,womenList);
             }else{
-                ArrayList<String> womenList = HnppChildUtils.getAllWomenInHouseHold(entity_id,familyBaseEntityId);
+                ArrayList<String> womenList = HnppDBUtils.getAllWomenInHouseHold(entity_id,familyBaseEntityId);
                 HnppJsonFormUtils.updateFormWithMotherName(form,womenList);
             }
 
@@ -274,7 +272,7 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
                     String relationId = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, true);
                     String motherName = Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME, true);
 
-                    motherName = HnppChildUtils.getMotherName(motherEntityId,relationId,motherName);
+                    motherName = HnppDBUtils.getMotherName(motherEntityId,relationId,motherName);
                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,motherName);
                 }
 
@@ -601,7 +599,7 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
         }
         String motherName = motherObj.optString(VALUE);
-        if(!TextUtils.isEmpty(motherName))return HnppChildUtils.getMotherBaseEntityId(familyId,motherName);
+        if(!TextUtils.isEmpty(motherName))return HnppDBUtils.getMotherBaseEntityId(familyId,motherName);
         return "";
 
 

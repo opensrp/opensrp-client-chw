@@ -27,7 +27,7 @@ import org.smartregister.brac.hnpp.location.SSModel;
 import org.smartregister.brac.hnpp.model.HnppAllMemberRegisterFragmentModel;
 import org.smartregister.brac.hnpp.presenter.HnppAllMemberRegisterFragmentPresenter;
 import org.smartregister.brac.hnpp.provider.HnppAllMemberRegisterProvider;
-import org.smartregister.brac.hnpp.utils.HnppChildUtils;
+import org.smartregister.brac.hnpp.utils.HnppDBUtils;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreChildHomeVisitActivity;
@@ -390,12 +390,12 @@ public class HnppAllMemberRegisterFragment extends CoreChildRegisterFragment imp
     }
     public static String mainFilter(String mainCondition, String mainMemberCondition, String filters, String sort, int limit, int offset) {
         return "SELECT " + CommonFtsObject.idColumn + " FROM " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER) + " WHERE " + CommonFtsObject.idColumn + " IN " +
-                " ( SELECT " + CommonFtsObject.idColumn + " FROM " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER) + " WHERE  " + mainCondition + "  AND " + CommonFtsObject.phraseColumn + HnppChildUtils.matchPhrase(filters) +
+                " ( SELECT " + CommonFtsObject.idColumn + " FROM " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER) + " WHERE  " + mainCondition + "  AND " + CommonFtsObject.phraseColumn + HnppDBUtils.matchPhrase(filters) +
                 " UNION " +
                 " SELECT " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER), CommonFtsObject.idColumn) + " FROM " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER) +
                 " JOIN " + CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY) + " on " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER), CommonFtsObject.relationalIdColumn) +
                 " = " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), CommonFtsObject.idColumn) +
-                " WHERE  " + mainMemberCondition.trim() + " AND " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), CommonFtsObject.phraseColumn + HnppChildUtils.matchPhrase(filters)) +
+                " WHERE  " + mainMemberCondition.trim() + " AND " + tableColConcat(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), CommonFtsObject.phraseColumn + HnppDBUtils.matchPhrase(filters)) +
                 ")  " + orderByClause(sort) + limitClause(limit, offset);
     }
     public void updateFilterView(){

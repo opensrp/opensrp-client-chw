@@ -2,25 +2,21 @@ package org.smartregister.brac.hnpp.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.custom_view.FamilyMemberFloatingMenu;
-import org.smartregister.brac.hnpp.fragment.FamilyProfileMemberFragment;
 import org.smartregister.brac.hnpp.fragment.HnppMemberProfileDueFragment;
 import org.smartregister.brac.hnpp.fragment.HnppMemberProfileOtherServiceFragment;
 import org.smartregister.brac.hnpp.fragment.MemberProfileActivityFragment;
-import org.smartregister.brac.hnpp.utils.HnppChildUtils;
+import org.smartregister.brac.hnpp.utils.HnppDBUtils;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
@@ -37,7 +33,6 @@ import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
-import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.Constants;
 import org.smartregister.helper.ImageRenderHelper;
@@ -166,7 +161,7 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
 
         try {
             JSONObject form = HnppJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyMemberRegister(), this, client, Utils.metadata().familyMemberRegister.updateEventType);
-            String moduleId = HnppChildUtils.getModuleId(familyHead);
+            String moduleId = HnppDBUtils.getModuleId(familyHead);
             HnppJsonFormUtils.updateFormWithModuleId(form,moduleId,familyBaseEntityId);
             HnppJsonFormUtils.updateFormWithSimPrintsEnable(form);
             startFormActivity(form);

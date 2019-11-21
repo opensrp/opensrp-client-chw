@@ -3,13 +3,12 @@ package org.smartregister.brac.hnpp.provider;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.content.ContextCompat;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.brac.hnpp.R;
-import org.smartregister.brac.hnpp.utils.HnppChildUtils;
+import org.smartregister.brac.hnpp.utils.HnppDBUtils;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.provider.CoreChildRegisterProvider;
@@ -58,7 +57,7 @@ public class HnppChildRegisterProvider extends CoreChildRegisterProvider {
         String relationId = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, true);
         String motherName = Utils.getValue(pc.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME, true);
 
-        motherName = HnppChildUtils.getMotherName(motherEntityId,relationId,motherName);
+        motherName = HnppDBUtils.getMotherName(motherEntityId,relationId,motherName);
         String parentName = context.getResources().getString(org.smartregister.chw.core.R.string.care_giver_initials, motherName);
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);

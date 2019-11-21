@@ -1,17 +1,14 @@
 package org.smartregister.brac.hnpp.presenter;
 
-import android.database.Cursor;
-import android.text.TextUtils;
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.interactor.HnppChildProfileInteractor;
 import org.smartregister.brac.hnpp.model.HnppChildRegisterModel;
-import org.smartregister.brac.hnpp.utils.HnppChildUtils;
+import org.smartregister.brac.hnpp.utils.HnppDBUtils;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
-import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.brac.hnpp.R;
@@ -26,8 +23,6 @@ import org.smartregister.family.util.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-
-import timber.log.Timber;
 
 public class HnppChildProfilePresenter extends CoreChildProfilePresenter {
     String houseHoldId = "";
@@ -48,7 +43,7 @@ public class HnppChildProfilePresenter extends CoreChildProfilePresenter {
         String relationId = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, true);
         String motherName = Utils.getValue(client.getColumnmaps(), HnppConstants.KEY.CHILD_MOTHER_NAME, true);
 
-        motherName = HnppChildUtils.getMotherName(motherEntityId,relationId,motherName);
+        motherName = HnppDBUtils.getMotherName(motherEntityId,relationId,motherName);
         String parentName = view.get().getContext().getResources().getString(org.smartregister.chw.core.R.string.care_giver_initials,motherName);
         getView().setParentName(parentName);
         String firstName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
@@ -87,7 +82,7 @@ public class HnppChildProfilePresenter extends CoreChildProfilePresenter {
     public void startFormForEdit(String title, CommonPersonObjectClient client) {
         try {
             JSONObject form = HnppJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getChildRegister(), getView().getApplicationContext(), client, CoreConstants.EventType.UPDATE_CHILD_REGISTRATION);
-            ArrayList<String> womenList = HnppChildUtils.getAllWomenInHouseHold(familyID);
+            ArrayList<String> womenList = HnppDBUtils.getAllWomenInHouseHold(familyID);
             HnppJsonFormUtils.updateFormWithMotherName(form,womenList);
             if (!StringUtils.isBlank(client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID))) {
                 JSONObject metaDataJson = form.getJSONObject("metadata");

@@ -2,11 +2,10 @@ package org.smartregister.brac.hnpp.interactor;
 
 import android.database.Cursor;
 
-import org.smartregister.brac.hnpp.utils.HnppChildUtils;
+import org.smartregister.brac.hnpp.utils.HnppDBUtils;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.utils.ChildDBConstants;
-import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -20,7 +19,7 @@ public class HnppChildProfileInteractor extends CoreChildProfileInteractor {
     @Override
     public void updateChildCommonPerson(String baseEntityId) {
 
-        String query = HnppChildUtils.mainSelect(CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+        String query = HnppDBUtils.mainSelect(CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
         Cursor cursor = null;
         try {
@@ -49,7 +48,7 @@ public class HnppChildProfileInteractor extends CoreChildProfileInteractor {
     @Override
     public void refreshProfileView(final String baseEntityId, final boolean isForEdit, final CoreChildProfileContract.InteractorCallBack callback) {
         Runnable runnable = () -> {
-            String query = HnppChildUtils.mainSelect(CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+            String query = HnppDBUtils.mainSelect(CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
             Cursor cursor = null;
             try {

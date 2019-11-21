@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.holder.DashBoardViewHolder;
-import org.smartregister.brac.hnpp.model.DashBoardModel;
+import org.smartregister.brac.hnpp.model.DashBoardData;
 import java.util.ArrayList;
 
 public class DashBoardAdapter extends RecyclerView.Adapter<DashBoardViewHolder> {
-    private ArrayList<DashBoardModel> contentList;
+    private ArrayList<DashBoardData> contentList;
     private Context context;
     private OnClickAdapter onClickAdapter;
 
@@ -21,7 +21,7 @@ public class DashBoardAdapter extends RecyclerView.Adapter<DashBoardViewHolder> 
         contentList = new ArrayList<>();
     }
 
-    public void setData(ArrayList<DashBoardModel> contentList) {
+    public void setData(ArrayList<DashBoardData> contentList) {
         this.contentList.clear();
         this.contentList.addAll(contentList);
     }
@@ -35,7 +35,7 @@ public class DashBoardAdapter extends RecyclerView.Adapter<DashBoardViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull final DashBoardViewHolder viewHolder, int position) {
-        final DashBoardModel content = contentList.get(position);
+        final DashBoardData content = contentList.get(position);
         viewHolder.imageView.setImageResource(content.getImageSource());
         viewHolder.textViewTitle.setText(content.getTitle());
         viewHolder.textViewCount.setText(content.getCount());
@@ -49,6 +49,6 @@ public class DashBoardAdapter extends RecyclerView.Adapter<DashBoardViewHolder> 
     }
 
     public interface OnClickAdapter {
-        void onClick(int position, DashBoardModel content);
+        void onClick(int position, DashBoardData content);
     }
 }

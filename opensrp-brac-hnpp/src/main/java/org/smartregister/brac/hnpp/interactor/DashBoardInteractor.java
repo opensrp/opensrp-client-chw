@@ -2,6 +2,7 @@ package org.smartregister.brac.hnpp.interactor;
 
 import org.smartregister.Context;
 import org.smartregister.brac.hnpp.contract.DashBoardContract;
+import org.smartregister.brac.hnpp.model.DashBoardData;
 import org.smartregister.brac.hnpp.model.DashBoardModel;
 import org.smartregister.family.util.AppExecutors;
 
@@ -10,26 +11,27 @@ import java.util.ArrayList;
 public class DashBoardInteractor implements DashBoardContract.Interactor {
 
     private AppExecutors appExecutors;
-    private Context context;
+    private  DashBoardContract.Model model;
 
-    public DashBoardInteractor(AppExecutors appExecutors, Context context){
-
+    public DashBoardInteractor(AppExecutors appExecutors, DashBoardContract.Model model){
+        this.model = model;
         this.appExecutors = appExecutors;
-        this.context = context;
     }
 
     @Override
-    public void fetchDashBoardData(DashBoardContract.InteractorCallBack callBack) {
+    public void fetchDashBoardData(String toDate, String fromDate , DashBoardContract.InteractorCallBack callBack) {
 
         Runnable runnable = () -> {
-            ArrayList<DashBoardModel> dashBoardModels = null;
+            ArrayList<DashBoardData> dashBoardData = getModel().getDashData(fromDate,toDate);
 
-
-
-            appExecutors.mainThread().execute(() -> callBack.updateList(dashBoardModels));
+            appExecutors.mainThread().execute(() -> callBack.updateList(dashBoardData));
         };
         appExecutors.diskIO().execute(runnable);
 
 
+    }
+
+    public DashBoardModel getModel() {
+        return (DashBoardModel)model;
     }
 }

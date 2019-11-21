@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
+import org.smartregister.brac.hnpp.model.DashBoardData;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildUtils;
@@ -25,7 +26,8 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public class HnppChildUtils extends CoreChildUtils {
+public class HnppDBUtils extends CoreChildUtils {
+
 
     public static String getMotherBaseEntityId(String familyId, String motherName){
         String query = "select base_entity_id from ec_family_member where  first_name = '"+motherName+"' and relational_id = '"+familyId+"'";
