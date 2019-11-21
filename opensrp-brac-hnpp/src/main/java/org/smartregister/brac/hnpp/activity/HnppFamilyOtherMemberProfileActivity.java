@@ -1,28 +1,31 @@
 package org.smartregister.brac.hnpp.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Gravity;
+import android.util.Pair;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.custom_view.FamilyMemberFloatingMenu;
-import org.smartregister.brac.hnpp.fragment.FamilyProfileMemberFragment;
 import org.smartregister.brac.hnpp.fragment.HnppMemberProfileDueFragment;
 import org.smartregister.brac.hnpp.fragment.HnppMemberProfileOtherServiceFragment;
 import org.smartregister.brac.hnpp.fragment.MemberProfileActivityFragment;
 import org.smartregister.brac.hnpp.utils.HnppChildUtils;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
+import org.smartregister.brac.hnpp.utils.HnppUtils;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
@@ -37,7 +40,6 @@ import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
-import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.Constants;
 import org.smartregister.helper.ImageRenderHelper;
@@ -47,7 +49,6 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 import timber.log.Timber;
 
 import static org.smartregister.brac.hnpp.utils.HnppConstants.MEMBER_ID_SUFFIX;
-import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
 
 public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
     private CustomFontTextView textViewDetails3;
@@ -77,7 +78,10 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
 
         setupViews();
     }
-
+    public void updateDueCount(final int dueCount) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(() -> adapter.updateCount(Pair.create(1, dueCount)));
+    }
     @Override
     public void setProfileName(String fullName) {
        try{
@@ -108,12 +112,16 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
 
     @Override
     protected void startAncRegister() {
-        //TODO implement start anc register for HF
+//        //TODO implement start anc register for HF
+        HnppAncRegisterActivity.startHnppAncRegisterActivity(HnppFamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber,
+                org.smartregister.brac.hnpp.utils.HnppConstants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId, familyName);
     }
 
     @Override
-    protected void startMalariaRegister() {
+    public void startMalariaRegister() {
         //TODO implement start anc malaria for HF
+        HnppHomeVisitActivity.startMe(this, new MemberObject(commonPersonObject), false);
+
     }
 
     @Override
@@ -195,7 +203,15 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
         }
         return familyFloatingMenu;
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int i = item.getItemId();
+        if (i == R.id.action_malaria_followup_visit) {
+            startMalariaRegister();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     protected Context getFamilyOtherMemberProfileActivity() {
         return HnppFamilyOtherMemberProfileActivity.this;
@@ -248,17 +264,22 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
         familyFloatingMenu = new FamilyMemberFloatingMenu(this);
         familyFloatingMenu.fab.setOnClickListener(v -> FamilyCallDialogFragment.launchDialog(this, familyBaseEntityId));
     }
+    public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber, CommonPersonObjectClient patient) {
+
+    }
 
     private void setupMenuOptions(Menu menu) {
+
         menu.findItem(R.id.action_malaria_registration).setVisible(false);
-        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
+        menu.findItem(R.id.action_malaria_followup_visit).setVisible(true);
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         menu.findItem(R.id.action_remove_member).setVisible(false);
-        if (isWomanOfReproductiveAge(commonPersonObject)) {
+        if (HnppUtils.isWomanOfReproductiveAge(commonPersonObject)) {
             menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {
             menu.findItem(R.id.action_anc_registration).setVisible(false);
         }
+
     }
 }

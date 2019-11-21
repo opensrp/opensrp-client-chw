@@ -53,6 +53,7 @@
   },
   "step1": {
     "title": "খানা নিবন্ধন",
+    "next": "step2",
     "fields": [
       {
         "key": "module_id",
@@ -268,8 +269,200 @@
           "value": "true",
           "err": "প্রশ্নের উত্তর দিন"
         }
-      },
+      }
 
+    ]
+  },
+  "step2": {
+    "title": "খানা নিবন্ধন",
+    "fields": [
+
+      {
+        "key": "occupation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "hh_occupation",
+        "type": "spinner",
+        "hint": "খানা প্রধানের পেশাঃ",
+        "values": [
+          "কৃষি কাজ",
+          "গার্মেন্টস কর্মী",
+          "চাকুরি (কোম্পানী)",
+          "প্রযুক্তিগত কর্মী (যেমন: ড্রাইভার/ ইলেকট্রিশিয়ান/ওয়েল্ডিং/মেকানিকস/রং মিস্ত্রি/রাজমিস্ত্রি)",
+          "দিন মজুর",
+          "বিক্রেতা/দোকানদার/সবজি বা মাছ বিক্রেতা/খুচরা বিক্রেতা/মোবাইল কার্ড বিক্রেতা",
+          "ব্যবসায়ী",
+          "বৈদেশিক কাজ/ কর্মী",
+          "স্ব-নিযুক্ত",
+          "বেকার",
+          "অন্যান্য"
+        ],
+        "openmrs_choice_ids": {
+          "কৃষি কাজ": "farmer",
+          "গার্মেন্টস কর্মী": "textile",
+          "চাকুরি (কোম্পানী)": "service",
+          "প্রযুক্তিগত কর্মী (যেমন: ড্রাইভার/ ইলেকট্রিশিয়ান/ওয়েল্ডিং/মেকানিকস/রং মিস্ত্রি/রাজমিস্ত্রি)": "technician",
+          "দিন মজুর": "labour",
+          "বিক্রেতা/দোকানদার/সবজি বা মাছ বিক্রেতা/খুচরা বিক্রেতা/মোবাইল কার্ড বিক্রেতা": "shopkeeper",
+          "ব্যবসায়ী": "businessman",
+          "বৈদেশিক কাজ/ কর্মী": "expatriate",
+          "স্ব-নিযুক্ত": "selfemployed",
+          "বেকার":"unemployed",
+          "অন্যান্য": "other"
+        },
+        "v_required": {
+          "value": true,
+          "err": "প্রশ্নের উত্তর দিন"
+        }
+      },
+      {
+        "key": "occupation_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "hh_occupation_other",
+        "type": "edit_text",
+        "hint": "লিখুন",
+        "v_required": {
+          "value": true,
+          "err": "খানা প্রধানের পেশা লিখুন"
+        },
+        "relevance": {
+          "step2:occupation": {
+            "type": "string",
+            "ex": "equalTo(., \"অন্যান্য\")"
+          }
+        }
+      },
+      {
+        "key": "financial_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "hh_financial_status",
+        "type": "spinner",
+        "hint": "খানার আর্থিক অবস্থাঃ",
+        "openmrs_data_type": "text",
+        "values": [
+          "মাসিক আয় ৬০০০ টাকার কম",
+          "মাসিক আয় ৭০০০ টাকার কম",
+          "মাসিক আয় ৭০০১ - ১২০০০ টাকার মধ্যে",
+          "মাসিক আয় ১২০০০ টাকার ঊর্ধ্বে"
+
+        ],
+        "openmrs_choice_ids": {
+          "মাসিক আয় ৬০০০ টাকার কম": "less_than_6K",
+          "মাসিক আয় ৭০০০ টাকার কম": "less_than_7K",
+          "মাসিক আয় ৭০০১ - ১২০০০ টাকার মধ্যে": "7K_to_12K",
+          "মাসিক আয় ১২০০০ টাকার ঊর্ধ্বে": "more_than_12K"
+
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please answer the question"
+        }
+      },
+      {
+        "key": "list_of_assets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "hh_list_of_assets",
+        "openmrs_data_type": "text",
+        "type": "check_box",
+        "label": "সম্পদের তালিকা",
+        "exclusive": [
+          "noIdentifier"
+        ],
+        "options": [
+          {
+            "key": "Television",
+            "text": "টেলিভিশন",
+            "value": false,
+            "openmrs_choice_id": "Television"
+          },
+          {
+            "key": "Refridgarator",
+            "text": "রেফ্রিজারেটর",
+            "value": false,
+            "openmrs_choice_id": "Refridgarator"
+          },
+          {
+            "key": "Closet",
+            "text": "আলমারি/ওয়ারড্রব",
+            "value": false,
+            "openmrs_choice_id": "Closet"
+          },
+          {
+            "key": "Electric_Fan",
+            "text": "বৈদ্যুতিক ফ্যান",
+            "value": false,
+            "openmrs_choice_id": "Electric_Fan"
+          }
+        ]
+      },
+      {
+        "key": "floor_material",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "hh_floor_material",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "hint": "মেঝে কি দিয়ে তৈরি",
+        "values": [
+          "সিমেন্ট",
+          "বালি",
+          "অন্যান্য"
+        ],
+        "openmrs_choice_ids": {
+          "সিমেন্ট": "cement",
+          "বালি":"sand",
+          "অন্যান্য": "other"
+        },
+        "v_required": {
+          "value": true,
+          "err": "মেঝে কি দিয়ে তৈরি নির্বাচন করুন"
+        }
+      },
+      {
+        "key": "wall_material",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "hh_wall_material",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "hint": "দেয়াল কি দিয়ে তৈরি",
+        "values": [
+          "সিমেন্ট",
+          "বালি"
+        ],
+        "openmrs_choice_ids": {
+          "সিমেন্ট": "cement",
+          "বালি":"sand"
+        },
+        "v_required": {
+          "value": true,
+          "err": "দেয়াল কি দিয়ে তৈরি নির্বাচন করুন"
+        }
+      },
+      {
+        "key": "roof_material",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "hh_roof_material",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "hint": "ছাদ কি দিয়ে তৈরি",
+        "values": [
+          "সিমেন্ট",
+          "বালি"
+        ],
+        "openmrs_choice_ids": {
+          "সিমেন্ট": "cement",
+          "বালি":"sand"
+        },
+        "v_required": {
+          "value": true,
+          "err": "ছাদ কি দিয়ে তৈরি নির্বাচন করুন"
+        }
+      },
       {
         "key": "gps",
         "openmrs_entity_parent": "",
@@ -280,6 +473,7 @@
         "type": "gps"
       },
       {
+        "key": "toaster_notes",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",

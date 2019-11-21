@@ -57,8 +57,19 @@ public class HnppFamilyRegisterModel extends BaseFamilyRegisterModel {
             }catch (Exception e){
 
             }
-
             List<FamilyEventClient> familyEventClientList = new ArrayList<>();
+
+            if(jsonObject.has(org.smartregister.family.util.JsonFormUtils.STEP2)){
+                JSONObject stepTwo = jsonObject.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP2);
+                JSONArray jsonArray2 = stepTwo.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
+                for (int i = 0; i < jsonArray2.length(); i++) {
+                    field.put(jsonArray2.getJSONObject(i));
+                }
+
+//                processAttributesWithChoiceIDsForSave(jsonArray2);
+                jsonObject.remove(org.smartregister.family.util.JsonFormUtils.STEP2);
+            }
+
             processAttributesWithChoiceIDsForSave(field);
             FamilyEventClient familyEventClient = HnppJsonFormUtils.processFamilyUpdateForm(Utils.context().allSharedPreferences(), jsonObject.toString());
             if (familyEventClient == null) {

@@ -213,6 +213,18 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
                 }
 
+                if(form.has(org.smartregister.family.util.JsonFormUtils.STEP2)){
+                    JSONObject stepTwo = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP2);
+
+                    JSONArray jsonArray2 = stepTwo.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
+                    for (int i = 0; i < jsonArray2.length(); i++) {
+                        JSONObject jsonObject = jsonArray2.getJSONObject(i);
+
+                        processPopulatableFields(client, jsonObject);
+
+                    }
+                }
+
 
                 return form;
             }

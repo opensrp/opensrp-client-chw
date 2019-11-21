@@ -90,6 +90,12 @@ public class CoreConstants {
         public static final String CLOSE_REFERRAL = "Close Referral";
         public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
         public static final String WASH_CHECK = "WASH check";
+
+        public static final String  ANC1_FORM = "ANC1 Registration";
+        public static final String  ANC2_FORM = "ANC2 Registration";
+        public static final String  ANC3_FORM = "ANC3 Registration";
+        public static final String  GENERAL_DISEASE = "ANC General Disease";
+        public static final String  PREGNANCY_HISTORY = "ANC Pregnancy History";
     }
 
     public static final class EncounterType {

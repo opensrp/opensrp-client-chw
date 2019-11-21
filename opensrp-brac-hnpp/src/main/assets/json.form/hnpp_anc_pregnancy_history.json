@@ -1,0 +1,179 @@
+{
+  "count": "1",
+  "encounter_type": "ANC Pregnancy History",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "পূর্বের গর্ভের ইতিহাসঃ",
+    "fields": [
+      {
+        "key": "abortion_mr",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "abortion_mr",
+        "type": "check_box",
+        "label": "গর্ভপাত/এম আর (টিক চিহ্ন)",
+        "exclusive": [
+          "No"
+        ],
+        "options": [
+          {
+            "key": "Yes",
+            "text": "হ্যাঁ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "না",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
+        ]
+      },
+      {
+        "key": "still_birth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "still_birth",
+        "type": "check_box",
+        "label": "মৃত প্রসব (টিক চিহ্ন) ",
+        "exclusive": [
+          "No"
+        ],
+        "options": [
+          {
+            "key": "Yes",
+            "text": "হ্যাঁ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "না",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
+        ]
+      },
+      {
+        "key": "c_section",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_section",
+        "type": "check_box",
+        "label": "সিজারিয়ান অপারেশন (টিক চিহ্ন)",
+        "exclusive": [
+          "No"
+        ],
+        "options": [
+          {
+            "key": "Yes",
+            "text": "হ্যাঁ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "না",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
+        ]
+      },
+      {
+        "key": "obsessive_compulsive_disorder",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "obsessive_compulsive_disorder",
+        "openmrs_data_type": "",
+        "type": "spinner",
+        "hint": "খিচুনি",
+        "values": [
+          "হ্যাঁ",
+          "না"
+        ],
+        "openmrs_choice_ids": {
+          "হ্যাঁ": "Yes",
+          "না": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "প্রশ্নের উত্তর দিন"
+        }
+
+      },
+      {
+        "key": "postnatal_bleeding",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "postnatal_bleeding",
+        "openmrs_data_type": "",
+        "type": "spinner",
+        "hint": "প্রসব পরবর্তি রক্ত ক্ষরণ",
+        "values": [
+          "হ্যাঁ",
+          "না"
+        ],
+        "openmrs_choice_ids": {
+          "হ্যাঁ": "Yes",
+          "না": "No"
+        },
+        "v_required": {
+          "value": true,
+          "err": "প্রশ্নের উত্তর দিন"
+        }
+
+      }
+    ]
+  }
+}

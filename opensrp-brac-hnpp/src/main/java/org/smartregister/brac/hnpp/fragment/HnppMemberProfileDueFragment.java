@@ -35,6 +35,10 @@ import java.util.Set;
 import timber.log.Timber;
 
 public class HnppMemberProfileDueFragment extends BaseFamilyProfileDueFragment implements View.OnClickListener {
+    private static final int TAG_OPEN_ANC1 = 101;
+    private static final int TAG_OPEN_ANC2 = 102;
+    private static final int TAG_OPEN_ANC3 = 103;
+
     private static final int TAG_OPEN_FAMILY = 111;
     private static final int TAG_OPEN_REFEREAL = 222;
 
@@ -128,6 +132,15 @@ public class HnppMemberProfileDueFragment extends BaseFamilyProfileDueFragment i
             return;
         }
         otherServiceView.setVisibility(View.VISIBLE);
+        View anc1View = LayoutInflater.from(getContext()).inflate(R.layout.view_member_due,null);
+        ImageView imageanc1View = anc1View.findViewById(R.id.image_view);
+        TextView nameanc1View =  anc1View.findViewById(R.id.patient_name_age);
+        imageanc1View.setImageResource(R.mipmap.ic_anc_pink);
+        nameanc1View.setText("গর্ভবতী পরিচর্যা-১ম ত্রিমাসিক");
+        anc1View.setTag(TAG_OPEN_ANC1);
+        anc1View.setOnClickListener(this);
+        otherServiceView.addView(anc1View);
+
         View familyView = LayoutInflater.from(getContext()).inflate(R.layout.view_member_due,null);
         ImageView image = familyView.findViewById(R.id.image_view);
         TextView name =  familyView.findViewById(R.id.patient_name_age);
@@ -151,15 +164,6 @@ public class HnppMemberProfileDueFragment extends BaseFamilyProfileDueFragment i
     @Override
     public void countExecute() {
         super.countExecute();
-        final int count = clientAdapter.getTotalcount();
-
-        if (getActivity() != null && count != dueCount) {
-            dueCount = count;
-            ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
-        }
-        if (getActivity() != null) {
-            getActivity().runOnUiThread(() -> onEmptyRegisterCount(count < 1));
-        }
     }
 
     public void onEmptyRegisterCount(final boolean has_no_records) {
@@ -184,6 +188,12 @@ public class HnppMemberProfileDueFragment extends BaseFamilyProfileDueFragment i
                     if (getActivity() != null && getActivity() instanceof HnppFamilyOtherMemberProfileActivity) {
                         HnppFamilyOtherMemberProfileActivity activity = (HnppFamilyOtherMemberProfileActivity) getActivity();
                         activity.openRefereal();
+                    }
+                    break;
+                case TAG_OPEN_ANC1:
+                    if (getActivity() != null && getActivity() instanceof HnppFamilyOtherMemberProfileActivity) {
+                        HnppFamilyOtherMemberProfileActivity activity = (HnppFamilyOtherMemberProfileActivity) getActivity();
+                        activity.startMalariaRegister();
                     }
                     break;
             }

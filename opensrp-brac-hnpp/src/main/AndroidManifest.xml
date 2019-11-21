@@ -22,7 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name="com.vijay.jsonwizard.activities.JsonFormActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HNPPTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="org.smartregister.family.activity.FamilyWizardFormActivity"
             android:screenOrientation="portrait"
@@ -67,7 +71,10 @@
             android:name="org.smartregister.brac.hnpp.activity.ChildHomeVisitActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HNPPTheme.NoActionBar" />
-
+        <activity
+            android:name="org.smartregister.brac.hnpp.activity.HnppHomeVisitActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HNPPTheme.NoActionBar"  />
         <activity
             android:name="org.smartregister.brac.hnpp.activity.HnppChildProfileActivity"
             android:screenOrientation="portrait"
@@ -95,6 +102,10 @@
             android:theme="@style/HNPPTheme.NoActionBar" />
         <activity
             android:name="org.smartregister.brac.hnpp.activity.AncRegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HNPPTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.brac.hnpp.activity.HnppAncRegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HNPPTheme.NoActionBar" />
         <activity

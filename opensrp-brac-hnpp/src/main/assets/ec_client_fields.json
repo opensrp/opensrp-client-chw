@@ -159,6 +159,56 @@
             "field": "obs.fieldCode",
             "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
+        },
+
+        {
+          "column_name": "occupation",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.hh_occupation"
+          }
+        },
+        {
+          "column_name": "occupation_other",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.hh_occupation_other"
+          }
+        },
+        {
+          "column_name": "financial_status",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.hh_financial_status"
+          }
+        },
+        {
+          "column_name": "list_of_assets",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.hh_list_of_assets"
+          }
+        },
+        {
+          "column_name": "floor_material",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.hh_floor_material"
+          }
+        },
+        {
+          "column_name": "wall_material",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.hh_wall_material"
+          }
+        },
+        {
+          "column_name": "roof_material",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.hh_roof_material"
+          }
         }
       ]
     },
