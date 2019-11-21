@@ -172,6 +172,12 @@
     <string name="nutrition_status">Status</string>
     <string name="counselling">Counselling</string>
 
+    <string name="normal">Normal</string>
+    <string name="moderate">Moderate</string>
+    <string name="severe">Severe</string>
+    <string name="okay">Okay</string>
+    <string name="bad">Bad</string>
+
     <string name="uses_net">Uses Net</string>
     <string name="slept_under_net">Slept under net</string>
     <string name="net_condition">Net Condition</string>
