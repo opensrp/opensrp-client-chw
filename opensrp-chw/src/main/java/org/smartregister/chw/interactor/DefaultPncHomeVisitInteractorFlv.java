@@ -677,6 +677,10 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 pnc_visit_date.put("hint",
                         MessageFormat.format(pnc_visit_date.getString(JsonFormConstants.HINT), visitRule.getVisitName())
                 );
+
+                JSONObject pnc_hf_next_visit_date = JsonFormUtils.getFieldJSONObject(fields, Constants.FORM_SUBMISSION_FIELD.pncHfNextVisitDateFieldType);
+                pnc_hf_next_visit_date.put(JsonFormConstants.VALUE, DateTimeFormat.forPattern("dd-MM-yyyy").print(visitRule.getDueDate()));
+
                 updateObjectRelevance(pnc_visit_date);
                 updateObjectRelevance(JsonFormUtils.getFieldJSONObject(fields, "baby_weight"));
                 updateObjectRelevance(JsonFormUtils.getFieldJSONObject(fields, "baby_temp"));
@@ -732,6 +736,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 JSONArray field = JsonFormUtils.fields(jsonObject);
                 JSONObject confirmed_visits = JsonFormUtils.getFieldJSONObject(field, "confirmed_health_facility_visits");
                 JSONObject facility_visit_date = JsonFormUtils.getFieldJSONObject(field, "last_health_facility_visit_date");
+                JSONObject pnc_hf_next_visit_date = JsonFormUtils.getFieldJSONObject(field, Constants.FORM_SUBMISSION_FIELD.pncHfNextVisitDateFieldType);
                 pnc_hf_visit_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
 
                 String count = String.valueOf(visit_num);
@@ -741,6 +746,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     facility_visit_date.put(JsonFormConstants.VALUE, pnc_hf_visit_date);
                 } else {
                     facility_visit_date.remove(JsonFormConstants.VALUE);
+                    pnc_hf_next_visit_date.put(JsonFormConstants.VALUE, "");
                 }
 
                 if (!confirmed_visits.getString(JsonFormConstants.VALUE).equals(count)) {
