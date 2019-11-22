@@ -29,7 +29,6 @@ import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContr
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.PNCDao;
-import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -477,23 +476,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.ANC_HOME_VISIT);
 
             VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, ancMemberObject.getLastContactVisit(), null, new DateTime(ancMemberObject.getDateCreated()).toLocalDate());
-            String visitSummaryStatus = visitSummary.getVisitStatus();
-
-
-            if (visitSummaryStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) ||
-                    visitSummaryStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
-                recordVisits.setVisibility(View.VISIBLE);
-                textViewRecordAnc.setTag(ANC);
-
-                visitStatus.setVisibility(View.GONE);
-            }
-
-
-            if (visitSummaryStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE)) {
-                textViewRecordAnc.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_selector_overdue);
-            }
-
-
+            setAncViews(visitSummary);
 //            if (lastAncHomeVisitNotDoneUndoEvent != null
 //                    && lastAncHomeVisitNotDoneUndoEvent.getDate().before(lastAncHomeVisitNotDoneEvent.getDate())
 //                    && ancHomeVisitNotDoneEvent(lastAncHomeVisitNotDoneEvent)) {
@@ -509,18 +492,19 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             //when visit is done
             Visit visit = getVisit(CoreConstants.EventType.ANC_HOME_VISIT);
             if (visit != null) {
-                textViewRecordAncNotDone.setVisibility(View.GONE);
-                textViewRecordAnc.setVisibility(View.GONE);
-
-                visitDone.setVisibility(View.VISIBLE);
-
                 if (VisitUtils.isVisitWithin24Hours(visit)) {
+                    recordVisits.setVisibility(View.GONE);
+                    visitDone.setVisibility(View.VISIBLE);
+                    visitStatus.setVisibility(View.GONE);
+                    textViewVisitDone.setText(getString(R.string.anc_visit_done_string));
                     textViewVisitDoneEdit.setTag("EDIT_ANC");
-                    textViewVisitDoneEdit.setVisibility(View.VISIBLE);
-                } else {
                     textViewVisitDoneEdit.setVisibility(View.GONE);
+                } else {
+                    setAncViews(visitSummary);
                 }
 
+            } else {
+                setAncViews(visitSummary);
             }
         }
     }
@@ -544,12 +528,12 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             if (lastVisitDate != null) {
                 int numOfDays = Days.daysBetween(new DateTime(deliveryDate).toLocalDate(), new DateTime().toLocalDate()).getDays();
 
-                recordVisits.setVisibility(View.GONE);
-                visitDone.setVisibility(View.VISIBLE);
-                textViewVisitDone.setText(getString(R.string.pnc_visit_done_string, String.valueOf(numOfDays)));
                 if (VisitUtils.isVisitWithin24Hours(lastVisit)) {
+                    recordVisits.setVisibility(View.GONE);
+                    visitDone.setVisibility(View.VISIBLE);
+                    visitStatus.setVisibility(View.GONE);
+                    textViewVisitDone.setText(getString(R.string.pnc_visit_done_string, String.valueOf(numOfDays)));
                     textViewVisitDoneEdit.setTag("EDIT_PNC");
-                } else if (!VisitUtils.isVisitWithin24Hours(lastVisit)) {
                     textViewVisitDoneEdit.setVisibility(View.GONE);
                 } else {
                     setPncViews(pncVisitAlertRule);
@@ -618,12 +602,34 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         return null;
     }
 
-    private void setPncViews(PncVisitAlertRule pncVisitAlertRule) {
+    private void setAncViews(VisitSummary visitSummary) {
+        if (visitSummary.getVisitStatus().equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) || visitSummary.getVisitStatus().equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE)) {
+            recordVisits.setVisibility(View.VISIBLE);
+            visitStatus.setVisibility(View.GONE);
+            textViewRecordAnc.setText(R.string.record_anc_visit);
+            textViewRecordAnc.setTag(ANC);
+            textViewRecordAnc.setVisibility(View.VISIBLE);
 
+        }
+
+        if (visitSummary.getVisitStatus().equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE)) {
+            textViewRecordAnc.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_selector_overdue);
+        }
+
+        if (visitSummary.getVisitStatus().equalsIgnoreCase(CoreConstants.VISIT_STATE.VISIT_DONE)) {
+            recordVisits.setVisibility(View.GONE);
+            visitDone.setVisibility(View.VISIBLE);
+            textViewVisitDoneEdit.setVisibility(View.GONE);
+        }
+
+    }
+
+    private void setPncViews(PncVisitAlertRule pncVisitAlertRule) {
         if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("DUE") || pncVisitAlertRule.getButtonStatus().toUpperCase().equals("OVERDUE")) {
             recordVisits.setVisibility(View.VISIBLE);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             textViewRecordAnc.setLayoutParams(layoutParams);
+            visitStatus.setVisibility(View.GONE);
             visitDone.setVisibility(View.GONE);
             textViewRecordAncNotDone.setVisibility(View.GONE);
             textViewRecordAnc.setText(R.string.record_pnc_visit);
@@ -641,6 +647,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             visitDone.setVisibility(View.VISIBLE);
             textViewVisitDoneEdit.setVisibility(View.GONE);
         }
+
     }
 
 
