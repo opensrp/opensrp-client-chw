@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,6 +52,7 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -490,16 +492,22 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 //            }
 
             //when visit is done
-            Visit visit = getVisit(CoreConstants.EventType.ANC_HOME_VISIT);
+            Visit visit = getVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT);
+
             if (visit != null) {
+                Calendar cal = Calendar.getInstance();
+                int offset = cal.getTimeZone().getOffset(cal.getTimeInMillis());
+                Date date = new Date(visit.getDate().getTime() - (long) offset);
+                String monthString = (String) DateFormat.format("MMMM", date);
+
                 if (VisitUtils.isVisitWithin24Hours(visit)) {
                     recordVisits.setVisibility(View.GONE);
                     visitDone.setVisibility(View.VISIBLE);
                     visitStatus.setVisibility(View.GONE);
-                    textViewVisitDone.setText(getString(R.string.anc_visit_done_string));
+                    textViewVisitDone.setText(getString(R.string.anc_visit_done_string, monthString));
                     textViewVisitDoneEdit.setTag("EDIT_ANC");
-                    textViewVisitDoneEdit.setVisibility(View.GONE);
                 } else {
+                    textViewVisitDone.setText(getString(R.string.anc_visit_done_string, monthString));
                     setAncViews(visitSummary);
                 }
 
