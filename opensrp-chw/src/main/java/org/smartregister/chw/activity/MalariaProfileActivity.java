@@ -534,8 +534,8 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                     visitStatus.setVisibility(View.GONE);
                     textViewVisitDone.setText(getString(R.string.pnc_visit_done_string, String.valueOf(numOfDays)));
                     textViewVisitDoneEdit.setTag("EDIT_PNC");
-                    textViewVisitDoneEdit.setVisibility(View.GONE);
                 } else {
+                    textViewVisitDone.setText(getString(R.string.pnc_visit_done_string, String.valueOf(numOfDays)));
                     setPncViews(pncVisitAlertRule);
                 }
             } else {
@@ -625,6 +625,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     }
 
     private void setPncViews(PncVisitAlertRule pncVisitAlertRule) {
+        visitDone.setVisibility(View.GONE);
         if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("DUE") || pncVisitAlertRule.getButtonStatus().toUpperCase().equals("OVERDUE")) {
             recordVisits.setVisibility(View.VISIBLE);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
