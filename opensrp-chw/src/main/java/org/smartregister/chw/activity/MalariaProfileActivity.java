@@ -225,18 +225,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         }
     }
 
-    private void setAncVisitNotDoneView(Boolean bool) {
-        if (bool) {
-            visitStatus.setVisibility(View.VISIBLE);
-            textViewRecordAnc.setVisibility(View.GONE);
-            visitStatus.setVisibility(View.GONE);
-        } else {
-            visitStatus.setVisibility(View.GONE);
-            textViewRecordAnc.setVisibility(View.VISIBLE);
-            visitStatus.setVisibility(View.VISIBLE);
-
-        }
-    }
 
     @Override
     public void setProfileDetailThree(String s) {
@@ -373,9 +361,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                 type = CoreConstants.TABLE_NAME.ANC_MEMBER;
             } else if (PNCDao.isPNCMember(memberObject.getBaseEntityId())) {
                 type = CoreConstants.TABLE_NAME.PNC_MEMBER;
-            }// else if (ChildDao.isChild(memberObject.getBaseEntityId())) {
-            // type = CoreConstants.TABLE_NAME.CHILD;
-            //}
+            }
 
             MemberType memberType = new MemberType(memberObject, type);
             e.onNext(memberType);
@@ -465,28 +451,12 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     @Override
     public void recordAnc(MemberObject memberObject) {
         if (AncDao.isANCMember(memberObject.getBaseEntityId())) {
-            Visit lastAncHomeVisitNotDoneEvent = getVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
-            Visit lastAncHomeVisitNotDoneUndoEvent = getVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO);
-
             org.smartregister.chw.anc.domain.MemberObject ancMemberObject = AncDao.getMember(memberObject.getBaseEntityId());
 
             Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.ANC_HOME_VISIT);
 
             VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, ancMemberObject.getLastContactVisit(), null, new DateTime(ancMemberObject.getDateCreated()).toLocalDate());
-            setAncViews(visitSummary);
-//            if (lastAncHomeVisitNotDoneUndoEvent != null
-//                    && lastAncHomeVisitNotDoneUndoEvent.getDate().before(lastAncHomeVisitNotDoneEvent.getDate())
-//                    && ancHomeVisitNotDoneEvent(lastAncHomeVisitNotDoneEvent)) {
-//                textViewRecordAncNotDone.setVisibility(View.GONE);
-//                textViewRecordAnc.setVisibility(View.GONE);
-//                visitStatus.setVisibility(View.VISIBLE);
-//            } else if (lastAncHomeVisitNotDoneUndoEvent == null && ancHomeVisitNotDoneEvent(lastAncHomeVisitNotDoneEvent)) {
-//                textViewRecordAncNotDone.setVisibility(View.GONE);
-//                textViewRecordAnc.setVisibility(View.GONE);
-//                visitStatus.setVisibility(View.VISIBLE);
-//            }
 
-            //when visit is done
             Visit visit = getVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT);
 
             if (visit != null) {
@@ -496,13 +466,12 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                 String monthString = (String) DateFormat.format("MMMM", date);
 
                 if (VisitUtils.isVisitWithin24Hours(visit)) {
-                    recordVisits.setVisibility(View.GONE);
-                    visitDone.setVisibility(View.VISIBLE);
-                    visitStatus.setVisibility(View.GONE);
-                    textViewVisitDone.setText(getString(R.string.anc_visit_done_string, monthString));
-                    textViewVisitDoneEdit.setTag("EDIT_ANC");
+                    ifVisitIsWithin24Hours(R.string.anc_visit_done_string, monthString, "EDIT_ANC");
+
+                } else if (visitSummary.getLastVisitDays().equalsIgnoreCase("less than 24 hrs") && visitSummary.getVisitStatus().equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE)) {
+                    hideAncPncButtons();
+
                 } else {
-                    textViewVisitDone.setText(getString(R.string.anc_visit_done_string, monthString));
                     setAncViews(visitSummary);
                 }
 
@@ -532,11 +501,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                 int numOfDays = Days.daysBetween(new DateTime(deliveryDate).toLocalDate(), new DateTime().toLocalDate()).getDays();
 
                 if (VisitUtils.isVisitWithin24Hours(lastVisit)) {
-                    recordVisits.setVisibility(View.GONE);
-                    visitDone.setVisibility(View.VISIBLE);
-                    visitStatus.setVisibility(View.GONE);
-                    textViewVisitDone.setText(getString(R.string.pnc_visit_done_string, String.valueOf(numOfDays)));
-                    textViewVisitDoneEdit.setTag("EDIT_PNC");
+                    ifVisitIsWithin24Hours(R.string.pnc_visit_done_string, String.valueOf(numOfDays), "EDIT_PNC");
                 } else {
                     textViewVisitDone.setText(getString(R.string.pnc_visit_done_string, String.valueOf(numOfDays)));
                     setPncViews(pncVisitAlertRule);
@@ -651,6 +616,21 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             visitDone.setVisibility(View.VISIBLE);
             textViewVisitDoneEdit.setVisibility(View.GONE);
         }
+
+    }
+
+    private void hideAncPncButtons() {
+        recordVisits.setVisibility(View.GONE);
+        visitStatus.setVisibility(View.GONE);
+        visitDone.setVisibility(View.GONE);
+    }
+
+    private void ifVisitIsWithin24Hours(int message, String daysOrMonth, String tag) {
+        recordVisits.setVisibility(View.GONE);
+        visitDone.setVisibility(View.VISIBLE);
+        visitStatus.setVisibility(View.GONE);
+        textViewVisitDone.setText(getString(message, daysOrMonth));
+        textViewVisitDoneEdit.setTag(tag);
 
     }
 
