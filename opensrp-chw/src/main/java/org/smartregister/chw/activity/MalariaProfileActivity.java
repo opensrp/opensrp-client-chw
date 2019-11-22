@@ -48,10 +48,9 @@ import timber.log.Timber;
 public class MalariaProfileActivity extends BaseMalariaProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String CLIENT = "client";
 
-    public static void startMalariaActivity(Activity activity, MemberObject memberObject, CommonPersonObjectClient client) {
+    public static void startMalariaActivity(Activity activity, MemberObject memberObject) {
         Intent intent = new Intent(activity, MalariaProfileActivity.class);
         intent.putExtra(Constants.MALARIA_MEMBER_OBJECT.MEMBER_OBJECT, memberObject);
-        intent.putExtra(CLIENT, client);
         activity.startActivity(intent);
     }
 

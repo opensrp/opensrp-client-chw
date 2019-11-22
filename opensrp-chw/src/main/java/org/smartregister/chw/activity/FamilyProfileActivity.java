@@ -13,10 +13,12 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.MalariaDao;
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
 import org.smartregister.chw.fragment.FamilyProfileMemberFragment;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
+import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
@@ -137,8 +139,11 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     @Override
     public void gotToMalariaProfileActivity(CommonPersonObjectClient client) {
-        MalariaProfileActivity.startMalariaActivity(this, new org.smartregister.chw.malaria.domain.MemberObject(client), client);
+
+        MalariaProfileActivity.startMalariaActivity(this, new MemberObject(client));
+
     }
+
 
     @Override
     protected boolean isAncMember(String baseEntityId) {
@@ -158,11 +163,6 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     @Override
     protected boolean isPncMember(String baseEntityId) {
         return getFamilyProfilePresenter().isPncMember(baseEntityId);
-    }
-
-    @Override
-    protected boolean isMalariaMember(String baseEntityId) {
-        return getFamilyProfilePresenter().isMalariaMember(baseEntityId);
     }
 
     @Override
