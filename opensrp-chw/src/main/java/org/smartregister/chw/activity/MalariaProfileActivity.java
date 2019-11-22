@@ -544,11 +544,13 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             if (lastVisitDate != null) {
                 int numOfDays = Days.daysBetween(new DateTime(deliveryDate).toLocalDate(), new DateTime().toLocalDate()).getDays();
 
-                textViewVisitDoneEdit.setVisibility(View.VISIBLE);
-                textViewVisitDone.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.last_visit_40_days_ago, (numOfDays <= 1) ? getString(org.smartregister.chw.opensrp_chw_anc.R.string.less_than_twenty_four) : numOfDays + " " + getString(org.smartregister.chw.opensrp_chw_anc.R.string.days)));
+                recordVisits.setVisibility(View.GONE);
+                visitDone.setVisibility(View.VISIBLE);
+                textViewVisitDone.setText(getString(R.string.pnc_visit_done_string, String.valueOf(numOfDays)));
                 if (VisitUtils.isVisitWithin24Hours(lastVisit)) {
-                    recordVisits.setVisibility(View.GONE);
                     textViewVisitDoneEdit.setTag("EDIT_PNC");
+                } else if (!VisitUtils.isVisitWithin24Hours(lastVisit)) {
+                    textViewVisitDoneEdit.setVisibility(View.GONE);
                 } else {
                     setPncViews(pncVisitAlertRule);
                 }
@@ -622,6 +624,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
             recordVisits.setVisibility(View.VISIBLE);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             textViewRecordAnc.setLayoutParams(layoutParams);
+            visitDone.setVisibility(View.GONE);
             textViewRecordAncNotDone.setVisibility(View.GONE);
             textViewRecordAnc.setText(R.string.record_pnc_visit);
             textViewRecordAnc.setTag(PNC);
