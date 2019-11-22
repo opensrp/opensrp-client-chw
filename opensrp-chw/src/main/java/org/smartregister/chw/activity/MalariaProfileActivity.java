@@ -532,15 +532,21 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
             Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.PNC_HOME_VISIT);
 
-            PncVisitAlertRule pncVisitAlertRule = HomeVisitUtil.getPncVisitStatus(rules, getLastVisitDate(ancMemberObject.getBaseEntityId()), getDeliveryDate(ancMemberObject.getBaseEntityId()));
+            Date deliveryDate = getDeliveryDate(ancMemberObject.getBaseEntityId());
+
+
+            PncVisitAlertRule pncVisitAlertRule = HomeVisitUtil.getPncVisitStatus(rules, getLastVisitDate(ancMemberObject.getBaseEntityId()), deliveryDate);
 
             //check last visit
-            String lastVisit = getPncLastVisitDate(memberObject.getBaseEntityId());
-            if (lastVisit != null) {
-                int numOfDays = Days.daysBetween(new DateTime(formatDate(lastVisit)).toLocalDate(), new DateTime().toLocalDate()).getDays();
+            String lastVisitDate = getPncLastVisitDate(memberObject.getBaseEntityId());
+            Visit lastVisit = getVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
 
+            if (lastVisitDate != null) {
+                int numOfDays = Days.daysBetween(new DateTime(deliveryDate).toLocalDate(), new DateTime().toLocalDate()).getDays();
+
+                textViewVisitDoneEdit.setVisibility(View.VISIBLE);
                 textViewVisitDone.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.last_visit_40_days_ago, (numOfDays <= 1) ? getString(org.smartregister.chw.opensrp_chw_anc.R.string.less_than_twenty_four) : numOfDays + " " + getString(org.smartregister.chw.opensrp_chw_anc.R.string.days)));
-                if (numOfDays <= 1) {
+                if (VisitUtils.isVisitWithin24Hours(lastVisit)) {
                     recordVisits.setVisibility(View.GONE);
                     textViewVisitDoneEdit.setTag("EDIT_PNC");
                 } else {
@@ -611,13 +617,12 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     }
 
     private void setPncViews(PncVisitAlertRule pncVisitAlertRule) {
-        visitDone.setVisibility(View.GONE);
-        recordVisits.setVisibility(View.GONE);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        textViewRecordAnc.setLayoutParams(layoutParams);
 
         if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("DUE") || pncVisitAlertRule.getButtonStatus().toUpperCase().equals("OVERDUE")) {
             recordVisits.setVisibility(View.VISIBLE);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            textViewRecordAnc.setLayoutParams(layoutParams);
+            textViewRecordAncNotDone.setVisibility(View.GONE);
             textViewRecordAnc.setText(R.string.record_pnc_visit);
             textViewRecordAnc.setTag(PNC);
             textViewRecordAnc.setVisibility(View.VISIBLE);
@@ -629,6 +634,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         }
 
         if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("VISIT_DONE")) {
+            recordVisits.setVisibility(View.GONE);
             visitDone.setVisibility(View.VISIBLE);
             textViewVisitDoneEdit.setVisibility(View.GONE);
         }
