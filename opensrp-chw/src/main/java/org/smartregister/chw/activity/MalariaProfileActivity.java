@@ -534,7 +534,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                     visitStatus.setVisibility(View.GONE);
                     textViewVisitDone.setText(getString(R.string.pnc_visit_done_string, String.valueOf(numOfDays)));
                     textViewVisitDoneEdit.setTag("EDIT_PNC");
-                    textViewVisitDoneEdit.setVisibility(View.GONE);
                 } else {
                     setPncViews(pncVisitAlertRule);
                 }
