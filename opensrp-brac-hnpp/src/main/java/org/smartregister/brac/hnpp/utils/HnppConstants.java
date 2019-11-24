@@ -24,6 +24,18 @@ public class HnppConstants extends CoreConstants {
     public static final String MODULE_ID_TRAINING = "TRAINING";
     public static final int MEMBER_ID_SUFFIX = 11;
     public static final int HOUSE_HOLD_ID_SUFFIX = 9;
+    public class HOME_VISIT_FORMS {
+        public static final String  ANC_CARD_FORM = "anc_card_form";
+        public static final String  IMMUNIZATION = "hv_immunization";
+        public static final String  DANGER_SIGNS = "anc_hv_danger_signs";
+
+        public static final String  ANC1_FORM = "hnpp_anc1_registration";
+        public static final String  ANC2_FORM = "hnpp_anc2_registration";
+        public static final String  ANC3_FORM = "hnpp_anc3_registration";
+        public static final String  GENERAL_DISEASE = "hnpp_anc_general_disease";
+        public static final String  PREGNANCY_HISTORY = "hnpp_anc_pregnancy_history";
+
+    }
 
     public static boolean isExistSpecialCharacter(String filters){
         if(!TextUtils.isEmpty(filters) && filters.contains("/")){

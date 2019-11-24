@@ -61,6 +61,18 @@ public class HnppChwRepository extends CoreChwRepository {
         }catch (Exception e){
 
         }
+        try{
+            db.execSQL("ALTER TABLE ec_family ADD COLUMN occupation VARCHAR;");
+            db.execSQL("ALTER TABLE ec_family ADD COLUMN occupation_other VARCHAR;");
+            db.execSQL("ALTER TABLE ec_family ADD COLUMN financial_status VARCHAR;");
+            db.execSQL("ALTER TABLE ec_family ADD COLUMN list_of_assets VARCHAR;");
+            db.execSQL("ALTER TABLE ec_family ADD COLUMN floor_material VARCHAR;");
+            db.execSQL("ALTER TABLE ec_family ADD COLUMN wall_material VARCHAR;");
+            db.execSQL("ALTER TABLE ec_family ADD COLUMN roof_material VARCHAR;");
+        }catch (Exception e){
+
+        }
+
 
     }
 

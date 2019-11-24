@@ -104,7 +104,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         return serviceTable;
     }
 
-    private void processEvents(ClientClassification clientClassification, Table vaccineTable, Table serviceTable, EventClient eventClient, Event event, String eventType) throws Exception {
+    public void processEvents(ClientClassification clientClassification, Table vaccineTable, Table serviceTable, EventClient eventClient, Event event, String eventType) throws Exception {
         switch (eventType) {
             case VaccineIntentService.EVENT_TYPE:
             case VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT:

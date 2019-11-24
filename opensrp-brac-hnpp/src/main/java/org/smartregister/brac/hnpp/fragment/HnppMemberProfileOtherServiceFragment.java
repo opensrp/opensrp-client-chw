@@ -5,6 +5,7 @@ import android.view.View;
 
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.activity.FamilyProfileActivity;
+import org.smartregister.brac.hnpp.activity.HnppFamilyOtherMemberProfileActivity;
 import org.smartregister.brac.hnpp.model.MemberProfileDueModel;
 import org.smartregister.brac.hnpp.presenter.HnppMemberProfileDuePresenter;
 import org.smartregister.brac.hnpp.provider.MemberDueRegisterProvider;
@@ -101,15 +102,6 @@ public class HnppMemberProfileOtherServiceFragment extends BaseFamilyProfileDueF
     @Override
     public void countExecute() {
         super.countExecute();
-        final int count = clientAdapter.getTotalcount();
-
-        if (getActivity() != null && count != dueCount) {
-            dueCount = count;
-            ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
-        }
-        if (getActivity() != null) {
-            getActivity().runOnUiThread(() -> onEmptyRegisterCount(count < 1));
-        }
     }
 
     public void onEmptyRegisterCount(final boolean has_no_records) {
