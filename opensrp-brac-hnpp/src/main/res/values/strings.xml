@@ -106,6 +106,9 @@
     <string name="sick_child_follow_up">অসুস্থ সন্তানের ফলোআপ</string>
     <string name="family_has_nothing_due">অন্যান্য সদস্য</string>
     <string name="return_to_family_members">Return to family members</string>
+    <string name="household_id_null_message">খানা প্রধানের আইডি পাওয়া যাইনি । পুনরাই লগ আউট করে লগইন করুন</string>
+    <string name="ok">আচ্ছা</string>
+
     <string name="last_visit_prefix">শেষ পরিদর্শন %1$s আগে</string>
     <string name="due">বাকি </string>
     <string name="other_service">অন্যান্য সেবা</string>
