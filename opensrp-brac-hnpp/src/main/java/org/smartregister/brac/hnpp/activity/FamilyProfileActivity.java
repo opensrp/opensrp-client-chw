@@ -1,9 +1,10 @@
 package org.smartregister.brac.hnpp.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -66,6 +67,15 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
+        if(houseHoldId == null){
+            new AlertDialog.Builder(this).setMessage(R.string.household_id_null_message)
+                    .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            finish();
+                        }
+                    }).show();
+            return;
+        }
         try{
             if(jsonForm.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)){
                 Intent intent = new Intent(this, Utils.metadata().familyFormActivity);
