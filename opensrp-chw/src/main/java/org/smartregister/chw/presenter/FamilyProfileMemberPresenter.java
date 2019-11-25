@@ -18,7 +18,11 @@ public class FamilyProfileMemberPresenter extends CoreFamilyProfileMemberPresent
     }
 
     public String getMainCondition() {
-        return String.format(" %s.%s = '%s' and %s.%s is null ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID, this.familyBaseEntityId, CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DATE_REMOVED);
+        return String.format(" %s.%s = '%s' and (%s.%s is null or %s.%s is not null ) ",
+                CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID, this.familyBaseEntityId,
+                CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DATE_REMOVED,
+                CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DOD
+        );
     }
 
     public String getChildFilter() {

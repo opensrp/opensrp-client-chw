@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ChildUtils extends CoreChildUtils {
-    private static Flavor childUtilsFlv = new ChildUtilsFlv();
+    private static CoreChildUtils.Flavor childUtilsFlv = new ChildUtilsFlv();
 
     /**
      * Based on received vaccine list it'll return the fully immunized year.
@@ -149,11 +149,4 @@ public class ChildUtils extends CoreChildUtils {
 
     }
 
-    public interface Flavor {
-        ArrayList<String> mainColumns(String tableName, String familyTable, String familyMemberTable);
-
-        String[] getOneYearVaccines();
-
-        String[] getTwoYearVaccines();
-    }
 }
