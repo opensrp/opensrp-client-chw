@@ -5,19 +5,15 @@ import android.content.Context;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
-import org.smartregister.chw.core.dao.AlertDao;
 import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.dao.ChwPNCDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.chw.util.PNCVisitUtil;
-import org.smartregister.domain.Alert;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -29,11 +25,8 @@ import java.util.Map;
 public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServiceInteractor.Flavor {
     protected MemberObject memberObject;
     protected Context context;
-    private   Date deliveryDate;
-    private Date OverDueDate;
     private Integer count;
-    private Integer period;
-    private Date ExpiryDay;
+
 
     @Override
     public List<BaseUpcomingService> getMemberServices(Context context, MemberObject memberObject) {
@@ -81,34 +74,31 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
     }
 
     private void evaluateImmunization(List<BaseUpcomingService> serviceList) {
-        Map<String,String> alerts = ChwPNCDao.getPNCImmunizationAtBirth(memberObject.getBaseEntityId());
+         Date deliveryDate = new Date();
+         Date OverDueDate = new Date();
+        Map<String, String> alerts = ChwPNCDao.getPNCImmunizationAtBirth(memberObject.getBaseEntityId());
         BaseUpcomingService upcomingService = new BaseUpcomingService();
         try {
             deliveryDate = new SimpleDateFormat("dd-MM-yyyy").parse(ChwPNCDao.getDeliveryDate(memberObject.getBaseEntityId()));
             OverDueDate = new DateTime(deliveryDate).plusDays(13).toDate();
-            ExpiryDay =new DateTime(deliveryDate).plusDays(27).toDate();
+        } catch (Exception e) {
         }
-        catch (Exception e){
-        }
-        period = Days.daysBetween(new DateTime(ExpiryDay).toLocalDate(), new DateTime().toLocalDate()).getDays();
-        if (period <28){
-            if(alerts.size() > 0){
-                for(Map.Entry<String,String> alert : alerts.entrySet()){
-                    if(alert.getValue().equalsIgnoreCase("Vaccine not given")){
+        if (Days.daysBetween(new DateTime(new DateTime(deliveryDate).plusDays(27).toDate()).toLocalDate(), new DateTime().toLocalDate()).getDays() < 28) {
+            if (alerts.size() > 0) {
+                for (Map.Entry<String, String> alert : alerts.entrySet()) {
+                    if (alert.getValue().equalsIgnoreCase("Vaccine not given")) {
                         count += count;
                     }
                 }
             }
-            if(alerts.size() == 0 || count == 2){
-                upcomingService.setServiceName(context.getString(R.string.upcoming_immunizations, context.getString(R.string.at_birth),context.getString(R.string.bcg),context.getString(R.string.opv_0)));
-            }
-            else{
-                for(Map.Entry<String,String> alert : alerts.entrySet()){
-                    if(alert.getKey().equalsIgnoreCase(context.getString(R.string.opv_0))){
-                        upcomingService.setServiceName(context.getString(R.string.up_immunizations, context.getString(R.string.at_birth),context.getString(R.string.opv_0)));
-                    }
-                    else {
-                        upcomingService.setServiceName(context.getString(R.string.up_immunizations, context.getString(R.string.at_birth),context.getString(R.string.bcg)));
+            if (alerts.size() == 0 || count == 2) {
+                upcomingService.setServiceName(context.getString(R.string.upcoming_immunizations, context.getString(R.string.at_birth), context.getString(R.string.bcg), context.getString(R.string.opv_0)));
+            } else {
+                for (Map.Entry<String, String> alert : alerts.entrySet()) {
+                    if (alert.getKey().equalsIgnoreCase(context.getString(R.string.opv_0))) {
+                        upcomingService.setServiceName(context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), context.getString(R.string.opv_0)));
+                    } else {
+                        upcomingService.setServiceName(context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), context.getString(R.string.bcg)));
                     }
                 }
             }
