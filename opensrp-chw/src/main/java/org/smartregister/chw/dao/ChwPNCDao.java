@@ -1,5 +1,7 @@
 package org.smartregister.chw.dao;
 
+import android.util.Pair;
+
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.jetbrains.annotations.Nullable;
@@ -7,7 +9,9 @@ import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.dao.AbstractDao;
 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -42,6 +46,25 @@ public class ChwPNCDao extends AbstractDao {
         return (res != null && res.size() > 0) ? res.get(0) : null;
     }
 
+
+    public static Map<String,String> getPNCImmunizationAtBirth(String motherBaseEntityId){
+        String sql = "SELECT vd.visit_key, vd.details FROM Visit_details vd  INNER JOIN visits v on v.visit_id = vd.visit_id AND v.visit_type = 'Immunization Visit' AND v.base_entity_id =" +
+                " (SELECT ch.base_entity_id FROM ec_child ch INNER JOIN ec_pregnancy_outcome pg ON pg.base_entity_id = ch.mother_entity_id WHERE pg.base_entity_id = '" + motherBaseEntityId + "' COLLATE NOCASE )";
+
+
+        DataMap<Pair<String, String>> dataMap = c -> Pair.create(getCursorValue(c, "visit_key"), getCursorValue(c, "details"));
+
+        Map<String, String> immunizations = new HashMap<>();
+        List<Pair<String, String>> pairs = AbstractDao.readData(sql, dataMap);
+        if (pairs == null || pairs.size() == 0)
+            return immunizations;
+
+        for (Pair<String, String> pair : pairs) {
+            immunizations.put(pair.first, pair.second);
+        }
+
+        return immunizations;
+    }
 
     public interface Flavor {
 
