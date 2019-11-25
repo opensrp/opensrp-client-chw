@@ -93,7 +93,7 @@ public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor i
         try {
             List<BaseUpcomingService> baseUpcomingServices = upcomingServicesInteractor.getMemberServices(context, memberObject);
             if (baseUpcomingServices.size() > 0) {
-                Comparator<BaseUpcomingService> comparator = (o1, o2) -> o1.getServiceDate().compareTo(o2.getServiceDate());
+                Comparator<BaseUpcomingService> comparator = (o1, o2) -> o1.getOverDueDate().compareTo(o2.getOverDueDate());
                 Collections.sort(baseUpcomingServices, comparator);
 
                 BaseUpcomingService baseUpcomingService = baseUpcomingServices.get(0);

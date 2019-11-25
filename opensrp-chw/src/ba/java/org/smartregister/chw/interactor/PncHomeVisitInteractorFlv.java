@@ -290,8 +290,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 if (StringUtils.isBlank(fp_counseling)) {
                     return BaseAncHomeVisitAction.Status.PENDING;
                 }
-
-
                 if ("Yes".equalsIgnoreCase(fp_counseling)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else {
