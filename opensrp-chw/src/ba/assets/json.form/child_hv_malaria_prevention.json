@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "WASH check",
+  "encounter_type": "Malaria Prevention",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,83 +47,93 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Vérification EHA",
+    "title": "Malaria Prevention",
     "fields": [
       {
-        "key": "handwashing_facilities",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "164863AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "label_info_title": "Le ménage a-t-il une dispositif pour le lavage des mains?",
-        "label_info_text": "Répondez \"Oui\" si le ménage dispose d'un espace désigné pour se laver les mains (ou d'un point mobile de lavage des mains), avec de l'eau et du savon. Sinon, répondez \"Non\".",
-        "hint": "Le ménage a-t-il une dispositif pour le lavage des mains?",
-        "values": [
-          "Oui",
-          "Non"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Veuillez sélectionner une option"
-        }
-      },
-      {
-        "key": "drinking_water",
+        "key": "fam_llin_1m5yr",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Le ménage a-t-il accès à de l'eau potable?",
+        "hint": "Does the child have a long lasting insecticide net (LLIN)?",
         "values": [
-          "Oui",
-          "Non"
+          "Yes",
+          "No"
         ],
         "keys": [
           "Yes",
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
-          "value": true,
-          "err": "Veuillez sélectionner une option"
+          "value": "true",
+          "err": "Please select one option"
         }
       },
       {
-        "key": "hygienic_latrine",
+        "key": "llin_2days_1m5yr",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Les membres de la famille utilisent-ils des latrines hygiéniques pour l'évacuation des excréments?",
+        "hint": "Did the child sleep under the LLIN last night?",
         "values": [
-          "Oui",
-          "Non"
+          "Yes",
+          "No"
         ],
         "keys": [
           "Yes",
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
-          "value": true,
-          "err": "Veuillez sélectionner une option"
+          "value": "true",
+          "err": "Please select one option"
+        },
+        "relevance": {
+          "step1:fam_llin_1m5yr": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "llin_condition_1m5yr",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "LLIN condition",
+        "values": [
+          "Okay",
+          "Bad"
+        ],
+        "keys": [
+          "Okay",
+          "Bad"
+        ],
+        "openmrs_choice_ids": {
+          "Okay": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Bad": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        },
+        "relevance": {
+          "step1:fam_llin_1m5yr": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       }
     ]

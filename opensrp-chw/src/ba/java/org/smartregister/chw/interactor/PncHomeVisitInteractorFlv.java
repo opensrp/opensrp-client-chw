@@ -39,6 +39,7 @@ import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -202,6 +203,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             private String fp_method;
             private String fp_start_date;
             private Date start_date;
+            private String fp_period_received;
 
             @Override
             public void onPayloadReceived(String jsonPayload) {
@@ -210,6 +212,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     fp_counseling = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_counseling");
                     fp_method = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_method");
                     fp_start_date = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_start_date");
+                    fp_period_received = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, "fp_period_received");
 
                     if (StringUtils.isNotBlank(fp_start_date)) {
                         start_date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(fp_start_date);
@@ -221,14 +224,49 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 }
             }
 
+            private String evaluateFpPeriod() {
+                if (fp_period_received != null) {
+                    List<String> listFpPeriods = Arrays.asList(fp_period_received.replace("\"", "").replace("[", "").replace("]", "").split("\\s*,\\s*"));
+                    if (listFpPeriods.size() > 0) {
+                        StringBuilder builder = new StringBuilder();
+                        ArrayList<String> builderList = new ArrayList<>();
+                        String SEPARATOR = ",";
+                        String duringPeriod = "";
+                        for (String period : listFpPeriods) {
+                            switch (period) {
+                                case "chk_during_anc":
+                                    duringPeriod = context.getString(R.string.during_anc);
+                                    break;
+                                case "chk_during_labour_and_delivery":
+                                    duringPeriod = context.getString(R.string.during_labour_and_delivery);
+                                    break;
+                                case "chk_during_pnc":
+                                    duringPeriod = context.getString(R.string.during_pnc);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            builderList.add(duringPeriod);
+                        }
+                        for (String build : builderList) {
+                            builder.append(build);
+                            builder.append(SEPARATOR);
+                        }
+                        fp_period_received = builder.toString();
+                        fp_period_received = fp_period_received.substring(0, fp_period_received.length() - SEPARATOR.length());
+                    }
+                }
+                return fp_period_received;
+
+            }
+
             @Override
             public String evaluateSubTitle() {
                 StringBuilder builder = new StringBuilder();
                 builder.append(
                         MessageFormat.format("{0}: {1}\n",
                                 context.getString(R.string.fp_counseling),
-                                "Yes".equalsIgnoreCase(fp_counseling) ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase()
-                        )
+                                "Yes".equalsIgnoreCase(fp_counseling) ? evaluateFpPeriod() : context.getString(R.string.not_done).toLowerCase())
                 );
 
                 if (StringUtils.isNotBlank(fp_method)) {
@@ -252,7 +290,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         case "LAM":
                             method = context.getString(R.string.lam);
                             break;
-                        case "Standard day method":
+                        case "Bead Counting":
                             method = context.getString(R.string.standard_day_method);
                             break;
                         case "Permanent (BTL)":
@@ -264,24 +302,8 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         default:
                             break;
                     }
-
-                    builder.append(
-                            MessageFormat.format("{0}: {1}",
-                                    context.getString(R.string.fp_method_chosen),
-                                    method
-                            )
-                    );
+                    builder.append(MessageFormat.format("{0}: {1}", method, StringUtils.isNoneBlank(fp_start_date) ? new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(start_date) : ""));
                 }
-
-                if (StringUtils.isNotBlank(fp_start_date)) {
-                    builder.append(
-                            MessageFormat.format("\n{0}: {1}",
-                                    context.getString(R.string.fp_method_start_date),
-                                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(start_date)
-                            )
-                    );
-                }
-
                 return builder.toString();
             }
 
@@ -290,8 +312,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 if (StringUtils.isBlank(fp_counseling)) {
                     return BaseAncHomeVisitAction.Status.PENDING;
                 }
-
-
                 if ("Yes".equalsIgnoreCase(fp_counseling)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else {
@@ -892,12 +912,13 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
         @Override
         public String evaluateSubTitle() {
-            if (date == null) {
-                return null;
-            }
             if ("No".equals(pnc_visit)) {
-                return context.getString(R.string.visit_not_done);
+                return context.getString(R.string.visit_not_done).replace("\n", "");
             } else {
+                if (date == null) {
+                    return null;
+                }
+
                 if (visit_num == 1) {
                     return MessageFormat.format(" {0}: {1} \n {2}: {3} \n {4}: {5}",
                             context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date), "Vitamin A received", vit_a_mother, "IFA tablets received", ifa_mother);

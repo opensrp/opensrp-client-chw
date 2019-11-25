@@ -170,7 +170,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
                     completedBuilder.append(", ");
                 }
 
-                completedBuilder.append(getTranslatedValue(vac));
+                completedBuilder.append(getTranslatedValue(vac.toUpperCase()));
             }
 
             if (completedBuilder.length() > 0) {
@@ -206,7 +206,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
             }
 
             builder.append(MessageFormat.format("{0} {1}",
-                    pendingBuilder.toString(),
+                    pendingBuilder.toString().toUpperCase(),
                     context.getString(R.string.not_given_with_spaces)
             ));
         }

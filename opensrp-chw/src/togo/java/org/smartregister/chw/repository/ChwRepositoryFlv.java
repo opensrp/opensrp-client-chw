@@ -5,21 +5,30 @@ import android.database.Cursor;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.joda.time.format.DateTimeFormat;
 import org.json.JSONObject;
+import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.ChwPNCDao;
 import org.smartregister.chw.dao.WashCheckDao;
+import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.PNCVisitUtil;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
@@ -35,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -73,6 +83,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 12:
                     upgradeToVersion12(db, oldVersion);
+                    break;
+                case 13:
+                    upgradeToVersion13(db);
                     break;
                 default:
                     break;
@@ -166,7 +179,7 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion10(SQLiteDatabase db) {
         try {
-            for (String query : RepositoryUtilsFlv.UPGRADE_V9) {
+            for (String query : RepositoryUtilsFlv.DROP_VISITS_INFO_TABLES) {
                 db.execSQL(query);
             }
 
@@ -174,8 +187,8 @@ public class ChwRepositoryFlv {
             VisitRepository.createTable(db);
             VisitDetailsRepository.createTable(db);
 
-            //reprocess all the anc visit events
-            List<Event> events = getEvents(db);
+            //reprocess all the ANC visit events
+            List<Event> events = getEvents(db, new String[]{Constants.EventType.ANC_HOME_VISIT});
             for (Event event : events) {
                 NCUtils.processHomeVisit(new EventClient(event), db);
             }
@@ -194,7 +207,7 @@ public class ChwRepositoryFlv {
             DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.CHILD, columns);
 
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion9 ");
+            Timber.e(e, "upgradeToVersion10 ");
         }
     }
 
@@ -240,6 +253,15 @@ public class ChwRepositoryFlv {
         initializeIndicatorDefinitions(reportingLibraryInstance, db);
     }
 
+    private static void upgradeToVersion13(SQLiteDatabase sqLiteDatabase) {
+        try {
+            List<Event> events = getEvents(sqLiteDatabase, new String[]{Constants.EventType.PREGNANCY_OUTCOME});
+            processHFNextVisitDateObs(events, sqLiteDatabase);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
     private static void initializeIndicatorDefinitions(ReportingLibrary reportingLibrary, SQLiteDatabase sqLiteDatabase) {
         String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
         String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
@@ -251,12 +273,12 @@ public class ChwRepositoryFlv {
     }
 
     // helpers
-    private static List<Event> getEvents(SQLiteDatabase db) {
+    private static List<Event> getEvents(SQLiteDatabase db, String[] selectionArgs) {
         List<Event> events = new ArrayList<>();
         Cursor cursor = null;
         try {
             String[] myStringArray = {"json"};
-            cursor = db.query(EventClientRepository.Table.event.name(), myStringArray, " eventType = ? ", new String[]{Constants.EventType.ANC_HOME_VISIT}, null, null, " eventDate ASC ", null);
+            cursor = db.query(EventClientRepository.Table.event.name(), myStringArray, " eventType = ? ", selectionArgs, null, null, " eventDate ASC ", null);
             events = readEvents(cursor);
         } catch (Exception e) {
             Timber.e(e);
@@ -286,5 +308,53 @@ public class ChwRepositoryFlv {
             cursor.close();
         }
         return events;
+    }
+
+    private static void processHFNextVisitDateObs(List<Event> events, SQLiteDatabase sqLiteDatabase) {
+        // Save missing PNC Health Facility visit (next visit) details
+        for (Event event : events) {
+            Visit visit = AncLibrary.getInstance().visitRepository().getLatestVisit(event.getBaseEntityId(), Constants.EventType.PNC_HOME_VISIT, sqLiteDatabase);
+            Obs obs = getPncHfNextVisitObs(event.getBaseEntityId(), sqLiteDatabase);
+
+            if (visit != null && obs != null) {
+                Map<String, List<VisitDetail>> visitDetails = null;
+                List<Obs> obsList = new ArrayList<>();
+                obsList.add(obs);
+                try {
+                    visitDetails = NCUtils.eventsObsToDetails(obsList, visit.getVisitId(), null);
+                } catch (Exception ex) {
+                    Timber.e(ex);
+                }
+
+                if (visitDetails != null && !visitDetails.isEmpty()) {
+                    VisitDetail detail = visitDetails.get(Constants.FORM_SUBMISSION_FIELD.pncHfNextVisitDateFieldType).get(0);
+                    if (sqLiteDatabase != null) {
+                        AncLibrary.getInstance().visitDetailsRepository().addVisitDetails(detail, sqLiteDatabase);
+                    } else {
+                        AncLibrary.getInstance().visitDetailsRepository().addVisitDetails(detail);
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    private static Obs getPncHfNextVisitObs(String baseEntityId, SQLiteDatabase sqLiteDatabase) {
+        Obs pncHfNextVisitDateObs = null;
+        PNCHealthFacilityVisitSummary summary = ChwPNCDao.getLastHealthFacilityVisitSummary(baseEntityId, sqLiteDatabase);
+        if (summary != null) {
+            PNCHealthFacilityVisitRule visitRule = PNCVisitUtil.getNextPNCHealthFacilityVisit(summary.getDeliveryDate(), summary.getLastVisitDate());
+            String pncHfNextVisitDate = DateTimeFormat.forPattern("dd-MM-yyyy").print(visitRule.getDueDate());
+            pncHfNextVisitDateObs = new Obs().withFormSubmissionField(Constants.FORM_SUBMISSION_FIELD.pncHfNextVisitDateFieldType)
+                    .withFieldDataType("spacer")
+                    .withValue(pncHfNextVisitDate)
+                    .withFieldCode(Constants.FORM_SUBMISSION_FIELD.pncHfNextVisitDateFieldType)
+                    .withFieldType("formsubmissionField")
+                    .withParentCode("")
+                    .withHumanReadableValues(new ArrayList<>());
+        }
+
+        return pncHfNextVisitDateObs;
     }
 }
