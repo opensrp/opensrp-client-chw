@@ -188,6 +188,8 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
                         case "severe":
                             nutritionStatus = context.getString(R.string.severe);
                             break;
+                        default:
+                            return nutritionStatus;
                     }
                 }
                 return MessageFormat.format("{0}: {1}", context.getString(R.string.nutrition_status), nutritionStatus);
