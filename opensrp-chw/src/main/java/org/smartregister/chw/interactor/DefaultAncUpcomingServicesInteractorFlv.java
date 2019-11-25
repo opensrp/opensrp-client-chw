@@ -116,7 +116,7 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
         if (nextWrappers == null) return null;
 
         List<ServiceWrapper> wrappers = nextWrappers.get("IPTp-SP");
-        if (wrappers != null && nextWrappers.isEmpty()) return null;
+        if (wrappers == null || nextWrappers.isEmpty()) return null;
 
         ServiceWrapper serviceWrapper = wrappers.get(0);
         if (serviceWrapper == null) return null;
