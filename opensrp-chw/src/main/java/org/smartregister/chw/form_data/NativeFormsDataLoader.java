@@ -1,0 +1,202 @@
+package org.smartregister.chw.form_data;
+
+import android.content.Context;
+
+import com.google.gson.Gson;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
+import org.joda.time.DateTime;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.CoreLibrary;
+import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.dao.AbstractDao;
+import org.smartregister.domain.db.Client;
+import org.smartregister.domain.jsonmapping.ClassificationRule;
+import org.smartregister.domain.jsonmapping.ClientClassification;
+import org.smartregister.domain.jsonmapping.ClientField;
+import org.smartregister.domain.jsonmapping.Column;
+import org.smartregister.domain.jsonmapping.Field;
+import org.smartregister.domain.jsonmapping.Table;
+import org.smartregister.family.util.Utils;
+import org.smartregister.repository.EventClientRepository;
+import org.smartregister.util.AssetHandler;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class NativeFormsDataLoader implements DataLoader {
+
+    private ClientField clientField;
+    private ClientClassification clientClassification;
+    private Client client;
+    private String eventName;
+    private List<String> tables;
+    private Map<String, Table> tableMap;
+    private SimpleDateFormat nativeFormat = new SimpleDateFormat("");
+
+    public ClientField getClientField(Context context) {
+        if (clientField == null) {
+            String file = AssetHandler.readFileFromAssetsFolder("ec_client_fields.json", context);
+            clientField = new Gson().fromJson(file, ClientField.class);
+        }
+        return clientField;
+    }
+
+    public ClientClassification getClientClassification(Context context) {
+        if (clientClassification == null) {
+            String file = AssetHandler.readFileFromAssetsFolder("ec_client_classification.json", context);
+            clientClassification = new Gson().fromJson(file, ClientClassification.class);
+        }
+        return clientClassification;
+    }
+
+    @Override
+    public List<String> getFormTables(Context context, String eventName) {
+        if (!eventName.equalsIgnoreCase(this.eventName)) {
+            ClientClassification clientClassification = getClientClassification(context);
+
+            tables = new ArrayList<>();
+
+            for (ClassificationRule rule : clientClassification.case_classification_rules) {
+                for (Field field : rule.rule.fields) {
+                    if ("eventType".equalsIgnoreCase(field.field) && field.field_value.equalsIgnoreCase(eventName)) {
+                        if (field.creates_case != null)
+                            tables.addAll(field.creates_case);
+
+                        if (field.closes_case != null)
+                            tables.addAll(field.closes_case);
+                    }
+                }
+            }
+            this.eventName = eventName;
+        }
+        return tables;
+    }
+
+    @Override
+    public Map<String, Object> getValues(Context context, String tableName, String baseEntityID) {
+        String sql = "select * from " + tableName + " where base_entity_id = '" + baseEntityID + "'";
+        List<Map<String, Object>> value = AbstractDao.readData(sql, new String[]{});
+
+        if (value != null && value.size() > 0)
+            return value.get(0);
+
+        return null;
+    }
+
+    @Override
+    public CommonPersonObjectClient getClient(Context context, String baseEntityID) {
+        // this object is returned regardless of the table passed
+        CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+        CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityID);
+        CommonPersonObjectClient client =
+                new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+
+        return client;
+    }
+
+    @Override
+    public String getValue(Context context, String baseEntityID, JSONObject jsonObject, Map<String, Map<String, Object>> dbData) throws JSONException {
+        String entity = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY);
+        String entity_id = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
+        preloadTables(context);
+
+        if (entity.contains("person")) {
+            return getValueFromPerson(baseEntityID, entity, entity_id);
+        } else {
+            return getValueFromConcept(entity_id, dbData);
+        }
+    }
+
+    private void preloadTables(Context context) {
+        if (tableMap == null) {
+            tableMap = new HashMap<>();
+            ClientField clientField = getClientField(context);
+            if (clientField != null) {
+                for (Table table : clientField.bindobjects) {
+                    if (tables.contains(table.name))
+                        tableMap.put(table.name, table);
+                }
+            }
+        }
+    }
+
+    private Client getClient(String baseEntityId) {
+        if (client == null || !client.getBaseEntityId().equalsIgnoreCase(baseEntityId)) {
+            EventClientRepository db = CoreLibrary.getInstance().context().getEventClientRepository();
+            client = db.fetchClientByBaseEntityId(baseEntityId);
+        }
+        return client;
+    }
+
+    private String getValueFromPerson(String baseEntityID, String entity, String entityID) {
+        Client client = getClient(baseEntityID);
+        if (entity.contains("identifier")) {
+            return client.getIdentifier(entityID);
+        } else if (entity.contains("attribute")) {
+            return (String) client.getAttribute(entityID);
+        } else if (entity.contains("relationship")) {
+            List<String> relations = client.getRelationships(entityID);
+            if (relations.size() > 0) return relations.get(0);
+        } else {
+            return getClientAttribute(client, entityID);
+        }
+        return "";
+    }
+
+    private String getClientAttribute(Client client, String attributeName) {
+        String attribute = attributeName.trim().toLowerCase().replace("_", "");
+
+        switch (attribute) {
+            case "baseentityid":
+                return client.getBaseEntityId();
+            case "firstname":
+                return client.getFirstName();
+            case "middlename":
+                return client.getMiddleName();
+            case "lastname":
+                return client.getLastName();
+            case "birthdate":
+                return getNativeFormsDate(client.getBirthdate());
+            case "deathdate":
+                return getNativeFormsDate(client.getDeathdate());
+            case "birthdateapprox":
+                return client.getBirthdateApprox().toString();
+            case "deathdateapprox":
+                return client.getDeathdateApprox().toString();
+            case "gender":
+                return client.getGender();
+            default:
+                return "";
+        }
+    }
+
+    private String getNativeFormsDate(DateTime date) {
+        if (date == null) return "";
+
+        return nativeFormat.format(date.toDate());
+    }
+
+    private String getValueFromConcept(String entityID, Map<String, Map<String, Object>> dbData) {
+        for (Map.Entry<String, Table> entry : tableMap.entrySet()) {
+            for (Column column : entry.getValue().columns) {
+                if ("Event".equalsIgnoreCase(column.type) &&
+                        "obs.fieldCode".equalsIgnoreCase(column.json_mapping.field) &&
+                        column.json_mapping.concept.equalsIgnoreCase(entityID)
+                ) {
+                    Map<String, Object> map = dbData.get(entry.getKey());
+                    return map != null ? (String) map.get(column.column_name) : "";
+                }
+            }
+        }
+        return null;
+    }
+
+}
