@@ -2,6 +2,8 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -74,6 +76,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     protected Boolean hasBirthCert = false;
     protected Boolean editMode = false;
     protected Boolean vaccinesDefaultChecked = true;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
@@ -361,6 +364,9 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             }
         }
 
+        // Before pre-processing
+        setMinDate(jsonObject, "vitamin_a{0}_date", memberObject.getDob());
+
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
         if (details != null && details.size() > 0) {
             JsonFormUtils.populateForm(jsonObject, details);
@@ -406,6 +412,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         DewormingAction helper = new DewormingAction(context, serviceIteration, alert);
         JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getDEWORMING(), memberObject.getBaseEntityId());
+
+        // Before pre-processing
+        setMinDate(jsonObject, "deworming{0}_date", memberObject.getDob());
+
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
 
         Map<String, List<VisitDetail>> details = null;
@@ -851,6 +861,17 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
     protected void setVaccinesDefaultChecked(boolean isChecked) {
         this.vaccinesDefaultChecked = isChecked;
+    }
+
+    private void setMinDate(JSONObject jsonObject, String dateFieldKey, String minDateString) throws Exception {
+        Date minDate = dateFormat.parse(minDateString);
+        String parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(minDate);
+        JSONObject fieldJSONObject = org.smartregister.chw.util.JsonFormUtils.getFieldJSONObject(org.smartregister.chw.util.JsonFormUtils.fields(jsonObject), dateFieldKey);
+        try {
+            fieldJSONObject.put(JsonFormConstants.MIN_DATE, parsedDate);
+        } catch (JSONException je) {
+            Timber.e(je);
+        }
     }
 
 }

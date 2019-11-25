@@ -63,6 +63,14 @@
           "Oui",
           "Non"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": true,
           "err": "Veuillez sélectionner une option"
@@ -80,6 +88,14 @@
           "Oui",
           "Non"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": true,
           "err": "Veuillez sélectionner une option"
@@ -97,6 +113,14 @@
           "Oui",
           "Non"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": true,
           "err": "Veuillez sélectionner une option"
