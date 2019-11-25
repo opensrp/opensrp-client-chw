@@ -13,6 +13,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.dao.ChwPNCDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
+import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.util.PNCVisitUtil;
 
 import java.text.MessageFormat;
@@ -79,7 +80,7 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
         Map<String, String> alerts = ChwPNCDao.getPNCImmunizationAtBirth(memberObject.getBaseEntityId());
         BaseUpcomingService upcomingService = new BaseUpcomingService();
         try {
-            deliveryDate = new SimpleDateFormat("dd-MM-yyyy").parse(ChwPNCDao.getDeliveryDate(memberObject.getBaseEntityId()));
+            deliveryDate = new SimpleDateFormat("dd-MM-yyyy").parse(PncLibrary.getInstance().profileRepository().getDeliveryDate(memberObject.getBaseEntityId()));
             OverDueDate = new DateTime(deliveryDate).plusDays(13).toDate();
         } catch (Exception e) {
         }

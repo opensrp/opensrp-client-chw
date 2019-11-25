@@ -66,23 +66,6 @@ public class ChwPNCDao extends AbstractDao {
         return immunizations;
     }
 
-
-    public static String getDeliveryDate(String motherBaseEntityId){
-        String sql = "SELECT delivery_date from ec_pregnancy_outcome WHERE base_entity_id = '" + motherBaseEntityId + "' COLLATE NOCASE";
-        DataMap<String> dataMap = c -> getCursorValue( c,"delivery_date");
-
-        String deliveryDate = "";
-        List<String> deliveryDateList = AbstractDao.readData(sql, dataMap);
-        if (deliveryDateList == null || deliveryDateList.size() == 0)
-            return deliveryDate;
-        else {
-            deliveryDate = deliveryDateList.get(0);
-        }
-
-        return deliveryDate;
-    }
-
-
     public interface Flavor {
 
     }
