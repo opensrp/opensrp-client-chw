@@ -35,7 +35,6 @@ import org.smartregister.chw.util.PNCVisitUtil;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.util.JsonFormUtils;
 
-import java.sql.Array;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -225,19 +224,16 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 }
             }
 
-            private String evaluateFpPeriod(){
-                if(fp_period_received != null){
-                    List<String> listFpPeriods = Arrays.asList(fp_period_received.replace("\"","").replace("[", "").replace("]", "").split("\\s*,\\s*"));
-                    if(listFpPeriods.size() > 0 ){
+            private String evaluateFpPeriod() {
+                if (fp_period_received != null) {
+                    List<String> listFpPeriods = Arrays.asList(fp_period_received.replace("\"", "").replace("[", "").replace("]", "").split("\\s*,\\s*"));
+                    if (listFpPeriods.size() > 0) {
                         StringBuilder builder = new StringBuilder();
                         ArrayList<String> builderList = new ArrayList<>();
                         String SEPARATOR = ",";
-                        String duringANC = "";
-                        String duringPNC = "";
-                        String duringLabourAndDelivery = "";
                         String duringPeriod = "";
-                        for( String period: listFpPeriods){
-                            switch(period){
+                        for (String period : listFpPeriods) {
+                            switch (period) {
                                 case "chk_during_anc":
                                     duringPeriod = context.getString(R.string.during_anc);
                                     break;
@@ -252,7 +248,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                             }
                             builderList.add(duringPeriod);
                         }
-                        for(String build: builderList){
+                        for (String build : builderList) {
                             builder.append(build);
                             builder.append(SEPARATOR);
                         }
@@ -306,7 +302,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         default:
                             break;
                     }
-                    builder.append(MessageFormat.format("{0}: {1}",method, StringUtils.isNoneBlank(fp_start_date) ? new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(start_date) : ""));
+                    builder.append(MessageFormat.format("{0}: {1}", method, StringUtils.isNoneBlank(fp_start_date) ? new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(start_date) : ""));
                 }
                 return builder.toString();
             }
@@ -918,8 +914,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         public String evaluateSubTitle() {
             if ("No".equals(pnc_visit)) {
                 return context.getString(R.string.visit_not_done).replace("\n", "");
-            }
-            else {
+            } else {
                 if (date == null) {
                     return null;
                 }
