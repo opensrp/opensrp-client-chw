@@ -29,7 +29,7 @@ public class FileUtils {
             return dir;
 
         if (!dir.mkdirs())
-            throw new FileException("Directory was not created successfully");
+            throw new FileException("Directory was not created successfully " + dir.getAbsolutePath());
 
         return dir;
     }
