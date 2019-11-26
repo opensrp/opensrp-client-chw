@@ -42,8 +42,8 @@ public class HnppChwRepository extends CoreChwRepository {
         int upgradeTo = oldVersion + 1;
         while (upgradeTo <= newVersion) {
             switch (upgradeTo) {
-                case 6:
-                    upgradeToVersion6(context, db);
+                case 7:
+                    upgradeToVersion7(context, db);
                     break;
 
                 default:
@@ -53,7 +53,7 @@ public class HnppChwRepository extends CoreChwRepository {
         }
     }
 
-    private void upgradeToVersion6(Context context, SQLiteDatabase db) {
+    private void upgradeToVersion7(Context context, SQLiteDatabase db) {
         try{
             db.execSQL("ALTER TABLE ec_family ADD COLUMN serial_no VARCHAR;");
             db.execSQL("ALTER TABLE ec_family_member ADD COLUMN mother_name VARCHAR;");

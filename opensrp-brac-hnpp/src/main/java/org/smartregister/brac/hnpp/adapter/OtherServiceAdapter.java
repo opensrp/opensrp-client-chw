@@ -4,41 +4,44 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+
 import org.smartregister.brac.hnpp.R;
-import org.smartregister.brac.hnpp.holder.DashBoardViewHolder;
-import org.smartregister.brac.hnpp.utils.DashBoardData;
+import org.smartregister.brac.hnpp.holder.MemberDueViewHolder;
+import org.smartregister.brac.hnpp.utils.OtherServiceData;
+
 import java.util.ArrayList;
 
-public class DashBoardAdapter extends RecyclerView.Adapter<DashBoardViewHolder> {
-    private ArrayList<DashBoardData> contentList;
+public class OtherServiceAdapter extends RecyclerView.Adapter<MemberDueViewHolder> {
+    private ArrayList<OtherServiceData> contentList;
     private Context context;
     private OnClickAdapter onClickAdapter;
 
-    public DashBoardAdapter(Context context, OnClickAdapter onClickAdapter) {
+    public OtherServiceAdapter(Context context, OnClickAdapter onClickAdapter) {
         this.context = context;
         this.onClickAdapter = onClickAdapter;
         contentList = new ArrayList<>();
     }
 
-    public void setData(ArrayList<DashBoardData> contentList) {
+    public void setData(ArrayList<OtherServiceData> contentList) {
         this.contentList.clear();
         this.contentList.addAll(contentList);
     }
 
     @NonNull
     @Override
-    public DashBoardViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new DashBoardViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_dashboard_item, null));
+    public MemberDueViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        return new MemberDueViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_member_due, null));
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final DashBoardViewHolder viewHolder, int position) {
-        final DashBoardData content = contentList.get(position);
+    public void onBindViewHolder(@NonNull final MemberDueViewHolder viewHolder, int position) {
+        final OtherServiceData content = contentList.get(position);
         viewHolder.imageView.setImageResource(content.getImageSource());
         viewHolder.textViewTitle.setText(content.getTitle());
-        viewHolder.textViewCount.setText(content.getCount()+"");
+        viewHolder.textViewLastVisit.setVisibility(View.INVISIBLE);
         viewHolder.itemView.setOnClickListener(v -> onClickAdapter.onClick(viewHolder.getAdapterPosition(), content));
     }
 
@@ -49,6 +52,6 @@ public class DashBoardAdapter extends RecyclerView.Adapter<DashBoardViewHolder> 
     }
 
     public interface OnClickAdapter {
-        void onClick(int position, DashBoardData content);
+        void onClick(int position, OtherServiceData content);
     }
 }

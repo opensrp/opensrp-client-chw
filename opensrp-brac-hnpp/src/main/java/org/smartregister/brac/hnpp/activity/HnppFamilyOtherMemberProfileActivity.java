@@ -19,7 +19,7 @@ import android.widget.Toast;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.brac.hnpp.fragment.HnppMemberProfileDueFragment;
-import org.smartregister.brac.hnpp.fragment.HnppMemberProfileOtherServiceFragment;
+import org.smartregister.brac.hnpp.fragment.MemberOtherServiceFragment;
 import org.smartregister.brac.hnpp.fragment.MemberProfileActivityFragment;
 import org.smartregister.brac.hnpp.utils.HnppDBUtils;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
@@ -156,11 +156,10 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         BaseFamilyProfileDueFragment profileMemberFragment = HnppMemberProfileDueFragment.newInstance(this.getIntent().getExtras());
-        BaseFamilyProfileDueFragment otherServiceFragment = HnppMemberProfileOtherServiceFragment.newInstance(this.getIntent().getExtras());
         BaseFamilyProfileActivityFragment activityFragment = MemberProfileActivityFragment.newInstance(this.getIntent().getExtras());
 
         adapter.addFragment(profileMemberFragment, this.getString(R.string.due).toUpperCase());
-        adapter.addFragment(otherServiceFragment, this.getString(R.string.other_service).toUpperCase());
+        adapter.addFragment(new MemberOtherServiceFragment(), this.getString(R.string.other_service).toUpperCase());
         adapter.addFragment(activityFragment, this.getString(R.string.activity).toUpperCase());
 
         viewPager.setAdapter(adapter);

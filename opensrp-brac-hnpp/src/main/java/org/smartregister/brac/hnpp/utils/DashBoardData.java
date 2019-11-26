@@ -1,4 +1,4 @@
-package org.smartregister.brac.hnpp.model;
+package org.smartregister.brac.hnpp.utils;
 
 public class DashBoardData {
     private int imageSource;

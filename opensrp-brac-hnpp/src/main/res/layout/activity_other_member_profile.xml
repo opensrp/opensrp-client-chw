@@ -55,10 +55,13 @@
                 app:contentInsetStart="0dp"
                 app:contentInsetStartWithNavigation="0dp">
                 <RelativeLayout
+                    android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/imageview_profile"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:layout_width="@dimen/client_profile_pic_width"
                         android:layout_height="@dimen/client_profile_pic_height"
                         app:civ_border_color="#FFFFFFFF"
@@ -94,8 +97,8 @@
                             android:paddingLeft="0dp"
                             android:paddingRight="5dp"
                             android:text="ID: 25398735"
+                            android:textSize="@dimen/activity_title_size"
                             android:layout_alignParentRight="true"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/white" />
 
                         <org.smartregister.view.customcontrols.CustomFontTextView
@@ -106,8 +109,8 @@
                             android:gravity="center_horizontal"
                             android:paddingLeft="0dp"
                             android:text="Male"
+                            android:textSize="@dimen/px_16_to_sp"
                             android:layout_alignParentLeft="true"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/white" />
                         <org.smartregister.view.customcontrols.CustomFontTextView
                             android:id="@+id/textview_detail_two"
@@ -117,11 +120,11 @@
                             android:layout_toRightOf="@+id/text_view_first_dot"
                             android:layout_toLeftOf="@+id/text_view_second_dot"
                             android:layout_gravity="center"
+                            android:textSize="@dimen/px_16_to_sp"
                             android:gravity="center"
                             android:ellipsize="end"
                             android:paddingLeft="0dp"
                             android:visibility="gone"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/text_black" />
                         <RelativeLayout
                             android:layout_alignParentLeft="true"
@@ -135,8 +138,9 @@
                                 android:gravity="center_horizontal"
                                 android:paddingLeft="0dp"
                                 android:text="Age"
+                                android:textSize="@dimen/px_16_to_sp"
+
                                 android:layout_alignParentLeft="true"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/white" />
                             <org.smartregister.view.customcontrols.CustomFontTextView
                                 android:id="@+id/textview_edit_btn"
@@ -150,7 +154,6 @@
                                 android:visibility="gone"
                                 android:drawablePadding="5dp"
                                 android:drawableRight="@drawable/ic_edit_white"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/white" />
 
                         </RelativeLayout>
@@ -197,7 +200,7 @@
                 app:tabIndicatorHeight="4dp"
                 app:tabMaxWidth="0dp"
                 app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/white"
+                app:tabSelectedTextColor="#E2E363"
                 app:tabTextAppearance="@style/CustomFontTextViewStyle.tabIndicator.sub.white" />
 
         </android.support.design.widget.AppBarLayout>

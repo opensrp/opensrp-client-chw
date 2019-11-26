@@ -2,7 +2,7 @@ package org.smartregister.brac.hnpp.contract;
 
 import android.content.Context;
 
-import org.smartregister.brac.hnpp.model.DashBoardData;
+import org.smartregister.brac.hnpp.utils.DashBoardData;
 
 import java.util.ArrayList;
 

@@ -3,7 +3,7 @@ package org.smartregister.brac.hnpp.presenter;
 import org.smartregister.brac.hnpp.contract.DashBoardContract;
 import org.smartregister.brac.hnpp.fragment.HnppDashBoardFragment;
 import org.smartregister.brac.hnpp.interactor.DashBoardInteractor;
-import org.smartregister.brac.hnpp.model.DashBoardData;
+import org.smartregister.brac.hnpp.utils.DashBoardData;
 import org.smartregister.brac.hnpp.model.DashBoardModel;
 import org.smartregister.family.util.AppExecutors;
 

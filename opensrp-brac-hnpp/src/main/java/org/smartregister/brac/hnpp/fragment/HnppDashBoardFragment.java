@@ -17,7 +17,6 @@ import android.widget.DatePicker;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.adapter.DashBoardAdapter;
 import org.smartregister.brac.hnpp.contract.DashBoardContract;
-import org.smartregister.brac.hnpp.model.DashBoardData;
 import org.smartregister.brac.hnpp.presenter.DashBoardPresenter;
 
 import java.util.Calendar;

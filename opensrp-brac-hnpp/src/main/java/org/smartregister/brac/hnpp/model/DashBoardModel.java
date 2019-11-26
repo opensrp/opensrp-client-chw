@@ -5,9 +5,9 @@ import android.database.Cursor;
 
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.contract.DashBoardContract;
+import org.smartregister.brac.hnpp.utils.DashBoardData;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.utils.CoreConstants;
 
 import java.util.ArrayList;
 

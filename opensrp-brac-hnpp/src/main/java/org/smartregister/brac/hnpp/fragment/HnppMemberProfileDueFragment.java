@@ -134,7 +134,7 @@ public class HnppMemberProfileDueFragment extends BaseFamilyProfileDueFragment i
         otherServiceView.setVisibility(View.VISIBLE);
         View anc1View = LayoutInflater.from(getContext()).inflate(R.layout.view_member_due,null);
         ImageView imageanc1View = anc1View.findViewById(R.id.image_view);
-        TextView nameanc1View =  anc1View.findViewById(R.id.patient_name_age);
+        TextView nameanc1View =  anc1View.findViewById(R.id.title_txt);
         imageanc1View.setImageResource(R.mipmap.ic_anc_pink);
         nameanc1View.setText("গর্ভবতী পরিচর্যা-১ম ত্রিমাসিক");
         anc1View.setTag(TAG_OPEN_ANC1);
@@ -143,7 +143,7 @@ public class HnppMemberProfileDueFragment extends BaseFamilyProfileDueFragment i
 
         View familyView = LayoutInflater.from(getContext()).inflate(R.layout.view_member_due,null);
         ImageView image = familyView.findViewById(R.id.image_view);
-        TextView name =  familyView.findViewById(R.id.patient_name_age);
+        TextView name =  familyView.findViewById(R.id.title_txt);
         image.setImageResource(R.drawable.childrow_family);
         name.setText("ফেমেলির অন্যান্য সেবা");
         familyView.setTag(TAG_OPEN_FAMILY);
@@ -152,7 +152,7 @@ public class HnppMemberProfileDueFragment extends BaseFamilyProfileDueFragment i
 
         View referelView = LayoutInflater.from(getContext()).inflate(R.layout.view_member_due,null);
         ImageView imageReferel = referelView.findViewById(R.id.image_view);
-        TextView nameReferel =  referelView.findViewById(R.id.patient_name_age);
+        TextView nameReferel =  referelView.findViewById(R.id.title_txt);
         imageReferel.setImageResource(R.mipmap.ic_refer);
         nameReferel.setText("রেফেরেল");
         referelView.setTag(TAG_OPEN_REFEREAL);

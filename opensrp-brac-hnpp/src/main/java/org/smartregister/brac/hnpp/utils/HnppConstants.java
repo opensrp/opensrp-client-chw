@@ -36,6 +36,12 @@ public class HnppConstants extends CoreConstants {
         public static final String  PREGNANCY_HISTORY = "hnpp_anc_pregnancy_history";
 
     }
+    public class OTHER_SERVICE_TYPE{
+        public static final int TYPE_WOMEN_PACKAGE = 1;
+        public static final int TYPE_GIRL_PACKAGE = 2;
+        public static final int TYPE_NCD = 3;
+        public static final int TYPE_IYCF = 4;
+    }
 
     public static boolean isExistSpecialCharacter(String filters){
         if(!TextUtils.isEmpty(filters) && filters.contains("/")){
