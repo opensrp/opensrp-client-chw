@@ -342,24 +342,57 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Malaria topics covered",
-        "values": [
-          "Overview on malaria",
-          "Malaria prevention",
-          "Uncomplicated malaria",
-          "Severe malaria",
-          "Malaria in pregnancy",
-          "None"
+        "type": "check_box",
+        "label": "Malaria topics covered",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
         ],
-        "openmrs_choice_ids": {
-          "Overview on malaria": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Malaria prevention": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Uncomplicated malaria": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Severe malaria": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Malaria in pregnancy": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        }
+        "options": [
+          {
+            "key": "overview_on_malaria",
+            "text": "Overview on malaria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "malaria_prevention",
+            "text": "Malaria prevention",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "uncomplicated_malaria",
+            "text": "Uncomplicated malaria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "severe_malaria",
+            "text": "Severe malaria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "malaria_in_pregnancy",
+            "text": "Malaria in pregnancy",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "64369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
       }
     ]
   }
