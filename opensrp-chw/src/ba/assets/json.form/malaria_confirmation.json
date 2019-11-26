@@ -104,7 +104,34 @@
         ],
         "openmrs_choice_ids": {
           "Less than 24 hrs": "164449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "More than 24 hrs": "164449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "More than 24 hrs": "more_than_24_hrs"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "malaria_confirmation_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_test_done",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_test_done",
+        "type": "spinner",
+        "hint": "Was a malaria test done?",
+        "values": [
+          "No",
+          "Yes, by the CHW"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -242,7 +269,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fam_llin",
         "type": "spinner",
-        "hint": "Do you have a long lasting insecticide net (LLIN)?",
+        "hint": "Do they have a long lasting insecticide net (LLIN)?",
         "values": [
           "Yes",
           "No"
@@ -262,7 +289,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "llin_2days",
         "type": "spinner",
-        "hint": "Did you sleep under the LLIN last night?",
+        "hint": "Did they sleep under the LLIN last night?",
         "values": [
           "Yes",
           "No"
@@ -332,10 +359,6 @@
           "Severe malaria": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Malaria in pregnancy": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select one choice"
         }
       }
     ]
