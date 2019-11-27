@@ -1,0 +1,20 @@
+name: one
+description: after sterilization
+priority: 1
+condition: "fpAlertRule.isFemaleSterilizationFollowUpOneValid(0,2,7)"
+actions:
+  - "fpAlertRule.setVisitID('1')"
+---
+name: seven
+description: after seven days
+priority: 1
+condition: "fpAlertRule.isFemaleSterilizationFollowUpTwoValid(7,9,1)"
+actions:
+  - "fpAlertRule.setVisitID('7')"
+---
+name: thirty
+description: after one month
+priority: 1
+condition: "fpAlertRule.isFemaleSterilizationFollowUpThreeValid(1,1,2)"
+actions:
+  - "fpAlertRule.setVisitID('30')"
