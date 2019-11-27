@@ -38,6 +38,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         // Check if woman is already registered
         if (!presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isWra(commonPersonObject)) {
             menu.findItem(R.id.action_anc_registration).setVisible(true);
+            menu.findItem(R.id.action_fp_initiation).setVisible(true);
         } else {
             menu.findItem(R.id.action_anc_registration).setVisible(false);
         }
@@ -61,6 +62,10 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     @Override
     protected void startMalariaRegister() {
+        MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
+    }
+    @Override
+    protected void startFpRegister() {
         MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
     }
 
