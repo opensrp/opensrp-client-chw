@@ -33,6 +33,14 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
     }
 
     @Override
+    public void setupViews(View view) {
+        super.setupViews(view);
+        // Update Search bar
+        View searchBarLayout = view.findViewById(org.smartregister.family.R.id.search_bar_layout);
+        searchBarLayout.setBackgroundResource(org.smartregister.family.R.color.customAppThemeBlue);
+    }
+
+    @Override
     protected String dueFilterAndSortQuery() {
 
         String query = "";
