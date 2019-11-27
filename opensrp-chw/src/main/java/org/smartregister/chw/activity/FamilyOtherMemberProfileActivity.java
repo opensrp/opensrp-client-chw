@@ -2,9 +2,10 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.Menu;
+
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
-import android.view.Menu;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -66,7 +67,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
     @Override
     protected void startFpRegister() {
-        MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
+        FpRegisterActivity.startFpRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
     }
 
     @Override
