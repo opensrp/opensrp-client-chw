@@ -109,29 +109,6 @@
         "v_required": {
           "value": "true",
           "err": "Please select one choice"
-        }
-      },
-
-
-
-      {
-        "key": "fever_duration",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Duration of fever?",
-        "values": [
-          "Less than 24 hrs",
-          "More than 24 hrs"
-        ],
-        "openmrs_choice_ids": {
-          "Less than 24 hrs": "164449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "More than 24 hrs": "164449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select one choice"
         },
         "relevance": {
           "rules-engine": {
@@ -142,105 +119,19 @@
         }
       },
       {
-        "key": "malaria_results",
+        "key": "couselling_HIV_STI",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "couselling_HIV_STI",
         "type": "spinner",
-        "hint": "mRDT results",
+        "hint": "Was she counselled on HIV and STI prevention?",
         "values": [
-          "Positive",
-          "Negative",
-          "Not done"
+          "Yes",
+          "No"
         ],
         "openmrs_choice_ids": {
-          "Positive": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Negative": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Not done": "160414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select one choice"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "date_hf_malaria_test",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "date_hf_malaria_test",
-        "type": "date_picker",
-        "hint": "Date of malaria test at health facility",
-        "expanded": false,
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the date of malaria test at health facility"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "malaria_test_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_planning_registration_calculation.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "malaria",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_planning_registration_calculation.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "malaria_treat",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "malaria_treat",
-        "type": "spinner",
-        "hint": "Treatment given",
-        "values": [
-          "ALU 6",
-          "ALU 12",
-          "ALU 18",
-          "ALU 24",
-          "Not given",
-          "Other treatment"
-        ],
-        "openmrs_choice_ids": {
-          "ALU 6": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "ALU 12": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "ALU 18": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "ALU 24": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Not given": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other treatment": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -257,15 +148,16 @@
     ]
   },
   "step2": {
-    "title": "Malaria Prevention",
+    "title": "Family planning method",
+    "next": "step3",
     "fields": [
       {
-        "key": "fam_llin",
+        "key": "pill",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "fam_llin",
+        "openmrs_entity_id": "pill",
         "type": "spinner",
-        "hint": "Do you have a long lasting insecticide net (LLIN)?",
+        "hint": "Does she want to use a contraceptive pill?",
         "values": [
           "Yes",
           "No"
@@ -280,12 +172,29 @@
         }
       },
       {
-        "key": "llin_2days",
+        "key": "user_toaster_info",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Oral Contraception List",
+        "toaster_info_text": "Check-list\n for providing Combined Oral Contraception (COC) or Progestin Only Pills (POP)",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breast_lump",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "llin_2days",
+        "openmrs_entity_id": "breast_lump",
         "type": "spinner",
-        "hint": "Did you sleep under the LLIN last night?",
+        "hint": "Does she have any breast lumps?",
         "values": [
           "Yes",
           "No"
@@ -307,19 +216,19 @@
         }
       },
       {
-        "key": "llin_condition",
+        "key": "abnormal_vaginal",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "llin_condition",
+        "openmrs_entity_id": "abnormal_vaginal",
         "type": "spinner",
-        "hint": "LLIN condition",
+        "hint": "Does she have any abnomal vaginal bleeding or discharge?",
         "values": [
-          "Okay",
-          "Bad"
+          "Yes",
+          "No"
         ],
         "openmrs_choice_ids": {
-          "Okay": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Bad": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -334,31 +243,179 @@
         }
       },
       {
-        "key": "malaria_edu_chw",
+        "key": "pregnant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "pregnant",
         "type": "spinner",
-        "hint": "Malaria topics covered",
+        "hint": "Is she pregnant?",
         "values": [
-          "Overview on malaria",
-          "Malaria prevention",
-          "Uncomplicated malaria",
-          "Severe malaria",
-          "Malaria in pregnancy",
-          "None"
+          "Yes",
+          "No"
         ],
         "openmrs_choice_ids": {
-          "Overview on malaria": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Malaria prevention": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Uncomplicated malaria": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Severe malaria": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Malaria in pregnancy": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
           "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "difficultly_breathing",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "difficultly_breathing",
+        "type": "spinner",
+        "hint": "Does she have any severe chest pain and difficultly breathing?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "headaches",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "headaches",
+        "type": "spinner",
+        "hint": "Does she have any unusual headaches associated with nausea, vomiting or blurred vision?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "frequent_urge",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "frequent_urge",
+        "type": "spinner",
+        "hint": "Does she have any unusual headaches associated with nausea, vomiting or blurred vision?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "falling_loss_unconsciousness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "falling_loss_unconsciousness",
+        "type": "spinner",
+        "hint": "Does she have the tendency of falling down/collapsing and loss of consciousness?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breastfeed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "falling_loss_unconsciousness",
+        "type": "spinner",
+        "hint": "Is she breastfeeding a baby 6 months or younger and having any issues producing milk?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "COC_POP",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "COC_POP",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_calculation.yml"
+            }
+          }
         }
       }
     ]
