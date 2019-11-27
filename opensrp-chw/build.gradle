@@ -213,7 +213,7 @@ android {
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '13'
         }
-        wcaro {
+        liberia {
             dimension = 'baseDimension'
             versionCode 1
             versionName "0.1.7"
