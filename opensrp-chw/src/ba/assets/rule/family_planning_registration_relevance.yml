@@ -1,49 +1,79 @@
 ---
-name: step1_fever_duration
-description: fever duration relevance
+name: step1_couselling_fp_methods
+description: couselling on fp methods
 priority: 1
-condition: "step1_fever_malaria_chw.contains('Has a fever')"
+condition: "step1_using_method.contains('No')"
 actions:
   - "isRelevant = true"
+
 ---
-name: step1_malaria_results
-description: mRDT results
+name: step2_user_toaster_info
+description: Oral Contraception List
 priority: 1
-condition: "step1_fever_malaria_chw.contains('Has a fever')"
+condition: "step2_pill.contains('Yes')"
 actions:
   - "isRelevant = true"
+
 ---
-name: step1_date_hf_malaria_test
-description: Date of malaria test
+name: step2_breast_lump
+description: breast lumps
 priority: 1
-condition: "step1_malaria_results.contains('Positive')"
+condition: "step2_pill.contains('Yes')"
 actions:
   - "isRelevant = true"
+
 ---
-name: step1_malaria_treat
-description: malaria_treat
+name: step2_abnormal_vaginal
+description: abnormal vaginal
 priority: 1
-condition: "step1_malaria_results.contains('Positive') || step1_fever_malaria_chw.contains('Tested positive for malaria in the last 14 days at a health facility') "
+condition: "step2_pill.contains('Yes')"
 actions:
   - "isRelevant = true"
+
 ---
-name: step2_llin_2days
-description: sleep under the LLIN last night
+name: step2_pregnant
+description: pregnant
 priority: 1
-condition: "step2_fam_llin.contains('Yes')"
+condition: "step2_pill.contains('Yes')"
 actions:
   - "isRelevant = true"
+
 ---
-name: step2_llin_condition
-description: LLIN condition
+name: step2_difficultly_breathing
+description: difficultly breathing
 priority: 1
-condition: "step2_fam_llin.contains('Yes')"
+condition: "step2_pill.contains('Yes')"
 actions:
   - "isRelevant = true"
+
 ---
-name: step2_malaria_edu_chw
-description: Malaria topics covered
+name: step2_headaches
+description: headaches
 priority: 1
-condition: "!step2_malaria_edu_chw.contains('None')"
+condition: "step2_pill.contains('Yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_frequent_urge
+description: frequent_urge
+priority: 1
+condition: "step2_pill.contains('Yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_falling_loss_unconsciousness
+description: falling_loss_unconsciousness
+priority: 1
+condition: "step2_pill.contains('Yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_breastfeed
+description: breastfeed
+priority: 1
+condition: "step2_pill.contains('Yes')"
 actions:
   - "isRelevant = true"
