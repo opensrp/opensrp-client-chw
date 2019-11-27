@@ -56,7 +56,7 @@ actions:
 
 ---
 name: step2_frequent_urge
-description: frequent_urge
+description: frequent urge
 priority: 1
 condition: "step2_pill.contains('Yes')"
 actions:
@@ -64,7 +64,7 @@ actions:
 
 ---
 name: step2_falling_loss_unconsciousness
-description: falling_loss_unconsciousness
+description: falling loss unconsciousness
 priority: 1
 condition: "step2_pill.contains('Yes')"
 actions:
@@ -75,5 +75,133 @@ name: step2_breastfeed
 description: breastfeed
 priority: 1
 condition: "step2_pill.contains('Yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_COC_POP_note
+description: COC and POP note
+priority: 1
+condition: "step2_COC_POP == '1' && step1_using_method.contains('No')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_POP_note
+description: POP only note
+priority: 1
+condition: "step2_POP == '1' && step1_using_method.contains('No')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_no_pill_note
+description: no pill note
+priority: 1
+condition: "step2_no_pill == '1' && step1_using_method.contains('No')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_fp_method_chw
+description: fp method chw
+priority: 1
+condition: "step1_using_method.contains('No')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_fp_method_already
+description: fp method chw
+priority: 1
+condition: "step1_using_method.contains('Yes')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_ec_note
+description: ec note
+priority: 1
+condition: "step2_fp_method_accepted == 'Emergency contraceptive"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_no_condoms
+description: no. condoms
+priority: 1
+condition: "step2_fp_method_accepted == 'Male Condom' || step2_fp_method_accepted == 'Female Condom'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_no_pillcycles
+description: no. illcycles
+priority: 1
+condition: "step2_fp_method_accepted == 'COC' || step2_fp_method_accepted == 'POP'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_counselling_use
+description: counselling of use given
+priority: 1
+condition: "step2_fp_method_accepted == 'Male Condom' || step2_fp_method_accepted == 'Female Condom' || step2_fp_method_accepted == 'Standard day method'  || step2_fp_method_accepted == 'COC' || step2_fp_method_accepted == 'POP' || step2_fp_method_accepted == 'Emergency contraceptive' "
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_fp_start_injectable
+description: fp start injectable date
+priority: 1
+condition: "step2_fp_method_accepted == 'Injectable'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_next_injection_due_date
+description: fp next injectable date
+priority: 1
+condition: "step2_fp_method_accepted == 'Injectable'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_fp_start_iucd
+description: fp start iucd date
+priority: 1
+condition: "step2_fp_method_accepted == 'IUCD'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_fp_start_implant_nxt
+description: fp start implant_nxt date
+priority: 1
+condition: "step2_fp_method_accepted == 'Implanton - NXT'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_fp_start_female_ster
+description: fp female_ster date
+priority: 1
+condition: "step2_fp_method_accepted == 'Female Sterilization'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_fp_start_male_ster
+description: fp male_ster date
+priority: 1
+condition: "step2_fp_method_accepted == 'Male Sterilization'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_fp_male_ster_note
+description: fp male_ster date note
+priority: 1
+condition: "step2_fp_method_accepted == 'Male Sterilization'"
 actions:
   - "isRelevant = true"
