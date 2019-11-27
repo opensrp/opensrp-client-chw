@@ -7,10 +7,58 @@ actions:
   - "calculation = helper.getDateToday()"
 
 ---
-name: step1_malaria
-description: client has malaria
+name: step2_COC_POP
+description: COC_POP
 priority: 1
-condition: "step1_malaria_results.contains('Positive') || step1_fever_malaria_chw.contains('Tested positive for malaria in the last 14 days in a health facility')"
+condition: "step2_breast_lump.contains('No') && step2_abnormal_vaginal.contains('No') && step2_pregnant.contains('No') && step2_difficultly_breathing.contains('No') && step2_headaches.contains('No') && step2_frequent_urge.contains('No') && step2_falling_loss_unconsciousness.contains('No') && step2_breastfeed.contains('No')"
 actions:
   - "calculation = 1"
+
+---
+name: step2_POP
+description: POP
+priority: 1
+condition: "!step2_COC_POP =='1' && step2_breast_lump.contains('No') && step2_abnormal_vaginal.contains('No') && step2_pregnant.contains('No') && step2_headaches.contains('No') && step2_breastfeed.contains('No')"
+actions:
+  - "calculation = 1"
+
+---
+name: step2_no_pill
+description: no pill
+priority: 1
+condition: "!step2_COC_POP =='1' && !step2_POP =='1'"
+actions:
+  - "calculation = 1"
+
+---
+name: step2_fp_method_accepted
+description: calculate fp method accepted
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step2_fp_method_chw != '' ? step2_fp_method_chw : fp_method_already"
+
+---
+name: step2_ecp
+description: calculate fp method accepted
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step2_fp_method_accepted != 'Emergency contraceptive' ? 1 : 0"
+
+---
+name: step1_fp_start_condom
+description: date of start condom use
+priority: 1
+condition: "true"
+actions:
+  - "calculation = helper.getDateToday()"
+
+---
+name: step3_next_injection_due_date
+description: calculate next injection due date
+priority: 1
+condition: "true"
+actions:
+  - "calculation = helper.addDuration(step3_fp_start_injectable,'3m')"
 
