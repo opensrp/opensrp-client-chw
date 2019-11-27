@@ -2,8 +2,8 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
 import android.view.Menu;
 
 import org.json.JSONObject;

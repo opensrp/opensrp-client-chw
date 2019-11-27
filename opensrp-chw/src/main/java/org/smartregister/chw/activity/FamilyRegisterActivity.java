@@ -3,8 +3,8 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
-import android.support.design.widget.BottomNavigationView;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
