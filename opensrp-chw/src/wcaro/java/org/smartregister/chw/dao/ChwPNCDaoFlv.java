@@ -1,4 +1,4 @@
 package org.smartregister.chw.dao;
 
-public class ChwPNCDaoFlv extends DefaultChwPNCDaoFlv {
+public class ChwPNCDaoFlv extends  DefaultChwPNCDaoFlv{
 }

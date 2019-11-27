@@ -172,6 +172,12 @@
     <string name="nutrition_status">Status</string>
     <string name="counselling">Counselling</string>
 
+    <string name="normal">Normal</string>
+    <string name="moderate">Moderate</string>
+    <string name="severe">Severe</string>
+    <string name="okay">Okay</string>
+    <string name="bad">Bad</string>
+
     <string name="uses_net">Uses Net</string>
     <string name="slept_under_net">Slept under net</string>
     <string name="net_condition">Net Condition</string>
@@ -316,6 +322,12 @@
 
     <!-- Medical history -->
     <string name="dose_number">Dose %s</string>
+
+    <!--PNC Family Planning Ba-->
+    <string name="during_anc">During ANC</string>
+    <string name="during_pnc">During PNC</string>
+    <string name="during_labour_and_delivery">During Labour and delivery</string>
+
     <string name="cancel_download_confirmation">Are you sure you want to cancel this download?</string>
     <string name="cancel_download">Cancel Download</string>
 

@@ -329,6 +329,14 @@
           }
         },
         {
+          "column_name": "low_birth_weight",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1431AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
           "column_name": "physically_challenged",
           "type": "Event",
           "json_mapping": {
@@ -706,7 +714,7 @@
           "save_format": "yyyy-MM-dd",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "last_visit_date"
+            "concept": "pnc_visit_date"
           }
         },
         {
@@ -718,6 +726,25 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "next_visit_date"
+          }
+        },
+        {
+          "column_name": "last_health_facility_visit_date",
+          "type": "Event",
+          "data_type": "date",
+          "source_format": "dd-MM-yyyy",
+          "save_format": "yyyy-MM-dd",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "last_health_facility_visit_date"
+          }
+        },
+        {
+          "column_name": "confirmed_health_facility_visits",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "confirmed_health_facility_visits"
           }
         },
         {

@@ -164,7 +164,7 @@ public class ChwApplication extends CoreChwApplication {
     public static String getGuideBooksDirectory() {
         String[] packageName = ChwApplication.getInstance().getContext().applicationContext().getPackageName().split("\\.");
         String suffix = packageName[packageName.length - 1];
-        return "opensrp_guidebooks_" + suffix;
+        return "opensrp_guidebooks_" + (suffix.equalsIgnoreCase("chw") ? "liberia" : suffix);
     }
 
     @Override
