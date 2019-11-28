@@ -192,7 +192,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
-            buildConfigField "int", "DATABASE_VERSION", '2'
+            buildConfigField "int", "DATABASE_VERSION", '3'
         }
         togo {
             dimension = 'baseDimension'
@@ -211,7 +211,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
-            buildConfigField "int", "DATABASE_VERSION", '13'
+            buildConfigField "int", "DATABASE_VERSION", '14'
         }
         liberia {
             dimension = 'baseDimension'
@@ -233,7 +233,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.1.0-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.1.1-SNAPSHOT@aar') {
         transitive = true
     }
     implementation 'androidx.appcompat:appcompat:1.0.0'
