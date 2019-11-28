@@ -1,6 +1,6 @@
 package org.smartregister.chw.fragment;
 
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import junit.framework.TestCase;
 

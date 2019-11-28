@@ -2,7 +2,7 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 import android.os.Environment;
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
