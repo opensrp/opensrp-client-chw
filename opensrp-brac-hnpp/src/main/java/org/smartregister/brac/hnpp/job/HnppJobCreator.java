@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 
+import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.brac.hnpp.sync.intent.HfSyncTaskIntentService;
 import org.smartregister.job.ExtendedSyncServiceJob;
@@ -32,6 +33,8 @@ public class HnppJobCreator implements JobCreator {
                 return new SSLocationFetchJob();
             case SyncServiceJob.TAG:
                 return new SyncServiceJob(SyncIntentService.class);
+            case HomeVisitServiceJob.TAG:
+                return new HomeVisitServiceJob();
             case ExtendedSyncServiceJob.TAG:
                 return new ExtendedSyncServiceJob();
             case PullUniqueIdsServiceJob.TAG:

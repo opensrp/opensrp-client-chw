@@ -2,11 +2,7 @@ package org.smartregister.brac.hnpp;
 
 import android.content.Intent;
 import android.text.TextUtils;
-
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
-
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
@@ -18,6 +14,7 @@ import org.smartregister.brac.hnpp.activity.HnppAncRegisterActivity;
 import org.smartregister.brac.hnpp.custom_view.HnppNavigationTopView;
 import org.smartregister.brac.hnpp.listener.HnppNavigationListener;
 import org.smartregister.brac.hnpp.repository.HnppChwRepository;
+import org.smartregister.brac.hnpp.repository.HnppVisitLogRepository;
 import org.smartregister.brac.hnpp.repository.SSLocationRepository;
 import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
 import org.smartregister.brac.hnpp.sync.HnppSyncConfiguration;
@@ -26,11 +23,9 @@ import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.core.loggers.CrashlyticsTree;
 import org.smartregister.chw.core.sync.ChwClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
-import org.smartregister.brac.hnpp.activity.AncRegisterActivity;
 import org.smartregister.brac.hnpp.activity.ChildRegisterActivity;
 import org.smartregister.brac.hnpp.activity.FamilyProfileActivity;
 import org.smartregister.brac.hnpp.activity.FamilyRegisterActivity;
@@ -50,19 +45,16 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.util.Utils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 public class HnppApplication extends CoreChwApplication implements CoreApplication {
 
     private HouseholdIdRepository householdIdRepository;
-
+    private HnppVisitLogRepository hnppVisitLogRepository;
     private static SSLocationRepository locationRepository;
     private static CommonFtsObject commonFtsObject = null;
     private EventClientRepository eventClientRepository;
@@ -177,6 +169,13 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
             Timber.e(e);
         }
         return repository;
+    }
+
+    public HnppVisitLogRepository getHnppVisitLogRepository() {
+        if (hnppVisitLogRepository == null) {
+            hnppVisitLogRepository = new HnppVisitLogRepository(getInstance().getRepository());
+        }
+        return hnppVisitLogRepository;
     }
 
     public HouseholdIdRepository getHouseholdIdRepository() {

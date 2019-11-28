@@ -31,7 +31,7 @@ public class HnppChwRepository extends CoreChwRepository {
         HouseholdIdRepository.createTable(database);
         VisitRepository.createTable(database);
         VisitDetailsRepository.createTable(database);
-
+        HnppVisitLogRepository.createTable(database);
     }
 
     @Override
@@ -45,12 +45,19 @@ public class HnppChwRepository extends CoreChwRepository {
                 case 7:
                     upgradeToVersion7(context, db);
                     break;
+                case 8:
+                    upgradeToVersion8(context, db);
+                    break;
 
                 default:
                     break;
             }
             upgradeTo++;
         }
+    }
+
+    private void upgradeToVersion8(Context context, SQLiteDatabase db) {
+        HnppVisitLogRepository.createTable(db);
     }
 
     private void upgradeToVersion7(Context context, SQLiteDatabase db) {
