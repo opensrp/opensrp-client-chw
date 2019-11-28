@@ -39,6 +39,11 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         }
     }
 
+    protected void evaluateImmunization() throws Exception {
+        setVaccinesDefaultChecked(false);
+        super.evaluateImmunization();
+    }
+
     private void evaluateMalariaPrevention() throws Exception {
         HomeVisitActionHelper malariaPreventionHelper = new HomeVisitActionHelper() {
             private String famllin1m5yr;
