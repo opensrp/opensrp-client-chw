@@ -55,7 +55,7 @@ public class MemberOtherServiceFragment extends Fragment implements OtherService
 
     @Override
     public OtherServiceContract.Presenter getPresenter() {
-        return null;
+        return presenter;
     }
 
     private OtherServiceAdapter.OnClickAdapter onClickAdapter = (position, content) -> startFormActivity(content);

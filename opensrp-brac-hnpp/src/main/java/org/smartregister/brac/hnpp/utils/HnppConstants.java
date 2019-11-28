@@ -15,6 +15,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -24,6 +25,7 @@ public class HnppConstants extends CoreConstants {
     public static final String MODULE_ID_TRAINING = "TRAINING";
     public static final int MEMBER_ID_SUFFIX = 11;
     public static final int HOUSE_HOLD_ID_SUFFIX = 9;
+    public static SimpleDateFormat DDMMYY = new SimpleDateFormat("dd-MM-yyyy");
     public class HOME_VISIT_FORMS {
         public static final String  ANC_CARD_FORM = "anc_card_form";
         public static final String  IMMUNIZATION = "hv_immunization";
