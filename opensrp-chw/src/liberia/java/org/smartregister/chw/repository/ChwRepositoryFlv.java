@@ -26,7 +26,7 @@ public class ChwRepositoryFlv {
         int upgradeTo = oldVersion + 1;
         while (upgradeTo <= newVersion) {
             switch (upgradeTo) {
-                case 7:
+                case 2:
                     upgradeToVersion2(context, db);
                     break;
                 default:

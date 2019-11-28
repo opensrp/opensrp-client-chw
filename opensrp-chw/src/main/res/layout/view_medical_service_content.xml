@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/white_rounded_bg">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_service_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -31,7 +31,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp">
 
-        </android.support.v7.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
     </RelativeLayout>
 
 </LinearLayout>

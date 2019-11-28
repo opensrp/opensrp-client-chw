@@ -243,6 +243,10 @@
         "openmrs_entity_id": "age",
         "type": "edit_text",
         "hint": "Age",
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
