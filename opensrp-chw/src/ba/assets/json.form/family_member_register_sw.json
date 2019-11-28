@@ -243,6 +243,10 @@
         "openmrs_entity_id": "age",
         "type": "edit_text",
         "hint": "Umri",
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Tafadhali ingiza umri"
