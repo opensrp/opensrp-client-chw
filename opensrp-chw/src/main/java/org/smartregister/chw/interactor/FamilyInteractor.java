@@ -11,14 +11,38 @@ import org.smartregister.chw.core.interactor.CoreFamilyInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.util.DBConstants;
 
 import java.util.Map;
 
+import io.reactivex.Observable;
+
 public class FamilyInteractor extends CoreFamilyInteractor {
+
+    @Override
+    public Observable<String> updateFamilyDueStatus(final Context context, final String childId, final String familyId) {
+        return Observable.create(e -> {
+            AlertStatus alertStatus = FamilyDao.getFamilyAlertStatus(familyId);
+            switch (alertStatus) {
+                case normal:
+                    e.onNext(CoreConstants.FamilyServiceType.DUE.name());
+                    break;
+                case urgent:
+                    e.onNext(CoreConstants.FamilyServiceType.OVERDUE.name());
+                    break;
+                case complete:
+                    e.onNext(CoreConstants.FamilyServiceType.NOTHING.name());
+                    break;
+                default:
+                    return;
+            }
+        });
+    }
 
     @Override
     public ImmunizationState getChildStatus(Context context, final String childId, Cursor cursor) {
