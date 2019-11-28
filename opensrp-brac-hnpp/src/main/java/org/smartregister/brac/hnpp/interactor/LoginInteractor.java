@@ -3,6 +3,7 @@ package org.smartregister.brac.hnpp.interactor;
 import org.smartregister.brac.hnpp.BuildConfig;
 import org.smartregister.brac.hnpp.job.SSLocationFetchJob;
 import org.smartregister.brac.hnpp.job.PullHouseholdIdsServiceJob;
+import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.login.interactor.BaseLoginInteractor;
@@ -34,8 +35,8 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 ////        VaccineRecurringServiceJob.scheduleJob(VaccineRecurringServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
 ////                BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES), getFlexValue(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES));
 ////
-////        HomeVisitServiceJob.scheduleJob(HomeVisitServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
-////                BuildConfig.HOME_VISIT_MINUTES), getFlexValue(BuildConfig.HOME_VISIT_MINUTES));
+        HomeVisitServiceJob.scheduleJob(HomeVisitServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
+                BuildConfig.HOME_VISIT_MINUTES), getFlexValue(BuildConfig.HOME_VISIT_MINUTES));
 ////
 ////        SyncTaskServiceJob.scheduleJob(SyncTaskServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
 ////                BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
@@ -48,5 +49,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         PullHouseholdIdsServiceJob.scheduleJobImmediately(PullHouseholdIdsServiceJob.TAG);
         SSLocationFetchJob.scheduleJobImmediately(SSLocationFetchJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
     }
 }

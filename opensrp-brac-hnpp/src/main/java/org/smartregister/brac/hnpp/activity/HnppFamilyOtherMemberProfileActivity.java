@@ -16,6 +16,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.brac.hnpp.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.brac.hnpp.fragment.HnppMemberProfileDueFragment;
@@ -26,6 +30,7 @@ import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
 import org.smartregister.brac.hnpp.utils.HnppUtils;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
@@ -43,12 +48,18 @@ import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.Constants;
 import org.smartregister.helper.ImageRenderHelper;
+import org.smartregister.util.FormUtils;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.contract.BaseProfileContract;
 import org.smartregister.view.customcontrols.CustomFontTextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import timber.log.Timber;
 
 import static org.smartregister.brac.hnpp.utils.HnppConstants.MEMBER_ID_SUFFIX;
+import static org.smartregister.brac.hnpp.utils.HnppJsonFormUtils.REQUEST_CODE_JSON_ANC1;
 
 public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
     private CustomFontTextView textViewDetails3;
@@ -167,6 +178,27 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
         return viewPager;
     }
 
+    public void startAnyFormActivity(){
+       try {
+           JSONObject jsonForm = FormUtils.getInstance(this).getFormJson(HnppConstants.HOME_VISIT_FORMS.ANC1_FORM);
+           jsonForm.put(JsonFormUtils.ENTITY_ID, familyBaseEntityId);
+           Intent intent = new Intent(this, org.smartregister.family.util.Utils.metadata().familyMemberFormActivity);
+           intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+
+           Form form = new Form();
+           form.setWizard(false);
+           form.setActionBarBackground(org.smartregister.family.R.color.customAppThemeBlue);
+
+           intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+           intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, true);
+           if (this != null) {
+               this.startActivityForResult(intent, REQUEST_CODE_JSON_ANC1);
+           }
+       }catch (Exception e){
+           
+       }
+    }
+
     @Override
     protected void startEditMemberJsonForm(Integer title_resource, CommonPersonObjectClient client) {
 
@@ -184,7 +216,25 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_JSON_ANC1){
+//            String type = StringUtils.isBlank(parentEventType) ? getEncounterType() : getEncounterType();
+            String type = HnppJsonFormUtils.getEncounterType();
+            String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+            Map<String, String> jsonStrings = new HashMap<>();
+            jsonStrings.put("First",jsonString);
+            // persist to database
+            Visit visit = null;
+            try {
+                visit = HnppJsonFormUtils.saveVisit(false, baseEntityId, type, jsonStrings, "");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (visit != null) {
+//                saveVisitDetails(visit, payloadType, payloadDetails);
+//                processExternalVisits(visit, externalVisits, memberID);
+            }
+        }
+            super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -241,7 +291,7 @@ public class HnppFamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberP
         startActivity(intent);
     }
     public void openRefereal() {
-        Toast.makeText(this,"Open referel",Toast.LENGTH_SHORT).show();
+        startAnyFormActivity();
     }
 
     @Override

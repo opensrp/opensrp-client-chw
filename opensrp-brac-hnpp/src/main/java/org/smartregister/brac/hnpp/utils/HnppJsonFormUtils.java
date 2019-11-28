@@ -21,28 +21,42 @@ import org.smartregister.brac.hnpp.location.SSLocationHelper;
 import org.smartregister.brac.hnpp.location.SSLocations;
 import org.smartregister.brac.hnpp.location.SSModel;
 import org.smartregister.brac.hnpp.repository.HnppChwRepository;
+import org.smartregister.brac.hnpp.repository.HnppVisitLogRepository;
+import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.core.repository.WashCheckRepository;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.tag.FormTag;
+import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.LocationPickerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -57,6 +71,53 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
     public static final String SIMPRINTS_ENABLE = "simprints_enable";
     public static final String VILLAGE_NAME = "village_name";
     public static final String ENCOUNTER_TYPE = "encounter_type";
+    public static final int REQUEST_CODE_JSON_ANC1 = 5444;
+    private static VisitRepository visitRepository() {
+        return AncLibrary.getInstance().visitRepository();
+    }
+    public static Visit saveVisit(boolean editMode, String memberID, String encounterType,
+                            final Map<String, String> jsonString,
+                            String parentEventType) throws Exception {
+
+        AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().context().allSharedPreferences();
+
+        String derivedEncounterType = StringUtils.isBlank(parentEventType) ? encounterType : "";
+        Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processVisitJsonForm(allSharedPreferences, memberID, derivedEncounterType, jsonString, getTableName());
+
+        if (StringUtils.isBlank(parentEventType))
+            prepareEvent(baseEvent);
+
+        if (baseEvent != null) {
+            baseEvent.setFormSubmissionId(JsonFormUtils.generateRandomUUIDString());
+            org.smartregister.chw.anc.util.JsonFormUtils.tagEvent(allSharedPreferences, baseEvent);
+
+            String visitID = JsonFormUtils.generateRandomUUIDString();
+
+            Visit visit = NCUtils.eventToVisit(baseEvent, visitID);
+            visit.setPreProcessedJson(new Gson().toJson(baseEvent));
+            visit.setParentVisitID(visitRepository().getParentVisitEventID(visit.getBaseEntityId(), parentEventType, visit.getDate()));
+
+            visitRepository().addVisit(visit);
+            return visit;
+        }
+        return null;
+    }
+    public static String getEncounterType() {
+        return org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT;
+    }
+
+    private static String getTableName() {
+        return org.smartregister.chw.anc.util.Constants.TABLES.ANC_MEMBERS;
+    }
+    private static void prepareEvent(Event baseEvent) {
+        if (baseEvent != null) {
+            // add anc date obs and last
+            List<Object> list = new ArrayList<>();
+            list.add(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+            baseEvent.addObs(new Obs("concept", "text", "anc_visit_date", "",
+                    list, new ArrayList<>(), null, "anc_visit_date"));
+        }
+    }
     public static JSONObject updateFormWithModuleId(JSONObject form,String moduleId, String familyBaseEntityId) throws JSONException {
         JSONArray field = fields(form, STEP1);
         JSONObject fingerPrint = getFieldJSONObject(field, "finger_print");
@@ -83,6 +144,59 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
         return form;
     }
+
+    public static boolean saveVisitLogEvent(String jsonString, String baseEntityId) {
+        try {
+            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
+            if (!registrationFormParams.getLeft()) {
+                return false;
+            }
+
+            JSONObject jsonForm = registrationFormParams.getMiddle();
+
+            JSONArray fields = registrationFormParams.getRight();
+            JSONObject metadata = getJSONObject(jsonForm, METADATA);
+            String entityId = getString(jsonForm, ENTITY_ID);
+            String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
+            String entitytypeName = HnppVisitLogRepository.VISIT_LOG_TABLE_NAME;
+
+            FormTag formTag = new FormTag();
+            formTag.providerId = HnppApplication.getHNPPInstance().getContext().allSharedPreferences().fetchRegisteredANM();
+            formTag.appVersion = BuildConfig.VERSION_CODE;
+            formTag.databaseVersion = BuildConfig.DATABASE_VERSION;
+            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, entitytypeName);
+            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
+
+
+            tagSyncMetadata(org.smartregister.family.util.Utils.context().allSharedPreferences(), baseEvent);// tag docs
+
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
+            syncHelper.addEvent(baseEntityId, eventJson);
+            long lastSyncTimeStamp = HnppApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            HnppApplication.getClientProcessor(HnppApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
+            HnppApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+//            HnppApplication.getHNPPInstance().getHnppVisitLogRepository().add(createNewVisitLog(baseEntityId,));
+            return true;
+            // }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public static VisitLog createNewVisitLog(String baseEntityId,String event_type,String visit_type,String jsonString) {
+        VisitLog visitLog = new VisitLog();
+        visitLog.setVisitId(generateRandomUUIDString());
+        visitLog.setVisitType(visit_type);
+        visitLog.setBaseEntityId(baseEntityId);
+        visitLog.setVisitDate(new Date().getTime());
+        visitLog.setEventType(event_type);
+        visitLog.setVisitJson(jsonString);
+        return visitLog;
+    }
+
     public static JSONObject updateFormWithMemberId(JSONObject form,String houseHoldId, String familyBaseEntityId) throws JSONException {
         JSONArray field = fields(form, STEP1);
         JSONObject memberId = getFieldJSONObject(field, "unique_id");
