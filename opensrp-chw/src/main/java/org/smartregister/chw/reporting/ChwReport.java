@@ -25,7 +25,7 @@ public class ChwReport {
     public static void showIndicatorVisualisations(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies) {
         // Display order as determined in https://docs.google.com/spreadsheets/d/1q9YiWqjLiToTd0--Q8CbwhBwwcNDspbDxVrUfDm8VGU/edit#gid=315573423
 
-        NumericDisplayModel indicator1 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.TOTAL_COUNT, ReportingConstants.ChildIndicatorKeys.countOfChildrenUnder5, R.string.total_under_5_children_label, indicatorTallies);
+        NumericDisplayModel indicator1 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.countOfChildrenUnder5, R.string.total_under_5_children_label, indicatorTallies);
         mainLayout.addView(new NumericIndicatorView(mainLayout.getContext(), indicator1).createView());
         createAncReportViews(mainLayout, indicatorTallies);
         createPncReportViews(mainLayout, indicatorTallies);
