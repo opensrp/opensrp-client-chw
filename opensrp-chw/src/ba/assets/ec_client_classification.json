@@ -44,6 +44,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "Family Planning Registration",
+            "creates_case": [
+              "ec_family_planning"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Malaria Confirmation",
             "closes_case": [
               "ec_malaria_confirmation"
