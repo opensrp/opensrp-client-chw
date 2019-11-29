@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 
 import org.smartregister.chw.core.activity.CoreFpRegisterActivity;
-import org.smartregister.chw.fragment.MalariaRegisterFragment;
+import org.smartregister.chw.fp.util.FamilyPlanningConstants;
+import org.smartregister.chw.fragment.FpRegisterFragment;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -14,9 +15,9 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
 
     public static void startFpRegistrationActivity(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, FpRegisterActivity.class);
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.MALARIA_FORM_NAME, getFpRegistration());
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
+        intent.putExtra(FamilyPlanningConstants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(FamilyPlanningConstants.ACTIVITY_PAYLOAD.FP_FORM_NAME, getFpRegistration());
+        intent.putExtra(FamilyPlanningConstants.ACTIVITY_PAYLOAD.ACTION, FamilyPlanningConstants.ACTIVITY_PAYLOAD.REGISTRATION_PAYLOAD_TYPE);
         activity.startActivity(intent);
     }
 
@@ -29,7 +30,7 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
-        return new MalariaRegisterFragment();
+        return new FpRegisterFragment();
     }
 
 }
