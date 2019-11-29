@@ -5,6 +5,7 @@ import org.smartregister.chw.core.schedulers.ScheduleTaskExecutor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.task.ANCVisitScheduler;
 import org.smartregister.chw.task.ChildHomeVisitScheduler;
+import org.smartregister.chw.task.FPVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
 import org.smartregister.chw.task.PNCVisitScheduler;
 import org.smartregister.chw.task.WashCheckScheduler;
@@ -92,5 +93,18 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
         classifier.put(CoreConstants.EventType.FAMILY_REGISTRATION, scheduleServices);
         classifier.put(CoreConstants.EventType.WASH_CHECK, scheduleServices);
+    }
+
+    private void initializeFPClassifier(Map<String, List<ScheduleService>> classifier) {
+        List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new FPVisitScheduler());
+
+        //TO BE ADDED
+
+      /*  classifier.put(CoreConstants.EventType.PREGNANCY_OUTCOME, scheduleServices);
+        classifier.put(CoreConstants.EventType.PNC_REGISTRATION, scheduleServices);
+        classifier.put(CoreConstants.EventType.PNC_HOME_VISIT, scheduleServices);
+        classifier.put(CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE, scheduleServices);
+        classifier.put(CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE_UNDO, scheduleServices);*/
     }
 }

@@ -93,4 +93,16 @@ public class SchedulesIntentService extends IntentService {
             ChwScheduleTaskExecutor.getInstance().execute(baseID, CoreConstants.EventType.WASH_CHECK, new Date());
         }
     }
+
+    private void executeFpVisitSchedules() {
+        Timber.v("Computing Fp schedules");
+        ChwApplication.getInstance().getScheduleRepository().deleteScheduleByName(CoreConstants.SCHEDULE_TYPES.PNC_VISIT);
+        List<String> baseEntityIDs = ScheduleDao.getActivePNCWomen();
+        if (baseEntityIDs == null) return;
+
+        for (String baseID : baseEntityIDs) {
+            Timber.v("  Computing Fp schedules for %s", baseID);
+            ChwScheduleTaskExecutor.getInstance().execute(baseID, CoreConstants.EventType.PREGNANCY_OUTCOME, new Date());
+        }
+    }
 }
