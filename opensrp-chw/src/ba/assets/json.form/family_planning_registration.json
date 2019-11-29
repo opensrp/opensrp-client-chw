@@ -61,7 +61,7 @@
         "key": "fp_reg_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "encounter_date",
+        "openmrs_entity_id": "fp_reg_date",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -381,7 +381,7 @@
         "key": "breastfeed",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "falling_loss_unconsciousness",
+        "openmrs_entity_id": "breastfeed",
         "type": "spinner",
         "hint": "Is she breastfeeding a baby 6 months or younger and having any issues producing milk?",
         "values": [
