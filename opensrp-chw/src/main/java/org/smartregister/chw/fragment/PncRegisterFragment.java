@@ -4,7 +4,6 @@ import org.smartregister.chw.activity.PncHomeVisitActivity;
 import org.smartregister.chw.activity.PncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.fragment.CorePncRegisterFragment;
-import org.smartregister.chw.core.model.PncRegisterFragmentModel;
 import org.smartregister.chw.model.ChwPncRegisterFragmentModel;
 import org.smartregister.chw.presenter.PncRegisterFragmentPresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
