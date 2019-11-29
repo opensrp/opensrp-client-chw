@@ -17,6 +17,7 @@ import org.smartregister.brac.hnpp.repository.HnppChwRepository;
 import org.smartregister.brac.hnpp.repository.HnppVisitLogRepository;
 import org.smartregister.brac.hnpp.repository.SSLocationRepository;
 import org.smartregister.brac.hnpp.repository.HouseholdIdRepository;
+import org.smartregister.brac.hnpp.sync.HnppClientProcessor;
 import org.smartregister.brac.hnpp.sync.HnppSyncConfiguration;
 import org.smartregister.brac.hnpp.utils.HNPPApplicationUtils;
 import org.smartregister.chw.anc.AncLibrary;
@@ -101,7 +102,7 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
        // MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         setOpenSRPUrl();
         // set up processor
-        FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
+        FamilyLibrary.getInstance().setClientProcessorForJava(HnppClientProcessor.getInstance(getApplicationContext()));
 
 
 

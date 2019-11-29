@@ -57,7 +57,7 @@ public class HnppChwRepository extends CoreChwRepository {
     }
 
     private void upgradeToVersion8(Context context, SQLiteDatabase db) {
-        HnppVisitLogRepository.createTable(db);
+//        HnppVisitLogRepository.createTable(db);
     }
 
     private void upgradeToVersion7(Context context, SQLiteDatabase db) {

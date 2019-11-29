@@ -48,7 +48,7 @@ public class HnppAncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
 
                 actionList.put("পূর্বের গর্ভের ইতিহাসঃ", PREGNANCY_HISTORY);
                 actionList.put("শারীরিক সমস্যা", GENERAL_DISEASE);
-                actionList.put("গর্ভবতী পরিচর্যা", ANC1_FORM);
+//                actionList.put("গর্ভবতী পরিচর্যা", ANC1_FORM);
 
             } catch (BaseAncHomeVisitAction.ValidationException e) {
                 e.printStackTrace();

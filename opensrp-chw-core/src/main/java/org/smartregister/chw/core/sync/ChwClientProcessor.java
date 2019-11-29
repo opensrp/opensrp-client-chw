@@ -3,7 +3,13 @@ package org.smartregister.chw.core.sync;
 import android.content.ContentValues;
 import android.content.Context;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
+import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -37,8 +43,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.anc.util.NCUtils.eventToVisit;
 
 
 public class ChwClientProcessor extends ClientProcessorForJava {
@@ -46,8 +55,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
     private ClientClassification classification;
     private Table vaccineTable;
     private Table serviceTable;
-
-    private ChwClientProcessor(Context context) {
+    public ChwClientProcessor(Context context) {
         super(context);
     }
 
@@ -127,13 +135,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 processVisitEvent(eventClient);
                 processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 break;
-            case CoreConstants.EventType.MINIMUM_DIETARY_DIVERSITY:
-            case CoreConstants.EventType.MUAC:
-            case CoreConstants.EventType.LLITN:
-            case CoreConstants.EventType.ECD:
-                processVisitEvent(eventClient, CoreConstants.EventType.CHILD_HOME_VISIT);
-                processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                break;
+
             case CoreConstants.EventType.ANC_HOME_VISIT:
             case org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE:
             case org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO:
@@ -161,24 +163,13 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 }
                 processRemoveChild(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
                 break;
-            case CoreConstants.EventType.VACCINE_CARD_RECEIVED:
-                if (eventClient.getClient() == null) {
-                    return;
-                }
-                processVisitEvent(eventClient);
-                processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                break;
-            case CoreConstants.EventType.WASH_CHECK:
-                processWashCheckEvent(eventClient);
-                processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
 
-                break;
-            case CoreConstants.EventType.CHILD_REFERRAL:
-            case CoreConstants.EventType.CLOSE_REFERRAL:
-                if (eventClient.getClient() != null) {
-                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                }
-                break;
+//            case CoreConstants.EventType.CHILD_REFERRAL:
+//            case CoreConstants.EventType.CLOSE_REFERRAL:
+//                if (eventClient.getClient() != null) {
+//                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+//                }
+//                break;
             default:
                 if (eventClient.getClient() != null) {
                     if (eventType.equals(CoreConstants.EventType.UPDATE_FAMILY_RELATIONS) && event.getEntityType().equalsIgnoreCase(CoreConstants.TABLE_NAME.FAMILY_MEMBER)) {
@@ -325,10 +316,32 @@ public class ChwClientProcessor extends ClientProcessorForJava {
     // possible to delegate
     private void processVisitEvent(EventClient eventClient) {
         try {
-            NCUtils.processAncHomeVisit(eventClient); // save locally
+            processAncHomeVisit(eventClient, null, null); // save locally
         } catch (Exception e) {
             String formID = (eventClient != null && eventClient.getEvent() != null) ? eventClient.getEvent().getFormSubmissionId() : "no form id";
             Timber.e("Form id " + formID + ". " + e.toString());
+        }
+    }
+    protected void processAncHomeVisit(EventClient baseEvent, SQLiteDatabase database, String parentEventType) {
+        try {
+            Visit visit = AncLibrary.getInstance().visitRepository().getVisitByFormSubmissionID(baseEvent.getEvent().getFormSubmissionId());
+            if (visit == null) {
+                visit = eventToVisit(baseEvent.getEvent());
+
+                if (StringUtils.isNotBlank(parentEventType) && !parentEventType.equalsIgnoreCase(visit.getVisitType())) {
+                    String parentVisitID = AncLibrary.getInstance().visitRepository().getParentVisitEventID(visit.getBaseEntityId(), parentEventType, visit.getDate());
+                    visit.setParentVisitID(parentVisitID);
+                }
+
+                if (database != null) {
+                    AncLibrary.getInstance().visitRepository().addVisit(visit, database);
+                } else {
+                    AncLibrary.getInstance().visitRepository().addVisit(visit);
+                }
+              //start job
+            }
+        } catch (JSONException e) {
+            Timber.e(e);
         }
     }
 

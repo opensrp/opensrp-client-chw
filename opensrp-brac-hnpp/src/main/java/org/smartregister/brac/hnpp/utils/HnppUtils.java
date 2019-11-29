@@ -4,6 +4,8 @@ import android.text.TextUtils;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public class HnppUtils {
@@ -23,4 +25,14 @@ public class HnppUtils {
 
         return false;
     }
+
+//    public static String createObsWithFormName(String jsonString){
+//        try {
+//            JSONObject formObject = new JSONObject(jsonString);
+//            if(formObject.has("form_name"))
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return "";
+//    }
 }

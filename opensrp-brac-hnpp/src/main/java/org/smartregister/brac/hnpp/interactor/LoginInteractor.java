@@ -3,6 +3,7 @@ package org.smartregister.brac.hnpp.interactor;
 import org.smartregister.brac.hnpp.BuildConfig;
 import org.smartregister.brac.hnpp.job.SSLocationFetchJob;
 import org.smartregister.brac.hnpp.job.PullHouseholdIdsServiceJob;
+import org.smartregister.brac.hnpp.job.VisitLogServiceJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
@@ -50,5 +51,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         SSLocationFetchJob.scheduleJobImmediately(SSLocationFetchJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
+        VisitLogServiceJob.scheduleJobImmediately(VisitLogServiceJob.TAG);
     }
 }

@@ -298,6 +298,7 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
 
     }
+
     public static JSONObject getAutoPopulatedJsonEditFormString(String formName, Context context, CommonPersonObjectClient client, String eventType) {
         try {
             JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
@@ -325,7 +326,7 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
 
                 }
 
-                if(form.has(org.smartregister.family.util.JsonFormUtils.STEP2)){
+                if(form.has(org.smartregister.family.util.JsonFormUtils.STEP2)) {
                     JSONObject stepTwo = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP2);
 
                     JSONArray jsonArray2 = stepTwo.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);

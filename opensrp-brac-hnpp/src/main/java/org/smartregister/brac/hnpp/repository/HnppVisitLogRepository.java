@@ -45,7 +45,26 @@ public class HnppVisitLogRepository extends BaseRepository {
         }
 
     }
+    public ArrayList<String> getVisitIds(){
+        ArrayList<String>visit_ids = new ArrayList<String>();
+        try{
 
+            SQLiteDatabase database = getWritableDatabase();
+            Cursor cursor = database.rawQuery("select visits.visit_id from visits where visits.visit_id NOT IN (select ec_visit_log.visit_id from ec_visit_log) order by visit_date DESC",null);
+            if(cursor!=null && cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    String visit_id = cursor.getString(0);
+                    visit_ids.add(visit_id);
+                    cursor.moveToNext();
+                }
+                cursor.close();
+            }
+        }catch(Exception e){
+
+        }
+        return visit_ids;
+    }
     public VisitLog findUnique(SQLiteDatabase db, VisitLog visitLog) {
 
         return null;
