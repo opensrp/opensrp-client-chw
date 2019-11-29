@@ -19,8 +19,8 @@ import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
+import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.pnc.PncLibrary;
-import org.smartregister.chw.util.ScheduleUtil;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.dao.AbstractDao;
@@ -57,7 +57,8 @@ public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor i
     public void refreshProfileInfo(final MemberObject memberObject, final BaseAncMemberProfileContract.InteractorCallBack callback) {
         Runnable runnable = new Runnable() {
             Date lastVisitDate = getLastVisitDate(memberObject);
-            AlertStatus familyAlert = ScheduleUtil.getFamilyAlertStatus(context, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
+
+            AlertStatus familyAlert = FamilyDao.getFamilyAlertStatus(memberObject.getBaseEntityId());
             Alert upcomingService = getAlerts(context, memberObject);
 
             @Override
