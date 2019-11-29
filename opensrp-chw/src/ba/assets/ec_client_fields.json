@@ -870,6 +870,289 @@
       ]
     },
     {
+      "name": "ec_family_planning",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "fp_reg_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "fp_reg_date"
+          }
+        },
+        {
+          "column_name": "using_method",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "using_method"
+          }
+        },
+        {
+          "column_name": "couselling_fp_methods",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "couselling_HIV_STI",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "couselling_HIV_STI"
+          }
+        },
+        {
+          "column_name": "pill",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pill"
+          }
+        },
+        {
+          "column_name": "breast_lump",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "breast_lump"
+          }
+        },
+        {
+          "column_name": "abnormal_vaginal",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "abnormal_vaginal"
+          }
+        },
+        {
+          "column_name": "pregnant",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pregnant"
+          }
+        },
+        {
+          "column_name": "difficultly_breathing",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "difficultly_breathing"
+          }
+        },
+        {
+          "column_name": "headaches",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "headaches"
+          }
+        },
+        {
+          "column_name": "frequent_urge",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "frequent_urge"
+          }
+        },
+        {
+          "column_name": "falling_loss_unconsciousness",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "falling_loss_unconsciousness"
+          }
+        },
+        {
+          "column_name": "breastfeed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "breastfeed"
+          }
+        },
+        {
+          "column_name": "COC_POP",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "COC_POP"
+          }
+        },
+        {
+          "column_name": "POP",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "POP"
+          }
+        },
+        {
+          "column_name": "no_pill",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "no_pill"
+          }
+        },
+        {
+          "column_name": "fp_method_chw",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "160576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "fp_method_already",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "fp_method_accepted",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "fp_method_accepted"
+          }
+        },
+        {
+          "column_name": "ecp",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ecp"
+          }
+        },
+        {
+          "column_name": "no_condoms",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "no_condoms"
+          }
+        },
+        {
+          "column_name": "fp_start_condom",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "no_pillcycles",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "fp_start_cocpop",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "counselling_use",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "counselling_use"
+          }
+        },
+        {
+          "column_name": "fp_start_injectable",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "162881AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "next_injection_due_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "fp_start_iucd",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "fp_start_implant_nxt",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "fp_start_implant_jad",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "fp_start_female_ster",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "fp_start_male_ster",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "referral_given",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_pregnancy_outcome",
       "columns": [
         {
