@@ -2,58 +2,58 @@ package org.smartregister.brac.hnpp.utils;
 
 public class VisitLog {
 
-    public String VISIT_ID;
-    public String VISIT_TYPE;
-    public String BASE_ENTITY_ID;
-    public Long VISIT_DATE;
-    public String EVENT_TYPE;
-    public String VISIT_JSON;
-
-    public void setVisitId(String VISIT_ID) {
-        this.VISIT_ID = VISIT_ID;
-    }
-
-    public void setVisitType(String VISIT_TYPE) {
-        this.VISIT_TYPE = VISIT_TYPE;
-    }
-
-    public void setBaseEntityId(String BASE_ENTITY_ID) {
-        this.BASE_ENTITY_ID = BASE_ENTITY_ID;
-    }
-
-    public void setVisitDate(Long VISIT_DATE) {
-        this.VISIT_DATE = VISIT_DATE;
-    }
-
-    public void setEventType(String EVENT_TYPE) {
-        this.EVENT_TYPE = EVENT_TYPE;
-    }
-
-    public void setVisitJson(String VISIT_JSON) {
-        this.VISIT_JSON = VISIT_JSON;
-    }
+    public String visitId;
+    public String visitType;
+    public String baseEntityId;
+    public long visitDate;
+    public String eventType;
+    public String visitJson;
 
     public String getVisitId() {
-        return VISIT_ID;
+        return visitId;
+    }
+
+    public void setVisitId(String visitId) {
+        this.visitId = visitId;
     }
 
     public String getVisitType() {
-        return VISIT_TYPE;
+        return visitType;
+    }
+
+    public void setVisitType(String visitType) {
+        this.visitType = visitType;
     }
 
     public String getBaseEntityId() {
-        return BASE_ENTITY_ID;
+        return baseEntityId;
     }
 
-    public Long getVisitDate() {
-        return VISIT_DATE;
+    public void setBaseEntityId(String baseEntityId) {
+        this.baseEntityId = baseEntityId;
+    }
+
+    public long getVisitDate() {
+        return visitDate;
+    }
+
+    public void setVisitDate(long visitDate) {
+        this.visitDate = visitDate;
     }
 
     public String getEventType() {
-        return EVENT_TYPE;
+        return eventType;
+    }
+
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
     }
 
     public String getVisitJson() {
-        return VISIT_JSON;
+        return visitJson;
+    }
+
+    public void setVisitJson(String visitJson) {
+        this.visitJson = visitJson;
     }
 }

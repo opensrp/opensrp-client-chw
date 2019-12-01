@@ -44,25 +44,8 @@ public class DashBoardModel implements DashBoardContract.Model {
                     DashBoardData dashBoardData1 = new DashBoardData();
                     dashBoardData1.setCount(cursor.getInt(1));
                     dashBoardData1.setEventType(cursor.getString(0));
-                    switch (dashBoardData1.getEventType()){
-                        case HnppConstants.EventType.FAMILY_REGISTRATION:
-                            dashBoardData1.setTitle(context.getString(R.string.event_family_register));
-                            dashBoardData1.setImageSource(R.drawable.ic_home);
-                            break;
-                        case HnppConstants.EventType.FAMILY_MEMBER_REGISTRATION:
-                            dashBoardData1.setTitle(context.getString(R.string.event_family_member_register));
-                            dashBoardData1.setImageSource(R.drawable.rowavatar_member);
-                            break;
-                        case HnppConstants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION:
-                            dashBoardData1.setTitle(context.getString(R.string.event_family_member_update_register));
-                            dashBoardData1.setImageSource(R.drawable.rowavatar_member);
-                            break;
-                        case HnppConstants.EventType.CHILD_REGISTRATION:
-                            dashBoardData1.setTitle(context.getString(R.string.event_child_register));
-                            dashBoardData1.setImageSource(R.drawable.rowavatar_child);
-                            break;
-
-                    }
+                    dashBoardData1.setTitle(HnppConstants.eventTypeMapping.get(dashBoardData1.getEventType()));
+                    dashBoardData1.setImageSource((int)HnppConstants.iconMapping.get(dashBoardData1.getEventType()));
                     dashBoardDataArrayList.add(dashBoardData1);
                     cursor.moveToNext();
                 }

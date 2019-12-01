@@ -22,33 +22,35 @@ public class HnppAncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
             try {
 
                 Context context = view.getContext();
-                BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
-                        .withOptional(false)
-                        .withFormName(HnppConstants.HOME_VISIT_FORMS.DANGER_SIGNS)
-                        .withHelper(new DangerSignsHelper())
-                        .build();
 
-                BaseAncHomeVisitAction ANC1_FORM = new BaseAncHomeVisitAction.Builder(context, "গর্ভবতী পরিচর্যা")
+                String title1 = HnppConstants.visitTypeMapping.get(HnppConstants.HOME_VISIT_FORMS.ANC1_FORM);
+                String title2 = HnppConstants.visitTypeMapping.get(HnppConstants.HOME_VISIT_FORMS.GENERAL_DISEASE);
+                String title3 = HnppConstants.visitTypeMapping.get(HnppConstants.HOME_VISIT_FORMS.PREGNANCY_HISTORY);
+
+                BaseAncHomeVisitAction ANC1_FORM = new BaseAncHomeVisitAction.Builder(context,title1 )
                         .withOptional(false)
                         .withFormName(HnppConstants.HOME_VISIT_FORMS.ANC1_FORM)
                         .withHelper(new HnppHomeVisitActionHelper())
                         .build();
 
-                BaseAncHomeVisitAction GENERAL_DISEASE = new BaseAncHomeVisitAction.Builder(context, "শারীরিক সমস্যা")
+                BaseAncHomeVisitAction GENERAL_DISEASE = new BaseAncHomeVisitAction.Builder(context,title2 )
                         .withOptional(false)
                         .withFormName(HnppConstants.HOME_VISIT_FORMS.GENERAL_DISEASE)
                         .withHelper(new HnppHomeVisitActionHelper())
                         .build();
 
-                BaseAncHomeVisitAction PREGNANCY_HISTORY = new BaseAncHomeVisitAction.Builder(context, "পূর্বের গর্ভের ইতিহাসঃ")
+                BaseAncHomeVisitAction PREGNANCY_HISTORY = new BaseAncHomeVisitAction.Builder(context, title3)
                         .withOptional(false)
                         .withFormName(HnppConstants.HOME_VISIT_FORMS.PREGNANCY_HISTORY)
                         .withHelper(new HnppHomeVisitActionHelper())
                         .build();
 
-                actionList.put("পূর্বের গর্ভের ইতিহাসঃ", PREGNANCY_HISTORY);
-                actionList.put("শারীরিক সমস্যা", GENERAL_DISEASE);
-                actionList.put("গর্ভবতী পরিচর্যা", ANC1_FORM);
+                actionList.put(title3, PREGNANCY_HISTORY);
+                actionList.put(title2, GENERAL_DISEASE);
+                actionList.put(title1, ANC1_FORM);
+
+
+
 
             } catch (BaseAncHomeVisitAction.ValidationException e) {
                 e.printStackTrace();

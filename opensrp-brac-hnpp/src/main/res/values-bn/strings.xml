@@ -113,8 +113,4 @@
     <string name="activity">ইতিহাস</string>
     <string name="profile_activity_not_visited">Marked not visited on %s</string>
     <string name="profile_activity_completed">Completed on %s</string>
-    <string name="event_family_register">খানা নিবন্ধন</string>
-    <string name="event_family_member_register">সদস্য নিবন্ধন</string>
-    <string name="event_family_member_update_register">সদস্য আপডেট</string>
-    <string name="event_child_register">শিশু নিবন্ধন</string>
 </resources>

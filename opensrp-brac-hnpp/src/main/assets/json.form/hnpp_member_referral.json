@@ -1,0 +1,222 @@
+{
+  "count": "1",
+  "encounter_type": "Member referral",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "রেফারেল",
+    "fields": [
+
+      {
+        "key": "cause_of_referral",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cause_of_referral",
+        "openmrs_data_type": "",
+        "type": "spinner",
+        "hint": "রেফারেল এর কারণ",
+        "values": [
+          "গর্ভাবস্থার সমস্যা",
+          "প্রসবে সমস্যা",
+          "শিশু বিষয়ক সমস্যা",
+          "চোখে সমস্যা",
+          "ডায়বেটিস",
+          "উচ্চ রক্তচাপ",
+          "অন্যান্য"
+        ],
+        "openmrs_choice_ids": {
+          "গর্ভাবস্থার সমস্যা": "",
+          "প্রসবে সমস্যা": "",
+          "শিশু বিষয়ক সমস্যা": "",
+          "চোখে সমস্যা": "",
+          "ডায়বেটিস": "",
+          "উচ্চ রক্তচাপ": "",
+          "অন্যান্য": ""
+        },
+        "v_required": {
+          "value": true,
+          "err": "প্রশ্নের উত্তর দিন"
+        }
+
+      },
+      {
+        "key": "other_cause",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_cause",
+        "type": "edit_text",
+        "hint": "অন্যান্য সমস্যা",
+        "v_required": {
+          "value": true,
+          "err": "প্রশ্নের উত্তর দিন"
+        },
+        "relevance": {
+        "step1:cause_of_referral": {
+          "type": "string",
+          "ex": "equalTo(., \"অন্যান্য\")"
+        }
+      }
+      },
+      {
+        "key": "place_of_referral",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "place_of_referral",
+        "type": "check_box",
+        "label": "রেফারের স্থান",
+        "exclusive": [
+          "None"
+        ],
+        "options": [
+          {
+            "key": "brac_maternity_center",
+            "text": "ব্র্যাক ম্যাটারনিটি সেন্টার",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "brac_maternity_center",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "union_health_center",
+            "text": "ইউনিয়ন উপ-স্বাস্থ্য কেন্দ্র",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "union_health_center",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "upozzila_health_complex",
+            "text": "উপজেলা স্বাস্থ্য কমপ্লেক্স",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "upozzila_health_complex",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "union_family_kollan_center",
+            "text": "ইউনিয়ন পরিবার কল্যাণ কেন্দ্র",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "union_family_kollan_center",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "union_health_and_family_kollan_center",
+            "text": "ইউনিয়ন স্বাস্থ্য ও পরিবার কল্যাণ কেন্দ্র",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "union_health_and_family_kollan_center",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "mother_child_kollan_center",
+            "text": "মা ও শিশু কল্যাণ কেন্দ্র",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "mother_child_kollan_center",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "center_hospital",
+            "text": "সদর হাসপাতাল",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "center_hospital",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "medical_collage_hospital",
+            "text": "মেডিকেল কলেজ হাসপাতাল",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "medical_collage_hospital",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "private_clinic",
+            "text": "বেসরকারি ক্লিনিক",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "private_clinic",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "spacial_hospital",
+            "text": "বিশেষায়িত হাসপাতাল",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "spacial_hospital",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "other_option",
+            "text": "অন্যান্য",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "other_option",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "প্রশ্নের উত্তর দিন"
+        }
+      },
+      {
+        "key": "advice",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "advice",
+        "type": "edit_text",
+        "hint": "উপদেশ",
+        "v_required": {
+          "value": true,
+          "err": "প্রশ্নের উত্তর দিন"
+        }
+      }
+    ]
+  }
+}

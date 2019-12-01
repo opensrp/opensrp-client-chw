@@ -71,7 +71,7 @@ public class HnppJsonFormUtils extends CoreJsonFormUtils {
     public static final String SIMPRINTS_ENABLE = "simprints_enable";
     public static final String VILLAGE_NAME = "village_name";
     public static final String ENCOUNTER_TYPE = "encounter_type";
-    public static final int REQUEST_CODE_JSON_ANC1 = 5444;
+
     private static VisitRepository visitRepository() {
         return AncLibrary.getInstance().visitRepository();
     }

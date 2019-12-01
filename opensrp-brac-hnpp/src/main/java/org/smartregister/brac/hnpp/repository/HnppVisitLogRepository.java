@@ -1,12 +1,15 @@
 package org.smartregister.brac.hnpp.repository;
 
 import android.content.ContentValues;
+import android.text.TextUtils;
+
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.brac.hnpp.utils.VisitLog;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HnppVisitLogRepository extends BaseRepository {
 
@@ -35,9 +38,9 @@ public class HnppVisitLogRepository extends BaseRepository {
         try {
             SQLiteDatabase database = getWritableDatabase();
 
-//            if (washCheck.getFamilyBaseEntityId() != null && findUnique(database, washCheck) == null) {
+            if (visitLog.getBaseEntityId() != null && findUnique(database, visitLog) == null) {
             database.insert(VISIT_LOG_TABLE_NAME, null, createValuesFor(visitLog));
-//            }
+            }
 
 
         } catch (Exception e) {
@@ -47,7 +50,17 @@ public class HnppVisitLogRepository extends BaseRepository {
     }
 
     public VisitLog findUnique(SQLiteDatabase db, VisitLog visitLog) {
-
+        if (visitLog == null || TextUtils.isEmpty(visitLog.getBaseEntityId())) {
+            return null;
+        }
+        SQLiteDatabase database = (db == null) ? getReadableDatabase() : db;
+        String selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " and " + VISIT_DATE + " = ? " + COLLATE_NOCASE+" and "+VISIT_TYPE+" = ?"+COLLATE_NOCASE;
+        String[] selectionArgs = new String[]{visitLog.getBaseEntityId(), visitLog.getVisitDate() + "",visitLog.getVisitType()};
+        net.sqlcipher.Cursor cursor = database.query(VISIT_LOG_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, null, null);
+        List<VisitLog> homeVisitList = getAllVisitLog(cursor);
+        if (homeVisitList.size() > 0) {
+            return homeVisitList.get(0);
+        }
         return null;
     }
 
@@ -64,14 +77,35 @@ public class HnppVisitLogRepository extends BaseRepository {
 
     private ArrayList<VisitLog> getAllVisitLog(Cursor cursor) {
         ArrayList<VisitLog> visitLogs = new ArrayList<>();
-
+        try {
+            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    VisitLog visitLog = new VisitLog();
+                    visitLog.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
+                    visitLog.setVisitDate(Long.parseLong(cursor.getString(cursor.getColumnIndex(VISIT_DATE))));
+                    visitLog.setVisitJson(cursor.getString(cursor.getColumnIndex(VISIT_JSON)));
+                    visitLog.setVisitType(cursor.getString(cursor.getColumnIndex(VISIT_TYPE)));
+                    visitLogs.add(visitLog);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
         return visitLogs;
 
     }
 
-    public ArrayList<VisitLog> getAllVisitLogTask(String familyId) {
+    public ArrayList<VisitLog> getAllVisitLog(String baseEntityId) {
         SQLiteDatabase database = getReadableDatabase();
-       return getAllVisitLog(null);
+        String selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE;
+        String[] selectionArgs = new String[]{baseEntityId};
+        net.sqlcipher.Cursor cursor = database.query(VISIT_LOG_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, VISIT_DATE + " DESC");
+        return getAllVisitLog(cursor);
     }
 
     public VisitLog getLatestEntry(String familyId) {
