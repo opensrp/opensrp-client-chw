@@ -10,7 +10,7 @@ actions:
 name: step2_COC_POP
 description: COC_POP
 priority: 1
-condition: "step2_breast_lump.contains('No') && step2_abnormal_vaginal.contains('No') && step2_pregnant.contains('No') && step2_difficultly_breathing.contains('No') && step2_headaches.contains('No') && step2_frequent_urge.contains('No') && step2_falling_loss_unconsciousness.contains('No') && step2_breastfeed.contains('No')"
+condition: "step2_breast_lump== 'no' && step2_abnormal_vaginal== 'no' && step2_pregnant== 'no' && step2_difficultly_breathing== 'no' && step2_headaches== 'no' && step2_frequent_urge== 'no' && step2_falling_loss_unconsciousness== 'no' && step2_breastfeed== 'no'"
 actions:
   - "calculation = 1"
 
@@ -18,7 +18,7 @@ actions:
 name: step2_POP
 description: POP
 priority: 1
-condition: "!step2_COC_POP =='1' && step2_breast_lump.contains('No') && step2_abnormal_vaginal.contains('No') && step2_pregnant.contains('No') && step2_headaches.contains('No') && step2_breastfeed.contains('No')"
+condition: "!step2_COC_POP =='1' && step2_breast_lump== 'no' && step2_abnormal_vaginal== 'no' && step2_pregnant== 'no' && step2_headaches== 'no' && step2_breastfeed== 'no'"
 actions:
   - "calculation = 1"
 
@@ -36,7 +36,7 @@ description: calculate fp method accepted
 priority: 1
 condition: "true"
 actions:
-  - "calculation = step2_fp_method_chw != '' ? step2_fp_method_chw : fp_method_already"
+  - "calculation = step2_fp_method_chw != '' ? step2_fp_method_chw : step2_fp_method_already"
 
 ---
 name: step2_ecp
