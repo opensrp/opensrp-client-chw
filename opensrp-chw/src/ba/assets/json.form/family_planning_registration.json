@@ -512,7 +512,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "COC_POP",
-        "type": "hidden",
+        "type": "edit_text",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -526,7 +526,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "POP",
-        "type": "hidden",
+        "type": "edit_text",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -540,7 +540,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "no_pill",
-        "type": "hidden",
+        "type": "edit_text",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -687,7 +687,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fp_method_accepted",
-        "type": "hidden",
+        "type": "edit_text",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -886,7 +886,14 @@
         "type": "edit_text",
         "hint": "Next injection due:",
         "read_only": "true",
-        "value": "0"
+        "value": "0",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "fp_start_iucd",
