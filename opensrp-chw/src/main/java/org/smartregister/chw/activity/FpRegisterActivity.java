@@ -33,4 +33,9 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
         return new FpRegisterFragment();
     }
 
+    @Override
+    protected Activity getFpRegisterActivity() {
+        return this;
+    }
+
 }
