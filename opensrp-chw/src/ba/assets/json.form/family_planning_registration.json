@@ -73,42 +73,58 @@
       },
       {
         "key": "using_method",
-        "openmrs_entity_parent": "",
+        "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "using_method",
-        "type": "spinner",
-        "hint": "Is the woman already using a family planning method?",
-        "values": [
-          "Yes",
-          "No"
+        "openmrs_entity_parent": "",
+        "label": "Is the woman already using a family planning method?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": null
         }
       },
       {
         "key": "couselling_fp_methods",
-        "openmrs_entity_parent": "",
+        "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Was she counselled on different family planning methods?",
-        "values": [
-          "Yes",
-          "No"
+        "openmrs_entity_parent": "",
+        "label": "Was she counselled on different family planning methods?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": null
         },
         "relevance": {
           "rules-engine": {
@@ -120,22 +136,30 @@
       },
       {
         "key": "couselling_HIV_STI",
-        "openmrs_entity_parent": "",
+        "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "couselling_HIV_STI",
-        "type": "spinner",
-        "hint": "Was she counselled on HIV and STI prevention?",
-        "values": [
-          "Yes",
-          "No"
+        "openmrs_entity_parent": "",
+        "label": "Was she counselled on HIV and STI prevention?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": null
         },
         "relevance": {
           "rules-engine": {
@@ -153,31 +177,46 @@
     "fields": [
       {
         "key": "pill",
-        "openmrs_entity_parent": "",
+        "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "pill",
-        "type": "spinner",
-        "hint": "Does she want to use a contraceptive pill?",
-        "values": [
-          "Yes",
-          "No"
+        "openmrs_entity_parent": "",
+        "label": "Does she want to use a contraceptive pill?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
         }
       },
       {
         "key": "user_toaster_info",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Oral Contraception List",
+        "text": "Oral Contraception check List",
         "toaster_info_text": "Check-list\n for providing Combined Oral Contraception (COC) or Progestin Only Pills (POP)",
         "toaster_type": "info",
         "relevance": {
@@ -190,22 +229,30 @@
       },
       {
         "key": "breast_lump",
-        "openmrs_entity_parent": "",
+        "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "breast_lump",
-        "type": "spinner",
-        "hint": "Does she have any breast lumps?",
-        "values": [
-          "Yes",
-          "No"
+        "openmrs_entity_parent": "",
+        "label": "Does she have any breast lumps?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": null
         },
         "relevance": {
           "rules-engine": {
@@ -217,22 +264,30 @@
       },
       {
         "key": "abnormal_vaginal",
-        "openmrs_entity_parent": "",
+        "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "abnormal_vaginal",
-        "type": "spinner",
-        "hint": "Does she have any abnomal vaginal bleeding or discharge?",
-        "values": [
-          "Yes",
-          "No"
+        "openmrs_entity_parent": "",
+        "label": "Does she have any abnomal vaginal bleeding or discharge?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": null
         },
         "relevance": {
           "rules-engine": {
@@ -244,22 +299,30 @@
       },
       {
         "key": "pregnant",
-        "openmrs_entity_parent": "",
+        "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "pregnant",
-        "type": "spinner",
-        "hint": "Is she pregnant?",
-        "values": [
-          "Yes",
-          "No"
+        "openmrs_entity_parent": "",
+        "label": "Is she pregnant?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": null
         },
         "relevance": {
           "rules-engine": {
@@ -271,22 +334,30 @@
       },
       {
         "key": "difficultly_breathing",
-        "openmrs_entity_parent": "",
+        "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "difficultly_breathing",
-        "type": "spinner",
-        "hint": "Does she have any severe chest pain and difficultly breathing?",
-        "values": [
-          "Yes",
-          "No"
+        "openmrs_entity_parent": "",
+        "label": "Does she have any severe chest pain and difficultly breathing?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": null
         },
         "relevance": {
           "rules-engine": {
@@ -298,22 +369,30 @@
       },
       {
         "key": "headaches",
-        "openmrs_entity_parent": "",
+        "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "headaches",
-        "type": "spinner",
-        "hint": "Does she have any unusual headaches associated with nausea, vomiting or blurred vision?",
-        "values": [
-          "Yes",
-          "No"
+        "openmrs_entity_parent": "",
+        "label": "Does she have any unusual headaches associated with nausea, vomiting or blurred vision?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": null
         },
         "relevance": {
           "rules-engine": {
@@ -325,22 +404,30 @@
       },
       {
         "key": "frequent_urge",
-        "openmrs_entity_parent": "",
+        "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "frequent_urge",
-        "type": "spinner",
-        "hint": "Does she have any unusual headaches associated with nausea, vomiting or blurred vision?",
-        "values": [
-          "Yes",
-          "No"
+        "openmrs_entity_parent": "",
+        "label": "Does she frequently feel thirsty, need to urinate or feel tired?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": null
         },
         "relevance": {
           "rules-engine": {
@@ -352,22 +439,30 @@
       },
       {
         "key": "falling_loss_unconsciousness",
-        "openmrs_entity_parent": "",
+        "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "falling_loss_unconsciousness",
-        "type": "spinner",
-        "hint": "Does she have the tendency of falling down/collapsing and loss of consciousness?",
-        "values": [
-          "Yes",
-          "No"
+        "openmrs_entity_parent": "",
+        "label": "Does she have the tendency of falling down/collapsing and loss of consciousness?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": null
         },
         "relevance": {
           "rules-engine": {
@@ -379,22 +474,30 @@
       },
       {
         "key": "breastfeed",
-        "openmrs_entity_parent": "",
+        "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "breastfeed",
-        "type": "spinner",
-        "hint": "Is she breastfeeding a baby 6 months or younger and having any issues producing milk?",
-        "values": [
-          "Yes",
-          "No"
+        "openmrs_entity_parent": "",
+        "label": "Is she breastfeeding a baby 6 months or younger and having any issues producing milk?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": null
         },
         "relevance": {
           "rules-engine": {
@@ -449,7 +552,7 @@
       {
         "key": "COC_POP_note",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "The woman is eligible for either Combined Oral Contraceptive (COC) or Progestin Only Pills (POP)",
@@ -466,7 +569,7 @@
       {
         "key": "POP_note",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "The woman is eligible for Progestin Only Pills (POP) only",
@@ -483,7 +586,7 @@
       {
         "key": "no_pill_note",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "The woman is not eligible for Combined Oral Contraception (COC) or Progestin Only Pills (POP). Please advise the client to use condoms and give her a referral to go to the health facility for further counselling on family planning.",
@@ -601,7 +704,7 @@
       {
         "key": "ec_note",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Encourage the woman to select a spacing or permanent family planning method",
@@ -893,7 +996,7 @@
       {
         "key": "fp_male_ster_note",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Advise the woman to use condoms for the first 3 months to prevent pregnancy",
@@ -909,18 +1012,30 @@
       },
       {
         "key": "referral_given",
-        "openmrs_entity_parent": "",
+        "type": "native_radio",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Was she referred to the health facility?",
-        "values": [
-          "Yes",
-          "No"
+        "openmrs_entity_id": "referral_given",
+        "openmrs_entity_parent": "",
+        "label": "Was she referred to the health facility?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        "v_required": {
+          "value": "true",
+          "err": null
         },
         "v_required": {
           "value": "true",
