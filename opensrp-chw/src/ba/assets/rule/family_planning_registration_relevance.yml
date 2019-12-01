@@ -130,7 +130,7 @@ actions:
 name: step2_fp_method_already
 description: fp method chw
 priority: 1
-condition: "step1_using_method == 'Yes'"
+condition: "step1_using_method == 'yes'"
 actions:
   - "isRelevant = true"
 
@@ -146,7 +146,7 @@ actions:
 name: step3_no_condoms
 description: no. condoms
 priority: 1
-condition: "step2_fp_method_accepted == 'Male Condom' || step2_fp_method_accepted == 'Female Condom'"
+condition: "step2_fp_method_accepted == 'Male condom' || step2_fp_method_accepted == 'Female condom'"
 actions:
   - "isRelevant = true"
 
