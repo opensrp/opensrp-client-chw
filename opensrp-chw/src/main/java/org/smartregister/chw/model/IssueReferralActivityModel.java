@@ -1,6 +1,7 @@
 package org.smartregister.chw.model;
 
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.referral.model.BaseIssueReferralModel;

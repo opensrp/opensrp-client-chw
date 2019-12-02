@@ -3,8 +3,10 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
-import android.support.v4.app.Fragment;
+
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
