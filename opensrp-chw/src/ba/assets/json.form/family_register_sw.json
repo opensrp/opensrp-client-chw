@@ -297,6 +297,10 @@
         "openmrs_entity_id": "age_entered",
         "type": "edit_text",
         "hint": "Umri",
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Nambari lazima ianze na 0 na lazima iwe jumla ya nambari 10 kwa urefu"

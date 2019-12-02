@@ -1,7 +1,7 @@
 package org.smartregister.chw.job;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.smartregister.chw.service.SchedulesIntentService;
 import org.smartregister.family.util.Constants;
