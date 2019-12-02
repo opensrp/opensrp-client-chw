@@ -275,6 +275,7 @@
   },
   "step2": {
     "title": "খানা নিবন্ধন",
+    "previous": "step1",
     "fields": [
 
       {

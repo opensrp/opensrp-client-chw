@@ -13,6 +13,7 @@ import org.smartregister.brac.hnpp.activity.HnppAllMemberRegisterActivity;
 import org.smartregister.brac.hnpp.activity.HnppAncRegisterActivity;
 import org.smartregister.brac.hnpp.custom_view.HnppNavigationTopView;
 import org.smartregister.brac.hnpp.listener.HnppNavigationListener;
+import org.smartregister.brac.hnpp.presenter.HnppNavigationPresenter;
 import org.smartregister.brac.hnpp.repository.HnppChwRepository;
 import org.smartregister.brac.hnpp.repository.HnppVisitLogRepository;
 import org.smartregister.brac.hnpp.repository.SSLocationRepository;
@@ -24,7 +25,6 @@ import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.core.sync.ChwClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.brac.hnpp.activity.ChildRegisterActivity;
@@ -71,8 +71,8 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
                 HnppApplication.getInstance().getApplicationContext().getAssets());
 
         //Setup Navigation menu. Done only once when app is created
-        NavigationMenu.setupNavigationMenu(new HnppNavigationListener(),null,this, new HnppNavigationTopView(), new HnppNavigationMenu(), new HnppNavigationModel(),
-                getRegisteredActivities(), false);
+//        NavigationMenu.setupNavigationMenu(new HnppNavigationListener(),null,this, new HnppNavigationTopView(), new HnppNavigationMenu(), new HnppNavigationModel(),
+//                getRegisteredActivities(), false);
 
 //        if (BuildConfig.DEBUG) {
 //            Timber.plant(new Timber.DebugTree());
@@ -118,6 +118,11 @@ public class HnppApplication extends CoreChwApplication implements CoreApplicati
 //        if (language.equals("bn")) {
 //            saveLanguage("bn");
 //        }
+    }
+
+    public void setupNavigation(HnppNavigationPresenter mPresenter){
+        NavigationMenu.setupNavigationMenu(new HnppNavigationListener(),mPresenter,this, new HnppNavigationTopView(), new HnppNavigationMenu(), new HnppNavigationModel(),
+                getRegisteredActivities(), false);
     }
     public static CommonFtsObject createCommonFtsObject() {
         return HNPPApplicationUtils.getCommonFtsObject(commonFtsObject);

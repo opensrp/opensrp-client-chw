@@ -15,7 +15,9 @@ import org.json.JSONObject;
 import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.listener.HnppBottomNavigationListener;
 import org.smartregister.brac.hnpp.model.HnppFamilyRegisterModel;
+import org.smartregister.brac.hnpp.model.HnppNavigationModel;
 import org.smartregister.brac.hnpp.presenter.FamilyRegisterPresenter;
+import org.smartregister.brac.hnpp.presenter.HnppNavigationPresenter;
 import org.smartregister.brac.hnpp.utils.HnppConstants;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -76,11 +78,17 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new HnppFamilyBottomNavListener(this, bottomNavigationView));
     }
-
+    NavigationMenu navigationMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        NavigationMenu.getInstance(this, null, null);
+        navigationMenu = NavigationMenu.getInstance(this, null, null);
+        HnppApplication.getHNPPInstance().setupNavigation(
+                new HnppNavigationPresenter(
+                        HnppApplication.getInstance(),
+                        navigationMenu,
+                        new HnppNavigationModel()));
+
         HnppApplication.getInstance().notifyAppContextChange(); // initialize the language (bug in translation)
 
         action = getIntent().getStringExtra(CoreConstants.ACTIVITY_PAYLOAD.ACTION);
@@ -126,7 +134,6 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
             } catch (Exception e) {
                 Timber.e(e);
             }
-
         }
 
     }

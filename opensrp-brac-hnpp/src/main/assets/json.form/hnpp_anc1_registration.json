@@ -50,12 +50,12 @@
     "title": "গর্ভবতী পরিচর্যা",
     "fields": [
       {
-        "key": "expected_delivery_date",
+        "key": "edd",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "expected_delivery_date",
-        "type": "edit_text",
-        "hint": "EDD",
+        "openmrs_entity_id": "edd",
+        "type": "date_picker",
+        "hint": "সম্ভাব্য প্রসবের তারিখ",
         "editable": false,
         "v_numeric": {
           "value": "true",

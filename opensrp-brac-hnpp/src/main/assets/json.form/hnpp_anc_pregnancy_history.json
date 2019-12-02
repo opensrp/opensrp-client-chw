@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "পূর্বের গর্ভের ইতিহাসঃ",
+    "title": "পূর্বের গর্ভের ইতিহাস",
     "fields": [
       {
         "key": "form_name",
@@ -112,6 +112,7 @@
           }
         ]
       },
+
       {
         "key": "c_section",
         "openmrs_entity_parent": "",
@@ -144,44 +145,54 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "obsessive_compulsive_disorder",
-        "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "খিচুনি",
-        "values": [
-          "হ্যাঁ",
-          "না"
+        "type": "check_box",
+        "label": "খিচুনি",
+        "exclusive": [
+          "No"
         ],
-        "openmrs_choice_ids": {
-          "হ্যাঁ": "Yes",
-          "না": "No"
-        },
-        "v_required": {
-          "value": true,
-          "err": "প্রশ্নের উত্তর দিন"
-        }
-
+        "options": [
+          {
+            "key": "Yes",
+            "text": "হ্যাঁ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "না",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
+        ]
       },
       {
         "key": "postnatal_bleeding",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "postnatal_bleeding",
-        "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "প্রসব পরবর্তি রক্ত ক্ষরণ",
-        "values": [
-          "হ্যাঁ",
-          "না"
+        "type": "check_box",
+        "label": "প্রসব পরবর্তি রক্ত ক্ষরণ",
+        "exclusive": [
+          "No"
         ],
-        "openmrs_choice_ids": {
-          "হ্যাঁ": "Yes",
-          "না": "No"
-        },
-        "v_required": {
-          "value": true,
-          "err": "প্রশ্নের উত্তর দিন"
-        }
-
+        "options": [
+          {
+            "key": "Yes",
+            "text": "হ্যাঁ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "না",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "No"
+          }
+        ]
       }
     ]
   }
