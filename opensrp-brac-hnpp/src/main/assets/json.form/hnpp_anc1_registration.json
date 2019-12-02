@@ -50,20 +50,44 @@
     "title": "গর্ভবতী পরিচর্যা - ১ম ত্রিমাসিক",
     "fields": [
       {
-        "key": "expected_delivery_date",
+        "key": "form_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ANC1 Registration",
+        "openmrs_data_type": "text",
+        "type": "hidden",
+        "value": "XXXX"
+      },
+      {
+        "key": "last_menstrual_period",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "Last Menstrual Period (LMP)",
+        "label_info_title": "LMP",
+        "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month.",
+        "expanded": false,
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "LMP required"
+        }
+      },
+      {
+        "key": "edd",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "expected_delivery_date",
         "type": "edit_text",
-        "hint": "EDD",
-        "editable": false,
-        "v_numeric": {
-          "value": "true",
-          "err": "Enter a valid Number"
-        },
-        "v_required": {
-          "value": true,
-          "err": "প্রশ্নের উত্তর দিন"
+        "hint": "Expected Date of Delivery (EDD)",
+        "read_only": true,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hnpp_anc_member_registration_calculation.yml"
+            }
+          }
         }
       },
       {

@@ -23,9 +23,9 @@ public class HnppAncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
 
                 Context context = view.getContext();
 
-                String title1 = HnppConstants.visitTypeMapping.get(HnppConstants.HOME_VISIT_FORMS.ANC1_FORM);
-                String title2 = HnppConstants.visitTypeMapping.get(HnppConstants.HOME_VISIT_FORMS.GENERAL_DISEASE);
-                String title3 = HnppConstants.visitTypeMapping.get(HnppConstants.HOME_VISIT_FORMS.PREGNANCY_HISTORY);
+                String title1 = HnppConstants.visitEventTypeMapping.get(HnppConstants.HOME_VISIT_FORMS.ANC1_FORM);
+                String title2 = HnppConstants.visitEventTypeMapping.get(HnppConstants.HOME_VISIT_FORMS.GENERAL_DISEASE);
+                String title3 = HnppConstants.visitEventTypeMapping.get(HnppConstants.HOME_VISIT_FORMS.PREGNANCY_HISTORY);
 
                 BaseAncHomeVisitAction ANC1_FORM = new BaseAncHomeVisitAction.Builder(context,title1 )
                         .withOptional(false)

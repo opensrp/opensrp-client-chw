@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import org.smartregister.brac.hnpp.interactor.HnppAncHomeVisitInteractor;
 import org.smartregister.brac.hnpp.utils.HnppJsonFormUtils;
+import org.smartregister.brac.hnpp.utils.HnppUtils;
 import org.smartregister.chw.anc.activity.BaseAncHomeVisitActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
@@ -24,13 +25,17 @@ public class HnppHomeVisitActivity extends BaseAncHomeVisitActivity {
     }
     @Override
     public void submitVisit() {
-
+        super.submitVisit();
         if(actionList!=null){
             for (Map.Entry<String, BaseAncHomeVisitAction> entry : actionList.entrySet()) {
                 String key = entry.getKey();
                 BaseAncHomeVisitAction value = entry.getValue();
+                String form_name = value.getFormName();
+                String jsonPayload = value.getJsonPayload();
+//                jsonPayload = HnppUtils.createObsWithFormName(jsonPayload);
+//                value.setJsonPayload(jsonPayload);
                 // now work with key and value...
-                HnppJsonFormUtils.saveVisitLogEvent(value.getJsonPayload(),memberObject.getBaseEntityId());
+//                HnppJsonFormUtils.saveVisitLogEvent(value.getJsonPayload(),memberObject.getBaseEntityId());
             }
         }
 

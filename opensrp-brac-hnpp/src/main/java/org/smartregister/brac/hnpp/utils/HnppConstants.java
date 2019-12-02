@@ -45,6 +45,11 @@ public class HnppConstants extends CoreConstants {
     public class EVENT_TYPE{
 
         public static final String MEMBER_REFERRAL = "Member Referral";
+        public static final String ANC_PREGNANCY_HISTORY = "ANC Pregnancy History";
+        public static final String ANC_GENERAL_DISEASE = "ANC General Disease";
+        public static final String ANC1_REGISTRATION = "ANC1 Registration";
+        public static final String ANC2_REGISTRATION = "ANC2 Registration";
+        public static final String ANC3_REGISTRATION = "ANC3 Registration";
     }
     public class OTHER_SERVICE_TYPE{
         public static final int TYPE_WOMEN_PACKAGE = 1;
@@ -196,12 +201,17 @@ public class HnppConstants extends CoreConstants {
             .put("গর্ভবতী পরিচর্যা - ৩য় ত্রিমাসিক",R.mipmap.ic_anc_pink)
             .put("শারীরিক সমস্যা",R.mipmap.ic_anc_pink)
             .put( "পূর্বের গর্ভের ইতিহাস",R.mipmap.ic_anc_pink)
+            .put("ANC1 Registration",R.mipmap.ic_anc_pink)
+            .put("ANC2 Registration",R.mipmap.ic_anc_pink)
+            .put("ANC3 Registration",R.mipmap.ic_anc_pink)
+            .put("ANC General Disease",R.mipmap.ic_anc_pink)
+            .put( "ANC Pregnancy History",R.mipmap.ic_anc_pink)
             .put(HnppConstants.EventType.FAMILY_REGISTRATION,R.drawable.ic_home)
             .put(HnppConstants.EventType.FAMILY_MEMBER_REGISTRATION,R.drawable.rowavatar_member)
             .put(HnppConstants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION,R.drawable.rowavatar_member)
             .put(HnppConstants.EventType.CHILD_REGISTRATION,R.drawable.rowavatar_child)
             .build();
-    public static final Map<String,String> visitTypeMapping = ImmutableMap.<String,String> builder()
+    public static final Map<String,String> visitEventTypeMapping = ImmutableMap.<String,String> builder()
             .put("ANC1 Registration","গর্ভবতী পরিচর্যা - ১ম ত্রিমাসিক")
             .put("ANC2 Registration","গর্ভবতী পরিচর্যা - ২য় ত্রিমাসিক")
             .put("ANC3 Registration","গর্ভবতী পরিচর্যা - ৩য় ত্রিমাসিক")

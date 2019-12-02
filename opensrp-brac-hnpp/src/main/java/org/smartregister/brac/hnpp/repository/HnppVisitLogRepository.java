@@ -48,14 +48,33 @@ public class HnppVisitLogRepository extends BaseRepository {
         }
 
     }
+    public ArrayList<String> getVisitIds(){
+        ArrayList<String>visit_ids = new ArrayList<String>();
+        try{
 
+            SQLiteDatabase database = getWritableDatabase();
+            Cursor cursor = database.rawQuery("select visits.visit_id from visits where visits.visit_id NOT IN (select ec_visit_log.visit_id from ec_visit_log) order by visit_date DESC",null);
+            if(cursor!=null && cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    String visit_id = cursor.getString(0);
+                    visit_ids.add(visit_id);
+                    cursor.moveToNext();
+                }
+                cursor.close();
+            }
+        }catch(Exception e){
+
+        }
+        return visit_ids;
+    }
     public VisitLog findUnique(SQLiteDatabase db, VisitLog visitLog) {
         if (visitLog == null || TextUtils.isEmpty(visitLog.getBaseEntityId())) {
             return null;
         }
         SQLiteDatabase database = (db == null) ? getReadableDatabase() : db;
-        String selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " and " + VISIT_DATE + " = ? " + COLLATE_NOCASE+" and "+VISIT_TYPE+" = ?"+COLLATE_NOCASE;
-        String[] selectionArgs = new String[]{visitLog.getBaseEntityId(), visitLog.getVisitDate() + "",visitLog.getVisitType()};
+        String selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " and " + VISIT_DATE + " = ? " + COLLATE_NOCASE+" and "+EVENT_TYPE+" = ?"+COLLATE_NOCASE;
+        String[] selectionArgs = new String[]{visitLog.getBaseEntityId(), visitLog.getVisitDate() + "",visitLog.getEventType()};
         net.sqlcipher.Cursor cursor = database.query(VISIT_LOG_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, null, null);
         List<VisitLog> homeVisitList = getAllVisitLog(cursor);
         if (homeVisitList.size() > 0) {
@@ -82,6 +101,7 @@ public class HnppVisitLogRepository extends BaseRepository {
                 while (!cursor.isAfterLast()) {
                     VisitLog visitLog = new VisitLog();
                     visitLog.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
+                    visitLog.setEventType(cursor.getString(cursor.getColumnIndex(EVENT_TYPE)));
                     visitLog.setVisitDate(Long.parseLong(cursor.getString(cursor.getColumnIndex(VISIT_DATE))));
                     visitLog.setVisitJson(cursor.getString(cursor.getColumnIndex(VISIT_JSON)));
                     visitLog.setVisitType(cursor.getString(cursor.getColumnIndex(VISIT_TYPE)));

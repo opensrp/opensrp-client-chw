@@ -34,7 +34,9 @@ public class MemberHistoryAdapter extends RecyclerView.Adapter<MemberDueViewHold
     @NonNull
     @Override
     public MemberDueViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new MemberDueViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_member_due, null));
+        MemberDueViewHolder viewHolder = new MemberDueViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_member_due, null));
+        viewHolder.statusImage.setVisibility(View.INVISIBLE);
+        return viewHolder;
 
     }
 

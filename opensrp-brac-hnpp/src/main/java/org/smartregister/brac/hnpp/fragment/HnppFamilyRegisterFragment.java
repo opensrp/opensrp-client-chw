@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.evernote.android.job.JobManager;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.brac.hnpp.HnppApplication;
 import org.smartregister.brac.hnpp.R;
 import org.smartregister.brac.hnpp.job.PullHouseholdIdsServiceJob;
 import org.smartregister.brac.hnpp.location.SSLocationHelper;
@@ -97,7 +98,12 @@ public class HnppFamilyRegisterFragment extends CoreFamilyRegisterFragment imple
 
     @Override
     public void setupViews(View view) {
-        super.setupViews(view);
+       try{
+           super.setupViews(view);
+       }catch (Exception e){
+           HnppApplication.getHNPPInstance().forceLogout();
+           return;
+       }
         HnppConstants.updateAppBackground((view.findViewById(R.id.register_nav_bar_container)));
         HnppConstants.updateAppBackground(view.findViewById(org.smartregister.R.id.register_toolbar));
 

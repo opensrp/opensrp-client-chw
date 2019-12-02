@@ -40,9 +40,9 @@ public class MemberHistoryInteractor implements MemberHistoryContract.Interactor
         ArrayList<VisitLog> visitLogs = visitLogRepository.getAllVisitLog(baseEntityId);
         for(VisitLog visitLog : visitLogs){
             MemberHistoryData historyData = new MemberHistoryData();
-            String visitType = visitLog.getVisitType();
-            historyData.setTitle(HnppConstants.visitTypeMapping.get(visitType));
-            historyData.setImageSource((int)HnppConstants.iconMapping.get(visitType));
+            String eventType = visitLog.getEventType();
+            historyData.setTitle(HnppConstants.visitEventTypeMapping.get(eventType));
+            historyData.setImageSource(HnppConstants.iconMapping.get(eventType));
             historyData.setVisitDate(visitLog.getVisitDate());
             historyDataArrayList.add(historyData);
         }

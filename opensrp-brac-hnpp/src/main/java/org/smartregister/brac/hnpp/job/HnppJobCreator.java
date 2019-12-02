@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 
-import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.brac.hnpp.sync.intent.HfSyncTaskIntentService;
 import org.smartregister.job.ExtendedSyncServiceJob;
@@ -53,6 +52,8 @@ public class HnppJobCreator implements JobCreator {
                 return new SyncTaskServiceJob(HfSyncTaskIntentService.class);
             case PlanIntentServiceJob.TAG:
                 return new PlanIntentServiceJob();
+            case VisitLogServiceJob.TAG:
+                return new VisitLogServiceJob();
             default:
                 Timber.d("Please create job and specify the right job tag");
                 return null;
