@@ -75,6 +75,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     protected Boolean vaccineCardReceived = false;
     protected Boolean hasBirthCert = false;
     protected Boolean editMode = false;
+    protected Boolean vaccinesDefaultChecked = true;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
     @Override
@@ -262,7 +263,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
             String title = MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.immunizations_count), VisitVaccineUtil.getVaccineTitle(entry.getKey().name, context));
             BaseHomeVisitImmunizationFragment fragment =
-                    BaseHomeVisitImmunizationFragment.getInstance(view, memberObject.getBaseEntityId(), details, displays);
+                    BaseHomeVisitImmunizationFragment.getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked);
 
             validator.addFragment(title, fragment, entry.getKey(), new DateTime(dob));
 
@@ -856,6 +857,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
     protected int getAgeInMonths() {
         return Months.monthsBetween(new LocalDate(dob), new LocalDate()).getMonths();
+    }
+
+    protected void setVaccinesDefaultChecked(boolean isChecked) {
+        this.vaccinesDefaultChecked = isChecked;
     }
 
     private void setMinDate(JSONObject jsonObject, String dateFieldKey, String minDateString) throws Exception {
