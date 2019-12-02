@@ -172,6 +172,12 @@
     <string name="nutrition_status">Hali</string>
     <string name="counselling">Ushauri</string>
 
+    <string name="normal">Kawaida</string>
+    <string name="moderate">Wastani</string>
+    <string name="severe">Mkali</string>
+    <string name="okay">Sawa</string>
+    <string name="bad">Mbaya</string>
+
     <string name="uses_net">Hutumia Chandarua</string>
     <string name="slept_under_net">Amelala kwenye chandarua</string>
     <string name="net_condition">Hali ya chandarua kinachotumika</string>
@@ -316,6 +322,12 @@
 
     <!-- Medical history -->
     <string name="dose_number">Dozi %s</string>
+
+    <!--PNC Family Planning Ba-->
+    <string name="during_anc">Wakati wa kliniki ya wajawazito</string>
+    <string name="during_pnc">Wakati wa kliniki ya mama na mtoto baada ya kujifungua</string>
+    <string name="during_labour_and_delivery">Wakati wa uchungu na kujifungua</string>
+
     <string name="cancel_download_confirmation">Una uhakika unataka kughairi kupakua huku?</string>
     <string name="cancel_download">Ghairi Upakuaji</string>
 
