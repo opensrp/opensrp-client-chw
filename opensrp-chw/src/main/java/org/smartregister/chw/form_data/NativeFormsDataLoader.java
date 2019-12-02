@@ -5,7 +5,10 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
+import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.CoreLibrary;
@@ -21,14 +24,18 @@ import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Field;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.family.util.Utils;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.util.AssetHandler;
+import org.smartregister.view.LocationPickerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import timber.log.Timber;
 
 public class NativeFormsDataLoader implements DataLoader {
 
@@ -39,6 +46,7 @@ public class NativeFormsDataLoader implements DataLoader {
     private List<String> tables;
     private Map<String, Table> tableMap;
     private SimpleDateFormat nativeFormat = new SimpleDateFormat("");
+    protected JSONArray jsonArray;
 
     public ClientField getClientField(Context context) {
         if (clientField == null) {
@@ -102,12 +110,59 @@ public class NativeFormsDataLoader implements DataLoader {
         return client;
     }
 
+    private List<JSONObject> getFormSteps(JSONObject jsonObject) throws JSONException {
+        List<JSONObject> steps = new ArrayList<>();
+        int x = 1;
+        while (true) {
+            String step_name = "step" + x;
+            if (jsonObject.has(step_name)) {
+                steps.add(jsonObject.getJSONObject(step_name));
+            } else {
+                break;
+            }
+            x++;
+        }
+        return steps;
+    }
+
+    @Override
+    public void loadForm(Context context, JSONObject formJsonObject, String baseEntityID, Map<String, Map<String, Object>> dbData) throws JSONException {
+        List<JSONObject> steps = getFormSteps(formJsonObject);
+        for (JSONObject step : steps) {
+            JSONArray jsonArray = step.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
+            this.jsonArray = jsonArray;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                try {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    // get value of key
+                    String value = getValue(context, baseEntityID, jsonObject, dbData);
+                    if (StringUtils.isNotBlank(value))
+                        jsonObject.put(JsonFormConstants.VALUE, value);
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void bindNativeFormsMetaData(@NotNull JSONObject jsonObjectForm, Context context, String baseEntityID) throws JSONException {
+        // baseEntityID
+        jsonObjectForm.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, baseEntityID);
+
+        // metaData
+        LocationPickerView lpv = new LocationPickerView(context);
+        lpv.init();
+        JSONObject metadata = jsonObjectForm.getJSONObject(org.smartregister.family.util.JsonFormUtils.METADATA);
+        String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
+        metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
+    }
+
     @Override
     public String getValue(Context context, String baseEntityID, JSONObject jsonObject, Map<String, Map<String, Object>> dbData) throws JSONException {
         String entity = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY);
         String entity_id = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
         preloadTables(context);
-
         if (entity.contains("person")) {
             return getValueFromPerson(baseEntityID, entity, entity_id);
         } else {
@@ -115,7 +170,7 @@ public class NativeFormsDataLoader implements DataLoader {
         }
     }
 
-    private void preloadTables(Context context) {
+    protected void preloadTables(Context context) {
         if (tableMap == null) {
             tableMap = new HashMap<>();
             ClientField clientField = getClientField(context);
@@ -128,7 +183,7 @@ public class NativeFormsDataLoader implements DataLoader {
         }
     }
 
-    private Client getClient(String baseEntityId) {
+    protected Client getClient(String baseEntityId) {
         if (client == null || !client.getBaseEntityId().equalsIgnoreCase(baseEntityId)) {
             EventClientRepository db = CoreLibrary.getInstance().context().getEventClientRepository();
             client = db.fetchClientByBaseEntityId(baseEntityId);
@@ -136,7 +191,7 @@ public class NativeFormsDataLoader implements DataLoader {
         return client;
     }
 
-    private String getValueFromPerson(String baseEntityID, String entity, String entityID) {
+    protected String getValueFromPerson(String baseEntityID, String entity, String entityID) {
         Client client = getClient(baseEntityID);
         if (entity.contains("identifier")) {
             return client.getIdentifier(entityID);
