@@ -1,7 +1,8 @@
 package org.smartregister.chw.form_data;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -106,13 +107,6 @@ public class NativeFormsDataBinder {
         }
 
         return steps;
-    }
-
-    private CommonPersonObjectClient getClient() {
-        if (client == null)
-            client = dataLoader.getClient(context, baseEntityID);
-
-        return client;
     }
 
     public void setClient(CommonPersonObjectClient client) {
