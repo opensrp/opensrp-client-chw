@@ -7,4 +7,9 @@ public class ChildRegisterFragmentPresenter extends CoreChildRegisterFragmentPre
     public ChildRegisterFragmentPresenter(CoreChildRegisterFragmentContract.View view, CoreChildRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
         super(view, model, viewConfigurationIdentifier);
     }
+
+    @Override
+    public String getDefaultSortQuery() {
+        return " MAX(ec_child.last_interacted_with , ifnull(VISIT_SUMMARY.visit_date,0)) DESC ";
+    }
 }

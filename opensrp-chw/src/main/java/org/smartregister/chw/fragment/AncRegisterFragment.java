@@ -5,8 +5,8 @@ import android.app.Activity;
 import org.smartregister.chw.activity.AncHomeVisitActivity;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.core.fragment.CoreAncRegisterFragment;
-import org.smartregister.chw.core.presenter.AncRegisterFragmentPresenter;
 import org.smartregister.chw.model.AncRegisterFragmentModel;
+import org.smartregister.chw.presenter.ChwAncRegisterFragmentPresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public class AncRegisterFragment extends CoreAncRegisterFragment {
@@ -15,7 +15,7 @@ public class AncRegisterFragment extends CoreAncRegisterFragment {
         if (getActivity() == null) {
             return;
         }
-        presenter = new AncRegisterFragmentPresenter(this, new AncRegisterFragmentModel(), null);
+        presenter = new ChwAncRegisterFragmentPresenter(this, new AncRegisterFragmentModel(), null);
     }
 
     @Override
