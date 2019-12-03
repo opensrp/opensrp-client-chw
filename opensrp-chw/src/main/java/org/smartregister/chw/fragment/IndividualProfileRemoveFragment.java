@@ -15,11 +15,18 @@ import org.smartregister.chw.core.fragment.CoreFamilyProfileChangeDialog;
 import org.smartregister.chw.core.fragment.CoreIndividualProfileRemoveFragment;
 import org.smartregister.chw.core.fragment.FamilyRemoveMemberConfirmDialog;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.model.FamilyRemoveMemberModel;
 import org.smartregister.chw.presenter.FamilyRemoveMemberPresenter;
 import org.smartregister.chw.provider.FamilyRemoveMemberProvider;
+import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.DBConstants;
 
 import java.util.Set;
+
+import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
 
 public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemoveFragment {
 
@@ -56,12 +63,32 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
                 if (getActivity() != null) {
                     if (getActivity() instanceof IndividualProfileRemoveActivity) {
                         IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
-                        p.onRemoveMember();
+                        getActivity().finish();
+                        CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyBaseEntityId);
+                        CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                                personObject.getDetails(), "");
+                        pClient.setColumnmaps(personObject.getColumnmaps());
+
+                        goToPatientDetailActivity(pClient);
                     }
                 }
             }
         }
     }
+
+    protected void goToPatientDetailActivity(CommonPersonObjectClient patient) {
+
+        Intent intent = new Intent(getActivity(), Utils.metadata().profileActivity);
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, patient.getCaseId());
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false));
+        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false));
+        intent.putExtra(Constants.INTENT_KEY.VILLAGE_TOWN, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, false));
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false));
+        intent.putExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, false);
+
+        startActivity(intent);
+    }
+
 
     @Override
     public void onEveryoneRemoved() {
