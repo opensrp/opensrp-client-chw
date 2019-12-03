@@ -12,11 +12,12 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
+import org.smartregister.chw.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
-import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
@@ -78,11 +79,21 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         boolean isPrimaryCareGiver = commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver);
         String eventName = Utils.metadata().familyMemberRegister.updateEventType;
 
+        NativeFormsDataBinder binder = new NativeFormsDataBinder(this, client.getCaseId());
+        FamilyMemberDataLoader dataLoader = new FamilyMemberDataLoader(familyName, isPrimaryCareGiver);
+        binder.setDataLoader(dataLoader);
+
+        JSONObject jsonObject = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
+        if (jsonObject != null)
+            dataLoader.bindFormData(jsonObject, client, eventName, titleString);
+/*
         JSONObject form = JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(titleString, Constants.JSON_FORM.getFamilyMemberRegister(),
                 this, client, eventName, familyName, isPrimaryCareGiver);
+*/
 
         try {
-            startFormActivity(form);
+            if (jsonObject != null)
+                startFormActivity(jsonObject);
         } catch (Exception e) {
             Timber.e(e);
         }

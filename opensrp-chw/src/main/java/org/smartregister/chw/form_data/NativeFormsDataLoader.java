@@ -12,6 +12,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.CoreLibrary;
+import org.smartregister.chw.dao.EventDao;
+import org.smartregister.chw.util.JsonFormUtils;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -29,7 +33,6 @@ import org.smartregister.repository.EventClientRepository;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.view.LocationPickerView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,8 +48,10 @@ public class NativeFormsDataLoader implements DataLoader {
     private String eventName;
     private List<String> tables;
     private Map<String, Table> tableMap;
-    private SimpleDateFormat nativeFormat = new SimpleDateFormat("");
     protected JSONArray jsonArray;
+
+    private Event latestEvent;
+    private Map<String, List<Obs>> obsMap;
 
     public ClientField getClientField(Context context) {
         if (clientField == null) {
@@ -236,7 +241,7 @@ public class NativeFormsDataLoader implements DataLoader {
     private String getNativeFormsDate(DateTime date) {
         if (date == null) return "";
 
-        return nativeFormat.format(date.toDate());
+        return JsonFormUtils.dd_MM_yyyy.format(date.toDate());
     }
 
     private String getValueFromConcept(String entityID, Map<String, Map<String, Object>> dbData) {
@@ -254,4 +259,54 @@ public class NativeFormsDataLoader implements DataLoader {
         return null;
     }
 
+    protected List<String> getEventTypes() {
+        return new ArrayList<>();
+    }
+
+    protected Event getEvent(String baseEntityID) {
+        if (latestEvent == null)
+            latestEvent = EventDao.getLatestEvent(baseEntityID, getEventTypes());
+
+        return latestEvent;
+    }
+
+    protected List<Obs> getObs(String baseEntityID, String key) {
+        if (obsMap == null) {
+            obsMap = new HashMap<>();
+
+            Event event = getEvent(baseEntityID);
+            for (Obs obs : event.getObs()) {
+                List<Obs> obsList = obsMap.get(obs.getFormSubmissionField());
+                if (obsList == null)
+                    obsList = new ArrayList<>();
+
+                obsList.add(obs);
+                obsMap.put(obs.getFormSubmissionField(), obsList);
+            }
+        }
+
+        return obsMap.get(key);
+    }
+
+    protected String getObsValue(String baseEntityID, String key, String type) {
+        List<Obs> obsList = getObs(baseEntityID, key);
+        if (obsList == null)
+            return null;
+
+        if (JsonFormConstants.SPINNER.equalsIgnoreCase(type)) {
+            return (String) obsList.get(0).getHumanReadableValues().get(0);
+        } else {
+            if (obsList.size() == 1)
+                return (String) obsList.get(0).getValue();
+
+            StringBuilder builder = new StringBuilder();
+            for (Obs o : obsList) {
+                if (builder.length() > 0)
+                    builder.append(",");
+
+                builder.append("'").append(o.getValue()).append("'");
+            }
+            return builder.toString();
+        }
+    }
 }
