@@ -49,12 +49,12 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
         try {
 
             NativeFormsDataBinder binder = new NativeFormsDataBinder(context, client.getCaseId());
-            FamilyMemberDataLoader dataLoader = new FamilyMemberDataLoader(familyName, isPrimaryCaregiver);
-            binder.setDataLoader(dataLoader);
+            //FamilyMemberDataLoader dataLoader = new FamilyMemberDataLoader(familyName, isPrimaryCaregiver);
+           // binder.setDataLoader(dataLoader);
 
             JSONObject jsonObject = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
             if (jsonObject != null)
-                dataLoader.bindFormData(jsonObject, client, eventType, title);
+                //dataLoader.bindFormData(jsonObject, client, eventType, title);
 
             return jsonObject;
         } catch (Exception e) {

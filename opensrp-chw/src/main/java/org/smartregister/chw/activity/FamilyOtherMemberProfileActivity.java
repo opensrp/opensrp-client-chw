@@ -79,17 +79,10 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         boolean isPrimaryCareGiver = commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver);
         String eventName = Utils.metadata().familyMemberRegister.updateEventType;
 
-        NativeFormsDataBinder binder = new NativeFormsDataBinder(this, client.getCaseId());
-        FamilyMemberDataLoader dataLoader = new FamilyMemberDataLoader(familyName, isPrimaryCareGiver);
-        binder.setDataLoader(dataLoader);
 
+        NativeFormsDataBinder binder = new NativeFormsDataBinder(this, client.getCaseId());
+        binder.setDataLoader(new FamilyMemberDataLoader(familyName, isPrimaryCareGiver, titleString, eventName));
         JSONObject jsonObject = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
-        if (jsonObject != null)
-            dataLoader.bindFormData(jsonObject, client, eventName, titleString);
-/*
-        JSONObject form = JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(titleString, Constants.JSON_FORM.getFamilyMemberRegister(),
-                this, client, eventName, familyName, isPrimaryCareGiver);
-*/
 
         try {
             if (jsonObject != null)

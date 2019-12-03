@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.CoreLibrary;
+import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.dao.EventDao;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Event;
@@ -46,9 +47,10 @@ public class NativeFormsDataLoader implements DataLoader {
     private ClientClassification clientClassification;
     private Client client;
     private String eventName;
-    private List<String> tables;
+    private List<String> tableCache;
     private Map<String, Table> tableMap;
     protected JSONArray jsonArray;
+    private Map<String, Map<String, Object>> dbData = new HashMap<>();
 
     private Event latestEvent;
     private Map<String, List<Obs>> obsMap;
@@ -69,27 +71,40 @@ public class NativeFormsDataLoader implements DataLoader {
         return clientClassification;
     }
 
+    public Map<String, Map<String, Object>> getDbData(Context context, String baseEntityID, String eventName) {
+        if(dbData == null){
+            dbData = new HashMap<>();
+            List<String> tables = getFormTables(context, eventName);
+            for (String table : tables) {
+                Map<String, Object> results = getValues(context, table, baseEntityID);
+                if (results != null)
+                    dbData.put(table, results);
+            }
+        }
+        return dbData;
+    }
+
     @Override
     public List<String> getFormTables(Context context, String eventName) {
-        if (!eventName.equalsIgnoreCase(this.eventName)) {
+        if (!eventName.equalsIgnoreCase(this.eventName) || tableCache == null || tableCache.size() == 0) {
             ClientClassification clientClassification = getClientClassification(context);
 
-            tables = new ArrayList<>();
+            tableCache = new ArrayList<>();
 
             for (ClassificationRule rule : clientClassification.case_classification_rules) {
                 for (Field field : rule.rule.fields) {
                     if ("eventType".equalsIgnoreCase(field.field) && field.field_value.equalsIgnoreCase(eventName)) {
                         if (field.creates_case != null)
-                            tables.addAll(field.creates_case);
+                            tableCache.addAll(field.creates_case);
 
                         if (field.closes_case != null)
-                            tables.addAll(field.closes_case);
+                            tableCache.addAll(field.closes_case);
                     }
                 }
             }
             this.eventName = eventName;
         }
-        return tables;
+        return tableCache;
     }
 
     @Override
@@ -131,7 +146,8 @@ public class NativeFormsDataLoader implements DataLoader {
     }
 
     @Override
-    public void loadForm(Context context, JSONObject formJsonObject, String baseEntityID, Map<String, Map<String, Object>> dbData) throws JSONException {
+    public void loadForm(Context context, JSONObject formJsonObject, String baseEntityID) throws JSONException {
+        eventName = formJsonObject.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
         List<JSONObject> steps = getFormSteps(formJsonObject);
         for (JSONObject step : steps) {
             JSONArray jsonArray = step.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
@@ -140,7 +156,7 @@ public class NativeFormsDataLoader implements DataLoader {
                 try {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     // get value of key
-                    String value = getValue(context, baseEntityID, jsonObject, dbData);
+                    String value = getValue(context, baseEntityID, jsonObject, getDbData(context,baseEntityID,eventName));
                     if (StringUtils.isNotBlank(value))
                         jsonObject.put(JsonFormConstants.VALUE, value);
                 } catch (Exception e) {
@@ -217,7 +233,7 @@ public class NativeFormsDataLoader implements DataLoader {
             ClientField clientField = getClientField(context);
             if (clientField != null) {
                 for (Table table : clientField.bindobjects) {
-                    if (tables.contains(table.name))
+                    if (getFormTables(context, eventName).contains(table.name))
                         tableMap.put(table.name, table);
                 }
             }

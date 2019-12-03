@@ -5,6 +5,7 @@ import android.content.Context;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.json.JSONArray;
@@ -16,7 +17,6 @@ import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.db.Client;
 import org.smartregister.family.util.DBConstants;
@@ -24,15 +24,17 @@ import org.smartregister.util.ImageUtils;
 
 import java.util.Map;
 
-import timber.log.Timber;
-
 public class FamilyMemberDataLoader extends NativeFormsDataLoader {
     private String familyName;
     private boolean isPrimaryCaregiver;
+    private String title;
+    private String eventType;
 
-    public FamilyMemberDataLoader(String familyName, boolean isPrimaryCaregiver) {
+    public FamilyMemberDataLoader(String familyName, boolean isPrimaryCaregiver, String title, String eventType) {
         this.familyName = familyName;
         this.isPrimaryCaregiver = isPrimaryCaregiver;
+        this.title = title;
+        this.eventType = eventType;
     }
 
     @Override
@@ -82,20 +84,23 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
         return super.getValue(context, baseEntityID, jsonObject, dbData);
     }
 
-    public void bindFormData(JSONObject form, CommonPersonObjectClient client, String eventType, String title) {
-        try {
-            form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
-            form.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, eventType);
-            form.put(org.smartregister.family.util.JsonFormUtils.CURRENT_OPENSRP_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
+    @Override
+    public void bindNativeFormsMetaData(@NotNull JSONObject jsonObjectForm, Context context, String baseEntityID) throws JSONException {
+        super.bindNativeFormsMetaData(jsonObjectForm, context, baseEntityID);
 
-            JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
-
-            if (StringUtils.isNotBlank(title)) {
-                stepOne.put(JsonFormConstants.STEP_TITLE, title);
+        jsonObjectForm.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, eventType);
+        Map<String, Map<String, Object>> dbVals = getDbData(context, baseEntityID, eventType);
+        if (dbVals != null) {
+            for (Map.Entry<String, Map<String, Object>> entry : dbVals.entrySet()) {
+                String val = (String) entry.getValue().get(DBConstants.KEY.UNIQUE_ID);
+                if (StringUtils.isNotBlank(val))
+                    jsonObjectForm.put(org.smartregister.family.util.JsonFormUtils.CURRENT_OPENSRP_ID, val);
             }
-        } catch (JSONException e) {
-            Timber.e(e);
         }
+
+        JSONObject stepOne = jsonObjectForm.getJSONObject("step1");
+        if (StringUtils.isNotBlank(title))
+            stepOne.put("title", title);
     }
 
     private void computeDOBUnknown(Context context, String baseEntityID, JSONObject jsonObject, Map<String, Map<String, Object>> dbData) throws JSONException {

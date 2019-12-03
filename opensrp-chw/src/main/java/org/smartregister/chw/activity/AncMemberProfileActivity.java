@@ -208,30 +208,22 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         try {
             JSONObject form = null;
             boolean isPrimaryCareGiver = memberObject.getPrimaryCareGiver().equals(memberObject.getBaseEntityId());
-            CommonRepository commonRepository = org.smartregister.chw.core.utils.Utils.context().commonrepository(org.smartregister.chw.core.utils.Utils.metadata().familyMemberRegister.tableName);
-            CommonPersonObject personObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
-            CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
-            client.setColumnmaps(personObject.getColumnmaps());
-
             String titleString = title_resource != null ? getResources().getString(title_resource) : null;
 
             if (formName.equals(CoreConstants.JSON_FORM.getAncRegistration())) {
 
-                NativeFormsDataBinder binder = new NativeFormsDataBinder(this, client.getCaseId());
+                NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
                 binder.setDataLoader(new AncMemberDataLoader(titleString));
                 form = binder.getPrePopulatedForm(formName);
 
             } else if (formName.equals(CoreConstants.JSON_FORM.getFamilyMemberRegister())) {
 
                 String eventName = org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType;
-                NativeFormsDataBinder binder = new NativeFormsDataBinder(this, client.getCaseId());
-                FamilyMemberDataLoader dataLoader = new FamilyMemberDataLoader(memberObject.getFamilyName(), isPrimaryCareGiver);
-                binder.setDataLoader(dataLoader);
+
+                NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
+                binder.setDataLoader(new FamilyMemberDataLoader(memberObject.getFamilyName(), isPrimaryCareGiver, titleString, eventName));
 
                 form = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
-                if (form != null)
-                    dataLoader.bindFormData(form, client, eventName, titleString);
-
             }
 
             startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);

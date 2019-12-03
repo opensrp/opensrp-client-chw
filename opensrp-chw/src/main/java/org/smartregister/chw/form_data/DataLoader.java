@@ -27,9 +27,8 @@ public interface DataLoader {
      * @param context
      * @param formJsonObject
      * @param baseEntityID
-     * @param dbData
      */
-    void loadForm(Context context, JSONObject formJsonObject, String baseEntityID, Map<String, Map<String, Object>> dbData) throws JSONException;
+    void loadForm(Context context, JSONObject formJsonObject, String baseEntityID) throws JSONException;
 
     void bindNativeFormsMetaData(@NotNull JSONObject jsonObjectForm, Context context, String baseEntityID) throws JSONException;
 
