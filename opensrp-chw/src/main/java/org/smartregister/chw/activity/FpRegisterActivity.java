@@ -15,9 +15,9 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
 
     public static void startFpRegistrationActivity(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, FpRegisterActivity.class);
-        intent.putExtra(FamilyPlanningConstants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(FamilyPlanningConstants.ACTIVITY_PAYLOAD.FP_FORM_NAME, getFpRegistration());
-        intent.putExtra(FamilyPlanningConstants.ACTIVITY_PAYLOAD.ACTION, FamilyPlanningConstants.ACTIVITY_PAYLOAD.REGISTRATION_PAYLOAD_TYPE);
+        intent.putExtra(FamilyPlanningConstants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(FamilyPlanningConstants.ActivityPayload.FP_FORM_NAME, getFpRegistration());
+        intent.putExtra(FamilyPlanningConstants.ActivityPayload.ACTION, FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
         activity.startActivity(intent);
     }
 
