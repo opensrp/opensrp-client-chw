@@ -216,7 +216,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label_info_text": "What is their national identity number or their voter registration number?",
+        "label_info_image_src": "img/togo_id.png",
+        "label_info_has_image": true,
+        "label_info_text": "What is their national identity number?",
         "label_info_title": "National ID number",
         "type": "edit_text",
         "hint": "National ID number",
@@ -363,6 +365,10 @@
         "openmrs_entity_id": "age_entered",
         "type": "edit_text",
         "hint": "Age",
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
