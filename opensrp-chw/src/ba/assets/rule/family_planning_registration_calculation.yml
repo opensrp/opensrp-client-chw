@@ -62,3 +62,10 @@ condition: "true"
 actions:
   - "calculation = helper.addDuration(step3_fp_start_injectable,'3m')"
 
+---
+name: step3_fp_start_date
+description: calculate next injection due date
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step3_fp_start_condom != '') ? step3_fp_start_condom : (step3_fp_start_cocpop != '') ? step3_fp_start_cocpop :  (step3_fp_start_injectable != '') ? step3_fp_start_injectable : (step3_fp_start_iucd != '') ? step3_fp_start_iucd : (step3_fp_start_implant_nxt != '') ? step3_fp_start_implant_nxt : (step3_fp_start_implant_jad != '') ? step3_fp_start_implant_jad : (step3_fp_start_female_ster != '') ? step3_fp_start_female_ster : (step3_fp_start_male_ster != '') ? step3_fp_start_male_ster : "
