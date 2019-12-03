@@ -5,7 +5,6 @@ import android.content.Context;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.json.JSONArray;
@@ -17,19 +16,19 @@ import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.db.Client;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.ImageUtils;
-import org.smartregister.view.LocationPickerView;
 
 import java.util.Map;
+
+import timber.log.Timber;
 
 public class FamilyMemberDataLoader extends NativeFormsDataLoader {
     private String familyName;
     private boolean isPrimaryCaregiver;
-    private String eventType;
 
     public FamilyMemberDataLoader(String familyName, boolean isPrimaryCaregiver) {
         this.familyName = familyName;
@@ -46,17 +45,17 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
                 break;
 
             case Constants.JsonAssets.AGE:
-                return getAge(client);
+                return String.valueOf(Years.yearsBetween(client.getBirthdate(), new DateTime()).getYears());
 
             case DBConstants.KEY.DOB:
-                return getDOB(client);
+                return JsonFormUtils.dd_MM_yyyy.format(client.getBirthdate().toDate());
 
             case org.smartregister.family.util.Constants.KEY.PHOTO:
                 return getPhoto(baseEntityID);
 
             case DBConstants.KEY.UNIQUE_ID:
-                computeID(context, baseEntityID, jsonObject, dbData);
-                break;
+                return super.getValue(context, baseEntityID, jsonObject, dbData)
+                        .replace("-", "");
 
             case Constants.JsonAssets.PREGNANT_1_YR:
                 computePregnantOneYr(jsonObject, null);
@@ -68,8 +67,8 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
 
             case Constants.JsonAssets.PRIMARY_CARE_GIVER:
             case Constants.JsonAssets.IS_PRIMARY_CARE_GIVER:
-                computePrimaryCareGiver(jsonObject, isPrimaryCaregiver);
-                break;
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
+                return isPrimaryCaregiver ? "Yes" : "No";
 
             case Constants.JsonAssets.SERVICE_PROVIDER:
                 computeServiceProvider(jsonObject, null);
@@ -83,26 +82,20 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
         return super.getValue(context, baseEntityID, jsonObject, dbData);
     }
 
-    @Override
-    public void bindNativeFormsMetaData(@NotNull JSONObject jsonObjectForm, Context context, String baseEntityID) throws JSONException {
-        // baseEntityID
-        jsonObjectForm.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, baseEntityID);
+    public void bindFormData(JSONObject form, CommonPersonObjectClient client, String eventType, String title) {
+        try {
+            form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
+            form.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, eventType);
+            form.put(org.smartregister.family.util.JsonFormUtils.CURRENT_OPENSRP_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
 
-        // metaData
-        LocationPickerView lpv = new LocationPickerView(context);
-        lpv.init();
-        JSONObject metadata = jsonObjectForm.getJSONObject(org.smartregister.family.util.JsonFormUtils.METADATA);
-        String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
-        metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
+            JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
 
-        jsonObjectForm.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, eventType);
-        /*
-        form.put(org.smartregister.family.util.JsonFormUtils.CURRENT_OPENSRP_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
-
-        if (StringUtils.isNotBlank(title)) {
-            stepOne.put("title", title);
+            if (StringUtils.isNotBlank(title)) {
+                stepOne.put(JsonFormConstants.STEP_TITLE, title);
+            }
+        } catch (JSONException e) {
+            Timber.e(e);
         }
-*/
     }
 
     private void computeDOBUnknown(Context context, String baseEntityID, JSONObject jsonObject, Map<String, Map<String, Object>> dbData) throws JSONException {
@@ -112,25 +105,12 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
         optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, val);
     }
 
-    private String getAge(Client client) {
-        return String.valueOf(Years.yearsBetween(new DateTime(), client.getBirthdate()).getYears());
-    }
-
-    private String getDOB(Client client) {
-        return JsonFormUtils.dd_MM_yyyy.format(client.getBirthdate().toDate());
-    }
-
     private String getPhoto(String baseEntityID) {
         Photo photo = ImageUtils.profilePhotoByClientID(baseEntityID, Utils.getProfileImageResourceIDentifier());
         if (StringUtils.isNotBlank(photo.getFilePath())) {
             return photo.getFilePath();
         }
         return "";
-    }
-
-    private void computeID(Context context, String baseEntityID, JSONObject jsonObject, Map<String, Map<String, Object>> dbData) throws JSONException {
-        String uniqueId = super.getValue(context, baseEntityID, jsonObject, dbData);
-        jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, uniqueId.replace("-", ""));
     }
 
     private void computePregnantOneYr(JSONObject jsonObject, Event ecEvent) throws JSONException {
@@ -167,12 +147,6 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
         } else {
             surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, "");
         }
-    }
-
-    private void computePrimaryCareGiver(JSONObject jsonObject, boolean isPrimaryCaregiver) throws JSONException {
-        jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
-        String val = isPrimaryCaregiver ? "Yes" : "No";
-        jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, val);
     }
 
     private void computeServiceProvider(JSONObject jsonObject, Event ecEvent) throws JSONException {

@@ -7,34 +7,22 @@ import android.view.Menu;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-
-import org.apache.commons.lang3.StringUtils;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
-import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
-import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
-import org.smartregister.chw.form_data.NativeFormsDataBinder;
-import org.smartregister.chw.form_data.NativeFormsDataLoader;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.domain.Photo;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
-import org.smartregister.util.ImageUtils;
 import org.smartregister.view.contract.BaseProfileContract;
-
-import java.util.Map;
 
 import timber.log.Timber;
 
@@ -90,13 +78,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         boolean isPrimaryCareGiver = commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver);
         String eventName = Utils.metadata().familyMemberRegister.updateEventType;
 
-        NativeFormsDataBinder binder = new NativeFormsDataBinder(this, client.getCaseId());
-        binder.setDataLoader(new FamilyMemberDataLoader(familyName, isPrimaryCareGiver));
-
-        JSONObject jsonObject = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
-
         JSONObject form = JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(titleString, Constants.JSON_FORM.getFamilyMemberRegister(),
                 this, client, eventName, familyName, isPrimaryCareGiver);
+
         try {
             startFormActivity(form);
         } catch (Exception e) {
