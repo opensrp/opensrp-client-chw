@@ -11,6 +11,7 @@ import org.joda.time.Years;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.form_data.NativeFormsDataLoader;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
@@ -22,6 +23,8 @@ import org.smartregister.domain.db.Client;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.util.ImageUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class FamilyMemberDataLoader extends NativeFormsDataLoader {
@@ -59,10 +62,6 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
                 return super.getValue(context, baseEntityID, jsonObject, dbData)
                         .replace("-", "");
 
-            case Constants.JsonAssets.PREGNANT_1_YR:
-                computePregnantOneYr(jsonObject, null);
-                break;
-
             case Constants.JsonAssets.FAM_NAME:
                 computeFamName(client, jsonObject, jsonArray, familyName);
                 break;
@@ -71,10 +70,6 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
             case Constants.JsonAssets.IS_PRIMARY_CARE_GIVER:
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
                 return isPrimaryCaregiver ? "Yes" : "No";
-
-            case Constants.JsonAssets.SERVICE_PROVIDER:
-                computeServiceProvider(jsonObject, null);
-                break;
 
             default:
                 return super.getValue(context, baseEntityID, jsonObject, dbData);
@@ -118,17 +113,6 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
         return "";
     }
 
-    private void computePregnantOneYr(JSONObject jsonObject, Event ecEvent) throws JSONException {
-        if (ecEvent != null) {
-            String id = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
-            for (Obs obs : ecEvent.getObs()) {
-                if (obs.getValues() != null && obs.getFieldCode().contains(id)) {
-                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, obs.getHumanReadableValues().get(0));
-                }
-            }
-        }
-    }
-
     private void computeFamName(Client client, JSONObject jsonObject, JSONArray jsonArray, String familyName) throws JSONException {
         final String SAME_AS_FAM_NAME = "same_as_fam_name";
         final String SURNAME = "surname";
@@ -154,19 +138,12 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
         }
     }
 
-    private void computeServiceProvider(JSONObject jsonObject, Event ecEvent) throws JSONException {
-
-        // iterate and update all options wit the values from ec object
-        if (ecEvent != null) {
-            for (int i = 0; i < jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); i++) {
-                JSONObject obj = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(i);
-                String id = obj.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
-                for (Obs obs : ecEvent.getObs()) {
-                    if (obs.getValues() != null && obs.getValues().contains(id)) {
-                        obj.put(JsonFormConstants.VALUE, true);
-                    }
-                }
-            }
-        }
+    @Override
+    protected List<String> getEventTypes() {
+        List<String> res = new ArrayList<>();
+        res.add(CoreConstants.EventType.FAMILY_MEMBER_REGISTRATION);
+        res.add(CoreConstants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION);
+        return res;
     }
+
 }

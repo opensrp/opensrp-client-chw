@@ -10,7 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.core.utils.ChwDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.form_data.NativeFormsDataBinder;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -50,13 +49,13 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
 
             NativeFormsDataBinder binder = new NativeFormsDataBinder(context, client.getCaseId());
             //FamilyMemberDataLoader dataLoader = new FamilyMemberDataLoader(familyName, isPrimaryCaregiver);
-           // binder.setDataLoader(dataLoader);
+            // binder.setDataLoader(dataLoader);
 
             JSONObject jsonObject = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
             if (jsonObject != null)
                 //dataLoader.bindFormData(jsonObject, client, eventType, title);
 
-            return jsonObject;
+                return jsonObject;
         } catch (Exception e) {
             Timber.e(e);
         }

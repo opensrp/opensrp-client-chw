@@ -183,8 +183,9 @@ public class NativeFormsDataLoader implements DataLoader {
     public String getValue(Context context, String baseEntityID, JSONObject jsonObject, Map<String, Map<String, Object>> dbData) throws JSONException {
         String type = jsonObject.getString(JsonFormConstants.TYPE);
         String key = jsonObject.getString(JsonFormConstants.KEY);
+        String entity = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY);
 
-        if (type.equalsIgnoreCase(JsonFormConstants.CHECK_BOX) || type.equalsIgnoreCase(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
+        if (!entity.contains("person") && (type.equalsIgnoreCase(JsonFormConstants.CHECK_BOX) || type.equalsIgnoreCase(JsonFormConstants.NATIVE_RADIO_BUTTON))) {
             readCheckBoxValue(baseEntityID, jsonObject, key);
         }
 
