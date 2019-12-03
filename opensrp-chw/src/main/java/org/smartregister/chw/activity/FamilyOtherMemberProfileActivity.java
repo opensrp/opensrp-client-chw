@@ -65,6 +65,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     protected void startMalariaRegister() {
         MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
     }
+
     @Override
     protected void startFpRegister() {
         FpRegisterActivity.startFpRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
