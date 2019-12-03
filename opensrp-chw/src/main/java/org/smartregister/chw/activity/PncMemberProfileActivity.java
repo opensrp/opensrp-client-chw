@@ -185,8 +185,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 disposable[0] = null;
             }
         });
-
-
     }
 
     @Override
@@ -245,7 +243,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                     Timber.d("Unknown fab action");
                     break;
             }
-
         };
 
         ((AncFloatingMenu) baseAncFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
@@ -363,6 +360,11 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     protected void startMalariaRegister() {
         MalariaRegisterActivity.startMalariaRegistrationActivity(this, memberObject.getBaseEntityId());
+    }
+
+    @Override
+    protected void startFpRegister() {
+        FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId());
     }
 
     public interface Flavor {
