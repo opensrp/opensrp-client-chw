@@ -1048,6 +1048,20 @@
           "value": "true",
           "err": "Please select one choice"
         }
+      },
+      {
+        "key": "fp_start_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_calculation.yml"
+            }
+          }
+        }
       }
     ]
   }
