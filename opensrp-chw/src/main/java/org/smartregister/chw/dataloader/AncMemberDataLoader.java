@@ -34,14 +34,11 @@ public class AncMemberDataLoader extends NativeFormsDataLoader {
     @Override
     public String getValue(Context context, String baseEntityID, JSONObject jsonObject, Map<String, Map<String, Object>> dbData) throws JSONException {
         String key = jsonObject.getString(JsonFormConstants.KEY);
-        String type = jsonObject.getString(JsonFormConstants.TYPE);
 
         if ("last_menstrual_period".equalsIgnoreCase(key) || "delivery_method".equalsIgnoreCase(key))
             jsonObject.put(JsonFormConstants.READ_ONLY, true);
 
-
-        String val = super.getValue(context, baseEntityID, jsonObject, dbData);
-        return StringUtils.isBlank(val) ? getObsValue(baseEntityID, key, type) : val;
+        return super.getValue(context, baseEntityID, jsonObject, dbData);
     }
 
     @Override

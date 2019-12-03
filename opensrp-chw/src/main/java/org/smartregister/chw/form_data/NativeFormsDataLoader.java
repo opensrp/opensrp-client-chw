@@ -165,13 +165,49 @@ public class NativeFormsDataLoader implements DataLoader {
 
     @Override
     public String getValue(Context context, String baseEntityID, JSONObject jsonObject, Map<String, Map<String, Object>> dbData) throws JSONException {
+        String type = jsonObject.getString(JsonFormConstants.TYPE);
+        String key = jsonObject.getString(JsonFormConstants.KEY);
+
+        if (type.equalsIgnoreCase(JsonFormConstants.CHECK_BOX) || type.equalsIgnoreCase(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
+            readCheckBoxValue(baseEntityID, jsonObject, key);
+        }
+
+        String val = getExtractedValue(context, jsonObject, baseEntityID, dbData);
+        return StringUtils.isBlank(val) ? getObsValue(baseEntityID, key, type) : val;
+    }
+
+    protected String getExtractedValue(Context context, JSONObject jsonObject, String baseEntityID, Map<String, Map<String, Object>> dbData) throws JSONException {
         String entity = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY);
         String entity_id = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
+
         preloadTables(context);
         if (entity.contains("person")) {
             return getValueFromPerson(baseEntityID, entity, entity_id);
         } else {
             return getValueFromConcept(entity_id, dbData);
+        }
+    }
+
+    protected void readCheckBoxValue(String baseEntityID, JSONObject jsonObject, String key) throws JSONException {
+        JSONArray optionsJson = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+        List<Obs> obsList = getObs(baseEntityID, key);
+        List<String> values = new ArrayList<>();
+        if (obsList != null) {
+            for (Obs o : obsList) {
+                for (Object obj : o.getValues()) {
+                    values.add((String) obj);
+                }
+            }
+        }
+
+        int x = optionsJson.length();
+        while (x > 0) {
+            JSONObject jo = optionsJson.getJSONObject(x - 1);
+            if (jo.has(JsonFormConstants.OPENMRS_ENTITY_ID)) {
+                String entityID = jo.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
+                jo.put(JsonFormConstants.VALUE, values.contains(entityID) ? "true" : "false");
+            }
+            x--;
         }
     }
 
@@ -275,6 +311,9 @@ public class NativeFormsDataLoader implements DataLoader {
             obsMap = new HashMap<>();
 
             Event event = getEvent(baseEntityID);
+            if (event == null)
+                return new ArrayList<>();
+
             for (Obs obs : event.getObs()) {
                 List<Obs> obsList = obsMap.get(obs.getFormSubmissionField());
                 if (obsList == null)
@@ -290,23 +329,24 @@ public class NativeFormsDataLoader implements DataLoader {
 
     protected String getObsValue(String baseEntityID, String key, String type) {
         List<Obs> obsList = getObs(baseEntityID, key);
-        if (obsList == null)
+        if (obsList == null || obsList.size() == 0)
             return null;
 
-        if (JsonFormConstants.SPINNER.equalsIgnoreCase(type)) {
-            return (String) obsList.get(0).getHumanReadableValues().get(0);
-        } else {
-            if (obsList.size() == 1)
+        switch (type) {
+            case JsonFormConstants.SPINNER:
+            case JsonFormConstants.NATIVE_RADIO_BUTTON:
+                return (String) obsList.get(0).getHumanReadableValues().get(0);
+            case JsonFormConstants.CHECK_BOX:
+                StringBuilder builder = new StringBuilder();
+                for (Obs o : obsList) {
+                    if (builder.length() > 0)
+                        builder.append(",");
+
+                    builder.append("'").append(o.getValue()).append("'");
+                }
+                return "[" + builder.toString() + "]";
+            default:
                 return (String) obsList.get(0).getValue();
-
-            StringBuilder builder = new StringBuilder();
-            for (Obs o : obsList) {
-                if (builder.length() > 0)
-                    builder.append(",");
-
-                builder.append("'").append(o.getValue()).append("'");
-            }
-            return builder.toString();
         }
     }
 }
