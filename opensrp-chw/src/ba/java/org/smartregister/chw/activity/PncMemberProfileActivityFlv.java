@@ -9,7 +9,7 @@ public class PncMemberProfileActivityFlv implements PncMemberProfileActivity.Fla
     @Override
     public Boolean onCreateOptionsMenu(Menu menu) {
         menu.findItem(R.id.action_malaria_confirmation).setVisible(true);
-        menu.findItem(R.id.action_fp_initiation).setVisible(true);
+//        menu.findItem(R.id.action_fp_initiation).setVisible(true);
         return true;
     }
 
