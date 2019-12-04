@@ -235,11 +235,7 @@
         "hint": "Numéro d'identification national",
         "v_numeric": {
           "value": "true",
-          "err": "Le numéro doit comporter 11 chiffres."
-        },
-        "v_regex": {
-          "value": "([0-9]{11})|\\s*",
-          "err": "Le numéro doit comporter 11 chiffres"
+          "err": "Doit être un nombre."
         }
       },
       {
