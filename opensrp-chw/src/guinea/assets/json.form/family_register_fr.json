@@ -429,7 +429,7 @@
         "hint": "Numéro de téléphone",
         "v_numeric": {
           "value": "true",
-          "err": "Le numéro doit être composé de 8 à 16 chiffres"
+          "err": "Doit être un nombre"
         },
         "v_required": {
           "value": false,
@@ -445,11 +445,7 @@
         "hint": "Autre numéro de téléphone",
         "v_numeric": {
           "value": "true",
-          "err": "Le numéro doit être composé de 8 à 16 chiffres"
-        },
-        "v_regex": {
-          "value": "([0-9]{8,16})|\\s*",
-          "err": "Le numéro doit être composé de 8 à 16 chiffres"
+          "err": "Doit être un nombre"
         }
       },
       {
