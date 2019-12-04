@@ -1048,27 +1048,11 @@
           }
         },
         {
-          "column_name": "fp_start_condom",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "163171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
           "column_name": "no_pillcycles",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "163171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "fp_start_cocpop",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -1080,14 +1064,6 @@
           }
         },
         {
-          "column_name": "fp_start_injectable",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "162881AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
           "column_name": "next_injection_due_date",
           "type": "Event",
           "json_mapping": {
@@ -1096,39 +1072,7 @@
           }
         },
         {
-          "column_name": "fp_start_iucd",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "fp_start_implant_nxt",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "fp_start_implant_jad",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "fp_start_female_ster",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "fp_start_male_ster",
+          "column_name": "fp_start_date",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -1140,7 +1084,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "concept": "referral_given"
           }
         },
         {
