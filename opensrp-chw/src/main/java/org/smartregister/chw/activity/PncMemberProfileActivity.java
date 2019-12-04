@@ -365,6 +365,11 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         MalariaRegisterActivity.startMalariaRegistrationActivity(this, memberObject.getBaseEntityId());
     }
 
+    @Override
+    protected void startFpRegister() {
+
+    }
+
     public interface Flavor {
         Boolean onCreateOptionsMenu(Menu menu);
     }

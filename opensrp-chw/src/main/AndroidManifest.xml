@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.smartregister.chw">
 
     <uses-feature
@@ -27,6 +28,7 @@
         android:name=".application.ChwApplication"
         android:allowBackup="true"
         android:supportsRtl="true"
+        tools:replace="android:theme"
         android:theme="@style/ChwTheme">
         <activity
             android:name=".activity.AncUpcomingServicesActivity"
@@ -63,6 +65,9 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.MalariaRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.FpRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity android:name=".core.activity.ChwP2pModeSelectActivity" />
         <activity

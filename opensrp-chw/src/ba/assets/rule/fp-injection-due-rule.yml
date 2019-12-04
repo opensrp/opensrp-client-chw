@@ -1,5 +1,5 @@
 name: one
-description: after eighty four days
+description: injection - after eighty four days
 priority: 1
 condition: "fpAlertRule.isInjectionValid(84,91)"
 actions:
