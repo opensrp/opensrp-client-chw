@@ -1,7 +1,6 @@
 package org.smartregister.chw.util;
 
 import android.content.Context;
-import android.util.Pair;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -10,16 +9,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.core.utils.ChwDBConstants;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.form_data.NativeFormsDataBinder;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.location.helper.LocationHelper;
-import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
-import org.smartregister.view.LocationPickerView;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -49,45 +47,15 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
     public JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver) {
         try {
 
-            // get the event and the client from ec model
-            Pair<Event, Client> eventClientPair = Pair.create(null, null);
+            NativeFormsDataBinder binder = new NativeFormsDataBinder(context, client.getCaseId());
+            //FamilyMemberDataLoader dataLoader = new FamilyMemberDataLoader(familyName, isPrimaryCaregiver);
+            // binder.setDataLoader(dataLoader);
 
-            JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
-            LocationPickerView lpv = new LocationPickerView(context);
-            lpv.init();
-            // JsonFormUtils.addWomanRegisterHierarchyQuestions(form);
-            if (form != null) {
-                form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
-                form.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, eventType);
+            JSONObject jsonObject = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
+            if (jsonObject != null)
+                //dataLoader.bindFormData(jsonObject, client, eventType, title);
 
-                JSONObject metadata = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.METADATA);
-                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
-
-                metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
-
-                form.put(org.smartregister.family.util.JsonFormUtils.CURRENT_OPENSRP_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
-
-                //inject opensrp id into the form
-                JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
-
-                if (StringUtils.isNotBlank(title)) {
-                    stepOne.put(TITLE, title);
-                }
-
-                JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                    try {
-                        processFieldsForMemberEdit(client, jsonObject, jsonArray, familyName, isPrimaryCaregiver, eventClientPair.first, eventClientPair.second);
-                    } catch (Exception e) {
-                        Timber.e(e);
-                    }
-
-                }
-
-                return form;
-            }
+                return jsonObject;
         } catch (Exception e) {
             Timber.e(e);
         }

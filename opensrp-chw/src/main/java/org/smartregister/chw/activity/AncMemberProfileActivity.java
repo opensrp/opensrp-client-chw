@@ -28,6 +28,9 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.dao.MalariaDao;
+import org.smartregister.chw.dataloader.AncMemberDataLoader;
+import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
+import org.smartregister.chw.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.interactor.AncMemberProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -203,7 +206,26 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     @Override
     public void startFormForEdit(Integer title_resource, String formName) {
         try {
-            JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAncPncForm(title_resource, formName, memberObject, this);
+            JSONObject form = null;
+            boolean isPrimaryCareGiver = memberObject.getPrimaryCareGiver().equals(memberObject.getBaseEntityId());
+            String titleString = title_resource != null ? getResources().getString(title_resource) : null;
+
+            if (formName.equals(CoreConstants.JSON_FORM.getAncRegistration())) {
+
+                NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
+                binder.setDataLoader(new AncMemberDataLoader(titleString));
+                form = binder.getPrePopulatedForm(formName);
+
+            } else if (formName.equals(CoreConstants.JSON_FORM.getFamilyMemberRegister())) {
+
+                String eventName = org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType;
+
+                NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
+                binder.setDataLoader(new FamilyMemberDataLoader(memberObject.getFamilyName(), isPrimaryCareGiver, titleString, eventName));
+
+                form = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
+            }
+
             startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (Exception e) {
             Timber.e(e);
