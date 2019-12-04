@@ -512,7 +512,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "COC_POP",
-        "type": "edit_text",
+        "type": "hidden",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -526,7 +526,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "POP",
-        "type": "edit_text",
+        "type": "hidden",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -540,7 +540,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "no_pill",
-        "type": "edit_text",
+        "type": "hidden",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -687,7 +687,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fp_method_accepted",
-        "type": "edit_text",
+        "type": "hidden",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -811,13 +811,12 @@
       },
       {
         "key": "fp_start_cocpop",
-        "openmrs_entity_parent": "5274AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "fp_start_cocpop",
         "type": "date_picker",
         "hint": "When did she start or plan to start using COC/POP?",
-        "max_date": "today+50w",
-        "min_date": "today+1y",
+        "max_date": "today",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -864,8 +863,7 @@
         "openmrs_entity_id": "162881AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Date of last injection",
-        "max_date": "today+50w",
-        "min_date": "today+1y",
+        "max_date": "today",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -897,13 +895,12 @@
       },
       {
         "key": "fp_start_iucd",
-        "openmrs_entity_parent": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "fp_start_iucd",
         "type": "date_picker",
         "hint": "Date of IUCD insertion",
-        "max_date": "today+50w",
-        "min_date": "today+1y",
+        "max_date": "today",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -918,13 +915,12 @@
       },
       {
         "key": "fp_start_implant_nxt",
-        "openmrs_entity_parent": "76022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "fp_start_implant_nxt",
         "type": "date_picker",
         "hint": "Date of Implanon - NXT insertion",
-        "max_date": "today+50w",
-        "min_date": "today+1y",
+        "max_date": "today",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -939,13 +935,12 @@
       },
       {
         "key": "fp_start_implant_jad",
-        "openmrs_entity_parent": "1873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "fp_start_implant_jad",
         "type": "date_picker",
         "hint": "Date of Implanon - NXT insertion",
-        "max_date": "today+50w",
-        "min_date": "today+1y",
+        "max_date": "today",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -962,11 +957,10 @@
         "key": "fp_start_female_ster",
         "openmrs_entity_parent": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "fp_start_female_ster",
         "type": "date_picker",
         "hint": "Date of female sterilization",
-        "max_date": "today+50w",
-        "min_date": "today+1y",
+        "max_date": "today",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -983,11 +977,10 @@
         "key": "fp_start_male_ster",
         "openmrs_entity_parent": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "fp_start_male_ster",
         "type": "date_picker",
         "hint": "Date of female sterilization",
-        "max_date": "today+50w",
-        "min_date": "today+1y",
+        "max_date": "today",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1003,7 +996,7 @@
       {
         "key": "fp_male_ster_note",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Advise the woman to use condoms for the first 3 months to prevent pregnancy",
@@ -1054,7 +1047,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
+        "type": "edit_text",
+        "hidden": "true",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
