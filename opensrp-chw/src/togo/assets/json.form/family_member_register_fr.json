@@ -324,10 +324,6 @@
           "value": "true",
           "err": "Le numéro doit être composé de 8 à 16 chiffres"
         },
-        "v_regex": {
-          "value": "([0-9]{8,16})|\\s*",
-          "err": "Le numéro doit être composé de 8 à 16 chiffres."
-        },
         "v_required": {
           "value": false,
           "err": "Veuillez spécifier un numéro de téléphone"
@@ -349,10 +345,6 @@
         "v_numeric": {
           "value": "true",
           "err": "Le numéro doit être composé de 8 à 16 chiffres"
-        },
-        "v_regex": {
-          "value": "([0-9]{8,16})|\\s*",
-          "err": "Le numéro doit être composé de 8 à 16 chiffres."
         },
         "relevance": {
           "step1:primary_caregiver": {
