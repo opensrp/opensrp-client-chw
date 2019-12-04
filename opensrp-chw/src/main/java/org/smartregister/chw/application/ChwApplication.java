@@ -10,6 +10,9 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
@@ -24,6 +27,7 @@ import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.loggers.CrashlyticsTree;
@@ -36,6 +40,7 @@ import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.repository.ChwRepository;
+import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.FileUtils;
 import org.smartregister.chw.util.Utils;
@@ -143,6 +148,8 @@ public class ChwApplication extends CoreChwApplication {
         } else {
             prepareGuideBooksFolder();
         }
+
+        EventBus.getDefault().register(this);
     }
 
     public static void prepareGuideBooksFolder() {
@@ -230,6 +237,15 @@ public class ChwApplication extends CoreChwApplication {
 
     public boolean hasReferrals() {
         return flavor.hasReferrals();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onVisitEvent(Visit visit) {
+        if (visit != null) {
+            Timber.v("===================== Visit Submitted re processing Schedule =====================");
+            Timber.v(visit.getVisitType());
+            ChwScheduleTaskExecutor.getInstance().execute(visit.getBaseEntityId(), visit.getVisitType(), visit.getDate());
+        }
     }
 
     interface Flavor {
