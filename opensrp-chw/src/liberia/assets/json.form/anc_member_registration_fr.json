@@ -248,10 +248,6 @@
           "value": "true",
           "err": "Le numéro doit être composé de 8 à 16 chiffres."
         },
-        "v_regex": {
-          "value": "([0-9]{8,16})|\\s*",
-          "err": "Le numéro doit être composé de 8 à 16 chiffres."
-        },
         "v_required": {
           "value": false,
           "err": "Cette réponse est requise"
