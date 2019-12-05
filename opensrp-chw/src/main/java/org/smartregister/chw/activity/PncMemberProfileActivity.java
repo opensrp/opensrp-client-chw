@@ -264,7 +264,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        flavor.onCreateOptionsMenu(menu);
+        flavor.onCreateOptionsMenu(menu, memberObject.getBaseEntityId());
         return true;
     }
 
@@ -368,6 +368,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     }
 
     public interface Flavor {
-        Boolean onCreateOptionsMenu(Menu menu);
+        Boolean onCreateOptionsMenu(Menu menu, String baseEntityId);
     }
 }
