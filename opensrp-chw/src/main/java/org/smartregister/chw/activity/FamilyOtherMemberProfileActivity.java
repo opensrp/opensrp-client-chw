@@ -16,6 +16,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.form_data.NativeFormsDataBinder;
+import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Utils;
@@ -40,6 +41,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         // Check if woman is already registered
         if (!presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isWra(commonPersonObject)) {
             menu.findItem(R.id.action_anc_registration).setVisible(true);
+            if (!FpDao.isRegisteredForFp(baseEntityId)) {
+                menu.findItem(R.id.action_fp_initiation).setVisible(true);
+            }
         } else {
             menu.findItem(R.id.action_anc_registration).setVisible(false);
         }
@@ -64,6 +68,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startMalariaRegister() {
         MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
+    protected void startFpRegister() {
+        FpRegisterActivity.startFpRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
     }
 
     @Override
