@@ -40,12 +40,21 @@ public class IPTPAction extends HomeVisitActionHelper {
         JSONArray fields = JsonFormUtils.fields(jsonObject);
 
         String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
+
         String formatted_count = MessageFormat.format("{0}{1}", iteration, Utils.getDayOfMonthSuffix(iteration));
         jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, formatted_count));
 
         JSONObject visit_field = JsonFormUtils.getFieldJSONObject(fields, "iptp{0}_date");
         visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration));
-        visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), iteration));
+        if(iteration.equalsIgnoreCase("1")){
+            visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), context.getString(R.string.one)));
+        }
+       else if(iteration.equalsIgnoreCase("2")){
+            visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), context.getString(R.string.two)));
+        }
+      else if(iteration.equalsIgnoreCase("3")){
+            visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), context.getString(R.string.three)));
+        }
 
         return jsonObject;
     }

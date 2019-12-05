@@ -1,15 +1,6 @@
 package org.smartregister.chw.activity;
 
-import android.view.Menu;
+public class PncMemberProfileActivityFlv extends DefaultPncMemberProfileActivityFlv{
 
-import org.smartregister.chw.R;
-
-public class PncMemberProfileActivityFlv implements PncMemberProfileActivity.Flavor {
-
-    @Override
-    public Boolean onCreateOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_malaria_confirmation).setVisible(false);
-        return true;
-    }
 
 }

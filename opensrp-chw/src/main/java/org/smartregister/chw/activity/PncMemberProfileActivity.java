@@ -54,6 +54,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.Nullable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -185,8 +186,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 disposable[0] = null;
             }
         });
-
-
     }
 
     @Override
@@ -245,7 +244,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                     Timber.d("Unknown fab action");
                     break;
             }
-
         };
 
         ((AncFloatingMenu) baseAncFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
@@ -267,7 +265,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        flavor.onCreateOptionsMenu(menu);
+        flavor.onCreateOptionsMenu(menu, memberObject.getBaseEntityId());
         return true;
     }
 
@@ -365,7 +363,12 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         MalariaRegisterActivity.startMalariaRegistrationActivity(this, memberObject.getBaseEntityId());
     }
 
+    @Override
+    protected void startFpRegister() {
+        FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId());
+    }
+
     public interface Flavor {
-        Boolean onCreateOptionsMenu(Menu menu);
+        Boolean onCreateOptionsMenu(Menu menu, @Nullable String baseEntityId);
     }
 }
