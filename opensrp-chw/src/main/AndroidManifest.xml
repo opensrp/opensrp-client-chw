@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.smartregister.chw">
 
     <uses-feature
@@ -27,6 +28,7 @@
         android:name=".application.ChwApplication"
         android:allowBackup="true"
         android:supportsRtl="true"
+        tools:replace="android:theme"
         android:theme="@style/ChwTheme">
         <activity
             android:name=".activity.AncUpcomingServicesActivity"
@@ -160,7 +162,8 @@
             android:name=".core.activity.CoreAncRegisterActivity"
             android:label="@string/anc_register"
             android:theme="@style/ChwTheme.NoActionBar" />
-        <activity android:name=".activity.MalariaUpcomingServicesActivity"
+        <activity
+            android:name=".activity.MalariaUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
@@ -168,7 +171,7 @@
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -180,7 +183,6 @@
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
-        <service android:name="org.smartregister.sync.intent.SyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
@@ -190,10 +192,11 @@
         <service android:name=".intent.ChwPncCloseDateIntent" />
         <service android:name="org.smartregister.reporting.service.IndicatorGeneratorIntentService" />
         <service android:name="org.smartregister.chw.service.SchedulesIntentService" />
+        <service android:name="org.smartregister.chw.sync.ChwSyncIntentService" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
-  
+
 </manifest>

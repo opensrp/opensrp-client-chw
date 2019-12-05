@@ -26,9 +26,7 @@ import org.smartregister.family.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ChildProfileActivity extends CoreChildProfileActivity {
     public FamilyMemberFloatingMenu familyFloatingMenu;
@@ -38,6 +36,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
     }
+
 
     @Override
     protected void onCreation() {
@@ -67,6 +66,13 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         } else if (i == R.id.textview_edit) {
             openVisitHomeScreen(true);
         }
+        if (i == R.id.textview_visit_not) {
+            presenter().updateVisitNotDone(System.currentTimeMillis());
+            imageViewCrossChild.setVisibility(View.VISIBLE);
+            imageViewCrossChild.setImageResource(R.drawable.activityrow_notvisited);
+        } else if (i == R.id.textview_undo) {
+            presenter().updateVisitNotDone(0);
+        }
     }
 
     @Override
@@ -92,7 +98,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
         familyFloatingMenu.setClickListener(onClickFloatingMenu);
         fetchProfileData();
-
     }
 
     @Override
@@ -143,14 +148,17 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED && resultCode == Activity.RESULT_OK) {
+            Intent intent = new Intent(ChildProfileActivity.this, ChildProfileActivity.class);
+            intent.putExtras(getIntent().getExtras());
+            startActivity(intent);
+            finish();
+        }
         ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
     }
 
     private void openMedicalHistoryScreen() {
-        Map<String, Date> vaccine = ((ChildProfilePresenter) presenter()).getVaccineList();
-        ChildMedicalHistoryActivity.startMedicalHistoryActivity(this, ((ChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
-                ((ChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine), ChildMedicalHistoryActivity.class);
-
+        ChildMedicalHistoryActivity.startMe(this, memberObject);
     }
 
     private void openUpcomingServicePage() {

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Pair;
 import android.view.Gravity;
-import android.view.MenuItem;
+import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -52,8 +52,6 @@ import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -62,23 +60,13 @@ import timber.log.Timber;
 
 public class PncMemberProfileActivity extends CorePncMemberProfileActivity implements PncMemberProfileContract.View {
 
+    private Flavor flavor = new PncMemberProfileActivityFlv();
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, PncMemberProfileActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, baseEntityID);
         activity.startActivity(intent);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_pnc_member_registration) {
-            JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAncPncForm(R.string.edit_member_form_title, CoreConstants.JSON_FORM.getFamilyMemberRegister(), memberObject, this);
-            startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -165,8 +153,8 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         }
     }
 
-    private void refreshOnHomeVisitResult(){
-        Observable<Visit>observable = Observable.create(e -> {
+    private void refreshOnHomeVisitResult() {
+        Observable<Visit> observable = Observable.create(e -> {
             Visit lastVisit = getVisit(CoreConstants.EventType.PNC_HOME_VISIT);
             e.onNext(lastVisit);
             e.onComplete();
@@ -183,6 +171,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             public void onNext(Visit visit) {
                 displayView();
                 setLastVisit(visit.getDate());
+                setupViews();
             }
 
             @Override
@@ -276,6 +265,13 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        flavor.onCreateOptionsMenu(menu);
+        return true;
+    }
+
+    @Override
     public void onClick(View view) {
         super.onClick(view);
 
@@ -362,5 +358,14 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         if (MalariaDao.isRegisteredForMalaria(((PncMemberProfilePresenter) presenter()).getEntityId())) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
         }
+    }
+
+    @Override
+    protected void startMalariaRegister() {
+        MalariaRegisterActivity.startMalariaRegistrationActivity(this, memberObject.getBaseEntityId());
+    }
+
+    public interface Flavor {
+        Boolean onCreateOptionsMenu(Menu menu);
     }
 }

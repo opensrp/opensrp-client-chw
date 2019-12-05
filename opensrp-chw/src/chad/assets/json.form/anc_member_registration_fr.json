@@ -196,6 +196,10 @@
         "v_min": {
           "value": "0",
           "err": "Le nombre doit être égal ou supérieur à 0"
+        },
+        "v_max": {
+          "value": "45",
+          "err": "Le nombre doit être égal ou inférieur à 45"
         }
       },
       {
@@ -228,9 +232,9 @@
           "value": "true",
           "err": "Le nombre doit être égal ou supérieur à 0r"
         },
-        "v_min": {
-          "value": "0",
-          "err": "Le nombre doit être égal ou supérieur à 0"
+        "v_relative_max": {
+          "value": "no_prev_preg",
+          "err": "Le nombre doit être inférieur ou égal au nombre de grossesses précédentes"
         }
       },
       {
@@ -242,10 +246,6 @@
         "hint": "Numéro de téléphone",
         "v_numeric": {
           "value": "true",
-          "err": "Le numéro doit être composé de 8 à 16 chiffres."
-        },
-        "v_regex": {
-          "value": "([0-9]{8,16})|\\s*",
           "err": "Le numéro doit être composé de 8 à 16 chiffres."
         },
         "v_required": {

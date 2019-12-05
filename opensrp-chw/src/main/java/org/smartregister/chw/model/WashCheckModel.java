@@ -1,10 +1,12 @@
 package org.smartregister.chw.model;
 
-import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.core.utils.WashCheck;
-import org.smartregister.chw.util.JsonFormUtils;
+import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.repository.AllSharedPreferences;
 
-import java.util.ArrayList;
+import timber.log.Timber;
 
 public class WashCheckModel {
     private String familyId;
@@ -13,12 +15,19 @@ public class WashCheckModel {
         this.familyId = familyId;
     }
 
-    public ArrayList<WashCheck> getAllWashCheckList() {
-        return ChwApplication.getWashCheckRepository().getAllWashCheckTask(familyId);
-    }
-
     public boolean saveWashCheckEvent(String jsonString) {
-        return JsonFormUtils.saveWashCheckEvent(jsonString, familyId);
+        try {
+            AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().context().allSharedPreferences();
+            Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, CoreConstants.TABLE_NAME.WASH_CHECK_LOG);
+            baseEvent.setBaseEntityId(familyId);
+
+            NCUtils.addEvent(allSharedPreferences, baseEvent);
+            NCUtils.startClientProcessing();
+            return true;
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return false;
     }
 
 }

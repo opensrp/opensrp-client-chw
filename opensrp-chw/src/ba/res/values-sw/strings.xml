@@ -2,6 +2,6 @@
     <string name="app_name">WAJA</string>
     <string name="login_title">USAID Boresha Afya  \n WAJA app</string>
     <string name="nav_logo">USAID Boresha Afya</string>
-    <string name="menu_anc">Wateja wa huduma ya wajawazito ANC</string>
-    <string name="menu_pnc">Wateja wa huduma ya mtoto na mama baada ya kujifungua PNC</string>
+    <string name="menu_anc">Wajawazito</string>
+    <string name="menu_pnc">Baada ya Kujifungua</string>
 </resources>

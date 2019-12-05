@@ -19,8 +19,8 @@ import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
+import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.pnc.PncLibrary;
-import org.smartregister.chw.util.ScheduleUtil;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.dao.AbstractDao;
@@ -57,7 +57,8 @@ public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor i
     public void refreshProfileInfo(final MemberObject memberObject, final BaseAncMemberProfileContract.InteractorCallBack callback) {
         Runnable runnable = new Runnable() {
             Date lastVisitDate = getLastVisitDate(memberObject);
-            AlertStatus familyAlert = ScheduleUtil.getFamilyAlertStatus(context, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
+
+            AlertStatus familyAlert = FamilyDao.getFamilyAlertStatus(memberObject.getBaseEntityId());
             Alert upcomingService = getAlerts(context, memberObject);
 
             @Override
@@ -87,21 +88,30 @@ public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor i
         return lastVisitDate;
     }
 
+
     private Alert getAlerts(Context context, MemberObject memberObject) {
         PncUpcomingServicesInteractorFlv upcomingServicesInteractor = new PncUpcomingServicesInteractorFlv();
         try {
             List<BaseUpcomingService> baseUpcomingServices = upcomingServicesInteractor.getMemberServices(context, memberObject);
             if (baseUpcomingServices.size() > 0) {
-                Comparator<BaseUpcomingService> comparator = (o1, o2) -> o1.getServiceDate().compareTo(o2.getServiceDate());
+                Comparator<BaseUpcomingService> comparator = (o1, o2) -> {
+                    Date dueDate1 = o1.getOverDueDate() != null ? o1.getOverDueDate() : o1.getServiceDate();
+                    Date dueDate2 = o2.getOverDueDate() != null ? o2.getOverDueDate() : o2.getServiceDate();
+                    return dueDate1.compareTo(dueDate2);
+                };
+
+
                 Collections.sort(baseUpcomingServices, comparator);
 
                 BaseUpcomingService baseUpcomingService = baseUpcomingServices.get(0);
+                String dateToDisplay = ((baseUpcomingService.getOverDueDate().before(new LocalDate().toDate())) || (baseUpcomingService.getOverDueDate().equals(new LocalDate().toDate()))) ? AbstractDao.getDobDateFormat().format(baseUpcomingService.getOverDueDate()) : AbstractDao.getDobDateFormat().format(baseUpcomingService.getServiceDate());
+
                 return new Alert(
                         memberObject.getBaseEntityId(),
                         baseUpcomingService.getServiceName(),
                         baseUpcomingService.getServiceName(),
-                        baseUpcomingService.getServiceDate().before(new Date()) ? AlertStatus.urgent : AlertStatus.normal,
-                        AbstractDao.getDobDateFormat().format(baseUpcomingService.getServiceDate()),
+                        baseUpcomingService.getOverDueDate().before(new LocalDate().toDate()) || baseUpcomingService.getOverDueDate().equals(new LocalDate().toDate()) ? AlertStatus.urgent : AlertStatus.normal,
+                        dateToDisplay,
                         "",
                         true
                 );

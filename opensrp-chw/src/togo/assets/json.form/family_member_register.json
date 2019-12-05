@@ -86,17 +86,15 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label_info_text": "What is their national identity number or their voter registration number?",
+        "label_info_image_src": "img/togo_id.png",
+        "label_info_has_image": true,
+        "label_info_text": "What is their national identity number?",
         "label_info_title": "National ID number",
         "type": "edit_text",
         "hint": "National ID number",
         "v_numeric": {
           "value": "true",
-          "err": "Number must be 11 digits."
-        },
-        "v_regex": {
-          "value": "([0-9]{11})|\\s*",
-          "err": "Number must be 11 digits."
+          "err": "Must be a number."
         }
       },
       {
@@ -244,6 +242,10 @@
         "openmrs_entity_id": "age",
         "type": "edit_text",
         "hint": "Age",
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
@@ -312,11 +314,7 @@
         "hint": "Phone number",
         "v_numeric": {
           "value": "true",
-          "err": "Number must be 8 to 16 digits."
-        },
-        "v_regex": {
-          "value": "([0-9]{8,16})|\\s*",
-          "err": "Number must be 8 to 16 digits."
+          "err": "Must be a number."
         },
         "v_required": {
           "value": false,
@@ -338,11 +336,7 @@
         "hint": "Other phone number",
         "v_numeric": {
           "value": "true",
-          "err": "Number must be 8 to 16 digits."
-        },
-        "v_regex": {
-          "value": "([0-9]{8,16})|\\s*",
-          "err": "Number must be 8 to 16 digits."
+          "err": "Must be a number."
         },
         "relevance": {
           "step1:primary_caregiver": {
