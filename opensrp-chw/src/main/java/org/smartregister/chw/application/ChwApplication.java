@@ -242,8 +242,7 @@ public class ChwApplication extends CoreChwApplication {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onVisitEvent(Visit visit) {
         if (visit != null) {
-            Timber.v("===================== Visit Submitted re processing Schedule =====================");
-            Timber.v(visit.getVisitType());
+            Timber.v("Visit Submitted re processing Schedule for event ' %s '  : %s", visit.getVisitType() , visit.getBaseEntityId());
             ChwScheduleTaskExecutor.getInstance().execute(visit.getBaseEntityId(), visit.getVisitType(), visit.getDate());
         }
     }
