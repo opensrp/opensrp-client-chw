@@ -7,7 +7,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.ScheduleTask;
 import org.smartregister.chw.core.domain.BaseScheduleTask;
-import org.smartregister.chw.core.rule.FPAlertRule;
+import org.smartregister.chw.core.rule.FpAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.dao.FamilyPlanningDao;
@@ -29,14 +29,12 @@ public class FPVisitScheduler extends BaseTaskExecutor {
     public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate) {
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
         List<Rules> fpRules = new ArrayList<>();
-
         fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_COC_POP_REFILL));
         fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_CONDOM_REFILL));
         fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_INJECTION_DUE));
         fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_FEMALE_STERILIZATION));
         fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_IUCD));
 
-        // Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.PNC_HOME_VISIT);
         Date fp_date = FamilyPlanningDao.getFamilyPlanningDate(baseEntityID);
         Integer fp_pillCycles = FamilyPlanningDao.getFamilyPlanningPillCycles(baseEntityID);
         String fp_method = FamilyPlanningDao.getFamilyPlanningMethod(baseEntityID);
@@ -51,7 +49,7 @@ public class FPVisitScheduler extends BaseTaskExecutor {
             lastVisitDate = lastVisit.getDate();
         }
         for (Rules rules : fpRules) {
-            FPAlertRule alertRule = HomeVisitUtil.getFpVisitStatus(rules, lastVisitDate, fp_date, fp_pillCycles, fp_method);
+            FpAlertRule alertRule = HomeVisitUtil.getFpVisitStatus(rules, lastVisitDate, fp_date, fp_pillCycles, fp_method);
 
             baseScheduleTask.setScheduleDueDate(alertRule.getDueDate());
             baseScheduleTask.setScheduleExpiryDate(alertRule.getExpiryDate());

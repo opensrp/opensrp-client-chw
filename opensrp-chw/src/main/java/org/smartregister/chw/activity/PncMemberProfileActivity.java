@@ -364,11 +364,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     @Override
     protected void startFpRegister() {
-<<<<<<< HEAD
-
-=======
         FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId());
->>>>>>> 1b5b07a0ca28c30425219cae6d851eaaba85d8e8
     }
 
     public interface Flavor {
