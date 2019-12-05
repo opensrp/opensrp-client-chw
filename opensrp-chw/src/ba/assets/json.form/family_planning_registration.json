@@ -96,7 +96,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "Please select one choice"
         }
       },
       {
@@ -124,7 +124,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "Please select one choice"
         },
         "relevance": {
           "rules-engine": {
@@ -159,7 +159,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "Please select one choice"
         },
         "relevance": {
           "rules-engine": {
@@ -200,7 +200,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "Please select one choice"
         },
         "relevance": {
           "rules-engine": {
@@ -252,7 +252,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "Please select one choice"
         },
         "relevance": {
           "rules-engine": {
@@ -287,7 +287,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "Please select one choice"
         },
         "relevance": {
           "rules-engine": {
@@ -322,7 +322,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "Please select one choice"
         },
         "relevance": {
           "rules-engine": {
@@ -357,7 +357,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "Please select one choice"
         },
         "relevance": {
           "rules-engine": {
@@ -392,7 +392,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "Please select one choice"
         },
         "relevance": {
           "rules-engine": {
@@ -427,7 +427,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "Please select one choice"
         },
         "relevance": {
           "rules-engine": {
@@ -462,7 +462,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "Please select one choice"
         },
         "relevance": {
           "rules-engine": {
@@ -497,7 +497,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "Please select one choice"
         },
         "relevance": {
           "rules-engine": {
@@ -1032,11 +1032,7 @@
             "openmrs_entity_parent": "",
             "text": "No"
           }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": null
-        },
+        ],       
         "v_required": {
           "value": "true",
           "err": "Please select one choice"

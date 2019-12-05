@@ -54,6 +54,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.Nullable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -264,7 +265,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        flavor.onCreateOptionsMenu(menu);
+        flavor.onCreateOptionsMenu(menu, memberObject.getBaseEntityId());
         return true;
     }
 
@@ -364,14 +365,10 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     @Override
     protected void startFpRegister() {
-<<<<<<< HEAD
-
-=======
         FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId());
->>>>>>> 1b5b07a0ca28c30425219cae6d851eaaba85d8e8
     }
 
     public interface Flavor {
-        Boolean onCreateOptionsMenu(Menu menu);
+        Boolean onCreateOptionsMenu(Menu menu, @Nullable String baseEntityId);
     }
 }
