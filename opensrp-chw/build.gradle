@@ -18,7 +18,7 @@ apply plugin: 'io.fabric'
 apply from: "jacoco.gradle"
 
 jacoco {
-    toolVersion = "0.8.0"
+    toolVersion = "0.8.5"
 }
 
 android {
@@ -233,7 +233,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.1.8-PREVIEW-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.1.7-SNAPSHOT@aar') {
         transitive = true
     }
     implementation 'androidx.appcompat:appcompat:1.0.0'
@@ -274,18 +274,22 @@ flavors.each { productFlavorName ->
     testDependencies.add("create${productFlavorName.capitalize()}DebugCoverageReport")
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies.take(4)) {
+task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies.take(2)) {
 
     reports {
-        xml.enabled = true
-        html.enabled = true
+        html {
+            html.enabled = true
+            destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage")
+        }
+
+        xml {
+            xml.enabled = true
+            destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml")
+        }
     }
 
-    getReports().getXml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
-    getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
-
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
-    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/ba/debug", excludes: fileFilter)
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/javac/baDebug/classes/", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
 
     sourceDirectories = files([mainSrc])
@@ -298,6 +302,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies.take(4)) {
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
 }
+
 
 coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
