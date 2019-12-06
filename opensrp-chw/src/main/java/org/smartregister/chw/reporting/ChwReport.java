@@ -43,10 +43,10 @@ public class ChwReport {
         NumericDisplayModel pnc_indicator_9 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_DECEASED_NEWBORNS_0_28, R.string.pnc_indicator_9, indicatorTallies);
         mainLayout.addView(new NumericIndicatorView(mainLayout.getContext(), pnc_indicator_9).createView());
 
-        NumericDisplayModel indicator8 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.TOTAL_COUNT, ReportingConstants.ChildIndicatorKeys.DECEASED_CHILDREN_0_11_MONTHS, R.string.deceased_children_0_11_months, indicatorTallies);
+        NumericDisplayModel indicator8 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.DECEASED_CHILDREN_0_11_MONTHS, R.string.deceased_children_0_11_months, indicatorTallies);
         mainLayout.addView(new NumericIndicatorView(mainLayout.getContext(), indicator8).createView());
 
-        NumericDisplayModel indicator9 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.TOTAL_COUNT, ReportingConstants.ChildIndicatorKeys.DECEASED_CHILDREN_12_59_MONTHS, R.string.deceased_children_12_59_months, indicatorTallies);
+        NumericDisplayModel indicator9 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.DECEASED_CHILDREN_12_59_MONTHS, R.string.deceased_children_12_59_months, indicatorTallies);
         mainLayout.addView(new NumericIndicatorView(mainLayout.getContext(), indicator9).createView());
 
         PieChartSlice pnc_indicator_5_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_OTHER_WRA_DEATHS, mainLayout.getContext().getResources().getString(R.string.other_wra_deaths_slice_label), mainLayout.getContext().getResources().getColor(R.color.black), indicatorTallies);
@@ -125,8 +125,8 @@ public class ChwReport {
     public static void createChildReportViews(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies) {
         //Disclaimer: Pie charts have binary slices yes and no with different tallying done separately ;)
 
-        PieChartSlice indicator7_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.TOTAL_COUNT, ReportingConstants.ChildIndicatorKeys.COUNT_OF_CHILDREN_0_59_WITH_BIRTH_CERT, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes_green), indicatorTallies);
-        PieChartSlice indicator7_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.TOTAL_COUNT, ReportingConstants.ChildIndicatorKeys.COUNT_OF_CHILDREN_0_59_WITH_NO_BIRTH_CERT, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no_red), indicatorTallies);
+        PieChartSlice indicator7_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.COUNT_OF_CHILDREN_0_59_WITH_BIRTH_CERT, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes_green), indicatorTallies);
+        PieChartSlice indicator7_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.COUNT_OF_CHILDREN_0_59_WITH_NO_BIRTH_CERT, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no_red), indicatorTallies);
         mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(indicator7_1, indicator7_2), R.string.children_0_59_months_with_birth_certificate, null)).createView());
 
         PieChartSlice indicator3_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.COUNT_OF_CHILDREN_0_5_EXCLUSIVELY_BREASTFEEDING, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes_green), indicatorTallies);
