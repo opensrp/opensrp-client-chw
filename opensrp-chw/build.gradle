@@ -306,5 +306,5 @@ tasks.withType(Test) {
 
 
 coveralls {
-    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml"
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
 }
