@@ -11,6 +11,7 @@ import org.smartregister.chw.core.rule.FpAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.dao.FamilyPlanningDao;
+import org.smartregister.chw.domain.FamilyPlanning;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 
 import java.util.ArrayList;
@@ -27,18 +28,31 @@ public class FPVisitScheduler extends BaseTaskExecutor {
 
     @Override
     public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate) {
+        String fpMethod = null;
+        Date fp_date = null;
+        Integer fp_pillCycles = null;
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
         List<Rules> fpRules = new ArrayList<>();
-        fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_COC_POP_REFILL));
-        fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_CONDOM_REFILL));
-        fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_INJECTION_DUE));
-        fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_FEMALE_STERILIZATION));
-        fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_IUCD));
+        List<FamilyPlanning> familyPlanningList = FamilyPlanningDao.getFamilyPlanningDetails(baseEntityID);
+        if(familyPlanningList.size() > 0){
+            for(FamilyPlanning familyPlanning: familyPlanningList){
+                fpMethod = familyPlanning.getFpMethod() != null ? familyPlanning.getFpMethod() : fpMethod;
+                fp_date = familyPlanning.getFpStartDate() != null ? familyPlanning.getFpStartDate() : fp_date;
+                fp_pillCycles = familyPlanning.getFpPillCycles() != null ? familyPlanning.getFpPillCycles() : fp_pillCycles;
 
-        Date fp_date = FamilyPlanningDao.getFamilyPlanningDate(baseEntityID);
-        Integer fp_pillCycles = FamilyPlanningDao.getFamilyPlanningPillCycles(baseEntityID);
-        String fp_method = FamilyPlanningDao.getFamilyPlanningMethod(baseEntityID);
-
+                if (fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_POP) || fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_COC)) {
+                    fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_COC_POP_REFILL));
+                } else if (fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_IUCD)) {
+                    fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_IUCD));
+                } else if (fpMethod.equalsIgnoreCase((FamilyPlanningConstants.DBConstants.FP_FEMALE_CONDOM)) || fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_MALE_CONDOM)) {
+                    fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_CONDOM_REFILL));
+                } else if (fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_INJECTABLE)) {
+                    fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_INJECTION_DUE));
+                } else if (fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_FEMALE_STERLIZATION)) {
+                    fpRules.add(CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_FEMALE_STERILIZATION));
+                }
+            }
+        }
         if (fp_date == null)
             return new ArrayList<>();
 
@@ -49,7 +63,7 @@ public class FPVisitScheduler extends BaseTaskExecutor {
             lastVisitDate = lastVisit.getDate();
         }
         for (Rules rules : fpRules) {
-            FpAlertRule alertRule = HomeVisitUtil.getFpVisitStatus(rules, lastVisitDate, fp_date, fp_pillCycles, fp_method);
+            FpAlertRule alertRule = HomeVisitUtil.getFpVisitStatus(rules, lastVisitDate, fp_date, fp_pillCycles, fpMethod);
 
             baseScheduleTask.setScheduleDueDate(alertRule.getDueDate());
             baseScheduleTask.setScheduleExpiryDate(alertRule.getExpiryDate());
