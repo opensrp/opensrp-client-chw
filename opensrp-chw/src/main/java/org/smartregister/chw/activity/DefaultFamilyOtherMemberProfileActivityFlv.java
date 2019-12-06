@@ -26,6 +26,7 @@ public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements Fami
     public Boolean onCreateOptionsMenu(Menu menu, @Nullable String baseEntityID) {
         menu.findItem(R.id.action_malaria_registration).setVisible(false);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
+        menu.findItem(R.id.action_fp_initiation).setVisible(false);
         return true;
     }
 
