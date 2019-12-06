@@ -27,6 +27,7 @@ import org.smartregister.chw.custom_view.FamilyPlanningFloatingMenu;
 import org.smartregister.chw.fp.activity.BaseFpProfileActivity;
 import org.smartregister.chw.fp.domain.FpMemberObject;
 import org.smartregister.chw.fp.presenter.BaseFpProfilePresenter;
+import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.interactor.FamilyPlanningProfileInteractor;
 import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -46,9 +47,9 @@ public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
         implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
 
 
-    public static void startFpMemberProfileActivity(Activity activity, FpMemberObject memberObject, CommonPersonObjectClient client) {
+    public static void startFpMemberProfileActivity(Activity activity, FpMemberObject memberObject) {
         Intent intent = new Intent(activity, FamilyPlanningMemberProfileActivity.class);
-        intent.putExtra(Constants.MALARIA_MEMBER_OBJECT.MEMBER_OBJECT, memberObject);
+        intent.putExtra(FamilyPlanningConstants.FamilyPlanningMemberObject.MEMBER_OBJECT, memberObject);
         activity.startActivity(intent);
     }
 

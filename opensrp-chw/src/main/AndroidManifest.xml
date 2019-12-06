@@ -30,7 +30,11 @@
         android:supportsRtl="true"
         android:theme="@style/ChwTheme"
         tools:replace="android:theme">
-        <activity android:name=".activity.FamilyPlanningMemberProfileActivity"></activity>
+        <activity
+            android:name=".activity.FamilyPlanningMemberProfileActivity"
+            android:label="@string/family_planning"
+            android:theme="@style/ChwTheme.NoActionBar"
+            />
         <activity
             android:name=".activity.AncUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
