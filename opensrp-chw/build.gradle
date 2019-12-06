@@ -71,7 +71,7 @@ android {
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
-            buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
+            buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '120'
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '720'
         }
@@ -215,8 +215,8 @@ android {
         }
         liberia {
             dimension = 'baseDimension'
-            versionCode 2
-            versionName "0.1.8"
+            versionCode 4
+            versionName "0.1.10"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-liberia.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/liberia/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
@@ -277,17 +277,12 @@ flavors.each { productFlavorName ->
 task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies.take(4)) {
 
     reports {
-        html {
-            html.enabled = true
-            destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage")
-        }
-
-        xml {
-            xml.enabled = true
-            destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml")
-        }
+        xml.enabled = true
+        html.enabled = true
     }
 
+    getReports().getXml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
+    getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
     def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/ba/debug", excludes: fileFilter)
@@ -306,5 +301,5 @@ tasks.withType(Test) {
 
 
 coveralls {
-    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml"
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
 }
