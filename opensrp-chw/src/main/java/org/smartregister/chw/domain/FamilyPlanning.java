@@ -1,7 +1,4 @@
 package org.smartregister.chw.domain;
-
-import org.mvel2.ast.IfNode;
-
 import java.util.Date;
 
 public class FamilyPlanning {

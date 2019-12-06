@@ -34,8 +34,8 @@ public class FPVisitScheduler extends BaseTaskExecutor {
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
         List<Rules> fpRules = new ArrayList<>();
         List<FamilyPlanning> familyPlanningList = FamilyPlanningDao.getFamilyPlanningDetails(baseEntityID);
-        if(familyPlanningList.size() > 0){
-            for(FamilyPlanning familyPlanning: familyPlanningList){
+        if (familyPlanningList.size() > 0) {
+            for (FamilyPlanning familyPlanning : familyPlanningList) {
                 fpMethod = familyPlanning.getFpMethod() != null ? familyPlanning.getFpMethod() : fpMethod;
                 fp_date = familyPlanning.getFpStartDate() != null ? familyPlanning.getFpStartDate() : fp_date;
                 fp_pillCycles = familyPlanning.getFpPillCycles() != null ? familyPlanning.getFpPillCycles() : fp_pillCycles;
