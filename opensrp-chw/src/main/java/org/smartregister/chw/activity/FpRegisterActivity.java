@@ -13,7 +13,7 @@ import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getFpRegi
 
 public class FpRegisterActivity extends CoreFpRegisterActivity {
 
-    public static void startFpRegistrationActivity(Activity activity, String baseEntityID) {
+    public static void startFpRegistrationActivity(Activity activity, String baseEntityID, String age) {
         Intent intent = new Intent(activity, FpRegisterActivity.class);
         intent.putExtra(FamilyPlanningConstants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
         intent.putExtra(FamilyPlanningConstants.ActivityPayload.FP_FORM_NAME, getFpRegistration());
