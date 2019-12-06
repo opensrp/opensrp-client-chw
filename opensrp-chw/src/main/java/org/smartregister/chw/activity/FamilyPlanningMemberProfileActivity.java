@@ -101,7 +101,7 @@ public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
 
         OnClickFloatingMenu onClickFloatingMenu = viewId -> {
             switch (viewId) {
-                case R.id.malaria_fab:
+                case R.id.family_planning_fab:
                     checkPhoneNumberProvided(StringUtils.isNotBlank(fpMemberObject.getPhoneNumber()));
                     ((FamilyPlanningFloatingMenu) fpFloatingMenu).animateFAB();
                     break;
