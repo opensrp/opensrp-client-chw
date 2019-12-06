@@ -22,15 +22,15 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
     private static ChwScheduleTaskExecutor scheduleTaskExecutor;
     private WashCheckFlv washCheckFlv = new WashCheckFlv();
 
-    protected ChwScheduleTaskExecutor() {
-        //scheduleServiceMap.put();
-    }
-
     public static ChwScheduleTaskExecutor getInstance() {
         if (scheduleTaskExecutor == null) {
             scheduleTaskExecutor = new ChwScheduleTaskExecutor();
         }
         return scheduleTaskExecutor;
+    }
+
+    protected ChwScheduleTaskExecutor() {
+        //scheduleServiceMap.put();
     }
 
     @Override
