@@ -122,6 +122,8 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         };
         boolean hasPermission = PermissionUtils.isPermissionGranted(this, request_permissions, PermissionUtils.READ_EXTERNAL_STORAGE_REQUEST_CODE);
         if (hasPermission) ChwApplication.prepareGuideBooksFolder();
+
+        ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
     }
 
     private void setUpView() {
