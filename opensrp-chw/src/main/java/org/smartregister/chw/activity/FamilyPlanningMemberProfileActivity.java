@@ -25,6 +25,7 @@ import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyPlanningFloatingMenu;
 import org.smartregister.chw.fp.activity.BaseFpProfileActivity;
+import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fp.domain.FpMemberObject;
 import org.smartregister.chw.fp.presenter.BaseFpProfilePresenter;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
@@ -95,14 +96,13 @@ public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
 
     @Override
     public void initializeCallFAB() {
-        // FpMemberObject fpMemberObject = FpDao.getMember(fpMemberObject.getBaseEntityId());
-        // TODO :: Add implementation in FP Module -> Also we have getClientDetailsByBaseEntityID()
-        fpFloatingMenu = new FamilyPlanningFloatingMenu(this, fpMemberObject);
+        FpMemberObject memberObject = FpDao.getMember(fpMemberObject.getBaseEntityId());
+        fpFloatingMenu = new FamilyPlanningFloatingMenu(this, memberObject);
 
         OnClickFloatingMenu onClickFloatingMenu = viewId -> {
             switch (viewId) {
                 case R.id.family_planning_fab:
-                    checkPhoneNumberProvided(StringUtils.isNotBlank(fpMemberObject.getPhoneNumber()));
+                    checkPhoneNumberProvided(StringUtils.isNotBlank(memberObject.getPhoneNumber()));
                     ((FamilyPlanningFloatingMenu) fpFloatingMenu).animateFAB();
                     break;
                 case R.id.call_layout:
