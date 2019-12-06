@@ -7,7 +7,6 @@ import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
-import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.interactor.CoreFamilyPlanningProfileInteractor;
@@ -60,7 +59,7 @@ public class FamilyPlanningProfileInteractor extends CoreFamilyPlanningProfileIn
 
     private Alert getAlerts(Context context, String baseEntityID) {
         List<BaseUpcomingService> baseUpcomingServices = new ArrayList<>();
-        org.smartregister.chw.anc.domain.MemberObject memberObject = PNCDao.getMember(baseEntityID);
+        MemberObject memberObject = PNCDao.getMember(baseEntityID);
         try {
             baseUpcomingServices.addAll(new PncUpcomingServicesInteractorFlv().getMemberServices(context, memberObject));
             baseUpcomingServices.addAll(new AncUpcomingServicesInteractorFlv().getMemberServices(context, memberObject));
