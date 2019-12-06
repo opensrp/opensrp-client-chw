@@ -102,11 +102,5 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         classifier.put(FamilyPlanningConstants.EventType.FP_HOME_VISIT, scheduleServices);
 
         //TO BE ADDED
-
-      /*  classifier.put(CoreConstants.EventType.PREGNANCY_OUTCOME, scheduleServices);
-        classifier.put(CoreConstants.EventType.PNC_REGISTRATION, scheduleServices);
-        classifier.put(CoreConstants.EventType.PNC_HOME_VISIT, scheduleServices);
-        classifier.put(CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE, scheduleServices);
-        classifier.put(CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE_UNDO, scheduleServices);*/
     }
 }
