@@ -31,15 +31,10 @@ public class ReferralRegistrationActivity extends BaseIssueReferralActivity {
         intent.putExtra(org.smartregister.chw.referral.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.referral.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
 
         //TODO Coze: the following line is used for testing configuration of referral form with a specific service(s) by passing referral service id(s)
-        ArrayList<String> referralServiceIds = new ArrayList<>();
 
         if (serviceId != null) {
-            referralServiceIds.add(serviceId);
-        } else {
-            referralServiceIds = null;
+            intent.putExtra(org.smartregister.chw.referral.util.Constants.ACTIVITY_PAYLOAD.REFERRAL_SERVICE_IDS, serviceId);
         }
-        intent.putExtra(org.smartregister.chw.referral.util.Constants.ACTIVITY_PAYLOAD.REFERRAL_SERVICE_IDS, referralServiceIds);
-
         intent.putExtra(org.smartregister.chw.referral.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.referral.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
 
         activity.startActivity(intent);
