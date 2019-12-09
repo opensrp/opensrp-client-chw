@@ -158,4 +158,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         boolean isWra(CommonPersonObjectClient commonPersonObject);
     }
 
+    @Override
+    protected void startMalariaFollowUpVisit() {
+        MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, baseEntityId);
+    }
+
 }

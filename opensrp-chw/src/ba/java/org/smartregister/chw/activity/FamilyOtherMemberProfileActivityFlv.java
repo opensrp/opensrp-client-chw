@@ -32,11 +32,12 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
 
     @Override
     public Boolean onCreateOptionsMenu(Menu menu, String baseEntityId) {
-        if (MalariaDao.isRegisteredForMalaria(baseEntityId))
+        if (MalariaDao.isRegisteredForMalaria(baseEntityId)) {
             menu.findItem(R.id.action_malaria_registration).setVisible(false);
+            menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
+        }
         else
             menu.findItem(R.id.action_malaria_registration).setVisible(true);
-        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         return true;
     }
 
@@ -44,4 +45,5 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
     public boolean isWra(CommonPersonObjectClient commonPersonObject) {
         return isWomanOfReproductiveAge(commonPersonObject, 10, 49);
     }
+
 }
