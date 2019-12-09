@@ -30,6 +30,8 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
 import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.anc.repository.VisitDetailsRepository;
+import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
@@ -92,9 +94,9 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         this.view = view;
         // get the preloaded data
         if (view.getEditMode()) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.CHILD_HOME_VISIT);
+            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.CHILD_HOME_VISIT);
             if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
         }
 
@@ -111,6 +113,14 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
         bindEvents(serviceWrapperMap);
         return actionList;
+    }
+
+    protected VisitRepository getVisitRepository() {
+        return AncLibrary.getInstance().visitRepository();
+    }
+
+    protected VisitDetailsRepository getVisitDetailsRepository() {
+        return AncLibrary.getInstance().visitDetailsRepository();
     }
 
     protected void bindEvents(Map<String, ServiceWrapper> serviceWrapperMap) throws BaseAncHomeVisitAction.ValidationException {
@@ -135,7 +145,12 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         }
     }
 
+
     protected void evaluateChildVaccineCard() throws Exception {
+        evaluateChildVaccineCard(new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.vaccine_card_title)));
+    }
+
+    protected void evaluateChildVaccineCard(BaseAncHomeVisitAction.Builder builder) throws Exception {
         class ChildVaccineCardHelper extends HomeVisitActionHelper {
             private String child_vaccine_card;
             private LocalDate birthDate;
@@ -201,13 +216,13 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         if (!new LocalDate().isAfter(new LocalDate(dob).plusMonths(24)) && !vaccineCardReceived) {
             Map<String, List<VisitDetail>> details = null;
             if (editMode) {
-                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.CHILD_VACCINE_CARD_RECEIVED);
+                Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.CHILD_VACCINE_CARD_RECEIVED);
                 if (lastVisit != null) {
-                    details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                    details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
                 }
             }
 
-            BaseAncHomeVisitAction vaccine_card = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.vaccine_card_title))
+            BaseAncHomeVisitAction vaccine_card = builder
                     .withOptional(false)
                     .withDetails(details)
                     .withBaseEntityID(memberObject.getBaseEntityId())
@@ -304,9 +319,9 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.EXCLUSIVE_BREASTFEEDING);
+            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.EXCLUSIVE_BREASTFEEDING);
             if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
         }
 
@@ -358,9 +373,9 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.VITAMIN_A);
+            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.VITAMIN_A);
             if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
         }
 
@@ -420,9 +435,9 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.DEWORMING);
+            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.DEWORMING);
             if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
         }
 
@@ -474,9 +489,9 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.MNP);
+            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.MNP);
             if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
         }
 
@@ -504,6 +519,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     }
 
     protected void evaluateBirthCertForm() throws Exception {
+        evaluateBirthCertForm(new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.birth_certification)));
+    }
+
+    protected void evaluateBirthCertForm(BaseAncHomeVisitAction.Builder builder) throws Exception {
         class BirthCertHelper extends HomeVisitActionHelper {
             private String birth_cert;
             private String birth_cert_issue_date;
@@ -583,14 +602,13 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
             Map<String, List<VisitDetail>> details = null;
             if (editMode) {
-                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.BIRTH_CERTIFICATION);
+                Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.BIRTH_CERTIFICATION);
                 if (lastVisit != null) {
-                    details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                    details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
                 }
             }
 
-            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.birth_certification))
-                    .withOptional(false)
+            BaseAncHomeVisitAction action = builder.withOptional(false)
                     .withDetails(details)
                     .withBaseEntityID(memberObject.getBaseEntityId())
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
@@ -654,9 +672,9 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.MUAC);
+            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.MUAC);
             if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
         }
 
@@ -673,6 +691,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     }
 
     protected void evaluateDietary() throws Exception {
+        evaluateDietary(new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.minimum_dietary_title)));
+    }
+
+    protected void evaluateDietary(BaseAncHomeVisitAction.Builder builder) throws Exception {
         int age = getAgeInMonths();
         if (age > 60 || age < 6) {
             return;
@@ -724,13 +746,13 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.MINIMUM_DIETARY_DIVERSITY);
+            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.MINIMUM_DIETARY_DIVERSITY);
             if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
         }
 
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.minimum_dietary_title))
+        BaseAncHomeVisitAction action = builder
                 .withOptional(false)
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
@@ -743,6 +765,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     }
 
     protected void evaluateECD() throws Exception {
+        evaluateECD(new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.ecd_title)));
+    }
+
+    protected void evaluateECD(BaseAncHomeVisitAction.Builder builder) throws Exception {
         if (getAgeInMonths() > 60) {
             return;
         }
@@ -752,14 +778,14 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.ECD);
+            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.ECD);
             if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
             JsonFormUtils.populateForm(jsonObject, details);
         }
 
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.ecd_title))
+        BaseAncHomeVisitAction action = builder
                 .withOptional(false)
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
@@ -773,6 +799,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     }
 
     protected void evaluateLLITN() throws Exception {
+        evaluateLLITN(new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_sleeping_under_llitn_net)));
+    }
+
+    protected void evaluateLLITN(BaseAncHomeVisitAction.Builder builder) throws Exception {
         if (getAgeInMonths() > 60) {
             return;
         }
@@ -815,13 +845,13 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.LLITN);
+            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.LLITN);
             if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
         }
 
-        BaseAncHomeVisitAction sleeping = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_sleeping_under_llitn_net))
+        BaseAncHomeVisitAction sleeping = builder
                 .withOptional(false)
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
@@ -835,15 +865,19 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     }
 
     protected void evaluateObsAndIllness() throws Exception {
+        evaluateObsAndIllness(new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_observations_n_illnes)));
+    }
+
+    protected void evaluateObsAndIllness(BaseAncHomeVisitAction.Builder builder) throws Exception {
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.OBS_ILLNESS);
+            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.OBS_ILLNESS);
             if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
         }
 
-        BaseAncHomeVisitAction observation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_observations_n_illnes))
+        BaseAncHomeVisitAction observation = builder
                 .withOptional(true)
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
