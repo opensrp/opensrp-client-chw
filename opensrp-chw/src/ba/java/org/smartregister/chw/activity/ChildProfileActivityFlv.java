@@ -5,6 +5,7 @@ import android.app.Activity;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.dao.MalariaDao;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 
 public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
@@ -25,16 +26,5 @@ public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
                 }
             }
         };
-    }
-
-
-    @Override
-    public boolean showMalariaConfirmationMenu() {
-        return false;
-    }
-
-    @Override
-    public boolean showFollowUpVisit() {
-        return true;
     }
 }
