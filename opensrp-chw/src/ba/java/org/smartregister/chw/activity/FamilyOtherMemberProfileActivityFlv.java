@@ -33,11 +33,10 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
     @Override
     public Boolean onCreateOptionsMenu(Menu menu, String baseEntityId) {
         if (MalariaDao.isRegisteredForMalaria(baseEntityId)) {
-            menu.findItem(R.id.action_malaria_registration).setVisible(false);
-            menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
-        }
-        else
+            menu.findItem(R.id.action_malaria_followup_visit).setVisible(true);
+        } else {
             menu.findItem(R.id.action_malaria_registration).setVisible(true);
+        }
         return true;
     }
 
