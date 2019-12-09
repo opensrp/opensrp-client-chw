@@ -3,8 +3,10 @@ package org.smartregister.chw.schedulers;
 import org.smartregister.chw.core.contract.ScheduleService;
 import org.smartregister.chw.core.schedulers.ScheduleTaskExecutor;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.task.ANCVisitScheduler;
 import org.smartregister.chw.task.ChildHomeVisitScheduler;
+import org.smartregister.chw.task.FPVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
 import org.smartregister.chw.task.PNCVisitScheduler;
 import org.smartregister.chw.task.WashCheckScheduler;
@@ -17,19 +19,18 @@ import java.util.Map;
 
 public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
-    private WashCheckFlv washCheckFlv = new WashCheckFlv();
-
-    protected ChwScheduleTaskExecutor() {
-        //scheduleServiceMap.put();
-    }
-
     private static ChwScheduleTaskExecutor scheduleTaskExecutor;
+    private WashCheckFlv washCheckFlv = new WashCheckFlv();
 
     public static ChwScheduleTaskExecutor getInstance() {
         if (scheduleTaskExecutor == null) {
             scheduleTaskExecutor = new ChwScheduleTaskExecutor();
         }
         return scheduleTaskExecutor;
+    }
+
+    protected ChwScheduleTaskExecutor() {
+        //scheduleServiceMap.put();
     }
 
     @Override
@@ -41,6 +42,7 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
             initializeANCClassifier(scheduleServiceMap);
             initializePNCClassifier(scheduleServiceMap);
             initializeMalariaClassifier(scheduleServiceMap);
+            initializeFPClassifier(scheduleServiceMap);
 
             if (washCheckFlv.isWashCheckVisible())
                 initializeWashClassifier(scheduleServiceMap);
@@ -92,5 +94,13 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
         classifier.put(CoreConstants.EventType.FAMILY_REGISTRATION, scheduleServices);
         classifier.put(CoreConstants.EventType.WASH_CHECK, scheduleServices);
+    }
+
+    private void initializeFPClassifier(Map<String, List<ScheduleService>> classifier) {
+        List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new FPVisitScheduler());
+        classifier.put(FamilyPlanningConstants.EventType.FP_HOME_VISIT, scheduleServices);
+
+        //TO BE ADDED
     }
 }

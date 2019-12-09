@@ -47,7 +47,7 @@ public class FamilyDao extends AbstractDao {
         String sql = "select visit_state from (  " +
                 "SELECT m.relational_id , CASE  " +
                 "WHEN completion_date  is NOT NULL  THEN  'DONE'  " +
-                "WHEN not_done_date is NOT NULL THEN  'NOT_VISIT_THIS_MONTH' " +
+                "WHEN not_done_date is NOT NULL AND not_done_date >= due_date THEN  'NOT_VISIT_THIS_MONTH' " +
                 "WHEN strftime('%Y-%m-%d') BETWEEN due_date AND over_due_date THEN  'DUE' " +
                 "WHEN strftime('%Y-%m-%d') BETWEEN over_due_date AND expiry_date THEN  'OVERDUE' " +
                 "WHEN strftime('%Y-%m-%d')  >= expiry_date  THEN  'EXPIRY'  end  visit_state " +
