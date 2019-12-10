@@ -134,11 +134,9 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         } else if (ChildProfileInteractor.VisitType.VISIT_DONE.name().equals(statusVisit)) {
             Visit lastVisit = getVisit(Constants.EVENT_TYPE.PNC_HOME_VISIT);
             if (lastVisit != null) {
-                boolean within24Hours;
                 if ((Days.daysBetween(new DateTime(lastVisit.getCreatedAt()), new DateTime()).getDays() < 1) &&
                         (Days.daysBetween(new DateTime(lastVisit.getDate()), new DateTime()).getDays() <= 1)) {
-                    within24Hours = true;
-                    setEditViews(true, within24Hours, lastVisit.getDate().getTime());
+                    setEditViews(true, true, lastVisit.getDate().getTime());
                 } else {
                     textview_record_visit.setVisibility(View.GONE);
                     layoutRecordView.setVisibility(View.GONE);
@@ -325,7 +323,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         } else {
             layoutNotRecordView.setVisibility(View.GONE);
         }
-
     }
 
     @Override
@@ -368,7 +365,12 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId());
     }
 
+    @Override
+    protected void startMalariaFollowUpVisit() {
+        MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, memberObject.getBaseEntityId());
+    }
+
     public interface Flavor {
-        Boolean onCreateOptionsMenu(Menu menu, @Nullable String baseEntityId);
+        Boolean onCreateOptionsMenu(@Nullable Menu menu, @Nullable String baseEntityId);
     }
 }
