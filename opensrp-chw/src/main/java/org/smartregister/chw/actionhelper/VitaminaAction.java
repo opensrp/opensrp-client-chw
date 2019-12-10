@@ -74,17 +74,20 @@ public class VitaminaAction extends HomeVisitActionHelper {
         }
     }
 */
-    public JSONObject preProcess(JSONObject jsonObject, String iteration) throws JSONException {
-        JSONArray fields = JsonFormUtils.fields(jsonObject);
+    public JSONObject preProcess(JSONObject jsonObject, String iteration) {
+        try {
+            JSONArray fields = JsonFormUtils.fields(jsonObject);
 
-        String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
-        String formatted_count = MessageFormat.format("{0}", Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context));
-        jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, formatted_count));
+            String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
+            String formatted_count = MessageFormat.format("{0}", Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context));
+            jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, formatted_count));
 
-        JSONObject visit_field = JsonFormUtils.getFieldJSONObject(fields, "vitamin_a{0}_date");
-        visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration, context));
-        visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context)));
-
+            JSONObject visit_field = JsonFormUtils.getFieldJSONObject(fields, "vitamin_a{0}_date");
+            visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration, context));
+            visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), Utils.getDayOfMonthWithSuffix(Integer.valueOf(serviceIteration), context)));
+        }catch (Exception e){
+            Timber.e(e);
+        }
         return jsonObject;
     }
 
