@@ -1,22 +1,14 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.view.Menu;
 import android.widget.Toast;
 
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
-import org.smartregister.chw.core.rule.MalariaFollowUpRule;
-import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.MalariaVisitUtil;
-import org.smartregister.chw.dao.MalariaDao;
+import org.smartregister.chw.util.UtilsFlv;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.util.Utils;
-
-import java.util.Date;
 
 import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
 
@@ -40,11 +32,7 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
 
     @Override
     public Boolean onCreateOptionsMenu(Menu menu, String baseEntityId) {
-        if (MalariaDao.isRegisteredForMalaria(baseEntityId)) {
-            Utils.startAsyncTask(new UpdateFollowUpMenuItem(baseEntityId, menu), null);
-        } else {
-            menu.findItem(R.id.action_malaria_registration).setVisible(true);
-        }
+        UtilsFlv.updateMalariaMenuItems(baseEntityId, menu);
         return true;
     }
 
@@ -53,29 +41,4 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
         return isWomanOfReproductiveAge(commonPersonObject, 10, 49);
     }
 
-    private class UpdateFollowUpMenuItem extends AsyncTask<Void, Void, Void> {
-        private final String baseEntityId;
-        private Menu menu;
-        private MalariaFollowUpRule malariaFollowUpRule;
-
-        private UpdateFollowUpMenuItem(String baseEntityId, Menu menu) {
-            this.baseEntityId = baseEntityId;
-            this.menu = menu;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            Date date = MalariaDao.getMalariaTestDate(baseEntityId);
-            malariaFollowUpRule = MalariaVisitUtil.getMalariaStatus(date);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void param) {
-            if (malariaFollowUpRule != null && StringUtils.isNotBlank(malariaFollowUpRule.getButtonStatus()) &&
-                    !CoreConstants.VISIT_STATE.EXPIRED.equalsIgnoreCase(malariaFollowUpRule.getButtonStatus())) {
-                menu.findItem(R.id.action_malaria_followup_visit).setVisible(true);
-            }
-        }
-    }
 }
