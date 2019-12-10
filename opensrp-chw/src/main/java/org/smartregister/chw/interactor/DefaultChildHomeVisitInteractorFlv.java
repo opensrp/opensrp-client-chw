@@ -566,50 +566,6 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             return;
         }
 
-        HomeVisitActionHelper helper = new HomeVisitActionHelper() {
-            private String diet_diversity;
-
-            @Override
-            public void onPayloadReceived(String jsonPayload) {
-                try {
-                    JSONObject jsonObject = new JSONObject(jsonPayload);
-                    diet_diversity = JsonFormUtils.getValue(jsonObject, "diet_diversity");
-                } catch (JSONException e) {
-                    Timber.e(e);
-                }
-            }
-
-            @Override
-            public String evaluateSubTitle() {
-                if (StringUtils.isBlank(diet_diversity)) {
-                    return null;
-                }
-
-                String value = "";
-                if ("chk_no_animal_products".equalsIgnoreCase(diet_diversity)) {
-                    value = context.getString(R.string.minimum_dietary_choice_1);
-                } else if ("chw_one_animal_product_or_fruit".equalsIgnoreCase(diet_diversity)) {
-                    value = context.getString(R.string.minimum_dietary_choice_2);
-                } else if ("chw_one_animal_product_and_fruit".equalsIgnoreCase(diet_diversity)) {
-                    value = context.getString(R.string.minimum_dietary_choice_3);
-                }
-                return value;
-            }
-
-            @Override
-            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(diet_diversity)) {
-                    return BaseAncHomeVisitAction.Status.PENDING;
-                }
-
-                if ("chw_one_animal_product_and_fruit".equalsIgnoreCase(diet_diversity)) {
-                    return BaseAncHomeVisitAction.Status.COMPLETED;
-                }
-
-                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-            }
-        };
-
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
             Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.MINIMUM_DIETARY_DIVERSITY);
@@ -623,7 +579,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                .withHelper(helper)
+                .withHelper(new DietaryHelper())
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getDIETARY(), null, details, null))
                 .build();
 
@@ -682,42 +638,6 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             return;
         }
 
-        HomeVisitActionHelper helper = new HomeVisitActionHelper() {
-            private String llitn;
-
-            @Override
-            public void onPayloadReceived(String jsonPayload) {
-                try {
-                    JSONObject jsonObject = new JSONObject(jsonPayload);
-                    llitn = JsonFormUtils.getValue(jsonObject, "llitn");
-                } catch (JSONException e) {
-                    Timber.e(e);
-                }
-            }
-
-            @Override
-            public String evaluateSubTitle() {
-                if (StringUtils.isBlank(llitn))
-                    return null;
-
-                return llitn.equalsIgnoreCase("Yes") ? context.getString(R.string.yes) : context.getString(R.string.no);
-            }
-
-            @Override
-            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(llitn))
-                    return BaseAncHomeVisitAction.Status.PENDING;
-
-                if (llitn.equalsIgnoreCase("Yes")) {
-                    return BaseAncHomeVisitAction.Status.COMPLETED;
-                } else if (llitn.equalsIgnoreCase("No")) {
-                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-                } else {
-                    return BaseAncHomeVisitAction.Status.PENDING;
-                }
-            }
-        };
-
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
             Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.LLITN);
@@ -731,7 +651,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                .withHelper(helper)
+                .withHelper(new LLITNHelper())
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getSleepingUnderLlitn(), null, details, null))
                 .build();
 
@@ -780,6 +700,86 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             fieldJSONObject.put(JsonFormConstants.MIN_DATE, parsedDate);
         } catch (JSONException je) {
             Timber.e(je);
+        }
+    }
+
+    private class LLITNHelper extends HomeVisitActionHelper {
+        private String llitn;
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                llitn = JsonFormUtils.getValue(jsonObject, "llitn");
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            if (StringUtils.isBlank(llitn))
+                return null;
+
+            return llitn.equalsIgnoreCase("Yes") ? context.getString(R.string.yes) : context.getString(R.string.no);
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isBlank(llitn))
+                return BaseAncHomeVisitAction.Status.PENDING;
+
+            if (llitn.equalsIgnoreCase("Yes")) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else if (llitn.equalsIgnoreCase("No")) {
+                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+        }
+    }
+
+    private class DietaryHelper extends HomeVisitActionHelper{
+        private String diet_diversity;
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                diet_diversity = JsonFormUtils.getValue(jsonObject, "diet_diversity");
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            if (StringUtils.isBlank(diet_diversity)) {
+                return null;
+            }
+
+            String value = "";
+            if ("chk_no_animal_products".equalsIgnoreCase(diet_diversity)) {
+                value = context.getString(R.string.minimum_dietary_choice_1);
+            } else if ("chw_one_animal_product_or_fruit".equalsIgnoreCase(diet_diversity)) {
+                value = context.getString(R.string.minimum_dietary_choice_2);
+            } else if ("chw_one_animal_product_and_fruit".equalsIgnoreCase(diet_diversity)) {
+                value = context.getString(R.string.minimum_dietary_choice_3);
+            }
+            return value;
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isBlank(diet_diversity)) {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+
+            if ("chw_one_animal_product_and_fruit".equalsIgnoreCase(diet_diversity)) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            }
+
+            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
         }
     }
 
