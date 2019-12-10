@@ -16,15 +16,17 @@ import androidx.annotation.NonNull;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.core.activity.CoreFamilyPlanningMemberProfileActivity;
+import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyPlanningFloatingMenu;
-import org.smartregister.chw.fp.activity.BaseFpProfileActivity;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fp.domain.FpMemberObject;
 import org.smartregister.chw.fp.presenter.BaseFpProfilePresenter;
@@ -34,7 +36,6 @@ import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.family.contract.FamilyOtherMemberContract;
 import org.smartregister.family.util.JsonFormUtils;
 
 import io.reactivex.Observable;
@@ -44,7 +45,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
+public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMemberProfileActivity
         implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
 
 
@@ -63,6 +64,22 @@ public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.family_planning_member_profile_menu, menu);
         return true;
+    }
+
+    @Override
+    protected Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivityClass() {
+        return null;
+    }
+
+    @Override
+    protected void removeMember() {
+        // TODO :: Implement
+    }
+
+    @NonNull
+    @Override
+    public CoreFamilyOtherMemberActivityPresenter presenter() {
+        return null;
     }
 
     @Override
@@ -172,10 +189,6 @@ public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
         // Implement
     }
 
-    @Override
-    public FamilyOtherMemberContract.Presenter presenter() {
-        return null;
-    }
 
     @Override
     public void setProfileImage(String s, String s1) {
