@@ -102,7 +102,7 @@ public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
         OnClickFloatingMenu onClickFloatingMenu = viewId -> {
             switch (viewId) {
                 case R.id.family_planning_fab:
-                    checkPhoneNumberProvided(StringUtils.isNotBlank(memberObject.getPhoneNumber()));
+                    checkPhoneNumberProvided();
                     ((FamilyPlanningFloatingMenu) fpFloatingMenu).animateFAB();
                     break;
                 case R.id.call_layout:
@@ -131,12 +131,15 @@ public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
         super.onClick(view);
         int id = view.getId();
         if (id == R.id.record_fp_followup_visit) {
-          openFollowUpVisitForm();
+            openFollowUpVisitForm();
         }
     }
 
-    private void checkPhoneNumberProvided(boolean hasPhoneNumber) {
-        ((FamilyPlanningFloatingMenu) fpFloatingMenu).redraw(hasPhoneNumber);
+    private void checkPhoneNumberProvided() {
+        boolean phoneNumberAvailable = (StringUtils.isNotBlank(fpMemberObject.getPhoneNumber())
+                || StringUtils.isNotBlank(fpMemberObject.getFamilyHeadPhoneNumber()));
+
+        ((FamilyPlanningFloatingMenu) fpFloatingMenu).redraw(phoneNumberAvailable);
     }
 
     @Override
@@ -336,6 +339,7 @@ public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
                     }
                 });
     }
+
     @Override
     public void openUpcomingServices() {
         // Implement
