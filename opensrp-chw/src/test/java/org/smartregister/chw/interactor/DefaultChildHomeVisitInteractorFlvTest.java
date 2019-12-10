@@ -2,7 +2,6 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.util.Pair;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -16,22 +15,16 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.util.ReflectionHelpers;
-import org.smartregister.chw.actionhelper.ImmunizationValidator;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
-import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.util.Constants;
 import org.smartregister.domain.Alert;
-import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
-import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -115,7 +108,7 @@ public class DefaultChildHomeVisitInteractorFlvTest {
     }
 
     @Test
-    public void testGetDetailsReturnsDBResultsEditing(){
+    public void testGetDetailsReturnsDBResultsEditing() {
         Whitebox.setInternalState(interactor, "editMode", true);
 
         String baseID = "12345";
@@ -126,7 +119,7 @@ public class DefaultChildHomeVisitInteractorFlvTest {
         ReflectionHelpers.callInstanceMethod(interactor, "getDetails"
                 , ReflectionHelpers.ClassParameter.from(String.class, eventName));
 
-        Mockito.verify(visitRepository).getLatestVisit(baseID,eventName);
+        Mockito.verify(visitRepository).getLatestVisit(baseID, eventName);
     }
 
     @Test
@@ -139,7 +132,7 @@ public class DefaultChildHomeVisitInteractorFlvTest {
     }
 
     @Test
-    public void testEvaluateExclusiveBreastFeeding(){
+    public void testEvaluateExclusiveBreastFeeding() {
         Map<String, ServiceWrapper> serviceWrapperMap = new HashMap<>();
         ServiceWrapper serviceWrapper = Mockito.mock(ServiceWrapper.class);
         Mockito.doReturn("Exclusive 1").when(serviceWrapper).getName();
@@ -160,7 +153,7 @@ public class DefaultChildHomeVisitInteractorFlvTest {
     }
 
     @Test
-    public void testEvaluateVitaminA(){
+    public void testEvaluateVitaminA() {
         Map<String, ServiceWrapper> serviceWrapperMap = new HashMap<>();
         ServiceWrapper serviceWrapper = Mockito.mock(ServiceWrapper.class);
         Mockito.doReturn("Vitamin A 1").when(serviceWrapper).getName();
@@ -181,7 +174,7 @@ public class DefaultChildHomeVisitInteractorFlvTest {
     }
 
     @Test
-    public void testEvaluateDeworming(){
+    public void testEvaluateDeworming() {
         Map<String, ServiceWrapper> serviceWrapperMap = new HashMap<>();
         ServiceWrapper serviceWrapper = Mockito.mock(ServiceWrapper.class);
         Mockito.doReturn("Deworming 1").when(serviceWrapper).getName();
@@ -202,7 +195,7 @@ public class DefaultChildHomeVisitInteractorFlvTest {
     }
 
     @Test
-    public void testEvaluateMNP(){
+    public void testEvaluateMNP() {
         Map<String, ServiceWrapper> serviceWrapperMap = new HashMap<>();
         ServiceWrapper serviceWrapper = Mockito.mock(ServiceWrapper.class);
         Mockito.doReturn("MNP 1").when(serviceWrapper).getName();
@@ -252,7 +245,7 @@ public class DefaultChildHomeVisitInteractorFlvTest {
     }
 
     @Test
-    public void testEvaluateECD(){
+    public void testEvaluateECD() {
         ReflectionHelpers.callInstanceMethod(interactor, "evaluateECD");
 
         Mockito.verify(actionList).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));

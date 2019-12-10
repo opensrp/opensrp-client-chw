@@ -189,7 +189,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             vaccinesRepo.put(vaccine.display().toLowerCase().replace(" ", ""), vaccine);
         }
 
-        Map<VaccineGroup, List<android.util.Pair<VaccineRepo.Vaccine, Alert>>> pendingVaccines = VisitVaccineUtil.generateVisitVaccines(
+        Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> pendingVaccines = VisitVaccineUtil.generateVisitVaccines(
                 memberObject.getBaseEntityId(),
                 vaccinesRepo,
                 new DateTime(dob),
