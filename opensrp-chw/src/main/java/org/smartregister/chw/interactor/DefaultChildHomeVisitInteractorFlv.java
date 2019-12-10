@@ -1,6 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import android.content.Context;
+import android.util.Pair;
 
 import androidx.annotation.VisibleForTesting;
 
@@ -147,23 +148,71 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         }
     }
 
+    protected Map<String, List<VisitDetail>> getDetails(String eventName) {
+        if (!editMode)
+            return null;
 
-    protected void evaluateChildVaccineCard() throws Exception {
-        evaluateChildVaccineCard(new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.vaccine_card_title)));
+        Map<String, List<VisitDetail>> visitDetails = null;
+        Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), eventName);
+        if (lastVisit != null) {
+            visitDetails = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
+        }
+
+        return visitDetails;
     }
 
-    protected void evaluateChildVaccineCard(BaseAncHomeVisitAction.Builder builder) throws Exception {
+    @VisibleForTesting
+    public BaseAncHomeVisitAction.Builder getBuilder(String title) {
+        return new BaseAncHomeVisitAction.Builder(context, title);
+    }
+
+    @VisibleForTesting
+    public JSONObject getFormJson(String name) throws Exception {
+        return FormUtils.getInstance(context).getFormJson(name);
+    }
+
+    @VisibleForTesting
+    public JSONObject getFormJson(String name, String baseEntityID) throws Exception {
+        return org.smartregister.chw.util.JsonFormUtils.getJson(name, baseEntityID);
+    }
+
+    @VisibleForTesting
+    public Pair<ImmunizationValidator, Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>>> getVaccinesValidator() {
+        List<VaccineGroup> childVaccineGroups = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD);
+        List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(context);
+        VaccineRepository vaccineRepository = CoreChwApplication.getInstance().vaccineRepository();
+        List<org.smartregister.immunization.domain.Vaccine> vaccines = vaccineRepository.findByEntityId(memberObject.getBaseEntityId());
+
+        List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(CoreConstants.SERVICE_GROUPS.CHILD);
+        Map<String, VaccineRepo.Vaccine> vaccinesRepo = new HashMap<>();
+        for (VaccineRepo.Vaccine vaccine : allVacs) {
+            vaccinesRepo.put(vaccine.display().toLowerCase().replace(" ", ""), vaccine);
+        }
+
+        Map<VaccineGroup, List<android.util.Pair<VaccineRepo.Vaccine, Alert>>> pendingVaccines = VisitVaccineUtil.generateVisitVaccines(
+                memberObject.getBaseEntityId(),
+                vaccinesRepo,
+                new DateTime(dob),
+                childVaccineGroups,
+                specialVaccines,
+                vaccines,
+                details
+        );
+        ImmunizationValidator validator = new ImmunizationValidator(childVaccineGroups, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
+
+        return Pair.create(validator, pendingVaccines);
+    }
+
+    protected int immunizationCeiling() {
+        return 24;
+    }
+
+    protected void evaluateChildVaccineCard() throws Exception {
         // expires after 24 months. verify that vaccine card is not received
         if (!new LocalDate().isAfter(new LocalDate(dob).plusMonths(24)) && !vaccineCardReceived) {
-            Map<String, List<VisitDetail>> details = null;
-            if (editMode) {
-                Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.CHILD_VACCINE_CARD_RECEIVED);
-                if (lastVisit != null) {
-                    details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
-                }
-            }
+            Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.CHILD_VACCINE_CARD_RECEIVED);
 
-            BaseAncHomeVisitAction vaccine_card = builder
+            BaseAncHomeVisitAction vaccine_card = getBuilder(context.getString(R.string.vaccine_card_title))
                     .withOptional(false)
                     .withDetails(details)
                     .withBaseEntityID(memberObject.getBaseEntityId())
@@ -176,40 +225,14 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         }
     }
 
-    protected int immunizationCeiling() {
-        return 24;
-    }
-
     protected void evaluateImmunization() throws Exception {
-        int age = getAgeInMonths();
-        if (age >= immunizationCeiling()) {
-            return;
-        }
+        //int age = getAgeInMonths();
+        if (getAgeInMonths() >= immunizationCeiling()) return;
 
-        List<VaccineGroup> childVaccineGroups = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD);
-        List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(context);
-        VaccineRepository vaccineRepository = CoreChwApplication.getInstance().vaccineRepository();
-        List<org.smartregister.immunization.domain.Vaccine> vaccines = vaccineRepository.findByEntityId(memberObject.getBaseEntityId());
+        Pair<ImmunizationValidator, Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>>> validatorMapPair = getVaccinesValidator();
 
-
-        List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(CoreConstants.SERVICE_GROUPS.CHILD);
-        Map<String, VaccineRepo.Vaccine> vaccinesRepo = new HashMap<>();
-        for (VaccineRepo.Vaccine vaccine : allVacs) {
-            vaccinesRepo.put(vaccine.display().toLowerCase().replace(" ", ""), vaccine);
-        }
-
-        Map<VaccineGroup, List<android.util.Pair<VaccineRepo.Vaccine, Alert>>> pendingVaccines =
-                VisitVaccineUtil.generateVisitVaccines(
-                        memberObject.getBaseEntityId(),
-                        vaccinesRepo,
-                        new DateTime(dob),
-                        childVaccineGroups,
-                        specialVaccines,
-                        vaccines,
-                        details
-                );
-
-        ImmunizationValidator validator = new ImmunizationValidator(childVaccineGroups, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
+        Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> pendingVaccines = validatorMapPair.second;
+        ImmunizationValidator validator = validatorMapPair.first;
 
         for (Map.Entry<VaccineGroup, List<android.util.Pair<VaccineRepo.Vaccine, Alert>>> entry : pendingVaccines.entrySet()) {
             // add the objects to be displayed here
@@ -223,7 +246,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
             validator.addFragment(title, fragment, entry.getKey(), new DateTime(dob));
 
-            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
+            BaseAncHomeVisitAction action = getBuilder(title)
                     .withOptional(false)
                     .withDetails(details)
                     .withDestinationFragment(fragment)
@@ -238,14 +261,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
     protected void evaluateExclusiveBreastFeeding(Map<String, ServiceWrapper> serviceWrapperMap) throws Exception {
         ServiceWrapper serviceWrapper = serviceWrapperMap.get("Exclusive breastfeeding");
-        if (serviceWrapper == null) {
-            return;
-        }
+        if (serviceWrapper == null) return;
 
         Alert alert = serviceWrapper.getAlert();
-        if (alert == null || new LocalDate().isBefore(new LocalDate(alert.startDate()))) {
-            return;
-        }
+        if (alert == null || new LocalDate().isBefore(new LocalDate(alert.startDate()))) return;
 
         final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
@@ -256,21 +275,15 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
         ExclusiveBreastFeedingAction helper = new ExclusiveBreastFeedingAction(context, alert);
-        JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), memberObject.getBaseEntityId());
+        JSONObject jsonObject = getFormJson(Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), memberObject.getBaseEntityId());
 
-        Map<String, List<VisitDetail>> details = null;
-        if (editMode) {
-            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.EXCLUSIVE_BREASTFEEDING);
-            if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
-            }
-        }
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.EXCLUSIVE_BREASTFEEDING);
 
         if (details != null && details.size() > 0) {
             JsonFormUtils.populateForm(jsonObject, details);
         }
 
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
+        BaseAncHomeVisitAction action = getBuilder(title)
                 .withHelper(helper)
                 .withDetails(details)
                 .withOptional(false)
@@ -284,22 +297,16 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .build();
 
         // don't show if its after now
-        if (!serviceWrapper.getVaccineDate().isAfterNow()) {
-            actionList.put(title, action);
-        }
-
+        if (!serviceWrapper.getVaccineDate().isAfterNow()) actionList.put(title, action);
     }
 
     protected void evaluateVitaminA(Map<String, ServiceWrapper> serviceWrapperMap) throws Exception {
         ServiceWrapper serviceWrapper = serviceWrapperMap.get("Vitamin A");
-        if (serviceWrapper == null) {
-            return;
-        }
+        if (serviceWrapper == null) return;
 
         Alert alert = serviceWrapper.getAlert();
-        if (alert == null || new LocalDate().isBefore(new LocalDate(alert.startDate()))) {
-            return;
-        }
+        if (alert == null || new LocalDate().isBefore(new LocalDate(alert.startDate()))) return;
+
 
         final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
@@ -310,25 +317,17 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
         VitaminaAction helper = new VitaminaAction(context, serviceIteration, alert);
-        JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getVitaminA(), memberObject.getBaseEntityId());
+        JSONObject jsonObject = getFormJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getVitaminA(), memberObject.getBaseEntityId());
 
-        Map<String, List<VisitDetail>> details = null;
-        if (editMode) {
-            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.VITAMIN_A);
-            if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
-            }
-        }
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.VITAMIN_A);
 
         // Before pre-processing
         setMinDate(jsonObject, "vitamin_a{0}_date", memberObject.getDob());
 
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
-        if (details != null && details.size() > 0) {
-            JsonFormUtils.populateForm(jsonObject, details);
-        }
+        if (details != null && details.size() > 0) JsonFormUtils.populateForm(jsonObject, details);
 
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
+        BaseAncHomeVisitAction action = getBuilder(title)
                 .withHelper(helper)
                 .withDetails(details)
                 .withOptional(false)
@@ -342,21 +341,15 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .build();
 
         // don't show if its after now
-        if (!serviceWrapper.getVaccineDate().isAfterNow()) {
-            actionList.put(title, action);
-        }
+        if (!serviceWrapper.getVaccineDate().isAfterNow()) actionList.put(title, action);
     }
 
     protected void evaluateDeworming(Map<String, ServiceWrapper> serviceWrapperMap) throws Exception {
         ServiceWrapper serviceWrapper = serviceWrapperMap.get("Deworming");
-        if (serviceWrapper == null) {
-            return;
-        }
+        if (serviceWrapper == null) return;
 
         Alert alert = serviceWrapper.getAlert();
-        if (alert == null || new LocalDate().isBefore(new LocalDate(alert.startDate()))) {
-            return;
-        }
+        if (alert == null || new LocalDate().isBefore(new LocalDate(alert.startDate()))) return;
 
         final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
@@ -367,26 +360,20 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
         DewormingAction helper = new DewormingAction(context, serviceIteration, alert);
-        JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getDEWORMING(), memberObject.getBaseEntityId());
+        JSONObject jsonObject = getFormJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getDEWORMING(), memberObject.getBaseEntityId());
 
         // Before pre-processing
         setMinDate(jsonObject, "deworming{0}_date", memberObject.getDob());
 
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
 
-        Map<String, List<VisitDetail>> details = null;
-        if (editMode) {
-            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.DEWORMING);
-            if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
-            }
-        }
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.DEWORMING);
 
         if (details != null && details.size() > 0) {
             JsonFormUtils.populateForm(jsonObject, details);
         }
 
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
+        BaseAncHomeVisitAction action = getBuilder(title)
                 .withHelper(helper)
                 .withDetails(details)
                 .withOptional(false)
@@ -400,21 +387,15 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .build();
 
         // don't show if its after now
-        if (!serviceWrapper.getVaccineDate().isAfterNow()) {
-            actionList.put(title, action);
-        }
+        if (!serviceWrapper.getVaccineDate().isAfterNow()) actionList.put(title, action);
     }
 
     protected void evaluateMNP(Map<String, ServiceWrapper> serviceWrapperMap) throws Exception {
         ServiceWrapper serviceWrapper = serviceWrapperMap.get("MNP");
-        if (serviceWrapper == null) {
-            return;
-        }
+        if (serviceWrapper == null) return;
 
         Alert alert = serviceWrapper.getAlert();
-        if (alert == null || new LocalDate().isBefore(new LocalDate(alert.startDate()))) {
-            return;
-        }
+        if (alert == null || new LocalDate().isBefore(new LocalDate(alert.startDate()))) return;
 
         final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
@@ -425,22 +406,14 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
         MNPAction helper = new MNPAction(context, serviceIteration, alert);
-        JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getMNP(), memberObject.getBaseEntityId());
+        JSONObject jsonObject = getFormJson(Constants.JSON_FORM.CHILD_HOME_VISIT.getMNP(), memberObject.getBaseEntityId());
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
 
-        Map<String, List<VisitDetail>> details = null;
-        if (editMode) {
-            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.MNP);
-            if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
-            }
-        }
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.MNP);
 
-        if (details != null && details.size() > 0) {
-            JsonFormUtils.populateForm(jsonObject, details);
-        }
+        if (details != null && details.size() > 0) JsonFormUtils.populateForm(jsonObject, details);
 
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
+        BaseAncHomeVisitAction action = getBuilder(title)
                 .withHelper(helper)
                 .withDetails(details)
                 .withOptional(false)
@@ -454,27 +427,16 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .build();
 
         // don't show if its after now
-        if (!serviceWrapper.getVaccineDate().isAfterNow()) {
-            actionList.put(title, action);
-        }
+        if (!serviceWrapper.getVaccineDate().isAfterNow()) actionList.put(title, action);
     }
 
     protected void evaluateBirthCertForm() throws Exception {
-        evaluateBirthCertForm(new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.birth_certification)));
-    }
-
-    protected void evaluateBirthCertForm(BaseAncHomeVisitAction.Builder builder) throws Exception {
         if (!hasBirthCert) {
 
-            Map<String, List<VisitDetail>> details = null;
-            if (editMode) {
-                Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.BIRTH_CERTIFICATION);
-                if (lastVisit != null) {
-                    details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
-                }
-            }
+            Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.BIRTH_CERTIFICATION);
 
-            BaseAncHomeVisitAction action = builder.withOptional(false)
+            BaseAncHomeVisitAction action = getBuilder(context.getString(R.string.birth_certification))
+                    .withOptional(false)
                     .withDetails(details)
                     .withBaseEntityID(memberObject.getBaseEntityId())
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
@@ -488,68 +450,16 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
     protected void evaluateMUAC() throws Exception {
         int age = getAgeInMonths();
-        if (age > 60 || age < 6) {
-            return;
-        }
+        if (age > 60 || age < 6) return;
 
-        HomeVisitActionHelper helper = new HomeVisitActionHelper() {
-            private String muac;
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.MUAC);
 
-            @Override
-            public void onPayloadReceived(String jsonPayload) {
-                try {
-                    JSONObject jsonObject = new JSONObject(jsonPayload);
-                    muac = JsonFormUtils.getValue(jsonObject, "muac");
-                } catch (JSONException e) {
-                    Timber.e(e);
-                }
-            }
-
-            @Override
-            public String evaluateSubTitle() {
-                if (StringUtils.isBlank(muac)) {
-                    return null;
-                }
-
-                String value = "";
-                if ("chk_green".equalsIgnoreCase(muac)) {
-                    value = context.getString(R.string.muac_choice_1);
-                } else if ("chk_yellow".equalsIgnoreCase(muac)) {
-                    value = context.getString(R.string.muac_choice_2);
-                } else if ("chk_red".equalsIgnoreCase(muac)) {
-                    value = context.getString(R.string.muac_choice_3);
-                }
-                return value;
-            }
-
-            @Override
-            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(muac)) {
-                    return BaseAncHomeVisitAction.Status.PENDING;
-                }
-
-                if ("chk_green".equalsIgnoreCase(muac)) {
-                    return BaseAncHomeVisitAction.Status.COMPLETED;
-                }
-
-                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-            }
-        };
-
-        Map<String, List<VisitDetail>> details = null;
-        if (editMode) {
-            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.MUAC);
-            if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
-            }
-        }
-
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.muac_title))
+        BaseAncHomeVisitAction action = getBuilder(context.getString(R.string.muac_title))
                 .withOptional(false)
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                .withHelper(helper)
+                .withHelper(new MUACHelper())
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getMUAC(), null, details, null))
                 .build();
 
@@ -557,24 +467,14 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     }
 
     protected void evaluateDietary() throws Exception {
-        evaluateDietary(new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.minimum_dietary_title)));
-    }
-
-    protected void evaluateDietary(BaseAncHomeVisitAction.Builder builder) throws Exception {
         int age = getAgeInMonths();
         if (age > 60 || age < 6) {
             return;
         }
 
-        Map<String, List<VisitDetail>> details = null;
-        if (editMode) {
-            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.MINIMUM_DIETARY_DIVERSITY);
-            if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
-            }
-        }
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.MINIMUM_DIETARY_DIVERSITY);
 
-        BaseAncHomeVisitAction action = builder
+        BaseAncHomeVisitAction action = getBuilder(context.getString(R.string.minimum_dietary_title))
                 .withOptional(false)
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
@@ -587,10 +487,6 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     }
 
     protected void evaluateECD() throws Exception {
-        evaluateECD(new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.ecd_title)));
-    }
-
-    protected void evaluateECD(BaseAncHomeVisitAction.Builder builder) throws Exception {
         if (getAgeInMonths() > 60) {
             return;
         }
@@ -598,20 +494,13 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         JSONObject jsonObject = getFormJson(CoreConstants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment());
         try {
             jsonObject = CoreJsonFormUtils.getEcdWithDatePass(jsonObject, memberObject.getDob());
-        }catch (Exception e){
+        } catch (Exception e) {
             Timber.e(e);
         }
 
-        Map<String, List<VisitDetail>> details = null;
-        if (editMode) {
-            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.ECD);
-            if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
-            }
-            JsonFormUtils.populateForm(jsonObject, details);
-        }
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.ECD);
 
-        BaseAncHomeVisitAction action = builder
+        BaseAncHomeVisitAction action = getBuilder(context.getString(R.string.ecd_title))
                 .withOptional(false)
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
@@ -624,29 +513,14 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         actionList.put(context.getString(R.string.ecd_title), action);
     }
 
-    @VisibleForTesting
-    public JSONObject getFormJson(String name) throws Exception {
-        return FormUtils.getInstance(context).getFormJson(name);
-    }
-
     protected void evaluateLLITN() throws Exception {
-        evaluateLLITN(new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_sleeping_under_llitn_net)));
-    }
-
-    protected void evaluateLLITN(BaseAncHomeVisitAction.Builder builder) throws Exception {
         if (getAgeInMonths() > 60) {
             return;
         }
 
-        Map<String, List<VisitDetail>> details = null;
-        if (editMode) {
-            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.LLITN);
-            if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
-            }
-        }
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.LLITN);
 
-        BaseAncHomeVisitAction sleeping = builder
+        BaseAncHomeVisitAction sleeping = getBuilder(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net))
                 .withOptional(false)
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
@@ -660,19 +534,9 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     }
 
     protected void evaluateObsAndIllness() throws Exception {
-        evaluateObsAndIllness(new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_observations_n_illnes)));
-    }
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.OBS_ILLNESS);
 
-    protected void evaluateObsAndIllness(BaseAncHomeVisitAction.Builder builder) throws Exception {
-        Map<String, List<VisitDetail>> details = null;
-        if (editMode) {
-            Visit lastVisit = getVisitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.OBS_ILLNESS);
-            if (lastVisit != null) {
-                details = VisitUtils.getVisitGroups(getVisitDetailsRepository().getVisits(lastVisit.getVisitId()));
-            }
-        }
-
-        BaseAncHomeVisitAction observation = builder
+        BaseAncHomeVisitAction observation = getBuilder(context.getString(R.string.anc_home_visit_observations_n_illnes))
                 .withOptional(true)
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
@@ -692,14 +556,14 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         this.vaccinesDefaultChecked = isChecked;
     }
 
-    private void setMinDate(JSONObject jsonObject, String dateFieldKey, String minDateString) throws Exception {
-        Date minDate = dateFormat.parse(minDateString);
-        String parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(minDate);
-        JSONObject fieldJSONObject = org.smartregister.chw.util.JsonFormUtils.getFieldJSONObject(org.smartregister.chw.util.JsonFormUtils.fields(jsonObject), dateFieldKey);
+    private void setMinDate(JSONObject jsonObject, String dateFieldKey, String minDateString) {
         try {
+            Date minDate = dateFormat.parse(minDateString);
+            String parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(minDate);
+            JSONObject fieldJSONObject = org.smartregister.chw.util.JsonFormUtils.getFieldJSONObject(org.smartregister.chw.util.JsonFormUtils.fields(jsonObject), dateFieldKey);
             fieldJSONObject.put(JsonFormConstants.MIN_DATE, parsedDate);
-        } catch (JSONException je) {
-            Timber.e(je);
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 
@@ -739,7 +603,51 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         }
     }
 
-    private class DietaryHelper extends HomeVisitActionHelper{
+    private class MUACHelper extends HomeVisitActionHelper {
+        private String muac;
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                muac = JsonFormUtils.getValue(jsonObject, "muac");
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            if (StringUtils.isBlank(muac)) {
+                return null;
+            }
+
+            String value = "";
+            if ("chk_green".equalsIgnoreCase(muac)) {
+                value = context.getString(R.string.muac_choice_1);
+            } else if ("chk_yellow".equalsIgnoreCase(muac)) {
+                value = context.getString(R.string.muac_choice_2);
+            } else if ("chk_red".equalsIgnoreCase(muac)) {
+                value = context.getString(R.string.muac_choice_3);
+            }
+            return value;
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isBlank(muac)) {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+
+            if ("chk_green".equalsIgnoreCase(muac)) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            }
+
+            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+        }
+    }
+
+    private class DietaryHelper extends HomeVisitActionHelper {
         private String diet_diversity;
 
         @Override
