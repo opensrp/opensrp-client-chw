@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 
 import org.joda.time.LocalDate;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -79,6 +80,7 @@ public class DefaultChildHomeVisitInteractorFlvTest {
         //Mockito.doReturn(builder).when(builder).withValidator(Mockito.any());
         Mockito.doReturn(builder).when(builder).withProcessingMode(Mockito.any());
         Mockito.doReturn(builder).when(builder).withFormName(Mockito.any());
+        Mockito.doReturn(builder).when(builder).withJsonPayload(Mockito.any());
 
         Mockito.doReturn(ancHomeVisitAction).when(builder).build();
     }
@@ -105,7 +107,11 @@ public class DefaultChildHomeVisitInteractorFlvTest {
     }
 
     @Test
-    public void testEvaluateECD() {
+    public void testEvaluateECD() throws Exception {
+        JSONObject jsonObject = Mockito.mock(JSONObject.class);
+        Mockito.doReturn("").when(jsonObject).toString();
+        Mockito.doReturn(jsonObject).when(interactor).getFormJson(Mockito.anyString());
+
         ReflectionHelpers.callInstanceMethod(interactor, "evaluateECD"
                 , ReflectionHelpers.ClassParameter.from(BaseAncHomeVisitAction.Builder.class, builder));
 

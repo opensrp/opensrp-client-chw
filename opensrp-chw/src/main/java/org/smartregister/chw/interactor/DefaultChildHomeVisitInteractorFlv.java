@@ -2,6 +2,8 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
+import androidx.annotation.VisibleForTesting;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
@@ -773,8 +775,12 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             return;
         }
 
-        JSONObject jsonObject = FormUtils.getInstance(context).getFormJson(CoreConstants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment());
-        jsonObject = CoreJsonFormUtils.getEcdWithDatePass(jsonObject, memberObject.getDob());
+        JSONObject jsonObject = getFormJson(CoreConstants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment());
+        try {
+            jsonObject = CoreJsonFormUtils.getEcdWithDatePass(jsonObject, memberObject.getDob());
+        }catch (Exception e){
+            Timber.e(e);
+        }
 
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
@@ -796,6 +802,11 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .build();
 
         actionList.put(context.getString(R.string.ecd_title), action);
+    }
+
+    @VisibleForTesting
+    public JSONObject getFormJson(String name) throws Exception {
+        return FormUtils.getInstance(context).getFormJson(name);
     }
 
     protected void evaluateLLITN() throws Exception {
