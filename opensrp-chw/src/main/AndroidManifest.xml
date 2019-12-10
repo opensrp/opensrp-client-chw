@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.smartregister.chw">
 
     <uses-feature
@@ -27,7 +28,13 @@
         android:name=".application.ChwApplication"
         android:allowBackup="true"
         android:supportsRtl="true"
-        android:theme="@style/ChwTheme">
+        android:theme="@style/ChwTheme"
+        tools:replace="android:theme">
+        <activity
+            android:name=".activity.FamilyPlanningMemberProfileActivity"
+            android:label="@string/family_planning"
+            android:theme="@style/ChwTheme.NoActionBar"
+            />
         <activity
             android:name=".activity.AncUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -63,6 +70,9 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.MalariaRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.FpRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity android:name=".core.activity.ChwP2pModeSelectActivity" />
         <activity
@@ -189,8 +199,8 @@
         <service android:name="org.smartregister.sync.intent.PlanIntentService" />
         <service android:name=".intent.ChwPncCloseDateIntent" />
         <service android:name="org.smartregister.reporting.service.IndicatorGeneratorIntentService" />
-        <service android:name="org.smartregister.chw.service.SchedulesIntentService" />
-        <service android:name="org.smartregister.chw.sync.ChwSyncIntentService" />
+        <service android:name=".service.SchedulesIntentService" />
+        <service android:name=".sync.ChwSyncIntentService" />
 
         <uses-library
             android:name="org.apache.http.legacy"

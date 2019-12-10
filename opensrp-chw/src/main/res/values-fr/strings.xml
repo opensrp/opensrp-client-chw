@@ -172,6 +172,12 @@
     <string name="nutrition_status">Statut</string>
     <string name="counselling">Counselling</string>
 
+    <string name="normal">Ordinaire</string>
+    <string name="moderate">Modéré</string>
+    <string name="severe">Sévère</string>
+    <string name="okay">D\'accord</string>
+    <string name="bad">Mauvais</string>
+
     <string name="uses_net">Utilise moustiquaire</string>
     <string name="slept_under_net">À dormi sous un moustiquaire</string>
     <string name="net_condition">Condition du moustiquaire</string>
@@ -316,6 +322,14 @@
 
     <!-- Medical history -->
     <string name="dose_number">Dose %s</string>
+
+    <!--PNC Family Planning Ba-->
+    <string name="during_anc">Pendant CPN</string>
+    <string name="during_pnc">Pendant CPoN</string>
+    <string name="during_labour_and_delivery">Pendant l\'accouchement</string>
+
     <string name="cancel_download_confirmation">Vous êtes sûr de vouloir annuler ce téléchargement ?</string>
     <string name="cancel_download">Annuler le téléchargement</string>
+
+
 </resources>
