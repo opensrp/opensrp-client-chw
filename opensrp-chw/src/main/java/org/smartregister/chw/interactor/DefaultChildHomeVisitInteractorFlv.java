@@ -153,67 +153,6 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     }
 
     protected void evaluateChildVaccineCard(BaseAncHomeVisitAction.Builder builder) throws Exception {
-        class ChildVaccineCardHelper extends HomeVisitActionHelper {
-            private String child_vaccine_card;
-            private LocalDate birthDate;
-
-            public ChildVaccineCardHelper(Date birthDate) {
-                this.birthDate = new LocalDate(birthDate);
-            }
-
-            @Override
-            public void onPayloadReceived(String jsonPayload) {
-                try {
-                    JSONObject jsonObject = new JSONObject(jsonPayload);
-                    child_vaccine_card = JsonFormUtils.getValue(jsonObject, "child_vaccine_card");
-                } catch (JSONException e) {
-                    Timber.e(e);
-                }
-            }
-
-            @Override
-            public String evaluateSubTitle() {
-                if (StringUtils.isBlank(child_vaccine_card)) {
-                    return null;
-                }
-
-                return child_vaccine_card.equalsIgnoreCase("Yes") ? context.getString(R.string.yes) : context.getString(R.string.no);
-            }
-
-            @Override
-            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(child_vaccine_card)) {
-                    return BaseAncHomeVisitAction.Status.PENDING;
-                }
-
-                if (child_vaccine_card.equalsIgnoreCase("Yes")) {
-                    return BaseAncHomeVisitAction.Status.COMPLETED;
-                } else if (child_vaccine_card.equalsIgnoreCase("No")) {
-                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-                } else {
-                    return BaseAncHomeVisitAction.Status.PENDING;
-                }
-            }
-
-            @Override
-            public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-                return isOverDue() ?
-                        BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
-            }
-
-            @Override
-            public String getPreProcessedSubTitle() {
-                return MessageFormat.format("{0} {1}",
-                        context.getString(isOverDue() ? org.smartregister.chw.core.R.string.overdue : org.smartregister.chw.core.R.string.due),
-                        org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy.format(birthDate.toDate())
-                );
-            }
-
-            private boolean isOverDue() {
-                return new LocalDate().isAfter(birthDate.plusMonths(12));
-            }
-        }
-
         // expires after 24 months. verify that vaccine card is not received
         if (!new LocalDate().isAfter(new LocalDate(dob).plusMonths(24)) && !vaccineCardReceived) {
             Map<String, List<VisitDetail>> details = null;
@@ -525,81 +464,6 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     }
 
     protected void evaluateBirthCertForm(BaseAncHomeVisitAction.Builder builder) throws Exception {
-        class BirthCertHelper extends HomeVisitActionHelper {
-            private String birth_cert;
-            private String birth_cert_issue_date;
-            private String birth_cert_num;
-            private LocalDate birthDate;
-
-            public BirthCertHelper(Date birthDate) {
-                this.birthDate = new LocalDate(birthDate);
-            }
-
-            @Override
-            public void onPayloadReceived(String jsonPayload) {
-                try {
-                    JSONObject jsonObject = new JSONObject(jsonPayload);
-                    birth_cert = JsonFormUtils.getValue(jsonObject, "birth_cert");
-                    birth_cert_issue_date = JsonFormUtils.getValue(jsonObject, "birth_cert_issue_date");
-                    birth_cert_num = JsonFormUtils.getValue(jsonObject, "birth_cert_num");
-                } catch (JSONException e) {
-                    Timber.e(e);
-                }
-            }
-
-            @Override
-            public String evaluateSubTitle() {
-                if (StringUtils.isBlank(birth_cert)) {
-                    return null;
-                }
-
-                String certDate;
-                try {
-                    Date date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(birth_cert_issue_date);
-                    certDate = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date);
-                } catch (Exception e) {
-                    certDate = birth_cert_issue_date;
-                }
-
-                return birth_cert.equalsIgnoreCase("Yes") ?
-                        MessageFormat.format("{0} {1} (#{2}) ", context.getString(R.string.issued), certDate, birth_cert_num) :
-                        context.getString(org.smartregister.chw.core.R.string.not_done);
-            }
-
-            @Override
-            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isBlank(birth_cert)) {
-                    return BaseAncHomeVisitAction.Status.PENDING;
-                }
-
-                if ("Yes".equalsIgnoreCase(birth_cert)) {
-                    return BaseAncHomeVisitAction.Status.COMPLETED;
-                } else if (birth_cert.equalsIgnoreCase("No")) {
-                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-                } else {
-                    return BaseAncHomeVisitAction.Status.PENDING;
-                }
-            }
-
-            @Override
-            public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-                return isOverDue() ?
-                        BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
-            }
-
-            @Override
-            public String getPreProcessedSubTitle() {
-                return MessageFormat.format("{0} {1}",
-                        context.getString(isOverDue() ? org.smartregister.chw.core.R.string.overdue : org.smartregister.chw.core.R.string.due),
-                        org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy.format(birthDate.toDate())
-                );
-            }
-
-            private boolean isOverDue() {
-                return new LocalDate().isAfter(birthDate.plusMonths(12));
-            }
-        }
-
         if (!hasBirthCert) {
 
             Map<String, List<VisitDetail>> details = null;
@@ -919,4 +783,139 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         }
     }
 
+    private class ChildVaccineCardHelper extends HomeVisitActionHelper {
+        private String child_vaccine_card;
+        private LocalDate birthDate;
+
+        public ChildVaccineCardHelper(Date birthDate) {
+            this.birthDate = new LocalDate(birthDate);
+        }
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                child_vaccine_card = JsonFormUtils.getValue(jsonObject, "child_vaccine_card");
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            if (StringUtils.isBlank(child_vaccine_card)) {
+                return null;
+            }
+
+            return child_vaccine_card.equalsIgnoreCase("Yes") ? context.getString(R.string.yes) : context.getString(R.string.no);
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isBlank(child_vaccine_card)) {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+
+            if (child_vaccine_card.equalsIgnoreCase("Yes")) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else if (child_vaccine_card.equalsIgnoreCase("No")) {
+                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+            return isOverDue() ?
+                    BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
+        }
+
+        @Override
+        public String getPreProcessedSubTitle() {
+            return MessageFormat.format("{0} {1}",
+                    context.getString(isOverDue() ? org.smartregister.chw.core.R.string.overdue : org.smartregister.chw.core.R.string.due),
+                    org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy.format(birthDate.toDate())
+            );
+        }
+
+        private boolean isOverDue() {
+            return new LocalDate().isAfter(birthDate.plusMonths(12));
+        }
+    }
+
+    private class BirthCertHelper extends HomeVisitActionHelper {
+        private String birth_cert;
+        private String birth_cert_issue_date;
+        private String birth_cert_num;
+        private LocalDate birthDate;
+
+        public BirthCertHelper(Date birthDate) {
+            this.birthDate = new LocalDate(birthDate);
+        }
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                birth_cert = JsonFormUtils.getValue(jsonObject, "birth_cert");
+                birth_cert_issue_date = JsonFormUtils.getValue(jsonObject, "birth_cert_issue_date");
+                birth_cert_num = JsonFormUtils.getValue(jsonObject, "birth_cert_num");
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            if (StringUtils.isBlank(birth_cert)) {
+                return null;
+            }
+
+            String certDate;
+            try {
+                Date date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(birth_cert_issue_date);
+                certDate = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date);
+            } catch (Exception e) {
+                certDate = birth_cert_issue_date;
+            }
+
+            return birth_cert.equalsIgnoreCase("Yes") ?
+                    MessageFormat.format("{0} {1} (#{2}) ", context.getString(R.string.issued), certDate, birth_cert_num) :
+                    context.getString(org.smartregister.chw.core.R.string.not_done);
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isBlank(birth_cert)) {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+
+            if ("Yes".equalsIgnoreCase(birth_cert)) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else if (birth_cert.equalsIgnoreCase("No")) {
+                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+            return isOverDue() ?
+                    BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
+        }
+
+        @Override
+        public String getPreProcessedSubTitle() {
+            return MessageFormat.format("{0} {1}",
+                    context.getString(isOverDue() ? org.smartregister.chw.core.R.string.overdue : org.smartregister.chw.core.R.string.due),
+                    org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy.format(birthDate.toDate())
+            );
+        }
+
+        private boolean isOverDue() {
+            return new LocalDate().isAfter(birthDate.plusMonths(12));
+        }
+    }
 }
