@@ -90,10 +90,14 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             children = new ArrayList<>();
         }
 
-        children.addAll(PersonDao.getMothersPNCBabies(memberObject.getBaseEntityId()));
-
+        children.addAll(getChildren(memberObject.getBaseEntityId()));
         try {
             Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
+        }catch (Exception e){
+            Timber.e(e);
+        }
+
+        try {
             evaluateDangerSignsMother();
             evaluateDangerSignsBaby();
             evaluatePNCHealthFacilityVisit();
@@ -111,6 +115,11 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             Timber.e(e);
         }
         return actionList;
+    }
+
+    @VisibleForTesting
+    public List<PncBaby> getChildren(String baseID) {
+        return PersonDao.getMothersPNCBabies(baseID);
     }
 
     protected VisitRepository getVisitRepository() {
@@ -180,11 +189,21 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         }
     }
 
+    @VisibleForTesting
+    public PNCHealthFacilityVisitSummary getLastHealthFacilityVisitSummary() {
+        return ChwPNCDao.getLastHealthFacilityVisitSummary(memberObject.getBaseEntityId());
+    }
+
+    @VisibleForTesting
+    public PNCHealthFacilityVisitRule getNextPNCHealthFacilityVisit(Date deliveryDate, Date lastVisitDate) {
+        return PNCVisitUtil.getNextPNCHealthFacilityVisit(deliveryDate, lastVisitDate);
+    }
+
     protected void evaluatePNCHealthFacilityVisit() throws Exception {
 
-        PNCHealthFacilityVisitSummary summary = ChwPNCDao.getLastHealthFacilityVisitSummary(memberObject.getBaseEntityId());
+        PNCHealthFacilityVisitSummary summary = getLastHealthFacilityVisitSummary();
         if (summary != null) {
-            PNCHealthFacilityVisitRule visitRule = PNCVisitUtil.getNextPNCHealthFacilityVisit(summary.getDeliveryDate(), summary.getLastVisitDate());
+            PNCHealthFacilityVisitRule visitRule = getNextPNCHealthFacilityVisit(summary.getDeliveryDate(), summary.getLastVisitDate());
 
             if (visitRule != null && visitRule.getVisitName() != null) {
 
@@ -237,10 +256,15 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         }
     }
 
+    @VisibleForTesting
+    public List<VaccineWrapper> getWrappers(Person baby) {
+        return VaccineScheduleUtil.getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
+    }
+
     protected void evaluateImmunization() throws Exception {
         for (Person baby : children) {
             if (getAgeInDays(baby.getDob()) <= 28) {
-                List<VaccineWrapper> wrappers = VaccineScheduleUtil.getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
+                List<VaccineWrapper> wrappers = getWrappers(baby);
                 if (wrappers.size() > 0) {
                     List<VaccineDisplay> displays = new ArrayList<>();
                     for (VaccineWrapper vaccineWrapper : wrappers) {
@@ -284,22 +308,28 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
     }
 
+
+    @VisibleForTesting
+    public Map<String, ServiceWrapper> getWrapperMap(Person baby) {
+        return RecurringServiceUtil.getRecurringServices(
+                baby.getBaseEntityID(),
+                new DateTime(baby.getDob()),
+                Constants.SERVICE_GROUPS.CHILD
+        );
+    }
+
     private void evaluateExclusiveBreastFeeding() throws Exception {
         for (Person baby : children) {
             if (getAgeInDays(baby.getDob()) <= 28) {
 
-                Map<String, ServiceWrapper> serviceWrapperMap =
-                        RecurringServiceUtil.getRecurringServices(
-                                baby.getBaseEntityID(),
-                                new DateTime(baby.getDob()),
-                                Constants.SERVICE_GROUPS.CHILD
-                        );
+                Map<String, ServiceWrapper> serviceWrapperMap = getWrapperMap(baby);
 
                 ServiceWrapper serviceWrapper = serviceWrapperMap.get("Exclusive breastfeeding");
                 if (serviceWrapper == null) return;
 
                 Alert alert = serviceWrapper.getAlert();
-                if (alert == null || !new LocalDate().isAfter(new LocalDate(alert.startDate()))) return;
+                if (alert == null || !new LocalDate().isAfter(new LocalDate(alert.startDate())))
+                    return;
 
                 final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
@@ -310,7 +340,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
                 ExclusiveBreastFeedingAction helper = new ExclusiveBreastFeedingAction(context, alert);
-                JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), memberObject.getBaseEntityId());
+                JSONObject jsonObject = getFormJson(Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), memberObject.getBaseEntityId());
 
                 Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.EXCLUSIVE_BREASTFEEDING);
 
@@ -328,9 +358,8 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         .build();
 
                 // don't show if its after now
-                if (!serviceWrapper.getVaccineDate().isAfterNow()) {
+                if (!serviceWrapper.getVaccineDate().isAfterNow())
                     actionList.put(MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName()), action);
-                }
 
             }
         }
@@ -382,13 +411,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         for (Person baby : children) {
             if (getAgeInDays(baby.getDob()) <= 28) {
 
-                Map<String, List<VisitDetail>> details = null;
-                if (editMode) {
-                    Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.OBSERVATIONS_AND_ILLNESS);
-                    if (lastVisit != null) {
-                        details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
-                    }
-                }
+                Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.OBSERVATIONS_AND_ILLNESS);
 
                 BaseAncHomeVisitAction action = getBuilder(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
                         .withOptional(true)
