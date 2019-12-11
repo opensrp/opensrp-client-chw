@@ -106,16 +106,24 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         hasBirthCert = VisitDao.memberHasBirthCert(memberObject.getBaseEntityId());
         vaccineCardReceived = VisitDao.memberHasVaccineCard(memberObject.getBaseEntityId());
 
-        Map<String, ServiceWrapper> serviceWrapperMap =
-                RecurringServiceUtil.getRecurringServices(
-                        memberObject.getBaseEntityId(),
-                        new DateTime(dob),
-                        Constants.SERVICE_GROUPS.CHILD
-                );
+        Map<String, ServiceWrapper> serviceWrapperMap = getServices();
 
-        Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
+        try {
+            Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
         bindEvents(serviceWrapperMap);
         return actionList;
+    }
+
+    @VisibleForTesting
+    public Map<String, ServiceWrapper> getServices() {
+        return RecurringServiceUtil.getRecurringServices(
+                memberObject.getBaseEntityId(),
+                new DateTime(dob),
+                Constants.SERVICE_GROUPS.CHILD
+        );
     }
 
     protected VisitRepository getVisitRepository() {
@@ -177,11 +185,24 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     }
 
     @VisibleForTesting
-    public Pair<ImmunizationValidator, Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>>> getVaccinesValidator() {
-        List<VaccineGroup> childVaccineGroups = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD);
-        List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(context);
-        VaccineRepository vaccineRepository = CoreChwApplication.getInstance().vaccineRepository();
-        List<org.smartregister.immunization.domain.Vaccine> vaccines = vaccineRepository.findByEntityId(memberObject.getBaseEntityId());
+    public VaccineRepository getVaccineRepo() {
+        return CoreChwApplication.getInstance().vaccineRepository();
+    }
+
+    @VisibleForTesting
+    public List<VaccineGroup> getVaccineGroups() {
+        return VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD);
+    }
+
+    @VisibleForTesting
+    public List<Vaccine> getSpecialVaccines() {
+        return VaccinatorUtils.getSpecialVaccines(context);
+    }
+
+    private Pair<ImmunizationValidator, Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>>> getVaccinesValidator() {
+        List<VaccineGroup> childVaccineGroups = getVaccineGroups();
+        List<Vaccine> specialVaccines = getSpecialVaccines();
+        List<org.smartregister.immunization.domain.Vaccine> vaccines = getVaccineRepo().findByEntityId(memberObject.getBaseEntityId());
 
         List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(CoreConstants.SERVICE_GROUPS.CHILD);
         Map<String, VaccineRepo.Vaccine> vaccinesRepo = new HashMap<>();
@@ -229,12 +250,29 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         //int age = getAgeInMonths();
         if (getAgeInMonths() >= immunizationCeiling()) return;
 
-        Pair<ImmunizationValidator, Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>>> validatorMapPair = getVaccinesValidator();
+        List<VaccineGroup> childVaccineGroups = getVaccineGroups();
+        List<Vaccine> specialVaccines = getSpecialVaccines();
+        List<org.smartregister.immunization.domain.Vaccine> vaccines = getVaccineRepo().findByEntityId(memberObject.getBaseEntityId());
 
-        Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> pendingVaccines = validatorMapPair.second;
-        ImmunizationValidator validator = validatorMapPair.first;
+        List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(CoreConstants.SERVICE_GROUPS.CHILD);
+        Map<String, VaccineRepo.Vaccine> vaccinesRepo = new HashMap<>();
+        for (VaccineRepo.Vaccine vaccine : allVacs) {
+            vaccinesRepo.put(vaccine.display().toLowerCase().replace(" ", ""), vaccine);
+        }
 
-        for (Map.Entry<VaccineGroup, List<android.util.Pair<VaccineRepo.Vaccine, Alert>>> entry : pendingVaccines.entrySet()) {
+        Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> pendingVaccines = VisitVaccineUtil.generateVisitVaccines(
+                memberObject.getBaseEntityId(),
+                vaccinesRepo,
+                new DateTime(dob),
+                childVaccineGroups,
+                specialVaccines,
+                vaccines,
+                details
+        );
+
+        ImmunizationValidator validator = new ImmunizationValidator(childVaccineGroups, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
+
+        for (Map.Entry<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> entry : pendingVaccines.entrySet()) {
             // add the objects to be displayed here
 
             List<VaccineWrapper> wrappers = VisitVaccineUtil.wrapVaccines(entry.getValue());
