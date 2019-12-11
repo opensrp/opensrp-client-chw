@@ -11,10 +11,11 @@ public class PncMemberProfileActivityFlv implements PncMemberProfileActivity.Fla
     @Override
     public Boolean onCreateOptionsMenu(Menu menu, String baseEntityId) {
         UtilsFlv.updateMalariaMenuItems(baseEntityId, menu);
-        if (!FpDao.isRegisteredForFp(baseEntityId)) {
+        if (FpDao.isRegisteredForFp(baseEntityId)) {
+            menu.findItem(R.id.action_fp_change).setVisible(true);
+        } else {
             menu.findItem(R.id.action_fp_initiation).setVisible(true);
         }
         return true;
     }
-
 }
