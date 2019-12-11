@@ -27,6 +27,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.dao.MalariaDao;
+import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.interactor.PncMemberProfileInteractor;
@@ -362,12 +363,17 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     @Override
     protected void startFpRegister() {
-        FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId());
+        FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), CoreConstants.JSON_FORM.getFpRegistrationForm(), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
+    }
+
+    @Override
+    protected void startFpChangeMethod() {
+        FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), CoreConstants.JSON_FORM.getFpChengeMethodForm(), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
     }
 
     @Override
     protected void startMalariaFollowUpVisit() {
-        MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, memberObject.getBaseEntityId());
+        MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, memberObject.getBaseEntityId());
     }
 
     public interface Flavor {
