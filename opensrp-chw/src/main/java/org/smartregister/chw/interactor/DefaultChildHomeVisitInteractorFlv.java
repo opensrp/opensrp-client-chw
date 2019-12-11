@@ -199,31 +199,6 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         return VaccinatorUtils.getSpecialVaccines(context);
     }
 
-    private Pair<ImmunizationValidator, Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>>> getVaccinesValidator() {
-        List<VaccineGroup> childVaccineGroups = getVaccineGroups();
-        List<Vaccine> specialVaccines = getSpecialVaccines();
-        List<org.smartregister.immunization.domain.Vaccine> vaccines = getVaccineRepo().findByEntityId(memberObject.getBaseEntityId());
-
-        List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(CoreConstants.SERVICE_GROUPS.CHILD);
-        Map<String, VaccineRepo.Vaccine> vaccinesRepo = new HashMap<>();
-        for (VaccineRepo.Vaccine vaccine : allVacs) {
-            vaccinesRepo.put(vaccine.display().toLowerCase().replace(" ", ""), vaccine);
-        }
-
-        Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> pendingVaccines = VisitVaccineUtil.generateVisitVaccines(
-                memberObject.getBaseEntityId(),
-                vaccinesRepo,
-                new DateTime(dob),
-                childVaccineGroups,
-                specialVaccines,
-                vaccines,
-                details
-        );
-        ImmunizationValidator validator = new ImmunizationValidator(childVaccineGroups, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
-
-        return Pair.create(validator, pendingVaccines);
-    }
-
     protected int immunizationCeiling() {
         return 24;
     }
@@ -292,6 +267,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                     .withDisabledMessage(context.getString(org.smartregister.chw.core.R.string.fill_earler_immunization))
                     .withValidator(validator)
                     .build();
+
             actionList.put(title, action);
         }
 
