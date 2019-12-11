@@ -50,11 +50,19 @@
     "title": "Side Effects",
     "fields": [
       {
+        "key": "fp_method",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "read_only": "true"
+      },
+      {
         "key": "condom_side_effects",
         "type": "spinner",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
           "Allergic reactions",
           "Others",
@@ -74,27 +82,41 @@
         "v_required": {
           "value": "true",
           "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_followup_side_effects.yml"
+            }
+          }
         }
       },
       {
         "key": "condom_side_effects_other",
         "type": "edit_text",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
         "hint": "Others:",
         "v_required": {
           "value": "true",
           "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_followup_side_effects.yml"
+            }
+          }
         }
       },
       {
         "key": "cocpop_side_effects",
         "type": "spinner",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "5274AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
           "Heavy bleeding",
           "Irregular periods",
@@ -117,27 +139,41 @@
         "v_required": {
           "value": "true",
           "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_followup_side_effects.yml"
+            }
+          }
         }
       },
       {
         "key": "cocpop_side_effects_other",
         "type": "edit_text",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "5274AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
         "hint": "Others:",
         "v_required": {
           "value": "true",
           "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_followup_side_effects.yml"
+            }
+          }
         }
       },
       {
         "key": "inject_side_effects",
         "type": "spinner",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
           "Heavy bleeding",
           "Irregular periods",
@@ -160,27 +196,41 @@
         "v_required": {
           "value": "true",
           "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_followup_side_effects.yml"
+            }
+          }
         }
       },
       {
         "key": "inject_side_effects_other",
         "type": "edit_text",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
         "hint": "Others:",
         "v_required": {
           "value": "true",
           "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_followup_side_effects.yml"
+            }
+          }
         }
       },
       {
         "key": "IUCD_side_effects",
         "type": "spinner",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
           "Severe pain inside the vagina after IUD was put in",
           "Cramping or backaches for a few days after the IUD is put in",
@@ -212,27 +262,41 @@
         "v_required": {
           "value": "true",
           "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_followup_side_effects.yml"
+            }
+          }
         }
       },
       {
         "key": "IUCD_side_effects_other",
         "type": "edit_text",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
         "hint": "Others:",
         "v_required": {
           "value": "true",
           "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_followup_side_effects.yml"
+            }
+          }
         }
       },
       {
         "key": "sterilization_side_effects",
         "type": "spinner",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
           "Incisional bleeding",
           "Pus/Discharge from incision",
@@ -258,46 +322,60 @@
         "v_required": {
           "value": "true",
           "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_followup_side_effects.yml"
+            }
+          }
         }
       },
       {
         "key": "sterilization_side_effects_other",
         "type": "edit_text",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
         "hint": "Others:",
         "v_required": {
           "value": "true",
           "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_followup_side_effects.yml"
+            }
+          }
         }
       },
       {
         "key": "action_taken",
         "type": "native_radio",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Action taken",
         "options": [
           {
-            "key": "Managed",
-            "openmrs_entity": "",
+            "key": "managed",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
             "text": "Managed"
           },
           {
-            "key": "Referred",
-            "openmrs_entity": "",
+            "key": "referred",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
             "text": "Referred"
           },
           {
-            "key": "No_action_taken",
-            "openmrs_entity": "",
+            "key": "no_action_taken",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
             "text": "No action taken"
@@ -306,7 +384,15 @@
         "v_required": {
           "value": "true",
           "err": null
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_followup_side_effects.yml"
+            }
+          }
         }
+
       }
     ]
   }

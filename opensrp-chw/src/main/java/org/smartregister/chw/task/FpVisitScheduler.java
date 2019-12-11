@@ -10,15 +10,15 @@ import org.smartregister.chw.core.domain.BaseScheduleTask;
 import org.smartregister.chw.core.rule.FpAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
-import org.smartregister.chw.dao.FamilyPlanningDao;
-import org.smartregister.chw.domain.FamilyPlanning;
+import org.smartregister.chw.fp.dao.FpDao;
+import org.smartregister.chw.fp.domain.FpAlertObject;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class FPVisitScheduler extends BaseTaskExecutor {
+public class FpVisitScheduler extends BaseTaskExecutor {
 
     @Override
     public void resetSchedule(String baseEntityID, String scheduleName) {
@@ -33,9 +33,9 @@ public class FPVisitScheduler extends BaseTaskExecutor {
         Integer fp_pillCycles = null;
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
         List<Rules> fpRules = new ArrayList<>();
-        List<FamilyPlanning> familyPlanningList = FamilyPlanningDao.getFamilyPlanningDetails(baseEntityID);
+        List<FpAlertObject> familyPlanningList = FpDao.getFpDetails(baseEntityID);
         if (familyPlanningList.size() > 0) {
-            for (FamilyPlanning familyPlanning : familyPlanningList) {
+            for (FpAlertObject familyPlanning : familyPlanningList) {
                 fpMethod = familyPlanning.getFpMethod();
                 fp_date = familyPlanning.getFpStartDate();
                 fp_pillCycles = familyPlanning.getFpPillCycles();

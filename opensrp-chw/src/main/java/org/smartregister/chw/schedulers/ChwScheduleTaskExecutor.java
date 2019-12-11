@@ -6,7 +6,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.task.ANCVisitScheduler;
 import org.smartregister.chw.task.ChildHomeVisitScheduler;
-import org.smartregister.chw.task.FPVisitScheduler;
+import org.smartregister.chw.task.FpVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
 import org.smartregister.chw.task.PNCVisitScheduler;
 import org.smartregister.chw.task.WashCheckScheduler;
@@ -98,7 +98,7 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
     private void initializeFPClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
-        scheduleServices.add(new FPVisitScheduler());
+        scheduleServices.add(new FpVisitScheduler());
         classifier.put(FamilyPlanningConstants.EventType.FP_HOME_VISIT, scheduleServices);
 
         //TO BE ADDED
