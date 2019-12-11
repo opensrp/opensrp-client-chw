@@ -1,7 +1,6 @@
 package org.smartregister.chw.interactor;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,12 +19,8 @@ import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.VaccineWrapper;
-import org.smartregister.immunization.domain.jsonmapping.Vaccine;
-import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
-import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.repository.Repository;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -116,10 +111,10 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
 
     private List<PncBaby> getSampleKids(int x) {
         List<PncBaby> children = new ArrayList<>();
-        // String baseEntityID, String firstName, String lastName, String middleName, Date dob, String lbw
-        while (x > 0) {
+        int w = x;
+        while (w > 0) {
             children.add(new PncBaby("12345", "Fname " + x, "Lname " + x, "Mname " + x, new Date(), "yes"));
-            x--;
+            w--;
         }
         return children;
     }
