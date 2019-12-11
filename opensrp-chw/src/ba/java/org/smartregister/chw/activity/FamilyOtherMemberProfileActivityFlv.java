@@ -31,14 +31,17 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
     }
 
     @Override
-    public Boolean onCreateOptionsMenu(Menu menu, String baseEntityId) {
+    public void updateMalariaMenuItems(String baseEntityId, Menu menu) {
         UtilsFlv.updateMalariaMenuItems(baseEntityId, menu);
-        return true;
+    }
+
+    @Override
+    public void updateFpMenuItems(String baseEntityId, Menu menu) {
+        UtilsFlv.updateFpMenuItems(baseEntityId, menu);
     }
 
     @Override
     public boolean isWra(CommonPersonObjectClient commonPersonObject) {
         return isWomanOfReproductiveAge(commonPersonObject, 10, 49);
     }
-
 }
