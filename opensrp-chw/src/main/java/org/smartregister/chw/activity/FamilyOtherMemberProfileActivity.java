@@ -16,7 +16,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.form_data.NativeFormsDataBinder;
-import org.smartregister.chw.fp.dao.FpDao;
+import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Utils;
@@ -37,10 +37,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         super.onCreateOptionsMenu(menu);
         // Check if woman is already registered
         if (!presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isWra(commonPersonObject)) {
+            flavor.updateFpMenuItems(baseEntityId, menu);
             menu.findItem(R.id.action_anc_registration).setVisible(true);
-            if (!FpDao.isRegisteredForFp(baseEntityId)) {
-                menu.findItem(R.id.action_fp_initiation).setVisible(true);
-            }
         } else {
             menu.findItem(R.id.action_anc_registration).setVisible(false);
         }
@@ -48,7 +46,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
 
-        flavor.onCreateOptionsMenu(menu, baseEntityId);
+        flavor.updateMalariaMenuItems(baseEntityId, menu);
         return true;
     }
 
@@ -70,7 +68,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     @Override
     protected void startFpRegister() {
-        FpRegisterActivity.startFpRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
+        FpRegisterActivity.startFpRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, CoreConstants.JSON_FORM.getFpRegistrationForm(), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
     }
 
     @Override
@@ -152,14 +150,16 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId);
 
-        Boolean onCreateOptionsMenu(Menu menu, @Nullable String baseEntityId);
-
         boolean isWra(CommonPersonObjectClient commonPersonObject);
+
+        void updateFpMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+
+        void updateMalariaMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
     }
 
     @Override
     protected void startMalariaFollowUpVisit() {
-        MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, baseEntityId);
+        MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, baseEntityId);
     }
 
 }
