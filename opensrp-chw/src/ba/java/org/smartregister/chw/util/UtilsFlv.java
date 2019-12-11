@@ -9,6 +9,7 @@ import org.smartregister.chw.core.rule.MalariaFollowUpRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.MalariaVisitUtil;
 import org.smartregister.chw.dao.MalariaDao;
+import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.util.Utils;
 
 import java.util.Date;
@@ -45,6 +46,14 @@ public class UtilsFlv {
             Utils.startAsyncTask(new UpdateFollowUpMenuItem(baseEntityId, menu), null);
         } else {
             menu.findItem(R.id.action_malaria_registration).setVisible(true);
+        }
+    }
+
+    public static void updateFpMenuItems(String baseEntityId, Menu menu) {
+        if (FpDao.isRegisteredForFp(baseEntityId)) {
+            menu.findItem(R.id.action_fp_change).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_fp_initiation).setVisible(true);
         }
     }
 
