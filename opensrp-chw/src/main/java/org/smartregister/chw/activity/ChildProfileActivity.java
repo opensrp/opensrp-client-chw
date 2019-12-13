@@ -129,16 +129,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        if (flavor.showMalariaConfirmationMenu()) {
-            menu.findItem(R.id.action_malaria_registration).setVisible(true);
-        } else {
-            menu.findItem(R.id.action_malaria_registration).setVisible(false);
-        }
-        if (flavor.showFollowUpVisit()) {
-            menu.findItem(R.id.action_malaria_followup_visit).setVisible(true);
-        } else {
-            menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
-        }
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
@@ -192,9 +182,5 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
-
-        boolean showMalariaConfirmationMenu();
-
-        boolean showFollowUpVisit();
     }
 }
