@@ -202,7 +202,7 @@ actions:
 name: step3_fp_start_implant_nxt
 description: fp start implant_nxt date
 priority: 1
-condition: "step2_fp_method_accepted == 'Implanton - NXT'"
+condition: "step2_fp_method_accepted == 'Implanon - NXT'"
 actions:
   - "isRelevant = true"
 
