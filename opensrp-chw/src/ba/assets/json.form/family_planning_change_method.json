@@ -115,6 +115,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "163494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
+            "value": false,
             "text": "Decided to change method"
           },
           {
@@ -614,7 +615,6 @@
           "COC",
           "POP",
           "Standard day method",
-          "Emergency contraceptive",
           "Injectable",
           "IUCD",
           "Implanon - NXT",
@@ -628,7 +628,6 @@
           "COC": "159783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "POP": "159784AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Standard day method": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Emergency contraceptive": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Injectable": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "IUCD": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Implanon - NXT": "76022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
