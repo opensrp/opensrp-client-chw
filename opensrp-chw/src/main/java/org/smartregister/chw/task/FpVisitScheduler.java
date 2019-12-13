@@ -58,7 +58,7 @@ public class FpVisitScheduler extends BaseTaskExecutor {
 
         Date lastVisitDate = null;
 
-        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, FamilyPlanningConstants.EventType.FP_HOME_VISIT);
+        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityID, FamilyPlanningConstants.EVENT_TYPE.FP_FOLLOW_UP_VISIT);
         if (lastVisit != null) {
             lastVisitDate = lastVisit.getDate();
         }
