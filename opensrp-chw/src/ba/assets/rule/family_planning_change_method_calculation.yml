@@ -1,5 +1,5 @@
 ---
-name: step1_fp_reg_date
+name: step1_fp_change_or_stop_date
 description: date of fp registration calculation
 priority: 1
 condition: "true"
@@ -36,7 +36,7 @@ description: calculate fp method accepted
 priority: 1
 condition: "true"
 actions:
-  - "calculation = step2_fp_method_chosen != '' ? fp_method_chosen : ''"
+  - "calculation = step2_fp_method_chosen != '' ? step2_fp_method_chosen : ''"
 
 ---
 name: step3_fp_start_condom
@@ -60,4 +60,4 @@ description: calculate fp start date
 priority: 1
 condition: "true"
 actions:
-  - "calculation = step2_fp_method_chosen == 'Standard day method' ? step1_fp_reg_date : helper.getNonBlankValue([step3_fp_start_condom,step3_fp_start_cocpop,step3_fp_start_injectable,step3_fp_start_iucd,step3_fp_start_implant_nxt,step3_fp_start_implant_jad,step3_fp_start_female_ster,step3_fp_start_male_ster])"
+  - "calculation = step2_fp_method_chosen == 'Standard day method' ? step1_fp_change_or_stop_date : helper.getNonBlankValue([step3_fp_start_condom,step3_fp_start_cocpop,step3_fp_start_injectable,step3_fp_start_iucd,step3_fp_start_implant_nxt,step3_fp_start_implant_jad,step3_fp_start_female_ster,step3_fp_start_male_ster])"
