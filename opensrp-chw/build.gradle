@@ -136,7 +136,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'true'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'false'
-            buildConfigField "int", "DATABASE_VERSION", '12'
+            buildConfigField "int", "DATABASE_VERSION", '13'
         }
         chad {
             dimension = 'baseDimension'
@@ -192,7 +192,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
-            buildConfigField "int", "DATABASE_VERSION", '3'
+            buildConfigField "int", "DATABASE_VERSION", '4'
         }
         togo {
             dimension = 'baseDimension'
@@ -211,7 +211,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
-            buildConfigField "int", "DATABASE_VERSION", '14'
+            buildConfigField "int", "DATABASE_VERSION", '15'
         }
         liberia {
             dimension = 'baseDimension'
@@ -227,7 +227,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
-            buildConfigField "int", "DATABASE_VERSION", '2'
+            buildConfigField "int", "DATABASE_VERSION", '3'
         }
     }
 }

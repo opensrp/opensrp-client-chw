@@ -91,6 +91,9 @@ public class ChwRepositoryFlv {
                 case 14:
                     upgradeToVersion14(db);
                     break;
+                case 15:
+                    upgradeToVersion15(db);
+                    break;
                 default:
                     break;
             }
@@ -370,5 +373,14 @@ public class ChwRepositoryFlv {
         }
 
         return pncHfNextVisitDateObs;
+    }
+
+    private static void upgradeToVersion15(SQLiteDatabase db) {
+        try {
+            // delete possible duplication
+            db.execSQL(RepositoryUtils.ADD_MISSING_REPORTING_COLOUMN);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 }

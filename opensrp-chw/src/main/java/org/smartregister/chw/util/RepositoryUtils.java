@@ -18,4 +18,6 @@ public interface RepositoryUtils {
             "having count(*) > 1 " +
             ")";
 
+    String ADD_MISSING_REPORTING_COLOUMN = "ALTER TABLE 'indicator_queries' ADD COLUMN expected_indicators TEXT NULL;";
+
 }
