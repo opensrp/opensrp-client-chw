@@ -130,7 +130,7 @@ actions:
 name: step3_fp_start_injectable
 description: fp start injectable date
 priority: 1
-condition: "step2_fp_method_chosen == 'Injectable'"
+condition: "step2_fp_method_chosen == 'Injectable''"
 actions:
   - "isRelevant = true"
 
@@ -162,7 +162,7 @@ actions:
 name: step3_fp_start_implant_nxt
 description: fp start implant_nxt date
 priority: 1
-condition: "step2_fp_method_chosen == 'Implanton - NXT'"
+condition: "step2_fp_method_chosen == 'Implanon - NXT'"
 actions:
   - "isRelevant = true"
 
