@@ -201,7 +201,31 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Requires"
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_change_method_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "user_toaster_info",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Oral Contraception check List",
+        "toaster_info_text": "Check-list\n for providing Combined Oral Contraception (COC) or Progestin Only Pills (POP)",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_change_method_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -493,7 +517,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_calculation.yml"
+              "rules-file": "family_planning_change_method_calculation.yml"
             }
           }
         }
@@ -507,7 +531,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_calculation.yml"
+              "rules-file": "family_planning_change_method_calculation.yml"
             }
           }
         }
@@ -521,7 +545,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_calculation.yml"
+              "rules-file": "family_planning_change_method_calculation.yml"
             }
           }
         }
@@ -590,6 +614,7 @@
           "COC",
           "POP",
           "Standard day method",
+          "Emergency contraceptive",
           "Injectable",
           "IUCD",
           "Implanon - NXT",
@@ -603,6 +628,7 @@
           "COC": "159783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "POP": "159784AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Standard day method": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Emergency contraceptive": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Injectable": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "IUCD": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Implanon - NXT": "76022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -618,6 +644,20 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "family_planning_change_method_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fp_method_accepted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fp_method_accepted",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_change_method_calculation.yml"
             }
           }
         }
@@ -650,7 +690,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "family_planning_change_method_relevance.yml"
             }
           }
         }
@@ -664,14 +704,14 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_calculation.yml"
+              "rules-file": "family_planning_change_method_calculation.yml"
             }
           }
         },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "family_planning_change_method_relevance.yml"
             }
           }
         }
@@ -699,7 +739,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "family_planning_change_method_relevance.yml"
             }
           }
         }
@@ -715,7 +755,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "family_planning_change_method_relevance.yml"
             }
           }
         },
@@ -746,7 +786,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "family_planning_change_method_relevance.yml"
             }
           }
         }
@@ -762,7 +802,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "family_planning_change_method_relevance.yml"
             }
           }
         },
@@ -783,7 +823,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "family_planning_change_method_relevance.yml"
             }
           }
         }
@@ -799,7 +839,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "family_planning_change_method_relevance.yml"
             }
           }
         },
@@ -819,7 +859,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "family_planning_change_method_relevance.yml"
             }
           }
         },
@@ -839,7 +879,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "family_planning_change_method_relevance.yml"
             }
           }
         },
@@ -859,7 +899,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "family_planning_change_method_relevance.yml"
             }
           }
         },
@@ -879,7 +919,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "family_planning_change_method_relevance.yml"
             }
           }
         },
@@ -900,7 +940,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "family_planning_change_method_relevance.yml"
             }
           }
         }
@@ -943,7 +983,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_calculation.yml"
+              "rules-file": "family_planning_change_method_calculation.yml"
             }
           }
         }
