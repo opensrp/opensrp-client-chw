@@ -351,7 +351,8 @@ public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
     }
 
     @Override
-    public void openFollowUpVisitForm() {
+    public void openFollowUpVisitForm(boolean edit) {
         // Implement -> FamilyPlanningFollowUpActivity.startRegistrationActivity(this, fpMemberObject.getBaseEntityId());
     }
+
 }
