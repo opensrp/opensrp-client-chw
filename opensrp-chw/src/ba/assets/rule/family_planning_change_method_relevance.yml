@@ -23,6 +23,22 @@ actions:
   - "isRelevant = true"
 
 ---
+name: step2_pill
+description: pill
+priority: 1
+condition: "step1_reason_stop_fp_chw =='decided_to_change_method'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_user_toaster_info
+description: Oral Contraception List
+priority: 1
+condition: "step2_pill == 'yes'"
+actions:
+  - "isRelevant = true"
+
+---
 name: step2_breast_lump
 description: breast lumps
 priority: 1
@@ -181,4 +197,3 @@ priority: 1
 condition: "step2_fp_method_chosen == 'Male sterilization'"
 actions:
   - "isRelevant = true"
-
