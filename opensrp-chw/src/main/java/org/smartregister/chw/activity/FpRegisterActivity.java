@@ -11,9 +11,10 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class FpRegisterActivity extends CoreFpRegisterActivity {
 
-    public static void startFpRegistrationActivity(Activity activity, String baseEntityID, String formName, String payloadType) {
+    public static void startFpRegistrationActivity(Activity activity, String baseEntityID, String dob, String formName, String payloadType) {
         Intent intent = new Intent(activity, FpRegisterActivity.class);
         intent.putExtra(FamilyPlanningConstants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(FamilyPlanningConstants.ActivityPayload.DOB, dob);
         intent.putExtra(FamilyPlanningConstants.ActivityPayload.FP_FORM_NAME, formName);
         intent.putExtra(FamilyPlanningConstants.ActivityPayload.ACTION, payloadType);
         activity.startActivity(intent);
