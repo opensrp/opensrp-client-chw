@@ -378,7 +378,7 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion15(SQLiteDatabase db) {
         try {
             // delete possible duplication
-            db.execSQL(RepositoryUtils.ADD_MISSING_REPORTING_COLOUMN);
+            db.execSQL(RepositoryUtils.ADD_MISSING_REPORTING_COLUMN);
         } catch (Exception e) {
             Timber.e(e);
         }
