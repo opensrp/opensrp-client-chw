@@ -58,7 +58,7 @@ actions:
 name: step2_difficultly_breathing
 description: difficultly breathing
 priority: 1
-condition: "step2_pill == 'yes'"
+condition: "step2_pill == 'yes' && step1_age < 35"
 actions:
   - "isRelevant = true"
 
@@ -66,7 +66,7 @@ actions:
 name: step2_headaches
 description: headaches
 priority: 1
-condition: "step2_pill == 'yes'"
+condition: "step2_pill == 'yes' && step1_age < 35"
 actions:
   - "isRelevant = true"
 
@@ -74,7 +74,7 @@ actions:
 name: step2_frequent_urge
 description: frequent urge
 priority: 1
-condition: "step2_pill == 'yes'"
+condition: "step2_pill == 'yes' && step1_age < 35"
 actions:
   - "isRelevant = true"
 
@@ -82,7 +82,7 @@ actions:
 name: step2_falling_loss_unconsciousness
 description: falling loss unconsciousness
 priority: 1
-condition: "step2_pill == 'yes'"
+condition: "step2_pill == 'yes' && step1_age < 35"
 actions:
   - "isRelevant = true"
 
@@ -218,7 +218,7 @@ actions:
 name: step3_fp_start_female_ster
 description: fp female_ster date
 priority: 1
-condition: "step2_fp_method_accepted == 'Female Sterilization'"
+condition: "step2_fp_method_accepted == 'Female sterilization'"
 actions:
   - "isRelevant = true"
 
@@ -226,7 +226,7 @@ actions:
 name: step3_fp_start_male_ster
 description: fp male_ster date
 priority: 1
-condition: "step2_fp_method_accepted == 'Male Sterilization'"
+condition: "step2_fp_method_accepted == 'Male sterilization'"
 actions:
   - "isRelevant = true"
 
@@ -234,6 +234,6 @@ actions:
 name: step3_fp_male_ster_note
 description: fp male_ster date note
 priority: 1
-condition: "step2_fp_method_accepted == 'Male Sterilization'"
+condition: "step2_fp_method_accepted == 'Male sterilization'"
 actions:
   - "isRelevant = true"
