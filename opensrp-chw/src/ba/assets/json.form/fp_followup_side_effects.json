@@ -232,10 +232,10 @@
         "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
-          "Severe pain inside the vagina after IUD was put in",
-          "Cramping or backaches for a few days after the IUD is put in",
-          "Spotting between periods and/or irregular periods",
-          "Heavier periods and worse menstrual cramps",
+          "Severe pain inside the vagina after IUD \n was put in",
+          "Cramping or backaches for a few days  \n after the IUD is put in",
+          "Spotting between periods and/or irregular \n periods",
+          "Heavier periods and worse menstrual \n cramps",
           "IUCD explusion",
           "Others",
           "None"
