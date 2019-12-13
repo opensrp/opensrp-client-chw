@@ -131,7 +131,7 @@ public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
         super.onClick(view);
         int id = view.getId();
         if (id == R.id.record_fp_followup_visit) {
-            openFollowUpVisitForm();
+            openFollowUpVisitForm(false);
         }
     }
 
@@ -351,7 +351,7 @@ public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
     }
 
     @Override
-    public void openFollowUpVisitForm(boolean edit) {
+    public void openFollowUpVisitForm(boolean isEdit) {
         // Implement -> FamilyPlanningFollowUpActivity.startRegistrationActivity(this, fpMemberObject.getBaseEntityId());
     }
 
