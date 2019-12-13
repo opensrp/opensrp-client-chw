@@ -152,7 +152,7 @@ actions:
 
 ---
 name: step3_no_pillcycles
-description: no. illcycles
+description: no illcycles
 priority: 1
 condition: "step2_fp_method_accepted == 'COC' || step2_fp_method_accepted == 'POP'"
 actions:
