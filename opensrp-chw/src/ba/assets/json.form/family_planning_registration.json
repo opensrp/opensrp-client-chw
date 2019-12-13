@@ -72,6 +72,13 @@
         }
       },
       {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "age",
+        "type": "hidden"
+      },
+      {
         "key": "using_method",
         "type": "native_radio",
         "openmrs_entity": "concept",
@@ -979,7 +986,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fp_start_male_ster",
         "type": "date_picker",
-        "hint": "Date of female sterilization",
+        "hint": "Date of male sterilization",
         "max_date": "today",
         "relevance": {
           "rules-engine": {
