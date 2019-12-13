@@ -31,20 +31,12 @@ actions:
   - "calculation = (step2_COC_POP =='0' && step2_POP == '0' && step2_breastfeed !='') ? 1 : 0"
 
 ---
-name: step2_fp_method_chosen
+name: step2_fp_method_accepted
 description: calculate fp method accepted
 priority: 1
 condition: "true"
 actions:
-  - "calculation = step2_fp_method_chw != '' ? step2_fp_method_chw : step2_fp_method_already"
-
----
-name: step3_ecp
-description: calculate ecp
-priority: 1
-condition: "true"
-actions:
-  - "calculation = step2_fp_method_chosen != 'Emergency contraceptive' ? 1 : 0"
+  - "calculation = step2_fp_method_chosen != '' ? fp_method_chosen : ''"
 
 ---
 name: step3_fp_start_condom
