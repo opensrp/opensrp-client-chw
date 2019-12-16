@@ -55,9 +55,8 @@ public class PncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
     }
 
     @Override
-    public void onRegistrationSaved(boolean b, boolean b1, FamilyEventClient familyEventClient) {
-        // TODO Implement
-        Timber.d("onRegistrationSaved unimplemented");
+    public void onRegistrationSaved(boolean b) {
+        // TODO
     }
 
     public PncMemberProfileContract.View getView() {
