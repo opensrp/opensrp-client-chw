@@ -36,7 +36,7 @@ public class FamilyPlanningProfileInteractor extends CoreFamilyPlanningProfileIn
     public void updateProfileFpStatusInfo(final FpMemberObject memberObject, final BaseFpProfileContract.InteractorCallback callback) {
         Runnable runnable = new Runnable() {
 
-            Date lastVisitDate = getLastVisitDate(memberObject);
+            Date lastVisitDate = getLastVisitDate(memberObject); // CoreFamilyPlanningProfileInteractor#getLastVisitDate
             AlertStatus familyAlert = FamilyDao.getFamilyAlertStatus(memberObject.getBaseEntityId());
             Alert upcomingService = getAlerts(context, memberObject.getBaseEntityId());
 
@@ -84,15 +84,5 @@ public class FamilyPlanningProfileInteractor extends CoreFamilyPlanningProfileIn
         }
 
         return null;
-    }
-
-    private Date getLastVisitDate(FpMemberObject memberObject) {
-        Date lastVisitDate = null;
-        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), "FP Home Visit");
-        if (lastVisit != null) {
-            lastVisitDate = lastVisit.getDate();
-        }
-
-        return lastVisitDate;
     }
 }
