@@ -114,7 +114,7 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
         FamilyOtherMemberActivityPresenter spyPresenter = Mockito.spy(familyOtherMemberActivityPresenter);
         Whitebox.setInternalState(spyPresenter, "interactor", interactor);
 
-        spyPresenter.onRegistrationSaved(true);
+        spyPresenter.onRegistrationSaved(true, true, null);
 
         Mockito.verify(view).hideProgressDialog();
         Mockito.verify(interactor).refreshProfileView(baseEntityId, spyPresenter);
@@ -129,7 +129,7 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
         FamilyOtherMemberActivityPresenter spyPresenter = Mockito.spy(familyOtherMemberActivityPresenter);
         Whitebox.setInternalState(spyPresenter, "interactor", interactor);
 
-        spyPresenter.onRegistrationSaved(false);
+        spyPresenter.onRegistrationSaved(false, false, null);
 
         Mockito.verify(view, Mockito.times(0)).hideProgressDialog();
         Mockito.verify(interactor, Mockito.times(0)).refreshProfileView(baseEntityId, spyPresenter);
