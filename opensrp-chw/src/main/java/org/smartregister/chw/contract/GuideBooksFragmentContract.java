@@ -16,6 +16,7 @@ public interface GuideBooksFragmentContract {
 
         void onDataReceived(List<Video> videos);
 
+        @Nullable
         Context getViewContext();
 
         void displayLoadingState(boolean state);
