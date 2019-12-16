@@ -34,6 +34,9 @@ public class ChwRepositoryFlv {
                 case 3:
                     upgradeToVersion3(db);
                     break;
+                case 4:
+                    upgradeToVersion4(db);
+                    break;
                 default:
                     break;
             }
@@ -96,6 +99,15 @@ public class ChwRepositoryFlv {
             db.execSQL(ScheduleRepository.USER_UNIQUE_INDEX);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion2 ");
+        }
+    }
+
+    private static void upgradeToVersion4(SQLiteDatabase db) {
+        try {
+            // delete possible duplication
+            db.execSQL(RepositoryUtils.ADD_MISSING_REPORTING_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 }

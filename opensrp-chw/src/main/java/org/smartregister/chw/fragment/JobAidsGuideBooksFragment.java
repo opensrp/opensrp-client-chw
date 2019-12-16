@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.GuideBooksAdapter;
 import org.smartregister.chw.contract.GuideBooksFragmentContract;
@@ -94,7 +95,7 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
     }
 
     @Override
-    public Context getViewContext() {
+    public @Nullable Context getViewContext() {
         return getContext();
     }
 

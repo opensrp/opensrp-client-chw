@@ -1,68 +1,39 @@
 package org.smartregister.chw.interactor;
 
-import android.content.Context;
-import android.content.res.AssetManager;
-
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.util.ReflectionHelpers;
-import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
-import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.ServiceWrapper;
+import org.smartregister.immunization.domain.jsonmapping.Vaccine;
+import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
+import org.smartregister.immunization.repository.VaccineRepository;
+import org.smartregister.repository.Repository;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Locale;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
-public class DefaultChildHomeVisitInteractorFlvTest {
-
-    @Mock
-    private MemberObject memberObject;
-
-    @Mock
-    private LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
-
-    @Mock
-    private Context context;
-
-    private Locale locale = Locale.ENGLISH;
-
-    @Mock
-    private AssetManager assetManager;
+public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInteractorFlvTest {
 
     private DefaultChildHomeVisitInteractorFlv interactor;
 
-    private final String title = "Sample Title";
-
-    @Mock
-    private BaseAncHomeVisitAction.Builder builder;
-
-    @Mock
-    private BaseAncHomeVisitAction ancHomeVisitAction;
-
-    @Mock
-    protected VisitRepository visitRepository;
-
-    /**
-     * Check that this file actually compiles for the flavors
-     */
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
@@ -104,7 +75,37 @@ public class DefaultChildHomeVisitInteractorFlvTest {
         Mockito.doReturn("").when(jsonObject).toString();
         Mockito.doReturn(jsonObject).when(interactor).getFormJson(Mockito.anyString());
         Mockito.doReturn(jsonObject).when(interactor).getFormJson(Mockito.any(), Mockito.any());
+    }
 
+    @Test
+    public void testCalculateActionsPopulatesServicesForChild() throws BaseAncHomeVisitAction.ValidationException {
+
+        Mockito.doReturn(context).when(view).getContext();
+        Mockito.doReturn(false).when(view).getEditMode();
+
+        Date dob = LocalDate.now().minusDays(70).toDate();
+        Mockito.doReturn(new SimpleDateFormat("yyyy-MM-dd").format(dob)).when(memberObject).getDob();
+
+        Repository repository = Mockito.mock(Repository.class);
+        ReflectionHelpers.setStaticField(AbstractDao.class, "repository", repository);
+
+        Map<String, ServiceWrapper> serviceWrapperMap = new HashMap<>();
+        Mockito.doReturn(serviceWrapperMap).when(interactor).getServices();
+
+        Whitebox.setInternalState(interactor, "hasBirthCert", false);
+
+        List<VaccineGroup> vaccineGroups = new ArrayList<>();
+        Mockito.doReturn(vaccineGroups).when(interactor).getVaccineGroups();
+
+        List<Vaccine> vaccines = new ArrayList<>();
+        Mockito.doReturn(vaccines).when(interactor).getSpecialVaccines();
+
+        VaccineRepository vaccineRepository = Mockito.mock(VaccineRepository.class);
+        Mockito.doReturn(vaccineRepository).when(interactor).getVaccineRepo();
+
+        LinkedHashMap<String, BaseAncHomeVisitAction> services = interactor.calculateActions(view, memberObject, callBack);
+
+        Assert.assertTrue(services.size() > 0);
     }
 
     @Test
@@ -120,6 +121,24 @@ public class DefaultChildHomeVisitInteractorFlvTest {
                 , ReflectionHelpers.ClassParameter.from(String.class, eventName));
 
         Mockito.verify(visitRepository).getLatestVisit(baseID, eventName);
+    }
+
+    @Test
+    public void testEvaluateImmunization() {
+        List<VaccineGroup> vaccineGroups = new ArrayList<>();
+        Mockito.doReturn(vaccineGroups).when(interactor).getVaccineGroups();
+
+        List<Vaccine> vaccines = new ArrayList<>();
+        Mockito.doReturn(vaccines).when(interactor).getSpecialVaccines();
+
+        VaccineRepository vaccineRepository = Mockito.mock(VaccineRepository.class);
+        Mockito.doReturn(vaccineRepository).when(interactor).getVaccineRepo();
+
+        Mockito.doReturn("12345").when(memberObject).getBaseEntityId();
+
+        ReflectionHelpers.callInstanceMethod(interactor, "evaluateImmunization");
+
+        Mockito.verify(vaccineRepository).findByEntityId("12345");
     }
 
     @Test
