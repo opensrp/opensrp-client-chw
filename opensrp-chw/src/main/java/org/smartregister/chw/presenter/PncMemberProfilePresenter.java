@@ -55,9 +55,10 @@ public class PncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
     }
 
     @Override
-    public void onRegistrationSaved(boolean b) {
-        // TODO
+    public void onRegistrationSaved(boolean b, boolean b1, FamilyEventClient familyEventClient) {
+        // TODO     
     }
+
 
     public PncMemberProfileContract.View getView() {
         if (view != null) {
