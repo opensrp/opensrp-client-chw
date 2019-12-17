@@ -287,15 +287,9 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                 Timber.e(e);
             }
         }
+        private String evaluateCondomSideEffects(){
+            String condomSideEffects;
 
-        @Override
-        public String evaluateSubTitle() {
-            String condomSideEffects = "";
-            String cocpopSideEffects = "";
-            String injectSideEffects = "";
-            String iucdSideEffects = "";
-            String sterilizationSideEffects = "";
-            // String sideEffects = getNonBlankString(condom_side_effects, cocpop_side_effects, inject_side_effects, IUCD_side_effects, sterilization_side_effects);
             switch (condom_side_effects) {
                 case "Allergic_reactions":
                     condomSideEffects = context.getString(R.string.allergic_reactions);
@@ -306,8 +300,15 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                 case "None":
                     condomSideEffects = context.getString(R.string.none);
                     break;
+                default:
+                    condomSideEffects = "";
+                    break;
             }
+            return condomSideEffects;
+        }
 
+        private String evaluateCocPopSideEffects(){
+            String cocpopSideEffects;
             switch (cocpop_side_effects) {
                 case "Heavy_bleeding_":
                     cocpopSideEffects = context.getString(R.string.heavy_bleading);
@@ -321,8 +322,15 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                 case "None":
                     cocpopSideEffects = context.getString(R.string.none);
                     break;
+                default:
+                    cocpopSideEffects = "";
+                    break;
             }
+            return cocpopSideEffects;
+        }
 
+        private String evaluateInjectSideEffects(){
+            String injectSideEffects;
             switch (inject_side_effects) {
                 case "Heavy_bleeding_":
                     injectSideEffects = context.getString(R.string.heavy_bleading);
@@ -336,8 +344,15 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                 case "None":
                     injectSideEffects = context.getString(R.string.none);
                     break;
+                default:
+                    injectSideEffects = "";
+                    break;
             }
+            return injectSideEffects;
+        }
 
+        private String evaluateIUCDSideEffects(){
+            String iucdSideEffects;
             switch (IUCD_side_effects) {
                 case "Severe_pain_inside_the_vagina_after_IUD_was_put_in":
                     iucdSideEffects = context.getString(R.string.severe_pain_inside_the_vagina);
@@ -360,8 +375,16 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                 case "None":
                     iucdSideEffects = context.getString(R.string.none);
                     break;
+                default:
+                    iucdSideEffects ="";
+                    break;
             }
+            return iucdSideEffects;
 
+        }
+
+        private String evaluateSterilizationSideEffects(){
+            String sterilizationSideEffects;
             switch (sterilization_side_effects) {
                 case "Incisional_bleeding":
                     sterilizationSideEffects = context.getString(R.string.incisional_bleeding);
@@ -378,9 +401,18 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                 case "None":
                     sterilizationSideEffects = context.getString(R.string.none);
                     break;
+                default:
+                    sterilizationSideEffects = "";
+                    break;
             }
+            return sterilizationSideEffects;
+        }
 
-            sideEffects = getNonBlankString(condomSideEffects, cocpopSideEffects, injectSideEffects, iucdSideEffects, sterilizationSideEffects);
+
+        @Override
+        public String evaluateSubTitle() {
+
+            sideEffects = getNonBlankString(evaluateCondomSideEffects(), evaluateCocPopSideEffects(), evaluateInjectSideEffects(), evaluateIUCDSideEffects(), evaluateSterilizationSideEffects());
             other = getNonBlankString(condom_side_effects_other, cocpop_side_effects_other, inject_side_effects_other, IUCD_side_effects_other, sterilization_side_effects_other);
 
             if (StringUtils.isBlank(sideEffects)) {
