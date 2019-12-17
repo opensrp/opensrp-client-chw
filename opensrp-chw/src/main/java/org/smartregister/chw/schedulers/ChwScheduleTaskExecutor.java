@@ -6,7 +6,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.task.ANCVisitScheduler;
 import org.smartregister.chw.task.ChildHomeVisitScheduler;
-import org.smartregister.chw.task.FPVisitScheduler;
+import org.smartregister.chw.task.FpVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
 import org.smartregister.chw.task.PNCVisitScheduler;
 import org.smartregister.chw.task.WashCheckScheduler;
@@ -47,7 +47,6 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
             if (washCheckFlv.isWashCheckVisible())
                 initializeWashClassifier(scheduleServiceMap);
         }
-
         return scheduleServiceMap;
     }
 
@@ -98,9 +97,10 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
     private void initializeFPClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
-        scheduleServices.add(new FPVisitScheduler());
+        scheduleServices.add(new FpVisitScheduler());
         classifier.put(FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT, scheduleServices);
+        classifier.put(FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, scheduleServices);
+        classifier.put(FamilyPlanningConstants.EventType.FAMILY_PLANNING_CHANGE_METHOD, scheduleServices);
 
-        //TO BE ADDED
     }
 }

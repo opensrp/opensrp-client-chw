@@ -12,6 +12,7 @@ import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.FamilyDao;
+import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Utils;
@@ -129,6 +130,7 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         private int ancWomanCount;
         private int pncWomanCount;
         private int malariaCount;
+        private int fpCount;
         private Map<String, Integer> services;
 
         private UpdateAsyncTask(Context context, RegisterViewHolder viewHolder, String familyBaseEntityId) {
@@ -145,6 +147,8 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
 
             if (flavor.hasMalaria())
                 malariaCount = ChwApplication.malariaRegisterRepository().getMalariaCount(familyBaseEntityId, CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION);
+            if(flavor.hasFp())
+                fpCount = FpDao.getFpWomenCount(familyBaseEntityId) != null ?  FpDao.getFpWomenCount(familyBaseEntityId)  : 0;
             services = FamilyDao.getFamilyServiceSchedule(familyBaseEntityId);
             return null;
         }
@@ -155,10 +159,12 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             updateChildIcons(viewHolder, list, ancWomanCount, pncWomanCount);
             updateMalariaIcons(viewHolder, malariaCount);
             updateButtonState(context, viewHolder, services);
+            updateFpIcons(viewHolder,fpCount);
         }
     }
 
     public interface Flavor {
         boolean hasMalaria();
+        boolean hasFp();
     }
 }
