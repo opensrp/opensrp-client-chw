@@ -27,7 +27,6 @@ import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyPlanningFloatingMenu;
-import org.smartregister.chw.fp.activity.BaseFpProfileActivity;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fp.domain.FpMemberObject;
 import org.smartregister.chw.fp.presenter.BaseFpProfilePresenter;
@@ -37,7 +36,6 @@ import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.family.contract.FamilyOtherMemberContract;
 import org.smartregister.family.util.JsonFormUtils;
 
 import io.reactivex.Observable;
@@ -101,6 +99,9 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
                         getClientDetailsByBaseEntityID(fpMemberObject.getBaseEntityId()),
                         fpMemberObject.getFamilyBaseEntityId(), fpMemberObject.getFamilyHead(),
                         fpMemberObject.getPrimaryCareGiver(), MalariaRegisterActivity.class.getCanonicalName());
+                return true;
+            case R.id.action_fp_change:
+                FpRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), CoreConstants.JSON_FORM.getFpChengeMethodForm(), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
                 return true;
             default:
                 break;
@@ -369,5 +370,4 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     public void openFollowUpVisitForm(boolean isEdit) {
         // Implement -> FamilyPlanningFollowUpActivity.startRegistrationActivity(this, fpMemberObject.getBaseEntityId());
     }
-
 }

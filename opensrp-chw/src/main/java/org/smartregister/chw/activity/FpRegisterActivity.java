@@ -28,6 +28,13 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
     }
 
     @Override
+    public void onFormSaved() {
+        startActivity(new Intent(this, FpRegisterActivity.class));
+        super.onFormSaved();
+        this.finish();
+    }
+
+    @Override
     protected BaseRegisterFragment getRegisterFragment() {
         return new FpRegisterFragment();
     }
