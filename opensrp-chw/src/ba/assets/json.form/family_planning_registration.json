@@ -946,7 +946,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fp_start_implant_jad",
         "type": "date_picker",
-        "hint": "Date of Implanon - NXT insertion",
+        "hint": "Date of Jadelle insertionn",
         "max_date": "today",
         "relevance": {
           "rules-engine": {
