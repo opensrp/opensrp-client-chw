@@ -607,6 +607,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Family planning method selected",
         "values": [
@@ -637,7 +638,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": "Please select one"
         },
         "relevance": {
           "rules-engine": {
