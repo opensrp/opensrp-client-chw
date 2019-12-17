@@ -363,11 +363,19 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
 
     @Override
     public void openFamilyDueServices() {
-        // Implement
+        Intent intent = new Intent(this, FamilyProfileActivity.class);
+
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, fpMemberObject.getFamilyBaseEntityId());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, fpMemberObject.getFamilyHead());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, fpMemberObject.getPrimaryCareGiver());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, fpMemberObject.getFamilyName());
+
+        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
+        startActivity(intent);
     }
 
     @Override
     public void openFollowUpVisitForm(boolean isEdit) {
-        // Implement -> FamilyPlanningFollowUpActivity.startRegistrationActivity(this, fpMemberObject.getBaseEntityId());
+        FpFollowUpVisitActivity.startMe(this, fpMemberObject, isEdit);
     }
 }
