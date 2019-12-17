@@ -36,7 +36,7 @@ description: calculate fp method accepted
 priority: 1
 condition: "true"
 actions:
-  - "calculation = step2_fp_method_chosen != '' ? step2_fp_method_chosen : ''"
+  - "calculation = step1_reason_stop_fp_chw =='decided_to_change_method' ? step2_fp_method_chosen : ''"
 
 ---
 name: step3_fp_start_condom
