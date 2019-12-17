@@ -101,7 +101,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                 .withBaseEntityID(memberObject.getBaseEntityId())
                 .withHelper(new SideEffectsHelper())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                .withFormName(Constants.JSON_FORM.FP_FOLLOW_UP_VISIT.getFamilyPlanningFollowupSideEffects())
+                .withFormName(Constants.JSON_FORM.FamilyPlanningFollowUpVisitUtils.getFamilyPlanningFollowupSideEffects())
                 .withJsonPayload(jsonObject.toString())
                 .build();
 
@@ -124,7 +124,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                 .withBaseEntityID(memberObject.getBaseEntityId())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withHelper(new CounsellingHelper())
-                .withFormName(Constants.JSON_FORM.FP_FOLLOW_UP_VISIT.getFamilyPlanningFollowupCounsel())
+                .withFormName(Constants.JSON_FORM.FamilyPlanningFollowUpVisitUtils.getFamilyPlanningFollowupCounsel())
                 .build();
 
         actionList.put(context.getString(R.string.counseling), action);
