@@ -302,6 +302,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                     break;
                 default:
                     condomSideEffects = "";
+                    break;
             }
             return condomSideEffects;
         }
@@ -323,6 +324,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                     break;
                 default:
                     cocpopSideEffects = "";
+                    break;
             }
             return cocpopSideEffects;
         }
@@ -344,6 +346,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                     break;
                 default:
                     injectSideEffects = "";
+                    break;
             }
             return injectSideEffects;
         }
@@ -374,6 +377,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                     break;
                 default:
                     iucdSideEffects ="";
+                    break;
             }
             return iucdSideEffects;
 
@@ -399,8 +403,8 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                     break;
                 default:
                     sterilizationSideEffects = "";
+                    break;
             }
-
             return sterilizationSideEffects;
         }
 
