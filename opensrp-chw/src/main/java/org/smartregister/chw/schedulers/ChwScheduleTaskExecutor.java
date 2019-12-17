@@ -99,7 +99,7 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
     private void initializeFPClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new FpVisitScheduler());
-        classifier.put(FamilyPlanningConstants.EventType.FP_HOME_VISIT, scheduleServices);
+        classifier.put(FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT, scheduleServices);
 
         //TO BE ADDED
     }

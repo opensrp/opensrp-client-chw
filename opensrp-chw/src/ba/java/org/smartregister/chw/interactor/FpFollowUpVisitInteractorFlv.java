@@ -63,7 +63,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
         }
         // get the preloaded data
         if (view.getEditMode()) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), FamilyPlanningConstants.EVENT_TYPE.FP_FOLLOW_UP_VISIT);
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT);
             if (lastVisit != null) {
                 details = Collections.unmodifiableMap(VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId())));
             }
@@ -85,13 +85,13 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
 
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), FamilyPlanningConstants.EVENT_TYPE.FP_FOLLOW_UP_VISIT_SIDE_EFFECTS);
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT_SIDE_EFFECTS);
             if (lastVisit != null) {
                 details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
         }
 
-        JSONObject jsonObject = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.FP_FOLLOW_UP_VISIT.getFamilyPlanningFollowupSideEffects());
+        JSONObject jsonObject = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.FamilyPlanningFollowUpVisitUtils.getFamilyPlanningFollowupSideEffects());
         injectFamilyPlaningMethod(jsonObject);
         // jsonObject
 
@@ -112,7 +112,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
 
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
-            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), FamilyPlanningConstants.EVENT_TYPE.FP_FOLLOW_UP_VISIT_COUNSELLING);
+            Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT_COUNSELLING);
             if (lastVisit != null) {
                 details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
@@ -134,13 +134,13 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
         if (!familyPlanningMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_FEMALE_STERLIZATION) && !familyPlanningMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_IUCD)) {
             Map<String, List<VisitDetail>> details = null;
             if (editMode) {
-                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), FamilyPlanningConstants.EVENT_TYPE.FP_FOLLOW_UP_VISIT_RESUPPLY);
+                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT_RESUPPLY);
                 if (lastVisit != null) {
                     details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
                 }
             }
 
-            JSONObject jsonObject = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.FP_FOLLOW_UP_VISIT.getFamilyPlanningFollowupResupply());
+            JSONObject jsonObject = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.FamilyPlanningFollowUpVisitUtils.getFamilyPlanningFollowupResupply());
             injectFamilyPlaningMethod(jsonObject);
             // jsonObject
             if (!familyPlanningMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_INJECTABLE)) {
@@ -150,7 +150,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                         .withBaseEntityID(memberObject.getBaseEntityId())
                         .withHelper(new ResupplyHelper())
                         .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                        .withFormName(Constants.JSON_FORM.FP_FOLLOW_UP_VISIT.getFamilyPlanningFollowupResupply())
+                        .withFormName(Constants.JSON_FORM.FamilyPlanningFollowUpVisitUtils.getFamilyPlanningFollowupResupply())
                         .withJsonPayload(jsonObject.toString())
                         .build();
 
@@ -162,7 +162,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                         .withBaseEntityID(memberObject.getBaseEntityId())
                         .withHelper(new ResupplyHelper())
                         .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                        .withFormName(Constants.JSON_FORM.FP_FOLLOW_UP_VISIT.getFamilyPlanningFollowupResupply())
+                        .withFormName(Constants.JSON_FORM.FamilyPlanningFollowUpVisitUtils.getFamilyPlanningFollowupResupply())
                         .withJsonPayload(jsonObject.toString())
                         .build();
 
