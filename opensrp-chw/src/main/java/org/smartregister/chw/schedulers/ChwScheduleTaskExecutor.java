@@ -47,7 +47,6 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
             if (washCheckFlv.isWashCheckVisible())
                 initializeWashClassifier(scheduleServiceMap);
         }
-
         return scheduleServiceMap;
     }
 
@@ -100,7 +99,7 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new FpVisitScheduler());
         classifier.put(FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT, scheduleServices);
-
-        //TO BE ADDED
+        classifier.put(FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, scheduleServices);
+        classifier.put(FamilyPlanningConstants.EventType.FAMILY_PLANNING_CHANGE_METHOD, scheduleServices);
     }
 }

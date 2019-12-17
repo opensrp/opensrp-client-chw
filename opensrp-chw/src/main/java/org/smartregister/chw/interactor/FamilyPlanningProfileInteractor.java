@@ -86,13 +86,5 @@ public class FamilyPlanningProfileInteractor extends CoreFamilyPlanningProfileIn
         return null;
     }
 
-    private Date getLastVisitDate(FpMemberObject memberObject) {
-        Date lastVisitDate = null;
-        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), "FP Home Visit");
-        if (lastVisit != null) {
-            lastVisitDate = lastVisit.getDate();
-        }
 
-        return lastVisitDate;
-    }
 }
