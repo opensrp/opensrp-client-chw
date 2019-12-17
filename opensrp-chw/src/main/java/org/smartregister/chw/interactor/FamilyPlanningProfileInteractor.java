@@ -7,6 +7,7 @@ import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
+import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.interactor.CoreFamilyPlanningProfileInteractor;
@@ -45,7 +46,7 @@ public class FamilyPlanningProfileInteractor extends CoreFamilyPlanningProfileIn
                 appExecutors.mainThread().execute(() -> {
                     callback.refreshLastVisit(lastVisitDate);
                     callback.refreshFamilyStatus(familyAlert);
-                    callback.refreshMedicalHistory(VisitDao.memberHasVisits(memberObject.getBaseEntityId()));
+                    callback.refreshMedicalHistory(VisitDao.memberHasNonFamilyPlanningVisits(memberObject.getBaseEntityId()));
                     if (upcomingService == null) {
                         callback.refreshUpComingServicesStatus("", AlertStatus.complete, new Date());
                     } else {
@@ -59,18 +60,17 @@ public class FamilyPlanningProfileInteractor extends CoreFamilyPlanningProfileIn
 
     private Alert getAlerts(Context context, String baseEntityID) {
         List<BaseUpcomingService> baseUpcomingServices = new ArrayList<>();
-        MemberObject memberObject = PNCDao.getMember(baseEntityID);
         try {
-            baseUpcomingServices.addAll(new PncUpcomingServicesInteractorFlv().getMemberServices(context, memberObject));
-            baseUpcomingServices.addAll(new AncUpcomingServicesInteractorFlv().getMemberServices(context, memberObject));
-            //TODO add upcoming services for malaria, child & family planning
+            baseUpcomingServices.addAll(new PncUpcomingServicesInteractorFlv().getMemberServices(context, PNCDao.getMember(baseEntityID)));
+            baseUpcomingServices.addAll(new AncUpcomingServicesInteractorFlv().getMemberServices(context, AncDao.getMember(baseEntityID)));
+            //TODO :: Add upcoming services for malaria, child & family planning
             if (baseUpcomingServices.size() > 0) {
                 Comparator<BaseUpcomingService> comparator = (o1, o2) -> o1.getServiceDate().compareTo(o2.getServiceDate());
                 Collections.sort(baseUpcomingServices, comparator);
 
                 BaseUpcomingService baseUpcomingService = baseUpcomingServices.get(0);
                 return new Alert(
-                        memberObject.getBaseEntityId(),
+                        baseEntityID,
                         baseUpcomingService.getServiceName(),
                         baseUpcomingService.getServiceName(),
                         baseUpcomingService.getServiceDate().before(new Date()) ? AlertStatus.urgent : AlertStatus.normal,
