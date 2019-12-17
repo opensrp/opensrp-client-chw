@@ -16,12 +16,15 @@ import androidx.annotation.NonNull;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.core.activity.CoreFamilyPlanningMemberProfileActivity;
+import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyPlanningFloatingMenu;
 import org.smartregister.chw.fp.activity.BaseFpProfileActivity;
@@ -44,7 +47,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
+public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMemberProfileActivity
         implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
 
 
@@ -66,7 +69,18 @@ public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
     }
 
     @Override
+    protected Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivityClass() {
+        return FamilyProfileActivity.class;
+    }
+
+    @Override
+    protected void removeMember() {
+        // TODO :: Implement
+    }
+
+    @Override
     protected void initializePresenter() {
+        showProgressBar(true);
         fpProfilePresenter = new BaseFpProfilePresenter(this, new FamilyPlanningProfileInteractor(this), fpMemberObject);
         fetchProfileData();
     }
@@ -172,9 +186,10 @@ public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
         // Implement
     }
 
+    @NonNull
     @Override
-    public FamilyOtherMemberContract.Presenter presenter() {
-        return null;
+    public CoreFamilyOtherMemberActivityPresenter presenter() {
+        return ((CoreFamilyOtherMemberActivityPresenter) presenter);
     }
 
     @Override
@@ -354,4 +369,5 @@ public class FamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
     public void openFollowUpVisitForm(boolean isEdit) {
         // Implement -> FamilyPlanningFollowUpActivity.startRegistrationActivity(this, fpMemberObject.getBaseEntityId());
     }
+
 }

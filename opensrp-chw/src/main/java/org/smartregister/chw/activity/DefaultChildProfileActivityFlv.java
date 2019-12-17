@@ -17,14 +17,4 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
             }
         };
     }
-
-    @Override
-    public boolean showMalariaConfirmationMenu() {
-        return false;
-    }
-
-    @Override
-    public boolean showFollowUpVisit() {
-        return false;
-    }
 }

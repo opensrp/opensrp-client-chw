@@ -61,6 +61,9 @@ public class ChwRepositoryFlv {
                 case 12:
                     upgradeToVersion12(db);
                     break;
+                case 13:
+                    upgradeToVersion13(db);
+                    break;
                 default:
                     break;
             }
@@ -190,6 +193,15 @@ public class ChwRepositoryFlv {
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion12 ");
+        }
+    }
+
+    private static void upgradeToVersion13(SQLiteDatabase db) {
+        try {
+            // delete possible duplication
+            db.execSQL(RepositoryUtils.ADD_MISSING_REPORTING_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 }
