@@ -72,6 +72,6 @@ actions:
 name: step1_action_taken
 description: action taken
 priority: 1
-condition: "step1_condom_side_effects.contains('None') || step1_cocpop_side_effects.contains('None') || step1_inject_side_effects.contains('None') || step1_IUCD_side_effects.contains('None') || step1_sterilization_side_effects.contains('None') "
+condition: "!(step1_condom_side_effects.contains('None') || step1_cocpop_side_effects.contains('None') || step1_inject_side_effects.contains('None') || step1_IUCD_side_effects.contains('None') || step1_sterilization_side_effects.contains('None'))"
 actions:
   - "isRelevant = true"

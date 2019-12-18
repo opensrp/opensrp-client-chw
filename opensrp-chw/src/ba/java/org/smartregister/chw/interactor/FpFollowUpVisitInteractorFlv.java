@@ -94,7 +94,9 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
         JSONObject jsonObject = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.FamilyPlanningFollowUpVisitUtils.getFamilyPlanningFollowupSideEffects());
         injectFamilyPlaningMethod(jsonObject);
         // jsonObject
-
+        if (details != null && details.size() > 0) {
+            org.smartregister.chw.anc.util.JsonFormUtils.populateForm(jsonObject, details);
+        }
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.fp_side_effects))
                 .withOptional(false)
                 .withDetails(details)
@@ -143,6 +145,10 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
             JSONObject jsonObject = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.FamilyPlanningFollowUpVisitUtils.getFamilyPlanningFollowupResupply());
             injectFamilyPlaningMethod(jsonObject);
             // jsonObject
+            if (details != null && details.size() > 0) {
+                org.smartregister.chw.anc.util.JsonFormUtils.populateForm(jsonObject, details);
+            }
+
             if (!familyPlanningMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_INJECTABLE)) {
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.resupply, familyPlanningMethod))
                         .withOptional(false)
@@ -267,6 +273,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
         private String action_taken;
         private String sideEffects;
         private String other;
+
 
         @Override
         public void onPayloadReceived(String jsonPayload) {
@@ -408,6 +415,26 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
             return sterilizationSideEffects;
         }
 
+        private String evaluateActionTaken(){
+            String actionTaken;
+
+            switch (action_taken) {
+                case "managed":
+                    actionTaken = context.getString(R.string.managed);
+                    break;
+                case "referred":
+                    actionTaken = context.getString(R.string.referred);
+                    break;
+                case "no_action_taken":
+                    actionTaken = context.getString(R.string.no_action_taken);
+                    break;
+                default:
+                    actionTaken = "";
+                    break;
+            }
+            return actionTaken;
+        }
+
 
         @Override
         public String evaluateSubTitle() {
@@ -425,7 +452,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
 
             if (StringUtils.isNotBlank(action_taken)) {
                 builder.append("\n");
-                builder.append(context.getString(R.string.action)).append(action_taken);
+                builder.append(context.getString(R.string.action)).append(evaluateActionTaken());
             }
 
             return builder.toString();
@@ -446,7 +473,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
             if (StringUtils.isBlank(action_taken) && StringUtils.isBlank(sideEffects) && StringUtils.isBlank(other)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
             }
-            if (StringUtils.isBlank(action_taken) || !"No action taken".equalsIgnoreCase(action_taken)) {
+            if (StringUtils.isBlank(action_taken) || !"no_action_taken".equalsIgnoreCase(action_taken)) {
                 return BaseAncHomeVisitAction.Status.COMPLETED;
             }
             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;

@@ -57,10 +57,6 @@ public class FpFollowUpVisitActivity extends BaseFpFollowUpVisitActivity {
     @Override
     public void close() {
         finish();
-        Intent intent = new Intent(this, FpRegisterActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        this.startActivity(intent);
-        this.finish();
     }
 
     @Override
@@ -69,11 +65,6 @@ public class FpFollowUpVisitActivity extends BaseFpFollowUpVisitActivity {
         Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT, new Date());
         org.smartregister.chw.util.Utils.startAsyncTask(new RunnableTask(runnable), null);
         super.submittedAndClose();
-
-        Intent intent = new Intent(this, FpRegisterActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        this.startActivity(intent);
-        this.finish();
     }
 
     @Override
