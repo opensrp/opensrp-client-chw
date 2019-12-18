@@ -38,15 +38,14 @@ public class FamilyPlanningProfileInteractor extends CoreFamilyPlanningProfileIn
         Runnable runnable = new Runnable() {
 
             Date lastVisitDate = getLastVisitDate(memberObject); // CoreFamilyPlanningProfileInteractor#getLastVisitDate
-            AlertStatus familyAlert = FamilyDao.getFamilyAlertStatus(memberObject.getBaseEntityId());
+            AlertStatus familyAlert = FamilyDao.getFamilyAlertStatus(memberObject.getFamilyBaseEntityId());
             Alert upcomingService = getAlerts(context, memberObject.getBaseEntityId());
 
             @Override
             public void run() {
                 appExecutors.mainThread().execute(() -> {
-                    callback.refreshLastVisit(lastVisitDate);
                     callback.refreshFamilyStatus(familyAlert);
-                    callback.refreshMedicalHistory(VisitDao.memberHasNonFamilyPlanningVisits(memberObject.getBaseEntityId()));
+                    callback.refreshMedicalHistory(lastVisitDate);
                     if (upcomingService == null) {
                         callback.refreshUpComingServicesStatus("", AlertStatus.complete, new Date());
                     } else {
