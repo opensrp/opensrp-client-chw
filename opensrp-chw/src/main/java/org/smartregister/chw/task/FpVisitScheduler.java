@@ -28,7 +28,7 @@ public class FpVisitScheduler extends BaseTaskExecutor {
     @Override
     public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate) {
         String fpMethod = null;
-        Date fp_date = null;
+        String fp_date = null;
         Integer fp_pillCycles = null;
         Rules rule = null;
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
@@ -45,6 +45,7 @@ public class FpVisitScheduler extends BaseTaskExecutor {
             return new ArrayList<>();
         Date lastVisitDate = null;
         Visit lastVisit = null;
+        Date fpDate = FpUtil.parseFpStartDate(fp_date);
         if (fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_INJECTABLE)) {
             lastVisit = FpDao.getLatestInjectionVisit(baseEntityID, fpMethod);
         } else {
@@ -53,7 +54,7 @@ public class FpVisitScheduler extends BaseTaskExecutor {
         if (lastVisit != null) {
             lastVisitDate = lastVisit.getDate();
         }
-        FpAlertRule alertRule = HomeVisitUtil.getFpVisitStatus(rule, lastVisitDate, fp_date, fp_pillCycles, fpMethod);
+        FpAlertRule alertRule = HomeVisitUtil.getFpVisitStatus(rule, lastVisitDate, fpDate, fp_pillCycles, fpMethod);
 
         baseScheduleTask.setScheduleDueDate(alertRule.getDueDate());
         baseScheduleTask.setScheduleExpiryDate(alertRule.getExpiryDate());
