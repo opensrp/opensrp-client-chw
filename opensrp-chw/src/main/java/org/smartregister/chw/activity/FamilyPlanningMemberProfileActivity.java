@@ -98,7 +98,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyPlanningMemberProfileActivity.this,
                         getClientDetailsByBaseEntityID(fpMemberObject.getBaseEntityId()),
                         fpMemberObject.getFamilyBaseEntityId(), fpMemberObject.getFamilyHead(),
-                        fpMemberObject.getPrimaryCareGiver(), MalariaRegisterActivity.class.getCanonicalName());
+                        fpMemberObject.getPrimaryCareGiver(), FpRegisterActivity.class.getCanonicalName());
                 return true;
             case R.id.action_fp_change:
                 FpRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), CoreConstants.JSON_FORM.getFpChengeMethodForm(), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
@@ -200,19 +200,19 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
 
     @Override
     public void setProfileName(String s) {
-        TextView textView = findViewById(org.smartregister.malaria.R.id.textview_name);
+        TextView textView = findViewById(org.smartregister.fp.R.id.textview_name);
         textView.setText(s);
     }
 
     @Override
     public void setProfileDetailOne(String s) {
-        TextView textView = findViewById(org.smartregister.malaria.R.id.textview_gender);
+        TextView textView = findViewById(org.smartregister.fp.R.id.textview_gender);
         textView.setText(s);
     }
 
     @Override
     public void setProfileDetailTwo(String s) {
-        TextView textView = findViewById(org.smartregister.malaria.R.id.textview_address);
+        TextView textView = findViewById(org.smartregister.fp.R.id.textview_address);
         textView.setText(s);
     }
 
