@@ -46,7 +46,7 @@ public class FamilyPlanningProfileInteractor extends CoreFamilyPlanningProfileIn
             public void run() {
                 appExecutors.mainThread().execute(() -> {
                     callback.refreshFamilyStatus(familyAlert);
-                    callback.refreshMedicalHistory(lastVisitDate);
+                    callback.refreshLastVisit(lastVisitDate);
                     if (upcomingService == null) {
                         callback.refreshUpComingServicesStatus("", AlertStatus.complete, new Date());
                     } else {
