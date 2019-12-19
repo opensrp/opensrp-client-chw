@@ -39,6 +39,9 @@
             android:name=".activity.AncUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.FpUpcomingServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.AncMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
