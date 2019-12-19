@@ -1,6 +1,7 @@
 {
   "validate_on_submit": true,
   "show_errors_on_submit": false,
+  "skip_blank_steps": true,
   "count": "3",
   "encounter_type": "Family Planning Change Method",
   "entity_id": "",
