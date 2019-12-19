@@ -368,6 +368,12 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     }
 
     @Override
+    public void openFamilyPlanningRegistration() {
+        FpRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), CoreConstants.JSON_FORM.getFpRegistrationForm(), FamilyPlanningConstants.ActivityPayload.UPDATE_REGISTRATION_PAYLOAD_TYPE);
+
+    }
+
+    @Override
     public void openUpcomingServices() {
         FpUpcomingServicesActivity.startMe(this, toMember(fpMemberObject));
 
@@ -391,3 +397,4 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
         FpFollowUpVisitActivity.startMe(this, fpMemberObject, isEdit);
     }
 }
+

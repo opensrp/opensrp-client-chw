@@ -3,13 +3,8 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 
 import org.joda.time.LocalDate;
-import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.MemberObject;
-import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
-import org.smartregister.chw.core.dao.AncDao;
-import org.smartregister.chw.core.dao.PNCDao;
-import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.interactor.CoreFamilyPlanningProfileInteractor;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.fp.contract.BaseFpProfileContract;

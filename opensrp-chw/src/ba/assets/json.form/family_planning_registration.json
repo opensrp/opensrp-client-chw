@@ -1,5 +1,5 @@
 {
-  "validate_on_submit": true,
+  "validate_on_submit": false,
   "show_errors_on_submit": false,
   "count": "3",
   "encounter_type": "Family Planning Registration",
@@ -898,6 +898,13 @@
               "rules-file": "family_planning_registration_relevance.yml"
             }
           }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -946,7 +953,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fp_start_implant_jad",
         "type": "date_picker",
-        "hint": "Date of Implanon - NXT insertion",
+        "hint": "Date of Jadelle insertionn",
         "max_date": "today",
         "relevance": {
           "rules-engine": {
