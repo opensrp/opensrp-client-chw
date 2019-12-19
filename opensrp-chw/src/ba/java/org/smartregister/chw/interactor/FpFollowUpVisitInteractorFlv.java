@@ -252,10 +252,13 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
             if (StringUtils.isBlank(no_condoms) && StringUtils.isBlank(no_pillcycles) && StringUtils.isBlank(last_injection_date)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
             }
+            if("0".equalsIgnoreCase(no_pillcycles) || "0".equalsIgnoreCase(no_condoms))
+                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+
             if (!StringUtils.isBlank(no_condoms) || !StringUtils.isBlank(no_pillcycles) || !StringUtils.isBlank(last_injection_date)) {
                 return BaseAncHomeVisitAction.Status.COMPLETED;
             }
-            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+            return BaseAncHomeVisitAction.Status.PENDING;
         }
     }
 

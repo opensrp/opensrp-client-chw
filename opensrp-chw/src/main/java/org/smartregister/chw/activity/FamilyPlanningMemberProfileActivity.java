@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreFamilyPlanningMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
@@ -356,9 +357,20 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
                 });
     }
 
+    private static MemberObject toMember(FpMemberObject memberObject) {
+        MemberObject res = new MemberObject();
+        res.setBaseEntityId(memberObject.getBaseEntityId());
+        res.setFirstName(memberObject.getFirstName());
+        res.setLastName(memberObject.getLastName());
+        res.setMiddleName(memberObject.getMiddleName());
+        res.setDob(memberObject.getAge());
+        return res;
+    }
+
     @Override
     public void openUpcomingServices() {
-        // Implement
+        FpUpcomingServicesActivity.startMe(this, toMember(fpMemberObject));
+
     }
 
     @Override

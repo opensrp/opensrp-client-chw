@@ -13,6 +13,7 @@ import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.interactor.CoreFamilyPlanningProfileInteractor;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.fp.contract.BaseFpProfileContract;
+import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fp.domain.FpMemberObject;
 import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Alert;
@@ -57,12 +58,19 @@ public class FamilyPlanningProfileInteractor extends CoreFamilyPlanningProfileIn
         appExecutors.diskIO().execute(runnable);
     }
 
+    private MemberObject toMember(FpMemberObject memberObject) {
+        MemberObject res = new MemberObject();
+        res.setBaseEntityId(memberObject.getBaseEntityId());
+        res.setFirstName(memberObject.getFirstName());
+        res.setLastName(memberObject.getLastName());
+        res.setMiddleName(memberObject.getMiddleName());
+        res.setDob(memberObject.getAge());
+        return res;
+    }
+
     private Alert getAlerts(Context context, String baseEntityID) {
-        List<BaseUpcomingService> baseUpcomingServices = new ArrayList<>();
         try {
-            baseUpcomingServices.addAll(new PncUpcomingServicesInteractorFlv().getMemberServices(context, PNCDao.getMember(baseEntityID)));
-            baseUpcomingServices.addAll(new AncUpcomingServicesInteractorFlv().getMemberServices(context, AncDao.getMember(baseEntityID)));
-            //TODO :: Add upcoming services for malaria, child & family planning
+            List<BaseUpcomingService> baseUpcomingServices = new ArrayList<>(new FpUpcomingServicesInteractor().getMemberServices(context, toMember(FpDao.getMember(baseEntityID))));
             if (baseUpcomingServices.size() > 0) {
                 Comparator<BaseUpcomingService> comparator = (o1, o2) -> o1.getServiceDate().compareTo(o2.getServiceDate());
                 Collections.sort(baseUpcomingServices, comparator);

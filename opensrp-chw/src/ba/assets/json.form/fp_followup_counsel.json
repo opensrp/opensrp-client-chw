@@ -74,7 +74,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "This value cannot be null"
         }
       }
 
