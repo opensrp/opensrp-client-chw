@@ -360,16 +360,8 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
 
     @Override
     public void openFamilyPlanningRegistration() {
-        try {
-            NativeFormsDataBinder binder = new NativeFormsDataBinder(this, fpMemberObject.getBaseEntityId());
-            JSONObject form = binder.getPrePopulatedForm(FamilyPlanningConstants.Forms.FAMILY_PLANNING_REGISTRATION_FORM);
-            form.put(JsonFormUtils.ENCOUNTER_TYPE, FamilyPlanningConstants.EventType.UPDATE_FAMILY_PLANNING_REGISTRATION);
 
-            startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        FpRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), CoreConstants.JSON_FORM.getFpRegistrationForm(), FamilyPlanningConstants.ActivityPayload.UPDATE_REGISTRATION_PAYLOAD_TYPE);
 
 
     }
