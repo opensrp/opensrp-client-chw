@@ -9,4 +9,9 @@ public class FpRegisterFragmentPresenter extends BaseFpRegisterFragmentPresenter
                                        BaseFpRegisterFragmentContract.Model model) {
         super(view, model);
     }
+
+    @Override
+    public String getDefaultSortQuery() {
+        return " MAX(ec_family_planning.last_interacted_with , ifnull(VISIT_SUMMARY.visit_date,0)) DESC ";
+    }
 }

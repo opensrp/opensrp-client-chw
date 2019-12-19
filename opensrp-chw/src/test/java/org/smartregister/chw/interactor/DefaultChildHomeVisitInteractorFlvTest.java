@@ -123,6 +123,7 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
         Mockito.verify(visitRepository).getLatestVisit(baseID, eventName);
     }
 
+    /*
     @Test
     public void testEvaluateImmunization() {
         List<VaccineGroup> vaccineGroups = new ArrayList<>();
@@ -140,6 +141,7 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
 
         Mockito.verify(vaccineRepository).findByEntityId("12345");
     }
+     */
 
     @Test
     public void testEvaluateChildVaccineCard() {
