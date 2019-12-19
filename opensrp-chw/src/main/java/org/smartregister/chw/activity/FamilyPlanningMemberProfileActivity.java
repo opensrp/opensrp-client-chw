@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyPlanningMemberProfileActivity;
@@ -27,6 +28,7 @@ import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyPlanningFloatingMenu;
+import org.smartregister.chw.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fp.domain.FpMemberObject;
 import org.smartregister.chw.fp.presenter.BaseFpProfilePresenter;
@@ -357,6 +359,22 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     }
 
     @Override
+    public void openFamilyPlanningRegistration() {
+        try {
+            NativeFormsDataBinder binder = new NativeFormsDataBinder(this, fpMemberObject.getBaseEntityId());
+            JSONObject form = binder.getPrePopulatedForm(FamilyPlanningConstants.Forms.FAMILY_PLANNING_REGISTRATION_FORM);
+            form.put(JsonFormUtils.ENCOUNTER_TYPE, FamilyPlanningConstants.EventType.UPDATE_FAMILY_PLANNING_REGISTRATION);
+
+            startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    @Override
     public void openUpcomingServices() {
         // Implement
     }
@@ -379,3 +397,4 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
         FpFollowUpVisitActivity.startMe(this, fpMemberObject, isEdit);
     }
 }
+
