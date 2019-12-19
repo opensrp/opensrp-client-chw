@@ -1,5 +1,5 @@
 {
-  "validate_on_submit": true,
+  "validate_on_submit": false,
   "show_errors_on_submit": false,
   "skip_blank_steps": true,
   "count": "3",
@@ -825,6 +825,13 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "family_planning_change_method_relevance.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_change_method_calculation.yml"
             }
           }
         }
