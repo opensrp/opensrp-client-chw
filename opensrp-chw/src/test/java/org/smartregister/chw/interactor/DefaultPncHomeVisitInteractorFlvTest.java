@@ -16,9 +16,7 @@ import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.chw.domain.PncBaby;
 import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Alert;
-import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.domain.ServiceWrapper;
-import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.repository.Repository;
 
 import java.util.ArrayList;
@@ -156,6 +154,7 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }
 
+    /*
     @Test
     public void testEvaluateImmunization() {
 
@@ -173,6 +172,7 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
         ReflectionHelpers.callInstanceMethod(interactor, "evaluateImmunization");
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }
+     */
 
     @Test
     public void testEvaluateUmbilicalCord() {
