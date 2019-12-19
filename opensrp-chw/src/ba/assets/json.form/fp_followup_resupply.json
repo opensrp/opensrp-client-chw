@@ -67,7 +67,11 @@
         "hint": "How many condoms was she given?",
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "this value cannot be null"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
         },
         "relevance": {
           "rules-engine": {
@@ -87,7 +91,11 @@
         "hint": "How many pill cycles was she given?",
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "this value cannot be null"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
         },
         "relevance": {
           "rules-engine": {
