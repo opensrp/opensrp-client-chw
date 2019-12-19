@@ -506,13 +506,13 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         }
 
         JSONObject jsonObject = getFormJson(CoreConstants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment());
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.ECD);
         try {
             jsonObject = CoreJsonFormUtils.getEcdWithDatePass(jsonObject, memberObject.getDob());
+            JsonFormUtils.populateForm(jsonObject,details);
         } catch (Exception e) {
             Timber.e(e);
         }
-
-        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.ECD);
 
         BaseAncHomeVisitAction action = getBuilder(context.getString(R.string.ecd_title))
                 .withOptional(false)
