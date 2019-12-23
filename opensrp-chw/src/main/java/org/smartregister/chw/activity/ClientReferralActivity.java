@@ -15,7 +15,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.ReferralTypeAdapter;
 import org.smartregister.chw.contract.ClientReferralContract;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.util.Constants;
@@ -73,8 +72,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
 
     @Override
     public void startReferralForm(JSONObject jsonObject) {
-        startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, jsonObject,
-                Utils.metadata().familyMemberFormActivity), JsonFormUtils.REQUEST_CODE_GET_JSON);
+        ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this,baseEntityId,jsonObject);
     }
 
     @Override

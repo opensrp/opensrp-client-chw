@@ -34,7 +34,7 @@ public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
 
     public void startReferralForm(Context context, String baseEntityID) {
         try {
-            ReferralRegistrationActivity.startReferralRegistrationActivity((Activity) context, baseEntityID,"4");
+            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults((Activity) context, baseEntityID,"4");
 
         } catch (Exception var2) {
             Timber.e(var2);
