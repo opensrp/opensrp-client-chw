@@ -80,7 +80,7 @@
           "name": "problems",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Pick the problems associated with the client."
+            "text": "Tatizo / hali ya afya ya mteja"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -90,7 +90,7 @@
           "options": [
             {
               "name": "Vaginal_bleeding",
-              "text": "Vaginal bleeding",
+              "text": "Kutoka damu ukeni",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -99,7 +99,7 @@
             },
             {
               "name": "Discoloured_or_watery_liquid_vaginal_discharge_with_a_bad_smell",
-              "text": "Discoloured or watery, liquid vaginal discharge with a bad smell",
+              "text": "Kutoka uchafu / majimaji ukeni yenye harufu mbaya",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -108,7 +108,7 @@
             },
             {
               "name": "High_blood_pressure",
-              "text": "High blood pressure",
+              "text": "Shinikizo la damue",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "113088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -117,7 +117,7 @@
             },
             {
               "name": "Severe_abdominal_pain",
-              "text": "Severe abdominal pain",
+              "text": "Maumivu makali ya tumbo",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -126,7 +126,7 @@
             },
             {
               "name": "Severe_anaemia",
-              "text": "Severe anaemia",
+              "text": "Upungufu mkubwa wa damu",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -135,7 +135,7 @@
             },
             {
               "name": "Convulsions",
-              "text": "Convulsions",
+              "text": "Degedege / Mtukutiko wa mwili",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -144,7 +144,7 @@
             },
             {
               "name": "No_movement_unusual_movement_for_a_child_in_the_womb",
-              "text": "No movement / unusual movement for a child in the womb",
+              "text": "Kutocheza / kucheza kusiko kwa kawaida kwa mtoto aliye tumboni",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -153,7 +153,7 @@
             },
             {
               "name": "Pregnancy_pains_before_9_months",
-              "text": "Pregnancy pains before 9 months",
+              "text": "Uchungu kuanza mapema kabla ya mimba kufikia miezi 9",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "153316AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -162,7 +162,7 @@
             },
             {
               "name": "Early_age_pregnancy_below_18_years",
-              "text": "Early age pregnancy (below 18 years)",
+              "text": "Kupata mimba katika umri mdogo (chini ya umri wa miaka 18)",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "163119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -171,7 +171,7 @@
             },
             {
               "name": "A_severe_headache_dizziness",
-              "text": "A severe headache / dizziness",
+              "text": "Maumivu makali ya kichwa / kizunguzungu",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -180,7 +180,7 @@
             },
             {
               "name": "Swelling_of_the_face_andor_hands",
-              "text": "Swelling of the face and/or hands",
+              "text": "Kuvimba uso na / au mikono",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -189,7 +189,7 @@
             },
             {
               "name": "Fever",
-              "text": "Fever",
+              "text": "Homa",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -198,7 +198,7 @@
             },
             {
               "name": "Shivering_trembling",
-              "text": "Shivering/trembling",
+              "text": "Kutetemeka",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "158359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -207,7 +207,7 @@
             },
             {
               "name": "Nausea_and_Vomiting",
-              "text": "Nausea and vomiting",
+              "text": "Kichefuchefu na kutapika",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -216,7 +216,7 @@
             },
             {
               "name": "Water_sack_broke_before_contractions",
-              "text": "Water sack broke before contractions",
+              "text": "Chupa kupasuka mapema kabla ya uchungu",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "129211AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -225,7 +225,7 @@
             },
             {
               "name": "Cord_prolapse",
-              "text": "Cord prolapse",
+              "text": "Kutangulia kitovu cha mtoto",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "128419AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -234,7 +234,7 @@
             },
             {
               "name": "HIV_care_and_support_services",
-              "text": "HIV care and support services",
+              "text": "Huduma za wateja / wagonjwa wanaoishi na VVU",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "159811AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -243,7 +243,7 @@
             },
             {
               "name": "Family_planning_services",
-              "text": "Family planning services",
+              "text": "Huduma za uzazi wa mpango",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "5271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -252,7 +252,7 @@
             },
             {
               "name": "PMTCT_for_mothers",
-              "text": "PMTCT for mothers",
+              "text": "Huduma ya kuzuia maambukizi ya VVU toka kwa mama kwenda kwa mtoto",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "160538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -270,7 +270,7 @@
             },
             {
               "name": "Difficultly_breathing",
-              "text": "Difficultly breathing",
+              "text": "Kupumua kwa shida",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -279,7 +279,7 @@
             },
             {
               "name": "Breast_engorgement",
-              "text": "Breast engorgement",
+              "text": "Kujaa au maumivu ya matiti, chuchu na kushindwa kunyonyesha",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "118620AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -288,7 +288,7 @@
             },
             {
               "name": "Blurred_vision",
-              "text": "Blurred vision",
+              "text": "Kuona kwa shida",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -297,7 +297,7 @@
             },
             {
               "name": "Perineum_tear",
-              "text": "Perineum tear",
+              "text": "Kuchanika msamba",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "136938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -306,7 +306,7 @@
             },
             {
               "name": "Pregnancy_confirmation",
-              "text": "Pregnancy confirmation",
+              "text": "Kuhakiki uja-uzito",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "152305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -315,14 +315,15 @@
             },
             {
               "name": "Other_symptoms",
-              "text": "Other symptoms",
+              "text": "Dalili nyingine",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
               }
             }
-          ]
+          ],
+          "required_status": "yes:Tafadhali taja sababu ya rufaa ya mama mjamzito"
         },
         {
           "name": "other_problems",
@@ -333,10 +334,10 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "hint": "Other symptoms",
+            "hint": "Dalili nyingine",
             "type": "name"
           },
-          "required_status": "true:Please specify other symptoms",
+          "required_status": "true:Tafadhali taja dalili zingine",
           "subjects": "problems:map"
         },
         {
@@ -349,7 +350,7 @@
           "type": "multi_choice_checkbox",
           "is_problem": false,
           "properties": {
-            "text": "Pre-referral management given."
+            "text": "Huduma aliyopewa kabla ya rufaa."
           },
           "options": [
             {
@@ -372,7 +373,7 @@
             },
             {
               "name": "Other_treatment",
-              "text": "Other treatment",
+              "text": "Matibabu mengine",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -381,7 +382,7 @@
             },
             {
               "name": "None",
-              "text": "None",
+              "text": "Hakuna huduma aliyopewa",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
@@ -390,7 +391,7 @@
               }
             }
           ],
-          "required_status": "Pre-referral management field is required"
+          "required_status": "True:Huduma aliyopewa kabla ya rufaa ni lazima"
         },
         {
           "name": "service_before_referral_other",
@@ -416,21 +417,21 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Choose referral facility"
+            "text": "Chagua Kituo cha Afya"
           },
           "options": [
             {
               "name": "none",
-              "text": "Select referral facility"
+              "text": "Chagua Kituo cha Afya"
             }
           ],
-          "required_status": "yes:Please specify referral facility"
+          "required_status": "yes:Tafadhali chagua kituo cha Afya cha kutuma rufaa"
         },
         {
           "name": "referral_appointment_date",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Please select the appointment date",
+            "hint": "Tarehe ya kuhudhuria hospitali",
             "type": "date_picker",
             "display_format": "dd/MM/YYYY"
           },
@@ -439,7 +440,7 @@
             "openmrs_entity_id": "23289",
             "openmrs_entity_parent": ""
           },
-          "required_status": "true:Please specify the appointment date"
+          "required_status": "true:Tafadhali chagua tarehe ya kuhudhuria hospitali"
         },
         {
           "name": "referral_date",

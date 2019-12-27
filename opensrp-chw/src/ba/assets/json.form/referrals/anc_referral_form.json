@@ -322,7 +322,8 @@
                 "openmrs_entity_parent": ""
               }
             }
-          ]
+          ],
+          "required_status": "yes:Please specify reason for ANC referral"
         },
         {
           "name": "other_problems",
