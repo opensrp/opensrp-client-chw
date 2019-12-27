@@ -531,7 +531,8 @@
             "openmrs_entity_parent": ""
           },
           "required_status": "true:Please specify the appointment date"
-        },{
+        },
+        {
           "name": "referral_date",
           "meta_data": {
             "openmrs_entity_parent": "",

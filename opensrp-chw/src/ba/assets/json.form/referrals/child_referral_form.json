@@ -372,6 +372,40 @@
           "subjects": "pre_referral_management:map"
         },
         {
+          "name": "chw_referral_hf",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "890",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Choose referral facility"
+          },
+          "options": [
+            {
+              "name": "none",
+              "text": "Select referral facility"
+            }
+          ],
+          "required_status": "yes:Please specify referral facility"
+        },
+        {
+          "name": "referral_appointment_date",
+          "type": "datetime_picker",
+          "properties": {
+            "hint": "Please select the appointment date",
+            "type": "date_picker",
+            "display_format": "dd/MM/YYYY"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "23289",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "true:Please specify the appointment date"
+        },
+        {
           "name": "referral_date",
           "meta_data": {
             "openmrs_entity_parent": "",
