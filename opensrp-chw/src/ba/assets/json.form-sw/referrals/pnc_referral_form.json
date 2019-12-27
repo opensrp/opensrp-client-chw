@@ -428,7 +428,7 @@
             "type": "name"
           },
           "required_status": "true:Please specify other symptoms",
-          "subjects": "problems:map"
+          "subjects": "problem:map"
         },
         {
           "name": "service_before_referral",
@@ -481,7 +481,8 @@
               }
             }
           ],
-          "required_status": "True:Huduma aliyopewa kabla ya rufaa ni lazima"
+          "required_status": "True:Huduma aliyopewa kabla ya rufaa ni lazima",
+          "subjects": "service_before_referral:map"
         },
         {
           "name": "service_before_referral_other",

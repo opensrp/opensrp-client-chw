@@ -302,7 +302,7 @@
             "type": "name"
           },
           "required_status": "true:Please specify other symptoms",
-          "subjects": "problems:map"
+          "subjects": "problem:map"
         },
         {
           "name": "service_before_referral",
@@ -369,7 +369,7 @@
             "type": "name"
           },
           "required_status": "true:Please specify other treatment given",
-          "subjects": "pre_referral_management:map"
+          "subjects": "service_before_referral:map"
         },
         {
           "name": "chw_referral_hf",

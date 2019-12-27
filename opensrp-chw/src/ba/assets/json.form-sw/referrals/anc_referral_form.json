@@ -338,10 +338,10 @@
             "type": "name"
           },
           "required_status": "true:Tafadhali taja dalili zingine",
-          "subjects": "problems:map"
+          "subjects": "problem:map"
         },
         {
-          "name": "service_before_anc",
+          "name": "service_before_referral",
           "metadata": {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
@@ -406,7 +406,7 @@
             "type": "name"
           },
           "required_status": "true:Please specify other treatment given",
-          "subjects": "pre_referral_management:map"
+          "subjects": "service_before_referral:map"
         },
         {
           "name": "chw_referral_hf",
