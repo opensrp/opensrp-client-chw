@@ -77,7 +77,7 @@
           "required_status": "yes:Please specify referral service"
         },
         {
-          "name": "problems",
+          "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
             "text": "Pick the problems associated with the client."
@@ -326,7 +326,7 @@
           "required_status": "yes:Please specify reason for ANC referral"
         },
         {
-          "name": "other_problems",
+          "name": "problem_other",
           "type": "edit_text",
           "metadata": {
             "openmrs_entity": "",
@@ -341,7 +341,7 @@
           "subjects": "problems:map"
         },
         {
-          "name": "service_before_anc",
+          "name": "service_before_referral",
           "metadata": {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
@@ -458,6 +458,20 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
+          "type": "hidden"
+        },
+        {
+          "name": "referral_type",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "referral_type",
+          "type": "hidden"
+        },
+        {
+          "name": "referral_status",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "referral_status",
           "type": "hidden"
         }
       ]

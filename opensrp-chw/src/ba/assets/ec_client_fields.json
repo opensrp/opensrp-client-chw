@@ -1240,6 +1240,14 @@
       "name": "ec_referral",
       "columns": [
         {
+          "column_name": "chw_referral_service",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "chw_referral_service"
+          }
+        },
+        {
           "column_name": "chw_referral_hf",
           "type": "Event",
           "json_mapping": {
@@ -1255,36 +1263,52 @@
           }
         },
         {
-          "column_name": "chw_referral_reason",
+          "column_name": "problem",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "chw_referral_reason"
+            "concept": "problem"
           }
         },
         {
-          "column_name": "chw_referral_service_id",
+          "column_name": "problem_other",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "chw_referral_service_id"
+            "concept": "problem_other"
           }
         },
         {
-          "column_name": "chw_referral_date",
+          "column_name": "service_before_referral",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "service_before_referral_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "referral_date",
           "type": "Event",
           "data_type": "date",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "chw_referral_date"
+            "concept": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
-          "column_name": "is_emergency_referral",
+          "column_name": "referral_time",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "is_emergency_referral"
+            "formSubmissionField": "referral_task_previous_status"
           }
         },
         {
@@ -1293,14 +1317,6 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "referral_appointment_date"
-          }
-        },
-        {
-          "column_name": "problems_ids",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "problems_ids"
           }
         },
         {

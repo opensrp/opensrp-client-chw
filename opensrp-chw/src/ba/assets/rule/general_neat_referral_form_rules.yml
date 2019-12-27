@@ -1,0 +1,14 @@
+---
+name: "other_problems_visibility"
+description: "Specify other symptoms"
+priority: 1
+condition: "problems['other'] != null"
+actions:
+  - "other_problems_visibility =  true"
+---
+name: "other_treatment_visibility"
+description: "Specify Other pre-referral managements given"
+priority: 1
+condition: "pre_referral_management['other'] != null"
+actions:
+  - "other_treatment_visibility =  true"

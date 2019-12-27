@@ -77,7 +77,7 @@
           "required_status": "yes:Please specify referral service"
         },
         {
-          "name": "problems",
+          "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
             "text": "Pick the problems associated with the client."
@@ -290,7 +290,7 @@
           "required_status": "yes:Please specify client's problems"
         },
         {
-          "name": "other_problems",
+          "name": "problem_other",
           "type": "edit_text",
           "meta_data": {
             "openmrs_entity": "concept",
@@ -419,6 +419,20 @@
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "referral_time_child",
+          "type": "hidden"
+        },
+        {
+          "name": "referral_type",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "referral_type",
+          "type": "hidden"
+        },
+        {
+          "name": "referral_status",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "referral_status",
           "type": "hidden"
         }
       ]
