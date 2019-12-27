@@ -90,7 +90,7 @@
           "options": [
             {
               "name": "Other_symptom",
-              "text": "Other Symptom",
+              "text": "Dalili nyingine",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "",
@@ -104,7 +104,7 @@
           "name": "problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other symptoms",
+            "hint": "Dalili nyingine",
             "type": "name"
           },
           "meta_data": {
@@ -112,7 +112,7 @@
             "openmrs_entity_id": "232",
             "openmrs_entity_parent": ""
           },
-          "required_status": "true:Please specify other symptoms",
+          "required_status": "true:Tafadhali jaza dalili nyingine",
           "subjects": "problem:map"
         },
         {
@@ -124,9 +124,9 @@
           "options": [
             {
               "name": "Other_treatment",
-              "text": "Other treatment",
+              "text": "Matibabu mengine",
               "meta_data": {
-                "openmrs_entity": "concept",
+                "openmrs_entity": "",
                 "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
               }

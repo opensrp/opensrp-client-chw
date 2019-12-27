@@ -4,7 +4,7 @@
   "encounter_type": "PNC Referral",
   "entity_id": "",
   "relational_id": "",
-  "rules_file": "rules/general_neat_referral_form_rules.yml",
+  "rules_file": "rule/general_neat_referral_form_rules.yml",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -417,7 +417,7 @@
         },
         {
           "name": "problem_other",
-          "type": "edit_text",
+          "type": "text_input_edit_text",
           "meta_data": {
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -486,7 +486,7 @@
         },
         {
           "name": "service_before_referral_other",
-          "type": "edit_text",
+          "type": "text_input_edit_text",
           "meta_data": {
             "openmrs_entity": "",
             "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
