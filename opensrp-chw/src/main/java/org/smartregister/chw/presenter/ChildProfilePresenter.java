@@ -5,6 +5,7 @@ import android.util.Pair;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
+import org.smartregister.chw.activity.ReferralRegistrationActivity;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
@@ -57,7 +58,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     @Override
     public void startSickChildReferralForm() {
         try {
-            getView().startFormActivity(getFormUtils().getFormJson(Constants.JSON_FORM.getChildReferralForm()));
+            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(((Activity)getView().getContext()),childBaseEntityId,getFormUtils().getFormJson(Constants.JSON_FORM.getChildReferralForm()));
         } catch (Exception e) {
             Timber.e(e);
         }

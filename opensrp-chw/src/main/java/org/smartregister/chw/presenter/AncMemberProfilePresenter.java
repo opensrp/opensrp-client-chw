@@ -9,7 +9,9 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.contract.AncMemberProfileContract;
 import org.smartregister.chw.core.presenter.CoreAncMemberProfilePresenter;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.util.FormUtils;
 
 import java.util.List;
 import timber.log.Timber;
@@ -34,8 +36,7 @@ public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
 
     public void startReferralForm(Context context, String baseEntityID) {
         try {
-            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults((Activity) context, baseEntityID,"4");
-
+            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(((Activity)context),baseEntityID,FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.getChildReferralForm()));
         } catch (Exception var2) {
             Timber.e(var2);
         }
