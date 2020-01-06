@@ -8,14 +8,14 @@
     android:gravity="center_horizontal"
     android:orientation="horizontal">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/pagination_bar_height"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/detail_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -53,10 +53,10 @@
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/activity_title_size" />
             </RelativeLayout>
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

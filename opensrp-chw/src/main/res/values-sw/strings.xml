@@ -172,6 +172,12 @@
     <string name="nutrition_status">Hali</string>
     <string name="counselling">Ushauri</string>
 
+    <string name="normal">Kawaida</string>
+    <string name="moderate">Dhaifu</string>
+    <string name="severe">Dhaifu sana</string>
+    <string name="okay">Nzima</string>
+    <string name="bad">Mbovu</string>
+
     <string name="uses_net">Hutumia Chandarua</string>
     <string name="slept_under_net">Amelala kwenye chandarua</string>
     <string name="net_condition">Hali ya chandarua kinachotumika</string>

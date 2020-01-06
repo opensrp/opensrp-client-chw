@@ -5,10 +5,13 @@ import org.smartregister.chw.activity.ChildHomeVisitActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.fragment.CoreChildRegisterFragment;
+import org.smartregister.chw.model.ChildRegisterFragmentModel;
+import org.smartregister.chw.presenter.ChildRegisterFragmentPresenter;
 import org.smartregister.chw.provider.ChildRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.util.Set;
 
@@ -42,5 +45,15 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
         clientAdapter = new RecyclerViewPaginatedAdapter(null, childRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
+    }
+
+    @Override
+    protected void initializePresenter() {
+        if (getActivity() == null) {
+            return;
+        }
+
+        String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        presenter = new ChildRegisterFragmentPresenter(this, new ChildRegisterFragmentModel(), viewConfigurationIdentifier);
     }
 }

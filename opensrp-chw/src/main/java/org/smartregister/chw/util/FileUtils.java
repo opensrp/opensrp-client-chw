@@ -9,6 +9,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import timber.log.Timber;
+
 public class FileUtils {
 
     public static boolean hasExternalDisk() {
@@ -22,14 +24,14 @@ public class FileUtils {
         return !Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState());
     }
 
-    public static File createDirectory(String directoryPath, boolean onSdCard) throws Exception {
+    public static File createDirectory(String directoryPath, boolean onSdCard) {
         File location = onSdCard ? Environment.getExternalStorageDirectory() : Environment.getDataDirectory();
         File dir = new File(location + File.separator + directoryPath);
         if (dir.exists())
             return dir;
 
         if (!dir.mkdirs())
-            throw new FileException("Directory was not created successfully");
+            Timber.v("Directory was not created successfully %s", dir.getAbsolutePath());
 
         return dir;
     }
@@ -58,16 +60,12 @@ public class FileUtils {
 
     public static boolean writeToExternalDisk(String directoryPath, byte[] bytes, String fileName) throws Exception {
         File dir = createDirectory(directoryPath, canWriteToExternalDisk());
-        boolean created = dir.exists();
-        if (created) {
+        if (dir != null && dir.exists()) {
             File file = new File(dir, fileName);
             FileOutputStream os = new FileOutputStream(file);
             os.write(bytes);
             os.close();
-        } else {
-            throw new FileException("cannot write to sd card");
         }
-
         return true;
     }
 
@@ -76,9 +74,4 @@ public class FileUtils {
         return directory.listFiles();
     }
 
-    public static class FileException extends Exception {
-        public FileException(String message) {
-            super(message);
-        }
-    }
 }

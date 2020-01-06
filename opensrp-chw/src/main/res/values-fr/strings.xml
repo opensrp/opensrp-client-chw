@@ -172,6 +172,12 @@
     <string name="nutrition_status">Statut</string>
     <string name="counselling">Counselling</string>
 
+    <string name="normal">Ordinaire</string>
+    <string name="moderate">Modéré</string>
+    <string name="severe">Sévère</string>
+    <string name="okay">D\'accord</string>
+    <string name="bad">Mauvais</string>
+
     <string name="uses_net">Utilise moustiquaire</string>
     <string name="slept_under_net">À dormi sous un moustiquaire</string>
     <string name="net_condition">Condition du moustiquaire</string>
@@ -198,7 +204,7 @@
 
     <string name="health_facility_visit_num">Visite CPN {0} à la formation sanitaire</string>
     <string name="tt_dose">Td {0}</string>
-    <string name="iptp_sp_dose">SP {0}</string>
+    <string name="iptp_sp_dose">SP dose {0}</string>
 
     <string name="opv_0">VPO 0</string>
     <string name="opv_1">VPO 1</string>
@@ -307,5 +313,23 @@
     <string name="pnc_danger_signs">Signes de danger CPoN</string>
     <string name="fp_post_partum">PF post-partum</string>
     <string name="anc_danger_signs">Signes de danger CPN</string>
+
+    <string name="jobs_aid_failed_download">La video \"%s\" n\'a pas pu être téléchargé.</string>
+
+    <!--ANC Family Planning Ba-->
+    <string name="family_planning_done">Le conseil en planification familiale au centre de santé a été fait.</string>
+    <string name="family_planning_not_done">Le counseling en planification familiale dans un centre de santé n\'a pas été fait.</string>
+
+    <!-- Medical history -->
+    <string name="dose_number">Dose %s</string>
+
+    <!--PNC Family Planning Ba-->
+    <string name="during_anc">Pendant CPN</string>
+    <string name="during_pnc">Pendant CPoN</string>
+    <string name="during_labour_and_delivery">Pendant l\'accouchement</string>
+
+    <string name="cancel_download_confirmation">Vous êtes sûr de vouloir annuler ce téléchargement ?</string>
+    <string name="cancel_download">Annuler le téléchargement</string>
+
 
 </resources>

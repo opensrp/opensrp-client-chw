@@ -10,6 +10,9 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
@@ -20,10 +23,12 @@ import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
+import org.smartregister.chw.activity.FpRegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.loggers.CrashlyticsTree;
@@ -31,11 +36,13 @@ import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
+import org.smartregister.chw.fp.FpLibrary;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.repository.ChwRepository;
+import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.FileUtils;
 import org.smartregister.chw.util.Utils;
@@ -102,6 +109,7 @@ public class ChwApplication extends CoreChwApplication {
         AncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        FpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         SyncStatusBroadcastReceiver.init(this);
 
@@ -143,6 +151,8 @@ public class ChwApplication extends CoreChwApplication {
         } else {
             prepareGuideBooksFolder();
         }
+
+        EventBus.getDefault().register(this);
     }
 
     public static void prepareGuideBooksFolder() {
@@ -164,7 +174,7 @@ public class ChwApplication extends CoreChwApplication {
     public static String getGuideBooksDirectory() {
         String[] packageName = ChwApplication.getInstance().getContext().applicationContext().getPackageName().split("\\.");
         String suffix = packageName[packageName.length - 1];
-        return "opensrp_guidebooks_" + suffix;
+        return "opensrp_guidebooks_" + (suffix.equalsIgnoreCase("chw") ? "liberia" : suffix);
     }
 
     @Override
@@ -206,6 +216,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, PncRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, MalariaRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FP_REGISTER_ACTIVITY, FpRegisterActivity.class);
         return registeredActivities;
     }
 
@@ -230,6 +241,14 @@ public class ChwApplication extends CoreChwApplication {
 
     public boolean hasReferrals() {
         return flavor.hasReferrals();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onVisitEvent(Visit visit) {
+        if (visit != null) {
+            Timber.v("Visit Submitted re processing Schedule for event ' %s '  : %s", visit.getVisitType() , visit.getBaseEntityId());
+            ChwScheduleTaskExecutor.getInstance().execute(visit.getBaseEntityId(), visit.getVisitType(), visit.getDate());
+        }
     }
 
     interface Flavor {

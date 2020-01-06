@@ -2,25 +2,29 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.view.Menu;
+
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
+import org.smartregister.chw.form_data.NativeFormsDataBinder;
+import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
-import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.view.contract.BaseProfileContract;
 
 import timber.log.Timber;
@@ -32,11 +36,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-
-        flavor.onCreateOptionsMenu(menu, baseEntityId);
-
         // Check if woman is already registered
         if (!presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isWra(commonPersonObject)) {
+            flavor.updateFpMenuItems(baseEntityId, menu);
             menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {
             menu.findItem(R.id.action_anc_registration).setVisible(false);
@@ -44,7 +46,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
-        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
+
+        flavor.updateMalariaMenuItems(baseEntityId, menu);
         return true;
     }
 
@@ -65,6 +68,18 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
+    protected void startFpRegister() {
+        String dob = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        FpRegisterActivity.startFpRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpRegistrationForm(), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
+    }
+
+    @Override
+    protected void startFpChangeMethod() {
+        String dob = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        FpRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpChengeMethodForm(), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+    }
+
+    @Override
     protected void removeIndividualProfile() {
         IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this,
                 commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver, FamilyRegisterActivity.class.getCanonicalName());
@@ -72,11 +87,19 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     @Override
     protected void startEditMemberJsonForm(Integer title_resource, CommonPersonObjectClient client) {
-        JSONObject form = JsonFormUtils.getAutoPopulatedJsonEditMemberFormString((title_resource != null)
-                        ? getResources().getString(title_resource) : null, Constants.JSON_FORM.getFamilyMemberRegister(),
-                this, client, Utils.metadata().familyMemberRegister.updateEventType, familyName, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
+
+        String titleString = title_resource != null ? getResources().getString(title_resource) : null;
+        boolean isPrimaryCareGiver = commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver);
+        String eventName = Utils.metadata().familyMemberRegister.updateEventType;
+
+
+        NativeFormsDataBinder binder = new NativeFormsDataBinder(this, client.getCaseId());
+        binder.setDataLoader(new FamilyMemberDataLoader(familyName, isPrimaryCareGiver, titleString, eventName));
+        JSONObject jsonObject = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
+
         try {
-            startFormActivity(form);
+            if (jsonObject != null)
+                startFormActivity(jsonObject);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -134,8 +157,17 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
      */
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId);
-        Boolean onCreateOptionsMenu(Menu menu, @Nullable String baseEntityId);
+
         boolean isWra(CommonPersonObjectClient commonPersonObject);
+
+        void updateFpMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+
+        void updateMalariaMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+    }
+
+    @Override
+    protected void startMalariaFollowUpVisit() {
+        MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, baseEntityId);
     }
 
 }

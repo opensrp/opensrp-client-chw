@@ -29,7 +29,7 @@ public class MalariaRegisterFragment extends CoreMalariaRegisterFragment {
 
     @Override
     protected void openFollowUpVisit(CommonPersonObjectClient client) {
-        MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(getActivity(), client.getCaseId());
+        MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(getActivity(), client.getCaseId());
     }
 
     @Override

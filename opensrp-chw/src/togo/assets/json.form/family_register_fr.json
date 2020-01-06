@@ -229,17 +229,15 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label_info_text": "Quel est leur numéro d'identité national ou leur numéro de carte d'électeur?",
+        "label_info_image_src": "img/togo_id.png",
+        "label_info_has_image": true,
+        "label_info_text": "Quel est leur numéro d'identité national?",
         "label_info_title": "Numéro d'identification national",
         "type": "edit_text",
         "hint": "Numéro d'identification national",
         "v_numeric": {
           "value": "true",
-          "err": "Le numéro doit comporter 11 chiffres."
-        },
-        "v_regex": {
-          "value": "([0-9]{11})|\\s*",
-          "err": "Le numéro doit comporter 11 chiffres"
+          "err": "Doit être un nombre."
         }
       },
       {
@@ -376,6 +374,10 @@
         "openmrs_entity_id": "age_entered",
         "type": "edit_text",
         "hint": "Âge",
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Numéro doit commencer avec 0 et doit consister de 10 chiffres au total"
@@ -429,11 +431,7 @@
         "hint": "Numéro de téléphone",
         "v_numeric": {
           "value": "true",
-          "err": "Le numéro doit être composé de 8 à 16 chiffres"
-        },
-        "v_regex": {
-          "value": "([0-9]{8,16})|\\s*",
-          "err": "Le numéro doit être composé de 8 à 16 chiffres."
+          "err": "Doit être un nombre"
         },
         "v_required": {
           "value": false,
@@ -449,11 +447,7 @@
         "hint": "Autre numéro de téléphone",
         "v_numeric": {
           "value": "true",
-          "err": "Le numéro doit être composé de 8 à 16 chiffres"
-        },
-        "v_regex": {
-          "value": "([0-9]{8,16})|\\s*",
-          "err": "Le numéro doit être composé de 8 à 16 chiffres"
+          "err": "Doit être un nombre"
         }
       },
       {

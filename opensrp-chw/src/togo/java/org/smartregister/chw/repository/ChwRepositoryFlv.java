@@ -15,6 +15,7 @@ import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.repository.ScheduleRepository;
 import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -25,10 +26,10 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.PNCVisitUtil;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.db.Column;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
-import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
@@ -86,6 +87,12 @@ public class ChwRepositoryFlv {
                     break;
                 case 13:
                     upgradeToVersion13(db);
+                    break;
+                case 14:
+                    upgradeToVersion14(db);
+                    break;
+                case 15:
+                    upgradeToVersion15(db);
                     break;
                 default:
                     break;
@@ -262,6 +269,16 @@ public class ChwRepositoryFlv {
         }
     }
 
+    private static void upgradeToVersion14(SQLiteDatabase db) {
+        try {
+            // delete possible duplication
+            db.execSQL(RepositoryUtils.DELETE_DUPLICATE_SCHEDULES);
+            db.execSQL(ScheduleRepository.USER_UNIQUE_INDEX);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion2 ");
+        }
+    }
+
     private static void initializeIndicatorDefinitions(ReportingLibrary reportingLibrary, SQLiteDatabase sqLiteDatabase) {
         String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
         String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
@@ -356,5 +373,14 @@ public class ChwRepositoryFlv {
         }
 
         return pncHfNextVisitDateObs;
+    }
+
+    private static void upgradeToVersion15(SQLiteDatabase db) {
+        try {
+            // delete possible duplication
+            db.execSQL(RepositoryUtils.ADD_MISSING_REPORTING_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 }

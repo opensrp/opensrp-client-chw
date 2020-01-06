@@ -4,6 +4,8 @@ import android.content.Context;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.smartregister.chw.core.repository.ScheduleRepository;
+import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
@@ -28,6 +30,12 @@ public class ChwRepositoryFlv {
             switch (upgradeTo) {
                 case 2:
                     upgradeToVersion2(context, db);
+                    break;
+                case 3:
+                    upgradeToVersion3(db);
+                    break;
+                case 4:
+                    upgradeToVersion4(db);
                     break;
                 default:
                     break;
@@ -81,6 +89,25 @@ public class ChwRepositoryFlv {
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion2 ");
+        }
+    }
+
+    private static void upgradeToVersion3(SQLiteDatabase db) {
+        try {
+            // delete possible duplication
+            db.execSQL(RepositoryUtils.DELETE_DUPLICATE_SCHEDULES);
+            db.execSQL(ScheduleRepository.USER_UNIQUE_INDEX);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion2 ");
+        }
+    }
+
+    private static void upgradeToVersion4(SQLiteDatabase db) {
+        try {
+            // delete possible duplication
+            db.execSQL(RepositoryUtils.ADD_MISSING_REPORTING_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 }

@@ -5,9 +5,9 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.5.0-x'
-        classpath 'io.fabric.tools:gradle:1.25.4'
+        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+        classpath 'io.fabric.tools:gradle:1.31.2'
     }
 }
 
@@ -18,7 +18,7 @@ apply plugin: 'io.fabric'
 apply from: "jacoco.gradle"
 
 jacoco {
-    toolVersion = "0.8.0"
+    toolVersion = "0.8.5"
 }
 
 android {
@@ -49,7 +49,7 @@ android {
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "false"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     dexOptions {
@@ -62,7 +62,7 @@ android {
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '500'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "boolean", "TIME_CHECK", "true"
@@ -71,13 +71,13 @@ android {
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
-            buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
+            buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '120'
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '720'
         }
 
         debug {
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '30'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '15'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "boolean", "TIME_CHECK", "false"
@@ -86,7 +86,7 @@ android {
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '15'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '15'
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
-            buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
+            buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '120'
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '360'
             testCoverageEnabled true
@@ -136,7 +136,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'true'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'false'
-            buildConfigField "int", "DATABASE_VERSION", '12'
+            buildConfigField "int", "DATABASE_VERSION", '13'
         }
         chad {
             dimension = 'baseDimension'
@@ -176,7 +176,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".guinea"
             versionCode 2
-            versionName "1.0.1"
+            versionName "1.0.2"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-guinea.smartregister.org/opensrp/"'
@@ -192,13 +192,13 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
-            buildConfigField "int", "DATABASE_VERSION", '2'
+            buildConfigField "int", "DATABASE_VERSION", '4'
         }
         togo {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
             versionCode 10
-            versionName "1.0.10"
+            versionName "1.0.11"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-togo.smartregister.org/opensrp/"'
@@ -211,53 +211,52 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
-            buildConfigField "int", "DATABASE_VERSION", '13'
+            buildConfigField "int", "DATABASE_VERSION", '15'
         }
-        wcaro {
+        liberia {
             dimension = 'baseDimension'
-            versionCode 1
-            versionName "0.1.7"
-            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            versionCode 5
+            versionName "0.1.11"
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-liberia.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/liberia/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
-            buildConfigField "int", "DATABASE_VERSION", '6'
+            buildConfigField "int", "DATABASE_VERSION", '3'
         }
     }
 }
 
 dependencies {
-
-    implementation('org.smartregister:opensrp-client-chw-core:1.0.32-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.1.21-SNAPSHOT@aar') {
         transitive = true
     }
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'org.mockito:mockito-android:2.7.22'
 
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.8.47'
-    testImplementation 'org.robolectric:robolectric:4.0.1'
-    testImplementation 'org.robolectric:shadows-multidex:3.8'
+    testImplementation 'org.mockito:mockito-core:2.28.2'
+    testImplementation 'org.robolectric:robolectric:4.3.1'
+    testImplementation 'org.robolectric:shadows-multidex:4.0.1'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
 
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
         transitive = true
     }
 
-    implementation "org.smartregister:android-p2p-sync:0.3.2-SNAPSHOT"
+    implementation "org.smartregister:android-p2p-sync:0.3.3-SNAPSHOT"
     // PowerMock
     def powerMockVersion = '1.7.1'
     testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
@@ -275,23 +274,18 @@ flavors.each { productFlavorName ->
     testDependencies.add("create${productFlavorName.capitalize()}DebugCoverageReport")
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies.take(4)) {
+task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies.take(2)) {
 
     reports {
-        html {
-            html.enabled = true
-            destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage")
-        }
-
-        xml {
-            xml.enabled = true
-            destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml")
-        }
+        xml.enabled = true
+        html.enabled = true
     }
 
+    getReports().getXml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
+    getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
-    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/ba/debug", excludes: fileFilter)
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/javac/baDebug/classes/", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
 
     sourceDirectories = files([mainSrc])
@@ -305,7 +299,6 @@ tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
 }
 
-
 coveralls {
-    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml"
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
 }

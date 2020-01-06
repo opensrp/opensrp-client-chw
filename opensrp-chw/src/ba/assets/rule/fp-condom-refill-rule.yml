@@ -1,0 +1,6 @@
+name: one
+description: condom refill - after each month
+priority: 1
+condition: "fpAlertRule.isCondomValid(1,8)"
+actions:
+  - "fpAlertRule.setVisitID('1')"

@@ -1,0 +1,6 @@
+name: one
+description: coc-pop - after cycle is complete
+priority: 1
+condition: "fpAlertRule.isCocPopValid(14,7)"
+actions:
+  - "fpAlertRule.setVisitID('1')"

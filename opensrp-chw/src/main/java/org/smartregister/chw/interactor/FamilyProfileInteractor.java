@@ -1,6 +1,6 @@
 package org.smartregister.chw.interactor;
 
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 
 import org.smartregister.chw.core.interactor.CoreFamilyProfileInteractor;
 import org.smartregister.family.util.AppExecutors;
