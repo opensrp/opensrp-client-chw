@@ -233,7 +233,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
     }
 
     private String getTranslatedValue(String name) {
-        VaccineRepo.Vaccine res = vaccineMap.get(name);
+        VaccineRepo.Vaccine res = vaccineMap.get(name.toLowerCase());
         if (res == null) {
             return name;
         }
