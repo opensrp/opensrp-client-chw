@@ -55,11 +55,10 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
                 fpMethodUsed = familyPlanning.getFpMethod();
                 fp_date = familyPlanning.getFpStartDate();
                 fp_pillCycles = familyPlanning.getFpPillCycles();
-                rule = FpUtil.getFpRules(fpMethod);
+                rule = FpUtil.getFpRules(fpMethodUsed);
             }
         }
         fpMethod = getTranslatedValue(fpMethodUsed);
-
         Date lastVisitDate = null;
         Visit lastVisit = null;
         Date fpDate = FpUtil.parseFpStartDate(fp_date);
@@ -114,7 +113,6 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
     }
 
     private String getTranslatedValue(@Nullable String fpMethod){
-
         if(fpMethod != null){
             switch (fpMethod){
                 case "COC":
@@ -135,7 +133,7 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
                         return fpMethod;
             }
         }
-        return fpMethod;
+       return fpMethod;
     }
 
 }
