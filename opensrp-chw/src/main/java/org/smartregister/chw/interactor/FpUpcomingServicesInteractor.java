@@ -40,7 +40,6 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
 
     private void evaluateFp(List<BaseUpcomingService> serviceList) {
         String fpMethod = null;
-        String methodUsed;
         String fp_date = null;
         Integer fp_pillCycles = null;
         Rules rule = null;
@@ -51,37 +50,41 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
         List<FpAlertObject> familyPlanningList = FpDao.getFpDetails(memberObject.getBaseEntityId());
         if (familyPlanningList.size() > 0) {
             for (FpAlertObject familyPlanning : familyPlanningList) {
-                switch (familyPlanning.getFpMethod()){
-                    case "COC":
-                        fpMethod = context.getString(R.string.coc);
-                        break;
-                    case "POP":
-                        fpMethod = context.getString(R.string.pop);
-                        break;
-                    case "Female sterilization":
-                        fpMethod = context.getString(R.string.female_sterilization);
-                        break;
-                    case "Injectable":
-                        fpMethod = context.getString(R.string.injectable);
-                        break;
-                    case "Male condom":
-                        fpMethod = context.getString(R.string.male_condom);
-                        break;
-                    case "Female condom":
-                        fpMethod = context.getString(R.string.female_condom);
-                        break;
-                    case "IUCD":
-                        fpMethod = context.getString(R.string.iucd);
-                        break;
-                        default:
-                            fpMethod = null;
-                            break;
-                }
+                fpMethod =familyPlanning.getFpMethod();
                 fp_date = familyPlanning.getFpStartDate();
                 fp_pillCycles = familyPlanning.getFpPillCycles();
                 rule = FpUtil.getFpRules(fpMethod);
             }
         }
+        if(fpMethod != null){
+            switch (fpMethod){
+                case "COC":
+                    fpMethod = context.getString(R.string.coc);
+                    break;
+                case "POP":
+                    fpMethod = context.getString(R.string.pop);
+                    break;
+                case "Female sterilization":
+                    fpMethod = context.getString(R.string.female_sterilization);
+                    break;
+                case "Injectable":
+                    fpMethod = context.getString(R.string.injectable);
+                    break;
+                case "Male condom":
+                    fpMethod = context.getString(R.string.male_condom);
+                    break;
+                case "Female condom":
+                    fpMethod = context.getString(R.string.female_condom);
+                    break;
+                case "IUCD":
+                    fpMethod = context.getString(R.string.iucd);
+                    break;
+                default:
+                    fpMethod = null;
+                    break;
+            }
+        }
+
         Date lastVisitDate = null;
         Visit lastVisit = null;
         Date fpDate = FpUtil.parseFpStartDate(fp_date);
