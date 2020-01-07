@@ -1274,8 +1274,8 @@
           "column_name": "problem_other",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "obs.formSubmissionField",
+            "concept": "problem_other"
           }
         },
         {
@@ -1290,8 +1290,8 @@
           "column_name": "service_before_referral_other",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "obs.formSubmissionField",
+            "concept": "service_before_referral_other"
           }
         },
         {
@@ -1299,15 +1299,15 @@
           "type": "Event",
           "data_type": "date",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "obs.formSubmissionField",
+            "concept": "referral_date"
           }
         },
         {
           "column_name": "referral_time",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "formSubmissionField": "referral_time"
           }
         },
@@ -1315,7 +1315,7 @@
           "column_name": "referral_appointment_date",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "referral_appointment_date"
           }
         },
@@ -1323,7 +1323,7 @@
           "column_name": "referral_type",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "referral_type"
           }
         },
@@ -1331,7 +1331,7 @@
           "column_name": "referral_status",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "referral_status"
           }
         }
