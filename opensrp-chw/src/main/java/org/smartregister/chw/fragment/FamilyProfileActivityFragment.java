@@ -3,6 +3,7 @@ package org.smartregister.chw.fragment;
 import android.app.FragmentTransaction;
 import android.database.Cursor;
 import android.os.Bundle;
+
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 

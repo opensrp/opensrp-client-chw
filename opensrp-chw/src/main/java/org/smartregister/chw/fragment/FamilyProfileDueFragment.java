@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
-import android.view.View;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;

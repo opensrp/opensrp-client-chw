@@ -68,12 +68,7 @@
             "openmrs_entity_id": "09978",
             "openmrs_entity_parent": ""
           },
-          "options": [
-            {
-              "name": "none",
-              "text": "Select referral service"
-            }
-          ],
+          "options": [],
           "required_status": "yes:Please specify referral service"
         },
         {

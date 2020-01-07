@@ -1,7 +1,6 @@
 package org.smartregister.chw.presenter;
 
 import android.app.Activity;
-import android.content.Context;
 
 import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.activity.ReferralRegistrationActivity;
@@ -14,6 +13,7 @@ import org.smartregister.chw.util.Utils;
 import org.smartregister.util.FormUtils;
 
 import java.util.List;
+
 import timber.log.Timber;
 
 public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
@@ -34,11 +34,14 @@ public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
         }
     }
 
-    public void startReferralForm(Context context, String baseEntityID) {
+    @Override
+    public void startAncReferralForm() {
         try {
-            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(((Activity)context),baseEntityID,FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.getChildReferralForm()));
-        } catch (Exception var2) {
-            Timber.e(var2);
+            Activity context = ((Activity) getView());
+            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(context,
+                    getEntityId(), FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.getAncReferralForm()));
+        } catch (Exception ex) {
+            Timber.e(ex);
         }
 
     }

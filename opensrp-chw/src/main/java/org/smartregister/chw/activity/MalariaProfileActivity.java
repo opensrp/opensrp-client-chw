@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import androidx.annotation.NonNull;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +10,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;

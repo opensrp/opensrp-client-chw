@@ -12,6 +12,7 @@ import org.smartregister.chw.referral.interactor.BaseIssueReferralInteractor;
 import org.smartregister.chw.referral.model.BaseIssueReferralModel;
 import org.smartregister.chw.referral.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
+
 import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getGeneralReferralForm;
 
 
