@@ -3,6 +3,7 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 
 import org.jeasy.rules.api.Rules;
+import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.R;
@@ -56,34 +57,7 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
                 rule = FpUtil.getFpRules(fpMethod);
             }
         }
-        if(fpMethod != null){
-            switch (fpMethod){
-                case "COC":
-                    fpMethod = context.getString(R.string.coc);
-                    break;
-                case "POP":
-                    fpMethod = context.getString(R.string.pop);
-                    break;
-                case "Female sterilization":
-                    fpMethod = context.getString(R.string.female_sterilization);
-                    break;
-                case "Injectable":
-                    fpMethod = context.getString(R.string.injectable);
-                    break;
-                case "Male condom":
-                    fpMethod = context.getString(R.string.male_condom);
-                    break;
-                case "Female condom":
-                    fpMethod = context.getString(R.string.female_condom);
-                    break;
-                case "IUCD":
-                    fpMethod = context.getString(R.string.iucd);
-                    break;
-                default:
-                    fpMethod = null;
-                    break;
-            }
-        }
+        fpMethod = getTranslatedValue(fpMethod);
 
         Date lastVisitDate = null;
         Visit lastVisit = null;
@@ -136,6 +110,29 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
         upcomingService.setServiceName(serviceName);
         serviceList.add(upcomingService);
 
+    }
+
+    private String getTranslatedValue(@Nullable String fpMethod){
+
+        if(fpMethod != null){
+            switch (fpMethod){
+                case "COC":
+                    return context.getString(R.string.coc);
+                case "POP":
+                    return context.getString(R.string.pop);
+                case "Female sterilization":
+                    return context.getString(R.string.female_sterilization);
+                case "Injectable":
+                    return context.getString(R.string.injectable);
+                case "Male condom":
+                    return context.getString(R.string.male_condom);
+                case "Female condom":
+                    return context.getString(R.string.female_condom);
+                case "IUCD":
+                    return context.getString(R.string.iucd);
+            }
+        }
+        return fpMethod;
     }
 
 }
