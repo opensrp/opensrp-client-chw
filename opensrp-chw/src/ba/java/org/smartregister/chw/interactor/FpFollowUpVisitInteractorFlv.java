@@ -133,6 +133,30 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
     }
 
     private void evaluateResupply() throws Exception {
+        switch (familyPlanningMethod){
+            case "COC":
+                familyPlanningMethod = context.getString(R.string.coc);
+                break;
+            case "POP":
+                familyPlanningMethod = context.getString(R.string.pop);
+                break;
+            case "Female sterilization":
+                familyPlanningMethod = context.getString(R.string.female_sterilization);
+                break;
+            case "Injectable":
+                familyPlanningMethod = context.getString(R.string.injectable);
+                break;
+            case "Male condom":
+                familyPlanningMethod = context.getString(R.string.male_condom);
+                break;
+            case "Female condom":
+                familyPlanningMethod = context.getString(R.string.female_condom);
+                break;
+            case "IUCD":
+                familyPlanningMethod = context.getString(R.string.iucd);
+                break;
+        }
+
         if (!familyPlanningMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_FEMALE_STERLIZATION) && !familyPlanningMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_IUCD)) {
             Map<String, List<VisitDetail>> details = null;
             if (editMode) {
