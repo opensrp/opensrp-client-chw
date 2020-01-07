@@ -27,7 +27,7 @@ public class SchedulesIntentService extends IntentService {
      * Used to name the worker thread, important only for debugging.
      */
 
-    Flavor flavor = new SchedulesIntentServiceFlv();
+    private Flavor flavor = new SchedulesIntentServiceFlv();
 
     public SchedulesIntentService() {
         super("SchedulesIntentService");
