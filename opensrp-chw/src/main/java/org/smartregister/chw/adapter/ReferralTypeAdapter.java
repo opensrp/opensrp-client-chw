@@ -17,6 +17,7 @@ public class ReferralTypeAdapter extends RecyclerView.Adapter<ReferralTypeAdapte
 
     private List<ReferralTypeModel> referralTypes = new ArrayList<>();
     private View.OnClickListener onClickListener;
+    public boolean canStart = false;
 
     public List<ReferralTypeModel> getReferralTypes() {
         return referralTypes;

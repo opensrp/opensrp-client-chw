@@ -68,6 +68,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
         referralTypeAdapter.setReferralTypes(referralTypeModels);
         referralTypesRecyclerView.setAdapter(referralTypeAdapter);
         referralTypesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        referralTypesRecyclerView.setMotionEventSplittingEnabled(false);
     }
 
     @Override
@@ -99,7 +100,8 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
     public void onClick(View v) {
         if (v.getId() == R.id.close) {
             finish();
-        } else if (v.getTag() instanceof ReferralTypeAdapter.ReferralTypeViewHolder) {
+        } else if (v.getTag() instanceof ReferralTypeAdapter.ReferralTypeViewHolder && referralTypeAdapter.canStart) {
+            referralTypeAdapter.canStart = false;
             ReferralTypeAdapter.ReferralTypeViewHolder referralTypeViewHolder = (ReferralTypeAdapter.ReferralTypeViewHolder) v.getTag();
             ReferralTypeModel referralTypeModel = referralTypeAdapter.getReferralTypes().get(referralTypeViewHolder.getAdapterPosition());
             try {
@@ -130,6 +132,12 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
             } catch (Exception e) {
                 Timber.e(e, "ClientReferralActivity --> onActivityResult");
             }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        referralTypeAdapter.canStart = true;
     }
 }
 
