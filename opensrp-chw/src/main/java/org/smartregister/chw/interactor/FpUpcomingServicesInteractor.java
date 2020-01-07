@@ -48,21 +48,22 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
         Date serviceDueDate = null;
         Date serviceOverDueDate = null;
         String serviceName = null;
+        String fpMethodUsed = null;
         List<FpAlertObject> familyPlanningList = FpDao.getFpDetails(memberObject.getBaseEntityId());
         if (familyPlanningList.size() > 0) {
             for (FpAlertObject familyPlanning : familyPlanningList) {
-                fpMethod =familyPlanning.getFpMethod();
+                fpMethodUsed = familyPlanning.getFpMethod();
                 fp_date = familyPlanning.getFpStartDate();
                 fp_pillCycles = familyPlanning.getFpPillCycles();
                 rule = FpUtil.getFpRules(fpMethod);
             }
         }
-        fpMethod = getTranslatedValue(fpMethod);
+        fpMethod = getTranslatedValue(fpMethodUsed);
 
         Date lastVisitDate = null;
         Visit lastVisit = null;
         Date fpDate = FpUtil.parseFpStartDate(fp_date);
-        if (fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_INJECTABLE)) {
+        if (fpMethodUsed.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_INJECTABLE)) {
             lastVisit = FpDao.getLatestInjectionVisit(memberObject.getBaseEntityId(), fpMethod);
         } else {
             lastVisit = FpDao.getLatestFpVisit(memberObject.getBaseEntityId(), FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT, fpMethod);
@@ -71,22 +72,22 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
             lastVisitDate = lastVisit.getDate();
         }
         FpAlertRule alertRule = HomeVisitUtil.getFpVisitStatus(rule, lastVisitDate, fpDate, fp_pillCycles, fpMethod);
-        if (fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_COC) || fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_POP) ||
-                fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_MALE_CONDOM) || fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_FEMALE_CONDOM) || fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_INJECTABLE)) {
+        if (fpMethodUsed.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_COC) || fpMethodUsed.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_POP) ||
+                fpMethodUsed.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_MALE_CONDOM) || fpMethodUsed.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_FEMALE_CONDOM) || fpMethodUsed.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_INJECTABLE)) {
             serviceDueDate = alertRule.getDueDate();
             serviceOverDueDate = alertRule.getOverDueDate();
-            if (fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_INJECTABLE)) {
+            if (fpMethodUsed.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_INJECTABLE)) {
                 serviceName = fpMethod;
             } else {
                 serviceName = MessageFormat.format(context.getString(R.string.refill), fpMethod);
             }
-        } else if (fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_IUCD) || fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_FEMALE_STERLIZATION)) {
+        } else if (fpMethodUsed.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_IUCD) || fpMethodUsed.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_FEMALE_STERLIZATION)) {
             if (lastVisit == null) {
                 serviceDueDate = alertRule.getDueDate();
                 serviceOverDueDate = alertRule.getOverDueDate();
                 serviceName = MessageFormat.format(context.getString(R.string.follow_up_one), fpMethod);
             } else {
-                if (fpMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_IUCD)) {
+                if (fpMethodUsed.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_IUCD)) {
                     serviceDueDate = (DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(fp_date).plusMonths(4)).toDate();
                     serviceOverDueDate = (DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(fp_date).plusMonths(4).plusWeeks(1)).toDate();
                     serviceName = MessageFormat.format(context.getString(R.string.follow_up_two), fpMethod);

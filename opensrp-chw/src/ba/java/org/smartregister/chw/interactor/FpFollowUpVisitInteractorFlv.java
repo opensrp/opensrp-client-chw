@@ -133,30 +133,31 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
     }
 
     private void evaluateResupply() throws Exception {
+        String familyPlanningMethodTranslated = null;
         switch (familyPlanningMethod){
             case "COC":
-                familyPlanningMethod = context.getString(R.string.coc);
+                familyPlanningMethodTranslated = context.getString(R.string.coc);
                 break;
             case "POP":
-                familyPlanningMethod = context.getString(R.string.pop);
+                familyPlanningMethodTranslated = context.getString(R.string.pop);
                 break;
             case "Female sterilization":
-                familyPlanningMethod = context.getString(R.string.female_sterilization);
+                familyPlanningMethodTranslated = context.getString(R.string.female_sterilization);
                 break;
             case "Injectable":
-                familyPlanningMethod = context.getString(R.string.injectable);
+                familyPlanningMethodTranslated = context.getString(R.string.injectable);
                 break;
             case "Male condom":
-                familyPlanningMethod = context.getString(R.string.male_condom);
+                familyPlanningMethodTranslated = context.getString(R.string.male_condom);
                 break;
             case "Female condom":
-                familyPlanningMethod = context.getString(R.string.female_condom);
+                familyPlanningMethodTranslated = context.getString(R.string.female_condom);
                 break;
             case "IUCD":
-                familyPlanningMethod = context.getString(R.string.iucd);
+                familyPlanningMethodTranslated = context.getString(R.string.iucd);
                 break;
             default:
-                familyPlanningMethod = null;
+                familyPlanningMethodTranslated = null;
                 break;
         }
 
@@ -187,7 +188,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                         .withJsonPayload(jsonObject.toString())
                         .build();
 
-                actionList.put(context.getString(R.string.resupply, familyPlanningMethod), action);
+                actionList.put(context.getString(R.string.resupply, familyPlanningMethodTranslated), action);
             } else {
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.next_health_facility_visit))
                         .withOptional(false)
