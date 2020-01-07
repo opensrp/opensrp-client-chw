@@ -108,6 +108,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
             try {
                 if (referralTypeModel.getFormName() == null) {
                     org.smartregister.util.Utils.showShortToast(this, getString(R.string.open_referral_form, referralTypeModel.getReferralType()));
+                    referralTypeAdapter.canStart = true; //TODO Remove this necessary evil; necessary since on resume is not revoked again
                 }
                 startReferralForm(getFormUtils().getFormJson(referralTypeModel.getFormName()));
             } catch (Exception e) {
