@@ -78,9 +78,9 @@
             "text": "Pick condition/problem associated with the client."
           },
           "meta_data": {
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           "options": [
             {
@@ -414,9 +414,9 @@
           "name": "problem_other",
           "type": "text_input_edit_text",
           "meta_data": {
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           "properties": {
             "hint": "Other symptoms",
@@ -483,9 +483,9 @@
           "name": "service_before_referral_other",
           "type": "text_input_edit_text",
           "meta_data": {
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
+            "openmrs_entity_parent": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           "properties": {
             "hint": "Other Treatment",
@@ -499,7 +499,7 @@
           "type": "spinner",
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "890",
+            "openmrs_entity_id": "chw_referral_hf",
             "openmrs_entity_parent": ""
           },
           "properties": {
@@ -518,7 +518,7 @@
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "23289",
+            "openmrs_entity_id": "referral_appointment_date",
             "openmrs_entity_parent": ""
           },
           "required_status": "true:Please specify the appointment date"
@@ -535,8 +535,8 @@
         {
           "name": "referral_time",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "referral_time",
           "type": "hidden"
         },
         {

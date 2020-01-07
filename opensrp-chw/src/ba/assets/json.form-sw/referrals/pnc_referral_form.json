@@ -78,8 +78,8 @@
             "text": "Tatizo / hali ya afya ya mteja."
           },
           "meta_data": {
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           "options": [
@@ -414,9 +414,9 @@
           "name": "other_problems",
           "type": "text_input_edit_text",
           "meta_data": {
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           "properties": {
             "hint": "Dalili nyingine",
@@ -483,9 +483,9 @@
           "name": "service_before_referral_other",
           "type": "text_input_edit_text",
           "meta_data": {
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
+            "openmrs_entity_parent": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           "properties": {
             "hint": "Matibabu mengine",
@@ -499,7 +499,7 @@
           "type": "spinner",
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "890",
+            "openmrs_entity_id": "chw_referral_hf",
             "openmrs_entity_parent": ""
           },
           "properties": {
@@ -523,7 +523,7 @@
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "23289",
+            "openmrs_entity_id": "referral_appointment_date",
             "openmrs_entity_parent": ""
           },
           "required_status": "true:Tafadhali chagua tarehe ya kuhudhuria hospitali"
@@ -540,8 +540,8 @@
         {
           "name": "referral_time",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "referral_time",
           "type": "hidden"
         }
       ]
