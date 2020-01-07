@@ -34,10 +34,14 @@ import org.smartregister.chw.fp.presenter.BaseFpProfilePresenter;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.interactor.FamilyPlanningProfileInteractor;
 import org.smartregister.chw.malaria.util.Constants;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.JsonFormUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -49,6 +53,11 @@ import timber.log.Timber;
 public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMemberProfileActivity
         implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
 
+    private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+
+    public List<ReferralTypeModel> getReferralTypeModels() {
+        return referralTypeModels;
+    }
 
     public static void startFpMemberProfileActivity(Activity activity, FpMemberObject memberObject) {
         Intent intent = new Intent(activity, FamilyPlanningMemberProfileActivity.class);
@@ -395,6 +404,11 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     @Override
     public void openFollowUpVisitForm(boolean isEdit) {
         FpFollowUpVisitActivity.startMe(this, fpMemberObject, isEdit);
+    }
+
+    private void addFpReferrals() {
+        referralTypeModels.add(new ReferralTypeModel(getString(R.string.family_planning_referral),
+                org.smartregister.chw.util.Constants.JSON_FORM.getFamilyPlanningReferralForm()));
     }
 }
 
