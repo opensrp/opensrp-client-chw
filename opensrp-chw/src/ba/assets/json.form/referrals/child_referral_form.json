@@ -1,7 +1,7 @@
 {
   "form": "Sick Child Referral",
   "count": "1",
-  "encounter_type": "Sick Child Referral",
+  "encounter_type": " ",
   "entity_id": "",
   "relational_id": "",
   "rules_file": "rule/general_neat_referral_form_rules.yml",
@@ -376,7 +376,7 @@
           "type": "spinner",
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "890",
+            "openmrs_entity_id": "chw_referral_hf",
             "openmrs_entity_parent": ""
           },
           "properties": {
@@ -400,7 +400,7 @@
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "23289",
+            "openmrs_entity_id": "referral_appointment_date",
             "openmrs_entity_parent": ""
           },
           "required_status": "true:Please specify the appointment date"
@@ -418,7 +418,7 @@
           "name": "referral_time",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
-          "openmrs_entity_id": "referral_time_child",
+          "openmrs_entity_id": "referral_time",
           "type": "hidden"
         },
         {
