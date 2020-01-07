@@ -130,6 +130,8 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
                     return context.getString(R.string.female_condom);
                 case "IUCD":
                     return context.getString(R.string.iucd);
+                    default:
+                        return fpMethod;
             }
         }
         return fpMethod;
