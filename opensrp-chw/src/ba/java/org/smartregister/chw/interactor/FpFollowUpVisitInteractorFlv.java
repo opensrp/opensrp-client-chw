@@ -155,6 +155,9 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
             case "IUCD":
                 familyPlanningMethod = context.getString(R.string.iucd);
                 break;
+            default:
+                familyPlanningMethod = null;
+                break;
         }
 
         if (!familyPlanningMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_FEMALE_STERLIZATION) && !familyPlanningMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_IUCD)) {

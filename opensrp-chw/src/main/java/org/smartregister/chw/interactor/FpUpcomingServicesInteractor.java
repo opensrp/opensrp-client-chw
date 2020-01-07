@@ -51,8 +51,7 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
         List<FpAlertObject> familyPlanningList = FpDao.getFpDetails(memberObject.getBaseEntityId());
         if (familyPlanningList.size() > 0) {
             for (FpAlertObject familyPlanning : familyPlanningList) {
-                methodUsed = familyPlanning.getFpMethod();
-                switch (methodUsed){
+                switch (familyPlanning.getFpMethod()){
                     case "COC":
                         fpMethod = context.getString(R.string.coc);
                         break;
@@ -74,6 +73,9 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
                     case "IUCD":
                         fpMethod = context.getString(R.string.iucd);
                         break;
+                        default:
+                            fpMethod = null;
+                            break;
                 }
                 fp_date = familyPlanning.getFpStartDate();
                 fp_pillCycles = familyPlanning.getFpPillCycles();
