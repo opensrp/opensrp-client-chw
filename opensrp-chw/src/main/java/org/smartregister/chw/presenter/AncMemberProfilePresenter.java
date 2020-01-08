@@ -2,6 +2,7 @@ package org.smartregister.chw.presenter;
 
 import android.app.Activity;
 
+import org.json.JSONObject;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.activity.ReferralRegistrationActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -19,6 +20,8 @@ import timber.log.Timber;
 public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
         implements org.smartregister.chw.contract.AncMemberProfileContract.Presenter {
 
+    private List<ReferralTypeModel> referralTypeModels;
+
     public AncMemberProfilePresenter(AncMemberProfileContract.View view, AncMemberProfileContract.Interactor interactor,
                                      MemberObject memberObject) {
         super(view, interactor, memberObject);
@@ -26,7 +29,7 @@ public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
 
     @Override
     public void referToFacility() {
-        List<ReferralTypeModel> referralTypeModels = ((AncMemberProfileActivity) getView()).getReferralTypeModels();
+        referralTypeModels = ((AncMemberProfileActivity) getView()).getReferralTypeModels();
         if (referralTypeModels.size() == 1) {
             startAncReferralForm();
         } else {
@@ -38,8 +41,11 @@ public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
     public void startAncReferralForm() {
         try {
             Activity context = ((Activity) getView());
+            JSONObject formJson = FormUtils.getInstance(context).getFormJson(
+                    Constants.JSON_FORM.getAncReferralForm());
+            formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
             ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(context,
-                    getEntityId(), FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.getAncReferralForm()));
+                    getEntityId(), formJson);
         } catch (Exception ex) {
             Timber.e(ex);
         }

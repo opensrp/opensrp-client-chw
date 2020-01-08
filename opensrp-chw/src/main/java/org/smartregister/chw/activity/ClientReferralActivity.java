@@ -74,7 +74,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
 
     @Override
     public void startReferralForm(JSONObject jsonObject) {
-        ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this,baseEntityId,jsonObject);
+        ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, baseEntityId, jsonObject);
     }
 
     @Override
@@ -110,7 +110,10 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
                     org.smartregister.util.Utils.showShortToast(this, getString(R.string.open_referral_form, referralTypeModel.getReferralType()));
                     referralTypeAdapter.canStart = true; //TODO Remove this necessary evil; necessary since on resume is not revoked again
                 }
-                startReferralForm(getFormUtils().getFormJson(referralTypeModel.getFormName()));
+
+                JSONObject formJson = getFormUtils().getFormJson(referralTypeModel.getFormName());
+                formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModel.getReferralType());
+                startReferralForm(formJson);
             } catch (Exception e) {
                 Timber.e(e, "ClientReferralActivity --> onActivityResult");
             }
