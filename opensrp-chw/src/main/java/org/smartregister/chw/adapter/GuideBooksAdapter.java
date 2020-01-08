@@ -108,9 +108,10 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
                     } else {
                         myViewHolder.icon.setImageResource(R.drawable.ic_save_outline_black);
 
-                        Toast.makeText(view.getViewContext(),
-                                view.getViewContext().getString(R.string.jobs_aid_failed_download, video.getTitle())
-                                , Toast.LENGTH_SHORT).show();
+                        if (view.getViewContext() != null)
+                            Toast.makeText(view.getViewContext(),
+                                    view.getViewContext().getString(R.string.jobs_aid_failed_download, video.getTitle())
+                                    , Toast.LENGTH_SHORT).show();
                     }
                 }
 

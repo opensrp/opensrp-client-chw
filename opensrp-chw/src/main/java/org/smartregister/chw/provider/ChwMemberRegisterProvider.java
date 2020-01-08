@@ -229,7 +229,7 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
                 DBConstants.KEY.DATE_REMOVED,
                 CommonFtsObject.idColumn,
                 baseEntityId,
-                ChildDBConstants.childAgeLimitFilter()));
+                ChildDBConstants.childAgeLimitFilter().replace("ec_child.", "ec_child_search.")));
 
         query = query.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD) + ".id as _id ,", "");
 

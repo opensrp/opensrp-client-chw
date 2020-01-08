@@ -159,7 +159,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         super.onClick(view);
         int id = view.getId();
         if (id == R.id.textview_record_malaria) {
-            MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(this, MEMBER_OBJECT.getBaseEntityId());
+            MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, MEMBER_OBJECT.getBaseEntityId());
         }
     }
 

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.GuideBooksAdapter;
 import org.smartregister.chw.contract.GuideBooksFragmentContract;
@@ -32,8 +33,8 @@ import java.util.Map;
 public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFragmentContract.View {
 
     protected RecyclerView.Adapter mAdapter;
-    private List<GuideBooksFragmentContract.Video> videos = new ArrayList<>();
     protected GuideBooksFragmentContract.Presenter presenter;
+    private List<GuideBooksFragmentContract.Video> videos = new ArrayList<>();
     private ProgressBar progressBar;
     private Map<String, GuideBooksFragmentContract.Video> allVideos = new HashMap<>();
 
@@ -95,7 +96,7 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
     }
 
     @Override
-    public Context getViewContext() {
+    public @Nullable Context getViewContext() {
         return getContext();
     }
 
