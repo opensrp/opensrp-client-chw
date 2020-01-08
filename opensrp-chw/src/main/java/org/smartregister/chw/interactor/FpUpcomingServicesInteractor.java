@@ -3,7 +3,6 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 
 import org.jeasy.rules.api.Rules;
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -11,10 +10,8 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.interactor.BaseAncUpcomingServicesInteractor;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.core.rule.FpAlertRule;
-import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FpUtil;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
-import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fp.domain.FpAlertObject;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
@@ -32,7 +29,6 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
     public List<BaseUpcomingService> getMemberServices(Context context, MemberObject memberObject) {
         this.memberObject = memberObject;
         this.context = context;
-        VaccineScheduleUtil.updateOfflineAlerts(memberObject.getBaseEntityId(), new DateTime(memberObject.getDob()), CoreConstants.SERVICE_GROUPS.CHILD);
         List<BaseUpcomingService> serviceList = new ArrayList<>();
         evaluateFp(serviceList);
         return serviceList;
@@ -108,7 +104,6 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
         upcomingService.setOverDueDate(serviceOverDueDate);
         upcomingService.setServiceName(serviceName);
         serviceList.add(upcomingService);
-
     }
 
 }
