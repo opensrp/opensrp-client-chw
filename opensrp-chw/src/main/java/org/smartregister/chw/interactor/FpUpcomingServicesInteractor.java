@@ -3,7 +3,6 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 
 import org.jeasy.rules.api.Rules;
-import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.R;
@@ -58,7 +57,7 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
                 rule = FpUtil.getFpRules(fpMethodUsed);
             }
         }
-        fpMethod = FpUtil.getTranslatedMethodValue(fpMethodUsed,context);
+        fpMethod = FpUtil.getTranslatedMethodValue(fpMethodUsed, context);
         Date lastVisitDate = null;
         Visit lastVisit = null;
         Date fpDate = FpUtil.parseFpStartDate(fp_date);
