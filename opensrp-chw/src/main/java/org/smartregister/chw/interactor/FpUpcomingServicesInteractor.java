@@ -58,14 +58,14 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
                 rule = FpUtil.getFpRules(fpMethodUsed);
             }
         }
-        fpMethod = getTranslatedValue(fpMethodUsed);
+        fpMethod = FpUtil.getTranslatedMethodValue(fpMethodUsed,context);
         Date lastVisitDate = null;
         Visit lastVisit = null;
         Date fpDate = FpUtil.parseFpStartDate(fp_date);
         if (fpMethodUsed.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_INJECTABLE)) {
-            lastVisit = FpDao.getLatestInjectionVisit(memberObject.getBaseEntityId(), fpMethod);
+            lastVisit = FpDao.getLatestInjectionVisit(memberObject.getBaseEntityId(), fpMethodUsed);
         } else {
-            lastVisit = FpDao.getLatestFpVisit(memberObject.getBaseEntityId(), FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT, fpMethod);
+            lastVisit = FpDao.getLatestFpVisit(memberObject.getBaseEntityId(), FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT, fpMethodUsed);
         }
         if (lastVisit != null) {
             lastVisitDate = lastVisit.getDate();
@@ -110,30 +110,6 @@ public class FpUpcomingServicesInteractor extends BaseAncUpcomingServicesInterac
         upcomingService.setServiceName(serviceName);
         serviceList.add(upcomingService);
 
-    }
-
-    private String getTranslatedValue(@Nullable String fpMethod){
-        if(fpMethod != null){
-            switch (fpMethod){
-                case "COC":
-                    return context.getString(R.string.coc);
-                case "POP":
-                    return context.getString(R.string.pop);
-                case "Female sterilization":
-                    return context.getString(R.string.female_sterilization);
-                case "Injectable":
-                    return context.getString(R.string.injectable);
-                case "Male condom":
-                    return context.getString(R.string.male_condom);
-                case "Female condom":
-                    return context.getString(R.string.female_condom);
-                case "IUCD":
-                    return context.getString(R.string.iucd);
-                    default:
-                        return fpMethod;
-            }
-        }
-       return fpMethod;
     }
 
 }
