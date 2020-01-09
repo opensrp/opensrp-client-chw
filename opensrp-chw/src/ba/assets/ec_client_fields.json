@@ -1243,7 +1243,7 @@
           "column_name": "chw_referral_service",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "chw_referral_service"
           }
         },
@@ -1251,7 +1251,7 @@
           "column_name": "chw_referral_hf",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "chw_referral_hf"
           }
         },
