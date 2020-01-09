@@ -19,6 +19,7 @@ import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.QueryBuilder;
 import org.smartregister.chw.model.ReferralRegisterFragmentModel;
 import org.smartregister.chw.presenter.ReferralRegisterFragmentPresenter;
+import org.smartregister.chw.referral.activity.ReferralDetailsViewActivity;
 import org.smartregister.chw.referral.domain.MemberObject;
 import org.smartregister.chw.referral.fragment.BaseReferralRegisterFragment;
 import org.smartregister.chw.referral.provider.ReferralRegisterProvider;
@@ -154,7 +155,7 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
 
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
-        //Implement
+        ReferralDetailsViewActivity.startReferralDetailsViewActivity(getActivity(), new MemberObject(client));
     }
 
     @Override

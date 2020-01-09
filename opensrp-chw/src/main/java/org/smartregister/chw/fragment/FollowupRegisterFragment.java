@@ -19,6 +19,7 @@ import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.QueryBuilder;
 import org.smartregister.chw.model.ReferralRegisterFragmentModel;
+import org.smartregister.chw.presenter.ReferralFollowupFragmentPresenter;
 import org.smartregister.chw.presenter.ReferralRegisterFragmentPresenter;
 import org.smartregister.chw.referral.domain.MemberObject;
 import org.smartregister.chw.referral.fragment.BaseFollowupRegisterFragment;
@@ -109,7 +110,7 @@ public class FollowupRegisterFragment extends BaseFollowupRegisterFragment {
             return;
         }
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
-        presenter = new ReferralRegisterFragmentPresenter(this, new ReferralRegisterFragmentModel(), viewConfigurationIdentifier);
+        presenter = new ReferralFollowupFragmentPresenter(this, new ReferralRegisterFragmentModel(), viewConfigurationIdentifier);
     }
 
     @Override

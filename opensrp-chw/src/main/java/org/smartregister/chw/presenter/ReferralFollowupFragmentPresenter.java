@@ -6,9 +6,9 @@ import org.smartregister.chw.referral.presenter.BaseReferralRegisterFragmentPres
 import org.smartregister.chw.referral.util.DBConstants;
 import org.smartregister.chw.util.Constants;
 
-public class ReferralRegisterFragmentPresenter extends BaseReferralRegisterFragmentPresenter {
+public class ReferralFollowupFragmentPresenter extends BaseReferralRegisterFragmentPresenter {
 
-    public ReferralRegisterFragmentPresenter(BaseReferralRegisterFragmentContract.View view, BaseReferralRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
+    public ReferralFollowupFragmentPresenter(BaseReferralRegisterFragmentContract.View view, BaseReferralRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
         super(view, model, viewConfigurationIdentifier);
     }
 
@@ -16,8 +16,7 @@ public class ReferralRegisterFragmentPresenter extends BaseReferralRegisterFragm
     public String getMainCondition() {
         return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DATE_REMOVED + " is null " +
                 "AND " + org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + DBConstants.KEY.REFERRAL_STATUS + " = '" + org.smartregister.chw.referral.util.Constants.REFERRAL_STATUS.PENDING + "' "+
-                "AND " + org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + DBConstants.KEY.REFERRAL_TYPE + " = '" + org.smartregister.chw.referral.util.Constants.REFERRAL_TYPE.COMMUNITY_TO_FACILITY_REFERRAL + "' ";
-
+                "AND " + org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + DBConstants.KEY.REFERRAL_TYPE + " = '" + org.smartregister.chw.referral.util.Constants.REFERRAL_TYPE.FACILITY_TO_COMMUNITY_REFERRAL + "' ";
     }
 
     @Override
