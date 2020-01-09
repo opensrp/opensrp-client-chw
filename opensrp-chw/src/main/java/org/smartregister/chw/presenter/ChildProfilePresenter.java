@@ -58,7 +58,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     @Override
     public void startSickChildReferralForm() {
         try {
-            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(((Activity)getView().getContext()),childBaseEntityId,getFormUtils().getFormJson(Constants.JSON_FORM.getChildReferralForm()));
+            ReferralRegistrationActivity.startReferralFormActivityForResults(((Activity)getView().getContext()),childBaseEntityId,getFormUtils().getFormJson(Constants.JSON_FORM.getChildReferralForm()));
         } catch (Exception e) {
             Timber.e(e);
         }

@@ -3,20 +3,24 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.ReferralTypeAdapter;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ClientReferralContract;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.referral.domain.ReferralServiceObject;
+import org.smartregister.chw.referral.util.Util;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -65,14 +69,24 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
             baseEntityId = getIntent().getStringExtra(Constants.ENTITY_ID);
         }
 
+        for (ReferralServiceObject referralServiceObject : Util.getReferralServicesList()) {
+            if (ChwApplication.getCurrentLocale().getLanguage().equals("sw"))
+                referralTypeModels.add(new ReferralTypeModel(referralServiceObject.getNameSw(), org.smartregister.chw.util.Constants.JSON_FORM.getGeneralReferralForm(), referralServiceObject.getId()));
+            else
+                referralTypeModels.add(new ReferralTypeModel(referralServiceObject.getNameEn(), org.smartregister.chw.util.Constants.JSON_FORM.getGeneralReferralForm(), referralServiceObject.getId()));
+        }
         referralTypeAdapter.setReferralTypes(referralTypeModels);
         referralTypesRecyclerView.setAdapter(referralTypeAdapter);
         referralTypesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
-    public void startReferralForm(JSONObject jsonObject) {
-        ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this,baseEntityId,jsonObject);
+    public void startReferralForm(JSONObject jsonObject, ReferralTypeModel referralTypeModel) {
+        if (referralTypeModel.getReferralServiceId() == null)
+            ReferralRegistrationActivity.startReferralFormActivityForResults(this, baseEntityId, jsonObject);
+        else
+            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, baseEntityId, referralTypeModel.getReferralServiceId());
+
     }
 
     @Override
@@ -106,7 +120,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
                 if (referralTypeModel.getFormName() == null) {
                     org.smartregister.util.Utils.showShortToast(this, getString(R.string.open_referral_form, referralTypeModel.getReferralType()));
                 }
-                startReferralForm(getFormUtils().getFormJson(referralTypeModel.getFormName()));
+                startReferralForm(getFormUtils().getFormJson(referralTypeModel.getFormName()), referralTypeModel);
             } catch (Exception e) {
                 Timber.e(e, "ClientReferralActivity --> onActivityResult");
             }

@@ -40,7 +40,7 @@ public class ReferralRegistrationActivity extends BaseIssueReferralActivity {
         activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
-    public static void startGeneralReferralFormActivityForResults(Activity activity, String baseEntityID, JSONObject formJsonObject) {
+    public static void startReferralFormActivityForResults(Activity activity, String baseEntityID, JSONObject formJsonObject) {
         //TODO Coze: the following line is used to seed services and indicators only for testing purposes and should not be available for production version of the app
         ReferralLibrary.getInstance().seedSampleReferralServicesAndIndicators();
 

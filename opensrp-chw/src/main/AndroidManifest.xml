@@ -170,10 +170,6 @@
             android:label="@string/anc_register"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.ReferralProfileActivity"
-            android:label="@string/issued_referrals"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
             android:name=".activity.ReferralFollowupActivity"
             android:label="@string/followup_referral"
             android:theme="@style/ChwTheme.NoActionBar" />

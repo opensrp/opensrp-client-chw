@@ -14,7 +14,6 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.MalariaFollowUpVisitActivity;
-import org.smartregister.chw.activity.ReferralProfileActivity;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.QueryBuilder;
@@ -155,7 +154,7 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
 
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
-        ReferralProfileActivity.startReferralProfileActivity(getActivity(), new MemberObject(client), client);
+        //Implement
     }
 
     @Override
