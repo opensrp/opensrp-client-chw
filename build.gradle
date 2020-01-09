@@ -8,24 +8,22 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.5.0-x'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
-apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco'
 
 jacoco {
     toolVersion = "0.8.0"
 }
 
-//For publishing dependency to GitHub package
 def githubProperties = new Properties()
 //Read the github properties content
 githubProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 allprojects {
 
     tasks.whenTaskAdded { task ->
@@ -35,20 +33,17 @@ allprojects {
     }
 
     repositories {
-        maven { url 'https://maven.google.com' }
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        google()
+        jcenter()
         mavenLocal()
         mavenCentral()
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url 'https://jitpack.io' }
         maven { url "http://acra.googlecode.com/svn/repository/releases" }
         maven { url "http://repo.maven.apache.org/maven2" }
         maven { url "http://cloudant.github.io/cloudant-sync-eap/repository" }
         maven { url 'https://maven.fabric.io/public' }
-        maven {
-            url "https://s3.amazonaws.com/repo.commonsware.com"
-        }
-        google()
-        jcenter()
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
         maven { url "https://dl.bintray.com/ona/rdt-capture" }
         maven {
@@ -94,53 +89,4 @@ subprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-task jacocoTestReport(type: JacocoReport) {
-    sourceDirectories = files()
-    classDirectories = files()
-    executionData = files()
-
-    reports {
-        html{
-            html.enabled = true
-            destination file("${buildDir}/reports/jacoco/jacocoRootReport/jacocoFullReport")
-        }
-
-        xml{
-            xml.enabled = true
-            destination file("${buildDir}/reports/jacoco/jacocoRootReport/jacocoFullReport.xml")
-        }
-
-        csv.enabled = false
-    }
-
-    // Work-around to allow us to build list of executionData files in doFirst
-    onlyIf = {
-        true
-    }
-
-    /*
-     * Builds list of source dirs, class dirs, and executionData files
-     * when task is run, not at script evaluation time
-     */
-    doFirst {
-        subprojects.findAll { subproject ->
-            subproject.pluginManager.hasPlugin('java')
-        }.each { subproject ->
-            additionalSourceDirs files((Set<File>) subproject.sourceSets.main.allJava.srcDirs)
-            additionalClassDirs ((FileCollection) subproject.sourceSets.main.output)
-            if (subproject.pluginManager.hasPlugin('jacoco')) {
-                executionData subproject.tasks.jacocoTestReport.executionData
-            }
-        }
-
-        executionData = files(executionData.findAll {
-            it.exists()
-        })
-    }
-}
-
-task build {
-    dependsOn tasks.jacocoTestReport
 }

@@ -6,12 +6,12 @@ import org.smartregister.util.FormUtils;
 
 public interface ClientReferralContract {
     interface View {
+
         void setUpView();
 
         void startReferralForm(JSONObject jsonObject, ReferralTypeModel referralTypeModel);
 
         FormUtils getFormUtils() throws Exception;
 
-        boolean isReferralForm(String encounterType);
     }
 }

@@ -68,12 +68,7 @@
           "properties": {
             "text": "Choose followup feedback"
           },
-          "options": [
-            {
-              "name": "none",
-              "text": "Select followup feedback"
-            }
-          ],
+          "options": [],
           "required_status": "yes:Please select followup feedback"
         },
         {

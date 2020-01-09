@@ -49,6 +49,8 @@ public class ReferralRegisterFragmentModel extends BaseReferralRegisterFragmentM
         columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.REFERRAL_DATE);
         columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.REFERRAL_STATUS);
         columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.PROBLEM);
+        columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.SERVICE_BEFORE_REFERRAL);
+        columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.SERVICE_BEFORE_REFERRAL_OTHER);
         columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.PROBLEM_OTHER);
         columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.REFERRAL_APPOINTMENT_DATE);
         columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.REFERRAL_HF);

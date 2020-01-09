@@ -2,11 +2,13 @@ package org.smartregister.chw.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+
 import androidx.annotation.Nullable;
 
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ScheduleDao;
+import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.util.WashCheckFlv;
 
@@ -41,6 +43,9 @@ public class SchedulesIntentService extends IntentService {
 
         // execute all wash check
         executeWashCheckSchedules();
+
+        // execute all fp schedules
+        executeFpVisitSchedules();
     }
 
     private void executeChildVisitSchedules() {
@@ -91,6 +96,18 @@ public class SchedulesIntentService extends IntentService {
         for (String baseID : baseEntityIDs) {
             Timber.v("  Computing Wash Check schedules for %s", baseID);
             ChwScheduleTaskExecutor.getInstance().execute(baseID, CoreConstants.EventType.WASH_CHECK, new Date());
+        }
+    }
+
+    private void executeFpVisitSchedules() {
+        Timber.v("Computing Fp schedules");
+        ChwApplication.getInstance().getScheduleRepository().deleteScheduleByName(CoreConstants.SCHEDULE_TYPES.FP_VISIT);
+        List<String> baseEntityIDs = ScheduleDao.getActiveFPWomen();
+        if (baseEntityIDs == null) return;
+
+        for (String baseID : baseEntityIDs) {
+            Timber.v("  Computing Fp schedules for %s", baseID);
+            ChwScheduleTaskExecutor.getInstance().execute(baseID, FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, new Date());
         }
     }
 }

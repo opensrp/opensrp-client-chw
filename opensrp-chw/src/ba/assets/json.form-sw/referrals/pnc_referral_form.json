@@ -68,12 +68,7 @@
             "openmrs_entity_id": "09978",
             "openmrs_entity_parent": ""
           },
-          "options": [
-            {
-              "name": "none",
-              "text": "Select referral service"
-            }
-          ],
+          "options": [],
           "required_status": "yes:Please specify referral service"
         },
         {
@@ -524,7 +519,7 @@
           "properties": {
             "hint": "Tarehe ya kuhudhuria hospitali",
             "type": "date_picker",
-            "display_format": "dd/MM/YYYY"
+            "display_format": "dd/MM/yyyy"
           },
           "meta_data": {
             "openmrs_entity": "concept",

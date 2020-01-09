@@ -3,6 +3,7 @@ package org.smartregister.chw.presenter;
 import android.app.Activity;
 import android.util.Pair;
 
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ReferralRegistrationActivity;
@@ -16,6 +17,7 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.util.FormUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -23,6 +25,8 @@ import java.util.List;
 import timber.log.Timber;
 
 public class ChildProfilePresenter extends CoreChildProfilePresenter {
+
+    private List<ReferralTypeModel> referralTypeModels;
 
     public ChildProfilePresenter(CoreChildProfileContract.View childView, CoreChildProfileContract.Model model, String childBaseEntityId) {
         super(childView, model, childBaseEntityId);
@@ -58,14 +62,18 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     @Override
     public void startSickChildReferralForm() {
         try {
-            ReferralRegistrationActivity.startReferralFormActivityForResults(((Activity)getView().getContext()),childBaseEntityId,getFormUtils().getFormJson(Constants.JSON_FORM.getChildReferralForm()));
+            JSONObject formJson = FormUtils.getInstance(getView().getContext())
+                    .getFormJson(Constants.JSON_FORM.getChildReferralForm());
+            formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
+            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults((Activity) getView().getContext(),
+                    getChildBaseEntityId(), formJson,null);
         } catch (Exception e) {
             Timber.e(e);
         }
     }
 
     public void referToFacility() {
-        List<ReferralTypeModel> referralTypeModels = ((ChildProfileActivity) getView()).getReferralTypeModels();
+        referralTypeModels = ((ChildProfileActivity) getView()).getReferralTypeModels();
         if (referralTypeModels.size() == 1) {
             startSickChildReferralForm();
         } else {

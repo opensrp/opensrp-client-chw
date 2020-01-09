@@ -68,19 +68,14 @@
             "openmrs_entity_id": "09978",
             "openmrs_entity_parent": ""
           },
-          "options": [
-            {
-              "name": "none",
-              "text": "Select referral service"
-            }
-          ],
+          "options": [],
           "required_status": "yes:Please specify referral service"
         },
         {
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Pick the problems associated with the client."
+            "text": "Pick condition/problem associated with the client."
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -382,12 +377,7 @@
           "properties": {
             "text": "Choose referral facility"
           },
-          "options": [
-            {
-              "name": "none",
-              "text": "Select referral facility"
-            }
-          ],
+          "options": [],
           "required_status": "yes:Please specify referral facility"
         },
         {
@@ -396,7 +386,7 @@
           "properties": {
             "hint": "Please select the appointment date",
             "type": "date_picker",
-            "display_format": "dd/MM/YYYY"
+            "display_format": "dd/MM/yyyy"
           },
           "meta_data": {
             "openmrs_entity": "concept",

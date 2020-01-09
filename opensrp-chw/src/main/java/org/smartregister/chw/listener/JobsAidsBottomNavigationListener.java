@@ -3,8 +3,9 @@ package org.smartregister.chw.listener;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import androidx.annotation.NonNull;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
 
 import org.smartregister.AllConstants;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
