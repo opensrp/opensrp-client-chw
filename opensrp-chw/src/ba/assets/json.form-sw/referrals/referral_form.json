@@ -80,7 +80,7 @@
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Pick the problems associated with the client."
+            "text": "Tatizo / hali ya afya ya mteja."
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -98,7 +98,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify client's problems"
+          "required_status": "yes:Tafadhali taja hali ya mteja / shida"
         },
         {
           "name": "problem_other",
@@ -124,7 +124,7 @@
           "openmrs_entity_parent": ""
         },
           "properties": {
-            "text": "Pre referral management given."
+            "text": "Huduma aliyopewa kabla ya rufaa."
           },
           "options": [
             {
@@ -138,7 +138,7 @@
             },
             {
               "name": "none",
-              "text": "None",
+              "text": "Hajapewa matibabu yoyote",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
@@ -147,13 +147,13 @@
               }
             }
           ],
-          "required_status": "yes:Please specify pre referral managements given"
+          "required_status": "True:Huduma aliyopewa kabla ya rufaa ni lazima"
         },
         {
           "name": "service_before_referral_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other Treatment",
+            "hint": "Matibabu mengine",
             "type": "name"
           },
           "meta_data": {
@@ -161,7 +161,7 @@
             "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
-          "required_status": "true:Please specify other treatment given",
+          "required_status": "true:Tafadhali taja matibabu mengine",
           "subjects": "service_before_referral:map"
         },
         {
@@ -173,22 +173,22 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Choose referral facility",
-            "searchable": "true"
+            "text": "Chagua Kituo cha Afya",
+            "searchable": "Chagua Kituo cha Afya"
           },
           "options": [
             {
               "name": "none",
-              "text": "Select referral facility"
+              "text": "Chagua Kituo cha Afya"
             }
           ],
-          "required_status": "yes:Please specify referral facility"
+          "required_status": "yes:Tafadhali chagua kituo cha Afya cha kutuma rufaa"
         },
         {
           "name": "referral_appointment_date",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Please select the appointment date",
+            "hint": "Tarehe ya kuhudhuria hospitali",
             "type": "date_picker",
             "display_format": "dd/MM/YYYY"
           },
@@ -197,7 +197,7 @@
             "openmrs_entity_id": "referral_appointment_date",
             "openmrs_entity_parent": ""
           },
-          "required_status": "true:Please specify the appointment date"
+          "required_status": "true:Tafadhali chagua tarehe ya kuhudhuria hospitali"
         },
         {
           "name": "referral_date",

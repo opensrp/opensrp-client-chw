@@ -497,7 +497,7 @@
             "type": "name"
           },
           "required_status": "true:Tafadhali taja matibabu mengine",
-          "subjects": "pre_referral_management:map"
+          "subjects": "service_before_referral:map"
         },
         {
           "name": "chw_referral_hf",

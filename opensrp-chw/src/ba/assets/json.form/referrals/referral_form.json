@@ -174,7 +174,7 @@
           },
           "properties": {
             "text": "Choose referral facility",
-            "searchable": "true"
+            "searchable": "Choose referral facility"
           },
           "options": [
             {
