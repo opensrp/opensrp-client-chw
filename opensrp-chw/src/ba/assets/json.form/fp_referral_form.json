@@ -172,7 +172,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
-        "hint": "Family planning side-effects",
+        "label": "Family planning side-effects",
         "options": [
           {
             "key": "Incisional_bleeding",
@@ -234,7 +234,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
-        "hint": "Family planning side-effects",
+        "label": "Family planning side-effects",
         "options": [
           {
             "key": "Severe_pain_inside_the_vagina_after_IUD_was_put_in",
@@ -312,7 +312,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
-        "hint": "Family planning side-effects",
+        "label": "Family planning side-effects",
         "options": [
           {
             "key": "Insertion_site_infected_pus_discharge",
@@ -382,7 +382,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
-        "hint": "Family planning side-effects",
+        "label": "Family planning side-effects",
         "options": [
           {
             "key": "Heavy_bleeding_",
