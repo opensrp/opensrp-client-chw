@@ -26,19 +26,18 @@ import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.core.presenter.CoreFamilyPlanningProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyPlanningFloatingMenu;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fp.domain.FpMemberObject;
-import org.smartregister.chw.fp.presenter.BaseFpProfilePresenter;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.interactor.FamilyPlanningProfileInteractor;
-import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.presenter.FamilyPlanningMemberProfilePresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.family.util.JsonFormUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,10 +54,6 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
-    public List<ReferralTypeModel> getReferralTypeModels() {
-        return referralTypeModels;
-    }
-
     public static void startFpMemberProfileActivity(Activity activity, FpMemberObject memberObject) {
         Intent intent = new Intent(activity, FamilyPlanningMemberProfileActivity.class);
         intent.putExtra(FamilyPlanningConstants.FamilyPlanningMemberObject.MEMBER_OBJECT, memberObject);
@@ -68,6 +63,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     @Override
     protected void onCreation() {
         super.onCreation();
+        addFpReferralTypes();
     }
 
     @Override
@@ -89,7 +85,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     @Override
     protected void initializePresenter() {
         showProgressBar(true);
-        fpProfilePresenter = new BaseFpProfilePresenter(this, new FamilyPlanningProfileInteractor(this), fpMemberObject);
+        fpProfilePresenter = new FamilyPlanningMemberProfilePresenter(this, new FamilyPlanningProfileInteractor(this), fpMemberObject);
         fetchProfileData();
     }
 
@@ -135,7 +131,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
                     ((FamilyPlanningFloatingMenu) fpFloatingMenu).animateFAB();
                     break;
                 case R.id.refer_to_facility_layout:
-                    Toast.makeText(this, "Refer", Toast.LENGTH_SHORT).show();
+                    ((CoreFamilyPlanningProfilePresenter) fpProfilePresenter).startFamilyPlanningReferral();
                     break;
                 default:
                     Timber.d("Unknown fab action");
@@ -406,9 +402,13 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
         FpFollowUpVisitActivity.startMe(this, fpMemberObject, isEdit);
     }
 
-    private void addFpReferrals() {
+    private void addFpReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.family_planning_referral),
                 org.smartregister.chw.util.Constants.JSON_FORM.getFamilyPlanningReferralForm()));
+    }
+
+    public List<ReferralTypeModel> getReferralTypeModels() {
+        return referralTypeModels;
     }
 }
 
