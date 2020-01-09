@@ -38,6 +38,8 @@ import org.smartregister.chw.presenter.FamilyPlanningMemberProfilePresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.family.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -286,6 +288,22 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
         void onMemberTypeLoaded(FamilyPlanningMemberProfileActivity.MemberType memberType);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON) {
+            try {
+                String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                JSONObject form = new JSONObject(jsonString);
+                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.FAMILY_PLANNING_REFERRAL)) {
+                    ((CoreFamilyPlanningProfilePresenter) fpProfilePresenter).createReferralEvent(Utils.getAllSharedPreferences(), jsonString);
+                    showToast(this.getString(R.string.referral_submitted));
+                }
+            } catch (Exception ex) {
+                Timber.e(ex);
+            }
+        }
+    }
 
     @Override
     public void openMedicalHistory() {
