@@ -477,6 +477,35 @@
             }
           }
         }
+      },{
+        "key": "referral_date_fp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_referral_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_time_fp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_referral_calculation.yml"
+            }
+          }
+        }
       }
     ]
   }
