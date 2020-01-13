@@ -195,8 +195,8 @@ public class ChwApplication extends CoreChwApplication {
         FamilyMetadata metadata = FormUtils.getFamilyMetadata(new FamilyProfileActivity(), getDefaultLocationLevel(), getFacilityHierarchy(), getFamilyLocationFields());
 
         HashMap<String, String> setting = new HashMap<>();
-        setting.put(Constants.CUSTOM_CONFIG.FAMILY_FORM_IMAGE_STEP, JsonFormUtils.STEP1);
-        setting.put(Constants.CUSTOM_CONFIG.FAMILY_MEMBER_FORM_IMAGE_STEP, JsonFormUtils.STEP2);
+        setting.put(Constants.CustomConfig.FAMILY_FORM_IMAGE_STEP, JsonFormUtils.STEP1);
+        setting.put(Constants.CustomConfig.FAMILY_MEMBER_FORM_IMAGE_STEP, JsonFormUtils.STEP2);
         metadata.setCustomConfigs(setting);
         return metadata;
     }
