@@ -120,8 +120,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
                 Context context = ChwApplication.getInstance().getContext().applicationContext();
                 addRelationship(context, ss, baseClient);
                 SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
-                ChwRepository pathRepository = new ChwRepository(context, ChwApplication.getInstance().getContext());
-                EventClientRepository eventClientRepository = new EventClientRepository(pathRepository);
+                EventClientRepository eventClientRepository = new EventClientRepository();
                 JSONObject clientjson = eventClientRepository.getClient(db, lookUpBaseEntityId);
                 baseClient.setAddresses(getAddressFromClientJson(clientjson));
             }

@@ -182,7 +182,7 @@ android {
         guinea {
             dimension = 'baseDimension'
             applicationIdSuffix ".guinea"
-            versionCode 2
+            versionCode 3
             versionName "1.0.2"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
@@ -204,8 +204,8 @@ android {
         togo {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
-            versionCode 10
-            versionName "1.0.11"
+            versionCode 12
+            versionName "1.0.12"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-togo.smartregister.org/opensrp/"'
@@ -222,8 +222,8 @@ android {
         }
         liberia {
             dimension = 'baseDimension'
-            versionCode 5
-            versionName "0.1.11"
+            versionCode 6
+            versionName "0.1.12"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-liberia.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/liberia/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'

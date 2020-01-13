@@ -221,7 +221,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
                 String eventName = org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType;
 
                 NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
-                binder.setDataLoader(new FamilyMemberDataLoader(memberObject.getFamilyName(), isPrimaryCareGiver, titleString, eventName));
+                binder.setDataLoader(new FamilyMemberDataLoader(memberObject.getFamilyName(), isPrimaryCareGiver, titleString, eventName, memberObject.getChwMemberId()));
 
                 form = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
             }
