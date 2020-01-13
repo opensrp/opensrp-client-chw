@@ -45,11 +45,13 @@ import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.FileUtils;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.domain.FamilyMetadata;
+import org.smartregister.family.util.Constants;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
@@ -190,7 +192,13 @@ public class ChwApplication extends CoreChwApplication {
 
     @Override
     public FamilyMetadata getMetadata() {
-        return FormUtils.getFamilyMetadata(new FamilyProfileActivity(), getDefaultLocationLevel(), getFacilityHierarchy(), getFamilyLocationFields());
+        FamilyMetadata metadata = FormUtils.getFamilyMetadata(new FamilyProfileActivity(), getDefaultLocationLevel(), getFacilityHierarchy(), getFamilyLocationFields());
+
+        HashMap<String, String> setting = new HashMap<>();
+        setting.put(Constants.CUSTOM_CONFIG.FAMILY_FORM_IMAGE_STEP, JsonFormUtils.STEP1);
+        setting.put(Constants.CUSTOM_CONFIG.FAMILY_MEMBER_FORM_IMAGE_STEP, JsonFormUtils.STEP2);
+        metadata.setCustomConfigs(setting);
+        return metadata;
     }
 
     @Override
@@ -246,7 +254,7 @@ public class ChwApplication extends CoreChwApplication {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onVisitEvent(Visit visit) {
         if (visit != null) {
-            Timber.v("Visit Submitted re processing Schedule for event ' %s '  : %s", visit.getVisitType() , visit.getBaseEntityId());
+            Timber.v("Visit Submitted re processing Schedule for event ' %s '  : %s", visit.getVisitType(), visit.getBaseEntityId());
             ChwScheduleTaskExecutor.getInstance().execute(visit.getBaseEntityId(), visit.getVisitType(), visit.getDate());
         }
     }
