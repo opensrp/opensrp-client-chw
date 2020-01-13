@@ -57,10 +57,11 @@
       {
         "key": "fp_method_accepted_referral",
         "type": "native_radio",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "FP method chosen requiring a referral",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "Male_condom",
@@ -173,6 +174,7 @@
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
         "label": "Family planning side-effects",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "Incisional_bleeding",
@@ -242,6 +244,7 @@
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
         "label": "Family planning side-effects",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "Severe_pain_inside_the_vagina_after_IUD_was_put_in",
@@ -327,6 +330,7 @@
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
         "label": "Family planning side-effects",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "Insertion_site_infected_pus_discharge",
@@ -404,6 +408,7 @@
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
         "label": "Family planning side-effects",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "Heavy_bleeding_",
@@ -459,12 +464,26 @@
         }
       },
       {
+        "key": "fp_side_effects",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_referral_calculation.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "fp_side_effects_other",
         "type": "edit_text",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "edit_type": "name",
         "hint": "Other side effects",
         "v_required": {
           "value": "true",
