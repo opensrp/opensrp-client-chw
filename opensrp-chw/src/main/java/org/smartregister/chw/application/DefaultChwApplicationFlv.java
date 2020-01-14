@@ -20,4 +20,9 @@ public class DefaultChwApplicationFlv implements ChwApplication.Flavor {
     public boolean hasPNC() {
         return true;
     }
+
+    @Override
+    public boolean hasChildSickForm() {
+        return false;
+    }
 }

@@ -10,4 +10,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean hasPNC() {
         return false;
     }
+
+    @Override
+    public boolean hasChildSickForm() {
+        return true;
+    }
 }

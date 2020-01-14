@@ -271,5 +271,7 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasANC();
 
         boolean hasPNC();
+
+        boolean hasChildSickForm();
     }
 }
