@@ -70,7 +70,7 @@ import timber.log.Timber;
 
 public class ChwApplication extends CoreChwApplication {
 
-    private Flavor flavor = new ChwApplicationFlv();
+    private static Flavor flavor = new ChwApplicationFlv();
 
     @Override
     public void onCreate() {
@@ -155,6 +155,10 @@ public class ChwApplication extends CoreChwApplication {
         }
 
         EventBus.getDefault().register(this);
+    }
+
+    public static Flavor getApplicationFlavor() {
+        return flavor;
     }
 
     public static void prepareGuideBooksFolder() {
@@ -259,9 +263,13 @@ public class ChwApplication extends CoreChwApplication {
         }
     }
 
-    interface Flavor {
+    public interface Flavor {
         boolean hasP2P();
 
         boolean hasReferrals();
+
+        boolean hasANC();
+
+        boolean hasPNC();
     }
 }

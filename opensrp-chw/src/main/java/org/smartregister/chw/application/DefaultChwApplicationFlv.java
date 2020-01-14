@@ -10,4 +10,14 @@ public class DefaultChwApplicationFlv implements ChwApplication.Flavor {
     public boolean hasReferrals() {
         return false;
     }
+
+    @Override
+    public boolean hasANC() {
+        return true;
+    }
+
+    @Override
+    public boolean hasPNC() {
+        return true;
+    }
 }
