@@ -36,16 +36,20 @@ public class SchedulesIntentService extends IntentService {
         executeChildVisitSchedules();
 
         // execute all anc schedules
-        executeAncVisitSchedules();
+        if (ChwApplication.getApplicationFlavor().hasANC())
+            executeAncVisitSchedules();
 
         // execute all pnc schedules
-        executePncVisitSchedules();
+        if (ChwApplication.getApplicationFlavor().hasPNC())
+            executePncVisitSchedules();
 
         // execute all wash check
-        executeWashCheckSchedules();
+        if (ChwApplication.getApplicationFlavor().hasWashCheck())
+            executeWashCheckSchedules();
 
         // execute all fp schedules
-        executeFpVisitSchedules();
+        if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
+            executeFpVisitSchedules();
     }
 
     private void executeChildVisitSchedules() {
@@ -85,8 +89,6 @@ public class SchedulesIntentService extends IntentService {
     }
 
     private void executeWashCheckSchedules() {
-        if (!ChwApplication.getApplicationFlavor().hasWashCheck()) return;
-
         Timber.v("Computing Wash Check schedules");
         ChwApplication.getInstance().getScheduleRepository().deleteScheduleByName(CoreConstants.SCHEDULE_TYPES.WASH_CHECK);
         List<String> baseEntityIDs = ScheduleDao.getActiveWashCheckFamilies();
@@ -99,8 +101,6 @@ public class SchedulesIntentService extends IntentService {
     }
 
     private void executeFpVisitSchedules() {
-        if (!ChwApplication.getApplicationFlavor().hasFamilyPlanning()) return;
-
         Timber.v("Computing Fp schedules");
         ChwApplication.getInstance().getScheduleRepository().deleteScheduleByName(CoreConstants.SCHEDULE_TYPES.FP_VISIT);
         List<String> baseEntityIDs = ScheduleDao.getActiveFPWomen();
