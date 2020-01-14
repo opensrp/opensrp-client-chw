@@ -10,7 +10,6 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ScheduleDao;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
-import org.smartregister.chw.util.WashCheckFlv;
 
 import java.util.Date;
 import java.util.List;
@@ -86,8 +85,7 @@ public class SchedulesIntentService extends IntentService {
     }
 
     private void executeWashCheckSchedules() {
-        WashCheckFlv flv = new WashCheckFlv();
-        if (!flv.isWashCheckVisible()) return;
+        if (!ChwApplication.getApplicationFlavor().hasWashCheck()) return;
 
         Timber.v("Computing Wash Check schedules");
         ChwApplication.getInstance().getScheduleRepository().deleteScheduleByName(CoreConstants.SCHEDULE_TYPES.WASH_CHECK);

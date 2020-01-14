@@ -1,5 +1,6 @@
 package org.smartregister.chw.schedulers;
 
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.ScheduleService;
 import org.smartregister.chw.core.schedulers.ScheduleTaskExecutor;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -10,7 +11,6 @@ import org.smartregister.chw.task.FpVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
 import org.smartregister.chw.task.PNCVisitScheduler;
 import org.smartregister.chw.task.WashCheckScheduler;
-import org.smartregister.chw.util.WashCheckFlv;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +20,6 @@ import java.util.Map;
 public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
     private static ChwScheduleTaskExecutor scheduleTaskExecutor;
-    private WashCheckFlv washCheckFlv = new WashCheckFlv();
 
     public static ChwScheduleTaskExecutor getInstance() {
         if (scheduleTaskExecutor == null) {
@@ -44,7 +43,7 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
             initializeMalariaClassifier(scheduleServiceMap);
             initializeFPClassifier(scheduleServiceMap);
 
-            if (washCheckFlv.isWashCheckVisible())
+            if (ChwApplication.getApplicationFlavor().hasWashCheck())
                 initializeWashClassifier(scheduleServiceMap);
         }
         return scheduleServiceMap;
