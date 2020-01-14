@@ -25,4 +25,14 @@ public class DefaultChwApplicationFlv implements ChwApplication.Flavor {
     public boolean hasChildSickForm() {
         return false;
     }
+
+    @Override
+    public boolean hasFamilyPlanning() {
+        return false;
+    }
+
+    @Override
+    public boolean hasWashCheck() {
+        return true;
+    }
 }

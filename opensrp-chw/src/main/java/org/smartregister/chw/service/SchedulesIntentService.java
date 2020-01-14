@@ -27,8 +27,6 @@ public class SchedulesIntentService extends IntentService {
      * Used to name the worker thread, important only for debugging.
      */
 
-    private Flavor flavor = new SchedulesIntentServiceFlv();
-
     public SchedulesIntentService() {
         super("SchedulesIntentService");
     }
@@ -103,7 +101,7 @@ public class SchedulesIntentService extends IntentService {
     }
 
     private void executeFpVisitSchedules() {
-        if (!flavor.hasFamilyPlanning()) return;
+        if (!ChwApplication.getApplicationFlavor().hasFamilyPlanning()) return;
 
         Timber.v("Computing Fp schedules");
         ChwApplication.getInstance().getScheduleRepository().deleteScheduleByName(CoreConstants.SCHEDULE_TYPES.FP_VISIT);
@@ -114,10 +112,6 @@ public class SchedulesIntentService extends IntentService {
             Timber.v("  Computing Fp schedules for %s", baseID);
             ChwScheduleTaskExecutor.getInstance().execute(baseID, FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, new Date());
         }
-    }
-
-    public interface Flavor {
-        boolean hasFamilyPlanning();
     }
 
 }
