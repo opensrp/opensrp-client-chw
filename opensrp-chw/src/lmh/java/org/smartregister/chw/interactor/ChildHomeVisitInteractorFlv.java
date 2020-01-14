@@ -20,9 +20,6 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
             evaluateDeworming(serviceWrapperMap);
             evaluateBirthCertForm();
             evaluateMUAC();
-            evaluateDietary();
-            evaluateECD();
-            evaluateLLITN();
             evaluateObsAndIllness();
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
