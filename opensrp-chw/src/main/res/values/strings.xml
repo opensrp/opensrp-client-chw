@@ -332,5 +332,6 @@
     <string name="cancel_download_confirmation">Are you sure you want to cancel this download?</string>
     <string name="cancel_download">Cancel Download</string>
 
+    <string name="typhoid">Typhoid</string>
 
 </resources>
