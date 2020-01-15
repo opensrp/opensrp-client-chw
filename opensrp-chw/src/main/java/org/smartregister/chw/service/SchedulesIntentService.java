@@ -61,6 +61,7 @@ public class SchedulesIntentService extends IntentService {
         for (String baseID : baseEntityIDs) {
             Timber.v("  Computing child schedules for %s", baseID);
             ChwScheduleTaskExecutor.getInstance().execute(baseID, CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
+            ChildAlertService.updateAlerts(baseID);
         }
     }
 

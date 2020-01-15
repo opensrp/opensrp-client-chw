@@ -36,7 +36,7 @@ public class ScheduleDao extends AbstractDao {
     }
 
     public static @Nullable List<String> getActiveFPWomen() {
-       String sql = "select base_entity_id from ec_family_planning where is_closed = 0";
+        String sql = "select base_entity_id from ec_family_planning where is_closed = 0";
 
         DataMap<String> dataMap = c -> getCursorValue(c, "base_entity_id");
         return AbstractDao.readData(sql, dataMap);
