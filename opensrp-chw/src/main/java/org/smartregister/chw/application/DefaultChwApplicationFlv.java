@@ -35,4 +35,9 @@ public class DefaultChwApplicationFlv implements ChwApplication.Flavor {
     public boolean hasWashCheck() {
         return true;
     }
+
+    @Override
+    public boolean hasRoutineVisit() {
+        return false;
+    }
 }

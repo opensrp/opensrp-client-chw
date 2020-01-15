@@ -1,12 +1,12 @@
 package org.smartregister.chw.schedulers;
 
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.ScheduleService;
 import org.smartregister.chw.core.schedulers.ScheduleTaskExecutor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.task.ANCVisitScheduler;
 import org.smartregister.chw.task.ChildHomeVisitScheduler;
+import org.smartregister.chw.task.RoutineHouseHoldVisitScheduler;
 import org.smartregister.chw.task.FpVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
 import org.smartregister.chw.task.PNCVisitScheduler;
@@ -41,10 +41,9 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
             initializeANCClassifier(scheduleServiceMap);
             initializePNCClassifier(scheduleServiceMap);
             initializeMalariaClassifier(scheduleServiceMap);
+            initializeWashClassifier(scheduleServiceMap);
             initializeFPClassifier(scheduleServiceMap);
-
-            if (ChwApplication.getApplicationFlavor().hasWashCheck())
-                initializeWashClassifier(scheduleServiceMap);
+            initializeRoutineHouseholdClassifier(scheduleServiceMap);
         }
         return scheduleServiceMap;
     }
@@ -100,6 +99,12 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         classifier.put(FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT, scheduleServices);
         classifier.put(FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, scheduleServices);
         classifier.put(FamilyPlanningConstants.EventType.FAMILY_PLANNING_CHANGE_METHOD, scheduleServices);
+    }
 
+    private void initializeRoutineHouseholdClassifier(Map<String, List<ScheduleService>> classifier) {
+        List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new RoutineHouseHoldVisitScheduler());
+
+        classifier.put(CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT, scheduleServices);
     }
 }

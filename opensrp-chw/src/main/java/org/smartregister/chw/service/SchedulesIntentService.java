@@ -50,6 +50,9 @@ public class SchedulesIntentService extends IntentService {
         // execute all fp schedules
         if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
             executeFpVisitSchedules();
+
+        if (ChwApplication.getApplicationFlavor().hasRoutineVisit())
+            executeRoutineHouseholdSchedules();
     }
 
     private void executeChildVisitSchedules() {
@@ -92,7 +95,7 @@ public class SchedulesIntentService extends IntentService {
     private void executeWashCheckSchedules() {
         Timber.v("Computing Wash Check schedules");
         ChwApplication.getInstance().getScheduleRepository().deleteScheduleByName(CoreConstants.SCHEDULE_TYPES.WASH_CHECK);
-        List<String> baseEntityIDs = ScheduleDao.getActiveWashCheckFamilies();
+        List<String> baseEntityIDs = ScheduleDao.getActiveFamilies();
         if (baseEntityIDs == null) return;
 
         for (String baseID : baseEntityIDs) {
@@ -110,6 +113,18 @@ public class SchedulesIntentService extends IntentService {
         for (String baseID : baseEntityIDs) {
             Timber.v("  Computing Fp schedules for %s", baseID);
             ChwScheduleTaskExecutor.getInstance().execute(baseID, FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, new Date());
+        }
+    }
+
+    private void executeRoutineHouseholdSchedules() {
+        Timber.v("Computing Routine household schedules");
+        ChwApplication.getInstance().getScheduleRepository().deleteScheduleByName(CoreConstants.SCHEDULE_TYPES.ROUTINE_HOUSEHOLD_VISIT);
+        List<String> baseEntityIDs = ScheduleDao.getActiveFamilies();
+        if (baseEntityIDs == null) return;
+
+        for (String baseID : baseEntityIDs) {
+            Timber.v("  Computing Routine household schedules for %s", baseID);
+            ChwScheduleTaskExecutor.getInstance().execute(baseID, CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT, new Date());
         }
     }
 
