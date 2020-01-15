@@ -23,7 +23,7 @@
             {
               "reference": "dob",
               "offset": "+0d",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -53,7 +53,7 @@
             {
               "reference": "dob",
               "offset": "+0d",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -90,7 +90,7 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -120,7 +120,7 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -150,7 +150,7 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -180,7 +180,7 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -218,7 +218,7 @@
               "reference": "prerequisite",
               "prerequisite": "OPV 1",
               "offset": "+28d",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -249,7 +249,7 @@
               "reference": "prerequisite",
               "prerequisite": "Penta 1",
               "offset": "+28d",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -280,7 +280,7 @@
               "reference": "prerequisite",
               "prerequisite": "PCV 1",
               "offset": "+28d",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -311,7 +311,7 @@
               "reference": "prerequisite",
               "prerequisite": "Rota 1",
               "offset": "+28d",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -349,7 +349,7 @@
               "reference": "prerequisite",
               "prerequisite": "OPV 2",
               "offset": "+28d",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -380,7 +380,7 @@
               "reference": "prerequisite",
               "prerequisite": "Penta 2",
               "offset": "+28d",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -411,38 +411,7 @@
               "reference": "prerequisite",
               "prerequisite": "PCV 2",
               "offset": "+28d",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
-            }
-          ]
-        }
-      },
-      {
-        "name": "Rota 3",
-        "type": "Rota",
-        "openmrs_date": {
-          "parent_entity": "159698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "openmrs_calculate": {
-          "parent_entity": "159698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 3
-        },
-        "schedule": {
-          "due": [
-            {
-              "reference": "prerequisite",
-              "prerequisite": "Rota 2",
-              "offset": "+28d",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -472,7 +441,7 @@
             {
               "reference": "dob",
               "offset": "+98d",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -509,7 +478,7 @@
             {
               "reference": "dob",
               "offset": "+9m",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -521,15 +490,15 @@
         }
       },
       {
-        "name": "Rubella 1",
-        "type": "Rubella",
+        "name": "Typhoid",
+        "type": "Typhoid",
         "openmrs_date": {
-          "parent_entity": "83563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "86022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "openmrs_calculate": {
-          "parent_entity": "83563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "86022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "calculation": 1
@@ -539,7 +508,7 @@
             {
               "reference": "dob",
               "offset": "+9m",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -569,37 +538,7 @@
             {
               "reference": "dob",
               "offset": "+9m",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
-            }
-          ]
-        }
-      },
-      {
-        "name": "MenA",
-        "type": "MenA",
-        "openmrs_date": {
-          "parent_entity": "79549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "openmrs_calculate": {
-          "parent_entity": "79549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 1
-        },
-        "schedule": {
-          "due": [
-            {
-              "reference": "dob",
-              "offset": "+9m",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
@@ -636,37 +575,7 @@
             {
               "reference": "dob",
               "offset": "+15m",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
-            }
-          ]
-        }
-      },
-      {
-        "name": "Rubella 2",
-        "type": "Rubella",
-        "openmrs_date": {
-          "parent_entity": "83563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "openmrs_calculate": {
-          "parent_entity": "83563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 2
-        },
-        "schedule": {
-          "due": [
-            {
-              "reference": "dob",
-              "offset": "+15m",
-              "window": "+14d"
+              "window": "+5d"
             }
           ],
           "expiry": [
