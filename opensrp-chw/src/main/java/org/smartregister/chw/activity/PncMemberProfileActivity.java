@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -20,6 +21,7 @@ import org.smartregister.chw.contract.PncMemberProfileContract;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
+import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.interactor.CorePncMemberProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
@@ -34,6 +36,7 @@ import org.smartregister.chw.interactor.PncMemberProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.presenter.PncMemberProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.clientandeventmodel.Client;
@@ -51,6 +54,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -372,6 +376,21 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     protected void startMalariaFollowUpVisit() {
         MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, memberObject.getBaseEntityId());
+    }
+
+    @Override
+    protected void getRemoveBabyMenuItem(MenuItem item) {
+        if (getChildren(memberObject).size() > 0) {
+            for (CommonPersonObjectClient child : getChildren(memberObject)) {
+                for (Map.Entry<String, String> entry : menuItemRemoveNames.entrySet()) {
+                    if (entry.getKey().equalsIgnoreCase(item.getTitle().toString()) && entry.getValue().equalsIgnoreCase(child.entityId())) {
+                        IndividualProfileRemoveActivity.startIndividualProfileActivity(PncMemberProfileActivity.this, child,
+                               memberObject.getFamilyBaseEntityId()
+                                , memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), ChildRegisterActivity.class.getCanonicalName());
+                    }
+                }
+            }
+        }
     }
 
     public interface Flavor {
