@@ -1,20 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.smartregister.chw">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".application.ChwApplication"
         android:allowBackup="true"
         android:supportsRtl="true"
-        android:theme="@style/ChwTheme">
-
+        android:theme="@style/ChwTheme"
+        tools:replace="android:theme">
+        <activity
+            android:name=".activity.FamilyPlanningMemberProfileActivity"
+            android:label="@string/family_planning"
+            android:theme="@style/ChwTheme.NoActionBar"
+            />
         <activity
             android:name=".activity.AncUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.FpUpcomingServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.AncMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
         <activity
             android:name=".core.activity.BaseChildMedicalHistory"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -45,9 +74,10 @@
         <activity
             android:name=".activity.MalariaRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
+        <activity
+            android:name=".activity.FpRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
         <activity android:name=".core.activity.ChwP2pModeSelectActivity" />
-
         <activity
             android:name=".activity.JobAidsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -91,11 +121,9 @@
         <activity
             android:name=".activity.ChildRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
         <activity
             android:name=".activity.ChildHomeVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
         <activity
             android:name=".activity.ChildProfileActivity"
             android:label="@string/child_details"
@@ -114,6 +142,9 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.IndividualProfileRemoveActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ClientReferralActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.LoginActivity"
@@ -142,13 +173,18 @@
             android:name=".core.activity.CoreAncRegisterActivity"
             android:label="@string/anc_register"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MalariaUpcomingServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity android:name=".activity.FpFollowUpVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -160,40 +196,20 @@
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
-        <service android:name="org.smartregister.sync.intent.SyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
-        <service android:name="org.smartregister.chw.anc.intent.HomeVisitIntentService" />
+        <service android:name=".anc.intent.HomeVisitIntentService" />
         <service android:name="org.smartregister.sync.intent.SyncTaskIntentService" />
         <service android:name="org.smartregister.sync.intent.PlanIntentService" />
-        <service android:name="org.smartregister.chw.intent.ChwPncCloseDateIntent" />
+        <service android:name=".intent.ChwPncCloseDateIntent" />
         <service android:name="org.smartregister.reporting.service.IndicatorGeneratorIntentService" />
+        <service android:name=".service.SchedulesIntentService" />
+        <service android:name=".sync.ChwSyncIntentService" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
-
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.camera.autofocus"
-        android:required="false" />
-
-    <uses-feature
-        android:name="android.hardware.telephony"
-        android:required="false" />
-
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <uses-permission android:name="android.permission.CALL_PHONE" />
 
 </manifest>

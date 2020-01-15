@@ -1,0 +1,77 @@
+---
+name: step1_cocpop_side_effects
+description: coc pop side effects
+priority: 1
+condition: "step1_fp_method.contains('COC') || step1_fp_method.contains('POP') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_cocpop_side_effects_other
+description: coc pop side effects other
+priority: 1
+condition: "step1_cocpop_side_effects.contains('Others') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_condom_side_effects
+description: condom side effects
+priority: 1
+condition: "step1_fp_method.contains('Female condom') || step1_fp_method.contains('Male condom') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_condom_side_effects_other
+description: condom side effects other
+priority: 1
+condition: "step1_condom_side_effects.contains('Others') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_sterilization_side_effects
+description: female sterilization side effects
+priority: 1
+condition: "step1_fp_method.contains('Female sterilization')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_sterilization_side_effects_other
+description: female sterilization side effects other
+priority: 1
+condition: "step1_sterilization_side_effects.contains('Others') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_inject_side_effects
+description: injectable side effects
+priority: 1
+condition: "step1_fp_method.contains('Injectable')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_inject_side_effects_other
+description: injectable side effects other
+priority: 1
+condition: "step1_inject_side_effects.contains('Others') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_IUCD_side_effects
+description: iucd side effects
+priority: 1
+condition: "step1_fp_method.contains('IUCD')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_IUCD_side_effects_other
+description: iucd side effects other
+priority: 1
+condition: "step1_IUCD_side_effects.contains('Others') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_action_taken
+description: action taken
+priority: 1
+condition: "!(step1_condom_side_effects.contains('None') || step1_cocpop_side_effects.contains('None') || step1_inject_side_effects.contains('None') || step1_IUCD_side_effects.contains('None') || step1_sterilization_side_effects.contains('None'))"
+actions:
+  - "isRelevant = true"

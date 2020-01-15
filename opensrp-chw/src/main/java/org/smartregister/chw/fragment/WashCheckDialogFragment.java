@@ -1,42 +1,53 @@
 package org.smartregister.chw.fragment;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.text.TextUtils;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.util.Utils;
+import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.dao.WashCheckDao;
 import org.smartregister.util.JsonFormUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class WashCheckDialogFragment extends DialogFragment implements View.OnClickListener {
 
     public static final String DIALOG_TAG = "WashCheckDialogFragment";
-    private static final String EXTRA_DETAILS = "wash_details";
+    private static final String BASE_ENTITY_ID = "base_entity_id";
+    private static final String VISIT_DATE = "visit_date";
 
-
-    private String jsonData;
+    private Long washCheckDate;
+    private String baseEntityID;
     private RadioButton handwashingYes, handwashingNo, drinkingYes, drinkingNo;
     private RadioButton latrineYes, latrineNo;
-    private Activity activity;
+    private Map<String, Boolean> selectedOptions = new HashMap<>();
 
-    public static WashCheckDialogFragment getInstance(String jsonString) {
+    public static WashCheckDialogFragment getInstance(String familyBaseEntityID, Long visitDate) {
         WashCheckDialogFragment washCheckDialogFragment = new WashCheckDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(EXTRA_DETAILS, jsonString);
+        bundle.putString(BASE_ENTITY_ID, familyBaseEntityID);
+        bundle.putLong(VISIT_DATE, visitDate);
         washCheckDialogFragment.setArguments(bundle);
         return washCheckDialogFragment;
     }
@@ -44,7 +55,6 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity = (Activity) context;
     }
 
     @Override
@@ -73,7 +83,10 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        jsonData = getArguments().getString(EXTRA_DETAILS);
+
+        baseEntityID = getArguments().getString(BASE_ENTITY_ID);
+        washCheckDate = getArguments().getLong(VISIT_DATE);
+
         handwashingYes = view.findViewById(R.id.choice_1_handwashing);
         handwashingNo = view.findViewById(R.id.choice_2_handwashing);
         drinkingYes = view.findViewById(R.id.choice_1_drinking);
@@ -81,52 +94,89 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
         latrineYes = view.findViewById(R.id.choice_1_latrine);
         latrineNo = view.findViewById(R.id.choice_2_latrine);
         view.findViewById(R.id.close).setOnClickListener(this);
-        parseData();
+
+
+        Observable<String> observable = Observable.create(e -> {
+            Map<String, VisitDetail> washData = WashCheckDao.getWashCheckDetails(washCheckDate, baseEntityID);
+            if (washData.get("details_info") != null) {
+                parseOldData(washData.get("details_info").getDetails());
+            } else {
+                for (Map.Entry<String, VisitDetail> entry : washData.entrySet()) {
+                    String value = NCUtils.getText(entry.getValue());
+                    selectedOptions.put(entry.getKey(), "Yes".equalsIgnoreCase(value));
+                }
+            }
+
+            e.onNext("");
+            e.onComplete();
+        });
+
+        final Disposable[] disposable = new Disposable[1];
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable[0] = d;
+            }
+
+            @Override
+            public void onNext(String s) {
+                refreshUI();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Timber.e(e);
+            }
+
+            @Override
+            public void onComplete() {
+                disposable[0].dispose();
+                disposable[0] = null;
+            }
+        });
     }
 
-    private void parseData() {
-        String handwashingValue = "";
-        String drinkingValue = "";
-        String latrineValue = "";
-
+    private void parseOldData(String jsonData) {
         try {
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray field = JsonFormUtils.fields(jsonObject);
-            JSONObject handwashing_facilities = JsonFormUtils.getFieldJSONObject(field, "handwashing_facilities");
-            handwashingValue = handwashing_facilities.optString(JsonFormUtils.VALUE);
-            JSONObject drinking_water = JsonFormUtils.getFieldJSONObject(field, "drinking_water");
-            drinkingValue = drinking_water.optString(JsonFormUtils.VALUE);
-            JSONObject hygienic_latrine = JsonFormUtils.getFieldJSONObject(field, "hygienic_latrine");
-            latrineValue = hygienic_latrine.optString(JsonFormUtils.VALUE);
 
+            selectedOptions.put("handwashing_facilities", getValueFromJsonFieldNode(field, "handwashing_facilities"));
+            selectedOptions.put("drinking_water", getValueFromJsonFieldNode(field, "drinking_water"));
+            selectedOptions.put("hygienic_latrine", getValueFromJsonFieldNode(field, "hygienic_latrine"));
         } catch (Exception e) {
             Timber.e(e);
         }
-        if (!TextUtils.isEmpty(handwashingValue)) {
-            if ((Utils.getYesNoAsLanguageSpecific(activity, handwashingValue).equalsIgnoreCase(getString(R.string.yes)))) {
-                handwashingYes.setChecked(true);
-                handwashingNo.setEnabled(false);
+    }
+
+    private Boolean getValueFromJsonFieldNode(JSONArray field, String key) {
+        JSONObject jsonObject = JsonFormUtils.getFieldJSONObject(field, key);
+        if (jsonObject == null)
+            return null;
+
+        String value = jsonObject.optString(JsonFormUtils.VALUE);
+        if (StringUtils.isBlank(value))
+            return null;
+
+        return "Yes".equalsIgnoreCase(value) || "Oui".equalsIgnoreCase(value);
+    }
+
+    private void refreshUI() {
+        notifyUIValues(handwashingYes, handwashingNo, "handwashing_facilities");
+        notifyUIValues(drinkingYes, drinkingNo, "drinking_water");
+        notifyUIValues(latrineYes, latrineNo, "hygienic_latrine");
+    }
+
+    private void notifyUIValues(RadioButton radioButtonYes, RadioButton radioButtonNo, String optionName) {
+        Boolean handWashing = selectedOptions.get(optionName);
+
+        if (handWashing != null) {
+            if (handWashing) {
+                radioButtonYes.setChecked(true);
+                radioButtonNo.setEnabled(false);
             } else {
-                handwashingNo.setChecked(true);
-                handwashingYes.setEnabled(false);
-            }
-        }
-        if (!TextUtils.isEmpty(drinkingValue)) {
-            if (((Utils.getYesNoAsLanguageSpecific(activity, drinkingValue).equalsIgnoreCase(getString(R.string.yes))))) {
-                drinkingYes.setChecked(true);
-                drinkingNo.setEnabled(false);
-            } else {
-                drinkingNo.setChecked(true);
-                drinkingYes.setEnabled(false);
-            }
-        }
-        if (!TextUtils.isEmpty(latrineValue)) {
-            if (((Utils.getYesNoAsLanguageSpecific(activity, latrineValue).equalsIgnoreCase(getString(R.string.yes))))) {
-                latrineYes.setChecked(true);
-                latrineNo.setEnabled(false);
-            } else {
-                latrineNo.setChecked(true);
-                latrineYes.setEnabled(false);
+                radioButtonNo.setChecked(true);
+                radioButtonYes.setEnabled(false);
             }
         }
     }

@@ -2,12 +2,12 @@ package org.smartregister.chw.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.AsyncTaskLoader;
+import androidx.loader.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,9 +102,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     public void buildVisualization(ViewGroup viewGroup) {
         //Refresh view with new indicators
         viewGroup.removeAllViews();
-        ChwReport.createChildReportViews(viewGroup, indicatorTallies);
-        ChwReport.createAncReportViews(viewGroup, indicatorTallies);
-        ChwReport.createPncReportViews(viewGroup, indicatorTallies);
+        ChwReport.showIndicatorVisualisations(viewGroup, indicatorTallies);
     }
 
     public List<Map<String, IndicatorTally>> getIndicatorTallies() {

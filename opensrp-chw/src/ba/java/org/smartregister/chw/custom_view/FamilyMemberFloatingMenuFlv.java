@@ -1,6 +1,6 @@
 package org.smartregister.chw.custom_view;
 
-import android.support.design.widget.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.smartregister.chw.R;
 

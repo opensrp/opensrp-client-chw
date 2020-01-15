@@ -9,9 +9,9 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.anc.util.Constants;
-import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.chw.core.interactor.CoreAncMemberProfileInteractor;
-import org.smartregister.chw.util.ScheduleUtil;
+import org.smartregister.chw.dao.FamilyDao;
+import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
 
@@ -23,6 +23,7 @@ import java.util.List;
 import timber.log.Timber;
 
 public class AncMemberProfileInteractor extends CoreAncMemberProfileInteractor {
+
     public AncMemberProfileInteractor(Context context) {
         super(context);
     }
@@ -38,7 +39,7 @@ public class AncMemberProfileInteractor extends CoreAncMemberProfileInteractor {
         Runnable runnable = new Runnable() {
 
             Date lastVisitDate = getLastVisitDate(memberObject);
-            AlertStatus familyAlert = ScheduleUtil.getFamilyAlertStatus(context, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
+            AlertStatus familyAlert = FamilyDao.getFamilyAlertStatus(memberObject.getBaseEntityId());
             Alert upcomingService = getAlerts(context, memberObject);
 
             @Override
@@ -71,7 +72,7 @@ public class AncMemberProfileInteractor extends CoreAncMemberProfileInteractor {
                         memberObject.getBaseEntityId(),
                         baseUpcomingService.getServiceName(),
                         baseUpcomingService.getServiceName(),
-                        baseUpcomingService.getServiceDate().before(new Date()) ? AlertStatus.urgent : AlertStatus.normal,
+                        baseUpcomingService.getServiceDate().before(new LocalDate().toDate()) ? AlertStatus.urgent : AlertStatus.normal,
                         AbstractDao.getDobDateFormat().format(baseUpcomingService.getServiceDate()),
                         "",
                         true

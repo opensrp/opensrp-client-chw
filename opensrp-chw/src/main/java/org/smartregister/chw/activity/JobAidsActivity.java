@@ -1,12 +1,17 @@
 package org.smartregister.chw.activity;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.os.Bundle;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.android.material.tabs.TabLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +23,7 @@ import com.github.ybq.android.spinkit.style.FadingCircle;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -28,6 +34,7 @@ import org.smartregister.chw.listener.JobsAidsBottomNavigationListener;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.reporting.domain.TallyStatus;
 import org.smartregister.reporting.event.IndicatorTallyEvent;
+import org.smartregister.util.PermissionUtils;
 
 import timber.log.Timber;
 
@@ -68,7 +75,7 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         }
     }
 
-    public class SectionsPagerAdapter extends android.support.v4.app.FragmentStatePagerAdapter {
+    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -107,6 +114,16 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         setContentView(R.layout.activity_job_aids);
         setUpView();
         registerBottomNavigation();
+
+
+        String[] request_permissions = new String[]{
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+        };
+        boolean hasPermission = PermissionUtils.isPermissionGranted(this, request_permissions, PermissionUtils.READ_EXTERNAL_STORAGE_REQUEST_CODE);
+        if (hasPermission) ChwApplication.prepareGuideBooksFolder();
+
+        ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
     }
 
     private void setUpView() {
@@ -169,7 +186,7 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         if (!BuildConfig.SUPPORT_QR)
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
 
-        if(!BuildConfig.SUPPORT_REPORT)
+        if (!BuildConfig.SUPPORT_REPORT)
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_job_aids);
 
     }
@@ -185,5 +202,25 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         Toast.makeText(getApplicationContext(), getString(R.string.indicators_udpating), Toast.LENGTH_LONG).show();
     }
 
+    public void showPermissionDeniedDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.permission_denied))
+                .setMessage(getString(R.string.storage_permissions_message))
+                .setPositiveButton(getString(R.string.no), (dialog, which) -> ActivityCompat.requestPermissions(this, new String[]{
+                        Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PermissionUtils.READ_EXTERNAL_STORAGE_REQUEST_CODE))
+                .setNegativeButton(getString(R.string.yes), (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        boolean granted = PermissionUtils.verifyPermissionGranted(permissions, grantResults, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (!granted) {
+            showPermissionDeniedDialog();
+        } else {
+            ChwApplication.prepareGuideBooksFolder();
+        }
+    }
 
 }

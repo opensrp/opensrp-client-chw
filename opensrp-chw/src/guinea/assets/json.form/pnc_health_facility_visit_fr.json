@@ -110,7 +110,7 @@
           "value": "false",
           "err": "Required"
         },
-        "v_numeric_integer": {
+        "v_numeric": {
           "value": "true",
           "err": "Doit être un nombre arrondi"
         },
@@ -141,7 +141,7 @@
           "value": "false",
           "err": "Required"
         },
-        "v_numeric_integer": {
+        "v_numeric": {
           "value": "true",
           "err": "Doit être un nombre arrondi"
         },
@@ -171,6 +171,13 @@
         "read_only": "true",
         "hidden": "true",
         "value": "0"
+      },
+      {
+        "key": "pnc_hf_next_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pnc_hf_next_visit_date",
+        "type": "spacer"
       }
     ]
   }

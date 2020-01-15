@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
@@ -17,17 +18,25 @@ import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.chw.dao.MalariaDao;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.family.util.Constants;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.List;
 
 public class ChildProfileActivity extends CoreChildProfileActivity {
     public FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new ChildProfileActivityFlv();
+    private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+
+    public List<ReferralTypeModel> getReferralTypeModels() {
+        return referralTypeModels;
+    }
+
 
     @Override
     protected void onCreation() {
@@ -37,6 +46,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         setupViews();
         setUpToolbar();
         registerReceiver(mDateTimeChangedReceiver, sIntentFilter);
+        if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
+            addChildReferralTypes();
+        }
     }
 
     @Override
@@ -53,6 +65,13 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
             openFamilyDueTab();
         } else if (i == R.id.textview_edit) {
             openVisitHomeScreen(true);
+        }
+        if (i == R.id.textview_visit_not) {
+            presenter().updateVisitNotDone(System.currentTimeMillis());
+            imageViewCrossChild.setVisibility(View.VISIBLE);
+            imageViewCrossChild.setImageResource(R.drawable.activityrow_notvisited);
+        } else if (i == R.id.textview_undo) {
+            presenter().updateVisitNotDone(0);
         }
     }
 
@@ -79,7 +98,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
         familyFloatingMenu.setClickListener(onClickFloatingMenu);
         fetchProfileData();
-
     }
 
     @Override
@@ -111,27 +129,26 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        if (flavor.showMalariaConfirmationMenu()) {
-            menu.findItem(R.id.action_malaria_registration).setVisible(true);
-        } else {
-            menu.findItem(R.id.action_malaria_registration).setVisible(false);
-        }
-        if (flavor.showFollowUpVisit()) {
-            menu.findItem(R.id.action_malaria_followup_visit).setVisible(true);
-        } else {
-            menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
-        }
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         return true;
     }
 
-    private void openMedicalHistoryScreen() {
-        Map<String, Date> vaccine = ((ChildProfilePresenter) presenter()).getVaccineList();
-        ChildMedicalHistoryActivity.startMedicalHistoryActivity(this, ((ChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
-                ((ChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine), ChildMedicalHistoryActivity.class);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED && resultCode == Activity.RESULT_OK) {
+            Intent intent = new Intent(ChildProfileActivity.this, ChildProfileActivity.class);
+            intent.putExtras(getIntent().getExtras());
+            startActivity(intent);
+            finish();
+        }
+        ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
+    }
 
+    private void openMedicalHistoryScreen() {
+        ChildMedicalHistoryActivity.startMe(this, memberObject);
     }
 
     private void openUpcomingServicePage() {
@@ -155,17 +172,15 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         startActivity(intent);
     }
 
-    public interface Flavor {
-        OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
-
-        boolean showMalariaConfirmationMenu();
-
-        boolean showFollowUpVisit();
+    private void addChildReferralTypes() {
+        referralTypeModels.add(new ReferralTypeModel(getString(R.string.sick_child),
+                org.smartregister.chw.util.Constants.JSON_FORM.getChildReferralForm()));
+        if (MalariaDao.isRegisteredForMalaria(childBaseEntityId)) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
+        }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
+    public interface Flavor {
+        OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
     }
 }

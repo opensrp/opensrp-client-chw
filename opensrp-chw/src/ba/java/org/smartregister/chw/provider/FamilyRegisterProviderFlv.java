@@ -5,4 +5,7 @@ public class FamilyRegisterProviderFlv extends DefaultFamilyRegisterProviderFlv 
     public boolean hasMalaria() {
         return true;
     }
+
+    @Override
+    public boolean hasFp(){return true;}
 }

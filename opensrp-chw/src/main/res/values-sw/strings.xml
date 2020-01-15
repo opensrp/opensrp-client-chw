@@ -172,6 +172,12 @@
     <string name="nutrition_status">Hali</string>
     <string name="counselling">Ushauri</string>
 
+    <string name="normal">Kawaida</string>
+    <string name="moderate">Dhaifu</string>
+    <string name="severe">Dhaifu sana</string>
+    <string name="okay">Nzima</string>
+    <string name="bad">Mbovu</string>
+
     <string name="uses_net">Hutumia Chandarua</string>
     <string name="slept_under_net">Amelala kwenye chandarua</string>
     <string name="net_condition">Hali ya chandarua kinachotumika</string>
@@ -271,5 +277,9 @@
     <string name="deworming_number_dose">%s dozi ya tiba na kinga ya minyoo</string>
     <string name="vitamin_a_number_dose">%s dozi ya Vitamini A</string>
     <string name="mnp_number_pack">MNP %s pack</string>
+
+    <!--ANC Family Planning Ba-->
+    <string name="family_planning_done">Ushauri wa uzazi wa mpango kutoka kituo cha afya umefanyika</string>
+    <string name="family_planning_not_done">Ushauri wa uzazi wa mpango kutoka kituo cha afya haujakamilika</string>
 
 </resources>

@@ -1,6 +1,8 @@
 package org.smartregister.chw.application;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 
@@ -8,6 +10,9 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
@@ -18,10 +23,12 @@ import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
+import org.smartregister.chw.activity.FpRegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.loggers.CrashlyticsTree;
@@ -29,17 +36,22 @@ import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
+import org.smartregister.chw.fp.FpLibrary;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.repository.ChwRepository;
+import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.sync.ChwClientProcessor;
+import org.smartregister.chw.util.FileUtils;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.domain.FamilyMetadata;
+import org.smartregister.family.util.Constants;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
@@ -94,11 +106,12 @@ public class ChwApplication extends CoreChwApplication {
 
         // init libraries
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        ConfigurableViewsLibrary.init(context, getRepository());
-        FamilyLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        ConfigurableViewsLibrary.init(context);
+        FamilyLibrary.init(context, getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         AncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        FpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         SyncStatusBroadcastReceiver.init(this);
 
@@ -132,6 +145,38 @@ public class ChwApplication extends CoreChwApplication {
             saveLanguage(Locale.FRENCH.getLanguage());
         }
 
+        // create a folder for guidebooks
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                prepareGuideBooksFolder();
+            }
+        } else {
+            prepareGuideBooksFolder();
+        }
+
+        EventBus.getDefault().register(this);
+    }
+
+    public static void prepareGuideBooksFolder() {
+        String rootFolder = getGuideBooksDirectory();
+        createFolders(rootFolder, false);
+        boolean onSdCard = FileUtils.canWriteToExternalDisk();
+        if (onSdCard)
+            createFolders(rootFolder, true);
+    }
+
+    private static void createFolders(String rootFolder, boolean onSdCard) {
+        try {
+            FileUtils.createDirectory(rootFolder, onSdCard);
+        } catch (Exception e) {
+            Timber.v(e);
+        }
+    }
+
+    public static String getGuideBooksDirectory() {
+        String[] packageName = ChwApplication.getInstance().getContext().applicationContext().getPackageName().split("\\.");
+        String suffix = packageName[packageName.length - 1];
+        return "opensrp_guidebooks_" + (suffix.equalsIgnoreCase("chw") ? "liberia" : suffix);
     }
 
     @Override
@@ -147,7 +192,13 @@ public class ChwApplication extends CoreChwApplication {
 
     @Override
     public FamilyMetadata getMetadata() {
-        return FormUtils.getFamilyMetadata(new FamilyProfileActivity(), getDefaultLocationLevel(), getFacilityHierarchy(), getFamilyLocationFields());
+        FamilyMetadata metadata = FormUtils.getFamilyMetadata(new FamilyProfileActivity(), getDefaultLocationLevel(), getFacilityHierarchy(), getFamilyLocationFields());
+
+        HashMap<String, String> setting = new HashMap<>();
+        setting.put(Constants.CustomConfig.FAMILY_FORM_IMAGE_STEP, JsonFormUtils.STEP1);
+        setting.put(Constants.CustomConfig.FAMILY_MEMBER_FORM_IMAGE_STEP, JsonFormUtils.STEP2);
+        metadata.setCustomConfigs(setting);
+        return metadata;
     }
 
     @Override
@@ -173,6 +224,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, PncRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, MalariaRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FP_REGISTER_ACTIVITY, FpRegisterActivity.class);
         return registeredActivities;
     }
 
@@ -195,7 +247,21 @@ public class ChwApplication extends CoreChwApplication {
         );
     }
 
+    public boolean hasReferrals() {
+        return flavor.hasReferrals();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onVisitEvent(Visit visit) {
+        if (visit != null) {
+            Timber.v("Visit Submitted re processing Schedule for event ' %s '  : %s", visit.getVisitType(), visit.getBaseEntityId());
+            ChwScheduleTaskExecutor.getInstance().execute(visit.getBaseEntityId(), visit.getVisitType(), visit.getDate());
+        }
+    }
+
     interface Flavor {
         boolean hasP2P();
+
+        boolean hasReferrals();
     }
 }

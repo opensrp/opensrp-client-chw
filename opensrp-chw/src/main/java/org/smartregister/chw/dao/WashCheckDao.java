@@ -3,13 +3,16 @@ package org.smartregister.chw.dao;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.chw.core.dao.AbstractDao;
+import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.mvel2.DataConversion.convert;
 
@@ -36,6 +39,35 @@ public class WashCheckDao extends AbstractDao {
             return new ArrayList<>();
 
         return res;
+    }
+
+    public static Map<String, VisitDetail> getWashCheckDetails(Long washDate, String baseEntityID) {
+        String sql = "select v.visit_date,  vd.visit_key , vd.parent_code , vd.preprocessed_type , vd.details, vd.human_readable_details , vd.visit_id , v.base_entity_id from visits v " +
+                "inner join visit_details vd on vd.visit_id = v.visit_id and v.base_entity_id = '" + baseEntityID + "' " +
+                "where v.visit_date = " + washDate + " and v.visit_type = 'WASH check'";
+
+        Map<String, VisitDetail> map = new HashMap<>();
+
+        DataMap<VisitDetail> dataMap = c -> {
+            VisitDetail detail = new VisitDetail();
+            detail.setVisitId(getCursorValue(c, "visit_id"));
+            detail.setBaseEntityId(getCursorValue(c, "base_entity_id"));
+            detail.setVisitKey(getCursorValue(c, "visit_key"));
+            detail.setParentCode(getCursorValue(c, "parent_code"));
+            detail.setPreProcessedType(getCursorValue(c, "preprocessed_type"));
+            detail.setDetails(getCursorValue(c, "details"));
+            detail.setHumanReadable(getCursorValue(c, "human_readable_details"));
+
+            map.put(detail.getVisitKey(), detail);
+
+            return detail;
+        };
+
+        List<VisitDetail> res = AbstractDao.readData(sql, dataMap);
+        if (res == null || res.size() == 0)
+            return new HashMap<>();
+
+        return map;
     }
 
     public static List<EventClient> getWashCheckEvents(SQLiteDatabase db) {

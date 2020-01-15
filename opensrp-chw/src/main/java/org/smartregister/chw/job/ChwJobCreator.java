@@ -1,7 +1,7 @@
 package org.smartregister.chw.job;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
@@ -9,6 +9,7 @@ import com.evernote.android.job.JobCreator;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
+import org.smartregister.chw.sync.ChwSyncIntentService;
 import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.P2pServiceJob;
@@ -16,7 +17,6 @@ import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
-import org.smartregister.sync.intent.SyncIntentService;
 import org.smartregister.sync.intent.SyncTaskIntentService;
 
 import timber.log.Timber;
@@ -30,7 +30,7 @@ public class ChwJobCreator implements JobCreator {
     public Job create(@NonNull String tag) {
         switch (tag) {
             case SyncServiceJob.TAG:
-                return new SyncServiceJob(SyncIntentService.class);
+                return new SyncServiceJob(ChwSyncIntentService.class);
             case ExtendedSyncServiceJob.TAG:
                 return new ExtendedSyncServiceJob();
             case PullUniqueIdsServiceJob.TAG:
@@ -51,6 +51,8 @@ public class ChwJobCreator implements JobCreator {
                 return new BasePncCloseJob();
             case SyncTaskServiceJob.TAG:
                 return new SyncTaskServiceJob(SyncTaskIntentService.class);
+            case ScheduleJob.TAG:
+                return new ScheduleJob();
             //TODO uncomment to enable plans
             /*case PlanIntentServiceJob.TAG:
                 return new PlanIntentServiceJob();*/

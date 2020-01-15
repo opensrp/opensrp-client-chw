@@ -21,15 +21,18 @@ public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements Fami
     }
 
     @Override
-    public Boolean onCreateOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_malaria_registration).setVisible(false);
-        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
-        return true;
+    public boolean isWra(CommonPersonObjectClient commonPersonObject) {
+        return isWomanOfReproductiveAge(commonPersonObject, 10, 49);
     }
 
     @Override
-    public boolean isWra(CommonPersonObjectClient commonPersonObject) {
-        return isWomanOfReproductiveAge(commonPersonObject, 10, 49);
+    public void updateFpMenuItems(String baseEntityId, Menu menu) {
+//        TODO implement if wcaro would need fp module
+    }
+
+    @Override
+    public void updateMalariaMenuItems(String baseEntityId, Menu menu) {
+//        TODO implement if wcaro would need malaria module
     }
 
 }

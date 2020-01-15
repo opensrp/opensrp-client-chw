@@ -5,4 +5,5 @@ public abstract class DefaultFamilyRegisterProviderFlv implements FamilyRegister
     public boolean hasMalaria() {
         return false;
     }
+    public boolean hasFp(){return false;}
 }

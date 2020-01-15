@@ -14,9 +14,9 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.NCUtils;
-import org.smartregister.chw.core.dao.AbstractDao;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -170,7 +170,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
                     completedBuilder.append(", ");
                 }
 
-                completedBuilder.append(getTranslatedValue(vac));
+                completedBuilder.append(getTranslatedValue(vac.toUpperCase()));
             }
 
             if (completedBuilder.length() > 0) {
@@ -206,7 +206,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
             }
 
             builder.append(MessageFormat.format("{0} {1}",
-                    pendingBuilder.toString(),
+                    pendingBuilder.toString().toUpperCase(),
                     context.getString(R.string.not_given_with_spaces)
             ));
         }
@@ -233,7 +233,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
     }
 
     private String getTranslatedValue(String name) {
-        VaccineRepo.Vaccine res = vaccineMap.get(name);
+        VaccineRepo.Vaccine res = vaccineMap.get(name.toLowerCase());
         if (res == null) {
             return name;
         }

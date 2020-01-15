@@ -1,0 +1,1072 @@
+{
+  "validate_on_submit": false,
+  "show_errors_on_submit": false,
+  "count": "3",
+  "encounter_type": "Family Planning Registration",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Family planning registration Info",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "fp_reg_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fp_reg_date",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "age",
+        "type": "hidden"
+      },
+      {
+        "key": "using_method",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "using_method",
+        "openmrs_entity_parent": "",
+        "label": "Is the woman already using a family planning method?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        }
+      },
+      {
+        "key": "couselling_fp_methods",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Was she counselled on different family planning methods?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "couselling_HIV_STI",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "couselling_HIV_STI",
+        "openmrs_entity_parent": "",
+        "label": "Was she counselled on HIV and STI prevention?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step2": {
+    "title": "Family planning method",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "pill",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pill",
+        "openmrs_entity_parent": "",
+        "label": "Does she want to use a contraceptive pill?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "user_toaster_info",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Oral Contraception check List",
+        "toaster_info_text": "Check-list\n for providing Combined Oral Contraception (COC) or Progestin Only Pills (POP)",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breast_lump",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "breast_lump",
+        "openmrs_entity_parent": "",
+        "label": "Does she have any breast lumps?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "abnormal_vaginal",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "abnormal_vaginal",
+        "openmrs_entity_parent": "",
+        "label": "Does she have any abnomal vaginal bleeding or discharge?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnant",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnant",
+        "openmrs_entity_parent": "",
+        "label": "Is she pregnant?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "difficultly_breathing",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "difficultly_breathing",
+        "openmrs_entity_parent": "",
+        "label": "Does she have any severe chest pain and difficultly breathing?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "headaches",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "headaches",
+        "openmrs_entity_parent": "",
+        "label": "Does she have any unusual headaches associated with nausea, vomiting or blurred vision?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "frequent_urge",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "frequent_urge",
+        "openmrs_entity_parent": "",
+        "label": "Does she frequently feel thirsty, need to urinate or feel tired?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "falling_loss_unconsciousness",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "falling_loss_unconsciousness",
+        "openmrs_entity_parent": "",
+        "label": "Does she have the tendency of falling down/collapsing and loss of consciousness?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breastfeed",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "breastfeed",
+        "openmrs_entity_parent": "",
+        "label": "Is she breastfeeding a baby 6 months or younger and having any issues producing milk?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "COC_POP",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "COC_POP",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "POP",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "POP",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_pill",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_pill",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "COC_POP_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "The woman is eligible for either Combined Oral Contraceptive (COC) or Progestin Only Pills (POP)",
+        "toaster_info_text": "COC or POP eligible:\nThe woman is eligible for either Combined Oral Contraceptive (COC) or Progestin Only Pills (POP)",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "POP_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "The woman is eligible for Progestin Only Pills (POP) only",
+        "toaster_info_text": "POP only eligible:\nThe woman is eligible for Progestin Only Pills (POP) only",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_pill_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "The woman is not eligible for Combined Oral Contraception (COC) or Progestin Only Pills (POP). Please advise the client to use condoms and give her a referral to go to the health facility for further counselling on family planning.",
+        "toaster_info_text": "Not eligible:\nThe woman is not eligible for Combined Oral Contraception (COC) or Progestin Only Pills (POP). Please advise the client to use condoms and give her a referral to go to the health facility for further counselling on family planning.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fp_method_chw",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "spinner",
+        "hint": "Family planning method selected",
+        "values": [
+          "Male condom",
+          "Female condom",
+          "COC",
+          "POP",
+          "Standard day method",
+          "Emergency contraceptive"
+        ],
+        "openmrs_choice_ids": {
+          "Male condom": "164813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Female condom": "164814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "COC": "159783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "POP": "159784AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Standard day method": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Emergency contraceptive": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fp_method_already",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "spinner",
+        "hint": "Family planning method selected",
+        "values": [
+          "Male condom",
+          "Female condom",
+          "COC",
+          "POP",
+          "Standard day method",
+          "Emergency contraceptive",
+          "Injectable",
+          "IUCD",
+          "Implanon - NXT",
+          "Jadelle",
+          "Female sterilization",
+          "Male sterilization"
+        ],
+        "openmrs_choice_ids": {
+          "Male condom": "164813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Female condom": "164814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "COC": "159783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "POP": "159784AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Standard day method": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Emergency contraceptive": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Injectable": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "IUCD": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Implanon - NXT": "76022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Jadelle": "1873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Female sterilization": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Male sterilization": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fp_method_accepted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fp_method_accepted",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_calculation.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step3": {
+    "title": "Family planning method info",
+    "fields": [
+      {
+        "key": "ec_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Encourage the woman to select a spacing or permanent family planning method",
+        "toaster_info_text": "Encourage the woman to select a spacing or permanent family planning method",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ecp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ecp",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_condoms",
+        "openmrs_entity_parent": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_condoms",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "How many condoms was she given?",
+        "v_required": {
+          "value": "true",
+          "err": "Equal or greater than 0"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fp_start_condom",
+        "openmrs_entity_parent": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_pillcycles",
+        "openmrs_entity_parent": "5274AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "How many pill cycles was she given?",
+        "v_required": {
+          "value": "true",
+          "err": "Equal or greater than 0"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fp_start_cocpop",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fp_start_cocpop",
+        "type": "date_picker",
+        "hint": "When did she start or plan to start using COC/POP?",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "counselling_use",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "counselling_use",
+        "type": "spinner",
+        "hint": "Was she counselled on how to use the family planning method?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fp_start_injectable",
+        "openmrs_entity_parent": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162881AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "Date of last injection",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "next_injection_due_date",
+        "openmrs_entity_parent": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "next_injection_due_date",
+        "type": "edit_text",
+        "hint": "Next injection due:",
+        "read_only": "true",
+        "value": "0",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fp_start_iucd",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fp_start_iucd",
+        "type": "date_picker",
+        "hint": "Date of IUCD insertion",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "fp_start_implant_nxt",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fp_start_implant_nxt",
+        "type": "date_picker",
+        "hint": "Date of Implanon - NXT insertion",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "fp_start_implant_jad",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fp_start_implant_jad",
+        "type": "date_picker",
+        "hint": "Date of Jadelle insertion",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "fp_start_female_ster",
+        "openmrs_entity_parent": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fp_start_female_ster",
+        "type": "date_picker",
+        "hint": "Date of female sterilization",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "fp_start_male_ster",
+        "openmrs_entity_parent": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fp_start_male_ster",
+        "type": "date_picker",
+        "hint": "Date of male sterilization",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "fp_male_ster_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Advise the woman to use condoms for the first 3 months to prevent pregnancy",
+        "toaster_info_text": "A note to inform the client that they should use condoms for the first three months after the sterialization to prevent pregnancy",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_given",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_given",
+        "openmrs_entity_parent": "",
+        "label": "Was she referred to the health facility?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],       
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        }
+      },
+      {
+        "key": "fp_start_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hidden": "true",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_calculation.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
