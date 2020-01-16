@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
-import android.view.View;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -103,11 +104,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             String scheduleName = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.SCHEDULE_NAME, false);
 
             if (scheduleName.equalsIgnoreCase(CoreConstants.SCHEDULE_TYPES.WASH_CHECK)) {
-                try {
-                    startWashCheckForm();
-                } catch (Exception e) {
-                    Timber.e(e);
-                }
+                startForm(org.smartregister.chw.util.Constants.JSON_FORM.getWashCheck(), org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH);
+            } else if (scheduleName.equalsIgnoreCase(CoreConstants.SCHEDULE_TYPES.ROUTINE_HOUSEHOLD_VISIT)) {
+                startForm(org.smartregister.chw.util.Constants.JSON_FORM.getRoutineHouseholdVisit(), org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_HOUSEHOLD);
             } else {
                 activity.goToProfileActivity(view, fragmentArguments);
             }
@@ -165,13 +164,20 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH:
+            case org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_HOUSEHOLD:
                 if (resultCode == Activity.RESULT_OK) {
                     try {
                         String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                         JSONObject form = new JSONObject(jsonString);
-                        if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.WASH_CHECK)
-                        ) {
-                            ((FamilyProfileDuePresenter) presenter).saveData(jsonString);
+                        String encounterType = form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE);
+
+                        switch (encounterType) {
+                            case org.smartregister.chw.util.Constants.EventType.WASH_CHECK:
+                            case org.smartregister.chw.util.Constants.EventType.ROUTINE_HOUSEHOLD_VISIT:
+                                ((FamilyProfileDuePresenter) presenter).saveData(jsonString);
+                                break;
+                            default:
+                                break;
                         }
                     } catch (Exception e) {
                         Timber.e(e);
@@ -183,20 +189,24 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         }
     }
 
-    private void startWashCheckForm() throws Exception {
-        JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.getWashCheck());
-        jsonForm.put(JsonFormUtils.ENTITY_ID, familyBaseEntityId);
-        Intent intent = new Intent(getActivity(), Utils.metadata().familyMemberFormActivity);
-        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+    private void startForm(String formName, int requestCode) {
+        try {
+            JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(formName);
+            jsonForm.put(JsonFormUtils.ENTITY_ID, familyBaseEntityId);
+            Intent intent = new Intent(getActivity(), Utils.metadata().familyMemberFormActivity);
+            intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
-        Form form = new Form();
-        form.setWizard(false);
-        form.setActionBarBackground(org.smartregister.family.R.color.customAppThemeBlue);
+            Form form = new Form();
+            form.setWizard(false);
+            form.setActionBarBackground(org.smartregister.family.R.color.customAppThemeBlue);
 
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-        intent.putExtra(Constants.WizardFormActivity.EnableOnCloseDialog, true);
-        if (getActivity() != null) {
-            getActivity().startActivityForResult(intent, org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH);
+            intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+            intent.putExtra(Constants.WizardFormActivity.EnableOnCloseDialog, true);
+            if (getActivity() != null) {
+                getActivity().startActivityForResult(intent, requestCode);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 
@@ -220,10 +230,6 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                 return null;
         }
 
-    }
-
-    public interface Flavor {
-        boolean isWashCheckVisible();
     }
 
 }

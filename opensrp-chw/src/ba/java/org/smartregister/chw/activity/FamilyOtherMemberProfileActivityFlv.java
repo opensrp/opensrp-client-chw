@@ -44,4 +44,9 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
     public boolean isWra(CommonPersonObjectClient commonPersonObject) {
         return isWomanOfReproductiveAge(commonPersonObject, 10, 49);
     }
+
+    @Override
+    public boolean hasANC() {
+        return true;
+    }
 }
