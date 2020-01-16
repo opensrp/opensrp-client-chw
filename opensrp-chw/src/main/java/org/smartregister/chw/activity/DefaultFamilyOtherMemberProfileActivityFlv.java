@@ -35,4 +35,8 @@ public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements Fami
 //        TODO implement if wcaro would need malaria module
     }
 
+    @Override
+    public boolean hasANC() {
+        return true;
+    }
 }

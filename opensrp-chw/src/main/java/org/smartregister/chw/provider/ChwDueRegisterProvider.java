@@ -102,6 +102,8 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
                 return context.getString(R.string.malaria_visit_suffix);
             case CoreConstants.SCHEDULE_TYPES.WASH_CHECK:
                 return " · " + context.getString(R.string.wash_check);
+            case CoreConstants.SCHEDULE_TYPES.ROUTINE_HOUSEHOLD_VISIT:
+                return " · " + context.getString(R.string.routine_household_visit);
             default:
                 return context.getString(R.string.home_visit_suffix);
         }
