@@ -197,8 +197,8 @@ android {
         togo {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
-            versionCode 12
-            versionName "1.0.12"
+            versionCode 13
+            versionName "1.0.13"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-togo.smartregister.org/opensrp/"'
@@ -229,11 +229,28 @@ android {
             buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '3'
         }
+        lmh {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".lmh"
+            versionCode 1
+            versionName "0.0.1"
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-lmh.smartregister.org/opensrp/"'
+            buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/lmh/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
+            buildConfigField "int", "DATABASE_VERSION", '2'
+        }
     }
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.1.26-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.1.29-SNAPSHOT@aar') {
         transitive = true
     }
     implementation 'androidx.appcompat:appcompat:1.0.0'
