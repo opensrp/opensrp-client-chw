@@ -56,6 +56,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     public static final String ENCOUNTER_TYPE = "encounter_type";
     public static final int REQUEST_CODE_GET_JSON = 2244;
     public static final int REQUEST_CODE_GET_JSON_WASH = 22444;
+    public static final int REQUEST_CODE_GET_JSON_HOUSEHOLD = 22445;
 
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
     public static final String READ_ONLY = "read_only";
@@ -120,8 +121,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
                 Context context = ChwApplication.getInstance().getContext().applicationContext();
                 addRelationship(context, ss, baseClient);
                 SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
-                ChwRepository pathRepository = new ChwRepository(context, ChwApplication.getInstance().getContext());
-                EventClientRepository eventClientRepository = new EventClientRepository(pathRepository);
+                EventClientRepository eventClientRepository = new EventClientRepository();
                 JSONObject clientjson = eventClientRepository.getClient(db, lookUpBaseEntityId);
                 baseClient.setAddresses(getAddressFromClientJson(clientjson));
             }

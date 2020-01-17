@@ -28,10 +28,18 @@
         android:name=".application.ChwApplication"
         android:allowBackup="true"
         android:supportsRtl="true"
-        tools:replace="android:theme"
-        android:theme="@style/ChwTheme">
+        android:theme="@style/ChwTheme"
+        tools:replace="android:theme">
+        <activity
+            android:name=".activity.FamilyPlanningMemberProfileActivity"
+            android:label="@string/family_planning"
+            android:theme="@style/ChwTheme.NoActionBar"
+            />
         <activity
             android:name=".activity.AncUpcomingServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.FpUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.AncMedicalHistoryActivity"
@@ -65,6 +73,9 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.MalariaRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.FpRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity android:name=".core.activity.ChwP2pModeSelectActivity" />
         <activity
@@ -165,6 +176,8 @@
         <activity
             android:name=".activity.MalariaUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity android:name=".activity.FpFollowUpVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
@@ -191,8 +204,8 @@
         <service android:name="org.smartregister.sync.intent.PlanIntentService" />
         <service android:name=".intent.ChwPncCloseDateIntent" />
         <service android:name="org.smartregister.reporting.service.IndicatorGeneratorIntentService" />
-        <service android:name="org.smartregister.chw.service.SchedulesIntentService" />
-        <service android:name="org.smartregister.chw.sync.ChwSyncIntentService" />
+        <service android:name=".service.SchedulesIntentService" />
+        <service android:name=".sync.ChwSyncIntentService" />
 
         <uses-library
             android:name="org.apache.http.legacy"

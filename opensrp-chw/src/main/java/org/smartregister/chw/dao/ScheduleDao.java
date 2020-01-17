@@ -29,8 +29,15 @@ public class ScheduleDao extends AbstractDao {
         return AbstractDao.readData(sql, dataMap);
     }
 
-    public static @Nullable List<String> getActiveWashCheckFamilies() {
+    public static @Nullable List<String> getActiveFamilies() {
         String sql = "select base_entity_id from ec_family where is_closed = 0";
+        DataMap<String> dataMap = c -> getCursorValue(c, "base_entity_id");
+        return AbstractDao.readData(sql, dataMap);
+    }
+
+    public static @Nullable List<String> getActiveFPWomen() {
+        String sql = "select base_entity_id from ec_family_planning where is_closed = 0";
+
         DataMap<String> dataMap = c -> getCursorValue(c, "base_entity_id");
         return AbstractDao.readData(sql, dataMap);
     }

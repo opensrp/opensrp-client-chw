@@ -52,7 +52,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
     protected void scheduleJobsImmediately() {
         super.scheduleJobsImmediately();
         // Run initial job immediately on log in since the job will run a bit later (~ 15 mins +)
-        ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
         BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);

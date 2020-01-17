@@ -30,12 +30,14 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
     private boolean isPrimaryCaregiver;
     private String title;
     private String eventType;
+    private String uniqueID;
 
-    public FamilyMemberDataLoader(String familyName, boolean isPrimaryCaregiver, String title, String eventType) {
+    public FamilyMemberDataLoader(String familyName, boolean isPrimaryCaregiver, String title, String eventType, String uniqueID) {
         this.familyName = familyName;
         this.isPrimaryCaregiver = isPrimaryCaregiver;
         this.title = title;
         this.eventType = eventType;
+        this.uniqueID = uniqueID;
     }
 
     @Override
@@ -82,6 +84,9 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
         super.bindNativeFormsMetaData(jsonObjectForm, context, baseEntityID);
 
         jsonObjectForm.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, eventType);
+        if (StringUtils.isNotBlank(uniqueID))
+            jsonObjectForm.put("current_opensrp_id", uniqueID);
+
         Map<String, Map<String, Object>> dbVals = getDbData(context, baseEntityID, eventType);
         if (dbVals != null) {
             for (Map.Entry<String, Map<String, Object>> entry : dbVals.entrySet()) {

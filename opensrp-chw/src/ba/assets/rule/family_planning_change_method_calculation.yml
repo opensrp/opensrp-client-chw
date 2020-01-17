@@ -1,0 +1,63 @@
+---
+name: step1_fp_change_or_stop_date
+description: date of fp registration calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation = helper.getDateToday()"
+
+---
+name: step2_COC_POP
+description: COC_POP
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step2_breast_lump== 'no' && step2_abnormal_vaginal== 'no' && step2_pregnant== 'no' && step2_difficultly_breathing== 'no' && step2_headaches== 'no' && step2_frequent_urge== 'no' && step2_falling_loss_unconsciousness== 'no' && step2_breastfeed== 'no')? 1 : 0"
+
+---
+name: step2_POP
+description: POP
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step2_COC_POP =='0' && step2_breast_lump== 'no' && step2_abnormal_vaginal== 'no' && step2_pregnant== 'no' && step2_breastfeed== 'no') ? 1 : 0"
+
+---
+name: step2_no_pill
+description: no pill
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step2_COC_POP =='0' && step2_POP == '0' && step2_breastfeed !='') ? 1 : 0"
+
+---
+name: step2_fp_method_accepted
+description: calculate fp method accepted
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_reason_stop_fp_chw =='decided_to_change_method' ? step2_fp_method_chosen : ''"
+
+---
+name: step3_fp_start_condom
+description: date of start condom use
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step2_fp_method_chosen == 'Male condom' || step2_fp_method_chosen == 'Female condom' ? helper.getDateToday() : ''"
+
+---
+name: step3_next_injection_due_date
+description: calculate next injection due date
+priority: 1
+condition: "step2_fp_method_chosen == 'Injectable'"
+actions:
+  - "calculation = helper.addDuration(step3_fp_start_injectable,'3m')"
+
+---
+name: step3_fp_start_date
+description: calculate fp start date
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step2_fp_method_chosen == 'Standard day method' ? step1_fp_change_or_stop_date : helper.getNonBlankValue([step3_fp_start_condom,step3_fp_start_cocpop,step3_fp_start_injectable,step3_fp_start_iucd,step3_fp_start_implant_nxt,step3_fp_start_implant_jad,step3_fp_start_female_ster,step3_fp_start_male_ster])"

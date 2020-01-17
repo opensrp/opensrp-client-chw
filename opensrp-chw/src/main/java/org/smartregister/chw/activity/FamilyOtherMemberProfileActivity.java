@@ -16,6 +16,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.form_data.NativeFormsDataBinder;
+import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Utils;
@@ -23,6 +24,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.view.contract.BaseProfileContract;
 
 import timber.log.Timber;
@@ -34,11 +36,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-
-        flavor.onCreateOptionsMenu(menu, baseEntityId);
-
         // Check if woman is already registered
-        if (!presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isWra(commonPersonObject)) {
+        if (flavor.hasANC() && !presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isWra(commonPersonObject)) {
+            flavor.updateFpMenuItems(baseEntityId, menu);
             menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {
             menu.findItem(R.id.action_anc_registration).setVisible(false);
@@ -46,7 +46,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
-        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
+
+        flavor.updateMalariaMenuItems(baseEntityId, menu);
         return true;
     }
 
@@ -67,6 +68,18 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
+    protected void startFpRegister() {
+        String dob = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        FpRegisterActivity.startFpRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpRegistrationForm(), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
+    }
+
+    @Override
+    protected void startFpChangeMethod() {
+        String dob = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        FpRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpChengeMethodForm(), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+    }
+
+    @Override
     protected void removeIndividualProfile() {
         IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this,
                 commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver, FamilyRegisterActivity.class.getCanonicalName());
@@ -79,9 +92,10 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         boolean isPrimaryCareGiver = commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver);
         String eventName = Utils.metadata().familyMemberRegister.updateEventType;
 
+        String uniqueID = commonPersonObject.getColumnmaps().get(DBConstants.KEY.UNIQUE_ID);
 
         NativeFormsDataBinder binder = new NativeFormsDataBinder(this, client.getCaseId());
-        binder.setDataLoader(new FamilyMemberDataLoader(familyName, isPrimaryCareGiver, titleString, eventName));
+        binder.setDataLoader(new FamilyMemberDataLoader(familyName, isPrimaryCareGiver, titleString, eventName, uniqueID));
         JSONObject jsonObject = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
 
         try {
@@ -145,9 +159,18 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId);
 
-        Boolean onCreateOptionsMenu(Menu menu, @Nullable String baseEntityId);
-
         boolean isWra(CommonPersonObjectClient commonPersonObject);
+
+        void updateFpMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+
+        void updateMalariaMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+
+        boolean hasANC();
+    }
+
+    @Override
+    protected void startMalariaFollowUpVisit() {
+        MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, baseEntityId);
     }
 
 }

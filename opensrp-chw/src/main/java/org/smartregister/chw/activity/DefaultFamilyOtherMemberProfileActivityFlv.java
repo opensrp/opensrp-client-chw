@@ -8,8 +8,6 @@ import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
-import io.reactivex.annotations.Nullable;
-
 import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
 
 public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {
@@ -23,15 +21,22 @@ public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements Fami
     }
 
     @Override
-    public Boolean onCreateOptionsMenu(Menu menu, @Nullable String baseEntityID) {
-        menu.findItem(R.id.action_malaria_registration).setVisible(false);
-        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
-        return true;
-    }
-
-    @Override
     public boolean isWra(CommonPersonObjectClient commonPersonObject) {
         return isWomanOfReproductiveAge(commonPersonObject, 10, 49);
     }
 
+    @Override
+    public void updateFpMenuItems(String baseEntityId, Menu menu) {
+//        TODO implement if wcaro would need fp module
+    }
+
+    @Override
+    public void updateMalariaMenuItems(String baseEntityId, Menu menu) {
+//        TODO implement if wcaro would need malaria module
+    }
+
+    @Override
+    public boolean hasANC() {
+        return true;
+    }
 }

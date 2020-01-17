@@ -43,6 +43,7 @@ public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
         Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.PNC_HOME_VISIT, new Date());
         org.smartregister.chw.util.Utils.startAsyncTask(new RunnableTask(runnable), null);
         super.submittedAndClose();
+
     }
 
     @Override

@@ -1,0 +1,14 @@
+name: thirty
+description: iucd - after one month
+priority: 1
+condition: "fpAlertRule.isIUCDValid(1,1,4)"
+actions:
+  - "fpAlertRule.setVisitID('30')"
+---
+name: one twenty
+description: iucd - after four months
+priority: 1
+condition: "fpAlertRule.isIUCDValid(4,4,8)"
+actions:
+  - "fpAlertRule.setVisitID('120')"
+

@@ -3,13 +3,19 @@ package org.smartregister.chw.activity;
 import android.view.Menu;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.fp.dao.FpDao;
+import org.smartregister.chw.util.UtilsFlv;
 
 public class PncMemberProfileActivityFlv implements PncMemberProfileActivity.Flavor {
 
     @Override
-    public Boolean onCreateOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_malaria_confirmation).setVisible(true);
+    public Boolean onCreateOptionsMenu(Menu menu, String baseEntityId) {
+        UtilsFlv.updateMalariaMenuItems(baseEntityId, menu);
+        if (FpDao.isRegisteredForFp(baseEntityId)) {
+            menu.findItem(R.id.action_fp_change).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_fp_initiation).setVisible(true);
+        }
         return true;
     }
-
 }

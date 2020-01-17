@@ -3,12 +3,14 @@ package org.smartregister.chw.schedulers;
 import org.smartregister.chw.core.contract.ScheduleService;
 import org.smartregister.chw.core.schedulers.ScheduleTaskExecutor;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.task.ANCVisitScheduler;
 import org.smartregister.chw.task.ChildHomeVisitScheduler;
+import org.smartregister.chw.task.RoutineHouseHoldVisitScheduler;
+import org.smartregister.chw.task.FpVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
 import org.smartregister.chw.task.PNCVisitScheduler;
 import org.smartregister.chw.task.WashCheckScheduler;
-import org.smartregister.chw.util.WashCheckFlv;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,12 +19,6 @@ import java.util.Map;
 
 public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
-    private WashCheckFlv washCheckFlv = new WashCheckFlv();
-
-    protected ChwScheduleTaskExecutor() {
-        //scheduleServiceMap.put();
-    }
-
     private static ChwScheduleTaskExecutor scheduleTaskExecutor;
 
     public static ChwScheduleTaskExecutor getInstance() {
@@ -30,6 +26,10 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
             scheduleTaskExecutor = new ChwScheduleTaskExecutor();
         }
         return scheduleTaskExecutor;
+    }
+
+    protected ChwScheduleTaskExecutor() {
+        //scheduleServiceMap.put();
     }
 
     @Override
@@ -41,11 +41,10 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
             initializeANCClassifier(scheduleServiceMap);
             initializePNCClassifier(scheduleServiceMap);
             initializeMalariaClassifier(scheduleServiceMap);
-
-            if (washCheckFlv.isWashCheckVisible())
-                initializeWashClassifier(scheduleServiceMap);
+            initializeWashClassifier(scheduleServiceMap);
+            initializeFPClassifier(scheduleServiceMap);
+            initializeRoutineHouseholdClassifier(scheduleServiceMap);
         }
-
         return scheduleServiceMap;
     }
 
@@ -92,5 +91,20 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
         classifier.put(CoreConstants.EventType.FAMILY_REGISTRATION, scheduleServices);
         classifier.put(CoreConstants.EventType.WASH_CHECK, scheduleServices);
+    }
+
+    private void initializeFPClassifier(Map<String, List<ScheduleService>> classifier) {
+        List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new FpVisitScheduler());
+        classifier.put(FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT, scheduleServices);
+        classifier.put(FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, scheduleServices);
+        classifier.put(FamilyPlanningConstants.EventType.FAMILY_PLANNING_CHANGE_METHOD, scheduleServices);
+    }
+
+    private void initializeRoutineHouseholdClassifier(Map<String, List<ScheduleService>> classifier) {
+        List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new RoutineHouseHoldVisitScheduler());
+
+        classifier.put(CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT, scheduleServices);
     }
 }
