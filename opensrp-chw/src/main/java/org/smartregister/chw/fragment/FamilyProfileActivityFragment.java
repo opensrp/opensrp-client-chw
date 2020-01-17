@@ -3,6 +3,7 @@ package org.smartregister.chw.fragment;
 import android.app.FragmentTransaction;
 import android.database.Cursor;
 import android.os.Bundle;
+
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
@@ -48,7 +49,6 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
     @Override
     protected void initializePresenter() {
         familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        String familyName = getArguments().getString(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyProfileActivityPresenter(this, new FamilyProfileActivityModel(), null, familyBaseEntityId);
     }
 
@@ -140,6 +140,10 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
             WashCheckDialogFragment dialogFragment = WashCheckDialogFragment.getInstance(familyBaseEntityId, visitDate);
             FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
             dialogFragment.show(ft, WashCheckDialogFragment.DIALOG_TAG);
+        } else if (CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT.equalsIgnoreCase(type)) {
+            RoutineHouseholdDialogFragment dialogFragment = RoutineHouseholdDialogFragment.getInstance(familyBaseEntityId, visitDate);
+            FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+            dialogFragment.show(ft, RoutineHouseholdDialogFragment.DIALOG_TAG);
         }
     }
 

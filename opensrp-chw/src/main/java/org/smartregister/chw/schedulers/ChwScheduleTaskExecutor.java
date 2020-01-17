@@ -6,11 +6,11 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.task.ANCVisitScheduler;
 import org.smartregister.chw.task.ChildHomeVisitScheduler;
+import org.smartregister.chw.task.RoutineHouseHoldVisitScheduler;
 import org.smartregister.chw.task.FpVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
 import org.smartregister.chw.task.PNCVisitScheduler;
 import org.smartregister.chw.task.WashCheckScheduler;
-import org.smartregister.chw.util.WashCheckFlv;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +20,6 @@ import java.util.Map;
 public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
     private static ChwScheduleTaskExecutor scheduleTaskExecutor;
-    private WashCheckFlv washCheckFlv = new WashCheckFlv();
 
     public static ChwScheduleTaskExecutor getInstance() {
         if (scheduleTaskExecutor == null) {
@@ -42,10 +41,9 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
             initializeANCClassifier(scheduleServiceMap);
             initializePNCClassifier(scheduleServiceMap);
             initializeMalariaClassifier(scheduleServiceMap);
+            initializeWashClassifier(scheduleServiceMap);
             initializeFPClassifier(scheduleServiceMap);
-
-            if (washCheckFlv.isWashCheckVisible())
-                initializeWashClassifier(scheduleServiceMap);
+            initializeRoutineHouseholdClassifier(scheduleServiceMap);
         }
         return scheduleServiceMap;
     }
@@ -101,6 +99,12 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         classifier.put(FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT, scheduleServices);
         classifier.put(FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, scheduleServices);
         classifier.put(FamilyPlanningConstants.EventType.FAMILY_PLANNING_CHANGE_METHOD, scheduleServices);
+    }
 
+    private void initializeRoutineHouseholdClassifier(Map<String, List<ScheduleService>> classifier) {
+        List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new RoutineHouseHoldVisitScheduler());
+
+        classifier.put(CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT, scheduleServices);
     }
 }

@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -272,6 +271,12 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    public void startFormActivity(JSONObject jsonForm, FpMemberObject memberObject) {
+        Intent intent = org.smartregister.chw.core.utils.Utils.formActivityIntent(this, jsonForm.toString());
+        intent.putExtra(FamilyPlanningConstants.FamilyPlanningMemberObject.MEMBER_OBJECT, memberObject);
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     private class MemberType {
