@@ -291,8 +291,8 @@ flavors.each { productFlavorName ->
     testDependencies.add("create${productFlavorName.capitalize()}DebugCoverageReport")
 }
 
-// task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies.take(2))
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testBaDebugUnitTest', 'createBaDebugCoverageReport']) {
+task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies) {
+//task jacocoTestReport(type: JacocoReport, dependsOn: ['testBaDebugUnitTest', 'createBaDebugCoverageReport']) {
 
     reports {
         xml.enabled = true
