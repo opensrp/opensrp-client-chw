@@ -16,7 +16,7 @@ public class RoutineHouseHoldVisitScheduler extends BaseTaskExecutor {
     public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate) {
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
 
-        long lastWashCheck = RoutineHouseHoldDao.getLastRoutineVisitkDate(baseEntityID);
+        long lastWashCheck = RoutineHouseHoldDao.getLastRoutineVisitDate(baseEntityID);
         long dateCreatedFamily = FamilyDao.getFamilyCreateDate(baseEntityID);
 
         RoutineHouseHoldVisitRule alertRule = new RoutineHouseHoldVisitRule(
