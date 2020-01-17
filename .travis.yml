@@ -34,8 +34,7 @@ script:
   - ls -la
   #Run jacocoTestReport -> Runs all unit tests & instrumentation tests
   # - travis_wait ./gradlew :opensrp-chw:jacocoTestReport coveralls --stacktrace
-  - travis_wait ./gradlew :opensrp-chw:clean :opensrp-chw:testTogoDebugUnitTestCoverage  coveralls --stacktrace
-  #- travis_wait ./gradlew :opensrp-chw:clean :opensrp-chw:testTogoDebugUnitTest :opensrp-chw:createTogoDebugCoverageReport coveralls --stacktrace
+  - travis_wait ./gradlew :opensrp-chw:clean :opensrp-chw:testTogoDebugUnitTest :opensrp-chw:createTogoDebugCoverageReport coveralls --stacktrace
   #- travis_wait ./gradlew :opensrp-chw:clean :opensrp-chw:testGuineaDebugUnitTest :opensrp-chw:createGuineaDebugCoverageReport coveralls --stacktrace
   #- travis_wait ./gradlew :opensrp-chw:clean :opensrp-chw:testLiberiaDebugUnitTest :opensrp-chw:createLiberiaDebugCoverageReport coveralls --stacktrace
   #- travis_wait ./gradlew :opensrp-chw:clean :opensrp-chw:testBaDebugUnitTest :opensrp-chw:createBaDebugCoverageReport coveralls --stacktrace
