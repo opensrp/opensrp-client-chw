@@ -83,7 +83,7 @@ public class RoutineHouseholdDialogFragment extends DialogFragment implements Vi
                 .subscribe(new SingleObserver<List<Question>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        Timber.v("Subscribed");
                     }
 
                     @Override
