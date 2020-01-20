@@ -10,6 +10,7 @@ import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.sync.ChwSyncIntentService;
+import org.smartregister.job.DistrictFacilitiesServiceJob;
 import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.P2pServiceJob;
@@ -53,6 +54,8 @@ public class ChwJobCreator implements JobCreator {
                 return new SyncTaskServiceJob(SyncTaskIntentService.class);
             case ScheduleJob.TAG:
                 return new ScheduleJob();
+            case DistrictFacilitiesServiceJob.TAG:
+                return new DistrictFacilitiesServiceJob();
             //TODO uncomment to enable plans
             /*case PlanIntentServiceJob.TAG:
                 return new PlanIntentServiceJob();*/

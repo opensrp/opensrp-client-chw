@@ -1,5 +1,6 @@
 package org.smartregister.chw.interactor;
 
+import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
@@ -7,15 +8,19 @@ import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.job.BasePncCloseJob;
 import org.smartregister.chw.job.ScheduleJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
+import org.smartregister.job.DistrictFacilitiesServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PlanIntentServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.login.interactor.BaseLoginInteractor;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.contract.BaseLoginContract;
 
 import java.util.concurrent.TimeUnit;
+
+import timber.log.Timber;
 
 public class LoginInteractor extends BaseLoginInteractor implements BaseLoginContract.Interactor {
 
@@ -60,5 +65,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         ScheduleJob.scheduleJobImmediately(ScheduleJob.TAG);
+        DistrictFacilitiesServiceJob.scheduleJobImmediately(DistrictFacilitiesServiceJob.TAG);
     }
 }
