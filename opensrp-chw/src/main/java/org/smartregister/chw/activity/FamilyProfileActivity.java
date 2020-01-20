@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
@@ -136,7 +137,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     @Override
     protected boolean isAncMember(String baseEntityId) {
-        return getFamilyProfilePresenter().isAncMember(baseEntityId);
+        return ChwApplication.getApplicationFlavor().hasANC() && getFamilyProfilePresenter().isAncMember(baseEntityId);
     }
 
     @Override
@@ -151,7 +152,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     @Override
     protected boolean isPncMember(String baseEntityId) {
-        return getFamilyProfilePresenter().isPncMember(baseEntityId);
+        return ChwApplication.getApplicationFlavor().hasPNC() && getFamilyProfilePresenter().isPncMember(baseEntityId);
     }
 
     @Override
