@@ -347,7 +347,15 @@
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": ""
+        "openmrs_entity_id": "",
+
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "number_of_babies",
@@ -357,6 +365,13 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": true,
           "err": "Please specify the # of babies"
@@ -385,21 +400,8 @@
             "v_required": {
               "value": "true",
               "err": "Please enter the UNIQUE ID"
-            },
-            "calculation": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-file": "anc_pregnancy_outcome_calculation.yml"
-                }
-              }
-            },
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-dynamic": "anc_pregnancy_outcome_relevance.yml"
-                }
-              }
             }
+
           },
           {
             "key": "surname",
@@ -424,6 +426,7 @@
                 }
               }
             }
+
           },
           {
             "key": "same_as_fam_name_chk",
@@ -439,14 +442,7 @@
                 "text_size": "18px",
                 "value": "false"
               }
-            ],
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-dynamic": "anc_pregnancy_outcome_relevance.yml"
-                }
-              }
-            }
+            ]
           },
           {
             "key": "fam_name",
@@ -461,14 +457,7 @@
             "openmrs_entity": "person",
             "openmrs_entity_id": "last_name",
             "type": "hidden",
-            "hint": "Surname as Family name",
-            "calculation": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-dynamic": "anc_pregnancy_outcome_calculation.yml"
-                }
-              }
-            }
+            "hint": "Surname as Family name"
           },
           {
             "key": "first_name",
@@ -485,13 +474,6 @@
             "v_regex": {
               "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
               "err": "Please enter a valid name"
-            },
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-dynamic": "anc_pregnancy_outcome_relevance.yml"
-                }
-              }
             }
           },
           {
@@ -505,13 +487,6 @@
             "v_regex": {
               "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
               "err": "Please enter a valid name"
-            },
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-dynamic": "anc_pregnancy_outcome_relevance.yml"
-                }
-              }
             }
           },
           {
@@ -519,14 +494,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "person",
             "openmrs_entity_id": "birthdate",
-            "type": "hidden",
-            "calculation": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-dynamic": "anc_pregnancy_outcome_calculation.yml"
-                }
-              }
-            }
+            "type": "hidden"
           },
           {
             "key": "gender",
@@ -546,13 +514,6 @@
             "v_required": {
               "value": "true",
               "err": "Please enter the sex"
-            },
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-dynamic": "anc_pregnancy_outcome_relevance.yml"
-                }
-              }
             }
           },
           {
@@ -577,13 +538,6 @@
             "v_required": {
               "value": "true",
               "err": "Please enter the sex"
-            },
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-dynamic": "anc_pregnancy_outcome_relevance.yml"
-                }
-              }
             }
           },
           {
@@ -620,13 +574,6 @@
             "openmrs_choice_ids": {
               "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-            },
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-dynamic": "anc_pregnancy_outcome_relevance.yml"
-                }
-              }
             }
           },
           {
@@ -641,13 +588,6 @@
             "exclusive": [
               "chk_none"
             ],
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-dynamic": "anc_pregnancy_outcome_relevance.yml"
-                }
-              }
-            },
             "options": [
               {
                 "key": "chk_none",
