@@ -186,6 +186,13 @@
               "rules-file": "anc_pregnancy_outcome_relevance.yml"
             }
           }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_pregnancy_outcome_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -377,32 +384,6 @@
           "err": "Please specify the # of babies"
         },
         "value": [
-                    {
-            "key": "temp_unique_id",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "temp_unique_id",
-            "type": "hidden"
-          },
-          {
-            "key": "unique_id",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "person_identifier",
-            "openmrs_entity_id": "opensrp_id",
-            "type": "barcode",
-            "barcode_type": "qrcode",
-            "hint": "Boresha Afya ID",
-            "scanButtonText": "Scan QR Code",
-            "v_numeric": {
-              "value": "true",
-              "err": "Please enter a valid ID"
-            },
-            "v_required": {
-              "value": "true",
-              "err": "Please enter the UNIQUE ID"
-            }
-
-          },
           {
             "key": "surname",
             "openmrs_entity_parent": "",
@@ -618,9 +599,6 @@
           }
         ]
       }
-
-
-
     ]
   }
 }
