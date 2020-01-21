@@ -1,0 +1,24 @@
+---
+name: step1_referral_date_pnc
+description: Date PNC referral was submitted
+priority: 1
+condition: "true"
+actions:
+  - "def getDate(dateFormat) {
+        import java.util.*;
+        import java.text.SimpleDateFormat;
+        return new SimpleDateFormat(dateFormat).format(System.currentTimeMillis());
+    }"
+  - "calculation = getDate('yyyy-MM-dd')"
+---
+name: step1_referral_time_pnc
+description: Time PNC referral was submitted
+priority: 1
+condition: "true"
+actions:
+  - "def getTime(dateFormat) {
+        import java.util.*;
+        import java.text.SimpleDateFormat;
+        return new SimpleDateFormat(dateFormat).format(Calendar.getInstance().getTime());
+    }"
+  - "calculation = getTime('hh:mm a')"

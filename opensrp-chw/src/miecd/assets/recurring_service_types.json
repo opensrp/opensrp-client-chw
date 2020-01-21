@@ -1,211 +1,5 @@
 [
   {
-    "type": "Exclusive breastfeeding",
-    "service_logic": "",
-    "service_group": "child",
-    "openmrs_service_name": {
-      "parent_entity": "",
-      "entity": "concept",
-      "entity_id": "5526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "openmrs_date": {
-      "parent_entity": "",
-      "entity": "encounter",
-      "entity_id": "encounter_date"
-    },
-    "services": [
-      {
-        "id": "1",
-        "name": "Exclusive breastfeeding0",
-        "schedule": {
-          "due": {
-            "reference": "dob",
-            "offset": "+0d"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+1m"
-          }
-        }
-      },
-      {
-        "id": "2",
-        "name": "Exclusive breastfeeding1",
-        "schedule": {
-          "due": {
-            "reference": "dob",
-            "offset": "+1m"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+2m"
-          }
-        }
-      },
-      {
-        "id": "3",
-        "name": "Exclusive breastfeeding2",
-        "schedule": {
-          "due": {
-            "reference": "dob",
-            "offset": "+1m"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+3m"
-          }
-        }
-      },
-      {
-        "id": "4",
-        "name": "Exclusive breastfeeding3",
-        "schedule": {
-          "due": {
-            "reference": "dob",
-            "offset": "+1m"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+4m"
-          }
-        }
-      },
-      {
-        "id": "5",
-        "name": "Exclusive breastfeeding4",
-        "schedule": {
-          "due": {
-            "reference": "dob",
-            "offset": "+1m"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+5m"
-          }
-        }
-      },
-      {
-        "id": "6",
-        "name": "Exclusive breastfeeding5",
-        "schedule": {
-          "due": {
-            "reference": "dob",
-            "offset": "+1m"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+6m"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "type": "MNP",
-    "service_logic": "",
-    "openmrs_service_name": {
-      "parent_entity": "",
-      "entity": "concept",
-      "entity_id": "165417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "openmrs_date": {
-      "parent_entity": "",
-      "entity": "encounter",
-      "entity_id": "encounter_date"
-    },
-    "services": [
-      {
-        "id": "7",
-        "name": "MNP1",
-        "schedule": {
-          "due": {
-            "reference": "dob",
-            "offset": "+6m"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+24m"
-          }
-        }
-      },
-      {
-        "id": "8",
-        "name": "MNP2",
-        "schedule": {
-          "due": {
-            "reference": "prerequisite",
-            "prerequisite": "MNP 1",
-            "offset": "+1m"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+24m"
-          }
-        }
-      },
-      {
-        "id": "9",
-        "name": "MNP3",
-        "schedule": {
-          "due": {
-            "reference": "prerequisite",
-            "prerequisite": "MNP 2",
-            "offset": "+1m"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+24m"
-          }
-        }
-      },
-      {
-        "id": "10",
-        "name": "MNP4",
-        "schedule": {
-          "due": {
-            "reference": "prerequisite",
-            "prerequisite": "MNP 3",
-            "offset": "+1m"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+24m"
-          }
-        }
-      },
-      {
-        "id": "11",
-        "name": "MNP5",
-        "schedule": {
-          "due": {
-            "reference": "prerequisite",
-            "prerequisite": "MNP 4",
-            "offset": "+1m"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+24m"
-          }
-        }
-      },
-      {
-        "id": "12",
-        "name": "MNP6",
-        "schedule": {
-          "due": {
-            "reference": "prerequisite",
-            "prerequisite": "MNP 5",
-            "offset": "+1m"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+24m"
-          }
-        }
-      }
-    ]
-  },
-  {
     "type": "Vitamin A",
     "service_logic": "",
     "service_group": "child",
@@ -226,7 +20,8 @@
         "schedule": {
           "due": {
             "reference": "dob",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -241,7 +36,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Vitamin A1",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -256,7 +52,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Vitamin A2",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -271,7 +68,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Vitamin A3",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -286,7 +84,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Vitamin A4",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -301,7 +100,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Vitamin A5",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -316,7 +116,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Vitamin A6",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -331,7 +132,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Vitamin A7",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -346,7 +148,24 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Vitamin A8",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
+          },
+          "expiry": {
+            "reference": "dob",
+            "offset": "+5y"
+          }
+        }
+      },
+      {
+        "id": "30",
+        "name": "Vitamin A10",
+        "schedule": {
+          "due": {
+            "reference": "prerequisite",
+            "prerequisite": "Vitamin A9",
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -377,7 +196,8 @@
         "schedule": {
           "due": {
             "reference": "dob",
-            "offset": "+1y"
+            "offset": "+1y",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -392,7 +212,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Deworming 1",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -407,7 +228,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Deworming 2",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -422,7 +244,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Deworming 3",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -437,7 +260,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Deworming 4",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -452,7 +276,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Deworming 5",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -467,7 +292,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Deworming 6",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -482,38 +308,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Deworming 7",
-            "offset": "+6m"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+5y"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "type": "IPTp-SP",
-    "service_logic": "",
-    "service_group": "woman",
-    "openmrs_service_name": {
-      "parent_entity": "",
-      "entity": "concept",
-      "entity_id": "159922AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "openmrs_date": {
-      "parent_entity": "",
-      "entity": "encounter",
-      "entity_id": "encounter_date"
-    },
-    "services": [
-      {
-        "id": "30",
-        "name": "IPTp-SP dose 1",
-        "schedule": {
-          "due": {
-            "reference": "dob",
-            "offset": "+91d"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -523,27 +319,13 @@
       },
       {
         "id": "31",
-        "name": "IPTp-SP dose 2",
+        "name": "Deworming 9",
         "schedule": {
           "due": {
             "reference": "prerequisite",
-            "prerequisite": "IPTp-SP dose 1",
-            "offset": "+1m"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+5y"
-          }
-        }
-      },
-      {
-        "id": "32",
-        "name": "IPTp-SP dose 3",
-        "schedule": {
-          "due": {
-            "reference": "prerequisite",
-            "prerequisite": "IPTp-SP dose 2",
-            "offset": "+1m"
+            "prerequisite": "Deworming 8",
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",

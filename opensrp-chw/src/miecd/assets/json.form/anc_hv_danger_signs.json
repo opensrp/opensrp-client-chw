@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Danger signs",
+    "title": "ANC Registration",
     "fields": [
       {
         "key": "danger_signs_present",
@@ -55,22 +55,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label_info_image_src": "img/chw.png",
-        "label_info_has_image": true,
-        "label": "Any danger signs present?",
+        "label": "Does the mother have any danger signs?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
           "chk_none"
         ],
         "options": [
-          {
-            "key": "chk_none",
-            "text": "None",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
           {
             "key": "chk_fever",
             "text": "Fever",
@@ -91,6 +82,13 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_blurred_vision",
+            "text": "Blurred vision",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_convulsions",
@@ -114,11 +112,46 @@
             "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_swollen_face",
-            "text": "Swollen face and legs",
+            "key": "chk_loss_consciousness",
+            "text": "Loss of consciousness",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "135592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_swelling",
+            "text": "Swelling of the face and/or hands",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_early_labour",
+            "text": "Early labour pains before 9 months",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "151687AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_vaginal_discharge",
+            "text": "Discoloured or watery, liquid vaginal discharge with a bad smell",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_unusual_movement",
+            "text": "No movement / unusual movement for a child in the womb",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
@@ -143,10 +176,15 @@
                   "chk_fever",
                   "chk_bleeding_vaginally",
                   "chk_server_headache",
+                  "chk_blurred_vision",
                   "chk_convulsions",
                   "chk_difficulty_breathing",
                   "chk_severe_abdominal_pain",
-                  "chk_swollen_face"
+                  "chk_loss_consciousness",
+                  "chk_swelling",
+                  "chk_early_labour",
+                  "chk_vaginal_discharge",
+                  "chk_unusual_movement"
                 ]
               }
             ]
@@ -160,8 +198,14 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Counseling on seeking care immediately for danger signs",
+        "label_info_title": "Did the mother receive counselling",
+        "label_info_text": "Did the mother receive counselling on danger signs at the health facility recently?",
+        "hint": "Did the mother receive counselling on danger signs at the health facility recently?",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],

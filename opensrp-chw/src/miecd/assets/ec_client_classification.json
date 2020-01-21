@@ -37,6 +37,27 @@
           },
           {
             "field": "eventType",
+            "field_value": "Malaria Follow-up Visit",
+            "creates_case": [
+              "ec_malaria_follow_up_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Family Planning Registration",
+            "creates_case": [
+              "ec_family_planning"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Family Planning Change Method",
+            "creates_case": [
+              "ec_family_planning"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Update Family Registration",
             "creates_case": [
               "ec_family"
@@ -118,6 +139,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "Malaria Confirmation",
+            "creates_case": [
+              "ec_malaria_confirmation"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Pregnancy Outcome",
             "closes_case": [
               "ec_anc_register"
@@ -128,6 +156,34 @@
             "field_value": "Pregnancy Outcome",
             "creates_case": [
               "ec_pregnancy_outcome"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Sick Child Referral",
+            "creates_case": [
+              "ec_child_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "ANC Referral",
+            "creates_case": [
+              "ec_anc_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PNC Referral",
+            "creates_case": [
+              "ec_pnc_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "FP Home Visit",
+            "creates_case": [
+              "ec_family_planning"
             ]
           }
         ]

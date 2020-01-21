@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "PNC health facility visit",
+  "encounter_type": "Health Facility Visit",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,16 +47,16 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "PNC Health Facility Visit - Day {0}",
+    "title": "Health Facility Visit",
     "fields": [
       {
         "key": "pnc_visit_{0}",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Did the woman attend her PNC visit (Day {0}) at the health facility?\n\nVisit due date: {1}",
+        "hint": "Did the woman attend her PNC visit {0} at the health facility?\n\nVisit due date: {1}",
         "v_required": {
           "value": "true",
           "err": "Please select option"
@@ -68,11 +68,11 @@
       },
       {
         "key": "pnc_hf_visit{0}_date",
-        "openmrs_entity_parent": "1623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Date of visit",
+        "hint": "Date of PNC health facility visit {0}",
         "expanded": false,
         "max_date": "today",
         "v_required": {
@@ -87,29 +87,21 @@
         }
       },
       {
-        "key": "baby_weight",
-        "openmrs_entity_parent": "1528AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "key": "vit_a_mother",
+        "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "edit_type": "number",
-        "hint": "Baby's weight (kg)",
-        "v_min": {
-          "value": "0.0",
-          "err": "The value must be greater than or equal to 0"
-        },
-        "v_max": {
-          "value": "20.0",
-          "err": "The value must be less than or equal to 20"
-        },
+        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Did the woman receive Vitamin A within 24 hours of delivery?",
         "v_required": {
-          "value": "false",
-          "err": "Required"
-        },
-        "v_numeric": {
           "value": "true",
-          "err": "Enter a valid weight"
+          "err": "Please select option"
         },
+        "values": [
+          "Yes",
+          "No"
+        ],
         "relevance": {
           "step1:pnc_visit_{0}": {
             "type": "string",
@@ -118,28 +110,24 @@
         }
       },
       {
-        "key": "baby_temp",
+        "key": "ifa_mother",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "edit_type": "number",
-        "hint": "Baby's temperature (°C)",
-        "v_min": {
-          "value": "35.0",
-          "err": "The value must be greater than or equal to 35"
-        },
-        "v_max": {
-          "value": "42.0",
-          "err": "The value must be less than or equal to 42"
-        },
+        "openmrs_entity_id": "104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Did the woman receive iron and folic acid (IFA) tablets within 24 hours of delivery?",
         "v_required": {
-          "value": "false",
-          "err": "Required"
-        },
-        "v_numeric": {
           "value": "true",
-          "err": "Enter a valid weight"
+          "err": "Please select option"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "relevance": {
           "step1:pnc_visit_{0}": {
@@ -167,6 +155,13 @@
         "read_only": "true",
         "hidden": "true",
         "value": "0"
+      },
+      {
+        "key": "pnc_hf_next_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pnc_hf_next_visit_date",
+        "type": "spacer"
       }
     ]
   }

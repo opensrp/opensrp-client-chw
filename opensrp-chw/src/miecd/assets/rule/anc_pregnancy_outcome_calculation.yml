@@ -12,7 +12,7 @@ description: surname calculation
 priority: 1
 condition: "true"
 actions:
-  - "calculation = step1_same_as_fam_name.contains('same_as_fam_name')? step1_fam_name : step1_surname"
+  - "calculation = step1_same_as_fam_name_chk.contains('same_as_fam_name')? step1_fam_name : step1_surname"
 
 ---
 name: step1_dob
@@ -26,7 +26,7 @@ actions:
 name: step1_unique_id
 description: calculate unique_id
 priority: 1
-condition: "true"
+condition: "step1_preg_outcome == 'born_alive' || step1_preg_outcome == 'alive_with_problem'"
 actions:
   - "calculation = step1_temp_unique_id"
 

@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Observations Illness",
+  "encounter_type": "Home Visit - Obs and Illness",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Observations & Illness Episodes",
+    "title": "Observations & Illness",
     "fields": [
       {
         "key": "date_of_illness",
@@ -55,13 +55,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Date",
+        "hint": "Date ",
         "expanded": false,
+        "min_date": "today-1y",
         "max_date": "today",
-        "min_date": "today-10y",
         "v_required": {
           "value": "true",
-          "err": "Please enter illness date"
+          "err": "Please enter the date of illness"
         }
       },
       {
@@ -69,12 +69,11 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "Description",
         "v_required": {
           "value": "true",
-          "err": "Please enter description"
+          "err": "Please enter the description"
         }
       },
       {
@@ -82,22 +81,75 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Action taken",
+        "type": "check_box",
+        "label": "Action taken",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_ors",
+            "text": "ORS 5",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_zinc",
+            "text": "Zinc 10",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "86672AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_paracetamol",
+            "text": "Panadol",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_referred",
+            "text": "Referred",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_other_treatment",
+            "text": "Other treatment",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_none",
+            "text": "No treatment given",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "other_treatment_illness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Other treatment",
         "v_required": {
           "value": "true",
-          "err": "Please select action"
+          "err": "Please enter the illness details"
         },
-        "values": [
-          "Managed",
-          "Referred",
-          "No action taken"
-        ],
-        "openmrs_choice_ids": {
-          "Managed": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Referred": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No action taken": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_observations.yml"
+            }
+          }
         }
       }
     ]

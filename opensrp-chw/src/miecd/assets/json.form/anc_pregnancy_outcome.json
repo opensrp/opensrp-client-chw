@@ -59,41 +59,59 @@
         "type": "hidden"
       },
       {
-        "key": "pregnancy_outcome_label",
-        "type": "label",
-        "text": "PREGNANCY OUTCOME",
-        "has_bg": true,
-        "left_padding": "20dp",
-        "right_padding": "20dp",
-        "text_size": "5sp",
-        "text_color": "#000000",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": ""
-      },
-      {
         "key": "preg_outcome",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "161033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Pregnancy outcome",
-        "values": [
-          "Live birth",
-          "Stillbirth",
-          "Miscarriage",
-          "Other"
+        "type": "native_radio",
+        "label": "Pregnancy outcome",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "born_alive",
+            "text": "Child was born alive",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "born_alive_died",
+            "text": "Child was born alive, but died",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164816AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "still_born",
+            "text": "Child was stillborn",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "125872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "alive_with_problem",
+            "text": "Child was born alive, but they have a problem (i.e. disability, respiratory issues, etc.)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "161599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "miscarriage",
+            "text": "Miscarriage",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "48AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
         ],
-        "openmrs_choice_ids": {
-          "Live birth": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Stillbirth": "125872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Miscarriage": "48AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "Please select pregnancy outcome"
         }
       },
       {
@@ -139,21 +157,61 @@
         }
       },
       {
+        "key": "no_children",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Number of children born alive",
+        "values": [
+          "1",
+          "2+"
+        ],
+        "keys": [
+          "1",
+          "2+"
+        ],
+        "openmrs_choice_ids": {
+          "1": "159913AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "2+": "159914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "delivery_place",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Place of delivery",
+        "hint": "The place the mother gave birth",
         "values": [
-          "Home",
-          "Health facility",
+          "At home",
+          "At a health facility",
+          "On the way to the health facility",
+          "Other"
+        ],
+        "keys": [
+          "At home",
+          "At a health facility",
+          "On the way to the health facility",
           "Other"
         ],
         "openmrs_choice_ids": {
-          "Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Health facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "At Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "At a health facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "On the way to the health facility": "1601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
@@ -169,13 +227,123 @@
         }
       },
       {
+        "key": "delivery_home",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Who helped the mother with a home delivery?",
+        "label_text_style": "bold",
+        "text_color": "#C0C0C0",
+        "v_required": {
+          "value": "true",
+          "err": "Please select"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "gave_birth_alone",
+            "text": "She gave birth at home alone",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "gave_birth_with_help",
+            "text": "She gave birth at home with the help of a family member/friend/neighbor",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "midwife_help",
+            "text": "She gave birth at home with the help of a traditional midwife",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "125872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "delivery_hf",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "The mother gave birth in a health facility. Who accompanied the mother to the health facility?",
+        "label_text_style": "bold",
+        "text_color": "#C0C0C0",
+        "v_required": {
+          "value": "true",
+          "err": "Please select"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "facility_family_member",
+            "text": "She gave birth in a health facility, and she was accompanied by family member(s)",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "facility_midwife",
+            "text": "She gave birth in a health facility, and she was accompanied by a traditional midwife",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "alone",
+            "text": "She gave birth in a health facility, and she came by herself",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other_pple",
+            "text": "She gave birth in a health facility, and she was accompanied by other people",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1582AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other_chw",
+            "text": "She gave birth in a health facility, and she was accompanied by the CHW",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
         "key": "baby_label",
         "type": "label",
         "text": "BABY DETAILS",
         "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
-        "text_size": "5sp",
+        "text_size": "8sp",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -200,17 +368,17 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
-        "type": "edit_text",
-        "hint": "ID",
-        "value": "0",
-        "read_only": "true",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "hint": "Boresha Afya ID",
+        "scanButtonText": "Scan QR Code",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the ID"
+          "err": "Please enter the UNIQUE ID"
         },
         "calculation": {
           "rules-engine": {
@@ -252,7 +420,7 @@
         }
       },
       {
-        "key": "same_as_fam_name",
+        "key": "same_as_fam_name_chk",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
@@ -365,60 +533,10 @@
           "Male",
           "Female"
         ],
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the sex"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "lbw",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1431AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Is the baby low birth weight (weighs less than 2.5 kg)?",
-        "values": [
-          "Yes",
-          "No"
+        "keys": [
+          "Male",
+          "Female"
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1",
-          "No": "0"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the sex"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "early_bf_1hr",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Early initiation of breastfeeding (1 hr)?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
           "err": "Please enter the sex"
@@ -437,8 +555,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Physically challenged?",
+        "hint": "Physical disabilities",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -459,22 +581,13 @@
         }
       },
       {
-        "key": "opv0_date",
+        "key": "type_of_disability",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "opv0_date",
-        "type": "date_picker",
-        "hint": "OPV 0 date",
-        "expanded": false,
-        "min_date": "today-120y",
-        "max_date": "today",
-        "constraints": [
-          {
-            "type": "date",
-            "ex": "greaterThanEqualTo(., step1:delivery_date)",
-            "err": "Date of OPV 0 can't occur before delivery date"
-          }
-        ],
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Type of physical disabilities",
+        "edit_type": "name",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -484,20 +597,43 @@
         }
       },
       {
-        "key": "bcg_date",
+        "key": "early_bf_1hr",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "opv0_date",
-        "type": "date_picker",
-        "hint": "BCG date",
-        "expanded": false,
-        "max_date": "today",
-        "constraints": [
-          {
-            "type": "date",
-            "ex": "greaterThanEqualTo(., step1:delivery_date)",
-            "err": "Date of BCG can't occur before delivery date"
+        "openmrs_entity_id": "164819AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "spinner",
+        "hint": "Early initiation of breastfeeding (1 hr)?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+            }
           }
+        }
+      },
+      {
+        "key": "vacc_birth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Which vaccinations were given?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
         ],
         "relevance": {
           "rules-engine": {
@@ -505,6 +641,33 @@
               "rules-file": "anc_pregnancy_outcome_relevance.yml"
             }
           }
+        },
+        "options": [
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_opv_0",
+            "text": "OPV 0",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_bcg",
+            "text": "BCG",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the current weight"
         }
       }
     ]

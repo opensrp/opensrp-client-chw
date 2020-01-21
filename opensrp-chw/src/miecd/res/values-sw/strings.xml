@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">UNICEF Vietnam</string>
+    <string name="login_title">UNICEF Vietnam-MIECD</string>
+    <string name="nav_logo">UNICEF Vietnam-MIECD</string>
+    <string name="menu_anc">Wajawazito</string>
+    <string name="menu_pnc">Baada ya Kujifungua</string>
+</resources>

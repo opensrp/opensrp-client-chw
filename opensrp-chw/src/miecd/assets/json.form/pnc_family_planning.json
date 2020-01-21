@@ -56,8 +56,12 @@
         "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Woman counseled on Family Planning?",
+        "hint": "Was the mother recently counselled on family planning at the health facility?",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -71,36 +75,98 @@
         }
       },
       {
+        "key": "fp_period_received",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "During what period was she counselled?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "chk_during_anc",
+            "text": "During ANC",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_during_anc"
+          },
+          {
+            "key": "chk_during_labour_and_delivery",
+            "text": "During labour and delivery",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_during_labour_and_delivery"
+          },
+          {
+            "key": "chk_during_pnc",
+            "text": "During PNC",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_during_pnc"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        },
+        "relevance": {
+          "step1:fp_counseling": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
         "key": "fp_method",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Family Planning method chosen?",
         "values": [
-          "None",
-          "Abstinence",
-          "Condom",
-          "Tablets",
-          "Injectable",
-          "IUD",
+          "PPIUCD",
+          "Pills",
           "Implant",
-          "Other"
+          "Condoms",
+          "LAM",
+          "Standard day method",
+          "Permanent (BTL)",
+          "Permanent (Vascemtomy)",
+          "None"
+        ],
+        "keys": [
+          "PPIUCD",
+          "Pills",
+          "Implant",
+          "Condoms",
+          "LAM",
+          "Bead Counting",
+          "Permanent (BTL)",
+          "Permanent (Vascemtomy)",
+          "None"
         ],
         "openmrs_choice_ids": {
-          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Abstinence": "159524AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Condom": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Tablets": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Injectable": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "IUD": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Implant": "159589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "PPIUCD": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Pills": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Implant": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Condoms": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "LAM": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Bead Counting": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Permanent (BTL)": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Permanent (Vascemtomy)": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "Please select one"
+        },
+        "relevance": {
+          "step1:fp_counseling": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       },
       {
@@ -114,13 +180,16 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please enter the date of immunization"
+          "err": "Please enter the start date of method"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "pnc_family_planning_relevance.yml"
-            }
+          "step1:fp_counseling": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          },
+          "step1:fp_method": {
+            "type": "string",
+            "ex": "notEqualTo(., \"None\")"
           }
         }
       }

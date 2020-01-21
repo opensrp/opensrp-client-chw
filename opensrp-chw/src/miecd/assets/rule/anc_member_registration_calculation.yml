@@ -29,7 +29,6 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = step1_no_prev_preg + 1"
-
 ---
 name: step1_last_menstrual_period
 description: last_menstrual_period calculated
@@ -45,5 +44,3 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = step1_edd != '' ? step1_edd  : helper.addDuration(step1_last_menstrual_period,'280d')"
-
-

@@ -6,12 +6,22 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.util.ChildDBConstants;
+import org.smartregister.chw.util.RepositoryUtils;
+import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.util.DatabaseMigrationUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -36,8 +46,23 @@ public class ChwRepositoryFlv {
                 case 5:
                     upgradeToVersion5(db);
                     break;
+                case 7:
+                    upgradeToVersion7(db);
+                    break;
                 case 8:
                     upgradeToVersion8(db);
+                    break;
+                case 9:
+                    upgradeToVersion9(db);
+                    break;
+                case 10:
+                    upgradeToVersion10(db);
+                    break;
+                case 12:
+                    upgradeToVersion12(db);
+                    break;
+                case 13:
+                    upgradeToVersion13(db);
                     break;
                 default:
                     break;
@@ -114,12 +139,69 @@ public class ChwRepositoryFlv {
         }
     }
 
+    private static void upgradeToVersion7(SQLiteDatabase db) {
+        try {
+            for (String query : RepositoryUtilsFlv.UPGRADE_V8) {
+                db.execSQL(query);
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion7 ");
+        }
+    }
+
     private static void upgradeToVersion8(SQLiteDatabase db) {
+        try {
+            for (String query : RepositoryUtilsFlv.UPGRADE_V9) {
+                db.execSQL(query);
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion8 ");
+        }
+    }
+
+    private static void upgradeToVersion9(SQLiteDatabase db) {
         try {
             VisitRepository.createTable(db);
             VisitDetailsRepository.createTable(db);
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion8 ");
+            Timber.e(e, "upgradeToVersion9 ");
+        }
+    }
+
+    private static void upgradeToVersion10(SQLiteDatabase db) {
+        try {
+            for (String query : RepositoryUtils.UPGRADE_V10) {
+                db.execSQL(query);
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion10 ");
+        }
+    }
+
+    private static void upgradeToVersion12(SQLiteDatabase db) {
+        try {
+            // add missing columns
+            List<String> columns = new ArrayList<>();
+            columns.add(ChildDBConstants.KEY.RELATIONAL_ID);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.FAMILY_MEMBER, columns);
+
+            // add missing columns
+            List<String> child_columns = new ArrayList<>();
+            child_columns.add(DBConstants.KEY.DOB);
+            child_columns.add(DBConstants.KEY.DATE_REMOVED);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.CHILD, child_columns);
+
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion12 ");
+        }
+    }
+
+    private static void upgradeToVersion13(SQLiteDatabase db) {
+        try {
+            // delete possible duplication
+            db.execSQL(RepositoryUtils.ADD_MISSING_REPORTING_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 }

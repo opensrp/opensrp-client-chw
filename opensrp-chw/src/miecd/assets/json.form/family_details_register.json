@@ -99,26 +99,6 @@
         }
       },
       {
-        "key": "quarter_clan",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "commune",
-        "type": "edit_text",
-        "hint": "Quarter",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the quarter or clan"
-        }
-      },
-      {
-        "key": "street",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "street",
-        "type": "edit_text",
-        "hint": "Street"
-      },
-      {
         "key": "landmark",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
@@ -135,38 +115,17 @@
         "type": "gps"
       },
       {
-        "key": "fam_source_income",
+        "key": "nearest_facility",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "fam_source_income",
-        "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Family source of income",
-        "values": [
-          "Petty trade",
-          "Agriculture, hunting and fishing",
-          "Exploitation of mines and quarries",
-          "Manufacturing industry",
-          "Construction",
-          "Electricity, gas and water",
-          "Commercial, hotels and restaurants",
-          "Transport, storage and communications",
-          "Financial institutions",
-          "Communication, social and personal services",
-          "Other"
-        ],
-        "openmrs_choice_ids": {
-          "Petty trade": "1539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Agriculture, hunting and fishing": "165411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Exploitation of mines and quarries": "165412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Manufacturing industry": "165407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Construction": "165408AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Electricity, gas and water": "165409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Commercial, hotels and restaurants": "165410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Transport, storage and communications": "165413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Financial institutions": "165414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Communication, social and personal services": "165415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "tree",
+        "hint": "Nearest health facility",
+        "tree": [],
+        "v_required": {
+          "value": true,
+          "err": "Please enter the nearest health facility"
         }
       }
     ]
