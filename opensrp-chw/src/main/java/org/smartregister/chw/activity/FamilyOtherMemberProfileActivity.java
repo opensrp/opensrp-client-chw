@@ -37,7 +37,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         // Check if woman is already registered
-        if (!presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isWra(commonPersonObject)) {
+        if (flavor.hasANC() && !presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isWra(commonPersonObject)) {
             flavor.updateFpMenuItems(baseEntityId, menu);
             menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {
@@ -164,6 +164,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         void updateFpMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
 
         void updateMalariaMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+
+        boolean hasANC();
     }
 
     @Override

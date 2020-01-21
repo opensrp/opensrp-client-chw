@@ -46,13 +46,16 @@ import org.smartregister.chw.referral.ReferralLibrary;
 import org.smartregister.chw.referral.domain.ReferralMetadata;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
+import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.FileUtils;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.domain.FamilyMetadata;
+import org.smartregister.family.util.Constants;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
@@ -71,29 +74,7 @@ import timber.log.Timber;
 
 public class ChwApplication extends CoreChwApplication {
 
-    private Flavor flavor = new ChwApplicationFlv();
-
-    public static void prepareGuideBooksFolder() {
-        String rootFolder = getGuideBooksDirectory();
-        createFolders(rootFolder, false);
-        boolean onSdCard = FileUtils.canWriteToExternalDisk();
-        if (onSdCard)
-            createFolders(rootFolder, true);
-    }
-
-    private static void createFolders(String rootFolder, boolean onSdCard) {
-        try {
-            FileUtils.createDirectory(rootFolder, onSdCard);
-        } catch (Exception e) {
-            Timber.v(e);
-        }
-    }
-
-    public static String getGuideBooksDirectory() {
-        String[] packageName = ChwApplication.getInstance().getContext().applicationContext().getPackageName().split("\\.");
-        String suffix = packageName[packageName.length - 1];
-        return "opensrp_guidebooks_" + (suffix.equalsIgnoreCase("chw") ? "liberia" : suffix);
-    }
+    private static Flavor flavor = new ChwApplicationFlv();
 
     @Override
     public void onCreate() {
@@ -183,6 +164,31 @@ public class ChwApplication extends CoreChwApplication {
 
         EventBus.getDefault().register(this);
     }
+    public static Flavor getApplicationFlavor() {
+        return flavor;
+    }
+
+    public static void prepareGuideBooksFolder() {
+        String rootFolder = getGuideBooksDirectory();
+        createFolders(rootFolder, false);
+        boolean onSdCard = FileUtils.canWriteToExternalDisk();
+        if (onSdCard)
+            createFolders(rootFolder, true);
+    }
+
+    private static void createFolders(String rootFolder, boolean onSdCard) {
+        try {
+            FileUtils.createDirectory(rootFolder, onSdCard);
+        } catch (Exception e) {
+            Timber.v(e);
+        }
+    }
+
+    public static String getGuideBooksDirectory() {
+        String[] packageName = ChwApplication.getInstance().getContext().applicationContext().getPackageName().split("\\.");
+        String suffix = packageName[packageName.length - 1];
+        return "opensrp_guidebooks_" + (suffix.equalsIgnoreCase("chw") ? "liberia" : suffix);
+    }
 
     @Override
     public void logoutCurrentUser() {
@@ -197,7 +203,13 @@ public class ChwApplication extends CoreChwApplication {
 
     @Override
     public FamilyMetadata getMetadata() {
-        return FormUtils.getFamilyMetadata(new FamilyProfileActivity(), getDefaultLocationLevel(), getFacilityHierarchy(), getFamilyLocationFields());
+        FamilyMetadata metadata = FormUtils.getFamilyMetadata(new FamilyProfileActivity(), getDefaultLocationLevel(), getFacilityHierarchy(), getFamilyLocationFields());
+
+        HashMap<String, String> setting = new HashMap<>();
+        setting.put(Constants.CustomConfig.FAMILY_FORM_IMAGE_STEP, JsonFormUtils.STEP1);
+        setting.put(Constants.CustomConfig.FAMILY_MEMBER_FORM_IMAGE_STEP, JsonFormUtils.STEP2);
+        metadata.setCustomConfigs(setting);
+        return metadata;
     }
 
     @Override
@@ -254,14 +266,28 @@ public class ChwApplication extends CoreChwApplication {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onVisitEvent(Visit visit) {
         if (visit != null) {
-            Timber.v("Visit Submitted re processing Schedule for event ' %s '  : %s", visit.getVisitType() , visit.getBaseEntityId());
+            Timber.v("Visit Submitted re processing Schedule for event ' %s '  : %s", visit.getVisitType(), visit.getBaseEntityId());
             ChwScheduleTaskExecutor.getInstance().execute(visit.getBaseEntityId(), visit.getVisitType(), visit.getDate());
+
+            ChildAlertService.updateAlerts(visit.getBaseEntityId());
         }
     }
 
-    interface Flavor {
+    public interface Flavor {
         boolean hasP2P();
 
         boolean hasReferrals();
+
+        boolean hasANC();
+
+        boolean hasPNC();
+
+        boolean hasChildSickForm();
+
+        boolean hasFamilyPlanning();
+
+        boolean hasWashCheck();
+
+        boolean hasRoutineVisit();
     }
 }

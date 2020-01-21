@@ -47,6 +47,7 @@ public class FamilyProfileActivityPresenter extends BaseFamilyProfileActivityPre
         events.add(CoreConstants.EventType.CHILD_HOME_VISIT);
         events.add(CoreConstants.EventType.CHILD_VISIT_NOT_DONE);
         events.add(CoreConstants.EventType.WASH_CHECK);
+        events.add(CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT);
 
         StringBuilder res = new StringBuilder();
         for (String s : events) {
