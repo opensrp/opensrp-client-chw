@@ -267,6 +267,11 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
         }
     }
 
+    public void startFormActivity(JSONObject jsonForm, FpMemberObject memberObject) {
+        Intent intent = org.smartregister.chw.core.utils.Utils.formActivityIntent(this, jsonForm.toString());
+        intent.putExtra(Constants.MALARIA_MEMBER_OBJECT.MEMBER_OBJECT, memberObject);
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
 
     private class MemberType {
         private org.smartregister.chw.anc.domain.MemberObject memberObject;

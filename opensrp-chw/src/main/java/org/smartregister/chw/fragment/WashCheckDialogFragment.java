@@ -72,7 +72,6 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
                 getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
             }
         });
-
     }
 
     @Nullable
@@ -183,12 +182,8 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.close:
-                dismiss();
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.close) {
+            dismiss();
         }
     }
 }
