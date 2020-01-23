@@ -208,3 +208,66 @@ priority: 1
 condition: "step1_treat_at_home == 1"
 actions:
   - "isRelevant = true"
+---
+name: step1_treat_pneumonia
+description: treat_pneumonia relevance
+priority: 1
+condition: "step1_fast_breathing != null && step1_fast_breathing.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_pneumonia_dose_given
+description: pneumonia_dose_given relevance
+priority: 1
+condition: "step1_treat_pneumonia != null && step1_treat_pneumonia.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_did_not_treat_pneumonia_reason
+description: did_not_treat_pneumonia_reason relevance
+priority: 1
+condition: "step1_treat_pneumonia != null && step1_treat_pneumonia.contains('No')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_did_not_treat_pneumonia_reason_other
+description: did_not_treat_pneumonia_reason_other relevance
+priority: 1
+condition: "step1_did_not_treat_pneumonia_reason != null && step1_did_not_treat_pneumonia_reason.contains('Other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_treat_malaria
+description: treat_malaria relevance
+priority: 1
+condition: "step1_gave_rdt != null && step1_gave_rdt.contains('No')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_malaria_dose_given
+description: malaria_dose_given relevance
+priority: 1
+condition: "step1_treat_malaria != null && step1_treat_malaria.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_did_not_treat_malaria_reason
+description: did_not_treat_malaria_reason relevance
+priority: 1
+condition: "step1_treat_malaria != null && step1_treat_malaria.contains('No')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_did_not_treat_malaria_reason_other
+description: did_not_treat_malaria_reason_other relevance
+priority: 1
+condition: "step1_did_not_treat_malaria_reason != null && step1_did_not_treat_malaria_reason.contains('Other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_treat_diarrhea
+description: treat_diarrhea relevance
+priority: 1
+condition: "step1_diarrhea != null && step1_diarrhea.contains('Yes')"
+actions:
+  - "isRelevant = true"

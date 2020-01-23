@@ -983,9 +983,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:fast_breathing": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes, has fast breathing\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -998,9 +999,10 @@
         "label": "Dose given:",
         "hint": "Dose given:",
         "relevance": {
-          "step1:treat_pneumonia": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes, I told the caregiver and gave him/her Amoxicillin\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1017,9 +1019,10 @@
           "Other"
         ],
         "relevance": {
-          "step1:treat_pneumonia": {
-            "type": "string",
-            "ex": "equalTo(., \"No, I did not give the caregiver Amoxicillin\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1032,9 +1035,10 @@
         "label": "Other:",
         "hint": "Other:",
         "relevance": {
-          "step1:did_not_treat_pneumonia_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Other\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1055,15 +1059,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_running_stomach",
-                  "chk_blood_in_poo"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1079,6 +1078,13 @@
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1097,6 +1103,13 @@
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1111,6 +1124,13 @@
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1132,9 +1152,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:did_not_treat_pneumonia_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Other\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       }
