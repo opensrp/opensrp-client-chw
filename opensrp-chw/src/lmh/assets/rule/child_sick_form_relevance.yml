@@ -1,0 +1,7 @@
+---
+name: step1_sick_child_warning
+description: sick_child_warning relevance
+priority: 1
+condition: "step1_age_in_months < 2"
+actions:
+  - "isRelevant = true"

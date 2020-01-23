@@ -57,6 +57,14 @@
     "title": "Sick Child",
     "fields": [
       {
+        "key": "age_in_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "1"
+      },
+      {
         "key": "sick_child_warning",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -64,7 +72,14 @@
         "type": "toaster_notes",
         "text": "This child is below 2 months of age. If you continue, you will be providing this care outside of the recommended national guidelines. If you do not wish to proceed, please exit the form..",
         "text_color": "#CF0800",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "manual_date",
