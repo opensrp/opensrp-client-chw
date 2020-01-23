@@ -1,0 +1,14 @@
+---
+name: step1_child_has_danger_signs
+description: child_has_danger_signs toaster
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ((!step1_danger_signs.isEmpty() && !step1_danger_signs.contains("chk_none")) ? 1 : 0)'
+---
+name: step1_danger_signs_present_toaster
+description: danger_signs_present_toaster toaster
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ["firstName" : step1_child_first_name, "dangerSigns" : step1_danger_signs]'

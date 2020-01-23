@@ -9,6 +9,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +18,6 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -41,6 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -575,6 +576,50 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         return flavor.getAutoJsonEditMemberFormString(title, formName, context, client, eventType, familyName, isPrimaryCaregiver);
     }
 
+    public static @NotNull JSONObject populatedFrom(@NotNull JSONObject jsonObject, @NotNull Map<String, String> valueMap) throws JSONException {
+
+        List<JSONObject> steps = getFormSteps(jsonObject);
+        Map<String, JSONObject> fields = new HashMap<>();
+
+        int step_position = 0;
+        while (step_position < steps.size()) {
+            JSONArray array = steps.get(step_position).getJSONArray(JsonFormConstants.FIELDS);
+            int field_position = 0;
+            while (field_position < array.length()) {
+                JSONObject object = array.getJSONObject(field_position);
+
+                String key = object.getString(JsonFormConstants.KEY);
+                fields.put(key, object);
+
+                field_position++;
+            }
+            step_position++;
+        }
+
+        for (Map.Entry<String, String> entry : valueMap.entrySet()) {
+            JSONObject object = fields.get(entry.getKey());
+            if (object != null)
+                object.put(JsonFormConstants.VALUE, entry.getValue());
+
+        }
+
+        return jsonObject;
+    }
+
+    public static List<JSONObject> getFormSteps(JSONObject jsonObject) throws JSONException {
+        List<JSONObject> steps = new ArrayList<>();
+        int x = 1;
+        while (true) {
+            String step_name = "step" + x;
+            if (jsonObject.has(step_name)) {
+                steps.add(jsonObject.getJSONObject(step_name));
+            } else {
+                break;
+            }
+            x++;
+        }
+        return steps;
+    }
 
     public interface Flavor {
         JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver);

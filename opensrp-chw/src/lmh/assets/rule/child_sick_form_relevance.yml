@@ -5,3 +5,52 @@ priority: 1
 condition: "step1_age_in_months < 2"
 actions:
   - "isRelevant = true"
+---
+name: step1_source
+description: source relevance
+priority: 1
+condition: "step1_visit_type != null && step1_visit_type.contains('Initial Visit')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_danger_signs_present_toaster
+description: danger_signs_present_toaster relevance
+priority: 1
+condition: "step1_child_has_danger_signs == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_information_one
+description: referral_information_one relevance
+priority: 1
+condition: "step1_child_has_danger_signs == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_chest_indrawing_label
+description: chest_indrawing_label relevance
+priority: 1
+condition: "step1_danger_signs != null && step1_danger_signs.contains('chk_chest_indrawing')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_provided_amoxicillin
+description: referral_provided_amoxicillin relevance
+priority: 1
+condition: "step1_danger_signs != null && step1_danger_signs.contains('chk_chest_indrawing')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_fever_label
+description: fever_label relevance
+priority: 1
+condition: "step1_danger_signs != null && step1_danger_signs.contains('chk_fever')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_give_act
+description: give_act relevance
+priority: 1
+condition: "step1_danger_signs != null && step1_danger_signs.contains('chk_fever')"
+actions:
+  - "isRelevant = true"

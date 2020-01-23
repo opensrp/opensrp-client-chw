@@ -65,6 +65,13 @@
         "value": "1"
       },
       {
+        "key": "child_first_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
         "key": "sick_child_warning",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -124,7 +131,14 @@
         "values": [
           "Passive case finding (Parent came to me)",
           "Active case finding (CHA went to sick child or on routine visit)"
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "danger_signs",
@@ -159,13 +173,6 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_sleepy_unconscious"
-          },
-          {
-            "key": "chk_referred",
-            "text": "Amepewa rufaa",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_convulsions",
@@ -240,11 +247,18 @@
         ]
       },
       {
-        "key": "child_has_danger_signs_toaster",
+        "key": "child_has_danger_signs",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "type": "spacer"
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "danger_signs_present_toaster",
@@ -259,27 +273,18 @@
           "value": "true",
           "err": "Required field"
         },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_fever",
-                  "chk_running_stomach",
-                  "chk_other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -297,6 +302,13 @@
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -312,14 +324,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_chest_indrawing"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -342,14 +350,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_chest_indrawing"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -366,14 +370,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_fever"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -396,14 +396,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_fever"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },

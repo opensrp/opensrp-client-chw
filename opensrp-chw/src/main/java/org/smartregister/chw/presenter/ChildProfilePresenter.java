@@ -19,6 +19,7 @@ import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -28,8 +29,10 @@ import org.smartregister.family.util.DBConstants;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -80,23 +83,18 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         try {
             JSONObject jsonObject = this.getFormUtils().getFormJson(CoreConstants.JSON_FORM.getChildSickForm());
 
-            String dobStr = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true);
+            String dobStr = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
             Date dobDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(dobStr);
 
             LocalDate date1 = LocalDate.fromDateFields(dobDate);
             LocalDate date2 = LocalDate.now();
             int months = Months.monthsBetween(date1, date2).getMonths();
 
-            JSONArray array = jsonObject.getJSONObject(JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
-            int x = 0;
-            while (x < array.length()) {
-                JSONObject object = array.getJSONObject(x);
-                if (object.getString(JsonFormConstants.KEY).equalsIgnoreCase("age_in_months")) {
-                    object.put(JsonFormConstants.VALUE, String.valueOf(months));
-                    break;
-                }
-                x++;
-            }
+            Map<String,String> valueMap = new HashMap<>();
+            valueMap.put("age_in_months", String.valueOf(months));
+            valueMap.put("child_first_name", Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true));
+
+            JsonFormUtils.populatedFrom(jsonObject, valueMap);
 
             this.getView().startFormActivity(jsonObject);
         } catch (Exception var3) {
