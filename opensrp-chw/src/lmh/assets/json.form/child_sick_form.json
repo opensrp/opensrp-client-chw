@@ -61,8 +61,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "type": "hidden",
-        "value": "1"
+        "type": "hidden"
       },
       {
         "key": "child_first_name",
@@ -1158,6 +1157,146 @@
             }
           }
         }
+      },
+      {
+        "key": "diarrhea_dose_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diarrhea_dose_given",
+        "openmrs_data_type": "",
+        "type": "edit_text",
+        "label": "Dose given:",
+        "hint": "Dose given:",
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        }
+      },
+      {
+        "key": "did_not_treat_diarrhea_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "did_not_treat_diarrhea_reason",
+        "openmrs_data_type": "",
+        "type": "spinner",
+        "hint": "Why was treatment for Diarrhea not provided?",
+        "values": [
+          "Out of stock",
+          "Treatment provided by outreach clinic",
+          "Other"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        }
+      },
+      {
+        "key": "did_not_treat_diarrhea_reason_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "did_not_treat_diarrhea_reason_other",
+        "openmrs_data_type": "",
+        "type": "edit_text",
+        "label": "Other:",
+        "hint": "Other:",
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        }
+      },
+      {
+        "key": "counseled_for_malnutrition",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "counseled_for_malnutrition",
+        "openmrs_data_type": "",
+        "type": "spinner",
+        "hint": "Yellow MUAC - Child is malnourished. Advise the caregiver on malnutrition and how to give child a balanced diet and good food. Notify your supervisor.",
+        "values": [
+          "Yes, I advised on malnutrition and will notify my supervisor",
+          "No, I did not advise on malnutrition"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        }
+      },
+      {
+        "key": "child_has_danger_sign_toaster_warm",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_warm",
+        "type": "toaster_notes",
+        "text": "Advise the caregiver to keep the child warm",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "child_has_danger_sign_toaster_cool",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_cool",
+        "type": "toaster_notes",
+        "text": "Advise the caregiver to keep the child cool",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "child_has_danger_sign_toaster_fluids",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_fluids",
+        "type": "toaster_notes",
+        "text": "Advise caregiver to give more fluids and continue feeding",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "child_has_danger_sign_toaster_follow_up",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_follow_up",
+        "type": "toaster_notes",
+        "text": "Reminder: Follow up with the child",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "child_has_danger_sign_toaster_no_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_no_symptoms",
+        "type": "toaster_notes",
+        "text": "Child has no symptoms. Follow up with caregiver to make sure the child stays healthy",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "child_has_danger_sign_toaster_treatment_completed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_treatment_completed",
+        "type": "toaster_notes",
+        "text": "Treatment completed. Ask caregiver to return if the child has any other health problems",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "notify_supervisor",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "notify_supervisor",
+        "type": "hidden"
+      },
+      {
+        "key": "notify_supervisor_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "notify_supervisor_toaster",
+        "type": "toaster_notes",
+        "text": "Child has not recovered in three follow up visits. Please notify your supervisor",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
       }
     ]
   }
