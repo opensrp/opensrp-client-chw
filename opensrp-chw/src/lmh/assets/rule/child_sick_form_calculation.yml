@@ -12,3 +12,38 @@ priority: 1
 condition: "true"
 actions:
   - 'calculation = ["firstName" : step1_child_first_name, "dangerSigns" : step1_danger_signs]'
+---
+name: step1_treat_at_home
+description: treat_at_home calculation
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ( (step1_positive_malaria != null && step1_positive_malaria.contains("Positive")) || (step1_gave_rdt != null && step1_gave_rdt.contains("No")) || (step1_fast_breathing != null && step1_fast_breathing.contains("Yes")) || (step1_yellow_muac != null && step1_yellow_muac.contains("Yes")) || (step1_diarrhea != null && step1_diarrhea.contains("Yes")) ) ? 1 : 0)'
+---
+name: step1_home_treatment_coughing
+description: home_treatment_coughing calculation
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ((step1_treat_at_home == 1 && step1_fast_breathing.contains("Yes")) ? 1 : 0)'
+---
+name: step1_home_treatment_fever
+description: home_treatment_fever calculation
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ((step1_treat_at_home == 1 && (step1_positive_malaria.contains("Positive") || step1_gave_rdt.contains("No"))) ? 1 : 0)'
+---
+name: step1_home_treatment_diarrhea
+description: home_treatment_diarrhea calculation
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ((step1_treat_at_home == 1 && step1_diarrhea.contains("Yes")) ? 1 : 0)'
+---
+name: step1_home_treatment_malnutrition
+description: home_treatment_malnutrition calculation
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ((step1_treat_at_home == 1 && step1_yellow_muac.contains("Yes")) ? 1 : 0)'

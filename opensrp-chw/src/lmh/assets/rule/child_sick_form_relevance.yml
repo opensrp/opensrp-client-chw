@@ -152,3 +152,59 @@ priority: 1
 condition: "step1_danger_signs == null || !step1_danger_signs.contains('chk_coughing')"
 actions:
   - "isRelevant = true"
+---
+name: step1_fast_breathing
+description: fast_breathing relevance
+priority: 1
+condition: "step1_child_coughing != null && step1_child_coughing.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_fever_group_label
+description: fever_group_label relevance
+priority: 1
+condition: "step1_danger_signs == null || !step1_danger_signs.contains('chk_fever')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_fever
+description: fever relevance
+priority: 1
+condition: "step1_danger_signs == null || !step1_danger_signs.contains('chk_fever')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_gave_rdt
+description: gave_rdt relevance
+priority: 1
+condition: "step1_fever != null && step1_fever.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_positive_malaria
+description: positive_malaria relevance
+priority: 1
+condition: "step1_gave_rdt != null && step1_gave_rdt.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diarrhea_label
+description: diarrhea_label relevance
+priority: 1
+condition: "step1_danger_signs == null || (!step1_danger_signs.contains('chk_running_stomach') && !step1_danger_signs.contains('chk_blood_in_poo'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diarrhea
+description: diarrhea relevance
+priority: 1
+condition: "step1_danger_signs == null || (!step1_danger_signs.contains('chk_running_stomach') && !step1_danger_signs.contains('chk_blood_in_poo'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_treat_at_home_toaster
+description: treat_at_home_toaster relevance
+priority: 1
+condition: "step1_treat_at_home == 1"
+actions:
+  - "isRelevant = true"
