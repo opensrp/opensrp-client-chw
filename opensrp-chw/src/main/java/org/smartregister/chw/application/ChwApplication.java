@@ -164,6 +164,7 @@ public class ChwApplication extends CoreChwApplication {
 
         EventBus.getDefault().register(this);
     }
+
     public static Flavor getApplicationFlavor() {
         return flavor;
     }
