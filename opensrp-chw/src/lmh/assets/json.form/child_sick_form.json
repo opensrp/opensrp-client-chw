@@ -1170,6 +1170,13 @@
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1188,6 +1195,13 @@
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1202,6 +1216,13 @@
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1219,6 +1240,13 @@
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1229,7 +1257,14 @@
         "type": "toaster_notes",
         "text": "Advise the caregiver to keep the child warm",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "child_has_danger_sign_toaster_cool",
@@ -1239,7 +1274,14 @@
         "type": "toaster_notes",
         "text": "Advise the caregiver to keep the child cool",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "child_has_danger_sign_toaster_fluids",
@@ -1249,7 +1291,14 @@
         "type": "toaster_notes",
         "text": "Advise caregiver to give more fluids and continue feeding",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "child_has_danger_sign_toaster_follow_up",
@@ -1259,7 +1308,14 @@
         "type": "toaster_notes",
         "text": "Reminder: Follow up with the child",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "child_has_danger_sign_toaster_no_symptoms",
@@ -1269,7 +1325,14 @@
         "type": "toaster_notes",
         "text": "Child has no symptoms. Follow up with caregiver to make sure the child stays healthy",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "child_has_danger_sign_toaster_treatment_completed",
@@ -1279,14 +1342,28 @@
         "type": "toaster_notes",
         "text": "Treatment completed. Ask caregiver to return if the child has any other health problems",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "notify_supervisor",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "notify_supervisor",
-        "type": "hidden"
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "notify_supervisor_toaster",
@@ -1296,7 +1373,14 @@
         "type": "toaster_notes",
         "text": "Child has not recovered in three follow up visits. Please notify your supervisor",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
       }
     ]
   }

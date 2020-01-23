@@ -271,3 +271,80 @@ priority: 1
 condition: "step1_diarrhea != null && step1_diarrhea.contains('Yes')"
 actions:
   - "isRelevant = true"
+---
+name: step1_diarrhea_dose_given
+description: diarrhea_dose_given relevance
+priority: 1
+condition: "step1_treat_diarrhea != null && step1_treat_diarrhea.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_did_not_treat_diarrhea_reason
+description: did_not_treat_diarrhea_reason relevance
+priority: 1
+condition: "step1_treat_diarrhea != null && step1_treat_diarrhea.contains('No')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_did_not_treat_diarrhea_reason_other
+description: did_not_treat_diarrhea_reason_other relevance
+priority: 1
+condition: "step1_did_not_treat_diarrhea_reason != null && step1_did_not_treat_diarrhea_reason.contains('Other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_counseled_for_malnutrition
+description: counseled_for_malnutrition relevance
+priority: 1
+condition: "step1_yellow_muac != null && step1_yellow_muac.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_has_danger_sign_toaster_warm
+description: child_has_danger_sign_toaster_warm relevance
+priority: 1
+condition: "step1_child_has_danger_signs != 1 && (step1_fever != null && step1_fever.contains('No'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_has_danger_sign_toaster_cool
+description: child_has_danger_sign_toaster_cool relevance
+priority: 1
+condition: "step1_child_has_danger_signs != 1 && (step1_fever != null && step1_fever.contains('Yes'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_has_danger_sign_toaster_fluids
+description: child_has_danger_sign_toaster_fluids relevance
+priority: 1
+condition: "step1_child_has_danger_signs != 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_has_danger_sign_toaster_follow_up
+description: child_has_danger_sign_toaster_follow_up relevance
+priority: 1
+condition: "step1_visit_type != null && !step1_visit_type.contains('3rd follow-up visit')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_has_danger_sign_toaster_no_symptoms
+description: child_has_danger_sign_toaster_no_symptoms relevance
+priority: 1
+condition: "step1_treat_at_home != 1 && step1_visit_type != null && !step1_visit_type.contains('3rd follow-up visit')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_has_danger_sign_toaster_treatment_completed
+description: child_has_danger_sign_toaster_treatment_completed relevance
+priority: 1
+condition: "step1_treat_at_home != 1 && step1_visit_type != null && step1_visit_type.contains('3rd follow-up visit')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_notify_supervisor_toaster
+description: notify_supervisor_toaster relevance
+priority: 1
+condition: "step1_notify_supervisor == 1"
+actions:
+  - "isRelevant = true"

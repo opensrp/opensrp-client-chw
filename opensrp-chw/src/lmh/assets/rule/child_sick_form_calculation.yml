@@ -54,3 +54,10 @@ priority: 1
 condition: "true"
 actions:
   - 'calculation = ["firstName" : step1_child_first_name, "symptoms" :  ((step1_home_treatment_coughing == 1 ) ? "Coughing" : "")  + " " + ((step1_home_treatment_fever == 1 ) ? "Fever" : "")  + " " + ((step1_home_treatment_diarrhea == 1 ) ? "Diarrhea" : "")  + " " + ((step1_home_treatment_malnutrition == 1 ) ? "Malnutrition" : "") ]'
+---
+name: step1_notify_supervisor
+description: notify_supervisor calculation
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (((step1_diarrhea != null && step1_diarrhea.contains("Yes") || (step1_fever != null && step1_fever.contains("Yes") || (step1_child_coughing != null && step1_child_coughing.contains("Yes")) && (step1_visit_type != null && step1_visit_type.contains("3rd follow-up visit")) ) ? 1 : 0)'
