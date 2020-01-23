@@ -47,3 +47,10 @@ priority: 1
 condition: "true"
 actions:
   - 'calculation = ((step1_treat_at_home == 1 && step1_yellow_muac.contains("Yes")) ? 1 : 0)'
+---
+name: step1_treat_at_home_toaster
+description: treat_at_home_toaster toaster
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ["firstName" : step1_child_first_name, "symptoms" :  ((step1_home_treatment_coughing == 1 ) ? "Coughing" : "")  + " " + ((step1_home_treatment_fever == 1 ) ? "Fever" : "")  + " " + ((step1_home_treatment_diarrhea == 1 ) ? "Diarrhea" : "")  + " " + ((step1_home_treatment_malnutrition == 1 ) ? "Malnutrition" : "") ]'

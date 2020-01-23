@@ -948,9 +948,16 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "treat_at_home_toaster",
         "type": "toaster_notes",
-        "text": "Begin home treatment. {firstName} has the following symptoms:\n\nhomeTreatment_coughing\nhomeTreatment_fever\nhomeTreatment_diarrhea\nhomeTreatment_malnutrition",
+        "text": "Begin home treatment. {firstName} has the following symptoms: {symptoms} ",
         "text_color": "#CF0800",
         "toaster_type": "warning",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
