@@ -54,3 +54,101 @@ priority: 1
 condition: "step1_danger_signs != null && step1_danger_signs.contains('chk_fever')"
 actions:
   - "isRelevant = true"
+---
+name: step1_running_stomach_label
+description: running_stomach_label relevance
+priority: 1
+condition: "step1_danger_signs != null && (step1_danger_signs.contains('chk_running_stomach') || step1_danger_signs.contains('chk_blood_in_poo'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_provided_ors
+description: provided_ors relevance
+priority: 1
+condition: "step1_danger_signs != null && (step1_danger_signs.contains('chk_running_stomach') || step1_danger_signs.contains('chk_blood_in_poo'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_give_fluids
+description: referral_give_fluids relevance
+priority: 1
+condition: "step1_child_has_danger_signs == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_keep_child_warm
+description: referral_keep_child_warm relevance
+priority: 1
+condition: "step1_danger_signs != null && !step1_danger_signs.isEmpty() && !step1_danger_signs.contains('chk_fever')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_keep_child_cool
+description: referral_keep_child_cool relevance
+priority: 1
+condition: "step1_danger_signs != null && !step1_danger_signs.isEmpty() && step1_danger_signs.contains('chk_fever')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_complete_form
+description: referral_complete_form relevance
+priority: 1
+condition: "step1_child_has_danger_signs == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_arranged_transport
+description: referral_arranged_transport relevance
+priority: 1
+condition: "step1_child_has_danger_signs == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_successful
+description: referral_successful relevance
+priority: 1
+condition: "step1_child_has_danger_signs == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_no_danger_signs_toaster
+description: no_danger_signs_toaster relevance
+priority: 1
+condition: "step1_child_has_danger_signs != 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_look_for_symptoms_toaster
+description: look_for_symptoms_toaster relevance
+priority: 1
+condition: "step1_child_has_danger_signs == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_yellow_muac_label
+description: yellow_muac_label relevance
+priority: 1
+condition: "step1_danger_signs == null || !step1_danger_signs.contains('chk_muac')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_yellow_muac
+description: yellow_muac relevance
+priority: 1
+condition: "step1_danger_signs == null || !step1_danger_signs.contains('chk_muac')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_coughing_or_difficulty_label
+description: coughing_or_difficulty_label relevance
+priority: 1
+condition: "step1_danger_signs == null || !step1_danger_signs.contains('chk_coughing')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_coughing
+description: child_coughing relevance
+priority: 1
+condition: "step1_danger_signs == null || !step1_danger_signs.contains('chk_coughing')"
+actions:
+  - "isRelevant = true"
