@@ -1,15 +1,16 @@
 package org.smartregister.chw.schedulers;
 
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.ScheduleService;
 import org.smartregister.chw.core.schedulers.ScheduleTaskExecutor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.task.ANCVisitScheduler;
 import org.smartregister.chw.task.ChildHomeVisitScheduler;
-import org.smartregister.chw.task.RoutineHouseHoldVisitScheduler;
 import org.smartregister.chw.task.FpVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
 import org.smartregister.chw.task.PNCVisitScheduler;
+import org.smartregister.chw.task.RoutineHouseHoldVisitScheduler;
 import org.smartregister.chw.task.WashCheckScheduler;
 
 import java.util.ArrayList;
@@ -38,12 +39,24 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
             scheduleServiceMap = new HashMap<>();
 
             initializeChildClassifier(scheduleServiceMap);
-            initializeANCClassifier(scheduleServiceMap);
-            initializePNCClassifier(scheduleServiceMap);
+
+            if (ChwApplication.getApplicationFlavor().hasANC())
+                initializeANCClassifier(scheduleServiceMap);
+
+            if (ChwApplication.getApplicationFlavor().hasPNC())
+                initializePNCClassifier(scheduleServiceMap);
+
             initializeMalariaClassifier(scheduleServiceMap);
-            initializeWashClassifier(scheduleServiceMap);
-            initializeFPClassifier(scheduleServiceMap);
-            initializeRoutineHouseholdClassifier(scheduleServiceMap);
+
+            if (ChwApplication.getApplicationFlavor().hasWashCheck())
+                initializeWashClassifier(scheduleServiceMap);
+
+            if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
+                initializeFPClassifier(scheduleServiceMap);
+
+            if (ChwApplication.getApplicationFlavor().hasRoutineVisit())
+                initializeRoutineHouseholdClassifier(scheduleServiceMap);
+
         }
         return scheduleServiceMap;
     }

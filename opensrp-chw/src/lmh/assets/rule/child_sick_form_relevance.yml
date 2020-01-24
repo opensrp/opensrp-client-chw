@@ -1,0 +1,350 @@
+---
+name: step1_sick_child_warning
+description: sick_child_warning relevance
+priority: 1
+condition: "step1_age_in_months < 2"
+actions:
+  - "isRelevant = true"
+---
+name: step1_source
+description: source relevance
+priority: 1
+condition: "step1_visit_type != null && step1_visit_type.contains('Initial Visit')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_danger_signs_present_toaster
+description: danger_signs_present_toaster relevance
+priority: 1
+condition: "step1_child_has_danger_signs == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_information_one
+description: referral_information_one relevance
+priority: 1
+condition: "step1_child_has_danger_signs == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_chest_indrawing_label
+description: chest_indrawing_label relevance
+priority: 1
+condition: "step1_danger_signs != null && step1_danger_signs.contains('chk_chest_indrawing')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_provided_amoxicillin
+description: referral_provided_amoxicillin relevance
+priority: 1
+condition: "step1_danger_signs != null && step1_danger_signs.contains('chk_chest_indrawing')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_fever_label
+description: fever_label relevance
+priority: 1
+condition: "step1_danger_signs != null && step1_danger_signs.contains('chk_fever')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_give_act
+description: give_act relevance
+priority: 1
+condition: "step1_danger_signs != null && step1_danger_signs.contains('chk_fever')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_running_stomach_label
+description: running_stomach_label relevance
+priority: 1
+condition: "step1_danger_signs != null && (step1_danger_signs.contains('chk_running_stomach') || step1_danger_signs.contains('chk_blood_in_poo'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_provided_ors
+description: provided_ors relevance
+priority: 1
+condition: "step1_danger_signs != null && (step1_danger_signs.contains('chk_running_stomach') || step1_danger_signs.contains('chk_blood_in_poo'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_give_fluids
+description: referral_give_fluids relevance
+priority: 1
+condition: "step1_child_has_danger_signs == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_keep_child_warm
+description: referral_keep_child_warm relevance
+priority: 1
+condition: "step1_danger_signs != null && !step1_danger_signs.isEmpty() && !step1_danger_signs.contains('chk_fever')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_keep_child_cool
+description: referral_keep_child_cool relevance
+priority: 1
+condition: "step1_danger_signs != null && !step1_danger_signs.isEmpty() && step1_danger_signs.contains('chk_fever')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_complete_form
+description: referral_complete_form relevance
+priority: 1
+condition: "step1_child_has_danger_signs == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_arranged_transport
+description: referral_arranged_transport relevance
+priority: 1
+condition: "step1_child_has_danger_signs == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_successful
+description: referral_successful relevance
+priority: 1
+condition: "step1_child_has_danger_signs == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_no_danger_signs_toaster
+description: no_danger_signs_toaster relevance
+priority: 1
+condition: "step1_child_has_danger_signs != 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_look_for_symptoms_toaster
+description: look_for_symptoms_toaster relevance
+priority: 1
+condition: "step1_child_has_danger_signs == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_yellow_muac_label
+description: yellow_muac_label relevance
+priority: 1
+condition: "step1_danger_signs == null || !step1_danger_signs.contains('chk_muac')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_yellow_muac
+description: yellow_muac relevance
+priority: 1
+condition: "step1_danger_signs == null || !step1_danger_signs.contains('chk_muac')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_coughing_or_difficulty_label
+description: coughing_or_difficulty_label relevance
+priority: 1
+condition: "step1_danger_signs == null || !step1_danger_signs.contains('chk_coughing')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_coughing
+description: child_coughing relevance
+priority: 1
+condition: "step1_danger_signs == null || !step1_danger_signs.contains('chk_coughing')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_fast_breathing
+description: fast_breathing relevance
+priority: 1
+condition: "step1_child_coughing != null && step1_child_coughing.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_fever_group_label
+description: fever_group_label relevance
+priority: 1
+condition: "step1_danger_signs == null || !step1_danger_signs.contains('chk_fever')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_fever
+description: fever relevance
+priority: 1
+condition: "step1_danger_signs == null || !step1_danger_signs.contains('chk_fever')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_gave_rdt
+description: gave_rdt relevance
+priority: 1
+condition: "step1_fever != null && step1_fever.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_positive_malaria
+description: positive_malaria relevance
+priority: 1
+condition: "step1_gave_rdt != null && step1_gave_rdt.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diarrhea_label
+description: diarrhea_label relevance
+priority: 1
+condition: "step1_danger_signs == null || (!step1_danger_signs.contains('chk_running_stomach') && !step1_danger_signs.contains('chk_blood_in_poo'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diarrhea
+description: diarrhea relevance
+priority: 1
+condition: "step1_danger_signs == null || (!step1_danger_signs.contains('chk_running_stomach') && !step1_danger_signs.contains('chk_blood_in_poo'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_treat_at_home_toaster
+description: treat_at_home_toaster relevance
+priority: 1
+condition: "step1_treat_at_home == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_treat_pneumonia
+description: treat_pneumonia relevance
+priority: 1
+condition: "step1_fast_breathing != null && step1_fast_breathing.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_pneumonia_dose_given
+description: pneumonia_dose_given relevance
+priority: 1
+condition: "step1_treat_pneumonia != null && step1_treat_pneumonia.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_did_not_treat_pneumonia_reason
+description: did_not_treat_pneumonia_reason relevance
+priority: 1
+condition: "step1_treat_pneumonia != null && step1_treat_pneumonia.contains('No')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_did_not_treat_pneumonia_reason_other
+description: did_not_treat_pneumonia_reason_other relevance
+priority: 1
+condition: "step1_did_not_treat_pneumonia_reason != null && step1_did_not_treat_pneumonia_reason.contains('Other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_treat_malaria
+description: treat_malaria relevance
+priority: 1
+condition: "step1_gave_rdt != null && step1_gave_rdt.contains('No')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_malaria_dose_given
+description: malaria_dose_given relevance
+priority: 1
+condition: "step1_treat_malaria != null && step1_treat_malaria.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_did_not_treat_malaria_reason
+description: did_not_treat_malaria_reason relevance
+priority: 1
+condition: "step1_treat_malaria != null && step1_treat_malaria.contains('No')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_did_not_treat_malaria_reason_other
+description: did_not_treat_malaria_reason_other relevance
+priority: 1
+condition: "step1_did_not_treat_malaria_reason != null && step1_did_not_treat_malaria_reason.contains('Other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_treat_diarrhea
+description: treat_diarrhea relevance
+priority: 1
+condition: "step1_diarrhea != null && step1_diarrhea.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diarrhea_dose_given
+description: diarrhea_dose_given relevance
+priority: 1
+condition: "step1_treat_diarrhea != null && step1_treat_diarrhea.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_did_not_treat_diarrhea_reason
+description: did_not_treat_diarrhea_reason relevance
+priority: 1
+condition: "step1_treat_diarrhea != null && step1_treat_diarrhea.contains('No')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_did_not_treat_diarrhea_reason_other
+description: did_not_treat_diarrhea_reason_other relevance
+priority: 1
+condition: "step1_did_not_treat_diarrhea_reason != null && step1_did_not_treat_diarrhea_reason.contains('Other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_counseled_for_malnutrition
+description: counseled_for_malnutrition relevance
+priority: 1
+condition: "step1_yellow_muac != null && step1_yellow_muac.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_has_danger_sign_toaster_warm
+description: child_has_danger_sign_toaster_warm relevance
+priority: 1
+condition: "step1_child_has_danger_signs != 1 && (step1_fever != null && step1_fever.contains('No'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_has_danger_sign_toaster_cool
+description: child_has_danger_sign_toaster_cool relevance
+priority: 1
+condition: "step1_child_has_danger_signs != 1 && (step1_fever != null && step1_fever.contains('Yes'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_has_danger_sign_toaster_fluids
+description: child_has_danger_sign_toaster_fluids relevance
+priority: 1
+condition: "step1_child_has_danger_signs != 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_has_danger_sign_toaster_follow_up
+description: child_has_danger_sign_toaster_follow_up relevance
+priority: 1
+condition: "step1_visit_type != null && !step1_visit_type.contains('3rd follow-up visit')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_has_danger_sign_toaster_no_symptoms
+description: child_has_danger_sign_toaster_no_symptoms relevance
+priority: 1
+condition: "step1_treat_at_home != 1 && step1_visit_type != null && !step1_visit_type.contains('3rd follow-up visit')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_has_danger_sign_toaster_treatment_completed
+description: child_has_danger_sign_toaster_treatment_completed relevance
+priority: 1
+condition: "step1_treat_at_home != 1 && step1_visit_type != null && step1_visit_type.contains('3rd follow-up visit')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_notify_supervisor_toaster
+description: notify_supervisor_toaster relevance
+priority: 1
+condition: "step1_notify_supervisor == 1"
+actions:
+  - "isRelevant = true"
