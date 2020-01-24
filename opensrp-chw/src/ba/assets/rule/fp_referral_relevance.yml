@@ -1,0 +1,38 @@
+---
+name: step1_fp_side_effects_other
+description: Other Family Planning side effects
+priority: 1
+condition: "!step1_side_effects_sterialization.isEmpty() && step1_side_effects_sterialization.contains('Others') ||
+!step1_side_effects_iucd.isEmpty() && step1_side_effects_iucd.contains('Others') ||
+!step1_side_effects_implant.isEmpty() && step1_side_effects_implant.contains('Others') ||
+!step1_side_effects_inject_pills.isEmpty() && step1_side_effects_inject_pills.contains('Others')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_side_effects_sterialization
+description: Female Sterilization side effects
+priority: 1
+condition: "!step1_fp_method_accepted_referral.isEmpty() && step1_fp_method_accepted_referral.contains('Female_sterilization')"
+actions:
+  - "isRelevant = true"
+---
+  name: step1_side_effects_iucd
+  description: IUCD side effects
+  priority: 1
+  condition: "!step1_fp_method_accepted_referral.isEmpty() && step1_fp_method_accepted_referral.contains('IUCD')"
+  actions:
+    - "isRelevant = true"
+---
+  name: step1_side_effects_implant
+  description: Implant side effects (for Implanon - NXT or Jadelle)
+  priority: 1
+  condition: "!step1_fp_method_accepted_referral.isEmpty() && (step1_fp_method_accepted_referral.contains('Implanon_NXT') || step1_fp_method_accepted_referral.contains('Jadelle'))"
+  actions:
+    - "isRelevant = true"
+---
+  name: step1_side_effects_inject_pills
+  description: Inject pills side effects (for Injectable, POP or COC)
+  priority: 1
+  condition: "!step1_fp_method_accepted_referral.isEmpty() && (step1_fp_method_accepted_referral.contains('Injectable') || step1_fp_method_accepted_referral.contains('POP') || step1_fp_method_accepted_referral.contains('COC'))"
+  actions:
+    - "isRelevant = true"
