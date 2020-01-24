@@ -178,6 +178,9 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity android:name=".activity.FpFollowUpVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.SickFormMedicalHistory"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

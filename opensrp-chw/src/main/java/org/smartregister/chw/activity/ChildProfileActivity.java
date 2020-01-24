@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
+
 public class ChildProfileActivity extends CoreChildProfileActivity {
     public FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new ChildProfileActivityFlv();
@@ -179,6 +181,15 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         if (MalariaDao.isRegisteredForMalaria(childBaseEntityId)) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
         }
+    }
+
+    @Override
+    protected View.OnClickListener getSickListener() {
+        return v -> {
+            Intent intent = new Intent(getApplication(), SickFormMedicalHistory.class);
+            intent.putExtra(MEMBER_PROFILE_OBJECT, memberObject);
+            startActivity(intent);
+        };
     }
 
     public interface Flavor {
