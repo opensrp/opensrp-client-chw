@@ -6,10 +6,10 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.task.ANCVisitScheduler;
 import org.smartregister.chw.task.ChildHomeVisitScheduler;
-import org.smartregister.chw.task.RoutineHouseHoldVisitScheduler;
 import org.smartregister.chw.task.FpVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
 import org.smartregister.chw.task.PNCVisitScheduler;
+import org.smartregister.chw.task.RoutineHouseHoldVisitScheduler;
 import org.smartregister.chw.task.WashCheckScheduler;
 
 import java.util.ArrayList;
