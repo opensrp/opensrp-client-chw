@@ -182,8 +182,8 @@ android {
         guinea {
             dimension = 'baseDimension'
             applicationIdSuffix ".guinea"
-            versionCode 3
-            versionName "1.0.2"
+            versionCode 4
+            versionName "1.0.3"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-guinea.smartregister.org/opensrp/"'
