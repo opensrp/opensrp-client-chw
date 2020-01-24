@@ -94,7 +94,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
             valueMap.put("age_in_months", String.valueOf(months));
             valueMap.put("child_first_name", Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true));
 
-            JsonFormUtils.populatedFrom(jsonObject, valueMap);
+            JsonFormUtils.populatedJsonForm(jsonObject, valueMap);
 
             this.getView().startFormActivity(jsonObject);
         } catch (Exception var3) {

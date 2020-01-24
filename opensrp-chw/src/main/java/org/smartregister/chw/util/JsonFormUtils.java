@@ -576,34 +576,28 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         return flavor.getAutoJsonEditMemberFormString(title, formName, context, client, eventType, familyName, isPrimaryCaregiver);
     }
 
-    public static @NotNull JSONObject populatedFrom(@NotNull JSONObject jsonObject, @NotNull Map<String, String> valueMap) throws JSONException {
+    public static void populatedJsonForm(@NotNull JSONObject jsonObject, @NotNull Map<String, String> valueMap) throws JSONException {
+        Map<String, String> _valueMap = new HashMap<>(valueMap);
+        int step = 1;
+        while (jsonObject.has("step" + step)) {
+            JSONObject jsonStepObject = jsonObject.getJSONObject("step" + step);
+            JSONArray array = jsonStepObject.getJSONArray(JsonFormConstants.FIELDS);
+            int position = 0;
+            while (position < array.length() && _valueMap.size() > 0) {
 
-        List<JSONObject> steps = getFormSteps(jsonObject);
-        Map<String, JSONObject> fields = new HashMap<>();
-
-        int step_position = 0;
-        while (step_position < steps.size()) {
-            JSONArray array = steps.get(step_position).getJSONArray(JsonFormConstants.FIELDS);
-            int field_position = 0;
-            while (field_position < array.length()) {
-                JSONObject object = array.getJSONObject(field_position);
-
+                JSONObject object = array.getJSONObject(position);
                 String key = object.getString(JsonFormConstants.KEY);
-                fields.put(key, object);
 
-                field_position++;
+                if (_valueMap.containsKey(key)) {
+                    object.put(JsonFormConstants.VALUE, _valueMap.get(key));
+                    _valueMap.remove(key);
+                }
+
+                position++;
             }
-            step_position++;
+
+            step++;
         }
-
-        for (Map.Entry<String, String> entry : valueMap.entrySet()) {
-            JSONObject object = fields.get(entry.getKey());
-            if (object != null)
-                object.put(JsonFormConstants.VALUE, entry.getValue());
-
-        }
-
-        return jsonObject;
     }
 
     public static List<JSONObject> getFormSteps(JSONObject jsonObject) throws JSONException {

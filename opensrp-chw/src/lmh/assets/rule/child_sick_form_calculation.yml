@@ -60,4 +60,4 @@ description: notify_supervisor calculation
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = (((step1_diarrhea != null && step1_diarrhea.contains("Yes") || (step1_fever != null && step1_fever.contains("Yes") || (step1_child_coughing != null && step1_child_coughing.contains("Yes")) && (step1_visit_type != null && step1_visit_type.contains("3rd follow-up visit")) ) ? 1 : 0)'
+  - 'calculation = (((step1_diarrhea != null && step1_diarrhea.contains("Yes")) || (step1_fever != null && step1_fever.contains("Yes")) || (step1_child_coughing != null && step1_child_coughing.contains("Yes")) || (step1_visit_type != null && step1_visit_type.contains("3rd follow-up visit"))) ? 1 : 0)'
