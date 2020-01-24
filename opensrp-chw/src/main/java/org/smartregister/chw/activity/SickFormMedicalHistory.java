@@ -20,6 +20,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.SickFormMedicalHistoryAdapter;
 import org.smartregister.chw.anc.activity.BaseAncUpcomingServicesActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.contract.SickFormMedicalHistoryContract;
 import org.smartregister.chw.core.utils.CustomDividerItemDecoration;
 import org.smartregister.chw.interactor.SickFormMedicalHistoryInteractor;
@@ -37,7 +38,7 @@ public class SickFormMedicalHistory extends SecuredActivity implements SickFormM
 
     protected MemberObject memberObject;
     protected SickFormMedicalHistoryContract.Presenter presenter;
-    protected List<String> serviceList = new ArrayList<>();
+    protected List<Visit> serviceList = new ArrayList<>();
     private TextView tvTitle;
     private ProgressBar progressBar;
     private RecyclerView.Adapter mAdapter;
@@ -100,7 +101,7 @@ public class SickFormMedicalHistory extends SecuredActivity implements SickFormM
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new SickFormMedicalHistoryAdapter(this, serviceList);
+        mAdapter = new SickFormMedicalHistoryAdapter(this, serviceList, this);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new CustomDividerItemDecoration(ContextCompat.getDrawable(getContext(), org.smartregister.chw.core.R.drawable.divider)));
 
@@ -122,7 +123,7 @@ public class SickFormMedicalHistory extends SecuredActivity implements SickFormM
     }
 
     @Override
-    public void refreshVisits(List<String> visits) {
+    public void refreshVisits(List<Visit> visits) {
         this.serviceList.clear();
         this.serviceList.addAll(visits);
 
@@ -133,5 +134,14 @@ public class SickFormMedicalHistory extends SecuredActivity implements SickFormM
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    public void onAdapterInteraction(Visit visit) {
+        /*
+        FormHistoryDialogFragment dialogFragment = FormHistoryDialogFragment.getInstance(visit.getBaseEntityId(), visit.getDate().getTime(), Constants.EventType.SICK_CHILD);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        dialogFragment.show(ft, FormHistoryDialogFragment.DIALOG_TAG);
+         */
     }
 }

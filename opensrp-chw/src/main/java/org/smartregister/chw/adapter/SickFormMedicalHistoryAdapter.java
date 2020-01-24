@@ -11,18 +11,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.contract.SickFormMedicalHistoryContract;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class SickFormMedicalHistoryAdapter extends RecyclerView.Adapter<SickFormMedicalHistoryAdapter.MyViewHolder> {
 
-    private List<String> serviceList;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+
+    private List<Visit> serviceList;
     private Context context;
     private LayoutInflater layoutInflater;
+    private SickFormMedicalHistoryContract.View view;
 
-    public SickFormMedicalHistoryAdapter(Context context, List<String> serviceList) {
+    public SickFormMedicalHistoryAdapter(Context context, List<Visit> serviceList, SickFormMedicalHistoryContract.View view) {
         this.serviceList = serviceList;
         this.context = context;
+        this.view = view;
     }
 
     @NonNull
@@ -35,8 +43,9 @@ public class SickFormMedicalHistoryAdapter extends RecyclerView.Adapter<SickForm
 
     @Override
     public void onBindViewHolder(@NonNull SickFormMedicalHistoryAdapter.MyViewHolder holder, int i) {
-        String service = serviceList.get(i);
-        holder.tvDetails.setText(service);
+        Visit visit = serviceList.get(i);
+        holder.tvDetails.setText(sdf.format(visit.getDate()));
+        holder.ivNext.setOnClickListener(v -> view.onAdapterInteraction(visit));
     }
 
     @Override

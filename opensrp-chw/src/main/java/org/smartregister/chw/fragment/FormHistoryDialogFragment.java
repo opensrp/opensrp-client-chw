@@ -21,7 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.adapter.RoutineHouseHoldAdapter;
+import org.smartregister.chw.adapter.FormHistoryAdapter;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.dao.RoutineHouseHoldDao;
@@ -39,27 +39,30 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
-public class RoutineHouseholdDialogFragment extends DialogFragment implements View.OnClickListener {
+public class FormHistoryDialogFragment extends DialogFragment implements View.OnClickListener {
 
-    public static final String DIALOG_TAG = "RoutineHouseholdDialogFragment";
+    public static final String DIALOG_TAG = "FormHistoryDialogFragment";
     private static final String BASE_ENTITY_ID = "base_entity_id";
     private static final String VISIT_DATE = "visit_date";
+    private static final String EVENT_TYPE  = "event_type";
 
-    private Long washCheckDate;
+    private Long visitDate;
     private String baseEntityID;
+    private String eventYype;
 
     protected List<Question> questions = new ArrayList<>();
     private ProgressBar progressBar;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView recyclerView;
 
-    public static RoutineHouseholdDialogFragment getInstance(String familyBaseEntityID, Long visitDate) {
-        RoutineHouseholdDialogFragment RoutineHouseholdDialogFragment = new RoutineHouseholdDialogFragment();
+    public static FormHistoryDialogFragment getInstance(String familyBaseEntityID, Long visitDate, String eventType) {
+        FormHistoryDialogFragment FormHistoryDialogFragment = new FormHistoryDialogFragment();
         Bundle bundle = new Bundle();
         bundle.putString(BASE_ENTITY_ID, familyBaseEntityID);
         bundle.putLong(VISIT_DATE, visitDate);
-        RoutineHouseholdDialogFragment.setArguments(bundle);
-        return RoutineHouseholdDialogFragment;
+        bundle.putString(EVENT_TYPE, eventType);
+        FormHistoryDialogFragment.setArguments(bundle);
+        return FormHistoryDialogFragment;
     }
 
     @Override
@@ -67,7 +70,8 @@ public class RoutineHouseholdDialogFragment extends DialogFragment implements Vi
         view.findViewById(R.id.close).setOnClickListener(this);
 
         baseEntityID = getArguments().getString(BASE_ENTITY_ID);
-        washCheckDate = getArguments().getLong(VISIT_DATE);
+        visitDate = getArguments().getLong(VISIT_DATE);
+        eventYype = getArguments().getString(EVENT_TYPE);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(false);
@@ -76,7 +80,7 @@ public class RoutineHouseholdDialogFragment extends DialogFragment implements Vi
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new RoutineHouseHoldAdapter(questions);
+        mAdapter = new FormHistoryAdapter(questions);
         recyclerView.setAdapter(mAdapter);
 
         getQuestions()
@@ -108,7 +112,7 @@ public class RoutineHouseholdDialogFragment extends DialogFragment implements Vi
     private Single<List<Question>> getQuestions() {
         return Single.create(e -> {
             try {
-                Map<String, List<VisitDetail>> visitDetailMap = RoutineHouseHoldDao.getEventDetails(washCheckDate, baseEntityID, Constants.EventType.ROUTINE_HOUSEHOLD_VISIT);
+                Map<String, List<VisitDetail>> visitDetailMap = RoutineHouseHoldDao.getEventDetails(visitDate, baseEntityID, eventYype);
                 List<Question> questions = new ArrayList<>();
 
                 JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(Constants.JSON_FORM.getRoutineHouseholdVisit());

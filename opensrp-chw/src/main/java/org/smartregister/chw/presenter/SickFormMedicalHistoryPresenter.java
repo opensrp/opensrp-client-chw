@@ -1,6 +1,7 @@
 package org.smartregister.chw.presenter;
 
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.contract.SickFormMedicalHistoryContract;
 
 import java.lang.ref.WeakReference;
@@ -37,7 +38,7 @@ public class SickFormMedicalHistoryPresenter implements SickFormMedicalHistoryCo
     }
 
     @Override
-    public void onDataFetched(List<String> serviceList) {
+    public void onDataFetched(List<Visit> serviceList) {
         if (getView() != null) {
             getView().displayLoadingState(false);
             getView().refreshVisits(serviceList);

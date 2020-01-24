@@ -141,9 +141,9 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
             FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
             dialogFragment.show(ft, WashCheckDialogFragment.DIALOG_TAG);
         } else if (CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT.equalsIgnoreCase(type)) {
-            RoutineHouseholdDialogFragment dialogFragment = RoutineHouseholdDialogFragment.getInstance(familyBaseEntityId, visitDate);
+            FormHistoryDialogFragment dialogFragment = FormHistoryDialogFragment.getInstance(familyBaseEntityId, visitDate, org.smartregister.chw.util.Constants.EventType.ROUTINE_HOUSEHOLD_VISIT);
             FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-            dialogFragment.show(ft, RoutineHouseholdDialogFragment.DIALOG_TAG);
+            dialogFragment.show(ft, FormHistoryDialogFragment.DIALOG_TAG);
         }
     }
 

@@ -4,6 +4,7 @@ package org.smartregister.chw.contract;
 import android.content.Context;
 
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.domain.Visit;
 
 import java.util.List;
 
@@ -17,9 +18,11 @@ public interface SickFormMedicalHistoryContract {
 
         void displayLoadingState(boolean state);
 
-        void refreshVisits(List<String> serviceList);
+        void refreshVisits(List<Visit> serviceList);
 
         Context getContext();
+
+        void onAdapterInteraction(Visit visit);
     }
 
     interface Presenter {
@@ -37,7 +40,7 @@ public interface SickFormMedicalHistoryContract {
 
     interface InteractorCallBack {
 
-        void onDataFetched(List<String> serviceList);
+        void onDataFetched(List<Visit> serviceList);
 
     }
 }
