@@ -375,7 +375,8 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Chagua Kituo cha Afya"
+            "text": "Chagua Kituo cha Afya",
+            "searchable": "Chagua Kituo cha Afya"
           },
           "options": [
             {

@@ -375,7 +375,8 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Choose referral facility"
+            "text": "Choose referral facility",
+            "searchable": "Choose referral facility"
           },
           "options": [],
           "required_status": "yes:Please specify referral facility"
