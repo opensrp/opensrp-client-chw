@@ -365,6 +365,13 @@
         }
       },
       {
+        "key": "fam_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fam_name",
+        "type": "hidden"
+      },
+      {
         "key": "number_of_babies",
         "type": "repeating_group",
         "reference_edit_text_hint": "# of babies",
@@ -424,13 +431,6 @@
                 "value": "false"
               }
             ]
-          },
-          {
-            "key": "fam_name",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "fam_name",
-            "type": "hidden"
           },
           {
             "key": "surname_calculation",
