@@ -33,7 +33,7 @@ public class PncMedicalHistoryActivity extends CorePncMedicalHistoryActivity {
     @Override
     public View renderMedicalHistoryView(List<GroupedVisit> groupedVisits) {
         View view = flavor.bindViews(this);
-        // displayLoadingState(true);
+        displayLoadingState(true);
         flavor.processViewData(groupedVisits, this, memberObject);
         displayLoadingState(false);
         return view;
