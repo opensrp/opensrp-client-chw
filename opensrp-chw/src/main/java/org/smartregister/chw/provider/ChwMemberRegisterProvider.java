@@ -128,26 +128,11 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         }
         fillValue(viewHolder.gender, gender);
 
-        viewHolder.nextArrowColumn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewHolder.nextArrow.performClick();
-            }
-        });
+        viewHolder.nextArrowColumn.setOnClickListener(v -> viewHolder.nextArrow.performClick());
 
-        viewHolder.profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewHolder.patientColumn.performClick();
-            }
-        });
+        viewHolder.profile.setOnClickListener(v -> viewHolder.patientColumn.performClick());
 
-        viewHolder.registerColumns.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewHolder.patientColumn.performClick();
-            }
-        });
+        viewHolder.registerColumns.setOnClickListener(v -> viewHolder.patientColumn.performClick());
         if (StringUtils.isBlank(dod)) {
             View patient = viewHolder.patientColumn;
             attachPatientOnclickListener(patient, client);
@@ -214,10 +199,12 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
                 setMemberProfileAvatar(Utils.getMemberImageResourceIdentifier(), commonPersonObject, viewHolder);
             }
         } else {
-            if (Constants.FamilyMemberType.ANC.equals(memberType)) {
+            if (Constants.FamilyMemberType.ANC.equals(memberType) && ChwApplication.getApplicationFlavor().hasANC()) {
                 setMemberProfileAvatar(Utils.getAnCWomanImageResourceIdentifier(), commonPersonObject, viewHolder);
-            } else if (Constants.FamilyMemberType.PNC.equals(memberType)) {
+            } else if (Constants.FamilyMemberType.PNC.equals(memberType) && ChwApplication.getApplicationFlavor().hasPNC()) {
                 setMemberProfileAvatar(Utils.getPnCWomanImageResourceIdentifier(), commonPersonObject, viewHolder);
+            } else {
+                setMemberProfileAvatar(Utils.getMemberImageResourceIdentifier(), commonPersonObject, viewHolder);
             }
         }
     }
