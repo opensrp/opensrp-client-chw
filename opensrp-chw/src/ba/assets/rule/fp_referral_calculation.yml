@@ -1,0 +1,42 @@
+---
+name: step1_referral_date_fp
+description: Date Family Planning referral was submitted
+priority: 1
+condition: "true"
+actions:
+  - "def getDate(dateFormat) {
+        import java.util.*;
+        import java.text.SimpleDateFormat;
+        return new SimpleDateFormat(dateFormat).format(System.currentTimeMillis());
+    }"
+  - "calculation = getDate('yyyy-MM-dd')"
+---
+name: step1_referral_time_fp
+description: Time Family Planning referral was submitted
+priority: 1
+condition: "true"
+actions:
+  - "def getTime(dateFormat) {
+        import java.util.*;
+        import java.text.SimpleDateFormat;
+        return new SimpleDateFormat(dateFormat).format(Calendar.getInstance().getTime());
+    }"
+  - "calculation = getTime('hh:mm a')"
+---
+name: step1_fp_side_effects
+description: Family planning side effects selected
+priority: 1
+condition: "!step1_fp_method_accepted_referral.isEmpty()"
+actions:
+  - "def getSideEffect(sideEffectList) {
+      sideEffect = '';
+      if(sideEffectList != null){
+        foreach(sideEffectString : sideEffectList) {
+           if(sideEffectString != '' && sideEffectString != '0') {
+             sideEffect = sideEffectString;
+           }
+         }
+      }
+      return sideEffect;
+    }"
+  - "calculation = getSideEffect([step1_side_effects_sterialization, step1_side_effects_iucd, step1_side_effects_implant, step1_side_effects_inject_pills])"
