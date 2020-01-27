@@ -101,7 +101,7 @@ public class SickFormMedicalHistory extends SecuredActivity implements SickFormM
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new SickFormMedicalHistoryAdapter(this, serviceList, this);
+        mAdapter = new SickFormMedicalHistoryAdapter(serviceList, this);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new CustomDividerItemDecoration(ContextCompat.getDrawable(getContext(), org.smartregister.chw.core.R.drawable.divider)));
 

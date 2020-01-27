@@ -1,6 +1,5 @@
 package org.smartregister.chw.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,20 +22,17 @@ public class SickFormMedicalHistoryAdapter extends RecyclerView.Adapter<SickForm
     private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
 
     private List<Visit> serviceList;
-    private Context context;
-    private LayoutInflater layoutInflater;
     private SickFormMedicalHistoryContract.View view;
 
-    public SickFormMedicalHistoryAdapter(Context context, List<Visit> serviceList, SickFormMedicalHistoryContract.View view) {
+    public SickFormMedicalHistoryAdapter(List<Visit> serviceList, SickFormMedicalHistoryContract.View view) {
         this.serviceList = serviceList;
-        this.context = context;
         this.view = view;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        this.layoutInflater = LayoutInflater.from(viewGroup.getContext());
+        LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         View v = layoutInflater.inflate(R.layout.sick_form_medical_history, viewGroup, false);
         return new MyViewHolder(v);
     }
