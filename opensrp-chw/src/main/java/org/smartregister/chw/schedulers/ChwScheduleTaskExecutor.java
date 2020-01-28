@@ -1,5 +1,6 @@
 package org.smartregister.chw.schedulers;
 
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.ScheduleService;
 import org.smartregister.chw.core.schedulers.ScheduleTaskExecutor;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -38,12 +39,24 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
             scheduleServiceMap = new HashMap<>();
 
             initializeChildClassifier(scheduleServiceMap);
-            initializeANCClassifier(scheduleServiceMap);
-            initializePNCClassifier(scheduleServiceMap);
+
+            if (ChwApplication.getApplicationFlavor().hasANC())
+                initializeANCClassifier(scheduleServiceMap);
+
+            if (ChwApplication.getApplicationFlavor().hasPNC())
+                initializePNCClassifier(scheduleServiceMap);
+
             initializeMalariaClassifier(scheduleServiceMap);
-            initializeWashClassifier(scheduleServiceMap);
-            initializeFPClassifier(scheduleServiceMap);
-            initializeRoutineHouseholdClassifier(scheduleServiceMap);
+
+            if (ChwApplication.getApplicationFlavor().hasWashCheck())
+                initializeWashClassifier(scheduleServiceMap);
+
+            if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
+                initializeFPClassifier(scheduleServiceMap);
+
+            if (ChwApplication.getApplicationFlavor().hasRoutineVisit())
+                initializeRoutineHouseholdClassifier(scheduleServiceMap);
+
         }
         return scheduleServiceMap;
     }

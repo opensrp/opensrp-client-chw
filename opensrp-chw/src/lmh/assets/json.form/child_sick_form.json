@@ -57,6 +57,20 @@
     "title": "Sick Child",
     "fields": [
       {
+        "key": "age_in_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "child_first_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
         "key": "sick_child_warning",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -64,7 +78,14 @@
         "type": "toaster_notes",
         "text": "This child is below 2 months of age. If you continue, you will be providing this care outside of the recommended national guidelines. If you do not wish to proceed, please exit the form..",
         "text_color": "#CF0800",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "manual_date",
@@ -109,7 +130,14 @@
         "values": [
           "Passive case finding (Parent came to me)",
           "Active case finding (CHA went to sick child or on routine visit)"
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "danger_signs",
@@ -144,13 +172,6 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_sleepy_unconscious"
-          },
-          {
-            "key": "chk_referred",
-            "text": "Amepewa rufaa",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_convulsions",
@@ -225,11 +246,18 @@
         ]
       },
       {
-        "key": "child_has_danger_signs_toaster",
+        "key": "child_has_danger_signs",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "type": "spacer"
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "danger_signs_present_toaster",
@@ -244,27 +272,18 @@
           "value": "true",
           "err": "Required field"
         },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_fever",
-                  "chk_running_stomach",
-                  "chk_other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -282,6 +301,13 @@
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -295,16 +321,12 @@
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "chest_indrawing_label",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_chest_indrawing"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -327,14 +349,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_chest_indrawing"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -349,16 +367,12 @@
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "fever_label",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_fever"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -381,14 +395,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_fever"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -403,17 +413,12 @@
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "running_stomach_label",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_running_stomach",
-                  "chk_blood_in_poo"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -436,15 +441,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_running_stomach",
-                  "chk_blood_in_poo"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -464,26 +464,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_fever",
-                  "chk_running_stomach",
-                  "chk_other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -503,28 +487,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_running_stomach",
-                  "chk_other"
-                ],
-                "not": [
-                  "chk_fever"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -544,14 +510,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "and": [
-                  "chk_fever"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -572,26 +534,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_fever",
-                  "chk_running_stomach",
-                  "chk_other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -612,26 +558,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_fever",
-                  "chk_running_stomach",
-                  "chk_other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -639,7 +569,7 @@
         "key": "referral_successful",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "referral_arranged_transport",
+        "openmrs_entity_id": "referral_successful",
         "openmrs_data_type": "",
         "type": "spinner",
         "hint": "Has the caregiver agreed to take child to health facility?",
@@ -652,26 +582,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_fever",
-                  "chk_running_stomach",
-                  "chk_other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -685,14 +599,10 @@
         "text_color": "#CF0800",
         "toaster_type": "positive",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_none"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -706,26 +616,10 @@
         "text_color": "#CF0800",
         "toaster_type": "info",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_fever",
-                  "chk_running_stomach",
-                  "chk_other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -742,14 +636,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_muac"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -770,14 +660,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_muac"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -794,14 +680,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_coughing"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -822,14 +704,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_coughing"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -850,14 +728,15 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:child_coughing": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
       {
-        "key": "fever_label",
+        "key": "fever_group_label",
         "type": "label",
         "text": "Fever Group",
         "has_bg": true,
@@ -869,14 +748,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_fever"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -897,14 +772,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_fever"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -925,14 +796,15 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:fever": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
       {
-        "key": "postive_malaria",
+        "key": "positive_malaria",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "postive_malaria",
@@ -948,9 +820,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:gave_rdt": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -967,15 +840,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_running_stomach",
-                  "chk_blood_in_poo"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -996,15 +864,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_running_stomach",
-                  "chk_blood_in_poo"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1013,50 +876,70 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "type": "spacer",
-        "expanded": false,
-        "read_only": "true",
-        "hidden": "false"
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "home_treatment_coughing",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "home_treatment_coughing",
-        "type": "spacer",
-        "expanded": false,
-        "read_only": "true",
-        "hidden": "false"
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "home_treatment_fever",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "home_treatment_fever",
-        "type": "spacer",
-        "expanded": false,
-        "read_only": "true",
-        "hidden": "false"
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "home_treatment_diarrhea",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "home_treatment_diarrhea",
-        "type": "spacer",
-        "expanded": false,
-        "read_only": "true",
-        "hidden": "false"
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "home_treatment_malnutrition",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "home_treatment_malnutrition",
-        "type": "spacer",
-        "expanded": false,
-        "read_only": "true",
-        "hidden": "false"
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "treat_at_home_toaster",
@@ -1064,18 +947,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "treat_at_home_toaster",
         "type": "toaster_notes",
-        "text": "Begin home treatment. {firstName} has the following symptoms:\n\nhomeTreatment_coughing\nhomeTreatment_fever\nhomeTreatment_diarrhea\nhomeTreatment_malnutrition",
+        "text": "Begin home treatment. {firstName} has the following symptoms: {symptoms} ",
         "text_color": "#CF0800",
         "toaster_type": "warning",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_none"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1096,9 +982,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:fast_breathing": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes, has fast breathing\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1111,9 +998,10 @@
         "label": "Dose given:",
         "hint": "Dose given:",
         "relevance": {
-          "step1:treat_pneumonia": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes, I told the caregiver and gave him/her Amoxicillin\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1130,9 +1018,10 @@
           "Other"
         ],
         "relevance": {
-          "step1:treat_pneumonia": {
-            "type": "string",
-            "ex": "equalTo(., \"No, I did not give the caregiver Amoxicillin\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1145,9 +1034,10 @@
         "label": "Other:",
         "hint": "Other:",
         "relevance": {
-          "step1:did_not_treat_pneumonia_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Other\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1168,15 +1058,10 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_running_stomach",
-                  "chk_blood_in_poo"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1192,6 +1077,13 @@
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1210,6 +1102,13 @@
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1224,6 +1123,13 @@
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1245,9 +1151,234 @@
           "err": "Required field"
         },
         "relevance": {
-          "step1:did_not_treat_pneumonia_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Other\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "diarrhea_dose_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diarrhea_dose_given",
+        "openmrs_data_type": "",
+        "type": "edit_text",
+        "label": "Dose given:",
+        "hint": "Dose given:",
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "did_not_treat_diarrhea_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "did_not_treat_diarrhea_reason",
+        "openmrs_data_type": "",
+        "type": "spinner",
+        "hint": "Why was treatment for Diarrhea not provided?",
+        "values": [
+          "Out of stock",
+          "Treatment provided by outreach clinic",
+          "Other"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "did_not_treat_diarrhea_reason_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "did_not_treat_diarrhea_reason_other",
+        "openmrs_data_type": "",
+        "type": "edit_text",
+        "label": "Other:",
+        "hint": "Other:",
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "counseled_for_malnutrition",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "counseled_for_malnutrition",
+        "openmrs_data_type": "",
+        "type": "spinner",
+        "hint": "Yellow MUAC - Child is malnourished. Advise the caregiver on malnutrition and how to give child a balanced diet and good food. Notify your supervisor.",
+        "values": [
+          "Yes, I advised on malnutrition and will notify my supervisor",
+          "No, I did not advise on malnutrition"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_has_danger_sign_toaster_warm",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_warm",
+        "type": "toaster_notes",
+        "text": "Advise the caregiver to keep the child warm",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_has_danger_sign_toaster_cool",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_cool",
+        "type": "toaster_notes",
+        "text": "Advise the caregiver to keep the child cool",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_has_danger_sign_toaster_fluids",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_fluids",
+        "type": "toaster_notes",
+        "text": "Advise caregiver to give more fluids and continue feeding",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_has_danger_sign_toaster_follow_up",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_follow_up",
+        "type": "toaster_notes",
+        "text": "Reminder: Follow up with the child",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_has_danger_sign_toaster_no_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_no_symptoms",
+        "type": "toaster_notes",
+        "text": "Child has no symptoms. Follow up with caregiver to make sure the child stays healthy",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_has_danger_sign_toaster_treatment_completed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_treatment_completed",
+        "type": "toaster_notes",
+        "text": "Treatment completed. Ask caregiver to return if the child has any other health problems",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "notify_supervisor",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "notify_supervisor",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "notify_supervisor_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "notify_supervisor_toaster",
+        "type": "toaster_notes",
+        "text": "Child has not recovered in three follow up visits. Please notify your supervisor",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       }

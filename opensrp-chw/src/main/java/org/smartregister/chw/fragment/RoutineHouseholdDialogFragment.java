@@ -26,6 +26,7 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.dao.RoutineHouseHoldDao;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.util.FormUtils;
 
 import java.util.ArrayList;
@@ -112,7 +113,7 @@ public class RoutineHouseholdDialogFragment extends DialogFragment implements Vi
 
                 JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(Constants.JSON_FORM.getRoutineHouseholdVisit());
 
-                List<JSONObject> formSteps = getFormSteps(jsonForm);
+                List<JSONObject> formSteps = JsonFormUtils.getFormSteps(jsonForm);
                 for (JSONObject jsonObject : formSteps) {
                     JSONArray array = jsonObject.getJSONArray(JsonFormConstants.FIELDS);
                     int x = 0;
@@ -199,21 +200,6 @@ public class RoutineHouseholdDialogFragment extends DialogFragment implements Vi
         }
 
         return choices;
-    }
-
-    private List<JSONObject> getFormSteps(JSONObject jsonObject) throws JSONException {
-        List<JSONObject> steps = new ArrayList<>();
-        int x = 1;
-        while (true) {
-            String step_name = "step" + x;
-            if (jsonObject.has(step_name)) {
-                steps.add(jsonObject.getJSONObject(step_name));
-            } else {
-                break;
-            }
-            x++;
-        }
-        return steps;
     }
 
     @Override
