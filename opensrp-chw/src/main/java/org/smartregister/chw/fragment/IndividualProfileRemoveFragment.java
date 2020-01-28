@@ -83,7 +83,8 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
             if(PNCDao.childrenForPncWoman(baseEntityId).size() > 0 ){
                 for(ChildModel child: PNCDao.childrenForPncWoman(baseEntityId)){
                     ChwScheduleTaskExecutor.getInstance().execute(child.getBaseEnityId(), CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
-                    ChildAlertService.updateAlerts(child.getBaseEnityId()); }
+                    ChildAlertService.updateAlerts(child.getBaseEnityId());
+                }
             }
         }
     }
