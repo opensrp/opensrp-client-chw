@@ -115,7 +115,7 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity {
                         ReferralRegisterActivity.startReferralRegistrationActivity(this, jsonForm.optString(ENTITY_ID));
                     }
                 } else {
-                    startRegisterActivity(ReferralRegisterActivity.class);
+                    startRegisterActivity();
                 }
             } catch (JSONException e) {
                 Timber.e(e);
@@ -127,7 +127,7 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity {
 
     }
 
-    private void startRegisterActivity(Class registerClass) {
+    private void startRegisterActivity() {
 //        BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
@@ -137,7 +137,7 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity {
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
         //PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
         SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
-        Intent intent = new Intent(this, registerClass);
+        Intent intent = new Intent(this, ReferralRegisterActivity.class);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         this.startActivity(intent);

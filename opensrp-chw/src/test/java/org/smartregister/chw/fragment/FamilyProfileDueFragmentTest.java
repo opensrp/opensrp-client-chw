@@ -1,7 +1,8 @@
 package org.smartregister.chw.fragment;
 
-import androidx.fragment.app.FragmentActivity;
 import android.view.View;
+
+import androidx.fragment.app.FragmentActivity;
 
 import org.junit.Before;
 import org.junit.Test;

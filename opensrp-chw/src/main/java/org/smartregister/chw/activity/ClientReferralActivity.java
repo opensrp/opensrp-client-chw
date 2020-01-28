@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.ReferralTypeAdapter;
 import org.smartregister.chw.contract.ClientReferralContract;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.referral.domain.ReferralServiceObject;
 import org.smartregister.chw.referral.util.Util;
@@ -21,6 +22,8 @@ import org.smartregister.util.FormUtils;
 import java.util.List;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.util.Constants.REFERRAL_TASK_FOCUS;
 
 public class ClientReferralActivity extends AppCompatActivity implements ClientReferralContract.View, View.OnClickListener {
 
@@ -39,7 +42,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
 
     @Override
     public void setUpView() {
-        List<ReferralTypeModel> referralTypeModels = null;
+        List<ReferralTypeModel> referralTypeModels;
         RecyclerView referralTypesRecyclerView = findViewById(R.id.referralTypeRecyclerView);
 
         ImageView closeImageView = findViewById(R.id.close);
@@ -47,13 +50,14 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
 
         if (getIntent().getExtras() != null) {
             referralTypeModels = getIntent().getParcelableArrayListExtra(Constants.REFERRAL_TYPES);
-            baseEntityId = getIntent().getStringExtra(Constants.ENTITY_ID);
+            referralTypeAdapter.setReferralTypes(referralTypeModels);
+            baseEntityId = getIntent().getStringExtra(CoreConstants.ENTITY_ID);
+            for (ReferralServiceObject referralServiceObject : Util.getReferralServicesList()) {
+                referralTypeModels.add(new ReferralTypeModel(referralServiceObject.getNameEn(),
+                        Constants.JSON_FORM.getGeneralReferralForm(), referralServiceObject.getId()));
+            }
         }
 
-        for (ReferralServiceObject referralServiceObject : Util.getReferralServicesList()) {
-            referralTypeModels.add(new ReferralTypeModel(referralServiceObject.getNameEn(), org.smartregister.chw.util.Constants.JSON_FORM.getGeneralReferralForm(), referralServiceObject.getId()));
-        }
-        referralTypeAdapter.setReferralTypes(referralTypeModels);
         referralTypesRecyclerView.setAdapter(referralTypeAdapter);
         referralTypesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         referralTypesRecyclerView.setMotionEventSplittingEnabled(false);
@@ -61,7 +65,8 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
 
     @Override
     public void startReferralForm(JSONObject jsonObject, ReferralTypeModel referralTypeModel) {
-        ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, baseEntityId, jsonObject, referralTypeModel.getReferralServiceId());
+        ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this,
+                baseEntityId, jsonObject, referralTypeModel.getReferralServiceId());
     }
 
     @Override
@@ -87,7 +92,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
                 }
 
                 JSONObject formJson = getFormUtils().getFormJson(referralTypeModel.getFormName());
-                formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModel.getReferralType());
+                formJson.put(REFERRAL_TASK_FOCUS, referralTypeModel.getReferralType());
                 startReferralForm(formJson, referralTypeModel);
             } catch (Exception e) {
                 Timber.e(e, "ClientReferralActivity --> onActivityResult");
@@ -99,6 +104,14 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
     protected void onResume() {
         super.onResume();
         referralTypeAdapter.canStart = true;
+    }
+
+    public ReferralTypeAdapter getReferralTypeAdapter() {
+        return referralTypeAdapter;
+    }
+
+    public String getBaseEntityId() {
+        return baseEntityId;
     }
 }
 

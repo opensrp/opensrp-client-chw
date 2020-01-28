@@ -14,15 +14,15 @@ import org.smartregister.family.util.JsonFormUtils;
 
 
 public class ReferralRegistrationActivity extends BaseIssueReferralActivity {
-    private static String BASE_ENTITY_ID;
+    public static String BASE_ENTITY_ID;
 
     public static void startGeneralReferralFormActivityForResults(Activity activity, String baseEntityID, JSONObject formJsonObject, String referralServiceId) {
         BASE_ENTITY_ID = baseEntityID;
         Intent intent = new Intent(activity, ReferralRegistrationActivity.class);
-        intent.putExtra(org.smartregister.chw.referral.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.REFERRAL_SERVICE_IDS, referralServiceId);
-        intent.putExtra(org.smartregister.chw.referral.util.Constants.ACTIVITY_PAYLOAD.JSON_FORM, formJsonObject.toString());
-        intent.putExtra(org.smartregister.chw.referral.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.referral.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.JSON_FORM, formJsonObject.toString());
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.ACTION, Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
 
         activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
@@ -30,7 +30,8 @@ public class ReferralRegistrationActivity extends BaseIssueReferralActivity {
 
     @Override
     public BaseIssueReferralContract.Presenter presenter() {
-        return new IssueReferralActivityPresenter(BASE_ENTITY_ID, this, BaseIssueReferralModel.class, new BaseIssueReferralInteractor());
+        return new IssueReferralActivityPresenter(BASE_ENTITY_ID, this,
+                BaseIssueReferralModel.class, new BaseIssueReferralInteractor());
     }
 
 }
