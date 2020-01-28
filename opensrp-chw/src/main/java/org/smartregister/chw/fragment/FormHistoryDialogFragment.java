@@ -53,7 +53,6 @@ public class FormHistoryDialogFragment extends DialogFragment implements View.On
     private ProgressBar progressBar;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView recyclerView;
-    private TextView tvTitle;
 
     public static FormHistoryDialogFragment getInstance(FormDetails formDetails) {
         FormHistoryDialogFragment FormHistoryDialogFragment = new FormHistoryDialogFragment();
@@ -69,7 +68,7 @@ public class FormHistoryDialogFragment extends DialogFragment implements View.On
 
         formDetails = (FormDetails) getArguments().getSerializable(FORM_DETAILS);
 
-        tvTitle = view.findViewById(R.id.tvTitle);
+        TextView tvTitle = view.findViewById(R.id.tvTitle);
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(false);
         progressBar = view.findViewById(R.id.progressBarUpcomingServices);
