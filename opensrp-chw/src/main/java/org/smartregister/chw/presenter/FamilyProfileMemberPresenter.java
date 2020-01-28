@@ -26,6 +26,6 @@ public class FamilyProfileMemberPresenter extends CoreFamilyProfileMemberPresent
     }
 
     public String getChildFilter() {
-        return " and (( ifnull( " + CoreConstants.TABLE_NAME.CHILD + "." + ChildDBConstants.KEY.ENTRY_POINT + ",'') <> 'PNC' ) or (ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + ChildDBConstants.KEY.ENTRY_POINT + ",'') = 'PNC' and date(" + CoreConstants.TABLE_NAME.CHILD + "." + DBConstants.KEY.DOB + ", '+28 days') < date())) ";
+      return  " and (( ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + ChildDBConstants.KEY.ENTRY_POINT + ",'') <> 'PNC' ) or (ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + ChildDBConstants.KEY.ENTRY_POINT + ",'') = 'PNC' and ( date(" + CoreConstants.TABLE_NAME.CHILD + "." +  DBConstants.KEY.DOB + ", '+28 days') <= date() and ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = " + CoreConstants.TABLE_NAME.CHILD + "." + ChildDBConstants.KEY.MOTHER_ENTITY_ID + " ) = 0)))  or (ifnull(ec_child.entry_point,'') = 'PNC'  and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = ec_child.mother_entity_id ) = 1)) " ;
     }
 }
