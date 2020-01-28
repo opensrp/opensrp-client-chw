@@ -13,17 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
-import org.smartregister.chw.fragment.FormHistoryDialogFragment;
+import org.smartregister.chw.domain.Choice;
+import org.smartregister.chw.domain.Question;
 
 import java.util.List;
 
 public class FormHistoryAdapter extends RecyclerView.Adapter<FormHistoryAdapter.MyViewHolder> {
 
-    private List<FormHistoryDialogFragment.Question> questions;
+    private List<Question> questions;
     private LayoutInflater layoutInflater;
 
 
-    public FormHistoryAdapter(@NotNull List<FormHistoryDialogFragment.Question> questions) {
+    public FormHistoryAdapter(@NotNull List<Question> questions) {
         this.questions = questions;
     }
 
@@ -37,7 +38,7 @@ public class FormHistoryAdapter extends RecyclerView.Adapter<FormHistoryAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        FormHistoryDialogFragment.Question question = questions.get(position);
+        Question question = questions.get(position);
 
         holder.tvQuestion.setText(question.getName());
         if (StringUtils.isBlank(question.getValue())) {
@@ -50,7 +51,7 @@ public class FormHistoryAdapter extends RecyclerView.Adapter<FormHistoryAdapter.
             holder.rgOptions.setVisibility(View.GONE);
             return;
         }
-        for (FormHistoryDialogFragment.Choice choice : question.getChoices()) {
+        for (Choice choice : question.getChoices()) {
             View view = layoutInflater.inflate(R.layout.fragment_routine_question_choice, null, false);
             RadioButton radioButton = view.findViewById(R.id.radioButtonChoice);
             radioButton.setText(choice.getName());

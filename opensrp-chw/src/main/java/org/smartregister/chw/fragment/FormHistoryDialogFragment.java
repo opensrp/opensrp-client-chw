@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +26,9 @@ import org.smartregister.chw.adapter.FormHistoryAdapter;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.dao.RoutineHouseHoldDao;
-import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.domain.Choice;
+import org.smartregister.chw.domain.FormDetails;
+import org.smartregister.chw.domain.Question;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.util.FormUtils;
 
@@ -42,25 +45,20 @@ import timber.log.Timber;
 public class FormHistoryDialogFragment extends DialogFragment implements View.OnClickListener {
 
     public static final String DIALOG_TAG = "FormHistoryDialogFragment";
-    private static final String BASE_ENTITY_ID = "base_entity_id";
-    private static final String VISIT_DATE = "visit_date";
-    private static final String EVENT_TYPE  = "event_type";
+    private static final String FORM_DETAILS = "FORM_DETAILS";
 
-    private Long visitDate;
-    private String baseEntityID;
-    private String eventYype;
+    private FormDetails formDetails;
 
     protected List<Question> questions = new ArrayList<>();
     private ProgressBar progressBar;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView recyclerView;
+    private TextView tvTitle;
 
-    public static FormHistoryDialogFragment getInstance(String familyBaseEntityID, Long visitDate, String eventType) {
+    public static FormHistoryDialogFragment getInstance(FormDetails formDetails) {
         FormHistoryDialogFragment FormHistoryDialogFragment = new FormHistoryDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(BASE_ENTITY_ID, familyBaseEntityID);
-        bundle.putLong(VISIT_DATE, visitDate);
-        bundle.putString(EVENT_TYPE, eventType);
+        bundle.putSerializable(FORM_DETAILS, formDetails);
         FormHistoryDialogFragment.setArguments(bundle);
         return FormHistoryDialogFragment;
     }
@@ -69,10 +67,9 @@ public class FormHistoryDialogFragment extends DialogFragment implements View.On
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         view.findViewById(R.id.close).setOnClickListener(this);
 
-        baseEntityID = getArguments().getString(BASE_ENTITY_ID);
-        visitDate = getArguments().getLong(VISIT_DATE);
-        eventYype = getArguments().getString(EVENT_TYPE);
+        formDetails = (FormDetails) getArguments().getSerializable(FORM_DETAILS);
 
+        tvTitle = view.findViewById(R.id.tvTitle);
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(false);
         progressBar = view.findViewById(R.id.progressBarUpcomingServices);
@@ -82,6 +79,7 @@ public class FormHistoryDialogFragment extends DialogFragment implements View.On
 
         mAdapter = new FormHistoryAdapter(questions);
         recyclerView.setAdapter(mAdapter);
+        tvTitle.setText(formDetails.getTitle());
 
         getQuestions()
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -112,10 +110,10 @@ public class FormHistoryDialogFragment extends DialogFragment implements View.On
     private Single<List<Question>> getQuestions() {
         return Single.create(e -> {
             try {
-                Map<String, List<VisitDetail>> visitDetailMap = RoutineHouseHoldDao.getEventDetails(visitDate, baseEntityID, eventYype);
+                Map<String, List<VisitDetail>> visitDetailMap = RoutineHouseHoldDao.getEventDetails(formDetails.getEventDate(), formDetails.getBaseEntityID(), formDetails.getEventType());
                 List<Question> questions = new ArrayList<>();
 
-                JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(Constants.JSON_FORM.getRoutineHouseholdVisit());
+                JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(formDetails.getFormName());
 
                 List<JSONObject> formSteps = JsonFormUtils.getFormSteps(jsonForm);
                 for (JSONObject jsonObject : formSteps) {
@@ -124,9 +122,11 @@ public class FormHistoryDialogFragment extends DialogFragment implements View.On
                     int count = array.length() - 1;
                     while (x < count) {
                         JSONObject field = array.getJSONObject(x);
-                        Question question = toQuestion(field, visitDetailMap);
-                        if (question != null)
-                            questions.add(question);
+                        if(field.has(JsonFormConstants.HINT) || field.has(JsonFormConstants.LABEL)){
+                            Question question = toQuestion(field, visitDetailMap);
+                            if (question != null)
+                                questions.add(question);
+                        }
                         x++;
                     }
                 }
@@ -240,54 +240,4 @@ public class FormHistoryDialogFragment extends DialogFragment implements View.On
         return inflater.inflate(R.layout.fragment_routine_visit, container, false);
     }
 
-    public static class Question {
-        private String name;
-        private String value;
-        private List<Choice> choices;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public void setValue(String value) {
-            this.value = value;
-        }
-
-        public List<Choice> getChoices() {
-            return choices;
-        }
-
-        public void setChoices(List<Choice> choices) {
-            this.choices = choices;
-        }
-    }
-
-    public static class Choice {
-        private String name;
-        private Boolean selected;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public Boolean getSelected() {
-            return selected;
-        }
-
-        public void setSelected(Boolean selected) {
-            this.selected = selected;
-        }
-    }
 }

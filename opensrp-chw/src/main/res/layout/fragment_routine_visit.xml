@@ -30,7 +30,7 @@
                 android:tint="@color/white" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/textview_dietary_title"
+                android:id="@+id/tvTitle"
                 style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

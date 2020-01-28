@@ -41,7 +41,7 @@ public class SickFormMedicalHistoryAdapter extends RecyclerView.Adapter<SickForm
     public void onBindViewHolder(@NonNull SickFormMedicalHistoryAdapter.MyViewHolder holder, int i) {
         Visit visit = serviceList.get(i);
         holder.tvDetails.setText(sdf.format(visit.getDate()));
-        holder.ivNext.setOnClickListener(v -> view.onAdapterInteraction(visit));
+        holder.parentView.setOnClickListener(v -> view.onAdapterInteraction(visit));
     }
 
     @Override
@@ -53,9 +53,11 @@ public class SickFormMedicalHistoryAdapter extends RecyclerView.Adapter<SickForm
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvDetails;
         private ImageView ivNext;
+        private View parentView;
 
         private MyViewHolder(View view) {
             super(view);
+            this.parentView = view;
             tvDetails = view.findViewById(R.id.tvDetails);
             ivNext = view.findViewById(R.id.ivNext);
         }

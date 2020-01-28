@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -23,6 +24,8 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.contract.SickFormMedicalHistoryContract;
 import org.smartregister.chw.core.utils.CustomDividerItemDecoration;
+import org.smartregister.chw.domain.FormDetails;
+import org.smartregister.chw.fragment.FormHistoryDialogFragment;
 import org.smartregister.chw.interactor.SickFormMedicalHistoryInteractor;
 import org.smartregister.chw.presenter.SickFormMedicalHistoryPresenter;
 import org.smartregister.view.activity.SecuredActivity;
@@ -138,10 +141,15 @@ public class SickFormMedicalHistory extends SecuredActivity implements SickFormM
 
     @Override
     public void onAdapterInteraction(Visit visit) {
-        /*
-        FormHistoryDialogFragment dialogFragment = FormHistoryDialogFragment.getInstance(visit.getBaseEntityId(), visit.getDate().getTime(), Constants.EventType.SICK_CHILD);
+        FormDetails formDetails = new FormDetails();
+        formDetails.setTitle(getString(R.string.sick_visit));
+        formDetails.setBaseEntityID(visit.getBaseEntityId());
+        formDetails.setEventDate(visit.getDate().getTime());
+        formDetails.setEventType(org.smartregister.chw.util.Constants.EventType.SICK_CHILD);
+        formDetails.setFormName(org.smartregister.chw.util.Constants.JSON_FORM.getChildSickForm());
+
+        FormHistoryDialogFragment dialogFragment = FormHistoryDialogFragment.getInstance(formDetails);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         dialogFragment.show(ft, FormHistoryDialogFragment.DIALOG_TAG);
-         */
     }
 }
