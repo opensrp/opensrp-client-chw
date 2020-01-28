@@ -9,6 +9,7 @@ import androidx.loader.content.Loader;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.domain.FormDetails;
 import org.smartregister.chw.model.FamilyProfileActivityModel;
 import org.smartregister.chw.presenter.FamilyProfileActivityPresenter;
 import org.smartregister.chw.provider.FamilyActivityRegisterProvider;
@@ -141,9 +142,17 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
             FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
             dialogFragment.show(ft, WashCheckDialogFragment.DIALOG_TAG);
         } else if (CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT.equalsIgnoreCase(type)) {
-            RoutineHouseholdDialogFragment dialogFragment = RoutineHouseholdDialogFragment.getInstance(familyBaseEntityId, visitDate);
+
+            FormDetails formDetails = new FormDetails();
+            formDetails.setTitle(getString(R.string.routine_household_visit));
+            formDetails.setBaseEntityID(familyBaseEntityId);
+            formDetails.setEventDate(visitDate);
+            formDetails.setEventType(org.smartregister.chw.util.Constants.EventType.ROUTINE_HOUSEHOLD_VISIT);
+            formDetails.setFormName(org.smartregister.chw.util.Constants.JSON_FORM.getRoutineHouseholdVisit());
+
+            FormHistoryDialogFragment dialogFragment = FormHistoryDialogFragment.getInstance(formDetails);
             FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-            dialogFragment.show(ft, RoutineHouseholdDialogFragment.DIALOG_TAG);
+            dialogFragment.show(ft, FormHistoryDialogFragment.DIALOG_TAG);
         }
     }
 

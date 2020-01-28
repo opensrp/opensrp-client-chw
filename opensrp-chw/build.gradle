@@ -250,7 +250,8 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.1.30-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.1.32-SNAPSHOT@aar') {
+        exclude group: 'com.rengwuxian.materialedittext', module: 'library'
         transitive = true
     }
     implementation 'androidx.appcompat:appcompat:1.0.0'
