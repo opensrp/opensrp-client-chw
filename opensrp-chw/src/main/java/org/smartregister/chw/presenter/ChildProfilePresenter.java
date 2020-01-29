@@ -8,6 +8,7 @@ import org.joda.time.Months;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
+import org.smartregister.chw.activity.ReferralRegistrationActivity;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -22,6 +23,7 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.util.FormUtils;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -34,6 +36,8 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class ChildProfilePresenter extends CoreChildProfilePresenter {
+
+    private List<ReferralTypeModel> referralTypeModels;
 
     public ChildProfilePresenter(CoreChildProfileContract.View childView, CoreChildProfileContract.Model model, String childBaseEntityId) {
         super(childView, model, childBaseEntityId);
@@ -69,7 +73,11 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     @Override
     public void startSickChildReferralForm() {
         try {
-            getView().startFormActivity(getFormUtils().getFormJson(Constants.JSON_FORM.getChildReferralForm()));
+            JSONObject formJson = FormUtils.getInstance(getView().getContext())
+                    .getFormJson(Constants.JSON_FORM.getChildReferralForm());
+            formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
+            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults((Activity) getView().getContext(),
+                    getChildBaseEntityId(), formJson, null);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -105,7 +113,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     }
 
     public void referToFacility() {
-        List<ReferralTypeModel> referralTypeModels = ((ChildProfileActivity) getView()).getReferralTypeModels();
+        referralTypeModels = ((ChildProfileActivity) getView()).getReferralTypeModels();
         if (referralTypeModels.size() == 1) {
             startSickChildReferralForm();
         } else {
