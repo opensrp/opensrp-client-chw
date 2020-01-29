@@ -161,39 +161,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Number of children born alive",
-        "values": [
-          "1",
-          "2+"
-        ],
-        "keys": [
-          "1",
-          "2+"
-        ],
-        "openmrs_choice_ids": {
-          "1": "159913AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "2+": "159914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select one option"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        },
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_calculation.yml"
-            }
-          }
-        }
+        "type": "hidden"
       },
       {
         "key": "delivery_place",
@@ -372,7 +340,7 @@
         "type": "hidden"
       },
       {
-        "key": "number_of_babies",
+        "key": "no_children_no",
         "type": "repeating_group",
         "reference_edit_text_hint": "# of babies",
         "repeating_group_label": "baby",
