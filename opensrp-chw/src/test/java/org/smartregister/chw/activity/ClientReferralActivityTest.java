@@ -49,14 +49,14 @@ public class ClientReferralActivityTest {
     }
 
     @Test
-    public void should_start_client_referral_activity() {
+    public void shouldStartClientReferralActivity() {
         Assert.assertNotNull(clientReferralActivity.getBaseEntityId());
         Assert.assertEquals(clientReferralActivity.getBaseEntityId(), baseEntityID);
         Assert.assertNotNull(clientReferralActivity.getReferralTypeAdapter());
     }
 
     @Test
-    public void should_start_referral_form() {
+    public void shouldStartReferralForm() {
 
         JSONObject formJson = new JSONObject();
 
