@@ -36,9 +36,9 @@ allprojects {
         maven { url 'https://maven.google.com' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url 'https://jitpack.io' }
-        maven { url "http://acra.googlecode.com/svn/repository/releases" }
-        maven { url "http://repo.maven.apache.org/maven2" }
-        maven { url "http://cloudant.github.io/cloudant-sync-eap/repository" }
+        maven { url "https://acra.googlecode.com/svn/repository/releases" }
+        maven { url "https://repo.maven.apache.org/maven2" }
+        maven { url "https://cloudant.github.io/cloudant-sync-eap/repository" }
         maven { url 'https://maven.fabric.io/public' }
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
         maven { url "https://dl.bintray.com/ona/rdt-capture" }

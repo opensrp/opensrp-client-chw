@@ -13,17 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
-import org.smartregister.chw.fragment.RoutineHouseholdDialogFragment;
+import org.smartregister.chw.domain.Choice;
+import org.smartregister.chw.domain.Question;
 
 import java.util.List;
 
-public class RoutineHouseHoldAdapter extends RecyclerView.Adapter<RoutineHouseHoldAdapter.MyViewHolder> {
+public class FormHistoryAdapter extends RecyclerView.Adapter<FormHistoryAdapter.MyViewHolder> {
 
-    private List<RoutineHouseholdDialogFragment.Question> questions;
+    private List<Question> questions;
     private LayoutInflater layoutInflater;
 
 
-    public RoutineHouseHoldAdapter(@NotNull List<RoutineHouseholdDialogFragment.Question> questions) {
+    public FormHistoryAdapter(@NotNull List<Question> questions) {
         this.questions = questions;
     }
 
@@ -37,7 +38,7 @@ public class RoutineHouseHoldAdapter extends RecyclerView.Adapter<RoutineHouseHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        RoutineHouseholdDialogFragment.Question question = questions.get(position);
+        Question question = questions.get(position);
 
         holder.tvQuestion.setText(question.getName());
         if (StringUtils.isBlank(question.getValue())) {
@@ -50,7 +51,7 @@ public class RoutineHouseHoldAdapter extends RecyclerView.Adapter<RoutineHouseHo
             holder.rgOptions.setVisibility(View.GONE);
             return;
         }
-        for (RoutineHouseholdDialogFragment.Choice choice : question.getChoices()) {
+        for (Choice choice : question.getChoices()) {
             View view = layoutInflater.inflate(R.layout.fragment_routine_question_choice, null, false);
             RadioButton radioButton = view.findViewById(R.id.radioButtonChoice);
             radioButton.setText(choice.getName());

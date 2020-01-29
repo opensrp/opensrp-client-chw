@@ -26,7 +26,6 @@ import java.util.Set;
 public class FamilyRegisterProvider extends CoreRegisterProvider {
     protected final Context context;
     private final View.OnClickListener onClickListener;
-    private Flavor flavor = new FamilyRegisterProviderFlv();
 
     public FamilyRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
         super(context, commonRepository, visibleColumns, onClickListener, paginationClickListener);
@@ -142,13 +141,19 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         @Override
         protected Void doInBackground(Void... params) {
             list = getChildren(familyBaseEntityId);
-            ancWomanCount = getAncWomenCount(familyBaseEntityId);
-            pncWomanCount = getPncWomenCount(familyBaseEntityId);
 
-            if (flavor.hasMalaria())
+            if (ChwApplication.getApplicationFlavor().hasANC())
+                ancWomanCount = getAncWomenCount(familyBaseEntityId);
+
+            if (ChwApplication.getApplicationFlavor().hasPNC())
+                pncWomanCount = getPncWomenCount(familyBaseEntityId);
+
+            if (ChwApplication.getApplicationFlavor().hasMalaria())
                 malariaCount = ChwApplication.malariaRegisterRepository().getMalariaCount(familyBaseEntityId, CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION);
-            if(flavor.hasFp())
-                fpCount = FpDao.getFpWomenCount(familyBaseEntityId) != null ?  FpDao.getFpWomenCount(familyBaseEntityId)  : 0;
+
+            if (ChwApplication.getApplicationFlavor().hasPNC())
+                fpCount = FpDao.getFpWomenCount(familyBaseEntityId) != null ? FpDao.getFpWomenCount(familyBaseEntityId) : 0;
+
             services = FamilyDao.getFamilyServiceSchedule(familyBaseEntityId);
             return null;
         }
@@ -159,12 +164,8 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             updateChildIcons(viewHolder, list, ancWomanCount, pncWomanCount);
             updateMalariaIcons(viewHolder, malariaCount);
             updateButtonState(context, viewHolder, services);
-            updateFpIcons(viewHolder,fpCount);
+            updateFpIcons(viewHolder, fpCount);
         }
     }
 
-    public interface Flavor {
-        boolean hasMalaria();
-        boolean hasFp();
-    }
 }

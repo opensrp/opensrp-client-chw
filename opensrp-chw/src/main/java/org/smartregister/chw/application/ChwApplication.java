@@ -287,6 +287,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasFamilyPlanning();
 
+        boolean hasMalaria();
+
         boolean hasWashCheck();
 
         boolean hasRoutineVisit();

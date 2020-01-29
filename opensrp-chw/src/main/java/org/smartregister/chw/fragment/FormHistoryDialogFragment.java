@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,11 +22,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.adapter.RoutineHouseHoldAdapter;
+import org.smartregister.chw.adapter.FormHistoryAdapter;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.dao.RoutineHouseHoldDao;
-import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.domain.Choice;
+import org.smartregister.chw.domain.FormDetails;
+import org.smartregister.chw.domain.Question;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.util.FormUtils;
 
@@ -39,36 +42,33 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
-public class RoutineHouseholdDialogFragment extends DialogFragment implements View.OnClickListener {
+public class FormHistoryDialogFragment extends DialogFragment implements View.OnClickListener {
 
-    public static final String DIALOG_TAG = "RoutineHouseholdDialogFragment";
-    private static final String BASE_ENTITY_ID = "base_entity_id";
-    private static final String VISIT_DATE = "visit_date";
+    public static final String DIALOG_TAG = "FormHistoryDialogFragment";
+    private static final String FORM_DETAILS = "FORM_DETAILS";
 
-    private Long washCheckDate;
-    private String baseEntityID;
+    private FormDetails formDetails;
 
     protected List<Question> questions = new ArrayList<>();
     private ProgressBar progressBar;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView recyclerView;
 
-    public static RoutineHouseholdDialogFragment getInstance(String familyBaseEntityID, Long visitDate) {
-        RoutineHouseholdDialogFragment RoutineHouseholdDialogFragment = new RoutineHouseholdDialogFragment();
+    public static FormHistoryDialogFragment getInstance(FormDetails formDetails) {
+        FormHistoryDialogFragment FormHistoryDialogFragment = new FormHistoryDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(BASE_ENTITY_ID, familyBaseEntityID);
-        bundle.putLong(VISIT_DATE, visitDate);
-        RoutineHouseholdDialogFragment.setArguments(bundle);
-        return RoutineHouseholdDialogFragment;
+        bundle.putSerializable(FORM_DETAILS, formDetails);
+        FormHistoryDialogFragment.setArguments(bundle);
+        return FormHistoryDialogFragment;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         view.findViewById(R.id.close).setOnClickListener(this);
 
-        baseEntityID = getArguments().getString(BASE_ENTITY_ID);
-        washCheckDate = getArguments().getLong(VISIT_DATE);
+        formDetails = (FormDetails) getArguments().getSerializable(FORM_DETAILS);
 
+        TextView tvTitle = view.findViewById(R.id.tvTitle);
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(false);
         progressBar = view.findViewById(R.id.progressBarUpcomingServices);
@@ -76,8 +76,9 @@ public class RoutineHouseholdDialogFragment extends DialogFragment implements Vi
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new RoutineHouseHoldAdapter(questions);
+        mAdapter = new FormHistoryAdapter(questions);
         recyclerView.setAdapter(mAdapter);
+        tvTitle.setText(formDetails.getTitle());
 
         getQuestions()
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -108,10 +109,10 @@ public class RoutineHouseholdDialogFragment extends DialogFragment implements Vi
     private Single<List<Question>> getQuestions() {
         return Single.create(e -> {
             try {
-                Map<String, List<VisitDetail>> visitDetailMap = RoutineHouseHoldDao.getEventDetails(washCheckDate, baseEntityID, Constants.EventType.ROUTINE_HOUSEHOLD_VISIT);
+                Map<String, List<VisitDetail>> visitDetailMap = RoutineHouseHoldDao.getEventDetails(formDetails.getEventDate(), formDetails.getBaseEntityID(), formDetails.getEventType());
                 List<Question> questions = new ArrayList<>();
 
-                JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(Constants.JSON_FORM.getRoutineHouseholdVisit());
+                JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(formDetails.getFormName());
 
                 List<JSONObject> formSteps = JsonFormUtils.getFormSteps(jsonForm);
                 for (JSONObject jsonObject : formSteps) {
@@ -120,9 +121,11 @@ public class RoutineHouseholdDialogFragment extends DialogFragment implements Vi
                     int count = array.length() - 1;
                     while (x < count) {
                         JSONObject field = array.getJSONObject(x);
-                        Question question = toQuestion(field, visitDetailMap);
-                        if (question != null)
-                            questions.add(question);
+                        if(field.has(JsonFormConstants.HINT) || field.has(JsonFormConstants.LABEL)){
+                            Question question = toQuestion(field, visitDetailMap);
+                            if (question != null)
+                                questions.add(question);
+                        }
                         x++;
                     }
                 }
@@ -236,54 +239,4 @@ public class RoutineHouseholdDialogFragment extends DialogFragment implements Vi
         return inflater.inflate(R.layout.fragment_routine_visit, container, false);
     }
 
-    public static class Question {
-        private String name;
-        private String value;
-        private List<Choice> choices;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        public void setValue(String value) {
-            this.value = value;
-        }
-
-        public List<Choice> getChoices() {
-            return choices;
-        }
-
-        public void setChoices(List<Choice> choices) {
-            this.choices = choices;
-        }
-    }
-
-    public static class Choice {
-        private String name;
-        private Boolean selected;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public Boolean getSelected() {
-            return selected;
-        }
-
-        public void setSelected(Boolean selected) {
-            this.selected = selected;
-        }
-    }
 }
