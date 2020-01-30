@@ -61,63 +61,75 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         return scheduleServiceMap;
     }
 
+    private void addToClassifers(String eventType, Map<String, List<ScheduleService>> classifier, List<ScheduleService> scheduleServices) {
+        List<ScheduleService> services = classifier.get(eventType);
+        if (services == null)
+            services = new ArrayList<>();
+
+        services.addAll(scheduleServices);
+        classifier.put(eventType, services);
+    }
+
     private void initializeChildClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new ChildHomeVisitScheduler());
 
-        classifier.put(CoreConstants.EventType.CHILD_HOME_VISIT, scheduleServices);
-        classifier.put(CoreConstants.EventType.CHILD_VISIT_NOT_DONE, scheduleServices);
-        classifier.put(CoreConstants.EventType.CHILD_REGISTRATION, scheduleServices);
+        addToClassifers(CoreConstants.EventType.CHILD_HOME_VISIT, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.CHILD_VISIT_NOT_DONE, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.CHILD_REGISTRATION, classifier, scheduleServices);
     }
 
     private void initializeANCClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new ANCVisitScheduler());
 
-        classifier.put(CoreConstants.EventType.ANC_REGISTRATION, scheduleServices);
-        classifier.put(CoreConstants.EventType.ANC_HOME_VISIT, scheduleServices);
-        classifier.put(CoreConstants.EventType.ANC_HOME_VISIT_NOT_DONE, scheduleServices);
-        classifier.put(CoreConstants.EventType.ANC_HOME_VISIT_NOT_DONE_UNDO, scheduleServices);
+        addToClassifers(CoreConstants.EventType.ANC_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.ANC_HOME_VISIT, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.ANC_HOME_VISIT_NOT_DONE, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.ANC_HOME_VISIT_NOT_DONE_UNDO, classifier, scheduleServices);
     }
 
     private void initializePNCClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new PNCVisitScheduler());
 
-        classifier.put(CoreConstants.EventType.PREGNANCY_OUTCOME, scheduleServices);
-        classifier.put(CoreConstants.EventType.PNC_REGISTRATION, scheduleServices);
-        classifier.put(CoreConstants.EventType.PNC_HOME_VISIT, scheduleServices);
-        classifier.put(CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE, scheduleServices);
-        classifier.put(CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE_UNDO, scheduleServices);
+        addToClassifers(CoreConstants.EventType.PREGNANCY_OUTCOME, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.PNC_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.PNC_HOME_VISIT, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE_UNDO, classifier, scheduleServices);
     }
 
     private void initializeMalariaClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new MalariaScheduler());
-        classifier.put(CoreConstants.EventType.MALARIA_FOLLOW_UP_VISIT, scheduleServices);
-        classifier.put(CoreConstants.EventType.MALARIA_CONFIRMATION, scheduleServices);
+        addToClassifers(CoreConstants.EventType.MALARIA_FOLLOW_UP_VISIT, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.MALARIA_CONFIRMATION, classifier, scheduleServices);
     }
 
     private void initializeWashClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new WashCheckScheduler());
 
-        classifier.put(CoreConstants.EventType.FAMILY_REGISTRATION, scheduleServices);
-        classifier.put(CoreConstants.EventType.WASH_CHECK, scheduleServices);
+        addToClassifers(CoreConstants.EventType.FAMILY_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.UPDATE_FAMILY_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.WASH_CHECK, classifier, scheduleServices);
     }
 
     private void initializeFPClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new FpVisitScheduler());
-        classifier.put(FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT, scheduleServices);
-        classifier.put(FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, scheduleServices);
-        classifier.put(FamilyPlanningConstants.EventType.FAMILY_PLANNING_CHANGE_METHOD, scheduleServices);
+        addToClassifers(FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT, classifier, scheduleServices);
+        addToClassifers(FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(FamilyPlanningConstants.EventType.FAMILY_PLANNING_CHANGE_METHOD, classifier, scheduleServices);
     }
 
     private void initializeRoutineHouseholdClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new RoutineHouseHoldVisitScheduler());
 
-        classifier.put(CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT, scheduleServices);
+        addToClassifers(CoreConstants.EventType.FAMILY_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.UPDATE_FAMILY_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT, classifier, scheduleServices);
     }
 }

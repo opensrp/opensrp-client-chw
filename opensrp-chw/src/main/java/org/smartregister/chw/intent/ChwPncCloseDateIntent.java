@@ -5,7 +5,6 @@ import android.content.Intent;
 
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.pnc.PncLibrary;
-
 import org.smartregister.chw.pnc.repository.PncCloseDateRepository;
 import org.smartregister.chw.pnc.util.PncUtil;
 

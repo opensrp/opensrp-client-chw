@@ -1,11 +1,12 @@
 package org.smartregister.chw.adapter;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -17,6 +18,7 @@ public class ReferralTypeAdapter extends RecyclerView.Adapter<ReferralTypeAdapte
 
     private List<ReferralTypeModel> referralTypes = new ArrayList<>();
     private View.OnClickListener onClickListener;
+    public boolean canStart = false;
 
     public List<ReferralTypeModel> getReferralTypes() {
         return referralTypes;
