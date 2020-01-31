@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
-import org.smartregister.chw.anc.contract.BaseAncMedicalHistoryContract;
 import org.smartregister.chw.anc.domain.GroupedVisit;
 import org.smartregister.chw.anc.domain.MemberObject;
-import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.activity.CorePncMedicalHistoryActivity;
 import org.smartregister.chw.interactor.PncMedicalHistoryActivityInteractor;
