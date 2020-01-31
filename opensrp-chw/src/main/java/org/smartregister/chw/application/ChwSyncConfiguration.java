@@ -54,4 +54,9 @@ public class ChwSyncConfiguration extends SyncConfiguration {
     public boolean updateClientDetailsTable() {
         return false;
     }
+
+    @Override
+    public boolean isSyncUsingPost() {
+        return !BuildConfig.DEBUG;
+    }
 }

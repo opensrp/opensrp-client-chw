@@ -310,6 +310,7 @@
     <string name="referral_reason">Reason for referral</string>
     <string name="open_referral_form">Open %s referral form</string>
     <string name="sick_child">Sick child</string>
+    <string name="family_planning_referral">Family Planning</string>
     <string name="client_malaria_follow_up">Malaria follow-up</string>
     <string name="pnc_danger_signs">PNC danger signs</string>
     <string name="fp_post_partum">FP post-partum</string>
@@ -332,5 +333,9 @@
     <string name="cancel_download_confirmation">Are you sure you want to cancel this download?</string>
     <string name="cancel_download">Cancel Download</string>
 
+    <string name="typhoid">Typhoid</string>
+    <string name="routine_household_visit">Routine Household Visit</string>
+    <string name="sick_visits">Sick Visits</string>
+    <string name="sick_visit">Sick Visit</string>
 
 </resources>

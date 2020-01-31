@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name" translatable="false">CBIS Demo</string>
+    <string name="login_title" translatable="false">CBIS Demo</string>
+    <string name="nav_logo" translatable="false">CBIS Demo</string>
+</resources>

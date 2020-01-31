@@ -162,21 +162,42 @@
             "field": "eventType",
             "field_value": "Sick Child Referral",
             "creates_case": [
-              "ec_child_referral"
+              "ec_referral"
             ]
           },
           {
             "field": "eventType",
             "field_value": "ANC Referral",
             "creates_case": [
-              "ec_anc_referral"
+              "ec_referral"
             ]
           },
           {
             "field": "eventType",
             "field_value": "PNC Referral",
             "creates_case": [
-              "ec_pnc_referral"
+              "ec_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Referral Registration",
+            "creates_case": [
+              "ec_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Referral Followup Registration",
+            "creates_case": [
+              "ec_referral_followup"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Family Planning Referral",
+            "creates_case": [
+              "ec_fp_referral"
             ]
           },
           {

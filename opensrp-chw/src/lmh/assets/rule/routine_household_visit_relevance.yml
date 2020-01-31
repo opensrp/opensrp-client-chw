@@ -1,0 +1,63 @@
+---
+name: step1_number_of_births_community
+description: number_of_births_community relevance
+priority: 1
+condition: "step1_birth_in_household != null && step1_birth_in_household == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_number_of_births_facility
+description: number_of_births_facility relevance
+priority: 1
+condition: "step1_birth_in_household != null && step1_birth_in_household == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_still_births
+description: still_births relevance
+priority: 1
+condition: "step1_death_in_household != null && step1_death_in_household == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_neonatal_death
+description: neonatal_death relevance
+priority: 1
+condition: "step1_death_in_household != null && step1_death_in_household == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_post_neonatal_death
+description: post_neonatal_death relevance
+priority: 1
+condition: "step1_death_in_household != null && step1_death_in_household == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_death
+description: child_death relevance
+priority: 1
+condition: "step1_death_in_household != null && step1_death_in_household == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_maternal_death
+description: maternal_death relevance
+priority: 1
+condition: "step1_death_in_household != null && step1_death_in_household == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_community_trigger_type
+description: community_trigger_type relevance
+priority: 1
+condition: "step1_community_trigger != null && step1_community_trigger > 0"
+actions:
+  - "isRelevant = true"
+---
+name: step1_community_trigger_other
+description: community_trigger_other relevance
+priority: 1
+condition: "step1_community_trigger_type.contains('chk_other')"
+actions:
+  - "isRelevant = true"

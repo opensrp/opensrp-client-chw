@@ -72,7 +72,7 @@ public class NativeFormsDataLoader implements DataLoader {
     }
 
     public Map<String, Map<String, Object>> getDbData(Context context, String baseEntityID, String eventName) {
-        if(dbData == null){
+        if (dbData == null) {
             dbData = new HashMap<>();
             List<String> tables = getFormTables(context, eventName);
             for (String table : tables) {
@@ -130,25 +130,10 @@ public class NativeFormsDataLoader implements DataLoader {
         return client;
     }
 
-    private List<JSONObject> getFormSteps(JSONObject jsonObject) throws JSONException {
-        List<JSONObject> steps = new ArrayList<>();
-        int x = 1;
-        while (true) {
-            String step_name = "step" + x;
-            if (jsonObject.has(step_name)) {
-                steps.add(jsonObject.getJSONObject(step_name));
-            } else {
-                break;
-            }
-            x++;
-        }
-        return steps;
-    }
-
     @Override
     public void loadForm(Context context, JSONObject formJsonObject, String baseEntityID) throws JSONException {
         eventName = formJsonObject.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
-        List<JSONObject> steps = getFormSteps(formJsonObject);
+        List<JSONObject> steps = JsonFormUtils.getFormSteps(formJsonObject);
         for (JSONObject step : steps) {
             JSONArray jsonArray = step.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
             this.jsonArray = jsonArray;
@@ -156,7 +141,7 @@ public class NativeFormsDataLoader implements DataLoader {
                 try {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     // get value of key
-                    String value = getValue(context, baseEntityID, jsonObject, getDbData(context,baseEntityID,eventName));
+                    String value = getValue(context, baseEntityID, jsonObject, getDbData(context, baseEntityID, eventName));
                     if (StringUtils.isNotBlank(value))
                         jsonObject.put(JsonFormConstants.VALUE, value);
                 } catch (Exception e) {

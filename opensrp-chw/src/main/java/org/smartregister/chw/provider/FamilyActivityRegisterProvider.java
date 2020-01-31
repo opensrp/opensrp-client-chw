@@ -118,6 +118,8 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
                 return " · " + context.getString(R.string.wash_check);
             case CoreConstants.EventType.CHILD_HOME_VISIT:
                 return context.getString(R.string.home_visit_suffix);
+            case CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT:
+                return " · " + context.getString(R.string.routine_household_visit);
             default:
                 return "";
         }

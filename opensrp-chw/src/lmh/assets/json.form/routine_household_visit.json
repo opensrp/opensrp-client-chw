@@ -1,0 +1,483 @@
+{
+  "count": "1",
+  "encounter_type": "Routine Household Visit",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Routine Household Visit",
+    "fields": [
+      {
+        "key": "pregnancies_in_household",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnancies_in_household",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of pregnant (big belly) women in the household",
+        "v_required": {
+          "value": "true",
+          "err": "Equal or greater than 0"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        }
+      },
+      {
+        "key": "birth_in_household",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birth_in_household",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Any births in the household since last visit?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select option"
+        }
+      },
+      {
+        "key": "number_of_births_community",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_births_community",
+        "label_info_text": "Number of births in the community or at home",
+        "label_info_title": "Info",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "How many births since last visit?\nNumber of births that happened in the COMMUNITY/HOME:",
+        "v_required": {
+          "value": "true",
+          "err": "Equal or greater than 0"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_births_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_births_facility",
+        "label_info_text": "Number of births that took place at the facility",
+        "label_info_title": "Info",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of births that happened in the FACILITY:",
+        "v_required": {
+          "value": "true",
+          "err": "Equal or greater than 0"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "death_in_household",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "death_in_household",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Any deaths in household since last visit?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select option"
+        }
+      },
+      {
+        "key": "still_births",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "still_births",
+        "label_info_text": "(dead when born)",
+        "label_info_title": "Info",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Count any deaths in the household\nNumber of still births:",
+        "v_required": {
+          "value": "true",
+          "err": "Equal or greater than 0"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "neonatal_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "neonatal_death",
+        "label_info_text": "(0 days - 1 month)",
+        "label_info_title": "Info",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of neonatal deaths:",
+        "v_required": {
+          "value": "true",
+          "err": "Equal or greater than 0"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "post_neonatal_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "post_neonatal_death",
+        "label_info_text": "(1 month - 1 year)",
+        "label_info_title": "Info",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of Post-neonatal death:",
+        "v_required": {
+          "value": "true",
+          "err": "Equal or greater than 0"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_death",
+        "label_info_text": "(1 year - 5 years)",
+        "label_info_title": "Info",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of child deaths:",
+        "v_required": {
+          "value": "true",
+          "err": "Equal or greater than 0"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "maternal_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "maternal_death",
+        "label_info_text": "(mothers who die 48 days after birth)",
+        "label_info_title": "Info",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of maternal deaths:",
+        "v_required": {
+          "value": "true",
+          "err": "Equal or greater than 0"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "community_trigger",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "community_trigger",
+        "label_info_text": "Number of CEBS trigger referrals made by the CHA. See Module 1 job aid for list of community triggers.",
+        "label_info_title": "Info",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of community triggers:",
+        "v_required": {
+          "value": "true",
+          "err": "Equal or greater than 0"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        }
+      },
+      {
+        "key": "community_trigger_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "community_trigger_type",
+        "type": "check_box",
+        "label": "What community trigger(s) did you observe?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "chk_flaccid",
+            "text": "Acute flaccid paralysis (Polio)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_flaccid"
+          },
+          {
+            "key": "chk_watery_diarrhea",
+            "text": "Acute watery diarrhea/Colera (Runny stomach)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_diarrhea"
+          },
+          {
+            "key": "chk_bloody_diarrhea",
+            "text": "Bloody Diarrhea (pu-pu with blood)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bloody_diarrhea"
+          },
+          {
+            "key": "chk_human_rabies",
+            "text": "Human Rabies (dog bite)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_human_rabies"
+          },
+          {
+            "key": "chk_measles",
+            "text": "Measles",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_measles"
+          },
+          {
+            "key": "chk_hemorrhagic",
+            "text": "Hemorrhagic Fever (Ebola, Lassa Fever, Yellow Fever)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hemorrhagic"
+          },
+          {
+            "key": "chk_meningitis",
+            "text": "Meningitis (Stiff neck)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_meningitis"
+          },
+          {
+            "key": "chk_maternal_death",
+            "text": "Maternal Death (big belly death)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_maternal_death"
+          },
+          {
+            "key": "chk_neonatal_tetanus",
+            "text": "Neonatal Tetanus (Jerking sickness)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_neonatal_tetanus"
+          },
+          {
+            "key": "chk_neonatal_death",
+            "text": "Neonatal Death (Young baby death)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_neonatal_death"
+          },
+          {
+            "key": "chk_unknown_health_problems",
+            "text": "Unknown health problems grouped together",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_unknown_health_problems"
+          },
+          {
+            "key": "chk_any_death",
+            "text": "Any death in human or group of animals that you don't know why it happened",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_any_death"
+          },
+          {
+            "key": "chk_other",
+            "text": "Other",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "community_trigger_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "community_trigger_other",
+        "type": "edit_text",
+        "hint": "Other:",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "form_feedback",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "form_feedback",
+        "type": "edit_text",
+        "hint": "Optional: Do you have any feedback on how we can improve this form?"
+      }
+    ]
+  }
+}

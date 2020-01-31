@@ -1,6 +1,7 @@
 package org.smartregister.chw.presenter;
 
 import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.WashCheckModel;
@@ -41,12 +42,23 @@ public class FamilyProfileActivityPresenter extends BaseFamilyProfileActivityPre
 
     private String getEventsInCSV() {
         List<String> events = new ArrayList<>();
-        events.add(CoreConstants.EventType.ANC_HOME_VISIT);
-        events.add(CoreConstants.EventType.PNC_HOME_VISIT);
-        events.add(CoreConstants.EventType.ANC_HOME_VISIT_NOT_DONE);
+
+        if (ChwApplication.getApplicationFlavor().hasANC()) {
+            events.add(CoreConstants.EventType.ANC_HOME_VISIT);
+            events.add(CoreConstants.EventType.ANC_HOME_VISIT_NOT_DONE);
+        }
+
+        if (ChwApplication.getApplicationFlavor().hasPNC())
+            events.add(CoreConstants.EventType.PNC_HOME_VISIT);
+
+        if (ChwApplication.getApplicationFlavor().hasWashCheck())
+            events.add(CoreConstants.EventType.WASH_CHECK);
+
+        if (ChwApplication.getApplicationFlavor().hasRoutineVisit())
+            events.add(CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT);
+
         events.add(CoreConstants.EventType.CHILD_HOME_VISIT);
         events.add(CoreConstants.EventType.CHILD_VISIT_NOT_DONE);
-        events.add(CoreConstants.EventType.WASH_CHECK);
 
         StringBuilder res = new StringBuilder();
         for (String s : events) {

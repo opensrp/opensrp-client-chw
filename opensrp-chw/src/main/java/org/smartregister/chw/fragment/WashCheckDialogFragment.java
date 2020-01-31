@@ -4,13 +4,14 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -72,7 +73,6 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
                 getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
             }
         });
-
     }
 
     @Nullable
@@ -183,12 +183,8 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.close:
-                dismiss();
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.close) {
+            dismiss();
         }
     }
 }
