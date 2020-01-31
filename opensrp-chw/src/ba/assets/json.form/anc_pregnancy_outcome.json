@@ -342,7 +342,7 @@
       {
         "key": "no_children_no",
         "type": "repeating_group",
-        "reference_edit_text_hint": "# of babies",
+        "reference_edit_text_hint": "Number of children born alive",
         "repeating_group_label": "baby",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -399,14 +399,6 @@
                 "value": "false"
               }
             ]
-          },
-          {
-            "key": "surname_calculation",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "person",
-            "openmrs_entity_id": "last_name",
-            "type": "hidden",
-            "hint": "Surname as Family name"
           },
           {
             "key": "first_name",
