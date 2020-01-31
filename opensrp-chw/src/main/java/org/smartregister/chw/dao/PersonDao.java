@@ -58,7 +58,7 @@ public class PersonDao extends AbstractDao {
                 "where ec_child.mother_entity_id = '" + baseEntityID + "'" + " COLLATE NOCASE " +
                 "and ec_child.date_removed is null and ec_family_member.date_removed is null " +
                 "and date(ec_child.dob, '+28 days') >=  date() " +
-                "order by ec_family_member.first_name , ec_family_member.last_name , ec_family_member.middle_name ";
+                "order by ec_family_member.first_name ASC, ec_family_member.last_name , ec_family_member.middle_name ";
 
         // extract lbw from the pregnancy outcome form
         final String[] lbw = {"No"};

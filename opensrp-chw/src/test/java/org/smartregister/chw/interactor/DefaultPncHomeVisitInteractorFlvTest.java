@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
@@ -119,12 +120,12 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
 
     @Test
     public void testEvaluateDangerSignsBaby() {
-
         int x = 4;
         List<PncBaby> children = getSampleKids(x);
         Whitebox.setInternalState(interactor, "children", children);
-
-        ReflectionHelpers.callInstanceMethod(interactor, "evaluateDangerSignsBaby");
+        for(Person baby : children){
+            ReflectionHelpers.callInstanceMethod(interactor, "evaluateDangerSignsBaby",ReflectionHelpers.ClassParameter.from(Person.class, baby));
+        }
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }
 
@@ -145,42 +146,25 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
 
     @Test
     public void testEvaluateChildVaccineCard() {
-
         int x = 3;
         List<PncBaby> children = getSampleKids(x);
         Whitebox.setInternalState(interactor, "children", children);
-
-        ReflectionHelpers.callInstanceMethod(interactor, "evaluateChildVaccineCard");
+        for(Person baby : children){
+            ReflectionHelpers.callInstanceMethod(interactor, "evaluateChildVaccineCard",ReflectionHelpers.ClassParameter.from(Person.class, baby));
+        }
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }
 
-    /*
-    @Test
-    public void testEvaluateImmunization() {
 
-        int x = 6;
-        List<PncBaby> children = getSampleKids(x);
-        Whitebox.setInternalState(interactor, "children", children);
-
-        List<VaccineWrapper> wrappers = new ArrayList<>();
-        VaccineWrapper vaccineWrapper = new VaccineWrapper();
-        vaccineWrapper.setName("scheduleName");
-        vaccineWrapper.setAlert(new Alert("caseID", "scheduleName", "visitCode", AlertStatus.urgent, "2019-01-01", null));
-        wrappers.add(vaccineWrapper);
-        Mockito.doReturn(wrappers).when(interactor).getWrappers(Mockito.any());
-
-        ReflectionHelpers.callInstanceMethod(interactor, "evaluateImmunization");
-        Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
-    }
-     */
 
     @Test
     public void testEvaluateUmbilicalCord() {
         int x = 5;
         List<PncBaby> children = getSampleKids(x);
         Whitebox.setInternalState(interactor, "children", children);
-
-        ReflectionHelpers.callInstanceMethod(interactor, "evaluateUmbilicalCord");
+        for(Person baby : children){
+            ReflectionHelpers.callInstanceMethod(interactor, "evaluateUmbilicalCord",ReflectionHelpers.ClassParameter.from(Person.class, baby));
+        }
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }
 
@@ -201,7 +185,9 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
         Mockito.doReturn(alert).when(serviceWrapper).getAlert();
         Mockito.doReturn(serviceWrapperMap).when(interactor).getWrapperMap(Mockito.any());
 
-        ReflectionHelpers.callInstanceMethod(interactor, "evaluateExclusiveBreastFeeding");
+        for(Person baby : children){
+            ReflectionHelpers.callInstanceMethod(interactor, "evaluateExclusiveBreastFeeding",ReflectionHelpers.ClassParameter.from(Person.class, baby));
+        }
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }
 
@@ -211,7 +197,9 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
         List<PncBaby> children = getSampleKids(x);
         Whitebox.setInternalState(interactor, "children", children);
 
-        ReflectionHelpers.callInstanceMethod(interactor, "evaluateKangarooMotherCare");
+        for(Person baby : children){
+            ReflectionHelpers.callInstanceMethod(interactor, "evaluateKangarooMotherCare",ReflectionHelpers.ClassParameter.from(Person.class, baby));
+        }
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }
 
@@ -232,8 +220,9 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
         int x = 3;
         List<PncBaby> children = getSampleKids(x);
         Whitebox.setInternalState(interactor, "children", children);
-
-        ReflectionHelpers.callInstanceMethod(interactor, "evaluateObservationAndIllnessBaby");
+        for(Person baby : children){
+            ReflectionHelpers.callInstanceMethod(interactor, "evaluateObservationAndIllnessBaby",ReflectionHelpers.ClassParameter.from(Person.class, baby));
+        }
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }
 }

@@ -56,8 +56,6 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
         Mockito.doReturn(builder).when(builder).withDetails(Mockito.any());
         Mockito.doReturn(builder).when(builder).withDestinationFragment(Mockito.any());
         Mockito.doReturn(builder).when(builder).withHelper(Mockito.any());
-        //Mockito.doReturn(builder).when(builder).withDisabledMessage(Mockito.any());
-        //Mockito.doReturn(builder).when(builder).withValidator(Mockito.any());
         Mockito.doReturn(builder).when(builder).withProcessingMode(Mockito.any());
         Mockito.doReturn(builder).when(builder).withFormName(Mockito.any());
         Mockito.doReturn(builder).when(builder).withJsonPayload(Mockito.any());
@@ -123,25 +121,6 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
         Mockito.verify(visitRepository).getLatestVisit(baseID, eventName);
     }
 
-    /*
-    @Test
-    public void testEvaluateImmunization() {
-        List<VaccineGroup> vaccineGroups = new ArrayList<>();
-        Mockito.doReturn(vaccineGroups).when(interactor).getVaccineGroups();
-
-        List<Vaccine> vaccines = new ArrayList<>();
-        Mockito.doReturn(vaccines).when(interactor).getSpecialVaccines();
-
-        VaccineRepository vaccineRepository = Mockito.mock(VaccineRepository.class);
-        Mockito.doReturn(vaccineRepository).when(interactor).getVaccineRepo();
-
-        Mockito.doReturn("12345").when(memberObject).getBaseEntityId();
-
-        ReflectionHelpers.callInstanceMethod(interactor, "evaluateImmunization");
-
-        Mockito.verify(vaccineRepository).findByEntityId("12345");
-    }
-     */
 
     @Test
     public void testEvaluateChildVaccineCard() {
