@@ -11,19 +11,24 @@ import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.IndividualProfileRemoveActivity;
 import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
+import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.fragment.CoreFamilyProfileChangeDialog;
 import org.smartregister.chw.core.fragment.CoreIndividualProfileRemoveFragment;
 import org.smartregister.chw.core.fragment.FamilyRemoveMemberConfirmDialog;
+import org.smartregister.chw.core.model.ChildModel;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.model.FamilyRemoveMemberModel;
 import org.smartregister.chw.presenter.FamilyRemoveMemberPresenter;
 import org.smartregister.chw.provider.FamilyRemoveMemberProvider;
+import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
+import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 
+import java.util.Date;
 import java.util.Set;
 
 import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
@@ -71,6 +76,14 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
 
                         goToPatientDetailActivity(pClient);
                     }
+                }
+            }
+
+            String baseEntityId =  pc.getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID);
+            if(PNCDao.childrenForPncWoman(baseEntityId).size() > 0 ){
+                for(ChildModel child: PNCDao.childrenForPncWoman(baseEntityId)){
+                    ChwScheduleTaskExecutor.getInstance().execute(child.getBaseEntityId(), CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
+                    ChildAlertService.updateAlerts(child.getBaseEntityId());
                 }
             }
         }
