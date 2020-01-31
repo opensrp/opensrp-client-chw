@@ -1,0 +1,14 @@
+---
+name: "problem_other_visibility"
+description: "Specify other symptoms"
+priority: 1
+condition: "problem['Other_symptom'] != null || problem['Other_symptoms'] != null"
+actions:
+  - "problem_other_visibility =  true"
+---
+name: "service_before_referral_other_visibility"
+description: "Specify Other pre-referral managements given"
+priority: 1
+condition: "service_before_referral['Other_treatment'] != null"
+actions:
+  - "service_before_referral_other_visibility =  true"

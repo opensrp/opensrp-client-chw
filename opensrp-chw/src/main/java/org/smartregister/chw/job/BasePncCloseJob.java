@@ -1,6 +1,7 @@
 package org.smartregister.chw.job;
 
 import android.content.Intent;
+
 import androidx.annotation.NonNull;
 
 import org.smartregister.chw.core.job.CoreBasePncCloseJob;
