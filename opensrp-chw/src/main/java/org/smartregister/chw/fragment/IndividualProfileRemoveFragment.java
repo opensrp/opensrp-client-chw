@@ -80,12 +80,10 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
             }
 
             String baseEntityId =  pc.getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID);
-            if(PNCDao.childrenForPncWoman(baseEntityId).size() > 0 ){
                 for(ChildModel child: PNCDao.childrenForPncWoman(baseEntityId)){
                     ChwScheduleTaskExecutor.getInstance().execute(child.getBaseEntityId(), CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
                     ChildAlertService.updateAlerts(child.getBaseEntityId());
                 }
-            }
         }
     }
 
