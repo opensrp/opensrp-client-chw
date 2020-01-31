@@ -196,6 +196,13 @@
         "type": "hidden"
       },
       {
+        "key": "no_children",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden"
+      },
+      {
         "key": "no_children_no",
         "type": "repeating_group",
         "reference_edit_text_hint": "Number of children born",
