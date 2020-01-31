@@ -31,8 +31,8 @@ actions:
   - "isRelevant = true"
 
 ---
-name: step1_unique_id
-description: unique_id relevance
+name: step1_no_children_no
+description: no_children_no relevance
 priority: 1
 condition: "step1_preg_outcome == 'Live birth'"
 actions:
@@ -42,94 +42,6 @@ actions:
 name: step1_surname
 description: surname relevance
 priority: 1
-condition: "!step1_same_as_fam_name.contains('same_as_fam_name') && step1_preg_outcome == 'Live birth'"
-actions:
-  - "isRelevant = true"
-
----
-name: step1_same_as_fam_name
-description: same_as_fam_name relevance
-priority: 1
-condition: "step1_preg_outcome == 'Live birth'"
-actions:
-  - "isRelevant = true"
-
----
-name: step1_fam_name
-description: fam_name relevance
-priority: 1
-condition: "step1_preg_outcome == 'Live birth'"
-actions:
-  - "isRelevant = true"
-
----
-name: step1_first_name
-description: first_name relevance
-priority: 1
-condition: "step1_preg_outcome == 'Live birth'"
-actions:
-  - "isRelevant = true"
-
----
-name: step1_middle_name
-description: middle_name relevance
-priority: 1
-condition: "step1_preg_outcome == 'Live birth'"
-actions:
-  - "isRelevant = true"
-
----
-name: step1_gender
-description: sex relevance
-priority: 1
-condition: "step1_preg_outcome == 'Live birth'"
-actions:
-  - "isRelevant = true"
-
----
-name: step1_lbw
-description: lbw relevance
-priority: 1
-condition: "step1_preg_outcome == 'Live birth'"
-actions:
-  - "isRelevant = true"
-
----
-name: step1_early_bf_1hr
-description: early_bf_1hr relevance
-priority: 1
-condition: "step1_preg_outcome == 'Live birth'"
-actions:
-  - "isRelevant = true"
-
----
-name: step1_disabilities
-description: disabilities relevance
-priority: 1
-condition: "step1_preg_outcome == 'Live birth'"
-actions:
-  - "isRelevant = true"
-
----
-name: step1_essential_newborn_care
-description: essential_newborn_care relevance
-priority: 1
-condition: "step1_preg_outcome == 'Live birth'"
-actions:
-  - "isRelevant = true"
-
----
-name: step1_opv0_date
-description: opv0_date relevance
-priority: 1
-condition: "step1_preg_outcome == 'Live birth'"
-actions:
-  - "isRelevant = true"
-
----
-name: step1_bcg_date
-description: bcg_date relevance
-priority: 1
-condition: "step1_preg_outcome == 'Live birth'"
+condition: "!step1_same_as_fam_name.contains('same_as_fam_name')"
 actions:
   - "isRelevant = true"
