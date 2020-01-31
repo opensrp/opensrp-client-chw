@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
-import org.smartregister.chw.anc.contract.BaseAncMedicalHistoryContract;
+import org.smartregister.chw.anc.domain.GroupedVisit;
 import org.smartregister.chw.anc.domain.MemberObject;
-import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.activity.CorePncMedicalHistoryActivity;
 import org.smartregister.chw.interactor.PncMedicalHistoryActivityInteractor;
+import org.smartregister.chw.pnc.contract.BasePncMedicalHistoryContract;
 
 import java.util.List;
 
@@ -24,15 +24,15 @@ public class PncMedicalHistoryActivity extends CorePncMedicalHistoryActivity {
     }
 
     @Override
-    protected BaseAncMedicalHistoryContract.Interactor getPncMedicalHistoryInteractor() {
+    protected BasePncMedicalHistoryContract.Interactor getPncMedicalHistoryInteractor() {
         return new PncMedicalHistoryActivityInteractor();
     }
 
     @Override
-    public View renderView(List<Visit> visits) {
+    public View renderMedicalHistoryView(List<GroupedVisit> groupedVisits) {
         View view = flavor.bindViews(this);
         displayLoadingState(true);
-        flavor.processViewData(visits, this);
+        flavor.processViewData(groupedVisits, this, memberObject);
         displayLoadingState(false);
         return view;
     }

@@ -20,7 +20,6 @@ public abstract class BaseTaskExecutor implements ScheduleService {
         localDate.plusDays(-31);
 
         ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByName(getScheduleName(), localDate.toDate());
-
     }
 
     @Override
