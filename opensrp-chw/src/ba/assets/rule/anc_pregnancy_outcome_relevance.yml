@@ -47,8 +47,8 @@ actions:
   - "isRelevant = true"
 
 ---
-name: step1_number_of_babies
-description: number_of_babies relevance
+name: step1_no_children_no
+description: no_children_no relevance
 priority: 1
 condition: "step1_preg_outcome == 'born_alive' || step1_preg_outcome == 'alive_with_problem'"
 actions:
