@@ -145,9 +145,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "danger_signs",
         "type": "check_box",
-        "label": "Ask and look to see if the child has any DANGER SIGNS:a",
+        "label": "Ask and look to see if the child has any DANGER SIGNS:",
         "label_text_style": "normal",
-        "text_color": "#C0C0C0",
         "exclusive": [
           "chk_none"
         ],
@@ -266,7 +265,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "{firstName} has the following danger signs and needs to be referred to a health facility:\n{dangerSigns}",
-        "text_color": "#CF0800",
         "toaster_type": "problem",
         "v_required": {
           "value": "true",
@@ -318,7 +316,6 @@
         "left_padding": "20dp",
         "right_padding": "20dp",
         "text_size": "7sp",
-        "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "chest_indrawing_label",
@@ -364,7 +361,6 @@
         "left_padding": "20dp",
         "right_padding": "20dp",
         "text_size": "7sp",
-        "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fever_label",
@@ -596,7 +592,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has no danger signs. Please look for the following symptoms which can be treated at home",
-        "text_color": "#CF0800",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -611,9 +606,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "type": "toaster_notes",
+        "type": "label",
+        "text_size": "6sp",
         "text": "Please look for the following symptoms which can be treated at home",
-        "text_color": "#CF0800",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -738,7 +733,7 @@
       {
         "key": "fever_group_label",
         "type": "label",
-        "text": "Fever Group",
+        "text": "Fever",
         "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
@@ -830,7 +825,7 @@
       {
         "key": "diarrhea_label",
         "type": "label",
-        "text": "Diarrhea Group",
+        "text": "Diarrhea",
         "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
@@ -968,14 +963,19 @@
       {
         "key": "treat_pneumonia",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "fever",
-        "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "PNEUMONIA: Treat at home with Amoxicillin. Teach caregiver how to give treatment and watch caregiver give first dose now. Check caregiver's understanding and ask him/her to explain treatment plan",
-        "values": [
-          "Yes, I told the caregiver and gave him/her Amoxicillin",
-          "No, I did not give the caregiver Amoxicillin"
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "PNEUMONIA: Treat at home with Amoxicillin. Teach caregiver how to give treatment and watch caregiver give first dose now. Check caregiver's understanding and ask him/her to explain treatment plan",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes, I told the caregiver and gave him/her Amoxicillin"
+          },
+          {
+            "key": "No",
+            "text": "No, I did not give the caregiver Amoxicillin"
+          }
         ],
         "v_required": {
           "value": "true",
