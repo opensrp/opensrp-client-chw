@@ -21,7 +21,6 @@ import org.smartregister.chw.contract.PncMemberProfileContract;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
-import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.interactor.CorePncMemberProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
@@ -36,7 +35,6 @@ import org.smartregister.chw.interactor.PncMemberProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.model.ReferralTypeModel;
-import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.presenter.PncMemberProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.clientandeventmodel.Client;
@@ -385,7 +383,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 for (Map.Entry<String, String> entry : menuItemRemoveNames.entrySet()) {
                     if (entry.getKey().equalsIgnoreCase(item.getTitle().toString()) && entry.getValue().equalsIgnoreCase(child.entityId())) {
                         IndividualProfileRemoveActivity.startIndividualProfileActivity(PncMemberProfileActivity.this, child,
-                               memberObject.getFamilyBaseEntityId()
+                                memberObject.getFamilyBaseEntityId()
                                 , memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), ChildRegisterActivity.class.getCanonicalName());
                     }
                 }
