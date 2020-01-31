@@ -45,7 +45,7 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
         Whitebox.setInternalState(interactor, "actionList", actionList);
         Whitebox.setInternalState(interactor, "vaccineCardReceived", false);
 
-        Date dob = LocalDate.now().minusDays(61).toDate();
+        Date dob = LocalDate.now().minusDays(62).toDate();
         Whitebox.setInternalState(interactor, "dob", dob);
 
         CoreConstants.JSON_FORM.setLocaleAndAssetManager(locale, assetManager);
