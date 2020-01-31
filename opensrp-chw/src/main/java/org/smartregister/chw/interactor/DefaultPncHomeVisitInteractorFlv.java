@@ -177,17 +177,20 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     }
 
     private void evaluateDangerSignsBaby(Person baby) throws Exception {
-        Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.DANGER_SIGNS_BABY);
+        if (getAgeInDays(baby.getDob()) <= 28) {
 
-        BaseAncHomeVisitAction action = getBuilder(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()))
-                .withOptional(false)
-                .withDetails(details)
-                .withBaseEntityID(baby.getBaseEntityID())
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
-                .withHelper(new DangerSignsAction())
-                .build();
-        actionList.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()), action);
+            Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.DANGER_SIGNS_BABY);
+
+            BaseAncHomeVisitAction action = getBuilder(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
+                    .withHelper(new DangerSignsAction())
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()), action);
+        }
     }
 
     @VisibleForTesting
@@ -289,17 +292,20 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     }
 
     private void evaluateUmbilicalCord(Person baby) throws Exception {
-        Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.UMBILICAL_CORD_CARE);
+        if (getAgeInDays(baby.getDob()) <= 28) {
 
-        BaseAncHomeVisitAction action = getBuilder(MessageFormat.format(context.getString(R.string.pnc_umblicord_care_child), baby.getFullName()))
-                .withOptional(false)
-                .withDetails(details)
-                .withBaseEntityID(baby.getBaseEntityID())
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getUmbilicalCord())
-                .withHelper(new UmbilicalCordHelper())
-                .build();
-        actionList.put(MessageFormat.format(context.getString(R.string.pnc_umblicord_care_child), baby.getFullName()), action);
+            Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.UMBILICAL_CORD_CARE);
+
+            BaseAncHomeVisitAction action = getBuilder(MessageFormat.format(context.getString(R.string.pnc_umblicord_care_child), baby.getFullName()))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getUmbilicalCord())
+                    .withHelper(new UmbilicalCordHelper())
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_umblicord_care_child), baby.getFullName()), action);
+        }
     }
 
 
