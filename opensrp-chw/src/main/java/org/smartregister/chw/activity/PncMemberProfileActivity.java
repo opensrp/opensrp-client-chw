@@ -378,7 +378,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     @Override
     protected void getRemoveBabyMenuItem(MenuItem item) {
-        if (getChildren(memberObject).size() > 0) {
             for (CommonPersonObjectClient child : getChildren(memberObject)) {
                 for (Map.Entry<String, String> entry : menuItemRemoveNames.entrySet()) {
                     if (entry.getKey().equalsIgnoreCase(item.getTitle().toString()) && entry.getValue().equalsIgnoreCase(child.entityId())) {
@@ -387,7 +386,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                                 , memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), ChildRegisterActivity.class.getCanonicalName());
                     }
                 }
-            }
         }
     }
 
