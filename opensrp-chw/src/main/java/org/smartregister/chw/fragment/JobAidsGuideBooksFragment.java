@@ -5,14 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
@@ -32,8 +33,8 @@ import java.util.Map;
 public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFragmentContract.View {
 
     protected RecyclerView.Adapter mAdapter;
-    private List<GuideBooksFragmentContract.Video> videos = new ArrayList<>();
     protected GuideBooksFragmentContract.Presenter presenter;
+    private List<GuideBooksFragmentContract.Video> videos = new ArrayList<>();
     private ProgressBar progressBar;
     private Map<String, GuideBooksFragmentContract.Video> allVideos = new HashMap<>();
 
