@@ -27,7 +27,6 @@ public class EventDao extends AbstractDao {
             }
             return null;
         };
-
         return AbstractDao.readData(sql, dataMap);
     }
 
