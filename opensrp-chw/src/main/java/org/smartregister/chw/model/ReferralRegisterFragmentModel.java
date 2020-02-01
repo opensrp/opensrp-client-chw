@@ -13,8 +13,8 @@ import org.smartregister.family.util.DBConstants;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.smartregister.chw.referral.util.Constants.*;
-import static org.smartregister.chw.referral.util.DBConstants.*;
+import static org.smartregister.chw.referral.util.Constants.Tables;
+import static org.smartregister.chw.referral.util.DBConstants.Key;
 
 public class ReferralRegisterFragmentModel extends BaseReferralRegisterFragmentModel {
 

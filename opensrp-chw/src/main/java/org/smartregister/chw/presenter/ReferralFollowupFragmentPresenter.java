@@ -1,5 +1,6 @@
 package org.smartregister.chw.presenter;
 
+import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.referral.contract.BaseReferralRegisterFragmentContract;
 import org.smartregister.chw.referral.presenter.BaseReferralRegisterFragmentPresenter;
@@ -16,6 +17,7 @@ public class ReferralFollowupFragmentPresenter extends BaseReferralRegisterFragm
         super(view, model, viewConfigurationIdentifier);
     }
 
+    @NotNull
     @Override
     public String getMainCondition() {
         return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.Key.DATE_REMOVED + " is null " +
@@ -31,6 +33,7 @@ public class ReferralFollowupFragmentPresenter extends BaseReferralRegisterFragm
         }
     }
 
+    @NotNull
     @Override
     public String getMainTable() {
         return Tables.REFERRAL;
