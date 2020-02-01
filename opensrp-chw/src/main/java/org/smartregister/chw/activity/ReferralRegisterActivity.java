@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +27,6 @@ import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.listener.BottomNavigationListener;
-import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +36,8 @@ import timber.log.Timber;
 import static org.smartregister.chw.core.utils.CoreConstants.ENTITY_ID;
 import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getMalariaConfirmation;
 import static org.smartregister.chw.malaria.util.JsonFormUtils.validateParameters;
+import static org.smartregister.chw.referral.util.Constants.ActivityPayload;
+import static org.smartregister.chw.referral.util.Constants.ActivityPayloadType;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
@@ -43,26 +45,34 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity {
 
     public static void startReferralRegistrationActivity(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, ReferralRegisterActivity.class);
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(org.smartregister.chw.referral.util.Constants.ACTIVITY_PAYLOAD.REFERRAL_FORM_NAME, getMalariaConfirmation());
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
+        intent.putExtra(ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(ActivityPayload.REFERRAL_FORM_NAME, getMalariaConfirmation());
+        intent.putExtra(ActivityPayload.ACTION, ActivityPayloadType.REGISTRATION);
         activity.startActivity(intent);
+    }
+
+    @NotNull
+    @Override
+    protected Fragment[] getOtherFragments() {
+        Fragment fg = new FollowupRegisterFragment();
+        return new Fragment[]{fg};
+    }
+
+    @NotNull
+    @Override
+    protected ReferralRegisterFragment getRegisterFragment() {
+        return new ReferralRegisterFragment();
+    }
+
+    @Override
+    public List<String> getViewIdentifiers() {
+        return Arrays.asList(Constants.CONFIGURATION.MALARIA_REGISTER);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
-    }
-
-    @Override
-    public void startFormActivity(JSONObject jsonForm) {
-        //Implement
-    }
-
-    @Override
-    public List<String> getViewIdentifiers() {
-        return Arrays.asList(Constants.CONFIGURATION.MALARIA_REGISTER);
     }
 
     @Override
@@ -87,14 +97,35 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity {
     }
 
     @Override
-    protected BaseRegisterFragment getRegisterFragment() {
-        return new ReferralRegisterFragment();
+    public void startFormActivity(JSONObject jsonForm) {
+        //Implement
+    }
+
+    private void startRegisterActivity() {
+//        BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
+        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
+        VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
+        ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
+        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+        PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
+        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
+        //PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
+        SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
+        Intent intent = new Intent(this, ReferralRegisterActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.startActivity(intent);
+        this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+        this.finish();
     }
 
     @Override
-    protected Fragment[] getOtherFragments() {
-        Fragment fg = new FollowupRegisterFragment();
-        return new Fragment[]{fg};
+    protected void onResumption() {
+        super.onResumption();
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if (menu != null) {
+            menu.getNavigationAdapter().setSelectedView(Constants.DrawerMenu.REFERRALS);
+        }
     }
 
     @Override
@@ -125,33 +156,6 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity {
             finish();
         }
 
-    }
-
-    private void startRegisterActivity() {
-//        BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
-        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
-        VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
-        ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
-        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
-        PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
-        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
-        //PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
-        SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
-        Intent intent = new Intent(this, ReferralRegisterActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        this.startActivity(intent);
-        this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-        this.finish();
-    }
-
-    @Override
-    protected void onResumption() {
-        super.onResumption();
-        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
-        if (menu != null) {
-            menu.getNavigationAdapter().setSelectedView(Constants.DrawerMenu.REFERRALS);
-        }
     }
 }
  

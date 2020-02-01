@@ -21,7 +21,7 @@ public class IssueReferralActivityPresenter extends BaseIssueReferralPresenter {
 
     @Override
     public String getMainCondition() {
-        return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + getBaseEntityID() + "'";
+        return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.Key.BASE_ENTITY_ID + " = '" + getBaseEntityID() + "'";
     }
 
 

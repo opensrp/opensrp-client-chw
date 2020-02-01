@@ -51,7 +51,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
         if (getIntent().getExtras() != null) {
             referralTypeModels = getIntent().getParcelableArrayListExtra(Constants.REFERRAL_TYPES);
             baseEntityId = getIntent().getStringExtra(CoreConstants.ENTITY_ID);
-            for (ReferralServiceObject referralServiceObject : Util.getReferralServicesList()) {
+            for (ReferralServiceObject referralServiceObject : Util.INSTANCE.getReferralServicesList()) {
                 referralTypeModels.add(new ReferralTypeModel(referralServiceObject.getNameEn(),
                         Constants.JSON_FORM.getGeneralReferralForm(), referralServiceObject.getId()));
             }

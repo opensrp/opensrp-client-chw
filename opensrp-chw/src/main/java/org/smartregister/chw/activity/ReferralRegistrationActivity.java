@@ -19,10 +19,10 @@ public class ReferralRegistrationActivity extends BaseIssueReferralActivity {
     public static void startGeneralReferralFormActivityForResults(Activity activity, String baseEntityID, JSONObject formJsonObject, String referralServiceId) {
         BASE_ENTITY_ID = baseEntityID;
         Intent intent = new Intent(activity, ReferralRegistrationActivity.class);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.REFERRAL_SERVICE_IDS, referralServiceId);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.JSON_FORM, formJsonObject.toString());
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.ACTION, Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
+        intent.putExtra(Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(Constants.ActivityPayload.REFERRAL_SERVICE_IDS, referralServiceId);
+        intent.putExtra(Constants.ActivityPayload.JSON_FORM, formJsonObject.toString());
+        intent.putExtra(Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.REGISTRATION);
 
         activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }

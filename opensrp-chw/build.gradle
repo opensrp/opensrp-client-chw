@@ -8,6 +8,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.5.3'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
         classpath 'io.fabric.tools:gradle:1.31.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -16,6 +17,8 @@ apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'io.fabric'
 apply from: "jacoco.gradle"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 jacoco {
     toolVersion = "0.8.5"
@@ -301,7 +304,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
-    implementation ("org.smartregister:opensrp-client-chw-referral:1.1.2-SNAPSHOT"){
+    implementation ("org.smartregister:opensrp-client-chw-referral:1.21.4-SNAPSHOT"){
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'

@@ -3,6 +3,7 @@ package org.smartregister.chw.model;
 
 import androidx.annotation.NonNull;
 
+import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.referral.model.BaseReferralRegisterFragmentModel;
 import org.smartregister.chw.util.Constants;
@@ -11,6 +12,9 @@ import org.smartregister.family.util.DBConstants;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static org.smartregister.chw.referral.util.Constants.*;
+import static org.smartregister.chw.referral.util.DBConstants.*;
 
 public class ReferralRegisterFragmentModel extends BaseReferralRegisterFragmentModel {
 
@@ -27,7 +31,8 @@ public class ReferralRegisterFragmentModel extends BaseReferralRegisterFragmentM
     }
 
     @Override
-    protected String[] mainColumns(String tableName) {
+    @NotNull
+    public String[] mainColumns(String tableName) {
         Set<String> columnList = new HashSet<>();
 
         columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
@@ -41,19 +46,19 @@ public class ReferralRegisterFragmentModel extends BaseReferralRegisterFragmentM
         columnList.add(Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.RELATIONAL_ID);
         columnList.add(Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.PHONE_NUMBER);
         columnList.add(Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.OTHER_PHONE_NUMBER);
-        columnList.add("T2." + DBConstants.KEY.PHONE_NUMBER + " AS " + org.smartregister.chw.referral.util.DBConstants.KEY.FAMILY_HEAD_PHONE_NUMBER);
+        columnList.add("T2." + DBConstants.KEY.PHONE_NUMBER + " AS " + Key.FAMILY_HEAD_PHONE_NUMBER);
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.VILLAGE_TOWN);
         columnList.add("T1." + DBConstants.KEY.FIRST_NAME + " || " + "' '" + " || " + "T1." + DBConstants.KEY.MIDDLE_NAME + " || " + "' '" + " || " + "T1." + DBConstants.KEY.LAST_NAME + " AS " + DBConstants.KEY.PRIMARY_CAREGIVER);
         columnList.add("T2." + DBConstants.KEY.FIRST_NAME + " || " + "' '" + " || " + "T2." + DBConstants.KEY.MIDDLE_NAME + " || " + "' '" + " || " + "T2." + DBConstants.KEY.LAST_NAME + " AS " + DBConstants.KEY.FAMILY_HEAD);
-        columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.REFERRAL_SERVICE + "  AS " + org.smartregister.chw.referral.util.DBConstants.KEY.REFERRAL_SERVICE);
-        columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.REFERRAL_DATE);
-        columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.REFERRAL_STATUS);
-        columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.PROBLEM);
-        columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.SERVICE_BEFORE_REFERRAL);
-        columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.SERVICE_BEFORE_REFERRAL_OTHER);
-        columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.PROBLEM_OTHER);
-        columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.REFERRAL_APPOINTMENT_DATE);
-        columnList.add(org.smartregister.chw.referral.util.Constants.TABLES.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.KEY.REFERRAL_HF);
+        columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_SERVICE + "  AS " + Key.REFERRAL_SERVICE);
+        columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_DATE);
+        columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_STATUS);
+        columnList.add(Tables.REFERRAL + "." + Key.PROBLEM);
+        columnList.add(Tables.REFERRAL + "." + Key.SERVICE_BEFORE_REFERRAL);
+        columnList.add(Tables.REFERRAL + "." + Key.SERVICE_BEFORE_REFERRAL_OTHER);
+        columnList.add(Tables.REFERRAL + "." + Key.PROBLEM_OTHER);
+        columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_APPOINTMENT_DATE);
+        columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_HF);
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME + " as " + org.smartregister.chw.anc.util.DBConstants.KEY.FAMILY_NAME);
         return columnList.toArray(new String[columnList.size()]);
     }
