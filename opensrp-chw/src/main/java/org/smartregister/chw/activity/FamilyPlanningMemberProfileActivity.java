@@ -51,7 +51,7 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMemberProfileActivity
-        implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
+        implements FamilyProfileExtendedContract.PresenterCallBack {
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
@@ -165,21 +165,6 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     }
 
     @Override
-    public void refreshList() {
-        // Implement
-    }
-
-    @Override
-    public void updateHasPhone(boolean b) {
-        // Implement
-    }
-
-    @Override
-    public void setFamilyServiceStatus(String s) {
-        // Implement
-    }
-
-    @Override
     public Context getContext() {
         return null;
     }
@@ -191,50 +176,6 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
 
     @Override
     public void notifyHasPhone(boolean b) {
-        // Implement
-    }
-
-    @NonNull
-    @Override
-    public CoreFamilyOtherMemberActivityPresenter presenter() {
-        return ((CoreFamilyOtherMemberActivityPresenter) presenter);
-    }
-
-    @Override
-    public void setProfileImage(String s, String s1) {
-        // Implement
-    }
-
-    @Override
-    public void setProfileName(String s) {
-        TextView textView = findViewById(org.smartregister.fp.R.id.textview_name);
-        textView.setText(s);
-    }
-
-    @Override
-    public void setProfileDetailOne(String s) {
-        TextView textView = findViewById(org.smartregister.fp.R.id.textview_gender);
-        textView.setText(s);
-    }
-
-    @Override
-    public void setProfileDetailTwo(String s) {
-        TextView textView = findViewById(org.smartregister.fp.R.id.textview_address);
-        textView.setText(s);
-    }
-
-    @Override
-    public void setProfileDetailThree(String s) {
-        // Implement
-    }
-
-    @Override
-    public void toggleFamilyHead(boolean b) {
-        // Implement
-    }
-
-    @Override
-    public void togglePrimaryCaregiver(boolean b) {
         // Implement
     }
 
