@@ -74,11 +74,6 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     }
 
     @Override
-    protected Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivityClass() {
-        return FamilyProfileActivity.class;
-    }
-
-    @Override
     protected void removeMember() {
         // TODO :: Implement
     }
