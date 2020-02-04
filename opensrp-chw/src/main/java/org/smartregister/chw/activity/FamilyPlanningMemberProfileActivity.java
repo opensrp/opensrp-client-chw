@@ -68,14 +68,16 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.family_planning_member_profile_menu, menu);
-        return true;
+    protected void removeMember() {
+        IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyPlanningMemberProfileActivity.this,
+                getClientDetailsByBaseEntityID(fpMemberObject.getBaseEntityId()),
+                fpMemberObject.getFamilyBaseEntityId(), fpMemberObject.getFamilyHead(),
+                fpMemberObject.getPrimaryCareGiver(), FpRegisterActivity.class.getCanonicalName());
     }
 
     @Override
-    protected void removeMember() {
-        // TODO :: Implement
+    protected void startFamilyPlanningRegistrationActivity() {
+        FpRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), CoreConstants.JSON_FORM.getFpChengeMethodForm(), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
     }
 
     @Override
@@ -83,32 +85,6 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
         showProgressBar(true);
         fpProfilePresenter = new FamilyPlanningMemberProfilePresenter(this, new FamilyPlanningProfileInteractor(this), fpMemberObject);
         fetchProfileData();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            case R.id.action_registration:
-                startFormForEdit(R.string.registration_info,
-                        org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER);
-                return true;
-
-            case R.id.action_remove_member:
-                IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyPlanningMemberProfileActivity.this,
-                        getClientDetailsByBaseEntityID(fpMemberObject.getBaseEntityId()),
-                        fpMemberObject.getFamilyBaseEntityId(), fpMemberObject.getFamilyHead(),
-                        fpMemberObject.getPrimaryCareGiver(), FpRegisterActivity.class.getCanonicalName());
-                return true;
-            case R.id.action_fp_change:
-                FpRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), CoreConstants.JSON_FORM.getFpChengeMethodForm(), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
-                return true;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -183,36 +159,6 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
         client.setColumnmaps(commonPersonObject.getColumnmaps());
         return client;
 
-    }
-
-    public void startFormForEdit(Integer title_resource, String formName) {
-
-        JSONObject form = null;
-        CommonPersonObjectClient client = org.smartregister.chw.core.utils.Utils.clientForEdit(fpMemberObject.getBaseEntityId());
-
-        if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister())) {
-            form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
-                    (title_resource != null) ? getResources().getString(title_resource) : null,
-                    org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(),
-                    this, client,
-                    org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, fpMemberObject.getLastName(), false);
-        } else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration())) {
-            form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditAncFormString(
-                    fpMemberObject.getBaseEntityId(), this, formName, org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION, getResources().getString(title_resource));
-        }
-
-        try {
-            assert form != null;
-            startFormActivity(form, fpMemberObject);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-    }
-
-    public void startFormActivity(JSONObject jsonForm, FpMemberObject memberObject) {
-        Intent intent = org.smartregister.chw.core.utils.Utils.formActivityIntent(this, jsonForm.toString());
-        intent.putExtra(FamilyPlanningConstants.FamilyPlanningMemberObject.MEMBER_OBJECT, memberObject);
-        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     private class MemberType {
