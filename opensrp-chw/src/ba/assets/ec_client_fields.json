@@ -1546,8 +1546,8 @@
           "column_name": "problem",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "obs.formSubmissionField",
+            "concept": "problem"
           }
         },
         {
@@ -1562,8 +1562,8 @@
           "column_name": "service_before_referral",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "obs.formSubmissionField",
+            "concept": "service_before_referral"
           }
         },
         {
