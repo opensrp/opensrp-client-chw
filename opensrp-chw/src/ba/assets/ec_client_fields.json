@@ -1515,6 +1515,229 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_referral",
+      "columns": [
+        {
+          "column_name": "chw_referral_service",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "chw_referral_service"
+          }
+        },
+        {
+          "column_name": "chw_referral_hf",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "chw_referral_hf"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "problem",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "problem_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "problem_other"
+          }
+        },
+        {
+          "column_name": "service_before_referral",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "service_before_referral_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "service_before_referral_other"
+          }
+        },
+        {
+          "column_name": "referral_date",
+          "type": "Event",
+          "data_type": "date",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referral_date"
+          }
+        },
+        {
+          "column_name": "referral_time",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "formSubmissionField": "referral_time"
+          }
+        },
+        {
+          "column_name": "referral_appointment_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referral_appointment_date"
+          }
+        },
+        {
+          "column_name": "referral_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referral_type"
+          }
+        },
+        {
+          "column_name": "referral_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referral_status"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_referral_followup",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "chw_followup_feedback_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "chw_followup_feedback_id"
+          }
+        },
+        {
+          "column_name": "other_followup_feedback_information",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_followup_feedback_information"
+          }
+        },
+        {
+          "column_name": "chw_followup_date",
+          "type": "Event",
+          "data_type": "date",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "chw_followup_date"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_referral_service",
+      "columns": [
+        {
+          "column_name": "name_en",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode"
+          }
+        },
+        {
+          "column_name": "name_sw",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode"
+          }
+        },
+        {
+          "column_name": "identifier",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode"
+          }
+        },
+        {
+          "column_name": "is_active",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_referral_service_indicator",
+      "columns": [
+        {
+          "column_name": "name_en",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode"
+          }
+        },
+        {
+          "column_name": "name_sw",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode"
+          }
+        },
+        {
+          "column_name": "is_active",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_followup_feedback",
+      "columns": [
+        {
+          "column_name": "name_en",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode"
+          }
+        },
+        {
+          "column_name": "name_sw",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode"
+          }
+        },
+        {
+          "column_name": "is_active",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode"
+          }
+        }
+      ]
     }
   ]
 }

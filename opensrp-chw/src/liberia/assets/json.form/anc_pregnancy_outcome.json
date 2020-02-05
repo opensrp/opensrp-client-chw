@@ -189,92 +189,6 @@
         }
       },
       {
-        "key": "temp_unique_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "temp_unique_id",
-        "type": "hidden"
-      },
-      {
-        "key": "unique_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_identifier",
-        "openmrs_entity_id": "opensrp_id",
-        "type": "edit_text",
-        "hint": "ID",
-        "value": "0",
-        "read_only": "true",
-        "v_numeric": {
-          "value": "true",
-          "err": "Please enter a valid ID"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the ID"
-        },
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_calculation.yml"
-            }
-          }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "surname",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "hint": "Surname",
-        "edit_type": "name",
-        "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "Please enter a valid name"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the surname"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "same_as_fam_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "text",
-        "type": "check_box",
-        "options": [
-          {
-            "key": "same_as_fam_name",
-            "text": "Surname same as family name",
-            "text_size": "18px",
-            "value": "false"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "fam_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -282,230 +196,221 @@
         "type": "hidden"
       },
       {
-        "key": "surname_calculation",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "hidden",
-        "hint": "Surname as Family name",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_calculation.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "first_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "Please enter a valid name"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "middle_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "middle_name",
-        "type": "edit_text",
-        "hint": "Middle name",
-        "edit_type": "name",
-        "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "Please enter a valid name"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "dob",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdate",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_calculation.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "gender",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "gender",
-        "type": "spinner",
-        "hint": "Sex",
-        "values": [
-          "Male",
-          "Female"
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the sex"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "lbw",
+        "key": "no_children",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1431AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Is the baby low birth weight (weighs less than 2.5 kg)?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1",
-          "No": "0"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select if baby has low the weight"
-        },
+        "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden"
+      },
+      {
+        "key": "no_children_no",
+        "type": "repeating_group",
+        "reference_edit_text_hint": "Number of children born",
+        "repeating_group_label": "baby",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "anc_pregnancy_outcome_relevance.yml"
             }
           }
-        }
-      },
-      {
-        "key": "early_bf_1hr",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Early initiation of breastfeeding (1 hr)?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
-          "value": "true",
-          "err": "Please enter Early initiation of breastfeeding"
+          "value": true,
+          "err": "Please specify the # of babies"
         },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "disabilities",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Physically challenged?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please enter if Physically challenged"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "opv0_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "opv0_date",
-        "type": "date_picker",
-        "hint": "OPV 0 date",
-        "expanded": false,
-        "min_date": "today-120y",
-        "max_date": "today",
-        "constraints": [
+        "value": [
           {
-            "type": "date",
-            "ex": "greaterThanEqualTo(., step1:delivery_date)",
-            "err": "Date of OPV 0 can't occur before delivery date"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+            "key": "surname",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "type": "edit_text",
+            "hint": "Surname",
+            "edit_type": "name",
+            "v_regex": {
+              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+              "err": "Please enter a valid name"
+            },
+            "v_required": {
+              "value": "true",
+              "err": "Please enter the surname"
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "anc_pregnancy_outcome_relevance.yml"
+                }
+              }
             }
-          }
-        }
-      },
-      {
-        "key": "bcg_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "opv0_date",
-        "type": "date_picker",
-        "hint": "BCG date",
-        "expanded": false,
-        "max_date": "today",
-        "constraints": [
+          },
           {
-            "type": "date",
-            "ex": "greaterThanEqualTo(., step1:delivery_date)",
-            "err": "Date of BCG can't occur before delivery date"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+            "key": "same_as_fam_name",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_data_type": "text",
+            "type": "check_box",
+            "options": [
+              {
+                "key": "same_as_fam_name",
+                "text": "Surname same as family name",
+                "text_size": "18px",
+                "value": "false"
+              }
+            ]
+          },
+          {
+            "key": "first_name",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "person",
+            "openmrs_entity_id": "first_name",
+            "type": "edit_text",
+            "hint": "First name",
+            "edit_type": "name",
+            "v_required": {
+              "value": "true",
+              "err": "Please enter the first name"
+            },
+            "v_regex": {
+              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+              "err": "Please enter a valid name"
             }
+          },
+          {
+            "key": "middle_name",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "person",
+            "openmrs_entity_id": "middle_name",
+            "type": "edit_text",
+            "hint": "Middle name",
+            "edit_type": "name",
+            "v_regex": {
+              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+              "err": "Please enter a valid name"
+            }
+          },
+          {
+            "key": "dob",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "person",
+            "openmrs_entity_id": "birthdate",
+            "type": "hidden"
+          },
+          {
+            "key": "gender",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "person",
+            "openmrs_entity_id": "gender",
+            "type": "spinner",
+            "hint": "Sex",
+            "values": [
+              "Male",
+              "Female"
+            ],
+            "v_required": {
+              "value": "true",
+              "err": "Please enter the sex"
+            }
+          },
+          {
+            "key": "lbw",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1431AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "type": "spinner",
+            "hint": "Is the baby low birth weight (weighs less than 2.5 kg)?",
+            "values": [
+              "Yes",
+              "No"
+            ],
+            "openmrs_choice_ids": {
+              "Yes": "1",
+              "No": "0"
+            },
+            "v_required": {
+              "value": "true",
+              "err": "Please enter the sex"
+            }
+          },
+          {
+            "key": "early_bf_1hr",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "type": "spinner",
+            "hint": "Early initiation of breastfeeding (1 hr)?",
+            "values": [
+              "Yes",
+              "No"
+            ],
+            "openmrs_choice_ids": {
+              "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            },
+            "v_required": {
+              "value": "true",
+              "err": "Please enter the sex"
+            }
+          },
+          {
+            "key": "disabilities",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "type": "spinner",
+            "hint": "Physically challenged?",
+            "values": [
+              "Yes",
+              "No"
+            ],
+            "openmrs_choice_ids": {
+              "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            },
+            "v_required": {
+              "value": "true",
+              "err": "Please enter the sex"
+            }
+          },
+          {
+            "key": "opv0_date",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "opv0_date",
+            "type": "date_picker",
+            "hint": "OPV 0 date",
+            "expanded": false,
+            "min_date": "today-120y",
+            "max_date": "today",
+            "constraints": [
+              {
+                "type": "date",
+                "ex": "greaterThanEqualTo(., step1:delivery_date)",
+                "err": "Date of OPV 0 can't occur before delivery date"
+              }
+            ]
+          },
+          {
+            "key": "bcg_date",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "opv0_date",
+            "type": "date_picker",
+            "hint": "BCG date",
+            "expanded": false,
+            "max_date": "today",
+            "constraints": [
+              {
+                "type": "date",
+                "ex": "greaterThanEqualTo(., step1:delivery_date)",
+                "err": "Date of BCG can't occur before delivery date"
+              }
+            ]
           }
-        }
+        ]
       }
     ]
   }

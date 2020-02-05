@@ -3,6 +3,7 @@ package org.smartregister.chw.util;
 import org.smartregister.chw.core.utils.CoreConstants;
 
 public class Constants extends CoreConstants {
+    public static final String REFERRAL_TASK_FOCUS = "referral_task_focus";
     public static String pregnancyOutcome = "preg_outcome";
     public static final String REFERRAL_TYPES = "ReferralTypes";
 
