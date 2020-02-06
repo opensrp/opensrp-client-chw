@@ -150,17 +150,6 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
         // Implement
     }
 
-    private static CommonPersonObjectClient getClientDetailsByBaseEntityID(@NonNull String baseEntityId) {
-        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
-
-        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
-        final CommonPersonObjectClient client =
-                new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
-        client.setColumnmaps(commonPersonObject.getColumnmaps());
-        return client;
-
-    }
-
     private class MemberType {
         private org.smartregister.chw.anc.domain.MemberObject memberObject;
         private String memberType;
