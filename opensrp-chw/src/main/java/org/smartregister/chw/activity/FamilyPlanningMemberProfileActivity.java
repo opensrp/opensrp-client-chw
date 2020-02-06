@@ -4,39 +4,28 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreFamilyPlanningMemberProfileActivity;
-import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
-import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.PNCDao;
+import org.smartregister.chw.core.interactor.CoreFamilyPlanningProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
-import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.presenter.CoreFamilyPlanningProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyPlanningFloatingMenu;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fp.domain.FpMemberObject;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
-import org.smartregister.chw.interactor.FamilyPlanningProfileInteractor;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.FamilyPlanningMemberProfilePresenter;
-import org.smartregister.commonregistry.CommonPersonObject;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
@@ -83,8 +72,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     @Override
     protected void initializePresenter() {
         showProgressBar(true);
-        fpProfilePresenter = new FamilyPlanningMemberProfilePresenter(this, new FamilyPlanningProfileInteractor(this), fpMemberObject);
-        fetchProfileData();
+        fpProfilePresenter = new FamilyPlanningMemberProfilePresenter(this, new CoreFamilyPlanningProfileInteractor(this), fpMemberObject);
     }
 
     @Override
