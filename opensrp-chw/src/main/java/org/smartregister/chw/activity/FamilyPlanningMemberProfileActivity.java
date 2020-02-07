@@ -13,9 +13,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreFamilyPlanningMemberProfileActivity;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
-import org.smartregister.chw.core.dao.AncDao;
-import org.smartregister.chw.core.dao.ChildDao;
-import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.interactor.CoreFamilyPlanningProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.presenter.CoreFamilyPlanningProfilePresenter;
@@ -32,11 +29,6 @@ import org.smartregister.family.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMemberProfileActivity
@@ -138,20 +130,6 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
         // Implement
     }
 
-    private class MemberType {
-        private org.smartregister.chw.anc.domain.MemberObject memberObject;
-        private String memberType;
-
-        private MemberType(org.smartregister.chw.anc.domain.MemberObject memberObject, String memberType) {
-            this.memberObject = memberObject;
-            this.memberType = memberType;
-        }
-    }
-
-    interface onMemberTypeLoadedListener {
-        void onMemberTypeLoaded(FamilyPlanningMemberProfileActivity.MemberType memberType);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -173,15 +151,15 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     public void openMedicalHistory() {
         onMemberTypeLoadedListener listener = memberType -> {
 
-            switch (memberType.memberType) {
+            switch (memberType.getMemberType()) {
                 case CoreConstants.TABLE_NAME.ANC_MEMBER:
-                    AncMedicalHistoryActivity.startMe(FamilyPlanningMemberProfileActivity.this, memberType.memberObject);
+                    AncMedicalHistoryActivity.startMe(FamilyPlanningMemberProfileActivity.this, memberType.getMemberObject());
                     break;
                 case CoreConstants.TABLE_NAME.PNC_MEMBER:
-                    PncMedicalHistoryActivity.startMe(FamilyPlanningMemberProfileActivity.this, memberType.memberObject);
+                    PncMedicalHistoryActivity.startMe(FamilyPlanningMemberProfileActivity.this, memberType.getMemberObject());
                     break;
                 case CoreConstants.TABLE_NAME.CHILD:
-                    ChildMedicalHistoryActivity.startMe(FamilyPlanningMemberProfileActivity.this, memberType.memberObject);
+                    ChildMedicalHistoryActivity.startMe(FamilyPlanningMemberProfileActivity.this, memberType.getMemberObject());
                     break;
                 default:
                     Timber.v("Member info undefined");
@@ -189,53 +167,6 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
             }
         };
         executeOnLoaded(listener);
-    }
-
-    private Observable<MemberType> getMemberType() {
-        return Observable.create(e -> {
-            org.smartregister.chw.anc.domain.MemberObject memberObject = PNCDao.getMember(fpMemberObject.getBaseEntityId());
-            String type = null;
-
-            if (AncDao.isANCMember(memberObject.getBaseEntityId())) {
-                type = CoreConstants.TABLE_NAME.ANC_MEMBER;
-            } else if (PNCDao.isPNCMember(memberObject.getBaseEntityId())) {
-                type = CoreConstants.TABLE_NAME.PNC_MEMBER;
-            } else if (ChildDao.isChild(memberObject.getBaseEntityId())) {
-                type = CoreConstants.TABLE_NAME.CHILD;
-            }
-
-            MemberType memberType = new MemberType(memberObject, type);
-            e.onNext(memberType);
-            e.onComplete();
-        });
-    }
-
-    private void executeOnLoaded(FamilyPlanningMemberProfileActivity.onMemberTypeLoadedListener listener) {
-        final Disposable[] disposable = new Disposable[1];
-        getMemberType().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<FamilyPlanningMemberProfileActivity.MemberType>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        disposable[0] = d;
-                    }
-
-                    @Override
-                    public void onNext(FamilyPlanningMemberProfileActivity.MemberType memberType) {
-                        listener.onMemberTypeLoaded(memberType);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.e(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        disposable[0].dispose();
-                        disposable[0] = null;
-                    }
-                });
     }
 
     private static MemberObject toMember(FpMemberObject memberObject) {
