@@ -12,11 +12,13 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreFamilyPlanningMemberProfileActivity;
+import org.smartregister.chw.core.activity.CoreFpUpcomingServicesActivity;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreFamilyPlanningProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.presenter.CoreFamilyPlanningProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.FpUtil;
 import org.smartregister.chw.custom_view.FamilyPlanningFloatingMenu;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fp.domain.FpMemberObject;
@@ -169,16 +171,6 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
         executeOnLoaded(listener);
     }
 
-    private static MemberObject toMember(FpMemberObject memberObject) {
-        MemberObject res = new MemberObject();
-        res.setBaseEntityId(memberObject.getBaseEntityId());
-        res.setFirstName(memberObject.getFirstName());
-        res.setLastName(memberObject.getLastName());
-        res.setMiddleName(memberObject.getMiddleName());
-        res.setDob(memberObject.getAge());
-        return res;
-    }
-
     @Override
     public void openFamilyPlanningRegistration() {
         FpRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), CoreConstants.JSON_FORM.getFpRegistrationForm(), FamilyPlanningConstants.ActivityPayload.UPDATE_REGISTRATION_PAYLOAD_TYPE);
@@ -187,8 +179,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
 
     @Override
     public void openUpcomingServices() {
-        FpUpcomingServicesActivity.startMe(this, toMember(fpMemberObject));
-
+        CoreFpUpcomingServicesActivity.startMe(this, FpUtil.toMember(fpMemberObject));
     }
 
     @Override
