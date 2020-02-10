@@ -43,7 +43,6 @@ import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.referral.ReferralLibrary;
-import org.smartregister.chw.referral.domain.ReferralMetadata;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
@@ -75,6 +74,32 @@ import timber.log.Timber;
 public class ChwApplication extends CoreChwApplication {
 
     private static Flavor flavor = new ChwApplicationFlv();
+
+    public static Flavor getApplicationFlavor() {
+        return flavor;
+    }
+
+    public static void prepareGuideBooksFolder() {
+        String rootFolder = getGuideBooksDirectory();
+        createFolders(rootFolder, false);
+        boolean onSdCard = FileUtils.canWriteToExternalDisk();
+        if (onSdCard)
+            createFolders(rootFolder, true);
+    }
+
+    private static void createFolders(String rootFolder, boolean onSdCard) {
+        try {
+            FileUtils.createDirectory(rootFolder, onSdCard);
+        } catch (Exception e) {
+            Timber.v(e);
+        }
+    }
+
+    public static String getGuideBooksDirectory() {
+        String[] packageName = ChwApplication.getInstance().getContext().applicationContext().getPackageName().split("\\.");
+        String suffix = packageName[packageName.length - 1];
+        return "opensrp_guidebooks_" + (suffix.equalsIgnoreCase("chw") ? "liberia" : suffix);
+    }
 
     @Override
     public void onCreate() {
@@ -117,9 +142,11 @@ public class ChwApplication extends CoreChwApplication {
         MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         FpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
-        ReferralMetadata referralMetadata = new ReferralMetadata();
-        referralMetadata.setLocationIdMap(new HashMap<>());
-        ReferralLibrary.init(context, getRepository(), referralMetadata, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        //Setup referral library
+        ReferralLibrary.init(this);
+        ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
+        ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
+        ReferralLibrary.getInstance().loadReferralServiceIndicators();
 
         SyncStatusBroadcastReceiver.init(this);
 
@@ -163,32 +190,6 @@ public class ChwApplication extends CoreChwApplication {
         }
 
         EventBus.getDefault().register(this);
-    }
-
-    public static Flavor getApplicationFlavor() {
-        return flavor;
-    }
-
-    public static void prepareGuideBooksFolder() {
-        String rootFolder = getGuideBooksDirectory();
-        createFolders(rootFolder, false);
-        boolean onSdCard = FileUtils.canWriteToExternalDisk();
-        if (onSdCard)
-            createFolders(rootFolder, true);
-    }
-
-    private static void createFolders(String rootFolder, boolean onSdCard) {
-        try {
-            FileUtils.createDirectory(rootFolder, onSdCard);
-        } catch (Exception e) {
-            Timber.v(e);
-        }
-    }
-
-    public static String getGuideBooksDirectory() {
-        String[] packageName = ChwApplication.getInstance().getContext().applicationContext().getPackageName().split("\\.");
-        String suffix = packageName[packageName.length - 1];
-        return "opensrp_guidebooks_" + (suffix.equalsIgnoreCase("chw") ? "liberia" : suffix);
     }
 
     @Override
