@@ -80,7 +80,8 @@ public class ChwPNCDao extends AbstractDao {
         String sql = "SELECT vd.visit_key, vd.details " +
                 "FROM Visit_details vd  INNER JOIN visits v on v.visit_id = vd.visit_id " +
                 "AND v.visit_type = 'Immunization Visit' " +
-                "AND v.base_entity_id = '" + babyBaseEntityId + "'";
+                "AND v.base_entity_id = '" + babyBaseEntityId + "'" +
+                "AND vd.details NOT LIKE 'Vaccine not given%'";
 
 
         DataMap<Pair<String, String>> dataMap = c -> Pair.create(getCursorValue(c, "visit_key"), getCursorValue(c, "details"));
