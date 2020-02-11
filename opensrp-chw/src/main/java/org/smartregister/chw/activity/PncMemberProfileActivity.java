@@ -15,6 +15,7 @@ import org.joda.time.Days;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.PncMemberProfileContract;
@@ -173,6 +174,8 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 displayView();
                 setLastVisit(visit.getDate());
                 setupViews();
+                (pncMemberProfileInteractor).refreshProfileInfo(memberObject, (BaseAncMemberProfilePresenter) pncMemberProfilePresenter());
+
             }
 
             @Override
