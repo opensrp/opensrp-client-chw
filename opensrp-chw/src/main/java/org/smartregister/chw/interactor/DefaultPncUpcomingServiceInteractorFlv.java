@@ -88,7 +88,7 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
         Integer bcgDone = 0;
         if (alerts.size() > 0) {
             for (Map.Entry<String, String> alert : alerts.entrySet()) {
-                if (alert.getKey().equalsIgnoreCase(context.getString(R.string.bcg)) && !alert.getValue().equalsIgnoreCase("Vaccine not given")) {
+                if (alert.getKey().equalsIgnoreCase(context.getString(R.string.bcg))) {
                     bcgDone += 1;
                 }
             }
@@ -100,7 +100,7 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
         Integer opvDone = 0;
         if (alerts.size() > 0) {
             for (Map.Entry<String, String> alert : alerts.entrySet()) {
-                if (alert.getKey().equalsIgnoreCase(context.getString(R.string.opv_0).replace(" ", "")) && !alert.getValue().equalsIgnoreCase("Vaccine not given")) {
+                if (alert.getKey().equalsIgnoreCase(context.getString(R.string.opv_0).replace(" ", ""))) {
                     opvDone += 1;
                 }
             }
@@ -109,9 +109,8 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
 
     }
 
-    private String serviceName(List<PncBaby> pncBabies) {
+    private String serviceName(PncBaby baby) {
         String serviceName = null;
-        for (PncBaby baby : pncBabies) {
             List<Vaccine> vaccines = ChwPNCDao.getPncChildVaccines(baby.getBaseEntityID());
             Map<String, String> alerts = ChwPNCDao.getPNCImmunizationAtBirth(baby.getBaseEntityID());
             int bcgCount = bcgCount(alerts);
@@ -119,16 +118,15 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
             if (vaccines.size() > 1) {
                 //   return;
             } else if (vaccines.size() == 0) {
-                if (alerts.size() > 0) {
-                    if (opvCount == 0 && bcgCount == 0) {
-                        serviceName = context.getString(R.string.upcoming_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.bcg), context.getString(R.string.opv_0));
-                    } else if (opvCount > 0 && bcgCount == 0) {
+                if(alerts.size() == 0 || (opvCount == 0  && bcgCount == 0)){
+                    serviceName = context.getString(R.string.upcoming_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.bcg), context.getString(R.string.opv_0));
+                }
+                else {
+                    if (opvCount > 0 && bcgCount == 0) {
                         serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.bcg));
                     } else if (opvCount == 0 && bcgCount > 0) {
                         serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.opv_0));
-                    } //else return;
-                } else {
-                    serviceName = context.getString(R.string.upcoming_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.bcg), context.getString(R.string.opv_0));
+                    }
                 }
 
             } else {
@@ -136,25 +134,20 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
                     if (vaccines.get(0).getName().equalsIgnoreCase(context.getString(R.string.opv_0))) {
                         if (bcgCount == 0) {
                             serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.bcg));
-                        } else {
-                            //   return;
                         }
                     } else if (vaccines.get(0).getName().equalsIgnoreCase(context.getString(R.string.bcg))) {
                         if (opvCount == 0) {
                             serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.opv_0));
-                        } else {
-                            //  return;
                         }
                     }
                 } else {
                     if (vaccines.get(0).getName().equalsIgnoreCase(context.getString(R.string.opv_0))) {
                         serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.bcg));
-                    } else if (vaccines.get(0).getName().equalsIgnoreCase(context.getString(R.string.bcg))) {
+                    } else  {
                         serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.opv_0));
                     }
                 }
             }
-        }
         return serviceName;
     }
 
@@ -169,14 +162,14 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
             Timber.v(e.toString());
         }
         List<PncBaby> pncBabies = PersonDao.getMothersPNCBabies(memberObject.getBaseEntityId());
-
-        if (serviceName(pncBabies) != null) {
-            upcomingService.setServiceName(serviceName(pncBabies));
-            upcomingService.setServiceDate(deliveryDate);
-            upcomingService.setOverDueDate(OverDueDate);
-            serviceList.add(upcomingService);
+        for(PncBaby baby: pncBabies){
+            if(serviceName(baby) != null){
+                upcomingService.setServiceName(serviceName(baby));
+                upcomingService.setServiceDate(deliveryDate);
+                upcomingService.setOverDueDate(OverDueDate);
+            }
         }
-
+        serviceList.add(upcomingService);
     }
 
 }
