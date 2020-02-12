@@ -257,6 +257,8 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_child_vaccine_card_recevied), baby.getFullName()), action);
         }
     }
+    //bootstrap dependencies
+    //native code....so
 
     @VisibleForTesting
     public List<VaccineWrapper> getWrappers(Person baby) {

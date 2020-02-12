@@ -51,20 +51,21 @@ public class ChwPNCDao extends AbstractDao {
         return (res != null && res.size() > 0) ? res.get(0) : null;
     }
 
-    public static @Nullable List<VisitDetail> getAllPNCHealthFacilityVisits(String motherBaseEntityId){
-        String sql = "SELECT vd.visit_key, vd.details\n" +
+    public static @Nullable List<VisitDetail> getLastPNCHealthFacilityVisits(String motherBaseEntityId){
+        String sql = "SELECT DISTINCT vd.visit_key \n" +
                 " FROM Visit_details vd  \n" +
                 " INNER JOIN visits v \n" +
                 " on v.visit_id = vd.visit_id\n" +
                 " AND v.visit_type = 'PNC Home Visit'\n" +
                 " AND v.base_entity_id   = '" + motherBaseEntityId + "'" +
-                " AND vd.visit_key LIKE 'pnc_hf_visit%'";
+                " AND vd.visit_key LIKE 'pnc_hf_visit%'" +
+                " ORDER by vd.details DESC\n" +
+                " LIMIT 1";
 
         List<VisitDetail> details = new ArrayList<>();
         DataMap<VisitDetail> dataMap =  c -> {
             VisitDetail detail = new VisitDetail();
             detail.setVisitKey(getCursorValue(c, "visit_key"));
-            detail.setDetails(getCursorValue(c, "details"));
             details.add(detail);
             return detail;
         };
@@ -75,47 +76,6 @@ public class ChwPNCDao extends AbstractDao {
         return details;
     }
 
-
-    public static Map<String,String> getPNCImmunizationAtBirth(String babyBaseEntityId){
-        String sql = "SELECT vd.visit_key, vd.details " +
-                "FROM Visit_details vd  INNER JOIN visits v on v.visit_id = vd.visit_id " +
-                "AND v.visit_type = 'Immunization Visit' " +
-                "AND v.base_entity_id = '" + babyBaseEntityId + "'" +
-                "AND vd.details NOT LIKE 'Vaccine not given%'";
-
-
-        DataMap<Pair<String, String>> dataMap = c -> Pair.create(getCursorValue(c, "visit_key"), getCursorValue(c, "details"));
-
-        Map<String, String> immunizations = new HashMap<>();
-        List<Pair<String, String>> pairs = AbstractDao.readData(sql, dataMap);
-        if (pairs == null || pairs.size() == 0)
-            return immunizations;
-
-        for (Pair<String, String> pair : pairs) {
-            immunizations.put(pair.first, pair.second);
-        }
-
-        return immunizations;
-    }
-
-    public static List<Vaccine> getPncChildVaccines(String babyBaseEntityId){
-        String sql = "SELECT name FROM vaccines\n" +
-                "WHERE base_entity_id = '" + babyBaseEntityId + "'" +
-                "AND ( name LIKE 'bcg%' OR name LIKE 'opv%')";
-
-        List<Vaccine> vaccines = new ArrayList<>();
-        DataMap<Vaccine> dataMap =  c -> {
-            Vaccine vaccine = new Vaccine();
-            vaccine.setName(getCursorValue(c, "name"));
-            vaccines.add(vaccine);
-            return vaccine;
-        };
-        List<Vaccine> res = AbstractDao.readData(sql, dataMap);
-        if (res == null || res.size() == 0)
-            return new ArrayList<>();
-
-        return vaccines;
-    }
 
     public interface Flavor {
 

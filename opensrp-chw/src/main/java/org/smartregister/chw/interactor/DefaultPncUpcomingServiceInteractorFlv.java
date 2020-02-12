@@ -11,12 +11,13 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
+import org.smartregister.chw.core.utils.VisitVaccineUtil;
 import org.smartregister.chw.dao.ChwPNCDao;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.chw.domain.PncBaby;
 import org.smartregister.chw.pnc.PncLibrary;
-import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.domain.Alert;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -24,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import timber.log.Timber;
 
@@ -44,117 +44,100 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
         return serviceList;
     }
 
+
+    private Date formattedDate(String sd, int dt) {
+        return (DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd).plusDays(dt)).toDate();
+    }
+
+    private boolean isValid(String sd, int due, int expiry) {
+        return (((DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd).plusDays(due)).isBefore(new org.joda.time.DateTime().toLocalDate())) &&
+                (((DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd).plusDays(expiry)).isAfter(new org.joda.time.DateTime().toLocalDate()))));
+    }
+
+    private String serviceName(String val) {
+        return MessageFormat.format(context.getString(R.string.pnc_health_facility_visit_num), val);
+    }
+
     private void evaluateHealthFacility(List<BaseUpcomingService> serviceList) {
         //Get done Visits
         Date serviceDueDate = null;
         Date serviceOverDueDate = null;
         String serviceName = null;
-        List<VisitDetail> visitDetailList = ChwPNCDao.getAllPNCHealthFacilityVisits(memberObject.getBaseEntityId());
+        String details = "";
+        int count = 0;
+        List<VisitDetail> visitDetailList = ChwPNCDao.getLastPNCHealthFacilityVisits(memberObject.getBaseEntityId());
         PNCHealthFacilityVisitSummary summary = ChwPNCDao.getLastHealthFacilityVisitSummary(memberObject.getBaseEntityId());
-        if (summary != null && visitDetailList.size() < 3) {
+
+        if (visitDetailList.size() < 3) {
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                 String sd = sdf.format(summary.getDeliveryDate());
-                switch (visitDetailList.size()) {
-                    case 2:
-                        serviceDueDate = (DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd).plusDays(42)).toDate();
-                        serviceOverDueDate = (DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd).plusDays(43)).toDate();
-                        serviceName = MessageFormat.format(context.getString(R.string.pnc_health_facility_visit_num), 42);
-                        break;
-                    case 1:
-                        serviceDueDate = (DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd).plusDays(7)).toDate();
-                        serviceOverDueDate = (DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd).plusDays(8)).toDate();
-                        serviceName = MessageFormat.format(context.getString(R.string.pnc_health_facility_visit_num), 7);
-                        break;
-                    default:
-                        serviceDueDate = (DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd).plusDays(1)).toDate();
-                        serviceOverDueDate = (DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd).plusDays(2)).toDate();
-                        serviceName = MessageFormat.format(context.getString(R.string.pnc_health_facility_visit_num), 1);
-                        break;
+                if (visitDetailList.size() == 0 && ((DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd).plusDays(7)).isAfter(new org.joda.time.DateTime().toLocalDate()))) {
+                    serviceDueDate = formattedDate(sd, 1);
+                    serviceOverDueDate = formattedDate(sd, 2);
+                    serviceName = serviceName("Day 1");
+                } else {
+                    for (VisitDetail detail : visitDetailList) {
+                        details = String.valueOf(detail.getVisitKey()).replaceAll("\\D+", "");
+                    }
+                    if ((details.equalsIgnoreCase("2") || isValid(sd, 42, 43)) && !(details.equalsIgnoreCase("3"))) {
+                        serviceDueDate = formattedDate(sd, 42);
+                        serviceOverDueDate = formattedDate(sd, 43);
+                        serviceName = serviceName("Day 42");
+                    } else if (details.equalsIgnoreCase("1") || isValid(sd, 7, 42)) {
+                        serviceDueDate = formattedDate(sd, 7);
+                        serviceOverDueDate = formattedDate(sd, 8);
+                        serviceName = serviceName("Day 7");
+                    } else {
+                        serviceDueDate = (DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd)).toDate();
+                        serviceOverDueDate = (DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd)).toDate();
+                        serviceName = "";
+                    }
                 }
                 BaseUpcomingService upcomingService = new BaseUpcomingService();
-                upcomingService.setServiceDate(serviceDueDate);
-                upcomingService.setOverDueDate(serviceOverDueDate);
-                upcomingService.setServiceName(serviceName);
-                serviceList.add(upcomingService);
-
+                if (!serviceName.equalsIgnoreCase("")) {
+                    upcomingService.setServiceDate(serviceDueDate);
+                    upcomingService.setOverDueDate(serviceOverDueDate);
+                    upcomingService.setServiceName(serviceName);
+                    count += 1;
+                }
+                if (count > 0) {
+                    serviceList.add(upcomingService);
+                }
             } catch (Exception e) {
                 Timber.v(e.toString());
             }
         }
-    }
-
-    private Integer bcgCount(Map<String, String> alerts) {
-        Integer bcgDone = 0;
-        if (alerts.size() > 0) {
-            for (Map.Entry<String, String> alert : alerts.entrySet()) {
-                if (alert.getKey().equalsIgnoreCase(context.getString(R.string.bcg))) {
-                    bcgDone += 1;
-                }
-            }
-        }
-        return bcgDone;
-    }
-
-    private Integer opvCount(Map<String, String> alerts) {
-        Integer opvDone = 0;
-        if (alerts.size() > 0) {
-            for (Map.Entry<String, String> alert : alerts.entrySet()) {
-                if (alert.getKey().equalsIgnoreCase(context.getString(R.string.opv_0).replace(" ", ""))) {
-                    opvDone += 1;
-                }
-            }
-        }
-        return opvDone;
 
     }
 
-    private String serviceName(PncBaby baby) {
+
+    private String ImmunizationServiceName(PncBaby baby) {
         String serviceName = null;
-            List<Vaccine> vaccines = ChwPNCDao.getPncChildVaccines(baby.getBaseEntityID());
-            Map<String, String> alerts = ChwPNCDao.getPNCImmunizationAtBirth(baby.getBaseEntityID());
-            int bcgCount = bcgCount(alerts);
-            int opvCount = opvCount(alerts);
-            if (vaccines.size() > 1) {
-                //   return;
-            } else if (vaccines.size() == 0) {
-                if(alerts.size() == 0 || (opvCount == 0  && bcgCount == 0)){
-                    serviceName = context.getString(R.string.upcoming_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.bcg), context.getString(R.string.opv_0));
-                }
-                else {
-                    if (opvCount > 0 && bcgCount == 0) {
-                        serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.bcg));
-                    } else if (opvCount == 0 && bcgCount > 0) {
-                        serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.opv_0));
-                    }
-                }
+        List<Alert> alertList = VisitVaccineUtil.getNextVaccines(baby.getBaseEntityID(), new DateTime(baby.getDob()), CoreConstants.SERVICE_GROUPS.CHILD, true);
+        if (alertList.size() == 2) {
+            serviceName = context.getString(R.string.upcoming_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.bcg), context.getString(R.string.opv_0));
+        } else {
+            for (Alert alert : alertList) {
 
-            } else {
-                if (alerts.size() > 0) {
-                    if (vaccines.get(0).getName().equalsIgnoreCase(context.getString(R.string.opv_0))) {
-                        if (bcgCount == 0) {
-                            serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.bcg));
-                        }
-                    } else if (vaccines.get(0).getName().equalsIgnoreCase(context.getString(R.string.bcg))) {
-                        if (opvCount == 0) {
-                            serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.opv_0));
-                        }
-                    }
-                } else {
-                    if (vaccines.get(0).getName().equalsIgnoreCase(context.getString(R.string.opv_0))) {
-                        serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.bcg));
-                    } else  {
-                        serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.opv_0));
-                    }
+                if (alert.scheduleName().toLowerCase().replace(" ", "").replace("_", "").equalsIgnoreCase(context.getString(R.string.opv_0).replace(" ", ""))) {
+                    serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.opv_0));
+                } else if (alert.scheduleName().toLowerCase().replace(" ", "").replace("_", "").equalsIgnoreCase(context.getString(R.string.bcg))) {
+                    serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.bcg));
                 }
             }
+        }
+
         return serviceName;
+
+
     }
 
     private void evaluateImmunization(List<BaseUpcomingService> serviceList) {
         Date deliveryDate = new Date();
         Date OverDueDate = new Date();
         BaseUpcomingService upcomingService = new BaseUpcomingService();
+        int count = 0;
         try {
             deliveryDate = new SimpleDateFormat("dd-MM-yyyy").parse(PncLibrary.getInstance().profileRepository().getDeliveryDate(memberObject.getBaseEntityId()));
             OverDueDate = new DateTime(deliveryDate).plusDays(13).toDate();
@@ -162,14 +145,17 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
             Timber.v(e.toString());
         }
         List<PncBaby> pncBabies = PersonDao.getMothersPNCBabies(memberObject.getBaseEntityId());
-        for(PncBaby baby: pncBabies){
-            if(serviceName(baby) != null){
-                upcomingService.setServiceName(serviceName(baby));
+        for (PncBaby baby : pncBabies) {
+            if (ImmunizationServiceName(baby) != null) {
+                upcomingService.setServiceName(ImmunizationServiceName(baby));
                 upcomingService.setServiceDate(deliveryDate);
                 upcomingService.setOverDueDate(OverDueDate);
+                count += 1;
             }
         }
-        serviceList.add(upcomingService);
+        if (count > 0) {
+            serviceList.add(upcomingService);
+        }
     }
 
 }
