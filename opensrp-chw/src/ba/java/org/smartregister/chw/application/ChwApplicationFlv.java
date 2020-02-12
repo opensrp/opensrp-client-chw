@@ -35,4 +35,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean hasWashCheck() {
         return false;
     }
+
+    @Override
+    public boolean hasMalaria() {
+        return true;
+    }
 }

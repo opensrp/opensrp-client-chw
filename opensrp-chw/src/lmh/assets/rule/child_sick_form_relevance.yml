@@ -233,7 +233,7 @@ actions:
 name: step1_did_not_treat_pneumonia_reason_other
 description: did_not_treat_pneumonia_reason_other relevance
 priority: 1
-condition: "step1_did_not_treat_pneumonia_reason != null && step1_did_not_treat_pneumonia_reason.contains('Other')"
+condition: "step1_did_not_treat_pneumonia_reason != null && step1_did_not_treat_pneumonia_reason.contains('other')"
 actions:
   - "isRelevant = true"
 ---

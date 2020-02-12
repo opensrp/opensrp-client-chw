@@ -151,7 +151,7 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             if (ChwApplication.getApplicationFlavor().hasMalaria())
                 malariaCount = ChwApplication.malariaRegisterRepository().getMalariaCount(familyBaseEntityId, CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION);
 
-            if (ChwApplication.getApplicationFlavor().hasPNC())
+            if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
                 fpCount = FpDao.getFpWomenCount(familyBaseEntityId) != null ? FpDao.getFpWomenCount(familyBaseEntityId) : 0;
 
             services = FamilyDao.getFamilyServiceSchedule(familyBaseEntityId);
