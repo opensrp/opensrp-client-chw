@@ -146,7 +146,6 @@ public class ChwApplication extends CoreChwApplication {
         ReferralLibrary.init(this);
         ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
         ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
-        ReferralLibrary.getInstance().loadReferralServiceIndicators();
 
         SyncStatusBroadcastReceiver.init(this);
 

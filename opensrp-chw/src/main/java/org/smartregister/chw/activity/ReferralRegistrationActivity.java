@@ -2,9 +2,12 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.presenter.IssueReferralActivityPresenter;
 import org.smartregister.chw.referral.activity.BaseIssueReferralActivity;
 import org.smartregister.chw.referral.interactor.BaseIssueReferralInteractor;
@@ -26,6 +29,12 @@ public class ReferralRegistrationActivity extends BaseIssueReferralActivity {
         intent.putExtra(Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.REGISTRATION);
 
         activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NavigationMenu.getInstance(this, null, null);
     }
 
     @NotNull
