@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.activity.CoreFamilyPlanningMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFpUpcomingServicesActivity;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
@@ -151,7 +150,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
 
     @Override
     public void openMedicalHistory() {
-        onMemberTypeLoadedListener listener = memberType -> {
+        OnMemberTypeLoadedListener onMemberTypeLoadedListener = memberType -> {
 
             switch (memberType.getMemberType()) {
                 case CoreConstants.TABLE_NAME.ANC_MEMBER:
@@ -168,7 +167,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
                     break;
             }
         };
-        executeOnLoaded(listener);
+        executeOnLoaded(onMemberTypeLoadedListener);
     }
 
     @Override
