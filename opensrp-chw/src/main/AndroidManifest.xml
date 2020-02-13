@@ -33,13 +33,9 @@
         <activity
             android:name=".activity.FamilyPlanningMemberProfileActivity"
             android:label="@string/family_planning"
-            android:theme="@style/ChwTheme.NoActionBar"
-            />
-        <activity
-            android:name=".activity.AncUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.FpUpcomingServicesActivity"
+            android:name=".activity.AncUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.AncMedicalHistoryActivity"
@@ -141,6 +137,10 @@
             android:label="@string/upcoming_services"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".core.activity.CoreFpUpcomingServicesActivity"
+            android:label="@string/upcoming_services"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.IndividualProfileRemoveActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -188,9 +188,11 @@
             android:name=".activity.ReferralRegistrationActivity"
             android:label="@string/issue_referral"
             android:theme="@style/ChwTheme.NoActionBar" />
-        <activity android:name=".activity.ReferralHistoryActivity"
-            android:theme="@style/ChwTheme.NoActionBar"/>
-        <activity android:name=".activity.FpFollowUpVisitActivity"
+        <activity
+            android:name=".activity.ReferralHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.FpFollowUpVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.SickFormMedicalHistory"
