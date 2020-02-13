@@ -3,9 +3,6 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.VisitDetail;
@@ -37,7 +34,6 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
         evaluateHealthFacility(serviceList);
         return serviceList;
     }
-
 
 
     private Date formattedDate(String sd, int dt) {

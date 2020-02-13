@@ -34,7 +34,7 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
     protected MemberObject memberObject;
     protected Context context;
     protected DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd-MM-yyyy");
-    protected LocalDate today = new org.joda.time.DateTime().toLocalDate();
+    protected LocalDate today = new DateTime().toLocalDate();
 
     @Override
     public List<BaseUpcomingService> getMemberServices(Context context, MemberObject memberObject) {
