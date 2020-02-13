@@ -33,6 +33,8 @@ import timber.log.Timber;
 public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServiceInteractor.Flavor {
     protected MemberObject memberObject;
     protected Context context;
+    protected DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd-MM-yyyy");
+    protected LocalDate today = new org.joda.time.DateTime().toLocalDate();
 
     @Override
     public List<BaseUpcomingService> getMemberServices(Context context, MemberObject memberObject) {
@@ -46,8 +48,6 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
         return serviceList;
     }
 
-    DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd-MM-yyyy");
-    LocalDate today = new org.joda.time.DateTime().toLocalDate();
 
     private Date formattedDate(String sd, int dt) {
         return (dateTimeFormatter.parseLocalDate(sd).plusDays(dt)).toDate();
@@ -116,7 +116,7 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
     }
 
 
-    private String ImmunizationServiceName(PncBaby baby) {
+    private String immunizationServiceName(PncBaby baby) {
         String serviceName = null;
         List<Alert> alertList = VisitVaccineUtil.getNextVaccines(baby.getBaseEntityID(), new DateTime(baby.getDob()), CoreConstants.SERVICE_GROUPS.CHILD, true);
         if (alertList.size() == 2) {
@@ -150,8 +150,8 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
         }
         List<PncBaby> pncBabies = PersonDao.getMothersPNCBabies(memberObject.getBaseEntityId());
         for (PncBaby baby : pncBabies) {
-            if (ImmunizationServiceName(baby) != null) {
-                upcomingService.setServiceName(ImmunizationServiceName(baby));
+            if (immunizationServiceName(baby) != null) {
+                upcomingService.setServiceName(immunizationServiceName(baby));
                 upcomingService.setServiceDate(deliveryDate);
                 upcomingService.setOverDueDate(OverDueDate);
                 count += 1;

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.smartregister.chw.R;
@@ -29,7 +28,6 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
     protected MemberObject memberObject;
     protected Context context;
 
-
     @Override
     public List<BaseUpcomingService> getMemberServices(Context context, MemberObject memberObject) {
         this.memberObject = memberObject;
@@ -40,8 +38,7 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
         return serviceList;
     }
 
-    DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd-MM-yyyy");
-    LocalDate today = new org.joda.time.DateTime().toLocalDate();
+
 
     private Date formattedDate(String sd, int dt) {
         return (dateTimeFormatter.parseLocalDate(sd).plusDays(dt)).toDate();
