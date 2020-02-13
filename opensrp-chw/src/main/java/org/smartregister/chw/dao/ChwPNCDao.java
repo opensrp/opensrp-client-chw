@@ -1,22 +1,15 @@
 package org.smartregister.chw.dao;
 
-import android.util.Pair;
-
-import com.google.android.gms.vision.L;
-
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.dao.AbstractDao;
-import org.smartregister.immunization.domain.Vaccine;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import timber.log.Timber;
 
@@ -51,7 +44,7 @@ public class ChwPNCDao extends AbstractDao {
         return (res != null && res.size() > 0) ? res.get(0) : null;
     }
 
-    public static @Nullable List<VisitDetail> getLastPNCHealthFacilityVisits(String motherBaseEntityId){
+    public static @Nullable List<VisitDetail> getLastPNCHealthFacilityVisits(String motherBaseEntityId) {
         String sql = "SELECT DISTINCT vd.visit_key \n" +
                 " FROM Visit_details vd  \n" +
                 " INNER JOIN visits v \n" +
@@ -63,7 +56,7 @@ public class ChwPNCDao extends AbstractDao {
                 " LIMIT 1";
 
         List<VisitDetail> details = new ArrayList<>();
-        DataMap<VisitDetail> dataMap =  c -> {
+        DataMap<VisitDetail> dataMap = c -> {
             VisitDetail detail = new VisitDetail();
             detail.setVisitKey(getCursorValue(c, "visit_key"));
             details.add(detail);

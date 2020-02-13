@@ -4,7 +4,9 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.VisitDetail;
@@ -44,14 +46,16 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
         return serviceList;
     }
 
+    DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd-MM-yyyy");
+    LocalDate today = new org.joda.time.DateTime().toLocalDate();
 
     private Date formattedDate(String sd, int dt) {
-        return (DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd).plusDays(dt)).toDate();
+        return (dateTimeFormatter.parseLocalDate(sd).plusDays(dt)).toDate();
     }
 
     private boolean isValid(String sd, int due, int expiry) {
-        return (((DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd).plusDays(due)).isBefore(new org.joda.time.DateTime().toLocalDate())) &&
-                (((DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd).plusDays(expiry)).isAfter(new org.joda.time.DateTime().toLocalDate()))));
+        return (((dateTimeFormatter.parseLocalDate(sd).plusDays(due)).isBefore(today)) &&
+                (((dateTimeFormatter.parseLocalDate(sd).plusDays(expiry)).isAfter(today))));
     }
 
     private String serviceName(String val) {
@@ -72,7 +76,7 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                 String sd = sdf.format(summary.getDeliveryDate());
-                if (visitDetailList.size() == 0 && ((DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd).plusDays(7)).isAfter(new org.joda.time.DateTime().toLocalDate()))) {
+                if (visitDetailList.size() == 0 && ((dateTimeFormatter.parseLocalDate(sd).plusDays(7)).isAfter(today))) {
                     serviceDueDate = formattedDate(sd, 1);
                     serviceOverDueDate = formattedDate(sd, 2);
                     serviceName = serviceName("Day 1");
@@ -89,8 +93,8 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
                         serviceOverDueDate = formattedDate(sd, 8);
                         serviceName = serviceName("Day 7");
                     } else {
-                        serviceDueDate = (DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd)).toDate();
-                        serviceOverDueDate = (DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(sd)).toDate();
+                        serviceDueDate = (dateTimeFormatter.parseLocalDate(sd)).toDate();
+                        serviceOverDueDate = (dateTimeFormatter.parseLocalDate(sd)).toDate();
                         serviceName = "";
                     }
                 }

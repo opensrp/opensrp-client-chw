@@ -22,7 +22,6 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.dao.FamilyDao;
-import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -33,7 +32,6 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -112,9 +110,7 @@ public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor i
                         true
                 );
             }
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             Timber.e(e);
         }
 
