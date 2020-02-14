@@ -1,5 +1,6 @@
 package org.smartregister.chw.presenter;
 
+import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.model.IssueReferralActivityModel;
 import org.smartregister.chw.referral.contract.BaseIssueReferralContract;
 import org.smartregister.chw.referral.model.AbstractIssueReferralModel;
@@ -19,12 +20,14 @@ public class IssueReferralActivityPresenter extends BaseIssueReferralPresenter {
     }
 
 
+    @NotNull
     @Override
     public String getMainCondition() {
         return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.Key.BASE_ENTITY_ID + " = '" + getBaseEntityID() + "'";
     }
 
 
+    @NotNull
     @Override
     public String getMainTable() {
         return Constants.TABLE_NAME.FAMILY_MEMBER;

@@ -301,8 +301,8 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
-
-    implementation ("org.smartregister:opensrp-client-chw-referral:1.2.0-SNAPSHOT"){
+    // implementation(project(":opensrp-chw-referral")){
+    implementation ("org.smartregister:opensrp-client-chw-referral:1.21.4-SNAPSHOT"){
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'

@@ -1,5 +1,6 @@
 package org.smartregister.chw.presenter;
 
+import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.referral.contract.BaseReferralRegisterFragmentContract;
 import org.smartregister.chw.referral.presenter.BaseReferralRegisterFragmentPresenter;
@@ -17,6 +18,7 @@ public class ReferralRegisterFragmentPresenter extends BaseReferralRegisterFragm
     }
 
     @Override
+    @NotNull
     public String getMainCondition() {
         return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.Key.DATE_REMOVED + " is null " +
                 "AND " + Tables.REFERRAL + "." + DBConstants.Key.REFERRAL_STATUS + " = '" + ReferralStatus.PENDING + "' "+
