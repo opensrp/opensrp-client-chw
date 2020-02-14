@@ -99,16 +99,20 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
         try {
             evaluateDangerSignsMother();
-            evaluateDangerSignsBaby();
             evaluatePNCHealthFacilityVisit();
-            evaluateChildVaccineCard();
-            evaluateImmunization();
-            evaluateUmbilicalCord();
-            evaluateExclusiveBreastFeeding();
-            evaluateKangarooMotherCare();
             evaluateFamilyPlanning();
             evaluateObservationAndIllnessMother();
-            evaluateObservationAndIllnessBaby();
+
+           for(Person baby : children){
+               evaluateDangerSignsBaby(baby);
+               evaluateChildVaccineCard(baby);
+               evaluateImmunization(baby);
+               evaluateUmbilicalCord(baby);
+               evaluateExclusiveBreastFeeding(baby);
+               evaluateKangarooMotherCare(baby);
+               evaluateObservationAndIllnessBaby(baby);
+           }
+
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
         } catch (Exception e) {
@@ -172,8 +176,8 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         actionList.put(context.getString(R.string.pnc_danger_signs_mother), action);
     }
 
-    private void evaluateDangerSignsBaby() throws Exception {
-        for (Person baby : children) {
+    private void evaluateDangerSignsBaby(Person baby) throws Exception {
+        if (getAgeInDays(baby.getDob()) <= 28) {
 
             Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.DANGER_SIGNS_BABY);
 
@@ -236,23 +240,21 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         }
     }
 
-    protected void evaluateChildVaccineCard() throws Exception {
-        for (Person baby : children) {
-            // if not given and less than 1 yr
-            if (getAgeInDays(baby.getDob()) <= 28) {
+    protected void evaluateChildVaccineCard(Person baby) throws Exception {
+        // if not given and less than 1 yr
+        if (getAgeInDays(baby.getDob()) <= 28) {
 
-                Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.VACCINE_CARD_RECEIVED);
+            Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.VACCINE_CARD_RECEIVED);
 
-                BaseAncHomeVisitAction action = getBuilder(MessageFormat.format(context.getString(R.string.pnc_child_vaccine_card_recevied), baby.getFullName()))
-                        .withOptional(false)
-                        .withDetails(details)
-                        .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                        .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getVaccineCard(), null, details, null))
-                        .withHelper(new VaccineCardHelper(baby.getDob()))
-                        .build();
-                actionList.put(MessageFormat.format(context.getString(R.string.pnc_child_vaccine_card_recevied), baby.getFullName()), action);
-            }
+            BaseAncHomeVisitAction action = getBuilder(MessageFormat.format(context.getString(R.string.pnc_child_vaccine_card_recevied), baby.getFullName()))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getVaccineCard(), null, details, null))
+                    .withHelper(new VaccineCardHelper(baby.getDob()))
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_child_vaccine_card_recevied), baby.getFullName()), action);
         }
     }
 
@@ -261,38 +263,37 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         return VaccineScheduleUtil.getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
     }
 
-    protected void evaluateImmunization() throws Exception {
-        for (Person baby : children) {
-            if (getAgeInDays(baby.getDob()) <= 28) {
-                List<VaccineWrapper> wrappers = getWrappers(baby);
-                if (wrappers.size() > 0) {
-                    List<VaccineDisplay> displays = new ArrayList<>();
-                    for (VaccineWrapper vaccineWrapper : wrappers) {
-                        VaccineDisplay display = new VaccineDisplay();
-                        display.setVaccineWrapper(vaccineWrapper);
-                        display.setStartDate(baby.getDob());
-                        display.setEndDate(new Date());
-                        displays.add(display);
-                    }
-
-                    Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.IMMUNIZATION_VISIT);
-
-                    BaseAncHomeVisitAction action = getBuilder(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
-                            .withOptional(false)
-                            .withDetails(details)
-                            .withBaseEntityID(baby.getBaseEntityID())
-                            .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                            .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
-                            .withHelper(new ImmunizationActionHelper(context, wrappers))
-                            .build();
-                    actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
+    protected void evaluateImmunization(Person baby) throws Exception {
+        if (getAgeInDays(baby.getDob()) <= 28) {
+            List<VaccineWrapper> wrappers = getWrappers(baby);
+            if (wrappers.size() > 0) {
+                List<VaccineDisplay> displays = new ArrayList<>();
+                for (VaccineWrapper vaccineWrapper : wrappers) {
+                    VaccineDisplay display = new VaccineDisplay();
+                    display.setVaccineWrapper(vaccineWrapper);
+                    display.setStartDate(baby.getDob());
+                    display.setEndDate(new Date());
+                    displays.add(display);
                 }
+
+                Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.IMMUNIZATION_VISIT);
+
+                BaseAncHomeVisitAction action = getBuilder(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
+                        .withOptional(false)
+                        .withDetails(details)
+                        .withBaseEntityID(baby.getBaseEntityID())
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                        .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
+                        .withHelper(new ImmunizationActionHelper(context, wrappers))
+                        .build();
+                actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
             }
         }
     }
 
-    private void evaluateUmbilicalCord() throws Exception {
-        for (Person baby : children) {
+    private void evaluateUmbilicalCord(Person baby) throws Exception {
+        if (getAgeInDays(baby.getDob()) <= 28) {
+
             Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.UMBILICAL_CORD_CARE);
 
             BaseAncHomeVisitAction action = getBuilder(MessageFormat.format(context.getString(R.string.pnc_umblicord_care_child), baby.getFullName()))
@@ -305,7 +306,6 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_umblicord_care_child), baby.getFullName()), action);
         }
-
     }
 
 
@@ -318,72 +318,67 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         );
     }
 
-    private void evaluateExclusiveBreastFeeding() throws Exception {
-        for (Person baby : children) {
-            if (getAgeInDays(baby.getDob()) <= 28) {
+    private void evaluateExclusiveBreastFeeding(Person baby) throws Exception {
+        if (getAgeInDays(baby.getDob()) <= 28) {
 
-                Map<String, ServiceWrapper> serviceWrapperMap = getWrapperMap(baby);
+            Map<String, ServiceWrapper> serviceWrapperMap = getWrapperMap(baby);
 
-                ServiceWrapper serviceWrapper = serviceWrapperMap.get("Exclusive breastfeeding");
-                if (serviceWrapper == null) return;
+            ServiceWrapper serviceWrapper = serviceWrapperMap.get("Exclusive breastfeeding");
+            if (serviceWrapper == null) return;
 
-                Alert alert = serviceWrapper.getAlert();
-                if (alert == null || !new LocalDate().isAfter(new LocalDate(alert.startDate())))
-                    return;
+            Alert alert = serviceWrapper.getAlert();
+            if (alert == null || !new LocalDate().isAfter(new LocalDate(alert.startDate())))
+                return;
 
-                final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
+            final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
-                String title = MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName());
+            String title = MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName());
 
-                // alert if overdue after 14 days
-                boolean isOverdue = new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
-                String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
+            // alert if overdue after 14 days
+            boolean isOverdue = new LocalDate().isAfter(new LocalDate(alert.startDate()).plusDays(14));
+            String dueState = !isOverdue ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
-                ExclusiveBreastFeedingAction helper = new ExclusiveBreastFeedingAction(context, alert);
-                JSONObject jsonObject = getFormJson(Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), memberObject.getBaseEntityId());
+            ExclusiveBreastFeedingAction helper = new ExclusiveBreastFeedingAction(context, alert);
+            JSONObject jsonObject = getFormJson(Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), memberObject.getBaseEntityId());
 
-                Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.EXCLUSIVE_BREASTFEEDING);
+            Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.EXCLUSIVE_BREASTFEEDING);
 
-                BaseAncHomeVisitAction action = getBuilder(title)
-                        .withHelper(helper)
-                        .withDetails(details)
-                        .withOptional(false)
-                        .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                        .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
-                        .withPayloadDetails(MessageFormat.format("Exclusive_breastfeeding{0}", serviceIteration))
-                        .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, jsonObject, details, serviceIteration))
-                        .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
-                        .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
-                        .build();
+            BaseAncHomeVisitAction action = getBuilder(title)
+                    .withHelper(helper)
+                    .withDetails(details)
+                    .withOptional(false)
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                    .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
+                    .withPayloadDetails(MessageFormat.format("Exclusive_breastfeeding{0}", serviceIteration))
+                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, jsonObject, details, serviceIteration))
+                    .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
+                    .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
+                    .build();
 
-                // don't show if its after now
-                if (!serviceWrapper.getVaccineDate().isAfterNow())
-                    actionList.put(MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName()), action);
+            // don't show if its after now
+            if (!serviceWrapper.getVaccineDate().isAfterNow())
+                actionList.put(MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName()), action);
 
-            }
         }
     }
 
-    private void evaluateKangarooMotherCare() throws Exception {
+    private void evaluateKangarooMotherCare(Person person) throws Exception {
+        PncBaby baby = (PncBaby) person;
+        if (baby.getLbw().equalsIgnoreCase("yes")) {
 
-        for (Person person : children) {
-            PncBaby baby = (PncBaby) person;
-            if (baby.getLbw().equalsIgnoreCase("yes")) {
+            Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.KANGAROO_CARE);
 
-                Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.KANGAROO_CARE);
-
-                String title = MessageFormat.format(context.getString(R.string.pnc_kangaroo_mother_care), baby.getFullName());
-                BaseAncHomeVisitAction action = getBuilder(title)
-                        .withOptional(false)
-                        .withDetails(details)
-                        .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                        .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getKangarooCare(), null, details, null))
-                        .withHelper(new KangarooHelper())
-                        .build();
-                actionList.put(title, action);
-            }
+            String title = MessageFormat.format(context.getString(R.string.pnc_kangaroo_mother_care), baby.getFullName());
+            BaseAncHomeVisitAction action = getBuilder(title)
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getKangarooCare(), null, details, null))
+                    .withHelper(new KangarooHelper())
+                    .build();
+            actionList.put(title, action);
         }
     }
 
@@ -407,22 +402,20 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         actionList.put(context.getString(R.string.pnc_observation_and_illness_mother), action);
     }
 
-    private void evaluateObservationAndIllnessBaby() throws Exception {
-        for (Person baby : children) {
-            if (getAgeInDays(baby.getDob()) <= 28) {
+    private void evaluateObservationAndIllnessBaby(Person baby) throws Exception {
+        if (getAgeInDays(baby.getDob()) <= 28) {
 
-                Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.OBSERVATIONS_AND_ILLNESS);
+            Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.OBSERVATIONS_AND_ILLNESS);
 
-                BaseAncHomeVisitAction action = getBuilder(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
-                        .withOptional(true)
-                        .withDetails(details)
-                        .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                        .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
-                        .withHelper(new ObservationAction())
-                        .build();
-                actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()), action);
-            }
+            BaseAncHomeVisitAction action = getBuilder(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
+                    .withOptional(true)
+                    .withDetails(details)
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                    .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
+                    .withHelper(new ObservationAction())
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()), action);
         }
     }
 
