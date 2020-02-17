@@ -1,4 +1,1 @@
-//include ':opensrp-chw'
-
-include ':opensrp-chw' , ':opensrp-chw-referral'
-project(":opensrp-chw-referral").projectDir = new File(settingsDir, "../opensrp-client-chw-referral/opensrp-chw-referral")
+include ':opensrp-chw'

@@ -258,7 +258,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.1.306-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.1.40-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -301,8 +301,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
-//    implementation ("org.smartregister:opensrp-client-chw-referral:1.21.4-SNAPSHOT"){
-    implementation(project(":opensrp-chw-referral")){
+    implementation ("org.smartregister:opensrp-client-chw-referral:1.2.0-SNAPSHOT"){
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
