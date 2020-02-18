@@ -600,21 +600,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         }
     }
 
-    public static List<JSONObject> getFormSteps(JSONObject jsonObject) throws JSONException {
-        List<JSONObject> steps = new ArrayList<>();
-        int x = 1;
-        while (true) {
-            String step_name = "step" + x;
-            if (jsonObject.has(step_name)) {
-                steps.add(jsonObject.getJSONObject(step_name));
-            } else {
-                break;
-            }
-            x++;
-        }
-        return steps;
-    }
-
     public interface Flavor {
         JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver);
 
