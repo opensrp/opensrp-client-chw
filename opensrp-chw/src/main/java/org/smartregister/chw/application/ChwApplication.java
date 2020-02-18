@@ -146,7 +146,6 @@ public class ChwApplication extends CoreChwApplication {
         FpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         //Setup referral library
-        GlobalContextKt.stopKoin();
         ReferralLibrary.init(this);
         ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
         ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
@@ -193,6 +192,12 @@ public class ChwApplication extends CoreChwApplication {
         }
 
         EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        GlobalContextKt.stopKoin();
     }
 
     @Override

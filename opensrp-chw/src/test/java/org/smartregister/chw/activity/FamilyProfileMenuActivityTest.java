@@ -6,7 +6,7 @@ import org.smartregister.chw.BaseActivityTest;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
 
-public class FamilyProfileMenuActivityTest extends BaseActivityTest<CoreFamilyProfileMenuActivity> {
+public class FamilyProfileMenuActivityTest extends BaseActivityTest<FamilyProfileMenuActivity> {
     @Override
     protected Intent getControllerIntent() {
         Intent intent = new Intent();
@@ -16,7 +16,7 @@ public class FamilyProfileMenuActivityTest extends BaseActivityTest<CoreFamilyPr
     }
 
     @Override
-    protected Class<CoreFamilyProfileMenuActivity> getActivityClass() {
-        return CoreFamilyProfileMenuActivity.class;
+    protected Class<FamilyProfileMenuActivity> getActivityClass() {
+        return FamilyProfileMenuActivity.class;
     }
 }
