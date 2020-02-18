@@ -13,14 +13,14 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.smartregister.chw.model.ReferralTypeModel;
-import org.smartregister.chw.referral.util.Constants.ACTIVITY_PAYLOAD;
+import org.smartregister.chw.referral.util.Constants.ActivityPayload;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 
 import java.util.ArrayList;
 
 import static org.robolectric.Shadows.shadowOf;
-import static org.smartregister.chw.referral.util.Constants.ACTIVITY_PAYLOAD_TYPE;
+import static org.smartregister.chw.referral.util.Constants.ActivityPayloadType;
 
 @RunWith(RobolectricTestRunner.class)
 public class ClientReferralActivityTest {
@@ -63,10 +63,10 @@ public class ClientReferralActivityTest {
         clientReferralActivity.startReferralForm(formJson, new ReferralTypeModel("Sick child",
                 Constants.JSON_FORM.getChildReferralForm(), "1"));
         Intent intent = new Intent(clientReferralActivity, ReferralRegistrationActivity.class);
-        intent.putExtra(ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(ACTIVITY_PAYLOAD.REFERRAL_SERVICE_IDS, "1");
-        intent.putExtra(ACTIVITY_PAYLOAD.JSON_FORM, formJson.toString());
-        intent.putExtra(ACTIVITY_PAYLOAD.ACTION, ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
+        intent.putExtra(ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(ActivityPayload.REFERRAL_SERVICE_IDS, "1");
+        intent.putExtra(ActivityPayload.JSON_FORM, formJson.toString());
+        intent.putExtra(ActivityPayload.ACTION, ActivityPayloadType.REGISTRATION);
         shadowOf(clientReferralActivity).receiveResult(new Intent(clientReferralActivity,
                 ReferralRegistrationActivity.class), JsonFormUtils.REQUEST_CODE_GET_JSON, intent);
 
