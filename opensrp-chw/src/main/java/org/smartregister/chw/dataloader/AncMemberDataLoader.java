@@ -8,8 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.core.form_data.NativeFormsDataLoader;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.form_data.NativeFormsDataLoader;
 
 import java.util.ArrayList;
 import java.util.List;
