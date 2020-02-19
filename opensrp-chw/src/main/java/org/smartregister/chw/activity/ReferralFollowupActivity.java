@@ -16,8 +16,8 @@ public class ReferralFollowupActivity extends BaseReferralFollowupActivity {
 
     public static void startReferralFollowupActivity(Activity activity, MemberObject memberObject, CommonPersonObjectClient client) {
         Intent intent = new Intent(activity, ReferralFollowupActivity.class);
-        intent.putExtra(Constants.REFERRAL_MEMBER_OBJECT.MEMBER_OBJECT, memberObject);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.REFERRAL_FOLLOWUP_FORM_NAME, getReferralFollowupForm());
+        intent.putExtra(Constants.ReferralMemberObject.MEMBER_OBJECT, memberObject);
+        intent.putExtra(Constants.ActivityPayload.REFERRAL_FOLLOWUP_FORM_NAME, getReferralFollowupForm());
         intent.putExtra(CLIENT, client);
         activity.startActivity(intent);
     }

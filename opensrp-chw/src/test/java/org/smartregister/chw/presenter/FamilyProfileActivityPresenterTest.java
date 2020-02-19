@@ -35,13 +35,13 @@ public class FamilyProfileActivityPresenterTest extends BaseUnitTest {
     @Test
     public void testMainCondition() {
         FamilyProfileActivityPresenter familyProfileActivityPresenter = (FamilyProfileActivityPresenter) presenter;
-        Assert.assertEquals(" ec_child_activity.relational_id = 'familyBaseEntityId' and ec_child_activity.date_removed is null and ( ec_child_activity.visit_not_done is null OR ec_child_activity.visit_not_done != '0') ", familyProfileActivityPresenter.getMainCondition());
+        Assert.assertEquals("(ec_family_member.relational_id = 'familyBaseEntityId' or visits.base_entity_id = 'familyBaseEntityId') AND visit_type in ( 'ANC Home Visit','ANC Home Visit Not Done','PNC Home Visit','Child Home Visit','Visit not done') ", familyProfileActivityPresenter.getMainCondition());
     }
 
     @Test
     public void testDefaultSort() {
         FamilyProfileActivityPresenter familyProfileActivityPresenter = (FamilyProfileActivityPresenter) presenter;
-        Assert.assertEquals("ec_child_activity.event_date DESC", familyProfileActivityPresenter.getDefaultSortQuery());
+        Assert.assertEquals("visits.visit_date DESC", familyProfileActivityPresenter.getDefaultSortQuery());
     }
 
 }
