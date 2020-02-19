@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.presenter.LoginPresenter;
-import org.smartregister.chw.referral.ReferralLibrary;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.family.util.Constants;
 import org.smartregister.task.SaveTeamLocationsTask;
@@ -45,7 +44,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         if (remote) {
             Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
         }
-        ReferralLibrary.getInstance().loadReferralServiceIndicators();
         getToFamilyList(remote);
 
         finish();

@@ -14,6 +14,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
+import org.koin.core.context.GlobalContextKt;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
@@ -54,6 +55,7 @@ import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.domain.FamilyMetadata;
+import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.Constants;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
@@ -74,6 +76,7 @@ import timber.log.Timber;
 public class ChwApplication extends CoreChwApplication {
 
     private static Flavor flavor = new ChwApplicationFlv();
+    private AppExecutors appExecutors;
 
     public static Flavor getApplicationFlavor() {
         return flavor;
@@ -192,6 +195,12 @@ public class ChwApplication extends CoreChwApplication {
     }
 
     @Override
+    public void onTerminate() {
+        super.onTerminate();
+        GlobalContextKt.stopKoin();
+    }
+
+    @Override
     public void logoutCurrentUser() {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -273,6 +282,13 @@ public class ChwApplication extends CoreChwApplication {
 
             ChildAlertService.updateAlerts(visit.getBaseEntityId());
         }
+    }
+
+    public AppExecutors getAppExecutors() {
+        if (appExecutors == null) {
+            appExecutors = new AppExecutors();
+        }
+        return appExecutors;
     }
 
     public interface Flavor {
