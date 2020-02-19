@@ -33,7 +33,6 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
         return serviceList;
     }
 
-
     private Date formattedDate(String sd, int dt) {
         return (dateTimeFormatter.parseLocalDate(sd).plusDays(dt)).toDate();
     }
