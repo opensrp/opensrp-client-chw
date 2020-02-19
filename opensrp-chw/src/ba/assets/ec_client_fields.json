@@ -1536,18 +1536,25 @@
           }
         },
         {
-          "column_name": "base_entity_id",
+          "column_name": "entity_id",
           "type": "Event",
           "json_mapping": {
             "field": "baseEntityId"
           }
         },
         {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
           "column_name": "problem",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "obs.formSubmissionField",
+            "concept": "problem"
           }
         },
         {
@@ -1562,8 +1569,8 @@
           "column_name": "service_before_referral",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "obs.formSubmissionField",
+            "concept": "service_before_referral"
           }
         },
         {
@@ -1621,10 +1628,17 @@
       "name": "ec_referral_followup",
       "columns": [
         {
-          "column_name": "base_entity_id",
+          "column_name": "entity_id",
           "type": "Event",
           "json_mapping": {
             "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
           }
         },
         {

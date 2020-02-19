@@ -24,7 +24,7 @@ public class IssueReferralActivityModel extends BaseIssueReferralModel {
     }
 
     @Override
-    protected String[] mainColumns(String tableName) {
+    public String[] mainColumns(String tableName) {
         Set<String> columnList = new HashSet<>();
 
         columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);

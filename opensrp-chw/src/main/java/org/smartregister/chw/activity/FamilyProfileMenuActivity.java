@@ -24,12 +24,10 @@ public class FamilyProfileMenuActivity extends CoreFamilyProfileMenuActivity {
 
         Fragment fragment;
         switch (menuOption) {
-            case CoreConstants.MenuType.ChangeHead:
-                fragment = FamilyProfileChangeHead.newInstance(familyBaseEntityId);
-                break;
             case CoreConstants.MenuType.ChangePrimaryCare:
                 fragment = FamilyProfileChangePrimaryCG.newInstance(familyBaseEntityId);
                 break;
+            case CoreConstants.MenuType.ChangeHead:
             default:
                 fragment = FamilyProfileChangeHead.newInstance(familyBaseEntityId);
                 break;

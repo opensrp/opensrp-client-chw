@@ -69,7 +69,7 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
         ChwApplication.getInstance().notifyAppContextChange(); // initialize the language (bug in translation)
-        ReferralLibrary.getInstance().seedSampleReferralServicesAndIndicators(); // Used to seed referral module services and problems, temporally and will be removed once they are sync from the server in future versions.
+        ReferralLibrary.getInstance().loadReferralServiceIndicators();
         action = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.ACTION);
         if (action != null && action.equals(Constants.ACTION.START_REGISTRATION)) {
             startRegistration();
