@@ -167,7 +167,28 @@
           },
           {
             "field": "eventType",
+            "field_value": "Sick Child Referral",
+            "creates_case": [
+              "ec_child_referral"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "ANC Referral",
+            "creates_case": [
+              "ec_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "ANC Referral",
+            "creates_case": [
+              "ec_anc_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PNC Referral",
             "creates_case": [
               "ec_referral"
             ]
@@ -176,7 +197,7 @@
             "field": "eventType",
             "field_value": "PNC Referral",
             "creates_case": [
-              "ec_referral"
+              "ec_pnc_referral"
             ]
           },
           {
