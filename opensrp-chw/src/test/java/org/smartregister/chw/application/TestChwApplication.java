@@ -1,15 +1,15 @@
 package org.smartregister.chw.application;
 
 
+import net.sqlcipher.database.SQLiteDatabase;
+
 import org.koin.core.context.GlobalContextKt;
+import org.mockito.Mockito;
 import org.smartregister.chw.R;
-import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.repository.Repository;
 
 import java.util.concurrent.Executors;
-
-import timber.log.Timber;
 
 
 /**
@@ -33,13 +33,10 @@ public class TestChwApplication extends ChwApplication {
 
     @Override
     public Repository getRepository() {
-        try {
-            if (repository == null) {
-                repository = new ChwRepository(getInstance().getApplicationContext(), context);
-            }
-        } catch (UnsatisfiedLinkError e) {
-            Timber.e(e);
-        }
+        Repository repository = Mockito.mock(Repository.class);
+        SQLiteDatabase sqLiteDatabase = Mockito.mock(SQLiteDatabase.class);
+        Mockito.when(repository.getReadableDatabase()).thenReturn(sqLiteDatabase);
+        Mockito.when(repository.getWritableDatabase()).thenReturn(sqLiteDatabase);
         return repository;
     }
 

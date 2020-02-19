@@ -7,8 +7,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.malaria.contract.MalariaRegisterFragmentContract;
-import org.smartregister.chw.malaria.util.DBConstants;
-import org.smartregister.chw.util.Constants;
 
 public class MalariaRegisterFragmentPresenterTest extends BaseUnitTest {
 
