@@ -71,7 +71,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
             referralTypeModels = getIntent().getParcelableArrayListExtra(Constants.REFERRAL_TYPES);
             baseEntityId = getIntent().getStringExtra(CoreConstants.ENTITY_ID);
             List<ReferralServiceObject> referralServicesList = Util.getReferralServicesList();
-            if ( referralServicesList != null && BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
+            if (referralServicesList != null && BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
                 for (ReferralServiceObject referralServiceObject : referralServicesList) {
                     referralTypeModels.add(new ReferralTypeModel(referralServiceObject.getNameEn(),
                             Constants.JSON_FORM.getGeneralReferralForm(), referralServiceObject.getId()));
@@ -87,10 +87,10 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
     @Override
     public void startReferralForm(JSONObject jsonObject, ReferralTypeModel referralTypeModel) {
 
-        if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this,
                     baseEntityId, jsonObject, referralTypeModel.getReferralServiceId());
-        }else {
+        } else {
             startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, jsonObject,
                     Utils.metadata().familyMemberFormActivity), JsonFormUtils.REQUEST_CODE_GET_JSON);
         }
