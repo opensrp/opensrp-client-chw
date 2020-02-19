@@ -6,6 +6,8 @@ public class Constants extends CoreConstants {
     public static final String REFERRAL_TASK_FOCUS = "referral_task_focus";
     public static String pregnancyOutcome = "preg_outcome";
     public static final String REFERRAL_TYPES = "ReferralTypes";
+    public static final String APP_VERSION = "app_version";
+    public static final String DB_VERSION = "db_version";
 
     public static class FORM_SUBMISSION_FIELD {
         public static String pncHfNextVisitDateFieldType = "pnc_hf_next_visit_date";

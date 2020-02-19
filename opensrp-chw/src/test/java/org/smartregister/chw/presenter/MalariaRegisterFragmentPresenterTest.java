@@ -7,8 +7,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.malaria.contract.MalariaRegisterFragmentContract;
-import org.smartregister.chw.malaria.util.DBConstants;
-import org.smartregister.chw.util.Constants;
 
 public class MalariaRegisterFragmentPresenterTest extends BaseUnitTest {
 
@@ -34,9 +32,8 @@ public class MalariaRegisterFragmentPresenterTest extends BaseUnitTest {
 
     @Test
     public void testMainCondition() {
-        String main_condition = " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + org.smartregister.chw.malaria.util.DBConstants.KEY.DATE_REMOVED + " is null " +
-                "AND " + Constants.TABLE_NAME.MALARIA_CONFIRMATION + "." + DBConstants.KEY.MALARIA + " = 1 ";
-        Assert.assertEquals(main_condition, presenter.getMainCondition());
+        Assert.assertEquals(" ec_family_member.date_removed is null AND ec_malaria_confirmation.malaria = 1 AND ec_malaria_confirmation.is_closed = 0",
+                presenter.getMainCondition());
 
     }
 

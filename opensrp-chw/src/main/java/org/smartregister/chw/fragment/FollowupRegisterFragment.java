@@ -12,6 +12,7 @@ import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.MalariaFollowUpVisitActivity;
 import org.smartregister.chw.activity.ReferralFollowupActivity;
@@ -47,11 +48,45 @@ public class FollowupRegisterFragment extends BaseFollowupRegisterFragment {
     private boolean dueFilterActive = false;
 
     @Override
-    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+    public void initializeAdapter(@Nullable Set<? extends org.smartregister.configurableviews.model.View> visibleColumns) {
         FollowupRegisterProvider followupRegisterProvider = new FollowupRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, followupRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
+    }
+
+    @Override
+    protected void initializePresenter() {
+        if (getActivity() == null) {
+            return;
+        }
+        String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        presenter = new ReferralFollowupFragmentPresenter(this, new ReferralRegisterFragmentModel(), viewConfigurationIdentifier);
+    }
+
+    @Override
+    protected void onViewClicked(View view) {
+        super.onViewClicked(view);
+
+        if (view.getId() == R.id.due_only_layout) {
+            toggleFilterSelection(view);
+        }
+    }
+
+    @Override
+    protected void openFollowUpVisit(CommonPersonObjectClient client) {
+        MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(getActivity(), client.getCaseId());
+    }
+
+    @Override
+    protected void openProfile(CommonPersonObjectClient client) {
+        ReferralFollowupActivity.startReferralFollowupActivity(getActivity(), new MemberObject(client), client);
+    }
+
+    @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        //TODO
+        //Log.d(TAG, "setAdvancedSearchFormData unimplemented");
     }
 
     @Override
@@ -103,30 +138,6 @@ public class FollowupRegisterFragment extends BaseFollowupRegisterFragment {
         }
     }
 
-    @Override
-    protected void initializePresenter() {
-        if (getActivity() == null) {
-            return;
-        }
-        String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
-        presenter = new ReferralFollowupFragmentPresenter(this, new ReferralRegisterFragmentModel(), viewConfigurationIdentifier);
-    }
-
-    @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        //TODO
-        //Log.d(TAG, "setAdvancedSearchFormData unimplemented");
-    }
-
-    @Override
-    protected void onViewClicked(View view) {
-        super.onViewClicked(view);
-
-        if (view.getId() == R.id.due_only_layout) {
-            toggleFilterSelection(view);
-        }
-    }
-
     protected void toggleFilterSelection(View dueOnlyLayout) {
         if (dueOnlyLayout != null) {
             if (dueOnlyLayout.getTag() == null) {
@@ -151,16 +162,6 @@ public class FollowupRegisterFragment extends BaseFollowupRegisterFragment {
             dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
 
         }
-    }
-
-    @Override
-    protected void openProfile(CommonPersonObjectClient client) {
-        ReferralFollowupActivity.startReferralFollowupActivity(getActivity(), new MemberObject(client), client);
-    }
-
-    @Override
-    protected void openFollowUpVisit(CommonPersonObjectClient client) {
-        MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(getActivity(), client.getCaseId());
     }
 
     @Override

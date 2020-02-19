@@ -44,7 +44,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         if (remote) {
             Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
         }
-
         getToFamilyList(remote);
 
         finish();
