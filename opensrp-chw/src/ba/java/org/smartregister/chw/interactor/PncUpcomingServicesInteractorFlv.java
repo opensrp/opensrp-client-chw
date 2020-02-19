@@ -33,8 +33,8 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
         return serviceList;
     }
 
-    private Date formattedDate(String sd, int dt) {
-        return (dateTimeFormatter.parseLocalDate(sd).plusDays(dt)).toDate();
+    private Date formattedDate(String sd, int period) {
+        return (dateTimeFormatter.parseLocalDate(sd).plusDays(period)).toDate();
     }
 
     private boolean isValid(String sd, int due, int expiry) {
@@ -51,12 +51,12 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
         Date serviceDueDate;
         Date serviceOverDueDate;
         String serviceName;
-        String details = "";
+        String details;
         List<VisitDetail> visitDetailList = ChwPNCDao.getLastPNCHealthFacilityVisits(memberObject.getBaseEntityId());
         PNCHealthFacilityVisitSummary summary = ChwPNCDao.getLastHealthFacilityVisitSummary(memberObject.getBaseEntityId());
 
         //There are four health facility visits hence the  upcoming services is only valid when only 3 visits have been done
-        if (visitDetailList.size() < 4) {
+        if ( summary != null && summary.getDeliveryDate() != null && visitDetailList != null && visitDetailList.size() < 4) {
             try {
                 String deliveryDate = simpleDateFormat.format(summary.getDeliveryDate());
                 if (visitDetailList.size() == 0 && ((dateTimeFormatter.parseLocalDate(deliveryDate).plusDays(3)).isAfter(today))) {
@@ -67,26 +67,26 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
                     for (VisitDetail detail : visitDetailList) {
                         details = String.valueOf(detail.getVisitKey()).replaceAll("\\D+", "");
                     }
-                    if ((details.equalsIgnoreCase("3") || isValid(deliveryDate, 29, 36)) && !(details.equalsIgnoreCase("4"))) {
+                    if ((details.equals("3") || isValid(deliveryDate, 29, 36)) && !(details.equals("4"))) {
                         serviceDueDate = formattedDate(deliveryDate, 29);
                         serviceOverDueDate = formattedDate(deliveryDate, 36);
                         serviceName = serviceName("Day 29-42");
-                    } else if (details.equalsIgnoreCase("2") || isValid(deliveryDate, 8, 28)) {
+                    } else if (details.equals("2") || isValid(deliveryDate, 8, 28)) {
                         serviceDueDate = formattedDate(deliveryDate, 8);
                         serviceOverDueDate = formattedDate(deliveryDate, 18);
                         serviceName = serviceName("Day 8-28");
-                    } else if (details.equalsIgnoreCase("1") || isValid(deliveryDate, 3, 8)) {
+                    } else if (details.equals("1") || isValid(deliveryDate, 3, 8)) {
                         serviceDueDate = formattedDate(deliveryDate, 3);
                         serviceOverDueDate = formattedDate(deliveryDate, 5);
                         serviceName = serviceName("Day 3-7");
                     } else {
                         serviceDueDate = (dateTimeFormatter.parseLocalDate(deliveryDate)).toDate();
                         serviceOverDueDate = (dateTimeFormatter.parseLocalDate(deliveryDate)).toDate();
-                        serviceName = "";
+                        serviceName = null;
                     }
                 }
                 BaseUpcomingService upcomingService = new BaseUpcomingService();
-                if (!serviceName.equalsIgnoreCase("")) {
+                if (StringUtils.isNotBlank(serviceName)) {
                     upcomingService.setServiceDate(serviceDueDate);
                     upcomingService.setOverDueDate(serviceOverDueDate);
                     upcomingService.setServiceName(serviceName);
