@@ -9,9 +9,8 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.referral.util.Constants.ActivityPayload;
 import org.smartregister.chw.util.Constants;
@@ -22,8 +21,7 @@ import java.util.ArrayList;
 import static org.robolectric.Shadows.shadowOf;
 import static org.smartregister.chw.referral.util.Constants.ActivityPayloadType;
 
-@RunWith(RobolectricTestRunner.class)
-public class ClientReferralActivityTest {
+public class ClientReferralActivityTest extends BaseUnitTest {
 
     private ClientReferralActivity clientReferralActivity;
 
