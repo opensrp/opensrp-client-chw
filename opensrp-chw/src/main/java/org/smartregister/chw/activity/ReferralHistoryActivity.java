@@ -10,7 +10,7 @@ import org.smartregister.chw.referral.util.Constants;
 public class ReferralHistoryActivity extends BaseReferralHistoryActivity {
     public static void startReferralHistoryActivity(Activity activity, MemberObject memberObject) {
         Intent intent = new Intent(activity, ReferralHistoryActivity.class);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.MEMBER_OBJECT, memberObject);
+        intent.putExtra(Constants.ActivityPayload.MEMBER_OBJECT, memberObject);
         activity.startActivity(intent);
     }
 
