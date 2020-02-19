@@ -104,7 +104,7 @@ public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor i
                         memberObject.getBaseEntityId(),
                         baseUpcomingService.getServiceName(),
                         baseUpcomingService.getServiceName(),
-                        baseUpcomingService.getServiceDate().before(new Date()) ? AlertStatus.urgent : AlertStatus.normal,
+                        baseUpcomingService.getOverDueDate().before(new Date()) ? AlertStatus.urgent : AlertStatus.normal,
                         AbstractDao.getDobDateFormat().format(baseUpcomingService.getServiceDate()),
                         "",
                         true

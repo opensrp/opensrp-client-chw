@@ -13,11 +13,9 @@ import org.smartregister.chw.dao.ChwPNCDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 
 import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -51,41 +49,40 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
 
     private void evaluateHealthFacility(List<BaseUpcomingService> serviceList) {
         //Get done Visits
-        Date serviceDueDate = null;
-        Date serviceOverDueDate = null;
-        String serviceName = null;
+        Date serviceDueDate;
+        Date serviceOverDueDate;
+        String serviceName;
         String details = "";
-        int count = 0;
         List<VisitDetail> visitDetailList = ChwPNCDao.getLastPNCHealthFacilityVisits(memberObject.getBaseEntityId());
         PNCHealthFacilityVisitSummary summary = ChwPNCDao.getLastHealthFacilityVisitSummary(memberObject.getBaseEntityId());
 
+        //There are four health facility visits hence the  upcoming services is only valid when only 3 visits have been done
         if (visitDetailList.size() < 4) {
             try {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                String sd = sdf.format(summary.getDeliveryDate());
-                if (visitDetailList.size() == 0 && ((dateTimeFormatter.parseLocalDate(sd).plusDays(3)).isAfter(today))) {
-                    serviceDueDate = (dateTimeFormatter.parseLocalDate(sd)).toDate();
-                    serviceOverDueDate = formattedDate(sd, 2);
+                String deliveryDate = simpleDateFormat.format(summary.getDeliveryDate());
+                if (visitDetailList.size() == 0 && ((dateTimeFormatter.parseLocalDate(deliveryDate).plusDays(3)).isAfter(today))) {
+                    serviceDueDate = (dateTimeFormatter.parseLocalDate(deliveryDate)).toDate();
+                    serviceOverDueDate = formattedDate(deliveryDate, 2);
                     serviceName = serviceName("48 hours");
                 } else {
                     for (VisitDetail detail : visitDetailList) {
                         details = String.valueOf(detail.getVisitKey()).replaceAll("\\D+", "");
                     }
-                    if ((details.equalsIgnoreCase("3") || isValid(sd, 29, 36)) && !(details.equalsIgnoreCase("4"))) {
-                        serviceDueDate = formattedDate(sd, 29);
-                        serviceOverDueDate = formattedDate(sd, 36);
+                    if ((details.equalsIgnoreCase("3") || isValid(deliveryDate, 29, 36)) && !(details.equalsIgnoreCase("4"))) {
+                        serviceDueDate = formattedDate(deliveryDate, 29);
+                        serviceOverDueDate = formattedDate(deliveryDate, 36);
                         serviceName = serviceName("Day 29-42");
-                    } else if (details.equalsIgnoreCase("2") || isValid(sd, 8, 28)) {
-                        serviceDueDate = formattedDate(sd, 8);
-                        serviceOverDueDate = formattedDate(sd, 18);
+                    } else if (details.equalsIgnoreCase("2") || isValid(deliveryDate, 8, 28)) {
+                        serviceDueDate = formattedDate(deliveryDate, 8);
+                        serviceOverDueDate = formattedDate(deliveryDate, 18);
                         serviceName = serviceName("Day 8-28");
-                    } else if (details.equalsIgnoreCase("1") || isValid(sd, 3, 8)) {
-                        serviceDueDate = formattedDate(sd, 3);
-                        serviceOverDueDate = formattedDate(sd, 5);
+                    } else if (details.equalsIgnoreCase("1") || isValid(deliveryDate, 3, 8)) {
+                        serviceDueDate = formattedDate(deliveryDate, 3);
+                        serviceOverDueDate = formattedDate(deliveryDate, 5);
                         serviceName = serviceName("Day 3-7");
                     } else {
-                        serviceDueDate = (dateTimeFormatter.parseLocalDate(sd)).toDate();
-                        serviceOverDueDate = (dateTimeFormatter.parseLocalDate(sd)).toDate();
+                        serviceDueDate = (dateTimeFormatter.parseLocalDate(deliveryDate)).toDate();
+                        serviceOverDueDate = (dateTimeFormatter.parseLocalDate(deliveryDate)).toDate();
                         serviceName = "";
                     }
                 }
@@ -94,9 +91,6 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
                     upcomingService.setServiceDate(serviceDueDate);
                     upcomingService.setOverDueDate(serviceOverDueDate);
                     upcomingService.setServiceName(serviceName);
-                    count += 1;
-                }
-                if (count > 0) {
                     serviceList.add(upcomingService);
                 }
             } catch (Exception e) {

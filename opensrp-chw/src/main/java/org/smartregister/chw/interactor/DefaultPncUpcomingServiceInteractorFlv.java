@@ -35,6 +35,8 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
     protected Context context;
     protected DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd-MM-yyyy");
     protected LocalDate today = new DateTime().toLocalDate();
+    protected SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
 
     @Override
     public List<BaseUpcomingService> getMemberServices(Context context, MemberObject memberObject) {
@@ -49,13 +51,13 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
     }
 
 
-    private Date formattedDate(String sd, int dt) {
-        return (dateTimeFormatter.parseLocalDate(sd).plusDays(dt)).toDate();
+    private Date formattedDate(String deliveryDate, int dt) {
+        return (dateTimeFormatter.parseLocalDate(deliveryDate).plusDays(dt)).toDate();
     }
 
-    private boolean isValid(String sd, int due, int expiry) {
-        return (((dateTimeFormatter.parseLocalDate(sd).plusDays(due)).isBefore(today)) &&
-                (((dateTimeFormatter.parseLocalDate(sd).plusDays(expiry)).isAfter(today))));
+    private boolean isValid(String deliveryDate, int due, int expiry) {
+        return ((((dateTimeFormatter).parseLocalDate(deliveryDate).plusDays(due)).isBefore(today)) &&
+                (((dateTimeFormatter).parseLocalDate(deliveryDate).plusDays(expiry)).isAfter(today)));
     }
 
     private String serviceName(String val) {
@@ -64,37 +66,36 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
 
     private void evaluateHealthFacility(List<BaseUpcomingService> serviceList) {
         //Get done Visits
-        Date serviceDueDate = null;
-        Date serviceOverDueDate = null;
-        String serviceName = null;
+        Date serviceDueDate;
+        Date serviceOverDueDate;
+        String serviceName;
         String details = "";
-        int count = 0;
         List<VisitDetail> visitDetailList = ChwPNCDao.getLastPNCHealthFacilityVisits(memberObject.getBaseEntityId());
         PNCHealthFacilityVisitSummary summary = ChwPNCDao.getLastHealthFacilityVisitSummary(memberObject.getBaseEntityId());
 
+        //There are four health facility visits hence the upcoming services is only valid when only 2 visits have been done
         if (visitDetailList.size() < 3) {
             try {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                String sd = sdf.format(summary.getDeliveryDate());
-                if (visitDetailList.size() == 0 && ((dateTimeFormatter.parseLocalDate(sd).plusDays(7)).isAfter(today))) {
-                    serviceDueDate = formattedDate(sd, 1);
-                    serviceOverDueDate = formattedDate(sd, 2);
+                String deliveryDate = simpleDateFormat.format(summary.getDeliveryDate());
+                if (visitDetailList.size() == 0 && ((dateTimeFormatter.parseLocalDate(deliveryDate).plusDays(7)).isAfter(today))) {
+                    serviceDueDate = formattedDate(deliveryDate, 1);
+                    serviceOverDueDate = formattedDate(deliveryDate, 2);
                     serviceName = serviceName("Day 1");
                 } else {
                     for (VisitDetail detail : visitDetailList) {
                         details = String.valueOf(detail.getVisitKey()).replaceAll("\\D+", "");
                     }
-                    if ((details.equalsIgnoreCase("2") || isValid(sd, 42, 43)) && !(details.equalsIgnoreCase("3"))) {
-                        serviceDueDate = formattedDate(sd, 42);
-                        serviceOverDueDate = formattedDate(sd, 43);
+                    if ((details.equalsIgnoreCase("2") || isValid(deliveryDate, 42, 43)) && !(details.equalsIgnoreCase("3"))) {
+                        serviceDueDate = formattedDate(deliveryDate, 42);
+                        serviceOverDueDate = formattedDate(deliveryDate, 43);
                         serviceName = serviceName("Day 42");
-                    } else if (details.equalsIgnoreCase("1") || isValid(sd, 7, 42)) {
-                        serviceDueDate = formattedDate(sd, 7);
-                        serviceOverDueDate = formattedDate(sd, 8);
+                    } else if (details.equalsIgnoreCase("1") || isValid(deliveryDate, 7, 42)) {
+                        serviceDueDate = formattedDate(deliveryDate, 7);
+                        serviceOverDueDate = formattedDate(deliveryDate, 8);
                         serviceName = serviceName("Day 7");
                     } else {
-                        serviceDueDate = (dateTimeFormatter.parseLocalDate(sd)).toDate();
-                        serviceOverDueDate = (dateTimeFormatter.parseLocalDate(sd)).toDate();
+                        serviceDueDate = (dateTimeFormatter.parseLocalDate(deliveryDate)).toDate();
+                        serviceOverDueDate = (dateTimeFormatter.parseLocalDate(deliveryDate)).toDate();
                         serviceName = "";
                     }
                 }
@@ -103,18 +104,13 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
                     upcomingService.setServiceDate(serviceDueDate);
                     upcomingService.setOverDueDate(serviceOverDueDate);
                     upcomingService.setServiceName(serviceName);
-                    count += 1;
-                }
-                if (count > 0) {
                     serviceList.add(upcomingService);
                 }
             } catch (Exception e) {
                 Timber.v(e.toString());
             }
         }
-
     }
-
 
     private String immunizationServiceName(PncBaby baby) {
         String serviceName = null;
@@ -123,7 +119,6 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
             serviceName = context.getString(R.string.upcoming_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.bcg), context.getString(R.string.opv_0));
         } else {
             for (Alert alert : alertList) {
-
                 if (alert.scheduleName().toLowerCase().replace(" ", "").replace("_", "").equalsIgnoreCase(context.getString(R.string.opv_0).replace(" ", ""))) {
                     serviceName = context.getString(R.string.up_immunizations, context.getString(R.string.at_birth), baby.getFirstName(), context.getString(R.string.opv_0));
                 } else if (alert.scheduleName().toLowerCase().replace(" ", "").replace("_", "").equalsIgnoreCase(context.getString(R.string.bcg))) {
@@ -131,19 +126,15 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
                 }
             }
         }
-
         return serviceName;
-
-
     }
 
     private void evaluateImmunization(List<BaseUpcomingService> serviceList) {
         Date deliveryDate = new Date();
         Date OverDueDate = new Date();
         BaseUpcomingService upcomingService = new BaseUpcomingService();
-        int count = 0;
         try {
-            deliveryDate = new SimpleDateFormat("dd-MM-yyyy").parse(PncLibrary.getInstance().profileRepository().getDeliveryDate(memberObject.getBaseEntityId()));
+            deliveryDate = simpleDateFormat.parse(PncLibrary.getInstance().profileRepository().getDeliveryDate(memberObject.getBaseEntityId()));
             OverDueDate = new DateTime(deliveryDate).plusDays(13).toDate();
         } catch (Exception e) {
             Timber.v(e.toString());
@@ -154,12 +145,9 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
                 upcomingService.setServiceName(immunizationServiceName(baby));
                 upcomingService.setServiceDate(deliveryDate);
                 upcomingService.setOverDueDate(OverDueDate);
-                count += 1;
             }
         }
-        if (count > 0) {
-            serviceList.add(upcomingService);
-        }
+        serviceList.add(upcomingService);
     }
 
 }
