@@ -85,11 +85,11 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
                 } else {
                         details = String.valueOf(visitDetailList.get(0).getVisitKey()).replaceAll("\\D+", "");
 
-                    if ((details.equals("2") || isValid(deliveryDate, 42, 43)) && !(details.equals("3"))) {
+                    if (!(details.equals("3")) && ( isValid(deliveryDate, 42, 43) || details.equals("2"))) {
                         serviceDueDate = formattedDate(deliveryDate, 42);
                         serviceOverDueDate = formattedDate(deliveryDate, 43);
                         serviceName = serviceName("Day 42");
-                    } else if (details.equals("1") || isValid(deliveryDate, 7, 42)) {
+                    } else if ( isValid(deliveryDate, 7, 42) || details.equals("1")) {
                         serviceDueDate = formattedDate(deliveryDate, 7);
                         serviceOverDueDate = formattedDate(deliveryDate, 8);
                         serviceName = serviceName("Day 7");

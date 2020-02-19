@@ -2,6 +2,7 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -64,18 +65,16 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
                     serviceOverDueDate = formattedDate(deliveryDate, 2);
                     serviceName = serviceName("48 hours");
                 } else {
-                    for (VisitDetail detail : visitDetailList) {
-                        details = String.valueOf(detail.getVisitKey()).replaceAll("\\D+", "");
-                    }
-                    if ((details.equals("3") || isValid(deliveryDate, 29, 36)) && !(details.equals("4"))) {
+                    details = String.valueOf(visitDetailList.get(0).getVisitKey()).replaceAll("\\D+", "");
+                    if (!(details.equals("4")) && (isValid(deliveryDate, 29, 36) || details.equals("3"))) {
                         serviceDueDate = formattedDate(deliveryDate, 29);
                         serviceOverDueDate = formattedDate(deliveryDate, 36);
                         serviceName = serviceName("Day 29-42");
-                    } else if (details.equals("2") || isValid(deliveryDate, 8, 28)) {
+                    } else if (isValid(deliveryDate, 8, 28) || details.equals("2")) {
                         serviceDueDate = formattedDate(deliveryDate, 8);
                         serviceOverDueDate = formattedDate(deliveryDate, 18);
                         serviceName = serviceName("Day 8-28");
-                    } else if (details.equals("1") || isValid(deliveryDate, 3, 8)) {
+                    } else if (isValid(deliveryDate, 3, 8) || details.equals("1")) {
                         serviceDueDate = formattedDate(deliveryDate, 3);
                         serviceOverDueDate = formattedDate(deliveryDate, 5);
                         serviceName = serviceName("Day 3-7");
