@@ -145,11 +145,12 @@ public class ChwApplication extends CoreChwApplication {
         MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         FpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
-        //Setup referral library
-        ReferralLibrary.init(this);
-        ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
-        ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
-
+        if(hasReferrals()) {
+            //Setup referral library
+            ReferralLibrary.init(this);
+            ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
+            ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
+        }
         SyncStatusBroadcastReceiver.init(this);
 
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.DEBUG ? BuildConfig.ALLOWED_LOCATION_LEVELS_DEBUG : BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEBUG ? BuildConfig.DEFAULT_LOCATION_DEBUG : BuildConfig.DEFAULT_LOCATION);

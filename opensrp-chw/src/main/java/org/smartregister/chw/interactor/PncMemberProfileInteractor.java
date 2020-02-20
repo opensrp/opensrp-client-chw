@@ -92,27 +92,20 @@ public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor i
 
     private Alert getAlerts(Context context, MemberObject memberObject) {
         PncUpcomingServicesInteractorFlv upcomingServicesInteractor = new PncUpcomingServicesInteractorFlv();
+        List<BaseUpcomingService> baseUpcomingServices = upcomingServicesInteractor.getMemberServices(context, memberObject);
+
         try {
-            List<BaseUpcomingService> baseUpcomingServices = upcomingServicesInteractor.getMemberServices(context, memberObject);
             if (baseUpcomingServices.size() > 0) {
-                Comparator<BaseUpcomingService> comparator = (o1, o2) -> {
-                    Date dueDate1 = o1.getOverDueDate() != null ? o1.getOverDueDate() : o1.getServiceDate();
-                    Date dueDate2 = o2.getOverDueDate() != null ? o2.getOverDueDate() : o2.getServiceDate();
-                    return dueDate1.compareTo(dueDate2);
-                };
-
-
+                Comparator<BaseUpcomingService> comparator = (o1, o2) -> o1.getServiceDate().compareTo(o2.getServiceDate());
                 Collections.sort(baseUpcomingServices, comparator);
 
                 BaseUpcomingService baseUpcomingService = baseUpcomingServices.get(0);
-                String dateToDisplay = ((baseUpcomingService.getOverDueDate().before(new LocalDate().toDate())) || (baseUpcomingService.getOverDueDate().equals(new LocalDate().toDate()))) ? AbstractDao.getDobDateFormat().format(baseUpcomingService.getOverDueDate()) : AbstractDao.getDobDateFormat().format(baseUpcomingService.getServiceDate());
-
                 return new Alert(
                         memberObject.getBaseEntityId(),
                         baseUpcomingService.getServiceName(),
                         baseUpcomingService.getServiceName(),
-                        baseUpcomingService.getOverDueDate().before(new LocalDate().toDate()) || baseUpcomingService.getOverDueDate().equals(new LocalDate().toDate()) ? AlertStatus.urgent : AlertStatus.normal,
-                        dateToDisplay,
+                        baseUpcomingService.getOverDueDate().before(new Date()) ? AlertStatus.urgent : AlertStatus.normal,
+                        AbstractDao.getDobDateFormat().format(baseUpcomingService.getServiceDate()),
                         "",
                         true
                 );

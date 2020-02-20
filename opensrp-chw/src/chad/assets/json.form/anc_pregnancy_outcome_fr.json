@@ -213,7 +213,6 @@
         "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden"
       },
-
       {
         "key": "no_children_no",
         "type": "repeating_group",
@@ -441,7 +440,6 @@
           }
         ]
       }
-
     ]
   }
 }

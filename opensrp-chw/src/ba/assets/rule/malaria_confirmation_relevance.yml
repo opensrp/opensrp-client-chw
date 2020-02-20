@@ -5,20 +5,39 @@ priority: 1
 condition: "step1_fever_malaria_chw.contains('Has a fever')"
 actions:
   - "isRelevant = true"
+
 ---
-name: step1_malaria_results
-description: mRDT results
+name: step1_malaria_test_done
+description: fever duration relevance
 priority: 1
 condition: "step1_fever_malaria_chw.contains('Has a fever')"
 actions:
   - "isRelevant = true"
+
+---
+name: step1_referral_note
+description: Referral note
+priority: 1
+condition: "step1_fever_malaria_chw.contains('Has a fever') && step1_malaria_test_done.contains('No')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_malaria_results
+description: mRDT results
+priority: 1
+condition: "step1_fever_malaria_chw.contains('Has a fever') && step1_malaria_test_done.contains('Yes, by the CHW')"
+actions:
+  - "isRelevant = true"
+
 ---
 name: step1_date_hf_malaria_test
 description: Date of malaria test
 priority: 1
-condition: "step1_malaria_results.contains('Positive')"
+condition: "step1_fever_malaria_chw.contains('Tested positive for malaria in the last 14 days at a health facility')"
 actions:
   - "isRelevant = true"
+
 ---
 name: step1_malaria_treat
 description: malaria_treat
