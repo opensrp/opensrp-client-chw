@@ -52,24 +52,13 @@ public class PersonDao extends AbstractDao {
      * @return
      */
     public static List<PncBaby> getMothersPNCBabies(String baseEntityID) {
-        String sql = "select ec_child.base_entity_id , ec_family_member.first_name , ec_family_member.last_name , ec_family_member.middle_name , ec_family_member.dob " +
+        String sql = "select ec_child.base_entity_id , ec_family_member.first_name , ec_family_member.last_name , ec_family_member.middle_name , ec_family_member.dob, low_birth_weight " +
                 "from ec_child " +
                 "inner join ec_family_member on ec_child.base_entity_id = ec_family_member.base_entity_id " +
                 "where ec_child.mother_entity_id = '" + baseEntityID + "'" + " COLLATE NOCASE " +
                 "and ec_child.date_removed is null and ec_family_member.date_removed is null " +
                 "and date(ec_child.dob, '+28 days') >=  date() " +
                 "order by ec_family_member.first_name ASC, ec_family_member.last_name , ec_family_member.middle_name ";
-
-        // extract lbw from the pregnancy outcome form
-        final String[] lbw = {"No"};
-        List<Event> event = EventDao.getEvents(baseEntityID, Constants.EventType.PREGNANCY_OUTCOME, 1);
-        if (event != null && event.size() > 0) {
-            Map<String, List<Obs>> obsMap = Utils.groupObsByFieldObservations(event.get(0).getObs());
-            List<Obs> obs = obsMap.get("lbw");
-            if (obs != null && obs.size() == 1) {
-                lbw[0] = (String) obs.get(0).getHumanReadableValues().get(0);
-            }
-        }
 
         DataMap<PncBaby> dataMap = c -> {
             Date dob = null;
@@ -84,7 +73,7 @@ public class PersonDao extends AbstractDao {
                     getCursorValue(c, "last_name"),
                     getCursorValue(c, "middle_name"),
                     dob,
-                    lbw[0]
+                    getCursorValue(c,"low_birth_weight")
             );
         };
 

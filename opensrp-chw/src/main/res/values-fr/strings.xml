@@ -284,7 +284,7 @@
     <string name="pnc_observation_and_illness_baby">Observations &amp; maladie - enfant ({0})</string>
 
     <string name="pnc_counselling">Conseils</string>
-    <string name="pnc_nutrition_status">État nutritionnel</string>
+    <string name="pnc_nutrition_status">État nutritionnel - femme </string>
     <string name="pnc_nutrition_status_baby_name">État nutritionnel de l\'enfant ({0})</string>
     <string name="pnc_malaria_prevention">Prévention du paludisme</string>
     <!-- PNC Home visit subtitle text -->

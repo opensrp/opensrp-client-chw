@@ -257,6 +257,8 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_child_vaccine_card_recevied), baby.getFullName()), action);
         }
     }
+    //bootstrap dependencies
+    //native code....so
 
     @VisibleForTesting
     public List<VaccineWrapper> getWrappers(Person baby) {
@@ -367,13 +369,13 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         PncBaby baby = (PncBaby) person;
         if (baby.getLbw().equalsIgnoreCase("yes")) {
 
-            Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.KANGAROO_CARE);
+            Map<String, List<VisitDetail>> details = getDetails(person.getBaseEntityID(), Constants.EventType.KANGAROO_CARE);
 
             String title = MessageFormat.format(context.getString(R.string.pnc_kangaroo_mother_care), baby.getFullName());
             BaseAncHomeVisitAction action = getBuilder(title)
                     .withOptional(false)
                     .withDetails(details)
-                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withBaseEntityID(person.getBaseEntityID())
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getKangarooCare(), null, details, null))
                     .withHelper(new KangarooHelper())
