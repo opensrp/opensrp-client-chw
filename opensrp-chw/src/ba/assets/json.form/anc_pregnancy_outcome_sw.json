@@ -314,7 +314,7 @@
       {
         "key": "baby_label",
         "type": "label",
-        "text": "MALEZO YA MTOTO",
+        "text": "MAELEZO YA MTOTO",
         "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
@@ -341,8 +341,8 @@
       {
         "key": "no_children_no",
         "type": "repeating_group",
-        "reference_edit_text_hint": "Number of children born alive",
-        "repeating_group_label": "baby",
+        "reference_edit_text_hint": "Idadi ya watoto waliozaliwa hai",
+        "repeating_group_label": "Maelezo ya mtoto #",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -528,13 +528,6 @@
             "exclusive": [
               "chk_none"
             ],
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-file": "anc_pregnancy_outcome_relevance.yml"
-                }
-              }
-            },
             "options": [
               {
                 "key": "chk_none",

@@ -119,6 +119,29 @@
         }
       },
       {
+        "key": "malaria_test_done",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_test_done",
+        "type": "spinner",
+        "hint": "Was a malaria test done?",
+        "values": [
+          "No",
+          "Yes, by the CHW"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "malaria_confirmation_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "malaria_results",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -230,6 +253,23 @@
             }
           }
         }
+      },
+      {
+        "key": "referral_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Please refer the client for a malaria test",
+        "toaster_info_text": "Please refer the client for a malaria test",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "malaria_confirmation_relevance.yml"
+            }
+          }
+        }
       }
     ]
   },
@@ -315,27 +355,60 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Malaria topics covered",
-        "values": [
-          "Overview on malaria",
-          "Malaria prevention",
-          "Uncomplicated malaria",
-          "Severe malaria",
-          "Malaria in pregnancy",
-          "None"
+        "type": "check_box",
+        "label": "Malaria topics covered",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
         ],
-        "openmrs_choice_ids": {
-          "Overview on malaria": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Malaria prevention": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Uncomplicated malaria": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Severe malaria": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Malaria in pregnancy": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
+        "options": [
+          {
+            "key": "overview_on_malaria",
+            "text": "Overview on malaria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "malaria_prevention",
+            "text": "Malaria prevention",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "uncomplicated_malaria",
+            "text": "Uncomplicated malaria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Severe_malaria",
+            "text": "Severe malaria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "malaria_in_pregnancy",
+            "text": "Malaria in pregnancy",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": "Please pick at least one"
         }
       }
     ]
