@@ -66,15 +66,15 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
                     serviceName = serviceName("48 hours");
                 } else {
                     details = String.valueOf(visitDetailList.get(0).getVisitKey()).replaceAll("\\D+", "");
-                    if (!(details.equals("4")) && (isValid(deliveryDate, 29, 36) || details.equals("3"))) {
+                    if (!(details.equals("4")) && ( details.equals("3") || isValid(deliveryDate, 29, 36) )) {
                         serviceDueDate = formattedDate(deliveryDate, 29);
                         serviceOverDueDate = formattedDate(deliveryDate, 36);
                         serviceName = serviceName("Day 29-42");
-                    } else if (isValid(deliveryDate, 8, 28) || details.equals("2")) {
+                    } else if ( details.equals("2") || isValid(deliveryDate, 8, 28)) {
                         serviceDueDate = formattedDate(deliveryDate, 8);
                         serviceOverDueDate = formattedDate(deliveryDate, 18);
                         serviceName = serviceName("Day 8-28");
-                    } else if (isValid(deliveryDate, 3, 8) || details.equals("1")) {
+                    } else if ( details.equals("1") || isValid(deliveryDate, 3, 8)) {
                         serviceDueDate = formattedDate(deliveryDate, 3);
                         serviceOverDueDate = formattedDate(deliveryDate, 5);
                         serviceName = serviceName("Day 3-7");

@@ -36,9 +36,7 @@ public class SickFormMedicalHistoryPresenterTest {
         Whitebox.setInternalState(presenter, "interactor", interactor);
         Whitebox.setInternalState(presenter, "view", new WeakReference<>(view));
         Whitebox.setInternalState(presenter, "memberObject", memberObject);
-        initialize();
     }
-
 
     @Test
     public void getView() {
