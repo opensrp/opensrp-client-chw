@@ -46,13 +46,6 @@ public class SickFormMedicalHistoryPresenterTest {
     }
 
     @Test
-    public void initialize() {
-        presenter.initialize();
-        if (presenter.getView() != null) {
-        }
-    }
-
-    @Test
     public void onDataFetched() {
         presenter.onDataFetched(serviceList);
         if (presenter.getView() != null) {
