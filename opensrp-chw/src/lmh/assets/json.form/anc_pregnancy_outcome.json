@@ -206,7 +206,8 @@
         "key": "no_children_no",
         "type": "repeating_group",
         "reference_edit_text_hint": "Number of children born",
-        "repeating_group_label": "baby",
+        "repeating_group_label": "Baby Details",
+        "repeating_group_max": "10",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -332,7 +333,7 @@
             },
             "v_required": {
               "value": "true",
-              "err": "Please enter the sex"
+              "err": "Please select if baby has low the weight"
             }
           },
           {
@@ -352,7 +353,7 @@
             },
             "v_required": {
               "value": "true",
-              "err": "Please enter the sex"
+              "err": "Please enter Early initiation of breastfeeding"
             }
           },
           {
@@ -372,7 +373,7 @@
             },
             "v_required": {
               "value": "true",
-              "err": "Please enter the sex"
+              "err": "Please enter if Physically challenged"
             }
           },
           {
