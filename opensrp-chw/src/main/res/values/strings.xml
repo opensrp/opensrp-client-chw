@@ -285,7 +285,7 @@
     <string name="pnc_observation_and_illness_baby">Observations &amp; illness - baby ({0}) </string>
 
     <string name="pnc_counselling">Counselling</string>
-    <string name="pnc_nutrition_status">Nutrition status</string>
+    <string name="pnc_nutrition_status">Nutrition status - mother </string>
     <string name="pnc_nutrition_status_baby_name">Nutrition status baby ({0})</string>
     <string name="pnc_malaria_prevention">Malaria prevention</string>
     <!-- PNC Home visit subtitle text -->
