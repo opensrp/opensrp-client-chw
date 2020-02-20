@@ -3,6 +3,7 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -38,9 +39,9 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
         return (dateTimeFormatter.parseLocalDate(sd).plusDays(period)).toDate();
     }
 
-    private boolean isValid(String sd, int due, int expiry) {
-        return ((((dateTimeFormatter).parseLocalDate(sd).plusDays(due)).isBefore(today)) &&
-                (((dateTimeFormatter).parseLocalDate(sd).plusDays(expiry)).isAfter(today)));
+    private boolean isValid(String deliveryDate, int due, int expiry) {
+        return ((((dateTimeFormatter).parseLocalDate(deliveryDate).plusDays(due)).isBefore(today)) &&
+                (((dateTimeFormatter).parseLocalDate(deliveryDate).plusDays(expiry)).isAfter(today)));
     }
 
     private String serviceName(String val) {
@@ -59,7 +60,7 @@ public class PncUpcomingServicesInteractorFlv extends DefaultPncUpcomingServiceI
         //There are four health facility visits hence the  upcoming services is only valid when only 3 visits have been done
         if ( summary != null && summary.getDeliveryDate() != null && visitDetailList != null && visitDetailList.size() < 4) {
             try {
-                String deliveryDate = simpleDateFormat.format(summary.getDeliveryDate());
+               @NotNull String deliveryDate = simpleDateFormat.format(summary.getDeliveryDate());
                 if (visitDetailList.size() == 0 && ((dateTimeFormatter.parseLocalDate(deliveryDate).plusDays(3)).isAfter(today))) {
                     serviceDueDate = (dateTimeFormatter.parseLocalDate(deliveryDate)).toDate();
                     serviceOverDueDate = formattedDate(deliveryDate, 2);

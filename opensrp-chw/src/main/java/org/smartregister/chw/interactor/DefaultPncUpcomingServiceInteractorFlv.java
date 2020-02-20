@@ -4,6 +4,7 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -77,13 +78,13 @@ public class DefaultPncUpcomingServiceInteractorFlv implements PncUpcomingServic
         //There are four health facility visits hence the upcoming services is only valid when only 2 visits have been done
         if ( summary != null && summary.getDeliveryDate() != null && visitDetailList != null && visitDetailList.size() < 3 ) {
             try {
-                String deliveryDate = simpleDateFormat.format(summary.getDeliveryDate());
+                @NotNull String deliveryDate = simpleDateFormat.format(summary.getDeliveryDate());
                 if (visitDetailList.size() == 0 && ((dateTimeFormatter.parseLocalDate(deliveryDate).plusDays(7)).isAfter(today))) {
                     serviceDueDate = formattedDate(deliveryDate, 1);
                     serviceOverDueDate = formattedDate(deliveryDate, 2);
                     serviceName = serviceName("Day 1");
                 } else {
-                        details = String.valueOf(visitDetailList.get(0).getVisitKey()).replaceAll("\\D+", "");
+                    details = String.valueOf(visitDetailList.get(0).getVisitKey()).replaceAll("\\D+", "");
 
                     if (!(details.equals("3")) && (  details.equals("2") || isValid(deliveryDate, 42, 43))) {
                         serviceDueDate = formattedDate(deliveryDate, 42);
