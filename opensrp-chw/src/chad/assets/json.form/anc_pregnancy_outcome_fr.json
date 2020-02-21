@@ -65,11 +65,7 @@
         "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
-        "text_size": "8sp",
-        "text_color": "#000000",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": ""
+        "text_size": "7sp"
       },
       {
         "key": "preg_outcome",
@@ -99,7 +95,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "Sélectionnez une option"
         }
       },
       {
@@ -113,7 +109,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please enter date the woman miscarried."
+          "err": "Entrez la date"
         },
         "relevance": {
           "rules-engine": {
@@ -134,7 +130,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please enter date the woman delivered"
+          "err": "Entrez la date"
         },
         "relevance": {
           "rules-engine": {
@@ -169,7 +165,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "Sélectionnez une option"
         },
         "relevance": {
           "rules-engine": {
@@ -183,14 +179,9 @@
         "key": "baby_label",
         "type": "label",
         "text": "Détails de l'enfant",
-        "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
-        "text_size": "8sp",
-        "text_color": "#000000",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "text_size": "7sp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -216,8 +207,9 @@
       {
         "key": "no_children_no",
         "type": "repeating_group",
-        "reference_edit_text_hint": "Number of children born",
-        "repeating_group_label": "baby",
+        "reference_edit_text_hint": "Nombre d'enfants nés",
+        "repeating_group_label": "Détails de l'enfant #",
+        "repeating_group_max": "10",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -230,7 +222,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please specify the # of babies"
+          "err": "Nombre d'enfants nés"
         },
         "value": [
           {
@@ -247,7 +239,7 @@
             },
             "v_required": {
               "value": "true",
-              "err": "Please enter the surname"
+              "err": "obligatoire"
             },
             "relevance": {
               "rules-engine": {
@@ -283,11 +275,11 @@
             "edit_type": "name",
             "v_required": {
               "value": "true",
-              "err": "Please enter the first name"
+              "err": "obligatoire"
             },
             "v_regex": {
               "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-              "err": "Please enter a valid name"
+              "err": "Entrez un nom valide"
             }
           },
           {
@@ -300,7 +292,7 @@
             "edit_type": "name",
             "v_regex": {
               "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-              "err": "Please enter a valid name"
+              "err": "Entrez un nom valide"
             }
           },
           {
@@ -327,7 +319,7 @@
             ],
             "v_required": {
               "value": "true",
-              "err": "Please enter the sex"
+              "err": "Obligatoire"
             }
           },
           {
@@ -351,7 +343,7 @@
             },
             "v_required": {
               "value": "true",
-              "err": "Please enter the sex"
+              "err": "Obligatoire"
             }
           },
           {
@@ -375,7 +367,7 @@
             },
             "v_required": {
               "value": "true",
-              "err": "Please enter the sex"
+              "err": "Obligatoire"
             }
           },
           {
@@ -399,7 +391,7 @@
             },
             "v_required": {
               "value": "true",
-              "err": "Please enter the sex"
+              "err": "Obligatoire"
             }
           },
           {
