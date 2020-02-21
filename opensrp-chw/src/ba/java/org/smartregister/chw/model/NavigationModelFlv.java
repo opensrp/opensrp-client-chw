@@ -1,5 +1,6 @@
 package org.smartregister.chw.model;
 
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.model.NavigationModel;
 import org.smartregister.chw.core.model.NavigationOption;
@@ -26,7 +27,10 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op7 = new NavigationOption(R.mipmap.sidemenu_malaria, R.mipmap.sidemenu_malaria_active, R.string.menu_malaria, Constants.DrawerMenu.MALARIA, 0);
             NavigationOption op8 = new NavigationOption(R.mipmap.sidemenu_referrals, R.mipmap.sidemenu_referrals_active, R.string.menu_referrals, Constants.DrawerMenu.REFERRALS, 0);
 
-            navigationOptions.addAll(Arrays.asList(op1, op3, op5, op2, op6, op7,op8));
+            navigationOptions.addAll(Arrays.asList(op1, op3, op5, op2, op6, op7));
+
+            if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
+                navigationOptions.add(op8);
         }
 
         return navigationOptions;
