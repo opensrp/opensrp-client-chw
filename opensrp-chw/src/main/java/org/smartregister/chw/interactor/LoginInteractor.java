@@ -7,7 +7,7 @@ import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.job.BasePncCloseJob;
 import org.smartregister.chw.job.ScheduleJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
-import org.smartregister.job.DistrictFacilitiesServiceJob;
+import org.smartregister.job.SyncLocationsByLevelAndTagsServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PlanIntentServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
@@ -62,6 +62,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
-        DistrictFacilitiesServiceJob.scheduleJobImmediately(DistrictFacilitiesServiceJob.TAG);
+        SyncLocationsByLevelAndTagsServiceJob.scheduleJobImmediately(SyncLocationsByLevelAndTagsServiceJob.TAG);
     }
 }
