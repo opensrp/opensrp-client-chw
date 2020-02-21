@@ -346,6 +346,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "repeating_group_max": "10",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -409,7 +410,7 @@
             "edit_type": "name",
             "v_required": {
               "value": "true",
-              "err": "Please enter the first name"
+              "err": "Tafadhali ingiza jina la kwanza"
             },
             "v_regex": {
               "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
@@ -426,7 +427,7 @@
             "edit_type": "name",
             "v_regex": {
               "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-              "err": "Please enter a valid name"
+              "err": "Tafadhali ingiza jina halali"
             }
           },
           {
@@ -453,7 +454,7 @@
             ],
             "v_required": {
               "value": "true",
-              "err": "Please enter the sex"
+              "err": "Tafadhali ingiza jinsia"
             }
           },
           {
@@ -477,7 +478,7 @@
             },
             "v_required": {
               "value": "true",
-              "err": "Please enter the sex"
+              "err": "Tafadhali ingiza ulemavu"
             }
           },
           {
