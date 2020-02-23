@@ -150,13 +150,11 @@
         "hint": "mRDT results",
         "values": [
           "Positive",
-          "Negative",
-          "Not done"
+          "Negative"
         ],
         "openmrs_choice_ids": {
           "Positive": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Negative": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Not done": "160414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Negative": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -354,11 +352,12 @@
         "key": "malaria_edu_chw",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "malaria_edu_chw",
         "type": "check_box",
         "label": "Malaria topics covered",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
         "exclusive": [
           "chk_none"
         ],
@@ -368,7 +367,7 @@
             "text": "Overview on malaria",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "malaria_prevention",
@@ -408,7 +407,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please pick at least one"
+          "err": "Malaria topics covered required"
         }
       }
     ]

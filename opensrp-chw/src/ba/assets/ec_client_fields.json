@@ -857,7 +857,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "concept": "malaria_edu_chw"
           }
         },
         {

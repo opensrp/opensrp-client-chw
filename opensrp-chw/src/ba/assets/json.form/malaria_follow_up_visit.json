@@ -199,7 +199,7 @@
       {
         "key": "fever_still",
         "type": "native_radio",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Do you still have a fever?",
