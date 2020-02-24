@@ -76,6 +76,7 @@ android {
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '120'
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '720'
+            buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "false"
         }
 
         debug {
@@ -91,6 +92,7 @@ android {
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '120'
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '360'
+            buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "false"
             testCoverageEnabled true
         }
     }
@@ -138,7 +140,7 @@ android {
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
-            //buildConfigField "String", 'opensrp_url_debug', '"https://ba-unified-stage.smartregister.org/opensrp/"'
+            // buildConfigField "String", 'opensrp_url_debug', '"https://ba-unified-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country","Region","District","Ward" , "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"MOH Jhpiego Facility Name" , "Village"}'

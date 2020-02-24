@@ -6,6 +6,7 @@ import android.util.Pair;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ReferralRegistrationActivity;
@@ -72,14 +73,18 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
 
     @Override
     public void startSickChildReferralForm() {
-        try {
-            JSONObject formJson = FormUtils.getInstance(getView().getContext())
-                    .getFormJson(Constants.JSON_FORM.getChildReferralForm());
-            formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
-            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults((Activity) getView().getContext(),
-                    getChildBaseEntityId(), formJson, null);
-        } catch (Exception e) {
-            Timber.e(e);
+        if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            try {
+                JSONObject formJson = FormUtils.getInstance(getView().getContext())
+                        .getFormJson(Constants.JSON_FORM.getChildUnifiedReferralForm());
+                formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
+                ReferralRegistrationActivity.startGeneralReferralFormActivityForResults((Activity) getView().getContext(),
+                        getChildBaseEntityId(), formJson, null);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }else {
+            super.startSickChildReferralForm();
         }
     }
 
