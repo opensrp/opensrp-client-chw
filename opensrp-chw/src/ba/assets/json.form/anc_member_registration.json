@@ -193,6 +193,10 @@
           "value": "true",
           "err": "Must be a rounded number"
         },
+        "v_max": {
+          "value": "50",
+          "err": "Number must be equal or less than 50"
+        },
         "v_min": {
           "value": "0",
           "err": "Number must be equal or greater than 0"

@@ -209,7 +209,7 @@
         "type": "repeating_group",
         "reference_edit_text_hint": "Nombre d'enfants nés",
         "repeating_group_label": "Détails de l'enfant #",
-        "repeating_group_max": "10",
+        "repeating_group_max": "9",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
