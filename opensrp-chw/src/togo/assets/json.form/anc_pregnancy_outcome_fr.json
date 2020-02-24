@@ -235,7 +235,7 @@
             "edit_type": "name",
             "v_regex": {
               "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-              "err": "Please enter a valid name"
+              "err": "Entrez un nom valide"
             },
             "v_required": {
               "value": "true",
@@ -389,6 +389,47 @@
               "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
             },
+            "v_required": {
+              "value": "true",
+              "err": "Obligatoire"
+            }
+          },
+          {
+            "key": "essential_newborn_care",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "essential_newborn_care",
+            "type": "check_box",
+            "combine_checkbox_option_values": "true",
+            "label": "Soins essentiels aux nouveau-nés reçu au structure sanitaire?",
+            "label_text_style": "normal",
+            "text_color": "#C0C0C0",
+            "exclusive": [
+              "chk_none"
+            ],
+            "options": [
+              {
+                "key": "chk_none",
+                "text": "Aucun",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              {
+                "key": "chlorhexidine_applied_to_umbilical_stump",
+                "text": "Cordon ombilical traité avec une solution de chlorhexidine",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              {
+                "key": "skin_to_skin_contact",
+                "text": "Contact peau contre peau pour au moins 2 heures",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "164173AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            ],
             "v_required": {
               "value": "true",
               "err": "Obligatoire"
