@@ -2,17 +2,12 @@ package org.smartregister.chw.dao;
 
 import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.domain.PncBaby;
-import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.Utils;
-import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.dao.AbstractDao;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import timber.log.Timber;
 
