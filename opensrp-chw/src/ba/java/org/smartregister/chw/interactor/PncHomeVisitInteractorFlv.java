@@ -264,11 +264,10 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             @Override
             public String evaluateSubTitle() {
                 StringBuilder builder = new StringBuilder();
-                builder.append(
-                        MessageFormat.format("{0}: {1}\n",
-                                context.getString(R.string.fp_counseling),
-                                "Yes".equalsIgnoreCase(fp_counseling) ? evaluateFpPeriod() : context.getString(R.string.not_done).toLowerCase())
-                );
+                String subTitleText = MessageFormat.format("{0}: {1}\n",
+                        context.getString(R.string.fp_counseling),
+                        "Yes".equalsIgnoreCase(fp_counseling) ? evaluateFpPeriod() : context.getString(R.string.not_done).toLowerCase());
+                builder.append(subTitleText);
 
                 if (StringUtils.isNotBlank(fp_method)) {
                     String method = "";
@@ -303,7 +302,12 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         default:
                             break;
                     }
-                    builder.append(MessageFormat.format("{0}: {1}", method, StringUtils.isNoneBlank(fp_start_date) ? new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(start_date) : ""));
+                    if (StringUtils.isBlank(fp_start_date) || fp_method.equals("None")) {
+                        subTitleText = MessageFormat.format("{0}", method);
+                    } else {
+                        subTitleText = MessageFormat.format("{0}: {1}", method, new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(start_date));
+                    }
+                    builder.append(subTitleText);
                 }
                 return builder.toString();
             }

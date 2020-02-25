@@ -65,11 +65,8 @@
         "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
-        "text_size": "8sp",
-        "text_color": "#000000",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": ""
+        "text_size": "7sp",
+        "text_color": "#000000"
       },
       {
         "key": "preg_outcome",
@@ -172,14 +169,9 @@
         "key": "baby_label",
         "type": "label",
         "text": "BABY DETAILS",
-        "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
-        "text_size": "8sp",
-        "text_color": "#000000",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "text_size": "7sp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -206,7 +198,8 @@
         "key": "no_children_no",
         "type": "repeating_group",
         "reference_edit_text_hint": "Number of children born",
-        "repeating_group_label": "baby",
+        "repeating_group_label": "Baby Details #",
+        "repeating_group_max": "10",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -332,7 +325,7 @@
             },
             "v_required": {
               "value": "true",
-              "err": "Please enter the sex"
+              "err": "Please select if baby has low the weight"
             }
           },
           {
@@ -352,7 +345,7 @@
             },
             "v_required": {
               "value": "true",
-              "err": "Please enter the sex"
+              "err": "Please enter Early initiation of breastfeeding"
             }
           },
           {
@@ -372,7 +365,7 @@
             },
             "v_required": {
               "value": "true",
-              "err": "Please enter the sex"
+              "err": "Please enter if Physically challenged"
             }
           },
           {

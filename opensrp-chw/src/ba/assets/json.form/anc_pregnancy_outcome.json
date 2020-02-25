@@ -315,10 +315,9 @@
         "key": "baby_label",
         "type": "label",
         "text": "BABY DETAILS",
-        "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
-        "text_size": "8sp",
+        "text_size": "7sp",
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -343,10 +342,11 @@
         "key": "no_children_no",
         "type": "repeating_group",
         "reference_edit_text_hint": "Number of children born alive",
-        "repeating_group_label": "baby",
+        "repeating_group_label": "Baby Details #",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
+        "repeating_group_max": "10",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -454,7 +454,7 @@
             ],
             "v_required": {
               "value": "true",
-              "err": "Please enter the sex"
+              "err": "Gender required"
             }
           },
           {
@@ -478,7 +478,7 @@
             },
             "v_required": {
               "value": "true",
-              "err": "Please enter the sex"
+              "err": "Required"
             }
           },
           {
@@ -554,7 +554,7 @@
             ],
             "v_required": {
               "value": "true",
-              "err": "Please enter the current weight"
+              "err": "vaccinations given required"
             }
           }
         ]
