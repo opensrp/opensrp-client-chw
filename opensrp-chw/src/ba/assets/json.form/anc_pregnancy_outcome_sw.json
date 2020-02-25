@@ -346,7 +346,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "repeating_group_max": "10",
+        "repeating_group_max": "9",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -356,7 +356,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please specify the # of babies"
+          "err": "Tafadhali taja # ya watoto"
         },
         "value": [
           {
@@ -414,7 +414,7 @@
             },
             "v_regex": {
               "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-              "err": "Please enter a valid name"
+              "err": "Tafadhali ingiza jina halali"
             }
           },
           {

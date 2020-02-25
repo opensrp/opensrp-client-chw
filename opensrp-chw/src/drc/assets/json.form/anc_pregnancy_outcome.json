@@ -199,7 +199,7 @@
         "type": "repeating_group",
         "reference_edit_text_hint": "Number of children born",
         "repeating_group_label": "Baby Details #",
-        "repeating_group_max": "10",
+        "repeating_group_max": "9",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -366,6 +366,47 @@
             "v_required": {
               "value": "true",
               "err": "Please enter if Physically challenged"
+            }
+          },
+          {
+            "key": "essential_newborn_care",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "essential_newborn_care",
+            "type": "check_box",
+            "combine_checkbox_option_values": "true",
+            "label": "Essential newborn care received at the health facility",
+            "label_text_style": "normal",
+            "text_color": "#C0C0C0",
+            "exclusive": [
+              "chk_none"
+            ],
+            "options": [
+              {
+                "key": "chk_none",
+                "text": "None",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              {
+                "key": "chlorhexidine_applied_to_umbilical_stump",
+                "text": "Chlorhexidine applied to umbilical stump",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              {
+                "key": "skin_to_skin_contact",
+                "text": "Skin to skin contact for at least 2 hours",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "164173AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            ],
+            "v_required": {
+              "value": "true",
+              "err": "Please pick at least one"
             }
           },
           {
