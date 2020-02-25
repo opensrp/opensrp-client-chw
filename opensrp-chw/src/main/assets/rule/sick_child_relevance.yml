@@ -1,0 +1,6 @@
+name: step1_very_sev_disease
+description: very_sev_disease toaster
+priority: 1
+condition: "!step1_danger_signs.contains('None') && !step1_danger_signs.isEmpty()"
+actions:
+  - "isRelevant = true"
