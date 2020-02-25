@@ -101,7 +101,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Check for general danger signs:",
+        "label": "Check for general danger signs:",
+        "exclusive": ["None"],
         "options": [
           {
             "key": "not_able_to_drink",
@@ -143,6 +144,23 @@
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "very_sev_disease",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child Has: VERY SEVERE DISEASE \n- Quickly complete the rest of this assessment \n- Give any pre-referral treatment immediately \n- Treat to prevent low blood sugar \n- Keep the child warm \n- Refer URGENTLY",
+        "toaster_info_text": "\"Child Has: VERY SEVERE DISEASE \\n- Quickly complete the rest of this assessment \\n- Give any pre-referral treatment immediately \\n- Treat to prevent low blood sugar \\n- Keep the child warm \\n- Refer URGENTLY",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
