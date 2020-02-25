@@ -1,0 +1,14 @@
+---
+name: step1_fast_breathing_final
+description: Fast breathing final calculation
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step1_fast_breathing2 != null ? step1_fast_breathing2 : step1_fast_breathing)'
+---
+name: step1_chest_indrawing
+description: Chest Indrawing calculation
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ((step1_indrawing_bronchodilator.contains("no") || (step1_indrawing_bronchodilator.isEmpty() && step1_breathing_symptoms.contains("chest_indrawing"))) ? 1 : 0)'
