@@ -96,3 +96,24 @@ priority: 1
 condition: "step1_chest_indrawing == 1"
 actions:
   - "isRelevant = true"
+---
+name: step1_severe_pneumonia_note
+description: Severe pneumonia toaster
+priority: 1
+condition: "step1_severe_pneumonia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_pneumonia_note
+description: pneumonia toaster
+priority: 1
+condition: "step1_pneumonia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_cough_cold_note
+description: Cold cough toaster
+priority: 1
+condition: "step1_cough_cold == 1"
+actions:
+  - "isRelevant = true"
