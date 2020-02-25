@@ -153,7 +153,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child Has: VERY SEVERE DISEASE \n- Quickly complete the rest of this assessment \n- Give any pre-referral treatment immediately \n- Treat to prevent low blood sugar \n- Keep the child warm \n- Refer URGENTLY",
-        "toaster_info_text": "\"Child Has: VERY SEVERE DISEASE \\n- Quickly complete the rest of this assessment \\n- Give any pre-referral treatment immediately \\n- Treat to prevent low blood sugar \\n- Keep the child warm \\n- Refer URGENTLY",
+        "toaster_info_text": "Child Has: VERY SEVERE DISEASE \n- Quickly complete the rest of this assessment \n- Give any pre-referral treatment immediately \n- Treat to prevent low blood sugar \n- Keep the child warm \n- Refer URGENTLY",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -186,6 +186,13 @@
             "text": "Diazepam NOT given"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -197,7 +204,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Does the child have any of these symptoms?",
+        "label": "Does the child have any of these symptoms?",
+        "exclusive": ["no_symptom"],
         "options": [
           {
             "key": "difficult_breathing",
@@ -236,6 +244,23 @@
         }
       },
       {
+        "key": "no_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has no danger signs or symptoms . \nFollow-up with the caregiver to make sure the child stays healthy.",
+        "toaster_info_text": "Child has no danger signs or symptoms . \nFollow-up with the caregiver to make sure the child stays healthy.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "difficult_breathing",
         "type": "native_radio",
         "openmrs_entity": "concept",
@@ -261,6 +286,13 @@
         "v_required": {
           "value": "true",
           "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -271,9 +303,33 @@
         "openmrs_entity_parent": "",
         "edit_type": "number",
         "hint": "How many days has the child had a cough or difficult breathing?",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please enter the number of days"
+        }
+      },
+      {
+        "key": "breaths_minute_procedure",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Procedure:\n- Count the breaths in one minute. \n- Look for chest indrawing.\n- Look and listen for stridor.\n- Look and listen for wheezing.",
+        "toaster_info_text": "Procedure:\n- Count the breaths in one minute. \n- Look for chest indrawing.\n- Look and listen for stridor.\n- Look and listen for wheezing.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -284,9 +340,30 @@
         "openmrs_entity_parent": "",
         "edit_type": "number",
         "hint": "Number of breaths per minute",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please enter the number of breaths"
+        }
+      },
+      {
+        "key": "fast_breathing",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -295,7 +372,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Which of these difficult breathing symptoms does the child display?",
+        "label": "Which of these difficult breathing symptoms does the child display?",
+        "exclusive": ["none"],
         "options": [
           {
             "key": "wheezing",
@@ -322,9 +400,33 @@
             "openmrs_choice_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "bronchodilator",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Give a trial of rapid acting bronchodilator up to 3 times, 15-20 minutes apart.",
+        "toaster_info_text": "Give a trial of rapid acting bronchodilator up to 3 times, 15-20 minutes apart.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -350,9 +452,33 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
+        }
+      },
+      {
+        "key": "breaths_minute2_procedure",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Give a trial of rapid acting bronchodilator up to 3 times, 15-20 minutes apart.",
+        "toaster_info_text": "Give a trial of rapid acting bronchodilator up to 3 times, 15-20 minutes apart.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -363,9 +489,30 @@
         "openmrs_entity_parent": "",
         "edit_type": "number",
         "hint": "Number of breaths per minute",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please enter the number of breaths"
+        }
+      },
+      {
+        "key": "fast_breathing2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -391,9 +538,44 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
+        }
+      },
+      {
+        "key": "fast_breathing_final",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "chest_indrawing",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -426,6 +608,13 @@
             "text": "Don't know"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
