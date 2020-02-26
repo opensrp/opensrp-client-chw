@@ -111,9 +111,10 @@
           "err": "Tafadhali chagua angalau moja"
         },
         "relevance": {
-          "step1:fp_counseling": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_family_planning_relevance.yml"
+            }
           }
         }
       },
@@ -163,9 +164,10 @@
           "err": "Tafadhali chagua moja"
         },
         "relevance": {
-          "step1:fp_counseling": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_family_planning_relevance.yml"
+            }
           }
         }
       },
@@ -183,13 +185,10 @@
           "err": "Tafadhali ingiza tarehe"
         },
         "relevance": {
-          "step1:fp_counseling": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          },
-          "step1:fp_method": {
-            "type": "string",
-            "ex": "notEqualTo(., \"None\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_family_planning_relevance.yml"
+            }
           }
         }
       }
