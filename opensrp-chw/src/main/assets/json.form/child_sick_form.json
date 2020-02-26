@@ -1,7 +1,8 @@
 {
   "validate_on_submit": true,
   "show_errors_on_submit": false,
-  "count": "4",
+  "skip_blank_steps": true,
+  "count": "5",
   "encounter_type": "Sick Child",
   "entity_id": "",
   "relational_id": "",
@@ -282,7 +283,8 @@
     ]
   },
   "step4": {
-    "title": "DIAGNOSIS AND TREATMENT",
+    "title": "DIFFICULT BREATHING CLASSIFICATION & TREATMENT",
+    "next": "step5",
     "display_back_button": "true",
     "fields": [
       {
@@ -746,8 +748,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "",
-        "toaster_info_text": "",
+        "text": "SEVERE PNEUMONIA OR VERY SEVERE DISEASE",
+        "toaster_info_text": "SEVERE PNEUMONIA OR VERY SEVERE DISEASE",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -778,9 +780,33 @@
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "chest_indrawing_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "CHEST INDRAWING & HIV EXPOSED/INFECTED TREATMENT:\n\n- Give first dose of amoxicillin and refer.",
+        "toaster_info_text": "CHEST INDRAWING & HIV EXPOSED/INFECTED TREATMENT:\n\n- Give first dose of amoxicillin and refer.",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -789,7 +815,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment given:",
+        "label": "Treatment given:",
         "options": [
           {
             "key": "first_dose_antibiotic",
@@ -804,9 +830,33 @@
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "pneumonia_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "PNEUMONIA TREATMENT:",
+        "toaster_info_text": "PNEUMONIA TREATMENT:",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -815,7 +865,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "114100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment given:",
+        "label": "Treatment given:",
         "options": [
           {
             "key": "oral_amoxicillin",
@@ -842,9 +892,33 @@
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "cold_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "COUGH OR COLD TREATMENT:",
+        "toaster_info_text": "COUGH OR COLD TREATMENT:",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -853,7 +927,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment given:",
+        "label": "Treatment given:",
         "options": [
           {
             "key": "inhaled_bronchodilator_cough",
@@ -863,16 +937,29 @@
           },
           {
             "key": "referred_tb_asthma",
-            "text": "",
+            "text": "Referred for possible TB or asthma assessment",
             "value": false,
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
         }
-      },
+      }
+    ]
+  },
+  "step5": {
+    "title": "DIARRHOEA CHECK",
+    "display_back_button": "true",
+    "fields": [
       {
         "key": "diarrhoea",
         "type": "native_radio",

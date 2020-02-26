@@ -124,3 +124,45 @@ priority: 1
 condition: "step4_severe_pneumonia == 1"
 actions:
   - "isRelevant = true"
+---
+name: step4_chest_indrawing_treat_note
+description: Chest indrawing treatment toaster
+priority: 1
+condition: "step4_chest_indrawing == 1 && step4_hiv_exposure.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_chest_indraw_hiv
+description: Chest indrawing treatment given
+priority: 1
+condition: "step4_chest_indrawing == 1 && step4_hiv_exposure.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_pneumonia_treatment_note
+description: Pneumonia treatment toaster
+priority: 1
+condition: "step4_pneumonia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step4_pneumonia_treatment
+description: Pneumonia treatment
+priority: 1
+condition: "step4_pneumonia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step4_cold_treatment_note
+description: Cold or cough treatment toaster
+priority: 1
+condition: "step4_cough_cold == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step4_cough_cold_treatment
+description: Cold or cough treatment
+priority: 1
+condition: "step4_cough_cold == 1"
+actions:
+  - "isRelevant = true"
