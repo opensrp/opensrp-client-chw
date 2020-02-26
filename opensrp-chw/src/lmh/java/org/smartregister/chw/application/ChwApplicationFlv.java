@@ -13,7 +13,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasChildSickForm() {
-        return true;
+        return false;
     }
 
     @Override
@@ -23,6 +23,6 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasRoutineVisit() {
-        return true;
+        return false;
     }
 }
