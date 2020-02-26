@@ -33,3 +33,74 @@ priority: 1
 condition: "step4_difficult_breathing.contains('yes')"
 actions:
   - 'calculation = ((step4_severe_pneumonia == 0 && step4_pneumonia == 0)? 1 : 0)'
+---
+name: step5_lethargic_unconcious_calc
+description: Lethargic unconcious calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_gen_condition.contains("lethargic_unconcious"))? 1 : 0)'
+---
+name: step5_sunken_eyes_calc
+description: Sunken eyes calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sunken_eyes.contains("yes"))? 1 : 0)'
+---
+name: step5_not_able_drink
+description: Not able to drink calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sunken_eyes.contains("drinking_poorly"))? 1 : 0)'
+---
+name: step5_drinks
+description: Drinks calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sunken_eyes.contains("drinking_eargerly"))? 1 : 0)'
+---
+name: step5_pinched_skin_slowly
+description: Pinched skin calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_pinching.contains("skin_very_slowly"))? 1 : 0)'
+---
+name: step5_restless_irritable_calc
+description: Restless irritable calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_gen_condition.contains("restless_irritable"))? 1 : 0)'
+---
+name: step5_sev_dehydration_class
+description: Severe dehydration class calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = (step5_lethargic_unconcious_calc + step5_sunken_eyes_calc + step5_not_able_drink + step5_not_able_drink + step5_pinched_skin_slowly)'
+---
+name: step5_sev_dehydration
+description: Severe dehydration calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sev_dehydration_class > 2)? 1 : 0)'
+---
+name: step5_some_dehydration_class
+description: Some dehydration class calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = (step5_restless_irritable_calc + step5_sunken_eyes_calc + step5_drinks + step5_pinched_skin_slowly)'
+---
+name: step5_some_dehydration
+description: Some dehydration calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_some_dehydration_class > 2)? 1 : 0)'
+

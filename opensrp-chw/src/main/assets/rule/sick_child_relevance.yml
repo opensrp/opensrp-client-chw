@@ -166,3 +166,80 @@ priority: 1
 condition: "step4_cough_cold == 1"
 actions:
   - "isRelevant = true"
+---
+name: step5_diarrhoea_period
+description: Diarrhoea period
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_blood_stool
+description: Blood in stool
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_gen_condition
+description: General condition of child
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sunken_eyes
+description: Has sunken eyes
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sunken_eyes
+description: Has sunken eyes
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sunken_eyes
+description: Has sunken eyes
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_drinking
+description: How is the child drinking
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_pinching
+description: How is the skin reacting
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_cholera_present
+description: Has there been cholera instances
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sev_dehydration_note
+description: Severe dehydration toaster
+priority: 1
+condition: "step5_sev_dehydration == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_some_dehydration_note
+description: Some dehydration toaster
+priority: 1
+condition: "step5_some_dehydration == 1"
+actions:
+  - "isRelevant = true"
