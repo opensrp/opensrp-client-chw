@@ -1,35 +1,35 @@
 ---
-name: step1_fast_breathing_final
+name: step4_fast_breathing_final
 description: Fast breathing final calculation
 priority: 1
-condition: "step1_main_symptoms.contains('difficult_breathing')"
+condition: "step3_main_symptoms.contains('difficult_breathing')"
 actions:
-  - 'calculation = (step1_fast_breathing2 != null ? step1_fast_breathing2 : step1_fast_breathing)'
+  - 'calculation = (step4_fast_breathing2 != null ? step4_fast_breathing2 : step4_fast_breathing)'
 ---
-name: step1_chest_indrawing
+name: step4_chest_indrawing
 description: Chest Indrawing calculation
 priority: 1
-condition: "step1_main_symptoms.contains('difficult_breathing')"
+condition: "step3_main_symptoms.contains('difficult_breathing')"
 actions:
-  - 'calculation = ((step1_indrawing_bronchodilator.contains("no") || (step1_indrawing_bronchodilator.isEmpty() && step1_breathing_symptoms.contains("chest_indrawing"))) ? 1 : 0)'
+  - 'calculation = ((step4_indrawing_bronchodilator.contains("no") || (step4_indrawing_bronchodilator.isEmpty() && step4_breathing_symptoms.contains("chest_indrawing"))) ? 1 : 0)'
 ---
-name: step1_severe_pneumonia
+name: step4_severe_pneumonia
 description: Severe pneumonia calculation
 priority: 1
-condition: "step1_difficult_breathing.contains('yes')"
+condition: "step4_difficult_breathing.contains('yes')"
 actions:
-  - 'calculation = ((!step1_danger_signs.contains("None") || step1_breathing_symptoms.contains("stridor"))? 1 : 0)'
+  - 'calculation = ((!step2_danger_signs.contains("None") || step4_breathing_symptoms.contains("stridor"))? 1 : 0)'
 ---
-name: step1_pneumonia
+name: step4_pneumonia
 description: pneumonia calculation
 priority: 1
-condition: "step1_difficult_breathing.contains('yes')"
+condition: "step4_difficult_breathing.contains('yes')"
 actions:
-  - 'calculation = ((step1_fast_breathing_final == 1 || step1_chest_indrawing == 1)? 1 : 0)'
+  - 'calculation = ((step4_fast_breathing_final == 1 || step4_chest_indrawing == 1)? 1 : 0)'
 ---
-name: step1_cough_cold
+name: step4_cough_cold
 description: Cough cold calculation
 priority: 1
-condition: "step1_difficult_breathing.contains('yes')"
+condition: "step4_difficult_breathing.contains('yes')"
 actions:
-  - 'calculation = ((step1_severe_pneumonia == 0 && step1_pneumonia == 0)? 1 : 0)'
+  - 'calculation = ((step4_severe_pneumonia == 0 && step4_pneumonia == 0)? 1 : 0)'

@@ -1,119 +1,126 @@
 ---
-name: step1_very_sev_disease
+name: step2_very_sev_disease
 description: very_sev_disease toaster
 priority: 1
-condition: "!step1_danger_signs.contains('None') && !step1_danger_signs.isEmpty()"
+condition: "!step2_danger_signs.contains('None') && !step2_danger_signs.isEmpty()"
 actions:
   - "isRelevant = true"
 ---
-name: step1_diazepam_given
+name: step2_diazepam_given
 description: Diazepam Given
 priority: 1
-condition: "step1_danger_signs.contains('child_convulsing_now')"
+condition: "step2_danger_signs.contains('child_convulsing_now')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_no_symptoms
+name: step3_no_symptoms
 description: no_symptoms toaster
 priority: 1
-condition: "step1_danger_signs.contains('None') && step1_main_symptoms.contains('no_symptom')"
+condition: "step2_danger_signs.contains('None') && step3_main_symptoms.contains('no_symptom')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_difficult_breathing
+name: step4_difficult_breathing
 description: Difficult breathing
 priority: 1
-condition: "step1_main_symptoms.contains('difficult_breathing')"
+condition: "step3_main_symptoms.contains('difficult_breathing')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_period_difficult_breathing
+name: step4_period_difficult_breathing
 description: Period of difficult breathing or cough
 priority: 1
-condition: "step1_difficult_breathing.contains('yes')"
+condition: "step4_difficult_breathing.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_breaths_minute_procedure
+name: step4_breaths_minute_procedure
 description: Breaths per minute procedure toaster
 priority: 1
-condition: "step1_difficult_breathing.contains('yes')"
+condition: "step4_difficult_breathing.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_breaths_minute
+name: step4_breaths_minute
 description: Breaths per minute
 priority: 1
-condition: "step1_difficult_breathing.contains('yes')"
+condition: "step4_difficult_breathing.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_breathing_symptoms
+name: step4_breathing_symptoms
 description: Breathing symptoms
 priority: 1
-condition: "step1_difficult_breathing.contains('yes')"
+condition: "step4_difficult_breathing.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_bronchodilator
+name: step4_bronchodilator
 description: bronchodilator toaster
 priority: 1
-condition: "step1_breathing_symptoms.contains('wheezing') && step1_fast_breathing == 1 || step1_breathing_symptoms.contains('chest_indrawing')"
+condition: "step4_breathing_symptoms.contains('wheezing') && step4_fast_breathing == 1 || step4_breathing_symptoms.contains('chest_indrawing')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_bronchodilator_given
+name: step4_bronchodilator_given
 description: bronchodilator given
 priority: 1
-condition: "step1_breathing_symptoms.contains('wheezing') && step1_fast_breathing == 1 || step1_breathing_symptoms.contains('chest_indrawing')"
+condition: "step4_breathing_symptoms.contains('wheezing') && step4_fast_breathing == 1 || step4_breathing_symptoms.contains('chest_indrawing')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_breaths_minute2_procedure
+name: step4_breaths_minute2_procedure
 description: Breaths per minute 2 procedure toaster
 priority: 1
-condition: "step1_bronchodilator_given.contains('yes')"
+condition: "step4_bronchodilator_given.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_breaths_minute2
+name: step4_breaths_minute2
 description: Breaths per minute 2
 priority: 1
-condition: "step1_bronchodilator_given.contains('yes')"
+condition: "step4_bronchodilator_given.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_indrawing_bronchodilator
+name: step4_indrawing_bronchodilator
 description: Indrawing bronchodilator
 priority: 1
-condition: "step1_bronchodilator_given.contains('yes')"
+condition: "step4_bronchodilator_given.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_hiv_exposure
+name: step4_hiv_exposure
 description: HIV Exposure
 priority: 1
-condition: "step1_chest_indrawing == 1"
+condition: "step4_chest_indrawing == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step1_severe_pneumonia_note
+name: step4_severe_pneumonia_note
 description: Severe pneumonia toaster
 priority: 1
-condition: "step1_severe_pneumonia == 1"
+condition: "step4_severe_pneumonia == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step1_pneumonia_note
+name: step4_pneumonia_note
 description: pneumonia toaster
 priority: 1
-condition: "step1_pneumonia == 1"
+condition: "step4_pneumonia == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step1_cough_cold_note
+name: step4_cough_cold_note
 description: Cold cough toaster
 priority: 1
-condition: "step1_cough_cold == 1"
+condition: "step4_cough_cold == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step4_severe_pneumonia_treat_note
+description: Severe pneumonia treatment toaster
+priority: 1
+condition: "step4_severe_pneumonia == 1"
 actions:
   - "isRelevant = true"

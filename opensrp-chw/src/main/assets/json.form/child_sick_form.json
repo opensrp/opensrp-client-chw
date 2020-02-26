@@ -1,7 +1,7 @@
 {
   "validate_on_submit": true,
   "show_errors_on_submit": false,
-  "count": "1",
+  "count": "4",
   "encounter_type": "Sick Child",
   "entity_id": "",
   "relational_id": "",
@@ -54,7 +54,8 @@
     }
   },
   "step1": {
-    "title": "Sick Child",
+    "title": "SICK CHILD",
+    "next": "step2",
     "fields": [
       {
         "key": "child_height",
@@ -94,7 +95,14 @@
           "value": "true",
           "err": "Please enter the child's problem"
         }
-      },
+      }
+    ]
+  },
+  "step2": {
+    "title": "GENERAL DANGER SIGNS",
+    "display_back_button": "true",
+    "next": "step3",
+    "fields": [
       {
         "key": "danger_signs",
         "type": "check_box",
@@ -102,7 +110,9 @@
         "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Check for general danger signs:",
-        "exclusive": ["None"],
+        "exclusive": [
+          "None"
+        ],
         "options": [
           {
             "key": "not_able_to_drink",
@@ -197,7 +207,14 @@
           "value": "true",
           "err": "Please select one"
         }
-      },
+      }
+    ]
+  },
+  "step3": {
+    "title": "MAIN SYMPTOMS",
+    "display_back_button": "true",
+    "next": "step4",
+    "fields": [
       {
         "key": "main_symptoms",
         "type": "check_box",
@@ -205,7 +222,9 @@
         "openmrs_entity_id": "1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Does the child have any of these symptoms?",
-        "exclusive": ["no_symptom"],
+        "exclusive": [
+          "no_symptom"
+        ],
         "options": [
           {
             "key": "difficult_breathing",
@@ -259,7 +278,13 @@
             }
           }
         }
-      },
+      }
+    ]
+  },
+  "step4": {
+    "title": "DIAGNOSIS AND TREATMENT",
+    "display_back_button": "true",
+    "fields": [
       {
         "key": "difficult_breathing",
         "type": "native_radio",
@@ -373,7 +398,9 @@
         "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Which of these difficult breathing symptoms does the child display?",
-        "exclusive": ["none"],
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "wheezing",
@@ -705,6 +732,23 @@
         "text": "Child has: COUGH OR COLD\n\n- If wheezing (or disappeared afte rapidly acting bronchodilator) give an inhaled bronchodilator for 5 days ****\n- Soothe the throat and relieve the cough with a safe remedy\n- If coughing or more than 14 days or recurrent wheeze, refer for possible TB or asthma assessment\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
         "toaster_info_text": "Child has: COUGH OR COLD\n\n- If wheezing (or disappeared afte rapidly acting bronchodilator) give an inhaled bronchodilator for 5 days ****\n- Soothe the throat and relieve the cough with a safe remedy\n- If coughing or more than 14 days or recurrent wheeze, refer for possible TB or asthma assessment\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
         "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "severe_pneumonia_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "",
+        "toaster_info_text": "",
+        "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1212,26 +1256,27 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment: Plan A","options": [
-        {
-          "key": "no_dehydration_fluids",
-          "text": "Given fluid, zinc supplements, and food to treat diarrhoea at home (Plan A)",
-          "value": false,
-          "openmrs_choice_id": "161648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "no_dehydration_return",
-          "text": "Advised mother when to return immediately",
-          "value": false,
-          "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "no_dehydration_follow_up",
-          "text": "Follow-up in 5 days if not improving",
-          "value": false,
-          "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        }
-      ],
+        "hint": "Treatment: Plan A",
+        "options": [
+          {
+            "key": "no_dehydration_fluids",
+            "text": "Given fluid, zinc supplements, and food to treat diarrhoea at home (Plan A)",
+            "value": false,
+            "openmrs_choice_id": "161648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no_dehydration_return",
+            "text": "Advised mother when to return immediately",
+            "value": false,
+            "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no_dehydration_follow_up",
+            "text": "Follow-up in 5 days if not improving",
+            "value": false,
+            "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
