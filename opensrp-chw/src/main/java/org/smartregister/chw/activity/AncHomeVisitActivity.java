@@ -24,6 +24,9 @@ import java.util.Date;
 
 import timber.log.Timber;
 
+/**
+ * @author rkodev
+ */
 public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
 
     public static void startMe(Activity activity, String baseEntityID, Boolean isEditMode) {
