@@ -243,3 +243,94 @@ priority: 1
 condition: "step5_some_dehydration == 1"
 actions:
   - "isRelevant = true"
+---
+name: step5_no_dehydration_note
+description: No dehydration toaster
+priority: 1
+condition: "step5_no_dehydration == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sev_persistent_diarrhoea_note
+description: Severe persistent diarrhoea toaster
+priority: 1
+condition: "step5_sev_persistent_diarrhoea == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_persistent_diarrhoea_note
+description: Persistent diarrhoea toaster
+priority: 1
+condition: "step5_persistent_diarrhoea == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_dysentery_note
+description: Dysentry toaster
+priority: 1
+condition: "step5_dysentery == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sev_dehydratn_treat1
+description: Severe dehydration treatment
+priority: 1
+condition: "step5_sev_dehydratn_treat1_calc == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sev_dehydratn_treat2
+description: Severe dehydration treatment 2
+priority: 1
+condition: "step5_sev_dehydratn_treat2_calc == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sev_dehydratn_treat3
+description: Severe dehydration treatment 3
+priority: 1
+condition: "step5_sev_dehydratn_treat3_calc == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_some_dehydration_others
+description: Some dehydration others treatment
+priority: 1
+condition: "step5_some_dehydration == 1 && (step4_severe_pneumonia == 0 || step2_danger_signs.contains('None'))"
+actions:
+  - "isRelevant = true"
+---
+name: step5_some_dehydration_treat
+description: Some dehydration treatment
+priority: 1
+condition: "step5_some_dehydration == 1 && (step4_severe_pneumonia == 1 || !step2_danger_signs.contains('None'))"
+actions:
+  - "isRelevant = true"
+---
+name: step5_no_dehydration_treat
+description: No dehydration treatment
+priority: 1
+condition: "step5_no_dehydration == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sev_persistent_diarrhoea_treatment
+description: Severe persistent diarrhoea treatment
+priority: 1
+condition: "step5_sev_persistent_diarrhoea == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_persistent_diarrhoea_treatment
+description: persistent diarrhoea treatment
+priority: 1
+condition: "step5_persistent_diarrhoea == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_dysentery_treat
+description: Dysentery treatment
+priority: 1
+condition: "step5_dysentery == 1"
+actions:
+  - "isRelevant = true"

@@ -2,7 +2,7 @@
   "validate_on_submit": true,
   "show_errors_on_submit": false,
   "skip_blank_steps": true,
-  "count": "5",
+  "count": "6",
   "encounter_type": "Sick Child",
   "entity_id": "",
   "relational_id": "",
@@ -958,6 +958,7 @@
   },
   "step5": {
     "title": "DIARRHOEA CHECK",
+    "next": "step5",
     "display_back_button": "true",
     "fields": [
       {
@@ -1050,6 +1051,9 @@
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
         "label": "What is the general condition on the child?",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "lethargic_unconcious",
@@ -1397,6 +1401,144 @@
         }
       },
       {
+        "key": "no_dehydration",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_dehydration_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: NO DEHYDRATION\n- Give fluid, zinc supplements, and food to treat\ndiarrhoea at home (Plan A)\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
+        "toaster_info_text": "Child has: NO DEHYDRATION\n- Give fluid, zinc supplements, and food to treat\ndiarrhoea at home (Plan A)\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sev_persistent_diarrhoea",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sev_persistent_diarrhoea_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: SEVERE PERSISTENT DIARRHOEA\n- Treat dehydration before referral unless the child\nhas another severe classification\n- REFER TO HOSPITAL URGENTLY",
+        "toaster_info_text": "Child has: SEVERE PERSISTENT DIARRHOEA\n- Treat dehydration before referral unless the child\nhas another severe classification\n- REFER TO HOSPITAL URGENTLY",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "persistent_diarrhoea",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "persistent_diarrhoea_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: PERSISTENT DIARRHOEA\n- Advise the mother on feeding a child who has\nPERSISTENT DIARRHOEA\n- Give multivitamins and minerals (including zinc) for 14 days\n- Follow-up in 5 days\n",
+        "toaster_info_text": "Child has: PERSISTENT DIARRHOEA\n- Advise the mother on feeding a child who has\nPERSISTENT DIARRHOEA\n- Give multivitamins and minerals (including zinc) for 14 days\n- Follow-up in 5 days\n",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dysentery",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dysentery_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: DYSENTERY\n- Give ciprofloxacin for 3 days\n- Follow-up in 3 days",
+        "toaster_info_text": "Child has: DYSENTERY\n- Give ciprofloxacin for 3 days\n- Follow-up in 3 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sev_dehydratn_treat1_calc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "sev_dehydratn_treat1",
         "type": "native_radio",
         "openmrs_entity": "concept",
@@ -1412,9 +1554,30 @@
             "text": "Given fluid for severe dehydration (Plan C)"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
+        }
+      },
+      {
+        "key": "sev_dehydratn_treat2_calc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -1423,7 +1586,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "154015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment for Severe dehydration with other classification",
+        "label": "Treatment for Severe dehydration with other classification",
         "options": [
           {
             "key": "sev_dehydratn_no_treat",
@@ -1450,9 +1613,30 @@
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "sev_dehydratn_treat3_calc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -1485,6 +1669,13 @@
             "text": "No treatment"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -1496,7 +1687,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "154016AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment some dehydration: Plan B",
+        "label": "Treatment some dehydration: Plan B",
         "options": [
           {
             "key": "some_dehydration_referal",
@@ -1523,6 +1714,13 @@
             "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
@@ -1534,7 +1732,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "154017AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment some dehydration:",
+        "label": "Treatment some dehydration:",
         "options": [
           {
             "key": "some_dehydration_treat_zinc",
@@ -1555,6 +1753,13 @@
             "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
@@ -1566,7 +1771,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment: Plan A",
+        "label": "Treatment: Plan A",
         "options": [
           {
             "key": "no_dehydration_fluids",
@@ -1587,6 +1792,13 @@
             "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
@@ -1598,7 +1810,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "126626AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment:",
+        "label": "Treatment:",
         "options": [
           {
             "key": "sev_pers_diarrhoea_treatment",
@@ -1613,6 +1825,13 @@
             "openmrs_choice_id": "1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
@@ -1624,7 +1843,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5018AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment:",
+        "label": "Treatment:",
         "options": [
           {
             "key": "sev_pers_feeding",
@@ -1639,6 +1858,13 @@
             "openmrs_choice_id": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
@@ -1667,11 +1893,24 @@
             "text": "Ciprofloxacin for 3 days NOT given"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
         }
-      },
+      }
+    ]
+  },
+  "step6": {
+    "title": "FEVER",
+    "display_back_button": "true",
+    "fields": [
       {
         "key": "fever",
         "type": "native_radio",

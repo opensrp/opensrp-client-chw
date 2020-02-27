@@ -103,4 +103,52 @@ priority: 1
 condition: "step5_diarrhoea.contains('yes')"
 actions:
   - 'calculation = ((step5_some_dehydration_class > 2)? 1 : 0)'
-
+---
+name: step5_no_dehydration
+description: No dehydration calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sev_dehydration == 0 && step5_some_dehydration == 0)? 1 : 0)'
+---
+name: step5_sev_persistent_diarrhoea
+description: Severe persistent diarrhoea calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = (((step5_sev_dehydration == 1 || step5_some_dehydration == 1) && step5_diarrhoea_period > 14)? 1 : 0)'
+---
+name: step5_persistent_diarrhoea
+description: Persistent diarrhoea calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_no_dehydration == 1 && step5_diarrhoea_period > 14)? 1 : 0)'
+---
+name: step5_dysentery
+description: Dysentry calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = (step5_blood_stool.contains("yes")? 1 : 0)'
+---
+name: step5_sev_dehydratn_treat1_calc
+description: Severe dehydration treatment calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sev_dehydration == 1 && (step4_severe_pneumonia == 0 || step2_danger_signs.contains("None")))? 1 : 0)'
+---
+name: step5_sev_dehydratn_treat2_calc
+description: Severe dehydration treatment 2 calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sev_dehydration == 1 && (step4_severe_pneumonia == 1 || step2_danger_signs.contains("None")))? 1 : 0)'
+---
+name: step5_sev_dehydratn_treat3_calc
+description: Severe dehydration treatment 3 calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sev_dehydration == 1 && step1_age >= 2 && step5_cholera_present.contains("yes"))? 1 : 0)'
