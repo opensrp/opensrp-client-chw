@@ -958,7 +958,7 @@
   },
   "step5": {
     "title": "DIARRHOEA CHECK",
-    "next": "step5",
+    "next": "step6",
     "display_back_button": "true",
     "fields": [
       {
@@ -984,6 +984,13 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -1934,9 +1941,33 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
+        }
+      },
+      {
+        "key": "fever_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "By history or feels hot or temperature 37.5°C* or above.",
+        "toaster_info_text": "By history or feels hot or temperature 37.5°C* or above.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1969,6 +2000,13 @@
             "text": "Child not at risk at all"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -1997,6 +2035,13 @@
             "text": "Not travel to Malaria risk areas"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -2010,6 +2055,13 @@
         "openmrs_entity_parent": "",
         "edit_type": "number",
         "hint": "For how many days has the child had fever?",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please enter the number of days"
@@ -2038,6 +2090,13 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -2080,6 +2139,13 @@
             "text": "Not known"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -2091,12 +2157,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "What fever causes does the child display?",
-        "values": [
-          "Stiff neck",
-          "Runny nose",
-          "Bacterial cause of fever**",
-          "None"
+        "label": "What fever causes does the child display?",
+        "exclusive": [
+          "none_fever_cause"
         ],
         "options": [
           {
@@ -2124,6 +2187,13 @@
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
@@ -2135,7 +2205,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Which measles symptoms does the child have?",
+        "label": "Which measles symptoms does the child have?",
         "options": [
           {
             "key": "gen_rash",
@@ -2168,9 +2238,47 @@
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "malaria_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_test_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Do a malaria test",
+        "toaster_info_text": "Do a malaria test",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -2196,6 +2304,13 @@
             "text": "Test not available or not done"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -2224,6 +2339,13 @@
             "text": "Child Malaria test in NEGATIVE"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -2235,7 +2357,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "115885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Does the child display any additional measles symptoms?",
+        "label": "Does the child display any additional measles symptoms?",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "deep_ulcers",
@@ -2268,9 +2393,171 @@
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "vsf_disease",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "vsf_disease_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: VERY SEVERE FEBRILE\nDISEASE\n- Give first dose of artesunate or quinine for severe malaria\n- Give first dose of an appropriate antibiotic\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Treat the child to prevent low blood sugar\n- Refer URGENTLY to hospital",
+        "toaster_info_text": "Child has: VERY SEVERE FEBRILE\nDISEASE\n- Give first dose of artesunate or quinine for severe malaria\n- Give first dose of an appropriate antibiotic\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Treat the child to prevent low blood sugar\n- Refer URGENTLY to hospital",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_test_malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_test_malaria_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: MALARIA\n- Give recommended first line oral antimalarial\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial cause\nof fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_info_text": "Child has: MALARIA\n- Give recommended first line oral antimalarial\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial cause\nof fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: MALARIA\n- Give recommended first line oral antimalarial\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial cause\nof fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_info_text": "Child has: MALARIA\n- Give recommended first line oral antimalarial\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial cause\nof fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_malaria_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: FEVER:\nNO MALARIA\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_info_text": "Child has: FEVER:\nNO MALARIA\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "vsf_disease2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "vsf_disease2_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: VERY SEVERE FEBRILE\nDISEASE\n- Give first dose of an appropriate antibiotic.\n- Treat the child to prevent low blood sugar.\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Refer URGENTLY to hospital.",
+        "toaster_info_text": "Child has: VERY SEVERE FEBRILE\nDISEASE\n- Give first dose of an appropriate antibiotic.\n- Treat the child to prevent low blood sugar.\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Refer URGENTLY to hospital.",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {

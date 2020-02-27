@@ -167,6 +167,13 @@ condition: "step4_cough_cold == 1"
 actions:
   - "isRelevant = true"
 ---
+name: step5_diarrhoea
+description: Diarrhoea check
+priority: 1
+condition: "step3_main_symptoms.contains('diarrhoea')"
+actions:
+  - "isRelevant = true"
+---
 name: step5_diarrhoea_period
 description: Diarrhoea period
 priority: 1
@@ -332,5 +339,131 @@ name: step5_dysentery_treat
 description: Dysentery treatment
 priority: 1
 condition: "step5_dysentery == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_fever
+description: Fever
+priority: 1
+condition: "step3_main_symptoms.contains('fever')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_fever_note
+description: Fever toaster
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_malaria_risk
+description: Is child sleeping under net
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_travel_malaria_area
+description: Has child travelled to Malaria risk area
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_fever_period
+description: Days child has had fever
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_fever_everyday
+description: Has fever been present every day
+priority: 1
+condition: "step6_fever_period > 7"
+actions:
+  - "isRelevant = true"
+---
+name: step6_measles
+description: Whether child has had measles in the last 3 months or is having measles
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_fever_causes
+description: All possible causes of fever
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_measles_symptoms
+description: Look and feel for measles symptoms
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_malaria_test_note
+description: Do malaria test toaster
+priority: 1
+condition: "step6_malaria_test == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_malaria_test_done
+description: Confirmation that the malaria test was done
+priority: 1
+condition: "step6_malaria_test == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_malaria_results
+description: Results that show whether child has malaria
+priority: 1
+condition: "step6_malaria_test_done.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_add_measles_symptoms
+description: Additional symptoms for child with measles
+priority: 1
+condition: "step6_measles.contains('measles_3_months') || step6_measles.contains('measles_now')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_vsf_disease_note
+description: vsf disease toaster
+priority: 1
+condition: "step6_vsf_disease == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_no_test_malaria_note
+description: vsf disease toaster
+priority: 1
+condition: "step6_no_test_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_malaria_note
+description: Malaria note toaster
+priority: 1
+condition: "step6_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_no_malaria_note
+description: No Malaria note toaster
+priority: 1
+condition: "step6_no_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_vsf_disease2_note
+description: vsf_disease2 toaster
+priority: 1
+condition: "step6_vsf_disease2 == 1"
 actions:
   - "isRelevant = true"
