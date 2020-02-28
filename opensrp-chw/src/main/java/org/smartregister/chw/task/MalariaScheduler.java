@@ -2,9 +2,9 @@ package org.smartregister.chw.task;
 
 import org.joda.time.LocalDate;
 import org.smartregister.chw.core.contract.ScheduleTask;
-import org.smartregister.chw.core.dao.MalariaDao;
 import org.smartregister.chw.core.domain.BaseScheduleTask;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.malaria.dao.MalariaDao;
 
 import java.util.Date;
 import java.util.List;

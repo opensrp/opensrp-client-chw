@@ -8,8 +8,8 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.rule.MalariaFollowUpRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.MalariaVisitUtil;
-import org.smartregister.chw.dao.MalariaDao;
 import org.smartregister.chw.fp.dao.FpDao;
+import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.util.Utils;
 
 import java.util.Date;
