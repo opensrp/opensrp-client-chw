@@ -72,24 +72,37 @@
           }
         }
       },
+
       {
         "key": "fever_malaria_chw",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fever_malaria_chw",
-        "type": "spinner",
-        "hint": "Does this person have a fever or did they test positive for malaria in the last 14 days at a health facility?",
-        "values": [
-          "Has a fever",
-          "Tested positive for malaria in the last 14 days at a health facility"
+        "type": "native_radio",
+        "label": "Does this person have a fever or did they test positive for malaria in the last 14 days at a health facility?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "has_fever",
+            "text": "Has a fever",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "has_fever",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "tested_positive_last_14_days",
+            "text": "Tested positive for malaria in the last 14 days at a health facility",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tested_positive_last_14_days",
+            "openmrs_entity_parent": ""
+          }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
-        },
-        "openmrs_choice_ids": {
-          "Has a fever": "has_fever_conceptID",
-          "Tested positive for malaria in the last 14 days at a health facility": "positive_for_malaria_conceptID"
+          "err": "Please select one"
         }
       },
       {

@@ -375,10 +375,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
 
         @Override
         protected void onPostExecute(Void param) {
-            if (malariaFollowUpRule != null && StringUtils.isNotBlank(malariaFollowUpRule.getButtonStatus()) &&
-                    !CoreConstants.VISIT_STATE.EXPIRED.equalsIgnoreCase(malariaFollowUpRule.getButtonStatus())) {
-                profilePresenter.recordMalariaButton(malariaFollowUpRule.getButtonStatus());
-            }
+            profilePresenter.recordMalariaButton(malariaFollowUpRule.getButtonStatus());
         }
     }
 }
