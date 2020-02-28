@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
@@ -23,9 +22,6 @@ import timber.log.Timber;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = ChwApplication.class, sdk = 22)
 public class FamilyCallDialogFragmentTest {
-
-    @Mock
-    private FamilyCallDialogFragment familyCallDialogFragment;
 
     private String phoneNumber = "12345Test";
 

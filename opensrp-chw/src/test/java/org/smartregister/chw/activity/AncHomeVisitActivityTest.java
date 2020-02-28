@@ -23,7 +23,6 @@ import org.smartregister.chw.anc.util.Constants;
 public class AncHomeVisitActivityTest extends BaseUnitTest {
 
     private AncHomeVisitActivity activity;
-    private ActivityController<AncHomeVisitActivity> controller;
 
     @Mock
     private BaseAncHomeVisitContract.Presenter presenter;
@@ -31,7 +30,7 @@ public class AncHomeVisitActivityTest extends BaseUnitTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = Robolectric.buildActivity(AncHomeVisitActivity.class);
+        ActivityController<AncHomeVisitActivity> controller = Robolectric.buildActivity(AncHomeVisitActivity.class);
         activity = controller.get();
 
         activity = Mockito.spy(activity);
