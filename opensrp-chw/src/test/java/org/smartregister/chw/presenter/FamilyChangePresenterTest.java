@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.core.contract.FamilyChangeContract;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.interactor.CoreFamilyChangeContractInteractor;
@@ -35,8 +35,8 @@ public class FamilyChangePresenterTest {
         MockitoAnnotations.initMocks(this);
 
         presenter = new FamilyChangePresenter(view, familyID);
-        Whitebox.setInternalState(presenter, "interactor", interactor);
-        Whitebox.setInternalState(presenter, "model", model);
+        ReflectionHelpers.setField(presenter, "interactor", interactor);
+        ReflectionHelpers.setField(presenter, "model", model);
     }
 
     @Test

@@ -20,6 +20,8 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import timber.log.Timber;
+
 public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
 
     public static void startFamilyRegisterForm(Activity activity) {
@@ -69,8 +71,13 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
         ChwApplication.getInstance().notifyAppContextChange(); // initialize the language (bug in translation)
-        if (ChwApplication.getApplicationFlavor().hasReferrals())
-            ReferralLibrary.getInstance().loadReferralServiceIndicators();
+        if (ChwApplication.getApplicationFlavor().hasReferrals()){
+            try{
+                ReferralLibrary.getInstance().loadReferralServiceIndicators();
+            }catch (Exception e){
+                Timber.e(e);
+            }
+        }
 
         action = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.ACTION);
         if (action != null && action.equals(Constants.ACTION.START_REGISTRATION)) {
