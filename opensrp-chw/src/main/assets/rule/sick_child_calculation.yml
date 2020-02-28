@@ -250,3 +250,13 @@ priority: 1
 condition: "step7_ear_problem.contains('yes')"
 actions:
   - 'calculation = ((step7_pus.contains("no") && step7_ear_pain.contains("no"))? 1 : 0)'
+---
+name: step8_medical_complications
+description: Claculated field for when there are medical complications
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ((!step2_danger_signs.contains("None") || step4_severe_pneumonia == 1 || step4_pneumonia == 1 ||
+  step5_sev_persistent_diarrhoea == 1 || step6_vsf_disease == 1 || step6_vsf_disease2 == 1 || step6_complicated_measles == 1 || step7_mastoiditis_infection == 1)? 1 : 0)'
+---
+

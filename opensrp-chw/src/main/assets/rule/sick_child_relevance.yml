@@ -719,3 +719,66 @@ priority: 1
 condition: "step7_no_ear_infection == 1"
 actions:
   - "isRelevant = true"
+---
+name: step8_complicated_sam_note
+description: Complicated severe acute malnutrition toaster
+priority: 1
+condition: "step8_complicated_sam == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_uncomplicated_sam_note
+description: Uncomplicated severe acute malnutrition toaster
+priority: 1
+condition: "step8_uncomplicated_sam == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_mam_note
+description: Moderate acute malnutrition toaster
+priority: 1
+condition: "step8_mam == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_no_acute_maln_note
+description: No acute malnutrition toaster
+priority: 1
+condition: "step8_no_acute_maln == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_acute_malnutrition_treatment_note
+description: Acute malnutrition treatment toaster
+priority: 1
+condition: "step8_complicated_sam == 1 || step8_uncomplicated_sam == 1 || step8_mam == 1 || step8_no_acute_maln == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_compl_sev_maln_treat
+description: List of treatments given to child suffering from complicated severe malnutrition
+priority: 1
+condition: "step8_complicated_sam == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_sev_acute_maln_treat
+description: List of treatnents for child with severe acute malnutrition
+priority: 1
+condition: "step8_uncomplicated_sam == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_acute_maln_treat
+description: List of treatments given to child with acute malnutrition
+priority: 1
+condition: "step8_mam == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_no_acute_maln_treat
+description: List of treatment for child with no acute malnutrition
+priority: 1
+condition: "step8_no_acute_maln == 1"
+actions:
+  - "isRelevant = true"

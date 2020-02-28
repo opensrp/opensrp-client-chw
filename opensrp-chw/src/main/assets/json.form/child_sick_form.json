@@ -2,7 +2,7 @@
   "validate_on_submit": true,
   "show_errors_on_submit": false,
   "skip_blank_steps": true,
-  "count": "8",
+  "count": "0",
   "encounter_type": "Sick Child",
   "entity_id": "",
   "relational_id": "",
@@ -3736,6 +3736,7 @@
   "step8": {
     "title": "ACUTE MALNUTRITION CHECK",
     "display_back_button": "true",
+    "next": "step9",
     "fields": [
       {
         "key": "oedema",
@@ -3760,13 +3761,6 @@
             "text": "No"
           }
         ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -3783,6 +3777,51 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the child's reading"
+        }
+      },
+      {
+        "key": "wfh_zscore",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "wfh_zscore_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Weight-for-height (WFH) z-score is: ",
+        "toaster_info_text": "Weight-for-height (WFH) z-score is: ",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "medical_complications",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -3842,12 +3881,153 @@
         }
       },
       {
+        "key": "complicated_sam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "complicated_sam_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: COMPLICATED SEVERE ACUTE MALNUTRITION\n- Give first dose of an appropriate antibiotic\n- Treat the child to prevent low blood sugar\n- Keep the child warm\n- Refer URGENTLY to hospital",
+        "toaster_info_text": "Child has: COMPLICATED SEVERE ACUTE MALNUTRITION\n- Give first dose of an appropriate antibiotic\n- Treat the child to prevent low blood sugar\n- Keep the child warm\n- Refer URGENTLY to hospital",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "uncomplicated_sam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "uncomplicated_sam_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: UNCOMPLICATED SEVERE ACUTE MALNUTRITION\n- Give oral antibiotics for 5 days\n- Give ready-to-use therapeutic food for a child aged 6 months or more\n- Counsel the mother on how to feed the child\n- Assess for possible TB infection\n- Advise mother when to return immediately\n- Follow up in 7 days",
+        "toaster_info_text": "Child has: UNCOMPLICATED SEVERE ACUTE MALNUTRITION\n- Give oral antibiotics for 5 days\n- Give ready-to-use therapeutic food for a child aged 6 months or more\n- Counsel the mother on how to feed the child\n- Assess for possible TB infection\n- Advise mother when to return immediately\n- Follow up in 7 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mam_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: MODERATE ACUTE MALNUTRITION\n- Assess the child's feeding and counsel the mother on the feeding recommendations\n- If feeding problem, follow up in 7 days\n- Assess for possible TB infection.\n- Advise mother when to return immediately\n- Follow-up in 30 days",
+        "toaster_info_text": "Child has: MODERATE ACUTE MALNUTRITION\n- Assess the child's feeding and counsel the mother on the feeding recommendations\n- If feeding problem, follow up in 7 days\n- Assess for possible TB infection.\n- Advise mother when to return immediately\n- Follow-up in 30 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_acute_maln",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_acute_maln_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: NO ACUTE MALNUTRITION\n- If child is less than 2 years old, assess the child's feeding and counsel the mother on feeding according to the feeding recommendations\n- If feeding problem, follow-up in 7 days",
+        "toaster_info_text": "Child has: NO ACUTE MALNUTRITION\n- If child is less than 2 years old, assess the child's feeding and counsel the mother on feeding according to the feeding recommendations\n- If feeding problem, follow-up in 7 days",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "acute_malnutrition_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "",
+        "toaster_info_text": "",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "compl_sev_maln_treat",
         "type": "check_box",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "162330AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Complicated severe acute malnutrition treatment given:",
+        "label": "Complicated severe acute malnutrition treatment given:",
         "options": [
           {
             "key": "complicated_sam_antibiotic",
@@ -3874,6 +4054,13 @@
             "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
@@ -3885,7 +4072,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "162331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Uncomplicated severe acute malnutrition treatment given:",
+        "label": "Uncomplicated severe acute malnutrition treatment given:",
         "options": [
           {
             "key": "sam_anitbiotics",
@@ -3918,6 +4105,13 @@
             "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
@@ -3929,7 +4123,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Moderate acute malnutrition treatment given:",
+        "label": "Moderate acute malnutrition treatment given:",
         "options": [
           {
             "key": "acute_mal_feeding",
@@ -3962,6 +4156,13 @@
             "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
@@ -3973,7 +4174,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "No acute malnutrition: Counseling given",
+        "label": "No acute malnutrition: Counseling given",
         "options": [
           {
             "key": "no_acute_maln_feeding",
@@ -3994,11 +4195,24 @@
             "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
         }
-      },
+      }
+    ]
+  },
+  "step9": {
+    "title": "CHECK FOR ANAEMIA",
+    "display_back_button": "true",
+    "fields": [
       {
         "key": "palmar_pallor",
         "type": "native_radio",
