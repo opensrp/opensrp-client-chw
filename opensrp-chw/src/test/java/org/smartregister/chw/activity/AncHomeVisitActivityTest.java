@@ -5,17 +5,21 @@ import android.content.Intent;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.p2p.activity.P2pModeSelectActivity;
 
 /**
  * @author rkodev
@@ -23,6 +27,9 @@ import org.smartregister.chw.anc.util.Constants;
 public class AncHomeVisitActivityTest extends BaseUnitTest {
 
     private AncHomeVisitActivity activity;
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
     private BaseAncHomeVisitContract.Presenter presenter;

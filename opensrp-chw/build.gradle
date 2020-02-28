@@ -119,7 +119,10 @@ android {
         }
         unitTests.all {
             systemProperty 'robolectric.enabledSdks', '28'
-            jvmArgs '-noverify'
+            jacoco {
+                includeNoLocationClasses = true
+                jvmArgs '-noverify'
+            }
         }
     }
 

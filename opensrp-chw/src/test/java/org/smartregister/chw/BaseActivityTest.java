@@ -37,12 +37,12 @@ public abstract class BaseActivityTest<T extends Activity> extends BaseActivityT
     }
 
     @Test
-    public void testActivityExists() {
+    public final void testActivityExists() {
         Assert.assertNotNull(getActivity());
     }
 
     @Test
-    public void testNoErrorOnPause() {
+    public final void testNoErrorOnPause() {
         try {
             getActivityController().pause();
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public abstract class BaseActivityTest<T extends Activity> extends BaseActivityT
     }
 
     @Test
-    public void testNoErrorOnResume() {
+    public final void testNoErrorOnResume() {
         try {
             getActivityController().pause();
             getActivityController().resume();
