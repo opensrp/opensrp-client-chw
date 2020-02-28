@@ -259,4 +259,51 @@ actions:
   - 'calculation = ((!step2_danger_signs.contains("None") || step4_severe_pneumonia == 1 || step4_pneumonia == 1 ||
   step5_sev_persistent_diarrhoea == 1 || step6_vsf_disease == 1 || step6_vsf_disease2 == 1 || step6_complicated_measles == 1 || step7_mastoiditis_infection == 1)? 1 : 0)'
 ---
-
+name: step8_complicated_sam
+description: Calculated field for when child is suffering from complicated severe acute malnutrition
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = 0'
+---
+name: step8_uncomplicated_sam
+description: Calculated field for when child is suffering from sever acute malnutrition
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = 0'
+---
+name: step8_mam
+description: Calculated field for when child is suffering from acute malnutrition
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = 0'
+---
+name: step8_no_acute_maln
+description: Calculated field for when the child is not sufferingfrom acute malnutrition
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = 0'
+---
+name: step9_severe_anaemia
+description: Calculated field for severe anaemia
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step9_palmar_pallor.contains("severe")? 1 : 0)'
+---
+name: step9_anaemia
+description: Calculated field for anaemia
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step9_palmar_pallor.contains("some")? 1 : 0)'
+---
+name: step9_no_anaemia
+description: Calculated field for no anaemia
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step9_palmar_pallor.contains("no_pallor")? 1 : 0)'

@@ -782,3 +782,73 @@ priority: 1
 condition: "step8_no_acute_maln == 1"
 actions:
   - "isRelevant = true"
+---
+name: step9_sev_palmar_note
+description: Severe palmar pallor toaster
+priority: 1
+condition: "step9_palmar_pallor.contains('severe')"
+actions:
+  - "isRelevant = true"
+---
+name: step9_severe_anaemia_note
+description: Severe anaemia toaster
+priority: 1
+condition: "step9_severe_anaemia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_anaemia_note
+description: Anaemia toaster
+priority: 1
+condition: "step9_anaemia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_no_anaemia_note
+description: No Anaemia toaster
+priority: 1
+condition: "step9_no_anaemia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_feeding_problem
+description: Check for whether a child with no anaemia has any feeding problems
+priority: 1
+condition: "step9_no_anaemia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_no_anaemia_treat_under2
+description: Treatment for children with no anaemia and are over 2 years toaster
+priority: 1
+condition: "step9_no_anaemia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_anemia_treatment_note
+description: Anaemia Treatment toaster
+priority: 1
+condition: "step9_severe_anaemia == 1 || step9_anaemia == 1 || step9_no_anaemia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_anaemia_treat_refer
+description: Refer Anaemia Treatment
+priority: 1
+condition: "step9_severe_anaemia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_anaemia_treat
+description: Treatment for anaemia
+priority: 1
+condition: "step9_anaemia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_feeding_problem_follow_up
+description: Follow-up after 5 days if feeding is a problem
+priority: 1
+condition: "step9_feeding_problem.contains('yes')"
+actions:
+  - "isRelevant = true"

@@ -2,7 +2,7 @@
   "validate_on_submit": true,
   "show_errors_on_submit": false,
   "skip_blank_steps": true,
-  "count": "0",
+  "count": "10",
   "encounter_type": "Sick Child",
   "entity_id": "",
   "relational_id": "",
@@ -4212,6 +4212,7 @@
   "step9": {
     "title": "CHECK FOR ANAEMIA",
     "display_back_button": "true",
+    "next": "step10",
     "fields": [
       {
         "key": "palmar_pallor",
@@ -4249,6 +4250,116 @@
         }
       },
       {
+        "key": "sev_palmar_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "SEVERE PALMAR PALLOR:\n\n- Check for sickle cell anaemia if common in this area.\n- Refer URGENTLY to hopsital",
+        "toaster_info_text": "SEVERE PALMAR PALLOR:\n\n- Check for sickle cell anaemia if common in this area.\n- Refer URGENTLY to hopsital",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "severe_anaemia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "severe_anaemia_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: SEVERE ANAEMIA\n- Refer URGENTLY to hopsital",
+        "toaster_info_text": "Child has: SEVERE ANAEMIA\n- Refer URGENTLY to hopsital",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "anaemia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "anaemia_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: ANAEMIA\n- Give iron**\n- Give mebendazole if child is 1 year or older and\nhas not had a dose in the previous 6 months\n- Advise mother when to return immediately\n- Follow-up in 14 days",
+        "toaster_info_text": "Child has: ANAEMIA\n- Give iron**\n- Give mebendazole if child is 1 year or older and\nhas not had a dose in the previous 6 months\n- Advise mother when to return immediately\n- Follow-up in 14 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_anaemia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_anaemia_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: NO ANAEMIA\n- If child is less than 2 years old, assess the child's feeding and counsel the mother according to the feeding recommendations.",
+        "toaster_info_text": "Child has: NO ANAEMIA\n- If child is less than 2 years old, assess the child's feeding and counsel the mother according to the feeding recommendations.",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "feeding_problem",
         "type": "native_radio",
         "openmrs_entity": "concept",
@@ -4271,9 +4382,50 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
+        }
+      },
+      {
+        "key": "no_anaemia_treat_under2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: NO ANAEMIA\n- No treatment required.",
+        "toaster_info_text": "Child has: NO ANAEMIA\n- No treatment required.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "anemia_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "ANAEMIA TREATMENT",
+        "toaster_info_text": "ANAEMIA TREATMENT",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -4299,6 +4451,13 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -4310,7 +4469,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Anaemia treatment provided:",
+        "label": "Anaemia treatment provided:",
         "options": [
           {
             "key": "give_iron",
@@ -4331,11 +4490,41 @@
             "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
         }
       },
+      {
+        "key": "feeding_problem_follow_up",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has feeding problem: Follow-up in 5 days",
+        "toaster_info_text": "Child has feeding problem: Follow-up in 5 days",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step10": {
+    "title": "CHECK FOR HIV INFECTION",
+    "display_back_button": "true",
+    "fields": [
       {
         "key": "child_hiv_care",
         "type": "native_radio",
