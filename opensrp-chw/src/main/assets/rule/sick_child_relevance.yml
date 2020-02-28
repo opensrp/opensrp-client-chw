@@ -467,3 +467,31 @@ priority: 1
 condition: "step6_vsf_disease2 == 1"
 actions:
   - "isRelevant = true"
+---
+name: step6_illness_fever_note
+description: Illness fever toaster
+priority: 1
+condition: "step6_illness_fever == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_complicated_measles_note
+description: Complicated measles toaster
+priority: 1
+condition: "step6_complicated_measles == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_measles_eye_mouth_note
+description: measles with eye and mouth complications toaster
+priority: 1
+condition: "step6_measles_eye_mouth == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_illness_measles_note
+description: Child has measles toaster
+priority: 1
+condition: "step6_illness_measles == 1"
+actions:
+  - "isRelevant = true"

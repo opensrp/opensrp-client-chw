@@ -2561,6 +2561,130 @@
         }
       },
       {
+        "key": "illness_fever",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "illness_fever_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: FEVER\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for any identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 2 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_info_text": "Child has: FEVER\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for any identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 2 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "complicated_measles",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "complicated_measles_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: SEVERE COMPLICATED\nMEASLES****\n- Give Vitamin A treatment\n- Give first dose of an appropriate antibiotic\n- If clouding of the cornea or pus draining from the eye, apply\ntetracycline eye ointment\n- Refer URGENTLY to hospital",
+        "toaster_info_text": "Child has: SEVERE COMPLICATED\nMEASLES****\n- Give Vitamin A treatment\n- Give first dose of an appropriate antibiotic\n- If clouding of the cornea or pus draining from the eye, apply\ntetracycline eye ointment\n- Refer URGENTLY to hospital",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "measles_eye_mouth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "measles_eye_mouth_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: MEASLES WITH EYE OR\nMOUTH\nCOMPLICATIONS****\n- Give Vitamin A treatment\n- If pus draining from the eye, treat eye infection with\ntetracycline eye ointment\n- If mouth ulcers, treat with gentian violet\n- Follow-up in 3 days",
+        "toaster_info_text": "Child has: MEASLES WITH EYE OR\nMOUTH\nCOMPLICATIONS****\n- Give Vitamin A treatment\n- If pus draining from the eye, treat eye infection with\ntetracycline eye ointment\n- If mouth ulcers, treat with gentian violet\n- Follow-up in 3 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "illness_measles",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "illness_measles_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has:\nMEASLES\n- Give Vitamin A treatment",
+        "toaster_info_text": "Child has:\nMEASLES\n- Give Vitamin A treatment",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "vsf_disease_treat",
         "type": "check_box",
         "openmrs_entity": "concept",
