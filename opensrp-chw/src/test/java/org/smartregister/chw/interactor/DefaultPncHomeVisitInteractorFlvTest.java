@@ -122,8 +122,8 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
         int x = 4;
         List<PncBaby> children = getSampleKids(x);
         ReflectionHelpers.setField(interactor, "children", children);
-        for(Person baby : children){
-            ReflectionHelpers.callInstanceMethod(interactor, "evaluateDangerSignsBaby",ReflectionHelpers.ClassParameter.from(Person.class, baby));
+        for (Person baby : children) {
+            ReflectionHelpers.callInstanceMethod(interactor, "evaluateDangerSignsBaby", ReflectionHelpers.ClassParameter.from(Person.class, baby));
         }
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }
@@ -148,12 +148,11 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
         int x = 3;
         List<PncBaby> children = getSampleKids(x);
         ReflectionHelpers.setField(interactor, "children", children);
-        for(Person baby : children){
-            ReflectionHelpers.callInstanceMethod(interactor, "evaluateChildVaccineCard",ReflectionHelpers.ClassParameter.from(Person.class, baby));
+        for (Person baby : children) {
+            ReflectionHelpers.callInstanceMethod(interactor, "evaluateChildVaccineCard", ReflectionHelpers.ClassParameter.from(Person.class, baby));
         }
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }
-
 
 
     @Test
@@ -161,8 +160,8 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
         int x = 5;
         List<PncBaby> children = getSampleKids(x);
         ReflectionHelpers.setField(interactor, "children", children);
-        for(Person baby : children){
-            ReflectionHelpers.callInstanceMethod(interactor, "evaluateUmbilicalCord",ReflectionHelpers.ClassParameter.from(Person.class, baby));
+        for (Person baby : children) {
+            ReflectionHelpers.callInstanceMethod(interactor, "evaluateUmbilicalCord", ReflectionHelpers.ClassParameter.from(Person.class, baby));
         }
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }
@@ -184,8 +183,8 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
         Mockito.doReturn(alert).when(serviceWrapper).getAlert();
         Mockito.doReturn(serviceWrapperMap).when(interactor).getWrapperMap(Mockito.any());
 
-        for(Person baby : children){
-            ReflectionHelpers.callInstanceMethod(interactor, "evaluateExclusiveBreastFeeding",ReflectionHelpers.ClassParameter.from(Person.class, baby));
+        for (Person baby : children) {
+            ReflectionHelpers.callInstanceMethod(interactor, "evaluateExclusiveBreastFeeding", ReflectionHelpers.ClassParameter.from(Person.class, baby));
         }
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }
@@ -196,8 +195,8 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
         List<PncBaby> children = getSampleKids(x);
         ReflectionHelpers.setField(interactor, "children", children);
 
-        for(Person baby : children){
-            ReflectionHelpers.callInstanceMethod(interactor, "evaluateKangarooMotherCare",ReflectionHelpers.ClassParameter.from(Person.class, baby));
+        for (Person baby : children) {
+            ReflectionHelpers.callInstanceMethod(interactor, "evaluateKangarooMotherCare", ReflectionHelpers.ClassParameter.from(Person.class, baby));
         }
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }
@@ -219,8 +218,8 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
         int x = 3;
         List<PncBaby> children = getSampleKids(x);
         ReflectionHelpers.setField(interactor, "children", children);
-        for(Person baby : children){
-            ReflectionHelpers.callInstanceMethod(interactor, "evaluateObservationAndIllnessBaby",ReflectionHelpers.ClassParameter.from(Person.class, baby));
+        for (Person baby : children) {
+            ReflectionHelpers.callInstanceMethod(interactor, "evaluateObservationAndIllnessBaby", ReflectionHelpers.ClassParameter.from(Person.class, baby));
         }
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }

@@ -47,7 +47,7 @@ public class FamilyProfileDueFragmentTest {
         Mockito.doReturn(matrixCursor).when(commonRepository).rawCustomQueryForAdapter(Mockito.anyString());
 
 
-        ReflectionHelpers.setField(spyFragment,"countSelect","select * from ec_family");
+        ReflectionHelpers.setField(spyFragment, "countSelect", "select * from ec_family");
         ReflectionHelpers.setField(spyFragment, "clientAdapter", clientAdapter);
         spyFragment.countExecute();
 

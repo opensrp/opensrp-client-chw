@@ -94,7 +94,7 @@ public class FamilyProfileActivityTest {
         FamilyProfileActivity spyActivity = Mockito.spy(activity);
         FamilyProfilePresenter presenter = Mockito.mock(FamilyProfilePresenter.class);
 
-        ReflectionHelpers.setField(spyActivity, "presenter",presenter);
+        ReflectionHelpers.setField(spyActivity, "presenter", presenter);
         // verify current presenter
         Assert.assertEquals(spyActivity.presenter(), presenter);
 

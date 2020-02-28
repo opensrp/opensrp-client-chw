@@ -23,7 +23,7 @@ public class ImmunizationLibraryShadow {
     }
 
     @Implementation
-    public static void init(Context context, Repository repository, CommonFtsObject commonFtsObject, int applicationVersion, int databaseVersion){
+    public static void init(Context context, Repository repository, CommonFtsObject commonFtsObject, int applicationVersion, int databaseVersion) {
         // mute initialization
     }
 

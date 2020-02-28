@@ -55,7 +55,7 @@ public class AncMedicalHistoryActivityTest extends BaseActivityTestSetUp<AncMedi
     public void testRenderView() {
         Mockito.doNothing().when(activity).displayLoadingState(Mockito.anyBoolean());
         CoreAncMedicalHistoryActivity.Flavor flavor = Mockito.mock(CoreAncMedicalHistoryActivity.Flavor.class);
-        ReflectionHelpers.setField(activity,"flavor", flavor);
+        ReflectionHelpers.setField(activity, "flavor", flavor);
         List<Visit> visits = new ArrayList<>();
 
         ArgumentCaptor<List<Visit>> listArgumentCaptor = ArgumentCaptor.forClass(List.class);
