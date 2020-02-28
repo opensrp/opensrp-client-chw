@@ -4927,12 +4927,122 @@
         }
       },
       {
+        "key": "confirmed_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "confirmed_hiv_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: CONFIRMED HIV INFECTION\n\n- Initiate ART treatment and HIV care\n- Give cotrimoxazole prophylaxis*\n- Assess the chil's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Assess or refer for TB assessment at INH preventive therapy\n- Follow-up regularly as per national guidelines",
+        "toaster_info_text": "Child has: CONFIRMED HIV INFECTION\n\n- Initiate ART treatment and HIV care\n- Give cotrimoxazole prophylaxis*\n- Assess the chil's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Assess or refer for TB assessment at INH preventive therapy\n- Follow-up regularly as per national guidelines",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_hiv_exposed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_hiv_exposed_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child is: HIV EXPOSED\n\n- Give cotrimoxazole prophylaxis\n- Start or continue ARV prophylaxis as recommended\n- Do virological test to confirm HIV status**\n- Assess the child's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Follow-up regularly as per national guidelines",
+        "toaster_info_text": "Child is: HIV EXPOSED\n\n- Give cotrimoxazole prophylaxis\n- Start or continue ARV prophylaxis as recommended\n- Do virological test to confirm HIV status**\n- Assess the child's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Follow-up regularly as per national guidelines",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hiv_unlikely",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hiv_unlikely_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child: HIV INFECTION UNLIKELY\n- Treat, counsel and follow-up existing infections",
+        "toaster_info_text": "Child: HIV INFECTION UNLIKELY\n- Treat, counsel and follow-up existing infections",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hiv_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "HIV TREATMENT",
+        "toaster_info_text": "HIV TREATMENT",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "confirmed_hiv_treat",
         "type": "check_box",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "HIV treatment given for child:",
+        "label": "HIV treatment given for child:",
         "options": [
           {
             "key": "art_initiated",
@@ -4971,6 +5081,13 @@
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
@@ -4982,7 +5099,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "HIV treatment given for exposed child:",
+        "label": "HIV treatment given for exposed child:",
         "options": [
           {
             "key": "cotrimoxazole2",
@@ -5015,6 +5132,13 @@
             "openmrs_choice_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
@@ -5043,6 +5167,13 @@
             "text": "None"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"

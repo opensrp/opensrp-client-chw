@@ -929,3 +929,52 @@ priority: 1
 condition: "step10_child_hiv_test.contains('no') && step10_mother_test_result.contains('positive')"
 actions:
   - "isRelevant = true"
+---
+name: step10_confirmed_hiv_note
+description: Confirmed HIV infection displayed toaster
+priority: 1
+condition: "step10_confirmed_hiv == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step10_child_hiv_exposed_note
+description: Confirmed HIV infection displayed toaster
+priority: 1
+condition: "step10_child_hiv_exposed == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step10_hiv_unlikely_note
+description: Child unlikely to have HIV infection toaster
+priority: 1
+condition: "step10_hiv_unlikely == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step10_hiv_treatment_note
+description: HIV treatment toaster
+priority: 1
+condition: "step10_confirmed_hiv == 1 || step10_child_hiv_exposed == 1 || step10_hiv_unlikely"
+actions:
+  - "isRelevant = true"
+---
+name: step10_confirmed_hiv_treat
+description: List of all HIV treatment and services given for HIV confirmed children
+priority: 1
+condition: "step10_confirmed_hiv == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step10_hiv_exposed
+description: List of all HIV treatment and services given for HIV confirmed children
+priority: 1
+condition: "step10_child_hiv_exposed == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step10_hiv_unlikely_treat
+description: Treatment for HIV unlikely child
+priority: 1
+condition: "step10_hiv_unlikely == 1"
+actions:
+  - "isRelevant = true"
