@@ -852,3 +852,80 @@ priority: 1
 condition: "step9_feeding_problem.contains('yes')"
 actions:
   - "isRelevant = true"
+---
+name: step10_mother_hiv_test
+description: Has mother had test
+priority: 1
+condition: "step10_child_hiv_care.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_mother_test_result
+description: Test result for mother HIV if had already taken test
+priority: 1
+condition: "step10_mother_hiv_test.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_child_hiv_test
+description: Has child had HIV test
+priority: 1
+condition: "step10_child_hiv_care.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_child_hiv_test
+description: Has child had HIV test
+priority: 1
+condition: "step10_child_hiv_care.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_hiv_breastfeeding
+description: Whether child was breastfeeding at the time of test or 6 weeks prior
+priority: 1
+condition: "step10_mother_test_result.contains('positive') || step10_child_test_result.contains('v_neg') || step10_child_test_result.contains('s_neg') || step10_child_hiv_test.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_hiv_breastfeeding_now
+description: Whether child is currently breastfeeding
+priority: 1
+condition: "(step10_mother_test_result.contains('positive') || step10_child_test_result.contains('v_neg') || step10_child_test_result.contains('s_neg')) && step10_child_hiv_test.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_on_arv
+description: Whether mother and child are on ARV prophylaxis
+priority: 1
+condition: "step10_hiv_breastfeeding.contains('yes') || step10_hiv_breastfeeding_now.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_test_mother_results_note
+description: Whether mother and child are on ARV prophylaxis
+priority: 1
+condition: "step10_mother_hiv_test.contains('no') && step10_child_hiv_test.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_child_hiv_test2_note
+description: Whether mother and child are on ARV prophylaxis
+priority: 1
+condition: "step10_child_hiv_test.contains('no') && step10_mother_test_result.contains('positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_test_mother_results
+description:  Results for the HIV test - Mother
+priority: 1
+condition: "step10_mother_hiv_test.contains('no') && step10_child_hiv_test.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_child_hiv_test2
+description: Childs status after test
+priority: 1
+condition: "step10_child_hiv_test.contains('no') && step10_mother_test_result.contains('positive')"
+actions:
+  - "isRelevant = true"

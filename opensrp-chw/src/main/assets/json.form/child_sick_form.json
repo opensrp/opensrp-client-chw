@@ -4576,6 +4576,13 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -4604,6 +4611,13 @@
             "text": "Mother does not have HIV"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -4632,6 +4646,13 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -4674,6 +4695,13 @@
             "text": "Serological test negative"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -4702,6 +4730,13 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -4730,6 +4765,13 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -4758,9 +4800,50 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
+        }
+      },
+      {
+        "key": "test_mother_results_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mother and child status unknown: TEST mother",
+        "toaster_info_text": "Mother and child status unknown: TEST mother",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_hiv_test2_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mother HIV positive and child status unknown: TEST child",
+        "toaster_info_text": "Mother HIV positive and child status unknown: TEST child",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -4786,6 +4869,13 @@
             "text": "Mother is HIV negative"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -4827,7 +4917,14 @@
             "openmrs_entity_parent": "",
             "text": "Serological test negative"
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "confirmed_hiv_treat",
