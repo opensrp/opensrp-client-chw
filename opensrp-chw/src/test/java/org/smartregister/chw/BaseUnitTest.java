@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.smartregister.chw.application.TestChwApplication;
+import org.smartregister.chw.shadows.BaseJobShadow;
 import org.smartregister.chw.shadows.ContextShadow;
 
 /**
@@ -11,7 +12,7 @@ import org.smartregister.chw.shadows.ContextShadow;
  */
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = TestChwApplication.class, sdk = 22, shadows = {ContextShadow.class})
+@Config(application = TestChwApplication.class, sdk = 22, shadows = {ContextShadow.class, BaseJobShadow.class})
 public abstract class BaseUnitTest {
 
 }

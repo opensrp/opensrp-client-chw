@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.core.contract.FamilyCallDialogContract;
 import org.smartregister.chw.core.interactor.FamilyCallDialogInteractor;
 import org.smartregister.chw.core.model.FamilyCallDialogModel;
@@ -28,7 +28,7 @@ public class FamilyCallDialogPresenterTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         presenter = new FamilyCallDialogPresenter(view, familyBaseEntityId);
-        Whitebox.setInternalState(presenter, "mInteractor", mInteractor);
+        ReflectionHelpers.setField(presenter, "mInteractor", mInteractor);
     }
 
     @Test

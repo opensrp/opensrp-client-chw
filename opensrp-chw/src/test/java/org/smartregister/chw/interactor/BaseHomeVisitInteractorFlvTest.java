@@ -18,22 +18,16 @@ import java.util.Locale;
 @RunWith(MockitoJUnitRunner.class)
 public abstract class BaseHomeVisitInteractorFlvTest {
 
+    protected final String title = "Sample Title";
     @Mock
     protected MemberObject memberObject;
-
     @Mock
     protected LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
-
     @Mock
     protected Context context;
-
     protected Locale locale = Locale.ENGLISH;
-
     @Mock
     protected AssetManager assetManager;
-
-    protected final String title = "Sample Title";
-
     @Mock
     protected BaseAncHomeVisitAction.Builder builder;
 

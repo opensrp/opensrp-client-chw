@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.powermock.reflect.Whitebox;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
 
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class BirthAndIllnessAdapterTest extends BaseUnitTest {
 
         BirthAndIllnessAdapter.ContentViewHolder contentViewHolder = Mockito.mock(BirthAndIllnessAdapter.ContentViewHolder.class);
         TextView textView = Mockito.mock(TextView.class);
-        Whitebox.setInternalState(contentViewHolder, "vaccineName", textView);
+        ReflectionHelpers.setField(contentViewHolder, "vaccineName", textView);
 
         adapter.onBindViewHolder(contentViewHolder, 1);
 

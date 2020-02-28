@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -39,14 +38,14 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
         MockitoAnnotations.initMocks(this);
         interactor = Mockito.mock(DefaultChildHomeVisitInteractorFlv.class, Mockito.CALLS_REAL_METHODS);
 
-        Whitebox.setInternalState(interactor, "editMode", false);
-        Whitebox.setInternalState(interactor, "context", context);
-        Whitebox.setInternalState(interactor, "memberObject", memberObject);
-        Whitebox.setInternalState(interactor, "actionList", actionList);
-        Whitebox.setInternalState(interactor, "vaccineCardReceived", false);
+        ReflectionHelpers.setField(interactor, "editMode", false);
+        ReflectionHelpers.setField(interactor, "context", context);
+        ReflectionHelpers.setField(interactor, "memberObject", memberObject);
+        ReflectionHelpers.setField(interactor, "actionList", actionList);
+        ReflectionHelpers.setField(interactor, "vaccineCardReceived", false);
 
         Date dob = LocalDate.now().minusDays(62).toDate();
-        Whitebox.setInternalState(interactor, "dob", dob);
+        ReflectionHelpers.setField(interactor, "dob", dob);
 
         CoreConstants.JSON_FORM.setLocaleAndAssetManager(locale, assetManager);
         Mockito.doReturn(title).when(context).getString(Mockito.anyInt());
@@ -90,7 +89,7 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
         Map<String, ServiceWrapper> serviceWrapperMap = new HashMap<>();
         Mockito.doReturn(serviceWrapperMap).when(interactor).getServices();
 
-        Whitebox.setInternalState(interactor, "hasBirthCert", false);
+        ReflectionHelpers.setField(interactor, "hasBirthCert", false);
 
         List<VaccineGroup> vaccineGroups = new ArrayList<>();
         Mockito.doReturn(vaccineGroups).when(interactor).getVaccineGroups();
@@ -108,7 +107,7 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
 
     @Test
     public void testGetDetailsReturnsDBResultsEditing() {
-        Whitebox.setInternalState(interactor, "editMode", true);
+        ReflectionHelpers.setField(interactor, "editMode", true);
 
         String baseID = "12345";
         String eventName = "Sample Event Name";
@@ -124,7 +123,7 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
 
     @Test
     public void testEvaluateChildVaccineCard() {
-        Whitebox.setInternalState(interactor, "hasBirthCert", false);
+        ReflectionHelpers.setField(interactor, "hasBirthCert", false);
 
         ReflectionHelpers.callInstanceMethod(interactor, "evaluateChildVaccineCard");
 
@@ -217,7 +216,7 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
 
     @Test
     public void testEvaluateBirthCert() {
-        Whitebox.setInternalState(interactor, "hasBirthCert", false);
+        ReflectionHelpers.setField(interactor, "hasBirthCert", false);
 
         ReflectionHelpers.callInstanceMethod(interactor, "evaluateBirthCertForm");
 
@@ -227,7 +226,7 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
     @Test
     public void testEvaluateMUAC() {
         Date dob = LocalDate.now().minusDays(280).toDate();
-        Whitebox.setInternalState(interactor, "dob", dob);
+        ReflectionHelpers.setField(interactor, "dob", dob);
 
         ReflectionHelpers.callInstanceMethod(interactor, "evaluateMUAC");
 
@@ -237,7 +236,7 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
     @Test
     public void testEvaluateDietary() {
         Date dob = LocalDate.now().minusDays(280).toDate();
-        Whitebox.setInternalState(interactor, "dob", dob);
+        ReflectionHelpers.setField(interactor, "dob", dob);
 
         ReflectionHelpers.callInstanceMethod(interactor, "evaluateDietary");
 
@@ -253,7 +252,7 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
 
     @Test
     public void testEvaluateLLITN() {
-        Whitebox.setInternalState(interactor, "hasBirthCert", false);
+        ReflectionHelpers.setField(interactor, "hasBirthCert", false);
 
         ReflectionHelpers.callInstanceMethod(interactor, "evaluateLLITN");
 
@@ -262,7 +261,7 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
 
     @Test
     public void testEvaluateObsAndIllness() {
-        Whitebox.setInternalState(interactor, "hasBirthCert", false);
+        ReflectionHelpers.setField(interactor, "hasBirthCert", false);
 
         ReflectionHelpers.callInstanceMethod(interactor, "evaluateObsAndIllness");
 
