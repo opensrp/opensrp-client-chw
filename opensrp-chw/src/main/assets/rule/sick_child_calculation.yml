@@ -172,14 +172,14 @@ description: Malaria diagnosis when test is not available calculation
 priority: 1
 condition: "step6_fever.contains('yes')"
 actions:
-  - 'calculation = ((step2_danger_signs.contains("None") && step4_severe_pneumonia == 0 && step5_sev_dehydration == 0 && step5_sev_persistent_diarrhoea == 0 && (step6_malaria_risk.contains("high") && step6_travel_malaria_area.contains("yes") || (step6_fever_causes.contains("stiff_neck") && step6_malaria_risk.contains("low") && step6_travel_malaria_area.contains("no"))))? 1 : 0)'
+  - 'calculation = ((step2_danger_signs.contains("None") && step4_severe_pneumonia == 0 && step5_sev_dehydration == 0 && step5_sev_persistent_diarrhoea == 0 && (step6_malaria_risk.contains("high") && step6_travel_malaria_area.contains("yes") || (step6_fever_causes.contains("none_fever_cause") && step6_malaria_risk.contains("low") && step6_travel_malaria_area.contains("no"))))? 1 : 0)'
 ---
 name: step6_malaria
 description: Calculated field for malaria diagnosis after a test is done.
 priority: 1
 condition: "step6_fever.contains('yes')"
 actions:
-  - 'calculation = (step6_malaria_results.contains("mal_pos") && step6_malaria_risk.contains("no_risk")? 1 : 0)'
+  - 'calculation = (step6_malaria_results.contains("mal_pos") && !step6_malaria_risk.contains("no_risk")? 1 : 0)'
 ---
 name: step6_no_malaria
 description: Calculated field for no malaria fever disease diagnosis

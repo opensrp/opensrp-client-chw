@@ -441,7 +441,7 @@ actions:
   - "isRelevant = true"
 ---
 name: step6_no_test_malaria_note
-description: vsf disease toaster
+description: No test malaria toaster
 priority: 1
 condition: "step6_no_test_malaria == 1"
 actions:
@@ -493,5 +493,131 @@ name: step6_illness_measles_note
 description: Child has measles toaster
 priority: 1
 condition: "step6_illness_measles == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_fever_treatment_note
+description: Fever treatment toaster
+priority: 1
+condition: "step6_vsf_disease == 1 || step6_malaria == 1 || step6_no_malaria == 1 || step6_vsf_disease2 == 1 || step6_illness_fever == 1 || step6_complicated_measles == 1 || step6_measles_eye_mouth || step6_illness_measles == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_vsf_disease_treat_note
+description: Note on very severe febrile disease
+priority: 1
+condition: "step6_vsf_disease == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_vsf_disease_treat
+description: List of treatments for very severe febrile disease
+priority: 1
+condition: "step6_vsf_disease == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_malaria_treat_note
+description: Note of malaria treatment
+priority: 1
+condition: "step6_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_malaria_treat
+description: List of treatments for malaria
+priority: 1
+condition: "step6_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_no_malaria_treat_note
+description: Note on treatments of no malaria fever
+priority: 1
+condition: "step6_no_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_no_malaria_treat
+description: List of treatments for no malaria fever
+priority: 1
+condition: "step6_no_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_vsf_disease2_treat_note
+description: Note of treatments for very severe febrile disease
+priority: 1
+condition: "step6_vsf_disease2 == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_vsf_disease2_treat
+description: List of treatments for very severe febrile disease2
+priority: 1
+condition: "step6_vsf_disease2 == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_illness_fever_treat_note
+description: Note for treatment of fever
+priority: 1
+condition: "step6_illness_fever == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_illness_fever_treat
+description: List of treatments for fever
+priority: 1
+condition: "step6_illness_fever == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_complicated_measles_treat_note
+description: Note for treatment of complicated measles
+priority: 1
+condition: "step6_complicated_measles == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_complicated_measles_treat
+description: List of treatments for complicated measles
+priority: 1
+condition: "step6_complicated_measles == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_measles_eye_mouth_treat_note
+description: Note for treatment of measles with eye or mouth complications
+priority: 1
+condition: "step6_measles_eye_mouth == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_measles_eye_mouth_treat
+description: List of treatments for measles with eye and mouth complications
+priority: 1
+condition: "step6_measles_eye_mouth == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_illness_measles_treat_note
+description: Note for treatment of measles
+priority: 1
+condition: "step6_illness_measles == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_illness_measles_treat
+description: List of treatments for measles
+priority: 1
+condition: "step6_illness_measles == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_ear_problem
+description: Does child have ear problem
+priority: 1
+condition: "step3_main_symptoms.contains('ear_problems')"
 actions:
   - "isRelevant = true"

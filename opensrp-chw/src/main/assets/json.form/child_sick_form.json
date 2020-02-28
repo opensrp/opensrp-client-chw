@@ -2,7 +2,7 @@
   "validate_on_submit": true,
   "show_errors_on_submit": false,
   "skip_blank_steps": true,
-  "count": "6",
+  "count": "7",
   "encounter_type": "Sick Child",
   "entity_id": "",
   "relational_id": "",
@@ -1917,6 +1917,7 @@
   "step6": {
     "title": "FEVER",
     "display_back_button": "true",
+    "next": "step7",
     "fields": [
       {
         "key": "fever",
@@ -2513,7 +2514,7 @@
         }
       },
       {
-        "key": "no_malaria_note",
+        "key": "step6_no_malaria_treat_note",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
@@ -2685,12 +2686,46 @@
         }
       },
       {
+        "key": "fever_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "FEVER TREATMENT ",
+        "toaster_info_text": "FEVER TREATMENT",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "vsf_disease_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "VERY SEVERE FEBRILE DISEASE",
+        "toaster_info_text": "VERY SEVERE FEBRILE DISEASE",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "vsf_disease_treat",
         "type": "check_box",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1714",
         "openmrs_entity_parent": "",
-        "hint": "Treatment: \n\nRefer URGENTLY to hospital",
+        "label": "Treatment: \n\nRefer URGENTLY to hospital",
         "options": [
           {
             "key": "1st_dose_quinine_vsf",
@@ -2729,9 +2764,33 @@
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "malaria_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "MALARIA",
+        "toaster_info_text": "MALARIA",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -2740,7 +2799,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "116125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment:",
+        "label": "Treatment:",
         "options": [
           {
             "key": "1st_dose_antimalarial",
@@ -2785,9 +2844,33 @@
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "no_malaria_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "NO MALARIA FEVER",
+        "toaster_info_text": "NO MALARIA FEVER",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -2796,7 +2879,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment:",
+        "label": "Treatment:",
         "options": [
           {
             "key": "paracetamol_no_mal",
@@ -2835,9 +2918,33 @@
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "vsf_disease2_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "VERY SEVERE FEBRILE DISEASE",
+        "toaster_info_text": "VERY SEVERE FEBRILE DISEASE",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -2846,7 +2953,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1714",
         "openmrs_entity_parent": "",
-        "hint": "Treatment:",
+        "label": "Treatment:",
         "options": [
           {
             "key": "1st_dose_antibiotic_vsf2",
@@ -2879,9 +2986,33 @@
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "illness_fever_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "FEVER",
+        "toaster_info_text": "FEVER",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -2890,7 +3021,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment:",
+        "label": "Treatment:",
         "options": [
           {
             "key": "paracetamol_fever",
@@ -2929,9 +3060,33 @@
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "complicated_measles_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "COMPLICATED MEASLES\nRefer URGENTLY to hospital!",
+        "toaster_info_text": "COMPLICATED MEASLES\nRefer URGENTLY to hospital!",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -2940,7 +3095,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "115885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment:",
+        "label": "Treatment:",
         "options": [
           {
             "key": "vit_a_cm",
@@ -2973,9 +3128,33 @@
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "measles_eye_mouth_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "MEASLES WITH EYE OR MOUTH COMPLICATIONS",
+        "toaster_info_text": "MEASLES WITH EYE OR MOUTH COMPLICATIONS",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -2984,7 +3163,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "157691AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment:",
+        "label": "Treatment:",
         "options": [
           {
             "key": "vit_a_mem",
@@ -3017,9 +3196,33 @@
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "illness_measles_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "",
+        "toaster_info_text": "",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -3045,11 +3248,24 @@
             "text": "No treatment"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
         }
-      },
+      }
+    ]
+  },
+  "step7": {
+    "title": "EAR PROBLEMS",
+    "display_back_button": "true",
+    "fields": [
       {
         "key": "ear_problem",
         "type": "native_radio",
@@ -3073,6 +3289,13 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
