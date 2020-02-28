@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
+
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.contract.SickFormMedicalHistoryContract;
@@ -33,9 +33,9 @@ public class SickFormMedicalHistoryPresenterTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         presenter = Mockito.mock(SickFormMedicalHistoryPresenter.class, Mockito.CALLS_REAL_METHODS);
-        Whitebox.setInternalState(presenter, "interactor", interactor);
-        Whitebox.setInternalState(presenter, "view", new WeakReference<>(view));
-        Whitebox.setInternalState(presenter, "memberObject", memberObject);
+        ReflectionHelpers.setField(presenter, "interactor", interactor);
+        ReflectionHelpers.setField(presenter, "view", new WeakReference<>(view));
+        ReflectionHelpers.setField(presenter, "memberObject", memberObject);
     }
 
     @Test

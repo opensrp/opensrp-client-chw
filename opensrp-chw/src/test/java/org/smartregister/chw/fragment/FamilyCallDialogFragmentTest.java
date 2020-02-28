@@ -11,9 +11,9 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.model.FamilyCallDialogModel;
@@ -25,9 +25,9 @@ import timber.log.Timber;
 public class FamilyCallDialogFragmentTest {
 
     @Mock
-    FamilyCallDialogFragment familyCallDialogFragment;
+    private FamilyCallDialogFragment familyCallDialogFragment;
 
-    String phoneNumber = "12345Test";
+    private String phoneNumber = "12345Test";
 
     @Before
     public void setUp() {
@@ -38,7 +38,7 @@ public class FamilyCallDialogFragmentTest {
     public void testRefreshHeadOfFamilyView() {
         FamilyCallDialogFragment spyFragment = Mockito.spy(FamilyCallDialogFragment.class);
         LinearLayout llFamilyHead = Mockito.spy(LinearLayout.class);
-        Whitebox.setInternalState(spyFragment, "llFamilyHead", llFamilyHead);
+        ReflectionHelpers.setField(spyFragment, "llFamilyHead", llFamilyHead);
         Mockito.doNothing().when(llFamilyHead).setVisibility(ArgumentMatchers.anyInt());
 
 
@@ -77,7 +77,7 @@ public class FamilyCallDialogFragmentTest {
     public void testRefreshCareGiverView() {
         FamilyCallDialogFragment spyFragment = Mockito.spy(FamilyCallDialogFragment.class);
         LinearLayout llCareGiver = Mockito.spy(LinearLayout.class);
-        Whitebox.setInternalState(spyFragment, "llCareGiver", llCareGiver);
+        ReflectionHelpers.setField(spyFragment, "llCareGiver", llCareGiver);
         Mockito.doNothing().when(llCareGiver).setVisibility(ArgumentMatchers.anyInt());
 
 

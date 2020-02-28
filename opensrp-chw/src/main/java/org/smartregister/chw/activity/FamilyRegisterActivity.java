@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,6 +20,8 @@ import org.smartregister.chw.referral.ReferralLibrary;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
+
+import timber.log.Timber;
 
 public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
 
@@ -69,8 +72,13 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
         ChwApplication.getInstance().notifyAppContextChange(); // initialize the language (bug in translation)
-        if (ChwApplication.getApplicationFlavor().hasReferrals())
-            ReferralLibrary.getInstance().loadReferralServiceIndicators();
+        if (ChwApplication.getApplicationFlavor().hasReferrals()){
+            try{
+                ReferralLibrary.getInstance().loadReferralServiceIndicators();
+            }catch (Exception e){
+                Timber.e(e);
+            }
+        }
 
         action = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.ACTION);
         if (action != null && action.equals(Constants.ACTION.START_REGISTRATION)) {

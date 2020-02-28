@@ -317,12 +317,6 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
-    // PowerMock
-    def powerMockVersion = '2.0.4'
-    testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
-    testImplementation "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
-    testImplementation "org.powermock:powermock-api-mockito2:$powerMockVersion"
-    testImplementation "org.powermock:powermock-classloading-xstream:$powerMockVersion"
 }
 
 def flavors = android.productFlavors.collect { flavor -> flavor.name }

@@ -11,28 +11,27 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
+import org.robolectric.android.controller.ActivityController;
 import org.robolectric.util.ReflectionHelpers;
-import org.smartregister.chw.BaseActivityTestSetUp;
+import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.util.Constants;
 
 /**
  * @author rkodev
  */
-public class AncHomeVisitActivityTest extends BaseActivityTestSetUp<AncHomeVisitActivity> {
+public class AncHomeVisitActivityTest extends BaseUnitTest {
+
+    private AncHomeVisitActivity activity;
+    private ActivityController<AncHomeVisitActivity> controller;
 
     @Mock
     private BaseAncHomeVisitContract.Presenter presenter;
 
-    @Override
-    protected Class<AncHomeVisitActivity> getActivityClass() {
-        return AncHomeVisitActivity.class;
-    }
-
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = Robolectric.buildActivity(getActivityClass());
+        controller = Robolectric.buildActivity(AncHomeVisitActivity.class);
         activity = controller.get();
 
         activity = Mockito.spy(activity);
