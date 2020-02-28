@@ -222,3 +222,31 @@ priority: 1
 condition: "step6_fever.contains('yes')"
 actions:
   - 'calculation = ((step6_measles.contains("measles_3_months") || step6_measles.contains("measles_now"))? 1 : 0)'
+---
+name: step7_mastoiditis_infection
+description: Calculated field for when child suffering from Mastoiditis
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - 'calculation = (step7_tender_swelling.contains("yes")? 1 : 0)'
+---
+name: step7_acute_ear_infection
+description: Calculated field for when child suffering from an acute ear infection
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - 'calculation = ((step7_pus.contains("yes") && step7_ear_discharge_time < 14 || step7_ear_pain.contains("yes"))? 1 : 0)'
+---
+name: step7_chronic_ear_infection
+description: Calculated field for when child suffering from a chronic ear infection
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - 'calculation = ((step7_pus.contains("yes") && step7_ear_discharge_time >= 14)? 1 : 0)'
+---
+name: step7_no_ear_infection
+description: Calculated field for when the child does not have any ear infection
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - 'calculation = ((step7_pus.contains("no") && step7_ear_pain.contains("no"))? 1 : 0)'

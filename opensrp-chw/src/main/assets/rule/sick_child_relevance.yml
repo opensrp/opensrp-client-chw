@@ -621,3 +621,101 @@ priority: 1
 condition: "step3_main_symptoms.contains('ear_problems')"
 actions:
   - "isRelevant = true"
+---
+name: step7_ear_pain
+description: Find out whether child's ear is in pain
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step7_ear_discharge
+description: Find out whether there is any discharge from the ear
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step7_ear_discharge_time
+description: How long there has been discharge
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step7_pus
+description: Check for pus around the ear
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step7_tender_swelling
+description: Check for tender swelling behind the ear
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step7_mastoiditis_infection_note
+description: Mastoiditis infection toaster
+priority: 1
+condition: "step7_mastoiditis_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_acute_ear_infection_note
+description: Acute ear infection toaster
+priority: 1
+condition: "step7_acute_ear_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_chronic_ear_infection_note
+description: Chronic ear infection toaster
+priority: 1
+condition: "step7_chronic_ear_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_no_ear_infection_note
+description: No ear infection toaster
+priority: 1
+condition: "step7_no_ear_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_ear_problem_treatment_note
+description: Ear treatment toaster
+priority: 1
+condition: "step7_mastoiditis_infection == 1 || step7_acute_ear_infection == 1 || step7_chronic_ear_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_mastoiditis_treat
+description: Treatment for mastoiditis
+priority: 1
+condition: "step7_mastoiditis_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_acute_ear_treat
+description: Treatment for chronic ear infection
+priority: 1
+condition: "step7_acute_ear_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_chronic_ear_treat
+description: Treatment for acute ear infection
+priority: 1
+condition: "step7_chronic_ear_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_ear_treatment_note
+description: Treatment for No ear infection
+priority: 1
+condition: "step7_no_ear_infection == 1"
+actions:
+  - "isRelevant = true"

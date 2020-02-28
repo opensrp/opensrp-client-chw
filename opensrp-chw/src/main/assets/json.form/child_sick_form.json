@@ -2,7 +2,7 @@
   "validate_on_submit": true,
   "show_errors_on_submit": false,
   "skip_blank_steps": true,
-  "count": "7",
+  "count": "8",
   "encounter_type": "Sick Child",
   "entity_id": "",
   "relational_id": "",
@@ -3265,6 +3265,7 @@
   "step7": {
     "title": "EAR PROBLEMS",
     "display_back_button": "true",
+    "next": "step8",
     "fields": [
       {
         "key": "ear_problem",
@@ -3324,6 +3325,13 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -3352,6 +3360,13 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -3365,6 +3380,13 @@
         "openmrs_entity_parent": "",
         "edit_type": "number",
         "hint": "For how many days?",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please enter the number of days"
@@ -3393,6 +3415,13 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -3421,9 +3450,157 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
+        }
+      },
+      {
+        "key": "mastoiditis_infection",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mastoiditis_infection_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: MASTOIDITIS\n- Give first dose of an appropriate antibiotic\n- Give first dose of paracetamol for pain\n- Refer URGENTLY to hospital",
+        "toaster_info_text": "Child has: MASTOIDITIS\n- Give first dose of an appropriate antibiotic\n- Give first dose of paracetamol for pain\n- Refer URGENTLY to hospital",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "acute_ear_infection",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "acute_ear_infection_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: ACUTE EAR INFECTION\n- Give an antibiotic for 5 days\n- Give paracetamol for pain\n- Dry the ear by wicking\n- Follow-up in 5 days",
+        "toaster_info_text": "Child has: ACUTE EAR INFECTION\n- Give an antibiotic for 5 days\n- Give paracetamol for pain\n- Dry the ear by wicking\n- Follow-up in 5 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "chronic_ear_infection",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "chronic_ear_infection_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: CHRONIC EAR INFECTION\n- Dry the ear by wicking\n- Treat with topical quinolone eardrops for 14 days\n- Follow-up in 5 days",
+        "toaster_info_text": "Child has: CHRONIC EAR INFECTION\n- Dry the ear by wicking\n- Treat with topical quinolone eardrops for 14 days\n- Follow-up in 5 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_ear_infection",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_ear_infection_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: NO EAR INFECTION\n- No treatment",
+        "toaster_info_text": "Child has: NO EAR INFECTION\n- No treatment",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ear_problem_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "EAR PROBLEM TREATMENT",
+        "toaster_info_text": "EAR PROBLEM TREATMENT",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -3432,7 +3609,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "134614AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment given for mastoiditis:",
+        "label": "Treatment given for mastoiditis:",
         "options": [
           {
             "key": "1st_dose_antibiotic",
@@ -3453,6 +3630,13 @@
             "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
@@ -3464,7 +3648,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "117086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment given for acute ear infection:",
+        "label": "Treatment given for acute ear infection:",
         "options": [
           {
             "key": "acute_ear_antibiotic",
@@ -3485,6 +3669,13 @@
             "openmrs_choice_id": "1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
@@ -3496,7 +3687,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "117087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Treatment given for chronic ear infection:",
+        "label": "Treatment given for chronic ear infection:",
         "options": [
           {
             "key": "chronic_ear_dry",
@@ -3511,11 +3702,41 @@
             "openmrs_choice_id": "162304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
         }
       },
+      {
+        "key": "ear_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: NO EAR INFECTION\n- No treatment",
+        "toaster_info_text": "Child has: NO EAR INFECTION\n- No treatment",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step8": {
+    "title": "ACUTE MALNUTRITION CHECK",
+    "display_back_button": "true",
+    "fields": [
       {
         "key": "oedema",
         "type": "native_radio",
@@ -3539,6 +3760,13 @@
             "text": "No"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
