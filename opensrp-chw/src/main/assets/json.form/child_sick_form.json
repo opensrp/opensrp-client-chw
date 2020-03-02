@@ -59,6 +59,13 @@
     "next": "step2",
     "fields": [
       {
+        "key": "age_in_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
         "key": "child_height",
         "type": "edit_text",
         "openmrs_entity": "concept",
