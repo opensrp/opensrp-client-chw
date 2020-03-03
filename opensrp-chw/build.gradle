@@ -146,8 +146,6 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"MOH Jhpiego Facility Name" , "Village"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
-            buildConfigField "boolean", 'SUPPORT_QR', 'true'
-            buildConfigField "boolean", 'SUPPORT_REPORT', 'false'
             buildConfigField "int", "DATABASE_VERSION", '13'
         }
         chad {
@@ -163,8 +161,6 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
         drc {
@@ -180,8 +176,6 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
-            buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
         guinea {
@@ -202,8 +196,6 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_PREVIEW', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHW"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '4'
         }
         togo {
@@ -221,8 +213,6 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHW"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '15'
         }
         liberia {
@@ -237,8 +227,6 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '3'
         }
         lmh {
@@ -254,8 +242,6 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "boolean", 'SUPPORT_REPORT', 'true'
             buildConfigField "int", "DATABASE_VERSION", '2'
         }
     }

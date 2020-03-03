@@ -64,13 +64,6 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
     @Override
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();
-
-        if (!BuildConfig.SUPPORT_QR)
-            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
-
-        if (!BuildConfig.SUPPORT_REPORT)
-            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_job_aids);
-
         FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
     }
 
