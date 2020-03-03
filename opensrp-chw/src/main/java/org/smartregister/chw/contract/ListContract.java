@@ -1,16 +1,26 @@
 package org.smartregister.chw.contract;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import org.smartregister.chw.adapter.ListableAdapter;
+import org.smartregister.chw.domain.ReportType;
+import org.smartregister.chw.viewholder.ListableViewHolder;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
-public interface ListContract<T extends ListContract.Identifiable> {
+public interface ListContract {
 
-    interface Model<T> {
+    interface Model<T extends ListContract.Identifiable> {
 
     }
 
-    interface View<T> {
+    interface View<T extends ListContract.Identifiable> {
+
+        void bindLayout();
 
         void renderData(List<T> identifiables);
 
@@ -18,26 +28,55 @@ public interface ListContract<T extends ListContract.Identifiable> {
 
         void setLoadingState(boolean loadingState);
 
-        void onListItemClicked(T t, @LayoutRes int layoutID);
+        void onListItemClicked(T t, @IdRes int layoutID);
 
+        @NonNull
+        <X extends ListableAdapter<T, ListableViewHolder<T>>> X adapter();
+
+        @NonNull
+        Presenter<T> withPresenter();
     }
 
-    interface Presenter<T> {
+    interface Presenter<T extends ListContract.Identifiable> {
 
-        void fetchList(String baseEntityID);
+        void fetchList(Callable<List<T>> callable);
 
-        void onItemsFetched(List<Identifiable> identifiables);
-
-    }
-
-    interface Interactor<T> {
+        void onItemsFetched(List<T> identifiables);
 
         /**
+         * binds the view
          *
-         * @param identifiable
+         * @param view
+         */
+        Presenter<T> with(View<T> view);
+
+        /**
+         * binds interactor
+         *
+         * @param interactor
+         * @return
+         */
+        Presenter<T> using(Interactor<T> interactor);
+
+        /**
+         * binds a views model
+         *
+         * @param model
+         * @return
+         */
+        Presenter<T> withModel(Model<T> model);
+
+        @Nullable
+        View<T> getView();
+    }
+
+    interface Interactor<T extends ListContract.Identifiable> {
+
+        /**
+         * @param callable
          * @param presenter
          */
-        void runRequest(Identifiable identifiable, Presenter<T> presenter);
+        void runRequest(Callable<List<T>> callable, Presenter<T> presenter);
     }
 
     interface Identifiable {
@@ -45,13 +84,14 @@ public interface ListContract<T extends ListContract.Identifiable> {
     }
 
 
-    interface AdapterViewHolder<T> {
+    interface AdapterViewHolder<T extends ListContract.Identifiable> {
 
         /**
          * bind view to object
+         *
          * @param t
          */
-        void bindView(T t);
+        void bindView(T t, ListContract.View<T> view);
 
         /**
          * reset the view details
