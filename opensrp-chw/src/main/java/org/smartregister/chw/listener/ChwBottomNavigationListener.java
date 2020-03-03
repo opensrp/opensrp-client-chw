@@ -6,10 +6,11 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 
+import org.smartregister.chw.R;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.JobAidsActivity;
+import org.smartregister.chw.activity.ReportsActivity;
 import org.smartregister.chw.core.listener.CoreBottomNavigationListener;
-import org.smartregister.family.R;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
 public class ChwBottomNavigationListener extends CoreBottomNavigationListener {
@@ -49,6 +50,11 @@ public class ChwBottomNavigationListener extends CoreBottomNavigationListener {
         } else if (item.getItemId() == R.id.action_job_aids) {
             //view.setSelectedItemId(R.id.action_family);
             Intent intent = new Intent(context, JobAidsActivity.class);
+            context.startActivity(intent);
+            return false;
+        } else if (item.getItemId() == R.id.action_report) {
+            //view.setSelectedItemId(R.id.action_family);
+            Intent intent = new Intent(context, ReportsActivity.class);
             context.startActivity(intent);
             return false;
         }
