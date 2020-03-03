@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -18,14 +17,12 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.github.ybq.android.spinkit.style.FadingCircle;
-import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.tabs.TabLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
@@ -165,31 +162,8 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        if (bottomNavigationView != null) {
-
-            bottomNavigationView.getMenu().add(Menu.NONE, org.smartregister.R.string.action_me, Menu.NONE, org.smartregister.R.string.me)
-                    .setIcon(bottomNavigationHelper
-                            .writeOnDrawable(org.smartregister.R.drawable.bottom_bar_initials_background, "", getResources()));
-            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-
-            bottomNavigationView.getMenu().removeItem(org.smartregister.R.string.action_me);
-
-            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-
-            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-            bottomNavigationView.setSelectedItemId(org.smartregister.family.R.id.action_job_aids);
-
-            JobsAidsBottomNavigationListener childBottomNavigationListener = new JobsAidsBottomNavigationListener(this);
-            bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
-
-        }
-
-        if (!BuildConfig.SUPPORT_QR)
-            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
-
-        if (!BuildConfig.SUPPORT_REPORT)
-            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_job_aids);
-
+        JobsAidsBottomNavigationListener navigationListener = new JobsAidsBottomNavigationListener(this);
+        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, navigationListener);
     }
 
     /**
