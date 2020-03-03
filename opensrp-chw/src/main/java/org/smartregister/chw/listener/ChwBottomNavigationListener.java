@@ -25,10 +25,9 @@ public class ChwBottomNavigationListener extends CoreBottomNavigationListener {
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 //        super.onNavigationItemSelected(item);
 
-        BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) context;
-
         if (item.getItemId() == R.id.action_family) {
             if (context instanceof FamilyRegisterActivity) {
+                BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) context;
                 baseRegisterActivity.switchToBaseFragment();
             } else {
                 Intent intent = new Intent(context, FamilyRegisterActivity.class);
@@ -36,11 +35,13 @@ public class ChwBottomNavigationListener extends CoreBottomNavigationListener {
                 context.finish();
             }
         } else if (item.getItemId() == R.id.action_scan_qr) {
+            BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) context;
             baseRegisterActivity.startQrCodeScanner();
             return false;
         } else if (item.getItemId() == R.id.action_register) {
 
             if (context instanceof FamilyRegisterActivity) {
+                BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) context;
                 baseRegisterActivity.startRegistration();
             } else {
                 FamilyRegisterActivity.startFamilyRegisterForm(context);

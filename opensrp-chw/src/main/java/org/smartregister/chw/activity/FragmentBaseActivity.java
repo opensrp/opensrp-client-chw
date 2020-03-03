@@ -4,19 +4,13 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.ReportsFragment;
-import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.activity.SecuredActivity;
 
 import timber.log.Timber;
 
-public class ReportsActivity extends SecuredActivity {
-
-    protected BottomNavigationHelper bottomNavigationHelper;
-    protected BottomNavigationView bottomNavigationView;
+public class FragmentBaseActivity extends SecuredActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +32,7 @@ public class ReportsActivity extends SecuredActivity {
 
     @Override
     protected void onCreation() {
-        bottomNavigationHelper = new BottomNavigationHelper();
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
+        Timber.v("Empty onCreation");
     }
 
     @Override

@@ -198,8 +198,13 @@
             android:name=".activity.SickFormMedicalHistory"
             android:theme="@style/ChwTheme.NoActionBar" />
 
-        <activity android:name=".activity.ReportsActivity"
-            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.ReportsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.FragmentBaseActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
