@@ -1,5 +1,6 @@
 package org.smartregister.chw.fragment;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -18,11 +20,12 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FindReportContract;
 import org.smartregister.chw.model.FilterReportFragmentModel;
 import org.smartregister.chw.presenter.FilterReportFragmentPresenter;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.location.helper.LocationHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -35,16 +38,25 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
     private FindReportContract.Presenter presenter;
     private View view;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.US);
+    private Calendar myCalendar = Calendar.getInstance();
+    private String titleName;
+    private EditText editTextDate;
+    private Spinner spinnerCommunity;
+
+    private List<String> communityList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.filter_report_fragment, container, false);
-
         bindLayout();
         loadPresenter();
 
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            titleName = bundle.getString(FilterReportFragment.REPORT_NAME);
+        }
         return view;
     }
 
@@ -53,28 +65,48 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         Button buttonSave = view.findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(v -> runReport());
 
-        List<String> strings = new ArrayList<>();
-        strings.add(sdf.format(new Date()));
-        Spinner spinnerDueDate = view.findViewById(R.id.spinnerDueDate);
-        bindSpinner(spinnerDueDate, strings);
+        editTextDate = view.findViewById(R.id.editTextDate);
+        spinnerCommunity = view.findViewById(R.id.spinnerCommunity);
 
-        Spinner spinnerCommunity = view.findViewById(R.id.spinnerCommunity);
-        bindSpinner(spinnerCommunity, LocationHelper.getInstance().generateDefaultLocationHierarchy(ChwApplication.getInstance().getAllowedLocationLevels()));
+        communityList.add("All communities");
+        communityList.addAll(LocationHelper.getInstance().generateDefaultLocationHierarchy(ChwApplication.getInstance().getAllowedLocationLevels()));
+
+        bindSpinner();
+        bindDatePicker();
     }
 
     @Override
     public void runReport() {
         Map<String, String> map = new HashMap<>();
+        map.put(Constants.ReportParameters.COMMUNITY, communityList.get(0));
+        map.put(Constants.ReportParameters.REPORT_DATE, new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(myCalendar.getTime()));
         presenter.runReport(map);
     }
 
-    private void bindSpinner(Spinner spinner, List<String> list) {
+    private void bindSpinner() {
         Context context = getContext();
         if (context == null) return;
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, communityList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        spinnerCommunity.setAdapter(adapter);
+    }
+
+    private void bindDatePicker() {
+        DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
+        };
+
+        editTextDate.setOnClickListener(v -> new DatePickerDialog(getContext(), date, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+    }
+
+    private void updateLabel() {
+        editTextDate.setText(dateFormat.format(myCalendar.getTime()));
     }
 
     @NonNull
@@ -87,6 +119,12 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
     @Override
     public void startResultsView(Bundle bundle) {
-        FragmentBaseActivity.startMe(getActivity(), EligibleChildrenReportFragment.TAG, "Query Results", bundle);
+        if (titleName == null) return;
+
+        if (titleName.equalsIgnoreCase(getString(R.string.eligible_children))) {
+            FragmentBaseActivity.startMe(getActivity(), EligibleChildrenReportFragment.TAG, "Children Results", bundle);
+        } else if (titleName.equalsIgnoreCase(getString(R.string.doses_needed))) {
+            FragmentBaseActivity.startMe(getActivity(), VillageDoseReportFragment.TAG, "Dose Results", bundle);
+        }
     }
 }

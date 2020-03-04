@@ -23,4 +23,9 @@ public class Constants extends CoreConstants {
         public static final String PNC_REFERRAL = "PNC Referral";
         public static final String ANC_REFERRAL = "ANC Referral";
     }
+
+    public static class ReportParameters {
+        public static String COMMUNITY = "COMMUNITY";
+        public static String REPORT_DATE = "REPORT_DATE";
+    }
 }
