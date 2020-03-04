@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.FilterReportFragment;
 import org.smartregister.chw.fragment.JobAidsDashboardFragment;
-import org.smartregister.chw.fragment.RunReportFragment;
+import org.smartregister.chw.fragment.EligibleChildrenReportFragment;
 import org.smartregister.view.activity.SecuredActivity;
 
 import timber.log.Timber;
@@ -105,9 +105,9 @@ public class FragmentBaseActivity extends SecuredActivity {
                     .TAG:
                 fragment = new FilterReportFragment();
                 break;
-            case RunReportFragment
+            case EligibleChildrenReportFragment
                     .TAG:
-                fragment = new RunReportFragment();
+                fragment = new EligibleChildrenReportFragment();
                 break;
             case JobAidsDashboardFragment
                     .TAG:

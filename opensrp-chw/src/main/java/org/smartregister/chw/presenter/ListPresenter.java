@@ -3,7 +3,6 @@ package org.smartregister.chw.presenter;
 import androidx.annotation.Nullable;
 
 import org.smartregister.chw.contract.ListContract;
-import org.smartregister.chw.domain.ReportType;
 import org.smartregister.chw.interactor.ListInteractor;
 
 import java.lang.ref.WeakReference;
@@ -17,16 +16,21 @@ public class ListPresenter<T extends ListContract.Identifiable> implements ListC
 
     @Nullable
     private WeakReference<ListContract.View<T>> weakReference;
-    private ListContract.Interactor<T> interactor = new ListInteractor<>() ;
+    private ListContract.Interactor<T> interactor = new ListInteractor<>();
     private ListContract.Model<T> model;
 
     /**
      * Calling the fetch list method directly from the view may lead to memory leaks,
      * Use this method with caution when on the view
+     *
      * @param callable
      */
     @Override
     public void fetchList(Callable<List<T>> callable) {
+        ListContract.View<T> currentView = getView();
+        if (currentView != null)
+            currentView.setLoadingState(true);
+
         if (interactor != null) {
             interactor.runRequest(callable, this);
         }
@@ -34,10 +38,12 @@ public class ListPresenter<T extends ListContract.Identifiable> implements ListC
 
     @Override
     public void onItemsFetched(List<T> identifiables) {
-        if (getView() != null) {
-            getView().renderData(identifiables);
-            getView().refreshView();
-        }
+        ListContract.View<T> currentView = getView();
+        if (currentView == null) return;
+
+        currentView.renderData(identifiables);
+        currentView.refreshView();
+        currentView.setLoadingState(false);
     }
 
     @Override

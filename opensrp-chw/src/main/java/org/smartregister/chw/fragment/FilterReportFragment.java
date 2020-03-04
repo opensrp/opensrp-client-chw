@@ -90,6 +90,6 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
     @Override
     public void startResultsView(Bundle bundle) {
-        FragmentBaseActivity.startMe(getActivity(), RunReportFragment.TAG, "Query Results", bundle);
+        FragmentBaseActivity.startMe(getActivity(), EligibleChildrenReportFragment.TAG, "Query Results", bundle);
     }
 }

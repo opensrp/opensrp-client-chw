@@ -29,7 +29,7 @@ public class ReportsFragment extends Fragment implements ListContract.View<Repor
     private ListableAdapter<ReportType, ListableViewHolder<ReportType>> mAdapter;
     private ProgressBar progressBar;
     private ListContract.Presenter<ReportType> presenter;
-    private List<ReportType> reportTypes;
+    private List<ReportType> list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,12 +66,12 @@ public class ReportsFragment extends Fragment implements ListContract.View<Repor
 
     @Override
     public void renderData(List<ReportType> identifiables) {
-        this.reportTypes = identifiables;
+        this.list = identifiables;
     }
 
     @Override
     public void refreshView() {
-        mAdapter.reloadData(reportTypes);
+        mAdapter.reloadData(list);
         mAdapter.notifyDataSetChanged();
     }
 
@@ -97,8 +97,8 @@ public class ReportsFragment extends Fragment implements ListContract.View<Repor
 
     @NonNull
     @Override
-    public <VH extends ListableViewHolder<ReportType>> ListableAdapter<ReportType, VH> adapter() {
-        return (ListableAdapter<ReportType, VH>) new ReportsFragmentAdapter(reportTypes, this);
+    public ListableAdapter<ReportType, ListableViewHolder<ReportType>> adapter() {
+        return new ReportsFragmentAdapter(list, this);
     }
 
     @NonNull
