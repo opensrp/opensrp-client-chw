@@ -118,6 +118,7 @@
         "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Check for general danger signs:",
+        "combine_checkbox_option_values": "true",
         "exclusive": [
           "None"
         ],
@@ -230,6 +231,7 @@
         "openmrs_entity_id": "1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Does the child have any of these symptoms?",
+        "combine_checkbox_option_values": "true",
         "exclusive": [
           "no_symptom"
         ],
@@ -407,6 +409,7 @@
         "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Which of these difficult breathing symptoms does the child display?",
+        "combine_checkbox_option_values": "true",
         "exclusive": [
           "none"
         ],
@@ -772,7 +775,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "severe_pneumonia_treatment",
         "openmrs_entity_parent": "",
-        "hint": "Treatment given:",
+        "label": "Treatment given:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "first_dose_antibiotic",
@@ -823,6 +827,7 @@
         "openmrs_entity_id": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment given:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "first_dose_antibiotic",
@@ -873,6 +878,7 @@
         "openmrs_entity_id": "114100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment given:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "oral_amoxicillin",
@@ -935,6 +941,7 @@
         "openmrs_entity_id": "106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment given:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "inhaled_bronchodilator_cough",
@@ -1065,6 +1072,7 @@
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
         "label": "What is the general condition on the child?",
+        "combine_checkbox_option_values": "true",
         "exclusive": [
           "none"
         ],
@@ -1601,6 +1609,7 @@
         "openmrs_entity_id": "154015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment for Severe dehydration with other classification",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "sev_dehydratn_no_treat",
@@ -1702,6 +1711,7 @@
         "openmrs_entity_id": "154016AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment some dehydration: Plan B",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "some_dehydration_referal",
@@ -1747,6 +1757,7 @@
         "openmrs_entity_id": "154017AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment some dehydration:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "some_dehydration_treat_zinc",
@@ -1786,6 +1797,7 @@
         "openmrs_entity_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment: Plan A",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "no_dehydration_fluids",
@@ -1825,6 +1837,7 @@
         "openmrs_entity_id": "126626AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "sev_pers_diarrhoea_treatment",
@@ -1858,6 +1871,7 @@
         "openmrs_entity_id": "5018AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "sev_pers_feeding",
@@ -2166,6 +2180,7 @@
         "openmrs_entity_id": "1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "What fever causes does the child display?",
+        "combine_checkbox_option_values": "true",
         "exclusive": [
           "none_fever_cause"
         ],
@@ -2214,6 +2229,7 @@
         "openmrs_entity_id": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Which measles symptoms does the child have?",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "gen_rash",
@@ -2366,6 +2382,7 @@
         "openmrs_entity_id": "115885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Does the child display any additional measles symptoms?",
+        "combine_checkbox_option_values": "true",
         "exclusive": [
           "none"
         ],
@@ -2733,6 +2750,7 @@
         "openmrs_entity_id": "1714",
         "openmrs_entity_parent": "",
         "label": "Treatment: \n\nRefer URGENTLY to hospital",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "1st_dose_quinine_vsf",
@@ -2807,6 +2825,7 @@
         "openmrs_entity_id": "116125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "1st_dose_antimalarial",
@@ -2887,6 +2906,7 @@
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "paracetamol_no_mal",
@@ -2961,6 +2981,7 @@
         "openmrs_entity_id": "1714",
         "openmrs_entity_parent": "",
         "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "1st_dose_antibiotic_vsf2",
@@ -3029,6 +3050,7 @@
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "paracetamol_fever",
@@ -3103,6 +3125,7 @@
         "openmrs_entity_id": "115885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "vit_a_cm",
@@ -3171,6 +3194,7 @@
         "openmrs_entity_id": "157691AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "vit_a_mem",
@@ -3617,6 +3641,7 @@
         "openmrs_entity_id": "134614AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment given for mastoiditis:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "1st_dose_antibiotic",
@@ -3656,6 +3681,7 @@
         "openmrs_entity_id": "117086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment given for acute ear infection:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "acute_ear_antibiotic",
@@ -3695,6 +3721,7 @@
         "openmrs_entity_id": "117087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment given for chronic ear infection:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "chronic_ear_dry",
@@ -4035,6 +4062,7 @@
         "openmrs_entity_id": "162330AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Complicated severe acute malnutrition treatment given:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "complicated_sam_antibiotic",
@@ -4080,6 +4108,7 @@
         "openmrs_entity_id": "162331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Uncomplicated severe acute malnutrition treatment given:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "sam_anitbiotics",
@@ -4131,6 +4160,7 @@
         "openmrs_entity_id": "163303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Moderate acute malnutrition treatment given:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "acute_mal_feeding",
@@ -4182,6 +4212,7 @@
         "openmrs_entity_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "No acute malnutrition: Counseling given",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "no_acute_maln_feeding",
@@ -4477,6 +4508,7 @@
         "openmrs_entity_id": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Anaemia treatment provided:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "give_iron",
@@ -5050,6 +5082,7 @@
         "openmrs_entity_id": "164361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "HIV treatment given for child:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "art_initiated",
@@ -5107,6 +5140,7 @@
         "openmrs_entity_id": "1405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "HIV treatment given for exposed child:",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "cotrimoxazole2",
