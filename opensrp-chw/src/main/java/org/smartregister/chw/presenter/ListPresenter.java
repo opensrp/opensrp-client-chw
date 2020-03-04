@@ -36,6 +36,7 @@ public class ListPresenter<T extends ListContract.Identifiable> implements ListC
     public void onItemsFetched(List<T> identifiables) {
         if (getView() != null) {
             getView().renderData(identifiables);
+            getView().refreshView();
         }
     }
 

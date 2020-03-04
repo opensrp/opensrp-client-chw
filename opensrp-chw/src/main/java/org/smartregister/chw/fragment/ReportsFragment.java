@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.FragmentBaseActivity;
 import org.smartregister.chw.adapter.ListableAdapter;
 import org.smartregister.chw.adapter.ReportsFragmentAdapter;
 import org.smartregister.chw.contract.ListContract;
@@ -34,10 +35,8 @@ public class ReportsFragment extends Fragment implements ListContract.View<Repor
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.reports_fragment, container, false);
-
         bindLayout();
-        if (presenter == null)
-            presenter = withPresenter();
+        loadPresenter();
 
         presenter.fetchList(() -> {
             List<ReportType> list = new ArrayList<>();
@@ -68,7 +67,6 @@ public class ReportsFragment extends Fragment implements ListContract.View<Repor
     @Override
     public void renderData(List<ReportType> identifiables) {
         this.reportTypes = identifiables;
-        refreshView();
     }
 
     @Override
@@ -85,11 +83,15 @@ public class ReportsFragment extends Fragment implements ListContract.View<Repor
     @Override
     public void onListItemClicked(ReportType reportType, int layoutID) {
         if (reportType.getID().equals(getString(R.string.eligible_children))) {
-
+            Bundle bundle = new Bundle();
+            bundle.putString(FindReportFragment.REPORT_NAME, getString(R.string.eligible_children));
+            FragmentBaseActivity.startMe(getActivity(), FindReportFragment.TAG, getString(R.string.eligible_children), bundle);
         } else if (reportType.getID().equals(getString(R.string.doses_needed))) {
-
+            Bundle bundle = new Bundle();
+            bundle.putString(FindReportFragment.REPORT_NAME, getString(R.string.doses_needed));
+            FragmentBaseActivity.startMe(getActivity(), FindReportFragment.TAG, getString(R.string.doses_needed), bundle);
         } else if (reportType.getID().equals(getString(R.string.community_activity))) {
-
+            FragmentBaseActivity.startMe(getActivity(), JobAidsDashboardFragment.TAG, getString(R.string.community_activity));
         }
     }
 
@@ -101,8 +103,11 @@ public class ReportsFragment extends Fragment implements ListContract.View<Repor
 
     @NonNull
     @Override
-    public ListContract.Presenter<ReportType> withPresenter() {
-        return new ListPresenter<ReportType>()
-                .with(this);
+    public ListContract.Presenter<ReportType> loadPresenter() {
+        if (presenter == null) {
+            presenter = new ListPresenter<ReportType>()
+                    .with(this);
+        }
+        return presenter;
     }
 }

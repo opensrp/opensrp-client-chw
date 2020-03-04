@@ -34,7 +34,7 @@ public interface ListContract {
         <VH extends ListableViewHolder<T>> ListableAdapter<T, VH>  adapter();
 
         @NonNull
-        Presenter<T> withPresenter();
+        Presenter<T> loadPresenter();
     }
 
     interface Presenter<T extends ListContract.Identifiable> {
