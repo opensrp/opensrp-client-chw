@@ -22,6 +22,7 @@ import org.smartregister.chw.dao.MalariaDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 
 import java.util.ArrayList;
@@ -131,7 +132,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.findItem(R.id.action_sick_child_form).setVisible(ChwApplication.getApplicationFlavor().hasChildSickForm());
+        menu.findItem(R.id.action_sick_child_form).setVisible(ChwApplication.getApplicationFlavor().hasChildSickForm() && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()));
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
@@ -194,5 +195,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
+        boolean isChildOverTwoMonths(CommonPersonObjectClient client);
     }
 }
