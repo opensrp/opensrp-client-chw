@@ -8,6 +8,11 @@ import java.util.concurrent.Callable;
 
 import timber.log.Timber;
 
+
+/**
+ * @author rkodev
+ */
+
 public class ListInteractor<T extends ListContract.Identifiable> implements ListContract.Interactor<T> {
 
     protected AppExecutors appExecutors;

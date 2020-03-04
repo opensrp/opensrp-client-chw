@@ -10,48 +10,56 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class ListPresenter implements ListContract.Presenter<ReportType> {
+/**
+ * @author rkodev
+ */
+public class ListPresenter<T extends ListContract.Identifiable> implements ListContract.Presenter<T> {
 
     @Nullable
-    private WeakReference<ListContract.View<ReportType>> weakReference;
-    private ListContract.Interactor<ReportType> interactor = new ListInteractor<>() ;
-    private ListContract.Model<ReportType> model;
+    private WeakReference<ListContract.View<T>> weakReference;
+    private ListContract.Interactor<T> interactor = new ListInteractor<>() ;
+    private ListContract.Model<T> model;
 
+    /**
+     * Calling the fetch list method directly from the view may lead to memory leaks,
+     * Use this method with caution when on the view
+     * @param callable
+     */
     @Override
-    public void fetchList(Callable<List<ReportType>> callable) {
+    public void fetchList(Callable<List<T>> callable) {
         if (interactor != null) {
             interactor.runRequest(callable, this);
         }
     }
 
     @Override
-    public void onItemsFetched(List<ReportType> identifiables) {
+    public void onItemsFetched(List<T> identifiables) {
         if (getView() != null) {
             getView().renderData(identifiables);
         }
     }
 
     @Override
-    public ListContract.Presenter<ReportType> with(ListContract.View<ReportType> view) {
+    public ListContract.Presenter<T> with(ListContract.View<T> view) {
         weakReference = new WeakReference<>(view);
         return this;
     }
 
     @Override
-    public ListContract.Presenter<ReportType> using(ListContract.Interactor<ReportType> interactor) {
+    public ListContract.Presenter<T> using(ListContract.Interactor<T> interactor) {
         this.interactor = interactor;
         return this;
     }
 
     @Override
-    public ListContract.Presenter<ReportType> withModel(ListContract.Model<ReportType> model) {
+    public ListContract.Presenter<T> withModel(ListContract.Model<T> model) {
         this.model = model;
         return this;
     }
 
     @Nullable
     @Override
-    public ListContract.View<ReportType> getView() {
+    public ListContract.View<T> getView() {
         if (weakReference != null)
             return weakReference.get();
 
@@ -59,7 +67,7 @@ public class ListPresenter implements ListContract.Presenter<ReportType> {
     }
 
     @Override
-    public ListContract.Model<ReportType> getModel() {
+    public ListContract.Model<T> getModel() {
         return model;
     }
 }

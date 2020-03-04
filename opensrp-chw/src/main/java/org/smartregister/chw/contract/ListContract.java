@@ -31,7 +31,7 @@ public interface ListContract {
         void onListItemClicked(T t, @IdRes int layoutID);
 
         @NonNull
-        <X extends ListableAdapter<T, ListableViewHolder<T>>> X adapter();
+        <VH extends ListableViewHolder<T>> ListableAdapter<T, VH>  adapter();
 
         @NonNull
         Presenter<T> withPresenter();

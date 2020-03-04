@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.adapter.ListableAdapter;
 import org.smartregister.chw.adapter.ReportsFragmentAdapter;
 import org.smartregister.chw.contract.ListContract;
 import org.smartregister.chw.domain.ReportType;
 import org.smartregister.chw.presenter.ListPresenter;
+import org.smartregister.chw.viewholder.ListableViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ import java.util.List;
 public class ReportsFragment extends Fragment implements ListContract.View<ReportType> {
 
     private View view;
-    private ReportsFragmentAdapter mAdapter;
+    private ListableAdapter<ReportType, ListableViewHolder<ReportType>> mAdapter;
     private ProgressBar progressBar;
     private ListContract.Presenter<ReportType> presenter;
     private List<ReportType> reportTypes;
@@ -93,14 +95,14 @@ public class ReportsFragment extends Fragment implements ListContract.View<Repor
 
     @NonNull
     @Override
-    public ReportsFragmentAdapter adapter() {
-        return new ReportsFragmentAdapter(reportTypes, this);
+    public <VH extends ListableViewHolder<ReportType>> ListableAdapter<ReportType, VH> adapter() {
+        return (ListableAdapter<ReportType, VH>) new ReportsFragmentAdapter(reportTypes, this);
     }
 
     @NonNull
     @Override
     public ListContract.Presenter<ReportType> withPresenter() {
-        return new ListPresenter()
+        return new ListPresenter<ReportType>()
                 .with(this);
     }
 }
