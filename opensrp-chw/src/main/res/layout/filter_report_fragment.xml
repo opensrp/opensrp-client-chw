@@ -9,6 +9,7 @@
         android:orientation="vertical"
         android:padding="25dp">
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -16,11 +17,15 @@
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
-        <DatePicker
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/spinnerDueDate"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:calendarViewShown="false"
-            android:datePickerMode="spinner" />
+            android:focusable="false"
+            android:textColor="@color/chw_primary_dark"
+            android:gravity="start"
+            android:padding="5dip"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,6 +33,16 @@
             android:text="Community"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/spinnerCommunity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:textColor="@color/chw_primary_dark"
+            android:gravity="start"
+            />
+
 
     </LinearLayout>
 
@@ -37,6 +52,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="visible" />
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonSave"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/btn_margin_left"
+            android:layout_marginEnd="@dimen/btn_margin_right"
+            android:layout_marginBottom="@dimen/btn_margin_right"
+            android:background="@drawable/button_bg"
+            android:paddingTop="@dimen/btn_padding_top"
+            android:paddingBottom="@dimen/btn_padding_bottom"
+            android:text="View Report"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/white"
+            android:textSize="@dimen/btn_text_size" />
+
+    </LinearLayout>
 
 </RelativeLayout>
