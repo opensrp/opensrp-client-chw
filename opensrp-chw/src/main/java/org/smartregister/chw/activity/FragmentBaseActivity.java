@@ -18,6 +18,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.EligibleChildrenReportFragment;
 import org.smartregister.chw.fragment.FilterReportFragment;
 import org.smartregister.chw.fragment.JobAidsDashboardFragment;
+import org.smartregister.chw.fragment.VillageDoseReportFragment;
 import org.smartregister.view.activity.SecuredActivity;
 
 import timber.log.Timber;
@@ -100,6 +101,10 @@ public class FragmentBaseActivity extends SecuredActivity {
             case FilterReportFragment
                     .TAG:
                 fragment = new FilterReportFragment();
+                break;
+            case VillageDoseReportFragment
+                    .TAG:
+                fragment = new VillageDoseReportFragment();
                 break;
             case EligibleChildrenReportFragment
                     .TAG:
