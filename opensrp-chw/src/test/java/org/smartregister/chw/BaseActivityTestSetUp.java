@@ -21,7 +21,7 @@ public abstract class BaseActivityTestSetUp<T extends Activity> extends BaseUnit
     protected ActivityController<T> controller;
 
     @Rule
-    private MockitoRule mockitoRule = MockitoJUnit.rule();
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Before
     public void setUp() {
