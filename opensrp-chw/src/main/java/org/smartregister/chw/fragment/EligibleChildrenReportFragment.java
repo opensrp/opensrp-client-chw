@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class EligibleChildrenReportFragment extends Fragment implements ListContract.View<EligibleChild> {
     public static final String TAG = "EligibleChildrenReportFragment";
 
@@ -92,7 +94,7 @@ public class EligibleChildrenReportFragment extends Fragment implements ListCont
 
     @Override
     public void onListItemClicked(EligibleChild eligibleChild, int layoutID) {
-
+        Timber.v("Clicked " + eligibleChild.getID());
     }
 
     @NonNull

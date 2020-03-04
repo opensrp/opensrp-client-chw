@@ -5,13 +5,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
@@ -25,9 +22,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = ChwApplication.class, sdk = 22)
 public class AboveFiveChildProfileActivityTest extends BaseActivityTest<AboveFiveChildProfileActivity> {
-
-    @Rule
-    private MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
     private RelativeLayout layoutLastVisitRow;

@@ -4,13 +4,13 @@ import org.smartregister.chw.contract.ListContract;
 
 public class ReportType implements ListContract.Identifiable {
 
+    private String id;
+    private String name;
+
     public ReportType(String id, String name) {
         this.id = id;
         this.name = name;
     }
-
-    private String id;
-    private String name;
 
     @Override
     public String getID() {

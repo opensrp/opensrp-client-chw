@@ -35,9 +35,6 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
     private FindReportContract.Presenter presenter;
     private View view;
-    private Spinner spinnerDueDate;
-    private Spinner spinnerCommunity;
-    private Button buttonSave;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
 
     @Override
@@ -53,15 +50,15 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
     @Override
     public void bindLayout() {
-        buttonSave = view.findViewById(R.id.buttonSave);
+        Button buttonSave = view.findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(v -> runReport());
 
         List<String> strings = new ArrayList<>();
         strings.add(sdf.format(new Date()));
-        spinnerDueDate = view.findViewById(R.id.spinnerDueDate);
+        Spinner spinnerDueDate = view.findViewById(R.id.spinnerDueDate);
         bindSpinner(spinnerDueDate, strings);
 
-        spinnerCommunity = view.findViewById(R.id.spinnerCommunity);
+        Spinner spinnerCommunity = view.findViewById(R.id.spinnerCommunity);
         bindSpinner(spinnerCommunity, LocationHelper.getInstance().generateDefaultLocationHierarchy(ChwApplication.getInstance().getAllowedLocationLevels()));
     }
 

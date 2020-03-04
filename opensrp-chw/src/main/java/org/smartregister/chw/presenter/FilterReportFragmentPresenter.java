@@ -9,6 +9,8 @@ import org.smartregister.chw.contract.FindReportContract;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
+import timber.log.Timber;
+
 public class FilterReportFragmentPresenter implements FindReportContract.Presenter {
 
     @Nullable
@@ -29,7 +31,7 @@ public class FilterReportFragmentPresenter implements FindReportContract.Present
 
     @Override
     public void initalizeParams() {
-
+        Timber.v("initalizeParams");
     }
 
     @Override

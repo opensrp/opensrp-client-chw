@@ -10,7 +10,7 @@ import org.smartregister.chw.viewholder.ListableViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ListableAdapter<T extends ListContract.Identifiable, VH extends ListableViewHolder<T>> extends RecyclerView.Adapter<VH> {
+public abstract class ListableAdapter<T extends ListContract.Identifiable, H extends ListableViewHolder<T>> extends RecyclerView.Adapter<H> {
 
     protected List<T> items = new ArrayList<>();
     protected ListContract.View<T> view;
@@ -29,7 +29,7 @@ public abstract class ListableAdapter<T extends ListContract.Identifiable, VH ex
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VH holder, int position) {
+    public void onBindViewHolder(@NonNull H holder, int position) {
         holder.resetView();
         T t = items.get(position);
         if (t != null)

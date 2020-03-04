@@ -15,9 +15,9 @@ import androidx.fragment.app.Fragment;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
+import org.smartregister.chw.fragment.EligibleChildrenReportFragment;
 import org.smartregister.chw.fragment.FilterReportFragment;
 import org.smartregister.chw.fragment.JobAidsDashboardFragment;
-import org.smartregister.chw.fragment.EligibleChildrenReportFragment;
 import org.smartregister.view.activity.SecuredActivity;
 
 import timber.log.Timber;
@@ -25,10 +25,6 @@ import timber.log.Timber;
 public class FragmentBaseActivity extends SecuredActivity {
     public static final String DISPLAY_FRAGMENT = "DISPLAY_FRAGMENT";
     public static final String TITLE = "TITLE";
-
-    public FragmentBaseActivity() {
-
-    }
 
     public static void startMe(Activity activity, String fragmentName, String title) {
         Intent intent = new Intent(activity, FragmentBaseActivity.class);
@@ -115,6 +111,7 @@ public class FragmentBaseActivity extends SecuredActivity {
                 break;
             default:
                 fragment = null;
+                break;
         }
 
         if (fragment != null)
