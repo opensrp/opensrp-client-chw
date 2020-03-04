@@ -1,7 +1,6 @@
 package org.smartregister.chw.interactor;
 
 import org.smartregister.chw.contract.ListContract;
-import org.smartregister.chw.domain.ReportType;
 import org.smartregister.family.util.AppExecutors;
 
 import java.util.List;
@@ -9,21 +8,21 @@ import java.util.concurrent.Callable;
 
 import timber.log.Timber;
 
-public class ReportsFragmentInteractor implements ListContract.Interactor<ReportType> {
+public class ListInteractor<T extends ListContract.Identifiable> implements ListContract.Interactor<T> {
 
     protected AppExecutors appExecutors;
 
-    public ReportsFragmentInteractor() {
+    public ListInteractor() {
         appExecutors = new AppExecutors();
     }
 
     @Override
-    public void runRequest(Callable<List<ReportType>> callable, ListContract.Presenter<ReportType> presenter) {
+    public void runRequest(Callable<List<T>> callable, ListContract.Presenter<T> presenter) {
 
         Runnable runnable = () -> {
             try {
-                List<ReportType> reportTypes = callable.call();
-                appExecutors.mainThread().execute(() -> presenter.onItemsFetched(reportTypes));
+                List<T> tList = callable.call();
+                appExecutors.mainThread().execute(() -> presenter.onItemsFetched(tList));
             } catch (Exception e) {
                 Timber.e(e);
             }

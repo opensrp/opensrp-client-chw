@@ -68,6 +68,8 @@ public interface ListContract {
 
         @Nullable
         View<T> getView();
+
+        Model<T> getModel();
     }
 
     interface Interactor<T extends ListContract.Identifiable> {

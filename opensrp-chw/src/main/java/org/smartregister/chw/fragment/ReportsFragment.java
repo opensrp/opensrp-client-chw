@@ -15,8 +15,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.ReportsFragmentAdapter;
 import org.smartregister.chw.contract.ListContract;
 import org.smartregister.chw.domain.ReportType;
-import org.smartregister.chw.interactor.ReportsFragmentInteractor;
-import org.smartregister.chw.presenter.ReportsFragmentPresenter;
+import org.smartregister.chw.presenter.ListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +84,10 @@ public class ReportsFragment extends Fragment implements ListContract.View<Repor
     public void onListItemClicked(ReportType reportType, int layoutID) {
         if (reportType.getID().equals(getString(R.string.eligible_children))) {
 
+        } else if (reportType.getID().equals(getString(R.string.doses_needed))) {
+
+        } else if (reportType.getID().equals(getString(R.string.community_activity))) {
+
         }
     }
 
@@ -97,8 +100,7 @@ public class ReportsFragment extends Fragment implements ListContract.View<Repor
     @NonNull
     @Override
     public ListContract.Presenter<ReportType> withPresenter() {
-        return new ReportsFragmentPresenter()
-                .with(this)
-                .using(new ReportsFragmentInteractor());
+        return new ListPresenter()
+                .with(this);
     }
 }

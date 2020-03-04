@@ -4,16 +4,17 @@ import androidx.annotation.Nullable;
 
 import org.smartregister.chw.contract.ListContract;
 import org.smartregister.chw.domain.ReportType;
+import org.smartregister.chw.interactor.ListInteractor;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class ReportsFragmentPresenter implements ListContract.Presenter<ReportType> {
+public class ListPresenter implements ListContract.Presenter<ReportType> {
 
     @Nullable
     private WeakReference<ListContract.View<ReportType>> weakReference;
-    private ListContract.Interactor<ReportType> interactor;
+    private ListContract.Interactor<ReportType> interactor = new ListInteractor<>() ;
     private ListContract.Model<ReportType> model;
 
     @Override
@@ -57,4 +58,8 @@ public class ReportsFragmentPresenter implements ListContract.Presenter<ReportTy
         return null;
     }
 
+    @Override
+    public ListContract.Model<ReportType> getModel() {
+        return model;
+    }
 }

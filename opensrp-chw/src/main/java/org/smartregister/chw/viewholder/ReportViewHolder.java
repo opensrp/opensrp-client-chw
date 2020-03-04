@@ -21,12 +21,7 @@ public class ReportViewHolder extends ListableViewHolder<ReportType> {
     @Override
     public void bindView(ReportType reportType, ListContract.View<ReportType> view) {
         tvName.setText(reportType.getName());
-        tvName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view.onListItemClicked(reportType, R.id.tvName);
-            }
-        });
+        tvName.setOnClickListener(v -> view.onListItemClicked(reportType, R.id.tvName));
     }
 
     @Override
