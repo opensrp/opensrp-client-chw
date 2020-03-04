@@ -21,8 +21,8 @@ import org.smartregister.chw.presenter.ListPresenter;
 import org.smartregister.chw.viewholder.ListableViewHolder;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class EligibleChildrenReportFragment extends Fragment implements ListContract.View<EligibleChild> {
     public static final String TAG = "EligibleChildrenReportFragment";
@@ -44,11 +44,13 @@ public class EligibleChildrenReportFragment extends Fragment implements ListCont
             List<EligibleChild> list = new ArrayList<>();
             EligibleChild child = new EligibleChild();
             child.setID("12345");
+            child.setDateOfBirth(new Date());
             child.setFullName("Joe Smith");
             child.setFamilyName("Smith Family");
             child.setDueVaccines(new String[]{"OPV", "Penta", "Rota"});
 
-            Thread.sleep(TimeUnit.SECONDS.toMillis(4));
+            list.add(child);
+            list.add(child);
 
             return list;
         });

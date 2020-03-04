@@ -2,58 +2,62 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingTop="15dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="15dp">
 
-    <com.vijay.jsonwizard.views.CustomTextView
+    <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/tvName"
+        style="@style/CustomFontTextViewStyle.ClientList.Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:maxLines="1"
-        android:singleLine="true"
         android:text="Baby Shark"
-        android:textColor="@color/black"
+        android:textColor="@color/medical_text_inner"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.vijay.jsonwizard.views.CustomTextView
+    <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/tvAge"
+        style="@style/CustomFontTextViewStyle.ClientList.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:maxLines="1"
-        android:singleLine="true"
         android:text="Age: 5 months 1 week"
-        android:textColor="@color/colorDarkGrey"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
-    <com.vijay.jsonwizard.views.CustomTextView
+    <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/tvFamily"
+        style="@style/CustomFontTextViewStyle.ClientList.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:maxLines="1"
-        android:singleLine="true"
         android:text="Family"
-        android:textColor="@color/colorDarkGrey"
+        android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAge" />
 
-    <com.vijay.jsonwizard.views.CustomTextView
+    <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/tvDue"
+        style="@style/CustomFontTextViewStyle.ClientList.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:maxLines="1"
-        android:singleLine="true"
         android:text="Due: "
-        android:textColor="@color/colorDarkGrey"
+        android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvFamily" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_navigate_next_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

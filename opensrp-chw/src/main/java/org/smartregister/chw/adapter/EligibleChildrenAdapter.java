@@ -23,7 +23,7 @@ public class EligibleChildrenAdapter extends ListableAdapter<EligibleChild, List
     @NonNull
     @Override
     public ListableViewHolder<EligibleChild> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.eligible_children_report_fragment, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.eligible_children_report_item, parent, false);
         return new EligibleChildrenViewHolder(view);
     }
 }
