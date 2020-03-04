@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ListContract;
 import org.smartregister.chw.domain.EligibleChild;
+import org.smartregister.chw.util.Utils;
 
 public class EligibleChildrenViewHolder extends ListableViewHolder<EligibleChild> {
 
@@ -33,7 +34,7 @@ public class EligibleChildrenViewHolder extends ListableViewHolder<EligibleChild
         tvAge.setText(eligibleChild.getDateOfBirth().toString());
         tvFamily.setText(eligibleChild.getFamilyName());
         String due = currentView.getContext().getString(R.string.due);
-        tvDue.setText(due + ":" + eligibleChild.getDueVaccines().toString());
+        tvDue.setText(due + ": " + Utils.toCSV(eligibleChild.getDueVaccines()));
 
         currentView.setOnClickListener(v -> view.onListItemClicked(eligibleChild, v.getId()));
     }

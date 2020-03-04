@@ -18,12 +18,12 @@ public class VillageDoseReportFragment extends ReportResultFragment<VillageDose>
         presenter.fetchList(() -> {
             List<VillageDose> list = new ArrayList<>();
             VillageDose child = new VillageDose();
+
+            child.getRecurringServices().put("OPV", 1);
+            child.getRecurringServices().put("BCG", 10);
+            child.getRecurringServices().put("Penta", 5);
             child.setID("12345");
             child.setVillageName("Village 1");
-            list.add(child);
-
-
-            child.setVillageName("Village 2");
             list.add(child);
 
             return list;

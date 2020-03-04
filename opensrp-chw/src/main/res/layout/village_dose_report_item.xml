@@ -27,32 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvName">
 
-        <org.smartregister.view.customcontrols.CustomFontTextView
-            style="@style/CustomFontTextViewStyle.ClientList.Light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="BCG: 10"
-            android:textColor="@color/colorDarkGrey"
-            android:textSize="16sp" />
-
-        <org.smartregister.view.customcontrols.CustomFontTextView
-            style="@style/CustomFontTextViewStyle.ClientList.Light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="OPV: 10"
-            android:textColor="@color/colorDarkGrey"
-            android:textSize="16sp" />
-
-        <org.smartregister.view.customcontrols.CustomFontTextView
-            style="@style/CustomFontTextViewStyle.ClientList.Light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Penta: 10"
-            android:textColor="@color/colorDarkGrey"
-            android:textSize="16sp" />
+        <include layout="@layout/village_dose" />
 
     </LinearLayout>
 

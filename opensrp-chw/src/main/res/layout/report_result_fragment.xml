@@ -16,24 +16,52 @@
         android:paddingRight="10dp"
         android:paddingBottom="15dp">
 
-        <org.smartregister.view.customcontrols.CustomFontTextView
-            android:id="@+id/pncFamilyPlanningMethod"
-            style="@style/CustomFontTextViewStyle.ClientList"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Due on"
-            android:textColor="@color/medical_text_inner"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
 
-        <org.smartregister.view.customcontrols.CustomFontTextView
-            android:id="@+id/community"
-            style="@style/CustomFontTextViewStyle.ClientList"
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                style="@style/CustomFontTextViewStyle.ClientList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Due on"
+                android:textColor="@color/colorDarkGrey"
+                android:textSize="16sp" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/tvDate"
+                style="@style/CustomFontTextViewStyle.ClientList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/medical_text_inner"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Community"
-            android:textColor="@color/medical_text_inner"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                style="@style/CustomFontTextViewStyle.ClientList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Community"
+                android:textColor="@color/colorDarkGrey"
+                android:textSize="16sp" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/tvCommunity"
+                style="@style/CustomFontTextViewStyle.ClientList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/medical_text_inner"
+                android:textSize="16sp" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -42,8 +70,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/report_details"
-        tools:listitem="@layout/eligible_children_report_item"
-        tools:itemCount="3"/>
+        tools:itemCount="3"
+        tools:listitem="@layout/eligible_children_report_item" />
 
     <ProgressBar
         android:id="@+id/progress_bar"

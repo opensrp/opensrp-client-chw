@@ -2,13 +2,13 @@ package org.smartregister.chw.domain;
 
 import org.smartregister.chw.contract.ListContract;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class VillageDose implements ListContract.Identifiable {
     private String ID;
     private String villageName;
-    private Map<String, Number> recurringServices = new HashMap<>();
+    private Map<String, Integer> recurringServices = new LinkedHashMap<>();
 
     @Override
     public String getID() {
@@ -27,11 +27,11 @@ public class VillageDose implements ListContract.Identifiable {
         this.villageName = villageName;
     }
 
-    public Map<String, Number> getRecurringServices() {
+    public Map<String, Integer> getRecurringServices() {
         return recurringServices;
     }
 
-    public void setRecurringServices(Map<String, Number> recurringServices) {
+    public void setRecurringServices(Map<String, Integer> recurringServices) {
         this.recurringServices = recurringServices;
     }
 }

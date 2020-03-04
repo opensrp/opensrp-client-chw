@@ -73,13 +73,14 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
         bindSpinner();
         bindDatePicker();
+        updateLabel();
     }
 
     @Override
     public void runReport() {
         Map<String, String> map = new HashMap<>();
         map.put(Constants.ReportParameters.COMMUNITY, communityList.get(0));
-        map.put(Constants.ReportParameters.REPORT_DATE, new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(myCalendar.getTime()));
+        map.put(Constants.ReportParameters.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
         presenter.runReport(map);
     }
 
@@ -122,9 +123,9 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         if (titleName == null) return;
 
         if (titleName.equalsIgnoreCase(getString(R.string.eligible_children))) {
-            FragmentBaseActivity.startMe(getActivity(), EligibleChildrenReportFragment.TAG, "Children Results", bundle);
+            FragmentBaseActivity.startMe(getActivity(), EligibleChildrenReportFragment.TAG, getString(R.string.eligible_children), bundle);
         } else if (titleName.equalsIgnoreCase(getString(R.string.doses_needed))) {
-            FragmentBaseActivity.startMe(getActivity(), VillageDoseReportFragment.TAG, "Dose Results", bundle);
+            FragmentBaseActivity.startMe(getActivity(), VillageDoseReportFragment.TAG, getString(R.string.doses_needed), bundle);
         }
     }
 }
