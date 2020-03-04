@@ -1,12 +1,10 @@
 package org.smartregister.chw.contract;
 
 import androidx.annotation.IdRes;
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.smartregister.chw.adapter.ListableAdapter;
-import org.smartregister.chw.domain.ReportType;
 import org.smartregister.chw.viewholder.ListableViewHolder;
 
 import java.util.List;
@@ -31,7 +29,7 @@ public interface ListContract {
         void onListItemClicked(T t, @IdRes int layoutID);
 
         @NonNull
-        <VH extends ListableViewHolder<T>> ListableAdapter<T, VH>  adapter();
+        <VH extends ListableViewHolder<T>> ListableAdapter<T, VH> adapter();
 
         @NonNull
         Presenter<T> loadPresenter();

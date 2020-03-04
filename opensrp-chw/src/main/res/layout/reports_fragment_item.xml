@@ -3,10 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:paddingRight="15dp"
-    android:paddingLeft="15dp"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp"
+    android:padding="25dp"
     android:background="@drawable/item_background">
 
     <TextView
@@ -15,5 +12,11 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textColor="@android:color/black" />
+
+    <ImageView
+        android:src="@drawable/ic_navigate_next_black_24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
 
 </RelativeLayout>

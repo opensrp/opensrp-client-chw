@@ -84,12 +84,12 @@ public class ReportsFragment extends Fragment implements ListContract.View<Repor
     public void onListItemClicked(ReportType reportType, int layoutID) {
         if (reportType.getID().equals(getString(R.string.eligible_children))) {
             Bundle bundle = new Bundle();
-            bundle.putString(FindReportFragment.REPORT_NAME, getString(R.string.eligible_children));
-            FragmentBaseActivity.startMe(getActivity(), FindReportFragment.TAG, getString(R.string.eligible_children), bundle);
+            bundle.putString(FilterReportFragment.REPORT_NAME, getString(R.string.eligible_children));
+            FragmentBaseActivity.startMe(getActivity(), FilterReportFragment.TAG, getString(R.string.eligible_children), bundle);
         } else if (reportType.getID().equals(getString(R.string.doses_needed))) {
             Bundle bundle = new Bundle();
-            bundle.putString(FindReportFragment.REPORT_NAME, getString(R.string.doses_needed));
-            FragmentBaseActivity.startMe(getActivity(), FindReportFragment.TAG, getString(R.string.doses_needed), bundle);
+            bundle.putString(FilterReportFragment.REPORT_NAME, getString(R.string.doses_needed));
+            FragmentBaseActivity.startMe(getActivity(), FilterReportFragment.TAG, getString(R.string.doses_needed), bundle);
         } else if (reportType.getID().equals(getString(R.string.community_activity))) {
             FragmentBaseActivity.startMe(getActivity(), JobAidsDashboardFragment.TAG, getString(R.string.community_activity));
         }

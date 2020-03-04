@@ -2,17 +2,20 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
-import org.smartregister.chw.fragment.FindReportFragment;
+import org.smartregister.chw.fragment.FilterReportFragment;
 import org.smartregister.chw.fragment.JobAidsDashboardFragment;
 import org.smartregister.chw.fragment.RunReportFragment;
 import org.smartregister.view.activity.SecuredActivity;
@@ -47,13 +50,27 @@ public class FragmentBaseActivity extends SecuredActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_base);
         Toolbar toolbar = findViewById(R.id.toolbar_top);
+        setSupportActionBar(toolbar);
+
         TextView textView = findViewById(R.id.toolbar_title);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+
+            final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp);
+            upArrow.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+            actionBar.setHomeAsUpIndicator(upArrow);
+            actionBar.setElevation(0);
+        }
+
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             String title = bundle.getString(TITLE);
             if (StringUtils.isNotBlank(title)) {
-                toolbar.setVisibility(View.VISIBLE);
                 textView.setText(title);
             }
 
@@ -65,6 +82,11 @@ public class FragmentBaseActivity extends SecuredActivity {
         }
 
         onCreation();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
     }
 
     private void switchToFragment(Fragment fragment) {
@@ -79,9 +101,9 @@ public class FragmentBaseActivity extends SecuredActivity {
 
         Fragment fragment;
         switch (name) {
-            case FindReportFragment
+            case FilterReportFragment
                     .TAG:
-                fragment = new FindReportFragment();
+                fragment = new FilterReportFragment();
                 break;
             case RunReportFragment
                     .TAG:
