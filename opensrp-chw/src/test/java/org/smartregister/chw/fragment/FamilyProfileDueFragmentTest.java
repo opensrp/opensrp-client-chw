@@ -1,5 +1,6 @@
 package org.smartregister.chw.fragment;
 
+import android.database.MatrixCursor;
 import android.view.View;
 
 import androidx.fragment.app.FragmentActivity;
@@ -10,10 +11,12 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 
 @RunWith(RobolectricTestRunner.class)
@@ -23,6 +26,9 @@ public class FamilyProfileDueFragmentTest {
     @Mock
     private FamilyRecyclerViewCustomAdapter clientAdapter;
 
+    @Mock
+    private CommonRepository commonRepository;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -31,15 +37,21 @@ public class FamilyProfileDueFragmentTest {
     @Test
     public void testonEmptyRegisterCountIsCalled() {
         FamilyProfileDueFragment spyFragment = Mockito.spy(FamilyProfileDueFragment.class);
-        FragmentActivity activity = Mockito.spy(FragmentActivity.class);
-        Mockito.when(spyFragment.getActivity()).thenReturn(activity);
+        FamilyProfileActivity activity = Mockito.spy(FamilyProfileActivity.class);
 
-        View emptyView = Mockito.mock(View.class);
-        Whitebox.setInternalState(spyFragment, "emptyView", emptyView);
-        Whitebox.setInternalState(spyFragment, "clientAdapter", clientAdapter);
+        Mockito.doReturn(activity).when(spyFragment).getActivity();
+        Mockito.doReturn(commonRepository).when(spyFragment).commonRepository();
+
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"count(*)"});
+        matrixCursor.addRow(new Object[]{67F});
+        Mockito.doReturn(matrixCursor).when(commonRepository).rawCustomQueryForAdapter(Mockito.anyString());
+
+
+        ReflectionHelpers.setField(spyFragment, "countSelect", "select * from ec_family");
+        ReflectionHelpers.setField(spyFragment, "clientAdapter", clientAdapter);
         spyFragment.countExecute();
 
-        Mockito.verify(emptyView).setVisibility(Mockito.anyInt());
+        Mockito.verify(spyFragment).onEmptyRegisterCount(Mockito.anyBoolean());
     }
 
     @Test
@@ -48,7 +60,7 @@ public class FamilyProfileDueFragmentTest {
         FragmentActivity activity = Mockito.spy(FragmentActivity.class);
         Mockito.when(spyFragment.getActivity()).thenReturn(activity);
         View emptyView = Mockito.mock(View.class);
-        Whitebox.setInternalState(spyFragment, "emptyView", emptyView);
+        ReflectionHelpers.setField(spyFragment, "emptyView", emptyView);
         spyFragment.onEmptyRegisterCount(false);
 
         Mockito.verify(emptyView).setVisibility(View.GONE);
@@ -60,7 +72,7 @@ public class FamilyProfileDueFragmentTest {
         FragmentActivity activity = Mockito.spy(FragmentActivity.class);
         Mockito.when(spyFragment.getActivity()).thenReturn(activity);
         View emptyView = Mockito.mock(View.class);
-        Whitebox.setInternalState(spyFragment, "emptyView", emptyView);
+        ReflectionHelpers.setField(spyFragment, "emptyView", emptyView);
         spyFragment.onEmptyRegisterCount(true);
 
         Mockito.verify(emptyView).setVisibility(View.VISIBLE);

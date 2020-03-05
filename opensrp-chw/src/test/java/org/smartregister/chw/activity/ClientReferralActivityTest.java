@@ -8,6 +8,7 @@ import androidx.test.core.app.ApplicationProvider;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.robolectric.Robolectric;
 import org.smartregister.chw.BaseUnitTest;
@@ -54,6 +55,8 @@ public class ClientReferralActivityTest extends BaseUnitTest {
     }
 
     @Test
+    @Ignore("To be included after harmonization")
+    //TODO
     public void shouldStartReferralForm() {
 
         JSONObject formJson = new JSONObject();

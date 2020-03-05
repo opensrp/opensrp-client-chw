@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 
@@ -36,7 +36,7 @@ public class FamilyProfilePresenterTest {
     public void testVerifyHasPhone() {
         String familyID = "123457";
         FamilyProfilePresenter presenter = new FamilyProfilePresenter(activity, null, familyID, null, null, null);
-        Whitebox.setInternalState(presenter, "interactor", interactor);
+        ReflectionHelpers.setField(presenter, "interactor", interactor);
         presenter.verifyHasPhone();
 
         Mockito.verify(interactor).verifyHasPhone(familyID, presenter);

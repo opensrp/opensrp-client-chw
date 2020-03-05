@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.cloudant.models.Client;
@@ -76,8 +76,8 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
         FamilyOtherMemberActivityPresenter familyOtherMemberActivityPresenter = (FamilyOtherMemberActivityPresenter) presenter;
 
         FamilyOtherMemberActivityPresenter spyPresenter = Mockito.spy(familyOtherMemberActivityPresenter);
-        Whitebox.setInternalState(spyPresenter, "profileInteractor", profileInteractor);
-        Whitebox.setInternalState(spyPresenter, "profileModel", profileModel);
+        ReflectionHelpers.setField(spyPresenter, "profileInteractor", profileInteractor);
+        ReflectionHelpers.setField(spyPresenter, "profileModel", profileModel);
 
         Mockito.doReturn(familyEventClient).when(profileModel).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
 
@@ -95,8 +95,8 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
         FamilyOtherMemberActivityPresenter familyOtherMemberActivityPresenter = (FamilyOtherMemberActivityPresenter) presenter;
 
         FamilyOtherMemberActivityPresenter spyPresenter = Mockito.spy(familyOtherMemberActivityPresenter);
-        Whitebox.setInternalState(spyPresenter, "profileInteractor", profileInteractor);
-        Whitebox.setInternalState(spyPresenter, "profileModel", profileModel);
+        ReflectionHelpers.setField(spyPresenter, "profileInteractor", profileInteractor);
+        ReflectionHelpers.setField(spyPresenter, "profileModel", profileModel);
 
         Mockito.doThrow(new RuntimeException()).when(profileModel).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
 
@@ -112,7 +112,7 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
         FamilyOtherMemberActivityPresenter familyOtherMemberActivityPresenter = (FamilyOtherMemberActivityPresenter) presenter;
 
         FamilyOtherMemberActivityPresenter spyPresenter = Mockito.spy(familyOtherMemberActivityPresenter);
-        Whitebox.setInternalState(spyPresenter, "interactor", interactor);
+        ReflectionHelpers.setField(spyPresenter, "interactor", interactor);
 
         spyPresenter.onRegistrationSaved(true, true, null);
 
@@ -127,7 +127,7 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
         FamilyOtherMemberActivityPresenter familyOtherMemberActivityPresenter = (FamilyOtherMemberActivityPresenter) presenter;
 
         FamilyOtherMemberActivityPresenter spyPresenter = Mockito.spy(familyOtherMemberActivityPresenter);
-        Whitebox.setInternalState(spyPresenter, "interactor", interactor);
+        ReflectionHelpers.setField(spyPresenter, "interactor", interactor);
 
         spyPresenter.onRegistrationSaved(false, false, null);
 
