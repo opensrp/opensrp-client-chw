@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -47,6 +48,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     private ProgressBar progressBar;
 
     private List<String> communityList = new ArrayList<>();
+    private LinkedHashMap<String, String> communityIDList = new LinkedHashMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,14 +90,16 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
     @Override
     public void onLocationDataLoaded(Map<String, String> locationData) {
-        communityList.addAll(locationData.values());
+        communityIDList = new LinkedHashMap<>(locationData);
+        communityList.addAll(communityIDList.values());
         bindSpinner();
     }
 
     @Override
     public void runReport() {
         Map<String, String> map = new HashMap<>();
-        map.put(Constants.ReportParameters.COMMUNITY, communityList.get(0));
+        map.put(Constants.ReportParameters.COMMUNITY, spinnerCommunity.getSelectedItem().toString());
+        map.put(Constants.ReportParameters.COMMUNITY_ID, new ArrayList<>(communityIDList.keySet()).get(spinnerCommunity.getSelectedItemPosition()));
         map.put(Constants.ReportParameters.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
         presenter.runReport(map);
     }
