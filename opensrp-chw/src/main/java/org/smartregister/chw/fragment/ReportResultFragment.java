@@ -20,7 +20,11 @@ import org.smartregister.chw.presenter.ListPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.viewholder.ListableViewHolder;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -32,6 +36,9 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
     protected ListContract.Presenter<T> presenter;
     protected List<T> list;
 
+    protected String communityID;
+    protected Date reportDate = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,8 +48,19 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
         TextView tvCommunity = view.findViewById(R.id.tvCommunity);
 
         Bundle bundle = getArguments();
-        if(bundle != null){
-            tvDate.setText(bundle.getString(Constants.ReportParameters.REPORT_DATE));
+        if (bundle != null) {
+            communityID = bundle.getString(Constants.ReportParameters.COMMUNITY_ID);
+            String date = bundle.getString(Constants.ReportParameters.REPORT_DATE);
+
+            if (date != null) {
+                try {
+                    reportDate = new SimpleDateFormat("dd MMM yyyy", Locale.US).parse(date);
+                } catch (ParseException e) {
+                    Timber.e(e);
+                }
+            }
+
+            tvDate.setText(date);
             tvCommunity.setText(bundle.getString(Constants.ReportParameters.COMMUNITY));
         }
         bindLayout();
