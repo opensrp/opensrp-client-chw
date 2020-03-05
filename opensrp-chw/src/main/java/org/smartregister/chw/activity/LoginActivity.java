@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.pinlogin.PinLoginUtil;
 import org.smartregister.chw.presenter.LoginPresenter;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.family.util.Constants;
@@ -44,15 +46,20 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         if (remote) {
             Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
         }
-        getToFamilyList(remote);
+        startHome(remote);
 
         finish();
     }
 
-    private void getToFamilyList(boolean remote) {
-        Intent intent = new Intent(this, FamilyRegisterActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
-        startActivity(intent);
+    private void startHome(boolean remote) {
+        if (ChwApplication.getApplicationFlavor().hasPinLogin() && !PinLoginUtil.getPinLogger().isPinSet()) {
+            Intent intent = new Intent(this, PinLoginActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, FamilyRegisterActivity.class);
+            intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+            startActivity(intent);
+        }
     }
 
 }
