@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.FragmentBaseActivity;
 import org.smartregister.chw.contract.FindReportContract;
@@ -26,6 +27,7 @@ import org.smartregister.chw.util.Constants;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -115,9 +117,16 @@ public class FilterReportFragment extends Fragment implements FindReportContract
             updateLabel();
         };
 
-        editTextDate.setOnClickListener(v -> new DatePickerDialog(getContext(), date, myCalendar
-                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+        editTextDate.setOnClickListener(v -> {
+            DatePickerDialog dialog = new DatePickerDialog(getContext(), date, myCalendar
+                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                    myCalendar.get(Calendar.DAY_OF_MONTH));
+
+            dialog.getDatePicker().setMinDate(new Date().getTime());
+            dialog.getDatePicker().setMaxDate(new DateTime().plusMonths(6).toDate().getTime());
+
+            dialog.show();
+        });
     }
 
     private void updateLabel() {
