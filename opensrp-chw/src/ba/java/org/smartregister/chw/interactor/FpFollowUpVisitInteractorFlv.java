@@ -157,7 +157,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                 familyPlanningMethodTranslated = context.getString(R.string.iucd);
                 break;
             default:
-                familyPlanningMethodTranslated = null;
+                familyPlanningMethodTranslated = " ";
                 break;
         }
 
@@ -178,7 +178,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
             }
 
             if (!familyPlanningMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_INJECTABLE)) {
-                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.resupply, familyPlanningMethod))
+                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.resupply, familyPlanningMethodTranslated))
                         .withOptional(false)
                         .withDetails(details)
                         .withBaseEntityID(memberObject.getBaseEntityId())
@@ -206,7 +206,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
         }
     }
 
-    public JSONObject injectFamilyPlaningMethod(JSONObject form) throws Exception {
+    private JSONObject injectFamilyPlaningMethod(JSONObject form) throws Exception {
         if (form == null) {
             return null;
         } else {
