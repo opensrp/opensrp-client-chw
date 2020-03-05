@@ -1,10 +1,7 @@
 package org.smartregister.chw.view_holder;
 
 import android.view.View;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.smartregister.chw.R;
 

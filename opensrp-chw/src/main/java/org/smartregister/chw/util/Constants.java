@@ -24,8 +24,9 @@ public class Constants extends CoreConstants {
         public static final String ANC_REFERRAL = "ANC Referral";
     }
 
-    public class ChildIllnessViewType {
+    public static class ChildIllnessViewType {
         public static final int RADIO_BUTTON = 0;
         public static final int EDIT_TEXT = 1;
+        public static final int CHECK_BOX = 2;
     }
 }

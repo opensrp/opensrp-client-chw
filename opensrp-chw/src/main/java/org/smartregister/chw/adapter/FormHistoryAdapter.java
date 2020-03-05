@@ -3,9 +3,8 @@ package org.smartregister.chw.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +18,7 @@ import org.smartregister.chw.domain.Choice;
 import org.smartregister.chw.domain.Question;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.view_holder.BaseIllnessViewHolder;
+import org.smartregister.chw.view_holder.IllnessCheckViewHolder;
 import org.smartregister.chw.view_holder.IllnessEditViewHolder;
 import org.smartregister.chw.view_holder.IllnessRadioViewHolder;
 
@@ -39,9 +39,12 @@ public class FormHistoryAdapter extends RecyclerView.Adapter<BaseIllnessViewHold
     public BaseIllnessViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         this.layoutInflater = LayoutInflater.from(parent.getContext());
-        if (viewType == Constants.ChildIllnessViewType.RADIO_BUTTON) {
+        if (Constants.ChildIllnessViewType.RADIO_BUTTON == viewType) {
             view = layoutInflater.inflate(R.layout.fragment_routine_question_radio, parent, false);
             return new IllnessRadioViewHolder(view);
+        } else if (Constants.ChildIllnessViewType.CHECK_BOX == viewType) {
+            view = layoutInflater.inflate(R.layout.fragment_routine_question_check, parent, false);
+            return new IllnessCheckViewHolder(view);
         } else {
             view = layoutInflater.inflate(R.layout.fragment_routine_question, parent, false);
             return new IllnessEditViewHolder(view);
@@ -66,6 +69,20 @@ public class FormHistoryAdapter extends RecyclerView.Adapter<BaseIllnessViewHold
                 radioButton.setChecked(choice.getSelected());
                 radioViewHolder.rgOptions.addView(radioButton);
             }
+        } else if (holder.getItemViewType() == Constants.ChildIllnessViewType.CHECK_BOX) {
+            if (question.getChoices() == null) {
+                return;
+            }
+            IllnessCheckViewHolder checkViewHolder = ((IllnessCheckViewHolder) holder);
+            checkViewHolder.tvQuestion.setText(question.getName());
+            checkViewHolder.checkboxParentLayout.removeAllViews();
+            for (Choice choice : question.getChoices()) {
+                View view = layoutInflater.inflate(R.layout.fragment_routine_question_checkbox, null, false);
+                CheckBox checkBox = view.findViewById(R.id.checkBoxChoice);
+                checkBox.setText(choice.getName());
+                checkBox.setChecked(choice.getSelected());
+                checkViewHolder.checkboxParentLayout.addView(checkBox);
+            }
         } else if (holder.getItemViewType() == Constants.ChildIllnessViewType.EDIT_TEXT) {
             IllnessEditViewHolder editViewHolder = ((IllnessEditViewHolder) holder);
             editViewHolder.tvQuestion.setText(question.getName());
@@ -81,7 +98,10 @@ public class FormHistoryAdapter extends RecyclerView.Adapter<BaseIllnessViewHold
     public int getItemViewType(int position) {
         if (JsonFormConstants.NATIVE_RADIO_BUTTON.equalsIgnoreCase(questions.get(position).getType())) {
             return Constants.ChildIllnessViewType.RADIO_BUTTON;
+        } else if (JsonFormConstants.CHECK_BOX.equalsIgnoreCase(questions.get(position).getType())) {
+            return Constants.ChildIllnessViewType.CHECK_BOX;
         } else {
+            // Default ViewType for view types that aren't currently handled
             return Constants.ChildIllnessViewType.EDIT_TEXT;
         }
     }

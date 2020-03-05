@@ -34,6 +34,7 @@ import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.util.FormUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -151,10 +152,15 @@ public class FormHistoryDialogFragment extends DialogFragment implements View.On
         question.setName(hint);
         question.setType(type);
 
-        if (type.equalsIgnoreCase(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
+        if (JsonFormConstants.NATIVE_RADIO_BUTTON.equalsIgnoreCase(type)) {
             JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-            question.setChoices(getChoicesFromOptions(options, visitDetails));
-        } else if (type.equalsIgnoreCase(JsonFormConstants.SPINNER)) {
+            question.setChoices(getChoicesFromOptions(options, false, visitDetails));
+        }
+        else if (JsonFormConstants.CHECK_BOX.equalsIgnoreCase(type)) {
+            JSONArray options = field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+            question.setChoices(getChoicesFromOptions(options, true, visitDetails));
+        }
+        else if (type.equalsIgnoreCase(JsonFormConstants.SPINNER)) {
             JSONArray options = field.getJSONArray(JsonFormConstants.VALUES);
             question.setChoices(getChoicesSpinnerOptions(options, visitDetails));
         } else {
@@ -182,13 +188,18 @@ public class FormHistoryDialogFragment extends DialogFragment implements View.On
         return choices;
     }
 
-    private List<Choice> getChoicesFromOptions(JSONArray options, List<VisitDetail> visitDetails) throws JSONException {
+    private List<Choice> getChoicesFromOptions(JSONArray options, boolean selectMultiple, List<VisitDetail> visitDetails) throws JSONException {
         List<Choice> choices = new ArrayList<>();
         List<String> visitOptions = new ArrayList<>();
         String selectedOption;
         for (VisitDetail d : visitDetails) {
             selectedOption = StringUtils.isNotBlank(d.getHumanReadable()) ? d.getHumanReadable() : d.getDetails();
-            visitOptions.add(selectedOption);
+            if (selectMultiple) {
+                visitOptions.addAll(Arrays.asList(selectedOption.split(",")));
+            }
+            else {
+                visitOptions.add(selectedOption);
+            }
         }
 
         int x = 0;
@@ -200,12 +211,14 @@ public class FormHistoryDialogFragment extends DialogFragment implements View.On
 
             Choice choice = new Choice();
             choice.setName(optionText);
-            choice.setSelected(visitOptions.contains(optionKey));
-
+            if (selectMultiple) {
+                choice.setSelected(visitOptions.contains(optionText));
+            } else {
+                choice.setSelected(visitOptions.contains(optionKey));
+            }
             choices.add(choice);
             x++;
         }
-
         return choices;
     }
 
