@@ -1,3 +1,18 @@
+name: step4_fast_breathing
+description: Calculated field for diagnosis of fast breathing.
+priority: 1
+condition: "step3_main_symptoms.contains('difficult_breathing')"
+actions:
+  - 'calculation = (((step1_age_in_months >= 2 && step1_age_in_months < 12 && step4_breaths_minute >= 50) ||
+  (step1_age_in_months >= 12 && step1_age_in_months < 60 && step4_breaths_minute >= 40)) ? 1 : 0)'
+---
+name: step4_fast_breathing2
+description: Calculated field for diagnosis of fast breathing.
+priority: 1
+condition: "step3_main_symptoms.contains('difficult_breathing')"
+actions:
+  - 'calculation = (((step1_age_in_months >= 2 && step1_age_in_months < 12 && step4_breaths_minute2 >= 50) ||
+  (step1_age_in_months >= 12 && step1_age_in_months < 60 && step4_breaths_minute2 >= 40)) ? 1 : 0)'
 ---
 name: step4_fast_breathing_final
 description: Fast breathing final calculation
@@ -151,7 +166,7 @@ description: Severe dehydration treatment 3 calculation
 priority: 1
 condition: "step5_diarrhoea.contains('yes')"
 actions:
-  - 'calculation = ((step5_sev_dehydration == 1 && step1_age >= 2 && step5_cholera_present.contains("yes"))? 1 : 0)'
+  - 'calculation = ((step5_sev_dehydration == 1 && step1_age_in_months >= 2 && step5_cholera_present.contains("yes"))? 1 : 0)'
 ---
 name: step6_malaria_test
 description: Malaria test calculation
@@ -313,7 +328,7 @@ description: Calculated field for when the child has confirmed HIV infection
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = ((step10_child_test_result.contains("v_pos") || step10_child_test_result.contains("s_pos") || step10_child_hiv_test2.contains("v_pos") || step10_child_hiv_test2.contains("s_pos"))? 1 : 0)'
+  - 'calculation = ((step10_child_test_result.contains("v_pos") || step10_child_test_result.contains("s_pos") || step10_child_hiv_test2.contains("v_pos") || step10_child_hiv_test2.contains("s_pos") && step1_age_in_months >= 18)? 1 : 0)'
 ---
 name: step10_child_hiv_exposed
 description: Calculated field for when the child is HIV exposed
@@ -321,7 +336,7 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = (((step10_mother_test_result.contains('positive') && step10_child_test_result.contains('v_neg') || step10_child_hiv_test2.contains('v_neg')) && (step10_hiv_breastfeeding.contains('yes') || step10_hiv_breastfeeding_now.contains('yes')) ||
-  ((step10_mother_test_result.contains('positive') && step10_child_hiv_test.contains('no')) ||(step10_child_test_result.contains('s_pos') || step10_child_hiv_test2.contains.contains('s_pos'))))? 1 : 0)"
+  ((step10_mother_test_result.contains('positive') && step10_child_hiv_test.contains('no')) ||(step10_child_test_result.contains('s_pos') || step10_child_hiv_test2.contains.('s_pos') && step1_age_in_months >= 18)))? 1 : 0)"
 ---
 name: step10_hiv_unlikely
 description: Calculated field for when the child HIV infection is unlikely

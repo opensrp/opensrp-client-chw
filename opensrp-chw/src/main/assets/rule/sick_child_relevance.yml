@@ -720,6 +720,13 @@ condition: "step7_no_ear_infection == 1"
 actions:
   - "isRelevant = true"
 ---
+name: step8_muac
+description: Child muac measurement using a MUAC tape
+priority: 1
+condition: "step1_age_in_months >= 6"
+actions:
+  - "isRelevant = true"
+---
 name: step8_complicated_sam_note
 description: Complicated severe acute malnutrition toaster
 priority: 1
@@ -807,21 +814,21 @@ actions:
 name: step9_no_anaemia_note
 description: No Anaemia toaster
 priority: 1
-condition: "step9_no_anaemia == 1"
+condition: "step9_no_anaemia == 1 && step1_age_in_months < 24"
 actions:
   - "isRelevant = true"
 ---
 name: step9_feeding_problem
 description: Check for whether a child with no anaemia has any feeding problems
 priority: 1
-condition: "step9_no_anaemia == 1"
+condition: "step9_no_anaemia == 1 && step1_age_in_months < 24"
 actions:
   - "isRelevant = true"
 ---
 name: step9_no_anaemia_treat_under2
 description: Treatment for children with no anaemia and are over 2 years toaster
 priority: 1
-condition: "step9_no_anaemia == 1"
+condition: "step9_no_anaemia == 1 && step1_age_in_months >= 24"
 actions:
   - "isRelevant = true"
 ---
