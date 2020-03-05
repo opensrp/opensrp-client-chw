@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -16,12 +17,11 @@ import androidx.fragment.app.Fragment;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.FragmentBaseActivity;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FindReportContract;
+import org.smartregister.chw.interactor.FindReportInteractor;
 import org.smartregister.chw.model.FilterReportFragmentModel;
 import org.smartregister.chw.presenter.FilterReportFragmentPresenter;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.location.helper.LocationHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,7 +35,6 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     public static final String TAG = "FilterReportFragment";
     public static final String REPORT_NAME = "REPORT_NAME";
 
-
     private FindReportContract.Presenter presenter;
     private View view;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.US);
@@ -43,6 +42,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     private String titleName;
     private EditText editTextDate;
     private Spinner spinnerCommunity;
+    private ProgressBar progressBar;
 
     private List<String> communityList = new ArrayList<>();
 
@@ -52,6 +52,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         view = inflater.inflate(R.layout.filter_report_fragment, container, false);
         bindLayout();
         loadPresenter();
+        presenter.initializeViews();
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -61,19 +62,32 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     }
 
     @Override
+    public void setLoadingState(boolean loadingState) {
+        if (progressBar != null)
+            progressBar.setVisibility(loadingState ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    @Override
     public void bindLayout() {
         Button buttonSave = view.findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(v -> runReport());
+        progressBar = view.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         editTextDate = view.findViewById(R.id.editTextDate);
         spinnerCommunity = view.findViewById(R.id.spinnerCommunity);
 
         communityList.add("All communities");
-        communityList.addAll(LocationHelper.getInstance().generateDefaultLocationHierarchy(ChwApplication.getInstance().getAllowedLocationLevels()));
 
         bindSpinner();
         bindDatePicker();
         updateLabel();
+    }
+
+    @Override
+    public void onLocationDataLoaded(Map<String, String> locationData) {
+        communityList.addAll(locationData.values());
+        bindSpinner();
     }
 
     @Override
@@ -115,7 +129,8 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     public void loadPresenter() {
         presenter = new FilterReportFragmentPresenter()
                 .with(this)
-                .withModel(new FilterReportFragmentModel());
+                .withModel(new FilterReportFragmentModel())
+                .withInteractor(new FindReportInteractor());
     }
 
     @Override

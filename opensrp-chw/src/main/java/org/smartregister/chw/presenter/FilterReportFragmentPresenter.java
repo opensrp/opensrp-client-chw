@@ -7,14 +7,17 @@ import androidx.annotation.Nullable;
 import org.smartregister.chw.contract.FindReportContract;
 
 import java.lang.ref.WeakReference;
+import java.util.LinkedHashMap;
 import java.util.Map;
-
-import timber.log.Timber;
 
 public class FilterReportFragmentPresenter implements FindReportContract.Presenter {
 
     @Nullable
     private WeakReference<FindReportContract.View> weakReference;
+    @Nullable
+    private FindReportContract.Model model;
+    @Nullable
+    private FindReportContract.Interactor interactor;
 
     @Override
     public void runReport(Map<String, String> parameters) {
@@ -30,8 +33,22 @@ public class FilterReportFragmentPresenter implements FindReportContract.Present
     }
 
     @Override
-    public void initalizeParams() {
-        Timber.v("initalizeParams");
+    public void initializeViews() {
+        FindReportContract.View view = getView();
+        if (model != null && interactor != null && view != null) {
+            view.setLoadingState(true);
+            LinkedHashMap<String, String> locations = model.getAllLocations();
+            interactor.processAvailableLocations(locations, this);
+        }
+    }
+
+    @Override
+    public void onReportHierarchyLoaded(Map<String, String> locationData) {
+        FindReportContract.View view = getView();
+        if (view == null) return;
+
+        view.setLoadingState(false);
+        view.onLocationDataLoaded(locationData);
     }
 
     @Override
@@ -42,6 +59,13 @@ public class FilterReportFragmentPresenter implements FindReportContract.Present
 
     @Override
     public FindReportContract.Presenter withModel(FindReportContract.Model model) {
+        this.model = model;
+        return this;
+    }
+
+    @Override
+    public FindReportContract.Presenter withInteractor(FindReportContract.Interactor interactor) {
+        this.interactor = interactor;
         return this;
     }
 
