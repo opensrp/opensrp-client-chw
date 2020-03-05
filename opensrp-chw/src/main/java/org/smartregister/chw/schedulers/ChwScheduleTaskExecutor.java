@@ -5,6 +5,7 @@ import org.smartregister.chw.core.contract.ScheduleService;
 import org.smartregister.chw.core.schedulers.ScheduleTaskExecutor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
+import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.chw.task.ANCVisitScheduler;
 import org.smartregister.chw.task.ChildHomeVisitScheduler;
 import org.smartregister.chw.task.FpVisitScheduler;
@@ -103,8 +104,8 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
     private void initializeMalariaClassifier(Map<String, List<ScheduleService>> classifier) {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new MalariaScheduler());
-        addToClassifers(CoreConstants.EventType.MALARIA_FOLLOW_UP_VISIT, classifier, scheduleServices);
-        addToClassifers(CoreConstants.EventType.MALARIA_CONFIRMATION, classifier, scheduleServices);
+        addToClassifers(Constants.EVENT_TYPE.MALARIA_FOLLOW_UP_VISIT, classifier, scheduleServices);
+        addToClassifers(Constants.EVENT_TYPE.MALARIA_CONFIRMATION, classifier, scheduleServices);
     }
 
     private void initializeWashClassifier(Map<String, List<ScheduleService>> classifier) {

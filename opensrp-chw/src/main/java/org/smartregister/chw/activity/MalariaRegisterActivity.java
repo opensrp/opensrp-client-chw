@@ -16,16 +16,15 @@ public class MalariaRegisterActivity extends CoreMalariaRegisterActivity {
 
     public static void startMalariaRegistrationActivity(Activity activity, String baseEntityID, @Nullable String familyBaseEntityID) {
         Intent intent = new Intent(activity, MalariaRegisterActivity.class);
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.FAMILY_BASE_ENTITY_ID, familyBaseEntityID);
+        intent.putExtra(org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.FAMILY_BASE_ENTITY_ID, familyBaseEntityID);
         intent.putExtra(org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.MALARIA_FORM_NAME, getMalariaConfirmation());
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
+        intent.putExtra(org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
         activity.startActivity(intent);
     }
 
     @Override
     protected void registerBottomNavigation() {
-
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
         FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
