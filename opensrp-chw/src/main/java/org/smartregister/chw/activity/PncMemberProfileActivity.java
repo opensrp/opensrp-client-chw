@@ -362,7 +362,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     @Override
     protected void startMalariaRegister() {
-        MalariaRegisterActivity.startMalariaRegistrationActivity(this, memberObject.getBaseEntityId());
+        MalariaRegisterActivity.startMalariaRegistrationActivity(this, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
     }
 
     @Override

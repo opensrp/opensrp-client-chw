@@ -27,8 +27,9 @@ public class UtilsFlv {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Date date = MalariaDao.getMalariaTestDate(baseEntityId);
-            malariaFollowUpRule = MalariaVisitUtil.getMalariaStatus(date);
+            Date malariaTestDate = MalariaDao.getMalariaTestDate(baseEntityId);
+            Date followUpDate = MalariaDao.getMalariaFollowUpVisitDate(baseEntityId);
+            malariaFollowUpRule = MalariaVisitUtil.getMalariaStatus(malariaTestDate,followUpDate);
             return null;
         }
 
@@ -40,7 +41,6 @@ public class UtilsFlv {
             }
         }
     }
-
     public static void updateMalariaMenuItems(String baseEntityId, Menu menu) {
         if (MalariaDao.isRegisteredForMalaria(baseEntityId)) {
             Utils.startAsyncTask(new UpdateFollowUpMenuItem(baseEntityId, menu), null);

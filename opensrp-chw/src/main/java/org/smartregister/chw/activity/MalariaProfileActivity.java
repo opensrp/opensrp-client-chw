@@ -37,6 +37,8 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.JsonFormUtils;
 
+import java.util.Date;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -369,7 +371,9 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            malariaFollowUpRule = MalariaVisitUtil.getMalariaStatus(memberObject.getMalariaTestDate());
+            Date malariaTestDate = MalariaDao.getMalariaTestDate(memberObject.getBaseEntityId());
+            Date followUpDate = MalariaDao.getMalariaFollowUpVisitDate(memberObject.getBaseEntityId());
+            malariaFollowUpRule = MalariaVisitUtil.getMalariaStatus(malariaTestDate, followUpDate);
             return null;
         }
 
