@@ -29,7 +29,7 @@ public class ReportDao extends AbstractDao {
     @NonNull
     public static List<EligibleChild> eligibleChildrenReport(String communityID, Date dueDate) {
 
-        String _communityID = StringUtils.isBlank(communityID) ? null : communityID;
+        String _communityID = StringUtils.isBlank(communityID) ? "" : communityID;
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String paramDate = sdf.format(dueDate);
@@ -40,7 +40,7 @@ public class ReportDao extends AbstractDao {
                 "from ec_child c " +
                 "left join ec_family f on c.relational_id = f.base_entity_id " +
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
-                "where  (l.location_id = '" + _communityID + "' or IFNULL('" + _communityID + "','') = '') " +
+                "where  (l.location_id = '" + _communityID + "' or '" + _communityID + "' = '') " +
                 "and l.base_entity_id in (select caseID from alerts where status <> 'expired' and startDate <= '" + paramDate + "') ";
 
 
