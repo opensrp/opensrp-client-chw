@@ -27,6 +27,8 @@ public class FragmentBaseActivity extends SecuredActivity {
     public static final String DISPLAY_FRAGMENT = "DISPLAY_FRAGMENT";
     public static final String TITLE = "TITLE";
 
+    private TextView titleTextView;
+
     public static void startMe(Activity activity, String fragmentName, String title) {
         Intent intent = new Intent(activity, FragmentBaseActivity.class);
         intent.putExtra(DISPLAY_FRAGMENT, fragmentName);
@@ -41,8 +43,6 @@ public class FragmentBaseActivity extends SecuredActivity {
         intent.putExtra(TITLE, title);
         activity.startActivity(intent);
     }
-
-    private TextView titleTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,7 @@ public class FragmentBaseActivity extends SecuredActivity {
         onCreation();
     }
 
-    public void setTitle(String title){
+    public void setTitle(String title) {
         titleTextView.setText(title);
     }
 
