@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
 import org.smartregister.chw.interactor.FamilyRemoveMemberInteractor;
 import org.smartregister.chw.util.Constants;
@@ -40,7 +40,7 @@ public class FamilyRemoveMemberPresenterTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         presenter = new FamilyRemoveMemberPresenter(view, model, viewConfigurationIdentifier, familyBaseEntityId, familyHead, primaryCaregiver);
-        Whitebox.setInternalState(presenter, "interactor", interactor);
+        ReflectionHelpers.setField(presenter, "interactor", interactor);
     }
 
     @Test
@@ -102,7 +102,7 @@ public class FamilyRemoveMemberPresenterTest {
         String details = "details";
         JSONObject form = Mockito.mock(JSONObject.class);
 
-        Whitebox.setInternalState(presenter, "familyBaseEntityId", familyBaseEntityId);
+        ReflectionHelpers.setField(presenter, "familyBaseEntityId", familyBaseEntityId);
         Mockito.when(model.prepareFamilyRemovalForm(familyBaseEntityId, familyName, details)).thenReturn(form);
 
         presenter.removeEveryone(familyName, details);
