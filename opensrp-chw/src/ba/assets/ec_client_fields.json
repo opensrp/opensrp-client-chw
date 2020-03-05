@@ -773,6 +773,15 @@
           }
         },
         {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+
+        {
           "column_name": "fever_malaria_chw",
           "type": "Event",
           "json_mapping": {

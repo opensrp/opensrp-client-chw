@@ -44,15 +44,6 @@
           },
           {
             "field": "eventType",
-            "field_value": "Malaria Follow-up Visit",
-            "concept" : "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "values": ["No"],
-            "closes_case": [
-              "ec_malaria_confirmation"
-            ]
-          },
-          {
-            "field": "eventType",
             "field_value": "Family Planning Registration",
             "creates_case": [
               "ec_family_planning"
