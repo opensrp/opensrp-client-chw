@@ -57,6 +57,8 @@ import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.domain.FamilyMetadata;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.Constants;
+import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
+import org.smartregister.growthmonitoring.GrowthMonitoringLibrary;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
@@ -144,8 +146,11 @@ public class ChwApplication extends CoreChwApplication {
         PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         FpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-
-        if(hasReferrals()) {
+        // Init Reporting library
+        ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        GrowthMonitoringConfig growthMonitoringConfig = new GrowthMonitoringConfig();
+        GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION, growthMonitoringConfig);
+        if (hasReferrals()) {
             //Setup referral library
             ReferralLibrary.init(this);
             ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
@@ -160,9 +165,6 @@ public class ChwApplication extends CoreChwApplication {
 
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
-
-        // Init Reporting library
-        ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new ChwJobCreator());

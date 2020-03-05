@@ -317,6 +317,13 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
+    api('org.smartregister:opensrp-client-growth-monitoring:1.1.18-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
 }
 
 def flavors = android.productFlavors.collect { flavor -> flavor.name }
