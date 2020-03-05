@@ -2,7 +2,6 @@ package org.smartregister.chw.view_holder;
 
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 
 import org.smartregister.chw.R;
 
