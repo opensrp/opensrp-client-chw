@@ -10,6 +10,9 @@ import org.smartregister.chw.contract.ListContract;
 import org.smartregister.chw.domain.EligibleChild;
 import org.smartregister.chw.util.Utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class EligibleChildrenViewHolder extends ListableViewHolder<EligibleChild> {
 
     private View currentView;
@@ -31,7 +34,12 @@ public class EligibleChildrenViewHolder extends ListableViewHolder<EligibleChild
     public void bindView(EligibleChild eligibleChild, ListContract.View<EligibleChild> view) {
 
         tvName.setText(eligibleChild.getFullName());
-        tvAge.setText(eligibleChild.getDateOfBirth().toString());
+        String dob = Utils.getDuration(
+                new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(eligibleChild.getDateOfBirth())
+        );
+
+        String age = currentView.getContext().getString(R.string.age);
+        tvAge.setText(age + " " + dob);
         tvFamily.setText(eligibleChild.getFamilyName());
         String due = currentView.getContext().getString(R.string.due);
         tvDue.setText(due + ": " + Utils.toCSV(eligibleChild.getDueVaccines()));

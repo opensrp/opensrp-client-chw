@@ -100,8 +100,9 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         Map<String, String> map = new HashMap<>();
         map.put(Constants.ReportParameters.COMMUNITY, spinnerCommunity.getSelectedItem().toString());
 
-        int selectedItem = spinnerCommunity.getSelectedItemPosition() > 0 ? spinnerCommunity.getSelectedItemPosition() - 1 : 0;
-        map.put(Constants.ReportParameters.COMMUNITY_ID, new ArrayList<>(communityIDList.keySet()).get(selectedItem));
+        String communityID = spinnerCommunity.getSelectedItemPosition() == 0 ? "" :
+                new ArrayList<>(communityIDList.keySet()).get(spinnerCommunity.getSelectedItemPosition() - 1);
+        map.put(Constants.ReportParameters.COMMUNITY_ID, communityID);
         map.put(Constants.ReportParameters.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
         presenter.runReport(map);
     }

@@ -2,6 +2,8 @@ package org.smartregister.chw.fragment;
 
 import androidx.annotation.NonNull;
 
+import org.smartregister.chw.R;
+import org.smartregister.chw.activity.FragmentBaseActivity;
 import org.smartregister.chw.adapter.EligibleChildrenAdapter;
 import org.smartregister.chw.adapter.ListableAdapter;
 import org.smartregister.chw.dao.ReportDao;
@@ -22,4 +24,11 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
         return new EligibleChildrenAdapter(list, this);
     }
 
+    @Override
+    public void refreshView() {
+        super.refreshView();
+        if(getActivity() instanceof FragmentBaseActivity){
+            ((FragmentBaseActivity) getActivity()).setTitle(list.size() +  " " + getString(R.string.eligible_children));
+        }
+    }
 }

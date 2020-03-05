@@ -42,6 +42,8 @@ public class FragmentBaseActivity extends SecuredActivity {
         activity.startActivity(intent);
     }
 
+    private TextView titleTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,7 @@ public class FragmentBaseActivity extends SecuredActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_top);
         setSupportActionBar(toolbar);
 
-        TextView textView = findViewById(R.id.toolbar_title);
+        titleTextView = findViewById(R.id.toolbar_title);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -68,7 +70,7 @@ public class FragmentBaseActivity extends SecuredActivity {
         if (bundle != null) {
             String title = bundle.getString(TITLE);
             if (StringUtils.isNotBlank(title)) {
-                textView.setText(title);
+                titleTextView.setText(title);
             }
 
             String fragmentName = bundle.getString(DISPLAY_FRAGMENT);
@@ -79,6 +81,10 @@ public class FragmentBaseActivity extends SecuredActivity {
         }
 
         onCreation();
+    }
+
+    public void setTitle(String title){
+        titleTextView.setText(title);
     }
 
     @Override

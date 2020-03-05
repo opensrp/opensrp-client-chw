@@ -32,7 +32,7 @@
                 style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:gravity="center|left"
                 android:paddingStart="0dp"
                 android:paddingLeft="0dp"
                 android:paddingEnd="0dp"
