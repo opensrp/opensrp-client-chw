@@ -38,6 +38,7 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
 
     protected String communityID;
     protected Date reportDate = null;
+    protected String communityName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +51,8 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
         Bundle bundle = getArguments();
         if (bundle != null) {
             communityID = bundle.getString(Constants.ReportParameters.COMMUNITY_ID);
+            communityName = bundle.getString(Constants.ReportParameters.COMMUNITY);
+
             String date = bundle.getString(Constants.ReportParameters.REPORT_DATE);
 
             if (date != null) {
@@ -61,7 +64,7 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
             }
 
             tvDate.setText(date);
-            tvCommunity.setText(bundle.getString(Constants.ReportParameters.COMMUNITY));
+            tvCommunity.setText(communityName);
         }
         bindLayout();
         loadPresenter();
