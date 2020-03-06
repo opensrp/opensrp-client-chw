@@ -133,9 +133,9 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -148,8 +148,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:textColor="#585858"
                         android:text="@string/forgot_pin"
+                        android:textColor="#585858"
                         android:textSize="@dimen/login_edit_text_textSize" />
 
                     <TextView
@@ -157,8 +157,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:textColor="#0089D5"
                         android:text="@string/use_your_password"
+                        android:textColor="#0089D5"
                         android:textSize="@dimen/login_edit_text_textSize" />
 
                 </LinearLayout>
@@ -216,5 +216,12 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_opensrp_logo" />
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/Base.Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
     </RelativeLayout>
 </ScrollView>

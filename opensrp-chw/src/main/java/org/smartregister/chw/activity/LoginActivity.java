@@ -100,6 +100,9 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     }
 
     private void startHome(boolean remote) {
+        if(remote)
+            pinLogger.resetPinLogin();
+
         if (pinLogger.isFirstAuthentication()) {
             EditText passwordEditText = findViewById(org.smartregister.R.id.login_password_edit_text);
             pinLogger.savePassword(passwordEditText.getText().toString());

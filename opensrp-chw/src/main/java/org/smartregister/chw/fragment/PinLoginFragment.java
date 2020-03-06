@@ -1,12 +1,8 @@
 package org.smartregister.chw.fragment;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
@@ -16,8 +12,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 
@@ -25,27 +23,28 @@ import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.PinLoginActivity;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.contract.PinLoginContract;
 import org.smartregister.chw.contract.PinViewContract;
 import org.smartregister.chw.pinlogin.PinLogger;
-import org.smartregister.chw.presenter.LoginPresenter;
+import org.smartregister.chw.presenter.PinLoginPresenter;
 import org.smartregister.util.Utils;
-import org.smartregister.view.contract.BaseLoginContract;
 
 import timber.log.Timber;
 
 import static org.smartregister.util.Log.logError;
 
-public class PinLoginFragment extends Fragment implements View.OnClickListener, BaseLoginContract.View {
+public class PinLoginFragment extends Fragment implements View.OnClickListener, PinLoginContract.View {
 
     public static final String TAG = "PinLoginFragment";
 
-    private BaseLoginContract.Presenter mLoginPresenter;
+    private PinLoginContract.Presenter mLoginPresenter;
     private ProgressDialog progressDialog;
     private EditText passwordEditText;
     private boolean showPasswordChecked = false;
     private TextView showPinText;
     private CheckBox showPasswordCheck;
     private Button btnLogin;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,57 +52,32 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
         View view = inflater.inflate(R.layout.pin_login_fragment, container, false);
         initializeBuildDetails(view);
 
-        mLoginPresenter = new LoginPresenter(this);
+        mLoginPresenter = new PinLoginPresenter(this);
 
         showPasswordCheck = view.findViewById(R.id.login_show_password_checkbox);
         showPinText = view.findViewById(R.id.login_show_password_text_view);
         btnLogin = view.findViewById(R.id.login_login_btn);
         passwordEditText = view.findViewById(R.id.login_password_edit_text);
+        progressBar = view.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         passwordEditText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == org.smartregister.R.integer.login || actionId == EditorInfo.IME_NULL || actionId == EditorInfo.IME_ACTION_DONE) {
-                enableLoginButton(true);
-                hideKeyboard();
+                attemptLogin();
                 return true;
             }
             return false;
         });
 
-        passwordEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Timber.v("beforeTextChanged");
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Timber.v("onTextChanged");
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                enableLoginButton(true);
-            }
-        });
-
-
         TextView enterPinTextView = view.findViewById(R.id.pin_title_text_view);
         enterPinTextView.setText(getString(R.string.enter_pin_for_user, getController().getPinLogger().loggedInUser()));
 
         setListenerOnShowPasswordCheckbox();
-        initializeProgressDialog();
 
         view.findViewById(R.id.forgot_pin).setOnClickListener(this);
         view.findViewById(R.id.use_your_password).setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         return view;
-    }
-
-    private void initializeProgressDialog() {
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setCancelable(false);
-        progressDialog.setTitle(getString(org.smartregister.R.string.loggin_in_dialog_title));
-        progressDialog.setMessage(getString(org.smartregister.R.string.loggin_in_dialog_message));
     }
 
     private void setListenerOnShowPasswordCheckbox() {
@@ -161,107 +135,62 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void attemptLogin() {
-        showProgress(true);
-        hideKeyboard();
-        enableLoginButton(false);
-        PinLogger logger = getController().getPinLogger();
-        mLoginPresenter.attemptLogin(logger.getLoggedInUserName(), logger.getPassword(passwordEditText.getText().toString()));
+        String pin = passwordEditText.getText().toString();
+        mLoginPresenter.localLogin(pin);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (!(getActivity() instanceof PinViewContract.Controller)) {
+        if (!(getActivity() instanceof PinViewContract.Controller))
             throw new IllegalStateException("Host activity does not implement Controller");
-        }
     }
 
     private PinViewContract.Controller getController() {
         return (PinLoginActivity) getActivity();
     }
 
-    @Override
-    public void setUsernameError(int resourceId) {
-        Timber.v("setUsernameError attempted");
+    private void showProgress(final boolean show) {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
-    public void resetUsernameError() {
-        Timber.v("resetUsernameError attempted");
+    public void onLoginInitiated(@NonNull PinLogger.EventListener eventListener) {
+        hideKeyboard();
+        btnLogin.setClickable(false);
+        showProgress(true);
     }
 
     @Override
-    public void setPasswordError(int resourceId) {
-        passwordEditText.setError(getString(resourceId));
-        passwordEditText.requestFocus();
-        showErrorDialog(getResources().getString(org.smartregister.R.string.unauthorized));
+    public void onLoginAttemptFailed(String error) {
+        showErrorDialog(org.smartregister.R.string.login_failed_dialog_title, error);
+        showProgress(false);
+        btnLogin.setClickable(true);
     }
 
     @Override
-    public void resetPaswordError() {
-        passwordEditText.setError(null);
+    public void onLoginCompleted() {
+        showProgress(false);
+        btnLogin.setClickable(true);
+        getController().startHomeActivity();
     }
 
-    @Override
-    public void showProgress(final boolean show) {
-        try{
-            if (show) {
-                progressDialog.show();
-            } else {
-                progressDialog.dismiss();
-            }
-        }catch (Exception e){
-            Timber.v(e);
-        }
-    }
-
-    @Override
-    public void updateProgressMessage(String message) {
-        progressDialog.setTitle(message);
-    }
-
-    @Override
-    public void hideKeyboard() {
+    private void hideKeyboard() {
         try {
             Timber.i("Hiding Keyboard %s", DateTime.now().toString());
-            Utils.hideKeyboard(getActivity());
+            if (getActivity() != null)
+                Utils.hideKeyboard(getActivity());
         } catch (Exception e) {
             Timber.e(e);
         }
     }
 
-    @Override
-    public void showErrorDialog(String message) {
-        showProgress(false);
-        showErrorDialog(org.smartregister.R.string.login_failed_dialog_title, message);
-    }
-
-    public void showErrorDialog(@StringRes int title, String message) {
+    private void showErrorDialog(@StringRes int title, String message) {
         AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
+                .setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.dismiss())
                 .create();
         alertDialog.show();
-    }
-
-    @Override
-    public void enableLoginButton(boolean isClickable) {
-        btnLogin.setClickable(isClickable);
-    }
-
-    @Override
-    public void goToHome(boolean b) {
-        getController().startHomeActivity();
-    }
-
-    @Override
-    public Activity getActivityContext() {
-        return getActivity();
     }
 }

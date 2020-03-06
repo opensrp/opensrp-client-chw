@@ -1,5 +1,6 @@
 package org.smartregister.chw.pinlogin;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
@@ -43,6 +44,13 @@ public interface PinLogger {
      * @param eventListener
      */
     void setPin(String newPin, @Nullable EventListener eventListener);
+
+    /**
+     * logs in the authenticated user
+     *
+     * @param pin
+     */
+    boolean attemptPinVerification(@NonNull String pin, @Nullable EventListener eventListener);
 
     /**
      * returns actual logged in user name and null if a user is not logged in
