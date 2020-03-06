@@ -48,7 +48,7 @@ public class SecurePinLogger implements PinLogger {
 
     @Override
     public boolean isFirstAuthentication() {
-        return preferences.getBoolean(SecureConstants.PREFERENCES_CONFIGURED, true);
+        return !preferences.getBoolean(SecureConstants.PREFERENCES_CONFIGURED, false);
     }
 
     @Override

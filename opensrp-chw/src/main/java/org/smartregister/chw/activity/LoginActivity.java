@@ -2,6 +2,8 @@ package org.smartregister.chw.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import org.smartregister.chw.R;
@@ -57,6 +59,24 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         }
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        if (ChwApplication.getApplicationFlavor().hasPinLogin() && !pinLogger.isFirstAuthentication()) {
+            menu.add("Reset Pin Login");
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getTitle().toString().equalsIgnoreCase("Reset Pin Login")) {
+            pinLogger.resetPinLogin();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected int getContentView() {
