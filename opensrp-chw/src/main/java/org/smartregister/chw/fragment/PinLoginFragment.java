@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -53,6 +54,15 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
         showPinText = view.findViewById(R.id.login_show_password_text_view);
         btnLogin = view.findViewById(R.id.login_login_btn);
         passwordEditText = view.findViewById(R.id.login_password_edit_text);
+
+        passwordEditText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if (actionId == org.smartregister.R.integer.login || actionId == EditorInfo.IME_NULL || actionId == EditorInfo.IME_ACTION_DONE) {
+                attemptLogin();
+                return true;
+            }
+            return false;
+        });
+
 
         TextView enterPinTextView = view.findViewById(R.id.pin_title_text_view);
         enterPinTextView.setText(getString(R.string.enter_pin_for_user, getController().getPinLogger().loggedInUser()));
@@ -118,7 +128,6 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void attemptLogin() {
-        enableLoginButton(false);
         PinLogger logger = getController().getPinLogger();
         mLoginPresenter.attemptLogin(logger.getLoggedInUserName(), logger.getPassword(passwordEditText.getText().toString()));
     }
@@ -197,8 +206,8 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
     }
 
     @Override
-    public void enableLoginButton(boolean b) {
-        btnLogin.setClickable(b);
+    public void enableLoginButton(boolean isClickable) {
+        btnLogin.setClickable(isClickable);
     }
 
     @Override
