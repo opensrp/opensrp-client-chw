@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -25,7 +24,6 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener {
     private EditText editTextPassword;
     private boolean showPasswordChecked = false;
     private TextView showPinText;
-    private TextView forgotPin;
     private CheckBox showPasswordCheck;
 
     @Override
@@ -34,10 +32,13 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.pin_login_fragment, container, false);
 
         showPasswordCheck = view.findViewById(R.id.login_show_password_checkbox);
-        forgotPin = view.findViewById(R.id.forgot_pin);
+        TextView forgotPin = view.findViewById(R.id.forgot_pin);
         showPinText = view.findViewById(R.id.login_show_password_text_view);
         Button btnLogin = view.findViewById(R.id.login_login_btn);
         editTextPassword = view.findViewById(R.id.login_password_edit_text);
+
+        TextView enterPinTextView = view.findViewById(R.id.pin_title_text_view);
+        enterPinTextView.setText(getString(R.string.enter_pin_for_user, getController().getPinLogger().loggedInUser()));
 
         setListenerOnShowPasswordCheckbox();
 
@@ -77,6 +78,7 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener {
                 attemptLogin();
                 break;
             case R.id.forgot_pin:
+            case R.id.use_your_password:
                 revertToPassword();
                 break;
             default:
@@ -85,7 +87,8 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener {
     }
 
     private void revertToPassword() {
-
+        getController().getPinLogger().resetPinLogin();
+        getController().startPasswordLogin();
     }
 
     private void attemptLogin() {

@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
-                android:text="Enter pin for W3VV-01"
+                android:text="@string/enter_pin_for_user"
                 android:textColor="#272727"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -93,12 +93,12 @@
                 android:layout_weight="8"
                 android:cursorVisible="true"
                 android:ems="10"
-                android:paddingBottom="20dp"
                 android:hint="Enter pin"
                 android:imeActionId="@integer/login"
                 android:inputType="numberPassword"
                 android:lines="1"
                 android:paddingLeft="10dp"
+                android:paddingBottom="20dp"
                 android:textColor="#666666"
                 android:textColorHint="#bfbfbf"
                 android:textCursorDrawable="@null"
@@ -132,21 +132,38 @@
                     android:textSize="@dimen/login_edit_text_textSize" />
             </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <RelativeLayout
                 android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/forgot_pin"
-                    android:layout_width="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:gravity="center"
-                    android:text="Forgot pin? Use your password?"
-                    android:textColor="#0089D5"
-                    android:textSize="@dimen/login_edit_text_textSize" />
-            </LinearLayout>
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/forgot_pin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textColor="#585858"
+                        android:text="@string/forgot_pin"
+                        android:textSize="@dimen/login_edit_text_textSize" />
+
+                    <TextView
+                        android:id="@+id/use_your_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textColor="#0089D5"
+                        android:text="@string/use_your_password"
+                        android:textSize="@dimen/login_edit_text_textSize" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/login_login_btn"
