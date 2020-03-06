@@ -18,12 +18,14 @@ public interface PinLogger {
 
     /**
      * disable or enable pin login status
+     *
      * @param status
      */
     void setPinStatus(boolean status);
 
     /**
      * check if the user has enabled pin login
+     *
      * @return
      */
     boolean enabledPin();
@@ -44,13 +46,6 @@ public interface PinLogger {
     void setPin(String newPin, @Nullable EventListener eventListener);
 
     /**
-     * logs in the authenticated user
-     *
-     * @param pin
-     */
-    void attemptPinVerification(@NonNull String pin, @Nullable EventListener eventListener);
-
-    /**
      * returns actual logged in user name and null if a user is not logged in
      *
      * @return
@@ -58,10 +53,25 @@ public interface PinLogger {
     @Nullable
     String loggedInUser();
 
+    @Nullable
+    String getLoggedInUserName();
+
     /**
      * Nuke everything related to pins
      */
     void resetPinLogin();
+
+    /**
+     * saves login password to the pin logger
+     */
+    void savePassword(String passWord);
+
+    /**
+     * returns password in the pin logger
+     *
+     * @return
+     */
+    String getPassword(String pin);
 
     interface EventListener {
 

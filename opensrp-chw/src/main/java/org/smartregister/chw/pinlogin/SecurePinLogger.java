@@ -23,6 +23,7 @@ public class SecurePinLogger implements PinLogger {
         String PIN_LOGIN = "chw-PinLogin";
         String SECURE_PIN = "chw-SecuredPin";
         String PREFERENCES_CONFIGURED = "chw-ConfigDone";
+        String PASSWORD = "chw-Password";
     }
 
     private Context ctx = ChwApplication.getInstance().getApplicationContext();
@@ -47,7 +48,7 @@ public class SecurePinLogger implements PinLogger {
 
     @Override
     public boolean isFirstAuthentication() {
-        return preferences.getBoolean(SecureConstants.PREFERENCES_CONFIGURED, false);
+        return preferences.getBoolean(SecureConstants.PREFERENCES_CONFIGURED, true);
     }
 
     @Override
@@ -71,7 +72,6 @@ public class SecurePinLogger implements PinLogger {
             eventListener.OnSuccess();
     }
 
-    @Override
     public void attemptPinVerification(@NonNull String pin, @Nullable EventListener eventListener) {
         if (StringUtils.isBlank(pin)) {
             if (eventListener != null)
@@ -88,7 +88,6 @@ public class SecurePinLogger implements PinLogger {
             if (eventListener != null)
                 eventListener.OnError(new Exception("Login failed"));
         }
-
     }
 
     @Nullable
@@ -105,10 +104,31 @@ public class SecurePinLogger implements PinLogger {
         return null;
     }
 
+    @Nullable
+    @Override
+    public String getLoggedInUserName() {
+        return Utils.getAllSharedPreferences().fetchRegisteredANM();
+    }
+
     @Override
     public void resetPinLogin() {
         preferences.edit().remove(SecureConstants.PIN_LOGIN).apply();
         preferences.edit().remove(SecureConstants.PREFERENCES_CONFIGURED).apply();
         preferences.edit().remove(SecureConstants.SECURE_PIN).apply();
+        preferences.edit().remove(SecureConstants.PASSWORD).apply();
+    }
+
+    @Override
+    public void savePassword(String passWord) {
+        preferences.edit().putString(SecureConstants.PASSWORD, passWord).apply();
+    }
+
+    @Override
+    public String getPassword(String pin) {
+        String currentPin = preferences.getString(SecureConstants.SECURE_PIN, "");
+        if (pin.equals(currentPin))
+            return preferences.getString(SecureConstants.PASSWORD, null);
+
+        return null;
     }
 }

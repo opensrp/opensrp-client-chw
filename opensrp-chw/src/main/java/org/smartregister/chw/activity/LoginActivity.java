@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -52,15 +53,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
                 finish();
             }
         } else {
-            // user is logged in
-            if (pinLogger.isFirstAuthentication()) {
-                Intent intent = new Intent(this, PinLoginActivity.class);
-                intent.putExtra(PinLoginActivity.DESTINATION_FRAGMENT, ChooseLoginMethodFragment.TAG);
-                startActivity(intent);
-                finish();
-            } else {
-                goToHome(false);
-            }
+            goToHome(false);
         }
     }
 
@@ -86,9 +79,21 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     }
 
     private void startHome(boolean remote) {
-        Intent intent = new Intent(this, FamilyRegisterActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
-        startActivity(intent);
+        if (pinLogger.isFirstAuthentication()) {
+            EditText passwordEditText = findViewById(org.smartregister.R.id.login_password_edit_text);
+            pinLogger.savePassword(passwordEditText.getText().toString());
+        }
+
+        if (pinLogger.isFirstAuthentication()) {
+            Intent intent = new Intent(this, PinLoginActivity.class);
+            intent.putExtra(PinLoginActivity.DESTINATION_FRAGMENT, ChooseLoginMethodFragment.TAG);
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = new Intent(this, FamilyRegisterActivity.class);
+            intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+            startActivity(intent);
+        }
     }
 
 }
