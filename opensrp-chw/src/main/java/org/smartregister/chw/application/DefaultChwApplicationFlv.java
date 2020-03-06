@@ -65,4 +65,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean hasQR() {
         return false;
     }
+
+    @Override
+    public boolean hasTasks() {
+        return false;
+    }
 }

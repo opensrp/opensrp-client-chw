@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -23,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.PinLoginActivity;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.PinViewContract;
 import org.smartregister.chw.pinlogin.PinLogger;
 import org.smartregister.chw.presenter.LoginPresenter;
@@ -30,6 +30,8 @@ import org.smartregister.util.Utils;
 import org.smartregister.view.contract.BaseLoginContract;
 
 import timber.log.Timber;
+
+import static org.smartregister.util.Log.logError;
 
 public class PinLoginFragment extends Fragment implements View.OnClickListener, BaseLoginContract.View {
 
@@ -47,6 +49,7 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.pin_login_fragment, container, false);
+        initializeBuildDetails(view);
 
         mLoginPresenter = new LoginPresenter(this);
 
@@ -55,6 +58,7 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
         btnLogin = view.findViewById(R.id.login_login_btn);
         passwordEditText = view.findViewById(R.id.login_password_edit_text);
 
+        /*
         passwordEditText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == org.smartregister.R.integer.login || actionId == EditorInfo.IME_NULL || actionId == EditorInfo.IME_ACTION_DONE) {
                 attemptLogin();
@@ -62,6 +66,7 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
             }
             return false;
         });
+         */
 
 
         TextView enterPinTextView = view.findViewById(R.id.pin_title_text_view);
@@ -105,6 +110,16 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
                 passwordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
+    }
+
+    private void initializeBuildDetails(View view) {
+        TextView buildDetailsTextView = view.findViewById(org.smartregister.R.id.login_build_text_view);
+        try {
+            buildDetailsTextView.setText(String.format(getString(org.smartregister.R.string.app_version), Utils.getVersion(ChwApplication.getInstance()
+                    .getApplicationContext()), Utils.getBuildDate(true)));
+        } catch (Exception e) {
+            logError("Error fetching build details: " + e);
+        }
     }
 
     @Override

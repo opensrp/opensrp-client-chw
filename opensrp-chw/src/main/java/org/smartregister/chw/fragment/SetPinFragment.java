@@ -1,6 +1,7 @@
 package org.smartregister.chw.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +14,12 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.PinLoginActivity;
 import org.smartregister.chw.contract.PinViewContract;
 import org.smartregister.chw.pinlogin.PinLogger;
+import org.smartregister.util.Utils;
 
 import timber.log.Timber;
 
@@ -46,6 +49,7 @@ public class SetPinFragment extends Fragment {
 
     private void setPin(EditText editTextPin){
         String newPin = editTextPin.getText().toString();
+        hideKeyboard();
         if(StringUtils.isBlank(newPin) || newPin.length() < 4){
             Toast.makeText(getContext(), "Pin too short", Toast.LENGTH_SHORT).show();
             editTextPin.setError("Pin too short");
@@ -67,6 +71,15 @@ public class SetPinFragment extends Fragment {
                     Timber.v(event);
                 }
             });
+        }
+    }
+
+    private void hideKeyboard() {
+        try{
+            Timber.i("Hiding Keyboard %s", DateTime.now().toString());
+            Utils.hideKeyboard(getActivity());
+        }catch (Exception e){
+            Timber.e(e);
         }
     }
 

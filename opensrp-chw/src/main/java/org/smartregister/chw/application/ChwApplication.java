@@ -318,5 +318,7 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasPinLogin();
 
         boolean hasReports();
+
+        boolean hasTasks();
     }
 }

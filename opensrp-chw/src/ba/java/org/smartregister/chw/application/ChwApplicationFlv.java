@@ -50,4 +50,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean hasJobAids() {
         return false;
     }
+
+    @Override
+    public boolean hasTasks() {
+        return true;
+    }
 }
