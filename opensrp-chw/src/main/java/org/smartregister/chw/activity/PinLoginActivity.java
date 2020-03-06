@@ -3,17 +3,16 @@ package org.smartregister.chw.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.PinViewContract;
 import org.smartregister.chw.fragment.ChooseLoginMethodFragment;
+import org.smartregister.chw.fragment.PinLoginFragment;
 import org.smartregister.chw.fragment.SetPinFragment;
-import org.smartregister.view.activity.SecuredActivity;
 
-import timber.log.Timber;
-
-public class PinLoginActivity extends SecuredActivity implements PinViewContract.Controller {
+public class PinLoginActivity extends AppCompatActivity implements PinViewContract.Controller {
     public static final String DESTINATION_FRAGMENT = "DESTINATION_FRAGMENT";
 
     @Override
@@ -21,7 +20,14 @@ public class PinLoginActivity extends SecuredActivity implements PinViewContract
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pin_login);
 
-        switchToFragment(new ChooseLoginMethodFragment());
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            String destination = bundle.getString(DESTINATION_FRAGMENT);
+            if (destination != null)
+                navigateToFragment(destination);
+        } else {
+            switchToFragment(new PinLoginFragment());
+        }
 
     }
 
@@ -32,24 +38,16 @@ public class PinLoginActivity extends SecuredActivity implements PinViewContract
     }
 
     @Override
-    protected void onCreation() {
-        Timber.v("onCreation");
-    }
-
-    @Override
-    protected void onResumption() {
-        Timber.v("onResumption");
-    }
-
-    @Override
     public void navigateToFragment(String destinationFragment) {
         switch (destinationFragment) {
             case ChooseLoginMethodFragment.TAG:
                 switchToFragment(new ChooseLoginMethodFragment());
                 break;
-            case SetPinFragment
-                    .TAG:
+            case SetPinFragment.TAG:
                 switchToFragment(new SetPinFragment());
+                break;
+            case PinLoginFragment.TAG:
+                switchToFragment(new PinLoginFragment());
                 break;
             default:
                 break;

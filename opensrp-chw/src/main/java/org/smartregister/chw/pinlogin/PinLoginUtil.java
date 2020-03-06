@@ -10,7 +10,7 @@ public class PinLoginUtil {
             pinLogger = new PinLogger() {
                 @Override
                 public boolean isPinSet() {
-                    return false;
+                    return true;
                 }
 
                 @Override

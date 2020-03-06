@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.fragment.ChooseLoginMethodFragment;
+import org.smartregister.chw.fragment.PinLoginFragment;
 import org.smartregister.chw.pinlogin.PinLoginUtil;
 import org.smartregister.chw.presenter.LoginPresenter;
 import org.smartregister.chw.util.Utils;
@@ -28,6 +30,10 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         mLoginPresenter.processViewCustomizations();
         if (!mLoginPresenter.isUserLoggedOut()) {
             goToHome(false);
+        } else if (ChwApplication.getApplicationFlavor().hasPinLogin() && PinLoginUtil.getPinLogger().isPinSet()) {
+            Intent intent = new Intent(this, PinLoginActivity.class);
+            intent.putExtra(PinLoginActivity.DESTINATION_FRAGMENT, PinLoginFragment.TAG);
+            startActivity(intent);
         }
     }
 

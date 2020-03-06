@@ -18,7 +18,7 @@ public class ChooseLoginMethodFragment extends Fragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.choose_login_fragment, container, false);
+        View view = inflater.inflate(R.layout.pin_login_fragment, container, false);
         view.findViewById(R.id.btnUsePin).setOnClickListener(this);
         view.findViewById(R.id.btnUsePassword).setOnClickListener(this);
         return view;
