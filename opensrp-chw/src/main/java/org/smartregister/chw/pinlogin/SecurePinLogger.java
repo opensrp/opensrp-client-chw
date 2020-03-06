@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
@@ -70,24 +69,6 @@ public class SecurePinLogger implements PinLogger {
         preferences.edit().putString(SecureConstants.SECURE_PIN, newPin).apply();
         if (eventListener != null)
             eventListener.OnSuccess();
-    }
-
-    public void attemptPinVerification(@NonNull String pin, @Nullable EventListener eventListener) {
-        if (StringUtils.isBlank(pin)) {
-            if (eventListener != null)
-                eventListener.OnError(new Exception("Invalid pin"));
-
-            return;
-        }
-
-        String currentPin = preferences.getString(SecureConstants.PIN_LOGIN, "");
-        if (pin.equals(currentPin)) {
-            if (eventListener != null)
-                eventListener.OnSuccess();
-        } else {
-            if (eventListener != null)
-                eventListener.OnError(new Exception("Login failed"));
-        }
     }
 
     @Nullable
