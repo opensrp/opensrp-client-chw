@@ -5,12 +5,14 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -58,15 +60,31 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
         btnLogin = view.findViewById(R.id.login_login_btn);
         passwordEditText = view.findViewById(R.id.login_password_edit_text);
 
-        /*
         passwordEditText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == org.smartregister.R.integer.login || actionId == EditorInfo.IME_NULL || actionId == EditorInfo.IME_ACTION_DONE) {
-                attemptLogin();
+                enableLoginButton(true);
+                hideKeyboard();
                 return true;
             }
             return false;
         });
-         */
+
+        passwordEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Timber.v("beforeTextChanged");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Timber.v("onTextChanged");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                enableLoginButton(true);
+            }
+        });
 
 
         TextView enterPinTextView = view.findViewById(R.id.pin_title_text_view);
@@ -143,6 +161,9 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void attemptLogin() {
+        showProgress(true);
+        hideKeyboard();
+        enableLoginButton(false);
         PinLogger logger = getController().getPinLogger();
         mLoginPresenter.attemptLogin(logger.getLoggedInUserName(), logger.getPassword(passwordEditText.getText().toString()));
     }
@@ -183,10 +204,14 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void showProgress(final boolean show) {
-        if (show) {
-            progressDialog.show();
-        } else {
-            progressDialog.dismiss();
+        try{
+            if (show) {
+                progressDialog.show();
+            } else {
+                progressDialog.dismiss();
+            }
+        }catch (Exception e){
+            Timber.v(e);
         }
     }
 
@@ -197,12 +222,17 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void hideKeyboard() {
-        Log.i(getClass().getName(), "Hiding Keyboard " + DateTime.now().toString());
-        Utils.hideKeyboard(getActivity());
+        try {
+            Timber.i("Hiding Keyboard %s", DateTime.now().toString());
+            Utils.hideKeyboard(getActivity());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override
     public void showErrorDialog(String message) {
+        showProgress(false);
         showErrorDialog(org.smartregister.R.string.login_failed_dialog_title, message);
     }
 

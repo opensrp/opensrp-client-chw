@@ -1,6 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
@@ -44,7 +45,8 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
         PlanIntentServiceJob.scheduleJob(PlanIntentServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
 
-        SyncTaskServiceJob.scheduleJob(PlanIntentServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
+        if (ChwApplication.getApplicationFlavor().hasTasks())
+            SyncTaskServiceJob.scheduleJob(PlanIntentServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
 
         ScheduleJob.scheduleJob(ScheduleJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.SCHEDULE_SERVICE_MINUTES), getFlexValue(BuildConfig.SCHEDULE_SERVICE_MINUTES));
 
@@ -59,7 +61,8 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
         BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
         PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
-        SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
+        if (ChwApplication.getApplicationFlavor().hasTasks())
+            SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         SyncLocationsByLevelAndTagsServiceJob.scheduleJobImmediately(SyncLocationsByLevelAndTagsServiceJob.TAG);
