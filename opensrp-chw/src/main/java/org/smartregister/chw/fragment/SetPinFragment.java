@@ -30,17 +30,16 @@ public class SetPinFragment extends Fragment {
         View view = inflater.inflate(R.layout.set_pin_fragment, container, false);
 
         EditText editTextPin = view.findViewById(R.id.editTextPin);
-        editTextPin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    setPin(editTextPin);
-                    handled = true;
-                }
-                return handled;
+        editTextPin.setOnEditorActionListener((v, actionId, event) -> {
+            boolean handled = false;
+            if (actionId == org.smartregister.R.integer.login || actionId == EditorInfo.IME_NULL || actionId == EditorInfo.IME_ACTION_DONE) {
+                setPin(editTextPin);
+                handled = true;
             }
+            return handled;
         });
+
+        view.findViewById(R.id.btnSetPin).setOnClickListener(v -> setPin(editTextPin));
 
         return view;
     }

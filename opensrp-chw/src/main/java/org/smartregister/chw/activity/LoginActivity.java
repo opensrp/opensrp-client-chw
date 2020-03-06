@@ -73,6 +73,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getTitle().toString().equalsIgnoreCase("Reset Pin Login")) {
             pinLogger.resetPinLogin();
+            this.recreate();
             return true;
         }
         return super.onOptionsItemSelected(item);

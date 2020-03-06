@@ -74,5 +74,26 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSetDigitText" />
 
+    <Button
+        android:id="@+id/btnSetPin"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_weight="8"
+        android:background="@drawable/login_button_bg"
+        android:ems="10"
+        android:shadowColor="#ffffff"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="0.5"
+        android:layout_margin="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="SET PIN"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
