@@ -11,9 +11,13 @@ import org.smartregister.chw.contract.PinViewContract;
 import org.smartregister.chw.fragment.ChooseLoginMethodFragment;
 import org.smartregister.chw.fragment.PinLoginFragment;
 import org.smartregister.chw.fragment.SetPinFragment;
+import org.smartregister.chw.pinlogin.PinLogger;
+import org.smartregister.chw.pinlogin.PinLoginUtil;
 
 public class PinLoginActivity extends AppCompatActivity implements PinViewContract.Controller {
     public static final String DESTINATION_FRAGMENT = "DESTINATION_FRAGMENT";
+
+    private PinLogger pinLogger = PinLoginUtil.getPinLogger();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,5 +61,17 @@ public class PinLoginActivity extends AppCompatActivity implements PinViewContra
     @Override
     public void startPasswordLogin() {
         startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    @Override
+    public void startHomeActivity() {
+        Intent intent = new Intent(this, FamilyRegisterActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public PinLogger getPinLogger() {
+        return pinLogger;
     }
 }

@@ -17,7 +17,7 @@ public interface PinLogger {
 
 
     /**
-     * update the user status
+     * disable or enable pin login status
      * @param status
      */
     void setPinStatus(boolean status);
@@ -58,6 +58,10 @@ public interface PinLogger {
     @Nullable
     String loggedInUser();
 
+    /**
+     * Nuke everything related to pins
+     */
+    void resetPinLogin();
 
     interface EventListener {
 

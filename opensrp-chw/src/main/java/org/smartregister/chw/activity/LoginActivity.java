@@ -7,6 +7,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.fragment.ChooseLoginMethodFragment;
 import org.smartregister.chw.fragment.PinLoginFragment;
+import org.smartregister.chw.pinlogin.PinLogger;
 import org.smartregister.chw.pinlogin.PinLoginUtil;
 import org.smartregister.chw.presenter.LoginPresenter;
 import org.smartregister.chw.util.Utils;
@@ -19,6 +20,8 @@ import org.smartregister.view.contract.BaseLoginContract;
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
     public static final String TAG = BaseLoginActivity.class.getCanonicalName();
 
+    private PinLogger pinLogger = PinLoginUtil.getPinLogger();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +31,39 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     protected void onResume() {
         super.onResume();
         mLoginPresenter.processViewCustomizations();
+
+        if (ChwApplication.getApplicationFlavor().hasPinLogin()) {
+            pinLoginAttempt();
+            return;
+        }
+
         if (!mLoginPresenter.isUserLoggedOut()) {
             goToHome(false);
-        } else if (ChwApplication.getApplicationFlavor().hasPinLogin() && PinLoginUtil.getPinLogger().isPinSet()) {
-            Intent intent = new Intent(this, PinLoginActivity.class);
-            intent.putExtra(PinLoginActivity.DESTINATION_FRAGMENT, PinLoginFragment.TAG);
-            startActivity(intent);
         }
     }
+
+    private void pinLoginAttempt() {
+        // if the user has pin
+        if (mLoginPresenter.isUserLoggedOut()) {
+            if (pinLogger.isPinSet()) {
+                Intent intent = new Intent(this, PinLoginActivity.class);
+                intent.putExtra(PinLoginActivity.DESTINATION_FRAGMENT, PinLoginFragment.TAG);
+                startActivity(intent);
+                finish();
+            }
+        } else {
+            // user is logged in
+            if (pinLogger.isFirstAuthentication()) {
+                Intent intent = new Intent(this, PinLoginActivity.class);
+                intent.putExtra(PinLoginActivity.DESTINATION_FRAGMENT, ChooseLoginMethodFragment.TAG);
+                startActivity(intent);
+                finish();
+            } else {
+                goToHome(false);
+            }
+        }
+    }
+
 
     @Override
     protected int getContentView() {
@@ -58,14 +86,9 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     }
 
     private void startHome(boolean remote) {
-        if (ChwApplication.getApplicationFlavor().hasPinLogin() && !PinLoginUtil.getPinLogger().isPinSet()) {
-            Intent intent = new Intent(this, PinLoginActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(this, FamilyRegisterActivity.class);
-            intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
-            startActivity(intent);
-        }
+        Intent intent = new Intent(this, FamilyRegisterActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+        startActivity(intent);
     }
 
 }

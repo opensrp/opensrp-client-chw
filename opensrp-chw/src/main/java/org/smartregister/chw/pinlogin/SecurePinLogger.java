@@ -104,4 +104,11 @@ public class SecurePinLogger implements PinLogger {
         }
         return null;
     }
+
+    @Override
+    public void resetPinLogin() {
+        preferences.edit().remove(SecureConstants.PIN_LOGIN).apply();
+        preferences.edit().remove(SecureConstants.PREFERENCES_CONFIGURED).apply();
+        preferences.edit().remove(SecureConstants.SECURE_PIN).apply();
+    }
 }
