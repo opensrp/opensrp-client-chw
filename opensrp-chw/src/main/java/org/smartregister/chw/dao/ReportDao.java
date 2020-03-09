@@ -16,6 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author rkodev
@@ -95,10 +96,17 @@ public class ReportDao extends AbstractDao {
                 "group by scheduleName " +
                 "order by scheduleName";
 
-        Map<String, Integer> map = new HashMap<>();
+        Map<String, Integer> map = new TreeMap<>();
 
         DataMap<Void> dataMap = c -> {
-            map.put(getCursorValue(c, "scheduleName", ""), getCursorIntValue(c, "cnt", 0));
+            String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
+            Integer count = getCursorIntValue(c, "cnt", 0);
+            ;
+
+            Integer total = map.get(scheduleName);
+            total = ((total == null) ? 0 : total) + count;
+
+            map.put(scheduleName, total);
             return null;
         };
         readData(sql, dataMap);
@@ -129,28 +137,32 @@ public class ReportDao extends AbstractDao {
                 "order by location_id , scheduleName ";
 
 
-        Map<String, LinkedHashMap<String, Integer>> resultMap = new HashMap<>();
+        Map<String, TreeMap<String, Integer>> resultMap = new HashMap<>();
 
         DataMap<Void> dataMap = c -> {
             String location_id = getCursorValue(c, "location_id", "");
-            String scheduleName = getCursorValue(c, "scheduleName", "");
+            String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
             Integer count = getCursorIntValue(c, "cnt", 0);
 
-            LinkedHashMap<String, Integer> vaccineMaps = resultMap.get(location_id);
-            if (vaccineMaps == null) vaccineMaps = new LinkedHashMap<>();
+            TreeMap<String, Integer> vaccineMaps = resultMap.get(location_id);
+            if (vaccineMaps == null) vaccineMaps = new TreeMap<>();
 
-            vaccineMaps.put(scheduleName, count);
+            Integer total = vaccineMaps.get(scheduleName);
+            total = ((total == null) ? 0 : total) + count;
+
+            vaccineMaps.put(scheduleName, total);
             resultMap.put(location_id, vaccineMaps);
 
             return null;
         };
+
         readData(sql, dataMap);
 
         FilterReportFragmentModel model = new FilterReportFragmentModel();
         LinkedHashMap<String, String> map = model.getAllLocations();
 
         List<VillageDose> result = new ArrayList<>();
-        for (Map.Entry<String, LinkedHashMap<String, Integer>> entry : resultMap.entrySet()) {
+        for (Map.Entry<String, TreeMap<String, Integer>> entry : resultMap.entrySet()) {
             VillageDose villageDose = new VillageDose();
             villageDose.setVillageName(map.get(entry.getKey()));
             villageDose.setID(entry.getKey());

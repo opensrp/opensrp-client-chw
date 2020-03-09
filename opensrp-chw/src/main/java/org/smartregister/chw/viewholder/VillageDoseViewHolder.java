@@ -32,8 +32,13 @@ public class VillageDoseViewHolder extends ListableViewHolder<VillageDose> {
 
         for (Map.Entry<String, Integer> entry : villageDose.getRecurringServices().entrySet()) {
             View viewVillage = LayoutInflater.from(currentView.getContext()).inflate(R.layout.village_dose, null, false);
+
             TextView tvName = viewVillage.findViewById(R.id.tvName);
-            tvName.setText(entry.getKey() + ": " + entry.getValue().toString());
+            tvName.setText(entry.getKey());
+
+            TextView tvAmount = viewVillage.findViewById(R.id.tvAmount);
+            tvAmount.setText(entry.getValue().toString());
+
             linearLayout.addView(viewVillage);
         }
 
