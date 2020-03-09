@@ -30,8 +30,9 @@ import org.smartregister.util.Utils;
 
 import timber.log.Timber;
 
-import static org.smartregister.util.Log.logError;
-
+/**
+ * @author rkodev
+ */
 public class PinLoginFragment extends Fragment implements View.OnClickListener, PinLoginContract.View {
 
     public static final String TAG = "PinLoginFragment";
@@ -108,7 +109,7 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
             buildDetailsTextView.setText(String.format(getString(org.smartregister.R.string.app_version), Utils.getVersion(ChwApplication.getInstance()
                     .getApplicationContext()), Utils.getBuildDate(true)));
         } catch (Exception e) {
-            logError("Error fetching build details: " + e);
+            Timber.e(e);
         }
     }
 

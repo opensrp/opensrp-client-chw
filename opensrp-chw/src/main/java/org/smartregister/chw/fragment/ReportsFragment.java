@@ -23,6 +23,9 @@ import org.smartregister.chw.viewholder.ListableViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author rkodev
+ */
 public class ReportsFragment extends Fragment implements ListContract.View<ReportType> {
 
     private View view;

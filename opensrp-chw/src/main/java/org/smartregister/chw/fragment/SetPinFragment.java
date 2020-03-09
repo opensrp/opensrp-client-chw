@@ -20,6 +20,9 @@ import org.smartregister.util.Utils;
 
 import timber.log.Timber;
 
+/**
+ * @author rkodev
+ */
 public class SetPinFragment extends Fragment {
 
     public static final String TAG = "SetPinFragment";

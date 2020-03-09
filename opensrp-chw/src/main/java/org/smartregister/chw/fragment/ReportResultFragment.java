@@ -28,6 +28,10 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
+/**
+ * @author rkodev
+ * @param <T>
+ */
 public abstract class ReportResultFragment<T extends ListContract.Identifiable> extends Fragment implements ListContract.View<T> {
 
     private View view;

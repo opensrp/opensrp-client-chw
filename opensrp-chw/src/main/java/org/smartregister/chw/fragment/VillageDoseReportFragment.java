@@ -11,6 +11,9 @@ import org.smartregister.chw.viewholder.ListableViewHolder;
 
 import java.util.List;
 
+/**
+ * @author rkodev
+ */
 public class VillageDoseReportFragment extends ReportResultFragment<VillageDose> {
     public static final String TAG = "VillageDoseReportFragment";
 

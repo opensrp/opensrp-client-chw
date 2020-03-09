@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * @author rkodev
+ */
 public class ReportDao extends AbstractDao {
 
     @NonNull
@@ -122,7 +125,7 @@ public class ReportDao extends AbstractDao {
                 "inner join alerts al on caseID = c.base_entity_id " +
                 "where status <> 'expired' and startDate <= '" + paramDate + "' " +
                 "group by scheduleName , location_id " +
-                "order by location_id ";
+                "order by location_id , scheduleName ";
 
 
         Map<String, LinkedHashMap<String, Integer>> resultMap = new HashMap<>();
