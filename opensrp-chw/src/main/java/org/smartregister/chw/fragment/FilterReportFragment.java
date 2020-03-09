@@ -129,6 +129,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
                     .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                     myCalendar.get(Calendar.DAY_OF_MONTH));
 
+            dialog.getDatePicker().setSpinnersShown(true);
             dialog.getDatePicker().setMinDate(new Date().getTime());
             dialog.getDatePicker().setMaxDate(new DateTime().plusMonths(6).toDate().getTime());
 

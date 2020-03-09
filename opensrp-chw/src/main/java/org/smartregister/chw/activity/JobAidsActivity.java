@@ -164,6 +164,8 @@ public class JobAidsActivity extends FamilyRegisterActivity {
 
         JobsAidsBottomNavigationListener navigationListener = new JobsAidsBottomNavigationListener(this);
         FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, navigationListener);
+        if (bottomNavigationView != null)
+            bottomNavigationView.getMenu().findItem(R.id.action_job_aids).setChecked(true);
     }
 
     /**
