@@ -110,7 +110,7 @@ public class FamilyMemberTest {
                 .perform(click());
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Found 1 error(s) in the form. Please correct them to submit."))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        Thread.sleep(2000);
+        Thread.sleep(500);
     }
 
     @Test
