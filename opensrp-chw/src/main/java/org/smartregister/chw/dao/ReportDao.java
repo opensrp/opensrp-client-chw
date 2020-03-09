@@ -44,12 +44,13 @@ public class ReportDao extends AbstractDao {
 
         String sql = "select c.base_entity_id , c.unique_id , c.first_name , c.last_name , c.middle_name ," +
                 "f.first_name family_name  , c.dob , " +
-                "(select group_concat(scheduleName, ', ') from alerts where caseID = c.base_entity_id and startDate <= '" + paramDate + "') alerts " +
+                "(select group_concat(scheduleName, ', ') from alerts where caseID = c.base_entity_id and status not in ('expired','complete') and startDate <= '" + paramDate + "' and expiryDate >= '" + paramDate + "' order by startDate ) alerts " +
                 "from ec_child c " +
                 "left join ec_family f on c.relational_id = f.base_entity_id " +
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
                 "where  (l.location_id = '" + _communityID + "' or '" + _communityID + "' = '') " +
-                "and l.base_entity_id in (select caseID from alerts where status <> 'expired' and startDate <= '" + paramDate + "') ";
+                "and l.base_entity_id in (select caseID from alerts where status not in ('expired','complete') and startDate <= '" + paramDate + "' and expiryDate >= '" + paramDate + "') " +
+                "order by c.first_name , c.last_name , c.middle_name ";
 
 
         DataMap<EligibleChild> dataMap = c -> {
@@ -58,7 +59,7 @@ public class ReportDao extends AbstractDao {
             child.setDateOfBirth(getCursorValueAsDate(c, "dob", sdf));
 
             String name = getCursorValue(c, "first_name", "") + " " + getCursorValue(c, "middle_name", "");
-            name = name.trim() + " " + getCursorValue(c, "middle_name", "");
+            name = name.trim() + " " + getCursorValue(c, "last_name", "");
 
             child.setFullName(name.trim());
             child.setFamilyName(getCursorValue(c, "family_name") + " Family");
