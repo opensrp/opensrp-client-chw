@@ -74,7 +74,6 @@ public class WashCheckVisitTest {
                 .perform(click());
     }
 
-    @Test
     @Order(order = 2)
     public void confirmWashCheck() throws Throwable {
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
