@@ -1,14 +1,11 @@
 package org.smartregister.chw.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -56,18 +53,18 @@ public class SetPinFragment extends Fragment {
         }else{
             getController().getPinLogger().setPin(newPin, new PinLogger.EventListener() {
                 @Override
-                public void OnError(Exception ex) {
+                public void onError(Exception ex) {
                     Toast.makeText(getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
                     editTextPin.setError("Pin was not set");
                 }
 
                 @Override
-                public void OnSuccess() {
+                public void onSuccess() {
                     getController().navigateToFragment(PinLoginFragment.TAG);
                 }
 
                 @Override
-                public void OnEvent(String event) {
+                public void onEvent(String event) {
                     Timber.v(event);
                 }
             });
@@ -75,10 +72,10 @@ public class SetPinFragment extends Fragment {
     }
 
     private void hideKeyboard() {
-        try{
+        try {
             Timber.i("Hiding Keyboard %s", DateTime.now().toString());
             Utils.hideKeyboard(getActivity());
-        }catch (Exception e){
+        } catch (Exception e) {
             Timber.e(e);
         }
     }

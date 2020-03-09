@@ -35,6 +35,8 @@ public class ChooseLoginMethodFragment extends Fragment implements View.OnClickL
                 getController().getPinLogger().setPinStatus(false);
                 getController().startHomeActivity();
                 break;
+            default:
+                break;
         }
     }
 

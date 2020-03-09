@@ -1,7 +1,6 @@
 package org.smartregister.chw.fragment;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -38,7 +37,6 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
     public static final String TAG = "PinLoginFragment";
 
     private PinLoginContract.Presenter mLoginPresenter;
-    private ProgressDialog progressDialog;
     private EditText passwordEditText;
     private boolean showPasswordChecked = false;
     private TextView showPinText;

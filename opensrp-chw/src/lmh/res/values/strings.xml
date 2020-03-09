@@ -2,8 +2,4 @@
     <string name="app_name" translatable="false">MOH VTS</string>
     <string name="login_title" translatable="false">MOH VTS</string>
     <string name="nav_logo" translatable="false">MOH VTS</string>
-    <string name="forgot_pin">Forgot pin?</string>
-    <string name="use_your_password"> Use your password?</string>
-    <string name="enter_pin_for_user">Enter pin for %s</string>
-    <string name="use_4_digit_pin_number_promt">You can use a 4 digit pin number to make logging in faster</string>
 </resources>

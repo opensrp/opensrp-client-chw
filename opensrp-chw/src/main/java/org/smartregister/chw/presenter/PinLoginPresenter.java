@@ -47,19 +47,19 @@ public class PinLoginPresenter implements PinLoginContract.Presenter, PinLogger.
     }
 
     @Override
-    public void OnError(Exception ex) {
+    public void onError(Exception ex) {
         if (getView() != null)
             getView().onLoginAttemptFailed(ex.getMessage());
     }
 
     @Override
-    public void OnSuccess() {
+    public void onSuccess() {
         if (getView() != null)
             getView().onLoginCompleted();
     }
 
     @Override
-    public void OnEvent(String event) {
+    public void onEvent(String event) {
         Timber.i(event);
     }
 }

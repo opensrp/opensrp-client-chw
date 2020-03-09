@@ -17,32 +17,32 @@ public class PinLoggerInteractor implements PinLoginContract.Interactor {
 
     @Override
     public void authenticateUser(String userName, String password, @NonNull PinLogger.EventListener eventListener) {
-        eventListener.OnEvent("Attempting to authenticate");
+        eventListener.onEvent("Attempting to authenticate");
         boolean isAuthenticated = getUserService().isUserInValidGroup(userName, password);
         if (!isAuthenticated) {
-            eventListener.OnEvent("User authentication failed");
-            eventListener.OnError(new Exception("Authentication failed"));
+            eventListener.onEvent("User authentication failed");
+            eventListener.onError(new Exception("Authentication failed"));
         } else if (isAuthenticated && (!AllConstants.TIME_CHECK || TimeStatus.OK.equals(getUserService().validateStoredServerTimeZone()))) {
-            eventListener.OnEvent("User authenticated");
+            eventListener.onEvent("User authenticated");
             cleanUpLogin(userName, password, eventListener);
         }
     }
 
     private void cleanUpLogin(String userName, String password, @NonNull PinLogger.EventListener eventListener) {
         getUserService().localLogin(userName, password);
-        eventListener.OnSuccess();
+        eventListener.onSuccess();
         CoreLibrary.getInstance().initP2pLibrary(userName);
 
         new Thread(() -> {
             try {
                 LoginJobScheduler scheduler = new LoginJobSchedulerProvider();
 
-                eventListener.OnEvent("Starting DrishtiSyncScheduler " + DateTime.now().toString());
+                eventListener.onEvent("Starting DrishtiSyncScheduler " + DateTime.now().toString());
 
                 scheduler.scheduleJobsImmediately();
                 scheduler.scheduleJobsPeriodically();
 
-                eventListener.OnEvent("Started DrishtiSyncScheduler " + DateTime.now().toString());
+                eventListener.onEvent("Started DrishtiSyncScheduler " + DateTime.now().toString());
 
                 CoreLibrary.getInstance().context().getUniqueIdRepository().releaseReservedIds();
             } catch (Exception e) {

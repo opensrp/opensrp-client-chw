@@ -7,7 +7,6 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
@@ -72,10 +71,10 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
         ChwApplication.getInstance().notifyAppContextChange(); // initialize the language (bug in translation)
-        if (ChwApplication.getApplicationFlavor().hasReferrals()){
-            try{
+        if (ChwApplication.getApplicationFlavor().hasReferrals()) {
+            try {
                 ReferralLibrary.getInstance().loadReferralServiceIndicators();
-            }catch (Exception e){
+            } catch (Exception e) {
                 Timber.e(e);
             }
         }

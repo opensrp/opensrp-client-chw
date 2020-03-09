@@ -82,10 +82,10 @@ public interface PinLogger {
 
     interface EventListener {
 
-        void OnError(Exception ex);
+        void onError(Exception ex);
 
-        void OnSuccess();
+        void onSuccess();
 
-        void OnEvent(String event);
+        void onEvent(String event);
     }
 }
