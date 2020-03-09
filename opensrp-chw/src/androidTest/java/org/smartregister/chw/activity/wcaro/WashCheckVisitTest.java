@@ -82,9 +82,9 @@ public class WashCheckVisitTest {
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("ACTIVITY"))
                 .perform(click());
         Thread.sleep(500);
-        //utils.locateLayout(0,1).perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family" + " · WASH check"))
-                .perform(click());
+        utils.locateLayout(0,1).perform(click());
+        //onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family" + " · WASH check"))
+               // .perform(click());
         Thread.sleep(500);
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("WASH check"))
                 .check(matches(isDisplayed()));

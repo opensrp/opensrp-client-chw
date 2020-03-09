@@ -55,7 +55,6 @@ public class ANCRegisterTests {
     Utils utils = new Utils();
 
     public void setUp() throws InterruptedException {
-        Thread.sleep(10000);
         utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
     }
 
