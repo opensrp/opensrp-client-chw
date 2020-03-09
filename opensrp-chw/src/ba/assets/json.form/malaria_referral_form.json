@@ -1,0 +1,179 @@
+{
+  "count": "1",
+  "encounter_type": "Malaria Referral",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Malaria Referral",
+    "fields": [
+      {
+        "key": "referral_problem_malaria",
+        "type": "spinner",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_problem_malaria",
+        "openmrs_entity_parent": "",
+        "hint": "Details of the patient's problem",
+        "values": [
+          "Fever",
+          "Diarrhea",
+          "Vomiting",
+          "Nausea",
+          "Trembling, shivering",
+          "A severe headache / dizziness",
+          "Sweating",
+          "Severe abdominal pain",
+          "Muscle pain",
+          "Sweling of the face and/or hands",
+          "Difficult in breathing (fast and laboured breathing)",
+          "Convulsions",
+          "Very weak",
+          "Irritable (easily disturbed)",
+          "Unconcious",
+          "Unusually sleepy",
+          "Neck stiffness",
+          "Unable to sit without support",
+          "Abnormal bleeding or passing of urine with blood",
+          "Severe anaemia (pale palms and inner eyelids)",
+          "Yellowing of the eyes (jaundice)",
+          "Severe malnutrition",
+          "Bloating"
+        ],
+        "keys": [
+          "Fever",
+          "Diarrhea",
+          "Vomiting",
+          "Nausea",
+          "Trembling,_shivering",
+          "A_severe_headache_dizziness",
+          "Sweating",
+          "Severe_abdominal_pain",
+          "Muscle_pain",
+          "Sweling_of_the_face_and_or_hands",
+          "Difficult_in_breathing_fast_and_laboured_breathing",
+          "Convulsions",
+          "Very_weak",
+          "Irritable_easily_disturbed",
+          "Unconcious",
+          "Unusually_sleepy",
+          "Neck_stiffness",
+          "Unable_to_sit_without_support",
+          "Abnormal_bleeding_or_passing_of_urine_with_blood",
+          "Severe_anaemia_pale_palms_and_inner_eyelids",
+          "Yellowing_of_the_eyes_jaundice",
+          "Severe_malnutrition",
+          "Bloating"
+        ],
+        "openmrs_choice_ids": {
+          "Fever": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Diarrhea": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Vomiting": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Nausea": "5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Trembling,_shivering": "158359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "A_severe_headache_dizziness": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Sweating": "140941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Severe_abdominal_pain": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Muscle_pain": "133632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Sweling_of_the_face_and_or_hands": "163894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Difficult_in_breathing_fast_and_laboured_breathing": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Convulsions": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Very_weak": "5226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Irritable_easily_disturbed": "118296AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Unconcious": "123818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Unusually_sleepy": "117417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Neck_stiffness": "112721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Unable_to_sit_without_support": "123833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Abnormal_bleeding_or_passing_of_urine_with_blood": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Severe_anaemia_pale_palms_and_inner_eyelids": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Yellowing_of_the_eyes_jaundice": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Severe_malnutrition": "163302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Bloating": "147132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "required"
+        }
+      },
+      {
+        "key": "service_before_malaria",
+        "type": "spinner",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_before_malaria",
+        "openmrs_entity_parent": "",
+        "values": [
+          "Rectal artesunate",
+          "Panadol",
+          "ORS",
+          "Other treatment",
+          "None"
+        ],
+        "keys": [
+          "Rectal_artesunate",
+          "Panadol",
+          "ORS",
+          "Other_treatment",
+          "None"
+        ],
+        "openmrs_choice_ids": {
+          "Rectal_artesunate": "71561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Panadol": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "ORS": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other_treatment": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "hint": "Treatment given before the referral",
+        "v_required": {
+          "value": "true",
+          "err": "required"
+        }
+      }
+    ]
+  }
+}
