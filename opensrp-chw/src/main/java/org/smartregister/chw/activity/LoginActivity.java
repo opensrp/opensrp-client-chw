@@ -35,7 +35,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         super.onResume();
         mLoginPresenter.processViewCustomizations();
 
-        if (ChwApplication.getApplicationFlavor().hasPinLogin()) {
+        if (hasPinLogin()) {
             pinLoginAttempt();
             return;
         }
@@ -59,11 +59,14 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         }
     }
 
+    private boolean hasPinLogin(){
+        return ChwApplication.getApplicationFlavor().hasPinLogin();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        if (ChwApplication.getApplicationFlavor().hasPinLogin() && !pinLogger.isFirstAuthentication()) {
+        if (hasPinLogin() && !pinLogger.isFirstAuthentication()) {
             menu.add("Reset Pin Login");
         }
         return true;
@@ -94,13 +97,24 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         if (remote) {
             Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
         }
-        startHome(remote);
+
+        if (hasPinLogin()) {
+            startPinHome(remote);
+        }else{
+            startHome(remote);
+        }
 
         finish();
     }
 
-    private void startHome(boolean remote) {
-        if(remote)
+    private void startHome(boolean remote){
+        Intent intent = new Intent(this, FamilyRegisterActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+        startActivity(intent);
+    }
+
+    private void startPinHome(boolean remote) {
+        if (remote)
             pinLogger.resetPinLogin();
 
         if (pinLogger.isFirstAuthentication()) {
