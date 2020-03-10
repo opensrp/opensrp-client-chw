@@ -18,6 +18,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.smartregister.chw.R;
@@ -48,7 +49,39 @@ public class RemoveMemberTests {
         Thread.sleep(5000);
     }
 
+    @Test
     @Order(order = 2)
+    public void confirmWarningWidgetWhenRemovingMember() throws Throwable{
+        onView(ViewMatchers.withHint("Search name or ID"))
+                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(click());
+        Thread.sleep(500);
+        utils.openFamilyMenu();
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Remove existing family member"))
+                .perform(click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.AdditionalTestData.memberOneFirstname
+                + " " +
+                Configs.AdditionalTestData.memberOneSecondname + " " + Configs.TestConfigs.familyName
+                + ", " + Configs.AdditionalTestData.extraMemberAge1))
+                .perform(click());
+        Activity activity = getCurrentActivity();
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:remove_reason")))
+                .perform(click());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Other"))
+                .perform(click());
+        onView(withId(R.id.action_save))
+                .perform(click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("REMOVE"))
+                .perform(click());
+        Thread.sleep(500);
+    }
+
+    @Test
+    @Order(order = 6)
     public void removeFamilyMemberWithOtherAsReason() throws Throwable{
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
@@ -60,20 +93,30 @@ public class RemoveMemberTests {
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Remove existing family member"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.kidNameFirst
-                + " " + Configs.TestConfigs.kidNameSecond + " " + Configs.TestConfigs.familyName + ", 0"))
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.AdditionalTestData.memberOneFirstname
+                + " " + Configs.AdditionalTestData.memberOneSecondname + " "
+                + Configs.TestConfigs.familyName
+                + ", " + Configs.AdditionalTestData.extraMemberAge1))
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:remove_reason")))
                 .perform(click());
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Moved away"))
                 .perform(click());
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:date_moved")))
+                .perform(click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
+        Thread.sleep(500);
         onView(withId(R.id.action_save))
                 .perform(click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("REMOVE"))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
     @Test
-    @Order(order = 2)
+    @Order(order = 5)
     public void removeFamilyMemberWithDeathAsReason() throws Throwable {
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
@@ -101,6 +144,10 @@ public class RemoveMemberTests {
         Thread.sleep(500);
         onView(withId(R.id.action_save))
                 .perform(click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("REMOVE"))
+                .perform(click());
+        Thread.sleep(500);
     }
 
     @Test
@@ -123,13 +170,9 @@ public class RemoveMemberTests {
                 .perform(click());
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Found 1 error(s) in the form. Please correct them to submit."))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        onView(withId(R.id.action_bar_root))
-                .perform(click());
-        Thread.sleep(500);
     }
 
-    @Test
-    @Order(order = 1)
+    @Order(order = 4)
     public void confirmCaregiverReplacementBeforeRemoval() throws InterruptedException {
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
@@ -152,7 +195,7 @@ public class RemoveMemberTests {
     }
 
     @Test
-    @Order(order = 2)
+    @Order(order = 3)
     public void confirmFamilyHeadReplacementBeforeRemoval() throws InterruptedException {
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
