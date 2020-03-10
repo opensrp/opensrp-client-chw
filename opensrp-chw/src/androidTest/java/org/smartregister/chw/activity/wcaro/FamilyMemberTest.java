@@ -57,7 +57,7 @@ public class FamilyMemberTest {
                 .perform(click());
         Thread.sleep(500);
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Removing entire family"))
-                .perform(scrollTo(), click());
+                .perform(click());
         Thread.sleep(500);
         onView(withId(R.id.action_save))
                 .perform(click());
@@ -80,7 +80,7 @@ public class FamilyMemberTest {
                 .perform(click());
         Thread.sleep(500);
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Removing entire family"))
-                .perform(scrollTo(), click());
+                .perform(click());
         Thread.sleep(500);onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Reason *"))
                 .perform(click());
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Other"))
