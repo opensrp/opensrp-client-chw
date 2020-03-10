@@ -18,6 +18,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.wcaro.Configs;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -92,6 +93,40 @@ public class Utils  {
                                 position2)));
 
         return layout;
+    }
+
+    public void addTestFamilyMember(String firstName, String secondName, String age) throws Throwable {
+        onView(withId(R.id.fab))
+                .perform(click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Add new family member"))
+                .perform(click());
+        Thread.sleep(100);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Other family member"))
+                .perform(click());
+        Activity activity = getCurrentActivity();
+        Thread.sleep(500);
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:national_id")))
+                .perform(typeText(Configs.TestConfigs.nationalID));
+        //onView(withId(getViewId((JsonFormActivity) activity, "step1:surname"))).perform(scrollTo(), typeText("JinaLaFamilia"));
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:same_as_fam_name")))
+                .perform(scrollTo(), click());
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:first_name")))
+                .perform(scrollTo(), typeText(firstName));
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:middle_name")))
+                .perform(scrollTo(), typeText(secondName));
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:dob_unknown")))
+                .perform(scrollTo(), click());
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:age")))
+                .perform(scrollTo(), typeText(age));
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Sex"))
+                .perform(scrollTo(), click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Female"))
+                .perform(click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+                .perform(click());
     }
 
     public void openFamilyMenu(){

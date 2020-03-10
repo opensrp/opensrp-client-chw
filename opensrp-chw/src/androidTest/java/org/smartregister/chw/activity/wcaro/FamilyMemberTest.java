@@ -18,8 +18,10 @@ import org.smartregister.chw.activity.utils.OrderedRunner;
 import org.smartregister.chw.activity.utils.Utils;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -55,7 +57,7 @@ public class FamilyMemberTest {
                 .perform(click());
         Thread.sleep(500);
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Removing entire family"))
-                .perform(click());
+                .perform(scrollTo(), click());
         Thread.sleep(500);
         onView(withId(R.id.action_save))
                 .perform(click());
@@ -78,7 +80,7 @@ public class FamilyMemberTest {
                 .perform(click());
         Thread.sleep(500);
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Removing entire family"))
-                .perform(click());
+                .perform(scrollTo(), click());
         Thread.sleep(500);onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Reason *"))
                 .perform(click());
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Other"))
@@ -109,9 +111,10 @@ public class FamilyMemberTest {
                 + Configs.TestConfigs.aboveFiveage))
                 .perform(click());
         Thread.sleep(2000);
-        onView(withHint("Phone number")).perform(typeText(Configs.TestConfigs.phoneNumberOne));
+        onView(withHint("Phone number")).
+                perform(clearText(), typeText(Configs.TestConfigs.phoneNumberOne));
         onView(withHint("Other phone number"))
-                .perform(typeText(Configs.TestConfigs.getPhoneNumberTwo));
+                .perform(clearText(), typeText(Configs.TestConfigs.getPhoneNumberTwo));
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
@@ -134,9 +137,9 @@ public class FamilyMemberTest {
                 + Configs.TestConfigs.aboveFiveage))
                 .perform(click());
         Thread.sleep(2000);
-        onView(withHint("Phone number")).perform(typeText(Configs.TestConfigs.phoneNumberOne));
+        onView(withHint("Phone number")).perform(clearText(), typeText(Configs.TestConfigs.phoneNumberOne));
         onView(withHint("Other phone number"))
-                .perform(typeText(Configs.TestConfigs.getPhoneNumberTwo));
+                .perform(clearText(), typeText(Configs.TestConfigs.getPhoneNumberTwo));
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }

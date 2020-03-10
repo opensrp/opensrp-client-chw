@@ -14,6 +14,7 @@ import org.junit.runners.Suite;
                 AddFamilyFailTests.class,
                 AddFamilyMemberTest.class,
                 AddChildFamilyMemberTest.class,
+                AdditionalTestData.class,
                 CallWidgetTests.class,
                 ANCRegistrationTests.class,
                 WashCheckVisitTest.class,

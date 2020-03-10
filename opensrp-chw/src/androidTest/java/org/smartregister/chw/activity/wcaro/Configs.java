@@ -15,4 +15,15 @@ public class Configs {
         public static final String getPhoneNumberTwo = "088882002994";
         public static final String nationalID = "6554356789";
     }
+    public class AdditionalTestData{
+        public static final String memberOneFirstname = "Edgar";
+        public static final String memberTwoFirstname = "Williams";
+        public static final String memberThreeFirstname = "Koffi";
+        public static final String memberOneSecondname = "Olomide";
+        public static final String memberTwoSecondname = "Diamond";
+        public static final String memberThreeSecondname = "Platinumz";
+        public static final String extraMemberAge1 = "15";
+        public static final String extraMemberAge2 = "10";
+        public static final String extraMemberAge3 = "7";
+    }
 }
