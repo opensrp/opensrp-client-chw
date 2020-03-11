@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class JobAidsDashboardFragment extends Fragment implements ReportContract.View, LoaderManager.LoaderCallbacks<List<Map<String, IndicatorTally>>> {
+    public static final String TAG = "JobAidsDashboardFragment";
 
     private static ReportContract.Presenter presenter;
     private ViewGroup visualizationsViewGroup;
