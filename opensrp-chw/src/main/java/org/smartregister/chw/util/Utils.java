@@ -6,6 +6,9 @@ import android.os.Bundle;
 
 import org.smartregister.chw.activity.ClientReferralActivity;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.growthmonitoring.domain.WeightForHeightZscore;
+import org.smartregister.growthmonitoring.domain.ZScore;
+import org.smartregister.growthmonitoring.repository.WeightForHeightRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,5 +21,14 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         bundle.setClassLoader(ReferralTypeModel.class.getClassLoader());
         bundle.putParcelableArrayList(Constants.REFERRAL_TYPES, (ArrayList<ReferralTypeModel>) referralTypeModels);
         activity.startActivity(new Intent(activity, ClientReferralActivity.class).putExtras(bundle));
+    }
+
+    public static double getZScore(String gender, String height, String weight) {
+        double zScore = 0.0;
+        List<ZScore> zscoreValues = new WeightForHeightRepository().findZScoreVariables(gender, Double.parseDouble(height));
+        if (zscoreValues.size() > 0) {
+            zScore = zscoreValues.get(0).getZ(Double.parseDouble(weight));
+        }
+        return zScore;
     }
 }

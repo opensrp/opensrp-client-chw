@@ -274,6 +274,13 @@ actions:
   - 'calculation = ((!step2_danger_signs.contains("None") || step4_severe_pneumonia == 1 || step4_pneumonia == 1 ||
   step5_sev_persistent_diarrhoea == 1 || step6_vsf_disease == 1 || step6_vsf_disease2 == 1 || step6_complicated_measles == 1 || step7_mastoiditis_infection == 1)? 1 : 0)'
 ---
+name: step8_wfh_zscore
+description: Calculated field for the z-Scores
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = helper.getZScore(step1_gender, step1_child_height, step1_child_weight)'
+---
 name: step8_complicated_sam
 description: Calculated field for when child is suffering from complicated severe acute malnutrition
 priority: 1
