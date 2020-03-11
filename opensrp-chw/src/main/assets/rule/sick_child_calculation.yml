@@ -279,7 +279,7 @@ description: Calculated field for the z-Scores
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = helper.getZScore(step1_gender, step1_child_height, step1_child_weight)'
+  - 'calculation = helper.getWFHZScore(step1_gender, step1_child_height, step1_child_weight)'
 ---
 name: step8_complicated_sam
 description: Calculated field for when child is suffering from complicated severe acute malnutrition

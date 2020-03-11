@@ -105,7 +105,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
             Map<String, String> valueMap = new HashMap<>();
             valueMap.put("age_in_months", String.valueOf(months));
             valueMap.put("child_first_name", Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true));
-            valueMap.put("gender", Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true).equals("Male") ? "1" : "0");
+            valueMap.put("gender", Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true).equals("Male") ? "1" : "2");
 
             JsonFormUtils.populatedJsonForm(jsonObject, valueMap);
 
