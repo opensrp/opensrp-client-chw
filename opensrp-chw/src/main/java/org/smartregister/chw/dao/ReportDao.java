@@ -101,7 +101,6 @@ public class ReportDao extends AbstractDao {
         DataMap<Void> dataMap = c -> {
             String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
             Integer count = getCursorIntValue(c, "cnt", 0);
-            ;
 
             Integer total = map.get(scheduleName);
             total = ((total == null) ? 0 : total) + count;
