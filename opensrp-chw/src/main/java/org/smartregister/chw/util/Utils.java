@@ -22,6 +22,18 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         activity.startActivity(new Intent(activity, ClientReferralActivity.class).putExtras(bundle));
     }
 
+    public static String toCSV(String[] list) {
+        String result = "";
+        if (list.length > 0) {
+            StringBuilder sb = new StringBuilder();
+            for (String s : list) {
+                sb.append(s).append(", ");
+            }
+            result = sb.deleteCharAt(sb.length() - 2).toString();
+        }
+        return result;
+    }
+
     public static double getWFHZScore(String gender, String height, String weight) {
         double zScore = 0.0;
         List<ZScore> zScoreValues = new WeightForHeightRepository().findZScoreVariables(gender, Double.parseDouble(height));

@@ -18,7 +18,7 @@ public class Constants extends CoreConstants {
 
     public enum FamilyMemberType {ANC, PNC, Other}
 
-    public class EncounterType {
+    public static class EncounterType {
         public static final String SICK_CHILD = "Sick Child Referral";
         public static final String PNC_REFERRAL = "PNC Referral";
         public static final String ANC_REFERRAL = "ANC Referral";
@@ -28,5 +28,11 @@ public class Constants extends CoreConstants {
         public static final int RADIO_BUTTON = 0;
         public static final int EDIT_TEXT = 1;
         public static final int CHECK_BOX = 2;
+    }
+
+    public static class ReportParameters {
+        public static String COMMUNITY = "COMMUNITY";
+        public static String COMMUNITY_ID = "COMMUNITY_ID";
+        public static String REPORT_DATE = "REPORT_DATE";
     }
 }

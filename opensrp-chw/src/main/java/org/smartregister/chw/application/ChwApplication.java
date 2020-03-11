@@ -48,6 +48,7 @@ import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.sync.ChwClientProcessor;
+import org.smartregister.chw.util.FailSafeRecalledID;
 import org.smartregister.chw.util.FileUtils;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
@@ -134,6 +135,7 @@ public class ChwApplication extends CoreChwApplication {
         //Initialize Modules
         P2POptions p2POptions = new P2POptions(true);
         p2POptions.setAuthorizationService(new CoreAuthorizationService());
+        p2POptions.setRecalledIdentifier(new FailSafeRecalledID());
 
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
         CoreLibrary.getInstance().setEcClientFieldsFile(CoreConstants.EC_CLIENT_FIELDS);
@@ -313,5 +315,15 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasWashCheck();
 
         boolean hasRoutineVisit();
+
+        boolean hasJobAids();
+
+        boolean hasQR();
+
+        boolean hasPinLogin();
+
+        boolean hasReports();
+
+        boolean hasTasks();
     }
 }
