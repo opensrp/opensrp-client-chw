@@ -13,12 +13,12 @@ import org.junit.runners.Suite;
                 AddFamilyTestWcaro.class,
                 AddFamilyFailTests.class,
                 AddFamilyMemberTest.class,
+                WashCheckVisitTest.class,
                 AddChildFamilyMemberTest.class,
                 AdditionalTestData.class,
                 EditTests.class,
                 CallWidgetTests.class,
                 ANCRegistrationTests.class,
-                WashCheckVisitTest.class,
                 ANCRegisterTests.class,
                 RemoveMemberTests.class,
                 FamilyMemberTest.class

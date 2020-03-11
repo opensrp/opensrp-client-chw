@@ -12,11 +12,10 @@ import androidx.test.runner.lifecycle.Stage;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.smartregister.chw.R;
 import org.smartregister.chw.activity.LoginActivity;
+import org.smartregister.chw.activity.utils.Configs;
 import org.smartregister.chw.activity.utils.Constants;
 import org.smartregister.chw.activity.utils.Utils;
 import org.smartregister.family.activity.FamilyWizardFormActivity;

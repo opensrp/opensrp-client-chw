@@ -19,12 +19,12 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.LoginActivity;
+import org.smartregister.chw.activity.utils.Configs;
 import org.smartregister.chw.activity.utils.Constants;
 import org.smartregister.chw.activity.utils.Order;
 import org.smartregister.chw.activity.utils.OrderedRunner;
@@ -33,7 +33,6 @@ import org.smartregister.chw.activity.utils.Utils;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
@@ -169,8 +168,9 @@ public class RemoveMemberTests {
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Remove existing family member"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.kidNameFirst
-                + " " + Configs.TestConfigs.kidNameSecond + " " + Configs.TestConfigs.familyName + ", 0"))
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.AdditionalTestData.memberTwoFirstname
+                + " " + Configs.AdditionalTestData.memberTwoSecondname + " " + Configs.TestConfigs.familyName
+                + ", " + Configs.AdditionalTestData.extraMemberAge2))
                 .perform(click());
         onView(withId(R.id.action_save))
                 .perform(click());

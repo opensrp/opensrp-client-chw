@@ -1,4 +1,4 @@
-package org.smartregister.chw.activity.wcaro;
+package org.smartregister.chw.activity.utils;
 
 public class Configs {
 

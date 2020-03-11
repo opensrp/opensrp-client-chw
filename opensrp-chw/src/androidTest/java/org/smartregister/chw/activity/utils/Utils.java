@@ -18,7 +18,6 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.smartregister.chw.R;
-import org.smartregister.chw.activity.wcaro.Configs;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -187,7 +186,8 @@ public class Utils  {
     }
 
     public void logOut() throws InterruptedException{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Log out as " + Constants.WcaroConfigs.wCaro_userName))
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Log out as "
+                + Constants.WcaroConfigs.wCaro_userName))
                 .perform(click());
 
     }

@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity.wcaro;
 
+import android.Manifest;
 import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
@@ -23,6 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.smartregister.chw.activity.LoginActivity;
+import org.smartregister.chw.activity.utils.Configs;
 import org.smartregister.chw.activity.utils.Constants;
 import org.smartregister.chw.activity.utils.OrderedRunner;
 import org.smartregister.chw.activity.utils.Utils;
@@ -31,7 +34,6 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
@@ -46,7 +48,18 @@ public class EditTests {
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
+    @Rule
+    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(android.Manifest.permission.CALL_PHONE);
+
+    @Rule
+    public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(Manifest.permission.CAMERA);
+
+    @Rule
+    public GrantPermissionRule mRuntimePermissionRule1 = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION);
+
+
     Utils utils = new Utils();
+
 
     public void setUp() throws InterruptedException{
 
@@ -72,20 +85,20 @@ public class EditTests {
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Return to all families"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
     @Test
     public void editFamilyMember() throws Throwable {
         onView(ViewMatchers.withHint("Search name or ID"))
-                .perform(typeText("Sow"), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Sow" + " Family"))
+                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName
+                + " Family"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.AdditionalTestData.memberOneFirstname
-                + " " + Configs.AdditionalTestData.memberOneSecondname + " "
-                + Configs.TestConfigs.familyName
-                + ", " + Configs.AdditionalTestData.extraMemberAge1))
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.AdditionalTestData.memberTwoFirstname
+                + " " + Configs.AdditionalTestData.memberTwoSecondname + " " + Configs.TestConfigs.familyName
+                + ", " + Configs.AdditionalTestData.extraMemberAge2))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
@@ -98,10 +111,9 @@ public class EditTests {
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.AdditionalTestData.memberOneFirstname
-                + " " + Configs.AdditionalTestData.memberOneSecondname + " "
-                + Configs.TestConfigs.familyName
-                + ", " + Configs.AdditionalTestData.extraMemberAge1))
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.AdditionalTestData.memberTwoFirstname
+                + " " + Configs.AdditionalTestData.memberTwoSecondname + " " + Configs.TestConfigs.familyName
+                + ", " + Configs.AdditionalTestData.extraMemberAge2))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
     }

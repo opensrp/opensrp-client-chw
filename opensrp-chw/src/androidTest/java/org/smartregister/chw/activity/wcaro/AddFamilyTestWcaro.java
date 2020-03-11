@@ -3,17 +3,12 @@ package org.smartregister.chw.activity.wcaro;
 import android.Manifest;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.text.SpannableString;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import androidx.annotation.StringRes;
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.espresso.matcher.BoundedMatcher;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -24,7 +19,6 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Before;
@@ -33,8 +27,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.LoginActivity;
+import org.smartregister.chw.activity.utils.Configs;
 import org.smartregister.chw.activity.utils.Constants;
-import org.smartregister.chw.activity.utils.Order;
 import org.smartregister.chw.activity.utils.OrderedRunner;
 import org.smartregister.chw.activity.utils.Utils;
 

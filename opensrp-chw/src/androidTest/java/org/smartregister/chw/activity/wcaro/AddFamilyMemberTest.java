@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.StringRes;
-import androidx.test.espresso.Espresso;
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -22,29 +21,23 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.LoginActivity;
+import org.smartregister.chw.activity.utils.Configs;
 import org.smartregister.chw.activity.utils.Constants;
-import org.smartregister.chw.activity.utils.Order;
 import org.smartregister.chw.activity.utils.Utils;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
 
-import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.hamcrest.Matchers.hasToString;
-import static org.hamcrest.Matchers.startsWith;
 import static org.smartregister.chw.activity.utils.Utils.getViewId;
 
 public class AddFamilyMemberTest {
