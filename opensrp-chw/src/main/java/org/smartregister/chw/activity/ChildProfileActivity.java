@@ -8,6 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
@@ -17,6 +21,7 @@ import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.dao.MalariaDao;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -192,6 +197,18 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
             intent.putExtra(MEMBER_PROFILE_OBJECT, memberObject);
             startActivity(intent);
         };
+    }
+
+    @Override
+    public void startFormActivity(JSONObject jsonForm) {
+        // Check flavor
+        Intent intent = new Intent(this, SickChildJsonFormActivity.class);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+        Form form = new Form();
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setWizard(true);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     public interface Flavor {
