@@ -10,8 +10,6 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
-import net.bytebuddy.matcher.CollectionOneToOneMatcher;
-
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -19,6 +17,7 @@ import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.smartregister.chw.activity.LoginActivity;
+import org.smartregister.chw.activity.utils.Configs;
 import org.smartregister.chw.activity.utils.Utils;
 
 import static androidx.test.espresso.Espresso.onView;

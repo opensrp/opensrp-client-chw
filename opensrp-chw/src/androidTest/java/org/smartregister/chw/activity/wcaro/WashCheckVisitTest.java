@@ -1,10 +1,12 @@
 package org.smartregister.chw.activity.wcaro;
 
+import android.Manifest;
 import android.app.Activity;
 
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
@@ -16,6 +18,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.smartregister.chw.activity.LoginActivity;
+import org.smartregister.chw.activity.utils.Configs;
 import org.smartregister.chw.activity.utils.Constants;
 import org.smartregister.chw.activity.utils.Order;
 import org.smartregister.chw.activity.utils.OrderedRunner;
@@ -40,7 +43,19 @@ public class WashCheckVisitTest {
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
+    @Rule
+    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(android.Manifest.permission.CALL_PHONE);
+
+    @Rule
+    public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(Manifest.permission.CAMERA);
+
+    @Rule
+    
+    public GrantPermissionRule mRuntimePermissionRule1 = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION);
+
+
     Utils utils = new Utils();
+
 
     public void setUp() throws InterruptedException{
 
@@ -74,6 +89,7 @@ public class WashCheckVisitTest {
                 .perform(click());
     }
 
+    @Test
     @Order(order = 2)
     public void confirmWashCheck() throws Throwable {
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
@@ -82,8 +98,20 @@ public class WashCheckVisitTest {
                 .perform(click());
         Thread.sleep(500);
         utils.locateLayout(0,1).perform(click());
-        //onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family" + " · WASH check"))
-               // .perform(click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("WASH check"))
+                .check(matches(isDisplayed()));
+
+    }
+    @Test
+    @Order(order = 3)
+    public void confirmActivityPage() throws Throwable {
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(click());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("ACTIVITY"))
+                .perform(click());
+        Thread.sleep(500);
+        utils.locateLayout(0,1).perform(click());
         Thread.sleep(500);
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("WASH check"))
                 .check(matches(isDisplayed()));
