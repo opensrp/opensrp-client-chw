@@ -252,7 +252,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.1.47-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.1.51-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -287,7 +287,7 @@ dependencies {
         transitive = true
     }
 
-    implementation("org.smartregister:android-p2p-sync:0.3.3-SNAPSHOT") {
+    implementation("org.smartregister:android-p2p-sync:0.3.6-SNAPSHOT") {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
