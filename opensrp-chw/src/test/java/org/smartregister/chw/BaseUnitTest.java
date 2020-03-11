@@ -12,7 +12,7 @@ import org.smartregister.chw.shadows.ContextShadow;
  */
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = TestChwApplication.class, sdk = 22, shadows = {ContextShadow.class, BaseJobShadow.class})
+@Config(application = TestChwApplication.class, shadows = {ContextShadow.class, BaseJobShadow.class})
 public abstract class BaseUnitTest {
 
 }

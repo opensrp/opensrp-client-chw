@@ -47,21 +47,21 @@ public class ListPresenter<T extends ListContract.Identifiable> implements ListC
     }
 
     @Override
-    public <X extends ListContract.Presenter<T>, V extends ListContract.View<T>> X with(V view) {
+    public <V extends ListContract.View<T>> ListContract.Presenter<T> with(V view) {
         weakReference = new WeakReference<>(view);
-        return (X) this;
+        return this;
     }
 
     @Override
-    public <X extends ListContract.Presenter<T>, I extends ListContract.Interactor<T>> X using(I interactor) {
+    public <I extends ListContract.Interactor<T>> ListContract.Presenter<T> using(I interactor) {
         this.interactor = interactor;
-        return (X) this;
+        return this;
     }
 
     @Override
-    public <X extends ListContract.Presenter<T>, M extends ListContract.Model<T>> X withModel(M model) {
+    public <M extends ListContract.Model<T>> ListContract.Presenter<T> withModel(M model) {
         this.model = model;
-        return (X) this;
+        return this;
     }
 
 

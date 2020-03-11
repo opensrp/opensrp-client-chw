@@ -46,7 +46,7 @@ public interface ListContract {
          *
          * @param view
          */
-        <X extends Presenter<T>, V extends View<T>> X with(V view);
+        <V extends View<T>> Presenter<T> with(V view);
 
         /**
          * binds interactor
@@ -54,7 +54,7 @@ public interface ListContract {
          * @param interactor
          * @return
          */
-        <X extends Presenter<T>, I extends Interactor<T>> X using(I interactor);
+        <I extends Interactor<T>> Presenter<T> using(I interactor);
 
         /**
          * binds a views model
@@ -62,7 +62,7 @@ public interface ListContract {
          * @param model
          * @return
          */
-        <X extends Presenter<T>, M extends Model<T>> X withModel(M model);
+        <M extends Model<T>> Presenter<T> withModel(M model);
 
         @Nullable
         View<T> getView();
