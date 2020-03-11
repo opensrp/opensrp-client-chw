@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.presenter.LoginPresenter;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.family.util.Constants;
+import org.smartregister.growthmonitoring.service.intent.WeightForHeightIntentService;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
@@ -14,6 +17,7 @@ import org.smartregister.view.contract.BaseLoginContract;
 
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
     public static final String TAG = BaseLoginActivity.class.getCanonicalName();
+    private static final String WFH_CSV_PARSED = "WEIGHT_FOR_HEIGHT_CSV_PARSED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +47,9 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     public void goToHome(boolean remote) {
         if (remote) {
             Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
+            processWeightForHeightZscoreCSV();
         }
         getToFamilyList(remote);
-
         finish();
     }
 
@@ -53,6 +57,14 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         Intent intent = new Intent(this, FamilyRegisterActivity.class);
         intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
         startActivity(intent);
+    }
+
+    private void processWeightForHeightZscoreCSV() {
+        AllSharedPreferences allSharedPreferences = ChwApplication.getInstance().getContext().allSharedPreferences();
+        if (ChwApplication.getApplicationFlavor().hasChildSickForm() && !allSharedPreferences.getPreference(WFH_CSV_PARSED).equals("true")) {
+            WeightForHeightIntentService.startParseWFHZScores(this);
+            allSharedPreferences.savePreference(WFH_CSV_PARSED, "true");
+        }
     }
 
 }

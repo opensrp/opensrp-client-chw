@@ -41,8 +41,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         return referralTypeModels;
     }
 
-    private boolean hasSickChildForm = false;
-
     @Override
     protected void onCreation() {
         super.onCreation();
@@ -53,11 +51,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         registerReceiver(mDateTimeChangedReceiver, sIntentFilter);
         if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
             addChildReferralTypes();
-        }
-        hasSickChildForm = ChwApplication.getApplicationFlavor().hasChildSickForm();
-        if (hasSickChildForm) { // TODO --> Add &&
-            // TODO -> DO this only ONCE
-            WeightForHeightIntentService.startParseWFHZScores(this);
         }
     }
 
@@ -139,7 +132,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.findItem(R.id.action_sick_child_form).setVisible(hasSickChildForm && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()))
+        menu.findItem(R.id.action_sick_child_form).setVisible(ChwApplication.getApplicationFlavor().hasChildSickForm() && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()))
         ;
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
