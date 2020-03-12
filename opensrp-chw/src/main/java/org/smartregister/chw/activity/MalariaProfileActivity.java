@@ -19,9 +19,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreMalariaProfileActivity;
 import org.smartregister.chw.core.custom_views.CoreMalariaFloatingMenu;
-import org.smartregister.chw.core.dao.AncDao;
-import org.smartregister.chw.core.dao.ChildDao;
-import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.MalariaFollowUpRule;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -42,11 +39,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID;
@@ -54,7 +46,6 @@ import static org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.BASE
 public class MalariaProfileActivity extends CoreMalariaProfileActivity {
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
-
 
     public static void startMalariaActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, MalariaProfileActivity.class);
@@ -75,8 +66,24 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
     @Override
     protected void onCreation() {
         super.onCreation();
-//        addMalariaReferralTypes();
+        //addMalariaReferralTypes();
         org.smartregister.util.Utils.startAsyncTask(new UpdateVisitDueTask(), null);
+        this.setOnMemberTypeLoadedListener(memberType -> {
+            switch (memberType.getMemberType()) {
+                case CoreConstants.TABLE_NAME.ANC_MEMBER:
+                    AncMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.getMemberObject());
+                    break;
+                case CoreConstants.TABLE_NAME.PNC_MEMBER:
+                    PncMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.getMemberObject());
+                    break;
+                case CoreConstants.TABLE_NAME.CHILD:
+                    ChildMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.getMemberObject());
+                    break;
+                default:
+                    Timber.v("Member info undefined");
+                    break;
+            }
+        });
     }
 
     @Override
@@ -221,30 +228,8 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
     }
 
     @Override
-    public void openMedicalHistory() {
-        onMemberTypeLoadedListener listener = memberType -> {
-
-            switch (memberType.memberType) {
-                case CoreConstants.TABLE_NAME.ANC_MEMBER:
-                    AncMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.memberObject);
-                    break;
-                case CoreConstants.TABLE_NAME.PNC_MEMBER:
-                    PncMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.memberObject);
-                    break;
-                case CoreConstants.TABLE_NAME.CHILD:
-                    ChildMedicalHistoryActivity.startMe(MalariaProfileActivity.this, memberType.memberObject);
-                    break;
-                default:
-                    Timber.v("Member info undefined");
-                    break;
-            }
-        };
-        executeOnLoaded(listener);
-    }
-
-    @Override
     public void openUpcomingService() {
-        executeOnLoaded(memberType -> MalariaUpcomingServicesActivity.startMe(MalariaProfileActivity.this, memberType.memberObject));
+        executeOnLoaded(memberType -> MalariaUpcomingServicesActivity.startMe(MalariaProfileActivity.this, memberType.getMemberObject()));
     }
 
     @Override
@@ -258,53 +243,6 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
 
         intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
-    }
-
-    private Observable<MemberType> getMemberType() {
-        return Observable.create(e -> {
-            org.smartregister.chw.anc.domain.MemberObject ancMemberObject = PNCDao.getMember(memberObject.getBaseEntityId());
-            String type = null;
-
-            if (AncDao.isANCMember(ancMemberObject.getBaseEntityId())) {
-                type = CoreConstants.TABLE_NAME.ANC_MEMBER;
-            } else if (PNCDao.isPNCMember(ancMemberObject.getBaseEntityId())) {
-                type = CoreConstants.TABLE_NAME.PNC_MEMBER;
-            } else if (ChildDao.isChild(ancMemberObject.getBaseEntityId())) {
-                type = CoreConstants.TABLE_NAME.CHILD;
-            }
-
-            MemberType memberType = new MemberType(ancMemberObject, type);
-            e.onNext(memberType);
-            e.onComplete();
-        });
-    }
-
-    private void executeOnLoaded(onMemberTypeLoadedListener listener) {
-        final Disposable[] disposable = new Disposable[1];
-        getMemberType().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<MemberType>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        disposable[0] = d;
-                    }
-
-                    @Override
-                    public void onNext(MemberType memberType) {
-                        listener.onMemberTypeLoaded(memberType);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.e(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        disposable[0].dispose();
-                        disposable[0] = null;
-                    }
-                });
     }
 
     @Override
@@ -321,21 +259,6 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
     public void notifyHasPhone(boolean b) {
 
     }
-
-    private class MemberType {
-        private org.smartregister.chw.anc.domain.MemberObject memberObject;
-        private String memberType;
-
-        private MemberType(org.smartregister.chw.anc.domain.MemberObject memberObject, String memberType) {
-            this.memberObject = memberObject;
-            this.memberType = memberType;
-        }
-    }
-
-    interface onMemberTypeLoadedListener {
-        void onMemberTypeLoaded(MemberType memberType);
-    }
-
 
     private void checkPhoneNumberProvided(boolean hasPhoneNumber) {
         ((CoreMalariaFloatingMenu) baseMalariaFloatingMenu).redraw(hasPhoneNumber);
