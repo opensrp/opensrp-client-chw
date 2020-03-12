@@ -1,9 +1,15 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
 
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
@@ -46,5 +52,16 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
                 FamilyCallDialogFragment.launchDialog(activity, presenter.getFamilyId());
             }
         };
+    }
+
+    @Override
+    public Intent getSickChildFormActivityIntent(JSONObject jsonObject, Context context) {
+        Intent intent = new Intent(context, SickChildJsonFormActivity.class);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonObject.toString());
+        Form form = new Form();
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setWizard(true);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        return intent;
     }
 }

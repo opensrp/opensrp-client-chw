@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Gravity;
 import android.view.Menu;
@@ -28,6 +29,7 @@ import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.JsonFormUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -199,19 +201,14 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
-        // Check flavor
-        Intent intent = new Intent(this, SickChildJsonFormActivity.class);
-        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-        Form form = new Form();
-        form.setActionBarBackground(R.color.family_actionbar);
-        form.setWizard(true);
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-        startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
+        startActivityForResult(flavor.getSickChildFormActivityIntent(jsonForm, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
 
         boolean isChildOverTwoMonths(CommonPersonObjectClient client);
+
+        Intent getSickChildFormActivityIntent(JSONObject jsonObject, Context context);
     }
 }
