@@ -55,7 +55,7 @@
     }
   },
   "step1": {
-    "title": "SICK CHILD",
+    "title": "CHILD DETAILS",
     "next": "step2",
     "fields": [
       {
@@ -299,7 +299,7 @@
     ]
   },
   "step4": {
-    "title": "DIFFICULT BREATHING CLASSIFICATION & TREATMENT",
+    "title": "COUGH OR DIFFICULT BREATHING",
     "next": "step5",
     "display_back_button": "true",
     "fields": [

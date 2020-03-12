@@ -639,7 +639,7 @@ actions:
 name: step7_ear_discharge_time
 description: How long there has been discharge
 priority: 1
-condition: "step7_ear_problem.contains('yes')"
+condition: "step7_ear_problem.contains('yes') && step7_ear_discharge.contains('yes')"
 actions:
   - "isRelevant = true"
 ---

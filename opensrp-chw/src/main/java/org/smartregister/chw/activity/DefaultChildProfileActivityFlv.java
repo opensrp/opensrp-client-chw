@@ -59,7 +59,9 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
         Intent intent = new Intent(context, SickChildJsonFormActivity.class);
         intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonObject.toString());
         Form form = new Form();
+        form.setName(context.getString(R.string.sick_child_title));
         form.setActionBarBackground(R.color.family_actionbar);
+        form.setNavigationBackground(R.color.family_navigation);
         form.setWizard(true);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         return intent;
