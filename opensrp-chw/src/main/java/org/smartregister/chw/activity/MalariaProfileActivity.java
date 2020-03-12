@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreMalariaProfileActivity;
+import org.smartregister.chw.core.custom_views.CoreMalariaFloatingMenu;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.PNCDao;
@@ -28,8 +29,8 @@ import org.smartregister.chw.core.utils.MalariaVisitUtil;
 import org.smartregister.chw.custom_view.MalariaFloatingMenu;
 import org.smartregister.chw.interactor.MalariaProfileInteractor;
 import org.smartregister.chw.malaria.dao.MalariaDao;
-import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -37,7 +38,9 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.JsonFormUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -49,6 +52,9 @@ import timber.log.Timber;
 import static org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID;
 
 public class MalariaProfileActivity extends CoreMalariaProfileActivity {
+
+    private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+
 
     public static void startMalariaActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, MalariaProfileActivity.class);
@@ -69,6 +75,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
     @Override
     protected void onCreation() {
         super.onCreation();
+//        addMalariaReferralTypes();
         org.smartregister.util.Utils.startAsyncTask(new UpdateVisitDueTask(), null);
     }
 
@@ -171,7 +178,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
 
         try {
             assert form != null;
-            startFormActivity(form, memberObject);
+            startFormActivity(form);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -188,9 +195,8 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
 
     }
 
-    private void startFormActivity(JSONObject jsonForm, MemberObject memberObject) {
+    private void startFormActivity(JSONObject jsonForm) {
         Intent intent = org.smartregister.chw.core.utils.Utils.formActivityIntent(this, jsonForm.toString());
-//        intent.putExtra(Constants.MALARIA_memberObject.memberObject, memberObject);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
@@ -332,7 +338,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
 
 
     private void checkPhoneNumberProvided(boolean hasPhoneNumber) {
-        ((MalariaFloatingMenu) baseMalariaFloatingMenu).redraw(hasPhoneNumber);
+        ((CoreMalariaFloatingMenu) baseMalariaFloatingMenu).redraw(hasPhoneNumber);
     }
 
     @Override
@@ -343,11 +349,11 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
             switch (viewId) {
                 case R.id.malaria_fab:
                     checkPhoneNumberProvided(StringUtils.isNotBlank(memberObject.getPhoneNumber()));
-                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
+                    ((CoreMalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
                     break;
                 case R.id.call_layout:
-                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).launchCallWidget();
-                    ((MalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
+                    ((CoreMalariaFloatingMenu) baseMalariaFloatingMenu).launchCallWidget();
+                    ((CoreMalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
                     break;
                 case R.id.refer_to_facility_layout:
                     Toast.makeText(this, "Refer", Toast.LENGTH_SHORT).show();
@@ -359,7 +365,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
 
         };
 
-        ((MalariaFloatingMenu) baseMalariaFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
+        ((CoreMalariaFloatingMenu) baseMalariaFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
         baseMalariaFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
