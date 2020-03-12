@@ -3,7 +3,10 @@ package org.smartregister.chw.activity.wcaro;
 import android.Manifest;
 import android.app.Activity;
 
+import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
+import androidx.test.espresso.matcher.ViewMatchers;
+import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
@@ -14,9 +17,12 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.utils.Configs;
 import org.smartregister.chw.activity.utils.Constants;
+import org.smartregister.chw.activity.utils.Order;
+import org.smartregister.chw.activity.utils.OrderedRunner;
 import org.smartregister.chw.activity.utils.Utils;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
 
@@ -30,6 +36,9 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 import static org.hamcrest.Matchers.allOf;
 import static org.smartregister.chw.activity.utils.Utils.getViewId;
 
+@LargeTest
+//@RunWith(AndroidJUnit4.class)
+@RunWith(OrderedRunner.class)
 public class ANCRegistrationTests {
 
     @Rule
@@ -54,6 +63,7 @@ public class ANCRegistrationTests {
     }
 
     @Test
+    @Order(order = 2)
     public void registerANCSuccessfuly() throws Throwable {
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
@@ -89,6 +99,36 @@ public class ANCRegistrationTests {
         Thread.sleep(500);
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
                 .perform(click());
+    }
+
+    @Test
+    @Order(order = 1)
+    public void registerANCWithoutAllFields() throws Throwable {
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(click());
+        /*onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "
+                + Configs.TestConfigs.aboveFiveage))
+                .perform(click());*/
+        utils.locateLayout(1,2).perform(click());
+        Thread.sleep(500);
+        utils.openFamilyMenu();
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("ANC Registration"))
+                .perform(click());
+        Activity activity = getCurrentActivity();
+        Thread.sleep(500);
+        //onView(withId(getViewId((JsonFormActivity) activity, "step1:last_menstrual_period_unknown")))
+        // .perform(click());
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:last_menstrual_period")))
+                .perform(click());
+        Thread.sleep(1000);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+                .perform(click());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Found 3 error(s) in the form. Please correct them to submit."))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
     @After
     public void completeTests(){

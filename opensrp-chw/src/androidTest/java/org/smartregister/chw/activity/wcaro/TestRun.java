@@ -20,6 +20,7 @@ import org.junit.runners.Suite;
                 CallWidgetTests.class,
                 ANCRegistrationTests.class,
                 ANCRegisterTests.class,
+                ANCVisitTests.class,
                 RemoveMemberTests.class,
                 FamilyMemberTest.class
 })

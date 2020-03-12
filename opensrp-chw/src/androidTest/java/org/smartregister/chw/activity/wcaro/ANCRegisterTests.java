@@ -13,6 +13,7 @@ import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,9 +30,12 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 
 @LargeTest
 //@RunWith(AndroidJUnit4.class)
@@ -99,6 +103,48 @@ public class ANCRegisterTests {
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "+ Configs.TestConfigs.aboveFiveage + " · ANC Visit"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
+    @Test
+    @Order(order = 4)
+    public void confirmANCSearchWorks() throws Throwable {
+        utils.openDrawer();
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+                .perform(click());
+        onView(ViewMatchers.withHint("Search name or ID"))
+                .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+    }
+
+    public void confirmANCPhoneNumber() throws Throwable {
+        utils.openDrawer();
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+                .perform(click());
+        onView(ViewMatchers.withHint("Search name or ID"))
+                .perform(typeText("Jkk"), closeSoftKeyboard());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Jkk Fgh"))
+                .perform(click());
+        Thread.sleep(500);
+        utils.ancFloatingfab()
+                .perform(click());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Call"))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+    }
+    @Test
+    @Order(order = 5)
+    public void testANCProfileView() throws Throwable {
+        utils.openDrawer();
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+                .perform(click());
+        onView(ViewMatchers.withHint("Search name or ID"))
+                .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
+                .perform(click());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Return to all ANC women"))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+    }
+
     @After
     public void completeTests() {
         mActivityTestRule.finishActivity();
