@@ -184,7 +184,18 @@ public class Utils  {
                                 1),
                         isDisplayed())).perform(click());
     }
-
+    public ViewInteraction ancFloatingfab()  {
+        ViewInteraction floatingActionButton = onView(
+                allOf(withId(R.id.anc_fab),
+                        childAtPosition(
+                                allOf(withId(R.id.activity_main),
+                                        childAtPosition(
+                                                withClassName(is("org.smartregister.chw.custom_view.AncFloatingMenu")),
+                                                0)),
+                                0),
+                        isDisplayed()));
+        return floatingActionButton;
+    }
     public void logOut() throws InterruptedException{
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Log out as "
                 + Constants.WcaroConfigs.wCaro_userName))
