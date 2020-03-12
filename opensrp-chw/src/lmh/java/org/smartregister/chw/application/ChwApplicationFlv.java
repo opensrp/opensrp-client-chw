@@ -13,7 +13,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasChildSickForm() {
-        return true;
+        return false;
     }
 
     @Override
