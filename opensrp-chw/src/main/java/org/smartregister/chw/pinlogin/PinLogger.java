@@ -3,6 +3,8 @@ package org.smartregister.chw.pinlogin;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.Date;
+
 /**
  * @author rkodev
  */
@@ -79,6 +81,18 @@ public interface PinLogger {
      * @return
      */
     String getPassword(String pin);
+
+    /**
+     * auto login the app if last login is within
+     * specified hours
+     * @param hours
+     * @return
+     */
+    boolean isWithin(Integer hours);
+
+    void updateLastLogin();
+
+    void autoLogin(@NonNull EventListener listener);
 
     interface EventListener {
 
