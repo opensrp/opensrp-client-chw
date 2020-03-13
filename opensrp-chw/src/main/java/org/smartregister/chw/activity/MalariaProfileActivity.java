@@ -9,19 +9,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.contract.MalariaProfileContract;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreMalariaProfileActivity;
 import org.smartregister.chw.core.custom_views.CoreMalariaFloatingMenu;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.MalariaFollowUpRule;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.core.utils.MalariaVisitUtil;
 import org.smartregister.chw.custom_view.MalariaFloatingMenu;
 import org.smartregister.chw.interactor.MalariaProfileInteractor;
@@ -29,11 +32,14 @@ import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.util.FormUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,14 +49,29 @@ import timber.log.Timber;
 
 import static org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID;
 
-public class MalariaProfileActivity extends CoreMalariaProfileActivity {
+public class MalariaProfileActivity extends CoreMalariaProfileActivity implements MalariaProfileContract.View {
 
+    private static String baseEntityId;
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
+    private FormUtils formUtils;
+
     public static void startMalariaActivity(Activity activity, String baseEntityId) {
+        MalariaProfileActivity.baseEntityId = baseEntityId;
         Intent intent = new Intent(activity, MalariaProfileActivity.class);
         intent.putExtra(BASE_ENTITY_ID, baseEntityId);
         activity.startActivity(intent);
+    }
+
+    public List<ReferralTypeModel> getReferralTypeModels() {
+        return referralTypeModels;
+    }
+
+    public FormUtils getFormUtils() throws Exception {
+        if (formUtils == null){
+            formUtils = FormUtils.getInstance(ChwApplication.getInstance());
+        }
+        return formUtils;
     }
 
     @Override
@@ -66,7 +87,6 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
     @Override
     protected void onCreation() {
         super.onCreation();
-        //addMalariaReferralTypes();
         org.smartregister.util.Utils.startAsyncTask(new UpdateVisitDueTask(), null);
         this.setOnMemberTypeLoadedListener(memberType -> {
             switch (memberType.getMemberType()) {
@@ -84,6 +104,47 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
                     break;
             }
         });
+        if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
+            addMalariaReferralTypes();
+        }
+    }
+
+    private void addMalariaReferralTypes() {
+        getReferralTypeModels().add(new ReferralTypeModel(getString(R.string.suspected_malaria),
+                Constants.MALARIA_REFERRAL_FORM));
+    }
+
+    @Override
+    public void referToFacility(){
+        if (getReferralTypeModels().size() == 1) {
+            try {
+                startFormActivity(getFormUtils().getFormJson(getReferralTypeModels().get(0).getFormName()));
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        } else {
+            Utils.launchClientReferralActivity(this, getReferralTypeModels(), baseEntityId);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) return;
+        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+        try {
+            JSONObject form = new JSONObject(jsonString);
+            if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON) {
+                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.MALARIA_REFERRAL)) {
+                    CoreReferralUtils.createReferralEvent(Utils.getAllSharedPreferences(), jsonString, CoreConstants.TABLE_NAME.MALARIA_REFERRAL, baseEntityId);
+                    showToast(this.getString(R.string.referral_submitted));
+                }
+            }
+        }catch (JSONException jsonFormException){
+            Timber.e(jsonFormException);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override
@@ -267,11 +328,10 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
     @Override
     public void initializeFloatingMenu() {
         baseMalariaFloatingMenu = new MalariaFloatingMenu(this, memberObject);
-
+        checkPhoneNumberProvided(StringUtils.isNotBlank(memberObject.getPhoneNumber()));
         OnClickFloatingMenu onClickFloatingMenu = viewId -> {
             switch (viewId) {
                 case R.id.malaria_fab:
-                    checkPhoneNumberProvided(StringUtils.isNotBlank(memberObject.getPhoneNumber()));
                     ((CoreMalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
                     break;
                 case R.id.call_layout:
@@ -279,7 +339,8 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity {
                     ((CoreMalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
                     break;
                 case R.id.refer_to_facility_layout:
-                    Toast.makeText(this, "Refer", Toast.LENGTH_SHORT).show();
+                      referToFacility();
+                    ((CoreMalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
                     break;
                 default:
                     Timber.d("Unknown fab action");
