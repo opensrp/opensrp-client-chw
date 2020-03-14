@@ -280,11 +280,12 @@
     <string name="pnc_exclusive_breastfeeding">Unyonyeshwaji wa maziwa ya mama pekee ({0})</string>
     <string name="pnc_kangaroo_mother_care">Huduma ya Kangaruu (KMC) </string>
     <string name="pnc_family_planning">Uzazi wa Mpango</string>
+    <string name="fp_update_family_planning">Update usajili wa uzazi wa mpango</string>
     <string name="pnc_observation_and_illness_mother">Uchunguzi na ugonjwa - mama</string>
     <string name="pnc_observation_and_illness_baby">Uchunguzi na ugonjwa - mtoto ({0})</string>
 
     <string name="pnc_counselling">Ushauri</string>
-    <string name="pnc_nutrition_status">Hali ya lishe</string>
+    <string name="pnc_nutrition_status">Hali ya lishe-mama</string>
     <string name="pnc_nutrition_status_baby_name">Hali ya lishe kwa mtoto ({0})</string>
     <string name="pnc_malaria_prevention">Kinga dhidi ya malaria</string>
     <!-- PNC Home visit subtitle text -->
@@ -309,6 +310,7 @@
     <string name="referral_reason">Sababu ya rufaa</string>
     <string name="open_referral_form">Fungua rufaa ya %s</string>
     <string name="sick_child">Mtoto mgonjwa</string>
+    <string name="family_planning_referral">Uzazi wa mpango</string>
     <string name="client_malaria_follow_up">Ufuatiliaji wa malaria</string>
     <string name="pnc_danger_signs">Dalili za hatari baada ya kujifungua</string>
     <string name="fp_post_partum">Uzazi wa mpango baada ya kujifungua</string>
@@ -331,9 +333,19 @@
     <string name="cancel_download_confirmation">Una uhakika unataka kughairi kupakua huku?</string>
     <string name="cancel_download">Ghairi Upakuaji</string>
 
+    <string name="typhoid">Homa ya matumbo</string>
+    <string name="routine_household_visit">Tembeleo la kawaida</string>
+    <string name="sick_visits">Matembeleo ya ugonjwa</string>
+    <string name="sick_visit">Tembeleo la ugonjwa</string>
+    <string name="reports">Ripoti</string>
 
-    <!--ANC Family Planning Ba-->
-    <string name="family_planning_done">Ushauri wa uzazi wa mpango kutoka kituo cha afya umefanyika</string>
-    <string name="family_planning_not_done">Ushauri wa uzazi wa mpango kutoka kituo cha afya haujakamilika</string>
+    <string name="eligible_children">Watoto wanaostahili</string>
+    <string name="doses_needed">Dozi inahitajika</string>
+    <string name="community_activity">Shughuli zangu kwenye jamii</string>
+
+    <string name="forgot_pin">Umesahau siri?</string>
+    <string name="use_your_password">Tumia neno lako la siri?</string>
+    <string name="enter_pin_for_user">Ingiza siri kwa %s</string>
+    <string name="use_4_digit_pin_number_promt">Unaweza kutumia number ya siri ya tarakimu 4 kurahisha kuingia kwenye mfumo haraka</string>
 
 </resources>
