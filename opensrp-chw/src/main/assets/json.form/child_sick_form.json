@@ -516,8 +516,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Give a trial of rapid acting bronchodilator up to 3 times, 15-20 minutes apart.",
-        "toaster_info_text": "Give a trial of rapid acting bronchodilator up to 3 times, 15-20 minutes apart.",
+        "text": "Count the breaths per minute again and look again for wheezing and/or chest indrawing.",
+        "toaster_info_text": "Count the breaths per minute again and look again for wheezing and/or chest indrawing.",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -2545,7 +2545,7 @@
         }
       },
       {
-        "key": "step6_no_malaria_treat_note",
+        "key": "no_malaria_treat_note",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
@@ -2895,9 +2895,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "NO MALARIA FEVER",
-        "toaster_info_text": "NO MALARIA FEVER",
-        "toaster_type": "info",
+        "text": "Child has: FEVER:\nNO MALARIA\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_info_text": "Child has: FEVER:\nNO MALARIA\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -3252,8 +3252,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "",
-        "toaster_info_text": "",
+        "text": "MEASLES",
+        "toaster_info_text": "MEASLES",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
