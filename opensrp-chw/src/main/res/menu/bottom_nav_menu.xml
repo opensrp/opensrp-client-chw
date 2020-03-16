@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_family"
+        android:enabled="true"
+        android:icon="@mipmap/ic_home"
+        android:title="@string/home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_scan_qr"
+        android:enabled="true"
+        android:icon="@mipmap/ic_scan_qr"
+        android:title="@string/scan_qr"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_register"
+        android:enabled="true"
+        android:icon="@mipmap/ic_add_family"
+        android:title="@string/add_family"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_job_aids"
+        android:enabled="true"
+        android:icon="@mipmap/ic_jobaids"
+        android:title="@string/job_aids"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_report"
+        android:enabled="true"
+        android:icon="@mipmap/ic_jobaids"
+        android:title="@string/reports"
+        app:showAsAction="ifRoom" />
+</menu>

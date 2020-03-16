@@ -46,6 +46,6 @@ public class MalariaScheduler extends BaseTaskExecutor {
 
     @Override
     public String getScheduleGroup() {
-        return CoreConstants.SCHEDULE_TYPES.MALARIA_VISIT;
+        return CoreConstants.SCHEDULE_GROUPS.HOME_VISIT;
     }
 }

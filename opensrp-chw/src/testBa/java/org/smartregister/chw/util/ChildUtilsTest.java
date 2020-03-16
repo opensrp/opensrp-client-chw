@@ -39,24 +39,6 @@ public class ChildUtilsTest extends BaseUnitTest {
     }
 
     @Test
-    public void isFullyImmunizedForTwoYears() throws Exception {
-
-        List<String> receivedVaccine = Arrays.asList("bcg", "opv1", "penta1", "pcv1", "rota1", "opv2",
-                "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mr1", "mr2");
-        setFinalStatic(ChildUtils.class.getDeclaredField("childUtilsFlv"), childUtilsFlv);
-
-        Assert.assertEquals("2", ChildUtils.isFullyImmunized(receivedVaccine));
-    }
-
-    @Test
-    public void isFullyImmunizedForOneYears() throws Exception {
-        List<String> receivedVaccine = Arrays.asList("bcg", "opv1", "penta1", "pcv1", "rota1", "opv2",
-                "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mr1");
-        setFinalStatic(ChildUtils.class.getDeclaredField("childUtilsFlv"), childUtilsFlv);
-        Assert.assertEquals("1", ChildUtils.isFullyImmunized(receivedVaccine));
-    }
-
-    @Test
     public void isFullyImmunizedForEmpty() {
         String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase()};
         List<String> receivedVaccine = Arrays.asList(list);

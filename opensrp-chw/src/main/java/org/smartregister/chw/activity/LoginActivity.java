@@ -2,8 +2,16 @@ package org.smartregister.chw.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.EditText;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.fragment.ChooseLoginMethodFragment;
+import org.smartregister.chw.fragment.PinLoginFragment;
+import org.smartregister.chw.pinlogin.PinLogger;
+import org.smartregister.chw.pinlogin.PinLoginUtil;
 import org.smartregister.chw.presenter.LoginPresenter;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.family.util.Constants;
@@ -15,6 +23,8 @@ import org.smartregister.view.contract.BaseLoginContract;
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
     public static final String TAG = BaseLoginActivity.class.getCanonicalName();
 
+    private PinLogger pinLogger = PinLoginUtil.getPinLogger();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,9 +34,52 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     protected void onResume() {
         super.onResume();
         mLoginPresenter.processViewCustomizations();
+
+        if (hasPinLogin()) {
+            pinLoginAttempt();
+            return;
+        }
+
         if (!mLoginPresenter.isUserLoggedOut()) {
             goToHome(false);
         }
+    }
+
+    private void pinLoginAttempt() {
+        // if the user has pin
+        if (mLoginPresenter.isUserLoggedOut()) {
+            if (pinLogger.isPinSet()) {
+                Intent intent = new Intent(this, PinLoginActivity.class);
+                intent.putExtra(PinLoginActivity.DESTINATION_FRAGMENT, PinLoginFragment.TAG);
+                startActivity(intent);
+                finish();
+            }
+        } else {
+            goToHome(false);
+        }
+    }
+
+    private boolean hasPinLogin(){
+        return ChwApplication.getApplicationFlavor().hasPinLogin();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        if (hasPinLogin() && !pinLogger.isFirstAuthentication()) {
+            menu.add("Reset Pin Login");
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getTitle().toString().equalsIgnoreCase("Reset Pin Login")) {
+            pinLogger.resetPinLogin();
+            this.recreate();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -44,15 +97,41 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         if (remote) {
             Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
         }
-        getToFamilyList(remote);
+
+        if (hasPinLogin()) {
+            startPinHome(remote);
+        }else{
+            startHome(remote);
+        }
 
         finish();
     }
 
-    private void getToFamilyList(boolean remote) {
+    private void startHome(boolean remote){
         Intent intent = new Intent(this, FamilyRegisterActivity.class);
         intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
         startActivity(intent);
+    }
+
+    private void startPinHome(boolean remote) {
+        if (remote)
+            pinLogger.resetPinLogin();
+
+        if (pinLogger.isFirstAuthentication()) {
+            EditText passwordEditText = findViewById(org.smartregister.R.id.login_password_edit_text);
+            pinLogger.savePassword(passwordEditText.getText().toString());
+        }
+
+        if (pinLogger.isFirstAuthentication()) {
+            Intent intent = new Intent(this, PinLoginActivity.class);
+            intent.putExtra(PinLoginActivity.DESTINATION_FRAGMENT, ChooseLoginMethodFragment.TAG);
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = new Intent(this, FamilyRegisterActivity.class);
+            intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+            startActivity(intent);
+        }
     }
 
 }
