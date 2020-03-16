@@ -271,8 +271,8 @@ description: Claculated field for when there are medical complications
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = ((!step2_danger_signs.contains("None") || step4_severe_pneumonia == 1 || step4_pneumonia == 1 ||
-  step5_sev_persistent_diarrhoea == 1 || step6_vsf_disease == 1 || step6_vsf_disease2 == 1 || step6_complicated_measles == 1 || step7_mastoiditis_infection == 1)? 1 : 0)'
+  - 'calculation = ((!step2_danger_signs.contains("None") || step4_severe_pneumonia == 1 || step4_pneumonia == 1 || step5_sev_dehydration == 1 ||
+  step5_sev_persistent_diarrhoea == 1 || step6_vsf_disease == 1 || step6_vsf_disease2 == 1 || step6_complicated_measles == 1 || step7_mastoiditis_infection == 1 || step9_severe_anaemia == 1)? 1 : 0)'
 ---
 name: step8_wfh_zscore
 description: Calculated field for the z-Scores
@@ -286,28 +286,29 @@ description: Calculated field for when child is suffering from complicated sever
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = 0'
+  - 'calculation = ((step8_oedema == "yes" || step8_wfh_zscore < -3 || step8_muac < 115 && step8_medical_complications == 1
+      || step8_rutf_feed.contains("not_finished_rutf") || step8_breastfeeding_prob == "yes")? 1 : 0)'
 ---
 name: step8_uncomplicated_sam
-description: Calculated field for when child is suffering from sever acute malnutrition
+description: Calculated field for when child is suffering from complicated severe acute malnutrition
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = 0'
+  - 'calculation = ((step8_wfh_zscore < -3 || step8_muac < 115 && step8_rutf_feed.contains("finished_rutf"))? 1 : 0)'
 ---
 name: step8_mam
 description: Calculated field for when child is suffering from acute malnutrition
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = 0'
+  - 'calculation = ((step8_wfh_zscore >= -3 && step8_wfh_zscore < -2 || step8_muac >= 115 && step8_muac <= 125)? 1 : 0)'
 ---
 name: step8_no_acute_maln
 description: Calculated field for when the child is not sufferingfrom acute malnutrition
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = 0'
+  - 'calculation = ((step8_wfh_zscore >= -2 || step8_muac >= 125)? 1 : 0)'
 ---
 name: step9_severe_anaemia
 description: Calculated field for severe anaemia

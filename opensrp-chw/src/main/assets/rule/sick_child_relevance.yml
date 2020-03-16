@@ -727,6 +727,20 @@ condition: "step1_age_in_months >= 6"
 actions:
   - "isRelevant = true"
 ---
+name: step8_rutf_feed
+description: How the child fed on offered RUFT - for children over 6 months
+priority: 1
+condition: "step8_wfh_zscore < -3 || step8_muac < 115 && step1_age_in_months >= 6 && step8_medical_complications == 0"
+actions:
+  - "isRelevant = true"
+---
+name: step8_breastfeeding_prob
+description: Whether child is able ot not to breastfeed
+priority: 1
+condition: "step8_wfh_zscore < -3 || step8_muac < 115 && step1_age_in_months < 6 && step8_medical_complications == 0"
+actions:
+  - "isRelevant = true"
+---
 name: step8_complicated_sam_note
 description: Complicated severe acute malnutrition toaster
 priority: 1

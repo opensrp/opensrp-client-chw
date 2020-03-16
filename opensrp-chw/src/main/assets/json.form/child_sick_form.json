@@ -3866,7 +3866,7 @@
         }
       },
       {
-        "key": "ruft_feed",
+        "key": "rutf_feed",
         "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "ruft_feed",
@@ -3891,6 +3891,13 @@
         "v_required": {
           "value": "true",
           "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -3919,6 +3926,13 @@
         "v_required": {
           "value": "true",
           "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
         }
       },
       {
