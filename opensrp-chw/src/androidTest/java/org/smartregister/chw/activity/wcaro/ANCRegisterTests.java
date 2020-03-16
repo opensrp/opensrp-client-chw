@@ -125,8 +125,8 @@ public class ANCRegisterTests {
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Jkk Fgh"))
                 .perform(click());
         Thread.sleep(500);
-        utils.ancFloatingfab()
-                .perform(click());
+        //utils.ancFloatingfab()
+                //.perform(click());
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Call"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }

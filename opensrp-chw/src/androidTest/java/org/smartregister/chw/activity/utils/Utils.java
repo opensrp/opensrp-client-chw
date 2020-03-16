@@ -184,15 +184,15 @@ public class Utils  {
                                 1),
                         isDisplayed())).perform(click());
     }
-    public ViewInteraction ancFloatingfab()  {
+    public ViewInteraction floatingButton()  {
         ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.anc_fab),
+                allOf(withId(R.id.btn_repeating_group_done),
                         childAtPosition(
-                                allOf(withId(R.id.activity_main),
+                                allOf(withId(R.id.reference_layout),
                                         childAtPosition(
-                                                withClassName(is("org.smartregister.chw.custom_view.AncFloatingMenu")),
+                                                withClassName(is("android.widget.LinearLayout")),
                                                 0)),
-                                0),
+                                1),
                         isDisplayed()));
         return floatingActionButton;
     }
