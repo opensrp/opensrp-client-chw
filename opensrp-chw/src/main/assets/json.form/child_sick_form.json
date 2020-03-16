@@ -3840,8 +3840,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Weight-for-height (WFH) z-score is: ",
-        "toaster_info_text": "Weight-for-height (WFH) z-score is: ",
+        "text": "Weight-for-height (WFH) z-score is: \n {wfh_zscore}",
+        "toaster_info_text": "Weight-for-height (WFH) z-score is: \n {wfh_zscore}",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
