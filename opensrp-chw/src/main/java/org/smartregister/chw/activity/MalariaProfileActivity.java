@@ -12,28 +12,44 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.Gson;
+
 import org.apache.commons.lang3.StringUtils;
+import org.jeasy.rules.api.Rules;
+import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.MalariaProfileContract;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreMalariaProfileActivity;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.CoreMalariaFloatingMenu;
+import org.smartregister.chw.core.dao.AncDao;
+import org.smartregister.chw.core.dao.PNCDao;
+import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.MalariaFollowUpRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
+import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.core.utils.MalariaVisitUtil;
+import org.smartregister.chw.core.utils.VisitSummary;
 import org.smartregister.chw.custom_view.MalariaFloatingMenu;
 import org.smartregister.chw.interactor.MalariaProfileInteractor;
 import org.smartregister.chw.malaria.dao.MalariaDao;
+import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -47,12 +63,15 @@ import java.util.List;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.anc.AncLibrary.getInstance;
 import static org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID;
 
 public class MalariaProfileActivity extends CoreMalariaProfileActivity implements MalariaProfileContract.View {
 
     private static String baseEntityId;
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private static final String ANC = "anc";
+    private static final String PNC = "pnc";
 
     private FormUtils formUtils;
 
@@ -210,6 +229,40 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
         int id = view.getId();
         if (id == R.id.textview_record_malaria) {
             MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, memberObject.getBaseEntityId());
+        } else if (id == org.smartregister.malaria.R.id.textview_record_anc) {
+            if (view.getTag() == ANC) {
+                AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
+            } else if (view.getTag() == PNC) {
+                PncHomeVisitActivity.startMe(this, PNCDao.getMember(memberObject.getBaseEntityId()), false);
+            }
+        } else if (id == org.smartregister.malaria.R.id.textview_record_anc_not_done) {
+            saveVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
+            textViewRecordAncNotDone.setVisibility(View.GONE);
+            textViewRecordAnc.setVisibility(View.GONE);
+            visitStatus.setVisibility(View.VISIBLE);
+        } else if (id == org.smartregister.malaria.R.id.textview_undo) {
+            textViewRecordAnc.setVisibility(View.VISIBLE);
+            textViewRecordAncNotDone.setVisibility(View.VISIBLE);
+            visitStatus.setVisibility(View.GONE);
+            saveVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO);
+
+        } else if (id == org.smartregister.malaria.R.id.textview_edit) {
+            if (view.getTag() == "EDIT_PNC") {
+                PncHomeVisitActivity.startMe(this, PNCDao.getMember(memberObject.getBaseEntityId()), true);
+            } else if (view.getTag() == "EDIT_ANC") {
+                AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
+            }
+        }
+    }
+
+    private void saveVisit(String eventType) {
+        try {
+            Event event = org.smartregister.chw.anc.util.JsonFormUtils.createUntaggedEvent(memberObject.getBaseEntityId(), eventType, org.smartregister.chw.anc.util.Constants.TABLES.ANC_MEMBERS);
+            Visit visit = NCUtils.eventToVisit(event, org.smartregister.chw.anc.util.JsonFormUtils.generateRandomUUIDString());
+            visit.setPreProcessedJson(new Gson().toJson(event));
+            getInstance().visitRepository().addVisit(visit);
+        } catch (JSONException e) {
+            Timber.e(e);
         }
     }
 
@@ -296,7 +349,6 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
     @Override
     public void openFamilyDueServices() {
         Intent intent = new Intent(this, FamilyProfileActivity.class);
-
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, memberObject.getFamilyBaseEntityId());
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, memberObject.getFamilyHead());
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, memberObject.getPrimaryCareGiver());
@@ -370,6 +422,71 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
         @Override
         protected void onPostExecute(Void param) {
             profilePresenter.recordMalariaButton(malariaFollowUpRule.getButtonStatus());
+        }
+    }
+
+    public Visit getVisit(String eventType) {
+        return AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), eventType);
+    }
+
+    protected boolean ancHomeVisitNotDoneEvent(Visit visit) {
+        return visit != null && (new DateTime(visit.getDate()).getMonthOfYear() == new DateTime().getMonthOfYear())
+                && (new DateTime(visit.getDate()).getYear() == new DateTime().getYear());
+    }
+
+    @Override
+    public void recordAnc(MemberObject memberObject) {
+        if (AncDao.isANCMember(memberObject.getBaseEntityId())) {
+            Visit lastAncHomeVisitNotDoneEvent = getVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
+            Visit lastAncHomeVisitNotDoneUndoEvent = getVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO);
+            org.smartregister.chw.anc.domain.MemberObject ancMemberObject = AncDao.getMember(memberObject.getBaseEntityId());
+            Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.ANC_HOME_VISIT);
+
+            VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, ancMemberObject.getLastContactVisit(), null, new DateTime(ancMemberObject.getDateCreated()).toLocalDate());
+            String visitSummaryStatus = visitSummary.getVisitStatus();
+
+            if (visitSummaryStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) ||
+                    visitSummaryStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
+                textViewRecordAnc.setVisibility(View.VISIBLE);
+                textViewRecordAnc.setTag(ANC);
+
+                textViewRecordAncNotDone.setVisibility(View.VISIBLE);
+            }
+
+            if (visitSummaryStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE)) {
+                textViewRecordAnc.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_selector_overdue);
+            }
+
+            if (lastAncHomeVisitNotDoneUndoEvent != null && lastAncHomeVisitNotDoneEvent != null
+                    && lastAncHomeVisitNotDoneUndoEvent.getDate().before(lastAncHomeVisitNotDoneEvent.getDate())
+                    && ancHomeVisitNotDoneEvent(lastAncHomeVisitNotDoneEvent)) {
+                textViewRecordAncNotDone.setVisibility(View.GONE);
+                textViewRecordAnc.setVisibility(View.GONE);
+                visitStatus.setVisibility(View.VISIBLE);
+            } else if (lastAncHomeVisitNotDoneUndoEvent == null && ancHomeVisitNotDoneEvent(lastAncHomeVisitNotDoneEvent)) {
+                textViewRecordAncNotDone.setVisibility(View.GONE);
+                textViewRecordAnc.setVisibility(View.GONE);
+                visitStatus.setVisibility(View.VISIBLE);
+            }
+
+            //when visit is done
+            Visit visit = getVisit(CoreConstants.EventType.ANC_HOME_VISIT);
+            if (visit != null) {
+                textViewRecordAncNotDone.setVisibility(View.GONE);
+                textViewRecordAnc.setVisibility(View.GONE);
+
+                visitDone.setVisibility(View.VISIBLE);
+                textViewVisitDone.setTextColor(getResources().getColor(R.color.alert_complete_green));
+                visitStatus.setVisibility(View.GONE);
+
+                if (VisitUtils.isVisitWithin24Hours(visit)) {
+                    textViewVisitDoneEdit.setTag("EDIT_ANC");
+                    textViewVisitDoneEdit.setVisibility(View.VISIBLE);
+                } else {
+                    textViewVisitDoneEdit.setVisibility(View.GONE);
+                }
+
+            }
         }
     }
 }
