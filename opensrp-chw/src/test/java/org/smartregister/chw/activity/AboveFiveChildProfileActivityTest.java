@@ -22,6 +22,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = ChwApplication.class, sdk = 22)
 public class AboveFiveChildProfileActivityTest extends BaseActivityTest<AboveFiveChildProfileActivity> {
+
     @Mock
     private RelativeLayout layoutLastVisitRow;
     @Mock

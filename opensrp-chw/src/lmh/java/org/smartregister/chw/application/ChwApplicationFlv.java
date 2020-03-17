@@ -25,4 +25,20 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean hasRoutineVisit() {
         return false;
     }
+
+    @Override
+    public boolean hasPinLogin() {
+        return true;
+    }
+
+    @Override
+    public boolean hasReports() {
+        return true;
+    }
+
+    @Override
+    public boolean hasJobAids() {
+        return false;
+    }
+
 }

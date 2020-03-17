@@ -2,6 +2,7 @@ package org.smartregister.chw.interactor;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.contract.LoginJobScheduler;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
@@ -15,13 +16,21 @@ import org.smartregister.job.SyncLocationsByLevelAndTagsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.login.interactor.BaseLoginInteractor;
-import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 import org.smartregister.view.contract.BaseLoginContract;
 
 import java.util.concurrent.TimeUnit;
 
 
+/***
+ * @author rkodev
+ */
 public class LoginInteractor extends BaseLoginInteractor implements BaseLoginContract.Interactor {
+
+    /**
+     * add all schedule jobs to the schedule instance to enable
+     * job start at pin login
+     */
+    private LoginJobScheduler scheduler = new LoginJobSchedulerProvider();
 
     public LoginInteractor(BaseLoginContract.Presenter loginPresenter) {
         super(loginPresenter);
@@ -52,7 +61,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
         if (ChwApplication.getApplicationFlavor().hasServiceReport())
             ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
-
+        scheduler.scheduleJobsPeriodically();
     }
 
     @Override
@@ -70,5 +79,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         SyncLocationsByLevelAndTagsServiceJob.scheduleJobImmediately(SyncLocationsByLevelAndTagsServiceJob.TAG);
         if (ChwApplication.getApplicationFlavor().hasServiceReport())
             ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
+        scheduler.scheduleJobsImmediately();
     }
 }
