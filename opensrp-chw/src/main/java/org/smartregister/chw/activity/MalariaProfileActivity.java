@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -35,6 +36,7 @@ import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.MalariaFollowUpRule;
+import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
@@ -46,6 +48,7 @@ import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
@@ -57,9 +60,11 @@ import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.util.FormUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -488,5 +493,82 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
 
             }
         }
+    }
+
+    private Date getLastVisitDate(String baseId) {
+        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseId, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
+        if (lastVisit != null) {
+            return lastVisit.getDate();
+        } else {
+            return getDeliveryDate(baseId);
+        }
+    }
+
+    private Date getDeliveryDate(String baseId) {
+        Date deliveryDate = null;
+        try {
+            String deliveryDateString = PncLibrary.getInstance().profileRepository().getDeliveryDate(baseId);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            deliveryDate = sdf.parse(deliveryDateString);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return deliveryDate;
+    }
+
+    @Override
+    public void recordPnc(MemberObject memberObject) {
+        if (PNCDao.isPNCMember(memberObject.getBaseEntityId())) {
+            org.smartregister.chw.anc.domain.MemberObject ancMemberObject = AncDao.getMember(memberObject.getBaseEntityId());
+
+            Rules rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.PNC_HOME_VISIT);
+
+            PncVisitAlertRule pncVisitAlertRule = HomeVisitUtil.getPncVisitStatus(rules, getLastVisitDate(ancMemberObject.getBaseEntityId()), getDeliveryDate(ancMemberObject.getBaseEntityId()));
+
+            DateTime lastVisitDate = getPncLastVisitDate(memberObject.getBaseEntityId());
+            if (lastVisitDate != null) {
+                int numOfDays = Days.daysBetween(lastVisitDate.toLocalDate(), new DateTime().toLocalDate()).getDays();
+                if (numOfDays <= 1) {
+                    visitDone.setVisibility(View.VISIBLE);
+                    textViewVisitDoneEdit.setTag("EDIT_PNC");
+                    textViewVisitDone.setTextColor(getResources().getColor(R.color.alert_complete_green));
+                    textViewRecordAnc.setVisibility(View.GONE);
+                } else {
+                    setPncViews(pncVisitAlertRule);
+                }
+            } else {
+                setPncViews(pncVisitAlertRule);
+            }
+        }
+    }
+
+    private void setPncViews(PncVisitAlertRule pncVisitAlertRule) {
+        visitDone.setVisibility(View.GONE);
+
+        if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("DUE") || pncVisitAlertRule.getButtonStatus().toUpperCase().equals("OVERDUE")) {
+            textViewRecordAnc.setText(R.string.record_pnc_visit);
+            textViewRecordAnc.setTag(PNC);
+            textViewRecordAnc.setVisibility(View.VISIBLE);
+        }
+
+        if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("OVERDUE")) {
+            textViewRecordAnc.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_selector_overdue);
+
+        }
+
+        if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("VISIT_DONE")) {
+            visitDone.setVisibility(View.VISIBLE);
+            textViewVisitDoneEdit.setVisibility(View.GONE);
+            textViewVisitDone.setTextColor(getResources().getColor(R.color.alert_complete_green));
+        }
+    }
+
+    protected DateTime getPncLastVisitDate(String motherBaseID) {
+
+        Long lastVisitDate = PncLibrary.getInstance().profileRepository().getLastVisit(motherBaseID);
+        if (lastVisitDate != null) {
+            return new DateTime(lastVisitDate);
+        }
+        return null;
     }
 }
