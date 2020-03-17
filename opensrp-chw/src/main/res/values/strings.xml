@@ -337,5 +337,15 @@
     <string name="routine_household_visit">Routine Household Visit</string>
     <string name="sick_visits">Sick Visits</string>
     <string name="sick_visit">Sick Visit</string>
+    <string name="reports">Reports</string>
+
+    <string name="eligible_children">Eligible Children</string>
+    <string name="doses_needed">Doses Needed</string>
+    <string name="community_activity">My Community Activity</string>
+
+    <string name="forgot_pin">Forgot pin?</string>
+    <string name="use_your_password"> Use your password?</string>
+    <string name="enter_pin_for_user">Enter pin for %s</string>
+    <string name="use_4_digit_pin_number_promt">You can use a 4 digit pin number to make logging in faster</string>
 
 </resources>

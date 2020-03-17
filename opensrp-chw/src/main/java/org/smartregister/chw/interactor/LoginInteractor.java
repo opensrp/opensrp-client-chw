@@ -1,6 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.contract.LoginJobScheduler;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.StockUsageReportJob;
@@ -20,7 +21,16 @@ import org.smartregister.view.contract.BaseLoginContract;
 import java.util.concurrent.TimeUnit;
 
 
+/***
+ * @author rkodev
+ */
 public class LoginInteractor extends BaseLoginInteractor implements BaseLoginContract.Interactor {
+
+    /**
+     * add all schedule jobs to the schedule instance to enable
+     * job start at pin login
+     */
+    private LoginJobScheduler scheduler = new LoginJobSchedulerProvider();
 
     public LoginInteractor(BaseLoginContract.Presenter loginPresenter) {
         super(loginPresenter);
@@ -50,7 +60,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         ScheduleJob.scheduleJob(ScheduleJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.SCHEDULE_SERVICE_MINUTES), getFlexValue(BuildConfig.SCHEDULE_SERVICE_MINUTES));
 
         StockUsageReportJob.scheduleJob(StockUsageReportJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.STOCK_USAGE_REPORT_MINUTES), getFlexValue(BuildConfig.STOCK_USAGE_REPORT_MINUTES));
-
+        scheduler.scheduleJobsPeriodically();
     }
 
     @Override
@@ -67,5 +77,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         SyncLocationsByLevelAndTagsServiceJob.scheduleJobImmediately(SyncLocationsByLevelAndTagsServiceJob.TAG);
         StockUsageReportJob.scheduleJobImmediately(StockUsageReportJob.TAG);
+        scheduler.scheduleJobsImmediately();
     }
 }

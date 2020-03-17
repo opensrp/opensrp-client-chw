@@ -41,9 +41,6 @@
             android:name=".activity.AncMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".core.activity.BaseChildMedicalHistory"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
             android:name=".activity.AncHomeVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -203,6 +200,17 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".core.activity.CoreStockInventoryItemDetailsReportActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.ReportsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.FragmentBaseActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.PinLoginActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
