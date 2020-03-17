@@ -1147,6 +1147,14 @@
           }
         },
         {
+          "column_name": "delivery_home",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
           "column_name": "last_visit_date",
           "type": "Event",
           "data_type": "date",

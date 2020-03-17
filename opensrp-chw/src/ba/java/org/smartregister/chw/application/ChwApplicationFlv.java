@@ -40,4 +40,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean hasMalaria() {
         return true;
     }
+
+    @Override
+    public boolean hasServiceReport() {
+        return true;
+    }
 }

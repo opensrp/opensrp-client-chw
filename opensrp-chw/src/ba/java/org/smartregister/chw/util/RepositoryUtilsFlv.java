@@ -26,4 +26,8 @@ public interface RepositoryUtilsFlv {
             "ALTER TABLE ec_child ADD COLUMN insurance_provider_other VARCHAR;",
             "ALTER TABLE ec_child ADD COLUMN type_of_disability VARCHAR;"
     };
+
+    String[] UPGRADE_V14 = {
+            "ALTER TABLE ec_pregnancy_outcome ADD COLUMN delivery_home VARCHAR;"
+    };
 }

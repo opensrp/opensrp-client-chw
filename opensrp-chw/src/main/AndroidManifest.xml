@@ -197,6 +197,15 @@
         <activity
             android:name=".activity.SickFormMedicalHistory"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.HIA2ReportsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.ReportSummaryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.ServiceJsonFormActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

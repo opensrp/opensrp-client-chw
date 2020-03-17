@@ -19,4 +19,14 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
         return tableMap;
     }
 
+    @Override
+    public boolean stockReport() {
+        return true;
+    }
+
+    @Override
+    public boolean serviceReport() {
+        return true;
+    }
+
 }

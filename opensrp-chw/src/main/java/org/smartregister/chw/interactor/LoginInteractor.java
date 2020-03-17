@@ -1,6 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
@@ -14,6 +15,7 @@ import org.smartregister.job.SyncLocationsByLevelAndTagsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.login.interactor.BaseLoginInteractor;
+import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 import org.smartregister.view.contract.BaseLoginContract;
 
 import java.util.concurrent.TimeUnit;
@@ -48,6 +50,9 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
         ScheduleJob.scheduleJob(ScheduleJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.SCHEDULE_SERVICE_MINUTES), getFlexValue(BuildConfig.SCHEDULE_SERVICE_MINUTES));
 
+        if (ChwApplication.getApplicationFlavor().hasServiceReport())
+            ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
+
     }
 
     @Override
@@ -63,5 +68,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         SyncLocationsByLevelAndTagsServiceJob.scheduleJobImmediately(SyncLocationsByLevelAndTagsServiceJob.TAG);
+        if (ChwApplication.getApplicationFlavor().hasServiceReport())
+            ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
     }
 }

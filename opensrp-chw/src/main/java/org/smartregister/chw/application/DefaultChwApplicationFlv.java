@@ -45,4 +45,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean hasRoutineVisit() {
         return false;
     }
+
+    @Override
+    public boolean hasServiceReport() {
+        return false;
+    }
 }
