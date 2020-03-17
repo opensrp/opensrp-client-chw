@@ -780,7 +780,6 @@
             "concept": "relational_id"
           }
         },
-
         {
           "column_name": "fever_malaria_chw",
           "type": "Event",
