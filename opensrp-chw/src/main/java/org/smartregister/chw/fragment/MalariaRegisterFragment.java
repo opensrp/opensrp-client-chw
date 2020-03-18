@@ -7,7 +7,6 @@ import org.smartregister.chw.activity.MalariaProfileActivity;
 import org.smartregister.chw.core.fragment.CoreMalariaRegisterFragment;
 import org.smartregister.chw.core.model.CoreMalariaRegisterFragmentModel;
 import org.smartregister.chw.presenter.MalariaRegisterFragmentPresenter;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
 public class MalariaRegisterFragment extends CoreMalariaRegisterFragment {

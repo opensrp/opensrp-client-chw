@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -33,12 +32,10 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.CoreMalariaFloatingMenu;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.PNCDao;
-import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.MalariaFollowUpRule;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.core.utils.MalariaVisitUtil;
 import org.smartregister.chw.core.utils.VisitSummary;
@@ -57,7 +54,6 @@ import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
-import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.util.FormUtils;
 
 import java.text.SimpleDateFormat;
@@ -87,11 +83,11 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
         activity.startActivity(intent);
     }
 
-    public List<ReferralTypeModel> getReferralTypeModels() {
+    private List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
     }
 
-    public FormUtils getFormUtils() throws Exception {
+    private FormUtils getFormUtils() throws Exception {
         if (formUtils == null){
             formUtils = FormUtils.getInstance(ChwApplication.getInstance());
         }
@@ -152,26 +148,6 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) return;
-        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-        try {
-            JSONObject form = new JSONObject(jsonString);
-            if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON) {
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.MALARIA_REFERRAL)) {
-                    CoreReferralUtils.createReferralEvent(Utils.getAllSharedPreferences(), jsonString, CoreConstants.TABLE_NAME.MALARIA_REFERRAL, baseEntityId);
-                    showToast(this.getString(R.string.referral_submitted));
-                }
-            }
-        }catch (JSONException jsonFormException){
-            Timber.e(jsonFormException);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -181,7 +157,6 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
                 startFormForEdit(R.string.registration_info,
                         org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER);
                 return true;
-
             case R.id.action_remove_member:
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(MalariaProfileActivity.this, getClientDetailsByBaseEntityID(memberObject.getBaseEntityId()), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), MalariaRegisterActivity.class.getCanonicalName());
                 return true;
@@ -211,24 +186,6 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
     }
 
     @Override
-    public void setProfileName(@NonNull String s) {
-        TextView textView = findViewById(org.smartregister.malaria.R.id.textview_name);
-        textView.setText(s);
-    }
-
-    @Override
-    public void setProfileDetailOne(@NonNull String s) {
-        TextView textView = findViewById(org.smartregister.malaria.R.id.textview_gender);
-        textView.setText(s);
-    }
-
-    @Override
-    public void setProfileDetailTwo(@NonNull String s) {
-        TextView textView = findViewById(org.smartregister.malaria.R.id.textview_address);
-        textView.setText(s);
-    }
-
-    @Override
     public void onClick(View view) {
         super.onClick(view);
         int id = view.getId();
@@ -241,16 +198,13 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
                 PncHomeVisitActivity.startMe(this, PNCDao.getMember(memberObject.getBaseEntityId()), false);
             }
         } else if (id == org.smartregister.malaria.R.id.textview_record_anc_not_done) {
-            saveVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
-            textViewRecordAncNotDone.setVisibility(View.GONE);
-            textViewRecordAnc.setVisibility(View.GONE);
-            visitStatus.setVisibility(View.VISIBLE);
+            saveAncVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
+            setAncVisitViewHidden();
         } else if (id == org.smartregister.malaria.R.id.textview_undo) {
             textViewRecordAnc.setVisibility(View.VISIBLE);
             textViewRecordAncNotDone.setVisibility(View.VISIBLE);
             visitStatus.setVisibility(View.GONE);
-            saveVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO);
-
+            saveAncVisit(org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO);
         } else if (id == org.smartregister.malaria.R.id.textview_edit) {
             if (view.getTag() == "EDIT_PNC") {
                 PncHomeVisitActivity.startMe(this, PNCDao.getMember(memberObject.getBaseEntityId()), true);
@@ -260,7 +214,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
         }
     }
 
-    private void saveVisit(String eventType) {
+    private void saveAncVisit(String eventType) {
         try {
             Event event = org.smartregister.chw.anc.util.JsonFormUtils.createUntaggedEvent(memberObject.getBaseEntityId(), eventType, org.smartregister.chw.anc.util.Constants.TABLES.ANC_MEMBERS);
             Visit visit = NCUtils.eventToVisit(event, org.smartregister.chw.anc.util.JsonFormUtils.generateRandomUUIDString());
@@ -286,6 +240,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
         //implement
     }
 
+    @Override
     public void startFormForEdit(Integer title_resource, String formName) {
 
         JSONObject form = null;
@@ -312,18 +267,11 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
 
     private static CommonPersonObjectClient getClientDetailsByBaseEntityID(@NonNull String baseEntityId) {
         CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
-
-        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
-        final CommonPersonObjectClient client =
+        CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
+        CommonPersonObjectClient client =
                 new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
         client.setColumnmaps(commonPersonObject.getColumnmaps());
         return client;
-
-    }
-
-    private void startFormActivity(JSONObject jsonForm) {
-        Intent intent = org.smartregister.chw.core.utils.Utils.formActivityIntent(this, jsonForm.toString());
-        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @Override
@@ -430,11 +378,11 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
         }
     }
 
-    public Visit getVisit(String eventType) {
+    private Visit getVisit(String eventType) {
         return AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), eventType);
     }
 
-    protected boolean ancHomeVisitNotDoneEvent(Visit visit) {
+    private boolean ancHomeVisitNotDoneEvent(Visit visit) {
         return visit != null && (new DateTime(visit.getDate()).getMonthOfYear() == new DateTime().getMonthOfYear())
                 && (new DateTime(visit.getDate()).getYear() == new DateTime().getYear());
     }
@@ -451,48 +399,41 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
             String visitSummaryStatus = visitSummary.getVisitStatus();
 
             if (visitSummaryStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE) ||
-                    visitSummaryStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
+                    visitSummaryStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE)) {
                 textViewRecordAnc.setVisibility(View.VISIBLE);
                 textViewRecordAnc.setTag(ANC);
-
                 textViewRecordAncNotDone.setVisibility(View.VISIBLE);
-            }
-
-            if (visitSummaryStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE)) {
-                textViewRecordAnc.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_selector_overdue);
+                if (visitSummaryStatus.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE)) {
+                    textViewRecordAnc.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_selector_overdue);
+                }
             }
 
             if (lastAncHomeVisitNotDoneUndoEvent != null && lastAncHomeVisitNotDoneEvent != null
                     && lastAncHomeVisitNotDoneUndoEvent.getDate().before(lastAncHomeVisitNotDoneEvent.getDate())
                     && ancHomeVisitNotDoneEvent(lastAncHomeVisitNotDoneEvent)) {
-                textViewRecordAncNotDone.setVisibility(View.GONE);
-                textViewRecordAnc.setVisibility(View.GONE);
-                visitStatus.setVisibility(View.VISIBLE);
+                setAncVisitViewHidden();
             } else if (lastAncHomeVisitNotDoneUndoEvent == null && ancHomeVisitNotDoneEvent(lastAncHomeVisitNotDoneEvent)) {
-                textViewRecordAncNotDone.setVisibility(View.GONE);
-                textViewRecordAnc.setVisibility(View.GONE);
-                visitStatus.setVisibility(View.VISIBLE);
+                setAncVisitViewHidden();
             }
-
-            //when visit is done
+//            when visit is done
             Visit visit = getVisit(CoreConstants.EventType.ANC_HOME_VISIT);
             if (visit != null) {
-                textViewRecordAncNotDone.setVisibility(View.GONE);
-                textViewRecordAnc.setVisibility(View.GONE);
-
+                setAncVisitViewHidden();
                 visitDone.setVisibility(View.VISIBLE);
-                textViewVisitDone.setTextColor(getResources().getColor(R.color.alert_complete_green));
-                visitStatus.setVisibility(View.GONE);
-
                 if (VisitUtils.isVisitWithin24Hours(visit)) {
                     textViewVisitDoneEdit.setTag("EDIT_ANC");
                     textViewVisitDoneEdit.setVisibility(View.VISIBLE);
                 } else {
                     textViewVisitDoneEdit.setVisibility(View.GONE);
                 }
-
             }
         }
+    }
+
+    private void setAncVisitViewHidden() {
+        textViewRecordAncNotDone.setVisibility(View.GONE);
+        textViewRecordAnc.setVisibility(View.GONE);
+        visitStatus.setVisibility(View.VISIBLE);
     }
 
     private Date getLastVisitDate(String baseId) {
@@ -531,7 +472,6 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
                 if (numOfDays <= 1) {
                     visitDone.setVisibility(View.VISIBLE);
                     textViewVisitDoneEdit.setTag("EDIT_PNC");
-                    textViewVisitDone.setTextColor(getResources().getColor(R.color.alert_complete_green));
                     textViewRecordAnc.setVisibility(View.GONE);
                 } else {
                     setPncViews(pncVisitAlertRule);
@@ -547,24 +487,32 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
 
         if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("DUE") || pncVisitAlertRule.getButtonStatus().toUpperCase().equals("OVERDUE")) {
             textViewRecordAnc.setText(R.string.record_pnc_visit);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            int topBottomMargin = getMarginPixel(10);
+            int rightLeftMargin = getMarginPixel(30);
+
+            layoutParams.setMargins(rightLeftMargin, topBottomMargin, rightLeftMargin, topBottomMargin);
+            textViewRecordAnc.setLayoutParams(layoutParams);
             textViewRecordAnc.setTag(PNC);
             textViewRecordAnc.setVisibility(View.VISIBLE);
         }
 
         if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("OVERDUE")) {
             textViewRecordAnc.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_selector_overdue);
-
         }
 
         if (pncVisitAlertRule.getButtonStatus().toUpperCase().equals("VISIT_DONE")) {
             visitDone.setVisibility(View.VISIBLE);
             textViewVisitDoneEdit.setVisibility(View.GONE);
-            textViewVisitDone.setTextColor(getResources().getColor(R.color.alert_complete_green));
         }
     }
 
-    protected DateTime getPncLastVisitDate(String motherBaseID) {
+    private int getMarginPixel(int dp) {
+        final float scale = context().applicationContext().getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
+    }
 
+    private DateTime getPncLastVisitDate(String motherBaseID) {
         Long lastVisitDate = PncLibrary.getInstance().profileRepository().getLastVisit(motherBaseID);
         if (lastVisitDate != null) {
             return new DateTime(lastVisitDate);
