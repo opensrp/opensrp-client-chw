@@ -266,7 +266,7 @@ condition: "step7_ear_problem.contains('yes')"
 actions:
   - 'calculation = ((step7_mastoiditis_infection == 0 && step7_acute_ear_infection == 0 && step7_chronic_ear_infection == 0)? 1 : 0)'
 ---
-name: step8_medical_complications
+name: step9_medical_complications
 description: Claculated field for when there are medical complications
 priority: 1
 condition: "true"
@@ -274,62 +274,62 @@ actions:
   - 'calculation = ((!step2_danger_signs.contains("None") || step4_severe_pneumonia == 1 || step4_pneumonia == 1 || step5_sev_dehydration == 1 ||
   step5_sev_persistent_diarrhoea == 1 || step6_vsf_disease == 1 || step6_vsf_disease2 == 1 || step6_complicated_measles == 1 || step7_mastoiditis_infection == 1)? 1 : 0)'
 ---
-name: step8_wfh_zscore
+name: step9_wfh_zscore
 description: Calculated field for the z-Scores
 priority: 1
 condition: "true"
 actions:
   - 'calculation = helper.getWFHZScore(step1_gender, step1_child_height, step1_child_weight)'
 ---
-name: step8_complicated_sam
+name: step9_complicated_sam
 description: Calculated field for when child is suffering from complicated severe acute malnutrition
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = (((step8_oedema == "yes" || step8_wfh_zscore < -3 || step8_muac < 115) && step8_medical_complications == 1
-      || ((step8_rutf_feed.contains("not_finished_rutf") || step8_breastfeeding_prob == "yes")))? 1 : 0)'
+  - 'calculation = (((step9_oedema == "yes" || step9_wfh_zscore < -3 || step9_muac < 115) && step9_medical_complications == 1
+      || ((step9_rutf_feed.contains("not_finished_rutf") || step9_breastfeeding_prob == "yes")))? 1 : 0)'
 ---
-name: step8_uncomplicated_sam
+name: step9_uncomplicated_sam
 description: Calculated field for when child is suffering from complicated severe acute malnutrition
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = (((step8_wfh_zscore < -3 || step8_muac < 115) && step8_rutf_feed.contains("finished_rutf"))? 1 : 0)'
+  - 'calculation = (((step9_wfh_zscore < -3 || step9_muac < 115) && step9_rutf_feed.contains("finished_rutf"))? 1 : 0)'
 ---
-name: step8_mam
+name: step9_mam
 description: Calculated field for when child is suffering from acute malnutrition
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = (((step8_wfh_zscore >= -3 && step8_wfh_zscore < -2) || (step8_muac >= 115 && step8_muac <= 125))? 1 : 0)'
+  - 'calculation = (((step9_wfh_zscore >= -3 && step9_wfh_zscore < -2) || (step9_muac >= 115 && step9_muac <= 125))? 1 : 0)'
 ---
-name: step8_no_acute_maln
+name: step9_no_acute_maln
 description: Calculated field for when the child is not sufferingfrom acute malnutrition
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = ((step8_wfh_zscore >= -2 || step8_muac >= 125)? 1 : 0)'
+  - 'calculation = ((step9_wfh_zscore >= -2 || step9_muac >= 125)? 1 : 0)'
 ---
-name: step9_severe_anaemia
+name: step8_severe_anaemia
 description: Calculated field for severe anaemia
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = (step9_palmar_pallor.contains("severe")? 1 : 0)'
+  - 'calculation = (step8_palmar_pallor.contains("severe")? 1 : 0)'
 ---
-name: step9_anaemia
+name: step8_anaemia
 description: Calculated field for anaemia
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = (step9_palmar_pallor.contains("some")? 1 : 0)'
+  - 'calculation = (step8_palmar_pallor.contains("some")? 1 : 0)'
 ---
-name: step9_no_anaemia
+name: step8_no_anaemia
 description: Calculated field for no anaemia
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = (step9_palmar_pallor.contains("no_pallor")? 1 : 0)'
+  - 'calculation = (step8_palmar_pallor.contains("no_pallor")? 1 : 0)'
 ---
 name: step10_confirmed_hiv
 description: Calculated field for when the child has confirmed HIV infection
