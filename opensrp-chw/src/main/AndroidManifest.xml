@@ -205,6 +205,9 @@
         <activity
             android:name=".activity.PinLoginActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AllClientsRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
