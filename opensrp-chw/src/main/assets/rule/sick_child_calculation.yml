@@ -4,7 +4,7 @@ priority: 1
 condition: "step3_main_symptoms.contains('difficult_breathing')"
 actions:
   - 'calculation = (((step1_age_in_months >= 2 && step1_age_in_months < 12 && step4_breaths_minute >= 50) ||
-  (step1_age_in_months >= 12 && step1_age_in_months < 60 && step4_breaths_minute >= 40)) ? 1 : 0)'
+  (step1_age_in_months >= 12 && step1_age_in_months < 60 && step4_breaths_minute >= 40))? 1 : 0)'
 ---
 name: step4_fast_breathing2
 description: Calculated field for diagnosis of fast breathing.
@@ -12,7 +12,7 @@ priority: 1
 condition: "step3_main_symptoms.contains('difficult_breathing')"
 actions:
   - 'calculation = (((step1_age_in_months >= 2 && step1_age_in_months < 12 && step4_breaths_minute2 >= 50) ||
-  (step1_age_in_months >= 12 && step1_age_in_months < 60 && step4_breaths_minute2 >= 40)) ? 1 : 0)'
+  (step1_age_in_months >= 12 && step1_age_in_months < 60 && step4_breaths_minute2 >= 40))? 1 : 0)'
 ---
 name: step4_fast_breathing_final
 description: Fast breathing final calculation
@@ -272,7 +272,7 @@ priority: 1
 condition: "true"
 actions:
   - 'calculation = ((!step2_danger_signs.contains("None") || step4_severe_pneumonia == 1 || step4_pneumonia == 1 || step5_sev_dehydration == 1 ||
-  step5_sev_persistent_diarrhoea == 1 || step6_vsf_disease == 1 || step6_vsf_disease2 == 1 || step6_complicated_measles == 1 || step7_mastoiditis_infection == 1 || step9_severe_anaemia == 1)? 1 : 0)'
+  step5_sev_persistent_diarrhoea == 1 || step6_vsf_disease == 1 || step6_vsf_disease2 == 1 || step6_complicated_measles == 1 || step7_mastoiditis_infection == 1)? 1 : 0)'
 ---
 name: step8_wfh_zscore
 description: Calculated field for the z-Scores
@@ -286,22 +286,22 @@ description: Calculated field for when child is suffering from complicated sever
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = ((step8_oedema == "yes" || step8_wfh_zscore < -3 || step8_muac < 115 && step8_medical_complications == 1
-      || step8_rutf_feed.contains("not_finished_rutf") || step8_breastfeeding_prob == "yes")? 1 : 0)'
+  - 'calculation = (((step8_oedema == "yes" || step8_wfh_zscore < -3 || step8_muac < 115) && step8_medical_complications == 1
+      || ((step8_rutf_feed.contains("not_finished_rutf") || step8_breastfeeding_prob == "yes")))? 1 : 0)'
 ---
 name: step8_uncomplicated_sam
 description: Calculated field for when child is suffering from complicated severe acute malnutrition
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = ((step8_wfh_zscore < -3 || step8_muac < 115 && step8_rutf_feed.contains("finished_rutf"))? 1 : 0)'
+  - 'calculation = (((step8_wfh_zscore < -3 || step8_muac < 115) && step8_rutf_feed.contains("finished_rutf"))? 1 : 0)'
 ---
 name: step8_mam
 description: Calculated field for when child is suffering from acute malnutrition
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = ((step8_wfh_zscore >= -3 && step8_wfh_zscore < -2 || step8_muac >= 115 && step8_muac <= 125)? 1 : 0)'
+  - 'calculation = (((step8_wfh_zscore >= -3 && step8_wfh_zscore < -2) || (step8_muac >= 115 && step8_muac <= 125))? 1 : 0)'
 ---
 name: step8_no_acute_maln
 description: Calculated field for when the child is not sufferingfrom acute malnutrition
@@ -336,19 +336,21 @@ description: Calculated field for when the child has confirmed HIV infection
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = ((step10_child_test_result.contains("v_pos") || step10_child_test_result.contains("s_pos") || step10_child_hiv_test2.contains("v_pos") || step10_child_hiv_test2.contains("s_pos") && step1_age_in_months >= 18)? 1 : 0)'
+  - 'calculation = ((step10_child_test_result.contains("v_pos") || step10_child_test_result.contains("s_pos") || step10_child_hiv_test2.contains("v_pos") || (step10_child_hiv_test2.contains("s_pos") && step1_age_in_months >= 18))? 1 : 0)'
 ---
 name: step10_child_hiv_exposed
 description: Calculated field for when the child is HIV exposed
 priority: 1
 condition: "true"
 actions:
-  - "calculation = (((step10_mother_test_result.contains('positive') && step10_child_test_result.contains('v_neg') || step10_child_hiv_test2.contains('v_neg')) && (step10_hiv_breastfeeding.contains('yes') || step10_hiv_breastfeeding_now.contains('yes')) ||
-  ((step10_mother_test_result.contains('positive') && step10_child_hiv_test.contains('no')) ||(step10_child_test_result.contains('s_pos') || step10_child_hiv_test2.contains.('s_pos') && step1_age_in_months >= 18)))? 1 : 0)"
+  - "calculation = ((((step10_mother_test_result.contains('positive') && (step10_child_test_result.contains('v_neg') || step10_child_hiv_test2.contains('v_neg'))) &&
+     (step10_hiv_breastfeeding.contains('yes') || step10_hiv_breastfeeding_now.contains('yes'))) ||
+       (step10_mother_test_result.contains('positive') && (step10_child_hiv_test.contains('no') || step10_child_test_result.contains('s_pos') || step10_child_hiv_test2.contains.('s_pos'))
+       && step1_age_in_months >= 18))? 1 : 0)"
 ---
 name: step10_hiv_unlikely
 description: Calculated field for when the child HIV infection is unlikely
 priority: 1
 condition: "true"
 actions:
-  - "calculation = ((step10_mother_test_result.contains('negative') ||  step10_child_test_result.contains('v_neg') || step10_child_hiv_test2.contains('v_neg') ||  step10_child_hiv_test2.contains('s_neg'))? 1 : 0)"
+  - "calculation = ((step10_mother_test_result.contains('negative') || step10_child_test_result.contains('v_neg') || step10_child_hiv_test2.contains('v_neg') || step10_child_hiv_test2.contains('s_neg'))? 1 : 0)"

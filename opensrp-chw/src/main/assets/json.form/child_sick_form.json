@@ -418,7 +418,8 @@
         "label": "Which of these difficult breathing symptoms does the child display?",
         "combine_checkbox_option_values": "true",
         "exclusive": [
-          "none"
+          "none",
+          "stridor"
         ],
         "options": [
           {
@@ -3842,14 +3843,7 @@
         "type": "toaster_notes",
         "text": "Weight-for-height (WFH) z-score is: \n {wfh_zscore}",
         "toaster_info_text": "Weight-for-height (WFH) z-score is: \n {wfh_zscore}",
-        "toaster_type": "info",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
+        "toaster_type": "info"
       },
       {
         "key": "medical_complications",
@@ -4063,10 +4057,10 @@
         "key": "acute_malnutrition_treatment_note",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "ACUTE MALNUTRITION TREATMENT\n",
         "type": "toaster_notes",
-        "text": "",
-        "toaster_info_text": "",
+        "text": "ACUTE MALNUTRITION TREATMENT",
+        "toaster_info_text": "ACUTE MALNUTRITION TREATMENT",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -4461,7 +4455,7 @@
         "type": "toaster_notes",
         "text": "Child has: NO ANAEMIA\n- No treatment required.",
         "toaster_info_text": "Child has: NO ANAEMIA\n- No treatment required.",
-        "toaster_type": "info",
+        "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

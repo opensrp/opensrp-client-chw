@@ -730,14 +730,14 @@ actions:
 name: step8_rutf_feed
 description: How the child fed on offered RUFT - for children over 6 months
 priority: 1
-condition: "step8_wfh_zscore < -3 || step8_muac < 115 && step1_age_in_months >= 6 && step8_medical_complications == 0"
+condition: "((step8_wfh_zscore < -3 || step8_muac < 115) && step1_age_in_months >= 6 && step8_medical_complications == 0)"
 actions:
   - "isRelevant = true"
 ---
 name: step8_breastfeeding_prob
 description: Whether child is able ot not to breastfeed
 priority: 1
-condition: "step8_wfh_zscore < -3 || step8_muac < 115 && step1_age_in_months < 6 && step8_medical_complications == 0"
+condition: "((step8_wfh_zscore < -3 || step8_muac < 115) && step1_age_in_months < 6 && step8_medical_complications == 0)"
 actions:
   - "isRelevant = true"
 ---
@@ -902,6 +902,13 @@ condition: "step10_child_hiv_care.contains('no')"
 actions:
   - "isRelevant = true"
 ---
+name: step10_child_test_result
+description: Has child had HIV test
+priority: 1
+condition: "step10_child_hiv_test.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
 name: step10_hiv_breastfeeding
 description: Whether child was breastfeeding at the time of test or 6 weeks prior
 priority: 1
@@ -912,7 +919,7 @@ actions:
 name: step10_hiv_breastfeeding_now
 description: Whether child is currently breastfeeding
 priority: 1
-condition: "(step10_mother_test_result.contains('positive') || step10_child_test_result.contains('v_neg') || step10_child_test_result.contains('s_neg')) && step10_child_hiv_test.contains('no')"
+condition: "step10_mother_test_result.contains('positive') || step10_child_test_result.contains('v_neg') || step10_child_test_result.contains('s_neg') || step10_child_hiv_test.contains('no')"
 actions:
   - "isRelevant = true"
 ---

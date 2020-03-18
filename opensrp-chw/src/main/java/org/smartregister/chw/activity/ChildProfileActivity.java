@@ -197,7 +197,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     }
 
     @Override
-    public void startFormActivity(JSONObject jsonForm) {
+        public void startFormActivity(JSONObject jsonForm) {
         startActivityForResult(flavor.getSickChildFormActivityIntent(jsonForm, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
