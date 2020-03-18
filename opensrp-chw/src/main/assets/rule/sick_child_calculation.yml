@@ -117,7 +117,7 @@ description: Some dehydration calculation
 priority: 1
 condition: "step5_diarrhoea.contains('yes')"
 actions:
-  - 'calculation = ((step5_some_dehydration_class > 2)? 1 : 0)'
+  - 'calculation = ((step5_some_dehydration_class > 2 && step5_sev_dehydration == 0)? 1 : 0)'
 ---
 name: step5_no_dehydration
 description: No dehydration calculation
