@@ -40,7 +40,7 @@ description: pneumonia calculation
 priority: 1
 condition: "step4_difficult_breathing.contains('yes')"
 actions:
-  - 'calculation = ((step4_fast_breathing_final == 1 || step4_chest_indrawing == 1)? 1 : 0)'
+  - 'calculation = (((step4_severe_pneumonia == 0 && step4_fast_breathing_final == 1) || step4_chest_indrawing == 1)? 1 : 0)'
 ---
 name: step4_cough_cold
 description: Cough cold calculation
