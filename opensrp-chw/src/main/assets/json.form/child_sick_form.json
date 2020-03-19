@@ -4156,7 +4156,14 @@
         "type": "toaster_notes",
         "text": "Weight-for-height (WFH) z-score is: \n {wfh_zscore}",
         "toaster_info_text": "Weight-for-height (WFH) z-score is: \n {wfh_zscore}",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "medical_complications",

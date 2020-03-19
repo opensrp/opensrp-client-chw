@@ -281,34 +281,42 @@ condition: "true"
 actions:
   - 'calculation = helper.getWFHZScore(step1_gender, step1_child_height, step1_child_weight)'
 ---
+name: step9_wfh_zscore_note
+description: Calculated field for the z-Scores
+priority: 1
+condition: "true"
+actions:
+  - "calculation = 'Weight-for-height (WFH) z-score is: ' + step9_wfh_zscore"
+---
 name: step9_complicated_sam
 description: Calculated field for when child is suffering from complicated severe acute malnutrition
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = (((step9_oedema == "yes" || step9_wfh_zscore < -3 || step9_muac < 115) && step9_medical_complications == 1
-      || ((step9_rutf_feed.contains("not_finished_rutf") || step9_breastfeeding_prob == "yes")))? 1 : 0)'
+  - 'calculation = (((step9_oedema == "yes" || step9_wfh_zscore < -3 || step9_muac < 115) && (step9_medical_complications == 1
+      || (step9_rutf_feed.contains("not_finished_rutf") || step9_breastfeeding_prob == "yes")))? 1 : 0)'
 ---
 name: step9_uncomplicated_sam
 description: Calculated field for when child is suffering from complicated severe acute malnutrition
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = (((step9_wfh_zscore < -3 || step9_muac < 115) && step9_rutf_feed.contains("finished_rutf"))? 1 : 0)'
+  - 'calculation = (((step9_wfh_zscore < -3 || step9_muac < 115) && step9_complicated_sam == 0)? 1 : 0)'
 ---
 name: step9_mam
 description: Calculated field for when child is suffering from acute malnutrition
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = (((step9_wfh_zscore >= -3 && step9_wfh_zscore < -2) || (step9_muac >= 115 && step9_muac <= 125))? 1 : 0)'
+  - 'calculation = ((((step9_wfh_zscore >= -3 && step9_wfh_zscore < -2) || (step9_muac >= 115 && step9_muac <= 125)) && step9_complicated_sam == 0
+  && step9_uncomplicated_sam == 0)? 1 : 0)'
 ---
 name: step9_no_acute_maln
 description: Calculated field for when the child is not sufferingfrom acute malnutrition
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = ((step9_wfh_zscore >= -2 || step9_muac >= 125)? 1 : 0)'
+  - 'calculation = (((step9_wfh_zscore >= -2 || step9_muac >= 125) && step9_complicated_sam == 0 && step9_uncomplicated_sam == 0 && step9_mam == 0)? 1 : 0)'
 ---
 name: step8_severe_anaemia
 description: Calculated field for severe anaemia
