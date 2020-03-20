@@ -565,9 +565,9 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         return "";
     }
 
-    public static JSONObject getJson(String formName, String baseEntityID) throws Exception {
+    public static JSONObject getJson(Context context, String formName, String baseEntityID) throws Exception {
         String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-        JSONObject jsonObject = org.smartregister.chw.anc.util.JsonFormUtils.getFormAsJson(formName);
+        JSONObject jsonObject = FormUtils.getInstance(context).getFormJson(formName);
         org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(jsonObject, baseEntityID, locationId);
         return jsonObject;
     }
