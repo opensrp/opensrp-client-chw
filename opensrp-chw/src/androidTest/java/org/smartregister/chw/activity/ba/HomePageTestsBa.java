@@ -1,27 +1,33 @@
 package org.smartregister.chw.activity.ba;
 
 import android.Manifest;
+import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.StringRes;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.assertion.ViewAssertions;
+import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import androidx.test.runner.lifecycle.Stage;
 
 import org.apache.commons.beanutils.IntrospectionContext;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.LoginActivity;
+import org.smartregister.chw.activity.utils.Configs;
 import org.smartregister.chw.activity.utils.Constants;
 import org.smartregister.chw.activity.utils.Order;
 import org.smartregister.chw.activity.utils.OrderedRunner;
@@ -34,6 +40,8 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 @RunWith(OrderedRunner.class)
 public class HomePageTestsBa {
@@ -53,7 +61,8 @@ public class HomePageTestsBa {
 
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
-    @Before
+
+
     public void setUp() throws InterruptedException {
         utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);
     }
@@ -61,8 +70,8 @@ public class HomePageTestsBa {
     @Order(order = 1)
     public void searchByName() throws InterruptedException{
         onView(ViewMatchers.withHint("Search name or ID"))
-                .perform(typeText(Constants.BoreshaAfyaConfigs.searchFamilyBa), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
+                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Thread.sleep(1000);
     }
@@ -85,24 +94,36 @@ public class HomePageTestsBa {
     }
 
 
-    @Test
-    public void confirmQrScanFunctionality() throws InterruptedException{
+
+    public void confirmQrScanFunctionality() throws Throwable {
         onView(withId(R.id.action_scan_qr))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Scan QR Code"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        Espresso.pressBack();
-        onView(withId(R.id.action_scan_qr))
-                .check(matches(isDisplayed()));
-        Thread.sleep(2000);
+        Activity activity = getCurrentActivity();
+        Assert.assertEquals("org.smartregister.view.activity.BarcodeScanActivity<org." +
+                "smartregister.view.activity.BarcodeScanActivity@85dfc8d>", activity);
+        //onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Scan QR Code"))
+                //.check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        //cmp=org.smartregister.chw.ba/org.smartregister.view.activity.BarcodeScanActivity
     }
 
     @After
-    public void tearDown() throws InterruptedException{
-        utils.openDrawer();
-        utils.logOutBA();
-    }
+    public void completeTests(){
+            mActivityTestRule.finishActivity();
+        }
 
+
+    Activity getCurrentActivity() throws Throwable {
+        getInstrumentation().waitForIdleSync();
+        final Activity[] activity = new Activity[1];
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
+                activity[0] = Iterables.getOnlyElement(activities);
+            }
+        });
+        return activity[0];
+    }
     private String getString(@StringRes int resourceId) {
         return mActivityTestRule.getActivity().getString(resourceId);
     }

@@ -81,7 +81,6 @@ public class AddFamilyMemberTest {
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:national_id")))
                 .perform(typeText(Configs.TestConfigs.nationalID));
-        //onView(withId(getViewId((JsonFormActivity) activity, "step1:surname"))).perform(scrollTo(), typeText("JinaLaFamilia"));
         onView(withId(getViewId((JsonFormActivity) activity, "step1:same_as_fam_name")))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:first_name")))
