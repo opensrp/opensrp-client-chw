@@ -13,6 +13,8 @@ public class Configs {
         public static final String aboveFiveage = "30";
         public static final String phoneNumberOne = "088882002993";
         public static final String getPhoneNumberTwo = "088882002994";
+        public static final String phoneNumberOneBa = "0721456987";
+        public static final String phoneNumberTwoBa = "0722456987";
         public static final String nationalID = "6554356789";
     }
     public class AdditionalTestData{

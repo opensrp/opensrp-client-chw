@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -24,6 +26,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.LoginActivity;
+import org.smartregister.chw.activity.utils.Configs;
 import org.smartregister.chw.activity.utils.Constants;
 import org.smartregister.chw.activity.utils.OrderedRunner;
 import org.smartregister.chw.activity.utils.Utils;
@@ -58,6 +61,111 @@ public class AddFamilyMemberBA {
     public GrantPermissionRule mRuntimePermissionRule1 = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION);
     Utils utils = new Utils();
 
+    public void setUp() throws InterruptedException {
+        utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);
+        Thread.sleep(5000);
+    }
+
+    @Test
+    public void addFamilyMember() throws Throwable {
+        onView(ViewMatchers.withHint("Search name or ID"))
+                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(click());
+        onView(withId(R.id.fab))
+                .perform(click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Add new family member"))
+                .perform(click());
+        Thread.sleep(100);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Other family member"))
+                .perform(click());
+        Thread.sleep(100);
+        Activity activity = getCurrentActivity();
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:same_as_fam_name")))
+                .perform(click());
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:first_name")))
+                .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:middle_name")))
+                .perform(doubleClick())
+                .perform(typeText(Configs.TestConfigs.aboveFiveSecondNameTwo), closeSoftKeyboard());
+        Thread.sleep(100);
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:dob_unknown")))
+                .perform(scrollTo(), click());
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:age")))
+                .perform(scrollTo(), typeText(Configs.TestConfigs.aboveFiveage));
+        Thread.sleep(100);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("National ID"))
+                .perform(scrollTo(), click());
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:national_id")))
+                .perform(scrollTo(), typeText(Configs.TestConfigs.nationalID));
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:insurance_provider")))
+                .perform(scrollTo(), click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Community Health Fund (CHF)"))
+                .perform(scrollTo(), click());
+        Thread.sleep(500);
+        Thread.sleep(500);
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:insurance_provider_number")))
+                .perform(scrollTo())
+                .perform(typeText(Configs.TestConfigs.nationalID), closeSoftKeyboard());
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:sex")))
+                .perform(scrollTo(), click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Female"))
+                .perform(click());
+        Thread.sleep(500);
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:preg_1yr")))
+                .perform(scrollTo(), click());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+                .perform(click());
+        Thread.sleep(500);
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:disabilities")))
+                .perform(scrollTo(), click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+                .perform(click());
+        Thread.sleep(500);
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:is_primary_caregiver")))
+                .perform(scrollTo(), click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Yes"))
+                .perform(click());
+        Thread.sleep(500);
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:phone_number")))
+                .perform(scrollTo(), typeText(Configs.TestConfigs.phoneNumberTwoBa));
+        onView(withId(getViewId((JsonFormActivity) activity, "step1:other_phone_number")))
+                .perform(scrollTo(), typeText(Configs.TestConfigs.phoneNumberOneBa));
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Nurse"))
+                .perform(scrollTo(), click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Religious leader"))
+                .perform(scrollTo(), click());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+                .perform(click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        Thread.sleep(10000);
+    }
+
+    @After
+    public void completeTests(){
+        intentsTestRule.finishActivity();
+    }
+    Activity getCurrentActivity() throws Throwable {
+        getInstrumentation().waitForIdleSync();
+        final Activity[] activity = new Activity[1];
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
+                activity[0] = Iterables.getOnlyElement(activities);
+            }
+        });
+        return activity[0];
+    }
     private static Matcher<View> withError(final String expected) {
         return new TypeSafeMatcher<View>() {
             @Override
@@ -73,85 +181,6 @@ public class AddFamilyMemberBA {
                 description.appendText("Not found error message" + expected + ", find it!");
             }
         };
-    }
-
-    @Before
-    public void setUp() throws InterruptedException {
-        utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);
-        Thread.sleep(5000);
-    }
-
-    Activity getCurrentActivity() throws Throwable {
-        getInstrumentation().waitForIdleSync();
-        final Activity[] activity = new Activity[1];
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
-                activity[0] = Iterables.getOnlyElement(activities);
-            }
-        });
-        return activity[0];
-    }
-    @Test
-    public void addFamilyMember() throws Throwable {
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("TestFamilys Family"))
-                .perform(click());
-        onView(withId(R.id.fab))
-                .perform(click());
-        Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Add new family member"))
-                .perform(click());
-        Thread.sleep(100);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Child under 5 years"))
-                .perform(click());
-        Thread.sleep(1000);
-        Activity activity = getCurrentActivity();
-        onView(withId(getViewId((JsonFormActivity) activity, "step1:surname")))
-                .perform(typeText("TestFamily"), closeSoftKeyboard());
-        onView(withId(getViewId((JsonFormActivity) activity, "step1:first_name")))
-                .perform(typeText("OneName"), closeSoftKeyboard());
-        onView(withId(getViewId((JsonFormActivity) activity, "step1:middle_name")))
-                .perform(doubleClick())
-                .perform(typeText("TwoName"), closeSoftKeyboard());
-        Thread.sleep(1000);
-        onView(withId(getViewId((JsonFormActivity) activity, "step1:dob")))
-                .perform(scrollTo(), doubleClick());
-        Thread.sleep(1000);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done"))
-                .perform(click());
-        Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Health insurance provider"))
-                .perform(scrollTo(), click());
-        Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Jubilee Insurance"))
-                .perform(click());
-        Thread.sleep(500);
-        onView(withId(getViewId((JsonFormActivity) activity, "step1:insurance_provider_number")))
-                .perform(scrollTo())
-                .perform(typeText("1234567893"), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Sex"))
-                .perform(scrollTo(), click());
-        Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Female"))
-                .perform(click());
-        Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Physical disabilities"))
-                .perform(scrollTo(), click());
-        Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
-                .perform(click());
-        Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
-                .perform(click());
-    }
-
-    @After
-    public void tearDown() throws Throwable{
-        Thread.sleep(1000);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Return to all families"))
-                .perform(click());
-        Thread.sleep(5000);
     }
 
 
