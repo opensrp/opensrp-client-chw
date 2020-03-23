@@ -28,7 +28,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op7 = new NavigationOption(R.mipmap.sidemenu_malaria, R.mipmap.sidemenu_malaria_active, R.string.menu_malaria, Constants.DrawerMenu.MALARIA, 0);
             NavigationOption op8 = new NavigationOption(R.mipmap.sidemenu_referrals, R.mipmap.sidemenu_referrals_active, R.string.menu_referrals, Constants.DrawerMenu.REFERRALS, 0);
 
-            navigationOptions.add(new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, R.string.menu_all_clients, CoreConstants.DrawerMenu.ALL_CLIENTS, 0));
+            if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
+                navigationOptions.add(new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, R.string.menu_all_clients, CoreConstants.DrawerMenu.ALL_CLIENTS, 0));
+
             navigationOptions.addAll(Arrays.asList(op1, op3, op5, op2, op6, op7));
 
             if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
