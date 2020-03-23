@@ -92,7 +92,7 @@ android {
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '120'
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '360'
-            buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "false"
+            buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             testCoverageEnabled true
         }
     }
@@ -139,8 +139,8 @@ android {
             versionName "1.0.2"
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
-        //    buildConfigField "String", 'opensrp_url_debug', '"https://ba-unified-stage.smartregister.org/opensrp/"'
+        //    buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://ba-unified-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country","Region","District","Ward" , "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"MOH Jhpiego Facility Name" , "Village"}'
@@ -263,7 +263,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-chw-referral'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
     }
-    implementation('org.smartregister:opensrp-client-core:1.9.3-ALPHA-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.9.4-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
