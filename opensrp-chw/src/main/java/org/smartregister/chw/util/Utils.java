@@ -19,4 +19,16 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         bundle.putParcelableArrayList(Constants.REFERRAL_TYPES, (ArrayList<ReferralTypeModel>) referralTypeModels);
         activity.startActivity(new Intent(activity, ClientReferralActivity.class).putExtras(bundle));
     }
+
+    public static String toCSV(String[] list) {
+        String result = "";
+        if (list.length > 0) {
+            StringBuilder sb = new StringBuilder();
+            for (String s : list) {
+                sb.append(s).append(", ");
+            }
+            result = sb.deleteCharAt(sb.length() - 2).toString();
+        }
+        return result;
+    }
 }

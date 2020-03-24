@@ -7,14 +7,12 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.FamilyRegisterFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
-import org.smartregister.chw.listener.FamilyBottomNavigationListener;
 import org.smartregister.chw.referral.ReferralLibrary;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.helper.BottomNavigationHelper;
@@ -35,35 +33,37 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
             BottomNavigationView bottomNavigationView,
             Activity activity
     ) {
+        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, new ChwBottomNavigationListener(activity));
+    }
 
+    public static void registerBottomNavigation(
+            BottomNavigationHelper bottomNavigationHelper,
+            BottomNavigationView bottomNavigationView,
+            BottomNavigationView.OnNavigationItemSelectedListener listener
+    ) {
         if (bottomNavigationView != null) {
             bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
 
             bottomNavigationView.getMenu().clear();
-            bottomNavigationView.inflateMenu(R.menu.bottom_nav_family_menu);
+            bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu);
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-            bottomNavigationView.setOnNavigationItemSelectedListener(new ChwBottomNavigationListener(activity));
+            bottomNavigationView.setOnNavigationItemSelectedListener(listener);
         }
 
-        if (!BuildConfig.SUPPORT_QR)
+        if (bottomNavigationView != null && !ChwApplication.getApplicationFlavor().hasQR())
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
 
-        if (!BuildConfig.SUPPORT_REPORT)
+        if (bottomNavigationView != null && !ChwApplication.getApplicationFlavor().hasJobAids())
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_job_aids);
 
+        if (bottomNavigationView != null && !ChwApplication.getApplicationFlavor().hasReports())
+            bottomNavigationView.getMenu().removeItem(R.id.action_report);
     }
 
     @Override
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();
-
-        if (!BuildConfig.SUPPORT_QR)
-            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
-
-        if (!BuildConfig.SUPPORT_REPORT)
-            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_job_aids);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new FamilyBottomNavigationListener(this, bottomNavigationView));
+        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
     }
 
     @Override
@@ -71,10 +71,10 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
         ChwApplication.getInstance().notifyAppContextChange(); // initialize the language (bug in translation)
-        if (ChwApplication.getApplicationFlavor().hasReferrals()){
-            try{
+        if (ChwApplication.getApplicationFlavor().hasReferrals()) {
+            try {
                 ReferralLibrary.getInstance().loadReferralServiceIndicators();
-            }catch (Exception e){
+            } catch (Exception e) {
                 Timber.e(e);
             }
         }
