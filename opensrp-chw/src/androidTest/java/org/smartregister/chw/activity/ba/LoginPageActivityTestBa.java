@@ -85,7 +85,7 @@ public class LoginPageActivityTestBa {
     @Test
     @Order(order = 4)
     public void testInvalidCredentials() throws InterruptedException {
-        onView(withId(R.id.login_user_name_edit_text)).perform(typeText("demo"), closeSoftKeyboard());
+        onView(withId(R.id.login_user_name_edit_text)).perform(typeText("demo1"), closeSoftKeyboard());
         onView(withId(R.id.login_password_edit_text)).perform(typeText("Amani123"), closeSoftKeyboard());
         onView(withId(R.id.login_login_btn)).perform(click());
         Thread.sleep(5000);
