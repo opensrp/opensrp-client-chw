@@ -10,6 +10,8 @@ import org.junit.runners.Suite;
                 SideNavigationMenuBA.class,
                 AddFamilyTestBA.class,
                 AddFamilyMemberBA.class,
+                AdditionalTestDataBa.class,
+                AddChildFamilyMemberBa.class,
                 HomePageTestsBa.class
         })
 
