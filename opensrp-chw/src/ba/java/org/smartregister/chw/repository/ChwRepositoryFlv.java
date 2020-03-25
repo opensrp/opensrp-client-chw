@@ -1,7 +1,6 @@
 package org.smartregister.chw.repository;
 
 import android.content.Context;
-import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -210,6 +209,7 @@ public class ChwRepositoryFlv {
             Timber.e(e);
         }
     }
+
     private static boolean checkIfAppUpdated() {
         String savedAppVersion = ReportingLibrary.getInstance().getContext().allSharedPreferences().getPreference(appVersionCodePref);
         if (savedAppVersion.isEmpty()) {
@@ -222,10 +222,6 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion14(SQLiteDatabase db) {
         try {
-            for (String query : RepositoryUtilsFlv.UPGRADE_V14) {
-                db.execSQL(query);
-            }
-
             String indicatorsConfigFile = "config/indicator-definitions.yml";
             String indicatorDataInitialisedPref = "INDICATOR_DATA_INITIALISED";
             ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
@@ -239,6 +235,11 @@ public class ChwRepositoryFlv {
                 reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
                 reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
             }
+
+            for (String query : RepositoryUtilsFlv.UPGRADE_V14) {
+                db.execSQL(query);
+            }
+
         } catch (Exception e) {
             Timber.e(e);
         }
