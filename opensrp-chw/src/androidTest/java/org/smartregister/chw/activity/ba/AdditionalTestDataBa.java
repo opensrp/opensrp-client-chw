@@ -33,7 +33,6 @@ public class AdditionalTestDataBa {
 
     Utils utils = new Utils();
 
-    @Before
     public void setUp() throws InterruptedException {
         utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);
     }
@@ -53,9 +52,10 @@ public class AdditionalTestDataBa {
         utils.addTestFamilyMemberBa(Configs.AdditionalTestData.memberTwoFirstname,
                 Configs.AdditionalTestData.memberTwoSecondname,
                 Configs.AdditionalTestData.extraMemberAge2);
-        utils.addTestFamilyMemberBa(Configs.AdditionalTestData.memberThreeFirstname,
+        /*utils.addTestFamilyMemberBa(Configs.AdditionalTestData.memberThreeFirstname,
                 Configs.AdditionalTestData.memberThreeSecondname,
                 Configs.AdditionalTestData.extraMemberAge3);
+         */
         mActivityTestRule.finishActivity();
     }
 

@@ -1,11 +1,11 @@
-package org.smartregister.chw.activity.wcaro;
-
+package org.smartregister.chw.activity.ba;
 
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,16 +28,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(OrderedRunner.class)
-public class FamilyMemberTest {
-
+public class RemoveFamilyTestsBa {
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     Utils utils = new Utils();
 
-
     public void setUp() throws InterruptedException{
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);
         Thread.sleep(5000);
     }
 
@@ -79,9 +77,15 @@ public class FamilyMemberTest {
         Thread.sleep(500);
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Removing entire family"))
                 .perform(click());
-        Thread.sleep(500);onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Reason *"))
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Reason for closure *"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Other"))
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Relocation"))
+                .perform(click());
+        Thread.sleep(500);
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Household relocation *"))
+                .perform(click());
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Outside the district"))
                 .perform(click());
         onView(withId(R.id.action_save))
                 .perform(click());
@@ -91,7 +95,6 @@ public class FamilyMemberTest {
         Thread.sleep(2000);
     }
 
-    @Test
     @Order(order = 5)
     public void changeFamilyHeadsuccessfully() throws InterruptedException{
         onView(ViewMatchers.withHint("Search name or ID"))
@@ -117,7 +120,6 @@ public class FamilyMemberTest {
                 .perform(click());
     }
 
-    @Test
     @Order(order = 4)
     public void changePrimarycareGiverSuccessfully() throws InterruptedException{
         onView(ViewMatchers.withHint("Search name or ID"))
@@ -151,11 +153,11 @@ public class FamilyMemberTest {
                 .perform(click());
         Thread.sleep(500);
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameOne
-                + " " + Configs.TestConfigs.aboveFiveSecondNameOne + " " + Configs.TestConfigs.familyName + ", "
+                + " " + Configs.TestConfigs.aboveFiveSecondNameOne + ", "
                 + Configs.TestConfigs.aboveFiveage))
                 .perform(click());
         onView(withId(R.id.family_head))
-    .check(matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     @Test
@@ -167,7 +169,7 @@ public class FamilyMemberTest {
                 .perform(click());
         Thread.sleep(500);
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameOne
-                + " " + Configs.TestConfigs.aboveFiveSecondNameOne + " " + Configs.TestConfigs.familyName + ", "
+                + " " + Configs.TestConfigs.aboveFiveSecondNameOne + ", "
                 + Configs.TestConfigs.aboveFiveage))
                 .perform(click());
         onView(withId(R.id.textview_detail_three))
@@ -186,7 +188,7 @@ public class FamilyMemberTest {
                 .perform(click());
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Call"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Add new family member"))
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Add new family member"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
