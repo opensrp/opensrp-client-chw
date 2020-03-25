@@ -19,6 +19,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,8 +52,7 @@ public class RemoveMemberTestsBa {
     Utils utils = new Utils();
 
     public void setUp() throws InterruptedException{
-
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);
         Thread.sleep(5000);
     }
 
@@ -181,6 +181,7 @@ public class RemoveMemberTestsBa {
     }
 
     @Order(order = 4)
+    @Test
     public void confirmCaregiverReplacementBeforeRemoval() throws InterruptedException {
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
@@ -192,12 +193,12 @@ public class RemoveMemberTestsBa {
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Remove existing family member"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameOne
-                + " " + Configs.TestConfigs.aboveFiveSecondNameOne + " " + Configs.TestConfigs.familyName
+        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName
                 + ", " + Configs.TestConfigs.aboveFiveage))
                 .perform(click());
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Before you remove this member " +
-                "you must select a new family head."))
+                "you must select a new primary caregiver"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Thread.sleep(500);
     }
@@ -216,7 +217,7 @@ public class RemoveMemberTestsBa {
                 .perform(click());
         Thread.sleep(500);
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameOne
-                + " " + Configs.TestConfigs.aboveFiveSecondNameOne + " " + Configs.TestConfigs.familyName
+                + " " + Configs.TestConfigs.aboveFiveSecondNameOne
                 + ", " + Configs.TestConfigs.aboveFiveage))
                 .perform(click());
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Before you remove this member " +

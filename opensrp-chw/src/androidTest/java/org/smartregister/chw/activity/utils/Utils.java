@@ -111,7 +111,7 @@ public class Utils  {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:first_name")))
                 .perform(typeText(firstName), closeSoftKeyboard());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:middle_name")))
-                .perform(doubleClick())
+                .perform(click())
                 .perform(typeText(secondName), closeSoftKeyboard());
         Thread.sleep(100);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:dob_unknown")))
@@ -119,10 +119,12 @@ public class Utils  {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:age")))
                 .perform(scrollTo(), typeText(age));
         Thread.sleep(100);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("National ID"))
+       /* onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("National ID"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:national_id")))
                 .perform(scrollTo(), typeText(Configs.TestConfigs.nationalID));
+
+        */
         onView(withId(getViewId((JsonFormActivity) activity, "step1:insurance_provider")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);

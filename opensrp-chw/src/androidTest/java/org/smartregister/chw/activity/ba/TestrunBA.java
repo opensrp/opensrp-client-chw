@@ -12,7 +12,9 @@ import org.junit.runners.Suite;
                 AddFamilyMemberBA.class,
                 AdditionalTestDataBa.class,
                 AddChildFamilyMemberBa.class,
-                HomePageTestsBa.class
+                HomePageTestsBa.class,
+                RemoveMemberTestsBa.class,
+                RemoveFamilyTestsBa.class
         })
 
 public class TestrunBA {
