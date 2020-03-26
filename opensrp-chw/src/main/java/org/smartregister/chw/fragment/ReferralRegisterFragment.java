@@ -224,7 +224,7 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
 
             }
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
+            Timber.e(e);
         }
 
         return query;

@@ -228,7 +228,7 @@
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
         <service android:name=".anc.intent.HomeVisitIntentService" />
-        <service android:name="org.smartregister.sync.intent.SyncTaskIntentService" />
+        <service android:name=".sync.intent.ChwSyncTaskIntentService" />
         <service android:name="org.smartregister.sync.intent.PlanIntentService" />
         <service android:name=".intent.ChwPncCloseDateIntent" />
         <service android:name="org.smartregister.reporting.service.IndicatorGeneratorIntentService" />
