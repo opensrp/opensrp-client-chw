@@ -227,6 +227,13 @@
             "creates_case": [
               "ec_family_planning"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Close Referral",
+            "creates_case": [
+              "ec_close_referral"
+            ]
           }
         ]
       }
