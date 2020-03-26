@@ -18,4 +18,9 @@ public abstract class DefaultNavigationMenuFlv implements NavigationMenu.Flavour
     public HashMap<String, String> getTableMapValues() {
         return new HashMap<>();
     }
+
+    @Override
+    public boolean hasStockReport() {
+        return false;
+    }
 }
