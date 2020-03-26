@@ -92,7 +92,7 @@ android {
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '120'
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '360'
-            buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "false"
+            buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             testCoverageEnabled true
         }
     }
@@ -139,8 +139,8 @@ android {
             versionName "1.0.2"
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
-            // buildConfigField "String", 'opensrp_url_debug', '"https://ba-unified-stage.smartregister.org/opensrp/"'
+//          buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://ba-unified-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country","Region","District","Ward" , "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"MOH Jhpiego Facility Name" , "Village"}'
@@ -252,7 +252,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.1.51-Test-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.1.53-LOCAL-1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -260,8 +260,7 @@ dependencies {
         exclude group: 'androidx.constraintlayout', module: 'constraintlayout'
         exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
-        exclude group: 'org.smartregister', module: 'opensrp-client-chw-referral'
-        exclude group: 'org.smartregister', module: 'opensrp-client-opd'
+        exclude group: 'org.smartregister', module: 'android-p2p-sync'
     }
     //Do not upgrade to 1.1.0 due to compatibility issues
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -283,33 +282,6 @@ dependencies {
     testImplementation 'org.robolectric:shadows-multidex:4.0.1'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     testImplementation 'androidx.test:core:1.0.0'
-
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
-        transitive = true
-    }
-
-    implementation("org.smartregister:android-p2p-sync:0.3.6-SNAPSHOT") {
-        transitive = true
-        exclude group: 'org.smartregister', module: 'opensrp-client-core'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
-        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
-        exclude group: 'com.rengwuxian.materialedittext', module: 'library'
-    }
-    implementation ("org.smartregister:opensrp-client-chw-referral:1.2.0-SNAPSHOT"){
-        transitive = true
-        exclude group: 'org.smartregister', module: 'opensrp-client-core'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
-        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
-        exclude group: 'com.rengwuxian.materialedittext', module: 'library'
-    }
-    implementation ('org.smartregister:opensrp-client-opd:0.0.11-SNAPSHOT@aar'){
-        transitive = true
-        exclude group: 'com.github.lecho', module: 'hellocharts-android'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
-        exclude group: 'com.google.guava', module: 'guava'
-    }
 }
 
 def flavors = android.productFlavors.collect { flavor -> flavor.name }
