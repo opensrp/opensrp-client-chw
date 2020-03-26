@@ -720,143 +720,157 @@ condition: "step7_no_ear_infection == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step8_muac
+name: step9_muac
 description: Child muac measurement using a MUAC tape
 priority: 1
 condition: "step1_age_in_months >= 6"
 actions:
   - "isRelevant = true"
 ---
-name: step8_complicated_sam_note
+name: step9_rutf_feed
+description: How the child fed on offered RUFT - for children over 6 months
+priority: 1
+condition: "((step9_wfh_zscore < -3 || step9_muac < 115) && step1_age_in_months >= 6 && step9_medical_complications == 0)"
+actions:
+  - "isRelevant = true"
+---
+name: step9_breastfeeding_prob
+description: Whether child is able ot not to breastfeed
+priority: 1
+condition: "((step9_wfh_zscore < -3 || step9_muac < 115) && step1_age_in_months < 6 && step9_medical_complications == 0)"
+actions:
+  - "isRelevant = true"
+---
+name: step9_complicated_sam_note
 description: Complicated severe acute malnutrition toaster
 priority: 1
-condition: "step8_complicated_sam == 1"
+condition: "step9_complicated_sam == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step8_uncomplicated_sam_note
+name: step9_uncomplicated_sam_note
 description: Uncomplicated severe acute malnutrition toaster
 priority: 1
-condition: "step8_uncomplicated_sam == 1"
+condition: "step9_uncomplicated_sam == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step8_mam_note
+name: step9_mam_note
 description: Moderate acute malnutrition toaster
 priority: 1
-condition: "step8_mam == 1"
+condition: "step9_mam == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step8_no_acute_maln_note
+name: step9_no_acute_maln_note
 description: No acute malnutrition toaster
 priority: 1
-condition: "step8_no_acute_maln == 1"
+condition: "step9_no_acute_maln == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step8_acute_malnutrition_treatment_note
+name: step9_acute_malnutrition_treatment_note
 description: Acute malnutrition treatment toaster
 priority: 1
-condition: "step8_complicated_sam == 1 || step8_uncomplicated_sam == 1 || step8_mam == 1 || step8_no_acute_maln == 1"
+condition: "step9_complicated_sam == 1 || step9_uncomplicated_sam == 1 || step9_mam == 1 || step9_no_acute_maln == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step8_compl_sev_maln_treat
+name: step9_compl_sev_maln_treat
 description: List of treatments given to child suffering from complicated severe malnutrition
 priority: 1
-condition: "step8_complicated_sam == 1"
+condition: "step9_complicated_sam == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step8_sev_acute_maln_treat
+name: step9_sev_acute_maln_treat
 description: List of treatnents for child with severe acute malnutrition
 priority: 1
-condition: "step8_uncomplicated_sam == 1"
+condition: "step9_uncomplicated_sam == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step8_acute_maln_treat
+name: step9_acute_maln_treat
 description: List of treatments given to child with acute malnutrition
 priority: 1
-condition: "step8_mam == 1"
+condition: "step9_mam == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step8_no_acute_maln_treat
+name: step9_no_acute_maln_treat
 description: List of treatment for child with no acute malnutrition
 priority: 1
-condition: "step8_no_acute_maln == 1"
+condition: "step9_no_acute_maln == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step9_sev_palmar_note
+name: step8_sev_palmar_note
 description: Severe palmar pallor toaster
 priority: 1
-condition: "step9_palmar_pallor.contains('severe')"
+condition: "step8_palmar_pallor.contains('severe')"
 actions:
   - "isRelevant = true"
 ---
-name: step9_severe_anaemia_note
+name: step8_severe_anaemia_note
 description: Severe anaemia toaster
 priority: 1
-condition: "step9_severe_anaemia == 1"
+condition: "step8_severe_anaemia == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step9_anaemia_note
+name: step8_anaemia_note
 description: Anaemia toaster
 priority: 1
-condition: "step9_anaemia == 1"
+condition: "step8_anaemia == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step9_no_anaemia_note
+name: step8_no_anaemia_note
 description: No Anaemia toaster
 priority: 1
-condition: "step9_no_anaemia == 1 && step1_age_in_months < 24"
+condition: "step8_no_anaemia == 1 && step1_age_in_months < 24"
 actions:
   - "isRelevant = true"
 ---
-name: step9_feeding_problem
+name: step8_feeding_problem
 description: Check for whether a child with no anaemia has any feeding problems
 priority: 1
-condition: "step9_no_anaemia == 1 && step1_age_in_months < 24"
+condition: "step8_no_anaemia == 1 && step1_age_in_months < 24"
 actions:
   - "isRelevant = true"
 ---
-name: step9_no_anaemia_treat_under2
+name: step8_no_anaemia_treat_under2
 description: Treatment for children with no anaemia and are over 2 years toaster
 priority: 1
-condition: "step9_no_anaemia == 1 && step1_age_in_months >= 24"
+condition: "step8_no_anaemia == 1 && step1_age_in_months >= 24"
 actions:
   - "isRelevant = true"
 ---
-name: step9_anemia_treatment_note
+name: step8_anemia_treatment_note
 description: Anaemia Treatment toaster
 priority: 1
-condition: "step9_severe_anaemia == 1 || step9_anaemia == 1 || step9_no_anaemia == 1"
+condition: "step8_severe_anaemia == 1 || step8_anaemia == 1 || step8_no_anaemia == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step9_anaemia_treat_refer
+name: step8_anaemia_treat_refer
 description: Refer Anaemia Treatment
 priority: 1
-condition: "step9_severe_anaemia == 1"
+condition: "step8_severe_anaemia == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step9_anaemia_treat
+name: step8_anaemia_treat
 description: Treatment for anaemia
 priority: 1
-condition: "step9_anaemia == 1"
+condition: "step8_anaemia == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step9_feeding_problem_follow_up
+name: step8_feeding_problem_follow_up
 description: Follow-up after 5 days if feeding is a problem
 priority: 1
-condition: "step9_feeding_problem.contains('yes')"
+condition: "step8_feeding_problem.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
@@ -888,6 +902,13 @@ condition: "step10_child_hiv_care.contains('no')"
 actions:
   - "isRelevant = true"
 ---
+name: step10_child_test_result
+description: Has child had HIV test
+priority: 1
+condition: "step10_child_hiv_test.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
 name: step10_hiv_breastfeeding
 description: Whether child was breastfeeding at the time of test or 6 weeks prior
 priority: 1
@@ -898,7 +919,7 @@ actions:
 name: step10_hiv_breastfeeding_now
 description: Whether child is currently breastfeeding
 priority: 1
-condition: "(step10_mother_test_result.contains('positive') || step10_child_test_result.contains('v_neg') || step10_child_test_result.contains('s_neg')) && step10_child_hiv_test.contains('no')"
+condition: "step10_mother_test_result.contains('positive') || step10_child_test_result.contains('v_neg') || step10_child_test_result.contains('s_neg') || step10_child_hiv_test.contains('no')"
 actions:
   - "isRelevant = true"
 ---
