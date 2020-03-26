@@ -77,7 +77,7 @@ public class DownloadUtil extends AsyncTask<String, String, String> {
             // Output stream to write file
             OutputStream output = new FileOutputStream(folder + fileName);
 
-            byte data[] = new byte[1024];
+            byte[] data = new byte[1024];
 
             long total = 0;
 

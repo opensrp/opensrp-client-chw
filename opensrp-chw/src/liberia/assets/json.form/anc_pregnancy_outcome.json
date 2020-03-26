@@ -395,6 +395,42 @@
             }
           },
           {
+            "key": "essential_newborn_care",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "essential_newborn_care",
+            "type": "check_box",
+            "label": "Essential newborn care received at the health facility?",
+            "label_text_style": "normal",
+            "text_color": "#C0C0C0",
+            "exclusive": [
+              "chk_none"
+            ],
+            "options": [
+              {
+                "key": "chk_none",
+                "text": "None",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              {
+                "key": "chk_chlorhexidine",
+                "text": "Chlorhexidine applied to umbilical stump",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "73263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              {
+                "key": "chk_skin_contact",
+                "text": "Skin to skin contact for at least 2 hours",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "164173AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            ]
+          },
+          {
             "key": "opv0_date",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
