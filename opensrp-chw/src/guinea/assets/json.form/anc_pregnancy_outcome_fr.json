@@ -209,6 +209,7 @@
         "type": "repeating_group",
         "reference_edit_text_hint": "Nombre d'enfants nés",
         "repeating_group_label": "Détails de l'enfant #",
+        "repeating_group_max": "10",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -392,6 +393,42 @@
               "value": "true",
               "err": "Obligatoire"
             }
+          },
+          {
+            "key": "essential_newborn_care",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "essential_newborn_care",
+            "type": "check_box",
+            "label": "Soins essentiels aux nouveau-nés reçu au structure sanitaire?",
+            "label_text_style": "normal",
+            "text_color": "#C0C0C0",
+            "exclusive": [
+              "chk_none"
+            ],
+            "options": [
+              {
+                "key": "chk_none",
+                "text": "Aucun",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              {
+                "key": "chk_chlorhexidine",
+                "text": "Cordon ombilical traité avec une solution de chlorhexidine ",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "73263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              {
+                "key": "chk_skin_contact",
+                "text": "Contact peau contre peau pour au moins 2 heures",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "164173AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              }
+            ]
           },
           {
             "key": "opv0_date",
