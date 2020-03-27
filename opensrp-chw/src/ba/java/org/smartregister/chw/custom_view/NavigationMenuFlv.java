@@ -15,8 +15,12 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
     @Override
     public HashMap<String, String> getTableMapValues() {
         HashMap<String, String> tableMap = new HashMap<>();
-        tableMap.put(CoreConstants.DrawerMenu.REFERRALS,  Constants.Tables.REFERRAL);
+        tableMap.put(CoreConstants.DrawerMenu.REFERRALS, Constants.Tables.REFERRAL);
         return tableMap;
     }
 
+    @Override
+    public boolean hasStockReport() {
+        return false;
+    }
 }

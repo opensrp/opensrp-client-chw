@@ -1,0 +1,364 @@
+name: step4_fast_breathing
+description: Calculated field for diagnosis of fast breathing.
+priority: 1
+condition: "step3_main_symptoms.contains('difficult_breathing')"
+actions:
+  - 'calculation = (((step1_age_in_months >= 2 && step1_age_in_months < 12 && step4_breaths_minute >= 50) ||
+  (step1_age_in_months >= 12 && step1_age_in_months < 60 && step4_breaths_minute >= 40))? 1 : 0)'
+---
+name: step4_fast_breathing2
+description: Calculated field for diagnosis of fast breathing.
+priority: 1
+condition: "step3_main_symptoms.contains('difficult_breathing')"
+actions:
+  - 'calculation = (((step1_age_in_months >= 2 && step1_age_in_months < 12 && step4_breaths_minute2 >= 50) ||
+  (step1_age_in_months >= 12 && step1_age_in_months < 60 && step4_breaths_minute2 >= 40))? 1 : 0)'
+---
+name: step4_fast_breathing_final
+description: Fast breathing final calculation
+priority: 1
+condition: "step3_main_symptoms.contains('difficult_breathing')"
+actions:
+  - 'calculation = (step4_fast_breathing2 != null ? step4_fast_breathing2 : step4_fast_breathing)'
+---
+name: step4_chest_indrawing
+description: Chest Indrawing calculation
+priority: 1
+condition: "step3_main_symptoms.contains('difficult_breathing')"
+actions:
+  - 'calculation = ((step4_indrawing_bronchodilator.contains("no") || (step4_indrawing_bronchodilator.isEmpty() && step4_breathing_symptoms.contains("chest_indrawing"))) ? 1 : 0)'
+---
+name: step4_severe_pneumonia
+description: Severe pneumonia calculation
+priority: 1
+condition: "step4_difficult_breathing.contains('yes')"
+actions:
+  - 'calculation = ((!step2_danger_signs.contains("None") || step4_breathing_symptoms.contains("stridor"))? 1 : 0)'
+---
+name: step4_pneumonia
+description: pneumonia calculation
+priority: 1
+condition: "step4_difficult_breathing.contains('yes')"
+actions:
+  - 'calculation = (((step4_severe_pneumonia == 0 && step4_fast_breathing_final == 1) || step4_chest_indrawing == 1)? 1 : 0)'
+---
+name: step4_cough_cold
+description: Cough cold calculation
+priority: 1
+condition: "step4_difficult_breathing.contains('yes')"
+actions:
+  - 'calculation = ((step4_severe_pneumonia == 0 && step4_pneumonia == 0)? 1 : 0)'
+---
+name: step5_lethargic_unconcious_calc
+description: Lethargic unconcious calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_gen_condition.contains("lethargic_unconcious"))? 1 : 0)'
+---
+name: step5_sunken_eyes_calc
+description: Sunken eyes calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sunken_eyes.contains("yes"))? 1 : 0)'
+---
+name: step5_not_able_drink
+description: Not able to drink calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_drinking.contains("drinking_poorly"))? 1 : 0)'
+---
+name: step5_drinks
+description: Drinks calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sunken_eyes.contains("drinking_eargerly"))? 1 : 0)'
+---
+name: step5_pinched_skin_slowly
+description: Pinched skin calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_pinching.contains("skin_very_slowly"))? 1 : 0)'
+---
+name: step5_restless_irritable_calc
+description: Restless irritable calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_gen_condition.contains("restless_irritable"))? 1 : 0)'
+---
+name: step5_sev_dehydration_class
+description: Severe dehydration class calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = (step5_lethargic_unconcious_calc + step5_sunken_eyes_calc + step5_not_able_drink + step5_not_able_drink + step5_pinched_skin_slowly)'
+---
+name: step5_sev_dehydration
+description: Severe dehydration calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sev_dehydration_class > 2)? 1 : 0)'
+---
+name: step5_some_dehydration_class
+description: Some dehydration class calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = (step5_restless_irritable_calc + step5_sunken_eyes_calc + step5_drinks + step5_pinched_skin_slowly)'
+---
+name: step5_some_dehydration
+description: Some dehydration calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_some_dehydration_class > 2 && step5_sev_dehydration == 0)? 1 : 0)'
+---
+name: step5_no_dehydration
+description: No dehydration calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sev_dehydration == 0 && step5_some_dehydration == 0)? 1 : 0)'
+---
+name: step5_sev_persistent_diarrhoea
+description: Severe persistent diarrhoea calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = (((step5_sev_dehydration == 1 || step5_some_dehydration == 1) && step5_diarrhoea_period >= 14)? 1 : 0)'
+---
+name: step5_persistent_diarrhoea
+description: Persistent diarrhoea calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_no_dehydration == 1 && step5_diarrhoea_period > 14)? 1 : 0)'
+---
+name: step5_dysentery
+description: Dysentry calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = (step5_blood_stool.contains("yes")? 1 : 0)'
+---
+name: step5_sev_dehydratn_treat1_calc
+description: Severe dehydration treatment calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sev_dehydration == 1 && (step4_severe_pneumonia == 0 || step2_danger_signs.contains("None")))? 1 : 0)'
+---
+name: step5_sev_dehydratn_treat2_calc
+description: Severe dehydration treatment 2 calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sev_dehydration == 1 && (step4_severe_pneumonia == 1 || step2_danger_signs.contains("None")))? 1 : 0)'
+---
+name: step5_sev_dehydratn_treat3_calc
+description: Severe dehydration treatment 3 calculation
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - 'calculation = ((step5_sev_dehydration == 1 && step1_age_in_months >= 2 && step5_cholera_present.contains("yes"))? 1 : 0)'
+---
+name: step6_malaria_test
+description: Malaria test calculation
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - 'calculation = (((step2_danger_signs.contains("None") && step4_severe_pneumonia == 0 && step5_sev_dehydration == 0 && step5_sev_persistent_diarrhoea == 0 && step6_fever.contains("yes") && step6_malaria_risk.contains("high") && step6_travel_malaria_area.contains("yes")) || (step6_fever_causes.contains("none_fever_cause") && step6_malaria_risk.contains("low") && step6_travel_malaria_area.contains("no")))? 1 : 0)'
+---
+name: step6_vsf_disease
+description: Dysentry calculation
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - 'calculation = (((!step2_danger_signs.contains("None") || step6_fever_causes.contains("stiff_neck")) && !step6_malaria_risk.contains("no_risk"))? 1 : 0)'
+---
+name: step6_no_test_malaria
+description: Malaria diagnosis when test is not available calculation
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - 'calculation = ((step2_danger_signs.contains("None") && step4_severe_pneumonia == 0 && step5_sev_dehydration == 0 && step5_sev_persistent_diarrhoea == 0 && (step6_malaria_risk.contains("high") && step6_travel_malaria_area.contains("yes") || (step6_fever_causes.contains("none_fever_cause") && step6_malaria_risk.contains("low") && step6_travel_malaria_area.contains("no"))))? 1 : 0)'
+---
+name: step6_malaria
+description: Calculated field for malaria diagnosis after a test is done.
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - 'calculation = (step6_malaria_results.contains("mal_pos") && !step6_malaria_risk.contains("no_risk")? 1 : 0)'
+---
+name: step6_no_malaria
+description: Calculated field for no malaria fever disease diagnosis
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - 'calculation = ((step6_malaria_results.contains("mal_neg") && !step6_fever_causes.contains("none_fever_cause") && step6_malaria_risk.contains("no_risk"))? 1 : 0)'
+---
+name: step6_vsf_disease2
+description: Calculated field for very sever febrile disease 2 diagnosis
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - 'calculation = ((!step2_danger_signs.contains("None") && step6_fever_causes.contains("stiff_neck") && step6_malaria_risk.contains("no_risk") && step6_travel_malaria_area.contains("no"))? 1 : 0)'
+---
+name: step6_illness_fever
+description: Calculated field for fever diagnosis
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - 'calculation = ((!step2_danger_signs.contains("None") && !step6_fever_causes.contains("stiff_neck") && step6_malaria_risk.contains("no_risk") && step6_travel_malaria_area.contains("no"))? 1 : 0)'
+---
+name: step6_complicated_measles
+description: Complicated measles calculation
+priority: 1
+condition: "step6_fever.contains('yes') && !step6_add_measles_symptoms.isEmpty()"
+actions:
+  - 'calculation = ((!step2_danger_signs.contains("None") || !step6_add_measles_symptoms.contains("pus_eye") && !step6_add_measles_symptoms.contains("none") && (step6_measles.contains("measles_3_months") || step6_measles.contains("measles_now")))? 1 : 0)'
+---
+name: step6_measles_eye_mouth
+description: Calculated field for measles with eyes and mouth compications
+priority: 1
+condition: "step6_fever.contains('yes') && !step6_add_measles_symptoms.isEmpty()"
+actions:
+  - 'calculation = (((!step6_add_measles_symptoms.contains("clouding_cornea") && !step6_add_measles_symptoms.contains("none")) && (step6_measles.contains("measles_3_months") || step6_measles.contains("measles_now")))? 1 : 0)'
+---
+name: step6_illness_measles
+description: Calculated field for when the child has measles
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - 'calculation = ((step6_measles.contains("measles_3_months") || step6_measles.contains("measles_now"))? 1 : 0)'
+---
+name: step7_mastoiditis_infection
+description: Calculated field for when child suffering from Mastoiditis
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - 'calculation = (step7_tender_swelling.contains("yes")? 1 : 0)'
+---
+name: step7_acute_ear_infection
+description: Calculated field for when child suffering from an acute ear infection
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - 'calculation = (((step7_pus.contains("yes") && (step7_ear_discharge_time < 14 || step7_ear_pain.contains("yes"))) && step7_tender_swelling.contains("no"))? 1 : 0)'
+---
+name: step7_chronic_ear_infection
+description: Calculated field for when child suffering from a chronic ear infection
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - 'calculation = ((step7_pus.contains("yes") && step7_ear_discharge_time >= 14 && step7_tender_swelling.contains("no"))? 1 : 0)'
+---
+name: step7_no_ear_infection
+description: Calculated field for when the child does not have any ear infection
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - 'calculation = ((step7_mastoiditis_infection == 0 && step7_acute_ear_infection == 0 && step7_chronic_ear_infection == 0)? 1 : 0)'
+---
+name: step9_medical_complications
+description: Claculated field for when there are medical complications
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ((!step2_danger_signs.contains("None") || step4_severe_pneumonia == 1 || step4_pneumonia == 1 || step5_sev_dehydration == 1 ||
+  step5_sev_persistent_diarrhoea == 1 || step6_vsf_disease == 1 || step6_vsf_disease2 == 1 || step6_complicated_measles == 1 || step7_mastoiditis_infection == 1)? 1 : 0)'
+---
+name: step9_wfh_zscore
+description: Calculated field for the z-Scores
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = helper.getWFHZScore(step1_gender, step1_child_height, step1_child_weight)'
+---
+name: step9_wfh_zscore_note
+description: Calculated field for the z-Scores
+priority: 1
+condition: "true"
+actions:
+  - "calculation = 'Weight-for-height (WFH) z-score is: ' + step9_wfh_zscore"
+---
+name: step9_complicated_sam
+description: Calculated field for when child is suffering from complicated severe acute malnutrition
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (((step9_oedema == "yes" || step9_wfh_zscore < -3 || step9_muac < 115) && (step9_medical_complications == 1
+      || (step9_rutf_feed.contains("not_finished_rutf") || step9_breastfeeding_prob == "yes")))? 1 : 0)'
+---
+name: step9_uncomplicated_sam
+description: Calculated field for when child is suffering from complicated severe acute malnutrition
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (((step9_wfh_zscore < -3 || step9_muac < 115) && step9_complicated_sam == 0)? 1 : 0)'
+---
+name: step9_mam
+description: Calculated field for when child is suffering from acute malnutrition
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ((((step9_wfh_zscore >= -3 && step9_wfh_zscore < -2) || (step9_muac >= 115 && step9_muac <= 125)) && step9_complicated_sam == 0
+  && step9_uncomplicated_sam == 0)? 1 : 0)'
+---
+name: step9_no_acute_maln
+description: Calculated field for when the child is not sufferingfrom acute malnutrition
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (((step9_wfh_zscore >= -2 || step9_muac >= 125) && step9_complicated_sam == 0 && step9_uncomplicated_sam == 0 && step9_mam == 0)? 1 : 0)'
+---
+name: step8_severe_anaemia
+description: Calculated field for severe anaemia
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step8_palmar_pallor.contains("severe")? 1 : 0)'
+---
+name: step8_anaemia
+description: Calculated field for anaemia
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step8_palmar_pallor.contains("some")? 1 : 0)'
+---
+name: step8_no_anaemia
+description: Calculated field for no anaemia
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step8_palmar_pallor.contains("no_pallor")? 1 : 0)'
+---
+name: step10_confirmed_hiv
+description: Calculated field for when the child has confirmed HIV infection
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ((step10_child_test_result.contains("v_pos") || step10_child_test_result.contains("s_pos") || step10_child_hiv_test2.contains("v_pos") || (step10_child_hiv_test2.contains("s_pos") && step1_age_in_months >= 18))? 1 : 0)'
+---
+name: step10_child_hiv_exposed
+description: Calculated field for when the child is HIV exposed
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ((((step10_mother_test_result.contains('positive') && (step10_child_test_result.contains('v_neg') || step10_child_hiv_test2.contains('v_neg'))) &&
+     (step10_hiv_breastfeeding.contains('yes') || step10_hiv_breastfeeding_now.contains('yes'))) ||
+       (step10_mother_test_result.contains('positive') && (step10_child_hiv_test.contains('no') || step10_child_test_result.contains('s_pos') || step10_child_hiv_test2.contains.('s_pos'))
+       && step1_age_in_months >= 18))? 1 : 0)"
+---
+name: step10_hiv_unlikely
+description: Calculated field for when the child HIV infection is unlikely
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ((step10_mother_test_result.contains('negative') || step10_child_test_result.contains('v_neg') || step10_child_hiv_test2.contains('v_neg') || step10_child_hiv_test2.contains('s_neg'))? 1 : 0)"
