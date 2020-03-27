@@ -252,7 +252,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.1.53-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.1.54-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -294,7 +294,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
-    
+
 }
 
 def flavors = android.productFlavors.collect { flavor -> flavor.name }
