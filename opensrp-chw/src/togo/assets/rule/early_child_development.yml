@@ -1,7 +1,0 @@
----
-name: step1_early_learning
-description: early learning will be visible Child is at least 3 years old
-priority: 1
-condition: "step1_date_pass >= 1095.75"
-actions:
-  - "isRelevant = true"

@@ -1,7 +1,0 @@
----
-name: step1_bcg_date
-description: Number Selectors
-priority: 1
-condition: "step1_delivery_date!=''"
-actions:
-  - "constraint = ['min_date' : helper.minDate(step1_delivery_date)]"

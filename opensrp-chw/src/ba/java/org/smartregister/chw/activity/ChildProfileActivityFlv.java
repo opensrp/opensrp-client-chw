@@ -7,7 +7,7 @@ import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 
-public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
+public class ChildProfileActivityFlv extends DefaultChildProfileActivityFlv {
 
     @Override
     public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final ChildProfilePresenter presenter) {
