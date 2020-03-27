@@ -198,8 +198,8 @@
           "err": "Le nombre doit être égal ou supérieur à 0"
         },
         "v_max": {
-          "value": "45",
-          "err": "Le nombre doit être égal ou inférieur à 45"
+        "value": "45",
+        "err": "Le nombre doit être égal ou inférieur à 45"
         }
       },
       {

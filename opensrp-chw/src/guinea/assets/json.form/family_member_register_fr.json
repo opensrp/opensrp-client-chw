@@ -86,8 +86,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "label_info_text": "Quel est leur numéro d'identité national?",
         "type": "edit_text",
-        "label_info_text": "Quel est leur numéro d'identité national ou leur numéro de carte d'électeur?",
         "label_info_title": "Numéro d'identification national",
         "hint": "Numéro d'identification national",
         "v_numeric": {

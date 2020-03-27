@@ -168,14 +168,14 @@ android {
             applicationIdSuffix ".drc"
             versionCode 1
             versionName "0.0.1"
-            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-drc.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/drc/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Pays" , "Province(DPS)" , "Zone de Sante", "Aire de Sante", "VILLAGE/COMMUNAUTE"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Zone de Sante" , "Aire de Sante" , "VILLAGE/COMMUNAUTE"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"VILLAGE/COMMUNAUTE"'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
         guinea {
@@ -233,8 +233,8 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".lmh"
             versionCode 1
-            versionName "0.0.3"
-            buildConfigField "String", 'opensrp_url', '"https://wcaro-lmh.smartregister.org/opensrp/"'
+            versionName "0.0.4"
+            buildConfigField "String", 'opensrp_url', '"https://lmh-liberia.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/lmh/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
@@ -294,6 +294,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
+    
 }
 
 def flavors = android.productFlavors.collect { flavor -> flavor.name }
