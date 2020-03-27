@@ -1,9 +1,11 @@
 package org.smartregister.chw.fragment;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.fragment.CoreAllClientsRegisterFragment;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.FamilyDao;
@@ -13,6 +15,13 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
     public static final String REGISTER_TYPE = "register_type";
+
+    @Override
+    public void setupViews(View view) {
+        super.setupViews(view);
+        View dueOnlyLayout = view.findViewById(R.id.due_only_layout);
+        dueOnlyLayout.setVisibility(View.GONE);
+    }
 
     @Override
     protected void goToClientDetailActivity(@NonNull CommonPersonObjectClient commonPersonObjectClient) {
