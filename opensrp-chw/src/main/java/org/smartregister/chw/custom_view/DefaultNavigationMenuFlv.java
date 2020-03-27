@@ -24,4 +24,5 @@ public abstract class DefaultNavigationMenuFlv implements NavigationMenu.Flavour
     public boolean serviceReport() {
         return false;
     }
+
 }

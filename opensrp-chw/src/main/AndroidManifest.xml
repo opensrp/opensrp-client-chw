@@ -215,6 +215,10 @@
             android:name=".activity.PinLoginActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
+        <activity
+            android:name=".activity.SickChildJsonFormActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
@@ -243,6 +247,7 @@
         <service android:name="org.smartregister.reporting.service.IndicatorGeneratorIntentService" />
         <service android:name=".service.SchedulesIntentService" />
         <service android:name=".sync.ChwSyncIntentService" />
+        <service android:name="org.smartregister.growthmonitoring.service.intent.WeightForHeightIntentService" />
 
         <uses-library
             android:name="org.apache.http.legacy"
