@@ -28,5 +28,4 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
     public boolean hasStockReport() {
         return true;
     }
-
 }
