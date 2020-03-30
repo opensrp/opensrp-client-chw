@@ -12,6 +12,7 @@ import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.StockUsageReportJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.sync.ChwSyncIntentService;
+import org.smartregister.chw.sync.intent.ChwSyncTaskIntentService;
 import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.P2pServiceJob;
@@ -20,7 +21,6 @@ import org.smartregister.job.SyncLocationsByLevelAndTagsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
-import org.smartregister.sync.intent.SyncTaskIntentService;
 
 import timber.log.Timber;
 
@@ -53,7 +53,7 @@ public class ChwJobCreator implements JobCreator {
             case BasePncCloseJob.TAG:
                 return new BasePncCloseJob();
             case SyncTaskServiceJob.TAG:
-                return (ChwApplication.getApplicationFlavor().hasTasks()) ? new SyncTaskServiceJob(SyncTaskIntentService.class) : null;
+                return (ChwApplication.getApplicationFlavor().hasTasks()) ? new SyncTaskServiceJob(ChwSyncTaskIntentService.class) : null;
             case ScheduleJob.TAG:
                 return new ScheduleJob();
             case SyncLocationsByLevelAndTagsServiceJob.TAG:
