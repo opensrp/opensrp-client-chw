@@ -24,6 +24,7 @@ public class PinLoggerInteractor implements PinLoginContract.Interactor {
             eventListener.onError(new Exception("Authentication failed"));
         } else if (isAuthenticated && (!AllConstants.TIME_CHECK || TimeStatus.OK.equals(getUserService().validateStoredServerTimeZone()))) {
             eventListener.onEvent("User authenticated");
+            PinLoginUtil.getPinLogger().updateLastLogin();
             cleanUpLogin(userName, password, eventListener);
         }
     }

@@ -80,6 +80,19 @@ public interface PinLogger {
      */
     String getPassword(String pin);
 
+    /**
+     * auto login the app if last login is within
+     * specified hours
+     *
+     * @param hours
+     * @return
+     */
+    boolean isWithin(Integer hours);
+
+    void updateLastLogin();
+
+    void autoLogin(@NonNull EventListener listener);
+
     interface EventListener {
 
         void onError(Exception ex);

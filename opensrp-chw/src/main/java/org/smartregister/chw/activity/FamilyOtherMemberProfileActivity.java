@@ -94,7 +94,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
         String uniqueID = commonPersonObject.getColumnmaps().get(DBConstants.KEY.UNIQUE_ID);
 
-        NativeFormsDataBinder binder = new NativeFormsDataBinder(this, client.getCaseId());
+        NativeFormsDataBinder binder = new NativeFormsDataBinder(getContext(), client.getCaseId());
         binder.setDataLoader(new FamilyMemberDataLoader(familyName, isPrimaryCareGiver, titleString, eventName, uniqueID));
         JSONObject jsonObject = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
 
