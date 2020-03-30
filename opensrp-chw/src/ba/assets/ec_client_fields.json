@@ -268,6 +268,13 @@
           }
         },
         {
+          "column_name": "reasons_for_registration",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.Registration_Reason"
+          }
+        },
+        {
           "column_name": "entity_type",
           "type": "Event",
           "json_mapping": {

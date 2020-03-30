@@ -2,7 +2,6 @@ package org.smartregister.chw.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -12,29 +11,32 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAllClientsRegisterActivity;
-import org.smartregister.chw.core.presenter.CoreAllClientsRegisterPresenter;
 import org.smartregister.chw.fragment.AllClientsRegisterFragment;
+import org.smartregister.chw.model.ChwAllClientsRegisterModel;
+import org.smartregister.chw.presenter.ChwAllClientRegisterPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.opd.activity.BaseOpdFormActivity;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
+import org.smartregister.opd.pojo.RegisterParams;
 import org.smartregister.opd.presenter.BaseOpdRegisterActivityPresenter;
 import org.smartregister.opd.utils.OpdConstants;
-import org.smartregister.util.FormUtils;
+import org.smartregister.opd.utils.OpdJsonFormUtils;
+import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import timber.log.Timber;
 
 public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener {
-
-    private FormUtils formUtils;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +51,19 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity
 
     @Override
     public void startRegistration() {
-        startFormActivity(getFormUtils().getFormJson(Constants.ALL_CLIENT_REGISTRATION_FORM));
+        startFormActivity(Constants.ALL_CLIENT_REGISTRATION_FORM,null, null);
+    }
+
+    @Override
+    public void startFormActivity(String formName, String entityId, String metaData) {
+        try {
+            String locationId = org.smartregister.family.util.Utils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+            ((ChwAllClientRegisterPresenter)presenter()).startForm(formName, entityId, metaData, locationId);
+
+        } catch (Exception e) {
+            Timber.e(e);
+            displayToast(org.smartregister.family.R.string.error_unable_to_start_form);
+        }
     }
 
     @Override
@@ -70,7 +84,24 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity
 
     @Override
     protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
+        if (requestCode == OpdJsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+            try {
+                String jsonString = data.getStringExtra(OpdConstants.JSON_FORM_EXTRA.JSON);
+                Timber.d("JSONResult : %s", jsonString);
 
+                JSONObject form = new JSONObject(jsonString);
+                String encounterType = form.getString(OpdJsonFormUtils.ENCOUNTER_TYPE);
+                if (encounterType.equals(Constants.EncounterType.CLIENT_REGISTRATION)) {
+                    RegisterParams registerParam = new RegisterParams();
+                    registerParam.setEditMode(false);
+                    registerParam.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.context().allSharedPreferences()));
+                    showProgressDialog(R.string.saving_dialog_title);
+                    presenter().saveForm(jsonString, registerParam);
+                }
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
     }
 
     @Override
@@ -84,7 +115,7 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity
     @Override
     protected BaseOpdRegisterActivityPresenter createPresenter(
             @NonNull OpdRegisterActivityContract.View view, @NonNull OpdRegisterActivityContract.Model model) {
-        return new CoreAllClientsRegisterPresenter(view, model);
+        return new ChwAllClientRegisterPresenter(view, model);
     }
 
     @Override
@@ -112,14 +143,7 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity
         return true;
     }
 
-    public FormUtils getFormUtils() {
-        if (formUtils == null) {
-            try {
-                formUtils = FormUtils.getInstance(this);
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-        }
-        return formUtils;
+    public OpdRegisterActivityContract.Model createActivityModel() {
+        return new ChwAllClientsRegisterModel();
     }
 }

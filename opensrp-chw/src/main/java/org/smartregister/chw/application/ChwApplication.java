@@ -64,7 +64,9 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.opd.OpdLibrary;
+import org.smartregister.opd.activity.BaseOpdFormActivity;
 import org.smartregister.opd.configuration.OpdConfiguration;
+import org.smartregister.opd.pojo.OpdMetadata;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
@@ -78,6 +80,9 @@ import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
+
+import static org.smartregister.chw.util.Constants.*;
+import static org.smartregister.chw.util.Constants.EncounterType.CLIENT_REGISTRATION;
 
 public class ChwApplication extends CoreChwApplication {
 
@@ -153,13 +158,15 @@ public class ChwApplication extends CoreChwApplication {
         FpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         if(hasReferrals()) {
-            //Setup referral library
             ReferralLibrary.init(this);
             ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
             ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
         }
 
-        //Needed for all clients register
+        OpdMetadata opdMetadata = new OpdMetadata(ALL_CLIENT_REGISTRATION_FORM, TABLE_NAME.FAMILY_MEMBER,
+                CLIENT_REGISTRATION, EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, "",
+                BaseOpdFormActivity.class, null, true);
+
         OpdLibrary.init(context, getRepository(),
                 new OpdConfiguration.Builder(CoreAllClientsRegisterQueryProvider.class)
                         .setBottomNavigationEnabled(true)
