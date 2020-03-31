@@ -26,6 +26,12 @@ public class Constants extends CoreConstants {
         public static final String CLIENT_REGISTRATION = "Client Registration";
     }
 
+    public static class ChildIllnessViewType {
+        public static final int RADIO_BUTTON = 0;
+        public static final int EDIT_TEXT = 1;
+        public static final int CHECK_BOX = 2;
+    }
+
     public static class ReportParameters {
         public static String COMMUNITY = "COMMUNITY";
         public static String COMMUNITY_ID = "COMMUNITY_ID";

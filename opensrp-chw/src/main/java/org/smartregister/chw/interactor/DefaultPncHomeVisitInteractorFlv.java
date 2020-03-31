@@ -163,7 +163,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
     @VisibleForTesting
     public JSONObject getFormJson(String name, String baseEntityID) throws Exception {
-        return org.smartregister.chw.util.JsonFormUtils.getJson(name, baseEntityID);
+        return org.smartregister.chw.util.JsonFormUtils.getJson(view.getContext(), name, baseEntityID);
     }
 
     private void evaluateDangerSignsMother() throws Exception {

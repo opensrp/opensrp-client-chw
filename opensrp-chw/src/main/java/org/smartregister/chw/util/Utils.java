@@ -12,6 +12,8 @@ import org.smartregister.chw.activity.ClientReferralActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.helper.BottomNavigationHelper;
+import org.smartregister.growthmonitoring.domain.ZScore;
+import org.smartregister.growthmonitoring.repository.WeightForHeightRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,7 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         }
         return result;
     }
+
     public static void setupBottomNavigation(BottomNavigationHelper bottomNavigationHelper,
                                              BottomNavigationView bottomNavigationView,
                                              BottomNavigationView.OnNavigationItemSelectedListener listener)
@@ -58,5 +61,14 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
 
         if (bottomNavigationView != null && !ChwApplication.getApplicationFlavor().hasReports())
             bottomNavigationView.getMenu().removeItem(R.id.action_report);
+    }
+
+    public static double getWFHZScore(String gender, String height, String weight) {
+        double zScore = 0.0;
+        List<ZScore> zScoreValues = new WeightForHeightRepository().findZScoreVariables(gender, Double.parseDouble(height));
+        if (zScoreValues.size() > 0) {
+            zScore = zScoreValues.get(0).getZ(Double.parseDouble(weight));
+        }
+        return zScore;
     }
 }

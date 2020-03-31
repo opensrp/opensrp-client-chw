@@ -1,7 +1,0 @@
----
-name: step1_age_at_death
-description: Calculated age_at_death
-priority: 1
-condition: "step1_date_died != '' && step1_dob != ''"
-actions:
-  - "calculation =  helper.getDuration(step1_date_died , step1_dob)"

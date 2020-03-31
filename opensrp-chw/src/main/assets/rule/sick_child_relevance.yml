@@ -1,0 +1,1008 @@
+---
+name: step2_very_sev_disease
+description: very_sev_disease toaster
+priority: 1
+condition: "!step2_danger_signs.contains('None') && !step2_danger_signs.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step2_diazepam_given
+description: Diazepam Given
+priority: 1
+condition: "step2_danger_signs.contains('child_convulsing_now')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_no_symptoms
+description: no_symptoms toaster
+priority: 1
+condition: "step2_danger_signs.contains('None') && step3_main_symptoms.contains('no_symptom')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_difficult_breathing
+description: Difficult breathing
+priority: 1
+condition: "step3_main_symptoms.contains('difficult_breathing')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_period_difficult_breathing
+description: Period of difficult breathing or cough
+priority: 1
+condition: "step4_difficult_breathing.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_breaths_minute_procedure
+description: Breaths per minute procedure toaster
+priority: 1
+condition: "step4_difficult_breathing.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_breaths_minute
+description: Breaths per minute
+priority: 1
+condition: "step4_difficult_breathing.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_breathing_symptoms
+description: Breathing symptoms
+priority: 1
+condition: "step4_difficult_breathing.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_bronchodilator
+description: bronchodilator toaster
+priority: 1
+condition: "step4_breathing_symptoms.contains('wheezing') && step4_fast_breathing == 1 || step4_breathing_symptoms.contains('chest_indrawing')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_bronchodilator_given
+description: bronchodilator given
+priority: 1
+condition: "step4_breathing_symptoms.contains('wheezing') && step4_fast_breathing == 1 || step4_breathing_symptoms.contains('chest_indrawing')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_breaths_minute2_procedure
+description: Breaths per minute 2 procedure toaster
+priority: 1
+condition: "step4_bronchodilator_given.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_breaths_minute2
+description: Breaths per minute 2
+priority: 1
+condition: "step4_bronchodilator_given.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_indrawing_bronchodilator
+description: Indrawing bronchodilator
+priority: 1
+condition: "step4_bronchodilator_given.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_hiv_exposure
+description: HIV Exposure
+priority: 1
+condition: "step4_chest_indrawing == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step4_severe_pneumonia_note
+description: Severe pneumonia toaster
+priority: 1
+condition: "step4_severe_pneumonia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step4_pneumonia_note
+description: pneumonia toaster
+priority: 1
+condition: "step4_pneumonia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step4_cough_cold_note
+description: Cold cough toaster
+priority: 1
+condition: "step4_cough_cold == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step4_severe_pneumonia_treat_note
+description: Severe pneumonia treatment toaster
+priority: 1
+condition: "step4_severe_pneumonia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step4_chest_indrawing_treat_note
+description: Chest indrawing treatment toaster
+priority: 1
+condition: "step4_chest_indrawing == 1 && step4_hiv_exposure.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_chest_indraw_hiv
+description: Chest indrawing treatment given
+priority: 1
+condition: "step4_chest_indrawing == 1 && step4_hiv_exposure.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_pneumonia_treatment_note
+description: Pneumonia treatment toaster
+priority: 1
+condition: "step4_pneumonia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step4_pneumonia_treatment
+description: Pneumonia treatment
+priority: 1
+condition: "step4_pneumonia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step4_cold_treatment_note
+description: Cold or cough treatment toaster
+priority: 1
+condition: "step4_cough_cold == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step4_cough_cold_treatment
+description: Cold or cough treatment
+priority: 1
+condition: "step4_cough_cold == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_diarrhoea
+description: Diarrhoea check
+priority: 1
+condition: "step3_main_symptoms.contains('diarrhoea')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_diarrhoea_period
+description: Diarrhoea period
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_blood_stool
+description: Blood in stool
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_gen_condition
+description: General condition of child
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sunken_eyes
+description: Has sunken eyes
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sunken_eyes
+description: Has sunken eyes
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sunken_eyes
+description: Has sunken eyes
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_drinking
+description: How is the child drinking
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_pinching
+description: How is the skin reacting
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_cholera_present
+description: Has there been cholera instances
+priority: 1
+condition: "step5_diarrhoea.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sev_dehydration_note
+description: Severe dehydration toaster
+priority: 1
+condition: "step5_sev_dehydration == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_some_dehydration_note
+description: Some dehydration toaster
+priority: 1
+condition: "step5_some_dehydration == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_no_dehydration_note
+description: No dehydration toaster
+priority: 1
+condition: "step5_no_dehydration == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sev_persistent_diarrhoea_note
+description: Severe persistent diarrhoea toaster
+priority: 1
+condition: "step5_sev_persistent_diarrhoea == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_persistent_diarrhoea_note
+description: Persistent diarrhoea toaster
+priority: 1
+condition: "step5_persistent_diarrhoea == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_dysentery_note
+description: Dysentry toaster
+priority: 1
+condition: "step5_dysentery == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sev_dehydratn_treat1
+description: Severe dehydration treatment
+priority: 1
+condition: "step5_sev_dehydratn_treat1_calc == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sev_dehydratn_treat2
+description: Severe dehydration treatment 2
+priority: 1
+condition: "step5_sev_dehydratn_treat2_calc == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sev_dehydratn_treat3
+description: Severe dehydration treatment 3
+priority: 1
+condition: "step5_sev_dehydratn_treat3_calc == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_some_dehydration_others
+description: Some dehydration others treatment
+priority: 1
+condition: "step5_some_dehydration == 1 && (step4_severe_pneumonia == 0 || step2_danger_signs.contains('None'))"
+actions:
+  - "isRelevant = true"
+---
+name: step5_some_dehydration_treat
+description: Some dehydration treatment
+priority: 1
+condition: "step5_some_dehydration == 1 && (step4_severe_pneumonia == 1 || !step2_danger_signs.contains('None'))"
+actions:
+  - "isRelevant = true"
+---
+name: step5_no_dehydration_treat
+description: No dehydration treatment
+priority: 1
+condition: "step5_no_dehydration == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sev_persistent_diarrhoea_treatment
+description: Severe persistent diarrhoea treatment
+priority: 1
+condition: "step5_sev_persistent_diarrhoea == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_persistent_diarrhoea_treatment
+description: persistent diarrhoea treatment
+priority: 1
+condition: "step5_persistent_diarrhoea == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_dysentery_treat
+description: Dysentery treatment
+priority: 1
+condition: "step5_dysentery == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_fever
+description: Fever
+priority: 1
+condition: "step3_main_symptoms.contains('fever')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_fever_note
+description: Fever toaster
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_malaria_risk
+description: Is child sleeping under net
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_travel_malaria_area
+description: Has child travelled to Malaria risk area
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_fever_period
+description: Days child has had fever
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_fever_everyday
+description: Has fever been present every day
+priority: 1
+condition: "step6_fever_period > 7"
+actions:
+  - "isRelevant = true"
+---
+name: step6_measles
+description: Whether child has had measles in the last 3 months or is having measles
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_fever_causes
+description: All possible causes of fever
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_measles_symptoms
+description: Look and feel for measles symptoms
+priority: 1
+condition: "step6_fever.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_malaria_test_note
+description: Do malaria test toaster
+priority: 1
+condition: "step6_malaria_test == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_malaria_test_done
+description: Confirmation that the malaria test was done
+priority: 1
+condition: "step6_malaria_test == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_malaria_results
+description: Results that show whether child has malaria
+priority: 1
+condition: "step6_malaria_test_done.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_add_measles_symptoms
+description: Additional symptoms for child with measles
+priority: 1
+condition: "step6_measles.contains('measles_3_months') || step6_measles.contains('measles_now')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_vsf_disease_note
+description: vsf disease toaster
+priority: 1
+condition: "step6_vsf_disease == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_no_test_malaria_note
+description: No test malaria toaster
+priority: 1
+condition: "step6_no_test_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_malaria_note
+description: Malaria note toaster
+priority: 1
+condition: "step6_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_no_malaria_note
+description: No Malaria note toaster
+priority: 1
+condition: "step6_no_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_vsf_disease2_note
+description: vsf_disease2 toaster
+priority: 1
+condition: "step6_vsf_disease2 == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_illness_fever_note
+description: Illness fever toaster
+priority: 1
+condition: "step6_illness_fever == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_complicated_measles_note
+description: Complicated measles toaster
+priority: 1
+condition: "step6_complicated_measles == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_measles_eye_mouth_note
+description: measles with eye and mouth complications toaster
+priority: 1
+condition: "step6_measles_eye_mouth == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_illness_measles_note
+description: Child has measles toaster
+priority: 1
+condition: "step6_illness_measles == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_fever_treatment_note
+description: Fever treatment toaster
+priority: 1
+condition: "step6_vsf_disease == 1 || step6_malaria == 1 || step6_no_malaria == 1 || step6_vsf_disease2 == 1 || step6_illness_fever == 1 || step6_complicated_measles == 1 || step6_measles_eye_mouth || step6_illness_measles == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_vsf_disease_treat_note
+description: Note on very severe febrile disease
+priority: 1
+condition: "step6_vsf_disease == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_vsf_disease_treat
+description: List of treatments for very severe febrile disease
+priority: 1
+condition: "step6_vsf_disease == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_malaria_treat_note
+description: Note of malaria treatment
+priority: 1
+condition: "step6_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_malaria_treat
+description: List of treatments for malaria
+priority: 1
+condition: "step6_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_no_malaria_treat_note
+description: Note on treatments of no malaria fever
+priority: 1
+condition: "step6_no_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_no_malaria_treat
+description: List of treatments for no malaria fever
+priority: 1
+condition: "step6_no_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_vsf_disease2_treat_note
+description: Note of treatments for very severe febrile disease
+priority: 1
+condition: "step6_vsf_disease2 == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_vsf_disease2_treat
+description: List of treatments for very severe febrile disease2
+priority: 1
+condition: "step6_vsf_disease2 == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_illness_fever_treat_note
+description: Note for treatment of fever
+priority: 1
+condition: "step6_illness_fever == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_illness_fever_treat
+description: List of treatments for fever
+priority: 1
+condition: "step6_illness_fever == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_complicated_measles_treat_note
+description: Note for treatment of complicated measles
+priority: 1
+condition: "step6_complicated_measles == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_complicated_measles_treat
+description: List of treatments for complicated measles
+priority: 1
+condition: "step6_complicated_measles == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_measles_eye_mouth_treat_note
+description: Note for treatment of measles with eye or mouth complications
+priority: 1
+condition: "step6_measles_eye_mouth == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_measles_eye_mouth_treat
+description: List of treatments for measles with eye and mouth complications
+priority: 1
+condition: "step6_measles_eye_mouth == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_illness_measles_treat_note
+description: Note for treatment of measles
+priority: 1
+condition: "step6_illness_measles == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_illness_measles_treat
+description: List of treatments for measles
+priority: 1
+condition: "step6_illness_measles == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_ear_problem
+description: Does child have ear problem
+priority: 1
+condition: "step3_main_symptoms.contains('ear_problems')"
+actions:
+  - "isRelevant = true"
+---
+name: step7_ear_pain
+description: Find out whether child's ear is in pain
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step7_ear_discharge
+description: Find out whether there is any discharge from the ear
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step7_ear_discharge_time
+description: How long there has been discharge
+priority: 1
+condition: "step7_ear_problem.contains('yes') && step7_ear_discharge.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step7_pus
+description: Check for pus around the ear
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step7_tender_swelling
+description: Check for tender swelling behind the ear
+priority: 1
+condition: "step7_ear_problem.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step7_mastoiditis_infection_note
+description: Mastoiditis infection toaster
+priority: 1
+condition: "step7_mastoiditis_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_acute_ear_infection_note
+description: Acute ear infection toaster
+priority: 1
+condition: "step7_acute_ear_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_chronic_ear_infection_note
+description: Chronic ear infection toaster
+priority: 1
+condition: "step7_chronic_ear_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_no_ear_infection_note
+description: No ear infection toaster
+priority: 1
+condition: "step7_no_ear_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_ear_problem_treatment_note
+description: Ear treatment toaster
+priority: 1
+condition: "step7_mastoiditis_infection == 1 || step7_acute_ear_infection == 1 || step7_chronic_ear_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_mastoiditis_treat
+description: Treatment for mastoiditis
+priority: 1
+condition: "step7_mastoiditis_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_acute_ear_treat
+description: Treatment for chronic ear infection
+priority: 1
+condition: "step7_acute_ear_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_chronic_ear_treat
+description: Treatment for acute ear infection
+priority: 1
+condition: "step7_chronic_ear_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_ear_treatment_note
+description: Treatment for No ear infection
+priority: 1
+condition: "step7_no_ear_infection == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_muac
+description: Child muac measurement using a MUAC tape
+priority: 1
+condition: "step1_age_in_months >= 6"
+actions:
+  - "isRelevant = true"
+---
+name: step9_rutf_feed
+description: How the child fed on offered RUFT - for children over 6 months
+priority: 1
+condition: "((step9_wfh_zscore < -3 || step9_muac < 115) && step1_age_in_months >= 6 && step9_medical_complications == 0)"
+actions:
+  - "isRelevant = true"
+---
+name: step9_breastfeeding_prob
+description: Whether child is able ot not to breastfeed
+priority: 1
+condition: "((step9_wfh_zscore < -3 || step9_muac < 115) && step1_age_in_months < 6 && step9_medical_complications == 0)"
+actions:
+  - "isRelevant = true"
+---
+name: step9_complicated_sam_note
+description: Complicated severe acute malnutrition toaster
+priority: 1
+condition: "step9_complicated_sam == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_uncomplicated_sam_note
+description: Uncomplicated severe acute malnutrition toaster
+priority: 1
+condition: "step9_uncomplicated_sam == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_mam_note
+description: Moderate acute malnutrition toaster
+priority: 1
+condition: "step9_mam == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_no_acute_maln_note
+description: No acute malnutrition toaster
+priority: 1
+condition: "step9_no_acute_maln == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_acute_malnutrition_treatment_note
+description: Acute malnutrition treatment toaster
+priority: 1
+condition: "step9_complicated_sam == 1 || step9_uncomplicated_sam == 1 || step9_mam == 1 || step9_no_acute_maln == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_compl_sev_maln_treat
+description: List of treatments given to child suffering from complicated severe malnutrition
+priority: 1
+condition: "step9_complicated_sam == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_sev_acute_maln_treat
+description: List of treatnents for child with severe acute malnutrition
+priority: 1
+condition: "step9_uncomplicated_sam == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_acute_maln_treat
+description: List of treatments given to child with acute malnutrition
+priority: 1
+condition: "step9_mam == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step9_no_acute_maln_treat
+description: List of treatment for child with no acute malnutrition
+priority: 1
+condition: "step9_no_acute_maln == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_sev_palmar_note
+description: Severe palmar pallor toaster
+priority: 1
+condition: "step8_palmar_pallor.contains('severe')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_severe_anaemia_note
+description: Severe anaemia toaster
+priority: 1
+condition: "step8_severe_anaemia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_anaemia_note
+description: Anaemia toaster
+priority: 1
+condition: "step8_anaemia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_no_anaemia_note
+description: No Anaemia toaster
+priority: 1
+condition: "step8_no_anaemia == 1 && step1_age_in_months < 24"
+actions:
+  - "isRelevant = true"
+---
+name: step8_feeding_problem
+description: Check for whether a child with no anaemia has any feeding problems
+priority: 1
+condition: "step8_no_anaemia == 1 && step1_age_in_months < 24"
+actions:
+  - "isRelevant = true"
+---
+name: step8_no_anaemia_treat_under2
+description: Treatment for children with no anaemia and are over 2 years toaster
+priority: 1
+condition: "step8_no_anaemia == 1 && step1_age_in_months >= 24"
+actions:
+  - "isRelevant = true"
+---
+name: step8_anemia_treatment_note
+description: Anaemia Treatment toaster
+priority: 1
+condition: "step8_severe_anaemia == 1 || step8_anaemia == 1 || step8_no_anaemia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_anaemia_treat_refer
+description: Refer Anaemia Treatment
+priority: 1
+condition: "step8_severe_anaemia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_anaemia_treat
+description: Treatment for anaemia
+priority: 1
+condition: "step8_anaemia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_feeding_problem_follow_up
+description: Follow-up after 5 days if feeding is a problem
+priority: 1
+condition: "step8_feeding_problem.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_mother_hiv_test
+description: Has mother had test
+priority: 1
+condition: "step10_child_hiv_care.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_mother_test_result
+description: Test result for mother HIV if had already taken test
+priority: 1
+condition: "step10_mother_hiv_test.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_child_hiv_test
+description: Has child had HIV test
+priority: 1
+condition: "step10_child_hiv_care.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_child_hiv_test
+description: Has child had HIV test
+priority: 1
+condition: "step10_child_hiv_care.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_child_test_result
+description: Has child had HIV test
+priority: 1
+condition: "step10_child_hiv_test.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_hiv_breastfeeding
+description: Whether child was breastfeeding at the time of test or 6 weeks prior
+priority: 1
+condition: "step10_mother_test_result.contains('positive') || step10_child_test_result.contains('v_neg') || step10_child_test_result.contains('s_neg') || step10_child_hiv_test.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_hiv_breastfeeding_now
+description: Whether child is currently breastfeeding
+priority: 1
+condition: "step10_mother_test_result.contains('positive') || step10_child_test_result.contains('v_neg') || step10_child_test_result.contains('s_neg') || step10_child_hiv_test.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_on_arv
+description: Whether mother and child are on ARV prophylaxis
+priority: 1
+condition: "step10_hiv_breastfeeding.contains('yes') || step10_hiv_breastfeeding_now.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_test_mother_results_note
+description: Whether mother and child are on ARV prophylaxis
+priority: 1
+condition: "step10_mother_hiv_test.contains('no') && step10_child_hiv_test.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_child_hiv_test2_note
+description: Whether mother and child are on ARV prophylaxis
+priority: 1
+condition: "step10_child_hiv_test.contains('no') && step10_mother_test_result.contains('positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_test_mother_results
+description:  Results for the HIV test - Mother
+priority: 1
+condition: "step10_mother_hiv_test.contains('no') && step10_child_hiv_test.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_child_hiv_test2
+description: Childs status after test
+priority: 1
+condition: "step10_child_hiv_test.contains('no') && step10_mother_test_result.contains('positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_confirmed_hiv_note
+description: Confirmed HIV infection displayed toaster
+priority: 1
+condition: "step10_confirmed_hiv == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step10_child_hiv_exposed_note
+description: Confirmed HIV infection displayed toaster
+priority: 1
+condition: "step10_child_hiv_exposed == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step10_hiv_unlikely_note
+description: Child unlikely to have HIV infection toaster
+priority: 1
+condition: "step10_hiv_unlikely == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step10_hiv_treatment_note
+description: HIV treatment toaster
+priority: 1
+condition: "step10_confirmed_hiv == 1 || step10_child_hiv_exposed == 1 || step10_hiv_unlikely"
+actions:
+  - "isRelevant = true"
+---
+name: step10_confirmed_hiv_treat
+description: List of all HIV treatment and services given for HIV confirmed children
+priority: 1
+condition: "step10_confirmed_hiv == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step10_hiv_exposed
+description: List of all HIV treatment and services given for HIV confirmed children
+priority: 1
+condition: "step10_child_hiv_exposed == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step10_hiv_unlikely_treat
+description: Treatment for HIV unlikely child
+priority: 1
+condition: "step10_hiv_unlikely == 1"
+actions:
+  - "isRelevant = true"
