@@ -5,6 +5,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.LoginJobScheduler;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
+import org.smartregister.chw.core.job.StockUsageReportJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.job.BasePncCloseJob;
 import org.smartregister.chw.job.ScheduleJob;
@@ -46,6 +47,8 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
 
         ScheduleJob.scheduleJob(ScheduleJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.SCHEDULE_SERVICE_MINUTES), getFlexValue(BuildConfig.SCHEDULE_SERVICE_MINUTES));
 
+        StockUsageReportJob.scheduleJob(StockUsageReportJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.STOCK_USAGE_REPORT_MINUTES), getFlexValue(BuildConfig.STOCK_USAGE_REPORT_MINUTES));
+
     }
 
     @Override
@@ -61,6 +64,7 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         SyncLocationsByLevelAndTagsServiceJob.scheduleJobImmediately(SyncLocationsByLevelAndTagsServiceJob.TAG);
+        StockUsageReportJob.scheduleJobImmediately(StockUsageReportJob.TAG);
     }
 
     @Override

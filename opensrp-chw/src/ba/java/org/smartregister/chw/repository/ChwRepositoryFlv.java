@@ -7,6 +7,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.RepositoryUtils;
@@ -65,6 +66,9 @@ public class ChwRepositoryFlv {
                     upgradeToVersion13(db);
                 case 14:
                     upgradeToVersion14(db);
+                    break;
+                case 15:
+                    upgradeToVersion15(db);
                     break;
                 default:
                     break;
@@ -209,7 +213,14 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion14(SQLiteDatabase db) {
         try {
-            // delete possible duplication
+            StockUsageReportRepository.createTable(db);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion15(SQLiteDatabase db) {
+        try {
             db.execSQL(RepositoryUtils.FAMILY_MEMBER_ADD_REASON_FOR_REGISTRATION);
         } catch (Exception e) {
             Timber.e(e);

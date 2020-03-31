@@ -23,4 +23,9 @@ public abstract class DefaultNavigationMenuFlv implements NavigationMenu.Flavour
     public boolean hasStockReport() {
         return false;
     }
+
+    @Override
+    public boolean hasServiceReport() {
+        return false;
+    }
 }
