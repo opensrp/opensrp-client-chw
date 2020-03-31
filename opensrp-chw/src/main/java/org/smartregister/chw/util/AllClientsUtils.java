@@ -9,6 +9,8 @@ import org.smartregister.chw.activity.AboveFiveChildProfileActivity;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
+import org.smartregister.chw.activity.FamilyPlanningMemberProfileActivity;
+import org.smartregister.chw.activity.MalariaProfileActivity;
 import org.smartregister.chw.activity.PncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -16,10 +18,14 @@ import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.MalariaDao;
+import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+
+import static org.smartregister.chw.core.utils.CoreConstants.INTENT_KEY.CLIENT;
 
 public class AllClientsUtils {
 
@@ -28,8 +34,10 @@ public class AllClientsUtils {
             goToAncProfile(activity, commonPersonObjectClient, bundle);
         } else if (PNCDao.isPNCMember(commonPersonObjectClient.entityId())) {
             gotToPncProfile(activity, commonPersonObjectClient, bundle);
-        } else {
-            goToOtherMemberProfile(activity, commonPersonObjectClient, bundle, "", "");
+        } else if (MalariaDao.isRegisteredForMalaria(commonPersonObjectClient.entityId())) {
+            gotToMalariaProfile(activity, commonPersonObjectClient);
+        } else if (FpDao.isRegisteredForFp(commonPersonObjectClient.entityId())) {
+            goToFamilyPlanningProfile(activity, commonPersonObjectClient);
         }
     }
 
@@ -74,14 +82,22 @@ public class AllClientsUtils {
         activity.startActivity(initProfileActivityIntent(activity, patient, bundle, AncMemberProfileActivity.class));
     }
 
+    private static void gotToMalariaProfile(Activity activity, CommonPersonObjectClient patient) {
+        MalariaProfileActivity.startMalariaActivity(activity, new org.smartregister.chw.malaria.domain.MemberObject(patient), patient);
+    }
+
+    private static void goToFamilyPlanningProfile(Activity activity, CommonPersonObjectClient patient) {
+        FamilyPlanningMemberProfileActivity.startFpMemberProfileActivity(activity, FpDao.getMember(patient.getCaseId()));
+    }
+
     private static Intent initProfileActivityIntent(Activity activity, CommonPersonObjectClient patient, Bundle bundle, Class clazz) {
         Intent intent = new Intent(activity, clazz);
         if (bundle != null) {
             intent.putExtras(bundle);
         }
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, patient.entityId());
-        intent.putExtra(CoreConstants.INTENT_KEY.CLIENT, patient);
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.TITLE_VIEW_TEXT,  R.string.return_to_all_client);
+        intent.putExtra(CLIENT, patient);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.TITLE_VIEW_TEXT, R.string.return_to_all_client);
         return intent;
     }
 }
