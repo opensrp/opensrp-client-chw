@@ -89,10 +89,10 @@ public class RemoveFamilyTestsBa {
                 .perform(click());
         onView(withId(R.id.action_save))
                 .perform(click());
-        Thread.sleep(5000);
+        Thread.sleep(500);
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("REMOVE"))
                 .perform(click());
-        Thread.sleep(2000);
+        Thread.sleep(200);
     }
 
     @Order(order = 5)
