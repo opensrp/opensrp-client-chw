@@ -109,7 +109,7 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         Utils.setupBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
-        bottomNavigationView.getMenu().findItem(R.id.action_register).setTitle(R.string.add_client).setIcon(R.drawable.ic_action_add);
+        bottomNavigationView.getMenu().findItem(R.id.action_register).setTitle(R.string.add_client).setIcon(R.drawable.ic_input_add);
     }
 
     @Override
