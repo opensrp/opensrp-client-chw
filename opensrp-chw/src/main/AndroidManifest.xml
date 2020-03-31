@@ -194,6 +194,13 @@
         <activity
             android:name=".activity.SickFormMedicalHistory"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.CoreStockInventoryReportActivity"
+            android:label="@string/stock_usage_report"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.CoreStockInventoryItemDetailsReportActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
             android:name=".activity.ReportsActivity"
@@ -238,6 +245,7 @@
         <service android:name="org.smartregister.reporting.service.IndicatorGeneratorIntentService" />
         <service android:name=".service.SchedulesIntentService" />
         <service android:name=".sync.ChwSyncIntentService" />
+        <service android:name="org.smartregister.chw.core.service.StockUsageReportService" />
         <service android:name="org.smartregister.growthmonitoring.service.intent.WeightForHeightIntentService" />
 
         <uses-library

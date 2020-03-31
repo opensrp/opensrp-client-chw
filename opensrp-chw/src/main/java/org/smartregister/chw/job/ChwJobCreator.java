@@ -9,6 +9,7 @@ import com.evernote.android.job.JobCreator;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
+import org.smartregister.chw.core.job.StockUsageReportJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.sync.ChwSyncIntentService;
 import org.smartregister.chw.sync.intent.ChwSyncTaskIntentService;
@@ -57,6 +58,8 @@ public class ChwJobCreator implements JobCreator {
                 return new ScheduleJob();
             case SyncLocationsByLevelAndTagsServiceJob.TAG:
                 return new SyncLocationsByLevelAndTagsServiceJob();
+            case StockUsageReportJob.TAG:
+                return new StockUsageReportJob();
             //TODO uncomment to enable plans
             /*case PlanIntentServiceJob.TAG:
                 return new PlanIntentServiceJob();*/
