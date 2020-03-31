@@ -20,12 +20,12 @@ public abstract class DefaultNavigationMenuFlv implements NavigationMenu.Flavour
     }
 
     @Override
-    public boolean hasServiceReport() {
+    public boolean hasStockReport() {
         return false;
     }
 
     @Override
-    public boolean hasStockReport() {
+    public boolean hasServiceReport() {
         return false;
     }
 }

@@ -8,6 +8,7 @@ import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.core.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.RepositoryUtils;
@@ -69,6 +70,10 @@ public class ChwRepositoryFlv {
                     break;
                 case 14:
                     upgradeToVersion14(db);
+                    break;
+                case 15:
+                    upgradeToVersion15(db);
+                    break;
                 default:
                     break;
             }
@@ -222,6 +227,14 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion14(SQLiteDatabase db) {
         try {
+            StockUsageReportRepository.createTable(db);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion15(SQLiteDatabase db) {
+        try {
             String indicatorsConfigFile = "config/indicator-definitions.yml";
             String indicatorDataInitialisedPref = "INDICATOR_DATA_INITIALISED";
             ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
@@ -236,13 +249,13 @@ public class ChwRepositoryFlv {
                 reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
             }
 
-            for (String query : RepositoryUtilsFlv.UPGRADE_V14) {
+            for (String query : RepositoryUtilsFlv.UPGRADE_V15) {
                 db.execSQL(query);
             }
-
         } catch (Exception e) {
             Timber.e(e);
         }
     }
+
 
 }
