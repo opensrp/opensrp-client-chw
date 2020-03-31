@@ -13,6 +13,8 @@ import org.junit.runners.Suite;
                 AdditionalTestDataBa.class,
                 AddChildFamilyMemberBa.class,
                 HomePageTestsBa.class,
+                ANCRegistrationTestsBa.class,
+                ANCRegisterTestsBa.class,
                 RemoveMemberTestsBa.class,
                 RemoveFamilyTestsBa.class
         })
