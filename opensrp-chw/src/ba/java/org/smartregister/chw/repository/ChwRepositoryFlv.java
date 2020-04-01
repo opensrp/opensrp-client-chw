@@ -74,6 +74,9 @@ public class ChwRepositoryFlv {
                 case 15:
                     upgradeToVersion15(db);
                     break;
+                case 16:
+                    upgradeToVersion16(db);
+                    break;
                 default:
                     break;
             }
@@ -239,7 +242,6 @@ public class ChwRepositoryFlv {
             String indicatorDataInitialisedPref = "INDICATOR_DATA_INITIALISED";
             ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
 
-
             boolean indicatorDataInitialised = Boolean.parseBoolean(reportingLibraryInstance.getContext().allSharedPreferences().getPreference(indicatorDataInitialisedPref));
             boolean isUpdated = checkIfAppUpdated();
             if (!indicatorDataInitialised || isUpdated) {
@@ -257,5 +259,11 @@ public class ChwRepositoryFlv {
         }
     }
 
-
+    private static void upgradeToVersion16(SQLiteDatabase db) {
+        try {
+            db.execSQL(RepositoryUtils.FAMILY_MEMBER_ADD_REASON_FOR_REGISTRATION);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
 }

@@ -222,6 +222,13 @@
         <activity
             android:name=".activity.PinLoginActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AllClientsRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name="org.smartregister.opd.activity.BaseOpdFormActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
             android:name=".activity.SickChildJsonFormActivity"

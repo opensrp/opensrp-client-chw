@@ -8,6 +8,7 @@ public class Constants extends CoreConstants {
     public static final String REFERRAL_TYPES = "ReferralTypes";
     public static final String APP_VERSION = "app_version";
     public static final String DB_VERSION = "db_version";
+    public static final String ALL_CLIENT_REGISTRATION_FORM = "all_clients_registration_form";
 
     public static class FORM_SUBMISSION_FIELD {
         public static String pncHfNextVisitDateFieldType = "pnc_hf_next_visit_date";
@@ -22,6 +23,7 @@ public class Constants extends CoreConstants {
         public static final String SICK_CHILD = "Sick Child Referral";
         public static final String PNC_REFERRAL = "PNC Referral";
         public static final String ANC_REFERRAL = "ANC Referral";
+        public static final String CLIENT_REGISTRATION = "Client Registration";
     }
 
     public static class ChildIllnessViewType {
