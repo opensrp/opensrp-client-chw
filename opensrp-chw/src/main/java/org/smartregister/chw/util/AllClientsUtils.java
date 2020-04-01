@@ -38,6 +38,10 @@ public class AllClientsUtils {
             gotToMalariaProfile(activity, commonPersonObjectClient);
         } else if (FpDao.isRegisteredForFp(commonPersonObjectClient.entityId())) {
             goToFamilyPlanningProfile(activity, commonPersonObjectClient);
+        } else {
+            goToOtherMemberProfile(activity, commonPersonObjectClient, bundle,
+                    bundle.getString(Constants.INTENT_KEY.FAMILY_HEAD),
+                    bundle.getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER));
         }
     }
 

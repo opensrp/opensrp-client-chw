@@ -6,6 +6,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.core.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -17,6 +18,7 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
+import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.util.DatabaseMigrationUtils;
@@ -27,6 +29,7 @@ import java.util.List;
 import timber.log.Timber;
 
 public class ChwRepositoryFlv {
+    private static String appVersionCodePref = "APP_VERSION_CODE";
 
     public static void onUpgrade(Context context, SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.w(ChwRepository.class.getName(),
@@ -69,6 +72,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 15:
                     upgradeToVersion15(db);
+                    break;
+                case 16:
+                    upgradeToVersion16(db);
                     break;
                 default:
                     break;
@@ -211,6 +217,16 @@ public class ChwRepositoryFlv {
         }
     }
 
+    private static boolean checkIfAppUpdated() {
+        String savedAppVersion = ReportingLibrary.getInstance().getContext().allSharedPreferences().getPreference(appVersionCodePref);
+        if (savedAppVersion.isEmpty()) {
+            return true;
+        } else {
+            int savedVersion = Integer.parseInt(savedAppVersion);
+            return (BuildConfig.VERSION_CODE > savedVersion);
+        }
+    }
+
     private static void upgradeToVersion14(SQLiteDatabase db) {
         try {
             StockUsageReportRepository.createTable(db);
@@ -220,6 +236,29 @@ public class ChwRepositoryFlv {
     }
 
     private static void upgradeToVersion15(SQLiteDatabase db) {
+        try {
+            String indicatorsConfigFile = "config/indicator-definitions.yml";
+            String indicatorDataInitialisedPref = "INDICATOR_DATA_INITIALISED";
+            ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+
+            boolean indicatorDataInitialised = Boolean.parseBoolean(reportingLibraryInstance.getContext().allSharedPreferences().getPreference(indicatorDataInitialisedPref));
+            boolean isUpdated = checkIfAppUpdated();
+            if (!indicatorDataInitialised || isUpdated) {
+                reportingLibraryInstance.readConfigFile(indicatorsConfigFile, db);
+                reportingLibraryInstance.initIndicatorData(indicatorsConfigFile, db); // This will persist the data in the DB
+                reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
+                reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+            }
+
+            for (String query : RepositoryUtilsFlv.UPGRADE_V15) {
+                db.execSQL(query);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion16(SQLiteDatabase db) {
         try {
             db.execSQL(RepositoryUtils.FAMILY_MEMBER_ADD_REASON_FOR_REGISTRATION);
         } catch (Exception e) {

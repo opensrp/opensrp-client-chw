@@ -42,6 +42,10 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean hasServiceReport() {
+        return true;
+    }
+
     public boolean hasQR() {
         return true;
     }
