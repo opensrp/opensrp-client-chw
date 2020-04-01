@@ -48,7 +48,6 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
         ScheduleJob.scheduleJob(ScheduleJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.SCHEDULE_SERVICE_MINUTES), getFlexValue(BuildConfig.SCHEDULE_SERVICE_MINUTES));
 
         StockUsageReportJob.scheduleJob(StockUsageReportJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.STOCK_USAGE_REPORT_MINUTES), getFlexValue(BuildConfig.STOCK_USAGE_REPORT_MINUTES));
-
     }
 
     @Override
@@ -65,6 +64,9 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         SyncLocationsByLevelAndTagsServiceJob.scheduleJobImmediately(SyncLocationsByLevelAndTagsServiceJob.TAG);
         StockUsageReportJob.scheduleJobImmediately(StockUsageReportJob.TAG);
+
+        if (ChwApplication.getApplicationFlavor().hasServiceReport())
+            ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
     }
 
     @Override

@@ -195,7 +195,17 @@
             android:name=".activity.SickFormMedicalHistory"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".core.activity.CoreStockInventoryReportActivity"
+            android:name=".core.activity.HIA2ReportsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.ReportSummaryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.ServiceJsonFormActivity"
+            android:label="@string/stock_usage_report"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+          <activity  android:name=".core.activity.CoreStockInventoryReportActivity"
             android:label="@string/stock_usage_report"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity

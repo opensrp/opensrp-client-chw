@@ -253,7 +253,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             List<VaccineWrapper> wrappers = VisitVaccineUtil.wrapVaccines(entry.getValue());
             List<VaccineDisplay> displays = VisitVaccineUtil.toDisplays(wrappers);
 
-            String title = MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.immunizations_count), VisitVaccineUtil.getVaccineTitle(entry.getKey().name, context));
+            String title = MessageFormat.format(context.getString(R.string.immunizations_count), VisitVaccineUtil.getVaccineTitle(entry.getKey().name, context));
             BaseHomeVisitImmunizationFragment fragment =
                     BaseHomeVisitImmunizationFragment.getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked);
 
@@ -264,7 +264,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                     .withDetails(details)
                     .withDestinationFragment(fragment)
                     .withHelper(new ImmunizationActionHelper(context, wrappers))
-                    .withDisabledMessage(context.getString(org.smartregister.chw.core.R.string.fill_earler_immunization))
+                    .withDisabledMessage(context.getString(R.string.fill_earler_immunization))
                     .withValidator(validator)
                     .build();
 
@@ -756,7 +756,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         @Override
         public String getPreProcessedSubTitle() {
             return MessageFormat.format("{0} {1}",
-                    context.getString(isOverDue() ? org.smartregister.chw.core.R.string.overdue : org.smartregister.chw.core.R.string.due),
+                    context.getString(isOverDue() ? R.string.overdue : R.string.due),
                     org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy.format(birthDate.toDate())
             );
         }
@@ -804,7 +804,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
             return birth_cert.equalsIgnoreCase("Yes") ?
                     MessageFormat.format("{0} {1} (#{2}) ", context.getString(R.string.issued), certDate, birth_cert_num) :
-                    context.getString(org.smartregister.chw.core.R.string.not_done);
+                    context.getString(R.string.not_done);
         }
 
         @Override
@@ -831,7 +831,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         @Override
         public String getPreProcessedSubTitle() {
             return MessageFormat.format("{0} {1}",
-                    context.getString(isOverDue() ? org.smartregister.chw.core.R.string.overdue : org.smartregister.chw.core.R.string.due),
+                    context.getString(isOverDue() ? R.string.overdue : R.string.due),
                     org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy.format(birthDate.toDate())
             );
         }
