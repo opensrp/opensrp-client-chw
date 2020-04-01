@@ -67,6 +67,7 @@ public class ChwRepositoryFlv {
                     break;
                 case 13:
                     upgradeToVersion13(db);
+                    break;
                 case 14:
                     upgradeToVersion14(db);
                     break;

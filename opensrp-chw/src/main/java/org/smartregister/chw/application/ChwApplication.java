@@ -83,8 +83,10 @@ import java.util.Map;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.Constants.*;
+import static org.smartregister.chw.util.Constants.ALL_CLIENT_REGISTRATION_FORM;
 import static org.smartregister.chw.util.Constants.EncounterType.CLIENT_REGISTRATION;
+import static org.smartregister.chw.util.Constants.EventType;
+import static org.smartregister.chw.util.Constants.TABLE_NAME;
 
 public class ChwApplication extends CoreChwApplication {
 
@@ -142,6 +144,43 @@ public class ChwApplication extends CoreChwApplication {
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
+        initializeLibraries();
+
+        // init json helper
+        this.jsonSpecHelper = new JsonSpecHelper(this);
+
+        //init Job Manager
+        JobManager.create(this).addJobCreator(new ChwJobCreator());
+
+        initOfflineSchedules();
+
+        setOpenSRPUrl();
+
+        Configuration configuration = getApplicationContext().getResources().getConfiguration();
+        String language;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            language = configuration.getLocales().get(0).getLanguage();
+        } else {
+            language = configuration.locale.getLanguage();
+        }
+
+        if (language.equals(Locale.FRENCH.getLanguage())) {
+            saveLanguage(Locale.FRENCH.getLanguage());
+        }
+
+        // create a folder for guidebooks
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                prepareGuideBooksFolder();
+            }
+        } else {
+            prepareGuideBooksFolder();
+        }
+
+        EventBus.getDefault().register(this);
+    }
+
+    private void initializeLibraries() {
         //Initialize Modules
         P2POptions p2POptions = new P2POptions(true);
         p2POptions.setAuthorizationService(new CoreAuthorizationService());
@@ -190,39 +229,6 @@ public class ChwApplication extends CoreChwApplication {
 
         // set up processor
         FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
-
-        // init json helper
-        this.jsonSpecHelper = new JsonSpecHelper(this);
-
-        //init Job Manager
-        JobManager.create(this).addJobCreator(new ChwJobCreator());
-
-        initOfflineSchedules();
-
-        setOpenSRPUrl();
-
-        Configuration configuration = getApplicationContext().getResources().getConfiguration();
-        String language;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            language = configuration.getLocales().get(0).getLanguage();
-        } else {
-            language = configuration.locale.getLanguage();
-        }
-
-        if (language.equals(Locale.FRENCH.getLanguage())) {
-            saveLanguage(Locale.FRENCH.getLanguage());
-        }
-
-        // create a folder for guidebooks
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                prepareGuideBooksFolder();
-            }
-        } else {
-            prepareGuideBooksFolder();
-        }
-
-        EventBus.getDefault().register(this);
     }
 
     @Override

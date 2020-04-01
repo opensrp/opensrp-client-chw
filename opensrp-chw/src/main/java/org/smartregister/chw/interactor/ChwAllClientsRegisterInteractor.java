@@ -31,11 +31,6 @@ import timber.log.Timber;
 
 public class ChwAllClientsRegisterInteractor extends BaseOpdRegisterActivityInteractor {
 
-
-    public ChwAllClientsRegisterInteractor() {
-        super();
-    }
-
     @Override
     public void getNextUniqueId(final Triple<String, String, String> triple, final OpdRegisterActivityContract.InteractorCallBack callBack) {
         Runnable runnable = () -> {
@@ -95,7 +90,7 @@ public class ChwAllClientsRegisterInteractor extends BaseOpdRegisterActivityInte
 
                     addEvent(params, currentFormSubmissionIds, baseEvent);
                     updateOpenSRPId(jsonString, params, baseClient);
-                    addImageLocation(jsonString, i, baseClient, baseEvent);
+                    addImageLocation(jsonString, baseClient, baseEvent);
                 } catch (Exception e) {
                     Timber.e(e, "ChwAllClientRegisterInteractor --> saveRegistration");
                 }
@@ -110,7 +105,7 @@ public class ChwAllClientsRegisterInteractor extends BaseOpdRegisterActivityInte
         }
     }
 
-    private void addImageLocation(String jsonString, int i, Client baseClient, Event baseEvent) {
+    private void addImageLocation(String jsonString, Client baseClient, Event baseEvent) {
         if (baseClient != null || baseEvent != null) {
             String imageLocation = OpdJsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
             if (StringUtils.isNotBlank(imageLocation)) {

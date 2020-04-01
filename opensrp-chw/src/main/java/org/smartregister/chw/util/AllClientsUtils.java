@@ -24,6 +24,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.opd.utils.OpdDbConstants;
 
 import static org.smartregister.chw.core.utils.CoreConstants.INTENT_KEY.CLIENT;
 
@@ -73,6 +74,7 @@ public class AllClientsUtils {
         intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, patient);
         intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
         intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
+        intent.putExtra(Constants.INTENT_KEY.VILLAGE_TOWN, patient.getDetails().get(OpdDbConstants.KEY.HOME_ADDRESS));
         activity.startActivity(intent);
     }
 

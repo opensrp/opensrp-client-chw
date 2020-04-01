@@ -29,17 +29,15 @@ public class ChwAllClientsRegisterModel extends OpdRegisterActivityModel {
         JSONObject form = injectFields(formName, injectedFieldValues);
 
         if (StringUtils.isNotBlank(entityId)) {
-            entityId = entityId.replace("-", "");
-        }
-
-        // Inject OPenSrp id into the form
-        JSONObject stepOne = form.getJSONObject(OpdJsonFormUtils.STEP1);
-        JSONArray jsonArray = stepOne.getJSONArray(OpdJsonFormUtils.FIELDS);
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject.getString(OpdJsonFormUtils.KEY).equalsIgnoreCase(UNIQUE_ID)) {
-                jsonObject.remove(OpdJsonFormUtils.VALUE);
-                jsonObject.put(OpdJsonFormUtils.VALUE, entityId);
+            // Inject OPenSrp id into the form
+            JSONObject stepOne = form.getJSONObject(OpdJsonFormUtils.STEP1);
+            JSONArray jsonArray = stepOne.getJSONArray(OpdJsonFormUtils.FIELDS);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if (jsonObject.getString(OpdJsonFormUtils.KEY).equalsIgnoreCase(UNIQUE_ID)) {
+                    jsonObject.remove(OpdJsonFormUtils.VALUE);
+                    jsonObject.put(OpdJsonFormUtils.VALUE, entityId.replace("-", ""));
+                }
             }
         }
 
