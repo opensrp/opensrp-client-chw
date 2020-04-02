@@ -277,6 +277,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'org.mockito:mockito-android:3.0.0'
 
+    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
+
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:3.1.0'
     testImplementation 'org.robolectric:robolectric:4.3.1'
