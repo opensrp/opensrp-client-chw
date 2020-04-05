@@ -29,6 +29,7 @@ import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.fragment.JobAidsDashboardFragment;
 import org.smartregister.chw.fragment.JobAidsGuideBooksFragment;
 import org.smartregister.chw.listener.JobsAidsBottomNavigationListener;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.reporting.domain.TallyStatus;
 import org.smartregister.reporting.event.IndicatorTallyEvent;
@@ -163,7 +164,7 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         JobsAidsBottomNavigationListener navigationListener = new JobsAidsBottomNavigationListener(this);
-        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, navigationListener);
+        Utils.setupBottomNavigation(bottomNavigationHelper, bottomNavigationView, navigationListener);
         if (bottomNavigationView != null)
             bottomNavigationView.getMenu().findItem(R.id.action_job_aids).setChecked(true);
     }

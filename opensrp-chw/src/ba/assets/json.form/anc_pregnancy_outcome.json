@@ -184,7 +184,7 @@
           "Other"
         ],
         "openmrs_choice_ids": {
-          "At Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "At home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "At a health facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "On the way to the health facility": "1601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

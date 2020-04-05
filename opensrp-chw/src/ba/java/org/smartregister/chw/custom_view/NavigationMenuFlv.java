@@ -25,6 +25,11 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
     }
 
     @Override
+    public boolean hasServiceReport() {
+        return true;
+    }
+
+    @Override
     public boolean hasStockReport() {
         return true;
     }

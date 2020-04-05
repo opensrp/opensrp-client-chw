@@ -349,4 +349,6 @@
     <string name="enter_pin_for_user">Enter pin for %s</string>
     <string name="use_4_digit_pin_number_promt">You can use a 4 digit pin number to make logging in faster</string>
 
+    <!-- All Clients -->
+    <string name="add_client">Add client</string>
 </resources>

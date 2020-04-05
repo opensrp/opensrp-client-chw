@@ -76,6 +76,7 @@ android {
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '120'
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '720'
+            buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "false"
         }
 
@@ -92,6 +93,7 @@ android {
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '120'
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '360'
+            buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "false"
             testCoverageEnabled true
         }
@@ -140,13 +142,13 @@ android {
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
-          //  buildConfigField "String", 'opensrp_url_debug', '"https://ba-unified-stage.smartregister.org/opensrp/"'
+           // buildConfigField "String", 'opensrp_url_debug', '"https://ba-unified-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country","Region","District","Ward" , "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"MOH Jhpiego Facility Name" , "Village"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '13'
+            buildConfigField "int", "DATABASE_VERSION", '16'
         }
         chad {
             dimension = 'baseDimension'
@@ -168,14 +170,14 @@ android {
             applicationIdSuffix ".drc"
             versionCode 1
             versionName "0.0.1"
-            buildConfigField "String", 'opensrp_url', '"https://wcaro-drc.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/drc/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Pays" , "Province(DPS)" , "Zone de Sante", "Aire de Sante", "VILLAGE/COMMUNAUTE"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Zone de Sante" , "Aire de Sante" , "VILLAGE/COMMUNAUTE"}'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"VILLAGE/COMMUNAUTE"'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
         guinea {
@@ -233,8 +235,8 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".lmh"
             versionCode 1
-            versionName "0.0.4"
-            buildConfigField "String", 'opensrp_url', '"https://lmh-liberia.smartregister.org/opensrp/"'
+            versionName "0.0.3"
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-lmh.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/lmh/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
@@ -252,7 +254,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.1.54-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.1.56-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -275,26 +277,14 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'org.mockito:mockito-android:3.0.0'
 
+    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
+
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:3.1.0'
     testImplementation 'org.robolectric:robolectric:4.3.1'
     testImplementation 'org.robolectric:shadows-multidex:4.0.1'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     testImplementation 'androidx.test:core:1.0.0'
-
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
-        transitive = true
-    }
-
-    implementation("org.smartregister:android-p2p-sync:0.3.6-SNAPSHOT") {
-        transitive = true
-        exclude group: 'org.smartregister', module: 'opensrp-client-core'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
-        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
-        exclude group: 'com.rengwuxian.materialedittext', module: 'library'
-    }
-
 }
 
 def flavors = android.productFlavors.collect { flavor -> flavor.name }

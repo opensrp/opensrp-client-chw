@@ -1,0 +1,1106 @@
+indicators:
+  - key: "newpreg_mama_visit"
+    description: "newpreg_mama_visit_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN visits v on  v.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'ANC Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND (substr(e.eventDate, 1, 4) == strftime('%Y',date('now'), 'localtime'))
+                     AND (substr(e.eventDate, 6, 2) == strftime('%m',date('now'), 'localtime'))
+                     AND (v.visit_type = 'ANC Home Visit')
+                     AND ( strftime('%Y',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%Y',date('now'), 'localtime'))
+                     AND ( strftime('%m',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%m',date('now'), 'localtime'))"
+
+  - key: "oldpreg_mama_visit"
+    description: "oldpreg_mama_visit_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN visits v on  v.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'ANC Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND (date (e.eventDate) < date('now','start of month'))
+                     AND v.visit_type = 'ANC Home Visit'
+                     AND ( strftime('%Y',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%Y',date('now'), 'localtime'))
+                     AND ( strftime('%m',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%m',date('now'), 'localtime'))"
+
+  - key: "total_preg_visit"
+    description: "total_preg_visit_label"
+    indicatorQuery: "SELECT count (DISTINCT(v.base_entity_id)) as count
+                     FROM  visits v
+                     WHERE v.visit_type = 'ANC Home Visit'
+                     AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( strftime('%Y',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%Y',date('now'), 'localtime'))
+                     AND ( strftime('%m',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%m',date('now'), 'localtime'))"
+
+  - key: "pnc_visit"
+    description: "pnc_visit_label"
+    indicatorQuery: "SELECT count (DISTINCT(v.base_entity_id)) as count
+                     FROM  visits v
+                     WHERE v.visit_type = 'PNC Home Visit'
+                     AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( strftime('%Y',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%Y',date('now'), 'localtime'))
+                     AND ( strftime('%m',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%m',date('now'), 'localtime'))"
+
+  - key: "total_F_visited"
+    description: "total_F_visited_label"
+    indicatorQuery: "SELECT count (DISTINCT(v.base_entity_id)) as count
+                     FROM  visits v
+                     WHERE ( v.visit_type = 'PNC Home Visit' OR v.visit_type = 'ANC Home Visit')
+                     AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( strftime('%Y',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%Y',date('now'), 'localtime'))
+                     AND ( strftime('%m',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%m',date('now'), 'localtime'))"
+
+  - key: "less1m_visit"
+    description: "less1m_visit_label"
+    indicatorQuery: "SELECT SUM(count) as count
+                     FROM(
+                     SELECT count(DISTINCT c.base_entity_id) as count
+                     FROM ec_child c
+                     INNER JOIN visits v on v.base_entity_id = c.mother_entity_id
+                     WHERE v.visit_type = 'PNC Home Visit'
+                     AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( strftime('%Y',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%Y',date('now'), 'localtime'))
+                     AND ( strftime('%m',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%m',date('now'), 'localtime'))
+                     AND ( date(c.dob, '+1 month') >  date ('now'))
+                     UNION ALL
+                     SELECT count(DISTINCT c.base_entity_id) as count
+                      FROM  ec_child c
+                      INNER JOIN visits v on v.base_entity_id = c.base_entity_id
+                      WHERE( date(c.dob, '+1 month') >  date ('now'))
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                      AND v.visit_type = 'Child Home Visit'
+                     AND ( strftime('%Y',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%Y',date('now'), 'localtime'))
+                     AND ( strftime('%m',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%m',date('now'), 'localtime'))
+                     )"
+
+  - key: "1m1yr_visit"
+    description: "reporting_1m1yr_visit_label"
+    indicatorQuery: "SELECT count(DISTINCT c.base_entity_id) as count
+                      FROM  ec_child c
+                      INNER JOIN visits v on v.base_entity_id = c.base_entity_id
+                      WHERE( date(c.dob, '+1 month') <=  date ('now'))
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                      AND( date(c.dob, '+1 year') > date ('now'))
+                      AND  v.visit_type = 'Child Home Visit'
+                     AND ( strftime('%Y',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%Y',date('now'), 'localtime'))
+                     AND ( strftime('%m',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%m',date('now'), 'localtime'))"
+
+  - key: "1yr5yr_visit"
+    description: "reporting_1yr5yr_visit_label"
+    indicatorQuery: "SELECT count(DISTINCT c.base_entity_id) as count
+                      FROM  ec_child c
+                      INNER JOIN visits v on v.base_entity_id = c.base_entity_id
+                      WHERE( date(c.dob, '+1 year') <=  date ('now'))
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                      AND( date(c.dob, '+5 years') >= date ('now'))
+                      AND  v.visit_type = 'Child Home Visit'
+                     AND ( strftime('%Y',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%Y',date('now'), 'localtime'))
+                     AND ( strftime('%m',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%m',date('now'), 'localtime'))"
+
+  - key: "total_U5_visit"
+    description: "total_U5_visit_label"
+    indicatorQuery: "SELECT count(1) as count
+                                           FROM  event e
+                     					  INNER JOIN ec_child c on c.base_entity_id = e.baseEntityId
+                     					  WHERE ( e.eventType = 'Child Registration' OR e.eventType = 'PNC Child Registration')
+                     					  AND ('%s' = (substr(e.eventDate, 1,10)))
+                     					  AND c.is_closed = '0'"
+
+  - key: "hh_visited"
+    description: "hh_visited_label"
+    indicatorQuery: "SELECT SUM(count)
+                     FROM (
+                     SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     WHERE e.eventType = 'Family Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND (substr(e.eventDate, 1, 4) == strftime('%Y',date('now'), 'localtime'))
+                     AND (substr(e.eventDate, 6, 2) == strftime('%m',date('now'), 'localtime'))
+                     AND e.baseEntityId NOT IN(
+                     SELECT DISTINCT fm.relational_id
+                     FROM ec_family_member fm
+                     INNER JOIN visits v on v.base_entity_id = fm.base_entity_id
+                     WHERE ( v.visit_type = 'PNC Home Visit' OR v.visit_type = 'ANC Home Visit' OR v.visit_type = 'FP Follow up Visit Resupply'
+                     OR v.visit_type = 'FP Follow-up Visit Side-effects' OR  v.visit_type = 'FP Follow up visit Counselling' OR v.visit_type = 'Child Home Visit')
+                     AND ( strftime('%Y',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%Y',date('now'), 'localtime'))
+                     AND ( strftime('%m',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%m',date('now'), 'localtime'))
+                     )
+                     UNION ALL
+                     SELECT COUNT(DISTINCT fm.relational_id) as count
+                     FROM visits v
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE ( v.visit_type = 'PNC Home Visit' OR v.visit_type = 'ANC Home Visit' OR v.visit_type = 'FP Follow up Visit Resupply'
+                     OR v.visit_type = 'FP Follow-up Visit Side-effects' OR  v.visit_type = 'FP Follow up visit Counselling' OR v.visit_type = 'Child Home Visit')
+                     AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( strftime('%Y',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%Y',date('now'), 'localtime'))
+                     AND ( strftime('%m',(datetime(v.visit_date/1000, 'unixepoch', 'localtime'))) == strftime('%m',date('now'), 'localtime'))
+                     )"
+
+  - key: "F_referral_hf"
+    description: "F_referral_hf_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     WHERE (e.eventType = 'ANC Referral' OR e.eventType = 'PNC Referral'  OR e.eventType = 'Family Planning Referral' OR e.eventType = 'Malaria Referral')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))"
+
+  - key: "less1m_referral_hf"
+    description: "less1m_referral_hf_label"
+    indicatorQuery: "SELECT SUM(count) as count
+                     FROM(
+                     SELECT count(DISTINCT c.base_entity_id) as count
+                     FROM  ec_child c
+                     INNER JOIN event e on e.baseEntityId = c.base_entity_id
+                     WHERE( date(c.dob, '+1 month') >  date ('now'))
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND e.eventType = 'Sick Child Referral'
+                     UNION ALL
+                     SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_child c on c.mother_entity_id = e.baseEntityId
+                     WHERE  e.eventType = 'PNC Referral'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(c.dob, '+1 month') >  date ('now'))
+                     AND e.eventType = 'PNC Referral')"
+
+  - key: "1m1yr_referral_hf"
+    description: "reporting_1m1yr_referral_hf_label"
+    indicatorQuery: "SELECT count(DISTINCT c.base_entity_id) as count
+                     FROM  ec_child c
+                      INNER JOIN event e on e.baseEntityId = c.base_entity_id
+                      WHERE( date(c.dob, '+1 month') <=  date ('now'))
+                      AND ('%s' = (substr(e.eventDate, 1,10)))
+                      AND( date(c.dob, '+1 year') > date ('now'))
+                      AND  e.eventType = 'Sick Child Referral'"
+
+  - key: "1yr5yr_referral_hf"
+    description: "reporting_1yr5yr_referral_hf_label"
+    indicatorQuery: "SELECT count(DISTINCT c.base_entity_id) as count
+                     FROM  ec_child c
+                      INNER JOIN event e on e.baseEntityId = c.base_entity_id
+                      WHERE( date(c.dob, '+1 year') <=  date ('now'))
+                      AND ('%s' = (substr(e.eventDate, 1,10)))
+                      AND( date(c.dob, '+5 years') >= date ('now'))
+                      AND  e.eventType = 'Sick Child Referral'"
+
+  - key: "total_referral"
+    description: "total_referral_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     WHERE (e.eventType = 'ANC Referral' OR e.eventType = 'PNC Referral'  OR e.eventType = 'Family Planning Referral' OR e.eventType = 'Malaria Referral' OR e.eventType = 'Sick Child Referral')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))"
+
+  - key: "no_healthedu_meet"
+    description: "no_healthedu_meet_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     WHERE (e.eventType = ' Health Education Meeting')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND (substr(e.eventDate, 1, 4) == strftime('%Y',date('now'), 'localtime'))
+                     AND (substr(e.eventDate, 6, 2) == strftime('%m',date('now'), 'localtime'))"
+
+  - key: "no_ppl_attend_meet"
+    description: "no_ppl_attend_meet_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     WHERE (e.eventType = ' Health Education Meeting')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND (substr(e.eventDate, 1, 4) == strftime('%Y',date('now'), 'localtime'))
+                     AND (substr(e.eventDate, 6, 2) == strftime('%m',date('now'), 'localtime'))"
+
+  - key: "F_death_home"
+    description: "F_death_home_label"
+    indicatorQuery: "SELECT count (0) as count FROM ec_child WHERE is_closed is 2"
+
+  - key: "no_maternal_death"
+    description: "no_maternal_death_label"
+    indicatorQuery: "SELECT count (0) as count FROM ec_child WHERE is_closed is 2"
+
+  - key: "less1m_death_home"
+    description: "less1m_death_home_label"
+    indicatorQuery: "SELECT count (0) as count FROM ec_child WHERE is_closed is 2"
+
+  - key: "total_less1m_deaths"
+    description: "total_less1m_deaths_label"
+    indicatorQuery: "SELECT count (0) as count FROM ec_child WHERE is_closed is 2"
+
+  - key: "1m1yr_death_home"
+    description: "reporting_1m1yr_death_home_label"
+    indicatorQuery: "SELECT count (0) as count FROM ec_child WHERE is_closed is 2"
+
+  - key: "total_1m1yr_deaths"
+    description: "total_1m1yr_deaths_label"
+    indicatorQuery: "SELECT count (0) as count FROM ec_child WHERE is_closed is 2"
+
+  - key: "1yr5yr_death_home"
+    description: "reporting_1yr5yr_death_home_label"
+    indicatorQuery: "SELECT count (0) as count FROM ec_child WHERE is_closed is 2"
+
+  - key: "total_1yr5yr_deaths"
+    description: "total_1yr5yr_deaths_label"
+    indicatorQuery: "SELECT count (0) as count FROM ec_child WHERE is_closed is 2"
+
+  - key: "birth_home"
+    description: "birth_home_label"
+    indicatorQuery: "SELECT count(DISTINCT pg.base_entity_id) as count
+                     FROM ec_pregnancy_outcome pg
+                     INNER JOIN event e on e.baseEntityId = pg.base_entity_id
+                     WHERE pg.delivery_place = 'At home'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))"
+
+
+  - key: "birth_home_healer"
+    description: "birth_home_healer_label"
+    indicatorQuery: "SELECT count(DISTINCT pg.base_entity_id) as count
+                     FROM ec_pregnancy_outcome pg
+                     INNER JOIN event e on e.baseEntityId = pg.base_entity_id
+                     WHERE pg.delivery_place = 'At home'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND pg.delivery_home = 'She gave birth at home with the help of a traditional midwife'"
+
+  - key: "birth_way_hf"
+    description: "birth_way_hf_label"
+    indicatorQuery: "SELECT count(DISTINCT pg.base_entity_id) as count
+                     FROM ec_pregnancy_outcome pg
+                     INNER JOIN event e on e.baseEntityId = pg.base_entity_id
+                     WHERE pg.delivery_place = 'On the way to the health facility'
+                      AND ('%s' = (substr(e.eventDate, 1,10)))"
+
+  - key: "total_birth_home"
+    description: "total_birth_home_label"
+    indicatorQuery: "SELECT count(DISTINCT pg.base_entity_id) as count
+                     FROM ec_pregnancy_outcome pg
+                     INNER JOIN event e on e.baseEntityId = pg.base_entity_id
+                     WHERE ( pg.delivery_place = 'At home' OR pg.delivery_place = 'On the way to the health facility')
+                      AND ('%s' = (substr(e.eventDate, 1,10)))"
+
+  - key: "10y14y_new_clients"
+    description: "reporting_10y14y_new_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))
+                     AND (fp.using_method = 'no')"
+
+  - key: "10y14y_return_clients"
+    description: "reporting_10y14y_return_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))
+                     AND (fp.using_method = 'yes')"
+
+  - key: "10y14y_total_clients"
+    description: "reporting_10y14y_total_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))"
+
+  - key: "15y19y_new_clients"
+    description: "reporting_15y19y_new_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))
+                     AND (fp.using_method = 'no')"
+
+  - key: "15y19y_return_clients"
+    description: "reporting_15y19y_return_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))
+                     AND (fp.using_method = 'yes')"
+
+  - key: "15y19y_total_clients"
+    description: "reporting_15y19y_total_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))"
+
+  - key: "20y24y_new_clients"
+    description: "reporting_20y24y_new_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))
+                     AND (fp.using_method = 'no')"
+
+  - key: "20y24y_return_clients"
+    description: "reporting_20y24y_return_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))
+                     AND (fp.using_method = 'yes')"
+
+  - key: "20y24y_total_clients"
+    description: "reporting_20y24y_total_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))"
+
+  - key: "25_new_clients"
+    description: "reporting_25_new_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))
+                     AND (fp.using_method = 'no')"
+
+  - key: "25_return_clients"
+    description: "reporting_25_return_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))
+                     AND (fp.using_method = 'yes')"
+
+  - key: "25_total_clients"
+    description: "reporting_25_total_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))"
+
+  - key: "total_new_clients"
+    description: "total_new_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND (fp.using_method = 'no')"
+
+  - key: "total_return_clients"
+    description: "total_return_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND (fp.using_method = 'yes')"
+
+  - key: "total_total_clients"
+    description: "total_total_clients_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE e.eventType = 'Family Planning Registration'
+                     AND ('%s' = (substr(e.eventDate, 1,10))) "
+
+  - key: "10y14y_pop"
+    description: "reporting_10y14y_pop_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'POP'"
+
+  - key: "10y14y_coc"
+    description: "reporting_10y14y_coc_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'COC'	"
+
+  - key: "10y14y_emc"
+    description: "reporting_10y14y_emc_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'Emergency contraceptive'"
+
+  - key: "10y14y_total_pills"
+    description: "reporting_10y14y_total_pills_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))
+                     AND ( fp.fp_method_accepted = 'Emergency contraceptive' OR  fp.fp_method_accepted = 'COC' OR  fp.fp_method_accepted = 'POP')"
+
+  - key: "15y19y_pop"
+    description: "reporting_15y19y_pop_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'POP'"
+
+  - key: "15y19y_coc"
+    description: "reporting_15y19y_coc_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'COC'	"
+
+
+  - key: "15y19y_emc"
+    description: "reporting_15y19y_emc_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'Emergency contraceptive'"
+
+  - key: "15y19y_total_pills"
+    description: "reporting_15y19y_total_pills_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))
+                     AND ( fp.fp_method_accepted = 'Emergency contraceptive' OR  fp.fp_method_accepted = 'COC' OR  fp.fp_method_accepted = 'POP')"
+
+  - key: "20y24y_pop"
+    description: "reporting_20y24y_pop_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'POP'"
+
+  - key: "20y24y_coc"
+    description: "reporting_20y24y_coc_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'COC'"
+
+  - key: "20y24y_emc"
+    description: "reporting_20y24y_emc_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'Emergency contraceptive'"
+
+  - key: "20y24y_total_pills"
+    description: "reporting_20y24y_total_pills_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))
+                     AND ( fp.fp_method_accepted = 'Emergency contraceptive' OR  fp.fp_method_accepted = 'COC' OR  fp.fp_method_accepted = 'POP')"
+
+  - key: "25_pop"
+    description: "reporting_25_pop_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))
+                     AND fp.fp_method_accepted = 'POP'"
+
+  - key: "25_coc"
+    description: "reporting_25_coc_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))
+                     AND fp.fp_method_accepted = 'COC'"
+
+  - key: "25_emc"
+    description: "reporting_25_emc_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))
+                     AND fp.fp_method_accepted = 'Emergency contraceptive'"
+
+  - key: "25_total_pills"
+    description: "reporting_25_total_pills_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))
+                     AND ( fp.fp_method_accepted = 'Emergency contraceptive' OR  fp.fp_method_accepted = 'COC' OR  fp.fp_method_accepted = 'POP')"
+
+  - key: "total_pop"
+    description: "total_pop_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND fp.fp_method_accepted = 'POP'"
+
+  - key: "total_coc"
+    description: "total_coc_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND fp.fp_method_accepted = 'COC'"
+
+  - key: "total_emc"
+    description: "total_emc_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND fp.fp_method_accepted = 'Emergency contraceptive'"
+
+  - key: "total_total_pills"
+    description: "total_total_pills_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( fp.fp_method_accepted = 'Emergency contraceptive' OR  fp.fp_method_accepted = 'COC' OR  fp.fp_method_accepted = 'POP')"
+
+  - key: "10y14y_F_mcondom"
+    description: "reporting_10y14y_F_mcondom_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'Male condom'"
+
+  - key: "10y14y_F_fcondom"
+    description: "reporting_10y14y_F_fcondom_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'Female condom'"
+
+  - key: "10y14y_total_condoms"
+    description: "reporting_10y14y_total_condoms_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))
+                     AND ( fp.fp_method_accepted = 'Female condom' OR fp.fp_method_accepted = 'Male condom' )"
+
+  - key: "15y19y_F_mcondom"
+    description: "reporting_15y19y_F_mcondom_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'Male condom'"
+
+  - key: "15y19y_F_fcondom"
+    description: "reporting_15y19y_F_fcondom_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'Female condom'"
+
+  - key: "15y19y_total_condoms"
+    description: "reporting_15y19y_total_condoms_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))
+                     AND ( fp.fp_method_accepted = 'Female condom' OR fp.fp_method_accepted = 'Male condom' )"
+
+  - key: "20y24y_F_mcondom"
+    description: "reporting_20y24y_F_mcondom_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'Male condom'"
+
+  - key: "20y24y_F_fcondom"
+    description: "reporting_20y24y_F_fcondom_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'Female condom'"
+
+  - key: "20y24y_total_condoms"
+    description: "reporting_20y24y_total_condoms_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))
+                     AND ( fp.fp_method_accepted = 'Female condom' OR fp.fp_method_accepted = 'Male condom' )"
+
+  - key: "25_F_mcondom"
+    description: "reporting_25_F_mcondom_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))
+                     AND fp.fp_method_accepted = 'Male condom'"
+
+  - key: "25_F_fcondom"
+    description: "reporting_25_F_fcondom_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))
+                     AND fp.fp_method_accepted = 'Female condom'"
+
+  - key: "25_total_condoms"
+    description: "reporting_25_total_condoms_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))
+                     AND ( fp.fp_method_accepted = 'Female condom' OR fp.fp_method_accepted = 'Male condom')"
+
+  - key: "total_F_mcondom"
+    description: "total_F_mcondom_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND fp.fp_method_accepted = 'Male condom'"
+
+  - key: "total_F_fcondom"
+    description: "total_F_fcondom_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND fp.fp_method_accepted = 'Female condom'"
+
+  - key: "total_total_condoms"
+    description: "total_total_condoms_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( fp.fp_method_accepted = 'Female condom' OR fp.fp_method_accepted = 'Male condom')"
+
+  - key: "10y14y_beads"
+    description: "reporting_10y14y_beads_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'Standard day method'"
+
+  - key: "15y19y_beads"
+    description: "reporting_15y19y_beads_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'Standard day method'"
+
+  - key: "20y24y_beads"
+    description: "reporting_20y24y_beads_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))
+                     AND fp.fp_method_accepted = 'Standard day method'"
+
+  - key: "25_beads"
+    description: "reporting_25_beads_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))
+                     AND fp.fp_method_accepted = 'Standard day method'"
+
+  - key: "total_beads"
+    description: "total_beads_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_planning fp on fp.base_entity_id = e.baseEntityId
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE ( e.eventType = 'Family Planning Registration' OR e.eventType = 'Family Planning Change Method')
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND fp.fp_method_accepted = 'Standard day method'"
+
+  - key: "10y14y_cousel_ANC"
+    description: "reporting_10y14y_cousel_ANC_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During ANC'
+                     AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))"
+
+  - key: "15y19y_cousel_ANC"
+    description: "reporting_15y19y_cousel_ANC_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During ANC'
+                     AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))"
+
+  - key: "20y24y_cousel_ANC"
+    description: "reporting_20y24y_cousel_ANC_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During ANC'
+                     AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))"
+
+  - key: "25_cousel_ANC"
+    description: "reporting_25_cousel_ANC_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During ANC'
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))"
+
+  - key: "total_cousel_ANC"
+    description: "total_cousel_ANC_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During ANC'
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))"
+
+  - key: "10y14y_cousel_delivery"
+    description: "reporting_10y14y_cousel_delivery_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During labour and delivery'
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))"
+
+  - key: "15y19y_cousel_delivery"
+    description: "reporting_15y19y_cousel_delivery_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During labour and delivery'
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))"
+
+  - key: "20y24y_cousel_delivery"
+    description: "reporting_20y24y_cousel_delivery_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During labour and delivery'
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))"
+
+  - key: "25_cousel_delivery"
+    description: "reporting_25_cousel_delivery_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During labour and delivery'
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))"
+
+
+  - key: "total_cousel_delivery"
+    description: "total_cousel_delivery_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During labour and delivery'
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))"
+
+  - key: "10y14y_cousel_PNC"
+    description: "reporting_10y14y_cousel_PNC_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During PNC'
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))"
+
+  - key: "15y19y_cousel_PNC"
+    description: "reporting_15y19y_cousel_PNC_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During PNC'
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))"
+
+  - key: "20y24y_cousel_PNC"
+    description: "reporting_20y24y_cousel_PNC_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During PNC'
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))"
+
+  - key: "25_cousel_PNC"
+    description: "reporting_25_cousel_PNC_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During PNC'
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))"
+
+  - key: "total_cousel_PNC"
+    description: "total_cousel_PNC_label"
+    indicatorQuery: "SELECT count (DISTINCT v.base_entity_id) as count
+                     FROM  visit_details vd
+                     INNER JOIN visits v on v.visit_id = vd.visit_id
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = v.base_entity_id
+                     WHERE vd.human_readable_details = 'During PNC'
+                      AND ('%s' = strftime('%Y-%m-%d',datetime(v.visit_date/1000, 'unixepoch', 'localtime')))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))"
+
+  - key: "10y14y_referral"
+    description: "reporting_10y14y_referral_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE  e.eventType = 'Family Planning Referral'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+14 years') >=  date ('now'))"
+
+  - key: "15y19y_referral"
+    description: "reporting_15y19y_referral_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE  e.eventType = 'Family Planning Referral'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+15 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+19 years') >=  date ('now'))"
+
+  - key: "20y24y_referral"
+    description: "reporting_20y24y_referral_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE  e.eventType = 'Family Planning Referral'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+20 years') <=  date ('now'))
+                     AND ( date(fm.dob, '+24 years') >=  date ('now'))"
+
+  - key: "25_referral"
+    description: "reporting_25_referral_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE  e.eventType = 'Family Planning Referral'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+25 years') <=  date ('now'))"
+
+  - key: "total_fp_referral"
+    description: "total_fp_referral_label"
+    indicatorQuery: "SELECT count(DISTINCT e.baseEntityId) as count
+                     FROM event e
+                     INNER JOIN ec_family_member fm on fm.base_entity_id = e.baseEntityId
+                     WHERE  e.eventType = 'Family Planning Referral'
+                     AND ('%s' = (substr(e.eventDate, 1,10)))
+                     AND ( date(fm.dob, '+10 years') <=  date ('now'))"

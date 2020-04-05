@@ -20,6 +20,7 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.P2POptions;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.activity.AllClientsRegisterActivity;
 import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
@@ -31,9 +32,11 @@ import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.ReferralRegisterActivity;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.configs.AllClientsRegisterRowOptions;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.loggers.CrashlyticsTree;
+import org.smartregister.chw.core.provider.CoreAllClientsRegisterQueryProvider;
 import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
@@ -62,6 +65,10 @@ import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
 import org.smartregister.growthmonitoring.GrowthMonitoringLibrary;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.opd.OpdLibrary;
+import org.smartregister.opd.activity.BaseOpdFormActivity;
+import org.smartregister.opd.configuration.OpdConfiguration;
+import org.smartregister.opd.pojo.OpdMetadata;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
@@ -75,6 +82,11 @@ import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
+
+import static org.smartregister.chw.util.Constants.ALL_CLIENT_REGISTRATION_FORM;
+import static org.smartregister.chw.util.Constants.EncounterType.CLIENT_REGISTRATION;
+import static org.smartregister.chw.util.Constants.EventType;
+import static org.smartregister.chw.util.Constants.TABLE_NAME;
 
 public class ChwApplication extends CoreChwApplication {
 
@@ -132,39 +144,7 @@ public class ChwApplication extends CoreChwApplication {
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
-        //Initialize Modules
-        P2POptions p2POptions = new P2POptions(true);
-        p2POptions.setAuthorizationService(new CoreAuthorizationService());
-        p2POptions.setRecalledIdentifier(new FailSafeRecalledID());
-
-        CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
-        CoreLibrary.getInstance().setEcClientFieldsFile(CoreConstants.EC_CLIENT_FIELDS);
-
-        // init libraries
-        ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        ConfigurableViewsLibrary.init(context);
-        FamilyLibrary.init(context, getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        AncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        FpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        // Init Reporting library
-        ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        GrowthMonitoringConfig growthMonitoringConfig = new GrowthMonitoringConfig();
-        growthMonitoringConfig.setWeightForHeightZScoreFile("weight_for_height.csv");
-        GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION, growthMonitoringConfig);
-        if (hasReferrals()) {
-            //Setup referral library
-            ReferralLibrary.init(this);
-            ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
-            ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
-        }
-        SyncStatusBroadcastReceiver.init(this);
-
-        LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.DEBUG ? BuildConfig.ALLOWED_LOCATION_LEVELS_DEBUG : BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEBUG ? BuildConfig.DEFAULT_LOCATION_DEBUG : BuildConfig.DEFAULT_LOCATION);
-
-        // set up processor
-        FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
+        initializeLibraries();
 
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
@@ -198,6 +178,57 @@ public class ChwApplication extends CoreChwApplication {
         }
 
         EventBus.getDefault().register(this);
+    }
+
+    private void initializeLibraries() {
+        //Initialize Modules
+        P2POptions p2POptions = new P2POptions(true);
+        p2POptions.setAuthorizationService(new CoreAuthorizationService());
+        p2POptions.setRecalledIdentifier(new FailSafeRecalledID());
+
+        CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
+        CoreLibrary.getInstance().setEcClientFieldsFile(CoreConstants.EC_CLIENT_FIELDS);
+
+        // init libraries
+        ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        ConfigurableViewsLibrary.init(context);
+        FamilyLibrary.init(context, getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        AncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        FpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        // Init Reporting library
+        ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        GrowthMonitoringConfig growthMonitoringConfig = new GrowthMonitoringConfig();
+        growthMonitoringConfig.setWeightForHeightZScoreFile("weight_for_height.csv");
+        GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION, growthMonitoringConfig);
+
+        if (hasReferrals()) {
+            //Setup referral library
+            ReferralLibrary.init(this);
+            ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
+            ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
+        }
+
+        OpdMetadata opdMetadata = new OpdMetadata(ALL_CLIENT_REGISTRATION_FORM, TABLE_NAME.FAMILY_MEMBER,
+                CLIENT_REGISTRATION, EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, "",
+                BaseOpdFormActivity.class, null, true);
+
+        OpdLibrary.init(context, getRepository(),
+                new OpdConfiguration.Builder(CoreAllClientsRegisterQueryProvider.class)
+                        .setOpdMetadata(opdMetadata)
+                        .setBottomNavigationEnabled(true)
+                        .setOpdRegisterRowOptions(AllClientsRegisterRowOptions.class)
+                        .build(),
+                BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION
+        );
+
+        SyncStatusBroadcastReceiver.init(this);
+
+        LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.DEBUG ? BuildConfig.ALLOWED_LOCATION_LEVELS_DEBUG : BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEBUG ? BuildConfig.DEFAULT_LOCATION_DEBUG : BuildConfig.DEFAULT_LOCATION);
+
+        // set up processor
+        FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
     }
 
     @Override
@@ -251,8 +282,10 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, PncRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, MalariaRegisterActivity.class);
-        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, ReferralRegisterActivity.class);
+            registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ALL_CLIENTS_REGISTERED_ACTIVITY, AllClientsRegisterActivity.class);
+        }
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FP_REGISTER_ACTIVITY, FpRegisterActivity.class);
         return registeredActivities;
     }
@@ -315,6 +348,10 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasWashCheck();
 
         boolean hasRoutineVisit();
+
+        boolean hasServiceReport();
+
+        boolean hasStockUsageReport();
 
         boolean hasJobAids();
 

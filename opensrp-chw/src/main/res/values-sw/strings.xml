@@ -282,4 +282,6 @@
     <string name="family_planning_done">Ushauri wa uzazi wa mpango kutoka kituo cha afya umefanyika</string>
     <string name="family_planning_not_done">Ushauri wa uzazi wa mpango kutoka kituo cha afya haujakamilika</string>
 
+    <string name="add_client">Sajili Mteja</string>
+
 </resources>
