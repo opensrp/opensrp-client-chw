@@ -21,7 +21,7 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
                 case R.id.call_layout:
                     FamilyCallDialogFragment.launchDialog(activity, familyBaseEntityId);
                     break;
-                case R.id.refer_to_facility_fab:
+                case R.id.refer_to_facility_layout:
                     Toast.makeText(activity, "Refer to facility", Toast.LENGTH_SHORT).show();
                     break;
                 default:

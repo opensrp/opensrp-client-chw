@@ -8,6 +8,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
 import org.smartregister.chw.activity.ClientReferralActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -21,6 +22,9 @@ import java.util.List;
 public class Utils extends org.smartregister.chw.core.utils.Utils {
 
     public static void launchClientReferralActivity(Activity activity, List<ReferralTypeModel> referralTypeModels, String baseEntityId) {
+        if (activity instanceof AllClientsMemberProfileActivity){
+            ClientReferralActivity.isStartedFromAllClients = true;
+        }
         Bundle bundle = new Bundle();
         bundle.putString(Constants.ENTITY_ID, baseEntityId);
         bundle.setClassLoader(ReferralTypeModel.class.getClassLoader());

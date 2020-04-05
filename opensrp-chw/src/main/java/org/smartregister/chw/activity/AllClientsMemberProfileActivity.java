@@ -15,11 +15,14 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
+import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
@@ -31,12 +34,16 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.contract.BaseProfileContract;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import timber.log.Timber;
 
-public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
+public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity implements OnClickFloatingMenu {
 
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private RelativeLayout layoutFamilyHasRow;
+    private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
     @Override
     protected void onCreation() {
@@ -165,6 +172,7 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
     @Override
     protected void initializePresenter() {
         super.initializePresenter();
+        onClickFloatingMenu = this;
     }
 
     @Override
@@ -188,4 +196,17 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
         MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, baseEntityId);
     }
 
+    @Override
+    public void onClickMenu(int viewId) {
+        switch (viewId) {
+            case R.id.call_layout:
+                FamilyCallDialogFragment.launchDialog(this, familyBaseEntityId);
+                break;
+            case R.id.refer_to_facility_layout:
+                Utils.launchClientReferralActivity(this, referralTypeModels, baseEntityId);
+                break;
+            default:
+                break;
+        }
+    }
 }

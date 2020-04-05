@@ -98,6 +98,7 @@
                         android:gravity="center"
                         android:paddingLeft="0dp"
                         android:text="Lavington #445"
+                        android:visibility="gone"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/text_black" />
 
@@ -108,6 +109,7 @@
                         android:layout_marginLeft="@dimen/profile_dot_separator_margin"
                         android:layout_marginRight="@dimen/profile_dot_separator_margin"
                         android:text="\u00b7"
+                        android:visibility="gone"
                         android:textColor="@color/text_black" />
 
                     <org.smartregister.view.customcontrols.CustomFontTextView
