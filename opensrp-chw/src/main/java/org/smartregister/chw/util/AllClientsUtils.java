@@ -18,8 +18,8 @@ import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.dao.MalariaDao;
 import org.smartregister.chw.fp.dao.FpDao;
+import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
@@ -89,7 +89,7 @@ public class AllClientsUtils {
     }
 
     private static void gotToMalariaProfile(Activity activity, CommonPersonObjectClient patient) {
-        MalariaProfileActivity.startMalariaActivity(activity, new org.smartregister.chw.malaria.domain.MemberObject(patient), patient);
+        MalariaProfileActivity.startMalariaActivity(activity, patient.getCaseId());
     }
 
     private static void goToFamilyPlanningProfile(Activity activity, CommonPersonObjectClient patient) {

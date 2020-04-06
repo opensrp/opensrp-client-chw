@@ -199,7 +199,7 @@
       {
         "key": "fever_still",
         "type": "native_radio",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Do you still have a fever?",
@@ -209,14 +209,16 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Yes",
+            "value": false
           },
           {
             "key": "No",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "No",
+            "value": false
           }
         ],
         "v_required": {
@@ -251,6 +253,23 @@
           "value": "true",
           "err": null
         },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "malaria_followup_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Refer client to the health facility for further examination and tests",
+        "toaster_info_text": "Refer client to the health facility for further examination and tests",
+        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

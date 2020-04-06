@@ -20,7 +20,7 @@ import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
-import org.smartregister.chw.dao.MalariaDao;
+import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
@@ -116,8 +116,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_malaria_registration:
-                MalariaRegisterActivity.startMalariaRegistrationActivity(ChildProfileActivity.this,
-                        ((CoreChildProfilePresenter) presenter()).getChildClient().getCaseId());
+                MalariaRegisterActivity.startMalariaRegistrationActivity(ChildProfileActivity.this, ((CoreChildProfilePresenter) presenter()).getChildClient().getCaseId(), ((ChildProfilePresenter) presenter()).getFamilyID());
                 return true;
             case R.id.action_remove_member:
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, ((ChildProfilePresenter) presenter()).getChildClient(),

@@ -13,6 +13,7 @@ import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.fp.dao.FpDao;
+import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Utils;
@@ -33,7 +34,6 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         this.onClickListener = onClickListener;
     }
 
-
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         super.getView(cursor, client, viewHolder);
@@ -45,7 +45,6 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         }
     }
 
-
     @Override
     public void updateDueColumn(Context context, RegisterViewHolder viewHolder, ChildVisit childVisit) {
 
@@ -55,7 +54,6 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
     public List<ChildVisit> retrieveChildVisitList(Rules rules, List<Map<String, String>> list) {
         return null;
     }
-
 
     protected void setTasksDoneStatus(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.alert_complete_green));
@@ -103,8 +101,8 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             if (due > 0 && over_due > 0) {
                 over_due = over_due + due;
             }
-            //over_due = over_due + due;
 
+            //over_due = over_due + due;
             if (over_due > 0) {
                 setTasksOverdueStatus(context, viewHolder.dueButton, over_due);
             } else if (due > 0) {
@@ -149,7 +147,7 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
                 pncWomanCount = getPncWomenCount(familyBaseEntityId);
 
             if (ChwApplication.getApplicationFlavor().hasMalaria())
-                malariaCount = ChwApplication.malariaRegisterRepository().getMalariaCount(familyBaseEntityId, CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION);
+                malariaCount = MalariaDao.getMalariaFamilyMembersCount(familyBaseEntityId);
 
             if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
                 fpCount = FpDao.getFpWomenCount(familyBaseEntityId) != null ? FpDao.getFpWomenCount(familyBaseEntityId) : 0;

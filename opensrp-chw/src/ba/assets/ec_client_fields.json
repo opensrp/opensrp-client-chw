@@ -780,6 +780,14 @@
           }
         },
         {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
           "column_name": "fever_malaria_chw",
           "type": "Event",
           "json_mapping": {
@@ -796,6 +804,14 @@
           }
         },
         {
+          "column_name": "malaria_test_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "malaria_test_done"
+          }
+        },
+        {
           "column_name": "malaria_results",
           "type": "Event",
           "json_mapping": {
@@ -808,7 +824,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "formSubmissionField": "date_hf_malaria_test"
+            "concept": "date_hf_malaria_test"
           }
         },
         {
@@ -832,7 +848,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "formSubmissionField": "malaria_treat"
+            "concept": "malaria_treat"
           }
         },
         {
@@ -840,7 +856,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "formSubmissionField": "fam_llin"
+            "concept": "fam_llin"
           }
         },
         {
@@ -848,7 +864,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "formSubmissionField": "llin_2days"
+            "concept": "llin_2days"
           }
         },
         {
@@ -856,7 +872,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "formSubmissionField": "llin_condition"
+            "concept": "llin_condition"
           }
         },
         {
@@ -864,7 +880,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "concept": "malaria_edu_chw"
           }
         },
         {
@@ -1478,6 +1494,44 @@
         }
       ]
     },
+
+    {
+      "name": "ec_malaria_referral",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "referral_problem_malaria",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referral_problem_malaria"
+          }
+        },
+        {
+          "column_name": "service_before_malaria",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "service_before_malaria_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        }
+      ]
+    },
+
     {
       "name": "ec_fp_referral",
       "columns": [

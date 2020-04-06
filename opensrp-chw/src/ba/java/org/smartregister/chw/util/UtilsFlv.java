@@ -8,8 +8,8 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.rule.MalariaFollowUpRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.MalariaVisitUtil;
-import org.smartregister.chw.dao.MalariaDao;
 import org.smartregister.chw.fp.dao.FpDao;
+import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.util.Utils;
 
 import java.util.Date;
@@ -27,8 +27,9 @@ public class UtilsFlv {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Date date = MalariaDao.getMalariaTestDate(baseEntityId);
-            malariaFollowUpRule = MalariaVisitUtil.getMalariaStatus(date);
+            Date malariaTestDate = MalariaDao.getMalariaTestDate(baseEntityId);
+            Date followUpDate = MalariaDao.getMalariaFollowUpVisitDate(baseEntityId);
+            malariaFollowUpRule = MalariaVisitUtil.getMalariaStatus(malariaTestDate,followUpDate);
             return null;
         }
 
@@ -40,7 +41,6 @@ public class UtilsFlv {
             }
         }
     }
-
     public static void updateMalariaMenuItems(String baseEntityId, Menu menu) {
         if (MalariaDao.isRegisteredForMalaria(baseEntityId)) {
             Utils.startAsyncTask(new UpdateFollowUpMenuItem(baseEntityId, menu), null);
