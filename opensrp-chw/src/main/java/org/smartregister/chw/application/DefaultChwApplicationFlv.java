@@ -51,6 +51,12 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
         return false;
     }
 
+    @Override
+    public boolean hasStockUsageReport() {
+        return false;
+    }
+
+    @Override
     public boolean hasPinLogin() {
         return false;
     }

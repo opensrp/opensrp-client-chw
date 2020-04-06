@@ -59,4 +59,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean hasTasks() {
         return true;
     }
+
+    @Override
+    public boolean hasStockUsageReport() {
+        return true;
+    }
 }
