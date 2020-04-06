@@ -27,7 +27,6 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.opd.utils.OpdDbConstants;
-import org.smartregister.util.StringUtil;
 
 import static org.smartregister.chw.core.utils.CoreConstants.INTENT_KEY.CLIENT;
 
