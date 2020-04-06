@@ -31,6 +31,7 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.CoreMalariaFloatingMenu;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.PNCDao;
+import org.smartregister.chw.core.interactor.CoreMalariaProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.MalariaFollowUpRule;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
@@ -39,7 +40,6 @@ import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.core.utils.MalariaVisitUtil;
 import org.smartregister.chw.core.utils.VisitSummary;
 import org.smartregister.chw.custom_view.MalariaFloatingMenu;
-import org.smartregister.chw.interactor.MalariaProfileInteractor;
 import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
@@ -98,7 +98,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
         showProgressBar(true);
         String baseEntityId = getIntent().getStringExtra(BASE_ENTITY_ID);
         memberObject = MalariaDao.getMember(baseEntityId);
-        profilePresenter = new BaseMalariaProfilePresenter(this, new MalariaProfileInteractor(this), memberObject);
+        profilePresenter = new BaseMalariaProfilePresenter(this, new CoreMalariaProfileInteractor(), memberObject);
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
     }
