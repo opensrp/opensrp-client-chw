@@ -1,0 +1,6 @@
+name: one
+description: injection - after eighty four days
+priority: 1
+condition: "fpAlertRule.isInjectionValid(84,91)"
+actions:
+  - "fpAlertRule.setVisitID('1')"

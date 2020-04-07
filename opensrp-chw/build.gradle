@@ -94,7 +94,7 @@ android {
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '360'
             buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
-            buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "false"
+            buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             testCoverageEnabled true
         }
     }
@@ -134,6 +134,21 @@ android {
 
     flavorDimensions 'baseDimension'
     productFlavors {
+        pathfinder {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".pf"
+            versionCode 2
+            versionName "1.0.2"
+            buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
+            buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
+            buildConfigField "String", 'opensrp_url_debug', '"http://172.105.87.198:8082/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country","Zone","Region","Council","Ward" , "Health Facility", "Village", "Village Sublocations"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "Health Facility", "Village", "Village Sublocations"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Health Facility" , "Village"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
+            buildConfigField "int", "DATABASE_VERSION", '16'
+        }
         ba {
             dimension = 'baseDimension'
             applicationIdSuffix ".ba"
