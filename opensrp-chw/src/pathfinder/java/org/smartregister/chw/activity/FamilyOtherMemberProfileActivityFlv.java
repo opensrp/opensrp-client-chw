@@ -10,8 +10,6 @@ import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.util.UtilsFlv;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
-import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
-
 public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {
 
     @Override
@@ -33,6 +31,9 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
     @Override
     public void updateMalariaMenuItems(String baseEntityId, Menu menu) {
         UtilsFlv.updateMalariaMenuItems(baseEntityId, menu);
+
+        //Disabling anc for this flavor
+        menu.findItem(R.id.action_anc_registration).setVisible(false);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
 
     @Override
     public boolean isWra(CommonPersonObjectClient commonPersonObject) {
-        return isWomanOfReproductiveAge(commonPersonObject, 10, 49);
+        return UtilsFlv.isClientOfReproductiveAge(commonPersonObject, 10, 49);
     }
 
     @Override
