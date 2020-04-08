@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ThemedSpinnerAdapter;
 
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
@@ -67,11 +66,11 @@ public class ChildVisitTests {
         @Test
         public void registerChildVisit() throws Throwable {
             utils.openDrawer();
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.child))
+            onView(ViewMatchers.withSubstring(Constants.GenericConfigs.child))
                     .perform(click());
             onView(ViewMatchers.withHint("Search name or ID"))
                     .perform(typeText("Joan"), closeSoftKeyboard());
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Joan Malea Cecil"))
+            onView(ViewMatchers.withSubstring("Joan Malea Cecil"))
                     .perform(click());
             onView(withId(R.id.textview_record_visit))
                     .perform(click());
@@ -83,22 +82,22 @@ public class ChildVisitTests {
             earlyChildhoodDevelopment();
             llitn();
             illnessObservations();
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SUBMIT"))
+            onView(ViewMatchers.withSubstring("SUBMIT"))
                     .perform(click());
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("View medical history"))
+            onView(ViewMatchers.withSubstring("View medical history"))
                     .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         }
 
         @Test
         public void confirmChildMedicakHistory() throws Throwable {
             utils.openDrawer();
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.child))
+            onView(ViewMatchers.withSubstring(Constants.GenericConfigs.child))
                     .perform(click());
             onView(ViewMatchers.withHint("Search name or ID"))
                     .perform(typeText("Joan"), closeSoftKeyboard());
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Joan Malea Cecil"))
+            onView(ViewMatchers.withSubstring("Joan Malea Cecil"))
                     .perform(click());
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("View medical history"))
+            onView(ViewMatchers.withSubstring("View medical history"))
                     .perform(click());
             onView(withId(R.id.medical_history))
                     .check(matches(isDisplayed()));
@@ -106,93 +105,93 @@ public class ChildVisitTests {
         }
 
     public void childVaccine() throws Throwable{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Child vaccine card received"))
+        onView(ViewMatchers.withSubstring("Child vaccine card received"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
     public void immunizationsAtBirth() throws Throwable{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Immunizations (at birth)"))
+        onView(ViewMatchers.withSubstring("Immunizations (at birth)"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("OPV 0"))
+        onView(ViewMatchers.withSubstring("OPV 0"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("BCG"))
+        onView(ViewMatchers.withSubstring("BCG"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
     public void exclusiveBreastfeeding() throws Throwable{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Exclusive breastfeeding 0 months"))
+        onView(ViewMatchers.withSubstring("Exclusive breastfeeding 0 months"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
     public void birthCertification() throws Throwable{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Birth certification"))
+        onView(ViewMatchers.withSubstring("Birth certification"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:birth_cert")))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Yes"))
+        onView(ViewMatchers.withSubstring("Yes"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:birth_cert_issue_date")))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done"))
+        onView(ViewMatchers.withSubstring("done"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:birth_cert_num")))
                 .perform(clearText(), typeText("7623456789"));
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SAVE"))
+        onView(ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
     public void earlyChildhoodDevelopment() throws Throwable{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Early childhood development (ECD)"))
+        onView(ViewMatchers.withSubstring("Early childhood development (ECD)"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:develop_warning_signs")))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:stim_skills")))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SAVE"))
+        onView(ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
     public void llitn() throws Throwable{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Sleeping under a LLITN"))
+        onView(ViewMatchers.withSubstring("Sleeping under a LLITN"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SAVE"))
+        onView(ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
     public void illnessObservations() throws Throwable{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Observations & illness - optional"))
+        onView(ViewMatchers.withSubstring("Observations & illness - optional"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:date_of_illness")))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done"))
+        onView(ViewMatchers.withSubstring("done"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:illness_description")))
                 .perform(clearText(), typeText("Coronavirus"));
         onView(withId(getViewId((JsonFormActivity) activity, "step1:action_taken")))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Managed"))
+        onView(ViewMatchers.withSubstring("Managed"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SAVE"))
+        onView(ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
 

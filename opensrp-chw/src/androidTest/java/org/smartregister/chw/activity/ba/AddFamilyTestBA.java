@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
@@ -32,13 +31,10 @@ import org.smartregister.chw.activity.utils.Constants;
 import org.smartregister.chw.activity.utils.OrderedRunner;
 import org.smartregister.chw.activity.utils.Utils;
 
-import java.util.Collection;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.doubleClick;
-import static androidx.test.espresso.action.ViewActions.longClick;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
@@ -46,6 +42,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.smartregister.chw.activity.utils.Utils.getViewId;
+
+//import androidx.test.espresso.assertion.ViewAssertions;
 
 
 @LargeTest
@@ -86,22 +84,22 @@ public class AddFamilyTestBA {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:gps")))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("OK"))
+        onView(ViewMatchers.withSubstring("OK"))
                 .perform(click());
         Thread.sleep(100);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:nearest_facility")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Kabila Village"))
+        onView(ViewMatchers.withSubstring("Kabila Village"))
                 .perform(doubleClick());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Next"))
+        onView(ViewMatchers.withSubstring("Next"))
                 .perform(click());
         addFamilyMember();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SUBMIT"))
+        onView(ViewMatchers.withSubstring("SUBMIT"))
                 .perform(scrollTo(), click());
         Thread.sleep(1000);
-        //onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("All Families"))
+        //onView(ViewMatchers.withSubstring("All Families"))
                // .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
     }
@@ -119,35 +117,35 @@ public class AddFamilyTestBA {
         onView(withId(getViewId((JsonFormActivity) activity, "step2:age")))
                 .perform(scrollTo(), typeText(Configs.TestConfigs.aboveFiveage));
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("National ID"))
+        onView(ViewMatchers.withSubstring("National ID"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step2:national_id")))
                 .perform(scrollTo(), typeText(Configs.TestConfigs.nationalID));
         onView(withId(getViewId((JsonFormActivity) activity, "step2:insurance_provider")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Community Health Fund (CHF)"))
+        onView(ViewMatchers.withSubstring("Community Health Fund (CHF)"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step2:insurance_provider_number")))
                 .perform(scrollTo())
                 .perform(typeText(Configs.TestConfigs.nationalID), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Sex"))
+        onView(ViewMatchers.withSubstring("Sex"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Male"))
+        onView(ViewMatchers.withSubstring("Male"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Physical disabilities"))
+        onView(ViewMatchers.withSubstring("Physical disabilities"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
         onView(withHint("Phone number")).perform(scrollTo())
                 .perform(typeText("0721137816"), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Farmer"))
+        onView(ViewMatchers.withSubstring("Farmer"))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Traditional leader"))
+        onView(ViewMatchers.withSubstring("Traditional leader"))
                 .perform(scrollTo(), click());
         Thread.sleep(100);
 

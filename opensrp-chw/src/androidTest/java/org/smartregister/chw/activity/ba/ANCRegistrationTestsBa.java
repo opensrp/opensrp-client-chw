@@ -15,7 +15,8 @@ import androidx.test.runner.lifecycle.Stage;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.junit.After;
-import org.junit.Before;
+//import org.junit.Before;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -75,7 +76,7 @@ public class ANCRegistrationTestsBa {
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("ANC Registration"))
+        onView(ViewMatchers.withSubstring("ANC Registration"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
@@ -84,7 +85,7 @@ public class ANCRegistrationTestsBa {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:edd")))
                 .perform(click());
         Thread.sleep(1000);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
+        onView(ViewMatchers.withSubstring("done")).perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:no_prev_preg")))
                 .perform(typeText("0"));
@@ -94,17 +95,17 @@ public class ANCRegistrationTestsBa {
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:marital_status")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Co-habiting"))
+        onView(ViewMatchers.withSubstring("Co-habiting"))
                 .perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:person_assist")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("ANC Clients"))
+        onView(ViewMatchers.withSubstring("ANC Clients"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
@@ -121,7 +122,7 @@ public class ANCRegistrationTestsBa {
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("ANC Registration"))
+        onView(ViewMatchers.withSubstring("ANC Registration"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
@@ -130,11 +131,11 @@ public class ANCRegistrationTestsBa {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:last_menstrual_period")))
                 .perform(click());
         Thread.sleep(1000);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
+        onView(ViewMatchers.withSubstring("done")).perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Found 3 error(s) in the form. Please correct them to submit."))
+        onView(ViewMatchers.withSubstring("Found 3 error(s) in the form. Please correct them to submit."))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
     @After

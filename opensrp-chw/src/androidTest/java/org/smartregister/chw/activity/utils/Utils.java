@@ -9,6 +9,7 @@ import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
@@ -75,10 +76,10 @@ public class Utils  {
 
     public void revertLanguage() throws InterruptedException{
         openDrawerFrench();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Français"))
+        onView(ViewMatchers.withSubstring("Français"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("English"))
+        onView(ViewMatchers.withSubstring("English"))
                 .perform(click());
     }
 
@@ -99,10 +100,10 @@ public class Utils  {
         onView(withId(R.id.fab))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Add new family member"))
+        onView(ViewMatchers.withSubstring("Add new family member"))
                 .perform(click());
         Thread.sleep(100);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Other family member"))
+        onView(ViewMatchers.withSubstring("Other family member"))
                 .perform(click());
         Thread.sleep(100);
         Activity activity = getCurrentActivity();
@@ -128,7 +129,7 @@ public class Utils  {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:insurance_provider")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Community Health Fund (CHF)"))
+        onView(ViewMatchers.withSubstring("Community Health Fund (CHF)"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
         Thread.sleep(500);
@@ -138,32 +139,32 @@ public class Utils  {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:sex")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Female"))
+        onView(ViewMatchers.withSubstring("Female"))
                 .perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:preg_1yr")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:disabilities")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:is_primary_caregiver")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Nurse"))
+        onView(ViewMatchers.withSubstring("Nurse"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Religious leader"))
+        onView(ViewMatchers.withSubstring("Religious leader"))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
         Thread.sleep(500);
     }
@@ -172,10 +173,10 @@ public class Utils  {
         onView(withId(R.id.fab))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Add new family member"))
+        onView(ViewMatchers.withSubstring("Add new family member"))
                 .perform(click());
         Thread.sleep(100);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Other family member"))
+        onView(ViewMatchers.withSubstring("Other family member"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
@@ -192,13 +193,13 @@ public class Utils  {
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:age")))
                 .perform(scrollTo(), typeText(age));
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Sex"))
+        onView(ViewMatchers.withSubstring("Sex"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Female"))
+        onView(ViewMatchers.withSubstring("Female"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
 
@@ -216,10 +217,10 @@ public class Utils  {
 
     public void revertLanguageSwahili() throws InterruptedException{
         openDrawerSwahili();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Kiswahili"))
+        onView(ViewMatchers.withSubstring("Kiswahili"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("English"))
+        onView(ViewMatchers.withSubstring("English"))
                 .perform(click());
     }
 
@@ -271,14 +272,14 @@ public class Utils  {
         return floatingActionButton;
     }
     public void logOut() throws InterruptedException{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Log out as "
+        onView(ViewMatchers.withSubstring("Log out as "
                 + Constants.WcaroConfigs.wCaro_userName))
                 .perform(click());
 
     }
 
     public void logOutBA() throws InterruptedException{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Log out as " + Constants.BoreshaAfyaConfigs.ba_userName))
+        onView(ViewMatchers.withSubstring("Log out as " + Constants.BoreshaAfyaConfigs.ba_userName))
                 .perform(scrollTo(), click());
 
     }

@@ -13,7 +13,7 @@ import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
 import org.junit.After;
-import org.junit.Before;
+//import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,11 +62,11 @@ public class ANCRegisterTestsBa {
     @Order(order = 1)
     public void searchANCRecord() throws Throwable {
         utils.openDrawer();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
@@ -87,16 +87,16 @@ public class ANCRegisterTestsBa {
     @Order(order = 3)
     public void confirmANCVisitPage() throws Throwable {
         utils.openDrawer();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
                 .perform(click());
         onView(withId(R.id.textview_record_visit))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "+ Configs.TestConfigs.aboveFiveage + " · ANC Visit"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
@@ -104,11 +104,11 @@ public class ANCRegisterTestsBa {
     @Order(order = 4)
     public void confirmANCSearchWorks() throws Throwable {
         utils.openDrawer();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
@@ -131,14 +131,14 @@ public class ANCRegisterTestsBa {
     @Order(order = 5)
     public void testANCProfileView() throws Throwable {
         utils.openDrawer();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Return to all ANC women"))
+        onView(ViewMatchers.withSubstring("Return to all ANC women"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 

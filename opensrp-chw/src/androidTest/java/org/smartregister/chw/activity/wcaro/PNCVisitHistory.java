@@ -22,7 +22,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.smartregister.chw.R;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.utils.Constants;
 import org.smartregister.chw.activity.utils.Utils;
@@ -31,7 +30,6 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
@@ -59,16 +57,16 @@ public class PNCVisitHistory {
     @Test
     public void viewPNCVisitHistory() throws Throwable {
         utils.openDrawer();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.pnc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.pnc))
                 .perform(click());
         onView(ViewMatchers.withHint("Find name or ID"))
                 .perform(typeText("Ana"), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Ana AnotherSixqrw, 23"))
+        onView(ViewMatchers.withSubstring("Ana AnotherSixqrw, 23"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("View medical history"))
+        onView(ViewMatchers.withSubstring("View medical history"))
                 .perform(click());
         Thread.sleep(1000);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Medical History"))
+        onView(ViewMatchers.withSubstring("Medical History"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
     @After

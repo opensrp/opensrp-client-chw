@@ -20,7 +20,6 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -71,47 +70,47 @@ public class EditTests {
     public void editFamily() throws Throwable {
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Family details"))
+        onView(ViewMatchers.withSubstring("Family details"))
                 .perform(click());
         Thread.sleep(500);
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:village_town")))
                 .perform(clearText(), typeText("ThePlace"), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Return to all families"))
+        onView(ViewMatchers.withSubstring("Return to all families"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
     @Test
     public void editFamilyMember() throws Throwable {
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName
                 + " Family"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.AdditionalTestData.memberTwoFirstname
+        onView(ViewMatchers.withSubstring(Configs.AdditionalTestData.memberTwoFirstname
                 + " " + Configs.AdditionalTestData.memberTwoSecondname + " " + Configs.TestConfigs.familyName
                 + ", " + Configs.AdditionalTestData.extraMemberAge2))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Registration info"))
+        onView(ViewMatchers.withSubstring("Registration info"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:national_id")))
                 .perform(clearText(), typeText(Configs.TestConfigs.nationalID));
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.AdditionalTestData.memberTwoFirstname
+        onView(ViewMatchers.withSubstring(Configs.AdditionalTestData.memberTwoFirstname
                 + " " + Configs.AdditionalTestData.memberTwoSecondname + " " + Configs.TestConfigs.familyName
                 + ", " + Configs.AdditionalTestData.extraMemberAge2))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));

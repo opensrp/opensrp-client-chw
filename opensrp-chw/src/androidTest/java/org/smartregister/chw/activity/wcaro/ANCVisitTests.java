@@ -55,11 +55,11 @@ public class ANCVisitTests {
     @Test
     public void testANCVisit() throws Throwable {
         utils.openDrawer();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
                 .perform(click());
         onView(withId(R.id.textview_record_visit))
@@ -81,92 +81,92 @@ public class ANCVisitTests {
     @Order(order = 2)
     public void viewANCMedicalHistory() throws Throwable {
         utils.openDrawer();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("View medical history"))
+        onView(ViewMatchers.withSubstring("View medical history"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Medical History"))
+        onView(ViewMatchers.withSubstring("Medical History"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
     public void dangerSigns() throws Throwable{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Danger signs"))
+        onView(ViewMatchers.withSubstring("Danger signs"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("None"))
+        onView(ViewMatchers.withSubstring("None"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Counseling on seeking care" +
+        onView(ViewMatchers.withSubstring("Counseling on seeking care" +
                 " immediately for danger signs *"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Yes"))
+        onView(ViewMatchers.withSubstring("Yes"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
     public void ANCCounselling() throws Throwable{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("ANC counseling"))
+        onView(ViewMatchers.withSubstring("ANC counseling"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Importance of ANC visits *"))
+        onView(ViewMatchers.withSubstring("Importance of ANC visits *"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Yes"))
+        onView(ViewMatchers.withSubstring("Yes"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Importance of delivering at a health facility *"))
+        onView(ViewMatchers.withSubstring("Importance of delivering at a health facility *"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Yes"))
+        onView(ViewMatchers.withSubstring("Yes"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Nutrition counseling *"))
+        onView(ViewMatchers.withSubstring("Nutrition counseling *"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Yes"))
+        onView(ViewMatchers.withSubstring("Yes"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
     public void sleepingUnderLLITN() throws Throwable{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Sleeping under a LLITN"))
+        onView(ViewMatchers.withSubstring("Sleeping under a LLITN"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
 
     public void testANCCardReceived() throws Throwable{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("ANC card received"))
+        onView(ViewMatchers.withSubstring("ANC card received"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
 
     public void testANCHealthFacilityVisit() throws Throwable{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("ANC 1 health facility visit"))
+        onView(ViewMatchers.withSubstring("ANC 1 health facility visit"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Did the woman attend her " +
+        onView(ViewMatchers.withSubstring("Did the woman attend her " +
                 "ANC 1 visit at the health facility"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
 
     public void testIPTpSPDose() throws Throwable{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("IPTp-SP dose 1"))
+        onView(ViewMatchers.withSubstring("IPTp-SP dose 1"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
 
