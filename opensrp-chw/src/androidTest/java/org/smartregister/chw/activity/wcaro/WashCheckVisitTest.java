@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -13,7 +14,6 @@ import androidx.test.runner.lifecycle.Stage;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,9 +65,9 @@ public class WashCheckVisitTest {
     @Test
     @Order(order = 1)
     public void washCheckVisitTest() throws Throwable{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("DUE"))
+        onView(ViewMatchers.withSubstring("DUE"))
                 .perform(click());
         Thread.sleep(500);
         utils.locateLayout(0,1).perform(click());
@@ -75,45 +75,45 @@ public class WashCheckVisitTest {
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:handwashing_facilities")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Yes"))
+        onView(ViewMatchers.withSubstring("Yes"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:drinking_water")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Yes"))
+        onView(ViewMatchers.withSubstring("Yes"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:hygienic_latrine")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Yes"))
+        onView(ViewMatchers.withSubstring("Yes"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
 
     @Test
     @Order(order = 2)
     public void confirmWashCheck() throws Throwable {
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("ACTIVITY"))
+        onView(ViewMatchers.withSubstring("ACTIVITY"))
                 .perform(click());
         Thread.sleep(500);
         utils.locateLayout(0,1).perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("WASH check"))
+        onView(ViewMatchers.withSubstring("WASH check"))
                 .check(matches(isDisplayed()));
 
     }
     @Test
     @Order(order = 3)
     public void confirmActivityPage() throws Throwable {
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("ACTIVITY"))
+        onView(ViewMatchers.withSubstring("ACTIVITY"))
                 .perform(click());
         Thread.sleep(500);
         utils.locateLayout(0,1).perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("WASH check"))
+        onView(ViewMatchers.withSubstring("WASH check"))
                 .check(matches(isDisplayed()));
 
     }

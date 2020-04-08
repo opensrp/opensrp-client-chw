@@ -1,7 +1,6 @@
 package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
-
 import android.view.View;
 import android.widget.EditText;
 
@@ -25,9 +24,7 @@ import org.smartregister.chw.activity.utils.OrderedRunner;
 import org.smartregister.chw.activity.utils.Utils;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -60,7 +57,7 @@ public class HomePageTests {
     public void searchByName() throws InterruptedException{
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Constants.WcaroConfigs.searchFamilyWCaro), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.WcaroConfigs.familyWcaro))
+        onView(ViewMatchers.withSubstring(Constants.WcaroConfigs.familyWcaro))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Thread.sleep(1000);
         utils.openDrawer();
@@ -71,7 +68,7 @@ public class HomePageTests {
     public void searchByID() throws InterruptedException{
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Constants.WcaroConfigs.searchFamilyIDWCaro), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.WcaroConfigs.familyWcaro))
+        onView(ViewMatchers.withSubstring(Constants.WcaroConfigs.familyWcaro))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Thread.sleep(1000);
         utils.openDrawer();

@@ -15,8 +15,6 @@ import androidx.test.runner.lifecycle.Stage;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
-import net.bytebuddy.implementation.bytecode.Throw;
-
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -59,74 +57,70 @@ public class PregnancyOutcome {
 
     Utils utils = new Utils();
 
-    @Before
     public void setUp() throws InterruptedException {
-        Thread.sleep(1000);
         utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
     }
 
     public void registerANCOutcome()throws Throwable {
         utils.openDrawer();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
                 .perform(click());
         onView(withContentDescription("More options")).perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Pregnancy outcome"))
+        onView(ViewMatchers.withSubstring("Pregnancy outcome"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:preg_outcome")))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Live birth"))
+        onView(ViewMatchers.withSubstring("Live birth"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:delivery_date")))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
+        onView(ViewMatchers.withSubstring("done")).perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:delivery_place")))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Home"))
+        onView(ViewMatchers.withSubstring("Home"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:no_children_no")))
                 .perform(clearText(), typeText("1"));
         utils.floatingButton().perform(click());
         Thread.sleep(500);
-        //onView(withId(getViewId((JsonFormActivity) activity, "step1:same_as_fam_name")))
-                //.perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:first_name")))
                 .perform(scrollTo(), clearText(), typeText("Other"));
         onView(withId(getViewId((JsonFormActivity) activity, "step1:middle_name")))
                 .perform(scrollTo(), clearText(), typeText("Other1"));
         onView(withId(getViewId((JsonFormActivity) activity, "step1:gender")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Male"))
+        onView(ViewMatchers.withSubstring("Male"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:lbw")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:early_bf_1hr")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:disabilities")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:opv0_date")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
+        onView(ViewMatchers.withSubstring("done")).perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:bcg_date")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
+        onView(ViewMatchers.withSubstring("done")).perform(click());
         Thread.sleep(500);
 
     }
@@ -142,109 +136,109 @@ public class PregnancyOutcome {
                 .perform(scrollTo(), clearText(), typeText("Other1"));
         onView(withId(getViewId((JsonFormActivity) activity, "step1:gender")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Male"))
+        onView(ViewMatchers.withSubstring("Male"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:lbw")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:early_bf_1hr")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:disabilities")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:opv0_date")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
+        onView(ViewMatchers.withSubstring("done")).perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:bcg_date")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
+        onView(ViewMatchers.withSubstring("done")).perform(click());
         Thread.sleep(500);
     }
 
     @Test
     public void registerAMiscarriage() throws Throwable {
         utils.openDrawer();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
                 .perform(click());
         onView(withContentDescription("More options")).perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Pregnancy outcome"))
+        onView(ViewMatchers.withSubstring("Pregnancy outcome"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:preg_outcome")))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Miscarriage"))
+        onView(ViewMatchers.withSubstring("Miscarriage"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:miscarriage_date")))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done"))
+        onView(ViewMatchers.withSubstring("done"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SAVE"))
+        onView(ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
 
     @Test
     public void registerStillbirth() throws Throwable {
         utils.openDrawer();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
                 .perform(click());
         onView(withContentDescription("More options")).perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Pregnancy outcome"))
+        onView(ViewMatchers.withSubstring("Pregnancy outcome"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:preg_outcome")))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Stillbirth"))
+        onView(ViewMatchers.withSubstring("Stillbirth"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:delivery_date")))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
+        onView(ViewMatchers.withSubstring("done")).perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Home"))
+        onView(ViewMatchers.withSubstring("Home"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SAVE"))
+        onView(ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
 
     @Test
     public void registerOtherPregnancyOutcome() throws Throwable {
         utils.openDrawer();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
                 .perform(click());
         onView(withContentDescription("More options")).perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Pregnancy outcome"))
+        onView(ViewMatchers.withSubstring("Pregnancy outcome"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:preg_outcome")))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Other"))
+        onView(ViewMatchers.withSubstring("Other"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SAVE"))
+        onView(ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
 

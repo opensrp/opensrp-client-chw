@@ -5,7 +5,7 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.After;
-import org.junit.Before;
+//import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,20 +44,20 @@ public class RemoveFamilyTestsBa {
     public void removeFamilyWithoutReason() throws InterruptedException{
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Remove existing family member"))
+        onView(ViewMatchers.withSubstring("Remove existing family member"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Removing entire family"))
+        onView(ViewMatchers.withSubstring("Removing entire family"))
                 .perform(click());
         Thread.sleep(500);
         onView(withId(R.id.action_save))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Found 1 error(s) in the form. Please correct them to submit."))
+        onView(ViewMatchers.withSubstring("Found 1 error(s) in the form. Please correct them to submit."))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Thread.sleep(500);
     }
@@ -67,30 +67,30 @@ public class RemoveFamilyTestsBa {
     public void removeFamily() throws InterruptedException{
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Remove existing family member"))
+        onView(ViewMatchers.withSubstring("Remove existing family member"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Removing entire family"))
+        onView(ViewMatchers.withSubstring("Removing entire family"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Reason for closure *"))
+        onView(ViewMatchers.withSubstring("Reason for closure *"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Relocation"))
+        onView(ViewMatchers.withSubstring("Relocation"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Household relocation *"))
+        onView(ViewMatchers.withSubstring("Household relocation *"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Outside the district"))
+        onView(ViewMatchers.withSubstring("Outside the district"))
                 .perform(click());
         onView(withId(R.id.action_save))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("REMOVE"))
+        onView(ViewMatchers.withSubstring("REMOVE"))
                 .perform(click());
         Thread.sleep(200);
     }
@@ -99,15 +99,15 @@ public class RemoveFamilyTestsBa {
     public void changeFamilyHeadsuccessfully() throws InterruptedException{
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Change family head"))
+        onView(ViewMatchers.withSubstring("Change family head"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "
                 + Configs.TestConfigs.aboveFiveage))
                 .perform(click());
@@ -116,7 +116,7 @@ public class RemoveFamilyTestsBa {
                 perform(clearText(), typeText(Configs.TestConfigs.phoneNumberOne));
         onView(withHint("Other phone number"))
                 .perform(clearText(), typeText(Configs.TestConfigs.getPhoneNumberTwo));
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SAVE"))
+        onView(ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
 
@@ -124,15 +124,15 @@ public class RemoveFamilyTestsBa {
     public void changePrimarycareGiverSuccessfully() throws InterruptedException{
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Change primary caregiver"))
+        onView(ViewMatchers.withSubstring("Change primary caregiver"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "
                 + Configs.TestConfigs.aboveFiveage))
                 .perform(click());
@@ -140,7 +140,7 @@ public class RemoveFamilyTestsBa {
         onView(withHint("Phone number")).perform(clearText(), typeText(Configs.TestConfigs.phoneNumberOne));
         onView(withHint("Other phone number"))
                 .perform(clearText(), typeText(Configs.TestConfigs.getPhoneNumberTwo));
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SAVE"))
+        onView(ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
 
@@ -149,10 +149,10 @@ public class RemoveFamilyTestsBa {
     public void confirmFamilyHead() throws InterruptedException {
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameOne
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameOne
                 + " " + Configs.TestConfigs.aboveFiveSecondNameOne + ", "
                 + Configs.TestConfigs.aboveFiveage))
                 .perform(click());
@@ -165,10 +165,10 @@ public class RemoveFamilyTestsBa {
     public void confirmUniqueId() throws InterruptedException {
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameOne
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameOne
                 + " " + Configs.TestConfigs.aboveFiveSecondNameOne + ", "
                 + Configs.TestConfigs.aboveFiveage))
                 .perform(click());
@@ -181,14 +181,14 @@ public class RemoveFamilyTestsBa {
     public void confirmFabOptions() throws InterruptedException {
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         onView(withId(R.id.fab))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Call"))
+        onView(ViewMatchers.withSubstring("Call"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Add new family member"))
+        onView(ViewMatchers.withSubstring("Add new family member"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 

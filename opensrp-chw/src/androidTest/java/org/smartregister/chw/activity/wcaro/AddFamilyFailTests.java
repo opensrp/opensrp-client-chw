@@ -73,16 +73,16 @@ public class AddFamilyFailTests {
         onView(withId(R.id.action_register)).perform(click());
         Thread.sleep(1000);
         Activity activity = getCurrentActivity();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Next"))
+        onView(ViewMatchers.withSubstring("Next"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step2:dob_unknown")))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step2:age")))
                 .perform(scrollTo(), typeText(Configs.TestConfigs.aboveFiveage));
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SUBMIT"))
+        onView(ViewMatchers.withSubstring("SUBMIT"))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Found 6 error(s) in the form. Please correct them to submit."))
+        onView(ViewMatchers.withSubstring("Found 6 error(s) in the form. Please correct them to submit."))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
@@ -105,16 +105,10 @@ public class AddFamilyFailTests {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:gps")))
                 .perform(doubleClick());
         Thread.sleep(2000);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("OK"))
+        onView(ViewMatchers.withSubstring("OK"))
                 .perform(click());
         Thread.sleep(1000);
-            /*onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Family source of income"))
-                .perform(doubleClick());
-            Thread.sleep(2000);
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Construction"))
-                .perform(scrollTo(), click());
-            Thread.sleep(500); */
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Next"))
+        onView(ViewMatchers.withSubstring("Next"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step2:unique_id")))

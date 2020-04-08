@@ -20,7 +20,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
-import org.junit.Before;
+//import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,15 +66,15 @@ public class AddChildFamilyMemberBa {
     public void addChildFamilyMember() throws Throwable {
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         onView(withId(R.id.fab))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Add new family member"))
+        onView(ViewMatchers.withSubstring("Add new family member"))
                 .perform(click());
         Thread.sleep(100);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Child under 5 years"))
+        onView(ViewMatchers.withSubstring("Child under 5 years"))
                 .perform(click());
         Thread.sleep(100);
         Activity activity = getCurrentActivity();
@@ -89,12 +89,12 @@ public class AddChildFamilyMemberBa {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:dob")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
+        onView(ViewMatchers.withSubstring("done")).perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:insurance_provider")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Community Health Fund (CHF)"))
+        onView(ViewMatchers.withSubstring("Community Health Fund (CHF)"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
         Thread.sleep(500);
@@ -104,18 +104,18 @@ public class AddChildFamilyMemberBa {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:gender")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Male"))
+        onView(ViewMatchers.withSubstring("Male"))
                 .perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:disabilities")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:birth_cert_available")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Yes"))
+        onView(ViewMatchers.withSubstring("Yes"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:birth_regist_number")))
                 .perform(scrollTo(), typeText("234567890"));
@@ -123,12 +123,12 @@ public class AddChildFamilyMemberBa {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:rhc_card")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("No"))
+        onView(ViewMatchers.withSubstring("No"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         Thread.sleep(1000);
     }
@@ -137,27 +137,27 @@ public class AddChildFamilyMemberBa {
     public void addFamilyWithBlankFieldsBa() throws Throwable {
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         onView(withId(R.id.fab))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Add new family member"))
+        onView(ViewMatchers.withSubstring("Add new family member"))
                 .perform(click());
         Thread.sleep(100);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Child under 5 years"))
+        onView(ViewMatchers.withSubstring("Child under 5 years"))
                 .perform(click());
         Thread.sleep(100);
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:dob")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
+        onView(ViewMatchers.withSubstring("done")).perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
         Thread.sleep(100);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Found 7 error(s) in the form. Please correct them to submit."))
+        onView(ViewMatchers.withSubstring("Found 7 error(s) in the form. Please correct them to submit."))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
@@ -165,15 +165,15 @@ public class AddChildFamilyMemberBa {
     public void confirmUniqueIDPrepopulatedBa() throws Throwable {
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         onView(withId(R.id.fab))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Add new family member"))
+        onView(ViewMatchers.withSubstring("Add new family member"))
                 .perform(click());
         Thread.sleep(100);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Child under 5 years"))
+        onView(ViewMatchers.withSubstring("Child under 5 years"))
                 .perform(click());
         Thread.sleep(100);
         Activity activity = getCurrentActivity();

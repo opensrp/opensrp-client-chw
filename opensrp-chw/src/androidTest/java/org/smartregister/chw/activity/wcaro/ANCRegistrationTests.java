@@ -33,7 +33,6 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static org.hamcrest.Matchers.allOf;
 import static org.smartregister.chw.activity.utils.Utils.getViewId;
 
 @LargeTest
@@ -65,7 +64,7 @@ public class ANCRegistrationTests {
     @Test
     @Order(order = 2)
     public void registerANCSuccessfuly() throws Throwable {
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         /*onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "
@@ -75,16 +74,14 @@ public class ANCRegistrationTests {
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("ANC Registration"))
+        onView(ViewMatchers.withSubstring("ANC Registration"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
-        //onView(withId(getViewId((JsonFormActivity) activity, "step1:last_menstrual_period_unknown")))\
-        // .peform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:last_menstrual_period")))
          .perform(click());
         Thread.sleep(1000);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
+        onView(ViewMatchers.withSubstring("done")).perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:no_prev_preg")))
                 .perform(typeText("2"));
@@ -97,14 +94,14 @@ public class ANCRegistrationTests {
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Co-habiting"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
 
     @Test
     @Order(order = 1)
     public void registerANCWithoutAllFields() throws Throwable {
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         /*onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "
@@ -114,20 +111,18 @@ public class ANCRegistrationTests {
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("ANC Registration"))
+        onView(ViewMatchers.withSubstring("ANC Registration"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
-        //onView(withId(getViewId((JsonFormActivity) activity, "step1:last_menstrual_period_unknown")))
-        // .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:last_menstrual_period")))
                 .perform(click());
         Thread.sleep(1000);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
+        onView(ViewMatchers.withSubstring("done")).perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Save"))
+        onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Found 3 error(s) in the form. Please correct them to submit."))
+        onView(ViewMatchers.withSubstring("Found 3 error(s) in the form. Please correct them to submit."))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
     @After

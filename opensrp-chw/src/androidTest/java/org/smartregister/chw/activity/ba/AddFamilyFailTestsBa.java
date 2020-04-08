@@ -23,7 +23,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
-import org.junit.Before;
+//import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,7 +65,6 @@ public class AddFamilyFailTestsBa {
     Utils utils = new Utils();
 
 
-    @Before
     public void setUp() throws InterruptedException {
         utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);
     }
@@ -81,16 +80,16 @@ public class AddFamilyFailTestsBa {
         Thread.sleep(500);
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Kabila Village"))
                 .perform(doubleClick());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Next"))
+        onView(ViewMatchers.withSubstring("Next"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step2:dob_unknown")))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step2:age")))
                 .perform(scrollTo(), typeText(Configs.TestConfigs.aboveFiveage));
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SUBMIT"))
+        onView(ViewMatchers.withSubstring("SUBMIT"))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Found 11 error(s) in the form. Please correct them to submit."))
+        onView(ViewMatchers.withSubstring("Found 11 error(s) in the form. Please correct them to submit."))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
@@ -111,16 +110,16 @@ public class AddFamilyFailTestsBa {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:gps")))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("OK"))
+        onView(ViewMatchers.withSubstring("OK"))
                 .perform(click());
         Thread.sleep(100);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:nearest_facility")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Kabila Village"))
+        onView(ViewMatchers.withSubstring("Kabila Village"))
                 .perform(doubleClick());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Next"))
+        onView(ViewMatchers.withSubstring("Next"))
                 .perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step2:unique_id")))

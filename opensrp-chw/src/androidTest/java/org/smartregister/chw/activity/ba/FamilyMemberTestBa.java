@@ -37,23 +37,23 @@ public class FamilyMemberTestBa {
 
     @Test
     public void removefamilyMemberSuccessfully() throws InterruptedException{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
+        onView(ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Remove existing family member"))
+        onView(ViewMatchers.withSubstring("Remove existing family member"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Merab Emerald Nandi, 26"))
+        onView(ViewMatchers.withSubstring("Merab Emerald Nandi, 26"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Reason for removal *"))
+        onView(ViewMatchers.withSubstring("Reason for removal *"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Moved away"))
+        onView(ViewMatchers.withSubstring("Moved away"))
                 .perform(click());
         onView(withHint("Date moved away *"))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done"))
+        onView(ViewMatchers.withSubstring("done"))
                 .perform(click());
         onView(withId(R.id.action_save))
                 .check(matches(isDisplayed()));//perform(click());
@@ -61,19 +61,19 @@ public class FamilyMemberTestBa {
 
     @Test
     public void removefamilyMemberWithoutReason() throws InterruptedException{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
+        onView(ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Remove existing family member"))
+        onView(ViewMatchers.withSubstring("Remove existing family member"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Merab Emerald Nandi, 26"))
+        onView(ViewMatchers.withSubstring("Merab Emerald Nandi, 26"))
                 .perform(click());
         onView(withId(R.id.action_save))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Found 1 error(s) in the form. Please correct them to submit."))
+        onView(ViewMatchers.withSubstring("Found 1 error(s) in the form. Please correct them to submit."))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         onView(withId(R.id.action_bar_root))
                 .perform(click());
@@ -82,7 +82,7 @@ public class FamilyMemberTestBa {
 
     @Test
     public void changeFamilyHeadsuccessfully() throws InterruptedException{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
+        onView(ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
@@ -101,15 +101,15 @@ public class FamilyMemberTestBa {
 
     @Test
     public void changePrimarycareGiverSuccessfully() throws InterruptedException{
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
+        onView(ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Change primary caregiver"))
+        onView(ViewMatchers.withSubstring("Change primary caregiver"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Merab Emerald Nandi, 26"))
+        onView(ViewMatchers.withSubstring("Merab Emerald Nandi, 26"))
                 .perform(click());
         onView(withId(R.id.action_save))
                 .perform(click());
@@ -139,14 +139,14 @@ public class FamilyMemberTestBa {
 
     @Test
     public void confirmFabOptions() throws InterruptedException {
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
+        onView(ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
                 .perform(click());
         Thread.sleep(500);
         onView(withId(R.id.fab))
                 .perform(click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Call"))
+        onView(ViewMatchers.withSubstring("Call"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Add new family member"))
+        onView(ViewMatchers.withSubstring("Add new family member"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 }

@@ -59,7 +59,7 @@ public class SideNavigationMenuBA {
     @Order(order = 1)
     public void leftDrawerMenuResponsiveness() throws InterruptedException{
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Registers"))
+        onView(ViewMatchers.withSubstring("Registers"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
@@ -67,7 +67,7 @@ public class SideNavigationMenuBA {
     @Order(order = 2)
     public void correctAppNameTest() throws InterruptedException{
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.appName))
+        onView(ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.appName))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
@@ -75,15 +75,15 @@ public class SideNavigationMenuBA {
     @Order(order = 3)
     public void correctRegistersTest() throws InterruptedException{
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.pnc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.pnc))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.child))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.child))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.family_planning))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.family_planning))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.malaria))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.malaria))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
@@ -91,7 +91,7 @@ public class SideNavigationMenuBA {
     @Order(order = 4)
     public void syncTest() throws InterruptedException{
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Sync"))
+        onView(ViewMatchers.withSubstring("Sync"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
@@ -99,7 +99,7 @@ public class SideNavigationMenuBA {
     @Order(order = 5)
     public void logOutUserName() throws InterruptedException{
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Log out as " + Constants.BoreshaAfyaConfigs.ba_userName))
+        onView(ViewMatchers.withSubstring("Log out as " + Constants.BoreshaAfyaConfigs.ba_userName))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
@@ -108,10 +108,10 @@ public class SideNavigationMenuBA {
     @Order(order = 6)
     public void changeLanguage() throws InterruptedException{
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("English"))
+        onView(ViewMatchers.withSubstring("English"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Kiswahili"))
+        onView(ViewMatchers.withSubstring("Kiswahili"))
                 .perform(click());
         onView(withId(R.id.txt_title_label)).check(matches(isDisplayed()));
         utils.revertLanguageSwahili();

@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.espresso.matcher.BoundedMatcher;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -85,47 +86,35 @@ public class AddFamilyTestWcaro {
             onView(withId(getViewId((JsonFormActivity) activity, "step1:gps")))
                 .perform(doubleClick());
             Thread.sleep(2000);
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("OK"))
+            onView(ViewMatchers.withSubstring("OK"))
                 .perform(click());
             Thread.sleep(1000);
-            /*onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Family source of income"))
-                .perform(doubleClick());
-            Thread.sleep(2000);
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Construction"))
-                .perform(scrollTo(), click());
-            Thread.sleep(500); */
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Next"))
+            onView(ViewMatchers.withSubstring("Next"))
                 .perform(scrollTo(), click());
             Thread.sleep(500);
             onView(withId(getViewId((JsonFormActivity) activity, "step2:national_id")))
                 .perform(typeText(Configs.TestConfigs.nationalID));
-            //onView(withId(getViewId((JsonFormActivity) activity, "step2:surname"))).perform(scrollTo(), typeText("JinaLaFamilia"));
             onView(withId(getViewId((JsonFormActivity) activity, "step2:same_as_fam_name")))
                 .perform(scrollTo(), click());
             onView(withId(getViewId((JsonFormActivity) activity, "step2:first_name")))
                 .perform(scrollTo(), typeText(Configs.TestConfigs.aboveFiveFirstNameOne));
             onView(withId(getViewId((JsonFormActivity) activity, "step2:middle_name")))
                 .perform(scrollTo(), typeText(Configs.TestConfigs.aboveFiveSecondNameOne));
-            //onView(withId(getViewId((JsonFormActivity) activity, "step2:dob")))
-            // .perform(scrollTo(), click());
-            //Thread.sleep(1000);
-            //onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
-            //Thread.sleep(500);
             onView(withId(getViewId((JsonFormActivity) activity, "step2:dob_unknown")))
                 .perform(scrollTo(), click());
             onView(withId(getViewId((JsonFormActivity) activity, "step2:age")))
                 .perform(scrollTo(), typeText(Configs.TestConfigs.aboveFiveage));
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Sex"))
+            onView(ViewMatchers.withSubstring("Sex"))
                 .perform(scrollTo(), click());
             Thread.sleep(500);
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Male"))
+            onView(ViewMatchers.withSubstring("Male"))
                 .perform(click());
             Thread.sleep(500);
             onView(withId(getViewId((JsonFormActivity) activity, "step2:phone_number")))
                 .perform(scrollTo(), typeText(Configs.TestConfigs.phoneNumberOne));
             onView(withId(getViewId((JsonFormActivity) activity, "step2:other_phone_number")))
                 .perform(scrollTo(), typeText(Configs.TestConfigs.getPhoneNumberTwo));
-            onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SUBMIT"))
+            onView(ViewMatchers.withSubstring("SUBMIT"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
     }
