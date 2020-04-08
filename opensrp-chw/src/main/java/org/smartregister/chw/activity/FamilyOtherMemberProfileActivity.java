@@ -36,8 +36,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+        String gender = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
         // Check if woman is already registered
-        if (flavor.hasANC() && !presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isWra(commonPersonObject)) {
+        if (flavor.hasANC() && !presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isOfReproductiveAge(commonPersonObject, "Female")) {
             flavor.updateFpMenuItems(baseEntityId, menu);
             menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {
@@ -48,6 +49,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
 
         flavor.updateMalariaMenuItems(baseEntityId, menu);
+
+        if (gender.equalsIgnoreCase("Male") && flavor.isOfReproductiveAge(commonPersonObject, "Male")) {
+            flavor.updateMaleFpMenuItems(baseEntityId, menu);
+        }
+
         return true;
     }
 
@@ -159,11 +165,13 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId);
 
-        boolean isWra(CommonPersonObjectClient commonPersonObject);
+        boolean isOfReproductiveAge(CommonPersonObjectClient commonPersonObject, String gender);
 
         void updateFpMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
 
         void updateMalariaMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+
+        void updateMaleFpMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
 
         boolean hasANC();
     }

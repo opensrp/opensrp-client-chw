@@ -6,9 +6,8 @@ import android.view.Menu;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-
-import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
 
 public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {
 
@@ -21,8 +20,14 @@ public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements Fami
     }
 
     @Override
-    public boolean isWra(CommonPersonObjectClient commonPersonObject) {
-        return isWomanOfReproductiveAge(commonPersonObject, 10, 49);
+    public boolean isOfReproductiveAge(CommonPersonObjectClient commonPersonObject, String gender) {
+        if (gender.equalsIgnoreCase("Female")) {
+            return Utils.isMemberOfReproductiveAge(commonPersonObject, 10, 49);
+        } else if (gender.equalsIgnoreCase("Male")) {
+            return Utils.isMemberOfReproductiveAge(commonPersonObject, 15, 49);
+        } else {
+            return false;
+        }
     }
 
     @Override
