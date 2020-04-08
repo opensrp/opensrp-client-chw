@@ -315,6 +315,7 @@
     <string name="pnc_danger_signs">PNC danger signs</string>
     <string name="fp_post_partum">FP post-partum</string>
     <string name="anc_danger_signs">ANC danger signs</string>
+    <string name="suspected_malaria">Suspected Malaria</string>
 
     <string name="jobs_aid_failed_download">Jobs aid video \"%s\" failed to download.</string>
 

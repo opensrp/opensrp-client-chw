@@ -19,6 +19,7 @@ import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.fragment.FollowupRegisterFragment;
 import org.smartregister.chw.fragment.ReferralRegisterFragment;
+import org.smartregister.chw.malaria.util.MalariaJsonFormUtils;
 import org.smartregister.chw.referral.activity.BaseReferralRegisterActivity;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.helper.BottomNavigationHelper;
@@ -35,7 +36,6 @@ import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.CoreConstants.ENTITY_ID;
 import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getMalariaConfirmation;
-import static org.smartregister.chw.malaria.util.JsonFormUtils.validateParameters;
 import static org.smartregister.chw.referral.util.Constants.ActivityPayload;
 import static org.smartregister.chw.referral.util.Constants.ActivityPayloadType;
 import static org.smartregister.util.JsonFormUtils.VALUE;
@@ -131,7 +131,7 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity {
             String jsonString = data.getStringExtra(org.smartregister.chw.malaria.util.Constants.JSON_FORM_EXTRA.JSON);
             try {
                 JSONObject form = new JSONObject(jsonString);
-                Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(form.toString());
+                Triple<Boolean, JSONObject, JSONArray> registrationFormParams = MalariaJsonFormUtils.validateParameters(form.toString());
                 JSONObject jsonForm = registrationFormParams.getMiddle();
                 JSONArray fields = registrationFormParams.getRight();
                 String encounter_type = jsonForm.optString(org.smartregister.chw.malaria.util.Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);

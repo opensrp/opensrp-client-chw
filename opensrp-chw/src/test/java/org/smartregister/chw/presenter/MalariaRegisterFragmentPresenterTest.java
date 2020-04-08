@@ -32,7 +32,7 @@ public class MalariaRegisterFragmentPresenterTest extends BaseUnitTest {
 
     @Test
     public void testMainCondition() {
-        Assert.assertEquals(" ec_family_member.date_removed is null AND ec_malaria_confirmation.malaria = 1 AND ec_malaria_confirmation.is_closed = 0",
+        Assert.assertEquals(" ec_family_member.date_removed is null AND ec_malaria_confirmation.malaria  = 1 AND datetime('NOW') <= datetime(ec_malaria_confirmation.last_interacted_with/1000, 'unixepoch', 'localtime','+15 days') AND ec_malaria_confirmation.is_closed = 0",
                 presenter.getMainCondition());
 
     }
