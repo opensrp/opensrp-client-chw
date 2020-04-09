@@ -26,6 +26,7 @@ import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -54,17 +55,17 @@ public class PNCVisit {
     @Test
     public void confirmPNCVisit() throws Throwable {
         utils.openDrawer();
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.pnc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.pnc))
                 .perform(click());
         onView(ViewMatchers.withHint("Find name or ID"))
                 .perform(typeText("Ii"), closeSoftKeyboard());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Ii Gg"))
+        onView(ViewMatchers.withSubstring("Ii Gg"))
                 .perform(click());
         onView(withId(R.id.textview_record_visit))
                 .perform(click());
         Thread.sleep(1000);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Danger signs - mother"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        onView(ViewMatchers.withSubstring("Danger signs - mother"))
+                .check(matches(ViewMatchers.isDisplayed()));
     }
     @Test
     public void successfullyRecordPNCVisit() throws Throwable {

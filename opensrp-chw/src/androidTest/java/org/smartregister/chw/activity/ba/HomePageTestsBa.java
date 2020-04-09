@@ -29,6 +29,7 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -59,20 +60,20 @@ public class HomePageTestsBa {
     @Test
     @Order(order = 1)
     public void searchByName() throws InterruptedException{
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
         Thread.sleep(1000);
     }
 
     @Test
     @Order(order = 2)
     public void searchByID() throws InterruptedException{
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Constants.BoreshaAfyaConfigs.searchFamilyIDBa), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
         Thread.sleep(1000);
     }
 

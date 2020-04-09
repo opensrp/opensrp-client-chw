@@ -44,7 +44,7 @@ public class FamilyMemberTest {
     @Test
     @Order(order = 8)
     public void removeFamilyWithoutReason() throws InterruptedException{
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
@@ -60,14 +60,14 @@ public class FamilyMemberTest {
         onView(withId(R.id.action_save))
                 .perform(click());
         onView(ViewMatchers.withSubstring("Found 1 error(s) in the form. Please correct them to submit."))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
         Thread.sleep(500);
     }
 
     @Test
     @Order(order = 9)
     public void removeFamily() throws InterruptedException{
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
@@ -79,7 +79,8 @@ public class FamilyMemberTest {
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("Removing entire family"))
                 .perform(click());
-        Thread.sleep(500);onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Reason *"))
+        Thread.sleep(500);
+        onView(ViewMatchers.withSubstring("Reason *"))
                 .perform(click());
         onView(ViewMatchers.withSubstring("Other"))
                 .perform(click());
@@ -94,7 +95,7 @@ public class FamilyMemberTest {
     @Test
     @Order(order = 5)
     public void changeFamilyHeadsuccessfully() throws InterruptedException{
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
@@ -120,7 +121,7 @@ public class FamilyMemberTest {
     @Test
     @Order(order = 4)
     public void changePrimarycareGiverSuccessfully() throws InterruptedException{
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
@@ -145,7 +146,7 @@ public class FamilyMemberTest {
     @Test
     @Order(order = 1)
     public void confirmFamilyHead() throws InterruptedException {
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
@@ -161,7 +162,7 @@ public class FamilyMemberTest {
     @Test
     @Order(order = 2)
     public void confirmUniqueId() throws InterruptedException {
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
@@ -177,7 +178,7 @@ public class FamilyMemberTest {
     @Test
     @Order(order = 3)
     public void confirmFabOptions() throws InterruptedException {
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
@@ -185,9 +186,9 @@ public class FamilyMemberTest {
         onView(withId(R.id.fab))
                 .perform(click());
         onView(ViewMatchers.withSubstring("Call"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(matches(ViewMatchers.isDisplayed()));
         onView(ViewMatchers.withSubstring("Add new family member"))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     @After
