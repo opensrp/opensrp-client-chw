@@ -2,10 +2,7 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 import android.app.Activity;
-import android.view.View;
-import android.widget.EditText;
 
-import androidx.annotation.StringRes;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
@@ -15,18 +12,13 @@ import androidx.test.runner.lifecycle.Stage;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.utils.Configs;
 import org.smartregister.chw.activity.utils.Constants;
 import org.smartregister.chw.activity.utils.Utils;
-import org.smartregister.family.activity.FamilyWizardFormActivity;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
@@ -44,8 +36,6 @@ public class PregnancyOutcome {
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
-    public ActivityTestRule<FamilyWizardFormActivity> mActivityTestRule2 = new ActivityTestRule<>(FamilyWizardFormActivity.class);
-
     @Rule
     public GrantPermissionRule permissionRule = GrantPermissionRule.grant(android.Manifest.permission.CALL_PHONE);
 
@@ -55,7 +45,7 @@ public class PregnancyOutcome {
     @Rule
     public GrantPermissionRule mRuntimePermissionRule1 = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION);
 
-    Utils utils = new Utils();
+    private Utils utils = new Utils();
 
     public void setUp() throws InterruptedException {
         utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
@@ -247,19 +237,13 @@ public class PregnancyOutcome {
         mActivityTestRule.finishActivity();
     }
 
-    private String getString(@StringRes int resourceId) {
-        return mActivityTestRule.getActivity().getString(resourceId);
-    }
 
-    Activity getCurrentActivity() throws Throwable {
+    private Activity getCurrentActivity() throws Throwable {
         getInstrumentation().waitForIdleSync();
         final Activity[] activity = new Activity[1];
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
-                activity[0] = Iterables.getOnlyElement(activities);
-            }
+        runOnUiThread(() -> {
+            java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
+            activity[0] = Iterables.getOnlyElement(activities);
         });
         return activity[0];
     }

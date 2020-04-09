@@ -1,21 +1,13 @@
 package org.smartregister.chw.activity.wcaro;
 
-import android.view.View;
-import android.widget.EditText;
-
-import androidx.annotation.StringRes;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.LoginActivity;
-import org.smartregister.chw.activity.utils.Constants;
 import org.smartregister.chw.activity.utils.Order;
 import org.smartregister.chw.activity.utils.OrderedRunner;
 import org.smartregister.chw.activity.utils.Utils;
@@ -38,7 +30,7 @@ public class LoginPageActivityTest {
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
-    Utils utils = new Utils();
+    private Utils utils = new Utils();
 
     @Test
     @Order(order = 5)
@@ -131,14 +123,10 @@ public class LoginPageActivityTest {
                 .perform(typeText("Amani123"), closeSoftKeyboard());
         onView(withId(R.id.login_login_btn))
                 .perform(click());
-        Thread.sleep(5000);
+        Thread.sleep(500);
         onView(withText("Please check the credentials."))
                 .check(matches(isDisplayed()));
 
-    }
-
-    private String getString(@StringRes int resourceId) {
-        return mActivityTestRule.getActivity().getString(resourceId);
     }
 
 

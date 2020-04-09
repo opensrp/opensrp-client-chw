@@ -32,7 +32,7 @@ public class RemoveFamilyTestsBa {
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
-    Utils utils = new Utils();
+    private Utils utils = new Utils();
 
     public void setUp() throws InterruptedException{
         utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);

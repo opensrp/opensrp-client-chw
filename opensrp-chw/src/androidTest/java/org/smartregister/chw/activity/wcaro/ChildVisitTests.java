@@ -2,13 +2,9 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 import android.app.Activity;
-import android.view.View;
-import android.widget.DatePicker;
-import android.widget.EditText;
 
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
-import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -17,9 +13,6 @@ import androidx.test.runner.lifecycle.Stage;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -55,7 +48,7 @@ public class ChildVisitTests {
         @Rule
         public GrantPermissionRule mRuntimePermissionRule1 = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION);
 
-        Utils utils = new Utils();
+        private Utils utils = new Utils();
 
         @Before
         public void setUp() throws InterruptedException {
@@ -89,7 +82,7 @@ public class ChildVisitTests {
         }
 
         @Test
-        public void confirmChildMedicakHistory() throws Throwable {
+        public void confirmChildMedicakHistory() {
             utils.openDrawer();
             onView(ViewMatchers.withSubstring(Constants.GenericConfigs.child))
                     .perform(click());
@@ -104,7 +97,7 @@ public class ChildVisitTests {
 
         }
 
-    public void childVaccine() throws Throwable{
+    private void childVaccine() throws Throwable{
         onView(ViewMatchers.withSubstring("Child vaccine card received"))
                 .perform(click());
         Thread.sleep(500);
@@ -113,7 +106,7 @@ public class ChildVisitTests {
         onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
-    public void immunizationsAtBirth() throws Throwable{
+    private void immunizationsAtBirth() throws Throwable{
         onView(ViewMatchers.withSubstring("Immunizations (at birth)"))
                 .perform(click());
         onView(ViewMatchers.withSubstring("OPV 0"))
@@ -124,7 +117,7 @@ public class ChildVisitTests {
         onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
-    public void exclusiveBreastfeeding() throws Throwable{
+    private void exclusiveBreastfeeding() throws Throwable{
         onView(ViewMatchers.withSubstring("Exclusive breastfeeding 0 months"))
                 .perform(click());
         onView(ViewMatchers.withSubstring("No"))
@@ -133,7 +126,7 @@ public class ChildVisitTests {
         onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
-    public void birthCertification() throws Throwable{
+    private void birthCertification() throws Throwable{
         onView(ViewMatchers.withSubstring("Birth certification"))
                 .perform(click());
         Activity activity = getCurrentActivity();
@@ -151,7 +144,7 @@ public class ChildVisitTests {
         onView(ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
-    public void earlyChildhoodDevelopment() throws Throwable{
+    private void earlyChildhoodDevelopment() throws Throwable{
         onView(ViewMatchers.withSubstring("Early childhood development (ECD)"))
                 .perform(click());
         Activity activity = getCurrentActivity();
@@ -168,7 +161,7 @@ public class ChildVisitTests {
         onView(ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
-    public void llitn() throws Throwable{
+    private void llitn(){
         onView(ViewMatchers.withSubstring("Sleeping under a LLITN"))
                 .perform(click());
         onView(ViewMatchers.withSubstring("No"))
@@ -176,7 +169,7 @@ public class ChildVisitTests {
         onView(ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
-    public void illnessObservations() throws Throwable{
+    private void illnessObservations() throws Throwable{
         onView(ViewMatchers.withSubstring("Observations & illness - optional"))
                 .perform(click());
         Activity activity = getCurrentActivity();
@@ -200,47 +193,13 @@ public class ChildVisitTests {
             mActivityTestRule.finishActivity();
         }
 
-        public static Matcher<View> matchesDate(final int year, final int month, final int day) {
-            return new BoundedMatcher<View, DatePicker>(DatePicker.class) {
-                @Override
-                public void describeTo(Description description) {
-                description.appendText("matches date:");
-                }
 
-                @Override
-                protected boolean matchesSafely(DatePicker item) {
-                    return (year == item.getYear() && month == item.getMonth() && day == item.getDayOfMonth());
-                }
-            };
-        }
-
-
-        private static Matcher<View> withError(final String expected) {
-            return new TypeSafeMatcher<View>() {
-                @Override
-                protected boolean matchesSafely(View item) {
-                    if (item instanceof EditText) {
-                        return ((EditText)item).getError().toString().equals(expected);
-                    }
-                    return false;
-                }
-
-                @Override
-                public void describeTo(Description description) {
-                    description.appendText("Not found error message" + expected + ", find it!");
-                }
-            };
-        }
-
-        Activity getCurrentActivity() throws Throwable {
+        private Activity getCurrentActivity() throws Throwable {
             getInstrumentation().waitForIdleSync();
             final Activity[] activity = new Activity[1];
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
-                    activity[0] = Iterables.getOnlyElement(activities);
-                }
+            runOnUiThread(() -> {
+                java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
+                activity[0] = Iterables.getOnlyElement(activities);
             });
             return activity[0];
         }

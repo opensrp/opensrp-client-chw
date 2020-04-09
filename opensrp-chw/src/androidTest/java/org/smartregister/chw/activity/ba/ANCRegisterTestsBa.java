@@ -1,19 +1,14 @@
 package org.smartregister.chw.activity.ba;
 
 import android.Manifest;
-import android.app.Activity;
 
 import androidx.test.espresso.assertion.ViewAssertions;
-import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
-import androidx.test.runner.lifecycle.Stage;
 
 import org.junit.After;
-//import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,15 +19,14 @@ import org.smartregister.chw.activity.utils.Constants;
 import org.smartregister.chw.activity.utils.Order;
 import org.smartregister.chw.activity.utils.OrderedRunner;
 import org.smartregister.chw.activity.utils.Utils;
-import org.smartregister.family.activity.FamilyWizardFormActivity;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+
+//import org.junit.Before;
 
 @LargeTest
 //@RunWith(AndroidJUnit4.class)
@@ -40,8 +34,6 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 public class ANCRegisterTestsBa {
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
-
-    public ActivityTestRule<FamilyWizardFormActivity> mActivityTestRule2 = new ActivityTestRule<>(FamilyWizardFormActivity.class);
 
     @Rule
     public GrantPermissionRule permissionRule = GrantPermissionRule.grant(android.Manifest.permission.CALL_PHONE);
@@ -52,7 +44,7 @@ public class ANCRegisterTestsBa {
     @Rule
     public GrantPermissionRule mRuntimePermissionRule1 = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION);
 
-    Utils utils = new Utils();
+    private Utils utils = new Utils();
 
     public void setUp() throws InterruptedException {
         utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);
@@ -60,7 +52,7 @@ public class ANCRegisterTestsBa {
 
     @Test
     @Order(order = 1)
-    public void searchANCRecord() throws Throwable {
+    public void searchANCRecord() {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
@@ -72,7 +64,7 @@ public class ANCRegisterTestsBa {
     }
     @Test
     @Order(order = 2)
-    public void confirmANCRecordProfile() throws Throwable {
+    public void confirmANCRecordProfile() {
         utils.openDrawer();
         onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
@@ -85,7 +77,7 @@ public class ANCRegisterTestsBa {
 
     @Test
     @Order(order = 3)
-    public void confirmANCVisitPage() throws Throwable {
+    public void confirmANCVisitPage() {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
@@ -102,7 +94,7 @@ public class ANCRegisterTestsBa {
     }
     @Test
     @Order(order = 4)
-    public void confirmANCSearchWorks() throws Throwable {
+    public void confirmANCSearchWorks() {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
@@ -129,7 +121,7 @@ public class ANCRegisterTestsBa {
     }
     @Test
     @Order(order = 5)
-    public void testANCProfileView() throws Throwable {
+    public void testANCProfileView() {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
@@ -147,16 +139,4 @@ public class ANCRegisterTestsBa {
         mActivityTestRule.finishActivity();
     }
 
-    Activity getCurrentActivity() throws Throwable {
-        getInstrumentation().waitForIdleSync();
-        final Activity[] activity = new Activity[1];
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
-                activity[0] = Iterables.getOnlyElement(activities);
-            }
-        });
-        return activity[0];
-    }
 }

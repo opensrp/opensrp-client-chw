@@ -2,13 +2,9 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 import android.app.Activity;
-import android.view.View;
-import android.widget.DatePicker;
-import android.widget.EditText;
 
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
-import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -17,9 +13,6 @@ import androidx.test.runner.lifecycle.Stage;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
@@ -51,7 +44,7 @@ public class PNCVisit {
     @Rule
     public GrantPermissionRule mRuntimePermissionRule1 = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION);
 
-    Utils utils = new Utils();
+    private Utils utils = new Utils();
 
     public void setUp() throws InterruptedException {
         Thread.sleep(1000);
@@ -91,7 +84,7 @@ public class PNCVisit {
         //observationsAndIllness();
     }
 
-    public void dangerSigns() throws Throwable{
+    private void dangerSigns() {
         onView(ViewMatchers.withSubstring("Danger signs - mother"))
                 .perform(click());
         onView(ViewMatchers.withSubstring("None"))
@@ -99,7 +92,7 @@ public class PNCVisit {
         onView(withId(R.id.next)).perform(click());
     }
 
-    public void healthFacilityVisit() throws Throwable{
+    private void healthFacilityVisit() {
         onView(ViewMatchers.withSubstring("PNC health facility visit - day 7"))
                 .perform(click());
         onView(ViewMatchers.withSubstring("Did the woman attend her PNC visit (Day 7) at the health facility?"))
@@ -109,7 +102,7 @@ public class PNCVisit {
         onView(withId(R.id.next)).perform(click());
     }
 
-    public void familyPlanning() throws Throwable{
+    private void familyPlanning() {
         onView(ViewMatchers.withSubstring("Family planning"))
                 .perform(click());
         onView(ViewMatchers.withSubstring("Woman counseled on Family Planning? *"))
@@ -123,7 +116,7 @@ public class PNCVisit {
         onView(withId(R.id.next)).perform(click());
     }
 
-    public void observationsAndIllness() throws Throwable{
+    private void observationsAndIllness() throws Throwable{
         onView(ViewMatchers.withSubstring("Observations & illness - mother -"))
                 .perform(click());
         Activity activity = getCurrentActivity();
@@ -145,15 +138,12 @@ public class PNCVisit {
         mActivityTestRule.finishActivity();
     }
 
-    Activity getCurrentActivity() throws Throwable {
+    private Activity getCurrentActivity() throws Throwable {
         getInstrumentation().waitForIdleSync();
         final Activity[] activity = new Activity[1];
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
-                activity[0] = Iterables.getOnlyElement(activities);
-            }
+        runOnUiThread(() -> {
+            java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
+            activity[0] = Iterables.getOnlyElement(activities);
         });
         return activity[0];
     }

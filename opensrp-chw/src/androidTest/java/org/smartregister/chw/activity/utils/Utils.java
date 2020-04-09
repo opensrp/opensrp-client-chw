@@ -1,7 +1,6 @@
 package org.smartregister.chw.activity.utils;
 
 
-
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,6 @@ import org.smartregister.chw.R;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.doubleClick;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -37,8 +35,6 @@ import static org.hamcrest.Matchers.is;
 
 
 public class Utils  {
-
-    View view;
 
     public void logIn(String username, String password ) throws InterruptedException {
         onView(withId(R.id.login_user_name_edit_text))
@@ -61,15 +57,12 @@ public class Utils  {
     }
 */
 
-    Activity getCurrentActivity() throws Throwable {
+    private Activity getCurrentActivity() throws Throwable {
         getInstrumentation().waitForIdleSync();
         final Activity[] activity = new Activity[1];
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
-                activity[0] = Iterables.getOnlyElement(activities);
-            }
+        runOnUiThread(() -> {
+            java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
+            activity[0] = Iterables.getOnlyElement(activities);
         });
         return activity[0];
     }
@@ -271,14 +264,14 @@ public class Utils  {
                         isDisplayed()));
         return floatingActionButton;
     }
-    public void logOut() throws InterruptedException{
+    public void logOut() {
         onView(ViewMatchers.withSubstring("Log out as "
                 + Constants.WcaroConfigs.wCaro_userName))
                 .perform(click());
 
     }
 
-    public void logOutBA() throws InterruptedException{
+    public void logOutBA(){
         onView(ViewMatchers.withSubstring("Log out as " + Constants.BoreshaAfyaConfigs.ba_userName))
                 .perform(scrollTo(), click());
 

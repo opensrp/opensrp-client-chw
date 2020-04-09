@@ -1,18 +1,12 @@
 package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
-import android.view.View;
-import android.widget.EditText;
 
-import androidx.annotation.StringRes;
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -45,7 +39,7 @@ public class HomePageTests {
     @Rule
     public GrantPermissionRule mRuntimePermissionRule1 = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION);
 
-    Utils utils = new Utils();
+    private Utils utils = new Utils();
 
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
@@ -76,33 +70,13 @@ public class HomePageTests {
     }
 
     @Test
-    public void checkJobAids() throws InterruptedException{
+    public void checkJobAids() {
         onView(withId(R.id.action_job_aids))
                 .check(matches(isDisplayed()));
         utils.openDrawer();
         utils.logOut();
     }
 
-    private String getString(@StringRes int resourceId) {
-        return mActivityTestRule.getActivity().getString(resourceId);
-    }
-
-    private static Matcher<View> withError(final String expected) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                if (item instanceof EditText) {
-                    return ((EditText)item).getError().toString().equals(expected);
-                }
-                return false;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Not found error message" + expected + ", find it!");
-            }
-        };
-    }
 
 
 }

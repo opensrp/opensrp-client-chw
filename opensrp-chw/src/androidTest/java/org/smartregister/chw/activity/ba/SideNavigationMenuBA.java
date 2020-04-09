@@ -44,7 +44,7 @@ public class SideNavigationMenuBA {
     @Rule
     public GrantPermissionRule mRuntimePermissionRule1 = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION);
 
-    Utils utils = new Utils();
+    private Utils utils = new Utils();
 
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
@@ -117,7 +117,7 @@ public class SideNavigationMenuBA {
         utils.openDrawer();
     }
     @After
-    public void tearDown() throws InterruptedException{
+    public void tearDown(){
         utils.logOutBA();
     }
 }

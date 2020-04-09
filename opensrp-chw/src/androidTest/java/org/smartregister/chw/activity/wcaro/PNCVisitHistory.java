@@ -1,23 +1,12 @@
 package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
-import android.app.Activity;
-import android.view.View;
-import android.widget.DatePicker;
-import android.widget.EditText;
 
 import androidx.test.espresso.assertion.ViewAssertions;
-import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
-import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
-import androidx.test.runner.lifecycle.Stage;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -30,8 +19,6 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 public class PNCVisitHistory {
     @Rule
@@ -46,7 +33,7 @@ public class PNCVisitHistory {
     @Rule
     public GrantPermissionRule mRuntimePermissionRule1 = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION);
 
-    Utils utils = new Utils();
+    private Utils utils = new Utils();
 
     @Before
     public void setUp() throws InterruptedException {
@@ -74,16 +61,4 @@ public class PNCVisitHistory {
         mActivityTestRule.finishActivity();
     }
 
-    Activity getCurrentActivity() throws Throwable {
-        getInstrumentation().waitForIdleSync();
-        final Activity[] activity = new Activity[1];
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
-                activity[0] = Iterables.getOnlyElement(activities);
-            }
-        });
-        return activity[0];
-    }
 }

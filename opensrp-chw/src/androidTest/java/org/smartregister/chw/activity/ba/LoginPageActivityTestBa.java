@@ -1,16 +1,9 @@
 package org.smartregister.chw.activity.ba;
 
 
-import android.view.View;
-import android.widget.EditText;
-
-import androidx.annotation.StringRes;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +27,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 //@RunWith(AndroidJUnit4.class)
 @RunWith(OrderedRunner.class)
 public class LoginPageActivityTestBa {
-    Utils utils = new Utils();
+
+    private Utils utils = new Utils();
 
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
@@ -90,10 +84,6 @@ public class LoginPageActivityTestBa {
         onView(withId(R.id.login_login_btn)).perform(click());
         Thread.sleep(5000);
         onView(withText("Please check the credentials.")).check(matches(isDisplayed()));
-    }
-
-    private String getString(@StringRes int resourceId) {
-        return mActivityTestRule.getActivity().getString(resourceId);
     }
 
 }
