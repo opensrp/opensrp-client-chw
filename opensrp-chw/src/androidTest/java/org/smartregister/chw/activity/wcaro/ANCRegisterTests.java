@@ -2,7 +2,6 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -24,7 +23,9 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @LargeTest
@@ -55,11 +56,11 @@ public class ANCRegisterTests {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
     @Test
     @Order(order = 2)
@@ -67,11 +68,11 @@ public class ANCRegisterTests {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     @Test
@@ -80,7 +81,7 @@ public class ANCRegisterTests {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
@@ -89,7 +90,7 @@ public class ANCRegisterTests {
                 .perform(click());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "+ Configs.TestConfigs.aboveFiveage + " · ANC Visit"))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
     @Test
     @Order(order = 4)
@@ -97,18 +98,18 @@ public class ANCRegisterTests {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     public void confirmANCPhoneNumber() throws Throwable {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText("Jkk"), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring("Jkk Fgh"))
                 .perform(click());
@@ -116,7 +117,7 @@ public class ANCRegisterTests {
         //utils.ancFloatingfab()
                 //.perform(click());
         onView(ViewMatchers.withSubstring("Call"))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
     @Test
     @Order(order = 5)
@@ -124,13 +125,13 @@ public class ANCRegisterTests {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
                 .perform(click());
         onView(ViewMatchers.withSubstring("Return to all ANC women"))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     @After

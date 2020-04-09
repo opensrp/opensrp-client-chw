@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -30,6 +29,7 @@ import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.smartregister.chw.activity.utils.Utils.getViewId;
@@ -65,9 +65,9 @@ public class WashCheckVisitTest {
     @Test
     @Order(order = 1)
     public void washCheckVisitTest() throws Throwable{
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("DUE"))
+        onView(withSubstring("DUE"))
                 .perform(click());
         Thread.sleep(500);
         utils.locateLayout(0,1).perform(click());
@@ -75,45 +75,45 @@ public class WashCheckVisitTest {
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:handwashing_facilities")))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("Yes"))
+        onView(withSubstring("Yes"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:drinking_water")))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("Yes"))
+        onView(withSubstring("Yes"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:hygienic_latrine")))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("Yes"))
+        onView(withSubstring("Yes"))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("Save"))
+        onView(withSubstring("Save"))
                 .perform(click());
     }
 
     @Test
     @Order(order = 2)
     public void confirmWashCheck() throws Throwable {
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("ACTIVITY"))
+        onView(withSubstring("ACTIVITY"))
                 .perform(click());
         Thread.sleep(500);
         utils.locateLayout(0,1).perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("WASH check"))
+        onView(withSubstring("WASH check"))
                 .check(matches(isDisplayed()));
 
     }
     @Test
     @Order(order = 3)
     public void confirmActivityPage() throws Throwable {
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("ACTIVITY"))
+        onView(withSubstring("ACTIVITY"))
                 .perform(click());
         Thread.sleep(500);
         utils.locateLayout(0,1).perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("WASH check"))
+        onView(withSubstring("WASH check"))
                 .check(matches(isDisplayed()));
 
     }

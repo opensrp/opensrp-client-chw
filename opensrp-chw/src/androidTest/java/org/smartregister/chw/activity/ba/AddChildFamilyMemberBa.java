@@ -3,7 +3,6 @@ package org.smartregister.chw.activity.ba;
 import android.Manifest;
 import android.app.Activity;
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
@@ -31,7 +30,9 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.doubleClick;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -62,7 +63,7 @@ public class AddChildFamilyMemberBa {
 
     @Test
     public void addChildFamilyMember() throws Throwable {
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
@@ -127,15 +128,15 @@ public class AddChildFamilyMemberBa {
                 .perform(click());
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("MEMBERS"))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     @Test
     public void addFamilyWithBlankFieldsBa() throws Throwable {
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
@@ -158,12 +159,12 @@ public class AddChildFamilyMemberBa {
                 .perform(click());
         Thread.sleep(100);
         onView(ViewMatchers.withSubstring("Found 7 error(s) in the form. Please correct them to submit."))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     @Test
     public void confirmUniqueIDPrepopulatedBa() throws Throwable {
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
@@ -178,7 +179,7 @@ public class AddChildFamilyMemberBa {
         Thread.sleep(100);
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:unique_id")))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
         Thread.sleep(500);
     }
 

@@ -3,7 +3,6 @@ package org.smartregister.chw.activity.ba;
 import android.Manifest;
 import android.app.Activity;
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;

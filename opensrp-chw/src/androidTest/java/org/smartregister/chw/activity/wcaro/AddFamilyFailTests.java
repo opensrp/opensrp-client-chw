@@ -3,7 +3,6 @@ package org.smartregister.chw.activity.wcaro;
 import android.Manifest;
 import android.app.Activity;
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
@@ -32,6 +31,8 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.doubleClick;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -76,7 +77,7 @@ public class AddFamilyFailTests {
         onView(ViewMatchers.withSubstring("SUBMIT"))
                 .perform(scrollTo(), click());
         onView(ViewMatchers.withSubstring("Found 6 error(s) in the form. Please correct them to submit."))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     @Test
@@ -105,7 +106,7 @@ public class AddFamilyFailTests {
                 .perform(scrollTo(), click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step2:unique_id")))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     @After
