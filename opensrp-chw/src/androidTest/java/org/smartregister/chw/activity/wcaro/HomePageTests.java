@@ -22,6 +22,7 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 
@@ -49,10 +50,10 @@ public class HomePageTests {
     }
     @Test
     public void searchByName() throws InterruptedException{
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Constants.WcaroConfigs.searchFamilyWCaro), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Constants.WcaroConfigs.familyWcaro))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(matches(ViewMatchers.isDisplayed()));
         Thread.sleep(1000);
         utils.openDrawer();
         utils.logOut();
@@ -60,10 +61,10 @@ public class HomePageTests {
 
     @Test
     public void searchByID() throws InterruptedException{
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Constants.WcaroConfigs.searchFamilyIDWCaro), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Constants.WcaroConfigs.familyWcaro))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(matches(ViewMatchers.isDisplayed()));
         Thread.sleep(1000);
         utils.openDrawer();
         utils.logOut();

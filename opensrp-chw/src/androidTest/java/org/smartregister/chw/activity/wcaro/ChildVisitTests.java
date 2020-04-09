@@ -78,7 +78,7 @@ public class ChildVisitTests {
             onView(ViewMatchers.withSubstring("SUBMIT"))
                     .perform(click());
             onView(ViewMatchers.withSubstring("View medical history"))
-                    .check(ViewAssertions.matches(isDisplayed()));
+                    .check(matches(isDisplayed()));
         }
 
         @Test

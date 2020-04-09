@@ -70,7 +70,7 @@ public class FamilyMemberTestBa {
         onView(withId(R.id.action_save))
                 .perform(click());
         onView(ViewMatchers.withSubstring("Found 1 error(s) in the form. Please correct them to submit."))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(matches(isDisplayed()));
         onView(withId(R.id.action_bar_root))
                 .perform(click());
         Thread.sleep(2000);
@@ -143,6 +143,6 @@ public class FamilyMemberTestBa {
         onView(ViewMatchers.withSubstring("Call"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
         onView(ViewMatchers.withSubstring("Add new family member"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 }

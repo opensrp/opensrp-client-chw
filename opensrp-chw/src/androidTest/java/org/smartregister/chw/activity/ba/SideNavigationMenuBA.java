@@ -75,15 +75,15 @@ public class SideNavigationMenuBA {
     public void correctRegistersTest() throws InterruptedException{
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.pnc))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.child))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.family_planning))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.malaria))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     @Test
@@ -91,7 +91,7 @@ public class SideNavigationMenuBA {
     public void syncTest() throws InterruptedException{
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("Sync"))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     @Test
@@ -99,7 +99,7 @@ public class SideNavigationMenuBA {
     public void logOutUserName() throws InterruptedException{
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("Log out as " + Constants.BoreshaAfyaConfigs.ba_userName))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
 

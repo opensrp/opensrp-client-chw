@@ -30,6 +30,7 @@ import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
@@ -104,13 +105,13 @@ public class ANCRegistrationTestsBa {
         onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
         onView(ViewMatchers.withSubstring("ANC Clients"))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     @Test
     @Order(order = 1)
     public void registerANCWithoutAllFields() throws Throwable {
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         /*onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "
@@ -132,7 +133,7 @@ public class ANCRegistrationTestsBa {
         onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
         onView(ViewMatchers.withSubstring("Found 3 error(s) in the form. Please correct them to submit."))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
     @After
     public void completeTests(){
