@@ -141,21 +141,5 @@ public class LoginPageActivityTest {
         return mActivityTestRule.getActivity().getString(resourceId);
     }
 
-    private static Matcher<View> withError(final String expected) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                if (item instanceof EditText) {
-                    return ((EditText)item).getError().toString().equals(expected);
-                }
-                return false;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Not found error message" + expected + ", find it!");
-            }
-        };
-    }
 
 }

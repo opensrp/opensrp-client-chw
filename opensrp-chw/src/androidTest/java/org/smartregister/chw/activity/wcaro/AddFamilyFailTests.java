@@ -2,13 +2,9 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 import android.app.Activity;
-import android.view.View;
-import android.widget.DatePicker;
-import android.widget.EditText;
 
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
-import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -18,9 +14,6 @@ import androidx.test.runner.lifecycle.Stage;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
@@ -113,7 +106,6 @@ public class AddFamilyFailTests {
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step2:unique_id")))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        Thread.sleep(500);
     }
 
     @After
@@ -121,37 +113,6 @@ public class AddFamilyFailTests {
         intentsTestRule.finishActivity();
     }
 
-    public static Matcher<View> matchesDate(final int year, final int month, final int day) {
-        return new BoundedMatcher<View, DatePicker>(DatePicker.class) {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("matches date:");
-            }
-
-            @Override
-            protected boolean matchesSafely(DatePicker item) {
-                return (year == item.getYear() && month == item.getMonth() && day == item.getDayOfMonth());
-            }
-        };
-    }
-
-
-    private static Matcher<View> withError(final String expected) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                if (item instanceof EditText) {
-                    return ((EditText)item).getError().toString().equals(expected);
-                }
-                return false;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Not found error message" + expected + ", find it!");
-            }
-        };
-    }
 
     Activity getCurrentActivity() throws Throwable {
         getInstrumentation().waitForIdleSync();

@@ -2,8 +2,6 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 import android.app.Activity;
-import android.view.View;
-import android.widget.EditText;
 
 import androidx.annotation.StringRes;
 import androidx.test.espresso.assertion.ViewAssertions;
@@ -14,9 +12,6 @@ import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
@@ -119,23 +114,6 @@ public class CallWidgetTests {
 
     private String getString(@StringRes int resourceId) {
         return mActivityTestRule.getActivity().getString(resourceId);
-    }
-
-    private static Matcher<View> withError(final String expected) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                if (item instanceof EditText) {
-                    return ((EditText)item).getError().toString().equals(expected);
-                }
-                return false;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Not found error message" + expected + ", find it!");
-            }
-        };
     }
 
     Activity getCurrentActivity() throws Throwable {

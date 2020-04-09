@@ -96,6 +96,9 @@ public class ANCRegistrationTests {
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
+        Thread.sleep(500);
+        onView(ViewMatchers.withSubstring("ANC Clients"))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
     @Test

@@ -3,7 +3,6 @@ package org.smartregister.chw.activity.wcaro;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.smartregister.chw.activity.ba.RemoveFamilyTestsBa;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses(

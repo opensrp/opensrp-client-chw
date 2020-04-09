@@ -1,8 +1,6 @@
 package org.smartregister.chw.activity.ba;
 
 import android.app.Activity;
-import android.view.View;
-import android.widget.EditText;
 
 import androidx.annotation.StringRes;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
@@ -10,11 +8,7 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.smartregister.chw.activity.LoginActivity;
@@ -61,23 +55,6 @@ public class AdditionalTestDataBa {
 
     private String getString(@StringRes int resourceId) {
         return mActivityTestRule.getActivity().getString(resourceId);
-    }
-
-    private static Matcher<View> withError(final String expected) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                if (item instanceof EditText) {
-                    return ((EditText)item).getError().toString().equals(expected);
-                }
-                return false;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Not found error message" + expected + ", find it!");
-            }
-        };
     }
 
     Activity getCurrentActivity() throws Throwable {

@@ -76,7 +76,6 @@ public class AddFamilyMemberTest {
         Thread.sleep(100);
         onView(ViewMatchers.withSubstring("Other family member"))
                 .perform(click());
-
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:national_id")))
@@ -99,6 +98,9 @@ public class AddFamilyMemberTest {
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
+        Thread.sleep(500);
+        onView(ViewMatchers.withSubstring("MEMBERS"))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
     @Test
@@ -115,12 +117,6 @@ public class AddFamilyMemberTest {
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
-
-        //onView(withId(getViewId((JsonFormActivity) activity, "step1:dob")))
-        // .perform(scrollTo(), click());
-        //Thread.sleep(1000);
-        //onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("done")).perform(click());
-        //Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:dob_unknown")))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:age")))
@@ -159,23 +155,6 @@ public class AddFamilyMemberTest {
 
     private String getString(@StringRes int resourceId) {
         return mActivityTestRule.getActivity().getString(resourceId);
-    }
-
-    private static Matcher<View> withError(final String expected) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                if (item instanceof EditText) {
-                    return ((EditText)item).getError().toString().equals(expected);
-                }
-                return false;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Not found error message" + expected + ", find it!");
-            }
-        };
     }
 
     Activity getCurrentActivity() throws Throwable {
