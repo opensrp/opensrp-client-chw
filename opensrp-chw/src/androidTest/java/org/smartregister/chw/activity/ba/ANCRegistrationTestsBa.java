@@ -3,7 +3,6 @@ package org.smartregister.chw.activity.ba;
 import android.Manifest;
 import android.app.Activity;
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
@@ -65,7 +64,7 @@ public class ANCRegistrationTestsBa {
     @Test
     @Order(order = 2)
     public void registerANCSuccessfuly() throws Throwable {
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
         /*onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "

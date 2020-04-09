@@ -3,7 +3,6 @@ package org.smartregister.chw.activity.wcaro;
 import android.Manifest;
 import android.app.Activity;
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
@@ -29,6 +28,7 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -61,7 +61,7 @@ public class ChildVisitTests {
             utils.openDrawer();
             onView(ViewMatchers.withSubstring(Constants.GenericConfigs.child))
                     .perform(click());
-            onView(ViewMatchers.withHint("Search name or ID"))
+            onView(withHint("Search name or ID"))
                     .perform(typeText("Joan"), closeSoftKeyboard());
             onView(ViewMatchers.withSubstring("Joan Malea Cecil"))
                     .perform(click());
@@ -86,7 +86,7 @@ public class ChildVisitTests {
             utils.openDrawer();
             onView(ViewMatchers.withSubstring(Constants.GenericConfigs.child))
                     .perform(click());
-            onView(ViewMatchers.withHint("Search name or ID"))
+            onView(withHint("Search name or ID"))
                     .perform(typeText("Joan"), closeSoftKeyboard());
             onView(ViewMatchers.withSubstring("Joan Malea Cecil"))
                     .perform(click());

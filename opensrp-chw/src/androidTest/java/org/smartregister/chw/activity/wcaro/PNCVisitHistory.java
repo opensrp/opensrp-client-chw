@@ -2,7 +2,6 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -19,6 +18,9 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 
 public class PNCVisitHistory {
     @Rule
@@ -46,7 +48,7 @@ public class PNCVisitHistory {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.pnc))
                 .perform(click());
-        onView(ViewMatchers.withHint("Find name or ID"))
+        onView(withHint("Find name or ID"))
                 .perform(typeText("Ana"), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring("Ana AnotherSixqrw, 23"))
                 .perform(click());
@@ -54,7 +56,7 @@ public class PNCVisitHistory {
                 .perform(click());
         Thread.sleep(1000);
         onView(ViewMatchers.withSubstring("Medical History"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(matches(isDisplayed()));
     }
     @After
     public void completeTests(){

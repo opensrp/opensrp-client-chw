@@ -1,7 +1,6 @@
 package org.smartregister.chw.activity.wcaro;
 
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 

@@ -2,8 +2,6 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 
-import androidx.test.espresso.assertion.ViewAssertions;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
@@ -20,6 +18,9 @@ import org.smartregister.chw.activity.utils.Utils;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 
 @RunWith(OrderedRunner.class)
 public class SideNavigationMenuTests {
@@ -50,57 +51,57 @@ public class SideNavigationMenuTests {
     @Order(order = 1)
     public void leftDrawerMenuResponsiveness() throws InterruptedException{
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Registers"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        onView(withSubstring("Registers"))
+                .check(matches(isDisplayed()));
     }
 
     @Test
     @Order(order = 2)
     public void correctAppNameTest() throws InterruptedException{
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring(Constants.WcaroConfigs.appName))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        onView(withSubstring(Constants.WcaroConfigs.appName))
+                .check(matches(isDisplayed()));
     }
 
     @Test
     @Order(order = 3)
     public void correctRegistersTest() throws InterruptedException{
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.pnc))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.child))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        onView(withSubstring(Constants.GenericConfigs.anc))
+                .check(matches(isDisplayed()));
+        onView(withSubstring(Constants.GenericConfigs.pnc))
+                .check(matches(isDisplayed()));
+        onView(withSubstring(Constants.GenericConfigs.child))
+                .check(matches(isDisplayed()));
     }
 
     @Test
     @Order(order = 4)
     public void syncTest() throws InterruptedException{
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Sync"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        onView(withSubstring("Sync"))
+                .check(matches(isDisplayed()));
     }
 
     @Test
     @Order(order = 5)
     public void logOutUserName() throws InterruptedException{
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Log out as " + Constants.WcaroConfigs.wCaro_userName))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        onView(withSubstring("Log out as " + Constants.WcaroConfigs.wCaro_userName))
+                .check(matches(isDisplayed()));
     }
 
     @Test
     @Order(order = 6)
     public void changeLanguage() throws InterruptedException{
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("English"))
+        onView(withSubstring("English"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Français"))
+        onView(withSubstring("Français"))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("Tous les ménages"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+        onView(withSubstring("Tous les ménages"))
+                .check(matches(isDisplayed()));
         utils.revertLanguage();
         utils.openDrawer();
     }

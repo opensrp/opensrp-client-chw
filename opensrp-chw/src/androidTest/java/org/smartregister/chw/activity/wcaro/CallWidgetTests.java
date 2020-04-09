@@ -2,7 +2,6 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -18,6 +17,8 @@ import org.smartregister.chw.activity.utils.Utils;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 public class CallWidgetTests {
@@ -47,7 +48,7 @@ public class CallWidgetTests {
                 .perform(click());
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("Call"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(matches(isDisplayed()));
         Thread.sleep(500);
     }
 
@@ -62,7 +63,7 @@ public class CallWidgetTests {
                 .perform(click());
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("Call caregiver"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(matches(isDisplayed()));
         Thread.sleep(500);
 
     }
@@ -77,7 +78,7 @@ public class CallWidgetTests {
                 .perform(click());
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.phoneNumberOne))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(matches(isDisplayed()));
         Thread.sleep(500);
     }
 
@@ -93,7 +94,7 @@ public class CallWidgetTests {
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameOne
                 + " " + Configs.TestConfigs.aboveFiveSecondNameOne + " " + Configs.TestConfigs.familyName))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(matches(isDisplayed()));
         Thread.sleep(500);
     }
 

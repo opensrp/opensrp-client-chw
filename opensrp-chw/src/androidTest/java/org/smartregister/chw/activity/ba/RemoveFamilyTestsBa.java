@@ -1,11 +1,9 @@
 package org.smartregister.chw.activity.ba;
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.After;
-//import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +24,8 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+
+//import org.junit.Before;
 
 @RunWith(OrderedRunner.class)
 public class RemoveFamilyTestsBa {
@@ -58,7 +58,7 @@ public class RemoveFamilyTestsBa {
         onView(withId(R.id.action_save))
                 .perform(click());
         onView(ViewMatchers.withSubstring("Found 1 error(s) in the form. Please correct them to submit."))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
         Thread.sleep(500);
     }
 

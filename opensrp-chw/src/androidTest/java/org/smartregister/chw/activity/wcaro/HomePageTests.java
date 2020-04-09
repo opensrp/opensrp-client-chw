@@ -2,7 +2,6 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -53,7 +52,7 @@ public class HomePageTests {
         onView(withHint("Search name or ID"))
                 .perform(typeText(Constants.WcaroConfigs.searchFamilyWCaro), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Constants.WcaroConfigs.familyWcaro))
-                .check(matches(ViewMatchers.isDisplayed()));
+                .check(matches(isDisplayed()));
         Thread.sleep(1000);
         utils.openDrawer();
         utils.logOut();
@@ -64,7 +63,7 @@ public class HomePageTests {
         onView(withHint("Search name or ID"))
                 .perform(typeText(Constants.WcaroConfigs.searchFamilyIDWCaro), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Constants.WcaroConfigs.familyWcaro))
-                .check(matches(ViewMatchers.isDisplayed()));
+                .check(matches(isDisplayed()));
         Thread.sleep(1000);
         utils.openDrawer();
         utils.logOut();

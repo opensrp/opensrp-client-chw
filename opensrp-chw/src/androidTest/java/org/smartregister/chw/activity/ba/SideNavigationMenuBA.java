@@ -3,7 +3,6 @@ package org.smartregister.chw.activity.ba;
 
 import android.Manifest;
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -59,7 +58,7 @@ public class SideNavigationMenuBA {
     public void leftDrawerMenuResponsiveness() throws InterruptedException{
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("Registers"))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     @Test
@@ -67,7 +66,7 @@ public class SideNavigationMenuBA {
     public void correctAppNameTest() throws InterruptedException{
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.appName))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     @Test

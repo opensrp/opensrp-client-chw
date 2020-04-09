@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity.ba;
 
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.After;
@@ -26,7 +27,7 @@ public class AdditionalTestDataBa {
 
     @Test
     public void test() {
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .perform(click());
     }
 

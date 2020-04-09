@@ -141,7 +141,7 @@ public class FamilyMemberTestBa {
         onView(withId(R.id.fab))
                 .perform(click());
         onView(ViewMatchers.withSubstring("Call"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(matches(isDisplayed()));
         onView(ViewMatchers.withSubstring("Add new family member"))
                 .check(matches(isDisplayed()));
     }

@@ -2,7 +2,6 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -23,7 +22,9 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @LargeTest
@@ -54,7 +55,7 @@ public class ANCVisitTests {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
@@ -73,7 +74,7 @@ public class ANCVisitTests {
                 .perform(click());
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("View medical history"))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
 
     }
 
@@ -83,7 +84,7 @@ public class ANCVisitTests {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
-        onView(ViewMatchers.withHint("Search name or ID"))
+        onView(withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
@@ -92,7 +93,7 @@ public class ANCVisitTests {
                 .perform(click());
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("Medical History"))
-                .check(ViewAssertions.matches(isDisplayed()));
+                .check(matches(isDisplayed()));
     }
 
     public void dangerSigns() throws Throwable{
