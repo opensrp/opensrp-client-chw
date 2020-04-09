@@ -27,6 +27,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op6 = new NavigationOption(R.mipmap.sidemenu_fp, R.mipmap.sidemenu_fp_active, R.string.menu_family_planing, Constants.DrawerMenu.FAMILY_PLANNING, 0);
             NavigationOption op7 = new NavigationOption(R.mipmap.sidemenu_malaria, R.mipmap.sidemenu_malaria_active, R.string.menu_malaria, Constants.DrawerMenu.MALARIA, 0);
             NavigationOption op8 = new NavigationOption(R.mipmap.sidemenu_referrals, R.mipmap.sidemenu_referrals_active, R.string.menu_referrals, Constants.DrawerMenu.REFERRALS, 0);
+            NavigationOption op9 = new NavigationOption(R.mipmap.sidemenu_referrals, R.mipmap.sidemenu_referrals_active, R.string.updates, CoreConstants.DrawerMenu.UPDATES, 0);
 
             if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
                 navigationOptions.add(new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, R.string.menu_all_clients, CoreConstants.DrawerMenu.ALL_CLIENTS, 0));
@@ -35,6 +36,8 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
 
             if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
                 navigationOptions.add(op8);
+
+            navigationOptions.add(op9);
         }
 
         return navigationOptions;
