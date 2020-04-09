@@ -83,10 +83,10 @@ public class FamilyMemberTestBa {
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Change family head"))
+        onView(ViewMatchers.withSubstring("Change family head"))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Merab Emerald Nandi, 26"))
+        onView(ViewMatchers.withSubstring("Merab Emerald Nandi, 26"))
                 .perform(click());
         onView(withId(R.id.etPhoneNumber)).check(matches(isDisplayed()));
         //onView(withHint("Phone number")).perform(typeText("+254721212122"));
@@ -113,10 +113,10 @@ public class FamilyMemberTestBa {
 
     @Test
     public void confirmFamilyHead() throws InterruptedException {
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
+        onView(ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Eliud Kipchoge, 67"))
+        onView(ViewMatchers.withSubstring("Eliud Kipchoge, 67"))
                 .perform(click());
         onView(withId(R.id.family_head))
                 .check(matches(isDisplayed()));
@@ -124,10 +124,10 @@ public class FamilyMemberTestBa {
 
     @Test
     public void confirmUniqueId() throws InterruptedException {
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
+        onView(ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
                 .perform(click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Eliud Kipchoge, 67"))
+        onView(ViewMatchers.withSubstring("Eliud Kipchoge, 67"))
                 .perform(click());
         onView(withId(R.id.textview_detail_three))
                 .check(matches(isDisplayed()));

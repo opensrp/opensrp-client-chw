@@ -23,6 +23,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @LargeTest
@@ -49,7 +50,7 @@ public class ANCVisitTests {
 
     @Order(order = 1)
     @Test
-    public void testANCVisit() throws Throwable {
+    public void testAncVisit() throws Throwable {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
@@ -62,7 +63,7 @@ public class ANCVisitTests {
                 .perform(click());
         Thread.sleep(1000);
         dangerSigns();
-        ANCCounselling();
+        ancCounselling();
         sleepingUnderLLITN();
         testANCCardReceived();
         testANCHealthFacilityVisit();
@@ -72,13 +73,13 @@ public class ANCVisitTests {
                 .perform(click());
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("View medical history"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(ViewAssertions.matches(isDisplayed()));
 
     }
 
     @Test
     @Order(order = 2)
-    public void viewANCMedicalHistory() throws Throwable {
+    public void viewAncMedicalHistory() throws Throwable {
         utils.openDrawer();
         onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
                 .perform(click());
@@ -91,7 +92,7 @@ public class ANCVisitTests {
                 .perform(click());
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("Medical History"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(ViewAssertions.matches(isDisplayed()));
     }
 
     public void dangerSigns() throws Throwable{
@@ -109,7 +110,7 @@ public class ANCVisitTests {
         onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
     }
-    public void ANCCounselling() throws Throwable{
+    public void ancCounselling() throws Throwable{
         onView(ViewMatchers.withSubstring("ANC counseling"))
                 .perform(click());
         Thread.sleep(500);

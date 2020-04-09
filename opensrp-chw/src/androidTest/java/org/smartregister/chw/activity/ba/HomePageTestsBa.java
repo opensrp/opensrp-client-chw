@@ -62,7 +62,7 @@ public class HomePageTestsBa {
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(ViewAssertions.matches(isDisplayed()));
         Thread.sleep(1000);
     }
 
@@ -72,7 +72,7 @@ public class HomePageTestsBa {
         onView(ViewMatchers.withHint("Search name or ID"))
                 .perform(typeText(Constants.BoreshaAfyaConfigs.searchFamilyIDBa), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(ViewAssertions.matches(isDisplayed()));
         Thread.sleep(1000);
     }
 

@@ -29,6 +29,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -88,14 +89,14 @@ public class ANCRegistrationTests {
                 .perform(scrollTo(), typeText("0882454545"));
         onView(withId(getViewId((JsonFormActivity) activity, "step1:marital_status")))
                 .perform(scrollTo(), click());
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Co-habiting"))
+        onView(ViewMatchers.withSubstring("Co-habiting"))
                 .perform(click());
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("ANC Clients"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(ViewAssertions.matches(isDisplayed()));
     }
 
     @Test
@@ -123,7 +124,7 @@ public class ANCRegistrationTests {
         onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
         onView(ViewMatchers.withSubstring("Found 3 error(s) in the form. Please correct them to submit."))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(ViewAssertions.matches(isDisplayed()));
     }
     @After
     public void completeTests(){
