@@ -72,7 +72,7 @@ public class AddFamilyFailTestsBa {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:nearest_facility")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("Kabila Village"))
+        onView(ViewMatchers.withSubstring("Kabila Village"))
                 .perform(doubleClick());
         onView(ViewMatchers.withSubstring("Next"))
                 .perform(scrollTo(), click());

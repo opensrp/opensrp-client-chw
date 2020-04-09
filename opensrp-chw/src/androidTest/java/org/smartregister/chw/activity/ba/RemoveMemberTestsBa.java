@@ -28,6 +28,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -114,7 +115,7 @@ public class RemoveMemberTestsBa {
                 .perform(click());
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("REMOVE"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(ViewAssertions.matches(isDisplayed()));
     }
 
     @Test
@@ -172,7 +173,7 @@ public class RemoveMemberTestsBa {
         onView(withId(R.id.action_save))
                 .perform(click());
         onView(ViewMatchers.withSubstring("Found 1 error(s) in the form. Please correct them to submit."))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(ViewAssertions.matches(isDisplayed()));
     }
 
     @Order(order = 4)
@@ -194,7 +195,7 @@ public class RemoveMemberTestsBa {
                 .perform(click());
         onView(ViewMatchers.withSubstring("Before you remove this member " +
                 "you must select a new primary caregiver"))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(ViewAssertions.matches(isDisplayed()));
         Thread.sleep(500);
     }
 
@@ -217,7 +218,7 @@ public class RemoveMemberTestsBa {
                 .perform(click());
         onView(ViewMatchers.withSubstring("Before you remove this member " +
                 "you must select a new family head."))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+                .check(ViewAssertions.matches(isDisplayed()));
         Thread.sleep(500);
     }
 
