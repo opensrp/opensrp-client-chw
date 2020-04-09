@@ -2,8 +2,6 @@ package org.smartregister.chw.activity.ba;
 
 import android.Manifest;
 import android.app.Activity;
-import android.view.View;
-import android.widget.EditText;
 
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
@@ -16,11 +14,7 @@ import androidx.test.runner.lifecycle.Stage;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
-//import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,6 +35,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.smartregister.chw.activity.utils.Utils.getViewId;
+
+//import org.junit.Before;
 
 @LargeTest
 //@RunWith(AndroidJUnit4.class)
@@ -130,7 +126,9 @@ public class AddChildFamilyMemberBa {
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
-        Thread.sleep(1000);
+        Thread.sleep(500);
+        onView(ViewMatchers.withSubstring("MEMBERS"))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
 
     @Test
@@ -197,22 +195,6 @@ public class AddChildFamilyMemberBa {
             }
         });
         return activity[0];
-    }
-    private static Matcher<View> withError(final String expected) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                if (item instanceof EditText) {
-                    return ((EditText) item).getError().toString().equals(expected);
-                }
-                return false;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Not found error message" + expected + ", find it!");
-            }
-        };
     }
 
 }

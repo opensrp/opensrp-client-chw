@@ -73,9 +73,7 @@ public class AddChildFamilyMemberTest {
         onView(ViewMatchers.withSubstring("Child under 5 years"))
                 .perform(click());
         Thread.sleep(500);
-
         Activity activity = getCurrentActivity();
-        //onView(withId(getViewId((JsonFormActivity) activity, "step1:surname"))).perform(scrollTo(), typeText("JinaLaFamilia"));
         onView(withId(getViewId((JsonFormActivity) activity, "step1:same_as_fam_name")))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:first_name")))
@@ -104,6 +102,9 @@ public class AddChildFamilyMemberTest {
                 .perform(click());
         Thread.sleep(5000);
         onView(ViewMatchers.withSubstring("Save")).perform(click());
+        Thread.sleep(500);
+        onView(ViewMatchers.withSubstring("MEMBERS"))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
     }
 
@@ -162,22 +163,6 @@ public class AddChildFamilyMemberTest {
         return mActivityTestRule.getActivity().getString(resourceId);
     }
 
-    private static Matcher<View> withError(final String expected) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                if (item instanceof EditText) {
-                    return ((EditText)item).getError().toString().equals(expected);
-                }
-                return false;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Not found error message" + expected + ", find it!");
-            }
-        };
-    }
 
     Activity getCurrentActivity() throws Throwable {
         getInstrumentation().waitForIdleSync();

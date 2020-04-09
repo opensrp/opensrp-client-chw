@@ -15,8 +15,6 @@ import androidx.test.runner.lifecycle.Stage;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.junit.After;
-//import org.junit.Before;
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +35,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.smartregister.chw.activity.utils.Utils.getViewId;
+
+//import org.junit.Before;
 
 @LargeTest
 //@RunWith(AndroidJUnit4.class)
@@ -126,8 +126,6 @@ public class ANCRegistrationTestsBa {
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
-        //onView(withId(getViewId((JsonFormActivity) activity, "step1:last_menstrual_period_unknown")))
-        // .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:last_menstrual_period")))
                 .perform(click());
         Thread.sleep(1000);

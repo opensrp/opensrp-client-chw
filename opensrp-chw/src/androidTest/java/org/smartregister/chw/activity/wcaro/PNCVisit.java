@@ -21,7 +21,6 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.smartregister.chw.R;
@@ -54,7 +53,6 @@ public class PNCVisit {
 
     Utils utils = new Utils();
 
-    @Before
     public void setUp() throws InterruptedException {
         Thread.sleep(1000);
         utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
@@ -145,38 +143,6 @@ public class PNCVisit {
     @After
     public void completeTests(){
         mActivityTestRule.finishActivity();
-    }
-
-    public static Matcher<View> matchesDate(final int year, final int month, final int day) {
-        return new BoundedMatcher<View, DatePicker>(DatePicker.class) {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("matches date:");
-            }
-
-            @Override
-            protected boolean matchesSafely(DatePicker item) {
-                return (year == item.getYear() && month == item.getMonth() && day == item.getDayOfMonth());
-            }
-        };
-    }
-
-
-    private static Matcher<View> withError(final String expected) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                if (item instanceof EditText) {
-                    return ((EditText)item).getError().toString().equals(expected);
-                }
-                return false;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Not found error message" + expected + ", find it!");
-            }
-        };
     }
 
     Activity getCurrentActivity() throws Throwable {

@@ -8,7 +8,6 @@ import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,8 +71,11 @@ public class ANCVisitTests {
         testANCHealthFacilityVisit();
         //testIPTpSPDose();
         Thread.sleep(1000);
-        onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring("SUBMIT"))
+        onView(ViewMatchers.withSubstring("SUBMIT"))
                 .perform(click());
+        Thread.sleep(500);
+        onView(ViewMatchers.withSubstring("View medical history"))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
     }
 

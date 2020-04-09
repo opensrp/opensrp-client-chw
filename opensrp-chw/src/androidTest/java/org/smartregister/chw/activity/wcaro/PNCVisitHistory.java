@@ -74,38 +74,6 @@ public class PNCVisitHistory {
         mActivityTestRule.finishActivity();
     }
 
-    public static Matcher<View> matchesDate(final int year, final int month, final int day) {
-        return new BoundedMatcher<View, DatePicker>(DatePicker.class) {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("matches date:");
-            }
-
-            @Override
-            protected boolean matchesSafely(DatePicker item) {
-                return (year == item.getYear() && month == item.getMonth() && day == item.getDayOfMonth());
-            }
-        };
-    }
-
-
-    private static Matcher<View> withError(final String expected) {
-        return new TypeSafeMatcher<View>() {
-            @Override
-            protected boolean matchesSafely(View item) {
-                if (item instanceof EditText) {
-                    return ((EditText)item).getError().toString().equals(expected);
-                }
-                return false;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Not found error message" + expected + ", find it!");
-            }
-        };
-    }
-
     Activity getCurrentActivity() throws Throwable {
         getInstrumentation().waitForIdleSync();
         final Activity[] activity = new Activity[1];
