@@ -23,7 +23,7 @@ public class FamilyMemberTestBa {
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
-    Utils utils = new Utils();
+    private Utils utils = new Utils();
 
     public void setUp() throws InterruptedException{
 

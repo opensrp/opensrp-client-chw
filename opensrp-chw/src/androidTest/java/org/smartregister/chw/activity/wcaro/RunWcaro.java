@@ -1,21 +1,14 @@
 package org.smartregister.chw.activity.wcaro;
 
 
-import androidx.annotation.StringRes;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.rule.ActivityTestRule;
 
-import org.junit.Rule;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
 import org.junit.runner.RunWith;
-import org.junit.runner.notification.Failure;
-import org.smartregister.chw.activity.LoginActivity;
 
 @RunWith(AndroidJUnit4.class)
 public class RunWcaro {
 
-    @Rule
+   /* @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     public static void main(String args[]){
@@ -25,9 +18,5 @@ public class RunWcaro {
         }
         System.out.println(result.wasSuccessful());
     }
-
-    private String getString(@StringRes int resourceId) {
-        return mActivityTestRule.getActivity().getString(resourceId);
-    }
-
+*/
 }

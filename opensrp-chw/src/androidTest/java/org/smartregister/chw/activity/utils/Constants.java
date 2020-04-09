@@ -2,7 +2,7 @@ package org.smartregister.chw.activity.utils;
 
 public class Constants {
 
-    public class WcaroConfigs{
+    public static class WcaroConfigs{
         public static final String wCaro_username = "chaone";
         public static final String wCaro_password = "Wcaro123";
         public static final String appName = "CFC-RTM - Togo";
@@ -12,7 +12,7 @@ public class Constants {
         public static final String searchFamilyIDWCaro = "6554356";
     }
 
-    public class BoreshaAfyaConfigs{
+    public static class BoreshaAfyaConfigs{
         public static final String ba_username = "chwone";
         public static final String ba_password = "Boresha123";
         public static final String appName = "USAID Boresha Afya";
@@ -22,7 +22,7 @@ public class Constants {
         public static final String searchFamilyIDBa = "6699748";
     }
 
-    public class GenericConfigs{
+    public static class GenericConfigs{
         public static final String families = "All Families";
         public static final String anc = "ANC";
         public static final String pnc = "PNC";

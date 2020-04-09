@@ -2,7 +2,6 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 
-import androidx.test.espresso.ViewAssertion;
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
@@ -13,7 +12,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.smartregister.chw.R;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.utils.Constants;
 import org.smartregister.chw.activity.utils.Order;
@@ -22,8 +20,6 @@ import org.smartregister.chw.activity.utils.Utils;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(OrderedRunner.class)
 public class SideNavigationMenuTests {
@@ -40,7 +36,7 @@ public class SideNavigationMenuTests {
     @Rule
     public GrantPermissionRule mRuntimePermissionRule1 = GrantPermissionRule.grant(Manifest.permission.ACCESS_FINE_LOCATION);
 
-    Utils utils = new Utils();
+    private Utils utils = new Utils();
 
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
@@ -109,7 +105,7 @@ public class SideNavigationMenuTests {
         utils.openDrawer();
     }
     @After
-    public void tearDown() throws InterruptedException {
+    public void tearDown() {
         utils.logOut();
     }
 
