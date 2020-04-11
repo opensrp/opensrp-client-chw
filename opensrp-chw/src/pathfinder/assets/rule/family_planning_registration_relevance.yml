@@ -1,16 +1,24 @@
 ---
-name: step1_couselling_fp_methods
-description: couselling on fp methods
+name: step2_current_family_method
+description: using family plannning method
 priority: 1
-condition: "step1_using_method =='no'"
+condition: "step2_using_method =='yes'"
 actions:
   - "isRelevant = true"
 
 ---
-name: step1_couselling_HIV_STI
+name: step2_couselling_fp_methods
+description: couselling on fp methods
+priority: 1
+condition: "step2_using_method =='no'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_couselling_HIV_STI
 description: couselling on HIV and STI
 priority: 1
-condition: "step1_using_method =='no'"
+condition: "step2_using_method =='no'"
 actions:
   - "isRelevant = true"
 
