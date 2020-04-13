@@ -1,0 +1,236 @@
+{
+  "validate_on_submit": false,
+  "show_errors_on_submit": true,
+  "skip_blank_steps": true,
+  "count": "3",
+  "encounter_type": "Family Planning Registration",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Introduction to Family Planning",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "fp_reg_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fp_reg_date",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "age",
+        "type": "hidden"
+      },
+      {
+        "key": "introduction_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Explain the personal, family and societal importance and benefits of family planning.\n\nTell the client there are many family planning methods which you will describe and help her/him choose according to her/his needs.\n\nTell the client she/he has the right to choose which family planning method to use.",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step2": {
+    "title": "Family planning cards",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "family_planning_cards",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Show the client the family planning card in the following order: \n\n*Most effective(implant,IUD)\n\n*More effective(injection,COC,POP,LAM)\n\n*Effective(male condom, female condom,standard days method)\n\n*Permanent Methods(vasectomy, tubal Ligation)",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step3": {
+    "title": "Family planning methods explanation",
+    "next": "step4",
+    "fields": [
+      {
+        "key": "family_planning_explanation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "For each method, explain:\n\n*What the method is\n\n*How it works\n\n*Its effectiveness\n\n*Other important information",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step4": {
+    "title": "Most effective methods",
+    "next": "step5",
+    "fields": [
+      {
+        "key": "fp_most_effective_methods",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Most effective methods\n\n*Intrauterine Device(IUD)\n\n*Implants",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step5": {
+    "title": "More effective methods",
+    "next": "step6",
+    "fields": [
+      {
+        "key": "fp_more_effective_methods",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "More Effective methods\n\n*Injectables\n*Oral Contraceptive Pills(COC,POP)\n*LAM",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step6": {
+    "title": "Effective methods",
+    "next": "step7",
+    "fields": [
+      {
+        "key": "effective_fp_methods",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Effective Methods\n\n*Male Condoms\n*Female Condoms\n*Standard Day Method",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step7": {
+    "title": "Permanent methods",
+    "next": "step8",
+    "fields": [
+      {
+        "key": "fp_permanent_methods",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Permanent Methods\n\n*Vasectomy\n*Tubal Ligation(Female Sterilization)",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step8": {
+    "title": "Emergency Contraceptive Card",
+    "next": "step9",
+    "fields": [
+      {
+        "key": "emergency_contraceptive_card",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Now show the client the emergency contraceptive card.\n\nExplain that this method should only be used if a regular family planning method fails.\n\nThe client should consider a regular family planning method other than emergency contraceptives.\n\nThe effectiveness is higher when this method is taken within 24 hours of unprotected sex",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step9": {
+    "title": "Emphasis on Condoms",
+    "next": "step10",
+    "fields": [
+      {
+        "key": "emphasis_on_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Emphasize that condoms are the only real way to prevent both unintended pregnancy and STI and HIV.",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },"step10": {
+    "title": "Questions from client",
+    "fields": [
+      {
+        "key": "questions",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Ask: Do you have any questions? (Answer as many as you can)",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  }
+}

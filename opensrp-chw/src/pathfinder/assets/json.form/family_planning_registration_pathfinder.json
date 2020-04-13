@@ -1,0 +1,1045 @@
+{
+  "validate_on_submit": false,
+  "show_errors_on_submit": true,
+  "skip_blank_steps": true,
+  "count": "3",
+  "encounter_type": "Family Planning Registration",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Chw Introduction",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "fp_reg_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fp_reg_date",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "age",
+        "type": "hidden"
+      },
+      {
+        "key": "introduction_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "I am a community health worker of this village under the Tuungane / EENT project that combines health, family planning and natural resource management in short called PHE.\n\nThe project works to improve overral health of the families, health of the ecosystem as well as responding to livelihood needs. For today, our discussion will focus on Family Planning but I will be able to connect you with other PHE resources for more information on other PHE components.\n",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step2": {
+    "title": "Currently using family planning method",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "using_method",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "using_method",
+        "openmrs_entity_parent": "",
+        "label": "Is the client already using a family planning method?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        }
+      }
+    ]
+  },
+  "step3": {
+    "title": "Current Family Planning method in use",
+    "next": "step4",
+    "fields": [
+      {
+        "key": "current_family_method",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "current_family_method",
+        "openmrs_entity_parent": "",
+        "label": "Which methods is the client currently using?",
+        "options": [
+          {
+            "key": "progestin_only_pills",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Progestin only pills"
+          },
+          {
+            "key": "vasectomy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Vasectomy"
+          },
+          {
+            "key": "male_condom",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Male Condom"
+          },
+          {
+            "key": "coc",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Combined Oral Contraceptives (COC)"
+          },
+          {
+            "key": "tubal_ligation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Tubal ligation"
+          },
+          {
+            "key": "iud",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Interuterine device (IUD)"
+          },
+          {
+            "key": "lam",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Lactational amenorrhea method (LAM)"
+          },
+          {
+            "key": "implants",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Implants"
+          },
+          {
+            "key": "female_condom",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Female Condom"
+          },
+          {
+            "key": "injection",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Injection"
+          },
+          {
+            "key": "sdm",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Standard days method(SDM)"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "Continue to receive followup services",
+    "next": "step5",
+    "fields": [
+      {
+        "key": "continue_to_receive_fp_services",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "receive_fp_services",
+        "openmrs_entity_parent": "",
+        "label": "ASK, Would you like me to continue to provide follow-up services to support you in using family planning?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step5": {
+    "title": "Ever used a Family Planning method in the past",
+    "next": "step6",
+    "fields": [
+      {
+        "key": "used_a_fp_previously",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "used_a_fp_previously",
+        "openmrs_entity_parent": "",
+        "label": "Has the client ever used a family planning method in the past?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step6": {
+    "title": "Previously used family planning methods",
+    "next": "step7",
+    "fields": [
+      {
+        "key": "previous_fp_method",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "previous_fp_method",
+        "openmrs_entity_parent": "",
+        "label": "Which methods did the client use in the past?\n(Choose all that apply)",
+        "options": [
+          {
+            "key": "progestin_only_pills",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Progestin only pills"
+          },
+          {
+            "key": "vasectomy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Vasectomy"
+          },
+          {
+            "key": "male_condom",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Male Condom"
+          },
+          {
+            "key": "coc",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Combined Oral Contraceptives (COC)"
+          },
+          {
+            "key": "tubal_ligation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Tubal ligation"
+          },
+          {
+            "key": "iud",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Interuterine device (IUD)"
+          },
+          {
+            "key": "lam",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Lactational amenorrhea method (LAM)"
+          },
+          {
+            "key": "implants",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Implants"
+          },
+          {
+            "key": "female_condom",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Female Condom"
+          },
+          {
+            "key": "injection",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Injection"
+          },
+          {
+            "key": "sdm",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Standard days method(SDM)"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please choose all that apply"
+        },
+        "relevance": {
+          "step5:used_a_fp_previously": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      }
+    ]
+  },
+  "step7": {
+    "title": "Reasons for stopping using family planning methods in the past",
+    "next": "step8",
+    "fields": [
+      {
+        "key": "reasons_for_stopping_fp",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_stopping_fp",
+        "openmrs_entity_parent": "",
+        "label": "Which of the following reasons played a role in the client's decision to  stop using family planning methods in the past?\n(Choose all that apply)",
+        "options": [
+          {
+            "key": "get_pregnant",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Client wanted to become pregnant "
+          },
+          {
+            "key": "method_out_of_stock",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "The method was out of stock when Client tried to get a refill"
+          },
+          {
+            "key": "partner_disapproved",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Partner did not approve"
+          },
+          {
+            "key": "side_effects",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Side effects"
+          },
+          {
+            "key": "afraid_of_not_getting_pregnant",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "The client was afraid of not being able to get pregnant again"
+          },
+          {
+            "key": "poorly_treated_by_health_workers",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Health workers poorly treated the Client at the health facility"
+          },
+          {
+            "key": "other",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please choose all that apply"
+        },
+        "relevance": {
+          "step5:used_a_fp_previously": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      }
+    ]
+  },
+  "step8": {
+    "title": "Side effects",
+    "next": "step9",
+    "fields": [
+      {
+        "key": "side_effects",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "previous_fp_method",
+        "openmrs_entity_parent": "",
+        "label": "Which side effects did the client have?\n(Choose all that apply)",
+        "options": [
+          {
+            "key": "heavy_bleedind",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Heavy bleeding "
+          },
+          {
+            "key": "abdominal_pain",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Abdominal/pelvic pain"
+          },
+          {
+            "key": "menstrual_changes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Menstrual changes"
+          },
+          {
+            "key": "nausea",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Nausea"
+          },
+          {
+            "key": "weight_gain",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Weight gain"
+          },
+          {
+            "key": "dizziness",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Dizziness/vertigo"
+          },
+          {
+            "key": "lower_back_pain",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Lower back pain"
+          },
+          {
+            "key": "headache",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "headache"
+          },
+          {
+            "key": "other",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please choose all that apply"
+        },
+        "relevance": {
+          "step7:reasons_for_stopping_fp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "side_effects"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "step9": {
+    "title": "Reasons for not using Family planning",
+    "next": "step10",
+    "fields": [
+      {
+        "key": "reasons_for_not_using_family_planning",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_not_using_family_planning",
+        "openmrs_entity_parent": "",
+        "label": "Why is the client not using a family planning method to prevent pregnancy?\nListen to what the woman says then select the appropriate responses.\nDo not read the answers",
+        "options": [
+          {
+            "key": "not_having_sex",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Not having sex/infrequent sex"
+          },
+          {
+            "key": "not_menstruated_since_last_birth",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Not menstruated since last birth"
+          },
+          {
+            "key": "brestfeeding",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Brestfeeding"
+          },
+          {
+            "key": "respondent_opposed",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Respondent opposed "
+          },
+          {
+            "key": "religious_prohibition",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Religious prohibition"
+          },
+          {
+            "key": "knows_no_method",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Knows no method"
+          },
+          {
+            "key": "health_concerns",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Side effects/health concerns"
+          },
+          {
+            "key": "lack_of_access",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Lack of access/too far"
+          },
+          {
+            "key": "no_method_available",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "No method available"
+          },
+          {
+            "key": "other",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please choose all that apply"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step10": {
+    "title": "Learning more about family planning ",
+    "next": "step11",
+    "fields": [
+      {
+        "key": "know_more_about_fp",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "know_more_about_fp",
+        "openmrs_entity_parent": "",
+        "label": "Would the client like to know more about family planning?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step11": {
+    "title": "Receiving family planning services",
+    "next": "step12",
+    "fields": [
+      {
+        "key": "emphasis_on_fp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Emphasize the importance of family planning services. Discuss the reason for the client's reluctance to receive services.\n\nGive the client a chance to ask questions",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "relevance": {
+          "step10:know_more_about_fp": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
+        "key": "receive_fp_services",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "receive_fp_services",
+        "openmrs_entity_parent": "",
+        "label": "Would the client like to receive these services?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "step10:know_more_about_fp": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      }
+    ]
+  },
+  "step12": {
+    "title": "Reasons for not wanting to know more about these services",
+    "next": "step13",
+    "fields": [
+      {
+        "key": "reasons_for_not_wanting_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "check_box",
+        "label": "Reasons for not wanting to know more about these services?\n(Choose all that apply)",
+        "hint": "(Choose all that apply)",
+        "options": [
+          {
+            "key": "have_children",
+            "text": "I want to have other children",
+            "value": false,
+            "text_color": "#000000"
+          },
+          {
+            "key": "husband_does_not_allow",
+            "text": "Husband does not allow it",
+            "value": false
+          },
+          {
+            "key": "not_having_sex_currently",
+            "text": "The client is not currently having sex",
+            "value": false
+          },
+          {
+            "key": "currently_pregnant",
+            "text": "The client is currently pregnant",
+            "value": false
+          },
+          {
+            "key": "unable_to_have_children",
+            "text": "The client is unable to have children",
+            "value": false
+          },
+          {
+            "key": "religion_does_not_allow_it",
+            "text": "The client's religion does not allow it",
+            "value": false
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "value": false
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select all that apply"
+        },
+        "relevance": {
+          "step11:receive_fp_services": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      }
+    ]
+  },
+  "step13": {
+    "title": "Saving",
+    "fields": [
+      {
+        "key": "joining_family_planning_counselling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "if the client is comfortable, encourage other family members to join.",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "step4:continue_to_receive_fp_services": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "joining_family_planning_counselling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "if the client is comfortable, encourage other family members to join.",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "step11:receive_fp_services": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "joining_the_client_visits",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "check_box",
+        "label": "Who is joining the client for this visit?\n(Choose all that apply)",
+        "hint": "(Choose all that apply)",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "partner",
+            "text": "Partner/Husband",
+            "value": false,
+            "text_color": "#000000"
+          },
+          {
+            "key": "mother",
+            "text": "Mother",
+            "value": false
+          },
+          {
+            "key": "mother_in_law",
+            "text": "Mother-in-law",
+            "value": false
+          },
+          {
+            "key": "sister",
+            "text": "Sister / sister-in-law",
+            "value": false
+          },
+          {
+            "key": "co_wife",
+            "text": "Co-wife",
+            "value": false
+          },
+          {
+            "key": "other",
+            "text": "other",
+            "value": false
+          },
+          {
+            "key": "none",
+            "text": "None of the above",
+            "value": false
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please sect the members who will join counselling"
+        },
+        "relevance": {
+          "step4:continue_to_receive_fp_services": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "joining_the_client_visits",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "check_box",
+        "label": "Who is joining the client for this visit?\n(Choose all that apply)",
+        "hint": "(Choose all that apply)",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "partner",
+            "text": "Partner/Husband",
+            "value": false,
+            "text_color": "#000000"
+          },
+          {
+            "key": "mother",
+            "text": "Mother",
+            "value": false
+          },
+          {
+            "key": "mother_in_law",
+            "text": "Mother-in-law",
+            "value": false
+          },
+          {
+            "key": "sister",
+            "text": "Sister / sister-in-law",
+            "value": false
+          },
+          {
+            "key": "co_wife",
+            "text": "Co-wife",
+            "value": false
+          },
+          {
+            "key": "other",
+            "text": "other",
+            "value": false
+          },
+          {
+            "key": "none",
+            "text": "None of the above",
+            "value": false
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please sect the members who will join counselling"
+        },
+        "relevance": {
+          "step11:receive_fp_services": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "end_client_using_fp_not_wanting_followups_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Thank the client for her/his time.\n\nExplain that she/he can continue to get free family planning information by phone\n- m4RH(15014)\n\nAlso tell the client to feel free to contact you at any time.",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "step4:continue_to_receive_fp_services": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
+        "key": "end_client_not_using_fp_not_wanting_followups_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Thank the client for her/his time.\n\nExplain that she/he can continue to get free family planning information by phone\n- m4RH(15014)\n\nAlso tell the client to feel free to contact you at any time.",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "step11:receive_fp_services": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      }
+    ]
+  }
+}
