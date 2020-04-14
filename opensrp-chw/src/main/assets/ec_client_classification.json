@@ -37,6 +37,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "Stock Usage Report",
+            "creates_case": [
+              "ec_stock_usage_report"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Update Family Registration",
             "creates_case": [
               "ec_family"

@@ -774,6 +774,50 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_stock_usage_report",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "stock_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "stock_name"
+          }
+        },
+        {
+          "column_name": "stock_year",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "stock_year"
+          }
+        },
+        {
+          "column_name": "stock_month",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "stock_month"
+          }
+        },
+        {
+          "column_name": "stock_usage",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "stock_usage"
+          }
+        }
+      ]
     }
   ]
 }
