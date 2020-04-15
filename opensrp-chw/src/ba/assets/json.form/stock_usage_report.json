@@ -84,6 +84,15 @@
         "type": "edit_text",
         "hint": "Stock Usage",
         "value": ""
+      },
+      {
+        "key": "stock_provider",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "stock_provider",
+        "type": "edit_text",
+        "hint": "Stock Provider",
+        "value": ""
       }
     ]
   }
