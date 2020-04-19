@@ -201,7 +201,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
 
     private void addFpReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.family_planning_referral),
-                org.smartregister.chw.util.Constants.JSON_FORM.getFamilyPlanningReferralForm()));
+                org.smartregister.chw.util.Constants.JSON_FORM.getFamilyPlanningReferralForm(fpMemberObject.getGender())));
     }
 
     public List<ReferralTypeModel> getReferralTypeModels() {
