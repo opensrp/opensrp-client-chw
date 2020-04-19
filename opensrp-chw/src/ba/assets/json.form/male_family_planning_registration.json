@@ -296,19 +296,12 @@
         "key": "fp_start_condom",
         "openmrs_entity_parent": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "fp_start_condom",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "family_planning_registration_calculation.yml"
-            }
-          }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
             }
           }
         }
@@ -366,7 +359,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Advise the woman to use condoms for the first 3 months to prevent pregnancy",
+        "text": "Advise the man to use condoms for the first 3 months to prevent pregnancy",
         "toaster_info_text": "A note to inform the client that they should use condoms for the first three months after the sterialization to prevent pregnancy",
         "toaster_type": "info",
         "relevance": {
@@ -415,7 +408,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_calculation.yml"
+              "rules-file": "male_family_planning_registration_calculation.yml"
             }
           }
         }
