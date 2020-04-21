@@ -15,6 +15,8 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.fp.activity.BaseFpProfileActivity;
+import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
 import org.smartregister.chw.fragment.FamilyProfileMemberFragment;
@@ -134,6 +136,12 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     protected Class<? extends BasePncMemberProfileActivity> getPncMemberProfileActivityClass() {
         return PncMemberProfileActivity.class;
     }
+
+    @Override
+    protected void goToFpProfile(String baseEntityId, Activity activity) {
+        FamilyPlanningMemberProfileActivity.startFpMemberProfileActivity(activity, FpDao.getMember(baseEntityId));
+    }
+
 
     @Override
     protected boolean isAncMember(String baseEntityId) {
