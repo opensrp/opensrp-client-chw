@@ -75,8 +75,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     public void startSickChildReferralForm() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             try {
-                JSONObject formJson = FormUtils.getInstance(getView().getContext())
-                        .getFormJson(Constants.JSON_FORM.getChildUnifiedReferralForm());
+                JSONObject formJson = org.smartregister.chw.util.FormUtils.getFormJson(Constants.JSON_FORM.getChildUnifiedReferralForm(),FormUtils.getInstance(getView().getContext()));
                 formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
                 ReferralRegistrationActivity.startGeneralReferralFormActivityForResults((Activity) getView().getContext(),
                         getChildBaseEntityId(), formJson);

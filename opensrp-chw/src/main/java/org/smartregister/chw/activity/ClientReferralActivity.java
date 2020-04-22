@@ -135,7 +135,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
                     referralTypeAdapter.canStart = true; //TODO Remove this necessary evil; necessary since on resume is not revoked again
                 }
 
-                JSONObject formJson = getFormUtils().getFormJson(referralTypeModel.getFormName());
+                JSONObject formJson = org.smartregister.chw.util.FormUtils.getFormJson(referralTypeModel.getFormName(),getFormUtils());
                 formJson.put(REFERRAL_TASK_FOCUS, referralTypeModel.getReferralType());
                 startReferralForm(formJson, referralTypeModel);
             } catch (Exception e) {
