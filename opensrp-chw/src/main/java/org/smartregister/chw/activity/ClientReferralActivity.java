@@ -27,6 +27,7 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,12 +71,15 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
         if (getIntent().getExtras() != null) {
             referralTypeModels = getIntent().getParcelableArrayListExtra(Constants.REFERRAL_TYPES);
             baseEntityId = getIntent().getStringExtra(CoreConstants.ENTITY_ID);
-            List<ReferralServiceObject> referralServicesList = Util.getReferralServicesList();
-            if (referralServicesList != null && BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
-                for (ReferralServiceObject referralServiceObject : referralServicesList) {
-                    referralTypeModels.add(new ReferralTypeModel(referralServiceObject.getNameEn(),
-                            Constants.JSON_FORM.getGeneralReferralForm(), referralServiceObject.getId()));
-                }
+
+            if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+                //TODO move these to respective registers
+                referralTypeModels.add(new ReferralTypeModel("HIV Referral form", Constants.JSON_FORM.getHivReferralForm()));
+                referralTypeModels.add(new ReferralTypeModel("TB Referral form", Constants.JSON_FORM.getTbReferralForm()));
+                referralTypeModels.add(new ReferralTypeModel("GBV Referral form", Constants.JSON_FORM.getGbvReferralForm()));
+                referralTypeModels.add(new ReferralTypeModel("Child GBV Referral form", Constants.JSON_FORM.getChildGbvReferralForm()));
+            }
+
             referralTypeAdapter.setReferralTypes(referralTypeModels);
         }
 
@@ -89,7 +93,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
 
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this,
-                    baseEntityId, jsonObject, referralTypeModel.getReferralServiceId());
+                    baseEntityId, jsonObject);
         } else {
             startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, jsonObject,
                     Utils.metadata().familyMemberFormActivity), JsonFormUtils.REQUEST_CODE_GET_JSON);

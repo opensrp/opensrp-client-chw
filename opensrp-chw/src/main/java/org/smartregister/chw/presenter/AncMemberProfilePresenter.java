@@ -47,7 +47,7 @@ public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
                         Constants.JSON_FORM.getAncUnifiedReferralForm());
                 formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
                 ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(context,
-                        getEntityId(), formJson, null);
+                        getEntityId(), formJson);
             } catch (Exception ex) {
                 Timber.e(ex);
             }
