@@ -13,9 +13,15 @@ import timber.log.Timber;
  * @author cozej4 https://github.com/cozej4
  */
 public class FormUtils {
-    public static JSONObject getFormJson(String formIdentity, org.smartregister.util.FormUtils formUtils) {
+    public static JSONObject getFormJson(String formIdentity, org.smartregister.util.FormUtils formUtils,String locale) {
         ClientFormRepository clientFormRepository = CoreLibrary.getInstance().context().getClientFormRepository();
-        ClientForm clientForm = clientFormRepository.getActiveClientFormByIdentifier(formIdentity);
+
+        //Check the current locale of the app to load the correct version of the form in the desired language
+        String localeFormIdentity = formIdentity;
+        if(!locale.equals("en")){
+            localeFormIdentity = localeFormIdentity+"-"+locale;
+        }
+        ClientForm clientForm = clientFormRepository.getActiveClientFormByIdentifier(localeFormIdentity);
         try {
             if (clientForm != null) {
                 Timber.i("%s form loaded from db", formIdentity);

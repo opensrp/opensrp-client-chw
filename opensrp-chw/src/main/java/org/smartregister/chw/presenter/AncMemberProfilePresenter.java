@@ -43,7 +43,8 @@ public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
         if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             try {
                 Activity context = ((Activity) getView());
-                JSONObject formJson = org.smartregister.chw.util.FormUtils.getFormJson(Constants.JSON_FORM.getAncUnifiedReferralForm(),FormUtils.getInstance(context));
+                String locale = context.getResources().getConfiguration().locale.getLanguage();
+                JSONObject formJson = org.smartregister.chw.util.FormUtils.getFormJson(Constants.JSON_FORM.getAncUnifiedReferralForm(),FormUtils.getInstance(context),locale);
                 formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
                 ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(context,
                         getEntityId(), formJson);
