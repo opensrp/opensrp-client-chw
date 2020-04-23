@@ -358,6 +358,18 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         if (MalariaDao.isRegisteredForMalaria(((PncMemberProfilePresenter) presenter()).getEntityId())) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
         }
+
+        if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm()));
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm()));
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm()));
+        }
+
     }
 
     @Override

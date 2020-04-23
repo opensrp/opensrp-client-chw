@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyPlanningMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFpUpcomingServicesActivity;
@@ -202,6 +203,17 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     private void addFpReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.family_planning_referral),
                 org.smartregister.chw.util.Constants.JSON_FORM.getFamilyPlanningReferralForm("female")));
+        if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm()));
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm()));
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm()));
+        }
+
     }
 
     public List<ReferralTypeModel> getReferralTypeModels() {

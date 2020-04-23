@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
@@ -180,7 +181,13 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
     private void addChildReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.sick_child),
-                org.smartregister.chw.util.Constants.JSON_FORM.getChildReferralForm()));
+                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getChildUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getChildReferralForm()));
+
+        if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.child_gbv_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getChildGbvReferralForm()));
+        }
+
         if (MalariaDao.isRegisteredForMalaria(childBaseEntityId)) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
         }
