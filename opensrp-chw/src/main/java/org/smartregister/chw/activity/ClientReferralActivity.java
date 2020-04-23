@@ -20,14 +20,11 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.model.ReferralTypeModel;
-import org.smartregister.chw.referral.domain.ReferralServiceObject;
-import org.smartregister.chw.referral.util.Util;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,7 +69,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
             referralTypeModels = getIntent().getParcelableArrayListExtra(Constants.REFERRAL_TYPES);
             baseEntityId = getIntent().getStringExtra(CoreConstants.ENTITY_ID);
 
-            if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
                 //TODO move these to respective registers
                 referralTypeModels.add(new ReferralTypeModel("HIV Referral form", Constants.JSON_FORM.getHivReferralForm()));
                 referralTypeModels.add(new ReferralTypeModel("TB Referral form", Constants.JSON_FORM.getTbReferralForm()));
@@ -134,8 +131,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
                     org.smartregister.util.Utils.showShortToast(this, getString(R.string.open_referral_form, referralTypeModel.getReferralType()));
                     referralTypeAdapter.canStart = true; //TODO Remove this necessary evil; necessary since on resume is not revoked again
                 }
-                String locale = getResources().getConfiguration().locale.getLanguage();
-                JSONObject formJson = org.smartregister.chw.util.FormUtils.getFormJson(referralTypeModel.getFormName(),getFormUtils(),locale);
+                JSONObject formJson = getFormUtils().getFormJsonFromRepositoryOrAssets(referralTypeModel.getFormName());
                 formJson.put(REFERRAL_TASK_FOCUS, referralTypeModel.getReferralType());
                 startReferralForm(formJson, referralTypeModel);
             } catch (Exception e) {
