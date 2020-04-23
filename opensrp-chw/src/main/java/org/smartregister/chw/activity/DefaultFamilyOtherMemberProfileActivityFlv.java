@@ -30,8 +30,17 @@ public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements Fami
         }
     }
 
+    public boolean isWra(CommonPersonObjectClient commonPersonObject) {
+        return Utils.isMemberOfReproductiveAge(commonPersonObject, 10, 49);
+    }
+
     @Override
     public void updateFpMenuItems(String baseEntityId, Menu menu) {
+//        TODO implement if wcaro would need fp module
+    }
+
+    @Override
+    public void updateMaleFpMenuItems(String baseEntityId, Menu menu) {
 //        TODO implement if wcaro would need fp module
     }
 
