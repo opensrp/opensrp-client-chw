@@ -50,6 +50,9 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
 
         if (ChwApplication.getApplicationFlavor().hasStockUsageReport())
             StockUsageReportJob.scheduleJob(StockUsageReportJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.STOCK_USAGE_REPORT_MINUTES), getFlexValue(BuildConfig.STOCK_USAGE_REPORT_MINUTES));
+
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
+            DocumentConfigurationServiceJob.scheduleJob(DocumentConfigurationServiceJob.TAG,TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
     }
 
     @Override
@@ -67,7 +70,9 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         SyncLocationsByLevelAndTagsServiceJob.scheduleJobImmediately(SyncLocationsByLevelAndTagsServiceJob.TAG);
-        DocumentConfigurationServiceJob.scheduleJobImmediately(DocumentConfigurationServiceJob.TAG);
+
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
+            DocumentConfigurationServiceJob.scheduleJobImmediately(DocumentConfigurationServiceJob.TAG);
 
         if (ChwApplication.getApplicationFlavor().hasStockUsageReport())
             StockUsageReportJob.scheduleJobImmediately(StockUsageReportJob.TAG);
