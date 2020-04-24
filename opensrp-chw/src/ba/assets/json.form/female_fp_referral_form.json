@@ -175,6 +175,10 @@
         "openmrs_entity_parent": "",
         "label": "Family planning side-effects",
         "label_text_style": "bold",
+        "exclusive": [
+          "None",
+          "Not_applicable"
+        ],
         "options": [
           {
             "key": "Incisional_bleeding",
