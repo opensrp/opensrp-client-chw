@@ -8,7 +8,8 @@ import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
-import static org.smartregister.chw.core.utils.Utils.isWomanOfReproductiveAge;
+import static org.smartregister.chw.core.utils.Utils.isMemberOfReproductiveAge;
+
 
 public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {
 
@@ -22,7 +23,7 @@ public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements Fami
 
     @Override
     public boolean isWra(CommonPersonObjectClient commonPersonObject) {
-        return isWomanOfReproductiveAge(commonPersonObject, 10, 49);
+        return isMemberOfReproductiveAge(commonPersonObject, 10, 49);
     }
 
     @Override
