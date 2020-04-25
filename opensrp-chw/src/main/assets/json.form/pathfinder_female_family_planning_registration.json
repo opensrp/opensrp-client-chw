@@ -80,6 +80,14 @@
         "type": "hidden"
       },
       {
+        "key": "ecp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ecp",
+        "type": "hidden",
+        "value": true
+      },
+      {
         "key": "introduction_notes",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
