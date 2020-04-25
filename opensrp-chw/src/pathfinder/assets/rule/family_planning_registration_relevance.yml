@@ -2,35 +2,35 @@
 name: step3_current_family_method
 description: step3_current_family_method relevance
 priority: 1
-condition: "step2_using_method =='yes'"
+condition: "step2_is_client_already_using_fp =='yes'"
 actions:
   - "isRelevant = true"
 ---
-name: step5_used_a_fp_previously
-description: step5_used_a_fp_previously relevance
+name: step5_ever_used_a_fp_method_previously
+description: ever_used_a_fp_method_previously relevance
 priority: 1
-condition: "step2_using_method =='no'"
+condition: "step2_is_client_already_using_fp =='no'"
 actions:
   - "isRelevant = true"
 ---
 name: step4_continue_to_receive_fp_services
-description: step4_continue_to_receive_fp_services relevance
+description: continue_to_receive_fp_services relevance
 priority: 1
-condition: "step2_using_method =='yes'"
+condition: "step2_is_client_already_using_fp =='yes'"
 actions:
   - "isRelevant = true"
 ---
-name: step9_reasons_for_not_using_family_planning
+name: step9_reasons_for_not_currently_using_family_planning
 description: Reasons for not using family planning
 priority: 1
-condition: "step2_using_method =='no'"
+condition: "step2_is_client_already_using_fp =='no'"
 actions:
   - "isRelevant = true"
 ---
-name: step10_know_more_about_fp
+name: step10_does_client_want_to_know_more_about_fp
 description: does the client want to learn more about family planning
 priority: 1
-condition: "step2_using_method =='no'"
+condition: "step2_is_client_already_using_fp =='no'"
 actions:
   - "isRelevant = true"
 

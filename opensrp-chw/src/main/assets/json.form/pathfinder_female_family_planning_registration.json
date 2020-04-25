@@ -96,10 +96,10 @@
     "next": "step3",
     "fields": [
       {
-        "key": "using_method",
+        "key": "is_client_already_using_fp",
         "type": "native_radio",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "using_method",
+        "openmrs_entity_id": "is_client_already_using_fp",
         "openmrs_entity_parent": "",
         "label": "Is the client already using a family planning method?",
         "options": [
@@ -130,10 +130,10 @@
     "next": "step4",
     "fields": [
       {
-        "key": "fp_method_accepted",
+        "key": "fp_method_in_use",
         "type": "native_radio",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "fp_method_accepted",
+        "openmrs_entity_id": "fp_method_in_use",
         "openmrs_entity_parent": "",
         "label": "Which methods is the client currently using?",
         "options": [
@@ -237,7 +237,7 @@
         "key": "continue_to_receive_fp_services",
         "type": "native_radio",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "receive_fp_services",
+        "openmrs_entity_id": "continue_to_receive_fp_services",
         "openmrs_entity_parent": "",
         "label": "ASK, Would you like me to continue to provide follow-up services to support you in using family planning?",
         "options": [
@@ -275,10 +275,10 @@
     "next": "step6",
     "fields": [
       {
-        "key": "used_a_fp_previously",
+        "key": "ever_used_a_fp_method_previously",
         "type": "native_radio",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "used_a_fp_previously",
+        "openmrs_entity_id": "ever_used_a_fp_method_previously",
         "openmrs_entity_parent": "",
         "label": "Has the client ever used a family planning method in the past?",
         "options": [
@@ -310,10 +310,10 @@
     "next": "step7",
     "fields": [
       {
-        "key": "previous_fp_method",
+        "key": "previously_used_fp_methods",
         "type": "check_box",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "previous_fp_method",
+        "openmrs_entity_id": "previously_used_fp_methods",
         "openmrs_entity_parent": "",
         "label": "Which methods did the client use in the past?\n(Choose all that apply)",
         "options": [
@@ -400,7 +400,7 @@
           "err": "Please choose all that apply"
         },
         "relevance": {
-          "step5:used_a_fp_previously": {
+          "step5:ever_used_a_fp_method_previously": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
@@ -475,7 +475,7 @@
           "err": "Please choose all that apply"
         },
         "relevance": {
-          "step5:used_a_fp_previously": {
+          "step5:ever_used_a_fp_method_previously": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
@@ -491,7 +491,7 @@
         "key": "side_effects",
         "type": "check_box",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "previous_fp_method",
+        "openmrs_entity_id": "previously_used_fp_methods",
         "openmrs_entity_parent": "",
         "label": "Which side effects did the client have?\n(Choose all that apply)",
         "options": [
@@ -582,10 +582,10 @@
     "next": "step10",
     "fields": [
       {
-        "key": "reasons_for_not_using_family_planning",
+        "key": "reasons_for_not_currently_using_family_planning",
         "type": "check_box",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons_for_not_using_family_planning",
+        "openmrs_entity_id": "reasons_for_not_currently_using_family_planning",
         "openmrs_entity_parent": "",
         "label": "Why is the client not using a family planning method to prevent pregnancy?\nListen to what the woman says then select the appropriate responses.\nDo not read the answers",
         "options": [
@@ -679,10 +679,10 @@
     "next": "step11",
     "fields": [
       {
-        "key": "know_more_about_fp",
+        "key": "does_client_want_to_know_more_about_fp",
         "type": "native_radio",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "know_more_about_fp",
+        "openmrs_entity_id": "does_client_want_to_know_more_about_fp",
         "openmrs_entity_parent": "",
         "label": "Would the client like to know more about family planning?",
         "options": [
@@ -729,17 +729,17 @@
         "text_color": "#1199F9",
         "toaster_type": "info",
         "relevance": {
-          "step10:know_more_about_fp": {
+          "step10:does_client_want_to_know_more_about_fp": {
             "type": "string",
             "ex": "equalTo(., \"no\")"
           }
         }
       },
       {
-        "key": "receive_fp_services",
+        "key": "does_the_client_want_to_receive_fp_services",
         "type": "native_radio",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "receive_fp_services",
+        "openmrs_entity_id": "does_the_client_want_to_receive_fp_services",
         "openmrs_entity_parent": "",
         "label": "Would the client like to receive these services?",
         "options": [
@@ -763,7 +763,7 @@
           "err": "Please select one choice"
         },
         "relevance": {
-          "step10:know_more_about_fp": {
+          "step10:does_client_want_to_know_more_about_fp": {
             "type": "string",
             "ex": "equalTo(., \"no\")"
           }
@@ -776,10 +776,10 @@
     "next": "step13",
     "fields": [
       {
-        "key": "reasons_for_not_wanting_services",
+        "key": "reasons_for_not_wanting_fp_services",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "reasons_for_not_wanting_fp_services",
         "openmrs_data_type": "",
         "type": "check_box",
         "label": "Reasons for not wanting to know more about these services?\n(Choose all that apply)",
@@ -827,7 +827,7 @@
           "err": "Please select all that apply"
         },
         "relevance": {
-          "step11:receive_fp_services": {
+          "step11:does_the_client_want_to_receive_fp_services": {
             "type": "string",
             "ex": "equalTo(., \"no\")"
           }
@@ -860,10 +860,10 @@
         }
       },
       {
-        "key": "joining_the_client_visits",
+        "key": "other_people_joining_the_clients_fp_sessions",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "joining_the_client_visits",
+        "openmrs_entity_id": "other_people_joining_the_clients_fp_sessions",
         "type": "check_box",
         "label": "Who is joining the client for this visit?\n(Choose all that apply)",
         "hint": "(Choose all that apply)",

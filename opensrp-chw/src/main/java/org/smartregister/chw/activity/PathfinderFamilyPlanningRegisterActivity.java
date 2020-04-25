@@ -88,7 +88,6 @@ public class PathfinderFamilyPlanningRegisterActivity extends BaseFpRegisterActi
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
-        Timber.e("coze loading the form");
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
         intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
@@ -106,7 +105,6 @@ public class PathfinderFamilyPlanningRegisterActivity extends BaseFpRegisterActi
             form.setPreviousLabel(this.getResources().getString(org.smartregister.chw.core.R.string.back));
         }
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-        Timber.e("coze the form: " + form);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
