@@ -14,9 +14,9 @@ import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.dataloader.FPDataLoader;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.fp_pathfinder.util.FamilyPlanningConstants;
 import org.smartregister.chw.fp_pathfinder.activity.BaseFpRegisterActivity;
-import org.smartregister.chw.fragment.FpRegisterFragment;
+import org.smartregister.chw.fp_pathfinder.util.FamilyPlanningConstants;
+import org.smartregister.chw.fragment.PathfinderFamilyPlanningRegisterFragment;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
@@ -31,7 +31,7 @@ public class PathfinderFamilyPlanningRegisterActivity extends BaseFpRegisterActi
     private static String baseEntityId;
 
     public static void startFpRegistrationActivity(Activity activity, String baseEntityID, String dob, String formName, String payloadType) {
-        Timber.e("starting family planning activity");
+        Timber.e("coze starting family planning activity");
         Intent intent = new Intent(activity, PathfinderFamilyPlanningRegisterActivity.class);
         intent.putExtra(FamilyPlanningConstants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
         intent.putExtra(FamilyPlanningConstants.ActivityPayload.DOB, dob);
@@ -57,7 +57,7 @@ public class PathfinderFamilyPlanningRegisterActivity extends BaseFpRegisterActi
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
-        return new FpRegisterFragment();
+        return new PathfinderFamilyPlanningRegisterFragment();
     }
 
     @Override
@@ -88,7 +88,7 @@ public class PathfinderFamilyPlanningRegisterActivity extends BaseFpRegisterActi
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
-
+        Timber.e("coze loading the form");
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
         intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
@@ -106,6 +106,7 @@ public class PathfinderFamilyPlanningRegisterActivity extends BaseFpRegisterActi
             form.setPreviousLabel(this.getResources().getString(org.smartregister.chw.core.R.string.back));
         }
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        Timber.e("coze the form: " + form);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 

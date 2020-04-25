@@ -200,6 +200,10 @@ public class ChwApplication extends CoreChwApplication {
         PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         FpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+
+        if(BuildConfig.USE_PATHFINDERS_FP_MODULE) {
+            org.smartregister.chw.fp_pathfinder.FpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
         // Init Reporting library
         ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         GrowthMonitoringConfig growthMonitoringConfig = new GrowthMonitoringConfig();
