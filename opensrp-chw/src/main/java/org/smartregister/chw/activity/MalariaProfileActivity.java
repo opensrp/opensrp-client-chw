@@ -19,6 +19,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.NCUtils;
@@ -173,10 +174,16 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
 
     @Override
     protected void removeMember() {
+        String className;
+        if(BuildConfig.USE_PATHFINDERS_FP_MODULE) {
+            className =PathfinderFamilyPlanningRegisterActivity.class.getCanonicalName();
+        }else{
+            className =FpRegisterActivity.class.getCanonicalName();
+        }
         IndividualProfileRemoveActivity.startIndividualProfileActivity(this,
                 getClientDetailsByBaseEntityID(memberObject.getBaseEntityId()),
                 memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(),
-                memberObject.getPrimaryCareGiver(), FpRegisterActivity.class.getCanonicalName());
+                memberObject.getPrimaryCareGiver(), className);
     }
 
     @Override

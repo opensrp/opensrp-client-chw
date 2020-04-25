@@ -367,12 +367,20 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     @Override
     protected void startFpRegister() {
-        FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), memberObject.getDob(), CoreConstants.JSON_FORM.getFpRegistrationForm("Female"), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
+        if(BuildConfig.USE_PATHFINDERS_FP_MODULE) {
+            PathfinderFamilyPlanningRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), memberObject.getDob(), CoreConstants.JSON_FORM.getFpRegistrationForm("Female"), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
+        }else{
+            FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), memberObject.getDob(), CoreConstants.JSON_FORM.getFpRegistrationForm("Female"), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
+        }
     }
 
     @Override
     protected void startFpChangeMethod() {
-        FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), memberObject.getDob(), CoreConstants.JSON_FORM.getFpChangeMethodForm("female"), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+        if(BuildConfig.USE_PATHFINDERS_FP_MODULE) {
+            PathfinderFamilyPlanningRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), memberObject.getDob(), CoreConstants.JSON_FORM.getFpChangeMethodForm("female"), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+        }else {
+            FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), memberObject.getDob(), CoreConstants.JSON_FORM.getFpChangeMethodForm("female"), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+        }
     }
 
     @Override

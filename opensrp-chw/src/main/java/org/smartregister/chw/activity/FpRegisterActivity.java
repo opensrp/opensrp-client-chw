@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFpRegisterActivity;
 import org.smartregister.chw.core.dataloader.FPDataLoader;
@@ -20,7 +21,14 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
     private static String baseEntityId;
 
     public static void startFpRegistrationActivity(Activity activity, String baseEntityID, String dob, String formName, String payloadType) {
-        Intent intent = new Intent(activity, FpRegisterActivity.class);
+        Class fpRegisterActivityClass;
+        if (BuildConfig.USE_PATHFINDERS_FP_MODULE) {
+            fpRegisterActivityClass = PathfinderFamilyPlanningRegisterActivity.class;
+        } else {
+            fpRegisterActivityClass = FpRegisterActivity.class;
+        }
+
+        Intent intent = new Intent(activity, fpRegisterActivityClass);
         intent.putExtra(FamilyPlanningConstants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
         intent.putExtra(FamilyPlanningConstants.ActivityPayload.DOB, dob);
         intent.putExtra(FamilyPlanningConstants.ActivityPayload.FP_FORM_NAME, formName);
@@ -38,7 +46,13 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
 
     @Override
     public void onFormSaved() {
-        startActivity(new Intent(this, FpRegisterActivity.class));
+        Class fpRegisterActivityClass;
+        if (BuildConfig.USE_PATHFINDERS_FP_MODULE) {
+            fpRegisterActivityClass = PathfinderFamilyPlanningRegisterActivity.class;
+        } else {
+            fpRegisterActivityClass = FpRegisterActivity.class;
+        }
+        startActivity(new Intent(this, fpRegisterActivityClass));
         super.onFormSaved();
         this.finish();
     }

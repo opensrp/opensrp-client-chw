@@ -22,6 +22,8 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import timber.log.Timber;
+
 import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.isMultiPartForm;
 
 public class PathfinderFamilyPlanningRegisterActivity extends BaseFpRegisterActivity {

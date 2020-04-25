@@ -28,6 +28,7 @@ import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.FpRegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
+import org.smartregister.chw.activity.PathfinderFamilyPlanningRegisterActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.ReferralRegisterActivity;
 import org.smartregister.chw.activity.UpdatesRegisterActivity;
@@ -287,7 +288,12 @@ public class ChwApplication extends CoreChwApplication {
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, ReferralRegisterActivity.class);
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ALL_CLIENTS_REGISTERED_ACTIVITY, AllClientsRegisterActivity.class);
         }
-        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FP_REGISTER_ACTIVITY, FpRegisterActivity.class);
+
+        if(BuildConfig.USE_PATHFINDERS_FP_MODULE) {
+            registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FP_REGISTER_ACTIVITY, PathfinderFamilyPlanningRegisterActivity.class);
+        }else {
+            registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FP_REGISTER_ACTIVITY, FpRegisterActivity.class);
+        }
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.UPDATES_REGISTER_ACTIVITY, UpdatesRegisterActivity.class);
         return registeredActivities;
     }
