@@ -20,6 +20,7 @@ import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.util.PathfinderFamilyPlanningConstants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
@@ -80,7 +81,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
 
         if(BuildConfig.USE_PATHFINDERS_FP_MODULE) {
-            PathfinderFamilyPlanningRegisterActivity.startFpRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpRegistrationForm(gender), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
+            PathfinderFamilyPlanningRegisterActivity.startFpRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, dob, PathfinderFamilyPlanningConstants.JSON_FORM.getFamilyPlanningRegistrationForm(gender,getApplicationContext().getResources().getConfiguration().locale,getAssets()), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
         }else{
             FpRegisterActivity.startFpRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpRegistrationForm(gender), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
         }
@@ -92,7 +93,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
 
         if(BuildConfig.USE_PATHFINDERS_FP_MODULE) {
-            PathfinderFamilyPlanningRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpChangeMethodForm(gender), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+            PathfinderFamilyPlanningRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, PathfinderFamilyPlanningConstants.JSON_FORM.getFamilyPlanningChangeMethodForm(gender,getApplicationContext().getResources().getConfiguration().locale,getAssets()), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
         }else {
             FpRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpChangeMethodForm(gender), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
 
