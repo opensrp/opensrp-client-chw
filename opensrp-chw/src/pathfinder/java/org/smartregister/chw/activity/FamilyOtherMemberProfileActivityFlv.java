@@ -9,6 +9,7 @@ import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.util.UtilsFlv;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.chw.core.utils.Utils;
 
 public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {
 
@@ -31,9 +32,11 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
     @Override
     public void updateMalariaMenuItems(String baseEntityId, Menu menu) {
         UtilsFlv.updateMalariaMenuItems(baseEntityId, menu);
+    }
 
-        //Disabling anc for this flavor
-        menu.findItem(R.id.action_anc_registration).setVisible(false);
+    @Override
+    public void updateMaleFpMenuItems(String baseEntityId, Menu menu) {
+        UtilsFlv.updateFpMenuItems(baseEntityId, menu);
     }
 
     @Override
@@ -42,8 +45,19 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
     }
 
     @Override
+    public boolean isOfReproductiveAge(CommonPersonObjectClient commonPersonObject, String gender) {
+        if (gender.equalsIgnoreCase("Female")) {
+            return Utils.isMemberOfReproductiveAge(commonPersonObject, 10, 49);
+        } else if (gender.equalsIgnoreCase("Male")) {
+            return Utils.isMemberOfReproductiveAge(commonPersonObject, 15, 49);
+        } else {
+            return false;
+        }
+    }
+
     public boolean isWra(CommonPersonObjectClient commonPersonObject) {
-        return UtilsFlv.isClientOfReproductiveAge(commonPersonObject, 10, 49);
+        return Utils.isMemberOfReproductiveAge(commonPersonObject, 10, 49);
+
     }
 
     @Override

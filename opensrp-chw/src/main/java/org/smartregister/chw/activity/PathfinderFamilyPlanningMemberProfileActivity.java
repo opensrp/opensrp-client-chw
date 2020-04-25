@@ -44,6 +44,7 @@ import org.smartregister.chw.util.PathfinderFamilyPlanningUtil;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
@@ -96,7 +97,8 @@ public class PathfinderFamilyPlanningMemberProfileActivity extends BaseFpProfile
     }
 
     protected void startFamilyPlanningRegistrationActivity() {
-        FpRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), CoreConstants.JSON_FORM.getFpChengeMethodForm(), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+        //TODO change the form name
+        FpRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), CoreConstants.JSON_FORM.getFpChangeMethodForm(fpMemberObject.getGender()), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
     }
 
     @Override
@@ -192,7 +194,7 @@ public class PathfinderFamilyPlanningMemberProfileActivity extends BaseFpProfile
 
     @Override
     public void openFamilyPlanningRegistration() {
-        FpRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), CoreConstants.JSON_FORM.getFpRegistrationForm(), FamilyPlanningConstants.ActivityPayload.UPDATE_REGISTRATION_PAYLOAD_TYPE);
+        FpRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), CoreConstants.JSON_FORM.getFpRegistrationForm(fpMemberObject.getGender()), FamilyPlanningConstants.ActivityPayload.UPDATE_REGISTRATION_PAYLOAD_TYPE);
 
     }
 
@@ -222,7 +224,7 @@ public class PathfinderFamilyPlanningMemberProfileActivity extends BaseFpProfile
     private void addFpReferralTypes() {
         //TODO change the form to pathfinder form
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.family_planning_referral),
-                org.smartregister.chw.util.Constants.JSON_FORM.getFamilyPlanningReferralForm()));
+                org.smartregister.chw.util.Constants.JSON_FORM.getFamilyPlanningReferralForm(fpMemberObject.getGender())));
     }
 
     public List<ReferralTypeModel> getReferralTypeModels() {

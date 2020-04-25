@@ -14,7 +14,7 @@ import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.dataloader.FPDataLoader;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.fp.util.FamilyPlanningConstants;
+import org.smartregister.chw.fp_pathfinder.util.FamilyPlanningConstants;
 import org.smartregister.chw.fp_pathfinder.activity.BaseFpRegisterActivity;
 import org.smartregister.chw.fragment.FpRegisterFragment;
 import org.smartregister.family.util.JsonFormUtils;

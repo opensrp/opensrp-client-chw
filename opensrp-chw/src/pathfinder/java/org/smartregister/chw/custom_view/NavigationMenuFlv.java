@@ -1,6 +1,11 @@
 package org.smartregister.chw.custom_view;
 
+import android.app.Activity;
+import android.content.Intent;
+
 import org.apache.commons.lang3.tuple.Pair;
+import org.smartregister.chw.core.activity.CoreStockInventoryReportActivity;
+import org.smartregister.chw.core.activity.HIA2ReportsActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.referral.util.Constants;
@@ -9,6 +14,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
 
 public class NavigationMenuFlv implements NavigationMenu.Flavour {
 
@@ -32,5 +38,15 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
     @Override
     public boolean hasStockReport() {
         return true;
+    }
+
+    @Override
+    public Intent getStockReportIntent(Activity activity) {
+        return new Intent(activity, CoreStockInventoryReportActivity.class);
+    }
+
+    @Override
+    public Intent getServiceReportIntent(Activity activity) {
+        return new Intent(activity, HIA2ReportsActivity.class);
     }
 }
