@@ -145,6 +145,13 @@
             "text": "Progestin only pills"
           },
           {
+            "key": "coc",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "coc",
+            "openmrs_entity_parent": "",
+            "text": "Combined Oral Contraceptives (COC)"
+          },
+          {
             "key": "vasectomy",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "vasectomy",
@@ -152,18 +159,18 @@
             "text": "Vasectomy"
           },
           {
+            "key": "female_condom",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female_condom",
+            "openmrs_entity_parent": "",
+            "text": "Female Condom"
+          },
+          {
             "key": "male_condom",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "male_condom",
             "openmrs_entity_parent": "",
             "text": "Male Condom"
-          },
-          {
-            "key": "coc",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "coc",
-            "openmrs_entity_parent": "",
-            "text": "Combined Oral Contraceptives (COC)"
           },
           {
             "key": "tubal_ligation",
@@ -192,13 +199,6 @@
             "openmrs_entity_id": "implants",
             "openmrs_entity_parent": "",
             "text": "Implants"
-          },
-          {
-            "key": "female_condom",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "female_condom",
-            "openmrs_entity_parent": "",
-            "text": "Female Condom"
           },
           {
             "key": "injection",
@@ -945,7 +945,7 @@
         "key": "fp_start_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "fp_start_date",
         "type": "edit_text",
         "hidden": "true",
         "calculation": {
