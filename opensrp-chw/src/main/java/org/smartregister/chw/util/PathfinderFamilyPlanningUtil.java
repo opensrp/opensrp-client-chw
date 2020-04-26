@@ -6,6 +6,7 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fp_pathfinder.domain.FpMemberObject;
 import org.smartregister.chw.fp_pathfinder.util.FamilyPlanningConstants;
+import org.smartregister.chw.rules.FpAlertRule;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +15,7 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class PathfinderFamilyPlanningUtil extends org.smartregister.chw.fp.util.FpUtil {
+public class PathfinderFamilyPlanningUtil extends org.smartregister.chw.fp_pathfinder.util.FpUtil {
 
     public static SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
@@ -26,19 +27,19 @@ public class PathfinderFamilyPlanningUtil extends org.smartregister.chw.fp.util.
             case FamilyPlanningConstants.DBConstants.FP_COC:
                 fpRule = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_COC_POP_REFILL);
                 break;
-            case FamilyPlanningConstants.DBConstants.FP_IUCD:
+            case FamilyPlanningConstants.DBConstants.FP_IUD: //TODO coze handle this implementation
                 fpRule = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_IUCD);
                 break;
             case FamilyPlanningConstants.DBConstants.FP_FEMALE_CONDOM:
             case FamilyPlanningConstants.DBConstants.FP_MALE_CONDOM:
                 fpRule = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_CONDOM_REFILL);
                 break;
-            case FamilyPlanningConstants.DBConstants.FP_INJECTABLE:
+            case FamilyPlanningConstants.DBConstants.FP_INJECTABLE://TODO coze handle this implementation
                 fpRule = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_INJECTION_DUE);
                 break;
-            case FamilyPlanningConstants.DBConstants.FP_FEMALE_STERLIZATION:
-                fpRule = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_FEMALE_STERILIZATION);
-                break;
+//            case FamilyPlanningConstants.DBConstants.FP_FEMALE_STERLIZATION://TODO coze handle this implementation
+//                fpRule = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.FP_FEMALE_STERILIZATION);
+//                break;
             default:
                 break;
         }
@@ -63,5 +64,11 @@ public class PathfinderFamilyPlanningUtil extends org.smartregister.chw.fp.util.
         res.setMiddleName(memberObject.getMiddleName());
         res.setDob(memberObject.getAge());
         return res;
+    }
+
+    public static FpAlertRule getFpVisitStatus(Rules rules, Date lastVisitDate, Date fpDate, Integer pillCycles, String fpMethod) {
+        FpAlertRule fpAlertRule = new FpAlertRule(fpDate, lastVisitDate, pillCycles, fpMethod);
+        CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(fpAlertRule, rules);
+        return fpAlertRule;
     }
 }

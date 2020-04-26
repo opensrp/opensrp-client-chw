@@ -27,11 +27,9 @@ import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.domain.MemberType;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
-import org.smartregister.chw.core.rule.FpAlertRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.FpUtil;
-import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.custom_view.PathfinderFamilyPlanningFloatingMenu;
 import org.smartregister.chw.fp_pathfinder.activity.BaseFpProfileActivity;
 import org.smartregister.chw.fp_pathfinder.dao.FpDao;
@@ -40,11 +38,11 @@ import org.smartregister.chw.fp_pathfinder.util.FamilyPlanningConstants;
 import org.smartregister.chw.interactor.PathfinderFamilyPlanningProfileInteractor;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.PathfinderFamilyPlanningMemberProfilePresenter;
+import org.smartregister.chw.rules.FpAlertRule;
 import org.smartregister.chw.util.PathfinderFamilyPlanningUtil;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
@@ -406,7 +404,6 @@ public class PathfinderFamilyPlanningMemberProfileActivity extends BaseFpProfile
         }
     }
 
-
     @Override
     public void startFormActivity(JSONObject formJson, FpMemberObject fpMemberObject) {
         Intent intent = org.smartregister.chw.core.utils.Utils.formActivityIntent(this, formJson.toString());
@@ -451,12 +448,19 @@ public class PathfinderFamilyPlanningMemberProfileActivity extends BaseFpProfile
             } else {
                 lastVisit = FpDao.getLatestFpVisit(fpMemberObject.getBaseEntityId(), FP_FOLLOW_UP_VISIT, fpMemberObject.getFpMethod());
             }
-            Date lastVisitDate = lastVisit != null ? lastVisit.getDate() : null;
 
-            Rules rule = FpUtil.getFpRules(fpMemberObject.getFpMethod());
+            Date lastVisitDate;
+            if (lastVisit != null) {
+                lastVisitDate = lastVisit.getDate();
+            } else {
+                lastVisit = FpDao.getLatestFpVisit(fpMemberObject.getBaseEntityId(), FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, fpMemberObject.getFpMethod());
+                lastVisitDate = lastVisit.getDate();
+            }
+
+            Rules rule = PathfinderFamilyPlanningUtil.getFpRules(fpMemberObject.getFpMethod());
             Integer pillCycles = FpDao.getLastPillCycle(fpMemberObject.getBaseEntityId(), fpMemberObject.getFpMethod());
 
-            fpAlertRule = HomeVisitUtil.getFpVisitStatus(rule, lastVisitDate, FpUtil.parseFpStartDate(fpMemberObject.getFpStartDate()), pillCycles, fpMemberObject.getFpMethod());
+            fpAlertRule = PathfinderFamilyPlanningUtil.getFpVisitStatus(rule, lastVisitDate, FpUtil.parseFpStartDate(fpMemberObject.getFpStartDate()), pillCycles, fpMemberObject.getFpMethod());
             return null;
         }
 
