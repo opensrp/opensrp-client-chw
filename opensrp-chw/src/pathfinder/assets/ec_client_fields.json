@@ -1007,6 +1007,14 @@
           }
         },
         {
+          "column_name": "fp_reg_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "fp_reg_date"
+          }
+        },
+        {
           "column_name": "fp_start_date",
           "type": "Event",
           "json_mapping": {
