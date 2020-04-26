@@ -1005,6 +1005,28 @@
             "field": "obs.fieldCode",
             "concept": "ecp"
           }
+        },
+        {
+          "column_name": "fp_start_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "fp_start_date"
+          }
+        },{
+          "column_name": "fp_method_accepted",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "fp_method_accepted"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
         }
       ]
     },

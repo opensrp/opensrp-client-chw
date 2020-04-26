@@ -1,8 +1,8 @@
 {
   "validate_on_submit": false,
-  "show_errors_on_submit": true,
+  "show_errors_on_submit": false,
   "skip_blank_steps": true,
-  "count": "13",
+  "count": "12",
   "encounter_type": "Family Planning Registration",
   "entity_id": "",
   "relational_id": "",
@@ -85,7 +85,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "ecp",
         "type": "hidden",
-        "value": true
+        "value": "1"
       },
       {
         "key": "introduction_notes",
@@ -408,9 +408,10 @@
           "err": "Please choose all that apply"
         },
         "relevance": {
-          "step5:ever_used_a_fp_method_previously": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
           }
         }
       }
@@ -483,9 +484,10 @@
           "err": "Please choose all that apply"
         },
         "relevance": {
-          "step5:ever_used_a_fp_method_previously": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
           }
         }
       }
@@ -572,14 +574,10 @@
           "err": "Please choose all that apply"
         },
         "relevance": {
-          "step7:reasons_for_stopping_fp": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "side_effects"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
           }
         }
       }
@@ -720,13 +718,7 @@
             }
           }
         }
-      }
-    ]
-  },
-  "step11": {
-    "title": "Receiving family planning services",
-    "next": "step12",
-    "fields": [
+      },
       {
         "key": "emphasis_on_fp",
         "openmrs_entity_parent": "",
@@ -737,9 +729,10 @@
         "text_color": "#1199F9",
         "toaster_type": "info",
         "relevance": {
-          "step10:does_client_want_to_know_more_about_fp": {
-            "type": "string",
-            "ex": "equalTo(., \"no\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
           }
         }
       },
@@ -779,9 +772,9 @@
       }
     ]
   },
-  "step12": {
+  "step11": {
     "title": "Reasons for not wanting to know more about these services",
-    "next": "step13",
+    "next": "step12",
     "fields": [
       {
         "key": "reasons_for_not_wanting_fp_services",
@@ -835,30 +828,27 @@
           "err": "Please select all that apply"
         },
         "relevance": {
-          "step11:does_the_client_want_to_receive_fp_services": {
-            "type": "string",
-            "ex": "equalTo(., \"no\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_planning_registration_relevance.yml"
+            }
           }
         }
       }
     ]
   },
-  "step13": {
+  "step12": {
     "title": "Saving",
     "fields": [
       {
         "key": "joining_family_planning_counselling",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "toaster_notes",
+        "openmrs_entity_id": "joining_family_planning_counselling",
         "type": "toaster_notes",
         "text": "if the client is comfortable, encourage other family members to join.",
         "text_color": "#1199F9",
         "toaster_type": "info",
-        "v_required": {
-          "value": "true",
-          "err": "Please select one choice"
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
