@@ -101,6 +101,7 @@ public class RemoveMemberTestsBa {
                 + " " + Configs.AdditionalTestDataHelper.memberTwoSecondname + " "
                 + Configs.TestConfigHelper.familyName
                 + ", " + Configs.AdditionalTestDataHelper.extraMemberAge2))
+
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:remove_reason")))

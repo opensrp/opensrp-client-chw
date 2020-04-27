@@ -39,10 +39,6 @@ public class AdditionalTestDataBa {
         utils.addTestFamilyMemberBa(Configs.AdditionalTestDataHelper.memberTwoFirstname,
                 Configs.AdditionalTestDataHelper.memberTwoSecondname,
                 Configs.AdditionalTestDataHelper.extraMemberAge2);
-        /*utils.addTestFamilyMemberBa(Configs.AdditionalTestData.memberThreeFirstname,
-                Configs.AdditionalTestData.memberThreeSecondname,
-                Configs.AdditionalTestData.extraMemberAge3);
-         */
         mActivityTestRule.finishActivity();
     }
 

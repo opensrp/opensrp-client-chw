@@ -146,6 +146,7 @@ public class ChildVisitTests {
     }
     private void earlyChildhoodDevelopment() throws Throwable{
         onView(withSubstring("Early childhood development (ECD)"))
+
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);

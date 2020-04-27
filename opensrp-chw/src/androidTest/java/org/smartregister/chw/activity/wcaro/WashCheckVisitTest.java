@@ -58,7 +58,6 @@ public class WashCheckVisitTest {
 
 
     public void setUp() throws InterruptedException{
-
         utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
     }
 

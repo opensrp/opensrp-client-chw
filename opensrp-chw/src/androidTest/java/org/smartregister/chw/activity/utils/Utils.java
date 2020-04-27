@@ -73,6 +73,7 @@ public class Utils  {
                 .perform(click());
         Thread.sleep(500);
         onView(withSubstring("English"))
+
                 .perform(click());
     }
 
@@ -123,6 +124,7 @@ public class Utils  {
                 .perform(scrollTo(), click());
         Thread.sleep(500);
         onView(withSubstring("Community Health Fund (CHF)"))
+
                 .perform(scrollTo(), click());
         Thread.sleep(500);
         Thread.sleep(500);
@@ -138,12 +140,14 @@ public class Utils  {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:preg_1yr")))
                 .perform(scrollTo(), click());
         onView(withSubstring("No"))
+
                 .perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:disabilities")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
         onView(withSubstring("No"))
+
                 .perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:is_primary_caregiver")))
@@ -158,6 +162,7 @@ public class Utils  {
         onView(withSubstring("Religious leader"))
                 .perform(scrollTo(), click());
         onView(withSubstring("Save"))
+
                 .perform(click());
         Thread.sleep(500);
     }
@@ -214,6 +219,7 @@ public class Utils  {
                 .perform(click());
         Thread.sleep(500);
         onView(withSubstring("English"))
+
                 .perform(click());
     }
 
@@ -268,7 +274,6 @@ public class Utils  {
         onView(withSubstring("Log out as "
                 + Constants.WcaroConfigUtils.wCaro_userName))
                 .perform(click());
-
     }
 
     public void logOutBA(){

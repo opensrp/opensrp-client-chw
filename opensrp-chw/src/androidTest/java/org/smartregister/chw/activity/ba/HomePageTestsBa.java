@@ -77,8 +77,6 @@ public class HomePageTestsBa {
                 .check(matches(isDisplayed()));
     }
 
-
-
     public void confirmQrScanFunctionality()  {
         onView(withId(R.id.action_scan_qr))
                 .perform(click());
@@ -90,5 +88,4 @@ public class HomePageTestsBa {
     public void completeTests(){
             mActivityTestRule.finishActivity();
         }
-
 }

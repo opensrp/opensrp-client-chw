@@ -32,6 +32,7 @@ import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.r
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.smartregister.chw.activity.utils.Utils.getViewId;
 
+
 public class AddChildFamilyMemberTest {
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
@@ -50,6 +51,7 @@ public class AddChildFamilyMemberTest {
     public void setUp() throws InterruptedException {
         Thread.sleep(10000);
         utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
+
     }
 
     @Test
@@ -137,6 +139,7 @@ public class AddChildFamilyMemberTest {
                 .perform(click());
         Thread.sleep(100);
         onView(withSubstring("Child under 5 years"))
+
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);

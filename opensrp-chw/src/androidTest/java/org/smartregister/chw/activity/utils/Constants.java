@@ -17,7 +17,7 @@ public class Constants {
         public static final String ba_password = "Boresha123";
         public static final String appName = "USAID Boresha Afya";
         public static final String ba_userName = "Community";
-        public static final String searchFamilyBa = "Nandi";
+        //public static final String searchFamilyBa = "Nandi";
         public static final String familyBa = "Jiwanji Family";
         public static final String searchFamilyIDBa = "6699748";
     }

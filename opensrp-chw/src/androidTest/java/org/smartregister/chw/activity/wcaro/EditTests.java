@@ -109,6 +109,7 @@ public class EditTests {
         onView(ViewMatchers.withSubstring(Configs.AdditionalTestDataHelper.memberTwoFirstname
                 + " " + Configs.AdditionalTestDataHelper.memberTwoSecondname + " " + Configs.TestConfigHelper.familyName
                 + ", " + Configs.AdditionalTestDataHelper.extraMemberAge2))
+
                 .check(matches(isDisplayed()));
 
     }

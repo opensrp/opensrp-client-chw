@@ -25,7 +25,6 @@ public class FamilyMemberTestBa {
     private Utils utils = new Utils();
 
     public void setUp() throws InterruptedException{
-
         utils.logIn(Constants.BoreshaAfyaConfigUtils.ba_username, Constants.BoreshaAfyaConfigUtils.ba_password);
         Thread.sleep(5000);
     }

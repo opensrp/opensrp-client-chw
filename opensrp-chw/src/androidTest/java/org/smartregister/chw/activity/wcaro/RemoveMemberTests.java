@@ -45,7 +45,6 @@ public class RemoveMemberTests {
     private Utils utils = new Utils();
 
     public void setUp() throws InterruptedException{
-
         utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
         Thread.sleep(5000);
     }
