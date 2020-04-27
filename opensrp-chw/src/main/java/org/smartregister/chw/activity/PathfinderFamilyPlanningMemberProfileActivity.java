@@ -57,7 +57,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-import static org.smartregister.chw.fp.util.FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT;
+import static org.smartregister.chw.fp_pathfinder.util.FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT;
 
 public class PathfinderFamilyPlanningMemberProfileActivity extends BaseFpProfileActivity
         implements FamilyProfileExtendedContract.PresenterCallBack, PathfinderFamilyPlanningMemberProfileContract.View {
@@ -449,18 +449,21 @@ public class PathfinderFamilyPlanningMemberProfileActivity extends BaseFpProfile
                 lastVisit = FpDao.getLatestFpVisit(fpMemberObject.getBaseEntityId(), FP_FOLLOW_UP_VISIT, fpMemberObject.getFpMethod());
             }
 
-            Date lastVisitDate;
-            if (lastVisit != null) {
-                lastVisitDate = lastVisit.getDate();
-            } else {
-                lastVisit = FpDao.getLatestFpVisit(fpMemberObject.getBaseEntityId(), FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, fpMemberObject.getFpMethod());
-                lastVisitDate = lastVisit.getDate();
+            if (!fpMemberObject.getFpMethod().equals("0")) {  //TODO coze update empty fp method to ""
+                Date lastVisitDate;
+                if (lastVisit != null) {
+                    lastVisitDate = lastVisit.getDate();
+                } else {
+                    lastVisit = FpDao.getLatestFpVisit(fpMemberObject.getBaseEntityId(), FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, fpMemberObject.getFpMethod());
+                    lastVisitDate = lastVisit.getDate();
+                }
+
+                Rules rule = PathfinderFamilyPlanningUtil.getFpRules(fpMemberObject.getFpMethod());
+                Integer pillCycles = FpDao.getLastPillCycle(fpMemberObject.getBaseEntityId(), fpMemberObject.getFpMethod());
+                fpAlertRule = PathfinderFamilyPlanningUtil.getFpVisitStatus(rule, lastVisitDate, FpUtil.parseFpStartDate(fpMemberObject.getFpStartDate()), pillCycles, fpMemberObject.getFpMethod());
+            } else { //Client does not have a fp Method
+                lastVisit = FpDao.getLatestFpVisit(fpMemberObject.getBaseEntityId());
             }
-
-            Rules rule = PathfinderFamilyPlanningUtil.getFpRules(fpMemberObject.getFpMethod());
-            Integer pillCycles = FpDao.getLastPillCycle(fpMemberObject.getBaseEntityId(), fpMemberObject.getFpMethod());
-
-            fpAlertRule = PathfinderFamilyPlanningUtil.getFpVisitStatus(rule, lastVisitDate, FpUtil.parseFpStartDate(fpMemberObject.getFpStartDate()), pillCycles, fpMemberObject.getFpMethod());
             return null;
         }
 
@@ -471,7 +474,30 @@ public class PathfinderFamilyPlanningMemberProfileActivity extends BaseFpProfile
             ) {
                 updateFollowUpVisitButton(fpAlertRule.getButtonStatus());
             }
-            updateFollowUpVisitStatusRow(lastVisit);
+            if (fpAlertRule == null) {
+                switch (lastVisit.getVisitType()) {
+                    case FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION:
+                        Timber.e("coze showing introduction to family planning");
+                        showIntroductionToFpButton();
+                        break;
+                    case FamilyPlanningConstants.EventType.INTRODUCTION_TO_FAMILY_PLANNING:
+                        Timber.e("coze showing pregnancy screening");
+                        showFpPregnancyScreeningButton();
+                        break;
+                    case FamilyPlanningConstants.EventType.FAMILY_PLANNING_PREGNANCY_SCREENING:
+                        Timber.e("coze showing choosing of fp method");
+                        showChooseFpMethodButton();
+                        break;
+                    case FamilyPlanningConstants.EventType.CHOOSING_FAMILY_PLANNING_METHOD:
+                        Timber.e("coze give fp method");
+                        showGiveFpMethodButton();
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                updateFollowUpVisitStatusRow(lastVisit);
+            }
         }
     }
 }
