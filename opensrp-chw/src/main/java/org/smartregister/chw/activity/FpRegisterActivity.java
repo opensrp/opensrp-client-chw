@@ -22,11 +22,7 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
 
     public static void startFpRegistrationActivity(Activity activity, String baseEntityID, String dob, String formName, String payloadType) {
         Class fpRegisterActivityClass;
-        if (BuildConfig.USE_PATHFINDERS_FP_MODULE) {
-            fpRegisterActivityClass = PathfinderFamilyPlanningRegisterActivity.class;
-        } else {
-            fpRegisterActivityClass = FpRegisterActivity.class;
-        }
+        fpRegisterActivityClass = FpRegisterActivity.class;
 
         Intent intent = new Intent(activity, fpRegisterActivityClass);
         intent.putExtra(FamilyPlanningConstants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);

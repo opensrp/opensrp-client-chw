@@ -25,9 +25,9 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.isMultiPartForm;
+import static org.smartregister.chw.util.PathfinderFamilyPlanningConstants.JSON_FORM.FAMILY_PLANNING_INTRODUCTION;
 
 public class PathfinderFamilyPlanningRegisterActivity extends BaseFpRegisterActivity {
-
     private static String baseEntityId;
 
     public static void startFpRegistrationActivity(Activity activity, String baseEntityID, String dob, String formName, String payloadType) {
@@ -100,7 +100,11 @@ public class PathfinderFamilyPlanningRegisterActivity extends BaseFpRegisterActi
         if (isMultiPartForm(jsonForm)) {
             form.setWizard(true);
             form.setNavigationBackground(org.smartregister.chw.core.R.color.family_navigation);
-            form.setName(this.getString(org.smartregister.chw.core.R.string.fp_registration));
+
+            if (FORM_NAME.equals(FAMILY_PLANNING_INTRODUCTION))
+                form.setName(this.getString(R.string.introduction_to_fp));
+            else
+                form.setName(this.getString(org.smartregister.chw.core.R.string.fp_registration));
             form.setNextLabel(this.getResources().getString(org.smartregister.chw.core.R.string.next));
             form.setPreviousLabel(this.getResources().getString(org.smartregister.chw.core.R.string.back));
         }

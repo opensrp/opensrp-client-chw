@@ -39,6 +39,7 @@ import org.smartregister.chw.interactor.PathfinderFamilyPlanningProfileInteracto
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.PathfinderFamilyPlanningMemberProfilePresenter;
 import org.smartregister.chw.rules.FpAlertRule;
+import org.smartregister.chw.util.PathfinderFamilyPlanningConstants;
 import org.smartregister.chw.util.PathfinderFamilyPlanningUtil;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -192,8 +193,28 @@ public class PathfinderFamilyPlanningMemberProfileActivity extends BaseFpProfile
 
     @Override
     public void openFamilyPlanningRegistration() {
-        FpRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), CoreConstants.JSON_FORM.getFpRegistrationForm(fpMemberObject.getGender()), FamilyPlanningConstants.ActivityPayload.UPDATE_REGISTRATION_PAYLOAD_TYPE);
+        PathfinderFamilyPlanningRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), CoreConstants.JSON_FORM.getFpRegistrationForm(fpMemberObject.getGender()), FamilyPlanningConstants.ActivityPayload.UPDATE_REGISTRATION_PAYLOAD_TYPE);
 
+    }
+
+    @Override
+    public void openFamilyPlanningIntroduction() {
+        PathfinderFamilyPlanningRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), PathfinderFamilyPlanningConstants.JSON_FORM.getFamilyPlanningIntroduction(getApplicationContext().getResources().getConfiguration().locale, getAssets()), org.smartregister.chw.fp.util.FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+    }
+
+    @Override
+    public void openPregnancyScreening() {
+        PathfinderFamilyPlanningRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), PathfinderFamilyPlanningConstants.JSON_FORM.getFamilyPlanningIntroduction(getApplicationContext().getResources().getConfiguration().locale, getAssets()), org.smartregister.chw.fp.util.FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+    }
+
+    @Override
+    public void openChooseFpMethod() {
+        PathfinderFamilyPlanningRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), PathfinderFamilyPlanningConstants.JSON_FORM.getChooseFamilyPlanningMethod(getApplicationContext().getResources().getConfiguration().locale, getAssets()), org.smartregister.chw.fp.util.FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+    }
+
+    @Override
+    public void openGiveFpMethodButton() {
+        PathfinderFamilyPlanningRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), PathfinderFamilyPlanningConstants.JSON_FORM.getGiveFamilyPlanningMethod(getApplicationContext().getResources().getConfiguration().locale, getAssets()), org.smartregister.chw.fp.util.FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
     }
 
     @Override

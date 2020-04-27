@@ -21,10 +21,14 @@ public class PathfinderFamilyPlanningConstants {
      */
     public static class JSON_FORM {
 
-        private static final String FEMALE_FAMILY_PLANNING_REGISTRATION_FORM = "pathfinder_female_family_planning_registration";
-        private static final String MALE_FAMILY_PLANNING_REGISTRATION_FORM = "pathfinder_male_family_planning_registration";
-        private static final String FEMALE_FAMILY_PLANNING_CHANGE_METHOD_FORM = "pathfinder_female_family_planning_change_method";
-        private static final String MALE_FAMILY_PLANNING_CHANGE_METHOD_FORM = "pathfinder_male_family_planning_change_method";
+        public static final String FEMALE_FAMILY_PLANNING_REGISTRATION_FORM = "pathfinder_female_family_planning_registration";
+        public static final String MALE_FAMILY_PLANNING_REGISTRATION_FORM = "pathfinder_male_family_planning_registration";
+        public static final String FEMALE_FAMILY_PLANNING_CHANGE_METHOD_FORM = "pathfinder_female_family_planning_change_method";
+        public static final String MALE_FAMILY_PLANNING_CHANGE_METHOD_FORM = "pathfinder_male_family_planning_change_method";
+        public static final String FAMILY_PLANNING_INTRODUCTION = "pathfinder_family_planning_introduction";
+        public static final String PREGNANCY_SCREENING = "pathfinder_pregnancy_screening";
+        public static final String CHOOSE_FAMILY_PLANNING_METHOD = "pathfinder_choose_family_planning_method";
+        public static final String GIVE_FAMILY_PLANNING_METHOD = "pathfinder_give_family_planning_method";
 
 
         public static String getFamilyPlanningRegistrationForm(String gender, Locale locale, AssetManager assetManager) {
@@ -35,6 +39,22 @@ public class PathfinderFamilyPlanningConstants {
         public static String getFamilyPlanningChangeMethodForm(String gender, Locale locale, AssetManager assetManager) {
             String formName = gender.equalsIgnoreCase(Gender.MALE.toString()) ? MALE_FAMILY_PLANNING_CHANGE_METHOD_FORM : FEMALE_FAMILY_PLANNING_CHANGE_METHOD_FORM;
             return org.smartregister.chw.core.utils.Utils.getLocalForm(formName, locale, assetManager);
+        }
+
+        public static String getFamilyPlanningIntroduction(Locale locale, AssetManager assetManager) {
+            return org.smartregister.chw.core.utils.Utils.getLocalForm(FAMILY_PLANNING_INTRODUCTION, locale, assetManager);
+        }
+
+        public static String getPregnancyScreening(Locale locale, AssetManager assetManager) {
+            return org.smartregister.chw.core.utils.Utils.getLocalForm(PREGNANCY_SCREENING, locale, assetManager);
+        }
+
+        public static String getChooseFamilyPlanningMethod(Locale locale, AssetManager assetManager) {
+            return org.smartregister.chw.core.utils.Utils.getLocalForm(CHOOSE_FAMILY_PLANNING_METHOD, locale, assetManager);
+        }
+
+        public static String getGiveFamilyPlanningMethod(Locale locale, AssetManager assetManager) {
+            return org.smartregister.chw.core.utils.Utils.getLocalForm(GIVE_FAMILY_PLANNING_METHOD, locale, assetManager);
         }
 
         public static boolean isMultiPartForm(JSONObject jsonForm) {
