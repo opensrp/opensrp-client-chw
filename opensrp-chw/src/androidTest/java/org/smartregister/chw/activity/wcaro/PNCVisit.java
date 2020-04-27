@@ -1,16 +1,10 @@
 package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
-import android.app.Activity;
 
-import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
-import androidx.test.runner.lifecycle.Stage;
-
-import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.junit.After;
 import org.junit.Rule;
@@ -21,7 +15,6 @@ import org.smartregister.chw.activity.utils.Constants;
 import org.smartregister.chw.activity.utils.Utils;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -29,9 +22,6 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static org.smartregister.chw.activity.utils.Utils.getViewId;
 
 public class PNCVisit {
     @Rule
@@ -85,7 +75,7 @@ public class PNCVisit {
         //familyPlanning();
         //observationsAndIllness();
     }
-
+/*
     private void dangerSigns() {
         onView(ViewMatchers.withSubstring("Danger signs - mother"))
                 .perform(click());
@@ -94,6 +84,8 @@ public class PNCVisit {
         onView(withId(R.id.next)).perform(click());
     }
 
+ */
+/*
     private void healthFacilityVisit() {
         onView(ViewMatchers.withSubstring("PNC health facility visit - day 7"))
                 .perform(click());
@@ -117,7 +109,8 @@ public class PNCVisit {
                 .perform(click());
         onView(withId(R.id.next)).perform(click());
     }
-
+*/
+/*
     private void observationsAndIllness() throws Throwable{
         onView(ViewMatchers.withSubstring("Observations & illness - mother -"))
                 .perform(click());
@@ -135,11 +128,13 @@ public class PNCVisit {
                 .perform(click());
         onView(withId(R.id.next)).perform(click());
     }
+    */
+
     @After
     public void completeTests(){
         mActivityTestRule.finishActivity();
     }
-
+/*
     private Activity getCurrentActivity() throws Throwable {
         getInstrumentation().waitForIdleSync();
         final Activity[] activity = new Activity[1];
@@ -149,4 +144,6 @@ public class PNCVisit {
         });
         return activity[0];
     }
+
+ */
 }
