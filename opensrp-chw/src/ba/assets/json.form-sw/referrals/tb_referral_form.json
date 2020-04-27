@@ -88,7 +88,7 @@
               "text": "Kukohoa kwa Zaidi ya wiki mbili (kwa watu wasio na VVU)",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "history_of_coughing_for_more_than_two_weeks",
                 "openmrs_entity_parent": ""
               }
             },
@@ -97,7 +97,7 @@
               "text": "Kikohozi cha muda wowote (Kwa wagonjwa wa VVU)",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "persistent_coughing_hiv_positive",
                 "openmrs_entity_parent": ""
               }
             },
@@ -106,7 +106,7 @@
               "text": "Homa",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "fever",
                 "openmrs_entity_parent": ""
               }
             },
@@ -115,7 +115,7 @@
               "text": "Kutoka jasho jingi wakati amelala",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "night_sweats",
                 "openmrs_entity_parent": ""
               }
             },
@@ -124,7 +124,7 @@
               "text": "Dalili nyingine",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "Other_symptom",
                 "openmrs_entity_parent": ""
               }
             }

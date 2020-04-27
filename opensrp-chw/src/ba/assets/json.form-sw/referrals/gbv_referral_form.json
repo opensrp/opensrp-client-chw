@@ -88,7 +88,7 @@
               "text": "Amehama nyumbani",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "has_moved_out_from_home",
                 "openmrs_entity_parent": ""
               }
             },
@@ -97,7 +97,7 @@
               "text": "Vidonda na makovu",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "ulcers_and_scars",
                 "openmrs_entity_parent": ""
               }
             },
@@ -106,7 +106,7 @@
               "text": "Amedhoofika",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "is_weak",
                 "openmrs_entity_parent": ""
               }
             },
@@ -115,7 +115,7 @@
               "text": "Anahitaji huduma zaidi",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "needs_more_services",
                 "openmrs_entity_parent": ""
               }
             },{
@@ -123,7 +123,7 @@
               "text": "Sonona (msongo wa mawazo)/ kuwa na woga mkuu",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "has_great_level_of_stress_and_fear",
                 "openmrs_entity_parent": ""
               }
             },{
@@ -131,16 +131,16 @@
               "text": "Kutishiwa kuuawa",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "threatened_to_be_killed",
                 "openmrs_entity_parent": ""
               }
-            },,
+            },
             {
               "name": "Other_symptom",
               "text": "Dalili nyingine",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "Other_symptom",
                 "openmrs_entity_parent": ""
               }
             }

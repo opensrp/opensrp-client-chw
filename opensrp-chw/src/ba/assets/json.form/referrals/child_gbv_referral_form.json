@@ -74,7 +74,7 @@
               "text": "Has moved out from home",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "has_moved_out_from_home",
                 "openmrs_entity_parent": ""
               }
             },
@@ -83,7 +83,7 @@
               "text": "Ulcers and scars",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "ulcers_and_scars",
                 "openmrs_entity_parent": ""
               }
             },
@@ -92,7 +92,7 @@
               "text": "Is weak",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "is_weak",
                 "openmrs_entity_parent": ""
               }
             },
@@ -101,7 +101,7 @@
               "text": "Needs more services",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "needs_more_services",
                 "openmrs_entity_parent": ""
               }
             },{
@@ -109,7 +109,7 @@
               "text": "Has great level of stress and fear",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "has_great_level_of_stress_and_fear",
                 "openmrs_entity_parent": ""
               }
             },{
@@ -117,7 +117,7 @@
               "text": "Threatened to be killed",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "threatened_to_be_killed",
                 "openmrs_entity_parent": ""
               }
             },{
@@ -125,7 +125,7 @@
               "text": "The child has a disability / has trouble walking",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "child_has_a_disability",
                 "openmrs_entity_parent": ""
               }
             },{
@@ -133,7 +133,7 @@
               "text": "The child does not want to go home / go to school",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "child_does_not_want_to_go_home",
                 "openmrs_entity_parent": ""
               }
             },
@@ -142,7 +142,7 @@
               "text": "Other Symptom",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "Other_symptom",
                 "openmrs_entity_parent": ""
               }
             }

@@ -88,7 +88,7 @@
               "text": "Frequent fever",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "frequent_fever",
                 "openmrs_entity_parent": ""
               }
             },
@@ -97,7 +97,7 @@
               "text": "Weight loss",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "weight_loss",
                 "openmrs_entity_parent": ""
               }
             },
@@ -106,7 +106,7 @@
               "text": "Living with HIV+ spouse",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "living_with_a_spouse_with_hiv",
                 "openmrs_entity_parent": ""
               }
             },
@@ -115,7 +115,7 @@
               "text": "Risk area/location",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "living_in_a_risky_area",
                 "openmrs_entity_parent": ""
               }
             },
@@ -124,7 +124,7 @@
               "text": "Other Symptom",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity_id": "Other_symptom",
                 "openmrs_entity_parent": ""
               }
             }
