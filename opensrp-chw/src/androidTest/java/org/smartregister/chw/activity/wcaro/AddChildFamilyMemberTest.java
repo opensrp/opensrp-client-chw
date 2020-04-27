@@ -3,9 +3,7 @@ package org.smartregister.chw.activity.wcaro;
 import android.Manifest;
 import android.app.Activity;
 
-import androidx.annotation.StringRes;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
@@ -29,6 +27,7 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.smartregister.chw.activity.utils.Utils.getViewId;
@@ -50,94 +49,94 @@ public class AddChildFamilyMemberTest {
 
     public void setUp() throws InterruptedException {
         Thread.sleep(10000);
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
     }
 
     @Test
     public void addFamilyMemberUnderFive() throws Throwable {
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         onView(withId(R.id.fab))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Add new family member"))
+        onView(withSubstring("Add new family member"))
                 .perform(click());
         Thread.sleep(100);
-        onView(ViewMatchers.withSubstring("Child under 5 years"))
+        onView(withSubstring("Child under 5 years"))
                 .perform(click());
         Thread.sleep(500);
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:same_as_fam_name")))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:first_name")))
-                .perform(scrollTo(), typeText(Configs.TestConfigs.kidNameFirst));
+                .perform(scrollTo(), typeText(Configs.TestConfigHelper.kidNameFirst));
         onView(withId(getViewId((JsonFormActivity) activity, "step1:middle_name")))
-                .perform(scrollTo(), typeText(Configs.TestConfigs.kidNameSecond));
+                .perform(scrollTo(), typeText(Configs.TestConfigHelper.kidNameSecond));
         onView(withId(getViewId((JsonFormActivity) activity, "step1:dob")))
                 .perform(scrollTo(), click());
         Thread.sleep(1000);
-        onView(ViewMatchers.withSubstring("done")).perform(click());
+        onView(withSubstring("done")).perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Sex"))
+        onView(withSubstring("Sex"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Male"))
+        onView(withSubstring("Male"))
                 .perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:early_bf_1hr")))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("No"))
+        onView(withSubstring("No"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:physically_challenged")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("No"))
+        onView(withSubstring("No"))
                 .perform(click());
         Thread.sleep(5000);
-        onView(ViewMatchers.withSubstring("Save")).perform(click());
+        onView(withSubstring("Save")).perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("MEMBERS"))
+        onView(withSubstring("MEMBERS"))
                 .check(matches(isDisplayed()));
 
     }
 
     @Test
     public void addFamilyWithBlankFields() throws Throwable{
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         onView(withId(R.id.fab))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Add new family member"))
+        onView(withSubstring("Add new family member"))
                 .perform(click());
         Thread.sleep(100);
-        onView(ViewMatchers.withSubstring("Child under 5 years"))
+        onView(withSubstring("Child under 5 years"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:dob")))
          .perform(scrollTo(), click());
         Thread.sleep(1000);
-        onView(ViewMatchers.withSubstring("done")).perform(click());
+        onView(withSubstring("done")).perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Save"))
+        onView(withSubstring("Save"))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("Found 5 error(s) in the form. Please correct them to submit."))
+        onView(withSubstring("Found 5 error(s) in the form. Please correct them to submit."))
                 .check(matches(isDisplayed()));
         Thread.sleep(500);
     }
 
     @Test
     public void confirmUniqueIDPrepopulated() throws Throwable {
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         onView(withId(R.id.fab))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Add new family member"))
+        onView(withSubstring("Add new family member"))
                 .perform(click());
         Thread.sleep(100);
-        onView(ViewMatchers.withSubstring("Child under 5 years"))
+        onView(withSubstring("Child under 5 years"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
@@ -151,11 +150,6 @@ public class AddChildFamilyMemberTest {
     public void completeTests(){
         mActivityTestRule.finishActivity();
     }
-
-    private String getString(@StringRes int resourceId) {
-        return mActivityTestRule.getActivity().getString(resourceId);
-    }
-
 
     private Activity getCurrentActivity() throws Throwable {
         getInstrumentation().waitForIdleSync();

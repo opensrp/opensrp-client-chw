@@ -2,7 +2,6 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -27,6 +26,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 
 @LargeTest
 //@RunWith(AndroidJUnit4.class)
@@ -47,31 +47,31 @@ public class ANCRegisterTests {
     private Utils utils = new Utils();
 
     public void setUp() throws InterruptedException {
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
     }
 
     @Test
     @Order(order = 1)
     public void searchANCRecord() {
         utils.openDrawer();
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(withSubstring(Constants.GenericConfigUtils.anc))
                 .perform(click());
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
-                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
+                .perform(typeText(Configs.TestConfigHelper.aboveFiveFirstNameTwo), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameTwo))
                 .check(matches(isDisplayed()));
     }
     @Test
     @Order(order = 2)
     public void confirmANCRecordProfile()  {
         utils.openDrawer();
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(withSubstring(Constants.GenericConfigUtils.anc))
                 .perform(click());
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
-                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
+                .perform(typeText(Configs.TestConfigHelper.aboveFiveFirstNameTwo), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameTwo))
                 .check(matches(isDisplayed()));
     }
 
@@ -79,58 +79,59 @@ public class ANCRegisterTests {
     @Order(order = 3)
     public void confirmANCVisitPage()  {
         utils.openDrawer();
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(withSubstring(Constants.GenericConfigUtils.anc))
                 .perform(click());
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
-                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
+                .perform(typeText(Configs.TestConfigHelper.aboveFiveFirstNameTwo), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameTwo))
                 .perform(click());
         onView(withId(R.id.textview_record_visit))
                 .perform(click());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
-                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "+ Configs.TestConfigs.aboveFiveage + " · ANC Visit"))
+        onView(withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameTwo + " " + Configs.
+                TestConfigHelper.familyName + ", "+ Configs.TestConfigHelper.aboveFiveage + " · ANC Visit"))
                 .check(matches(isDisplayed()));
     }
     @Test
     @Order(order = 4)
     public void confirmANCSearchWorks() {
         utils.openDrawer();
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(withSubstring(Constants.GenericConfigUtils.anc))
                 .perform(click());
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
-                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
+                .perform(typeText(Configs.TestConfigHelper.aboveFiveFirstNameTwo), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameTwo))
                 .check(matches(isDisplayed()));
     }
 
     public void confirmANCPhoneNumber() throws Throwable {
         utils.openDrawer();
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(withSubstring(Constants.GenericConfigUtils.anc))
                 .perform(click());
         onView(withHint("Search name or ID"))
                 .perform(typeText("Jkk"), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring("Jkk Fgh"))
+        onView(withSubstring("Jkk Fgh"))
                 .perform(click());
         Thread.sleep(500);
         //utils.ancFloatingfab()
                 //.perform(click());
-        onView(ViewMatchers.withSubstring("Call"))
+        onView(withSubstring("Call"))
                 .check(matches(isDisplayed()));
     }
     @Test
     @Order(order = 5)
     public void testANCProfileView() {
         utils.openDrawer();
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(withSubstring(Constants.GenericConfigUtils.anc))
                 .perform(click());
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
-                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
+                .perform(typeText(Configs.TestConfigHelper.aboveFiveFirstNameTwo), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameTwo))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("Return to all ANC women"))
+        onView(withSubstring("Return to all ANC women"))
                 .check(matches(isDisplayed()));
     }
 

@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
@@ -27,7 +26,9 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
+import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.smartregister.chw.activity.utils.Utils.getViewId;
@@ -48,35 +49,35 @@ public class PregnancyOutcome {
     private Utils utils = new Utils();
 
     public void setUp() throws InterruptedException {
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
     }
 
     public void registerANCOutcome()throws Throwable {
         utils.openDrawer();
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(withSubstring(Constants.GenericConfigUtils.anc))
                 .perform(click());
-        onView(ViewMatchers.withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
-                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
+        onView(withHint("Search name or ID"))
+                .perform(typeText(Configs.TestConfigHelper.aboveFiveFirstNameTwo), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameTwo))
                 .perform(click());
         onView(withContentDescription("More options")).perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Pregnancy outcome"))
+        onView(withSubstring("Pregnancy outcome"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:preg_outcome")))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("Live birth"))
+        onView(withSubstring("Live birth"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:delivery_date")))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("done")).perform(click());
+        onView(withSubstring("done")).perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:delivery_place")))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("Home"))
+        onView(withSubstring("Home"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:no_children_no")))
                 .perform(clearText(), typeText("1"));
@@ -88,29 +89,29 @@ public class PregnancyOutcome {
                 .perform(scrollTo(), clearText(), typeText("Other1"));
         onView(withId(getViewId((JsonFormActivity) activity, "step1:gender")))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("Male"))
+        onView(withSubstring("Male"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:lbw")))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("No"))
+        onView(withSubstring("No"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:early_bf_1hr")))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("No"))
+        onView(withSubstring("No"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:disabilities")))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("No"))
+        onView(withSubstring("No"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:opv0_date")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("done")).perform(click());
+        onView(withSubstring("done")).perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:bcg_date")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("done")).perform(click());
+        onView(withSubstring("done")).perform(click());
         Thread.sleep(500);
 
     }
@@ -126,109 +127,109 @@ public class PregnancyOutcome {
                 .perform(scrollTo(), clearText(), typeText("Other1"));
         onView(withId(getViewId((JsonFormActivity) activity, "step1:gender")))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("Male"))
+        onView(withSubstring("Male"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:lbw")))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("No"))
+        onView(withSubstring("No"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:early_bf_1hr")))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("No"))
+        onView(withSubstring("No"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:disabilities")))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("No"))
+        onView(withSubstring("No"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:opv0_date")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("done")).perform(click());
+        onView(withSubstring("done")).perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:bcg_date")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("done")).perform(click());
+        onView(withSubstring("done")).perform(click());
         Thread.sleep(500);
     }
 
     @Test
     public void registerAMiscarriage() throws Throwable {
         utils.openDrawer();
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(withSubstring(Constants.GenericConfigUtils.anc))
                 .perform(click());
-        onView(ViewMatchers.withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
-                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
+        onView(withHint("Search name or ID"))
+                .perform(typeText(Configs.TestConfigHelper.aboveFiveFirstNameTwo), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameTwo))
                 .perform(click());
         onView(withContentDescription("More options")).perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Pregnancy outcome"))
+        onView(withSubstring("Pregnancy outcome"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:preg_outcome")))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("Miscarriage"))
+        onView(withSubstring("Miscarriage"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:miscarriage_date")))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("done"))
+        onView(withSubstring("done"))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("SAVE"))
+        onView(withSubstring("SAVE"))
                 .perform(click());
     }
 
     @Test
     public void registerStillbirth() throws Throwable {
         utils.openDrawer();
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(withSubstring(Constants.GenericConfigUtils.anc))
                 .perform(click());
-        onView(ViewMatchers.withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
-                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
+        onView(withHint("Search name or ID"))
+                .perform(typeText(Configs.TestConfigHelper.aboveFiveFirstNameTwo), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameTwo))
                 .perform(click());
         onView(withContentDescription("More options")).perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Pregnancy outcome"))
+        onView(withSubstring("Pregnancy outcome"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:preg_outcome")))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("Stillbirth"))
+        onView(withSubstring("Stillbirth"))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:delivery_date")))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("done")).perform(click());
+        onView(withSubstring("done")).perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Home"))
+        onView(withSubstring("Home"))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("SAVE"))
+        onView(withSubstring("SAVE"))
                 .perform(click());
     }
 
     @Test
     public void registerOtherPregnancyOutcome() throws Throwable {
         utils.openDrawer();
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.anc))
+        onView(withSubstring(Constants.GenericConfigUtils.anc))
                 .perform(click());
-        onView(ViewMatchers.withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameTwo), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
-                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo))
+        onView(withHint("Search name or ID"))
+                .perform(typeText(Configs.TestConfigHelper.aboveFiveFirstNameTwo), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameTwo))
                 .perform(click());
         onView(withContentDescription("More options")).perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Pregnancy outcome"))
+        onView(withSubstring("Pregnancy outcome"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:preg_outcome")))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("Other"))
+        onView(withSubstring("Other"))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("SAVE"))
+        onView(withSubstring("SAVE"))
                 .perform(click());
     }
 

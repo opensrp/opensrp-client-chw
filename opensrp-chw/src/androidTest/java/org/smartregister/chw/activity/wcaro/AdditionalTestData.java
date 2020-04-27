@@ -1,6 +1,5 @@
 package org.smartregister.chw.activity.wcaro;
 
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.After;
@@ -12,6 +11,7 @@ import org.smartregister.chw.activity.utils.Utils;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 
 public class AdditionalTestData {
 
@@ -22,21 +22,21 @@ public class AdditionalTestData {
 
     @Test
     public void test() {
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
     }
 
     @After
     public void completeTests() throws Throwable{
-        utils.addTestFamilyMember(Configs.AdditionalTestData.memberOneFirstname,
-                Configs.AdditionalTestData.memberOneSecondname,
-                Configs.AdditionalTestData.extraMemberAge1);
-        utils.addTestFamilyMember(Configs.AdditionalTestData.memberTwoFirstname,
-                Configs.AdditionalTestData.memberTwoSecondname,
-                Configs.AdditionalTestData.extraMemberAge2);
-        utils.addTestFamilyMember(Configs.AdditionalTestData.memberThreeFirstname,
-                Configs.AdditionalTestData.memberThreeSecondname,
-                Configs.AdditionalTestData.extraMemberAge3);
+        utils.addTestFamilyMember(Configs.AdditionalTestDataHelper.memberOneFirstname,
+                Configs.AdditionalTestDataHelper.memberOneSecondname,
+                Configs.AdditionalTestDataHelper.extraMemberAge1);
+        utils.addTestFamilyMember(Configs.AdditionalTestDataHelper.memberTwoFirstname,
+                Configs.AdditionalTestDataHelper.memberTwoSecondname,
+                Configs.AdditionalTestDataHelper.extraMemberAge2);
+        utils.addTestFamilyMember(Configs.AdditionalTestDataHelper.memberThreeFirstname,
+                Configs.AdditionalTestDataHelper.memberThreeSecondname,
+                Configs.AdditionalTestDataHelper.extraMemberAge3);
         mActivityTestRule.finishActivity();
     }
 

@@ -46,7 +46,7 @@ public class RemoveMemberTests {
 
     public void setUp() throws InterruptedException{
 
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
         Thread.sleep(5000);
     }
 
@@ -54,8 +54,8 @@ public class RemoveMemberTests {
     @Order(order = 2)
     public void confirmWarningWidgetWhenRemovingMember() throws Throwable{
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
@@ -63,10 +63,10 @@ public class RemoveMemberTests {
         onView(withSubstring("Remove existing family member"))
                 .perform(click());
         Thread.sleep(500);
-        onView(withSubstring(Configs.AdditionalTestData.memberOneFirstname
+        onView(withSubstring(Configs.AdditionalTestDataHelper.memberOneFirstname
                 + " " +
-                Configs.AdditionalTestData.memberOneSecondname + " " + Configs.TestConfigs.familyName
-                + ", " + Configs.AdditionalTestData.extraMemberAge1))
+                Configs.AdditionalTestDataHelper.memberOneSecondname + " " + Configs.TestConfigHelper.familyName
+                + ", " + Configs.AdditionalTestDataHelper.extraMemberAge1))
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:remove_reason")))
@@ -85,8 +85,8 @@ public class RemoveMemberTests {
     @Order(order = 6)
     public void removeFamilyMemberWithOtherAsReason() throws Throwable{
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
@@ -94,10 +94,10 @@ public class RemoveMemberTests {
         onView(withSubstring("Remove existing family member"))
                 .perform(click());
         Thread.sleep(500);
-        onView(withSubstring(Configs.AdditionalTestData.memberTwoFirstname
-                + " " + Configs.AdditionalTestData.memberTwoSecondname + " "
-                + Configs.TestConfigs.familyName
-                + ", " + Configs.AdditionalTestData.extraMemberAge2))
+        onView(withSubstring(Configs.AdditionalTestDataHelper.memberTwoFirstname
+                + " " + Configs.AdditionalTestDataHelper.memberTwoSecondname + " "
+                + Configs.TestConfigHelper.familyName
+                + ", " + Configs.AdditionalTestDataHelper.extraMemberAge2))
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:remove_reason")))
@@ -120,8 +120,8 @@ public class RemoveMemberTests {
     @Order(order = 5)
     public void removeFamilyMemberWithDeathAsReason() throws Throwable {
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
@@ -129,8 +129,8 @@ public class RemoveMemberTests {
         onView(withSubstring("Remove existing family member"))
                 .perform(click());
         Thread.sleep(500);
-        onView(withSubstring(Configs.TestConfigs.kidNameFirst
-                + " " + Configs.TestConfigs.kidNameSecond + " " + Configs.TestConfigs.familyName + ", 0"))
+        onView(withSubstring(Configs.TestConfigHelper.kidNameFirst
+                + " " + Configs.TestConfigHelper.kidNameSecond + " " + Configs.TestConfigHelper.familyName + ", 0"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:remove_reason")))
@@ -155,8 +155,8 @@ public class RemoveMemberTests {
     @Order(order = 1)
     public void removeFamilyMemberWithoutReason() throws InterruptedException{
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
@@ -164,9 +164,9 @@ public class RemoveMemberTests {
         onView(withSubstring("Remove existing family member"))
                 .perform(click());
         Thread.sleep(500);
-        onView(withSubstring(Configs.AdditionalTestData.memberTwoFirstname
-                + " " + Configs.AdditionalTestData.memberTwoSecondname + " " + Configs.TestConfigs.familyName
-                + ", " + Configs.AdditionalTestData.extraMemberAge2))
+        onView(withSubstring(Configs.AdditionalTestDataHelper.memberTwoFirstname
+                + " " + Configs.AdditionalTestDataHelper.memberTwoSecondname + " " + Configs.TestConfigHelper.familyName
+                + ", " + Configs.AdditionalTestDataHelper.extraMemberAge2))
                 .perform(click());
         onView(withId(R.id.action_save))
                 .perform(click());
@@ -177,8 +177,8 @@ public class RemoveMemberTests {
     @Order(order = 4)
     public void confirmCaregiverReplacementBeforeRemoval() throws InterruptedException {
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
@@ -186,9 +186,9 @@ public class RemoveMemberTests {
         onView(withSubstring("Remove existing family member"))
                 .perform(click());
         Thread.sleep(500);
-        onView(withSubstring(Configs.TestConfigs.aboveFiveFirstNameOne
-                + " " + Configs.TestConfigs.aboveFiveSecondNameOne + " " + Configs.TestConfigs.familyName
-                + ", " + Configs.TestConfigs.aboveFiveage))
+        onView(withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameOne
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameOne + " " + Configs.TestConfigHelper.familyName
+                + ", " + Configs.TestConfigHelper.aboveFiveage))
                 .perform(click());
         onView(withSubstring("Before you remove this member " +
                 "you must select a new family head."))
@@ -200,8 +200,8 @@ public class RemoveMemberTests {
     @Order(order = 3)
     public void confirmFamilyHeadReplacementBeforeRemoval() throws InterruptedException {
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
@@ -209,9 +209,9 @@ public class RemoveMemberTests {
         onView(withSubstring("Remove existing family member"))
                 .perform(click());
         Thread.sleep(500);
-        onView(withSubstring(Configs.TestConfigs.aboveFiveFirstNameOne
-                + " " + Configs.TestConfigs.aboveFiveSecondNameOne + " " + Configs.TestConfigs.familyName
-                + ", " + Configs.TestConfigs.aboveFiveage))
+        onView(withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameOne
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameOne + " " + Configs.TestConfigHelper.familyName
+                + ", " + Configs.TestConfigHelper.aboveFiveage))
                 .perform(click());
         onView(withSubstring("Before you remove this member " +
                 "you must select a new family head."))

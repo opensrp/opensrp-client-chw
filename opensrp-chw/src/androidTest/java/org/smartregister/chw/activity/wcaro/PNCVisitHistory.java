@@ -2,7 +2,6 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
@@ -21,6 +20,7 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 
 public class PNCVisitHistory {
     @Rule
@@ -40,22 +40,22 @@ public class PNCVisitHistory {
     @Before
     public void setUp() throws InterruptedException {
         Thread.sleep(1000);
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
     }
 
     @Test
     public void viewPNCVisitHistory() throws Throwable {
         utils.openDrawer();
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.pnc))
+        onView(withSubstring(Constants.GenericConfigUtils.pnc))
                 .perform(click());
         onView(withHint("Find name or ID"))
                 .perform(typeText("Ana"), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring("Ana AnotherSixqrw, 23"))
+        onView(withSubstring("Ana AnotherSixqrw, 23"))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("View medical history"))
+        onView(withSubstring("View medical history"))
                 .perform(click());
         Thread.sleep(1000);
-        onView(ViewMatchers.withSubstring("Medical History"))
+        onView(withSubstring("Medical History"))
                 .check(matches(isDisplayed()));
     }
     @After

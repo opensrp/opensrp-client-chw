@@ -43,7 +43,7 @@ public class SideNavigationMenuTests {
 
     @Before
     public void setUp() throws InterruptedException {
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
         utils.openDrawer();
     }
 
@@ -59,7 +59,7 @@ public class SideNavigationMenuTests {
     @Order(order = 2)
     public void correctAppNameTest() throws InterruptedException{
         Thread.sleep(500);
-        onView(withSubstring(Constants.WcaroConfigs.appName))
+        onView(withSubstring(Constants.WcaroConfigUtils.appName))
                 .check(matches(isDisplayed()));
     }
 
@@ -67,11 +67,11 @@ public class SideNavigationMenuTests {
     @Order(order = 3)
     public void correctRegistersTest() throws InterruptedException{
         Thread.sleep(500);
-        onView(withSubstring(Constants.GenericConfigs.anc))
+        onView(withSubstring(Constants.GenericConfigUtils.anc))
                 .check(matches(isDisplayed()));
-        onView(withSubstring(Constants.GenericConfigs.pnc))
+        onView(withSubstring(Constants.GenericConfigUtils.pnc))
                 .check(matches(isDisplayed()));
-        onView(withSubstring(Constants.GenericConfigs.child))
+        onView(withSubstring(Constants.GenericConfigUtils.child))
                 .check(matches(isDisplayed()));
     }
 
@@ -87,7 +87,7 @@ public class SideNavigationMenuTests {
     @Order(order = 5)
     public void logOutUserName() throws InterruptedException{
         Thread.sleep(500);
-        onView(withSubstring("Log out as " + Constants.WcaroConfigs.wCaro_userName))
+        onView(withSubstring("Log out as " + Constants.WcaroConfigUtils.wCaro_userName))
                 .check(matches(isDisplayed()));
     }
 

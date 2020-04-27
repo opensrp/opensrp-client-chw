@@ -35,7 +35,7 @@ public class RemoveFamilyTestsBa {
     private Utils utils = new Utils();
 
     public void setUp() throws InterruptedException{
-        utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);
+        utils.logIn(Constants.BoreshaAfyaConfigUtils.ba_username, Constants.BoreshaAfyaConfigUtils.ba_password);
         Thread.sleep(5000);
     }
 
@@ -43,8 +43,8 @@ public class RemoveFamilyTestsBa {
     @Order(order = 8)
     public void removeFamilyWithoutReason() throws InterruptedException{
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
@@ -66,8 +66,8 @@ public class RemoveFamilyTestsBa {
     @Order(order = 9)
     public void removeFamily() throws InterruptedException{
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
@@ -98,8 +98,8 @@ public class RemoveFamilyTestsBa {
     @Order(order = 5)
     public void changeFamilyHeadsuccessfully() throws InterruptedException{
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
@@ -107,15 +107,15 @@ public class RemoveFamilyTestsBa {
         onView(ViewMatchers.withSubstring("Change family head"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
-                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "
-                + Configs.TestConfigs.aboveFiveage))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameTwo + " " + Configs.TestConfigHelper.familyName + ", "
+                + Configs.TestConfigHelper.aboveFiveage))
                 .perform(click());
         Thread.sleep(2000);
         onView(withHint("Phone number")).
-                perform(clearText(), typeText(Configs.TestConfigs.phoneNumberOne));
+                perform(clearText(), typeText(Configs.TestConfigHelper.phoneNumberOne));
         onView(withHint("Other phone number"))
-                .perform(clearText(), typeText(Configs.TestConfigs.getPhoneNumberTwo));
+                .perform(clearText(), typeText(Configs.TestConfigHelper.getPhoneNumberTwo));
         onView(ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
@@ -123,8 +123,8 @@ public class RemoveFamilyTestsBa {
     @Order(order = 4)
     public void changePrimarycareGiverSuccessfully() throws InterruptedException{
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
@@ -132,14 +132,14 @@ public class RemoveFamilyTestsBa {
         onView(ViewMatchers.withSubstring("Change primary caregiver"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
-                + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "
-                + Configs.TestConfigs.aboveFiveage))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameTwo
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameTwo + " " + Configs.TestConfigHelper.familyName + ", "
+                + Configs.TestConfigHelper.aboveFiveage))
                 .perform(click());
         Thread.sleep(2000);
-        onView(withHint("Phone number")).perform(clearText(), typeText(Configs.TestConfigs.phoneNumberOne));
+        onView(withHint("Phone number")).perform(clearText(), typeText(Configs.TestConfigHelper.phoneNumberOne));
         onView(withHint("Other phone number"))
-                .perform(clearText(), typeText(Configs.TestConfigs.getPhoneNumberTwo));
+                .perform(clearText(), typeText(Configs.TestConfigHelper.getPhoneNumberTwo));
         onView(ViewMatchers.withSubstring("SAVE"))
                 .perform(click());
     }
@@ -148,13 +148,13 @@ public class RemoveFamilyTestsBa {
     @Order(order = 1)
     public void confirmFamilyHead() throws InterruptedException {
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameOne
-                + " " + Configs.TestConfigs.aboveFiveSecondNameOne + ", "
-                + Configs.TestConfigs.aboveFiveage))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameOne
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameOne + ", "
+                + Configs.TestConfigHelper.aboveFiveage))
                 .perform(click());
         onView(withId(R.id.family_head))
                 .check(matches(isDisplayed()));
@@ -164,13 +164,13 @@ public class RemoveFamilyTestsBa {
     @Order(order = 2)
     public void confirmUniqueId() throws InterruptedException {
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameOne
-                + " " + Configs.TestConfigs.aboveFiveSecondNameOne + ", "
-                + Configs.TestConfigs.aboveFiveage))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameOne
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameOne + ", "
+                + Configs.TestConfigHelper.aboveFiveage))
                 .perform(click());
         onView(withId(R.id.textview_detail_three))
                 .check(matches(isDisplayed()));
@@ -180,8 +180,8 @@ public class RemoveFamilyTestsBa {
     @Order(order = 3)
     public void confirmFabOptions() throws InterruptedException {
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         onView(withId(R.id.fab))

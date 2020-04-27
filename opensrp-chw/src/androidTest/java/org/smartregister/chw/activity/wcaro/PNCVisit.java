@@ -50,13 +50,13 @@ public class PNCVisit {
 
     public void setUp() throws InterruptedException {
         Thread.sleep(1000);
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
     }
 
     @Test
     public void confirmPNCVisit() throws Throwable {
         utils.openDrawer();
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.pnc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigUtils.pnc))
                 .perform(click());
         onView(withHint("Find name or ID"))
                 .perform(typeText("Ii"), closeSoftKeyboard());
@@ -71,7 +71,7 @@ public class PNCVisit {
     @Test
     public void successfullyRecordPNCVisit() throws Throwable {
         utils.openDrawer();
-        onView(ViewMatchers.withSubstring(Constants.GenericConfigs.pnc))
+        onView(ViewMatchers.withSubstring(Constants.GenericConfigUtils.pnc))
                 .perform(click());
         onView(withHint("Find name or ID"))
                 .perform(typeText("Ii"), closeSoftKeyboard());

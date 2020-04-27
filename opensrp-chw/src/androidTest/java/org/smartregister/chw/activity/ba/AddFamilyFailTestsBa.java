@@ -61,7 +61,7 @@ public class AddFamilyFailTestsBa {
 
 
     public void setUp() throws InterruptedException {
-        utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);
+        utils.logIn(Constants.BoreshaAfyaConfigUtils.ba_username, Constants.BoreshaAfyaConfigUtils.ba_password);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class AddFamilyFailTestsBa {
         onView(withId(getViewId((JsonFormActivity) activity, "step2:dob_unknown")))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step2:age")))
-                .perform(scrollTo(), typeText(Configs.TestConfigs.aboveFiveage));
+                .perform(scrollTo(), typeText(Configs.TestConfigHelper.aboveFiveage));
         onView(ViewMatchers.withSubstring("SUBMIT"))
                 .perform(scrollTo(), click());
         onView(ViewMatchers.withSubstring("Found 11 error(s) in the form. Please correct them to submit."))
@@ -96,7 +96,7 @@ public class AddFamilyFailTestsBa {
         //Get activity
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:fam_name")))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:fam_village")))
                 .perform(typeText("One"), closeSoftKeyboard());
 

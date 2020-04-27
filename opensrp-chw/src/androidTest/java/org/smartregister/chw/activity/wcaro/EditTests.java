@@ -58,15 +58,15 @@ public class EditTests {
 
     public void setUp() throws InterruptedException{
 
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
         Thread.sleep(5000);
     }
 
     @Test
     public void editFamily() throws Throwable {
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
@@ -86,14 +86,14 @@ public class EditTests {
     @Test
     public void editFamilyMember() throws Throwable {
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.familyName
                 + " Family"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring(Configs.AdditionalTestData.memberTwoFirstname
-                + " " + Configs.AdditionalTestData.memberTwoSecondname + " " + Configs.TestConfigs.familyName
-                + ", " + Configs.AdditionalTestData.extraMemberAge2))
+        onView(ViewMatchers.withSubstring(Configs.AdditionalTestDataHelper.memberTwoFirstname
+                + " " + Configs.AdditionalTestDataHelper.memberTwoSecondname + " " + Configs.TestConfigHelper.familyName
+                + ", " + Configs.AdditionalTestDataHelper.extraMemberAge2))
                 .perform(click());
         Thread.sleep(500);
         utils.openFamilyMenu();
@@ -102,13 +102,13 @@ public class EditTests {
                 .perform(click());
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:national_id")))
-                .perform(clearText(), typeText(Configs.TestConfigs.nationalID));
+                .perform(clearText(), typeText(Configs.TestConfigHelper.nationalID));
         onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring(Configs.AdditionalTestData.memberTwoFirstname
-                + " " + Configs.AdditionalTestData.memberTwoSecondname + " " + Configs.TestConfigs.familyName
-                + ", " + Configs.AdditionalTestData.extraMemberAge2))
+        onView(ViewMatchers.withSubstring(Configs.AdditionalTestDataHelper.memberTwoFirstname
+                + " " + Configs.AdditionalTestDataHelper.memberTwoSecondname + " " + Configs.TestConfigHelper.familyName
+                + ", " + Configs.AdditionalTestDataHelper.extraMemberAge2))
                 .check(matches(isDisplayed()));
 
     }

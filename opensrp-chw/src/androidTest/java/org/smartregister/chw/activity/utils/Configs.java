@@ -2,7 +2,7 @@ package org.smartregister.chw.activity.utils;
 
 public class Configs {
 
-    public static class TestConfigs{
+    public static class TestConfigHelper{
         public static final String familyName = "Cecil";
         public static final String kidNameFirst = "Caleb";
         public static final String kidNameSecond = "Wayne";
@@ -17,7 +17,7 @@ public class Configs {
         public static final String phoneNumberTwoBa = "0722456987";
         public static final String nationalID = "6554356789";
     }
-    public static class AdditionalTestData{
+    public static class AdditionalTestDataHelper{
         public static final String memberOneFirstname = "Edgar";
         public static final String memberTwoFirstname = "Williams";
         public static final String memberThreeFirstname = "Koffi";

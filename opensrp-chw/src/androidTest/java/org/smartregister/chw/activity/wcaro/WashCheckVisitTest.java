@@ -59,13 +59,13 @@ public class WashCheckVisitTest {
 
     public void setUp() throws InterruptedException{
 
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
     }
 
     @Test
     @Order(order = 1)
     public void washCheckVisitTest() throws Throwable{
-        onView(withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         onView(withSubstring("DUE"))
                 .perform(click());
@@ -92,7 +92,7 @@ public class WashCheckVisitTest {
     @Test
     @Order(order = 2)
     public void confirmWashCheck() throws Throwable {
-        onView(withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         onView(withSubstring("ACTIVITY"))
                 .perform(click());
@@ -106,7 +106,7 @@ public class WashCheckVisitTest {
     @Test
     @Order(order = 3)
     public void confirmActivityPage() throws Throwable {
-        onView(withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         onView(withSubstring("ACTIVITY"))
                 .perform(click());

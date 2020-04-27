@@ -1,14 +1,9 @@
 package org.smartregister.chw.activity.ba;
 
 import android.Manifest;
-import android.app.Activity;
 
-import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
-import androidx.test.runner.lifecycle.Stage;
 
 import org.junit.After;
 import org.junit.Rule;
@@ -30,8 +25,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 
 @RunWith(OrderedRunner.class)
 public class HomePageTestsBa {
@@ -54,14 +48,14 @@ public class HomePageTestsBa {
 
 
     public void setUp() throws InterruptedException {
-        utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);
+        utils.logIn(Constants.BoreshaAfyaConfigUtils.ba_username, Constants.BoreshaAfyaConfigUtils.ba_password);
     }
     @Test
     @Order(order = 1)
     public void searchByName() throws InterruptedException{
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .check(matches(isDisplayed()));
         Thread.sleep(1000);
     }
@@ -70,8 +64,8 @@ public class HomePageTestsBa {
     @Order(order = 2)
     public void searchByID() throws InterruptedException{
         onView(withHint("Search name or ID"))
-                .perform(typeText(Constants.BoreshaAfyaConfigs.searchFamilyIDBa), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Constants.BoreshaAfyaConfigs.familyBa))
+                .perform(typeText(Constants.BoreshaAfyaConfigUtils.searchFamilyIDBa), closeSoftKeyboard());
+        onView(withSubstring(Constants.BoreshaAfyaConfigUtils.familyBa))
                 .check(matches(isDisplayed()));
         Thread.sleep(1000);
     }
@@ -85,10 +79,9 @@ public class HomePageTestsBa {
 
 
 
-    public void confirmQrScanFunctionality() throws Throwable {
+    public void confirmQrScanFunctionality()  {
         onView(withId(R.id.action_scan_qr))
                 .perform(click());
-        Activity activity = getCurrentActivity();
         //Assert.assertEquals("org.smartregister.view.activity.BarcodeScanActivity<org." +
                 //"smartregister.view.activity.BarcodeScanActivity@85dfc8d>", activity);
     }
@@ -98,14 +91,4 @@ public class HomePageTestsBa {
             mActivityTestRule.finishActivity();
         }
 
-
-    private Activity getCurrentActivity() throws Throwable {
-        getInstrumentation().waitForIdleSync();
-        final Activity[] activity = new Activity[1];
-        runOnUiThread(() -> {
-            java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
-            activity[0] = Iterables.getOnlyElement(activities);
-        });
-        return activity[0];
-    }
 }

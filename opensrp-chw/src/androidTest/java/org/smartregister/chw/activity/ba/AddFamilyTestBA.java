@@ -61,7 +61,7 @@ public class AddFamilyTestBA {
 
     @Before
     public void setUp() throws InterruptedException {
-        utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);
+        utils.logIn(Constants.BoreshaAfyaConfigUtils.ba_username, Constants.BoreshaAfyaConfigUtils.ba_password);
         Thread.sleep(5000);
     }
 
@@ -73,7 +73,7 @@ public class AddFamilyTestBA {
         Activity activity = getCurrentActivity();
 
         onView(withId(getViewId((JsonFormActivity) activity, "step1:fam_name")))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:fam_village")))
                 .perform(typeText("One"), closeSoftKeyboard());
 
@@ -105,19 +105,19 @@ public class AddFamilyTestBA {
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step2:first_name")))
                 .perform(doubleClick())
-                .perform(typeText(Configs.TestConfigs.aboveFiveFirstNameOne), closeSoftKeyboard());
+                .perform(typeText(Configs.TestConfigHelper.aboveFiveFirstNameOne), closeSoftKeyboard());
         onView(withId(getViewId((JsonFormActivity) activity, "step2:middle_name")))
                 .perform(doubleClick())
-                .perform(typeText(Configs.TestConfigs.aboveFiveSecondNameOne), closeSoftKeyboard());
+                .perform(typeText(Configs.TestConfigHelper.aboveFiveSecondNameOne), closeSoftKeyboard());
         onView(withId(getViewId((JsonFormActivity) activity, "step2:dob_unknown")))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step2:age")))
-                .perform(scrollTo(), typeText(Configs.TestConfigs.aboveFiveage));
+                .perform(scrollTo(), typeText(Configs.TestConfigHelper.aboveFiveage));
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("National ID"))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step2:national_id")))
-                .perform(scrollTo(), typeText(Configs.TestConfigs.nationalID));
+                .perform(scrollTo(), typeText(Configs.TestConfigHelper.nationalID));
         onView(withId(getViewId((JsonFormActivity) activity, "step2:insurance_provider")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
@@ -126,7 +126,7 @@ public class AddFamilyTestBA {
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step2:insurance_provider_number")))
                 .perform(scrollTo())
-                .perform(typeText(Configs.TestConfigs.nationalID), closeSoftKeyboard());
+                .perform(typeText(Configs.TestConfigHelper.nationalID), closeSoftKeyboard());
         onView(ViewMatchers.withSubstring("Sex"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);

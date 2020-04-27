@@ -2,7 +2,6 @@ package org.smartregister.chw.activity.wcaro;
 
 import android.Manifest;
 
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
 
@@ -20,6 +19,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 
 public class CallWidgetTests {
     @Rule
@@ -38,62 +38,62 @@ public class CallWidgetTests {
 
     public void setUp() throws InterruptedException {
         Thread.sleep(10000);
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
     }
     @Test
     public void confirmCallOption() throws Throwable {
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         onView(withId(R.id.fab))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Call"))
+        onView(withSubstring("Call"))
                 .check(matches(isDisplayed()));
         Thread.sleep(500);
     }
 
     @Test
     public void confirmCallCareGiverPage() throws Throwable {
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         onView(withId(R.id.fab))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Call"))
+        onView(withSubstring("Call"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Call caregiver"))
+        onView(withSubstring("Call caregiver"))
                 .check(matches(isDisplayed()));
         Thread.sleep(500);
 
     }
     @Test
     public void confirmPhoneNumber() throws Throwable{
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         onView(withId(R.id.fab))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Call"))
+        onView(withSubstring("Call"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.phoneNumberOne))
+        onView(withSubstring(Configs.TestConfigHelper.phoneNumberOne))
                 .check(matches(isDisplayed()));
         Thread.sleep(500);
     }
 
     @Test
     public void confirmFullFamilyHeadNames() throws Throwable {
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         onView(withId(R.id.fab))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Call"))
+        onView(withSubstring("Call"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameOne
-                + " " + Configs.TestConfigs.aboveFiveSecondNameOne + " " + Configs.TestConfigs.familyName))
+        onView(withSubstring(Configs.TestConfigHelper.aboveFiveFirstNameOne
+                + " " + Configs.TestConfigHelper.aboveFiveSecondNameOne + " " + Configs.TestConfigHelper.familyName))
                 .check(matches(isDisplayed()));
         Thread.sleep(500);
     }

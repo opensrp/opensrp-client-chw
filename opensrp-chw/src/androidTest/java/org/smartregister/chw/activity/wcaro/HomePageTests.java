@@ -45,13 +45,13 @@ public class HomePageTests {
 
     @Before
     public void setUp() throws InterruptedException {
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
     }
     @Test
     public void searchByName() throws InterruptedException{
         onView(withHint("Search name or ID"))
-                .perform(typeText(Constants.WcaroConfigs.searchFamilyWCaro), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Constants.WcaroConfigs.familyWcaro))
+                .perform(typeText(Constants.WcaroConfigUtils.searchFamilyWCaro), closeSoftKeyboard());
+        onView(ViewMatchers.withSubstring(Constants.WcaroConfigUtils.familyWcaro))
                 .check(matches(isDisplayed()));
         Thread.sleep(1000);
         utils.openDrawer();
@@ -61,8 +61,8 @@ public class HomePageTests {
     @Test
     public void searchByID() throws InterruptedException{
         onView(withHint("Search name or ID"))
-                .perform(typeText(Constants.WcaroConfigs.searchFamilyIDWCaro), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Constants.WcaroConfigs.familyWcaro))
+                .perform(typeText(Constants.WcaroConfigUtils.searchFamilyIDWCaro), closeSoftKeyboard());
+        onView(ViewMatchers.withSubstring(Constants.WcaroConfigUtils.familyWcaro))
                 .check(matches(isDisplayed()));
         Thread.sleep(1000);
         utils.openDrawer();

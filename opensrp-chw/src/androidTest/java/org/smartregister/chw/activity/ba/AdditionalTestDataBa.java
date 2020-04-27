@@ -21,24 +21,24 @@ public class AdditionalTestDataBa {
     private Utils utils = new Utils();
 
     public void setUp() throws InterruptedException {
-        utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);
+        utils.logIn(Constants.BoreshaAfyaConfigUtils.ba_username, Constants.BoreshaAfyaConfigUtils.ba_password);
     }
 
 
     @Test
     public void test() {
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
     }
 
     @After
     public void completeTests() throws Throwable{
-        utils.addTestFamilyMemberBa(Configs.AdditionalTestData.memberOneFirstname,
-                Configs.AdditionalTestData.memberOneSecondname,
-                Configs.AdditionalTestData.extraMemberAge1);
-        utils.addTestFamilyMemberBa(Configs.AdditionalTestData.memberTwoFirstname,
-                Configs.AdditionalTestData.memberTwoSecondname,
-                Configs.AdditionalTestData.extraMemberAge2);
+        utils.addTestFamilyMemberBa(Configs.AdditionalTestDataHelper.memberOneFirstname,
+                Configs.AdditionalTestDataHelper.memberOneSecondname,
+                Configs.AdditionalTestDataHelper.extraMemberAge1);
+        utils.addTestFamilyMemberBa(Configs.AdditionalTestDataHelper.memberTwoFirstname,
+                Configs.AdditionalTestDataHelper.memberTwoSecondname,
+                Configs.AdditionalTestDataHelper.extraMemberAge2);
         /*utils.addTestFamilyMemberBa(Configs.AdditionalTestData.memberThreeFirstname,
                 Configs.AdditionalTestData.memberThreeSecondname,
                 Configs.AdditionalTestData.extraMemberAge3);

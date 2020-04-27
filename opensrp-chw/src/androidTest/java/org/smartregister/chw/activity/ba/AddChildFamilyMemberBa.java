@@ -57,15 +57,15 @@ public class AddChildFamilyMemberBa {
     private Utils utils = new Utils();
 
     public void setUp() throws InterruptedException {
-        utils.logIn(Constants.BoreshaAfyaConfigs.ba_username, Constants.BoreshaAfyaConfigs.ba_password);
+        utils.logIn(Constants.BoreshaAfyaConfigUtils.ba_username, Constants.BoreshaAfyaConfigUtils.ba_password);
         Thread.sleep(5000);
     }
 
     @Test
     public void addChildFamilyMember() throws Throwable {
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         onView(withId(R.id.fab))
                 .perform(click());
@@ -80,10 +80,10 @@ public class AddChildFamilyMemberBa {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:same_as_fam_name")))
                 .perform(click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:first_name")))
-                .perform(typeText(Configs.TestConfigs.kidNameFirst), closeSoftKeyboard());
+                .perform(typeText(Configs.TestConfigHelper.kidNameFirst), closeSoftKeyboard());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:middle_name")))
                 .perform(doubleClick())
-                .perform(typeText(Configs.TestConfigs.kidNameSecond), closeSoftKeyboard());
+                .perform(typeText(Configs.TestConfigHelper.kidNameSecond), closeSoftKeyboard());
         Thread.sleep(100);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:dob")))
                 .perform(scrollTo(), click());
@@ -99,7 +99,7 @@ public class AddChildFamilyMemberBa {
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:insurance_provider_number")))
                 .perform(scrollTo())
-                .perform(typeText(Configs.TestConfigs.nationalID), closeSoftKeyboard());
+                .perform(typeText(Configs.TestConfigHelper.nationalID), closeSoftKeyboard());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:gender")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
@@ -127,7 +127,7 @@ public class AddChildFamilyMemberBa {
         onView(ViewMatchers.withSubstring("Save"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .check(matches(isDisplayed()));
         Thread.sleep(500);
         onView(ViewMatchers.withSubstring("MEMBERS"))
@@ -137,8 +137,8 @@ public class AddChildFamilyMemberBa {
     @Test
     public void addFamilyWithBlankFieldsBa() throws Throwable {
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         onView(withId(R.id.fab))
                 .perform(click());
@@ -165,8 +165,8 @@ public class AddChildFamilyMemberBa {
     @Test
     public void confirmUniqueIDPrepopulatedBa() throws Throwable {
         onView(withHint("Search name or ID"))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
+        onView(ViewMatchers.withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         onView(withId(R.id.fab))
                 .perform(click());

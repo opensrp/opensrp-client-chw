@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -31,6 +30,7 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.smartregister.chw.activity.utils.Utils.getViewId;
@@ -56,13 +56,13 @@ public class ANCRegistrationTests {
 
     public void setUp() throws InterruptedException {
         Thread.sleep(10000);
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
     }
 
     @Test
     @Order(order = 2)
     public void registerANCSuccessfuly() throws Throwable {
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         /*onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "
@@ -72,14 +72,14 @@ public class ANCRegistrationTests {
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("ANC Registration"))
+        onView(withSubstring("ANC Registration"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:last_menstrual_period")))
          .perform(click());
         Thread.sleep(1000);
-        onView(ViewMatchers.withSubstring("done")).perform(click());
+        onView(withSubstring("done")).perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:no_prev_preg")))
                 .perform(typeText("2"));
@@ -89,20 +89,20 @@ public class ANCRegistrationTests {
                 .perform(scrollTo(), typeText("0882454545"));
         onView(withId(getViewId((JsonFormActivity) activity, "step1:marital_status")))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("Co-habiting"))
+        onView(withSubstring("Co-habiting"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Save"))
+        onView(withSubstring("Save"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("ANC Clients"))
+        onView(withSubstring("ANC Clients"))
                 .check(matches(isDisplayed()));
     }
 
     @Test
     @Order(order = 1)
     public void registerANCWithoutAllFields() throws Throwable {
-        onView(ViewMatchers.withSubstring(Configs.TestConfigs.familyName + " Family"))
+        onView(withSubstring(Configs.TestConfigHelper.familyName + " Family"))
                 .perform(click());
         /*onView(androidx.test.espresso.matcher.ViewMatchers.withSubstring(Configs.TestConfigs.aboveFiveFirstNameTwo
                 + " " + Configs.TestConfigs.aboveFiveSecondNameTwo + " " + Configs.TestConfigs.familyName + ", "
@@ -112,18 +112,18 @@ public class ANCRegistrationTests {
         Thread.sleep(500);
         utils.openFamilyMenu();
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("ANC Registration"))
+        onView(withSubstring("ANC Registration"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:last_menstrual_period")))
                 .perform(click());
         Thread.sleep(1000);
-        onView(ViewMatchers.withSubstring("done")).perform(click());
+        onView(withSubstring("done")).perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Save"))
+        onView(withSubstring("Save"))
                 .perform(click());
-        onView(ViewMatchers.withSubstring("Found 3 error(s) in the form. Please correct them to submit."))
+        onView(withSubstring("Found 3 error(s) in the form. Please correct them to submit."))
                 .check(matches(isDisplayed()));
     }
     @After

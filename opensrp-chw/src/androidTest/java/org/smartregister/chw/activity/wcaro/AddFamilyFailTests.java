@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -34,6 +33,7 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.smartregister.chw.activity.utils.Utils.getViewId;
@@ -58,7 +58,7 @@ public class AddFamilyFailTests {
     private Utils utils = new Utils();
 
     public void setUp() throws InterruptedException {
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
     }
 
     @Test
@@ -67,16 +67,16 @@ public class AddFamilyFailTests {
         onView(withId(R.id.action_register)).perform(click());
         Thread.sleep(1000);
         Activity activity = getCurrentActivity();
-        onView(ViewMatchers.withSubstring("Next"))
+        onView(withSubstring("Next"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step2:dob_unknown")))
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step2:age")))
-                .perform(scrollTo(), typeText(Configs.TestConfigs.aboveFiveage));
-        onView(ViewMatchers.withSubstring("SUBMIT"))
+                .perform(scrollTo(), typeText(Configs.TestConfigHelper.aboveFiveage));
+        onView(withSubstring("SUBMIT"))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("Found 6 error(s) in the form. Please correct them to submit."))
+        onView(withSubstring("Found 6 error(s) in the form. Please correct them to submit."))
                 .check(matches(isDisplayed()));
     }
 
@@ -87,7 +87,7 @@ public class AddFamilyFailTests {
         Thread.sleep(1000);
         Activity activity = getCurrentActivity();
         onView(withId(getViewId((JsonFormActivity) activity, "step1:fam_name")))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:village_town")))
                 .perform(typeText("ThePlace"), closeSoftKeyboard());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:quarter_clan")))
@@ -99,10 +99,10 @@ public class AddFamilyFailTests {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:gps")))
                 .perform(doubleClick());
         Thread.sleep(2000);
-        onView(ViewMatchers.withSubstring("OK"))
+        onView(withSubstring("OK"))
                 .perform(click());
         Thread.sleep(1000);
-        onView(ViewMatchers.withSubstring("Next"))
+        onView(withSubstring("Next"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step2:unique_id")))

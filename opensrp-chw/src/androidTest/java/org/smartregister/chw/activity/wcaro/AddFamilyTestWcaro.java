@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.rule.GrantPermissionRule;
@@ -34,6 +33,7 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.smartregister.chw.activity.utils.Utils.getViewId;
@@ -59,7 +59,7 @@ public class AddFamilyTestWcaro {
 
     @Before
     public void setUp() throws InterruptedException {
-        utils.logIn(Constants.WcaroConfigs.wCaro_username, Constants.WcaroConfigs.wCaro_password);
+        utils.logIn(Constants.WcaroConfigUtils.wCaro_username, Constants.WcaroConfigUtils.wCaro_password);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class AddFamilyTestWcaro {
             Thread.sleep(1000);
             Activity activity = getCurrentActivity();
             onView(withId(getViewId((JsonFormActivity) activity, "step1:fam_name")))
-                .perform(typeText(Configs.TestConfigs.familyName), closeSoftKeyboard());
+                .perform(typeText(Configs.TestConfigHelper.familyName), closeSoftKeyboard());
             onView(withId(getViewId((JsonFormActivity) activity, "step1:village_town")))
                 .perform(typeText("ThePlace"), closeSoftKeyboard());
             onView(withId(getViewId((JsonFormActivity) activity, "step1:quarter_clan")))
@@ -80,35 +80,35 @@ public class AddFamilyTestWcaro {
             onView(withId(getViewId((JsonFormActivity) activity, "step1:gps")))
                 .perform(doubleClick());
             Thread.sleep(2000);
-            onView(ViewMatchers.withSubstring("OK"))
+            onView(withSubstring("OK"))
                 .perform(click());
             Thread.sleep(1000);
-            onView(ViewMatchers.withSubstring("Next"))
+            onView(withSubstring("Next"))
                 .perform(scrollTo(), click());
             Thread.sleep(500);
             onView(withId(getViewId((JsonFormActivity) activity, "step2:national_id")))
-                .perform(typeText(Configs.TestConfigs.nationalID));
+                .perform(typeText(Configs.TestConfigHelper.nationalID));
             onView(withId(getViewId((JsonFormActivity) activity, "step2:same_as_fam_name")))
                 .perform(scrollTo(), click());
             onView(withId(getViewId((JsonFormActivity) activity, "step2:first_name")))
-                .perform(scrollTo(), typeText(Configs.TestConfigs.aboveFiveFirstNameOne));
+                .perform(scrollTo(), typeText(Configs.TestConfigHelper.aboveFiveFirstNameOne));
             onView(withId(getViewId((JsonFormActivity) activity, "step2:middle_name")))
-                .perform(scrollTo(), typeText(Configs.TestConfigs.aboveFiveSecondNameOne));
+                .perform(scrollTo(), typeText(Configs.TestConfigHelper.aboveFiveSecondNameOne));
             onView(withId(getViewId((JsonFormActivity) activity, "step2:dob_unknown")))
                 .perform(scrollTo(), click());
             onView(withId(getViewId((JsonFormActivity) activity, "step2:age")))
-                .perform(scrollTo(), typeText(Configs.TestConfigs.aboveFiveage));
-            onView(ViewMatchers.withSubstring("Sex"))
+                .perform(scrollTo(), typeText(Configs.TestConfigHelper.aboveFiveage));
+            onView(withSubstring("Sex"))
                 .perform(scrollTo(), click());
             Thread.sleep(500);
-            onView(ViewMatchers.withSubstring("Male"))
+            onView(withSubstring("Male"))
                 .perform(click());
             Thread.sleep(500);
             onView(withId(getViewId((JsonFormActivity) activity, "step2:phone_number")))
-                .perform(scrollTo(), typeText(Configs.TestConfigs.phoneNumberOne));
+                .perform(scrollTo(), typeText(Configs.TestConfigHelper.phoneNumberOne));
             onView(withId(getViewId((JsonFormActivity) activity, "step2:other_phone_number")))
-                .perform(scrollTo(), typeText(Configs.TestConfigs.getPhoneNumberTwo));
-            onView(ViewMatchers.withSubstring("SUBMIT"))
+                .perform(scrollTo(), typeText(Configs.TestConfigHelper.getPhoneNumberTwo));
+            onView(withSubstring("SUBMIT"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
         onView(withId(R.id.action_family))

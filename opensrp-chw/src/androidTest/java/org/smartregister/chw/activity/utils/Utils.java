@@ -8,7 +8,6 @@ import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
@@ -28,6 +27,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.hamcrest.Matchers.allOf;
@@ -69,10 +69,10 @@ public class Utils  {
 
     public void revertLanguage() throws InterruptedException{
         openDrawerFrench();
-        onView(ViewMatchers.withSubstring("Français"))
+        onView(withSubstring("Français"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("English"))
+        onView(withSubstring("English"))
                 .perform(click());
     }
 
@@ -93,10 +93,10 @@ public class Utils  {
         onView(withId(R.id.fab))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Add new family member"))
+        onView(withSubstring("Add new family member"))
                 .perform(click());
         Thread.sleep(100);
-        onView(ViewMatchers.withSubstring("Other family member"))
+        onView(withSubstring("Other family member"))
                 .perform(click());
         Thread.sleep(100);
         Activity activity = getCurrentActivity();
@@ -122,42 +122,42 @@ public class Utils  {
         onView(withId(getViewId((JsonFormActivity) activity, "step1:insurance_provider")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Community Health Fund (CHF)"))
+        onView(withSubstring("Community Health Fund (CHF)"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:insurance_provider_number")))
                 .perform(scrollTo())
-                .perform(typeText(Configs.TestConfigs.nationalID), closeSoftKeyboard());
+                .perform(typeText(Configs.TestConfigHelper.nationalID), closeSoftKeyboard());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:sex")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Female"))
+        onView(withSubstring("Female"))
                 .perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:preg_1yr")))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("No"))
+        onView(withSubstring("No"))
                 .perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:disabilities")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("No"))
+        onView(withSubstring("No"))
                 .perform(click());
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:is_primary_caregiver")))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("No"))
+        onView(withSubstring("No"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Nurse"))
+        onView(withSubstring("Nurse"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Religious leader"))
+        onView(withSubstring("Religious leader"))
                 .perform(scrollTo(), click());
-        onView(ViewMatchers.withSubstring("Save"))
+        onView(withSubstring("Save"))
                 .perform(click());
         Thread.sleep(500);
     }
@@ -166,15 +166,15 @@ public class Utils  {
         onView(withId(R.id.fab))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Add new family member"))
+        onView(withSubstring("Add new family member"))
                 .perform(click());
         Thread.sleep(100);
-        onView(ViewMatchers.withSubstring("Other family member"))
+        onView(withSubstring("Other family member"))
                 .perform(click());
         Activity activity = getCurrentActivity();
         Thread.sleep(500);
         onView(withId(getViewId((JsonFormActivity) activity, "step1:national_id")))
-                .perform(typeText(Configs.TestConfigs.nationalID));
+                .perform(typeText(Configs.TestConfigHelper.nationalID));
         //onView(withId(getViewId((JsonFormActivity) activity, "step1:surname"))).perform(scrollTo(), typeText("JinaLaFamilia"));
         onView(withId(getViewId((JsonFormActivity) activity, "step1:same_as_fam_name")))
                 .perform(scrollTo(), click());
@@ -186,13 +186,13 @@ public class Utils  {
                 .perform(scrollTo(), click());
         onView(withId(getViewId((JsonFormActivity) activity, "step1:age")))
                 .perform(scrollTo(), typeText(age));
-        onView(ViewMatchers.withSubstring("Sex"))
+        onView(withSubstring("Sex"))
                 .perform(scrollTo(), click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Female"))
+        onView(withSubstring("Female"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("Save"))
+        onView(withSubstring("Save"))
                 .perform(click());
     }
 
@@ -210,10 +210,10 @@ public class Utils  {
 
     public void revertLanguageSwahili() throws InterruptedException{
         openDrawerSwahili();
-        onView(ViewMatchers.withSubstring("Kiswahili"))
+        onView(withSubstring("Kiswahili"))
                 .perform(click());
         Thread.sleep(500);
-        onView(ViewMatchers.withSubstring("English"))
+        onView(withSubstring("English"))
                 .perform(click());
     }
 
@@ -265,14 +265,14 @@ public class Utils  {
         return floatingActionButton;
     }
     public void logOut() {
-        onView(ViewMatchers.withSubstring("Log out as "
-                + Constants.WcaroConfigs.wCaro_userName))
+        onView(withSubstring("Log out as "
+                + Constants.WcaroConfigUtils.wCaro_userName))
                 .perform(click());
 
     }
 
     public void logOutBA(){
-        onView(ViewMatchers.withSubstring("Log out as " + Constants.BoreshaAfyaConfigs.ba_userName))
+        onView(withSubstring("Log out as " + Constants.BoreshaAfyaConfigUtils.ba_userName))
                 .perform(scrollTo(), click());
 
     }
