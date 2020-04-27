@@ -3,7 +3,7 @@
   "show_errors_on_submit": true,
   "skip_blank_steps": true,
   "count": "3",
-  "encounter_type": "Family Planning Registration",
+  "encounter_type": "Introduction to Family Planning",
   "entity_id": "",
   "relational_id": "",
   "metadata": {

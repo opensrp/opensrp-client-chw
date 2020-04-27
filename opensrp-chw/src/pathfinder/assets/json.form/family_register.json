@@ -94,17 +94,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "cityVillage",
-        "type": "edit_text",
+        "type": "hidden",
         "edit_type": "name",
-        "hint": "Village",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the village or town"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "Please enter a valid village name"
-        }
+        "hint": "Village"
       },
       {
         "key": "landmark",
@@ -142,11 +134,11 @@
         "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Nearest health facility",
+        "hint": "Village",
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Please enter the nearest health facility"
+          "err": "Please enter the village name"
         }
       }
     ]
@@ -891,6 +883,71 @@
               }
             ]
           }
+        }
+      },
+      {
+        "key": "highest_level_of_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "highest_level_of_education",
+        "type": "native_radio",
+        "label": "Highest level of education completed?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "no_education",
+            "text": "No education",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "primary",
+            "text": "primary",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "secondary_o_level",
+            "text": "Secondary 'O' Level",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "secondary_a_level",
+            "text": "Secondary 'A' Level",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "tertiary",
+            "text": "Tertiary",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "university",
+            "text": "University",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "unknown",
+            "text": "Don't Know",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select the highest level of education completed"
         }
       }
     ]
