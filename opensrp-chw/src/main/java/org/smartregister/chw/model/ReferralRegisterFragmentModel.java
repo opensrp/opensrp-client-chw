@@ -25,6 +25,7 @@ public class ReferralRegisterFragmentModel extends BaseReferralRegisterFragmentM
         queryBuilder.SelectInitiateMainTable(tableName, mainColumns(tableName));
         queryBuilder.customJoin("INNER JOIN " + Constants.TABLE_NAME.FAMILY_MEMBER + " ON  " + tableName + "." + Constants.ENTITY_ID + " = " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID + " COLLATE NOCASE ");
         queryBuilder.customJoin("INNER JOIN " + Constants.TABLE_NAME.FAMILY + " ON  " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.RELATIONAL_ID + " = " + Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.BASE_ENTITY_ID);
+        queryBuilder.customJoin("INNER JOIN " + Constants.TABLE_NAME.TASK + " ON  " + tableName + ".id  = " + Constants.TABLE_NAME.TASK + ".reason_reference");
         queryBuilder.customJoin("LEFT JOIN " + Constants.TABLE_NAME.FAMILY_MEMBER + " as T1 ON  " + Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.PRIMARY_CAREGIVER + " = T1." + DBConstants.KEY.BASE_ENTITY_ID);
         queryBuilder.customJoin("LEFT JOIN " + Constants.TABLE_NAME.FAMILY_MEMBER + " as T2 ON  " + Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FAMILY_HEAD + " = T2." + DBConstants.KEY.BASE_ENTITY_ID);
         return queryBuilder.mainCondition(mainCondition);
@@ -52,7 +53,7 @@ public class ReferralRegisterFragmentModel extends BaseReferralRegisterFragmentM
         columnList.add("T2." + DBConstants.KEY.FIRST_NAME + " || " + "' '" + " || " + "T2." + DBConstants.KEY.MIDDLE_NAME + " || " + "' '" + " || " + "T2." + DBConstants.KEY.LAST_NAME + " AS " + DBConstants.KEY.FAMILY_HEAD);
         columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_SERVICE + "  AS " + Key.REFERRAL_SERVICE);
         columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_DATE);
-        columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_STATUS);
+        columnList.add(Constants.TABLE_NAME.TASK + ".status AS " + Key.REFERRAL_STATUS);
         columnList.add(Tables.REFERRAL + "." + Key.PROBLEM);
         columnList.add(Tables.REFERRAL + "." + Key.SERVICE_BEFORE_REFERRAL);
         columnList.add(Tables.REFERRAL + "." + Key.SERVICE_BEFORE_REFERRAL_OTHER);
