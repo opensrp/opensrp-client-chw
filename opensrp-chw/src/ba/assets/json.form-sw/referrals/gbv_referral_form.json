@@ -163,55 +163,6 @@
           "subjects": "problem:map"
         },
         {
-          "name": "service_before_referral",
-          "type": "multi_choice_checkbox",
-          "meta_data": {
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "openmrs_entity_parent": ""
-        },
-          "properties": {
-            "text": "Huduma aliyopewa kabla ya rufaa."
-          },
-          "options": [
-            {
-              "name": "Other_treatment",
-              "text": "Matibabu mengine",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "none",
-              "text": "Hajapewa matibabu yoyote",
-              "is_exclusive": true,
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
-                "openmrs_entity_parent": ""
-              }
-            }
-          ],
-          "required_status": "True:Huduma aliyopewa kabla ya rufaa ni lazima"
-        },
-        {
-          "name": "service_before_referral_other",
-          "type": "text_input_edit_text",
-          "properties": {
-            "hint": "Matibabu mengine",
-            "type": "name"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          "required_status": "true:Tafadhali taja matibabu mengine",
-          "subjects": "service_before_referral:map"
-        },
-        {
           "name": "chw_referral_hf",
           "type": "spinner",
           "meta_data": {

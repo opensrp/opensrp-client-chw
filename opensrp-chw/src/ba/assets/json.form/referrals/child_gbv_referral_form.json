@@ -165,55 +165,6 @@
           "subjects": "problem:map"
         },
         {
-          "name": "service_before_referral",
-          "type": "multi_choice_checkbox",
-          "properties": {
-            "text": "Pre referral management given."
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          "options": [
-            {
-              "name": "Other_treatment",
-              "text": "Other treatment",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "none",
-              "text": "None",
-              "is_exclusive": true,
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
-                "openmrs_entity_parent": ""
-              }
-            }
-          ],
-          "required_status": "yes:Please specify pre referral managements given"
-        },
-        {
-          "name": "service_before_referral_other",
-          "type": "text_input_edit_text",
-          "properties": {
-            "hint": "Other Treatment",
-            "type": "name"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          "required_status": "true:Please specify other treatment given",
-          "subjects": "service_before_referral:map"
-        },
-        {
           "name": "chw_referral_hf",
           "type": "spinner",
           "meta_data": {
