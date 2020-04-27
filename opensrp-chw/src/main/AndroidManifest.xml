@@ -186,9 +186,6 @@
             android:label="@string/issue_referral"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.ReferralHistoryActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
             android:name=".activity.FpFollowUpVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity

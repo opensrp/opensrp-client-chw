@@ -85,7 +85,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
                     ((FamilyPlanningFloatingMenu) fpFloatingMenu).animateFAB();
                     break;
                 case R.id.refer_to_facility_layout:
-                    ((CoreFamilyPlanningProfilePresenter) fpProfilePresenter).startFamilyPlanningReferral();
+                    ((FamilyPlanningMemberProfilePresenter) fpProfilePresenter).referToFacility();
                     break;
                 default:
                     Timber.d("Unknown fab action");
@@ -203,7 +203,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     private void addFpReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.family_planning_referral),
                 org.smartregister.chw.util.Constants.JSON_FORM.getFamilyPlanningReferralForm(fpMemberObject.getGender())));
-        if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
                     org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm()));
 
