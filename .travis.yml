@@ -34,8 +34,6 @@ script:
   - ls -la
   #Run jacocoTestReport -> Runs all unit tests & instrumentation tests
   - travis_wait ./gradlew :opensrp-chw:clean :opensrp-chw:jacocoTestReport coveralls --stacktrace
-  - travis_wait ./gradlew -Pandroid.testInstrumentationRunnerArguments.class=org.smartregister.chw.activity.wcaro.TestRun connectedTogoDebugAndroidTest
-org.smartregister.chw.activity.wcaro.TestRun.java
 
 notifications:
   slack:
