@@ -255,6 +255,13 @@
             "creates_case": [
               "ec_family_planning"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Family Planning Pregnancy Screening",
+            "creates_case": [
+              "ec_family_planning"
+            ]
           }
         ]
       }
