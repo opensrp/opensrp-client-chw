@@ -204,7 +204,6 @@ public class PathfinderFamilyPlanningMemberProfileActivity extends BaseFpProfile
 
     @Override
     public void openPregnancyScreening() {
-        Timber.e("Coze: opening pregnancy screening");
         PathfinderFamilyPlanningRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), PathfinderFamilyPlanningConstants.JSON_FORM.getPregnancyScreening(getApplicationContext().getResources().getConfiguration().locale, getAssets()), org.smartregister.chw.fp.util.FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
     }
 
