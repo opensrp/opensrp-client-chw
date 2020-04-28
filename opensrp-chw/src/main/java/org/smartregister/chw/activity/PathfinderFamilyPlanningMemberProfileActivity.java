@@ -494,25 +494,16 @@ public class PathfinderFamilyPlanningMemberProfileActivity extends BaseFpProfile
                 updateFollowUpVisitButton(fpAlertRule.getButtonStatus());
             }
             if (fpAlertRule == null && fpMemberObject.getFpMethod().equals("0")) {
-                switch (fpMemberObject.getFpInitiationStage()) {
-                    case "":
-                        Timber.e("coze showing introduction to family planning");
-                        showIntroductionToFpButton();
-                        break;
-                    case FamilyPlanningConstants.EventType.INTRODUCTION_TO_FAMILY_PLANNING:
-                        Timber.e("coze showing pregnancy screening");
-                        showFpPregnancyScreeningButton();
-                        break;
-                    case FamilyPlanningConstants.EventType.FAMILY_PLANNING_PREGNANCY_SCREENING:
-                        Timber.e("coze showing choosing of fp method");
-                        showChooseFpMethodButton();
-                        break;
-                    case FamilyPlanningConstants.EventType.CHOOSING_FAMILY_PLANNING_METHOD:
-                        Timber.e("coze give fp method");
-                        showGiveFpMethodButton();
-                        break;
-                    default:
-                        break;
+                if (fpMemberObject.getFpInitiationStage().equals("")) {
+                    showIntroductionToFpButton();
+                } else if (fpMemberObject.getFpInitiationStage().equals(FamilyPlanningConstants.EventType.INTRODUCTION_TO_FAMILY_PLANNING)) {
+                    showFpPregnancyScreeningButton();
+                } else if (fpMemberObject.getFpInitiationStage().equals(FamilyPlanningConstants.EventType.FAMILY_PLANNING_PREGNANCY_SCREENING) && fpMemberObject.getPregnancyStatus().equals(FamilyPlanningConstants.PregnancyStatus.NOT_LIKELY_PREGNANT)) {
+                    showChooseFpMethodButton();
+                } else if (fpMemberObject.getFpInitiationStage().equals(FamilyPlanningConstants.EventType.FAMILY_PLANNING_PREGNANCY_SCREENING) && fpMemberObject.getPregnancyStatus().equals(FamilyPlanningConstants.PregnancyStatus.PREGNANT)) {
+                    //TODO implement show ANC referral button
+                } else if (fpMemberObject.getFpInitiationStage().equals(FamilyPlanningConstants.EventType.CHOOSING_FAMILY_PLANNING_METHOD)) {
+                    showGiveFpMethodButton();
                 }
             } else {
                 updateFollowUpVisitStatusRow(lastVisit);
