@@ -59,15 +59,29 @@
     "next": "step2",
     "fields": [
       {
-        "key": "fp_reg_date",
+        "key": "fp_introduction_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "fp_reg_date",
+        "openmrs_entity_id": "fp_introduction_date",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_calculation.yml"
+              "rules-file": "pathfinder_introduction_to_family_planning_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fp_initiation_stage",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fp_initiation_stage",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_introduction_to_family_planning_calculation.yml"
             }
           }
         }

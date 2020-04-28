@@ -1021,7 +1021,16 @@
             "field": "obs.fieldCode",
             "concept": "fp_start_date"
           }
-        },{
+        },
+        {
+          "column_name": "fp_initiation_stage",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "fp_initiation_stage"
+          }
+        },
+        {
           "column_name": "fp_method_accepted",
           "type": "Event",
           "json_mapping": {

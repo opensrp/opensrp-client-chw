@@ -199,7 +199,7 @@ public class PathfinderFamilyPlanningMemberProfileActivity extends BaseFpProfile
 
     @Override
     public void openFamilyPlanningIntroduction() {
-        PathfinderFamilyPlanningRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), PathfinderFamilyPlanningConstants.JSON_FORM.getFamilyPlanningIntroduction(getApplicationContext().getResources().getConfiguration().locale, getAssets()), org.smartregister.chw.fp.util.FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+        PathfinderFamilyPlanningRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), PathfinderFamilyPlanningConstants.JSON_FORM.getFamilyPlanningIntroduction(getApplicationContext().getResources().getConfiguration().locale, getAssets()), org.smartregister.chw.fp_pathfinder.util.FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
     }
 
     @Override
@@ -482,8 +482,6 @@ public class PathfinderFamilyPlanningMemberProfileActivity extends BaseFpProfile
                 Rules rule = PathfinderFamilyPlanningUtil.getFpRules(fpMemberObject.getFpMethod());
                 Integer pillCycles = FpDao.getLastPillCycle(fpMemberObject.getBaseEntityId(), fpMemberObject.getFpMethod());
                 fpAlertRule = PathfinderFamilyPlanningUtil.getFpVisitStatus(rule, lastVisitDate, FpUtil.parseFpStartDate(fpMemberObject.getFpStartDate()), pillCycles, fpMemberObject.getFpMethod());
-            } else { //Client does not have a fp Method
-                lastVisit = FpDao.getLatestFpVisit(fpMemberObject.getBaseEntityId());
             }
             return null;
         }
@@ -495,9 +493,9 @@ public class PathfinderFamilyPlanningMemberProfileActivity extends BaseFpProfile
             ) {
                 updateFollowUpVisitButton(fpAlertRule.getButtonStatus());
             }
-            if (fpAlertRule == null) {
-                switch (lastVisit.getVisitType()) {
-                    case FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION:
+            if (fpAlertRule == null && fpMemberObject.getFpMethod().equals("0")) {
+                switch (fpMemberObject.getFpInitiationStage()) {
+                    case "":
                         Timber.e("coze showing introduction to family planning");
                         showIntroductionToFpButton();
                         break;

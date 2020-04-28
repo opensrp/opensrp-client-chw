@@ -248,6 +248,13 @@
             "creates_case": [
               "ec_close_referral"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Introduction to Family Planning",
+            "creates_case": [
+              "ec_family_planning"
+            ]
           }
         ]
       }
