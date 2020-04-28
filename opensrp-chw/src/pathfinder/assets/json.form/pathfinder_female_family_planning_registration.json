@@ -222,7 +222,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "pathfinder_family_planning_registration_relevance.yml"
             }
           }
         }
@@ -263,7 +263,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "pathfinder_family_planning_registration_relevance.yml"
             }
           }
         }
@@ -298,7 +298,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "pathfinder_family_planning_registration_relevance.yml"
             }
           }
         }
@@ -402,7 +402,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "pathfinder_family_planning_registration_relevance.yml"
             }
           }
         }
@@ -478,7 +478,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "pathfinder_family_planning_registration_relevance.yml"
             }
           }
         }
@@ -568,7 +568,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "pathfinder_family_planning_registration_relevance.yml"
             }
           }
         }
@@ -665,7 +665,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "pathfinder_family_planning_registration_relevance.yml"
             }
           }
         }
@@ -706,7 +706,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "pathfinder_family_planning_registration_relevance.yml"
             }
           }
         }
@@ -723,7 +723,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "pathfinder_family_planning_registration_relevance.yml"
             }
           }
         }
@@ -822,7 +822,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "pathfinder_family_planning_registration_relevance.yml"
             }
           }
         }
@@ -844,7 +844,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "pathfinder_family_planning_registration_relevance.yml"
             }
           }
         }
@@ -905,7 +905,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "pathfinder_family_planning_registration_relevance.yml"
             }
           }
         }
@@ -922,7 +922,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
+              "rules-file": "pathfinder_family_planning_registration_relevance.yml"
             }
           }
         }

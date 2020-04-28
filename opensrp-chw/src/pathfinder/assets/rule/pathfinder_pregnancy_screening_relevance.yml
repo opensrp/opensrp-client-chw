@@ -1,0 +1,149 @@
+---
+name: step2_introduction_notes
+description: introduction_notes relevance
+priority: 1
+condition: "step1_are_you_speaking_to !='man_only'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_is_client_pregnant
+description: is_client_pregnant relevance
+priority: 1
+condition: "step1_are_you_speaking_to !='man_only'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_knows_lmp
+description: knows_lmp relevance
+priority: 1
+condition: "step3_is_client_pregnant =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_lmp
+description: lmp relevance
+priority: 1
+condition: "step3_knows_lmp =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_gestation_age
+description: gestation_age relevance
+priority: 1
+condition: "step3_knows_lmp =='no'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_edd_calculated
+description: edd_calculated relevance
+priority: 1
+condition: "step3_is_client_pregnant =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step5_started_anc
+description: step5_started_anc relevance
+priority: 1
+condition: "step3_is_client_pregnant =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step5_client_has_started_anc_visits
+description: client_has_started_anc_visits relevance
+priority: 1
+condition: "step5_started_anc =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step5_client_has_not_started_anc_visits
+description: client_has_not_started_anc_visits relevance
+priority: 1
+condition: "step5_started_anc =='no'"
+actions:
+  - "isRelevant = true"
+---
+name: step7_has_had_unprotected_sex_since_last_menstruation
+description: has_had_unprotected_sex_since_last_menstruation relevance
+priority: 1
+condition: "step3_is_client_pregnant =='no'"
+actions:
+  - "isRelevant = true"
+---
+name: step7_has_had_a_baby_in_the_last_4_weeks
+description: has_had_a_baby_in_the_last_4_weeks relevance
+priority: 1
+condition: "step7_has_had_unprotected_sex_since_last_menstruation =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step7_has_had_a_baby_in_the_last_6_months
+description: has_had_a_baby_in_the_last_6_months relevance
+priority: 1
+condition: "step7_has_had_a_baby_in_the_last_4_weeks =='no'"
+actions:
+  - "isRelevant = true"
+---
+name: step7_exclusively_breast_feeding
+description: exclusively_breast_feeding relevance
+priority: 1
+condition: "step7_has_had_a_baby_in_the_last_6_months =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step7_has_had_period_since_giving_birth
+description: has_had_period_since_giving_birth relevance
+priority: 1
+condition: "step7_exclusively_breast_feeding =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step8_did_menstrual_circle_start_within_last_7_days
+description: did_menstrual_circle_start_within_last_7_days relevance
+priority: 1
+condition: "(step7_has_had_a_baby_in_the_last_4_weeks == 'no' && step7_has_had_period_since_giving_birth!='no')  || step7_has_had_period_since_giving_birth=='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step8_had_a_miscarriage_in_the_last_7_days
+description: had_a_miscarriage_in_the_last_7_days relevance
+priority: 1
+condition: "step8_did_menstrual_circle_start_within_last_7_days=='no'"
+actions:
+  - "isRelevant = true"
+---
+name: step8_has_been_using_reliable_contraceptive_method_consistently
+description: has_been_using_reliable_contraceptive_method_consistently relevance
+priority: 1
+condition: "step8_had_a_miscarriage_in_the_last_7_days=='no'"
+actions:
+  - "isRelevant = true"
+---
+name: step9_unlikely_pregnant
+description: unlikely_pregnant relevance
+priority: 1
+condition: " (step7_has_had_a_baby_in_the_last_4_weeks =='yes' || step7_has_had_unprotected_sex_since_last_menstruation == 'no' || step7_has_had_period_since_giving_birth != '' || step8_did_menstrual_circle_start_within_last_7_days == 'yes' || step8_had_a_miscarriage_in_the_last_7_days == 'yes' || step8_has_been_using_reliable_contraceptive_method_consistently == 'yes') && step1_are_you_speaking_to!='man_only' && step3_is_client_pregnant !='yes' "
+actions:
+  - "isRelevant = true"
+---
+name: step9_not_unlikely_pregnant
+description: not_unlikely_pregnant relevance
+priority: 1
+condition: " !(step7_has_had_a_baby_in_the_last_4_weeks =='yes' || step7_has_had_unprotected_sex_since_last_menstruation == 'no' || step7_has_had_period_since_giving_birth != '' || step8_did_menstrual_circle_start_within_last_7_days == 'yes' || step8_had_a_miscarriage_in_the_last_7_days == 'yes' || step8_has_been_using_reliable_contraceptive_method_consistently == 'yes') "
+actions:
+  - "isRelevant = true"
+---
+name: step9_return_after_edd
+description: return_after_edd relevance
+priority: 1
+condition: "step3_is_client_pregnant =='yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step9_no_woman_available
+description: no_woman_available relevance
+priority: 1
+condition: "step1_are_you_speaking_to=='man_only'"
+actions:
+  - "isRelevant = true"
+
+

@@ -2,7 +2,7 @@
   "validate_on_submit": false,
   "show_errors_on_submit": true,
   "skip_blank_steps": true,
-  "count": "3",
+  "count": "9",
   "encounter_type": "Family Planning Pregnancy Screening",
   "entity_id": "",
   "relational_id": "",
@@ -55,7 +55,7 @@
     }
   },
   "step1": {
-    "title": "Introduction to Family Planning",
+    "title": "Attending Clients",
     "next": "step2",
     "fields": [
       {
@@ -94,157 +94,742 @@
         "type": "hidden"
       },
       {
+        "key": "are_you_speaking_to",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "are_you_speaking_to",
+        "openmrs_entity_parent": "",
+        "label": "Are you speaking to:",
+        "options": [
+          {
+            "key": "couple",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "couple",
+            "openmrs_entity_parent": "",
+            "text": "Couple"
+          },
+          {
+            "key": "man_only",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "man_only",
+            "openmrs_entity_parent": "",
+            "text": "Man only"
+          },
+          {
+            "key": "woman_only",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "woman_only",
+            "openmrs_entity_parent": "",
+            "text": "Woman only"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        }
+      }
+    ]
+  },
+  "step2": {
+    "title": "Introduction Notes",
+    "next": "step3",
+    "fields": [
+      {
         "key": "introduction_notes",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "toaster_notes",
         "type": "toaster_notes",
-        "text": "Explain the personal, family and societal importance and benefits of family planning.\n\nTell the client there are many family planning methods which you will describe and help her/him choose according to her/his needs.\n\nTell the client she/he has the right to choose which family planning method to use.",
+        "text": "Tell the client you are going to ask her some questions to confirm that she is not pregnant.\n\nThis is because women who are pregnant do not need a family planning method.",
         "text_color": "#1199F9",
-        "toaster_type": "info"
-      }
-    ]
-  },
-  "step2": {
-    "title": "Family planning cards",
-    "next": "step3",
-    "fields": [
-      {
-        "key": "family_planning_cards",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "toaster_notes",
-        "type": "toaster_notes",
-        "text": "Show the client the family planning card in the following order: \n\n*Most effective(implant,IUD)\n\n*More effective(injection,COC,POP,LAM)\n\n*Effective(male condom, female condom,standard days method)\n\n*Permanent Methods(vasectomy, tubal Ligation)",
-        "text_color": "#1199F9",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
       }
     ]
   },
   "step3": {
-    "title": "Family planning methods explanation",
+    "title": "Is the client pregnant",
     "next": "step4",
     "fields": [
       {
-        "key": "family_planning_explanation",
+        "key": "is_client_pregnant",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "is_client_pregnant",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Are you pregnant?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "knows_lmp",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "knows_lmp",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Do you know the date of your last menstrual period? ",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "lmp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "lmp",
+        "type": "date_picker",
+        "hint": "ASK: When was the first day of your Last Normal Menstrual Period?",
+        "expanded": false,
+        "duration": {
+          "label": "Gestation Age"
+        },
+        "min_date": "today-40w",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of birth"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "gestation_age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "toaster_notes",
-        "type": "toaster_notes",
-        "text": "For each method, explain:\n\n*What the method is\n\n*How it works\n\n*Its effectiveness\n\n*Other important information",
-        "text_color": "#1199F9",
-        "toaster_type": "info"
+        "openmrs_entity_id": "gestation_age",
+        "type": "edit_text",
+        "hint": "Help the client to estimate the gestation age in weeks.\n\n Enter the gestation age in weeks",
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must begin with 0 and must be a total of 10 digits in length"
+        },
+        "v_max": {
+          "value": "39",
+          "err": "Gestation Age must be equal or less than 39"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the Gestation age"
+        }
+      },
+      {
+        "key": "edd_text",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "edd_calculated",
+        "type": "hidden",
+        "value": "Client's estimated date of delivery (EDD) is "
       }
     ]
   },
   "step4": {
-    "title": "Most effective methods",
+    "title": "Estimated Delivery Date",
     "next": "step5",
     "fields": [
       {
-        "key": "fp_most_effective_methods",
+        "key": "edd_calculated",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "toaster_notes",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "edd_calculated",
         "type": "toaster_notes",
-        "text": "Most effective methods\n\n*Intrauterine Device(IUD)\n\n*Implants",
-        "text_color": "#1199F9",
-        "toaster_type": "info"
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_calculation.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
       }
     ]
   },
   "step5": {
-    "title": "More effective methods",
+    "title": "Has client ANC Visits?",
     "next": "step6",
     "fields": [
       {
-        "key": "fp_more_effective_methods",
+        "key": "started_anc",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "started_anc",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Have you been to ANC Clinic?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_has_started_anc_visits",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "toaster_notes",
         "type": "toaster_notes",
-        "text": "More Effective methods\n\n*Injectables\n*Oral Contraceptive Pills(COC,POP)\n*LAM",
+        "text": "Tell the client to continue to attend and follow the advice of the service providers in order to have a healthy pregnancy.",
         "text_color": "#1199F9",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_has_not_started_anc_visits",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Find out why the client is not going to the ANC clinic and explain the importance of attending ANC visits for a healthy pregnancy.\nTell the client you will give her a referral to go to the health centre for ANC services\n",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
       }
     ]
   },
   "step6": {
-    "title": "Effective methods",
+    "title": "Client Has not started ANC visits",
     "next": "step7",
     "fields": [
       {
-        "key": "effective_fp_methods",
+        "key": "client_has_started_anc_visits",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "toaster_notes",
         "type": "toaster_notes",
-        "text": "Effective Methods\n\n*Male Condoms\n*Female Condoms\n*Standard Day Method",
+        "text": "Explain the reason for giving the referral to the health facility.\nFill in the referral form.\n",
         "text_color": "#1199F9",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
       }
     ]
   },
   "step7": {
-    "title": "Permanent methods",
+    "title": "Unprotected Sex",
     "next": "step8",
     "fields": [
       {
-        "key": "fp_permanent_methods",
+        "key": "has_had_unprotected_sex_since_last_menstruation",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_had_unprotected_sex_since_last_menstruation",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "toaster_notes",
-        "type": "toaster_notes",
-        "text": "Permanent Methods\n\n*Vasectomy\n*Tubal Ligation(Female Sterilization)",
-        "text_color": "#1199F9",
-        "toaster_type": "info"
+        "label": "ASK: Have had unprotected sex since your last menstrual cycle or delivery?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "has_had_a_baby_in_the_last_4_weeks",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_had_a_baby_in_the_last_4_weeks",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Have you had a baby in the last 4 weeks?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "has_had_a_baby_in_the_last_6_months",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_had_a_baby_in_the_last_6_months",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Have you had a baby in the last 6 months?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "exclusively_breast_feeding",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "exclusively_breast_feeding",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Are you exclusively breastfeeding?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "has_had_period_since_giving_birth",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_had_period_since_giving_birth",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Have you had your menstrual period since you gave birth?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "has_had_menstrual_circle_since_giving_birth",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_had_menstrual_circle_since_giving_birth",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Have you had your menstrual period since you gave birth?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
       }
     ]
   },
   "step8": {
-    "title": "Emergency Contraceptive Card",
+    "title": "Pregnancy Screening Questions",
     "next": "step9",
     "fields": [
       {
-        "key": "emergency_contraceptive_card",
+        "key": "did_menstrual_circle_start_within_last_7_days",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "did_menstrual_circle_start_within_last_7_days",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "toaster_notes",
-        "type": "toaster_notes",
-        "text": "Now show the client the emergency contraceptive card.\n\nExplain that this method should only be used if a regular family planning method fails.\n\nThe client should consider a regular family planning method other than emergency contraceptives.\n\nThe effectiveness is higher when this method is taken within 24 hours of unprotected sex",
-        "text_color": "#1199F9",
-        "toaster_type": "info"
+        "label": "ASK: Did your menstrual cycle start within last 7 days?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "had_a_miscarriage_in_the_last_7_days",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "had_a_miscarriage_in_the_last_7_days",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Have you had a miscarriage or abortion in the last 7 days?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "has_been_using_reliable_contraceptive_method_consistently",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_been_using_reliable_contraceptive_method_consistently",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Have you been using a reliable contraceptive method consistently and correctly?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
       }
     ]
   },
   "step9": {
-    "title": "Emphasis on Condoms",
-    "next": "step10",
+    "title": "Pregnancy Likelihood",
     "fields": [
       {
-        "key": "emphasis_on_condoms",
+        "key": "return_after_edd",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "toaster_notes",
         "type": "toaster_notes",
-        "text": "Emphasize that condoms are the only real way to prevent both unintended pregnancy and STI and HIV.",
+        "text": "Tell the client you will return after she has had the baby to discuss family planning options.\nAt the end of this visit, select an approximate date for follow up visit, after the EDD\n",
         "text_color": "#1199F9",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "unlikely_pregnant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Tell the client that based on her response, it is unlikely that she is pregnant.",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "not_unlikely_pregnant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Explain to the client that based on her responses, you are not able to be sure that she is not pregnant.\nTell the client it is not possible to give her a family planning method until you are sure she is not pregnant.\n.",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_woman_available",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "No woman client is available.\n.",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnancy_status",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_calculation.yml"
+            }
+          }
+        }
       }
     ]
-  },"step10": {
-  "title": "Questions from client",
-  "fields": [
-    {
-      "key": "questions",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "person_attribute",
-      "openmrs_entity_id": "toaster_notes",
-      "type": "toaster_notes",
-      "text": "Ask: Do you have any questions? (Answer as many as you can)",
-      "text_color": "#1199F9",
-      "toaster_type": "info"
-    }
-  ]
-}
+  }
 }

@@ -1031,6 +1031,14 @@
           }
         },
         {
+          "column_name": "pregnancy_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pregnancy_status"
+          }
+        },
+        {
           "column_name": "fp_method_accepted",
           "type": "Event",
           "json_mapping": {

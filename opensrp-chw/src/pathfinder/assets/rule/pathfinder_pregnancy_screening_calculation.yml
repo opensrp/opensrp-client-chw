@@ -12,4 +12,17 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = 'Family Planning Pregnancy Screening'"
-
+---
+name: step4_edd_calculated
+description: EDD calculated
+priority: 1
+condition: "step3_is_client_pregnant =='yes' && step3_knows_lmp!=''"
+actions:
+  - "calculation =String.valueOf(String.valueOf(step3_edd_text).concat(' ')).concat(step3_knows_lmp=='yes'? helper.addDuration(step3_lmp,'280d') : ((step3_gestation_age!= '' ? (helper.addDuration(helper.getDateToday(), String.valueOf(40 - step3_gestation_age).concat('w')))  :''))   ) "
+---
+name: step9_pregnancy_status
+description: pregnancy_status calculated
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step3_is_client_pregnant =='yes'? 'PREGNANT' : (((step7_has_had_a_baby_in_the_last_4_weeks =='yes' || step7_has_had_unprotected_sex_since_last_menstruation == 'no' || step7_has_had_period_since_giving_birth != '' || step8_did_menstrual_circle_start_within_last_7_days == 'yes' || step8_had_a_miscarriage_in_the_last_7_days == 'yes' || step8_has_been_using_reliable_contraceptive_method_consistently == 'yes') && step1_are_you_speaking_to!='man_only' && step3_is_client_pregnant !='yes')?'NOT LIKELY PREGNANT':'NOT UNLIKELY PREGNANT') "
