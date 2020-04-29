@@ -54,7 +54,7 @@ public class ReferralRegisterFragmentModel extends BaseReferralRegisterFragmentM
         columnList.add("T2." + DBConstants.KEY.FIRST_NAME + " || " + "' '" + " || " + "T2." + DBConstants.KEY.MIDDLE_NAME + " || " + "' '" + " || " + "T2." + DBConstants.KEY.LAST_NAME + " AS " + DBConstants.KEY.FAMILY_HEAD);
         columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_SERVICE + "  AS " + Key.REFERRAL_SERVICE);
         columnList.add(Tables.REFERRAL + "." + Key.REFERRAL_DATE);
-        columnList.add(Constants.TABLE_NAME.TASK + "." + org.smartregister.chw.core.utils.ChwDBConstants.TaskTable.BUSINESS_STATUS + " AS " + Key.REFERRAL_STATUS);
+        columnList.add(Constants.TABLE_NAME.TASK + "." + ChwDBConstants.TaskTable.BUSINESS_STATUS + " AS " + Key.REFERRAL_STATUS);
         columnList.add(Tables.REFERRAL + "." + Key.PROBLEM);
         columnList.add(Tables.REFERRAL + "." + Key.SERVICE_BEFORE_REFERRAL);
         columnList.add(Tables.REFERRAL + "." + Key.SERVICE_BEFORE_REFERRAL_OTHER);
