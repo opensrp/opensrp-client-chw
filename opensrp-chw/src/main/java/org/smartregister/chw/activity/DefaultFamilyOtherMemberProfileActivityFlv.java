@@ -11,7 +11,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {
 
-    public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId) {
+    public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId, final String baseEntityId) {
         return viewId -> {
             if (viewId == R.id.fab) {
                 FamilyCallDialogFragment.launchDialog(activity, familyBaseEntityId);

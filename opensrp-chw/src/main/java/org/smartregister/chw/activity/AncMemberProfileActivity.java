@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -124,7 +125,19 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     private void addAncReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs),
-                org.smartregister.chw.util.Constants.JSON_FORM.getAncReferralForm()));
+                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getAncReferralForm()));
+
+        if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm()));
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm()));
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm()));
+        }
+
         if (MalariaDao.isRegisteredForMalaria(baseEntityID)) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
         }

@@ -20,8 +20,6 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.model.ReferralTypeModel;
-import org.smartregister.chw.referral.domain.ReferralServiceObject;
-import org.smartregister.chw.referral.util.Util;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -70,12 +68,6 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
         if (getIntent().getExtras() != null) {
             referralTypeModels = getIntent().getParcelableArrayListExtra(Constants.REFERRAL_TYPES);
             baseEntityId = getIntent().getStringExtra(CoreConstants.ENTITY_ID);
-            List<ReferralServiceObject> referralServicesList = Util.getReferralServicesList();
-            if (referralServicesList != null && BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
-                for (ReferralServiceObject referralServiceObject : referralServicesList) {
-                    referralTypeModels.add(new ReferralTypeModel(referralServiceObject.getNameEn(),
-                            Constants.JSON_FORM.getGeneralReferralForm(), referralServiceObject.getId()));
-                }
             referralTypeAdapter.setReferralTypes(referralTypeModels);
         }
 
@@ -89,7 +81,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
 
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this,
-                    baseEntityId, jsonObject, referralTypeModel.getReferralServiceId());
+                    baseEntityId, jsonObject);
         } else {
             startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, jsonObject,
                     Utils.metadata().familyMemberFormActivity), JsonFormUtils.REQUEST_CODE_GET_JSON);
@@ -130,8 +122,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
                     org.smartregister.util.Utils.showShortToast(this, getString(R.string.open_referral_form, referralTypeModel.getReferralType()));
                     referralTypeAdapter.canStart = true; //TODO Remove this necessary evil; necessary since on resume is not revoked again
                 }
-
-                JSONObject formJson = getFormUtils().getFormJson(referralTypeModel.getFormName());
+                JSONObject formJson = getFormUtils().getFormJsonFromRepositoryOrAssets(referralTypeModel.getFormName());
                 formJson.put(REFERRAL_TASK_FOCUS, referralTypeModel.getReferralType());
                 startReferralForm(formJson, referralTypeModel);
             } catch (Exception e) {
