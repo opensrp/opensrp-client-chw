@@ -1,0 +1,796 @@
+{
+  "validate_on_submit": false,
+  "show_errors_on_submit": true,
+  "skip_blank_steps": true,
+  "count": "9",
+  "encounter_type": "Family Planning Method Choice",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Introduction Notes",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "introduction_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Tell the client that you would like to speak to her/him more about her/his reproductive goals and fertility desires to help her/him choose the best method for her/him.",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step2": {
+    "title": "Introduction Notes",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "introduction_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "EXPLAIN: The methods I can give you today include:\ncombined oral contraceptives\nprogestin only pills\nfemale condoms\nmale condoms\nstandard days method\nMethods for referral:\nlactational amenorrhea method (LAM)\ninjection\nimplants\ninteruterineintrauterine device (IUD)\nemergency contractptioncontraception\ntubal litigation\nvasectomy\n",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step3": {
+    "title": "Family planning method choice questions",
+    "next": "step4",
+    "fields": [
+      {
+        "key": "do_you_want_to_have_children",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "do_you_want_to_have_children",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Do you want to have children in the future?\n",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_wants_children",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Explain that permanent methods of contraception will not work because she/he wants a child in the future.\nSet aside the vasectomy and tubal ligation cards from the method options.",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_does_not_want_children",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Tell the client that permanent methods may be suitable.\n",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "Is Currently Breastfeeding",
+    "next": "step5",
+    "fields": [
+      {
+        "key": "is_the_woman_currently_breast_feeding",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "do_you_want_to_have_children",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Is the woman currently breastfeeding?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_the_baby_under_6_months",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "do_you_want_to_have_children",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Is your child less than six months old?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "not_breastfeeding",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Explain that lactational amenorrhea method (LAM) is only good for people who are breastfeeding.\nSet aside the LAM cards from the methods option.\n",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step5": {
+    "title": "Breast Feeding 6 year old child",
+    "next": "step6",
+    "fields": [
+      {
+        "key": "breast_feeding_6_year_old",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Explain to the client that combined oral contraceptives (COC) may not be a good option at this time because COC use during breastfeeding\nreduces the quantity of breast milk\nand can decrease the duration of lactation\nA breastfeeding woman should delay COC use until her baby is at least six months old.\nSet aside the COC cards from the methods option.\n",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step6": {
+    "title": "Partner supports FP",
+    "next": "step7",
+    "fields": [
+      {
+        "key": "does_partner_support_fp",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "do_you_want_to_have_children",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Is your child less than six months old?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "partner_supportive",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Explain to the client that methods requiring cooperation from her partner such as standard days method and condoms should be suitable.\n",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "partner_not_supportive",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Explain to the client that methods requiring cooperation from her partner such as standard days method and condoms may not be suitable.\nSet aside standard days methods and condoms.\n",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step7": {
+    "title": "Partner not supports FP",
+    "next": "step8",
+    "fields": [
+      {
+        "key": "partner_not_supportive",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Emphasize that besides condoms, no other family planning methods offer protection against STIs and HIV.",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step8": {
+    "title": "Methods not wanted",
+    "next": "step9",
+    "fields": [
+      {
+        "key": "if_there_are_methods_not_wanted",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "if_there_are_methods_not_wanted",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Are there any methods which you do not want to use or you have not tolerated in the past?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "methods_not_wanted",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "methods_not_wanted",
+        "openmrs_entity_parent": "",
+        "label": "Choose the methods the client does not want to use from the following list:",
+        "options": [
+          {
+            "key": "progestin_only_pills",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Progestin only pills"
+          },
+          {
+            "key": "coc",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Combined Oral Contraceptives (COC)"
+          },
+          {
+            "key": "emergency_contraception",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Emergency Contraception"
+          },
+          {
+            "key": "iud",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Interuterine device (IUD)"
+          },
+          {
+            "key": "implants",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Implants"
+          },
+          {
+            "key": "injection",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Injection"
+          },
+          {
+            "key": "sdm",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Standard days method(SDM)"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please choose all that apply"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_family_planning_registration_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step9": {
+    "title": "Methods Chosed",
+    "next": "step10",
+    "fields": [
+      {
+        "key": "has_decided_method_wanted",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_decided_method_wanted",
+        "openmrs_entity_parent": "",
+        "label": "Have you decided which method you want to use?\n",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step10": {
+    "title": "Discuss client concerns",
+    "next": "step11",
+    "fields": [
+      {
+        "key": "discuss_clients_concerns",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Discuss any concerns the client has about family planning and answer any questions.\n",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step11": {
+    "title": "Client Ready to choose a method",
+    "next": "step12",
+    "fields": [
+      {
+        "key": "is_the_client_now_ready_to_choose_a_method",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_decided_method_wanted",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Are you now ready to choose a method?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step12": {
+    "title": "Methods Chosed",
+    "next": "step13",
+    "fields": [
+      {
+        "key": "has_decided_method_wanted",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "has_decided_method_wanted",
+        "openmrs_entity_parent": "",
+        "label": "Tell the client that based on her/his responses, potential methods are listed below.\nAsk the client to choose the method she/he would like to use.\n",
+        "options": [
+          {
+            "key": "progestin_only_pills",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Progestin only pills"
+          },
+          {
+            "key": "coc",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Combined Oral Contraceptives (COC)"
+          },
+          {
+            "key": "emergency_contraception",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Emergency Contraception"
+          },
+          {
+            "key": "iud",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Interuterine device (IUD)"
+          },
+          {
+            "key": "implants",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Implants"
+          },
+          {
+            "key": "injection",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Injection"
+          },
+          {
+            "key": "sdm",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "text": "Standard days method(SDM)"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pathfinder_pregnancy_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step13": {
+    "title": "Discuss the chosen method",
+    "next": "step14",
+    "fields": [
+      {
+        "key": "client_has_not_chose_a_method",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Take out the brochure for the method chosen.\nGo through the brochure with the client so that she/he understands all of its content.\n",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step14": {
+    "title": "Client you are speaking to",
+    "next": "step15",
+    "fields": [
+      {
+        "key": "are_you_speaking_to",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "are_you_speaking_to",
+        "openmrs_entity_parent": "",
+        "label": "Are you speaking to:",
+        "options": [
+          {
+            "key": "couple",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "couple",
+            "openmrs_entity_parent": "",
+            "text": "Couple"
+          },
+          {
+            "key": "man_only",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "man_only",
+            "openmrs_entity_parent": "",
+            "text": "Man only"
+          },
+          {
+            "key": "woman_only",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "woman_only",
+            "openmrs_entity_parent": "",
+            "text": "Woman only"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        }
+      },
+      {
+        "key": "man_has_chosen_a_female_method",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Tell the man that the method he has chosen must be used by a woman.\nTell the man that at the end of this visit, you will schedule a follow-up visit in one week to meet with him and his female partner to choose a method suitable for her.\n",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step15": {
+    "title": "Can the client explain the choice",
+    "next": "step16",
+    "fields": [
+      {
+        "key": "can_the_explain_the_choice",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "can_the_explain_the_choice",
+        "openmrs_entity_parent": "",
+        "label": "ASK: Can you explain why you chose this method and not other methods?\nWas the client adequately able to explain her reason for choosing this method?\n",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one choice"
+        }
+      }
+    ]
+  },
+  "step16": {
+    "title": "Explanation of fp requiring referral",
+    "next": "step17",
+    "fields": [
+      {
+        "key": "explanation_of_method_requiring_referral",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "The client has chosen $methodName which requires a referral to a health facility.\nTell the client you will give a referral to go to a health facility to get the method she/he has chosen.\n",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step19": {
+    "title": "Give Condoms",
+    "next": "step13",
+    "fields": [
+      {
+        "key": "client_has_not_chose_a_method",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Give the client condoms.\nExplain that the client can receive free family planning information through her/his phone with m4RH (15014).",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      }
+    ]
+  }
+}
