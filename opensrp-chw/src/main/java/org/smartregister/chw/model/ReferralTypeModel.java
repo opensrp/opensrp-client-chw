@@ -7,30 +7,21 @@ public class ReferralTypeModel implements Parcelable {
 
     private String referralType;
     private String formName;
-    private String referralServiceId;
 
     public ReferralTypeModel(String referralType, String formName) {
         this.referralType = referralType;
         this.formName = formName;
     }
 
-    public ReferralTypeModel(String referralType, String formName, String referralServiceId) {
-        this.referralType = referralType;
-        this.formName = formName;
-        this.referralServiceId = referralServiceId;
-    }
-
     private ReferralTypeModel(Parcel in) {
         referralType = in.readString();
         formName = in.readString();
-        referralServiceId = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(referralType);
         dest.writeString(formName);
-        dest.writeString(referralServiceId);
     }
 
     @Override
@@ -58,7 +49,4 @@ public class ReferralTypeModel implements Parcelable {
         return formName;
     }
 
-    public String getReferralServiceId() {
-        return referralServiceId;
-    }
 }
