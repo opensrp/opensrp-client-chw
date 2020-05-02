@@ -13,6 +13,7 @@ import org.smartregister.chw.core.job.StockUsageReportJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.sync.ChwSyncIntentService;
 import org.smartregister.chw.sync.intent.ChwSyncTaskIntentService;
+import org.smartregister.job.DocumentConfigurationServiceJob;
 import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.P2pServiceJob;
@@ -21,6 +22,7 @@ import org.smartregister.job.SyncLocationsByLevelAndTagsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
+import org.smartregister.sync.intent.DocumentConfigurationIntentService;
 
 import timber.log.Timber;
 
@@ -60,6 +62,8 @@ public class ChwJobCreator implements JobCreator {
                 return new SyncLocationsByLevelAndTagsServiceJob();
             case StockUsageReportJob.TAG:
                 return new StockUsageReportJob();
+            case DocumentConfigurationServiceJob.TAG:
+                return new DocumentConfigurationServiceJob(DocumentConfigurationIntentService.class);
             //TODO uncomment to enable plans
             /*case PlanIntentServiceJob.TAG:
                 return new PlanIntentServiceJob();*/
