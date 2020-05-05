@@ -276,6 +276,13 @@
             "creates_case": [
               "ec_malaria_followup_hf"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Referral Dismissal",
+            "creates_case": [
+              "ec_referral_dismissal"
+            ]
           }
         ]
       }
