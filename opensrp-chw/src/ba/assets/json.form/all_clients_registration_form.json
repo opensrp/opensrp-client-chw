@@ -1,5 +1,7 @@
 {
-  "count": "1",
+  "validate_on_submit": true,
+  "show_errors_on_submit": false,
+  "count": "2",
   "encounter_type": "Client Registration",
   "entity_id": "",
   "relational_id": "",
@@ -52,7 +54,88 @@
     }
   },
   "step1": {
-    "title": "Add client",
+    "title": "Location details",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "opensrp_id",
+        "hidden": "true",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "hint": "ID",
+        "scanButtonText": "Scan QR Code",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid ID"
+        }
+      },
+      {
+        "key": "fam_village",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "cityVillage",
+        "type": "edit_text",
+        "edit_type": "name",
+        "hint": "Village",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the village or town"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "err": "Please enter a valid village name"
+        }
+      },
+      {
+        "key": "landmark",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "landmark",
+        "type": "edit_text",
+        "edit_type": "name",
+        "hint": "Landmark/ description of house location",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the landmark/description of location."
+        }
+      },
+      {
+        "key": "gps",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "gps"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
+        "key": "nearest_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "tree",
+        "hint": "Nearest health facility",
+        "tree": [],
+        "v_required": {
+          "value": true,
+          "err": "Please enter the nearest health facility"
+        }
+      }
+    ]
+  },
+  "step2": {
+    "title": "Client details",
     "fields": [
       {
         "key": "photo",

@@ -72,7 +72,7 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity
         intent.putExtra(OpdConstants.JSON_FORM_EXTRA.JSON, jsonObject.toString());
 
         Form form = new Form();
-        form.setName(getString(R.string.add_client));
+        form.setName(getString(R.string.client_registration));
         form.setActionBarBackground(R.color.family_actionbar);
         form.setNavigationBackground(R.color.family_navigation);
         form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);

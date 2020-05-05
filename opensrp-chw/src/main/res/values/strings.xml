@@ -357,4 +357,5 @@
     <string name="tb_referral">Clinic Of Tuberculosis Treatment</string>
     <string name="gbv_referral">Gender Based Violence Referral</string>
     <string name="child_gbv_referral">Child Gender Based Violence Referral</string>
+    <string name="client_registration" >Client Registration</string>
 </resources>
