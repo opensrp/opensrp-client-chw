@@ -57,7 +57,6 @@ import java.util.Set;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.Nullable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -129,7 +128,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs),
                 BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getAncReferralForm()));
 
-        if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
                     org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm()));
 
@@ -279,13 +278,14 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, hasDueServices);
         startActivity(intent);
     }
-   @Override
+
+    @Override
     public void setFamilyLocation() {
-        if(flavor.flvSetFamilyLocation()){
+        if (flavor.flvSetFamilyLocation()) {
             view_family_location_row.setVisibility(View.VISIBLE);
             rlFamilyLocation.setVisibility(View.VISIBLE);
         }
-            }
+    }
 
     @Override
     public void onClick(View view) {
@@ -357,9 +357,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
     public interface Flavor {
-       void flvOpenFamilyLocation();
+        void flvOpenFamilyLocation();
 
-       Boolean flvSetFamilyLocation();
+        Boolean flvSetFamilyLocation();
     }
 
 }

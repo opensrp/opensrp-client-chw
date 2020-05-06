@@ -2,7 +2,9 @@ package org.smartregister.chw.activity;
 
 public class DefaultAncMemberProfileActivityFlv implements AncMemberProfileActivity.Flavor {
     @Override
-    public void flvOpenFamilyLocation() {}
+    public void flvOpenFamilyLocation() {
+        // Implements Super
+    }
 
     @Override
     public Boolean flvSetFamilyLocation() {
