@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.family.domain.FamilyEventClient;
@@ -95,7 +96,7 @@ public class ChwAllClientsRegisterModel extends OpdRegisterActivityModel {
         Client familyClient = locationDetailsEvent.getClient();
         familyClient.addRelationship(Utils.metadata().familyRegister.familyHeadRelationKey, clientDetailsEvent.getClient().getBaseEntityId());
         familyClient.addRelationship(Utils.metadata().familyRegister.familyCareGiverRelationKey, clientDetailsEvent.getClient().getBaseEntityId());
-
+        clientDetailsEvent.getEvent().setEntityType(CoreConstants.TABLE_NAME.INDEPENDENT_CLIENT);
         allClientMemberEvents.add(new OpdEventClient(locationDetailsEvent.getClient(), locationDetailsEvent.getEvent()));
         allClientMemberEvents.add(new OpdEventClient(clientDetailsEvent.getClient(), clientDetailsEvent.getEvent()));
         return allClientMemberEvents;

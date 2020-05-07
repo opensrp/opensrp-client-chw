@@ -1111,14 +1111,6 @@
           "value": "true",
           "err": "Reason for registration is required"
         }
-      },
-      {
-        "key": "is_registered_independently",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "Is_Registered_Independently",
-        "type": "hidden",
-        "value": "1"
       }
     ]
   }

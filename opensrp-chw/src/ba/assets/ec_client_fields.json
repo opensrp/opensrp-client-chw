@@ -291,14 +291,6 @@
           }
         },
         {
-          "column_name": "is_registered_independently",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "Is_Registered_Independently"
-          }
-        },
-        {
           "column_name": "entity_type",
           "type": "Event",
           "json_mapping": {
