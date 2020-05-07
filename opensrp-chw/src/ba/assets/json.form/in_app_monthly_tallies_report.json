@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Monthly tallies Report",
+  "encounter_type": "CHW Monthly tallies Report",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -95,10 +95,10 @@
         "value": ""
       },
       {
-        "key": "updated_at",
+        "key": "value",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "updated_at",
+        "openmrs_entity_id": "value",
         "type": "edit_text",
         "hint": "Updated at",
         "value": ""

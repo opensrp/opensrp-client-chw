@@ -72,7 +72,7 @@
           "required_status": "yes:Please specify referral service"
         },
         {
-          "name": "problems",
+          "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
             "text": "Tatizo / hali ya afya ya mteja"
@@ -285,7 +285,7 @@
           "required_status": "yes:Tafadhali taja shida ya kiafya"
         },
         {
-          "name": "other_problems",
+          "name": "problem_other",
           "type": "text_input_edit_text",
           "meta_data": {
             "openmrs_entity": "concept",
