@@ -67,14 +67,15 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
             } else {
                 if (getActivity() != null) {
                     if (getActivity() instanceof IndividualProfileRemoveActivity) {
-                        IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
                         getActivity().finish();
-                        CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyBaseEntityId);
-                        CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                                personObject.getDetails(), "");
-                        pClient.setColumnmaps(personObject.getColumnmaps());
+                        if(familyBaseEntityId != null) { //Independent clients don't belong to family
+                            CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyBaseEntityId);
+                            CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                                    personObject.getDetails(), "");
+                            pClient.setColumnmaps(personObject.getColumnmaps());
 
-                        goToPatientDetailActivity(pClient);
+                            goToPatientDetailActivity(pClient);
+                        }
                     }
                 }
             }

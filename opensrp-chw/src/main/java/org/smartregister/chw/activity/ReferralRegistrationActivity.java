@@ -16,7 +16,6 @@ import org.smartregister.chw.referral.presenter.BaseIssueReferralPresenter;
 import org.smartregister.chw.referral.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 
-
 public class ReferralRegistrationActivity extends BaseIssueReferralActivity {
     public static String BASE_ENTITY_ID;
 

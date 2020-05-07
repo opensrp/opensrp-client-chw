@@ -1884,6 +1884,49 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_referral_dismissal",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "referral_task",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referral_task"
+          }
+        },
+        {
+          "column_name": "notification_date_created",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "notification_date_created"
+          }
+        },
+        {
+          "column_name": "notification_dismissal_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "notification_dismissal_date"
+          }
+        }
+      ]
     }
   ]
 }
