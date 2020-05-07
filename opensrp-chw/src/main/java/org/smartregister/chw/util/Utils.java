@@ -7,6 +7,8 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
+import org.jetbrains.annotations.NotNull;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
 import org.smartregister.chw.activity.ClientReferralActivity;
@@ -30,6 +32,22 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         bundle.setClassLoader(ReferralTypeModel.class.getClassLoader());
         bundle.putParcelableArrayList(Constants.REFERRAL_TYPES, (ArrayList<ReferralTypeModel>) referralTypeModels);
         activity.startActivity(new Intent(activity, ClientReferralActivity.class).putExtras(bundle));
+    }
+
+    @NotNull
+    public static List<ReferralTypeModel> getCommonReferralTypes(Activity activity) {
+        List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.hiv_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm()));
+
+            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.tb_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm()));
+
+            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.gbv_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm()));
+        }
+        return referralTypeModels;
     }
 
     public static String toCSV(String[] list) {

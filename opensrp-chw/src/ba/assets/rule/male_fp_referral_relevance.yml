@@ -1,0 +1,15 @@
+---
+name: step1_fp_side_effects_other
+description: Other Family Planning side effects
+priority: 1
+condition: "step1_side_effects_sterialization.contains('Others')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_side_effects_sterialization
+description: Female Sterilization side effects
+priority: 1
+condition: "step1_fp_method_accepted_referral.contains('Male_sterilization')"
+actions:
+  - "isRelevant = true"

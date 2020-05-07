@@ -59,7 +59,7 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
         NativeFormsDataBinder binder = new NativeFormsDataBinder(this, baseEntityId);
         binder.setDataLoader(new FPDataLoader(getString(R.string.fp_update_family_planning)));
 
-        JSONObject form = binder.getPrePopulatedForm(FamilyPlanningConstants.Forms.FAMILY_PLANNING_REGISTRATION_FORM);
+        JSONObject form = binder.getPrePopulatedForm(FamilyPlanningConstants.Forms.MALE_FAMILY_PLANNING_REGISTRATION_FORM);
         try {
             form.put(JsonFormUtils.ENCOUNTER_TYPE, FamilyPlanningConstants.EventType.UPDATE_FAMILY_PLANNING_REGISTRATION);
         } catch (JSONException e) {
