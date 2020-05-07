@@ -276,16 +276,26 @@
         },
         {
           "column_name": "has_primary_caregiver",
-          "type": "Client",
+          "type": "Event",
           "json_mapping": {
-            "field": "attributes.Has_Primary_Caregiver_Name"
+            "field": "obs.fieldCode",
+            "concept": "Has_Primary_Caregiver"
           }
         },
         {
           "column_name": "primary_caregiver_name",
-          "type": "Client",
+          "type": "Event",
           "json_mapping": {
-            "field": "attributes.Primary_Caregiver_Name"
+            "field": "obs.fieldCode",
+            "concept": "Primary_Caregiver_Name"
+          }
+        },
+        {
+          "column_name": "is_registered_independently",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "Is_Registered_Independently"
           }
         },
         {

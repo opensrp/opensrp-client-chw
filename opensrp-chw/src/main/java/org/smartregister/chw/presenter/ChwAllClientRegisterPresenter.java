@@ -35,10 +35,6 @@ public class ChwAllClientRegisterPresenter extends CoreAllClientsRegisterPresent
             if (getView() != null)
                 getView().showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
 
-            if (registerParams.getFormTag() == null) {
-                registerParams.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.getAllSharedPreferences()));
-            }
-
             List<OpdEventClient> opdEventClientList = model.processRegistration(jsonString, registerParams.getFormTag());
             if (opdEventClientList == null || opdEventClientList.isEmpty()) {
                 return;
