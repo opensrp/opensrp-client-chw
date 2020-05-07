@@ -26,7 +26,7 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
                     FamilyCallDialogFragment.launchDialog(activity, familyBaseEntityId);
                     break;
                 case R.id.refer_to_facility_layout:
-                    if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {                       ;
+                    if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
                         launchClientReferralActivity(activity,  getCommonReferralTypes(activity), baseEntityId);
                     } else {
                         Toast.makeText(activity, "Refer to facility", Toast.LENGTH_SHORT).show();
