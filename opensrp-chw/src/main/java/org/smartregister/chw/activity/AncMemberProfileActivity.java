@@ -252,11 +252,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
     @Override
-    public void openFamilyLocation() {
-        flavor.flvOpenFamilyLocation();
-    }
-
-    @Override
     public void openMedicalHistory() {
         AncMedicalHistoryActivity.startMe(this, memberObject);
     }
@@ -357,8 +352,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
     public interface Flavor {
-        void flvOpenFamilyLocation();
-
         Boolean flvSetFamilyLocation();
     }
 
