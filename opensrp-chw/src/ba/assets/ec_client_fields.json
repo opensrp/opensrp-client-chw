@@ -275,6 +275,20 @@
           }
         },
         {
+          "column_name": "has_primary_caregiver",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.Has_Primary_Caregiver_Name"
+          }
+        },
+        {
+          "column_name": "primary_caregiver_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.Primary_Caregiver_Name"
+          }
+        },
+        {
           "column_name": "entity_type",
           "type": "Event",
           "json_mapping": {
@@ -1494,7 +1508,6 @@
         }
       ]
     },
-
     {
       "name": "ec_malaria_referral",
       "columns": [
@@ -1531,7 +1544,6 @@
         }
       ]
     },
-
     {
       "name": "ec_fp_referral",
       "columns": [

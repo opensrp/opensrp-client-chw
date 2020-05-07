@@ -31,14 +31,19 @@ public class ChwAllClientRegisterPresenter extends CoreAllClientsRegisterPresent
     @Override
     public void saveForm(String jsonString, @NonNull RegisterParams registerParams) {
         try {
+
+            if (getView() != null)
+                getView().showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
+
             if (registerParams.getFormTag() == null) {
                 registerParams.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.getAllSharedPreferences()));
             }
+
             List<OpdEventClient> opdEventClientList = model.processRegistration(jsonString, registerParams.getFormTag());
             if (opdEventClientList == null || opdEventClientList.isEmpty()) {
                 return;
             }
-            registerParams.setEditMode(false);
+
             interactor.saveRegistration(opdEventClientList, jsonString, registerParams, this);
 
         } catch (Exception e) {

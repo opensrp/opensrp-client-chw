@@ -65,29 +65,18 @@ public class ChwAllClientsRegisterInteractor extends BaseOpdRegisterActivityInte
     }
 
 
-    private void saveRegistration(@NonNull List<OpdEventClient> opdEventClients, @NonNull String jsonString,
+    private void saveRegistration(@NonNull List<OpdEventClient> allClientEventList, @NonNull String jsonString,
                                   @NonNull RegisterParams params) {
         try {
             List<String> currentFormSubmissionIds = new ArrayList<>();
 
-            for (int i = 0; i < opdEventClients.size(); i++) {
+            for (int i = 0; i < allClientEventList.size(); i++) {
                 try {
 
-                    OpdEventClient opdEventClient = opdEventClients.get(i);
-                    Client baseClient = opdEventClient.getClient();
-                    Event baseEvent = opdEventClient.getEvent();
-
-                    JSONObject clientJson = new JSONObject(OpdJsonFormUtils.gson.toJson(baseClient));
-                    if (params.isEditMode()) {
-                        try {
-                            OpdJsonFormUtils.mergeAndSaveClient(baseClient);
-                        } catch (Exception e) {
-                            Timber.e(e, "ChwAllClientRegisterInteractor --> mergeAndSaveClient");
-                        }
-                    } else {
-                        getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
-                    }
-
+                    OpdEventClient allClientEvent = allClientEventList.get(i);
+                    Client baseClient = allClientEvent.getClient();
+                    Event baseEvent = allClientEvent.getEvent();
+                    addClient(params, baseClient);
                     addEvent(params, currentFormSubmissionIds, baseEvent);
                     updateOpenSRPId(jsonString, params, baseClient);
                     addImageLocation(jsonString, baseClient, baseEvent);
@@ -102,6 +91,19 @@ public class ChwAllClientsRegisterInteractor extends BaseOpdRegisterActivityInte
             getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
             Timber.e(e, "OpdRegisterInteractor --> saveRegistration");
+        }
+    }
+
+    private void addClient(@NonNull RegisterParams params, Client baseClient) throws JSONException {
+        JSONObject clientJson = new JSONObject(OpdJsonFormUtils.gson.toJson(baseClient));
+        if (params.isEditMode()) {
+            try {
+                OpdJsonFormUtils.mergeAndSaveClient(baseClient);
+            } catch (Exception e) {
+                Timber.e(e, "ChwAllClientRegisterInteractor --> mergeAndSaveClient");
+            }
+        } else {
+            getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
         }
     }
 

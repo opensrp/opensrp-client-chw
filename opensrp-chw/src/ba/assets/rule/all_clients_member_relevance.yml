@@ -1,0 +1,78 @@
+---
+name: step2_dob
+description: dob relevance
+priority: 1
+condition: "!step2_dob_unknown.contains('dob_unknown')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_age
+description: age relevance
+priority: 1
+condition: "step2_dob_unknown.contains('dob_unknown')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_phone_number
+description: phone number relevance
+priority: 1
+condition: "step2_is_primary_caregiver == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_id_avail
+description: identity relevance
+priority: 1
+condition: "(step2_dob != '' && helper.formatDate(step2_dob,'y') >= 18) || (step2_age != '' && step2_age >= 18)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_1yr
+description: pregnance 1yr relevance
+priority: 1
+condition: "step2_wra == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step2_insurance_provider_other
+description: insurance_provider_other relevance
+priority: 1
+condition: "!step2_insurance_provider.isEmpty() && step2_insurance_provider.equals('Other')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_insurance_provider_number
+descripltion: insurance number relevance
+priority: 1
+condition: "!step2_insurance_provider.isEmpty() && !step2_insurance_provider.contains('None')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_type_of_disability
+description: type_of_disability relevance
+priority: 1
+condition: "step2_disabilities.equals('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_preg_1yr
+description: pregnance 1yr relevance
+priority: 1
+condition: "step2_wra == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step2_primary_caregiver_name
+description: ask primary caregiver name
+priority: 1
+condition: "step2_has_primary_caregiver == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_other_phone_number
+description: as primary caregiver phone number
+priority: 1
+condition: "step2_has_primary_caregiver == 'Yes'"
+actions:
+  - "isRelevant = true"

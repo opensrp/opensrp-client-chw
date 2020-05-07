@@ -58,6 +58,18 @@
     "next": "step2",
     "fields": [
       {
+        "key": "fam_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "type": "edit_text",
+        "hint": "Surname",
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "err": "Please enter surname"
+        }
+      },
+      {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
@@ -164,13 +176,14 @@
         }
       },
       {
-        "key": "last_name",
+        "key": "surname",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Surname",
         "edit_type": "name",
+        "read_only": true,
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
@@ -178,6 +191,13 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the surname"
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -234,7 +254,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -248,7 +268,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_register_calculation.yml"
+              "rules-file": "all_clients_member_calculation.yml"
             }
           }
         }
@@ -295,7 +315,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         },
@@ -356,7 +376,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -370,7 +390,7 @@
         "hint": "National ID number",
         "edit_type": "name",
         "relevance": {
-          "step1:id_avail": {
+          "step2:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -390,7 +410,7 @@
         "hint": "Voter's registration number",
         "edit_type": "name",
         "relevance": {
-          "step1:id_avail": {
+          "step2:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -410,7 +430,7 @@
         "hint": "Driver's license number",
         "edit_type": "name",
         "relevance": {
-          "step1:id_avail": {
+          "step2:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -430,7 +450,7 @@
         "hint": "Passport number",
         "edit_type": "name",
         "relevance": {
-          "step1:id_avail": {
+          "step2:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -512,7 +532,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -531,7 +551,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -565,7 +585,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_register_calculation.yml"
+              "rules-file": "all_clients_member_calculation.yml"
             }
           }
         }
@@ -579,7 +599,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_register_calculation.yml"
+              "rules-file": "all_clients_member_calculation.yml"
             }
           }
         }
@@ -610,7 +630,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -653,18 +673,38 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
       },
       {
-        "key": "is_primary_caregiver",
+        "key": "phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Client phone number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must be a total of 10 digits in length"
+        },
+        "v_regex": {
+          "value": "(0[0-9]{9})|\\s*",
+          "err": "Number must be 10 digits and must start with 0."
+        },
+        "v_required": {
+          "value": false,
+          "err": "Please specify the phone number"
+        }
+      },
+      {
+        "key": "has_primary_caregiver",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "Has_Primary_Caregiver_Name",
         "type": "spinner",
-        "hint": "Is primary caregiver?",
+        "hint": " Do you have a primary caregiver/Treatment supporter?",
         "values": [
           "Yes",
           "No"
@@ -679,28 +719,20 @@
         }
       },
       {
-        "key": "phone_number",
+        "key": "primary_caregiver_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "Primary_Caregiver_Name",
         "type": "edit_text",
-        "hint": "Phone number",
-        "v_numeric": {
-          "value": "true",
-          "err": "Number must be a total of 10 digits in length"
-        },
-        "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
-          "err": "Number must be 10 digits and must start with 0."
-        },
+        "hint": "Name of caregiver",
         "v_required": {
-          "value": false,
-          "err": "Please specify the phone number"
+          "value": "true",
+          "err": "Please specify the name of the caregiver."
         },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -711,7 +743,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Other phone number",
+        "hint": "Primary caregiver phone number",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
@@ -723,7 +755,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -912,7 +944,7 @@
           "err": "Please specify role"
         },
         "relevance": {
-          "step1:leader": {
+          "step2:leader": {
             "ex-checkbox": [
               {
                 "or": [
