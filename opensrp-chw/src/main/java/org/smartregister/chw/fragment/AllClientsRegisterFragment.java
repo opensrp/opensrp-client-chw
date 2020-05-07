@@ -31,7 +31,7 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
         Bundle bundle = new Bundle();
         FamilyDetailsModel familyDetailsModel = FamilyDao.getFamilyDetail(commonPersonObjectClient.entityId());
 
-        if(familyDetailsModel != null) {
+        if (familyDetailsModel != null) {
             bundle.putString(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, familyDetailsModel.getBaseEntityId());
             bundle.putString(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyDetailsModel.getFamilyHead());
             bundle.putString(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, familyDetailsModel.getPrimaryCareGiver());
@@ -58,6 +58,9 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
             if (familyDetailsModel != null) {
                 AllClientsUtils.goToOtherMemberProfile(this.getActivity(), commonPersonObjectClient, bundle,
                         familyDetailsModel.getFamilyHead(), familyDetailsModel.getPrimaryCareGiver());
+            } else {
+                AllClientsUtils.goToOtherMemberProfile(this.getActivity(), commonPersonObjectClient, bundle,
+                        "", "");
             }
         }
     }

@@ -9,15 +9,13 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.Utils;
-import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.util.UtilsFlv;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.smartregister.chw.util.Utils.getCommonReferralTypes;
+import static org.smartregister.chw.util.Utils.launchClientReferralActivity;
 
 public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {
-    private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
     @Override
     public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId, final String baseEntityId) {
@@ -29,8 +27,7 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
                     break;
                 case R.id.refer_to_facility_layout:
                     if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-                        addReferralTypes(activity);
-                        org.smartregister.chw.util.Utils.launchClientReferralActivity(activity, referralTypeModels, baseEntityId);
+                        launchClientReferralActivity(activity,  getCommonReferralTypes(activity), baseEntityId);
                     } else {
                         Toast.makeText(activity, "Refer to facility", Toast.LENGTH_SHORT).show();
                     }
@@ -75,18 +72,5 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
     @Override
     public boolean hasANC() {
         return true;
-    }
-
-    private void addReferralTypes(Activity activity) {
-        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.hiv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm()));
-
-            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.tb_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm()));
-
-            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.gbv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm()));
-        }
     }
 }
