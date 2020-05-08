@@ -12,6 +12,7 @@ buildscript {
         jcenter()
         mavenLocal()
         maven { url 'https://maven.fabric.io/public' }
+        maven { url "http://dl.bintray.com/ona/kujaku" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.3'
@@ -53,6 +54,7 @@ allprojects {
         maven { url 'https://maven.fabric.io/public' }
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
         maven { url "https://dl.bintray.com/ona/rdt-capture" }
+        maven { url "http://dl.bintray.com/ona/kujaku" }
     }
 }
 

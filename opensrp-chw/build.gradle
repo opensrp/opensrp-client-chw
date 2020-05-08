@@ -23,6 +23,38 @@ jacoco {
     toolVersion = "0.8.5"
 }
 
+// LOAD PROPERTIES FILE
+Properties localProperties = new Properties()
+String[] propertyKeys = ["mapbox.sdk.token"]
+if (project.rootProject.file("local.properties").exists()) {
+    localProperties.load(project.rootProject.file("local.properties").newDataInputStream())
+    if (localProperties != null) {
+        boolean containsAllKeys = true
+        for (String propertyKey : propertyKeys) {
+            if (!localProperties.containsKey(propertyKey)) {
+                containsAllKeys = false;
+                break
+            }
+        }
+        if (!containsAllKeys) {
+            println(("One of the required config variables is not set in your local.properties. Make sure you have " + propertyKeys.join(", ")))
+        }
+    } else {
+        println("Properties was null!! The file does not exist or contains nothing")
+    }
+} else {
+    println("local.properties does not exist")
+}
+if (localProperties == null) {
+    localProperties = new Properties();
+}
+for (String propertyKey : propertyKeys) {
+    if (!localProperties.containsKey(propertyKey)) {
+        localProperties.put(propertyKey, "\"\"")
+    }
+}
+
+
 android {
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
@@ -149,6 +181,9 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             buildConfigField "int", "DATABASE_VERSION", '16'
+            // Kujaku variables
+            buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
+            buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", localProperties["mapbox.sdk.token"]
         }
         chad {
             dimension = 'baseDimension'
@@ -273,6 +308,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     //Do not upgrade to 24.jre-1 due to compatibility issues
     implementation 'com.google.guava:guava:20.0'
+    implementation 'io.ona.kujaku:library:0.8.3'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'org.mockito:mockito-android:3.0.0'
