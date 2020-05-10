@@ -2035,6 +2035,14 @@
             "field": "obs.fieldCode",
             "concept": "160433AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
+        },
+        {
+          "column_name": "date_marked_as_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_marked_as_done"
+          }
         }
       ]
     },
@@ -2097,6 +2105,14 @@
             "field": "obs.fieldCode",
             "concept": "comment_anc_danger_signs"
           }
+        },
+        {
+          "column_name": "date_marked_as_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_marked_as_done"
+          }
         }
       ]
     },
@@ -2158,6 +2174,14 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "comment_pnc_danger_signs"
+          }
+        },
+        {
+          "column_name": "date_marked_as_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_marked_as_done"
           }
         }
       ]
@@ -2295,6 +2319,50 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "hcp_attending"
+          }
+        },
+        {
+          "column_name": "date_marked_as_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_marked_as_done"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_family_planning_update",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "fp_method_accepted",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "fp_method_accepted"
+          }
+        },
+        {
+          "column_name": "fp_reg_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "fp_reg_date"
+          }
+        },
+        {
+          "column_name": "date_marked_as_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_marked_as_done"
           }
         }
       ]

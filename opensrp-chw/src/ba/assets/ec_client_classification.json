@@ -279,6 +279,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "Family Planning Update",
+            "creates_case": [
+              "ec_family_planning_update"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Referral Dismissal",
             "creates_case": [
               "ec_referral_dismissal"
