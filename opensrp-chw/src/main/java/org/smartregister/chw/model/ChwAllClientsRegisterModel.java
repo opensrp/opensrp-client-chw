@@ -5,15 +5,28 @@ import android.text.TextUtils;
 import androidx.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.Years;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
+import org.smartregister.domain.tag.FormTag;
+import org.smartregister.family.FamilyLibrary;
+import org.smartregister.family.domain.FamilyEventClient;
+import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.opd.model.OpdRegisterActivityModel;
+import org.smartregister.opd.pojo.OpdEventClient;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.util.FormUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -75,4 +88,38 @@ public class ChwAllClientsRegisterModel extends OpdRegisterActivityModel {
         return formUtils;
     }
 
+    @Nullable
+    @Override
+    public List<OpdEventClient> processRegistration(String jsonString, FormTag formTag) {
+        FamilyEventClient familyEventClient = JsonFormUtils.processFamilyMemberRegistrationForm(
+                FamilyLibrary.getInstance().context().allSharedPreferences(), jsonString, null);
+
+        if (familyEventClient == null) {
+            return null;
+        }
+
+        updateWra(familyEventClient);
+        List<OpdEventClient> opdEventClientList = new ArrayList<>();
+        OpdEventClient opdEventClient = new OpdEventClient(familyEventClient.getClient(), familyEventClient.getEvent());
+        opdEventClientList.add(opdEventClient);
+        return opdEventClientList;
+    }
+
+    private void updateWra(FamilyEventClient familyEventClient) {
+        // Add WRA
+        Client client = familyEventClient.getClient();
+        Event event = familyEventClient.getEvent();
+        if (client != null && event != null && client.getGender().equalsIgnoreCase("female") && client.getBirthdate() != null) {
+            DateTime date = new DateTime(client.getBirthdate());
+            Years years = Years.yearsBetween(date.toLocalDate(), LocalDate.now());
+            int age = years.getYears();
+            if (age >= 15 && age <= 49) {
+                List<Object> list = new ArrayList<>();
+                list.add("true");
+                event.addObs(new Obs("concept", "text", "162849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "",
+                        list, new ArrayList<>(), null, "wra"));
+            }
+
+        }
+    }
 }
