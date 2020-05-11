@@ -15,8 +15,8 @@ public class UpdatesFragmentPresenter extends BaseChwNotificationFragmentPresent
     }
 
     @Override
-    public void displayDetailsActivity(String baseEntityId, String notificationType) {
+    public void displayDetailsActivity(String notificationId, String notificationType) {
         Activity activity = ((UpdatesRegisterFragment) getView()).getActivity();
-        UpdateRegisterDetailsActivity.startActivity(activity, baseEntityId, notificationType);
+        UpdateRegisterDetailsActivity.startActivity(activity, notificationId, notificationType);
     }
 }

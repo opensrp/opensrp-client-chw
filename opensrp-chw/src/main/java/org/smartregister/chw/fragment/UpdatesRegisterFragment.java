@@ -9,7 +9,7 @@ import org.smartregister.family.util.Utils;
 
 import java.util.HashMap;
 
-import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.BASE_ENTITY_ID;
+import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.NOTIFICATION_ID;
 import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.NOTIFICATION_TYPE;
 
 public class UpdatesRegisterFragment extends BaseChwNotificationFragment {
@@ -38,8 +38,8 @@ public class UpdatesRegisterFragment extends BaseChwNotificationFragment {
     protected void onViewClicked(View view) {
         CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
         String notificationType = Utils.getValue(client.getColumnmaps(), NOTIFICATION_TYPE, true);
-        String baseEntityId = Utils.getValue(client.getColumnmaps(), BASE_ENTITY_ID, true).toLowerCase();
-        getFragmentPresenter().displayDetailsActivity(baseEntityId, notificationType);
+        String notificationId = Utils.getValue(client.getColumnmaps(), NOTIFICATION_ID, true).toLowerCase();
+        getFragmentPresenter().displayDetailsActivity(notificationId, notificationType);
     }
 
     @Override
