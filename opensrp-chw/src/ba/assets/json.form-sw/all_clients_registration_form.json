@@ -81,7 +81,7 @@
         }
       },
       {
-        "key": "last_name",
+        "key": "surname",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",

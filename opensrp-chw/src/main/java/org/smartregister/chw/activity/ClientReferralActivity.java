@@ -39,6 +39,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
     private FormUtils formUtils;
     private String baseEntityId;
     private Map<String, String> encounterTypeToTableMap;
+    public static boolean isStartedFromAllClients = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +81,8 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
     public void startReferralForm(JSONObject jsonObject, ReferralTypeModel referralTypeModel) {
 
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this,
-                    baseEntityId, jsonObject);
+                ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this,
+                        baseEntityId, jsonObject);
         } else {
             startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, jsonObject,
                     Utils.metadata().familyMemberFormActivity), JsonFormUtils.REQUEST_CODE_GET_JSON);
@@ -135,10 +136,6 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
     protected void onResume() {
         super.onResume();
         referralTypeAdapter.canStart = true;
-    }
-
-    public ReferralTypeAdapter getReferralTypeAdapter() {
-        return referralTypeAdapter;
     }
 
     public String getBaseEntityId() {
