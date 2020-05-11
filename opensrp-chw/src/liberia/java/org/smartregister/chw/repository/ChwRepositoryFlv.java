@@ -33,6 +33,9 @@ public class ChwRepositoryFlv {
                 case 3:
                     upgradeToVersion3(db);
                     break;
+                case 4:
+                    upgradeToVersion4(db);
+                    break;
                 default:
                     break;
             }
@@ -94,6 +97,14 @@ public class ChwRepositoryFlv {
         try {
             // delete possible duplication
             db.execSQL(RepositoryUtils.ADD_MISSING_REPORTING_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion4(SQLiteDatabase db) {
+        try {
+          RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
         } catch (Exception e) {
             Timber.e(e);
         }

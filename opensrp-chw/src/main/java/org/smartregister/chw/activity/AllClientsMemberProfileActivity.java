@@ -32,6 +32,7 @@ import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.contract.BaseProfileContract;
+import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import timber.log.Timber;
 
@@ -39,6 +40,8 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
 
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private RelativeLayout layoutFamilyHasRow;
+    private CustomFontTextView familyHeadTextView;
+    private CustomFontTextView careGiverTextView;
 
     @Override
     protected void onCreation() {
@@ -73,7 +76,24 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.return_to_all_client));
         layoutFamilyHasRow = findViewById(R.id.family_has_row);
+        familyHeadTextView = findViewById(R.id.family_head);
+        careGiverTextView = findViewById(R.id.primary_caregiver);
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
         layoutFamilyHasRow.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void toggleFamilyHead(boolean show) {
+        familyHeadTextView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void togglePrimaryCaregiver(boolean show) {
+        careGiverTextView.setVisibility(View.GONE);
     }
 
     @Override
