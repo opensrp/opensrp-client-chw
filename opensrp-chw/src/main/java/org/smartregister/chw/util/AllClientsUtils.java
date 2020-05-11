@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AboveFiveChildProfileActivity;
+import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
@@ -66,10 +68,14 @@ public class AllClientsUtils {
 
     public static void goToOtherMemberProfile(Activity activity, CommonPersonObjectClient patient,
                                               Bundle bundle, String familyHead, String primaryCaregiver) {
-        Intent intent = new Intent(activity, FamilyOtherMemberProfileActivity.class);
-        if (bundle != null) {
-            intent.putExtras(bundle);
+        Intent intent;
+        if (StringUtils.isBlank(familyHead) && StringUtils.isBlank(primaryCaregiver)) {
+            intent = new Intent(activity, AllClientsMemberProfileActivity.class);
+        } else {
+            intent = new Intent(activity, FamilyOtherMemberProfileActivity.class);
         }
+
+        intent.putExtras(bundle != null ? bundle : new Bundle());
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, patient);
         intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
