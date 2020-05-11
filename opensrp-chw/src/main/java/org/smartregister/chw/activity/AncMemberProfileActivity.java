@@ -64,6 +64,7 @@ import timber.log.Timber;
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private AncMemberProfileActivity.Flavor flavor = new AncMemberProfileActivityFlv();
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
@@ -127,7 +128,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs),
                 BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getAncReferralForm()));
 
-        if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
                     org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm()));
 
@@ -274,6 +275,14 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
     @Override
+    public void setFamilyLocation() {
+        if (flavor.flvSetFamilyLocation()) {
+            view_family_location_row.setVisibility(View.VISIBLE);
+            rlFamilyLocation.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
     public void onClick(View view) {
         super.onClick(view);
         int id = view.getId();
@@ -341,4 +350,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
     }
+
+    public interface Flavor {
+        Boolean flvSetFamilyLocation();
+    }
+
 }
