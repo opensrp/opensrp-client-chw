@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.mapbox.geojson.BoundingBox;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
+import com.mapbox.geojson.MultiPoint;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -17,6 +18,9 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
+import com.mapbox.turf.TurfConversion;
+import com.mapbox.turf.TurfMeasurement;
+import com.mapbox.turf.TurfMisc;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,13 +108,18 @@ public class AncMemberMapActivity extends AppCompatActivity {
     }
 
     private void showCommunityTransporters(@NonNull MapboxMap mapboxMap, @Nullable FeatureCollection featureCollection) {
-        if (featureCollection != null && communityTransportersSource != null) {
+        if (featureCollection != null && featureCollection.features() != null && communityTransportersSource != null) {
             //CameraPosition cameraPosition = new CameraPosition.Builder(). featureCollection.bbox();
             BoundingBox boundingBox = featureCollection.bbox();
-            //TurfMeasurement.bbox(featureGeometry);
-            if (boundingBox != null) {
-                mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds.from(boundingBox.north(), boundingBox.east(), boundingBox.south(), boundingBox.west()), 20));
+
+            if (boundingBox == null) {
+                double[] bbox = TurfMeasurement.bbox(featureCollection);
+                boundingBox = BoundingBox.fromLngLats(bbox[0], bbox[1], bbox[2], bbox[3]);
             }
+
+            mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds.from(boundingBox.north(), boundingBox.east(), boundingBox.south(), boundingBox.west()), 20));
+
+            communityTransportersSource.setGeoJson(featureCollection);
         }
     }
 
