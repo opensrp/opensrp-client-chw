@@ -7,10 +7,12 @@ public class ReferralTypeModel implements Parcelable {
 
     private String referralType;
     private String formName;
+    private String focus;
 
-    public ReferralTypeModel(String referralType, String formName) {
+    public ReferralTypeModel(String referralType, String formName, String focus) {
         this.referralType = referralType;
         this.formName = formName;
+        this.focus = focus;
     }
 
     private ReferralTypeModel(Parcel in) {
@@ -49,4 +51,11 @@ public class ReferralTypeModel implements Parcelable {
         return formName;
     }
 
+    public String getFocus() {
+        return focus;
+    }
+
+    public void setFocus(String focus) {
+        this.focus = focus;
+    }
 }
