@@ -17,6 +17,7 @@ import org.smartregister.AllConstants;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAllClientsRegisterActivity;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.AllClientsRegisterFragment;
 import org.smartregister.chw.model.ChwAllClientsRegisterModel;
 import org.smartregister.chw.presenter.ChwAllClientRegisterPresenter;
@@ -91,7 +92,7 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity
 
                 JSONObject form = new JSONObject(jsonString);
                 String encounterType = form.getString(OpdJsonFormUtils.ENCOUNTER_TYPE);
-                if (encounterType.equals(Constants.EncounterType.CLIENT_REGISTRATION)) {
+                if (encounterType.equals(Constants.EventType.FAMILY_REGISTRATION)) {
                     RegisterParams registerParam = new RegisterParams();
                     registerParam.setEditMode(false);
                     registerParam.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.context().allSharedPreferences()));

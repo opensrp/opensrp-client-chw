@@ -15,8 +15,6 @@ import org.smartregister.domain.FetchStatus;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.pojo.OpdEventClient;
 import org.smartregister.opd.pojo.RegisterParams;
-import org.smartregister.opd.utils.OpdJsonFormUtils;
-import org.smartregister.opd.utils.OpdUtils;
 
 import java.util.List;
 

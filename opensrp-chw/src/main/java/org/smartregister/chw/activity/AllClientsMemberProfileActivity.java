@@ -1,7 +1,10 @@
 package org.smartregister.chw.activity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -10,41 +13,60 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.contract.AllClientsMemberContract;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
+import org.smartregister.chw.presenter.AllClientsMemberPresenter;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.helper.ImageRenderHelper;
+import org.smartregister.opd.activity.BaseOpdFormActivity;
+import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.view.contract.BaseProfileContract;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import timber.log.Timber;
 
-public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity implements OnClickFloatingMenu {
+import static com.vijay.jsonwizard.constants.JsonFormConstants.COUNT;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
+import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP_TITLE;
+import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
+import static org.smartregister.family.util.JsonFormUtils.STEP2;
+
+public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity implements OnClickFloatingMenu, AllClientsMemberContract.View {
 
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private RelativeLayout layoutFamilyHasRow;
     private CustomFontTextView familyHeadTextView;
     private CustomFontTextView careGiverTextView;
+    private AllClientsMemberContract.Presenter allClientsMemberPresenter;
 
     @Override
     protected void onCreation() {
+        setIndependentClient(true);
         setContentView(R.layout.activity_all_clients_member_profile);
 
         Toolbar toolbar = findViewById(org.smartregister.family.R.id.family_toolbar);
@@ -64,6 +86,7 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
 
         setupViews();
     }
+
 
     @Override
     public void setFamilyServiceStatus(String status) {
@@ -126,7 +149,8 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
         String dob = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
         String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
 
-        FpRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpRegistrationForm(gender), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
+        FpRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpRegistrationForm(gender),
+                FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
     }
 
 
@@ -135,7 +159,8 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
         String dob = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
         String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
 
-        FpRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpChangeMethodForm(gender), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+        FpRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpChangeMethodForm(gender),
+                FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
     }
 
     @Override
@@ -147,21 +172,52 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
     @Override
     protected void startEditMemberJsonForm(Integer title_resource, CommonPersonObjectClient client) {
         String titleString = title_resource != null ? getResources().getString(title_resource) : null;
+        final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyRegister.tableName)
+                .findByBaseEntityId(familyBaseEntityId);
+
+        //Update common person client object with all details from family register table
+        CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                personObject.getDetails(), "");
+        commonPersonObjectClient.setColumnmaps(personObject.getColumnmaps());
+        commonPersonObjectClient.setDetails(personObject.getDetails());
+
+        String uniqueID = personObject.getColumnmaps().get(DBConstants.KEY.UNIQUE_ID);
         boolean isPrimaryCareGiver = commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver);
-        String eventName = Utils.metadata().familyMemberRegister.updateEventType;
 
-        String uniqueID = commonPersonObject.getColumnmaps().get(DBConstants.KEY.UNIQUE_ID);
-
-        NativeFormsDataBinder binder = new NativeFormsDataBinder(getContext(), client.getCaseId());
-        binder.setDataLoader(new FamilyMemberDataLoader(familyName, isPrimaryCareGiver, titleString, eventName, uniqueID));
+        NativeFormsDataBinder binder = new NativeFormsDataBinder(getContext(), commonPersonObject.getCaseId());
+        binder.setDataLoader(new FamilyMemberDataLoader(familyName, isPrimaryCareGiver, titleString,
+                Utils.metadata().familyMemberRegister.updateEventType, uniqueID));
         JSONObject jsonObject = binder.getPrePopulatedForm(Constants.ALL_CLIENT_REGISTRATION_FORM);
-
+        JSONObject preFilledForm = CoreJsonFormUtils.getAutoPopulatedJsonEditFormString(
+                CoreConstants.JSON_FORM.getFamilyDetailsRegister(), this, commonPersonObjectClient, Utils.metadata().familyMemberRegister.updateEventType);
         try {
-            if (jsonObject != null)
-                startFormActivity(jsonObject);
+            //Remove the first step and use the updated one
+            if(preFilledForm != null && jsonObject != null && jsonObject.has(STEP2)) {
+                JSONObject stepOne = preFilledForm.getJSONObject(STEP1);
+                stepOne.put(STEP_TITLE, getString(R.string.location_details));
+                stepOne.put(NEXT, STEP2);
+                preFilledForm.put(COUNT, "2");
+                preFilledForm.put(STEP2, jsonObject.getJSONObject(STEP2));
+                startFormActivity(preFilledForm);
+            }
+
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    @Override
+    public void startFormActivity(JSONObject jsonForm) {
+        Intent intent = new Intent(this, BaseOpdFormActivity.class);
+        intent.putExtra(OpdConstants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+        Form form = new Form();
+        form.setName(getString(R.string.update_client_registration));
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setNavigationBackground(R.color.family_navigation);
+        form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
+        form.setPreviousLabel(getResources().getString(R.string.back));
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        startActivityForResult(intent, org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @Override
@@ -193,6 +249,21 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
     protected void initializePresenter() {
         super.initializePresenter();
         onClickFloatingMenu = this;
+        allClientsMemberPresenter = new AllClientsMemberPresenter();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) return;
+        try {
+            String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+            JSONObject form = new JSONObject(jsonString);
+            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
+                getAllClientsMemberPresenter().updateClientDetails(jsonString);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override
@@ -217,6 +288,11 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
     }
 
     @Override
+    protected void setIndependentClient(boolean isIndependentClient) {
+        super.isIndependent = isIndependentClient;
+    }
+
+    @Override
     public void onClickMenu(int viewId) {
         switch (viewId) {
             case R.id.call_layout:
@@ -228,5 +304,10 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
             default:
                 break;
         }
+    }
+
+    @Override
+    public AllClientsMemberContract.Presenter getAllClientsMemberPresenter() {
+        return allClientsMemberPresenter;
     }
 }

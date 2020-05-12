@@ -65,7 +65,7 @@ public class ChwAllClientsRegisterInteractor extends BaseOpdRegisterActivityInte
     }
 
 
-    private void saveRegistration(@NonNull List<OpdEventClient> allClientEventList, @NonNull String jsonString,
+    public void saveRegistration(@NonNull List<OpdEventClient> allClientEventList, @NonNull String jsonString,
                                   @NonNull RegisterParams params) {
         try {
             List<String> currentFormSubmissionIds = new ArrayList<>();
@@ -98,7 +98,7 @@ public class ChwAllClientsRegisterInteractor extends BaseOpdRegisterActivityInte
         JSONObject clientJson = new JSONObject(OpdJsonFormUtils.gson.toJson(baseClient));
         if (params.isEditMode()) {
             try {
-                OpdJsonFormUtils.mergeAndSaveClient(baseClient);
+                JsonFormUtils.mergeAndSaveClient(getSyncHelper(), baseClient);
             } catch (Exception e) {
                 Timber.e(e, "ChwAllClientRegisterInteractor --> mergeAndSaveClient");
             }
