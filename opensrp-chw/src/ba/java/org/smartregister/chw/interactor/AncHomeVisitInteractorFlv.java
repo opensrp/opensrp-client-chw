@@ -782,6 +782,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isBlank(preg_risk)) {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
             if (preg_risk.equalsIgnoreCase("Low")) {
                 return BaseAncHomeVisitAction.Status.COMPLETED;
             } else {

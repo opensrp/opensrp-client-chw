@@ -60,7 +60,9 @@
         "text_color": "#C0C0C0",
         "saveObsAsArray": true,
         "exclusive": [
-          "chk_none"
+          "Low",
+          "Medium",
+          "High"
         ],
         "options": [
           {
