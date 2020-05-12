@@ -29,6 +29,7 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.opd.pojo.OpdEventClient;
 import org.smartregister.opd.utils.OpdDbConstants;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +111,7 @@ public class AllClientsUtils {
     }
 
     @NotNull
-    public static List<OpdEventClient> getOpdEventClients(String jsonString, boolean isEditMode) {
+    public static List<OpdEventClient> getOpdEventClients(String jsonString) {
         List<OpdEventClient> allClientMemberEvents = new ArrayList<>();
 
         FamilyEventClient locationDetailsEvent = org.smartregister.family.util.JsonFormUtils.processFamilyUpdateForm(
@@ -141,12 +142,6 @@ public class AllClientsUtils {
         //Use different entity type for independent members
         locationDetailsEvent.getEvent().setEntityType(CoreConstants.TABLE_NAME.INDEPENDENT_CLIENT);
         clientDetailsEvent.getEvent().setEntityType(CoreConstants.TABLE_NAME.INDEPENDENT_CLIENT);
-
-        //Chang event type for edit mode
-        if (isEditMode) {
-            locationDetailsEvent.getEvent().setEventType(Utils.metadata().familyRegister.updateEventType);
-            clientDetailsEvent.getEvent().setEventType(Utils.metadata().familyMemberRegister.updateEventType);
-        }
 
         allClientMemberEvents.add(new OpdEventClient(locationDetailsEvent.getClient(), locationDetailsEvent.getEvent()));
         allClientMemberEvents.add(new OpdEventClient(clientDetailsEvent.getClient(), clientDetailsEvent.getEvent()));

@@ -1,21 +1,28 @@
 package org.smartregister.chw.contract;
 
-import org.smartregister.opd.pojo.OpdEventClient;
-
-import java.util.List;
+import org.smartregister.family.contract.FamilyOtherMemberContract;
+import org.smartregister.family.contract.FamilyProfileContract;
+import org.smartregister.family.domain.FamilyEventClient;
 
 public interface AllClientsMemberContract {
 
     interface Model {
-        List<OpdEventClient> processUpdateForm(String jsonString);
+        FamilyEventClient processJsonForm(String jsonString, String familyBaseEntityId);
     }
 
     interface Presenter {
-        void updateClientDetails(String jsonString);
+        void updateLocationInfo(String jsonString, String familyBaseEntityId);
+
+        View getView();
+
+        void refreshProfileView();
     }
 
     interface Interactor {
-        void performUpdateClientDetails(List<OpdEventClient> opdEventClientList, String jsonString);
+        void updateLocationInfo(String jsonString, FamilyEventClient familyEventClient,
+                                FamilyProfileContract.InteractorCallBack interactorCallback);
+
+        void updateProfileInfo(String baseEntityId, FamilyOtherMemberContract.InteractorCallBack callback);
     }
 
     interface View {

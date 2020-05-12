@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.AllClientsMemberContract;
@@ -39,6 +40,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
+import org.smartregister.family.util.Constants.JSON_FORM_EXTRA;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.helper.ImageRenderHelper;
@@ -50,9 +52,7 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 import timber.log.Timber;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.COUNT;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.NEXT;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP_TITLE;
 import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
 import static org.smartregister.family.util.JsonFormUtils.STEP2;
 
@@ -122,9 +122,32 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+        menu.findItem(R.id.action_location_info).setVisible(true);
+        menu.findItem(R.id.action_hiv_registration).setVisible(true);
+        menu.findItem(R.id.action_tb_registration).setVisible(true);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_location_info) {
+            JSONObject preFilledForm = CoreJsonFormUtils.getAutoPopulatedJsonEditFormString(
+                    CoreConstants.JSON_FORM.getFamilyDetailsRegister(), this,
+                    getFamilyRegistrationDetails(), Utils.metadata().familyRegister.updateEventType);
+            if (preFilledForm != null) startFormActivity(preFilledForm);
+            return true;
+        } else if (itemId == R.id.action_hiv_registration) {
+            //TODO Start HIV registration form
+            return true;
+        } else if (itemId == R.id.action_tb_registration) {
+            //TODO Start HIV registration form
+            return true;
+        }
         return true;
     }
 
@@ -172,38 +195,42 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
     @Override
     protected void startEditMemberJsonForm(Integer title_resource, CommonPersonObjectClient client) {
         String titleString = title_resource != null ? getResources().getString(title_resource) : null;
-        final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyRegister.tableName)
-                .findByBaseEntityId(familyBaseEntityId);
-
-        //Update common person client object with all details from family register table
-        CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                personObject.getDetails(), "");
-        commonPersonObjectClient.setColumnmaps(personObject.getColumnmaps());
-        commonPersonObjectClient.setDetails(personObject.getDetails());
-
-        String uniqueID = personObject.getColumnmaps().get(DBConstants.KEY.UNIQUE_ID);
+        CommonPersonObjectClient commonPersonObjectClient = getFamilyRegistrationDetails();
+        String uniqueID = commonPersonObjectClient.getColumnmaps().get(DBConstants.KEY.UNIQUE_ID);
         boolean isPrimaryCareGiver = commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver);
 
         NativeFormsDataBinder binder = new NativeFormsDataBinder(getContext(), commonPersonObject.getCaseId());
         binder.setDataLoader(new FamilyMemberDataLoader(familyName, isPrimaryCareGiver, titleString,
                 Utils.metadata().familyMemberRegister.updateEventType, uniqueID));
         JSONObject jsonObject = binder.getPrePopulatedForm(Constants.ALL_CLIENT_REGISTRATION_FORM);
-        JSONObject preFilledForm = CoreJsonFormUtils.getAutoPopulatedJsonEditFormString(
-                CoreConstants.JSON_FORM.getFamilyDetailsRegister(), this, commonPersonObjectClient, Utils.metadata().familyMemberRegister.updateEventType);
+
         try {
             //Remove the first step and use the updated one
-            if(preFilledForm != null && jsonObject != null && jsonObject.has(STEP2)) {
-                JSONObject stepOne = preFilledForm.getJSONObject(STEP1);
-                stepOne.put(STEP_TITLE, getString(R.string.location_details));
-                stepOne.put(NEXT, STEP2);
-                preFilledForm.put(COUNT, "2");
-                preFilledForm.put(STEP2, jsonObject.getJSONObject(STEP2));
-                startFormActivity(preFilledForm);
+            if (jsonObject != null && jsonObject.has(STEP1)) {
+
+                jsonObject.put(JsonFormUtils.ENTITY_ID, baseEntityId);
+                jsonObject.put(COUNT, "1");
+                jsonObject.remove(STEP1);
+                jsonObject.put(STEP1, jsonObject.getJSONObject(STEP2));
+                jsonObject.remove(STEP2);
+                startFormActivity(jsonObject);
             }
 
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    @NotNull
+    private CommonPersonObjectClient getFamilyRegistrationDetails() {
+        //Update common person client object with all details from family register table
+        final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyRegister.tableName)
+                .findByBaseEntityId(familyBaseEntityId);
+        CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                personObject.getDetails(), "");
+        commonPersonObjectClient.setColumnmaps(personObject.getColumnmaps());
+        commonPersonObjectClient.setDetails(personObject.getDetails());
+        return commonPersonObjectClient;
     }
 
     @Override
@@ -216,8 +243,9 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
         form.setNavigationBackground(R.color.family_navigation);
         form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
         form.setPreviousLabel(getResources().getString(R.string.back));
+        form.setWizard(false);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-        startActivityForResult(intent, org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @Override
@@ -249,17 +277,18 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
     protected void initializePresenter() {
         super.initializePresenter();
         onClickFloatingMenu = this;
-        allClientsMemberPresenter = new AllClientsMemberPresenter();
+        allClientsMemberPresenter = new AllClientsMemberPresenter(this, baseEntityId);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK) return;
         try {
-            String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+            String jsonString = data.getStringExtra(JSON_FORM_EXTRA.JSON);
             JSONObject form = new JSONObject(jsonString);
-            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
-                getAllClientsMemberPresenter().updateClientDetails(jsonString);
+            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
+                getAllClientsMemberPresenter().updateLocationInfo(jsonString, familyBaseEntityId);
             }
         } catch (Exception e) {
             Timber.e(e);

@@ -968,7 +968,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Registration_Reason",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "Reasons for Registration",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",

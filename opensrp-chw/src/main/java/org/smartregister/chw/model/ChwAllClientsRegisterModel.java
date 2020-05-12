@@ -65,6 +65,6 @@ public class ChwAllClientsRegisterModel extends OpdRegisterActivityModel {
     @Nullable
     @Override
     public List<OpdEventClient> processRegistration(String jsonString, FormTag formTag) {
-        return AllClientsUtils.getOpdEventClients(jsonString, false);
+        return AllClientsUtils.getOpdEventClients(jsonString);
     }
 }

@@ -6,6 +6,7 @@ public class FamilyDetailsModel {
     private String familyHead;
     private String primaryCareGiver;
     private String familyName;
+    private String villageTown;
 
     public FamilyDetailsModel(String baseEntityId, String familyHead, String primaryCareGiver, String familyName) {
         this.baseEntityId = baseEntityId;
@@ -38,4 +39,11 @@ public class FamilyDetailsModel {
         return familyName;
     }
 
+    public String getVillageTown() {
+        return villageTown;
+    }
+
+    public void setVillageTown(String villageTown) {
+        this.villageTown = villageTown;
+    }
 }
