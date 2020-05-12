@@ -59,6 +59,10 @@
             android:name=".activity.PncHomeVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".core.activity.CoreCommunityRespondersRegisterActivity"
+            android:label="@string/medical_history"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.PncRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
