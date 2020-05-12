@@ -108,7 +108,7 @@ public class AncMemberMapActivity extends AppCompatActivity {
     }
 
     private void showCommunityTransporters(@NonNull MapboxMap mapboxMap, @Nullable FeatureCollection featureCollection) {
-        if (featureCollection != null && featureCollection.features() != null && communityTransportersSource != null) {
+        if (featureCollection != null && featureCollection.features() != null && featureCollection.features().size() > 0 && communityTransportersSource != null) {
             //CameraPosition cameraPosition = new CameraPosition.Builder(). featureCollection.bbox();
             BoundingBox boundingBox = featureCollection.bbox();
 
