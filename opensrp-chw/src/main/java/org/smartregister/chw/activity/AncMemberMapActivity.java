@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.mapbox.geojson.BoundingBox;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.geojson.MultiPoint;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -18,15 +17,12 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
-import com.mapbox.turf.TurfConversion;
 import com.mapbox.turf.TurfMeasurement;
-import com.mapbox.turf.TurfMisc;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.model.CommunityResponderModel;
 import org.smartregister.chw.core.utils.CoreConstants;
 
@@ -35,6 +31,7 @@ import java.util.List;
 
 import io.ona.kujaku.listeners.OnFeatureClickListener;
 import io.ona.kujaku.views.KujakuMapView;
+import timber.log.Timber;
 
 public class AncMemberMapActivity extends AppCompatActivity {
 
@@ -83,7 +80,9 @@ public class AncMemberMapActivity extends AppCompatActivity {
                 Feature feature = features.get(0);
 
                 Number recyclerViewPosition = feature.getNumberProperty(RECYCLER_VIEW_POSITION_PROPERTY);
-                scrollToCardAtPosition(recyclerViewPosition.intValue());
+                if (recyclerViewPosition != null) {
+                    scrollToCardAtPosition(recyclerViewPosition.intValue());
+                }
             }
         }, "community-transporters");
     }
@@ -125,18 +124,22 @@ public class AncMemberMapActivity extends AppCompatActivity {
 
     @Nullable
     private FeatureCollection loadCommunityTransporters() {
-
         return FeatureCollection.fromFeatures(getRespondersFeatureList());
     }
 
     private List<Feature> getRespondersFeatureList() {
         List<CommunityResponderModel> communityResponders = ChwApplication.getInstance().communityResponderRepository().readAllResponders();
         List<Feature> featureList = new ArrayList<>();
+        int counter = 0;
         for (CommunityResponderModel communityResponderModel : communityResponders) {
             try {
-                featureList.add(getFeature(communityResponderModel));
+                Feature feature = getFeature(communityResponderModel);
+                feature.addNumberProperty(RECYCLER_VIEW_POSITION_PROPERTY, counter);
+                featureList.add(feature);
+
+                counter++;
             } catch (JSONException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         }
         return featureList;
