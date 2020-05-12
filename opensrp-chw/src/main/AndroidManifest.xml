@@ -50,6 +50,9 @@
             android:name=".activity.AncMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.AncMemberMapActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.PncUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
