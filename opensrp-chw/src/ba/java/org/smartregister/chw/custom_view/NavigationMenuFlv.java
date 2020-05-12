@@ -40,8 +40,18 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
     }
 
     @Override
+    public boolean hasCommunityResponders() {
+        return true;
+    }
+
+    @Override
     public Intent getStockReportIntent(Activity activity) {
         return new Intent(activity, CoreStockInventoryReportActivity.class);
+    }
+
+    @Override
+    public Intent getCommunityRespondersIntent(Activity activity) {
+        return null;
     }
 
     @Override

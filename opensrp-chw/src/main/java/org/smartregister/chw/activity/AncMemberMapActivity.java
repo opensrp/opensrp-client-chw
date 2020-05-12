@@ -1,16 +1,15 @@
 package org.smartregister.chw.activity;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
 
 import com.mapbox.geojson.BoundingBox;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.camera.CameraUpdate;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
@@ -19,8 +18,15 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.model.CommunityResponderModel;
+import org.smartregister.chw.core.utils.CoreConstants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.ona.kujaku.listeners.OnFeatureClickListener;
@@ -110,10 +116,35 @@ public class AncMemberMapActivity extends AppCompatActivity {
 
     @Nullable
     private FeatureCollection loadCommunityTransporters() {
-        return null;
+
+        return FeatureCollection.fromFeatures(getRespondersFeatureList());
     }
 
+    private List<Feature> getRespondersFeatureList() {
+        List<CommunityResponderModel> communityResponders = ChwApplication.getInstance().communityResponderRepository().readAllResponders();
+        List<Feature> featureList = new ArrayList<>();
+        for (CommunityResponderModel communityResponderModel : communityResponders) {
+            try {
+                featureList.add(getFeature(communityResponderModel));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return featureList;
+    }
 
+    private com.mapbox.geojson.Feature getFeature(CommunityResponderModel communityResponderModel) throws JSONException {
+        String[] latLong = communityResponderModel.getResponderLocation().split(" ");
+        double latitude = Double.parseDouble(latLong[0]);
+        double longitude = Double.parseDouble(latLong[1]);
+        com.cocoahero.android.geojson.Feature feature = new com.cocoahero.android.geojson.Feature();
+        feature.setGeometry(new com.cocoahero.android.geojson.Point(latitude, longitude));
+        JSONObject properties = new JSONObject();
+        properties.put(CoreConstants.JsonAssets.RESPONDER_NAME, communityResponderModel.getResponderName());
+        properties.put(CoreConstants.JsonAssets.RESPONDER_PHONE_NUMBER, communityResponderModel.getResponderPhoneNumber());
+        feature.setProperties(properties);
+        return Feature.fromJson(feature.toJSON().toString());
+    }
 
     @Override
     protected void onStart() {

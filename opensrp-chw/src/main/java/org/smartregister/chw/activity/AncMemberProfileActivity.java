@@ -23,6 +23,7 @@ import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.AncMemberProfileContract;
 import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
+import org.smartregister.chw.core.activity.CoreCommunityRespondersRegisterActivity;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
@@ -345,6 +346,15 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, formJson, Utils.metadata().familyMemberFormActivity),
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
+
+
+
+    @Override
+    public void openFamilyLocation() {
+        Intent intent = new Intent(this, AncMemberMapActivity.class);
+        this.startActivity(intent);
+    }
+
 
     @Override
     public List<ReferralTypeModel> getReferralTypeModels() {
