@@ -51,6 +51,7 @@ public class AncMemberMapActivity extends AppCompatActivity {
         kujakuMapView.setDisableMyLocationOnMapMove(true);
 
         userLocation = extractUserLocation(savedInstanceState);
+        userLocation = new LatLng(1111,1111);
 
         kujakuMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
