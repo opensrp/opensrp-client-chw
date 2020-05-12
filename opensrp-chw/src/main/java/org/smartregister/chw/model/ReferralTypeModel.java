@@ -18,12 +18,14 @@ public class ReferralTypeModel implements Parcelable {
     private ReferralTypeModel(Parcel in) {
         referralType = in.readString();
         formName = in.readString();
+        focus = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(referralType);
         dest.writeString(formName);
+        dest.writeString(focus);
     }
 
     @Override
