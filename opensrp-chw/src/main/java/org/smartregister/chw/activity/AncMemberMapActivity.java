@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ona.kujaku.listeners.OnFeatureClickListener;
+import io.ona.kujaku.utils.CoordinateUtils;
 import io.ona.kujaku.views.KujakuMapView;
 import timber.log.Timber;
 
@@ -41,6 +42,7 @@ public class AncMemberMapActivity extends AppCompatActivity {
     private KujakuMapView kujakuMapView;
     private GeoJsonSource communityTransportersSource;
     private LatLng userLocation;
+    private static int BOUNDING_BOX_PADDING = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +66,9 @@ public class AncMemberMapActivity extends AppCompatActivity {
                         communityTransportersSource = style.getSourceAs("community-transporters-data-set");
 
                         FeatureCollection featureCollection = loadCommunityTransporters();
-                        showCommunityTransporters(mapboxMap, featureCollection);
+                        BoundingBox boundingBox = showCommunityTransporters(mapboxMap, featureCollection);
 
-                        zoomToPatientLocation(mapboxMap);
+                        zoomToPatientLocation(mapboxMap, boundingBox);
                         addCommunityTransporterClickListener(kujakuMapView);
                     }
                 });
@@ -109,23 +111,48 @@ public class AncMemberMapActivity extends AppCompatActivity {
         return new LatLng(latitude, longitude);
     }
 
-    private void zoomToPatientLocation(@NonNull MapboxMap mapboxMap) {
-        if (userLocation != null) {
+    private void zoomToPatientLocation(@NonNull MapboxMap mapboxMap, @Nullable BoundingBox boundingBox) {
+        if (userLocation != null && boundingBox == null) {
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(userLocation)
                     .zoom(16)
                     .build();
 
             mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
 
-
+        if (userLocation != null) {
             MarkerOptions markerOptions = markerOptions = new MarkerOptions()
-                        .position(userLocation);
+                    .position(userLocation);
             mapboxMap.addMarker(markerOptions);
+        }
+
+        if (boundingBox != null) {
+            if (!CoordinateUtils.isLocationInBounds(userLocation, boundingBox.north(), boundingBox.south(), boundingBox.east(), boundingBox.west())) {
+                double north = boundingBox.north();
+                double south = boundingBox.south();
+                double east = boundingBox.east();
+                double west = boundingBox.west();
+
+                if (userLocation.getLatitude() > north) {
+                    north = userLocation.getLatitude();
+                } else if (userLocation.getLatitude() < south) {
+                    south = userLocation.getLatitude();
+                }
+
+                if (userLocation.getLongitude() > east) {
+                    east = userLocation.getLongitude();
+                } else if (userLocation.getLongitude() < west) {
+                    west = userLocation.getLongitude();
+                }
+
+                mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds.from(north, east, south, west), BOUNDING_BOX_PADDING));
+            }
         }
     }
 
-    private void showCommunityTransporters(@NonNull MapboxMap mapboxMap, @Nullable FeatureCollection featureCollection) {
+    @Nullable
+    private BoundingBox showCommunityTransporters(@NonNull MapboxMap mapboxMap, @Nullable FeatureCollection featureCollection) {
         if (featureCollection != null && featureCollection.features() != null && featureCollection.features().size() > 0 && communityTransportersSource != null) {
             //CameraPosition cameraPosition = new CameraPosition.Builder(). featureCollection.bbox();
             BoundingBox boundingBox = featureCollection.bbox();
@@ -135,10 +162,13 @@ public class AncMemberMapActivity extends AppCompatActivity {
                 boundingBox = BoundingBox.fromLngLats(bbox[0], bbox[1], bbox[2], bbox[3]);
             }
 
-            mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds.from(boundingBox.north(), boundingBox.east(), boundingBox.south(), boundingBox.west()), 0));
+            mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds.from(boundingBox.north(), boundingBox.east(), boundingBox.south(), boundingBox.west()), BOUNDING_BOX_PADDING));
 
             communityTransportersSource.setGeoJson(featureCollection);
+            return boundingBox;
         }
+
+        return null;
     }
 
     @Nullable
