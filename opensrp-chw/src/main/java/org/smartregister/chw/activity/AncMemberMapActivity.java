@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.mapbox.geojson.BoundingBox;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -83,8 +85,17 @@ public class AncMemberMapActivity extends AppCompatActivity {
                 if (recyclerViewPosition != null) {
                     scrollToCardAtPosition(recyclerViewPosition.intValue());
                 }
+
+                featureClicked(feature);
             }
         }, "community-transporters");
+    }
+
+    private void featureClicked(@NonNull Feature feature) {
+        String responderName = feature.getStringProperty(CoreConstants.JsonAssets.RESPONDER_NAME);
+        String respondersPhoneNumber = feature.getStringProperty(CoreConstants.JsonAssets.RESPONDER_PHONE_NUMBER);
+        Toast.makeText(AncMemberMapActivity.this, String.format("Clicked on RESPONDER\nName: %s\nPhone No: %s", responderName, respondersPhoneNumber), Toast.LENGTH_LONG)
+                .show();
     }
 
     private void scrollToCardAtPosition(int itemPosition) {
@@ -104,7 +115,13 @@ public class AncMemberMapActivity extends AppCompatActivity {
                     .target(userLocation)
                     .zoom(16)
                     .build();
+
             mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
+            MarkerOptions markerOptions = markerOptions = new MarkerOptions()
+                        .position(userLocation);
+            mapboxMap.addMarker(markerOptions);
         }
     }
 
@@ -118,7 +135,7 @@ public class AncMemberMapActivity extends AppCompatActivity {
                 boundingBox = BoundingBox.fromLngLats(bbox[0], bbox[1], bbox[2], bbox[3]);
             }
 
-            mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds.from(boundingBox.north(), boundingBox.east(), boundingBox.south(), boundingBox.west()), 20));
+            mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds.from(boundingBox.north(), boundingBox.east(), boundingBox.south(), boundingBox.west()), 0));
 
             communityTransportersSource.setGeoJson(featureCollection);
         }
