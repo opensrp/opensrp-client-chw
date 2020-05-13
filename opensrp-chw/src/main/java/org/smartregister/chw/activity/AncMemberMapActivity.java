@@ -51,7 +51,6 @@ public class AncMemberMapActivity extends AppCompatActivity {
         kujakuMapView.setDisableMyLocationOnMapMove(true);
 
         userLocation = extractUserLocation(savedInstanceState);
-        userLocation = new LatLng(1111,1111);
 
         kujakuMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -94,7 +93,9 @@ public class AncMemberMapActivity extends AppCompatActivity {
 
     @Nullable
     private LatLng extractUserLocation(Bundle savedInstanceState) {
-        return null;
+        double latitude = Double.parseDouble("-7.5695467");
+        double longitude = Double.parseDouble("35.6894667");
+        return new LatLng(latitude, longitude);
     }
 
     private void zoomToPatientLocation(@NonNull MapboxMap mapboxMap) {
