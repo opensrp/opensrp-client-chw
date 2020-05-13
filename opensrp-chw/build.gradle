@@ -94,7 +94,7 @@ android {
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '360'
             buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
-            buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
+            buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "false"
             testCoverageEnabled true
         }
     }
@@ -254,8 +254,7 @@ android {
 }
 
 dependencies {
-    //implementation('org.smartregister:opensrp-client-chw-core:1.1.66-SNAPSHOT@aar') {
-    implementation (project(':opensrp-chw-core')){
+    implementation('org.smartregister:opensrp-client-chw-core:1.2.1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
