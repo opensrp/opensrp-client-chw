@@ -357,4 +357,7 @@
     <string name="tb_referral">Clinic Of Tuberculosis Treatment</string>
     <string name="gbv_referral">Gender Based Violence Referral</string>
     <string name="child_gbv_referral">Child Gender Based Violence Referral</string>
+    
+    <!---Anc Home Visit Strings -->
+    <string name="anc_home_visit_pregnancy_risk">Pregnancy risk</string>
 </resources>
