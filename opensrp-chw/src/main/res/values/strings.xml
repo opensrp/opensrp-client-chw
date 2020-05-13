@@ -361,4 +361,7 @@
     <string name="error_opening_profile">Error opening client profile</string>
     <string name="location_details">Location Details</string>
     <string name="update_client_registration" >Update Client Details</string>
+
+    <!---Anc Home Visit Strings -->
+    <string name="anc_home_visit_pregnancy_risk">Pregnancy risk</string>
 </resources>
