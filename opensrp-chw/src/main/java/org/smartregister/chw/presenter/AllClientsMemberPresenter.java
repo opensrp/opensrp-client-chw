@@ -6,7 +6,6 @@ import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.contract.AllClientsMemberContract;
 import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.interactor.AllClientsMemberInteractor;
 import org.smartregister.chw.model.AllClientsMemberModel;
