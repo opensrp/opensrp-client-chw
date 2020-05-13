@@ -29,7 +29,6 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.opd.pojo.OpdEventClient;
 import org.smartregister.opd.utils.OpdDbConstants;
-import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;

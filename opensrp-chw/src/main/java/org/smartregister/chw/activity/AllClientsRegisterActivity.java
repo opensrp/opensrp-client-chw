@@ -17,7 +17,6 @@ import org.smartregister.AllConstants;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAllClientsRegisterActivity;
-import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.AllClientsRegisterFragment;
 import org.smartregister.chw.model.ChwAllClientsRegisterModel;
 import org.smartregister.chw.presenter.ChwAllClientRegisterPresenter;

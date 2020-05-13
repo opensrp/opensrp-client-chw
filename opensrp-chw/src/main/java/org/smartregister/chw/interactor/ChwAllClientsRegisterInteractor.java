@@ -111,7 +111,7 @@ public class ChwAllClientsRegisterInteractor extends BaseOpdRegisterActivityInte
         if (baseClient != null || baseEvent != null) {
             String imageLocation = OpdJsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
             if (StringUtils.isNotBlank(imageLocation)) {
-                OpdJsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
+                JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
             }
         }
     }
