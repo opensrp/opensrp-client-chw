@@ -1,6 +1,8 @@
 {
-  "count": "1",
-  "encounter_type": "Client Registration",
+  "validate_on_submit": true,
+  "show_errors_on_submit": false,
+  "count": "2",
+  "encounter_type": "Family Registration",
   "entity_id": "",
   "relational_id": "",
   "metadata": {
@@ -52,12 +54,110 @@
     }
   },
   "step1": {
-    "title": "Sajili Mteja",
+    "title": "Taarifa ya eneo",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "fam_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "type": "edit_text",
+        "hint": "Jina la mwisho (Ukoo)",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza jina la ukoo"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "err": "Tafadhali ingiza jina la ukoo"
+        }
+      },
+      {
+        "key": "unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "opensrp_id",
+        "hidden": "true",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "hint": "ID",
+        "scanButtonText": "Chukua QR code",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza namba halali"
+        }
+      },
+      {
+        "key": "fam_village",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "cityVillage",
+        "type": "edit_text",
+        "edit_type": "name",
+        "hint": "Kijiji / mtaa",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza kijiji au jiji"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "err": "Tafadhali ingiza jina halali la kijiji"
+        }
+      },
+      {
+        "key": "landmark",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "landmark",
+        "type": "edit_text",
+        "edit_type": "name",
+        "hint": "Alama ya eneo la makazi",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali ingiza maelezo ya alama au eneo la makazi"
+        }
+      },
+      {
+        "key": "gps",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "gps"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
+        "key": "nearest_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "tree",
+        "hint": "Kituo cha karibu cha kutolea huduma za afya",
+        "tree": [],
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali ingiza kituo cha afya kilicho karibu"
+        }
+      }
+    ]
+  },
+  "step2": {
+    "title": "Taarifa ya mteja",
     "fields": [
       {
         "key": "photo",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "choose_image",
         "uploadButtonText": "Chukua picha ya muhusika"
@@ -83,11 +183,12 @@
       {
         "key": "surname",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Jina la mwisho (ukoo)",
         "edit_type": "name",
+        "read_only": true,
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Tafadhali ingiza jina halali"
@@ -95,6 +196,13 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali ingiza jina la ukoo"
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -151,7 +259,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -159,13 +267,13 @@
       {
         "key": "age_calculated",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_register_calculation.yml"
+              "rules-file": "all_clients_member_calculation.yml"
             }
           }
         }
@@ -212,7 +320,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         },
@@ -273,7 +381,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -287,7 +395,7 @@
         "hint": "Namba ya kitambulisho cha taifa",
         "edit_type": "name",
         "relevance": {
-          "step1:id_avail": {
+          "step2:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -307,7 +415,7 @@
         "hint": "Namba ya kitambulisho cha mpiga kura",
         "edit_type": "name",
         "relevance": {
-          "step1:id_avail": {
+          "step2:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -327,7 +435,7 @@
         "hint": "Namba ya leseni ya udereva",
         "edit_type": "name",
         "relevance": {
-          "step1:id_avail": {
+          "step2:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -347,7 +455,7 @@
         "hint": "Namba ya hati ya kusafiria",
         "edit_type": "name",
         "relevance": {
-          "step1:id_avail": {
+          "step2:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -429,7 +537,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -448,7 +556,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -476,13 +584,13 @@
       {
         "key": "wra",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_register_calculation.yml"
+              "rules-file": "all_clients_member_calculation.yml"
             }
           }
         }
@@ -490,13 +598,13 @@
       {
         "key": "mra",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_register_calculation.yml"
+              "rules-file": "all_clients_member_calculation.yml"
             }
           }
         }
@@ -527,7 +635,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -570,29 +678,9 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
-        }
-      },
-      {
-        "key": "is_primary_caregiver",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "spinner",
-        "hint": "Ni mlezi mkuu wa familia?",
-        "values": [
-          "Ndiyo",
-          "Hapana"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali chagua moja"
         }
       },
       {
@@ -613,11 +701,47 @@
         "v_required": {
           "value": false,
           "err": "Tafadhali taja numbe ya simu"
+        }
+      },
+      {
+        "key": "has_primary_caregiver",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "Has_Primary_Caregiver",
+        "type": "spinner",
+        "hint": "Je una mlezi msaidizi?\n",
+        "values": [
+          "Ndiyo",
+          "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua moja"
+        }
+      },
+      {
+        "key": "primary_caregiver_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "Primary_Caregiver_Name",
+        "type": "edit_text",
+        "hint": "Majina ya msaidizi",
+        "v_required": {
+          "value": "true",
+          "err": "Jina la msaidizi lazima iwe."
         },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -628,7 +752,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Namba za simu nyingine",
+        "hint": "Namba ya simu ya msaidizi",
         "v_numeric": {
           "value": "true",
           "err": "Nambari lazima iwe jumla ya nambari 10 kwa urefu"
@@ -637,10 +761,14 @@
           "value": "(0[0-9]{9})|\\s*",
           "err": "Nambari lazima iwe na nambari 10 na lazima ianze na 0."
         },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali weka namba ya msaidizi."
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -829,7 +957,7 @@
           "err": "Tafadhali taja jukumu"
         },
         "relevance": {
-          "step1:leader": {
+          "step2:leader": {
             "ex-checkbox": [
               {
                 "or": [
@@ -845,8 +973,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Registration_Reason",
-        "type": "check_box",
-        "label": "Reasons for Registration",
+        "type": "native_radio",
+        "label": "Sababu za Usajili",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
