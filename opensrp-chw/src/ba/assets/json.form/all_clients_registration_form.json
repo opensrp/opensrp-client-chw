@@ -1,6 +1,8 @@
 {
-  "count": "1",
-  "encounter_type": "Client Registration",
+  "validate_on_submit": true,
+  "show_errors_on_submit": false,
+  "count": "2",
+  "encounter_type": "Family Registration",
   "entity_id": "",
   "relational_id": "",
   "metadata": {
@@ -52,7 +54,105 @@
     }
   },
   "step1": {
-    "title": "Add client",
+    "title": "Location details",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "fam_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "type": "edit_text",
+        "hint": "Surname",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the surname"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "err": "Please enter surname"
+        }
+      },
+      {
+        "key": "unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "opensrp_id",
+        "hidden": "true",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "hint": "ID",
+        "scanButtonText": "Scan QR Code",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid ID"
+        }
+      },
+      {
+        "key": "fam_village",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "cityVillage",
+        "type": "edit_text",
+        "edit_type": "name",
+        "hint": "Village",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the village or town"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "err": "Please enter a valid village name"
+        }
+      },
+      {
+        "key": "landmark",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "landmark",
+        "type": "edit_text",
+        "edit_type": "name",
+        "hint": "Landmark/ description of house location",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the landmark/description of location."
+        }
+      },
+      {
+        "key": "gps",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "gps"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
+        "key": "nearest_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "tree",
+        "hint": "Nearest health facility",
+        "tree": [],
+        "v_required": {
+          "value": true,
+          "err": "Please enter the nearest health facility"
+        }
+      }
+    ]
+  },
+  "step2": {
+    "title": "Client details",
     "fields": [
       {
         "key": "photo",
@@ -88,6 +188,7 @@
         "type": "edit_text",
         "hint": "Surname",
         "edit_type": "name",
+        "read_only": true,
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
@@ -95,6 +196,13 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the surname"
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -151,7 +259,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -165,7 +273,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_register_calculation.yml"
+              "rules-file": "all_clients_member_calculation.yml"
             }
           }
         }
@@ -212,7 +320,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         },
@@ -273,7 +381,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -287,7 +395,7 @@
         "hint": "National ID number",
         "edit_type": "name",
         "relevance": {
-          "step1:id_avail": {
+          "step2:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -307,7 +415,7 @@
         "hint": "Voter's registration number",
         "edit_type": "name",
         "relevance": {
-          "step1:id_avail": {
+          "step2:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -327,7 +435,7 @@
         "hint": "Driver's license number",
         "edit_type": "name",
         "relevance": {
-          "step1:id_avail": {
+          "step2:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -347,7 +455,7 @@
         "hint": "Passport number",
         "edit_type": "name",
         "relevance": {
-          "step1:id_avail": {
+          "step2:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -429,7 +537,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -448,7 +556,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -482,7 +590,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_register_calculation.yml"
+              "rules-file": "all_clients_member_calculation.yml"
             }
           }
         }
@@ -496,7 +604,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_register_calculation.yml"
+              "rules-file": "all_clients_member_calculation.yml"
             }
           }
         }
@@ -527,7 +635,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -570,29 +678,9 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
-        }
-      },
-      {
-        "key": "is_primary_caregiver",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "spinner",
-        "hint": "Is primary caregiver?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please select one"
         }
       },
       {
@@ -601,7 +689,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Phone number",
+        "hint": "Client phone number",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
@@ -613,11 +701,47 @@
         "v_required": {
           "value": false,
           "err": "Please specify the phone number"
+        }
+      },
+      {
+        "key": "has_primary_caregiver",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "Has_Primary_Caregiver",
+        "type": "spinner",
+        "hint": " Do you have a primary caregiver/Treatment supporter?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "primary_caregiver_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "Primary_Caregiver_Name",
+        "type": "edit_text",
+        "hint": "Name of caregiver",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the name of the caregiver."
         },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -628,7 +752,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Other phone number",
+        "hint": "Primary caregiver phone number",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
@@ -637,10 +761,14 @@
           "value": "(0[0-9]{9})|\\s*",
           "err": "Number must be 10 digits and must start with 0."
         },
+        "v_required": {
+          "value": "true",
+          "err": "Please  caregiver contact."
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
+              "rules-file": "all_clients_member_relevance.yml"
             }
           }
         }
@@ -829,7 +957,7 @@
           "err": "Please specify role"
         },
         "relevance": {
-          "step1:leader": {
+          "step2:leader": {
             "ex-checkbox": [
               {
                 "or": [
@@ -845,7 +973,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Registration_Reason",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "Reasons for Registration",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
