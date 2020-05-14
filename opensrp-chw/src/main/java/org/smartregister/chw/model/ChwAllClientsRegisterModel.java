@@ -36,21 +36,22 @@ public class ChwAllClientsRegisterModel extends OpdRegisterActivityModel {
 
             form.getJSONObject(METADATA).put(ENCOUNTER_LOCATION, currentLocationId);
 
+            String newEntityId = entityId;
             if (StringUtils.isNotBlank(entityId)) {
-                entityId = entityId.replace("-", "");
+                newEntityId = entityId.replace("-", "");
             }
 
             JSONObject stepOneUniqueId = getFieldJSONObject(fields(form, STEP1), Constants.JSON_FORM_KEY.UNIQUE_ID);
 
             if (stepOneUniqueId != null) {
                 stepOneUniqueId.remove(JsonFormUtils.VALUE);
-                stepOneUniqueId.put(JsonFormUtils.VALUE, entityId + "_Family");
+                stepOneUniqueId.put(JsonFormUtils.VALUE, newEntityId + "_Family");
             }
 
             JSONObject stepTwoUniqueId = getFieldJSONObject(fields(form, STEP2), Constants.JSON_FORM_KEY.UNIQUE_ID);
             if (stepTwoUniqueId != null) {
                 stepTwoUniqueId.remove(JsonFormUtils.VALUE);
-                stepTwoUniqueId.put(JsonFormUtils.VALUE, entityId);
+                stepTwoUniqueId.put(JsonFormUtils.VALUE, newEntityId);
             }
 
             JsonFormUtils.addLocHierarchyQuestions(form);

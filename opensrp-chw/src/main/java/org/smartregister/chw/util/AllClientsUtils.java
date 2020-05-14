@@ -113,7 +113,7 @@ public class AllClientsUtils {
     public static List<OpdEventClient> getOpdEventClients(String jsonString) {
         List<OpdEventClient> allClientMemberEvents = new ArrayList<>();
 
-        FamilyEventClient locationDetailsEvent = org.smartregister.family.util.JsonFormUtils.processFamilyUpdateForm(
+        FamilyEventClient locationDetailsEvent = JsonFormUtils.processFamilyUpdateForm(
                 Utils.context().allSharedPreferences(), jsonString);
         if (locationDetailsEvent == null) {
             return allClientMemberEvents;
