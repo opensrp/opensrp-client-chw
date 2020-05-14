@@ -197,6 +197,11 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
     }
 
     @Override
+    protected void setIndependentClient(boolean b) {
+
+    }
+
+    @Override
     public void onClickMenu(int viewId) {
         switch (viewId) {
             case R.id.call_layout:
