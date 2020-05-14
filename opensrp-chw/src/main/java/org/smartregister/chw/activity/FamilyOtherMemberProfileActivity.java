@@ -34,6 +34,12 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     private Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
 
     @Override
+    protected void onCreation() {
+        super.onCreation();
+        setIndependentClient(false);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         String gender = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
@@ -186,6 +192,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
 
     @Override
-    protected void setIndependentClient(boolean b) {
+    protected void setIndependentClient(boolean isIndependentClient) {
+        super.isIndependent = isIndependentClient;
     }
 }

@@ -125,19 +125,23 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
         String lastName = client.getLastName();
 
         JSONObject sameAsFamName = org.smartregister.util.JsonFormUtils.getFieldJSONObject(jsonArray, SAME_AS_FAM_NAME);
-        JSONObject sameOptions = sameAsFamName.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+        if(sameAsFamName != null) {
+            JSONObject sameOptions = sameAsFamName.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
 
-        if (familyName.equals(lastName)) {
-            sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, true);
-        } else {
-            sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, false);
+            if (familyName.equals(lastName)) {
+                sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, true);
+            } else {
+                sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, false);
+            }
         }
 
         JSONObject surname = org.smartregister.util.JsonFormUtils.getFieldJSONObject(jsonArray, SURNAME);
-        if (!familyName.equals(lastName)) {
-            surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, lastName);
-        } else {
-            surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, "");
+        if(surname != null) {
+            if (!familyName.equals(lastName)) {
+                surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, lastName);
+            } else {
+                surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, "");
+            }
         }
     }
 

@@ -88,6 +88,13 @@
           "json_mapping": {
             "field": "attributes.dateRemoved"
           }
+        },
+        {
+          "column_name": "entity_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "entityType"
+          }
         }
       ]
     },
@@ -272,6 +279,22 @@
           "type": "Client",
           "json_mapping": {
             "field": "attributes.Registration_Reason"
+          }
+        },
+        {
+          "column_name": "has_primary_caregiver",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "Has_Primary_Caregiver"
+          }
+        },
+        {
+          "column_name": "primary_caregiver_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "Primary_Caregiver_Name"
           }
         },
         {
