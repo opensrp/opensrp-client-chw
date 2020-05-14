@@ -104,8 +104,8 @@ public class AncMemberMapActivity extends AppCompatActivity {
 
     @Nullable
     private LatLng extractUserLocation(Bundle savedInstanceState) {
-        double latitude = Double.parseDouble("-7.5695467");
-        double longitude = Double.parseDouble("35.6894667");
+        double latitude = Double.parseDouble("-1.9885");
+        double longitude = Double.parseDouble("33.7799");
         return new LatLng(latitude, longitude);
     }
 

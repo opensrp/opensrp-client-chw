@@ -277,6 +277,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     @Override
     public void setFamilyLocation() {
+        String location = memberObject.getDob();
         if (flavor.flvSetFamilyLocation()) {
             view_family_location_row.setVisibility(View.VISIBLE);
             rlFamilyLocation.setVisibility(View.VISIBLE);
