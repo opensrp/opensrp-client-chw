@@ -184,4 +184,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     protected void startMalariaFollowUpVisit() {
         MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, baseEntityId);
     }
+
+    @Override
+    protected void setIndependentClient(boolean b) {
+
+    }
 }
