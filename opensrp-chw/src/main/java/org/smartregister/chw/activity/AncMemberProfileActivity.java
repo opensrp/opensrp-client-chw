@@ -276,10 +276,14 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     @Override
     public void setFamilyLocation() {
-        if (flavor.hasFamilyLocationRow() && (memberObject.getGps() != null && !StringUtils.isBlank(memberObject.getGps()))){
+        if (flavor.hasFamilyLocationRow() && !StringUtils.isBlank(getMemberGPS())){
             view_family_location_row.setVisibility(View.VISIBLE);
             rlFamilyLocation.setVisibility(View.VISIBLE);
         }
+    }
+
+    protected String getMemberGPS(){
+        return memberObject.getGps();
     }
 
     @Override
