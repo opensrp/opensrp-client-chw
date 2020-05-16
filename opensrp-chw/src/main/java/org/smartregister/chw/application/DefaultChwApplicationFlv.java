@@ -80,4 +80,14 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean hasTasks() {
         return false;
     }
+
+    @Override
+    public boolean hasHIV() {
+        return false;
+    }
+
+    @Override
+    public boolean hasTB() {
+        return false;
+    }
 }

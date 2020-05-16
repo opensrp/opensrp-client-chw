@@ -43,6 +43,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
 import org.smartregister.chw.fp.FpLibrary;
+import org.smartregister.chw.hiv.HivLibrary;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
@@ -204,6 +205,17 @@ public class ChwApplication extends CoreChwApplication {
             ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
         }
 
+        if (hasHIV()) {
+            //Setup hiv library
+            HivLibrary.init(this);
+            HivLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
+            HivLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
+        }
+
+        if (hasTB()) {
+            //TODO Setup tb library
+        }
+
         OpdLibrary.init(context, getRepository(),
                 new OpdConfiguration.Builder(CoreAllClientsRegisterQueryProvider.class)
                         .setBottomNavigationEnabled(true)
@@ -302,6 +314,12 @@ public class ChwApplication extends CoreChwApplication {
     public boolean hasReferrals() {
         return flavor.hasReferrals();
     }
+    public boolean hasHIV() {
+        return flavor.hasHIV();
+    }
+    public boolean hasTB() {
+        return flavor.hasTB();
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onVisitEvent(Visit visit) {
@@ -352,5 +370,9 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasReports();
 
         boolean hasTasks();
+
+        boolean hasHIV();
+
+        boolean hasTB();
     }
 }
