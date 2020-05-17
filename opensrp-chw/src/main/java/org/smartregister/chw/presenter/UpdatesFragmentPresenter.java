@@ -18,6 +18,6 @@ public class UpdatesFragmentPresenter extends BaseChwNotificationFragmentPresent
     @Override
     public void displayDetailsActivity(CommonPersonObjectClient commonPersonObjectClient, String notificationId, String notificationType) {
         Activity activity = ((UpdatesRegisterFragment) getView()).getActivity();
-        UpdateRegisterDetailsActivity.startActivity(activity, notificationId, notificationType);
+        UpdateRegisterDetailsActivity.startActivity(commonPersonObjectClient, activity, notificationId, notificationType);
     }
 }
