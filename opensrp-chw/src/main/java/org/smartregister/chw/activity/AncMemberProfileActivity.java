@@ -276,10 +276,14 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     @Override
     public void setFamilyLocation() {
-        if (flavor.flvSetFamilyLocation()) {
+        if (flavor.hasFamilyLocationRow() && !StringUtils.isBlank(getMemberGPS())){
             view_family_location_row.setVisibility(View.VISIBLE);
             rlFamilyLocation.setVisibility(View.VISIBLE);
         }
+    }
+
+    protected String getMemberGPS(){
+        return memberObject.getGps();
     }
 
     @Override
@@ -352,7 +356,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
     public interface Flavor {
-        Boolean flvSetFamilyLocation();
+        Boolean hasFamilyLocationRow();
     }
 
 }
