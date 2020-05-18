@@ -756,7 +756,6 @@
           }
         }
       },
-
       {
         "key": "severe_pneumonia_treatment",
         "type": "check_box",
@@ -839,8 +838,8 @@
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
-        },
-
+        }
+      },
       {
         "key": "pneumonia_treatment",
         "type": "check_box",
@@ -887,7 +886,6 @@
           "err": "Please select at least one"
         }
       },
-
       {
         "key": "cough_cold_treatment",
         "type": "check_box",
@@ -2671,7 +2669,6 @@
           }
         }
       },
-
       {
         "key": "vsf_disease_treat",
         "type": "check_box",
@@ -2730,7 +2727,6 @@
           "err": "Please select at least one"
         }
       },
-
       {
         "key": "malaria_treat",
         "type": "check_box",
@@ -2795,7 +2791,6 @@
           "err": "Please select at least one"
         }
       },
-
       {
         "key": "no_malaria_treat",
         "type": "check_box",
@@ -2854,7 +2849,6 @@
           "err": "Please select at least one"
         }
       },
-
       {
         "key": "vsf_disease2_treat",
         "type": "check_box",
@@ -2907,7 +2901,6 @@
           "err": "Please select at least one"
         }
       },
-
       {
         "key": "illness_fever_treat",
         "type": "check_box",
@@ -2966,7 +2959,6 @@
           "err": "Please select at least one"
         }
       },
-
       {
         "key": "complicated_measles_treat",
         "type": "check_box",
@@ -3019,7 +3011,6 @@
           "err": "Please select at least one"
         }
       },
-
       {
         "key": "measles_eye_mouth_treat",
         "type": "check_box",
@@ -3072,7 +3063,6 @@
           "err": "Please select at least one"
         }
       },
-
       {
         "key": "illness_measles_treat",
         "type": "native_radio",
@@ -4105,7 +4095,6 @@
           }
         }
       },
-
       {
         "key": "compl_sev_maln_treat",
         "type": "check_box",
@@ -4791,7 +4780,6 @@
           }
         }
       },
-
       {
         "key": "confirmed_hiv_treat",
         "type": "check_box",
