@@ -15,8 +15,6 @@ import org.smartregister.domain.FetchStatus;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.pojo.OpdEventClient;
 import org.smartregister.opd.pojo.RegisterParams;
-import org.smartregister.opd.utils.OpdJsonFormUtils;
-import org.smartregister.opd.utils.OpdUtils;
 
 import java.util.List;
 
@@ -31,16 +29,11 @@ public class ChwAllClientRegisterPresenter extends CoreAllClientsRegisterPresent
     @Override
     public void saveForm(String jsonString, @NonNull RegisterParams registerParams) {
         try {
-            if (registerParams.getFormTag() == null) {
-                registerParams.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.getAllSharedPreferences()));
-            }
             List<OpdEventClient> opdEventClientList = model.processRegistration(jsonString, registerParams.getFormTag());
             if (opdEventClientList == null || opdEventClientList.isEmpty()) {
                 return;
             }
-            registerParams.setEditMode(false);
             interactor.saveRegistration(opdEventClientList, jsonString, registerParams, this);
-
         } catch (Exception e) {
             Timber.e(e);
         }

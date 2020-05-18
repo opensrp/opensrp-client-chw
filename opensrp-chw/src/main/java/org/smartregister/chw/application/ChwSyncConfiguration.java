@@ -66,19 +66,11 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public List<String> getSynchronizedLocationTags() {
-        if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-            return Collections.singletonList("Facility");
-        }else{
-            return new ArrayList<>();
-        }
+        return Collections.singletonList("Facility");
     }
 
     @Override
     public String getTopAllowedLocationLevel() {
-        if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-            return "Council";
-        }else{
-            return "";
-        }
+        return "Council";
     }
 }
