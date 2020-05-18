@@ -17,7 +17,11 @@ import org.smartregister.chw.activity.MalariaFollowUpVisitActivity;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.QueryBuilder;
+import org.smartregister.chw.hiv.fragment.BaseHivRegisterFragment;
+import org.smartregister.chw.hiv.provider.HivRegisterProvider;
+import org.smartregister.chw.model.HivRegisterFragmentModel;
 import org.smartregister.chw.model.ReferralRegisterFragmentModel;
+import org.smartregister.chw.presenter.HivRegisterFragmentPresenter;
 import org.smartregister.chw.presenter.ReferralRegisterFragmentPresenter;
 import org.smartregister.chw.referral.activity.ReferralDetailsViewActivity;
 import org.smartregister.chw.referral.domain.MemberObject;
@@ -39,7 +43,7 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-public class HivRegisterFragment extends BaseReferralRegisterFragment {
+public class HivRegisterFragment extends BaseHivRegisterFragment {
 
     private static final String DUE_FILTER_TAG = "PRESSED";
     private View view;
@@ -48,8 +52,8 @@ public class HivRegisterFragment extends BaseReferralRegisterFragment {
 
     @Override
     public void initializeAdapter(@Nullable Set<? extends org.smartregister.configurableviews.model.View> visibleColumns) {
-        ReferralRegisterProvider referralRegisterProvider = new ReferralRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, referralRegisterProvider, context().commonrepository(this.tablename));
+        HivRegisterProvider hivRegisterProvider = new HivRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, hivRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }
@@ -109,7 +113,7 @@ public class HivRegisterFragment extends BaseReferralRegisterFragment {
             return;
         }
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
-        presenter = new ReferralRegisterFragmentPresenter(this, new ReferralRegisterFragmentModel(), viewConfigurationIdentifier);
+        presenter = new HivRegisterFragmentPresenter(this, new HivRegisterFragmentModel(), viewConfigurationIdentifier);
     }
 
     @Override

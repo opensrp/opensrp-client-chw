@@ -8,19 +8,16 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
-import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.fragment.FollowupRegisterFragment;
-import org.smartregister.chw.fragment.ReferralRegisterFragment;
-import org.smartregister.chw.malaria.util.MalariaJsonFormUtils;
-import org.smartregister.chw.referral.activity.BaseReferralRegisterActivity;
+import org.smartregister.chw.fragment.HivRegisterFragment;
+import org.smartregister.chw.hiv.activity.BaseHivRegisterActivity;
+import org.smartregister.chw.hiv.fragment.BaseHivRegisterFragment;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.job.ImageUploadServiceJob;
@@ -29,24 +26,17 @@ import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.listener.BottomNavigationListener;
 
-import java.util.Collections;
 import java.util.List;
 
-import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.CoreConstants.ENTITY_ID;
-import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getMalariaConfirmation;
 import static org.smartregister.chw.referral.util.Constants.ActivityPayload;
 import static org.smartregister.chw.referral.util.Constants.ActivityPayloadType;
-import static org.smartregister.util.JsonFormUtils.VALUE;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
-public class HivRegisterActivity extends BaseReferralRegisterActivity {
+public class HivRegisterActivity extends BaseHivRegisterActivity {
 
-    public static void startReferralRegistrationActivity(Activity activity, String baseEntityID) {
+    public static void startHIVRegistrationActivity(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, HivRegisterActivity.class);
         intent.putExtra(ActivityPayload.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(ActivityPayload.REFERRAL_FORM_NAME, getMalariaConfirmation());
+//        intent.putExtra(ActivityPayload.HIV_FORM_NAME, "form name");
         intent.putExtra(ActivityPayload.ACTION, ActivityPayloadType.REGISTRATION);
         activity.startActivity(intent);
     }
@@ -60,13 +50,13 @@ public class HivRegisterActivity extends BaseReferralRegisterActivity {
 
     @NotNull
     @Override
-    protected ReferralRegisterFragment getRegisterFragment() {
-        return new ReferralRegisterFragment();
+    protected BaseHivRegisterFragment getRegisterFragment() {
+        return new HivRegisterFragment();
     }
 
     @Override
     public List<String> getViewIdentifiers() {
-        return Collections.singletonList(Constants.CONFIGURATION.MALARIA_REGISTER);
+        return null;
     }
 
     @Override
@@ -90,8 +80,8 @@ public class HivRegisterActivity extends BaseReferralRegisterActivity {
             bottomNavigationView.inflateMenu(getMenuResource());
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
 
-            BottomNavigationListener referralBottomNavigationListener = getBottomNavigation(this);
-            bottomNavigationView.setOnNavigationItemSelectedListener(referralBottomNavigationListener);
+            BottomNavigationListener hivBottomNavigationListener = getBottomNavigation(this);
+            bottomNavigationView.setOnNavigationItemSelectedListener(hivBottomNavigationListener);
 
         }
     }
@@ -120,7 +110,7 @@ public class HivRegisterActivity extends BaseReferralRegisterActivity {
         super.onResumption();
         NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
         if (menu != null) {
-            menu.getNavigationAdapter().setSelectedView(Constants.DrawerMenu.REFERRALS);
+            menu.getNavigationAdapter().setSelectedView(Constants.DrawerMenu.HIV_CLIENTS);
         }
     }
 
@@ -128,26 +118,7 @@ public class HivRegisterActivity extends BaseReferralRegisterActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == org.smartregister.chw.malaria.util.Constants.REQUEST_CODE_GET_JSON) {
-            String jsonString = data.getStringExtra(org.smartregister.chw.malaria.util.Constants.JSON_FORM_EXTRA.JSON);
-            try {
-                JSONObject form = new JSONObject(jsonString);
-                Triple<Boolean, JSONObject, JSONArray> registrationFormParams = MalariaJsonFormUtils.validateParameters(form.toString());
-                JSONObject jsonForm = registrationFormParams.getMiddle();
-                JSONArray fields = registrationFormParams.getRight();
-                String encounter_type = jsonForm.optString(org.smartregister.chw.malaria.util.Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
-
-                if (org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.MALARIA_FOLLOW_UP_VISIT.equals(encounter_type)) {
-                    JSONObject fever_still_object = getFieldJSONObject(fields, "fever_still");
-                    if (fever_still_object != null && "Yes".equalsIgnoreCase(fever_still_object.optString(VALUE))) {
-                        HivRegisterActivity.startReferralRegistrationActivity(this, jsonForm.optString(ENTITY_ID));
-                    }
-                } else {
-                    startRegisterActivity();
-                }
-            } catch (JSONException e) {
-                Timber.e(e);
-            }
-
+            startRegisterActivity();
         } else {
             finish();
         }
