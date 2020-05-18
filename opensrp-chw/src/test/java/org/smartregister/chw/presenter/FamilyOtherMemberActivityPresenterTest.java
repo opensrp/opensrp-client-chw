@@ -81,7 +81,7 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
 
         Mockito.doReturn(familyEventClient).when(profileModel).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
 
-        spyPresenter.updateFamilyMember(jsonString);
+        spyPresenter.updateFamilyMember(jsonString, false);
 
         Mockito.verify(view).showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
         Mockito.verify(profileModel).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
@@ -100,7 +100,7 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
 
         Mockito.doThrow(new RuntimeException()).when(profileModel).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
 
-        spyPresenter.updateFamilyMember(jsonString);
+        spyPresenter.updateFamilyMember(jsonString, false);
 
         Mockito.verify(view).showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
         Mockito.verify(view).hideProgressDialog();

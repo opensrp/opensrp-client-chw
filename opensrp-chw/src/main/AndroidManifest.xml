@@ -186,9 +186,6 @@
             android:label="@string/issue_referral"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.ReferralHistoryActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
             android:name=".activity.FpFollowUpVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -233,6 +230,18 @@
         <activity
             android:name=".activity.SickChildJsonFormActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.UpdatesRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.UpdateRegisterDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.AllClientsMemberProfileActivity"
+            android:label="@string/title_family_detail"
+            android:parentActivityName=".activity.AllClientsRegisterActivity"
+            android:theme="@style/FamilyTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
@@ -253,6 +262,7 @@
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.SyncLocationsByLevelAndTagsIntentService" />
+        <service android:name="org.smartregister.sync.intent.DocumentConfigurationIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
         <service android:name=".anc.intent.HomeVisitIntentService" />
