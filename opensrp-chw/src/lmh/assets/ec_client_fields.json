@@ -101,6 +101,13 @@
           "json_mapping": {
             "field": "attributes.dateRemoved"
           }
+        },
+        {
+          "column_name": "entity_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "entityType"
+          }
         }
       ]
     },

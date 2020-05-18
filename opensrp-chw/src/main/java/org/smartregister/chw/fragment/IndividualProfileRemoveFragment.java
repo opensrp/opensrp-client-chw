@@ -6,6 +6,7 @@ import android.os.Bundle;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.AllClientsRegisterActivity;
 import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.IndividualProfileRemoveActivity;
@@ -68,7 +69,7 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
                 if (getActivity() != null) {
                     if (getActivity() instanceof IndividualProfileRemoveActivity) {
                         getActivity().finish();
-                        if(familyBaseEntityId != null) { //Independent clients don't belong to family
+                        if (familyBaseEntityId != null) { //Independent clients don't belong to family
                             CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyBaseEntityId);
                             CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                                     personObject.getDetails(), "");
@@ -80,24 +81,28 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
                 }
             }
 
-            String baseEntityId =  pc.getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID);
-                for(ChildModel child: PNCDao.childrenForPncWoman(baseEntityId)){
-                    ChwScheduleTaskExecutor.getInstance().execute(child.getBaseEntityId(), CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
-                    ChildAlertService.updateAlerts(child.getBaseEntityId());
-                }
+            String baseEntityId = pc.getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID);
+            for (ChildModel child : PNCDao.childrenForPncWoman(baseEntityId)) {
+                ChwScheduleTaskExecutor.getInstance().execute(child.getBaseEntityId(), CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
+                ChildAlertService.updateAlerts(child.getBaseEntityId());
+            }
         }
     }
 
     protected void goToPatientDetailActivity(CommonPersonObjectClient patient) {
-
-        Intent intent = new Intent(getActivity(), Utils.metadata().profileActivity);
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, patient.getCaseId());
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false));
-        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false));
-        intent.putExtra(Constants.INTENT_KEY.VILLAGE_TOWN, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, false));
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false));
-        intent.putExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, false);
-
+        String entityType = patient.getColumnmaps().get(DBConstants.KEY.ENTITY_TYPE);
+        Intent intent;
+        if (CoreConstants.TABLE_NAME.INDEPENDENT_CLIENT.equalsIgnoreCase(entityType)) {
+            intent = new Intent(getActivity(), AllClientsRegisterActivity.class);
+        } else {
+            intent = new Intent(getActivity(), Utils.metadata().profileActivity);
+            intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, patient.getCaseId());
+            intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false));
+            intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false));
+            intent.putExtra(Constants.INTENT_KEY.VILLAGE_TOWN, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, false));
+            intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false));
+            intent.putExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, false);
+        }
         startActivity(intent);
     }
 

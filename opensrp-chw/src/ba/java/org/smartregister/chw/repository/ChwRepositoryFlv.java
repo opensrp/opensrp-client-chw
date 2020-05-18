@@ -77,6 +77,9 @@ public class ChwRepositoryFlv {
                 case 16:
                     upgradeToVersion16(db);
                     break;
+                case 17:
+                    upgradeToVersion17(db);
+                    break;
                 default:
                     break;
             }
@@ -264,6 +267,19 @@ public class ChwRepositoryFlv {
             db.execSQL(RepositoryUtils.FAMILY_MEMBER_ADD_REASON_FOR_REGISTRATION);
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion17(SQLiteDatabase db) {
+        try {
+            RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
+            String addMissingColumnsQuery = "ALTER TABLE ec_family_member\n" +
+                    "    ADD COLUMN has_primary_caregiver VARCHAR;\n" +
+                    "ALTER TABLE ec_family_member\n" +
+                    "    ADD COLUMN primary_caregiver_name VARCHAR;";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion17 ");
         }
     }
 }

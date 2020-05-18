@@ -29,11 +29,12 @@
                 app:contentInsetStartWithNavigation="0dp">
 
             </androidx.appcompat.widget.Toolbar>
+
             <LinearLayout
                 android:id="@+id/profile_name_layout"
-                android:layout_marginTop="24dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:background="@color/other_member_profile_bg"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
@@ -98,9 +99,9 @@
                         android:gravity="center"
                         android:paddingLeft="0dp"
                         android:text="Lavington #445"
-                        android:visibility="gone"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/text_black" />
+                        android:textColor="@color/text_black"
+                        android:visibility="visible" />
 
                     <TextView
                         android:id="@+id/village_town_dot"
@@ -109,8 +110,8 @@
                         android:layout_marginLeft="@dimen/profile_dot_separator_margin"
                         android:layout_marginRight="@dimen/profile_dot_separator_margin"
                         android:text="\u00b7"
-                        android:visibility="gone"
-                        android:textColor="@color/text_black" />
+                        android:textColor="@color/text_black"
+                        android:visibility="visible" />
 
                     <org.smartregister.view.customcontrols.CustomFontTextView
                         android:id="@+id/textview_detail_three"
@@ -135,7 +136,8 @@
                     android:text="@string/family_head"
                     android:textAllCaps="true"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/register_list_desc_size" />
+                    android:textSize="@dimen/register_list_desc_size"
+                    android:visibility="gone" />
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/primary_caregiver"
@@ -147,7 +149,8 @@
                     android:text="@string/primary_care_giver"
                     android:textAllCaps="true"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/register_list_desc_size" />
+                    android:textSize="@dimen/register_list_desc_size"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
