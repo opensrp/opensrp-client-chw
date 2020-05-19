@@ -9,6 +9,7 @@ import org.smartregister.chw.core.rule.MalariaFollowUpRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.MalariaVisitUtil;
 import org.smartregister.chw.fp.dao.FpDao;
+import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.util.Utils;
 
@@ -54,6 +55,12 @@ public class UtilsFlv {
             menu.findItem(R.id.action_fp_change).setVisible(true);
         } else {
             menu.findItem(R.id.action_fp_initiation).setVisible(true);
+        }
+    }
+
+    public static void updateHivMenuItems(String baseEntityId, Menu menu) {
+        if (HivDao.isRegisteredForHiv(baseEntityId)) {
+            menu.findItem(R.id.action_hiv_registration).setVisible(false);
         }
     }
 

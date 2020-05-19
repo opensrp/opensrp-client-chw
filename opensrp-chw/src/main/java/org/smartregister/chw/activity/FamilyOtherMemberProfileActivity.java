@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
@@ -60,6 +61,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
             flavor.updateMaleFpMenuItems(baseEntityId, menu);
         }
 
+        if (!ChwApplication.getApplicationFlavor().hasHIV()) {
+            menu.findItem(R.id.action_hiv_registration).setVisible(false);
+        } else {
+            flavor.updateHivMenuItems(baseEntityId, menu);
+        }
         return true;
     }
 
@@ -99,6 +105,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     protected void removeIndividualProfile() {
         IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this,
                 commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver, FamilyRegisterActivity.class.getCanonicalName());
+    }
+
+    @Override
+    protected void startHivRegister() {
+        HivRegisterActivity.startHIVRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
     }
 
     @Override
@@ -150,7 +161,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void initializePresenter() {
         super.initializePresenter();
-        onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, familyBaseEntityId,baseEntityId);
+        onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, familyBaseEntityId, baseEntityId);
     }
 
     @Override
@@ -169,11 +180,21 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         return FamilyOtherMemberProfileFragment.newInstance(getIntent().getExtras());
     }
 
+    @Override
+    protected void startMalariaFollowUpVisit() {
+        MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, baseEntityId);
+    }
+
+    @Override
+    protected void setIndependentClient(boolean isIndependentClient) {
+        super.isIndependent = isIndependentClient;
+    }
+
     /**
      * build implementation differences file
      */
     public interface Flavor {
-        OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId , final String baseEntityId);
+        OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId, final String baseEntityId);
 
         boolean isOfReproductiveAge(CommonPersonObjectClient commonPersonObject, String gender);
 
@@ -183,16 +204,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
         void updateMaleFpMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
 
+        void updateHivMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+
         boolean hasANC();
-    }
-
-    @Override
-    protected void startMalariaFollowUpVisit() {
-        MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, baseEntityId);
-    }
-
-    @Override
-    protected void setIndependentClient(boolean isIndependentClient) {
-        super.isIndependent = isIndependentClient;
     }
 }
