@@ -17,8 +17,10 @@ import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.fragment.FollowupRegisterFragment;
 import org.smartregister.chw.fragment.HivRegisterFragment;
 import org.smartregister.chw.hiv.activity.BaseHivRegisterActivity;
+import org.smartregister.chw.hiv.activity.BaseHivRegistrationFormsActivity;
 import org.smartregister.chw.hiv.fragment.BaseHivRegisterFragment;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
@@ -28,17 +30,17 @@ import org.smartregister.listener.BottomNavigationListener;
 
 import java.util.List;
 
-import static org.smartregister.chw.referral.util.Constants.ActivityPayload;
-import static org.smartregister.chw.referral.util.Constants.ActivityPayloadType;
+import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
 
 public class HivRegisterActivity extends BaseHivRegisterActivity {
 
     public static void startHIVRegistrationActivity(Activity activity, String baseEntityID) {
-        Intent intent = new Intent(activity, HivRegisterActivity.class);
-        intent.putExtra(ActivityPayload.BASE_ENTITY_ID, baseEntityID);
-//        intent.putExtra(ActivityPayload.HIV_FORM_NAME, "form name");
-        intent.putExtra(ActivityPayload.ACTION, ActivityPayloadType.REGISTRATION);
-        activity.startActivity(intent);
+        Intent intent = new Intent(activity, BaseHivRegistrationFormsActivity.class);
+        intent.putExtra(org.smartregister.chw.referral.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(org.smartregister.chw.referral.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration()).toString());
+        intent.putExtra(org.smartregister.chw.referral.util.Constants.ActivityPayload.ACTION, org.smartregister.chw.referral.util.Constants.ActivityPayloadType.REGISTRATION);
+
+        activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @NotNull
