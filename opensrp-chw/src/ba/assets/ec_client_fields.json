@@ -1766,6 +1766,41 @@
       ]
     },
     {
+      "name": "ec_not_yet_done_referral",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "referral_task",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referral_task"
+          }
+        },
+        {
+          "column_name": "referral_task_previous_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referral_task_previous_status"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_referral_followup",
       "columns": [
         {
@@ -1805,91 +1840,6 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "chw_followup_date"
-          }
-        }
-      ]
-    },
-    {
-      "name": "ec_referral_service",
-      "columns": [
-        {
-          "column_name": "name_en",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode"
-          }
-        },
-        {
-          "column_name": "name_sw",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode"
-          }
-        },
-        {
-          "column_name": "identifier",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode"
-          }
-        },
-        {
-          "column_name": "is_active",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode"
-          }
-        }
-      ]
-    },
-    {
-      "name": "ec_referral_service_indicator",
-      "columns": [
-        {
-          "column_name": "name_en",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode"
-          }
-        },
-        {
-          "column_name": "name_sw",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode"
-          }
-        },
-        {
-          "column_name": "is_active",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode"
-          }
-        }
-      ]
-    },
-    {
-      "name": "ec_followup_feedback",
-      "columns": [
-        {
-          "column_name": "name_en",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode"
-          }
-        },
-        {
-          "column_name": "name_sw",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode"
-          }
-        },
-        {
-          "column_name": "is_active",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode"
           }
         }
       ]
