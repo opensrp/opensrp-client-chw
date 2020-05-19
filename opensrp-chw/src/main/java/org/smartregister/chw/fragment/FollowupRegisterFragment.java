@@ -60,7 +60,12 @@ public class FollowupRegisterFragment extends BaseFollowupRegisterFragment {
         if (getActivity() == null) {
             return;
         }
-        String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        String viewConfigurationIdentifier = null;
+        try {
+            viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        } catch (NullPointerException e) {
+            Timber.e(e);
+        }
         presenter = new ReferralFollowupFragmentPresenter(this, new ReferralRegisterFragmentModel(), viewConfigurationIdentifier);
     }
 
@@ -233,37 +238,7 @@ public class FollowupRegisterFragment extends BaseFollowupRegisterFragment {
 
     @Override
     public void countExecute() {
-        Cursor c = null;
-        try {
-
-            String query = "select count(*) from " + presenter().getMainTable() + " inner join " + Constants.TABLE_NAME.FAMILY_MEMBER +
-                    " on " + presenter().getMainTable() + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " +
-                    Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID +
-                    " where " + presenter().getMainCondition();
-
-            if (StringUtils.isNotBlank(filters)) {
-                query = query + " and ( " + filters + " ) ";
-            }
-
-            if (dueFilterActive) {
-                query = query + " and ( " + presenter().getDueFilterCondition() + " ) ";
-            }
-
-            c = commonRepository().rawCustomQueryForAdapter(query);
-            c.moveToFirst();
-            clientAdapter.setTotalcount(c.getInt(0));
-            Timber.v("total count here %s", clientAdapter.getTotalcount());
-
-            clientAdapter.setCurrentlimit(20);
-            clientAdapter.setCurrentoffset(0);
-
-        } catch (Exception e) {
-            Timber.e(e);
-        } finally {
-            if (c != null) {
-                c.close();
-            }
-        }
+        //TODO coze implement this
     }
 
     @Override

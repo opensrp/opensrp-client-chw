@@ -20,13 +20,9 @@ import org.smartregister.chw.core.utils.QueryBuilder;
 import org.smartregister.chw.hiv.fragment.BaseHivRegisterFragment;
 import org.smartregister.chw.hiv.provider.HivRegisterProvider;
 import org.smartregister.chw.model.HivRegisterFragmentModel;
-import org.smartregister.chw.model.ReferralRegisterFragmentModel;
 import org.smartregister.chw.presenter.HivRegisterFragmentPresenter;
-import org.smartregister.chw.presenter.ReferralRegisterFragmentPresenter;
 import org.smartregister.chw.referral.activity.ReferralDetailsViewActivity;
 import org.smartregister.chw.referral.domain.MemberObject;
-import org.smartregister.chw.referral.fragment.BaseReferralRegisterFragment;
-import org.smartregister.chw.referral.provider.ReferralRegisterProvider;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -112,7 +108,12 @@ public class HivRegisterFragment extends BaseHivRegisterFragment {
         if (getActivity() == null) {
             return;
         }
-        String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        String viewConfigurationIdentifier = null;
+        try {
+            viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        } catch (NullPointerException e) {
+            Timber.e(e);
+        }
         presenter = new HivRegisterFragmentPresenter(this, new HivRegisterFragmentModel(), viewConfigurationIdentifier);
     }
 
