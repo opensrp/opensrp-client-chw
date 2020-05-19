@@ -2346,19 +2346,11 @@
           }
         },
         {
-          "column_name": "client_status_during_registrations",
+          "column_name": "client_hiv_status_during_registration",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "client_status_during_registrations"
-          }
-        },
-        {
-          "column_name": "clients_hiv_status_during_registration",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "clients_hiv_status_during_registration"
+            "concept": "client_hiv_status_during_registration"
           }
         },
         {
@@ -2370,27 +2362,12 @@
           }
         },
         {
-          "column_name": "clients_tb_status_during_registration",
+          "column_name": "hiv_registration_date",
           "type": "Event",
+          "data_type": "date",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "clients_tb_status_during_registration"
-          }
-        },
-        {
-          "column_name": "client_tb_status_after_testing",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "client_tb_status_after_testing"
-          }
-        },
-        {
-          "column_name": "tb_registration_number",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "tb_registration_number"
+            "concept": "hiv_registration_date"
           }
         }
       ]

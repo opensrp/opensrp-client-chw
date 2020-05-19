@@ -283,6 +283,13 @@
             "creates_case": [
               "ec_referral_dismissal"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Hiv Registration",
+            "creates_case": [
+              "ec_hiv_register"
+            ]
           }
         ]
       }
