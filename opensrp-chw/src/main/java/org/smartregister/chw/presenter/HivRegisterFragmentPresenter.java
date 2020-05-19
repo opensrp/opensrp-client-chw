@@ -2,17 +2,11 @@ package org.smartregister.chw.presenter;
 
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
-import org.smartregister.chw.core.utils.ChwDBConstants;
-import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.hiv.contract.BaseHivRegisterFragmentContract;
 import org.smartregister.chw.hiv.presenter.BaseHivRegisterFragmentPresenter;
-import org.smartregister.chw.referral.contract.BaseReferralRegisterFragmentContract;
-import org.smartregister.chw.referral.presenter.BaseReferralRegisterFragmentPresenter;
-import org.smartregister.chw.referral.util.DBConstants;
+import org.smartregister.chw.hiv.util.Constants.Tables;
+import org.smartregister.chw.hiv.util.DBConstants;
 import org.smartregister.chw.util.Constants;
-
-import static org.smartregister.chw.referral.util.Constants.ReferralType;
-import static org.smartregister.chw.referral.util.Constants.Tables;
 
 public class HivRegisterFragmentPresenter extends BaseHivRegisterFragmentPresenter {
 
@@ -23,19 +17,16 @@ public class HivRegisterFragmentPresenter extends BaseHivRegisterFragmentPresent
     @Override
     @NotNull
     public String getMainCondition() {
-        //TODO Coze update this
         return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.Key.DATE_REMOVED + " is null " +
-                "AND " + Tables.REFERRAL + "." + DBConstants.Key.REFERRAL_TYPE + " = '" + ReferralType.COMMUNITY_TO_FACILITY_REFERRAL + "' ";
+                "AND " + Tables.HIV + "." + DBConstants.Key.IS_CLOSED + " = '0' ";
 
     }
 
     @Override
     @NotNull
     public String getDueFilterCondition() {
-        //TODO Coze update this
         return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.Key.DATE_REMOVED + " is null " +
-                "AND " + Constants.TABLE_NAME.TASK + "." + ChwDBConstants.TaskTable.BUSINESS_STATUS + " = '" + CoreConstants.BUSINESS_STATUS.REFERRED + "' " +
-                "AND " + Tables.REFERRAL + "." + DBConstants.Key.REFERRAL_TYPE + " = '" + ReferralType.COMMUNITY_TO_FACILITY_REFERRAL + "' ";
+                "AND " + Tables.HIV + "." + DBConstants.Key.IS_CLOSED + " = '0' ";
 
     }
 
@@ -49,6 +40,6 @@ public class HivRegisterFragmentPresenter extends BaseHivRegisterFragmentPresent
 
     @Override
     public String getMainTable() {
-        return Tables.REFERRAL;
+        return Tables.HIV;
     }
 }
