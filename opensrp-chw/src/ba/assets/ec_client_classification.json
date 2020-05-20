@@ -248,6 +248,13 @@
             "creates_case": [
               "ec_close_referral"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Referral Dismissal",
+            "creates_case": [
+              "ec_referral_dismissal"
+            ]
           }
         ]
       }
