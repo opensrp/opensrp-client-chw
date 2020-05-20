@@ -37,6 +37,9 @@ public class ChwRepositoryFlv {
                 case 4:
                     upgradeToVersion4(db);
                     break;
+                case 5:
+                    upgradeToVersion5(db);
+                    break;
                 default:
                     break;
             }
@@ -110,4 +113,13 @@ public class ChwRepositoryFlv {
             Timber.e(e);
         }
     }
+
+    private static void upgradeToVersion5(SQLiteDatabase db) {
+        try {
+           RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion5");
+        }
+    }
+
 }

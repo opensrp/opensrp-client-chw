@@ -7,13 +7,17 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
+import org.jetbrains.annotations.NotNull;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
 import org.smartregister.chw.activity.ClientReferralActivity;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.ReferralTypeModel;
-import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.growthmonitoring.domain.ZScore;
 import org.smartregister.growthmonitoring.repository.WeightForHeightRepository;
+import org.smartregister.helper.BottomNavigationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +25,30 @@ import java.util.List;
 public class Utils extends org.smartregister.chw.core.utils.Utils {
 
     public static void launchClientReferralActivity(Activity activity, List<ReferralTypeModel> referralTypeModels, String baseEntityId) {
+        if (activity instanceof AllClientsMemberProfileActivity){
+            ClientReferralActivity.isStartedFromAllClients = true;
+        }
         Bundle bundle = new Bundle();
         bundle.putString(Constants.ENTITY_ID, baseEntityId);
         bundle.setClassLoader(ReferralTypeModel.class.getClassLoader());
         bundle.putParcelableArrayList(Constants.REFERRAL_TYPES, (ArrayList<ReferralTypeModel>) referralTypeModels);
         activity.startActivity(new Intent(activity, ClientReferralActivity.class).putExtras(bundle));
+    }
+
+    @NotNull
+    public static List<ReferralTypeModel> getCommonReferralTypes(Activity activity) {
+        List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.hiv_referral),
+                    Constants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
+
+            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.tb_referral),
+                   Constants.JSON_FORM.getTbReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
+
+            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.gbv_referral),
+                    Constants.JSON_FORM.getGbvReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+        }
+        return referralTypeModels;
     }
 
     public static String toCSV(String[] list) {

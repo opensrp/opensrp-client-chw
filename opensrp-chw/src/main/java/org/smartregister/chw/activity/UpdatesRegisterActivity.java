@@ -5,15 +5,15 @@ import android.content.Intent;
 import androidx.fragment.app.Fragment;
 
 import org.json.JSONObject;
-import org.smartregister.chw.core.activity.BaseReferralNotificationRegister;
-import org.smartregister.chw.core.presenter.BaseReferralNotificationPresenter;
+import org.smartregister.chw.core.activity.BaseChwNotificationRegister;
+import org.smartregister.chw.core.presenter.BaseChwNotificationPresenter;
 import org.smartregister.chw.fragment.UpdatesRegisterFragment;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.List;
 
-public class UpdatesRegisterActivity extends BaseReferralNotificationRegister {
+public class UpdatesRegisterActivity extends BaseChwNotificationRegister {
 
     @Override
     protected void onDestroy() {
@@ -22,7 +22,7 @@ public class UpdatesRegisterActivity extends BaseReferralNotificationRegister {
 
     @Override
     protected void initializePresenter() {
-        presenter = new BaseReferralNotificationPresenter();
+        presenter = new BaseChwNotificationPresenter();
     }
 
     @Override
