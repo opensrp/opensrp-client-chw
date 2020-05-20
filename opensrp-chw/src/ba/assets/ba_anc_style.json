@@ -88,29 +88,98 @@
         {
           "id": "satellite-streets-v11",
           "order": [
-            ["transit", "built"],
-            ["satellite", "land"],
-            ["road-network", "tunnels-case"],
-            ["walking-cycling", "tunnels"],
-            ["road-network", "tunnels"],
-            ["transit", "ferries"],
-            ["walking-cycling", "surface"],
-            ["road-network", "surface"],
-            ["transit", "surface"],
-            ["road-network", "surface-icons"],
-            ["walking-cycling", "barriers-bridges"],
-            ["road-network", "bridges"],
-            ["transit", "bridges"],
-            ["road-network", "traffic-and-closures"],
-            ["transit", "elevated"],
-            ["admin-boundaries", "admin"],
-            ["road-network", "road-labels"],
-            ["walking-cycling", "walking-cycling-labels"],
-            ["transit", "ferry-aerialway-labels"],
-            ["natural-features", "natural-labels"],
-            ["point-of-interest-labels", "poi-labels"],
-            ["transit", "transit-labels"],
-            ["place-labels", "place-labels"]
+            [
+              "transit",
+              "built"
+            ],
+            [
+              "satellite",
+              "land"
+            ],
+            [
+              "road-network",
+              "tunnels-case"
+            ],
+            [
+              "walking-cycling",
+              "tunnels"
+            ],
+            [
+              "road-network",
+              "tunnels"
+            ],
+            [
+              "transit",
+              "ferries"
+            ],
+            [
+              "walking-cycling",
+              "surface"
+            ],
+            [
+              "road-network",
+              "surface"
+            ],
+            [
+              "transit",
+              "surface"
+            ],
+            [
+              "road-network",
+              "surface-icons"
+            ],
+            [
+              "walking-cycling",
+              "barriers-bridges"
+            ],
+            [
+              "road-network",
+              "bridges"
+            ],
+            [
+              "transit",
+              "bridges"
+            ],
+            [
+              "road-network",
+              "traffic-and-closures"
+            ],
+            [
+              "transit",
+              "elevated"
+            ],
+            [
+              "admin-boundaries",
+              "admin"
+            ],
+            [
+              "road-network",
+              "road-labels"
+            ],
+            [
+              "walking-cycling",
+              "walking-cycling-labels"
+            ],
+            [
+              "transit",
+              "ferry-aerialway-labels"
+            ],
+            [
+              "natural-features",
+              "natural-labels"
+            ],
+            [
+              "point-of-interest-labels",
+              "poi-labels"
+            ],
+            [
+              "transit",
+              "transit-labels"
+            ],
+            [
+              "place-labels",
+              "place-labels"
+            ]
           ]
         }
       ],
@@ -127,7 +196,10 @@
       "propConfig": {
         "satellite": {},
         "road-network": {
-          "roadsFont": ["DIN Pro Medium", "Arial Unicode MS Regular"],
+          "roadsFont": [
+            "DIN Pro Medium",
+            "Arial Unicode MS Regular"
+          ],
           "color-road": "hsla(0, 0%, 90%, 0.5)",
           "color-motorway-trunk": "hsla(36, 87%, 68%, 0.7)",
           "construction": false,
@@ -141,14 +213,20 @@
           "color-road-outline": "hsla(0, 1%, 10%, 0.5)"
         },
         "walking-cycling": {
-          "roadsFont": ["DIN Pro Medium", "Arial Unicode MS Regular"],
+          "roadsFont": [
+            "DIN Pro Medium",
+            "Arial Unicode MS Regular"
+          ],
           "golfHoleLabelLine": false,
           "color-road": "hsla(0, 0%, 90%, 0.5)",
           "color-greenspace": "hsl(94, 100%, 14%)",
           "walkingCyclingPisteBackground": false,
           "color-road-label": "hsl(0, 0%, 100%)",
           "color-greenspace-label": "hsl(94, 100%, 74%)",
-          "poiEtcFont": ["DIN Pro Bold", "Arial Unicode MS Bold"],
+          "poiEtcFont": [
+            "DIN Pro Bold",
+            "Arial Unicode MS Bold"
+          ],
           "color-base": "hsl(0, 0%, 0%)",
           "pedestrianPolygonFeatures": false,
           "color-road-outline": "hsla(0, 1%, 10%, 0.5)",
@@ -161,13 +239,19 @@
           "color-admin-boundary": "hsl(0, 0%, 0%)"
         },
         "natural-features": {
-          "poiEtcFont": ["DIN Pro Bold", "Arial Unicode MS Bold"],
+          "poiEtcFont": [
+            "DIN Pro Bold",
+            "Arial Unicode MS Bold"
+          ],
           "color-base": "hsl(0, 0%, 0%)",
           "color-water": "hsl(196, 50%, 50%)",
           "color-poi": "hsl(0, 0%, 100%)"
         },
         "point-of-interest-labels": {
-          "poiEtcFont": ["DIN Pro Bold", "Arial Unicode MS Bold"],
+          "poiEtcFont": [
+            "DIN Pro Bold",
+            "Arial Unicode MS Bold"
+          ],
           "color-base": "hsl(0, 0%, 0%)",
           "color-poi": "hsl(0, 0%, 100%)",
           "color-greenspace": "hsl(94, 100%, 14%)",
@@ -178,7 +262,10 @@
         "transit": {
           "color-airport": "hsl(0, 0%, 100%)",
           "matchLabelAndIcon": false,
-          "roadsFont": ["DIN Pro Medium", "Arial Unicode MS Regular"],
+          "roadsFont": [
+            "DIN Pro Medium",
+            "Arial Unicode MS Regular"
+          ],
           "aeroways": false,
           "color-transit": "hsl(0, 0%, 100%)",
           "color-road": "hsla(0, 0%, 90%, 0.5)",
@@ -186,7 +273,10 @@
           "color-road-label": "hsl(0, 0%, 100%)",
           "railways": false,
           "ferries": false,
-          "poiEtcFont": ["DIN Pro Bold", "Arial Unicode MS Bold"],
+          "poiEtcFont": [
+            "DIN Pro Bold",
+            "Arial Unicode MS Bold"
+          ],
           "color-base": "hsl(0, 0%, 0%)",
           "color-road-outline": "hsla(0, 1%, 10%, 0.5)"
         },
@@ -205,7 +295,10 @@
       }
     }
   },
-  "center": [-118.4106, 33.750013],
+  "center": [
+    -118.4106,
+    33.750013
+  ],
   "zoom": 13,
   "bearing": 0,
   "pitch": 0,
@@ -16390,8 +16483,8 @@
       }
     }
   },
-  "sprite": "mapbox://sprites/ona/ck9xwff041tm21isaj11kbwng/eabps2xdc3w5vpwrf383wn52c",
-  "glyphs": "mapbox://fonts/ona/{fontstack}/{range}.pbf",
+  "sprite": "mapbox://sprites/boresha-afya/ck9xwff041tm21isaj11kbwng/eabps2xdc3w5vpwrf383wn52c",
+  "glyphs": "mapbox://fonts/boresha-afya/{fontstack}/{range}.pbf",
   "layers": [
     {
       "id": "background",
@@ -16401,7 +16494,9 @@
         "mapbox:group": "Satellite imagery, land"
       },
       "layout": {},
-      "paint": {"background-color": "hsl(222, 56%, 4%)"}
+      "paint": {
+        "background-color": "hsl(222, 56%, 4%)"
+      }
     },
     {
       "id": "satellite",
@@ -16426,21 +16521,40 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "tunnel"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "tunnel"
+        ],
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             true,
             false
           ],
           14,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "street",
               "street_limited",
@@ -16452,21 +16566,39 @@
             false
           ]
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {},
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             2,
             "track",
             1,
@@ -16475,8 +16607,15 @@
           18,
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             18,
             12
           ]
@@ -16484,8 +16623,12 @@
         "line-color": "hsla(0, 0%, 90%, 0.5)",
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -16505,21 +16648,40 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "tunnel"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "tunnel"
+        ],
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             true,
             false
           ],
           14,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "street",
               "street_limited",
@@ -16531,14 +16693,25 @@
             false
           ]
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {},
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.75,
           20,
@@ -16547,15 +16720,27 @@
         "line-color": "hsla(0, 0%, 0%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             2,
             "track",
             1,
@@ -16564,22 +16749,36 @@
           18,
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             18,
             12
           ]
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
           0
         ],
-        "line-dasharray": [3, 3]
+        "line-dasharray": [
+          3,
+          3
+        ]
       }
     },
     {
@@ -16594,42 +16793,106 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "tunnel"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "tunnel"
+        ],
         [
           "match",
-          ["get", "class"],
-          ["primary", "secondary", "tertiary"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "primary",
+            "secondary",
+            "tertiary"
+          ],
           true,
           false
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {},
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           10,
-          ["match", ["get", "class"], "primary", 1, 0.75],
+          [
+            "match",
+            [
+              "get",
+              "class"
+            ],
+            "primary",
+            1,
+            0.75
+          ],
           18,
           2
         ],
         "line-color": "hsla(0, 0%, 0%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
-          ["match", ["get", "class"], "primary", 0.75, 0.1],
+          [
+            "match",
+            [
+              "get",
+              "class"
+            ],
+            "primary",
+            0.75,
+            0.1
+          ],
           18,
-          ["match", ["get", "class"], "primary", 32, 26]
+          [
+            "match",
+            [
+              "get",
+              "class"
+            ],
+            "primary",
+            32,
+            26
+          ]
         ],
-        "line-dasharray": [3, 3],
+        "line-dasharray": [
+          3,
+          3
+        ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           0.3,
           15,
@@ -16649,22 +16912,46 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "tunnel"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "tunnel"
+        ],
         [
           "match",
-          ["get", "class"],
-          ["motorway_link", "trunk_link"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway_link",
+            "trunk_link"
+          ],
           true,
           false
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {},
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.75,
           20,
@@ -16673,8 +16960,13 @@
         "line-color": "hsla(0, 0%, 90%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
@@ -16682,11 +16974,18 @@
           18,
           18
         ],
-        "line-dasharray": [3, 3],
+        "line-dasharray": [
+          3,
+          3
+        ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -16706,16 +17005,46 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "tunnel"],
-        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "tunnel"
+        ],
+        [
+          "match",
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway",
+            "trunk"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {},
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           10,
           1,
           18,
@@ -16724,18 +17053,30 @@
         "line-color": "hsla(0, 1%, 22%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
           0.75,
           18,
           32
         ],
-        "line-dasharray": [3, 3],
+        "line-dasharray": [
+          3,
+          3
+        ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -16755,17 +17096,49 @@
       "minzoom": 14,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "tunnel"],
-        ["==", ["get", "class"], "path"],
-        ["!=", ["get", "type"], "steps"],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "tunnel"
+        ],
+        [
+          "==",
+          [
+            "get",
+            "class"
+          ],
+          "path"
+        ],
+        [
+          "!=",
+          [
+            "get",
+            "type"
+          ],
+          "steps"
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {},
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           15,
           1,
           18,
@@ -16774,14 +17147,40 @@
         "line-color": "hsl(0, 0%, 10%)",
         "line-dasharray": [
           "step",
-          ["zoom"],
-          ["literal", [1, 0]],
+          [
+            "zoom"
+          ],
+          [
+            "literal",
+            [
+              1,
+              0
+            ]
+          ],
           15,
-          ["literal", [1.75, 1]],
+          [
+            "literal",
+            [
+              1.75,
+              1
+            ]
+          ],
           16,
-          ["literal", [1, 0.75]],
+          [
+            "literal",
+            [
+              1,
+              0.75
+            ]
+          ],
           17,
-          ["literal", [1, 0.5]]
+          [
+            "literal",
+            [
+              1,
+              0.5
+            ]
+          ]
         ]
       }
     },
@@ -16797,16 +17196,41 @@
       "minzoom": 14,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "tunnel"],
-        ["==", ["get", "type"], "steps"],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "tunnel"
+        ],
+        [
+          "==",
+          [
+            "get",
+            "type"
+          ],
+          "steps"
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {},
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           15,
           1,
           16,
@@ -16817,14 +17241,40 @@
         "line-color": "hsl(0, 0%, 10%)",
         "line-dasharray": [
           "step",
-          ["zoom"],
-          ["literal", [1, 0]],
+          [
+            "zoom"
+          ],
+          [
+            "literal",
+            [
+              1,
+              0
+            ]
+          ],
           15,
-          ["literal", [1.75, 1]],
+          [
+            "literal",
+            [
+              1.75,
+              1
+            ]
+          ],
           16,
-          ["literal", [1, 0.75]],
+          [
+            "literal",
+            [
+              1,
+              0.75
+            ]
+          ],
           17,
-          ["literal", [0.3, 0.3]]
+          [
+            "literal",
+            [
+              0.3,
+              0.3
+            ]
+          ]
         ]
       }
     },
@@ -16840,16 +17290,41 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "tunnel"],
-        ["==", ["get", "class"], "pedestrian"],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "tunnel"
+        ],
+        [
+          "==",
+          [
+            "get",
+            "class"
+          ],
+          "pedestrian"
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {},
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           14,
           0.5,
           18,
@@ -16858,12 +17333,32 @@
         "line-color": "hsl(0, 0%, 10%)",
         "line-dasharray": [
           "step",
-          ["zoom"],
-          ["literal", [1, 0]],
+          [
+            "zoom"
+          ],
+          [
+            "literal",
+            [
+              1,
+              0
+            ]
+          ],
           15,
-          ["literal", [1.5, 0.4]],
+          [
+            "literal",
+            [
+              1.5,
+              0.4
+            ]
+          ],
           16,
-          ["literal", [1, 0.2]]
+          [
+            "literal",
+            [
+              1,
+              0.2
+            ]
+          ]
         ]
       }
     },
@@ -16879,22 +17374,46 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "tunnel"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "tunnel"
+        ],
         [
           "match",
-          ["get", "class"],
-          ["motorway_link", "trunk_link"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway_link",
+            "trunk_link"
+          ],
           true,
           false
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {},
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
@@ -16904,15 +17423,22 @@
         ],
         "line-color": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "motorway_link",
           "hsla(26, 100%, 78%, 0.7)",
           "hsla(46, 77%, 78%, 0.7)"
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -16932,21 +17458,40 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "tunnel"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "tunnel"
+        ],
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             true,
             false
           ],
           14,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "street",
               "street_limited",
@@ -16958,21 +17503,39 @@
             false
           ]
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {},
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             2,
             "track",
             1,
@@ -16981,23 +17544,37 @@
           18,
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             18,
             12
           ]
         ],
         "line-color": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "street_limited",
           "hsl(0, 2%, 22%)",
           "hsla(0, 0%, 90%, 0.5)"
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -17017,32 +17594,79 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "tunnel"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "tunnel"
+        ],
         [
           "match",
-          ["get", "class"],
-          ["primary", "secondary", "tertiary"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "primary",
+            "secondary",
+            "tertiary"
+          ],
           true,
           false
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {},
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
-          ["match", ["get", "class"], "primary", 0.75, 0.1],
+          [
+            "match",
+            [
+              "get",
+              "class"
+            ],
+            "primary",
+            0.75,
+            0.1
+          ],
           18,
-          ["match", ["get", "class"], "primary", 32, 26]
+          [
+            "match",
+            [
+              "get",
+              "class"
+            ],
+            "primary",
+            32,
+            26
+          ]
         ],
         "line-color": "hsla(0, 0%, 90%, 0.5)",
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           0.3,
           15,
@@ -17062,14 +17686,33 @@
       "minzoom": 15,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "tunnel"],
-        ["==", ["get", "oneway"], "true"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "tunnel"
+        ],
+        [
+          "==",
+          [
+            "get",
+            "oneway"
+          ],
+          "true"
+        ],
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "primary",
               "secondary",
@@ -17083,7 +17726,10 @@
           16,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "primary",
               "secondary",
@@ -17103,12 +17749,17 @@
         "symbol-placement": "line",
         "icon-image": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           "oneway-small",
           17,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "primary",
               "secondary",
@@ -17139,16 +17790,46 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "tunnel"],
-        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "tunnel"
+        ],
+        [
+          "match",
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway",
+            "trunk"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {},
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
           0.75,
           18,
@@ -17156,15 +17837,22 @@
         ],
         "line-color": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "motorway",
           "hsla(26, 100%, 78%, 0.7)",
           "hsla(46, 77%, 78%, 0.7)"
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -17184,21 +17872,45 @@
       "minzoom": 16,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "tunnel"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "tunnel"
+        ],
         [
           "match",
-          ["get", "class"],
-          ["motorway", "motorway_link", "trunk", "trunk_link"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway",
+            "motorway_link",
+            "trunk",
+            "trunk_link"
+          ],
           true,
           false
         ],
-        ["==", ["get", "oneway"], "true"]
+        [
+          "==",
+          [
+            "get",
+            "oneway"
+          ],
+          "true"
+        ]
       ],
       "layout": {
         "symbol-placement": "line",
         "icon-image": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           "oneway-white-small",
           17,
           "oneway-white-large"
@@ -17219,32 +17931,88 @@
       "minzoom": 12,
       "filter": [
         "all",
-        ["==", ["get", "class"], "path"],
+        [
+          "==",
+          [
+            "get",
+            "class"
+          ],
+          "path"
+        ],
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "!",
             [
               "match",
-              ["get", "type"],
-              ["steps", "sidewalk", "crossing"],
+              [
+                "get",
+                "type"
+              ],
+              [
+                "steps",
+                "sidewalk",
+                "crossing"
+              ],
               true,
               false
             ]
           ],
           16,
-          ["!=", ["get", "type"], "steps"]
+          [
+            "!=",
+            [
+              "get",
+              "type"
+            ],
+            "steps"
+          ]
         ],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
-      "layout": {"line-join": ["step", ["zoom"], "miter", 14, "round"]},
+      "layout": {
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           13,
           0.5,
           14,
@@ -17257,14 +18025,40 @@
         "line-color": "hsl(0, 0%, 22%)",
         "line-dasharray": [
           "step",
-          ["zoom"],
-          ["literal", [1, 0]],
+          [
+            "zoom"
+          ],
+          [
+            "literal",
+            [
+              1,
+              0
+            ]
+          ],
           15,
-          ["literal", [1.75, 1]],
+          [
+            "literal",
+            [
+              1.75,
+              1
+            ]
+          ],
           16,
-          ["literal", [1, 0.75]],
+          [
+            "literal",
+            [
+              1,
+              0.75
+            ]
+          ],
           17,
-          ["literal", [1, 0.5]]
+          [
+            "literal",
+            [
+              1,
+              0.5
+            ]
+          ]
         ]
       }
     },
@@ -17280,16 +18074,48 @@
       "minzoom": 14,
       "filter": [
         "all",
-        ["==", ["get", "type"], "steps"],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "type"
+          ],
+          "steps"
+        ],
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
-      "layout": {"line-join": "round"},
+      "layout": {
+        "line-join": "round"
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           15,
           1,
           16,
@@ -17300,14 +18126,40 @@
         "line-color": "hsl(0, 0%, 22%)",
         "line-dasharray": [
           "step",
-          ["zoom"],
-          ["literal", [1, 0]],
+          [
+            "zoom"
+          ],
+          [
+            "literal",
+            [
+              1,
+              0
+            ]
+          ],
           15,
-          ["literal", [1.75, 1]],
+          [
+            "literal",
+            [
+              1.75,
+              1
+            ]
+          ],
           16,
-          ["literal", [1, 0.75]],
+          [
+            "literal",
+            [
+              1,
+              0.75
+            ]
+          ],
           17,
-          ["literal", [0.3, 0.3]]
+          [
+            "literal",
+            [
+              0.3,
+              0.3
+            ]
+          ]
         ]
       }
     },
@@ -17323,16 +18175,56 @@
       "minzoom": 12,
       "filter": [
         "all",
-        ["==", ["get", "class"], "pedestrian"],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "class"
+          ],
+          "pedestrian"
+        ],
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
-      "layout": {"line-join": ["step", ["zoom"], "miter", 14, "round"]},
+      "layout": {
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           14,
           0.5,
           18,
@@ -17341,12 +18233,32 @@
         "line-color": "hsl(0, 0%, 22%)",
         "line-dasharray": [
           "step",
-          ["zoom"],
-          ["literal", [1, 0]],
+          [
+            "zoom"
+          ],
+          [
+            "literal",
+            [
+              1,
+              0
+            ]
+          ],
           15,
-          ["literal", [1.5, 0.4]],
+          [
+            "literal",
+            [
+              1.5,
+              0.4
+            ]
+          ],
           16,
-          ["literal", [1, 0.2]]
+          [
+            "literal",
+            [
+              1,
+              0.2
+            ]
+          ]
         ]
       }
     },
@@ -17364,39 +18276,99 @@
         "all",
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           false,
           14,
           [
             "match",
-            ["get", "class"],
-            ["secondary_link", "tertiary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "secondary_link",
+              "tertiary_link"
+            ],
             true,
             false
           ]
         ],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           14,
-          ["match", ["get", "class"], "track", 1, 0.5],
+          [
+            "match",
+            [
+              "get",
+              "class"
+            ],
+            "track",
+            1,
+            0.5
+          ],
           18,
           12
         ],
         "line-color": "hsla(0, 0%, 90%, 0.5)",
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -17418,29 +18390,76 @@
         "all",
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           false,
           14,
           [
             "match",
-            ["get", "class"],
-            ["secondary_link", "tertiary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "secondary_link",
+              "tertiary_link"
+            ],
             true,
             false
           ]
         ],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.75,
           20,
@@ -17449,17 +18468,35 @@
         "line-color": "hsla(0, 1%, 10%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           14,
-          ["match", ["get", "class"], "track", 1, 0.5],
+          [
+            "match",
+            [
+              "get",
+              "class"
+            ],
+            "track",
+            1,
+            0.5
+          ],
           18,
           12
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -17481,23 +18518,69 @@
         "all",
         [
           "match",
-          ["get", "class"],
-          ["street", "street_limited", "primary_link"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "street",
+            "street_limited",
+            "primary_link"
+          ],
           true,
           false
         ],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
@@ -17508,8 +18591,12 @@
         "line-color": "hsla(0, 0%, 90%, 0.5)",
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           0.3,
           15,
@@ -17531,23 +18618,69 @@
         "all",
         [
           "match",
-          ["get", "class"],
-          ["street", "street_limited", "primary_link"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "street",
+            "street_limited",
+            "primary_link"
+          ],
           true,
           false
         ],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.75,
           20,
@@ -17556,8 +18689,13 @@
         "line-color": "hsla(0, 1%, 10%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
@@ -17567,8 +18705,12 @@
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           0.3,
           15,
@@ -17590,23 +18732,68 @@
         "all",
         [
           "match",
-          ["get", "class"],
-          ["secondary", "tertiary"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "secondary",
+            "tertiary"
+          ],
           true,
           false
         ],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           10,
           0.75,
           18,
@@ -17615,8 +18802,13 @@
         "line-color": "hsla(0, 1%, 10%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
           0.1,
           18,
@@ -17624,8 +18816,12 @@
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           0.3,
           15,
@@ -17645,19 +18841,65 @@
       "minzoom": 7,
       "filter": [
         "all",
-        ["==", ["get", "class"], "primary"],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "class"
+          ],
+          "primary"
+        ],
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           10,
           1,
           18,
@@ -17666,8 +18908,13 @@
         "line-color": "hsla(0, 1%, 10%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
           0.75,
           18,
@@ -17675,8 +18922,12 @@
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -17698,23 +18949,68 @@
         "all",
         [
           "match",
-          ["get", "class"],
-          ["motorway_link", "trunk_link"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway_link",
+            "trunk_link"
+          ],
           true,
           false
         ],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.75,
           20,
@@ -17723,8 +19019,13 @@
         "line-color": "hsla(0, 1%, 22%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
@@ -17734,8 +19035,12 @@
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -17755,19 +19060,70 @@
       "minzoom": 5,
       "filter": [
         "all",
-        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "match",
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway",
+            "trunk"
+          ],
+          true,
+          false
+        ],
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           10,
           1,
           18,
@@ -17776,8 +19132,13 @@
         "line-color": "hsla(0, 1%, 22%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
           0.75,
           18,
@@ -17785,8 +19146,12 @@
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -17808,23 +19173,68 @@
         "all",
         [
           "match",
-          ["get", "class"],
-          ["motorway_link", "trunk_link"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway_link",
+            "trunk_link"
+          ],
           true,
           false
         ],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 13, "round"],
-        "line-join": ["step", ["zoom"], "miter", 13, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          13,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          13,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
@@ -17834,15 +19244,22 @@
         ],
         "line-color": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "motorway_link",
           "hsla(26, 100%, 68%, 0.7)",
           "hsla(46, 87%, 68%, 0.7)"
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -17864,39 +19281,99 @@
         "all",
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           false,
           14,
           [
             "match",
-            ["get", "class"],
-            ["secondary_link", "tertiary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "secondary_link",
+              "tertiary_link"
+            ],
             true,
             false
           ]
         ],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           14,
-          ["match", ["get", "class"], "track", 1, 0.5],
+          [
+            "match",
+            [
+              "get",
+              "class"
+            ],
+            "track",
+            1,
+            0.5
+          ],
           18,
           12
         ],
         "line-color": "hsla(0, 0%, 90%, 0.5)",
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -17918,23 +19395,69 @@
         "all",
         [
           "match",
-          ["get", "class"],
-          ["street", "street_limited", "primary_link"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "street",
+            "street_limited",
+            "primary_link"
+          ],
           true,
           false
         ],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
@@ -17944,15 +19467,22 @@
         ],
         "line-color": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "street_limited",
           "hsl(0, 2%, 22%)",
           "hsla(0, 0%, 90%, 0.5)"
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           0.3,
           15,
@@ -17974,23 +19504,68 @@
         "all",
         [
           "match",
-          ["get", "class"],
-          ["secondary", "tertiary"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "secondary",
+            "tertiary"
+          ],
           true,
           false
         ],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
           0.1,
           18,
@@ -17999,8 +19574,12 @@
         "line-color": "hsla(0, 0%, 90%, 0.5)",
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           0.3,
           15,
@@ -18020,19 +19599,65 @@
       "minzoom": 7,
       "filter": [
         "all",
-        ["==", ["get", "class"], "primary"],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "class"
+          ],
+          "primary"
+        ],
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
           0.75,
           18,
@@ -18041,8 +19666,12 @@
         "line-color": "hsla(0, 0%, 90%, 0.5)",
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -18062,13 +19691,25 @@
       "minzoom": 15,
       "filter": [
         "all",
-        ["==", ["get", "oneway"], "true"],
+        [
+          "==",
+          [
+            "get",
+            "oneway"
+          ],
+          "true"
+        ],
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "primary",
               "secondary",
@@ -18082,7 +19723,10 @@
           16,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "primary",
               "secondary",
@@ -18097,18 +19741,35 @@
             false
           ]
         ],
-        ["match", ["get", "structure"], ["none", "ford"], true, false]
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ]
       ],
       "layout": {
         "symbol-placement": "line",
         "icon-image": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           "oneway-small",
           17,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "primary",
               "secondary",
@@ -18138,19 +19799,70 @@
       "source-layer": "road",
       "filter": [
         "all",
-        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
-        ["match", ["get", "structure"], ["none", "ford"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "match",
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway",
+            "trunk"
+          ],
+          true,
+          false
+        ],
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 13, "round"],
-        "line-join": ["step", ["zoom"], "miter", 13, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          13,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          13,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
           0.75,
           18,
@@ -18158,10 +19870,15 @@
         ],
         "line-color": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             "motorway",
             "hsla(26, 87%, 62%, 0.7)",
             "hsla(0, 0%, 90%, 0.5)"
@@ -18169,7 +19886,10 @@
           6,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             "motorway",
             "hsla(26, 87%, 62%, 0.7)",
             "hsla(46, 80%, 60%, 0.7)"
@@ -18177,7 +19897,10 @@
           9,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             "motorway",
             "hsla(26, 100%, 68%, 0.7)",
             "hsla(46, 87%, 68%, 0.7)"
@@ -18185,8 +19908,12 @@
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -18206,21 +19933,50 @@
       "minzoom": 16,
       "filter": [
         "all",
-        ["==", ["get", "oneway"], "true"],
+        [
+          "==",
+          [
+            "get",
+            "oneway"
+          ],
+          "true"
+        ],
         [
           "match",
-          ["get", "class"],
-          ["motorway", "trunk", "motorway_link", "trunk_link"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway",
+            "trunk",
+            "motorway_link",
+            "trunk_link"
+          ],
           true,
           false
         ],
-        ["match", ["get", "structure"], ["none", "ford"], true, false]
+        [
+          "match",
+          [
+            "get",
+            "structure"
+          ],
+          [
+            "none",
+            "ford"
+          ],
+          true,
+          false
+        ]
       ],
       "layout": {
         "symbol-placement": "line",
         "icon-image": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           "oneway-white-small",
           17,
           "oneway-white-large"
@@ -18241,17 +19997,51 @@
       "minzoom": 14,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
-        ["==", ["get", "class"], "path"],
-        ["==", ["geometry-type"], "LineString"],
-        ["!=", ["get", "type"], "steps"]
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
+        [
+          "==",
+          [
+            "get",
+            "class"
+          ],
+          "path"
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ],
+        [
+          "!=",
+          [
+            "get",
+            "type"
+          ],
+          "steps"
+        ]
       ],
-      "layout": {"line-join": "round"},
+      "layout": {
+        "line-join": "round"
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           15,
           1,
           18,
@@ -18260,14 +20050,40 @@
         "line-color": "hsl(0, 0%, 22%)",
         "line-dasharray": [
           "step",
-          ["zoom"],
-          ["literal", [1, 0]],
+          [
+            "zoom"
+          ],
+          [
+            "literal",
+            [
+              1,
+              0
+            ]
+          ],
           15,
-          ["literal", [1.75, 1]],
+          [
+            "literal",
+            [
+              1.75,
+              1
+            ]
+          ],
           16,
-          ["literal", [1, 0.75]],
+          [
+            "literal",
+            [
+              1,
+              0.75
+            ]
+          ],
           17,
-          ["literal", [1, 0.5]]
+          [
+            "literal",
+            [
+              1,
+              0.5
+            ]
+          ]
         ]
       }
     },
@@ -18283,16 +20099,43 @@
       "minzoom": 14,
       "filter": [
         "all",
-        ["==", ["get", "type"], "steps"],
-        ["==", ["get", "structure"], "bridge"],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "type"
+          ],
+          "steps"
+        ],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
-      "layout": {"line-join": "round"},
+      "layout": {
+        "line-join": "round"
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           15,
           1,
           16,
@@ -18303,14 +20146,40 @@
         "line-color": "hsl(0, 0%, 22%)",
         "line-dasharray": [
           "step",
-          ["zoom"],
-          ["literal", [1, 0]],
+          [
+            "zoom"
+          ],
+          [
+            "literal",
+            [
+              1,
+              0
+            ]
+          ],
           15,
-          ["literal", [1.75, 1]],
+          [
+            "literal",
+            [
+              1.75,
+              1
+            ]
+          ],
           16,
-          ["literal", [1, 0.75]],
+          [
+            "literal",
+            [
+              1,
+              0.75
+            ]
+          ],
           17,
-          ["literal", [0.3, 0.3]]
+          [
+            "literal",
+            [
+              0.3,
+              0.3
+            ]
+          ]
         ]
       }
     },
@@ -18326,16 +20195,43 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
-        ["==", ["get", "class"], "pedestrian"],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
+        [
+          "==",
+          [
+            "get",
+            "class"
+          ],
+          "pedestrian"
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
-      "layout": {"line-join": "round"},
+      "layout": {
+        "line-join": "round"
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           14,
           0.5,
           18,
@@ -18344,12 +20240,32 @@
         "line-color": "hsl(0, 0%, 22%)",
         "line-dasharray": [
           "step",
-          ["zoom"],
-          ["literal", [1, 0]],
+          [
+            "zoom"
+          ],
+          [
+            "literal",
+            [
+              1,
+              0
+            ]
+          ],
           15,
-          ["literal", [1.5, 0.4]],
+          [
+            "literal",
+            [
+              1.5,
+              0.4
+            ]
+          ],
           16,
-          ["literal", [1, 0.2]]
+          [
+            "literal",
+            [
+              1,
+              0.2
+            ]
+          ]
         ]
       }
     },
@@ -18365,21 +20281,40 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             true,
             false
           ],
           14,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "street",
               "street_limited",
@@ -18391,24 +20326,58 @@
             false
           ]
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             2,
             "track",
             1,
@@ -18417,8 +20386,15 @@
           18,
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             18,
             12
           ]
@@ -18426,8 +20402,12 @@
         "line-color": "hsla(0, 0%, 90%, 0.5)",
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -18447,21 +20427,40 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             true,
             false
           ],
           14,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "street",
               "street_limited",
@@ -18473,14 +20472,27 @@
             false
           ]
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
-      "layout": {"line-join": "round"},
+      "layout": {
+        "line-join": "round"
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.75,
           20,
@@ -18489,15 +20501,27 @@
         "line-color": "hsla(0, 1%, 10%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             2,
             "track",
             1,
@@ -18506,16 +20530,27 @@
           18,
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             18,
             12
           ]
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -18535,41 +20570,104 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
         [
           "match",
-          ["get", "class"],
-          ["primary", "secondary", "tertiary"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "primary",
+            "secondary",
+            "tertiary"
+          ],
           true,
           false
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
-      "layout": {"line-join": "round"},
+      "layout": {
+        "line-join": "round"
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           10,
-          ["match", ["get", "class"], "primary", 1, 0.75],
+          [
+            "match",
+            [
+              "get",
+              "class"
+            ],
+            "primary",
+            1,
+            0.75
+          ],
           18,
           2
         ],
         "line-color": "hsla(0, 1%, 10%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
-          ["match", ["get", "class"], "primary", 0.75, 0.1],
+          [
+            "match",
+            [
+              "get",
+              "class"
+            ],
+            "primary",
+            0.75,
+            0.1
+          ],
           18,
-          ["match", ["get", "class"], "primary", 32, 26]
+          [
+            "match",
+            [
+              "get",
+              "class"
+            ],
+            "primary",
+            32,
+            26
+          ]
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           0.3,
           15,
@@ -18589,23 +20687,56 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
         [
           "match",
-          ["get", "class"],
-          ["motorway_link", "trunk_link"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway_link",
+            "trunk_link"
+          ],
           true,
           false
         ],
-        ["<=", ["get", "layer"], 1],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "<=",
+          [
+            "get",
+            "layer"
+          ],
+          1
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
-      "layout": {"line-join": "round"},
+      "layout": {
+        "line-join": "round"
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.75,
           20,
@@ -18614,8 +20745,13 @@
         "line-color": "hsla(0, 1%, 22%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
@@ -18625,8 +20761,12 @@
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -18646,17 +20786,56 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
-        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
-        ["<=", ["get", "layer"], 1],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
+        [
+          "match",
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway",
+            "trunk"
+          ],
+          true,
+          false
+        ],
+        [
+          "<=",
+          [
+            "get",
+            "layer"
+          ],
+          1
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
-      "layout": {"line-join": "round"},
+      "layout": {
+        "line-join": "round"
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           10,
           1,
           18,
@@ -18665,8 +20844,13 @@
         "line-color": "hsla(0, 1%, 22%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
           0.75,
           18,
@@ -18674,8 +20858,12 @@
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -18695,23 +20883,57 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
         [
           "match",
-          ["get", "class"],
-          ["motorway_link", "trunk_link"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway_link",
+            "trunk_link"
+          ],
           true,
           false
         ],
-        ["<=", ["get", "layer"], 1],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "<=",
+          [
+            "get",
+            "layer"
+          ],
+          1
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
-      "layout": {"line-cap": "round", "line-join": "round"},
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
@@ -18721,15 +20943,22 @@
         ],
         "line-color": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "motorway_link",
           "hsla(26, 100%, 68%, 0.7)",
           "hsla(46, 87%, 68%, 0.7)"
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -18749,21 +20978,40 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             true,
             false
           ],
           14,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "street",
               "street_limited",
@@ -18775,24 +21023,58 @@
             false
           ]
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             2,
             "track",
             1,
@@ -18801,23 +21083,37 @@
           18,
           [
             "match",
-            ["get", "class"],
-            ["street", "street_limited", "primary_link"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "street",
+              "street_limited",
+              "primary_link"
+            ],
             18,
             12
           ]
         ],
         "line-color": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "street_limited",
           "hsl(0, 2%, 22%)",
           "hsla(0, 0%, 90%, 0.5)"
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -18837,35 +21133,98 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
         [
           "match",
-          ["get", "class"],
-          ["primary", "secondary", "tertiary"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "primary",
+            "secondary",
+            "tertiary"
+          ],
           true,
           false
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
-          ["match", ["get", "class"], "primary", 0.75, 0.1],
+          [
+            "match",
+            [
+              "get",
+              "class"
+            ],
+            "primary",
+            0.75,
+            0.1
+          ],
           18,
-          ["match", ["get", "class"], "primary", 32, 26]
+          [
+            "match",
+            [
+              "get",
+              "class"
+            ],
+            "primary",
+            32,
+            26
+          ]
         ],
         "line-color": "hsla(0, 0%, 90%, 0.5)",
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           0.3,
           15,
@@ -18885,14 +21244,33 @@
       "minzoom": 15,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
-        ["==", ["get", "oneway"], "true"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
+        [
+          "==",
+          [
+            "get",
+            "oneway"
+          ],
+          "true"
+        ],
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "primary",
               "secondary",
@@ -18906,7 +21284,10 @@
           16,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "primary",
               "secondary",
@@ -18926,12 +21307,17 @@
         "symbol-placement": "line",
         "icon-image": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           "oneway-small",
           17,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "primary",
               "secondary",
@@ -18962,17 +21348,57 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
-        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
-        ["<=", ["get", "layer"], 1],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
+        [
+          "match",
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway",
+            "trunk"
+          ],
+          true,
+          false
+        ],
+        [
+          "<=",
+          [
+            "get",
+            "layer"
+          ],
+          1
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
-      "layout": {"line-cap": "round", "line-join": "round"},
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
           0.75,
           18,
@@ -18980,15 +21406,22 @@
         ],
         "line-color": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "motorway",
           "hsla(26, 100%, 68%, 0.7)",
           "hsla(46, 87%, 68%, 0.7)"
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -19008,23 +21441,56 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
-        [">=", ["get", "layer"], 2],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
+        [
+          ">=",
+          [
+            "get",
+            "layer"
+          ],
+          2
+        ],
         [
           "match",
-          ["get", "class"],
-          ["motorway_link", "trunk_link"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway_link",
+            "trunk_link"
+          ],
           true,
           false
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
-      "layout": {"line-join": "round"},
+      "layout": {
+        "line-join": "round"
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.75,
           20,
@@ -19033,8 +21499,13 @@
         "line-color": "hsla(0, 1%, 22%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
@@ -19044,8 +21515,12 @@
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -19065,17 +21540,56 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
-        [">=", ["get", "layer"], 2],
-        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
+        [
+          ">=",
+          [
+            "get",
+            "layer"
+          ],
+          2
+        ],
+        [
+          "match",
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway",
+            "trunk"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
-      "layout": {"line-join": "round"},
+      "layout": {
+        "line-join": "round"
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           10,
           1,
           18,
@@ -19084,8 +21598,13 @@
         "line-color": "hsla(0, 1%, 22%, 0.5)",
         "line-gap-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
           0.75,
           18,
@@ -19093,8 +21612,12 @@
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -19114,23 +21637,57 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
-        [">=", ["get", "layer"], 2],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
+        [
+          ">=",
+          [
+            "get",
+            "layer"
+          ],
+          2
+        ],
         [
           "match",
-          ["get", "class"],
-          ["motorway_link", "trunk_link"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway_link",
+            "trunk_link"
+          ],
           true,
           false
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
-      "layout": {"line-cap": "round", "line-join": "round"},
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           12,
           0.5,
           14,
@@ -19140,15 +21697,22 @@
         ],
         "line-color": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "motorway_link",
           "hsla(26, 100%, 68%, 0.7)",
           "hsla(46, 87%, 68%, 0.7)"
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -19168,20 +21732,73 @@
       "minzoom": 13,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
-        [">=", ["get", "layer"], 2],
-        ["match", ["get", "class"], ["motorway", "trunk"], true, false],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
+        [
+          ">=",
+          [
+            "get",
+            "layer"
+          ],
+          2
+        ],
+        [
+          "match",
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway",
+            "trunk"
+          ],
+          true,
+          false
+        ],
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "line-cap": ["step", ["zoom"], "butt", 14, "round"],
-        "line-join": ["step", ["zoom"], "miter", 14, "round"]
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
       },
       "paint": {
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           5,
           0.75,
           18,
@@ -19189,15 +21806,22 @@
         ],
         "line-color": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "motorway",
           "hsla(26, 100%, 68%, 0.7)",
           "hsla(46, 87%, 68%, 0.7)"
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           1,
           15,
@@ -19217,21 +21841,45 @@
       "minzoom": 16,
       "filter": [
         "all",
-        ["==", ["get", "structure"], "bridge"],
+        [
+          "==",
+          [
+            "get",
+            "structure"
+          ],
+          "bridge"
+        ],
         [
           "match",
-          ["get", "class"],
-          ["motorway", "trunk", "motorway_link", "trunk_link"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway",
+            "trunk",
+            "motorway_link",
+            "trunk_link"
+          ],
           true,
           false
         ],
-        ["==", ["get", "oneway"], "true"]
+        [
+          "==",
+          [
+            "get",
+            "oneway"
+          ],
+          "true"
+        ]
       ],
       "layout": {
         "symbol-placement": "line",
         "icon-image": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           "oneway-white-small",
           17,
           "oneway-white-large"
@@ -19250,14 +21898,28 @@
       "source": "composite",
       "source-layer": "road",
       "minzoom": 12,
-      "filter": ["==", ["get", "class"], "aerialway"],
-      "layout": {"line-join": "round"},
+      "filter": [
+        "==",
+        [
+          "get",
+          "class"
+        ],
+        "aerialway"
+      ],
+      "layout": {
+        "line-join": "round"
+      },
       "paint": {
         "line-color": "hsla(0, 0%, 25%, 0.5)",
         "line-width": [
           "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
           14,
           0.5,
           20,
@@ -19276,16 +21938,48 @@
       "source-layer": "admin",
       "filter": [
         "all",
-        ["==", ["get", "admin_level"], 1],
-        ["==", ["get", "maritime"], "false"],
-        ["match", ["get", "worldview"], ["all", "US"], true, false]
+        [
+          "==",
+          [
+            "get",
+            "admin_level"
+          ],
+          1
+        ],
+        [
+          "==",
+          [
+            "get",
+            "maritime"
+          ],
+          "false"
+        ],
+        [
+          "match",
+          [
+            "get",
+            "worldview"
+          ],
+          [
+            "all",
+            "US"
+          ],
+          true,
+          false
+        ]
       ],
-      "layout": {"line-join": "bevel"},
+      "layout": {
+        "line-join": "bevel"
+      },
       "paint": {
         "line-color": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           8,
           "hsl(0, 0%, 14%)",
           16,
@@ -19293,8 +21987,12 @@
         ],
         "line-width": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           7,
           3.75,
           12,
@@ -19302,16 +22000,38 @@
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           7,
           0,
           8,
           0.75
         ],
-        "line-dasharray": [1, 0],
-        "line-translate": [0, 0],
-        "line-blur": ["interpolate", ["linear"], ["zoom"], 3, 0, 8, 3]
+        "line-dasharray": [
+          1,
+          0
+        ],
+        "line-translate": [
+          0,
+          0
+        ],
+        "line-blur": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          3,
+          0,
+          8,
+          3
+        ]
       }
     },
     {
@@ -19326,16 +22046,46 @@
       "minzoom": 1,
       "filter": [
         "all",
-        ["==", ["get", "admin_level"], 0],
-        ["==", ["get", "maritime"], "false"],
-        ["match", ["get", "worldview"], ["all", "US"], true, false]
+        [
+          "==",
+          [
+            "get",
+            "admin_level"
+          ],
+          0
+        ],
+        [
+          "==",
+          [
+            "get",
+            "maritime"
+          ],
+          "false"
+        ],
+        [
+          "match",
+          [
+            "get",
+            "worldview"
+          ],
+          [
+            "all",
+            "US"
+          ],
+          true,
+          false
+        ]
       ],
       "layout": {},
       "paint": {
         "line-width": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           3,
           5.25,
           10,
@@ -19343,8 +22093,12 @@
         ],
         "line-color": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           6,
           "hsl(0, 0%, 14%)",
           8,
@@ -19352,15 +22106,34 @@
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           3,
           0,
           4,
           0.5
         ],
-        "line-translate": [0, 0],
-        "line-blur": ["interpolate", ["linear"], ["zoom"], 3, 0, 10, 3]
+        "line-translate": [
+          0,
+          0
+        ],
+        "line-blur": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          3,
+          0,
+          10,
+          3
+        ]
       }
     },
     {
@@ -19374,23 +22147,72 @@
       "source-layer": "admin",
       "filter": [
         "all",
-        ["==", ["get", "admin_level"], 1],
-        ["==", ["get", "maritime"], "false"],
-        ["match", ["get", "worldview"], ["all", "US"], true, false]
+        [
+          "==",
+          [
+            "get",
+            "admin_level"
+          ],
+          1
+        ],
+        [
+          "==",
+          [
+            "get",
+            "maritime"
+          ],
+          "false"
+        ],
+        [
+          "match",
+          [
+            "get",
+            "worldview"
+          ],
+          [
+            "all",
+            "US"
+          ],
+          true,
+          false
+        ]
       ],
-      "layout": {"line-join": "round", "line-cap": "round"},
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
       "paint": {
         "line-dasharray": [
           "step",
-          ["zoom"],
-          ["literal", [2, 0]],
+          [
+            "zoom"
+          ],
+          [
+            "literal",
+            [
+              2,
+              0
+            ]
+          ],
           7,
-          ["literal", [2, 2, 6, 2]]
+          [
+            "literal",
+            [
+              2,
+              2,
+              6,
+              2
+            ]
+          ]
         ],
         "line-width": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           7,
           0.75,
           12,
@@ -19398,8 +22220,12 @@
         ],
         "line-opacity": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           2,
           0,
           3,
@@ -19407,8 +22233,12 @@
         ],
         "line-color": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           3,
           "hsl(0, 0%, 0%)",
           7,
@@ -19428,24 +22258,67 @@
       "minzoom": 1,
       "filter": [
         "all",
-        ["==", ["get", "admin_level"], 0],
-        ["==", ["get", "disputed"], "false"],
-        ["==", ["get", "maritime"], "false"],
-        ["match", ["get", "worldview"], ["all", "US"], true, false]
+        [
+          "==",
+          [
+            "get",
+            "admin_level"
+          ],
+          0
+        ],
+        [
+          "==",
+          [
+            "get",
+            "disputed"
+          ],
+          "false"
+        ],
+        [
+          "==",
+          [
+            "get",
+            "maritime"
+          ],
+          "false"
+        ],
+        [
+          "match",
+          [
+            "get",
+            "worldview"
+          ],
+          [
+            "all",
+            "US"
+          ],
+          true,
+          false
+        ]
       ],
-      "layout": {"line-join": "round", "line-cap": "round"},
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
       "paint": {
         "line-color": "hsl(0, 0%, 0%)",
         "line-width": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           3,
           0.75,
           10,
           3
         ],
-        "line-dasharray": [10, 0]
+        "line-dasharray": [
+          10,
+          0
+        ]
       }
     },
     {
@@ -19460,18 +22333,57 @@
       "minzoom": 1,
       "filter": [
         "all",
-        ["==", ["get", "disputed"], "true"],
-        ["==", ["get", "admin_level"], 0],
-        ["==", ["get", "maritime"], "false"],
-        ["match", ["get", "worldview"], ["all", "US"], true, false]
+        [
+          "==",
+          [
+            "get",
+            "disputed"
+          ],
+          "true"
+        ],
+        [
+          "==",
+          [
+            "get",
+            "admin_level"
+          ],
+          0
+        ],
+        [
+          "==",
+          [
+            "get",
+            "maritime"
+          ],
+          "false"
+        ],
+        [
+          "match",
+          [
+            "get",
+            "worldview"
+          ],
+          [
+            "all",
+            "US"
+          ],
+          true,
+          false
+        ]
       ],
-      "layout": {"line-join": "round"},
+      "layout": {
+        "line-join": "round"
+      },
       "paint": {
         "line-color": "hsl(0, 0%, 0%)",
         "line-width": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           3,
           0.75,
           10,
@@ -19479,14 +22391,40 @@
         ],
         "line-dasharray": [
           "step",
-          ["zoom"],
-          ["literal", [3.25, 3.25]],
+          [
+            "zoom"
+          ],
+          [
+            "literal",
+            [
+              3.25,
+              3.25
+            ]
+          ],
           6,
-          ["literal", [2.5, 2.5]],
+          [
+            "literal",
+            [
+              2.5,
+              2.5
+            ]
+          ],
           7,
-          ["literal", [2, 2.25]],
+          [
+            "literal",
+            [
+              2,
+              2.25
+            ]
+          ],
           8,
-          ["literal", [1.75, 2]]
+          [
+            "literal",
+            [
+              1.75,
+              2
+            ]
+          ]
         ]
       }
     },
@@ -19502,18 +22440,32 @@
       "minzoom": 10,
       "filter": [
         "step",
-        ["zoom"],
+        [
+          "zoom"
+        ],
         [
           "match",
-          ["get", "class"],
-          ["motorway", "trunk", "primary", "secondary", "tertiary"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway",
+            "trunk",
+            "primary",
+            "secondary",
+            "tertiary"
+          ],
           true,
           false
         ],
         12,
         [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           [
             "motorway",
             "trunk",
@@ -19529,7 +22481,10 @@
         15,
         [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           [
             "path",
             "pedestrian",
@@ -19546,12 +22501,19 @@
       "layout": {
         "text-size": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           10,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "motorway",
               "trunk",
@@ -19575,7 +22537,10 @@
           18,
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "motorway",
               "trunk",
@@ -19598,20 +22563,39 @@
           ]
         ],
         "text-max-angle": 30,
-        "text-font": ["DIN Pro Medium", "Arial Unicode MS Regular"],
+        "text-font": [
+          "DIN Pro Medium",
+          "Arial Unicode MS Regular"
+        ],
         "symbol-placement": "line",
         "text-padding": 1,
         "text-rotation-alignment": "map",
         "text-pitch-alignment": "viewport",
-        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_en"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ],
         "text-letter-spacing": 0.01
       },
       "paint": {
         "text-color": "hsl(0, 0%, 100%)",
         "text-halo-color": [
           "match",
-          ["get", "class"],
-          ["motorway", "trunk"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "motorway",
+            "trunk"
+          ],
           "hsla(0, 5%, 0%, 0.75)",
           "hsl(0, 5%, 0%)"
         ],
@@ -19631,26 +22615,61 @@
       "minzoom": 15,
       "filter": [
         "all",
-        ["==", ["get", "class"], "intersection"],
-        ["has", "name"]
+        [
+          "==",
+          [
+            "get",
+            "class"
+          ],
+          "intersection"
+        ],
+        [
+          "has",
+          "name"
+        ]
       ],
       "layout": {
-        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_en"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ],
         "icon-image": "intersection",
         "icon-text-fit": "both",
-        "icon-text-fit-padding": [1, 2, 1, 2],
+        "icon-text-fit-padding": [
+          1,
+          2,
+          1,
+          2
+        ],
         "text-size": [
           "interpolate",
-          ["exponential", 1.2],
-          ["zoom"],
+          [
+            "exponential",
+            1.2
+          ],
+          [
+            "zoom"
+          ],
           15,
           9,
           18,
           12
         ],
-        "text-font": ["DIN Pro Bold", "Arial Unicode MS Bold"]
+        "text-font": [
+          "DIN Pro Bold",
+          "Arial Unicode MS Bold"
+        ]
       },
-      "paint": {"text-color": "hsl(230, 57%, 64%)"}
+      "paint": {
+        "text-color": "hsl(230, 57%, 64%)"
+      }
     },
     {
       "id": "road-number-shield",
@@ -19664,18 +22683,57 @@
       "minzoom": 6,
       "filter": [
         "all",
-        ["has", "reflen"],
-        ["<=", ["get", "reflen"], 6],
+        [
+          "has",
+          "reflen"
+        ],
+        [
+          "<=",
+          [
+            "get",
+            "reflen"
+          ],
+          6
+        ],
         [
           "step",
-          ["zoom"],
-          ["==", ["geometry-type"], "Point"],
+          [
+            "zoom"
+          ],
+          [
+            "==",
+            [
+              "geometry-type"
+            ],
+            "Point"
+          ],
           11,
-          [">", ["get", "len"], 5000],
+          [
+            ">",
+            [
+              "get",
+              "len"
+            ],
+            5000
+          ],
           12,
-          [">", ["get", "len"], 2500],
+          [
+            ">",
+            [
+              "get",
+              "len"
+            ],
+            2500
+          ],
           13,
-          [">", ["get", "len"], 1000],
+          [
+            ">",
+            [
+              "get",
+              "len"
+            ],
+            1000
+          ],
           14,
           true
         ]
@@ -19684,31 +22742,61 @@
         "text-size": 9,
         "icon-image": [
           "concat",
-          ["get", "shield"],
+          [
+            "get",
+            "shield"
+          ],
           "-",
-          ["to-string", ["get", "reflen"]]
+          [
+            "to-string",
+            [
+              "get",
+              "reflen"
+            ]
+          ]
         ],
         "icon-rotation-alignment": "viewport",
         "text-max-angle": 38,
         "symbol-spacing": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           11,
           150,
           14,
           200
         ],
-        "text-font": ["DIN Pro Bold", "Arial Unicode MS Bold"],
-        "symbol-placement": ["step", ["zoom"], "point", 11, "line"],
+        "text-font": [
+          "DIN Pro Bold",
+          "Arial Unicode MS Bold"
+        ],
+        "symbol-placement": [
+          "step",
+          [
+            "zoom"
+          ],
+          "point",
+          11,
+          "line"
+        ],
         "text-rotation-alignment": "viewport",
-        "text-field": ["get", "ref"],
+        "text-field": [
+          "get",
+          "ref"
+        ],
         "text-letter-spacing": 0.05
       },
       "paint": {
         "text-color": [
           "match",
-          ["get", "shield_text_color"],
+          [
+            "get",
+            "shield_text_color"
+          ],
           "white",
           "hsl(0, 0%, 100%)",
           "yellow",
@@ -19731,20 +22819,49 @@
       "source": "composite",
       "source-layer": "motorway_junction",
       "minzoom": 14,
-      "filter": ["all", ["has", "reflen"], ["<=", ["get", "reflen"], 9]],
+      "filter": [
+        "all",
+        [
+          "has",
+          "reflen"
+        ],
+        [
+          "<=",
+          [
+            "get",
+            "reflen"
+          ],
+          9
+        ]
+      ],
       "layout": {
-        "text-field": ["get", "ref"],
+        "text-field": [
+          "get",
+          "ref"
+        ],
         "text-size": 9,
         "icon-image": [
           "concat",
           "motorway-exit-",
-          ["to-string", ["get", "reflen"]]
+          [
+            "to-string",
+            [
+              "get",
+              "reflen"
+            ]
+          ]
         ],
-        "text-font": ["DIN Pro Bold", "Arial Unicode MS Bold"]
+        "text-font": [
+          "DIN Pro Bold",
+          "Arial Unicode MS Bold"
+        ]
       },
       "paint": {
         "text-color": "hsl(0, 0%, 100%)",
-        "text-translate": [0, 0]
+        "text-translate": [
+          0,
+          0
+        ]
       }
     },
     {
@@ -19757,37 +22874,69 @@
       "source": "composite",
       "source-layer": "road",
       "minzoom": 15,
-      "filter": ["match", ["get", "class"], "aerialway", true, false],
+      "filter": [
+        "match",
+        [
+          "get",
+          "class"
+        ],
+        "aerialway",
+        true,
+        false
+      ],
       "layout": {
         "text-size": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           10,
           6.5,
           18,
           13
         ],
         "text-max-angle": 30,
-        "text-font": ["DIN Pro Medium", "Arial Unicode MS Regular"],
+        "text-font": [
+          "DIN Pro Medium",
+          "Arial Unicode MS Regular"
+        ],
         "symbol-placement": "line",
         "text-padding": 1,
         "text-rotation-alignment": "map",
         "text-pitch-alignment": "viewport",
-        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_en"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ],
         "text-letter-spacing": 0.01
       },
       "paint": {
         "text-color": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "ferry",
           "hsl(196, 18%, 86%)",
           "hsl(0, 0%, 100%)"
         ],
         "text-halo-color": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "ferry",
           "hsl(196, 50%, 50%)",
           "hsl(0, 5%, 0%)"
@@ -19810,12 +22959,22 @@
         "all",
         [
           "case",
-          ["==", ["get", "disputed"], "true"],
+          [
+            "==",
+            [
+              "get",
+              "disputed"
+            ],
+            "true"
+          ],
           [
             "all",
             [
               "match",
-              ["get", "class"],
+              [
+                "get",
+                "class"
+              ],
               [
                 "canal",
                 "river",
@@ -19829,29 +22988,56 @@
             ],
             [
               "match",
-              ["get", "worldview"],
-              ["all", "US"],
+              [
+                "get",
+                "worldview"
+              ],
+              [
+                "all",
+                "US"
+              ],
               true,
               false
             ]
           ],
           [
             "match",
-            ["get", "class"],
-            ["canal", "river", "stream"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "canal",
+              "river",
+              "stream"
+            ],
             true,
             false
           ]
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
-        "text-font": ["DIN Pro Italic", "Arial Unicode MS Regular"],
+        "text-font": [
+          "DIN Pro Italic",
+          "Arial Unicode MS Regular"
+        ],
         "text-max-angle": 30,
         "symbol-spacing": [
           "interpolate",
-          ["linear", 1],
-          ["zoom"],
+          [
+            "linear",
+            1
+          ],
+          [
+            "zoom"
+          ],
           15,
           250,
           17,
@@ -19859,8 +23045,12 @@
         ],
         "text-size": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           13,
           12,
           18,
@@ -19868,9 +23058,21 @@
         ],
         "symbol-placement": "line",
         "text-pitch-alignment": "viewport",
-        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]]
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_en"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ]
       },
-      "paint": {"text-color": "hsl(196, 18%, 90%)"}
+      "paint": {
+        "text-color": "hsl(196, 18%, 90%)"
+      }
     },
     {
       "id": "natural-line-label",
@@ -19886,12 +23088,22 @@
         "all",
         [
           "case",
-          ["==", ["get", "disputed"], "true"],
+          [
+            "==",
+            [
+              "get",
+              "disputed"
+            ],
+            "true"
+          ],
           [
             "all",
             [
               "match",
-              ["get", "class"],
+              [
+                "get",
+                "class"
+              ],
               [
                 "glacier",
                 "landform",
@@ -19903,34 +23115,92 @@
             ],
             [
               "match",
-              ["get", "worldview"],
-              ["all", "US"],
+              [
+                "get",
+                "worldview"
+              ],
+              [
+                "all",
+                "US"
+              ],
               true,
               false
             ]
           ],
           [
             "match",
-            ["get", "class"],
-            ["glacier", "landform"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "glacier",
+              "landform"
+            ],
             true,
             false
           ]
         ],
-        ["==", ["geometry-type"], "LineString"],
-        ["<=", ["get", "filterrank"], 2]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ],
+        [
+          "<=",
+          [
+            "get",
+            "filterrank"
+          ],
+          2
+        ]
       ],
       "layout": {
         "text-size": [
           "step",
-          ["zoom"],
-          ["step", ["get", "sizerank"], 18, 5, 12],
+          [
+            "zoom"
+          ],
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            18,
+            5,
+            12
+          ],
           17,
-          ["step", ["get", "sizerank"], 18, 13, 12]
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            18,
+            13,
+            12
+          ]
         ],
         "text-max-angle": 30,
-        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
-        "text-font": ["DIN Pro Bold", "Arial Unicode MS Bold"],
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_en"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ],
+        "text-font": [
+          "DIN Pro Bold",
+          "Arial Unicode MS Bold"
+        ],
         "symbol-placement": "line-center",
         "text-pitch-alignment": "viewport"
       },
@@ -19940,10 +23210,15 @@
         "text-halo-blur": 0.5,
         "text-color": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "step",
-            ["get", "sizerank"],
+            [
+              "get",
+              "sizerank"
+            ],
             "hsl(0, 0%, 100%)",
             5,
             "hsl(0, 0%, 100%)"
@@ -19951,7 +23226,10 @@
           17,
           [
             "step",
-            ["get", "sizerank"],
+            [
+              "get",
+              "sizerank"
+            ],
             "hsl(0, 0%, 100%)",
             13,
             "hsl(0, 0%, 100%)"
@@ -19973,12 +23251,22 @@
         "all",
         [
           "case",
-          ["==", ["get", "disputed"], "true"],
+          [
+            "==",
+            [
+              "get",
+              "disputed"
+            ],
+            "true"
+          ],
           [
             "all",
             [
               "match",
-              ["get", "class"],
+              [
+                "get",
+                "class"
+              ],
               [
                 "dock",
                 "glacier",
@@ -19996,15 +23284,24 @@
             ],
             [
               "match",
-              ["get", "worldview"],
-              ["all", "US"],
+              [
+                "get",
+                "worldview"
+              ],
+              [
+                "all",
+                "US"
+              ],
               true,
               false
             ]
           ],
           [
             "match",
-            ["get", "class"],
+            [
+              "get",
+              "class"
+            ],
             [
               "dock",
               "glacier",
@@ -20016,70 +23313,209 @@
             false
           ]
         ],
-        ["==", ["geometry-type"], "Point"],
-        ["<=", ["get", "filterrank"], 2]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "Point"
+        ],
+        [
+          "<=",
+          [
+            "get",
+            "filterrank"
+          ],
+          2
+        ]
       ],
       "layout": {
         "text-size": [
           "step",
-          ["zoom"],
-          ["step", ["get", "sizerank"], 18, 5, 12],
-          17,
-          ["step", ["get", "sizerank"], 18, 13, 12]
-        ],
-        "icon-image": [
-          "step",
-          ["zoom"],
-          ["concat", ["get", "maki"], "-11"],
-          15,
-          ["concat", ["get", "maki"], "-15"]
-        ],
-        "text-font": ["DIN Pro Bold", "Arial Unicode MS Bold"],
-        "text-offset": [
-          "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "step",
-            ["get", "sizerank"],
-            ["literal", [0, 0]],
+            [
+              "get",
+              "sizerank"
+            ],
+            18,
             5,
-            ["literal", [0, 0.75]]
+            12
           ],
           17,
           [
             "step",
-            ["get", "sizerank"],
-            ["literal", [0, 0]],
+            [
+              "get",
+              "sizerank"
+            ],
+            18,
             13,
-            ["literal", [0, 0.75]]
+            12
+          ]
+        ],
+        "icon-image": [
+          "step",
+          [
+            "zoom"
+          ],
+          [
+            "concat",
+            [
+              "get",
+              "maki"
+            ],
+            "-11"
+          ],
+          15,
+          [
+            "concat",
+            [
+              "get",
+              "maki"
+            ],
+            "-15"
+          ]
+        ],
+        "text-font": [
+          "DIN Pro Bold",
+          "Arial Unicode MS Bold"
+        ],
+        "text-offset": [
+          "step",
+          [
+            "zoom"
+          ],
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            [
+              "literal",
+              [
+                0,
+                0
+              ]
+            ],
+            5,
+            [
+              "literal",
+              [
+                0,
+                0.75
+              ]
+            ]
+          ],
+          17,
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            [
+              "literal",
+              [
+                0,
+                0
+              ]
+            ],
+            13,
+            [
+              "literal",
+              [
+                0,
+                0.75
+              ]
+            ]
           ]
         ],
         "text-anchor": [
           "step",
-          ["zoom"],
-          ["step", ["get", "sizerank"], "center", 5, "top"],
+          [
+            "zoom"
+          ],
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            "center",
+            5,
+            "top"
+          ],
           17,
-          ["step", ["get", "sizerank"], "center", 13, "top"]
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            "center",
+            13,
+            "top"
+          ]
         ],
-        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]]
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_en"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ]
       },
       "paint": {
         "icon-opacity": [
           "step",
-          ["zoom"],
-          ["step", ["get", "sizerank"], 0, 5, 1],
+          [
+            "zoom"
+          ],
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            0,
+            5,
+            1
+          ],
           17,
-          ["step", ["get", "sizerank"], 0, 13, 1]
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            0,
+            13,
+            1
+          ]
         ],
         "text-halo-color": "hsl(0, 5%, 0%)",
         "text-halo-width": 0.5,
         "text-halo-blur": 0.5,
         "text-color": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "step",
-            ["get", "sizerank"],
+            [
+              "get",
+              "sizerank"
+            ],
             "hsl(0, 0%, 100%)",
             5,
             "hsl(0, 0%, 100%)"
@@ -20087,7 +23523,10 @@
           17,
           [
             "step",
-            ["get", "sizerank"],
+            [
+              "get",
+              "sizerank"
+            ],
             "hsl(0, 0%, 100%)",
             13,
             "hsl(0, 0%, 100%)"
@@ -20108,12 +23547,22 @@
         "all",
         [
           "case",
-          ["==", ["get", "disputed"], "true"],
+          [
+            "==",
+            [
+              "get",
+              "disputed"
+            ],
+            "true"
+          ],
           [
             "all",
             [
               "match",
-              ["get", "class"],
+              [
+                "get",
+                "class"
+              ],
               [
                 "bay",
                 "ocean",
@@ -20131,54 +23580,134 @@
             ],
             [
               "match",
-              ["get", "worldview"],
-              ["all", "US"],
+              [
+                "get",
+                "worldview"
+              ],
+              [
+                "all",
+                "US"
+              ],
               true,
               false
             ]
           ],
           [
             "match",
-            ["get", "class"],
-            ["bay", "ocean", "reservoir", "sea", "water"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "bay",
+              "ocean",
+              "reservoir",
+              "sea",
+              "water"
+            ],
             true,
             false
           ]
         ],
-        ["==", ["geometry-type"], "LineString"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "LineString"
+        ]
       ],
       "layout": {
         "text-size": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           7,
-          ["step", ["get", "sizerank"], 24, 6, 18, 12, 12],
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            24,
+            6,
+            18,
+            12,
+            12
+          ],
           10,
-          ["step", ["get", "sizerank"], 18, 9, 12],
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            18,
+            9,
+            12
+          ],
           18,
-          ["step", ["get", "sizerank"], 18, 9, 16]
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            18,
+            9,
+            16
+          ]
         ],
         "text-max-angle": 30,
         "text-letter-spacing": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "ocean",
           0.25,
-          ["sea", "bay"],
+          [
+            "sea",
+            "bay"
+          ],
           0.15,
           0
         ],
-        "text-font": ["DIN Pro Italic", "Arial Unicode MS Regular"],
+        "text-font": [
+          "DIN Pro Italic",
+          "Arial Unicode MS Regular"
+        ],
         "symbol-placement": "line-center",
         "text-pitch-alignment": "viewport",
-        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]]
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_en"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ]
       },
       "paint": {
         "text-color": [
           "match",
-          ["get", "class"],
-          ["bay", "ocean", "sea"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "bay",
+            "ocean",
+            "sea"
+          ],
           "hsl(196, 46%, 70%)",
           "hsl(196, 18%, 90%)"
         ]
@@ -20197,12 +23726,22 @@
         "all",
         [
           "case",
-          ["==", ["get", "disputed"], "true"],
+          [
+            "==",
+            [
+              "get",
+              "disputed"
+            ],
+            "true"
+          ],
           [
             "all",
             [
               "match",
-              ["get", "class"],
+              [
+                "get",
+                "class"
+              ],
               [
                 "bay",
                 "ocean",
@@ -20220,52 +23759,122 @@
             ],
             [
               "match",
-              ["get", "worldview"],
-              ["all", "US"],
+              [
+                "get",
+                "worldview"
+              ],
+              [
+                "all",
+                "US"
+              ],
               true,
               false
             ]
           ],
           [
             "match",
-            ["get", "class"],
-            ["bay", "ocean", "reservoir", "sea", "water"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "bay",
+              "ocean",
+              "reservoir",
+              "sea",
+              "water"
+            ],
             true,
             false
           ]
         ],
-        ["==", ["geometry-type"], "Point"]
+        [
+          "==",
+          [
+            "geometry-type"
+          ],
+          "Point"
+        ]
       ],
       "layout": {
         "text-line-height": 1.3,
         "text-size": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           7,
-          ["step", ["get", "sizerank"], 24, 6, 18, 12, 12],
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            24,
+            6,
+            18,
+            12,
+            12
+          ],
           10,
-          ["step", ["get", "sizerank"], 18, 9, 12]
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            18,
+            9,
+            12
+          ]
         ],
-        "text-font": ["DIN Pro Italic", "Arial Unicode MS Regular"],
-        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+        "text-font": [
+          "DIN Pro Italic",
+          "Arial Unicode MS Regular"
+        ],
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_en"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ],
         "text-letter-spacing": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "ocean",
           0.25,
-          ["bay", "sea"],
+          [
+            "bay",
+            "sea"
+          ],
           0.15,
           0.01
         ],
         "text-max-width": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "ocean",
           4,
           "sea",
           5,
-          ["bay", "water"],
+          [
+            "bay",
+            "water"
+          ],
           7,
           10
         ]
@@ -20273,8 +23882,15 @@
       "paint": {
         "text-color": [
           "match",
-          ["get", "class"],
-          ["bay", "ocean", "sea"],
+          [
+            "get",
+            "class"
+          ],
+          [
+            "bay",
+            "ocean",
+            "sea"
+          ],
           "hsl(196, 46%, 70%)",
           "hsl(196, 18%, 90%)"
         ]
@@ -20292,64 +23908,205 @@
       "minzoom": 6,
       "filter": [
         "<=",
-        ["get", "filterrank"],
-        ["+", ["step", ["zoom"], 0, 16, 1, 17, 2], 3]
+        [
+          "get",
+          "filterrank"
+        ],
+        [
+          "+",
+          [
+            "step",
+            [
+              "zoom"
+            ],
+            0,
+            16,
+            1,
+            17,
+            2
+          ],
+          3
+        ]
       ],
       "layout": {
         "text-size": [
           "step",
-          ["zoom"],
-          ["step", ["get", "sizerank"], 18, 5, 12],
-          17,
-          ["step", ["get", "sizerank"], 18, 13, 12]
-        ],
-        "icon-image": [
-          "step",
-          ["zoom"],
-          ["concat", ["get", "maki"], "-11"],
-          15,
-          ["concat", ["get", "maki"], "-15"]
-        ],
-        "text-font": ["DIN Pro Bold", "Arial Unicode MS Bold"],
-        "text-offset": [
-          "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "step",
-            ["get", "sizerank"],
-            ["literal", [0, 0]],
+            [
+              "get",
+              "sizerank"
+            ],
+            18,
             5,
-            ["literal", [0, 0.75]]
+            12
           ],
           17,
           [
             "step",
-            ["get", "sizerank"],
-            ["literal", [0, 0]],
+            [
+              "get",
+              "sizerank"
+            ],
+            18,
             13,
-            ["literal", [0, 0.75]]
+            12
+          ]
+        ],
+        "icon-image": [
+          "step",
+          [
+            "zoom"
+          ],
+          [
+            "concat",
+            [
+              "get",
+              "maki"
+            ],
+            "-11"
+          ],
+          15,
+          [
+            "concat",
+            [
+              "get",
+              "maki"
+            ],
+            "-15"
+          ]
+        ],
+        "text-font": [
+          "DIN Pro Bold",
+          "Arial Unicode MS Bold"
+        ],
+        "text-offset": [
+          "step",
+          [
+            "zoom"
+          ],
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            [
+              "literal",
+              [
+                0,
+                0
+              ]
+            ],
+            5,
+            [
+              "literal",
+              [
+                0,
+                0.75
+              ]
+            ]
+          ],
+          17,
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            [
+              "literal",
+              [
+                0,
+                0
+              ]
+            ],
+            13,
+            [
+              "literal",
+              [
+                0,
+                0.75
+              ]
+            ]
           ]
         ],
         "text-anchor": [
           "step",
-          ["zoom"],
-          ["step", ["get", "sizerank"], "center", 5, "top"],
+          [
+            "zoom"
+          ],
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            "center",
+            5,
+            "top"
+          ],
           17,
-          ["step", ["get", "sizerank"], "center", 13, "top"]
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            "center",
+            13,
+            "top"
+          ]
         ],
-        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]]
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_en"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ]
       },
       "paint": {
         "icon-opacity": [
           "step",
-          ["zoom"],
-          ["step", ["get", "sizerank"], 0, 5, 1],
+          [
+            "zoom"
+          ],
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            0,
+            5,
+            1
+          ],
           17,
-          ["step", ["get", "sizerank"], 0, 13, 1]
+          [
+            "step",
+            [
+              "get",
+              "sizerank"
+            ],
+            0,
+            13,
+            1
+          ]
         ],
         "text-halo-color": [
           "match",
-          ["get", "class"],
+          [
+            "get",
+            "class"
+          ],
           "park_like",
           "hsl(94, 100%, 0%)",
           "medical",
@@ -20360,13 +24117,21 @@
         "text-halo-blur": 0.5,
         "text-color": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "step",
-            ["get", "sizerank"],
+            [
+              "get",
+              "sizerank"
+            ],
             [
               "match",
-              ["get", "class"],
+              [
+                "get",
+                "class"
+              ],
               "food_and_drink",
               "hsl(356, 0%, 100%)",
               "park_like",
@@ -20376,7 +24141,10 @@
             5,
             [
               "match",
-              ["get", "class"],
+              [
+                "get",
+                "class"
+              ],
               "food_and_drink",
               "hsl(356, 0%, 100%)",
               "park_like",
@@ -20387,10 +24155,16 @@
           17,
           [
             "step",
-            ["get", "sizerank"],
+            [
+              "get",
+              "sizerank"
+            ],
             [
               "match",
-              ["get", "class"],
+              [
+                "get",
+                "class"
+              ],
               "food_and_drink",
               "hsl(356, 0%, 100%)",
               "park_like",
@@ -20400,7 +24174,10 @@
             13,
             [
               "match",
-              ["get", "class"],
+              [
+                "get",
+                "class"
+              ],
               "food_and_drink",
               "hsl(356, 0%, 100%)",
               "park_like",
@@ -20423,26 +24200,41 @@
       "minzoom": 12,
       "filter": [
         "step",
-        ["zoom"],
+        [
+          "zoom"
+        ],
         [
           "all",
           [
             "match",
-            ["get", "mode"],
+            [
+              "get",
+              "mode"
+            ],
             "rail",
             true,
             "metro_rail",
             true,
             false
           ],
-          ["!=", ["get", "stop_type"], "entrance"]
+          [
+            "!=",
+            [
+              "get",
+              "stop_type"
+            ],
+            "entrance"
+          ]
         ],
         15,
         [
           "all",
           [
             "match",
-            ["get", "mode"],
+            [
+              "get",
+              "mode"
+            ],
             "rail",
             true,
             "metro_rail",
@@ -20451,83 +24243,199 @@
             true,
             false
           ],
-          ["!=", ["get", "stop_type"], "entrance"]
+          [
+            "!=",
+            [
+              "get",
+              "stop_type"
+            ],
+            "entrance"
+          ]
         ],
         16,
         [
           "all",
           [
             "match",
-            ["get", "mode"],
+            [
+              "get",
+              "mode"
+            ],
             "ferry",
             false,
             "bus",
             false,
             true
           ],
-          ["!=", ["get", "stop_type"], "entrance"]
+          [
+            "!=",
+            [
+              "get",
+              "stop_type"
+            ],
+            "entrance"
+          ]
         ],
         17,
         [
           "all",
-          ["match", ["get", "mode"], "ferry", false, true],
-          ["!=", ["get", "stop_type"], "entrance"]
+          [
+            "match",
+            [
+              "get",
+              "mode"
+            ],
+            "ferry",
+            false,
+            true
+          ],
+          [
+            "!=",
+            [
+              "get",
+              "stop_type"
+            ],
+            "entrance"
+          ]
         ],
         19,
-        ["match", ["get", "mode"], "ferry", false, true]
+        [
+          "match",
+          [
+            "get",
+            "mode"
+          ],
+          "ferry",
+          false,
+          true
+        ]
       ],
       "layout": {
         "text-size": 12,
-        "icon-image": ["get", "network"],
-        "text-font": ["DIN Pro Bold", "Arial Unicode MS Bold"],
+        "icon-image": [
+          "get",
+          "network"
+        ],
+        "text-font": [
+          "DIN Pro Bold",
+          "Arial Unicode MS Bold"
+        ],
         "text-justify": [
           "match",
-          ["get", "stop_type"],
+          [
+            "get",
+            "stop_type"
+          ],
           "entrance",
           "left",
           "center"
         ],
         "text-offset": [
           "match",
-          ["get", "stop_type"],
+          [
+            "get",
+            "stop_type"
+          ],
           "entrance",
-          ["literal", [1, 0]],
-          ["literal", [0, 0.8]]
+          [
+            "literal",
+            [
+              1,
+              0
+            ]
+          ],
+          [
+            "literal",
+            [
+              0,
+              0.8
+            ]
+          ]
         ],
         "text-anchor": [
           "match",
-          ["get", "stop_type"],
+          [
+            "get",
+            "stop_type"
+          ],
           "entrance",
           "left",
           "top"
         ],
         "text-field": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           "",
           14,
           [
             "match",
-            ["get", "mode"],
-            ["rail", "metro_rail"],
-            ["coalesce", ["get", "name_en"], ["get", "name"]],
+            [
+              "get",
+              "mode"
+            ],
+            [
+              "rail",
+              "metro_rail"
+            ],
+            [
+              "coalesce",
+              [
+                "get",
+                "name_en"
+              ],
+              [
+                "get",
+                "name"
+              ]
+            ],
             ""
           ],
           16,
           [
             "match",
-            ["get", "mode"],
-            ["bus", "bicycle"],
+            [
+              "get",
+              "mode"
+            ],
+            [
+              "bus",
+              "bicycle"
+            ],
             "",
-            ["coalesce", ["get", "name_en"], ["get", "name"]]
+            [
+              "coalesce",
+              [
+                "get",
+                "name_en"
+              ],
+              [
+                "get",
+                "name"
+              ]
+            ]
           ],
           18,
-          ["coalesce", ["get", "name_en"], ["get", "name"]]
+          [
+            "coalesce",
+            [
+              "get",
+              "name_en"
+            ],
+            [
+              "get",
+              "name"
+            ]
+          ]
         ],
         "text-letter-spacing": 0.01,
         "text-max-width": [
           "match",
-          ["get", "stop_type"],
+          [
+            "get",
+            "stop_type"
+          ],
           "entrance",
           15,
           9
@@ -20552,24 +24460,72 @@
       "minzoom": 8,
       "layout": {
         "text-line-height": 1.1,
-        "text-size": ["step", ["get", "sizerank"], 18, 9, 12],
+        "text-size": [
+          "step",
+          [
+            "get",
+            "sizerank"
+          ],
+          18,
+          9,
+          12
+        ],
         "icon-image": [
           "step",
-          ["get", "sizerank"],
-          ["concat", ["get", "maki"], "-15"],
+          [
+            "get",
+            "sizerank"
+          ],
+          [
+            "concat",
+            [
+              "get",
+              "maki"
+            ],
+            "-15"
+          ],
           9,
-          ["concat", ["get", "maki"], "-11"]
+          [
+            "concat",
+            [
+              "get",
+              "maki"
+            ],
+            "-11"
+          ]
         ],
-        "text-font": ["DIN Pro Bold", "Arial Unicode MS Bold"],
-        "text-offset": [0, 0.75],
+        "text-font": [
+          "DIN Pro Bold",
+          "Arial Unicode MS Bold"
+        ],
+        "text-offset": [
+          0,
+          0.75
+        ],
         "text-rotation-alignment": "viewport",
         "text-anchor": "top",
         "text-field": [
           "step",
-          ["get", "sizerank"],
-          ["coalesce", ["get", "name_en"], ["get", "name"]],
+          [
+            "get",
+            "sizerank"
+          ],
+          [
+            "coalesce",
+            [
+              "get",
+              "name_en"
+            ],
+            [
+              "get",
+              "name"
+            ]
+          ],
           15,
-          ["get", "ref"]
+          [
+            "get",
+            "ref"
+          ]
         ],
         "text-letter-spacing": 0.01,
         "text-max-width": 9
@@ -20595,12 +24551,22 @@
         "all",
         [
           "case",
-          ["==", ["get", "disputed"], "true"],
+          [
+            "==",
+            [
+              "get",
+              "disputed"
+            ],
+            "true"
+          ],
           [
             "all",
             [
               "match",
-              ["get", "class"],
+              [
+                "get",
+                "class"
+              ],
               [
                 "settlement_subdivision",
                 "disputed_settlement_subdivision"
@@ -20610,23 +24576,59 @@
             ],
             [
               "match",
-              ["get", "worldview"],
-              ["all", "US"],
+              [
+                "get",
+                "worldview"
+              ],
+              [
+                "all",
+                "US"
+              ],
               true,
               false
             ]
           ],
-          ["==", ["get", "class"], "settlement_subdivision"]
+          [
+            "==",
+            [
+              "get",
+              "class"
+            ],
+            "settlement_subdivision"
+          ]
         ],
-        ["<=", ["get", "filterrank"], 4]
+        [
+          "<=",
+          [
+            "get",
+            "filterrank"
+          ],
+          4
+        ]
       ],
       "layout": {
-        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_en"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ],
         "text-transform": "uppercase",
-        "text-font": ["DIN Pro Medium", "Arial Unicode MS Regular"],
+        "text-font": [
+          "DIN Pro Medium",
+          "Arial Unicode MS Regular"
+        ],
         "text-letter-spacing": [
           "match",
-          ["get", "type"],
+          [
+            "get",
+            "type"
+          ],
           "suburb",
           0.15,
           0.1
@@ -20635,12 +24637,38 @@
         "text-padding": 3,
         "text-size": [
           "interpolate",
-          ["cubic-bezier", 0.5, 0, 1, 1],
-          ["zoom"],
+          [
+            "cubic-bezier",
+            0.5,
+            0,
+            1,
+            1
+          ],
+          [
+            "zoom"
+          ],
           11,
-          ["match", ["get", "type"], "suburb", 11, 10.5],
+          [
+            "match",
+            [
+              "get",
+              "type"
+            ],
+            "suburb",
+            11,
+            10.5
+          ],
           15,
-          ["match", ["get", "type"], "suburb", 17, 16]
+          [
+            "match",
+            [
+              "get",
+              "type"
+            ],
+            "suburb",
+            17,
+            16
+          ]
         ]
       },
       "paint": {
@@ -20662,57 +24690,145 @@
       "maxzoom": 15,
       "filter": [
         "all",
-        ["<=", ["get", "filterrank"], 3],
+        [
+          "<=",
+          [
+            "get",
+            "filterrank"
+          ],
+          3
+        ],
         [
           "case",
-          ["==", ["get", "disputed"], "true"],
+          [
+            "==",
+            [
+              "get",
+              "disputed"
+            ],
+            "true"
+          ],
           [
             "all",
             [
               "match",
-              ["get", "class"],
-              ["settlement", "disputed_settlement"],
+              [
+                "get",
+                "class"
+              ],
+              [
+                "settlement",
+                "disputed_settlement"
+              ],
               true,
               false
             ],
             [
               "match",
-              ["get", "worldview"],
-              ["all", "US"],
+              [
+                "get",
+                "worldview"
+              ],
+              [
+                "all",
+                "US"
+              ],
               true,
               false
             ]
           ],
-          ["==", ["get", "class"], "settlement"]
+          [
+            "==",
+            [
+              "get",
+              "class"
+            ],
+            "settlement"
+          ]
         ],
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           true,
           8,
-          [">=", ["get", "symbolrank"], 11],
+          [
+            ">=",
+            [
+              "get",
+              "symbolrank"
+            ],
+            11
+          ],
           10,
-          [">=", ["get", "symbolrank"], 12],
+          [
+            ">=",
+            [
+              "get",
+              "symbolrank"
+            ],
+            12
+          ],
           11,
-          [">=", ["get", "symbolrank"], 13],
+          [
+            ">=",
+            [
+              "get",
+              "symbolrank"
+            ],
+            13
+          ],
           12,
-          [">=", ["get", "symbolrank"], 15],
+          [
+            ">=",
+            [
+              "get",
+              "symbolrank"
+            ],
+            15
+          ],
           13,
-          [">=", ["get", "symbolrank"], 11],
+          [
+            ">=",
+            [
+              "get",
+              "symbolrank"
+            ],
+            11
+          ],
           14,
-          [">=", ["get", "symbolrank"], 13]
+          [
+            ">=",
+            [
+              "get",
+              "symbolrank"
+            ],
+            13
+          ]
         ]
       ],
       "layout": {
         "text-line-height": 1.1,
         "text-size": [
           "interpolate",
-          ["cubic-bezier", 0.2, 0, 0.9, 1],
-          ["zoom"],
+          [
+            "cubic-bezier",
+            0.2,
+            0,
+            0.9,
+            1
+          ],
+          [
+            "zoom"
+          ],
           3,
           [
             "step",
-            ["get", "symbolrank"],
+            [
+              "get",
+              "symbolrank"
+            ],
             12,
             9,
             11,
@@ -20730,7 +24846,10 @@
           13,
           [
             "step",
-            ["get", "symbolrank"],
+            [
+              "get",
+              "symbolrank"
+            ],
             25,
             9,
             23,
@@ -20748,14 +24867,26 @@
         ],
         "icon-image": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "case",
-            ["==", ["get", "capital"], 2],
+            [
+              "==",
+              [
+                "get",
+                "capital"
+              ],
+              2
+            ],
             "border-dot-13",
             [
               "step",
-              ["get", "symbolrank"],
+              [
+                "get",
+                "symbolrank"
+              ],
               "dot-11",
               9,
               "dot-10",
@@ -20766,16 +24897,32 @@
           8,
           ""
         ],
-        "text-font": ["DIN Pro Medium", "Arial Unicode MS Regular"],
+        "text-font": [
+          "DIN Pro Medium",
+          "Arial Unicode MS Regular"
+        ],
         "text-justify": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "text_anchor"],
-            ["left", "bottom-left", "top-left"],
+            [
+              "get",
+              "text_anchor"
+            ],
+            [
+              "left",
+              "bottom-left",
+              "top-left"
+            ],
             "left",
-            ["right", "bottom-right", "top-right"],
+            [
+              "right",
+              "bottom-right",
+              "top-right"
+            ],
             "right",
             "center"
           ],
@@ -20784,65 +24931,205 @@
         ],
         "text-offset": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "capital"],
+            [
+              "get",
+              "capital"
+            ],
             2,
             [
               "match",
-              ["get", "text_anchor"],
+              [
+                "get",
+                "text_anchor"
+              ],
               "bottom",
-              ["literal", [0, -0.3]],
+              [
+                "literal",
+                [
+                  0,
+                  -0.3
+                ]
+              ],
               "bottom-left",
-              ["literal", [0.3, -0.1]],
+              [
+                "literal",
+                [
+                  0.3,
+                  -0.1
+                ]
+              ],
               "left",
-              ["literal", [0.45, 0.1]],
+              [
+                "literal",
+                [
+                  0.45,
+                  0.1
+                ]
+              ],
               "top-left",
-              ["literal", [0.3, 0.1]],
+              [
+                "literal",
+                [
+                  0.3,
+                  0.1
+                ]
+              ],
               "top",
-              ["literal", [0, 0.3]],
+              [
+                "literal",
+                [
+                  0,
+                  0.3
+                ]
+              ],
               "top-right",
-              ["literal", [-0.3, 0.1]],
+              [
+                "literal",
+                [
+                  -0.3,
+                  0.1
+                ]
+              ],
               "right",
-              ["literal", [-0.45, 0]],
+              [
+                "literal",
+                [
+                  -0.45,
+                  0
+                ]
+              ],
               "bottom-right",
-              ["literal", [-0.3, -0.1]],
-              ["literal", [0, -0.3]]
+              [
+                "literal",
+                [
+                  -0.3,
+                  -0.1
+                ]
+              ],
+              [
+                "literal",
+                [
+                  0,
+                  -0.3
+                ]
+              ]
             ],
             [
               "match",
-              ["get", "text_anchor"],
+              [
+                "get",
+                "text_anchor"
+              ],
               "bottom",
-              ["literal", [0, -0.25]],
+              [
+                "literal",
+                [
+                  0,
+                  -0.25
+                ]
+              ],
               "bottom-left",
-              ["literal", [0.2, -0.05]],
+              [
+                "literal",
+                [
+                  0.2,
+                  -0.05
+                ]
+              ],
               "left",
-              ["literal", [0.4, 0.05]],
+              [
+                "literal",
+                [
+                  0.4,
+                  0.05
+                ]
+              ],
               "top-left",
-              ["literal", [0.2, 0.05]],
+              [
+                "literal",
+                [
+                  0.2,
+                  0.05
+                ]
+              ],
               "top",
-              ["literal", [0, 0.25]],
+              [
+                "literal",
+                [
+                  0,
+                  0.25
+                ]
+              ],
               "top-right",
-              ["literal", [-0.2, 0.05]],
+              [
+                "literal",
+                [
+                  -0.2,
+                  0.05
+                ]
+              ],
               "right",
-              ["literal", [-0.4, 0.05]],
+              [
+                "literal",
+                [
+                  -0.4,
+                  0.05
+                ]
+              ],
               "bottom-right",
-              ["literal", [-0.2, -0.05]],
-              ["literal", [0, -0.25]]
+              [
+                "literal",
+                [
+                  -0.2,
+                  -0.05
+                ]
+              ],
+              [
+                "literal",
+                [
+                  0,
+                  -0.25
+                ]
+              ]
             ]
           ],
           8,
-          ["literal", [0, 0]]
+          [
+            "literal",
+            [
+              0,
+              0
+            ]
+          ]
         ],
         "text-anchor": [
           "step",
-          ["zoom"],
-          ["get", "text_anchor"],
+          [
+            "zoom"
+          ],
+          [
+            "get",
+            "text_anchor"
+          ],
           8,
           "center"
         ],
-        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_en"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ],
         "text-max-width": 7
       },
       "paint": {
@@ -20864,59 +25151,158 @@
       "maxzoom": 15,
       "filter": [
         "all",
-        ["<=", ["get", "filterrank"], 3],
+        [
+          "<=",
+          [
+            "get",
+            "filterrank"
+          ],
+          3
+        ],
         [
           "case",
-          ["==", ["get", "disputed"], "true"],
+          [
+            "==",
+            [
+              "get",
+              "disputed"
+            ],
+            "true"
+          ],
           [
             "all",
             [
               "match",
-              ["get", "class"],
-              ["settlement", "disputed_settlement"],
+              [
+                "get",
+                "class"
+              ],
+              [
+                "settlement",
+                "disputed_settlement"
+              ],
               true,
               false
             ],
             [
               "match",
-              ["get", "worldview"],
-              ["all", "US"],
+              [
+                "get",
+                "worldview"
+              ],
+              [
+                "all",
+                "US"
+              ],
               true,
               false
             ]
           ],
-          ["==", ["get", "class"], "settlement"]
+          [
+            "==",
+            [
+              "get",
+              "class"
+            ],
+            "settlement"
+          ]
         ],
         [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           false,
           8,
-          ["<", ["get", "symbolrank"], 11],
+          [
+            "<",
+            [
+              "get",
+              "symbolrank"
+            ],
+            11
+          ],
           10,
-          ["<", ["get", "symbolrank"], 12],
+          [
+            "<",
+            [
+              "get",
+              "symbolrank"
+            ],
+            12
+          ],
           11,
-          ["<", ["get", "symbolrank"], 13],
+          [
+            "<",
+            [
+              "get",
+              "symbolrank"
+            ],
+            13
+          ],
           12,
-          ["<", ["get", "symbolrank"], 15],
+          [
+            "<",
+            [
+              "get",
+              "symbolrank"
+            ],
+            15
+          ],
           13,
-          [">=", ["get", "symbolrank"], 11],
+          [
+            ">=",
+            [
+              "get",
+              "symbolrank"
+            ],
+            11
+          ],
           14,
-          [">=", ["get", "symbolrank"], 13]
+          [
+            ">=",
+            [
+              "get",
+              "symbolrank"
+            ],
+            13
+          ]
         ]
       ],
       "layout": {
         "text-line-height": 1.1,
         "text-size": [
           "interpolate",
-          ["cubic-bezier", 0.2, 0, 0.9, 1],
-          ["zoom"],
+          [
+            "cubic-bezier",
+            0.2,
+            0,
+            0.9,
+            1
+          ],
+          [
+            "zoom"
+          ],
           8,
-          ["step", ["get", "symbolrank"], 18, 9, 17, 10, 15],
+          [
+            "step",
+            [
+              "get",
+              "symbolrank"
+            ],
+            18,
+            9,
+            17,
+            10,
+            15
+          ],
           15,
           [
             "step",
-            ["get", "symbolrank"],
+            [
+              "get",
+              "symbolrank"
+            ],
             28,
             9,
             26,
@@ -20934,14 +25320,26 @@
         ],
         "icon-image": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "case",
-            ["==", ["get", "capital"], 2],
+            [
+              "==",
+              [
+                "get",
+                "capital"
+              ],
+              2
+            ],
             "border-dot-13",
             [
               "step",
-              ["get", "symbolrank"],
+              [
+                "get",
+                "symbolrank"
+              ],
               "dot-11",
               9,
               "dot-10",
@@ -20952,16 +25350,32 @@
           8,
           ""
         ],
-        "text-font": ["DIN Pro Medium", "Arial Unicode MS Regular"],
+        "text-font": [
+          "DIN Pro Medium",
+          "Arial Unicode MS Regular"
+        ],
         "text-justify": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "text_anchor"],
-            ["left", "bottom-left", "top-left"],
+            [
+              "get",
+              "text_anchor"
+            ],
+            [
+              "left",
+              "bottom-left",
+              "top-left"
+            ],
             "left",
-            ["right", "bottom-right", "top-right"],
+            [
+              "right",
+              "bottom-right",
+              "top-right"
+            ],
             "right",
             "center"
           ],
@@ -20970,65 +25384,205 @@
         ],
         "text-offset": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "capital"],
+            [
+              "get",
+              "capital"
+            ],
             2,
             [
               "match",
-              ["get", "text_anchor"],
+              [
+                "get",
+                "text_anchor"
+              ],
               "bottom",
-              ["literal", [0, -0.3]],
+              [
+                "literal",
+                [
+                  0,
+                  -0.3
+                ]
+              ],
               "bottom-left",
-              ["literal", [0.3, -0.1]],
+              [
+                "literal",
+                [
+                  0.3,
+                  -0.1
+                ]
+              ],
               "left",
-              ["literal", [0.45, 0.1]],
+              [
+                "literal",
+                [
+                  0.45,
+                  0.1
+                ]
+              ],
               "top-left",
-              ["literal", [0.3, 0.1]],
+              [
+                "literal",
+                [
+                  0.3,
+                  0.1
+                ]
+              ],
               "top",
-              ["literal", [0, 0.3]],
+              [
+                "literal",
+                [
+                  0,
+                  0.3
+                ]
+              ],
               "top-right",
-              ["literal", [-0.3, 0.1]],
+              [
+                "literal",
+                [
+                  -0.3,
+                  0.1
+                ]
+              ],
               "right",
-              ["literal", [-0.45, 0]],
+              [
+                "literal",
+                [
+                  -0.45,
+                  0
+                ]
+              ],
               "bottom-right",
-              ["literal", [-0.3, -0.1]],
-              ["literal", [0, -0.3]]
+              [
+                "literal",
+                [
+                  -0.3,
+                  -0.1
+                ]
+              ],
+              [
+                "literal",
+                [
+                  0,
+                  -0.3
+                ]
+              ]
             ],
             [
               "match",
-              ["get", "text_anchor"],
+              [
+                "get",
+                "text_anchor"
+              ],
               "bottom",
-              ["literal", [0, -0.25]],
+              [
+                "literal",
+                [
+                  0,
+                  -0.25
+                ]
+              ],
               "bottom-left",
-              ["literal", [0.2, -0.05]],
+              [
+                "literal",
+                [
+                  0.2,
+                  -0.05
+                ]
+              ],
               "left",
-              ["literal", [0.4, 0.05]],
+              [
+                "literal",
+                [
+                  0.4,
+                  0.05
+                ]
+              ],
               "top-left",
-              ["literal", [0.2, 0.05]],
+              [
+                "literal",
+                [
+                  0.2,
+                  0.05
+                ]
+              ],
               "top",
-              ["literal", [0, 0.25]],
+              [
+                "literal",
+                [
+                  0,
+                  0.25
+                ]
+              ],
               "top-right",
-              ["literal", [-0.2, 0.05]],
+              [
+                "literal",
+                [
+                  -0.2,
+                  0.05
+                ]
+              ],
               "right",
-              ["literal", [-0.4, 0.05]],
+              [
+                "literal",
+                [
+                  -0.4,
+                  0.05
+                ]
+              ],
               "bottom-right",
-              ["literal", [-0.2, -0.05]],
-              ["literal", [0, -0.25]]
+              [
+                "literal",
+                [
+                  -0.2,
+                  -0.05
+                ]
+              ],
+              [
+                "literal",
+                [
+                  0,
+                  -0.25
+                ]
+              ]
             ]
           ],
           8,
-          ["literal", [0, 0]]
+          [
+            "literal",
+            [
+              0,
+              0
+            ]
+          ]
         ],
         "text-anchor": [
           "step",
-          ["zoom"],
-          ["get", "text_anchor"],
+          [
+            "zoom"
+          ],
+          [
+            "get",
+            "text_anchor"
+          ],
           8,
           "center"
         ],
-        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_en"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ],
         "text-max-width": 7
       },
       "paint": {
@@ -21051,49 +25605,148 @@
       "maxzoom": 9,
       "filter": [
         "case",
-        ["==", ["get", "disputed"], "true"],
+        [
+          "==",
+          [
+            "get",
+            "disputed"
+          ],
+          "true"
+        ],
         [
           "all",
           [
             "match",
-            ["get", "class"],
-            ["state", "disputed_state"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "state",
+              "disputed_state"
+            ],
             true,
             false
           ],
-          ["match", ["get", "worldview"], ["all", "US"], true, false]
+          [
+            "match",
+            [
+              "get",
+              "worldview"
+            ],
+            [
+              "all",
+              "US"
+            ],
+            true,
+            false
+          ]
         ],
-        ["==", ["get", "class"], "state"]
+        [
+          "==",
+          [
+            "get",
+            "class"
+          ],
+          "state"
+        ]
       ],
       "layout": {
         "text-size": [
           "interpolate",
-          ["cubic-bezier", 0.85, 0.7, 0.65, 1],
-          ["zoom"],
+          [
+            "cubic-bezier",
+            0.85,
+            0.7,
+            0.65,
+            1
+          ],
+          [
+            "zoom"
+          ],
           4,
-          ["step", ["get", "symbolrank"], 10, 6, 9.5, 7, 9],
-          9,
-          ["step", ["get", "symbolrank"], 24, 6, 18, 7, 14]
-        ],
-        "text-transform": "uppercase",
-        "text-font": ["DIN Pro Bold", "Arial Unicode MS Bold"],
-        "text-field": [
-          "step",
-          ["zoom"],
           [
             "step",
-            ["get", "symbolrank"],
-            ["coalesce", ["get", "name_en"], ["get", "name"]],
+            [
+              "get",
+              "symbolrank"
+            ],
+            10,
+            6,
+            9.5,
+            7,
+            9
+          ],
+          9,
+          [
+            "step",
+            [
+              "get",
+              "symbolrank"
+            ],
+            24,
+            6,
+            18,
+            7,
+            14
+          ]
+        ],
+        "text-transform": "uppercase",
+        "text-font": [
+          "DIN Pro Bold",
+          "Arial Unicode MS Bold"
+        ],
+        "text-field": [
+          "step",
+          [
+            "zoom"
+          ],
+          [
+            "step",
+            [
+              "get",
+              "symbolrank"
+            ],
+            [
+              "coalesce",
+              [
+                "get",
+                "name_en"
+              ],
+              [
+                "get",
+                "name"
+              ]
+            ],
             5,
             [
               "coalesce",
-              ["get", "abbr"],
-              ["get", "name_en"],
-              ["get", "name"]
+              [
+                "get",
+                "abbr"
+              ],
+              [
+                "get",
+                "name_en"
+              ],
+              [
+                "get",
+                "name"
+              ]
             ]
           ],
           5,
-          ["coalesce", ["get", "name_en"], ["get", "name"]]
+          [
+            "coalesce",
+            [
+              "get",
+              "name_en"
+            ],
+            [
+              "get",
+              "name"
+            ]
+          ]
         ],
         "text-letter-spacing": 0.15,
         "text-max-width": 6
@@ -21117,36 +25770,100 @@
       "maxzoom": 10,
       "filter": [
         "case",
-        ["==", ["get", "disputed"], "true"],
+        [
+          "==",
+          [
+            "get",
+            "disputed"
+          ],
+          "true"
+        ],
         [
           "all",
           [
             "match",
-            ["get", "class"],
-            ["country", "disputed_country"],
+            [
+              "get",
+              "class"
+            ],
+            [
+              "country",
+              "disputed_country"
+            ],
             true,
             false
           ],
-          ["match", ["get", "worldview"], ["all", "US"], true, false]
+          [
+            "match",
+            [
+              "get",
+              "worldview"
+            ],
+            [
+              "all",
+              "US"
+            ],
+            true,
+            false
+          ]
         ],
-        ["==", ["get", "class"], "country"]
+        [
+          "==",
+          [
+            "get",
+            "class"
+          ],
+          "country"
+        ]
       ],
       "layout": {
         "icon-image": "",
-        "text-field": ["coalesce", ["get", "name_en"], ["get", "name"]],
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "name_en"
+          ],
+          [
+            "get",
+            "name"
+          ]
+        ],
         "text-line-height": 1.1,
         "text-max-width": 6,
-        "text-font": ["DIN Pro Medium", "Arial Unicode MS Regular"],
-        "text-offset": ["literal", [0, 0]],
+        "text-font": [
+          "DIN Pro Medium",
+          "Arial Unicode MS Regular"
+        ],
+        "text-offset": [
+          "literal",
+          [
+            0,
+            0
+          ]
+        ],
         "text-justify": [
           "step",
-          ["zoom"],
+          [
+            "zoom"
+          ],
           [
             "match",
-            ["get", "text_anchor"],
-            ["left", "bottom-left", "top-left"],
+            [
+              "get",
+              "text_anchor"
+            ],
+            [
+              "left",
+              "bottom-left",
+              "top-left"
+            ],
             "left",
-            ["right", "bottom-right", "top-right"],
+            [
+              "right",
+              "bottom-right",
+              "top-right"
+            ],
             "right",
             "center"
           ],
@@ -21155,27 +25872,71 @@
         ],
         "text-size": [
           "interpolate",
-          ["cubic-bezier", 0.2, 0, 0.7, 1],
-          ["zoom"],
+          [
+            "cubic-bezier",
+            0.2,
+            0,
+            0.7,
+            1
+          ],
+          [
+            "zoom"
+          ],
           1,
-          ["step", ["get", "symbolrank"], 11, 4, 9, 5, 8],
+          [
+            "step",
+            [
+              "get",
+              "symbolrank"
+            ],
+            11,
+            4,
+            9,
+            5,
+            8
+          ],
           9,
-          ["step", ["get", "symbolrank"], 28, 4, 22, 5, 21]
+          [
+            "step",
+            [
+              "get",
+              "symbolrank"
+            ],
+            28,
+            4,
+            22,
+            5,
+            21
+          ]
         ]
       },
       "paint": {
         "icon-opacity": [
           "step",
-          ["zoom"],
-          ["case", ["has", "text_anchor"], 1, 0],
+          [
+            "zoom"
+          ],
+          [
+            "case",
+            [
+              "has",
+              "text_anchor"
+            ],
+            1,
+            0
+          ],
           7,
           0
         ],
         "text-color": "hsl(0, 0%, 95%)",
         "text-halo-color": [
           "interpolate",
-          ["linear"],
-          ["zoom"],
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
           2,
           "hsla(0, 5%, 0%, 0.75)",
           3,
@@ -21216,6 +25977,44 @@
       }
     },
     {
+      "id": "health-facilities-labels",
+      "type": "symbol",
+      "source": "health-facilities-data-set",
+      "filter": [
+        "==",
+        "$type",
+        "Point"
+      ],
+      "layout": {
+        "text-allow-overlap": true,
+        "text-anchor": "bottom",
+        "text-padding": 1,
+        "text-field": [
+          "get",
+          "Facility Name"
+        ],
+        "text-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          6.5,
+          18,
+          20
+        ]
+      },
+      "paint": {
+        "text-color": "#ffffff",
+        "text-halo-color": "#000000",
+        "text-halo-width": 1,
+        "text-halo-blur": 1
+      }
+    },
+    {
       "id": "community-transporters",
       "type": "circle",
       "source": "community-transporters-data-set",
@@ -21241,7 +26040,7 @@
           18.8,
           15
         ],
-        "circle-color": "hsl(46, 88%, 62%)",
+        "circle-color": "hsl(356.8,82.3%,44.3%)",
         "circle-stroke-width": 1,
         "circle-opacity": 0.5
       }
