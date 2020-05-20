@@ -73,6 +73,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         evaluateDangerSigns(actionList, details, context);
         evaluateHealthFacilityVisit(actionList, details, memberObject, dateMap, context);
+        evaluatePregnancyRisk(actionList,details,context);
         evaluateFamilyPlanning(actionList, details, context);
         evaluateNutritionStatus(actionList, details, context);
         evaluateCounsellingStatus(actionList, details, context);
@@ -181,6 +182,19 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 .withHelper(new RemarksAction())
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_remarks_and_comments), remark_ba);
+    }
+
+    private void evaluatePregnancyRisk(LinkedHashMap<String, BaseAncHomeVisitAction> actionList,
+                                 Map<String, List<VisitDetail>> details,
+                                 final Context context) throws BaseAncHomeVisitAction.ValidationException {
+
+        BaseAncHomeVisitAction pregnancyRisk = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_pregnancy_risk))
+                .withOptional(true)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getPregnancyRisk())
+                .withHelper(new PregnancyRisk())
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_pregnancy_risk), pregnancyRisk);
     }
 
 
@@ -717,4 +731,71 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             Timber.v("onPayloadReceived");
         }
     }
+
+
+
+    private class PregnancyRisk implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
+        private String preg_risk;
+        private Context context;
+
+        @Override
+        public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
+            this.context = context;
+        }
+
+        @Override
+        public String getPreProcessed() {
+            return null;
+        }
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                preg_risk = JsonFormUtils.getCheckBoxValue(jsonObject, "preg_risk").toLowerCase();
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
+            return null;
+        }
+
+        @Override
+        public String getPreProcessedSubTitle() {
+            return null;
+        }
+
+        @Override
+        public String postProcess(String s) {
+            return null;
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return MessageFormat.format("{0}: {1}",
+                    context.getString(R.string.anc_home_visit_pregnancy_risk), StringUtils.capitalize(preg_risk));
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isBlank(preg_risk)) {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+            if (preg_risk.equalsIgnoreCase("Low")) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+            }
+        }
+
+        @Override
+        public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
+            Timber.v("onPayloadReceived");
+        }
+    }
 }
+
