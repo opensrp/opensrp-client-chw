@@ -248,6 +248,11 @@
             android:label="@string/hiv_register"
             android:theme="@style/ChwTheme.NoActionBar" />
 
+        <activity
+            android:name=".activity.TbRegisterActivity"
+            android:label="@string/tb_register"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />

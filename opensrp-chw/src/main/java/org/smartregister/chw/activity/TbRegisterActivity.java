@@ -15,10 +15,10 @@ import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.fragment.FollowupRegisterFragment;
-import org.smartregister.chw.fragment.HivRegisterFragment;
-import org.smartregister.chw.hiv.activity.BaseHivRegisterActivity;
+import org.smartregister.chw.fragment.TbRegisterFragment;
 import org.smartregister.chw.hiv.activity.BaseHivRegistrationFormsActivity;
-import org.smartregister.chw.hiv.fragment.BaseHivRegisterFragment;
+import org.smartregister.chw.tb.activity.BaseTbRegisterActivity;
+import org.smartregister.chw.tb.fragment.BaseTbRegisterFragment;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.helper.BottomNavigationHelper;
@@ -32,13 +32,13 @@ import java.util.List;
 
 import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
 
-public class HivRegisterActivity extends BaseHivRegisterActivity {
+public class TbRegisterActivity extends BaseTbRegisterActivity {
 
-    public static void startHIVRegistrationActivity(Activity activity, String baseEntityID) {
+    public static void startTbRegistrationActivity(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, BaseHivRegistrationFormsActivity.class);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration()).toString());
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, org.smartregister.chw.hiv.util.Constants.ActivityPayloadType.REGISTRATION);
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(Constants.JSON_FORM.getHivRegistration()).toString());
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.ACTION, org.smartregister.chw.tb.util.Constants.ActivityPayloadType.REGISTRATION);
 
         activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
@@ -52,8 +52,8 @@ public class HivRegisterActivity extends BaseHivRegisterActivity {
 
     @NotNull
     @Override
-    protected BaseHivRegisterFragment getRegisterFragment() {
-        return new HivRegisterFragment();
+    protected BaseTbRegisterFragment getRegisterFragment() {
+        return new TbRegisterFragment();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class HivRegisterActivity extends BaseHivRegisterActivity {
         if (bottomNavigationView != null) {
             bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
             bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_clients);
-            bottomNavigationView.getMenu().removeItem(org.smartregister.chw.hiv.R.id.action_register);
+            bottomNavigationView.getMenu().removeItem(org.smartregister.chw.tb.R.id.action_register);
             bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_search);
             bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_library);
 
@@ -101,7 +101,7 @@ public class HivRegisterActivity extends BaseHivRegisterActivity {
         PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
         SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
-        Intent intent = new Intent(this, HivRegisterActivity.class);
+        Intent intent = new Intent(this, TbRegisterActivity.class);
         this.startActivity(intent);
         this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
         this.finish();
