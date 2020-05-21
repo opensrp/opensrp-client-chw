@@ -80,7 +80,7 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Client's HIV status during registration"
+            "text": "Client's TB status during registration"
           },
           "options": [
             {
