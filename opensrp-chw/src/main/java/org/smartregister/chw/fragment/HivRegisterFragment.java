@@ -10,6 +10,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
+import com.google.gson.Gson;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
@@ -17,12 +19,12 @@ import org.smartregister.chw.activity.MalariaFollowUpVisitActivity;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.QueryBuilder;
+import org.smartregister.chw.hiv.activity.BaseHivProfileActivity;
+import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.fragment.BaseHivRegisterFragment;
 import org.smartregister.chw.hiv.provider.HivRegisterProvider;
 import org.smartregister.chw.model.HivRegisterFragmentModel;
 import org.smartregister.chw.presenter.HivRegisterFragmentPresenter;
-import org.smartregister.chw.referral.activity.ReferralDetailsViewActivity;
-import org.smartregister.chw.referral.domain.MemberObject;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -35,6 +37,7 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import timber.log.Timber;
@@ -160,7 +163,8 @@ public class HivRegisterFragment extends BaseHivRegisterFragment {
 
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
-        ReferralDetailsViewActivity.startReferralDetailsViewActivity(getActivity(), new MemberObject(client));
+        if(getActivity()!=null)
+        BaseHivProfileActivity.Companion.startProfileActivity(getActivity(), HivDao.getMember(Objects.requireNonNull(client.getColumnmaps().get("base_entity_id"))));
     }
 
     @Override
