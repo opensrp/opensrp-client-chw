@@ -181,15 +181,15 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
     private void addChildReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.sick_child),
-                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getChildUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getChildReferralForm()));
+                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getChildUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getChildReferralForm(),CoreConstants.TASKS_FOCUS.SICK_CHILD));
 
         if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.child_gbv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getChildGbvReferralForm()));
+                    org.smartregister.chw.util.Constants.JSON_FORM.getChildGbvReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_CHILD_GBV));
         }
 
         if (MalariaDao.isRegisteredForMalaria(childBaseEntityId)) {
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null,null));
         }
     }
 

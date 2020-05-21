@@ -353,21 +353,21 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     private void addPncReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_danger_signs),
-                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getPncUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getPncReferralForm()));
-        referralTypeModels.add(new ReferralTypeModel(getString(R.string.fp_post_partum), null));
+                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getPncUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getPncReferralForm(),CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
+        referralTypeModels.add(new ReferralTypeModel(getString(R.string.fp_post_partum), null,null));
         if (MalariaDao.isRegisteredForMalaria(((PncMemberProfilePresenter) presenter()).getEntityId())) {
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null,null));
         }
 
         if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm()));
+                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm()));
+                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm()));
+                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
 
     }
