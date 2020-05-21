@@ -124,7 +124,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
                     referralTypeAdapter.canStart = true; //TODO Remove this necessary evil; necessary since on resume is not revoked again
                 }
                 JSONObject formJson = getFormUtils().getFormJsonFromRepositoryOrAssets(referralTypeModel.getFormName());
-                formJson.put(REFERRAL_TASK_FOCUS, referralTypeModel.getReferralType());
+                formJson.put(REFERRAL_TASK_FOCUS, referralTypeModel.getFocus());
                 startReferralForm(formJson, referralTypeModel);
             } catch (Exception e) {
                 Timber.e(e, "ClientReferralActivity --> onActivityResult");

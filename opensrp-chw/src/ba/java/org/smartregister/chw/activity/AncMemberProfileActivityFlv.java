@@ -5,4 +5,9 @@ public class AncMemberProfileActivityFlv extends DefaultAncMemberProfileActivity
     public Boolean hasFamilyLocationRow() {
         return true;
     }
+
+    @Override
+    public Boolean hasEmergencyTransport() {
+        return true;
+    }
 }
