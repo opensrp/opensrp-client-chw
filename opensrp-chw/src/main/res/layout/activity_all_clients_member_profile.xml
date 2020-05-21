@@ -113,7 +113,7 @@
                         android:id="@+id/textview_detail_three"
                         style="@style/CustomFontTextViewStyle.ClientList.Light"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:paddingLeft="0dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"

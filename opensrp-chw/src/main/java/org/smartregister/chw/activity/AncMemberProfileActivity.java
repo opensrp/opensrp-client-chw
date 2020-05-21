@@ -148,21 +148,21 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     private void addAncReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs),
-                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getAncReferralForm(),CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS));
+                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getAncReferralForm(), CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS));
 
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
+                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
+                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
 
         if (MalariaDao.isRegisteredForMalaria(baseEntityID)) {
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null,null));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null, null));
         }
     }
 
@@ -274,6 +274,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
     @Override
+    public boolean hasEmergencyTransport() {
+        return flavor.hasEmergencyTransport();
+    }
+
+    @Override
     public void openMedicalHistory() {
         AncMedicalHistoryActivity.startMe(this, memberObject);
     }
@@ -298,13 +303,13 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     @Override
     public void setFamilyLocation() {
-        if (flavor.hasFamilyLocationRow() && !StringUtils.isBlank(getMemberGPS())){
+        if (flavor.hasFamilyLocationRow() && !StringUtils.isBlank(getMemberGPS())) {
             view_family_location_row.setVisibility(View.VISIBLE);
             rlFamilyLocation.setVisibility(View.VISIBLE);
         }
     }
 
-    protected String getMemberGPS(){
+    protected String getMemberGPS() {
         return memberObject.getGps();
     }
 
@@ -385,6 +390,8 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     public interface Flavor {
         Boolean hasFamilyLocationRow();
+
+        Boolean hasEmergencyTransport();
     }
 
 }
