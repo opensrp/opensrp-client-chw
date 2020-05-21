@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +29,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.MalariaProfileContract;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreMalariaProfileActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.CoreMalariaFloatingMenu;
 import org.smartregister.chw.core.dao.AncDao;
@@ -35,6 +38,7 @@ import org.smartregister.chw.core.interactor.CoreMalariaProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.MalariaFollowUpRule;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.core.utils.MalariaVisitUtil;
@@ -65,6 +69,8 @@ import timber.log.Timber;
 
 import static org.smartregister.chw.anc.AncLibrary.getInstance;
 import static org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
 public class MalariaProfileActivity extends CoreMalariaProfileActivity implements MalariaProfileContract.View {
 
@@ -72,8 +78,12 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private static final String ANC = "anc";
     private static final String PNC = "pnc";
-
     private FormUtils formUtils;
+    private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+
+    private List<ReferralTypeModel> getReferralTypeModels() {
+        return referralTypeModels;
+    }
 
     public static void startMalariaActivity(Activity activity, String baseEntityId) {
         MalariaProfileActivity.baseEntityId = baseEntityId;
@@ -82,15 +92,26 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
         activity.startActivity(intent);
     }
 
-    private List<ReferralTypeModel> getReferralTypeModels() {
-        return referralTypeModels;
-    }
-
     private FormUtils getFormUtils() throws Exception {
         if (formUtils == null){
             formUtils = FormUtils.getInstance(ChwApplication.getInstance());
         }
         return formUtils;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                baseEntityId, this);
     }
 
     @Override
@@ -211,6 +232,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
                 AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
             }
         }
+        handleNotificationRowClick(this, view, notificationListAdapter);
     }
 
     private void saveAncVisit(String eventType) {
@@ -358,6 +380,11 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         addContentView(baseMalariaFloatingMenu, linearLayoutParams);
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 
     private class UpdateVisitDueTask extends AsyncTask<Void, Void, Void> {
