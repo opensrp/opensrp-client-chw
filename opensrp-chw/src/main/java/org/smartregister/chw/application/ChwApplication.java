@@ -54,6 +54,7 @@ import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.sync.ChwClientProcessor;
+import org.smartregister.chw.tb.TbLibrary;
 import org.smartregister.chw.util.FailSafeRecalledID;
 import org.smartregister.chw.util.FileUtils;
 import org.smartregister.chw.util.JsonFormUtils;
@@ -214,7 +215,10 @@ public class ChwApplication extends CoreChwApplication {
         }
 
         if (hasTB()) {
-            //TODO Setup tb library
+            //Setup tb library
+            TbLibrary.init(this);
+            TbLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
+            TbLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
         }
 
         OpdLibrary.init(context, getRepository(),
