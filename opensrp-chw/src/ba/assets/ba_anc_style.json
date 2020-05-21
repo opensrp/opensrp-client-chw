@@ -25971,7 +25971,22 @@
           18.8,
           15
         ],
-        "circle-color": "hsl(262, 100%, 68%)",
+        "circle-color": [
+          "match",
+          [
+            "get",
+            "CEmONC"
+          ],
+          [
+            "Yes"
+          ],
+          "#11d472",
+          [
+            "No"
+          ],
+          "#116cd4",
+          "hsl(262, 100%, 68%)"
+        ],
         "circle-stroke-width": 1,
         "circle-opacity": 0.5
       }
