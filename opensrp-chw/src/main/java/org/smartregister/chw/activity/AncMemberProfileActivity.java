@@ -65,6 +65,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
@@ -76,6 +77,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
+        passToolbarTitle(activity, intent);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, baseEntityID);
         activity.startActivity(intent);
     }
@@ -97,7 +99,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         super.onResume();
         notificationListAdapter.canOpen = true;
         ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
-                baseEntityID, this);
+                memberObject.getBaseEntityId(), this);
     }
 
     @Override
@@ -322,7 +324,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         } else if (id == R.id.textview_edit) {
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
         }
-        handleNotificationRowClick(this, view, notificationListAdapter);
+        handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }
 
     @Override

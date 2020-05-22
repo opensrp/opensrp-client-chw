@@ -25,7 +25,7 @@ import java.util.List;
 public class Utils extends org.smartregister.chw.core.utils.Utils {
 
     public static void launchClientReferralActivity(Activity activity, List<ReferralTypeModel> referralTypeModels, String baseEntityId) {
-        if (activity instanceof AllClientsMemberProfileActivity){
+        if (activity instanceof AllClientsMemberProfileActivity) {
             ClientReferralActivity.isStartedFromAllClients = true;
         }
         Bundle bundle = new Bundle();
@@ -43,10 +43,10 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
                     Constants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
 
             referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.tb_referral),
-                   Constants.JSON_FORM.getTbReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
+                    Constants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
 
             referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.gbv_referral),
-                    Constants.JSON_FORM.getGbvReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+                    Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
         return referralTypeModels;
     }
@@ -65,8 +65,7 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
 
     public static void setupBottomNavigation(BottomNavigationHelper bottomNavigationHelper,
                                              BottomNavigationView bottomNavigationView,
-                                             BottomNavigationView.OnNavigationItemSelectedListener listener)
-    {
+                                             BottomNavigationView.OnNavigationItemSelectedListener listener) {
         if (bottomNavigationView != null) {
             bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
 

@@ -21,6 +21,8 @@ import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.PncMemberProfileContract;
+import org.smartregister.chw.core.activity.BaseChwNotificationDetailsActivity;
+import org.smartregister.chw.core.activity.CoreAllClientsRegisterActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
@@ -67,6 +69,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
@@ -79,6 +82,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, PncMemberProfileActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, baseEntityID);
+        passToolbarTitle(activity, intent);
         activity.startActivity(intent);
     }
 
@@ -298,7 +302,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     public void onClick(View view) {
         super.onClick(view);
-        handleNotificationRowClick(this, view, notificationListAdapter);
+        handleNotificationRowClick(this, view, notificationListAdapter, baseEntityID);
         switch (view.getId()) {
             case R.id.textview_record_visit:
             case R.id.textview_record_reccuring_visit:

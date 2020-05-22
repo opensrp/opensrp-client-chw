@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.smartregister.chw.core.utils.CoreConstants.INTENT_KEY.CLIENT;
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.opd.utils.OpdDbConstants.KEY.REGISTER_TYPE;
 import static org.smartregister.util.Utils.showShortToast;
 
@@ -51,7 +52,7 @@ public class AllClientsUtils {
         if (bundle != null) {
             intent.putExtras(bundle);
         }
-        intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, false);
+        passToolbarTitle(activity, intent);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, new MemberObject(patient));
         activity.startActivity(intent);
@@ -82,7 +83,7 @@ public class AllClientsUtils {
         }
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, patient.entityId());
         intent.putExtra(CLIENT, patient);
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.TITLE_VIEW_TEXT, R.string.return_to_all_client);
+        passToolbarTitle(activity, intent);
         return intent;
     }
 
@@ -105,6 +106,7 @@ public class AllClientsUtils {
             intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
             intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
             intent.putExtra(Constants.INTENT_KEY.VILLAGE_TOWN, patient.getDetails().get(OpdDbConstants.KEY.HOME_ADDRESS));
+            passToolbarTitle(activity, intent);
             activity.startActivity(intent);
         }
     }

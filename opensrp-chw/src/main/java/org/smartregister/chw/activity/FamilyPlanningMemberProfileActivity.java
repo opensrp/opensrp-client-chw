@@ -39,6 +39,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
@@ -50,6 +51,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
 
     public static void startFpMemberProfileActivity(Activity activity, FpMemberObject memberObject) {
         Intent intent = new Intent(activity, FamilyPlanningMemberProfileActivity.class);
+        passToolbarTitle(activity, intent);
         intent.putExtra(FamilyPlanningConstants.FamilyPlanningMemberObject.MEMBER_OBJECT, memberObject);
         activity.startActivity(intent);
     }
@@ -133,7 +135,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
         if (id == R.id.record_fp_followup_visit) {
             openFollowUpVisitForm(false);
         }
-        handleNotificationRowClick(this, view, notificationListAdapter);
+        handleNotificationRowClick(this, view, notificationListAdapter, fpMemberObject.getBaseEntityId());
     }
 
     private void checkPhoneNumberProvided() {

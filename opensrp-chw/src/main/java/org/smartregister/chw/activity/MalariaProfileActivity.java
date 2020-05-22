@@ -27,6 +27,7 @@ import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.MalariaProfileContract;
+import org.smartregister.chw.core.activity.CoreAllClientsRegisterActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreMalariaProfileActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
@@ -68,6 +69,7 @@ import java.util.Locale;
 import timber.log.Timber;
 
 import static org.smartregister.chw.anc.AncLibrary.getInstance;
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
@@ -89,11 +91,12 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
         MalariaProfileActivity.baseEntityId = baseEntityId;
         Intent intent = new Intent(activity, MalariaProfileActivity.class);
         intent.putExtra(BASE_ENTITY_ID, baseEntityId);
+        passToolbarTitle(activity, intent);
         activity.startActivity(intent);
     }
 
     private FormUtils getFormUtils() throws Exception {
-        if (formUtils == null){
+        if (formUtils == null) {
             formUtils = FormUtils.getInstance(ChwApplication.getInstance());
         }
         return formUtils;
@@ -151,11 +154,11 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
 
     private void addMalariaReferralTypes() {
         getReferralTypeModels().add(new ReferralTypeModel(getString(R.string.suspected_malaria),
-                Constants.MALARIA_REFERRAL_FORM,CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
+                Constants.MALARIA_REFERRAL_FORM, CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
     }
 
     @Override
-    public void referToFacility(){
+    public void referToFacility() {
         if (getReferralTypeModels().size() == 1) {
             try {
                 startFormActivity(getFormUtils().getFormJson(getReferralTypeModels().get(0).getFormName()));
@@ -232,7 +235,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
                 AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
             }
         }
-        handleNotificationRowClick(this, view, notificationListAdapter);
+        handleNotificationRowClick(this, view, notificationListAdapter, baseEntityId);
     }
 
     private void saveAncVisit(String eventType) {
@@ -365,7 +368,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
                     ((CoreMalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
                     break;
                 case R.id.refer_to_facility_layout:
-                      referToFacility();
+                    referToFacility();
                     ((CoreMalariaFloatingMenu) baseMalariaFloatingMenu).animateFAB();
                     break;
                 default:

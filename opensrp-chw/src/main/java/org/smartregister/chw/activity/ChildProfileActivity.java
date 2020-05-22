@@ -102,7 +102,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         } else if (i == R.id.textview_undo) {
             presenter().updateVisitNotDone(0);
         }
-        handleNotificationRowClick(this, view, notificationListAdapter);
+        handleNotificationRowClick(this, view, notificationListAdapter, childBaseEntityId);
     }
 
     @Override
