@@ -173,6 +173,11 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
     }
 
     @Override
+    protected void startTbRegister() {
+        TbRegisterActivity.startTbRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
     protected void startFpRegister() {
         String dob = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
         String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);

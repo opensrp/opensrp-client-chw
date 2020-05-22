@@ -162,7 +162,7 @@ public class TbRegisterFragment extends BaseTbRegisterFragment {
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
         if (getActivity() != null)
-            BaseTbProfileActivity.Companion.startProfileActivity(getActivity(), TbDao.getMember(Objects.requireNonNull(client.getColumnmaps().get("base_entity_id"))));
+            BaseTbProfileActivity.Companion.startProfileActivity(getActivity(), Objects.requireNonNull(TbDao.getMember(client.getCaseId())));
     }
 
     @Override

@@ -61,6 +61,16 @@ public class UtilsFlv {
     public static void updateHivMenuItems(String baseEntityId, Menu menu) {
         if (HivDao.isRegisteredForHiv(baseEntityId)) {
             menu.findItem(R.id.action_hiv_registration).setVisible(false);
+        }else{
+            menu.findItem(R.id.action_hiv_registration).setVisible(true);
+        }
+    }
+
+    public static void updateTbMenuItems(String baseEntityId, Menu menu) {
+        if (HivDao.isRegisteredForHiv(baseEntityId)) {
+            menu.findItem(R.id.action_tb_registration).setVisible(false);
+        }else{
+            menu.findItem(R.id.action_tb_registration).setVisible(true);
         }
     }
 

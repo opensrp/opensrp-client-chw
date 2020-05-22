@@ -16,8 +16,8 @@ import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.fragment.FollowupRegisterFragment;
 import org.smartregister.chw.fragment.TbRegisterFragment;
-import org.smartregister.chw.hiv.activity.BaseHivRegistrationFormsActivity;
 import org.smartregister.chw.tb.activity.BaseTbRegisterActivity;
+import org.smartregister.chw.tb.activity.BaseTbRegistrationFormsActivity;
 import org.smartregister.chw.tb.fragment.BaseTbRegisterFragment;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -35,10 +35,11 @@ import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
 public class TbRegisterActivity extends BaseTbRegisterActivity {
 
     public static void startTbRegistrationActivity(Activity activity, String baseEntityID) {
-        Intent intent = new Intent(activity, BaseHivRegistrationFormsActivity.class);
+        Intent intent = new Intent(activity, BaseTbRegistrationFormsActivity.class);
         intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(Constants.JSON_FORM.getHivRegistration()).toString());
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(Constants.JSON_FORM.getTbRegistration()).toString());
         intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.ACTION, org.smartregister.chw.tb.util.Constants.ActivityPayloadType.REGISTRATION);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT,false);
 
         activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }

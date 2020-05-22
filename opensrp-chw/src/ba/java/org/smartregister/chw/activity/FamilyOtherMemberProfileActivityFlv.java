@@ -56,6 +56,11 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
     }
 
     @Override
+    public void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu) {
+        UtilsFlv.updateTbMenuItems(baseEntityId, menu);
+    }
+
+    @Override
     public void updateFpMenuItems(String baseEntityId, Menu menu) {
         UtilsFlv.updateFpMenuItems(baseEntityId, menu);
     }

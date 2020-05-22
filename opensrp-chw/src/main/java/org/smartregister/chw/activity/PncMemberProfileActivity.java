@@ -383,6 +383,16 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     }
 
     @Override
+    protected void startHivRegister() {
+        HivRegisterActivity.startHIVRegistrationActivity(this, memberObject.getBaseEntityId());
+    }
+
+    @Override
+    protected void startTbRegister() {
+        TbRegisterActivity.startTbRegistrationActivity(this, memberObject.getBaseEntityId());
+    }
+
+    @Override
     protected void startFpChangeMethod() {
         FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), memberObject.getDob(), CoreConstants.JSON_FORM.getFpChangeMethodForm("female"), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
     }

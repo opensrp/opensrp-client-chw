@@ -10,8 +10,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
-import com.google.gson.Gson;
-
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
@@ -163,8 +161,8 @@ public class HivRegisterFragment extends BaseHivRegisterFragment {
 
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
-        if(getActivity()!=null)
-        BaseHivProfileActivity.Companion.startProfileActivity(getActivity(), HivDao.getMember(Objects.requireNonNull(client.getColumnmaps().get("base_entity_id"))));
+        if (getActivity() != null)
+            BaseHivProfileActivity.Companion.startProfileActivity(getActivity(), Objects.requireNonNull(HivDao.getMember(client.getCaseId())));
     }
 
     @Override

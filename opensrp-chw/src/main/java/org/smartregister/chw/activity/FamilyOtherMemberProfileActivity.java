@@ -66,6 +66,12 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         } else {
             flavor.updateHivMenuItems(baseEntityId, menu);
         }
+
+        if (!ChwApplication.getApplicationFlavor().hasTB()) {
+            menu.findItem(R.id.action_tb_registration).setVisible(false);
+        } else {
+            flavor.updateTbMenuItems(baseEntityId, menu);
+        }
         return true;
     }
 
@@ -110,6 +116,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startHivRegister() {
         HivRegisterActivity.startHIVRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
+    }
+
+    @Override
+    protected void startTbRegister() {
+        TbRegisterActivity.startTbRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
     }
 
     @Override
@@ -205,6 +216,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         void updateMaleFpMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
 
         void updateHivMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+
+        void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
 
         boolean hasANC();
     }

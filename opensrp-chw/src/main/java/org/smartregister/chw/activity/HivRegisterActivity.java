@@ -39,6 +39,7 @@ public class HivRegisterActivity extends BaseHivRegisterActivity {
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration()).toString());
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, org.smartregister.chw.hiv.util.Constants.ActivityPayloadType.REGISTRATION);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT,false);
 
         activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
