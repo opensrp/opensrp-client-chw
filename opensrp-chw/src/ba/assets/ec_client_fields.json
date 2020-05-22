@@ -2371,6 +2371,82 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_tb_register",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "community_client_tb_registration_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "community_client_tb_registration_number"
+          }
+        },
+        {
+          "column_name": "client_tb_status_during_registration",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_tb_status_during_registration"
+          }
+        },
+        {
+          "column_name": "client_tb_status_after_testing",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_tb_status_after_testing"
+          }
+        },
+        {
+          "column_name": "place_of_domicile",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "place_of_domicile"
+          }
+        },
+        {
+          "column_name": "client_tb_screening_results",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_tb_screening_results"
+          }
+        },
+        {
+          "column_name": "tb_registration_date",
+          "type": "Event",
+          "data_type": "date",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tb_registration_date"
+          }
+        }
+      ]
     }
   ]
 }

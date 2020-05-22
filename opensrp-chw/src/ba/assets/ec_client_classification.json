@@ -290,6 +290,13 @@
             "creates_case": [
               "ec_hiv_register"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Tb Registration",
+            "creates_case": [
+              "ec_tb_register"
+            ]
           }
         ]
       }

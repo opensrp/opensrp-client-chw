@@ -61,15 +61,16 @@
           "name": "community_client_tb_registration_number",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "CBHS Number",
-            "type": "Community Based Health Services Registration Number (CBHS Number)"
+            "hint": "Community Based Health Services Registration Number (CBHS Number)",
+            "type": "name",
+            "padding": "8"
           },
           "meta_data": {
             "openmrs_entity": "concept",
             "openmrs_entity_id": "community_client_tb_registration_number",
             "openmrs_entity_parent": ""
           },
-          "required_status": "false"
+          "required_status": "yes:Please add cbhs number"
         },
         {
           "name": "client_tb_status_during_registration",
@@ -145,7 +146,7 @@
             },
             {
               "name": "community_gathering",
-              "text": "Community gathering",
+              "text": "Community Gathering",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "community_gathering",
@@ -241,7 +242,7 @@
             }
           ],
           "required_status": "yes:Please specify the type of community gathering",
-          "subjects": "place_of_domicile:map"
+          "subjects": "place_of_domicile:text"
         },
         {
           "name": "other_community_gathering",
@@ -255,7 +256,7 @@
             "openmrs_entity_parent": ""
           },
           "required_status": "yes:Please specify other community gathering",
-          "subjects": "community_gathering:map"
+          "subjects": "community_gathering:text"
         },
         {
           "name": "tb_registration_date",
