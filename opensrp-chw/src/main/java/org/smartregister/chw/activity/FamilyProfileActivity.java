@@ -148,14 +148,12 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     @Override
     protected void goToHivProfile(String baseEntityId, Activity activity) {
-        //TODO Coze update this
-        BaseHivProfileActivity.Companion.startProfileActivity(this, Objects.requireNonNull(HivDao.getMember(baseEntityId)));
+        HivProfileActivity.startHivProfileActivity(this, Objects.requireNonNull(HivDao.getMember(baseEntityId)));
     }
 
     @Override
     protected void goToTbProfile(String baseEntityId, Activity activity) {
-        //TODO Coze update this
-        BaseTbProfileActivity.Companion.startProfileActivity(this, Objects.requireNonNull(TbDao.getMember(baseEntityId)));
+        TbProfileActivity.startTbProfileActivity(this, Objects.requireNonNull(TbDao.getMember(baseEntityId)));
     }
 
 

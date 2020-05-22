@@ -13,12 +13,15 @@ import androidx.loader.content.Loader;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.HivProfileActivity;
 import org.smartregister.chw.activity.MalariaFollowUpVisitActivity;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.QueryBuilder;
+import org.smartregister.chw.hiv.activity.BaseHivFollowUpVisitActivity;
 import org.smartregister.chw.hiv.activity.BaseHivProfileActivity;
 import org.smartregister.chw.hiv.dao.HivDao;
+import org.smartregister.chw.hiv.domain.HivMemberObject;
 import org.smartregister.chw.hiv.fragment.BaseHivRegisterFragment;
 import org.smartregister.chw.hiv.provider.HivRegisterProvider;
 import org.smartregister.chw.model.HivRegisterFragmentModel;
@@ -162,12 +165,13 @@ public class HivRegisterFragment extends BaseHivRegisterFragment {
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
         if (getActivity() != null)
-            BaseHivProfileActivity.Companion.startProfileActivity(getActivity(), Objects.requireNonNull(HivDao.getMember(client.getCaseId())));
+            HivProfileActivity.startHivProfileActivity(getActivity(), Objects.requireNonNull(HivDao.getMember(client.getCaseId())));
     }
 
+
     @Override
-    protected void openFollowUpVisit(CommonPersonObjectClient client) {
-        MalariaFollowUpVisitActivity.startMalariaRegistrationActivity(getActivity(), client.getCaseId(), null);
+    protected void openFollowUpVisit(@Nullable HivMemberObject hivMemberObject) {
+        //TODO Implement
     }
 
     @Override

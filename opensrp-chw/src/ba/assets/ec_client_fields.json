@@ -2366,7 +2366,7 @@
           "type": "Event",
           "data_type": "date",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "hiv_registration_date"
           }
         }
@@ -2442,7 +2442,7 @@
           "type": "Event",
           "data_type": "date",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "tb_registration_date"
           }
         }

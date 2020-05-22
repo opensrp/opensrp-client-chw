@@ -202,7 +202,8 @@
             android:label="@string/stock_usage_report"
             android:theme="@style/ChwTheme.NoActionBar" />
 
-          <activity  android:name=".core.activity.CoreStockInventoryReportActivity"
+        <activity
+            android:name=".core.activity.CoreStockInventoryReportActivity"
             android:label="@string/stock_usage_report"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -251,6 +252,22 @@
         <activity
             android:name=".activity.TbRegisterActivity"
             android:label="@string/tb_register"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.TbProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.TbFollowUpVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HivProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HivFollowUpVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data

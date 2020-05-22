@@ -14,12 +14,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.MalariaFollowUpVisitActivity;
+import org.smartregister.chw.activity.TbProfileActivity;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.QueryBuilder;
 import org.smartregister.chw.model.TbRegisterFragmentModel;
 import org.smartregister.chw.presenter.TbRegisterFragmentPresenter;
-import org.smartregister.chw.tb.activity.BaseTbProfileActivity;
 import org.smartregister.chw.tb.dao.TbDao;
 import org.smartregister.chw.tb.fragment.BaseTbRegisterFragment;
 import org.smartregister.chw.tb.provider.TbRegisterProvider;
@@ -162,7 +162,7 @@ public class TbRegisterFragment extends BaseTbRegisterFragment {
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
         if (getActivity() != null)
-            BaseTbProfileActivity.Companion.startProfileActivity(getActivity(), Objects.requireNonNull(TbDao.getMember(client.getCaseId())));
+            TbProfileActivity.startTbProfileActivity(getActivity(), Objects.requireNonNull(TbDao.getMember(client.getCaseId())));
     }
 
     @Override
