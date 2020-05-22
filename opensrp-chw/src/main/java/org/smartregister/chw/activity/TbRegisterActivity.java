@@ -14,6 +14,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.FollowupRegisterFragment;
 import org.smartregister.chw.fragment.TbRegisterFragment;
 import org.smartregister.chw.tb.activity.BaseTbRegisterActivity;
@@ -39,7 +40,7 @@ public class TbRegisterActivity extends BaseTbRegisterActivity {
         intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
         intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(Constants.JSON_FORM.getTbRegistration()).toString());
         intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.ACTION, org.smartregister.chw.tb.util.Constants.ActivityPayloadType.REGISTRATION);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT,false);
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT,false);
 
         activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
@@ -83,8 +84,8 @@ public class TbRegisterActivity extends BaseTbRegisterActivity {
             bottomNavigationView.inflateMenu(getMenuResource());
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
 
-            BottomNavigationListener hivBottomNavigationListener = getBottomNavigation(this);
-            bottomNavigationView.setOnNavigationItemSelectedListener(hivBottomNavigationListener);
+            BottomNavigationListener tbBottomNavigationListener = getBottomNavigation(this);
+            bottomNavigationView.setOnNavigationItemSelectedListener(tbBottomNavigationListener);
 
         }
     }
@@ -113,7 +114,7 @@ public class TbRegisterActivity extends BaseTbRegisterActivity {
         super.onResumption();
         NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
         if (menu != null) {
-            menu.getNavigationAdapter().setSelectedView(Constants.DrawerMenu.HIV_CLIENTS);
+            menu.getNavigationAdapter().setSelectedView(Constants.DrawerMenu.TB_CLIENTS);
         }
     }
 
