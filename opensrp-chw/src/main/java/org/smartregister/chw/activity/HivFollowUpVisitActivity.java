@@ -18,8 +18,6 @@ import org.smartregister.chw.hiv.domain.HivMemberObject;
 import org.smartregister.chw.hiv.util.HivUtil;
 import org.smartregister.chw.interactor.FpFollowUpVisitInteractor;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
-import org.smartregister.chw.tb.domain.TbMemberObject;
-import org.smartregister.chw.tb.util.TbUtil;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.util.LangUtils;

@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 
-
 import org.smartregister.chw.core.activity.BaseChwNotificationDetailsActivity;
 
 import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.NOTIFICATION_ID;

@@ -5,9 +5,9 @@ import androidx.annotation.NonNull;
 
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.tb.model.BaseTbRegisterFragmentModel;
 import org.smartregister.chw.tb.util.Constants.Tables;
 import org.smartregister.chw.tb.util.DBConstants.Key;
-import org.smartregister.chw.tb.model.BaseTbRegisterFragmentModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;

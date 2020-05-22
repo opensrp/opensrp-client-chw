@@ -14,7 +14,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
-import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.FollowupRegisterFragment;
 import org.smartregister.chw.fragment.TbRegisterFragment;
 import org.smartregister.chw.tb.activity.BaseTbRegisterActivity;
