@@ -451,11 +451,11 @@
           "subjects": "registration_or_followup_status:text"
         },
         {
-          "name": "visit_date",
+          "name": "tb_followup_visit_date",
           "type": "hidden",
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "visit_date",
+            "openmrs_entity_id": "tb_followup_visit_date",
             "openmrs_entity_parent": ""
           },
           "required_status": "false"
