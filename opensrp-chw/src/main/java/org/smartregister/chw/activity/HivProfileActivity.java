@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreHivProfileActivity;
+import org.smartregister.chw.core.activity.CoreHivUpcomingServicesActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreHivProfileInteractor;
@@ -67,13 +68,6 @@ public class HivProfileActivity extends CoreHivProfileActivity
             openFollowUpVisitForm(false);
         }
     }
-
-//    private void checkPhoneNumberProvided() {
-//        boolean phoneNumberAvailable = (StringUtils.isNotBlank(getHivMemberObject().getPhoneNumber())
-//                || StringUtils.isNotBlank(getHivMemberObject().getFamilyHeadPhoneNumber()));
-//
-////        ((FamilyPlanningFloatingMenu) fpFloatingMenu).redraw(phoneNumberAvailable);
-//    }
 
     @Override
     public Context getContext() {
@@ -137,7 +131,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     @Override
     public void openUpcomingServices() {
-        CoreUpcomingServicesActivity.startMe(this, HivUtil.toMember(getHivMemberObject()));
+        CoreHivUpcomingServicesActivity.startMe(this, HivUtil.toMember(getHivMemberObject()));
     }
 
     @Override

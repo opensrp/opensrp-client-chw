@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreTbProfileActivity;
+import org.smartregister.chw.core.activity.CoreTbUpcomingServicesActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreTbProfileInteractor;
@@ -142,7 +143,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     @Override
     public void openUpcomingServices() {
-        CoreUpcomingServicesActivity.startMe(this, TbUtil.toMember(getTbMemberObject()));
+        CoreTbUpcomingServicesActivity.startMe(this, TbUtil.toMember(getTbMemberObject()));
     }
 
     @Override

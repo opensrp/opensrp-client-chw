@@ -261,6 +261,10 @@
         <activity
             android:name=".activity.TbFollowUpVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.CoreTbUpcomingServicesActivity"
+            android:label="@string/upcoming_services"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
             android:name=".activity.HivProfileActivity"
@@ -268,6 +272,10 @@
 
         <activity
             android:name=".activity.HivFollowUpVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.CoreHivUpcomingServicesActivity"
+            android:label="@string/upcoming_services"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
