@@ -1,10 +1,10 @@
 {
-  "form": "TB Followup form",
+  "form": "HIV Followup form",
   "count": "1",
-  "encounter_type": "TB Followup",
+  "encounter_type": "HIV Followup",
   "entity_id": "",
   "relational_id": "",
-  "rules_file": "rule/tb_followup_form_rules.yml",
+  "rules_file": "rule/hiv_followup_form_rules.yml",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -55,7 +55,7 @@
   },
   "steps": [
     {
-      "title": "TB Followup form",
+      "title": "HIV Followup form",
       "fields": [
         {
           "name": "registration_or_followup_status",
@@ -277,20 +277,83 @@
               }
             },
             {
-              "name": "vulnerable_environment",
-              "text": "Clients lives in a vulnerable environment",
+              "name": "has_multiple_sexual_partners",
+              "text": "Has multiple sexual partners",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "vulnerable_environment",
+                "openmrs_entity_id": "has_multiple_sexual_partners",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "hiv_positive",
-              "text": "Client is HIV Positive",
+              "name": "has_sexual_relations_with_different_peers",
+              "text": "Sexual relations with different peers",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "hiv_positive",
+                "openmrs_entity_id": "has_sexual_relations_with_different_peers",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "fisherman",
+              "text": "Fisherman",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "fisherman",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "women_having_sex_with_other_women",
+              "text": "Women having sex with other women",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "women_having_sex_with_other_women",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "sex_workers",
+              "text": "Sex workers",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "sex_workers",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "wood_workers",
+              "text": "Wood workers",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "wood_workers",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "mining_workers",
+              "text": "Mining workers ",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "mining_workers",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "men_having_sex_with_other_men ",
+              "text": "Men having sex with other men",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "men_having_sex_with_other_men",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "truck_drivers ",
+              "text": "Trucks and long distance drivers",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "truck_drivers",
                 "openmrs_entity_parent": ""
               }
             }
@@ -349,23 +412,23 @@
           "subjects": "supplies_provided:map"
         },
         {
-          "name": "tb_services_provided",
+          "name": "hiv_services_provided",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "TB services provided by CHW at the community"
+            "text": "HIV services provided by CHW at the community"
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "tb_services_provided",
+            "openmrs_entity_id": "hiv_services_provided",
             "openmrs_entity_parent": ""
           },
           "options": [
             {
-              "name": "other_services",
-              "text": "Other TB services",
+              "name": "other_hiv_services",
+              "text": "Other HIV services",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "other_tb_services",
+                "openmrs_entity_id": "other_hiv_services",
                 "openmrs_entity_parent": ""
               }
             },
@@ -384,25 +447,25 @@
           "subjects": "registration_or_followup_status:text"
         },
         {
-          "name": "tb_services_provided_other",
+          "name": "hiv_services_provided_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other TB Services Provided",
+            "hint": "Other HIV Services Provided",
             "type": "name"
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "tb_services_provided_other",
-            "openmrs_entity_parent": "tb_services_provided"
+            "openmrs_entity_id": "hiv_services_provided_other",
+            "openmrs_entity_parent": "hiv_services_provided"
           },
-          "required_status": "true:Please specify other TB services provided",
-          "subjects": "tb_services_provided:map"
+          "required_status": "true:Please specify other HIV services provided",
+          "subjects": "hiv_services_provided:map"
         },
         {
           "name": "state_of_therapy",
           "type": "spinner",
           "properties": {
-            "text": "State of therapy and (TB) care"
+            "text": "State of therapy and (HIV) care"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -412,7 +475,7 @@
           "options": [
             {
               "name": "registered_but_not_began_medication",
-              "text": "Registered in TB clinic but hasn't begun TB/DR-TB medication",
+              "text": "Registered in CTC/PMTCT clinic but hasn't begun ARV medication",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "registered_but_not_began_medication",
@@ -421,7 +484,7 @@
             },
             {
               "name": "registered_and_uses_medication",
-              "text": "Registered in TB clinic and uses TB/ DR TB medication",
+              "text": "Registered in CTC/PMTCT  clinic and uses ARV medication",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "registered_and_uses_medication",
@@ -429,11 +492,11 @@
               }
             },
             {
-              "name": "not_registered_in_tb_clinic",
-              "text": "Client is not registed in TB clinic",
+              "name": "not_registered_in_ctc_clinic",
+              "text": "Client is not registered in CTC/PMTCT clinic",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "not_registered_in_tb_clinic",
+                "openmrs_entity_id": "not_registered_in_ctc_clinic",
                 "openmrs_entity_parent": ""
               }
             },
@@ -447,7 +510,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify the state of TB therapy",
+          "required_status": "yes:Please specify the state of HIV therapy",
           "subjects": "registration_or_followup_status:text"
         },
         {
