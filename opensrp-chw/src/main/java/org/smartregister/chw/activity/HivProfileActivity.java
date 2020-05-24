@@ -10,11 +10,11 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreHivProfileActivity;
 import org.smartregister.chw.core.activity.CoreHivUpcomingServicesActivity;
-import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreHivProfileInteractor;
 import org.smartregister.chw.core.presenter.CoreFamilyPlanningProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.hiv.activity.BaseHivRegistrationFormsActivity;
 import org.smartregister.chw.hiv.domain.HivMemberObject;
 import org.smartregister.chw.hiv.util.HivUtil;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
 
 public class HivProfileActivity extends CoreHivProfileActivity
         implements FamilyProfileExtendedContract.PresenterCallBack {
@@ -149,7 +151,8 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     @Override
     public void openFollowUpVisitForm(boolean isEdit) {
-        HivFollowUpVisitActivity.startMe(this, getHivMemberObject(), isEdit);
+        if (!isEdit)
+            startHivFollowupActivity(this, getHivMemberObject().getBaseEntityId());
     }
 
     private void addFpReferralTypes() {
@@ -168,6 +171,17 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
+    }
+
+
+    public void startHivFollowupActivity(Activity activity, String baseEntityID) {
+        Intent intent = new Intent(activity, BaseHivRegistrationFormsActivity.class);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getHivFollowupVisit()).toString());
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
+
+        activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 }
 

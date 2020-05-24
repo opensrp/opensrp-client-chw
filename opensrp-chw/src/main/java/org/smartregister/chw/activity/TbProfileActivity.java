@@ -10,13 +10,13 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreTbProfileActivity;
 import org.smartregister.chw.core.activity.CoreTbUpcomingServicesActivity;
-import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreTbProfileInteractor;
 import org.smartregister.chw.core.presenter.CoreFamilyPlanningProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.TbProfilePresenter;
+import org.smartregister.chw.tb.activity.BaseTbRegistrationFormsActivity;
 import org.smartregister.chw.tb.domain.TbMemberObject;
 import org.smartregister.chw.tb.util.Constants;
 import org.smartregister.chw.tb.util.TbUtil;
@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
 
 public class TbProfileActivity extends CoreTbProfileActivity
         implements FamilyProfileExtendedContract.PresenterCallBack {
@@ -161,7 +163,8 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     @Override
     public void openFollowUpVisitForm(boolean isEdit) {
-        TbFollowUpVisitActivity.startMe(this, getTbMemberObject(), isEdit);
+        if (!isEdit)
+            startTbFollowupActivity(this, getTbMemberObject().getBaseEntityId());
     }
 
     private void addFpReferralTypes() {
@@ -180,6 +183,16 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
+    }
+
+    public void startTbFollowupActivity(Activity activity, String baseEntityID) {
+        Intent intent = new Intent(activity, BaseTbRegistrationFormsActivity.class);
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit()).toString());
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
+
+        activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 }
 
