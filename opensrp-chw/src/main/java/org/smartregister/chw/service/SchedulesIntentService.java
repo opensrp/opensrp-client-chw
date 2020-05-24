@@ -5,10 +5,13 @@ import android.content.Intent;
 
 import androidx.annotation.Nullable;
 
+import com.google.gson.Gson;
+
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ScheduleDao;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
+import org.smartregister.chw.hiv.util.Constants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 
 import java.util.Date;
@@ -50,6 +53,14 @@ public class SchedulesIntentService extends IntentService {
         // execute all fp schedules
         if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
             executeFpVisitSchedules();
+
+        // execute all tb schedules
+        if (ChwApplication.getApplicationFlavor().hasTB())
+            executeTbVisitSchedules();
+
+        // execute all hiv schedules
+        if (ChwApplication.getApplicationFlavor().hasHIV())
+            executeHivVisitSchedules();
 
         if (ChwApplication.getApplicationFlavor().hasRoutineVisit())
             executeRoutineHouseholdSchedules();
@@ -113,6 +124,30 @@ public class SchedulesIntentService extends IntentService {
         for (String baseID : baseEntityIDs) {
             Timber.v("  Computing Fp schedules for %s", baseID);
             ChwScheduleTaskExecutor.getInstance().execute(baseID, FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, new Date());
+        }
+    }
+    private void executeHivVisitSchedules() {
+        Timber.v("Computing Hiv schedules");
+        ChwApplication.getInstance().getScheduleRepository().deleteSchedulesNotCreatedToday(CoreConstants.SCHEDULE_TYPES.HIV_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
+        List<String> baseEntityIDs = ScheduleDao.getActiveHivClients(CoreConstants.SCHEDULE_TYPES.HIV_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
+        Timber.e("Coze :: Hiv ids "+new Gson().toJson(baseEntityIDs));
+        if (baseEntityIDs == null) return;
+
+        for (String baseID : baseEntityIDs) {
+            Timber.v("  Computing HIV schedules for %s", baseID);
+            ChwScheduleTaskExecutor.getInstance().execute(baseID, Constants.EventType.REGISTRATION, new Date());
+        }
+    }
+    private void executeTbVisitSchedules() {
+        Timber.v("Computing Tb schedules");
+        ChwApplication.getInstance().getScheduleRepository().deleteSchedulesNotCreatedToday(CoreConstants.SCHEDULE_TYPES.TB_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
+        List<String> baseEntityIDs = ScheduleDao.getActiveTbClients(CoreConstants.SCHEDULE_TYPES.TB_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
+        Timber.e("Coze :: Hiv Tb "+new Gson().toJson(baseEntityIDs));
+        if (baseEntityIDs == null) return;
+
+        for (String baseID : baseEntityIDs) {
+            Timber.v("  Computing Tb schedules for %s", baseID);
+            ChwScheduleTaskExecutor.getInstance().execute(baseID, org.smartregister.chw.tb.util.Constants.EventType.REGISTRATION, new Date());
         }
     }
 

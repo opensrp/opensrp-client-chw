@@ -6,6 +6,8 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.model.BaseFamilyProfileDueModel;
 import org.smartregister.family.util.DBConstants;
 
+import timber.log.Timber;
+
 public class FamilyProfileDueModel extends BaseFamilyProfileDueModel {
 
 

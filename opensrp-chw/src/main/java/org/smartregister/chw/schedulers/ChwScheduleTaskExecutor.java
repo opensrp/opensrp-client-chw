@@ -9,9 +9,11 @@ import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.chw.task.ANCVisitScheduler;
 import org.smartregister.chw.task.ChildHomeVisitScheduler;
 import org.smartregister.chw.task.FpVisitScheduler;
+import org.smartregister.chw.task.HivVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
 import org.smartregister.chw.task.PNCVisitScheduler;
 import org.smartregister.chw.task.RoutineHouseHoldVisitScheduler;
+import org.smartregister.chw.task.TbVisitScheduler;
 import org.smartregister.chw.task.WashCheckScheduler;
 
 import java.util.ArrayList;
@@ -23,15 +25,15 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
     private static ChwScheduleTaskExecutor scheduleTaskExecutor;
 
+    protected ChwScheduleTaskExecutor() {
+        //scheduleServiceMap.put();
+    }
+
     public static ChwScheduleTaskExecutor getInstance() {
         if (scheduleTaskExecutor == null) {
             scheduleTaskExecutor = new ChwScheduleTaskExecutor();
         }
         return scheduleTaskExecutor;
-    }
-
-    protected ChwScheduleTaskExecutor() {
-        //scheduleServiceMap.put();
     }
 
     @Override
@@ -54,6 +56,12 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
             if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
                 initializeFPClassifier(scheduleServiceMap);
+
+            if (ChwApplication.getApplicationFlavor().hasTB())
+                initializeTBClassifier(scheduleServiceMap);
+
+            if (ChwApplication.getApplicationFlavor().hasHIV())
+                initializeHIVClassifier(scheduleServiceMap);
 
             if (ChwApplication.getApplicationFlavor().hasRoutineVisit())
                 initializeRoutineHouseholdClassifier(scheduleServiceMap);
@@ -123,6 +131,20 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         addToClassifers(FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT, classifier, scheduleServices);
         addToClassifers(FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, classifier, scheduleServices);
         addToClassifers(FamilyPlanningConstants.EventType.FAMILY_PLANNING_CHANGE_METHOD, classifier, scheduleServices);
+    }
+
+    private void initializeHIVClassifier(Map<String, List<ScheduleService>> classifier) {
+        List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new HivVisitScheduler());
+        addToClassifers(org.smartregister.chw.hiv.util.Constants.EventType.FOLLOW_UP_VISIT, classifier, scheduleServices);
+        addToClassifers(org.smartregister.chw.hiv.util.Constants.EventType.REGISTRATION, classifier, scheduleServices);
+    }
+
+    private void initializeTBClassifier(Map<String, List<ScheduleService>> classifier) {
+        List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new TbVisitScheduler());
+        addToClassifers(org.smartregister.chw.tb.util.Constants.EventType.FOLLOW_UP_VISIT, classifier, scheduleServices);
+        addToClassifers(org.smartregister.chw.tb.util.Constants.EventType.REGISTRATION, classifier, scheduleServices);
     }
 
     private void initializeRoutineHouseholdClassifier(Map<String, List<ScheduleService>> classifier) {
