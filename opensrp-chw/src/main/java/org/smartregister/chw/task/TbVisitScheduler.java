@@ -13,6 +13,8 @@ import org.smartregister.chw.tb.domain.TbMemberObject;
 import java.util.Date;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class TbVisitScheduler extends BaseTaskExecutor {
 
     @Override
