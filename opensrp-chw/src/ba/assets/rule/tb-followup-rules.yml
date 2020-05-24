@@ -5,4 +5,4 @@ priority: 1
 condition: "true"
 actions:
   - "tbFollowupRule.setVisitID('1')"
-  - "tbFollowupRule.updateDueDate(30,8)"
+  - "tbFollowupRule.updateDueDate(30,8,365)"
