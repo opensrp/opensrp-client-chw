@@ -22,7 +22,7 @@ import org.smartregister.chw.model.TbRegisterFragmentModel;
 import org.smartregister.chw.presenter.TbRegisterFragmentPresenter;
 import org.smartregister.chw.tb.dao.TbDao;
 import org.smartregister.chw.tb.fragment.BaseTbRegisterFragment;
-import org.smartregister.chw.tb.provider.TbRegisterProvider;
+import org.smartregister.chw.tb.provider.BaseTbRegisterProvider;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -49,7 +49,7 @@ public class TbRegisterFragment extends BaseTbRegisterFragment {
 
     @Override
     public void initializeAdapter(@Nullable Set<? extends org.smartregister.configurableviews.model.View> visibleColumns) {
-        TbRegisterProvider tbRegisterProvider = new TbRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
+        BaseTbRegisterProvider tbRegisterProvider = new BaseTbRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, tbRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
