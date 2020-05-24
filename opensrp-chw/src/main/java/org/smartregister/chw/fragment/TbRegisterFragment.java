@@ -1,10 +1,13 @@
 package org.smartregister.chw.fragment;
 
+import androidx.annotation.Nullable;
+
 import org.smartregister.chw.activity.TbProfileActivity;
 import org.smartregister.chw.core.fragment.CoreTbRegisterFragment;
 import org.smartregister.chw.model.TbRegisterFragmentModel;
 import org.smartregister.chw.presenter.TbRegisterFragmentPresenter;
 import org.smartregister.chw.tb.dao.TbDao;
+import org.smartregister.chw.tb.domain.TbMemberObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
@@ -35,8 +38,9 @@ public class TbRegisterFragment extends CoreTbRegisterFragment {
     }
 
     @Override
-    protected void openFollowUpVisit(CommonPersonObjectClient client) {
-        TbProfileActivity.startTbFollowupActivity(getActivity(), client.getCaseId());
+    protected void openFollowUpVisit(@Nullable TbMemberObject tbMemberObject) {
+        if (getActivity() != null)
+            TbProfileActivity.startTbFollowupActivity(getActivity(), tbMemberObject.getBaseEntityId());
     }
 
 }
