@@ -41,6 +41,16 @@ public class HivProfileActivity extends CoreHivProfileActivity
         activity.startActivity(intent);
     }
 
+    public static void startHivFollowupActivity(Activity activity, String baseEntityID) {
+        Intent intent = new Intent(activity, BaseHivRegistrationFormsActivity.class);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getHivFollowupVisit()).toString());
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
+
+        activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
     @Override
     protected void onCreation() {
         super.onCreation();
@@ -171,17 +181,6 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
-    }
-
-
-    public static void startHivFollowupActivity(Activity activity, String baseEntityID) {
-        Intent intent = new Intent(activity, BaseHivRegistrationFormsActivity.class);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getHivFollowupVisit()).toString());
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
-
-        activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 }
 
