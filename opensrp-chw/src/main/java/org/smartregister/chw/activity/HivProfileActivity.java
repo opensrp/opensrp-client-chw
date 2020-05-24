@@ -174,7 +174,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     }
 
 
-    public void startHivFollowupActivity(Activity activity, String baseEntityID) {
+    public static void startHivFollowupActivity(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, BaseHivRegistrationFormsActivity.class);
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getHivFollowupVisit()).toString());
