@@ -41,6 +41,16 @@ public class TbProfileActivity extends CoreTbProfileActivity
         activity.startActivity(intent);
     }
 
+    public static void startTbFollowupActivity(Activity activity, String baseEntityID) {
+        Intent intent = new Intent(activity, BaseTbRegistrationFormsActivity.class);
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit()).toString());
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
+
+        activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
     @Override
     protected void onCreation() {
         super.onCreation();
@@ -67,6 +77,13 @@ public class TbProfileActivity extends CoreTbProfileActivity
         fetchProfileData();
     }
 
+//    private void checkPhoneNumberProvided() {
+//        boolean phoneNumberAvailable = (StringUtils.isNotBlank(getTbMemberObject().getPhoneNumber())
+//                || StringUtils.isNotBlank(getTbMemberObject().getFamilyHeadPhoneNumber()));
+//
+////        ((FamilyPlanningFloatingMenu) fpFloatingMenu).redraw(phoneNumberAvailable);
+//    }
+
     @Override
     public void onClick(View view) {
         super.onClick(view);
@@ -75,13 +92,6 @@ public class TbProfileActivity extends CoreTbProfileActivity
             openFollowUpVisitForm(false);
         }
     }
-
-//    private void checkPhoneNumberProvided() {
-//        boolean phoneNumberAvailable = (StringUtils.isNotBlank(getTbMemberObject().getPhoneNumber())
-//                || StringUtils.isNotBlank(getTbMemberObject().getFamilyHeadPhoneNumber()));
-//
-////        ((FamilyPlanningFloatingMenu) fpFloatingMenu).redraw(phoneNumberAvailable);
-//    }
 
     @Override
     public Context getContext() {
@@ -183,16 +193,6 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
-    }
-
-    public void startTbFollowupActivity(Activity activity, String baseEntityID) {
-        Intent intent = new Intent(activity, BaseTbRegistrationFormsActivity.class);
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit()).toString());
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
-
-        activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 }
 
