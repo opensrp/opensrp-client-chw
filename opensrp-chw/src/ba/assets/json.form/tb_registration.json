@@ -259,6 +259,66 @@
           "subjects": "community_gathering:text"
         },
         {
+          "name": "client_screening_results",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_screening_results",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Client's screening results"
+          },
+          "options": [
+            {
+              "name": "coughing",
+              "text": "Coughing",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "coughing",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "hemoptysis",
+              "text": "Sputum with blood (hemoptysis) ",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "hemoptysis",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "fever",
+              "text": "Fever",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "fever",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "weight_lose",
+              "text": "Weight lose",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "weight_lose",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "history_of_night_sweats",
+              "text": "History of night sweats",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "history_of_night_sweats",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify your gender"
+        },
+        {
           "name": "tb_registration_date",
           "type": "hidden",
           "meta_data": {
