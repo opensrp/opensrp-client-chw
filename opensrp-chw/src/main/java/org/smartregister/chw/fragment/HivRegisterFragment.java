@@ -2,13 +2,13 @@ package org.smartregister.chw.fragment;
 
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.activity.HivProfileActivity;
+import org.smartregister.chw.activity.HivRegisterActivity;
 import org.smartregister.chw.core.fragment.CoreHivRegisterFragment;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.domain.HivMemberObject;
 import org.smartregister.chw.model.HivRegisterFragmentModel;
 import org.smartregister.chw.presenter.HivRegisterFragmentPresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.util.Objects;
 
@@ -22,7 +22,7 @@ public class HivRegisterFragment extends CoreHivRegisterFragment {
         }
         String viewConfigurationIdentifier = null;
         try {
-            viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+            viewConfigurationIdentifier = ((HivRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         } catch (NullPointerException e) {
             Timber.e(e);
         }

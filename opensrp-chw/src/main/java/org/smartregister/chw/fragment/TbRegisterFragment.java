@@ -3,13 +3,13 @@ package org.smartregister.chw.fragment;
 import androidx.annotation.Nullable;
 
 import org.smartregister.chw.activity.TbProfileActivity;
+import org.smartregister.chw.activity.TbRegisterActivity;
 import org.smartregister.chw.core.fragment.CoreTbRegisterFragment;
 import org.smartregister.chw.model.TbRegisterFragmentModel;
 import org.smartregister.chw.presenter.TbRegisterFragmentPresenter;
 import org.smartregister.chw.tb.dao.TbDao;
 import org.smartregister.chw.tb.domain.TbMemberObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.util.Objects;
 
@@ -24,7 +24,7 @@ public class TbRegisterFragment extends CoreTbRegisterFragment {
         }
         String viewConfigurationIdentifier = null;
         try {
-            viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+            viewConfigurationIdentifier = ((TbRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         } catch (NullPointerException e) {
             Timber.e(e);
         }
