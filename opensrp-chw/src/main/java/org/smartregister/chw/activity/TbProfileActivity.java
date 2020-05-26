@@ -3,15 +3,20 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreTbProfileActivity;
 import org.smartregister.chw.core.activity.CoreTbUpcomingServicesActivity;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreTbProfileInteractor;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.custom_view.TbFloatingMenu;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.TbProfilePresenter;
 import org.smartregister.chw.tb.activity.BaseTbRegistrationFormsActivity;
@@ -50,7 +55,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
     @Override
     protected void onCreation() {
         super.onCreation();
-        addFpReferralTypes();
+        addTbReferralTypes();
     }
 
     @Override
@@ -73,12 +78,12 @@ public class TbProfileActivity extends CoreTbProfileActivity
         fetchProfileData();
     }
 
-//    private void checkPhoneNumberProvided() {
-//        boolean phoneNumberAvailable = (StringUtils.isNotBlank(getTbMemberObject().getPhoneNumber())
-//                || StringUtils.isNotBlank(getTbMemberObject().getFamilyHeadPhoneNumber()));
-//
-////        ((FamilyPlanningFloatingMenu) fpFloatingMenu).redraw(phoneNumberAvailable);
-//    }
+    private void checkPhoneNumberProvided() {
+        boolean phoneNumberAvailable = (StringUtils.isNotBlank(getTbMemberObject().getPhoneNumber())
+                || StringUtils.isNotBlank(getTbMemberObject().getPrimaryCareGiverPhoneNumber()));
+
+        ((TbFloatingMenu) getTbFloatingMenu()).redraw(phoneNumberAvailable);
+    }
 
     @Override
     public void onClick(View view) {
@@ -168,7 +173,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
             startTbFollowupActivity(this, getTbMemberObject().getBaseEntityId());
     }
 
-    private void addFpReferralTypes() {
+    private void addTbReferralTypes() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
                     CoreConstants.JSON_FORM.getHivReferralForm()));
@@ -184,6 +189,37 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
+    }
+
+    @Override
+    public void initializeCallFAB() {
+        setTbFloatingMenu(new TbFloatingMenu(this, getTbMemberObject()));
+
+        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
+            switch (viewId) {
+                case R.id.tb_fab:
+                    checkPhoneNumberProvided();
+                    ((TbFloatingMenu) getTbFloatingMenu()).animateFAB();
+                    break;
+                case R.id.call_layout:
+                    ((TbFloatingMenu) getTbFloatingMenu()).launchCallWidget();
+                    ((TbFloatingMenu) getTbFloatingMenu()).animateFAB();
+                    break;
+                case R.id.refer_to_facility_layout:
+                    ((TbProfilePresenter) getTbProfilePresenter()).referToFacility();
+                    break;
+                default:
+                    Timber.d("Unknown fab action");
+                    break;
+            }
+
+        };
+
+        ((TbFloatingMenu) getTbFloatingMenu()).setFloatMenuClickListener(onClickFloatingMenu);
+        getTbFloatingMenu().setGravity(Gravity.BOTTOM | Gravity.END);
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        addContentView(getTbFloatingMenu(), linearLayoutParams);
     }
 
 

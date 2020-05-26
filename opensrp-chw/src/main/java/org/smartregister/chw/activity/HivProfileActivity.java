@@ -3,15 +3,20 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreHivProfileActivity;
 import org.smartregister.chw.core.activity.CoreHivUpcomingServicesActivity;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreHivProfileInteractor;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.custom_view.HivFloatingMenu;
 import org.smartregister.chw.hiv.activity.BaseHivRegistrationFormsActivity;
 import org.smartregister.chw.hiv.domain.HivMemberObject;
 import org.smartregister.chw.hiv.util.HivUtil;
@@ -50,7 +55,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     @Override
     protected void onCreation() {
         super.onCreation();
-        addFpReferralTypes();
+        addHivReferralTypes();
     }
 
     @Override
@@ -68,11 +73,18 @@ public class HivProfileActivity extends CoreHivProfileActivity
         fetchProfileData();
     }
 
+    private void checkPhoneNumberProvided() {
+        boolean phoneNumberAvailable = (StringUtils.isNotBlank(getHivMemberObject().getPhoneNumber())
+                || StringUtils.isNotBlank(getHivMemberObject().getPrimaryCareGiverPhoneNumber()));
+
+        ((HivFloatingMenu) getHivFloatingMenu()).redraw(phoneNumberAvailable);
+    }
+
     @Override
     public void onClick(View view) {
         super.onClick(view);
         int id = view.getId();
-        if (id == R.id.record_tb_followup_visit) {
+        if (id == R.id.record_hiv_followup_visit) {
             openFollowUpVisitForm(false);
         }
     }
@@ -155,7 +167,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
             startHivFollowupActivity(this, getHivMemberObject().getBaseEntityId());
     }
 
-    private void addFpReferralTypes() {
+    private void addHivReferralTypes() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
                     CoreConstants.JSON_FORM.getHivReferralForm()));
@@ -171,6 +183,37 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
+    }
+
+    @Override
+    public void initializeCallFAB() {
+        setHivFloatingMenu(new HivFloatingMenu(this, getHivMemberObject()));
+
+        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
+            switch (viewId) {
+                case R.id.hiv_fab:
+                    checkPhoneNumberProvided();
+                    ((HivFloatingMenu) getHivFloatingMenu()).animateFAB();
+                    break;
+                case R.id.call_layout:
+                    ((HivFloatingMenu) getHivFloatingMenu()).launchCallWidget();
+                    ((HivFloatingMenu) getHivFloatingMenu()).animateFAB();
+                    break;
+                case R.id.refer_to_facility_layout:
+                    ((HivProfilePresenter) getHivProfilePresenter()).referToFacility();
+                    break;
+                default:
+                    Timber.d("Unknown fab action");
+                    break;
+            }
+
+        };
+
+        ((HivFloatingMenu) getHivFloatingMenu()).setFloatMenuClickListener(onClickFloatingMenu);
+        getHivFloatingMenu().setGravity(Gravity.BOTTOM | Gravity.END);
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        addContentView(getHivFloatingMenu(), linearLayoutParams);
     }
 }
 
