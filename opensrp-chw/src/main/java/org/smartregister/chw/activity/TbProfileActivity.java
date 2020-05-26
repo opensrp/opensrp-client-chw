@@ -175,9 +175,6 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     private void addTbReferralTypes() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
-                    CoreConstants.JSON_FORM.getHivReferralForm()));
-
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
                     CoreConstants.JSON_FORM.getTbReferralForm()));
 

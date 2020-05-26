@@ -129,12 +129,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
                 BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getAncReferralForm()));
 
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm()));
-
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm()));
-
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
                     org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm()));
         }
