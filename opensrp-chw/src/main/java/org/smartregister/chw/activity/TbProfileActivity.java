@@ -5,14 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreTbProfileActivity;
 import org.smartregister.chw.core.activity.CoreTbUpcomingServicesActivity;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreTbProfileInteractor;
-import org.smartregister.chw.core.presenter.CoreFamilyPlanningProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.TbProfilePresenter;
@@ -20,8 +18,6 @@ import org.smartregister.chw.tb.activity.BaseTbRegistrationFormsActivity;
 import org.smartregister.chw.tb.domain.TbMemberObject;
 import org.smartregister.chw.tb.util.Constants;
 import org.smartregister.chw.tb.util.TbUtil;
-import org.smartregister.family.util.JsonFormUtils;
-import org.smartregister.family.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +44,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
         intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
         intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
 
-        activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+        activity.startActivityForResult(intent, org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT);
     }
 
     @Override
@@ -111,17 +107,12 @@ public class TbProfileActivity extends CoreTbProfileActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON) {
-            try {
-                String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                JSONObject form = new JSONObject(jsonString);
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.FAMILY_PLANNING_REFERRAL)) {
-                    ((CoreFamilyPlanningProfilePresenter) getTbProfilePresenter()).createReferralEvent(Utils.getAllSharedPreferences(), jsonString);
-                    showToast(this.getString(R.string.referral_submitted));
-                }
-            } catch (Exception ex) {
-                Timber.e(ex);
-            }
+        if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED && resultCode == Activity.RESULT_OK) {
+            Intent intent = new Intent(this, TbRegisterActivity.class);
+            intent.putExtras(getIntent().getExtras());
+            startActivity(intent);
+            finish();
+
         }
     }
 
@@ -194,5 +185,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
     }
+
+
 }
 
