@@ -18,7 +18,6 @@ import org.smartregister.chw.hiv.util.HivUtil;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivProfilePresenter;
 import org.smartregister.chw.tb.util.Constants;
-import org.smartregister.family.util.JsonFormUtils;
 
 import java.util.ArrayList;
 import java.util.List;
