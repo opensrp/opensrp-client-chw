@@ -56,7 +56,6 @@ public class ScheduleDao extends AbstractDao {
         String sql = "select base_entity_id from ec_hiv_register where is_closed = 0 and base_entity_id not in " +
                 "(select base_entity_id from schedule_service where schedule_name = '" + scheduleName + "' and schedule_group_name = '" + scheduleGroup + "')";
 
-        Timber.e("Coze :: HIV = "+sql);
         DataMap<String> dataMap = c -> getCursorValue(c, "base_entity_id");
         return AbstractDao.readData(sql, dataMap);
     }
@@ -65,8 +64,6 @@ public class ScheduleDao extends AbstractDao {
         String sql = "select base_entity_id from ec_tb_register where is_closed = 0 and base_entity_id not in " +
                 "(select base_entity_id from schedule_service where schedule_name = '" + scheduleName + "' and schedule_group_name = '" + scheduleGroup + "')";
 
-
-        Timber.e("Coze :: TB = "+sql);
         DataMap<String> dataMap = c -> getCursorValue(c, "base_entity_id");
         return AbstractDao.readData(sql, dataMap);
     }

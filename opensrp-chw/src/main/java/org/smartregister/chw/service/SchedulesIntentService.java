@@ -130,7 +130,6 @@ public class SchedulesIntentService extends IntentService {
         Timber.v("Computing Hiv schedules");
         ChwApplication.getInstance().getScheduleRepository().deleteSchedulesNotCreatedToday(CoreConstants.SCHEDULE_TYPES.HIV_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
         List<String> baseEntityIDs = ScheduleDao.getActiveHivClients(CoreConstants.SCHEDULE_TYPES.HIV_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
-        Timber.e("Coze :: Hiv ids "+new Gson().toJson(baseEntityIDs));
         if (baseEntityIDs == null) return;
 
         for (String baseID : baseEntityIDs) {
@@ -142,7 +141,6 @@ public class SchedulesIntentService extends IntentService {
         Timber.v("Computing Tb schedules");
         ChwApplication.getInstance().getScheduleRepository().deleteSchedulesNotCreatedToday(CoreConstants.SCHEDULE_TYPES.TB_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
         List<String> baseEntityIDs = ScheduleDao.getActiveTbClients(CoreConstants.SCHEDULE_TYPES.TB_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
-        Timber.e("Coze :: Hiv Tb "+new Gson().toJson(baseEntityIDs));
         if (baseEntityIDs == null) return;
 
         for (String baseID : baseEntityIDs) {
