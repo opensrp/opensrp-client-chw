@@ -147,7 +147,12 @@
               }
             }
           ],
-          "required_status": "yes:Please specify client's problems"
+          "required_status": "yes:Please specify client's problems",
+          "dependent_calculations": [
+            "referral_date",
+            "referral_time",
+            "referral_type"
+          ]
         },
         {
           "name": "problem_other",
@@ -193,36 +198,6 @@
             "openmrs_entity_parent": ""
           },
           "required_status": "true:Please specify the appointment date"
-        },
-        {
-          "name": "referral_date",
-          "meta_data": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          "type": "hidden"
-        },
-        {
-          "name": "referral_time",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "referral_time",
-          "type": "hidden"
-        },
-        {
-          "name": "referral_type",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "referral_type",
-          "type": "hidden"
-        },
-        {
-          "name": "referral_status",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "referral_status",
-          "type": "hidden"
         }
       ]
     }

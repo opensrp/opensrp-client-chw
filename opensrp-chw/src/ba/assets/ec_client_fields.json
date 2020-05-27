@@ -1703,14 +1703,6 @@
             "field": "obs.formSubmissionField",
             "concept": "referral_type"
           }
-        },
-        {
-          "column_name": "referral_status",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.formSubmissionField",
-            "concept": "referral_status"
-          }
         }
       ]
     },
@@ -1847,13 +1839,6 @@
     {
       "name": "ec_sick_child_followup",
       "columns": [
-        {
-          "column_name": "entity_id",
-          "type": "Event",
-          "json_mapping": {
-            "field": "baseEntityId"
-          }
-        },
         {
           "column_name": "base_entity_id",
           "type": "Event",

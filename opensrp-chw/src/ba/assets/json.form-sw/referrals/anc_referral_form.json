@@ -58,20 +58,6 @@
       "title": "Rufaa ya mama mjamzito",
       "fields": [
         {
-          "name": "chw_referral_service",
-          "type": "invisible",
-          "properties": {
-            "text": "Choose referral service"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "09978",
-            "openmrs_entity_parent": ""
-          },
-          "options": [],
-          "required_status": "yes:Please specify referral service"
-        },
-        {
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
@@ -318,7 +304,12 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali taja sababu ya rufaa ya mama mjamzito"
+          "required_status": "yes:Tafadhali taja sababu ya rufaa ya mama mjamzito",
+          "dependent_calculations": [
+            "referral_date",
+            "referral_time",
+            "referral_type"
+          ]
         },
         {
           "name": "problem_other",
@@ -437,24 +428,6 @@
             "openmrs_entity_parent": ""
           },
           "required_status": "true:Tafadhali chagua tarehe ya kuhudhuria hospitali"
-        },
-        {
-          "name": "referral_date",
-          "meta_data": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          "type": "hidden"
-        },
-        {
-          "name": "referral_time",
-          "meta_data": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "referral_time"
-          },
-          "type": "hidden"
         }
       ]
     }
