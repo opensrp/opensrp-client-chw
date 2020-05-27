@@ -61,7 +61,7 @@ public class ScheduleDao extends AbstractDao {
     }
 
     public static @Nullable List<String> getActiveTbClients(String scheduleName, String scheduleGroup) {
-        String sql = "select base_entity_id from ec_tb_register where is_closed = 0 and base_entity_id not in " +
+        String sql = "select base_entity_id from ec_tb_register where is_closed = 0 and tb_case_closure_date is null and base_entity_id not in " +
                 "(select base_entity_id from schedule_service where schedule_name = '" + scheduleName + "' and schedule_group_name = '" + scheduleGroup + "')";
 
         DataMap<String> dataMap = c -> getCursorValue(c, "base_entity_id");

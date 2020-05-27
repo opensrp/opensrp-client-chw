@@ -15,16 +15,19 @@ import org.smartregister.chw.core.activity.CoreTbUpcomingServicesActivity;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreTbProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.task.RunnableTask;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.TbFloatingMenu;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.TbProfilePresenter;
+import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.tb.activity.BaseTbRegistrationFormsActivity;
 import org.smartregister.chw.tb.domain.TbMemberObject;
 import org.smartregister.chw.tb.util.Constants;
 import org.smartregister.chw.tb.util.TbUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import timber.log.Timber;
@@ -111,6 +114,10 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // recompute schedule
+        Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(getTbMemberObject().getBaseEntityId(), org.smartregister.chw.tb.util.Constants.EventType.FOLLOW_UP_VISIT, new Date());
+        org.smartregister.chw.util.Utils.startAsyncTask(new RunnableTask(runnable), null);
+
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED && resultCode == Activity.RESULT_OK) {
             Intent intent = new Intent(this, TbRegisterActivity.class);

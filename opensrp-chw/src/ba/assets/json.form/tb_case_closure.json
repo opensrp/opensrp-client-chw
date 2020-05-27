@@ -134,21 +134,11 @@
           "required_status": "yes:This question is required"
         },
         {
-          "name": "tb_close_case_date",
+          "name": "tb_case_closure_date",
           "type": "hidden",
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "tb_close_case_date",
-            "openmrs_entity_parent": ""
-          },
-          "required_status": "false"
-        },
-        {
-          "name": "is_closed",
-          "type": "hidden",
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "is_closed",
+            "openmrs_entity_id": "tb_case_closure_date",
             "openmrs_entity_parent": ""
           },
           "required_status": "false"

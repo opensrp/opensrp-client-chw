@@ -297,6 +297,13 @@
             "creates_case": [
               "ec_tb_register"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TB Case Closure",
+            "creates_case": [
+              "ec_tb_register"
+            ]
           }
         ]
       }
