@@ -12,3 +12,10 @@ priority: 1
 condition: "community_gathering.value  == 'Others'"
 actions:
   - "other_community_gathering_visibility =  true"
+---
+name: "tb_case_closure_date_calculation"
+description: "calculating the case closure date"
+priority: 1
+condition: "true"
+actions:
+  - "tb_case_closure_date_calculation = System.currentTimeMillis()"

@@ -98,7 +98,9 @@
             }
           ],
           "required_status": "yes:Please specify client's condition",
-          "subjects": "registration_or_followup_status:text"
+          "dependent_calculations": [
+            "tb_case_closure_date"
+          ]
         },
         {
           "name": "completed_medication_as_required",
@@ -132,16 +134,6 @@
             }
           ],
           "required_status": "yes:This question is required"
-        },
-        {
-          "name": "tb_case_closure_date",
-          "type": "hidden",
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "tb_case_closure_date",
-            "openmrs_entity_parent": ""
-          },
-          "required_status": "false"
         }
       ]
     }
