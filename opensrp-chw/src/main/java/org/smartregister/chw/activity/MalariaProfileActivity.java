@@ -27,7 +27,6 @@ import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.MalariaProfileContract;
-import org.smartregister.chw.core.activity.CoreAllClientsRegisterActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreMalariaProfileActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
@@ -54,9 +53,7 @@ import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.util.FormUtils;
 
@@ -287,15 +284,6 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
         } catch (Exception e) {
             Timber.e(e);
         }
-    }
-
-    private static CommonPersonObjectClient getClientDetailsByBaseEntityID(@NonNull String baseEntityId) {
-        CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
-        CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
-        CommonPersonObjectClient client =
-                new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
-        client.setColumnmaps(commonPersonObject.getColumnmaps());
-        return client;
     }
 
     @Override

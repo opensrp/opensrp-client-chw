@@ -21,8 +21,6 @@ import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.PncMemberProfileContract;
-import org.smartregister.chw.core.activity.BaseChwNotificationDetailsActivity;
-import org.smartregister.chw.core.activity.CoreAllClientsRegisterActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
