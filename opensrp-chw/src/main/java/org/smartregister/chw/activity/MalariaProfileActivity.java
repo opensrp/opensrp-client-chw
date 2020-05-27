@@ -264,7 +264,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
         }
     }
 
-    private static CommonPersonObjectClient getClientDetailsByBaseEntityID(@NonNull String baseEntityId) {
+    protected static CommonPersonObjectClient getClientDetailsByBaseEntityID(@NonNull String baseEntityId) {
         CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
         CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
         CommonPersonObjectClient client =

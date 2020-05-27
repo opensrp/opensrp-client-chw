@@ -39,7 +39,7 @@ public class UpdatesRegisterFragment extends BaseChwNotificationFragment {
         CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
         String notificationType = Utils.getValue(client.getColumnmaps(), NOTIFICATION_TYPE, true);
         String notificationId = Utils.getValue(client.getColumnmaps(), NOTIFICATION_ID, true).toLowerCase();
-        getFragmentPresenter().displayDetailsActivity(notificationId, notificationType);
+        getFragmentPresenter().displayDetailsActivity(client,notificationId, notificationType);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class AllClientsMemberReferralModel extends BaseIssueReferralModel {
     @Override
     public String mainSelect(@NonNull String tableName, @NonNull String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
-        queryBuilder.SelectInitiateMainTable(tableName, mainColumns(tableName));
+        queryBuilder.selectInitiateMainTable(tableName, mainColumns(tableName));
         return queryBuilder.mainCondition(mainCondition);
     }
 

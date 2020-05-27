@@ -16,4 +16,9 @@ public class UpdateRegisterDetailsActivity extends BaseChwNotificationDetailsAct
         intent.putExtra(NOTIFICATION_TYPE, notificationType);
         launcherActivity.startActivity(intent);
     }
+
+    @Override
+    public void goToMemberProfile() {
+        //TODO implement
+    }
 }

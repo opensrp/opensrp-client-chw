@@ -36,7 +36,7 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
             Timber.i(patient.name);
         }
 
-        ChildProfileActivity.startMe(getActivity(), false, new MemberObject(patient), ChildProfileActivity.class);
+        ChildProfileActivity.startMe(getActivity(), new MemberObject(patient), ChildProfileActivity.class);
     }
 
     @Override

@@ -66,7 +66,7 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
                 setLoadingState(false);
                 Activity activity = getActivity();
                 if (activity != null)
-                    ChildProfileActivity.startMe(activity, false, new MemberObject(client), ChildProfileActivity.class);
+                    ChildProfileActivity.startMe(activity, new MemberObject(client), ChildProfileActivity.class);
             }
 
             @Override

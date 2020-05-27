@@ -7,6 +7,7 @@ import org.smartregister.chw.core.contract.BaseChwNotificationFragmentContract;
 import org.smartregister.chw.core.presenter.BaseChwNotificationFragmentPresenter;
 import org.smartregister.chw.fragment.UpdatesRegisterFragment;
 import org.smartregister.chw.model.UpdatesRegisterModel;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public class UpdatesFragmentPresenter extends BaseChwNotificationFragmentPresenter {
 
@@ -15,7 +16,7 @@ public class UpdatesFragmentPresenter extends BaseChwNotificationFragmentPresent
     }
 
     @Override
-    public void displayDetailsActivity(String notificationId, String notificationType) {
+    public void displayDetailsActivity(CommonPersonObjectClient commonPersonObjectClient, String notificationId, String notificationType) {
         Activity activity = ((UpdatesRegisterFragment) getView()).getActivity();
         UpdateRegisterDetailsActivity.startActivity(activity, notificationId, notificationType);
     }
