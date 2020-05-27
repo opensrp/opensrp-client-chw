@@ -125,17 +125,10 @@
               }
             }
           ],
-          "required_status": "yes:Please specify your gender"
-        },
-        {
-          "name": "hiv_registration_date",
-          "type": "hidden",
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_registration_date",
-            "openmrs_entity_parent": ""
-          },
-          "required_status": "false"
+          "required_status": "yes:Please specify client's hiv status",
+          "dependent_calculations": [
+            "hiv_registration_date"
+          ]
         }
       ]
     }

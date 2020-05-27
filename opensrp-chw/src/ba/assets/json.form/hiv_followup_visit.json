@@ -151,7 +151,10 @@
               }
             }
           ],
-          "required_status": "yes:Please select the registration/followup status"
+          "required_status": "yes:Please select the registration/followup status",
+          "dependent_calculations": [
+            "hiv_followup_visit_date"
+          ]
         },
         {
           "name": "client_condition",
@@ -512,16 +515,6 @@
           ],
           "required_status": "yes:Please specify the state of HIV therapy",
           "subjects": "registration_or_followup_status:text"
-        },
-        {
-          "name": "hiv_followup_visit_date",
-          "type": "hidden",
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_followup_visit_date",
-            "openmrs_entity_parent": ""
-          },
-          "required_status": "false"
         }
       ]
     }
