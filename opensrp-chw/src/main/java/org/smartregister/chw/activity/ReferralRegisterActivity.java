@@ -17,7 +17,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
-import org.smartregister.chw.fragment.FollowupRegisterFragment;
 import org.smartregister.chw.fragment.ReferralRegisterFragment;
 import org.smartregister.chw.malaria.util.MalariaJsonFormUtils;
 import org.smartregister.chw.referral.activity.BaseReferralRegisterActivity;
@@ -54,8 +53,7 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity {
     @NotNull
     @Override
     protected Fragment[] getOtherFragments() {
-        Fragment fg = new FollowupRegisterFragment();
-        return new Fragment[]{fg};
+        return new Fragment[]{};
     }
 
     @NotNull

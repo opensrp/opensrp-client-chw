@@ -1848,6 +1848,13 @@
       "name": "ec_sick_child_followup",
       "columns": [
         {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {

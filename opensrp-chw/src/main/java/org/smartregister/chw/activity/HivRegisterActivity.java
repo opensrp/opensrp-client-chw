@@ -14,7 +14,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
-import org.smartregister.chw.fragment.FollowupRegisterFragment;
+import org.smartregister.chw.fragment.HivFollowupRegisterFragment;
 import org.smartregister.chw.fragment.HivRegisterFragment;
 import org.smartregister.chw.hiv.activity.BaseHivRegisterActivity;
 import org.smartregister.chw.hiv.activity.BaseHivRegistrationFormsActivity;
@@ -47,7 +47,7 @@ public class HivRegisterActivity extends BaseHivRegisterActivity {
     @NotNull
     @Override
     protected Fragment[] getOtherFragments() {
-        Fragment fg = new FollowupRegisterFragment();
+        Fragment fg = new HivFollowupRegisterFragment();
         return new Fragment[]{fg};
     }
 
