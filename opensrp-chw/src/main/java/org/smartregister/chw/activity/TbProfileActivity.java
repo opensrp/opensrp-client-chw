@@ -67,8 +67,8 @@ public class TbProfileActivity extends CoreTbProfileActivity
     }
 
     @Override
-    protected void startTbRegistrationActivity() {
-        TbRegisterActivity.startTbRegistrationActivity(this, getTbMemberObject().getBaseEntityId());
+    protected void startTbCaseClosure() {
+        TbRegisterActivity.startTbCaseClosureActivity(this, getTbMemberObject().getBaseEntityId());
     }
 
     @Override

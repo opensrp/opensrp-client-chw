@@ -61,4 +61,12 @@ priority: 1
 condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services'"
 actions:
   - "state_of_therapy_visibility =  true"
+---
+name: "hiv_followup_visit_date_calculation"
+description: "hiv_followup_visit_date calculation"
+priority: 1
+condition: "true"
+actions:
+  - "import java.util.Calendar;"
+  - "hiv_followup_visit_date_calculation = Calendar.getInstance().getTimeInMillis()"
 
