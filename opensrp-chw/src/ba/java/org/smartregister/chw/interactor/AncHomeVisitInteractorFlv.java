@@ -19,6 +19,7 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.core.dao.AncDao;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
@@ -341,7 +342,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 int i = 0;
                 while (i < immMedicineGivenOptions.length()) {
                     JSONObject immGivenJsonOption = immMedicineGivenOptions.getJSONObject(i);
-                    if(!immGivenJsonOption.getString("text").equalsIgnoreCase("Tetanus toxoid (TT)")){
+                    if(!immGivenJsonOption.getString("text").equalsIgnoreCase(CoreConstants.AncHealthFacilityVisitUtil.TETANUS_TOXOID)){
                         jsonArray.put(immGivenJsonOption);
                     }
                     else if(showTT){
