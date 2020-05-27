@@ -130,7 +130,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
 
     private void addMalariaReferralTypes() {
         getReferralTypeModels().add(new ReferralTypeModel(getString(R.string.suspected_malaria),
-                Constants.MALARIA_REFERRAL_FORM));
+                Constants.MALARIA_REFERRAL_FORM,CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
     }
 
     @Override

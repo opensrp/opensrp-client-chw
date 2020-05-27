@@ -1766,6 +1766,85 @@
       ]
     },
     {
+      "name": "ec_not_yet_done_referral",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "referral_task",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referral_task"
+          }
+        },
+        {
+          "column_name": "referral_task_previous_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referral_task_previous_status"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_referral_followup",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "chw_followup_feedback_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "chw_followup_feedback_id"
+          }
+        },
+        {
+          "column_name": "other_followup_feedback_information",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "other_followup_feedback_information"
+          }
+        },
+        {
+          "column_name": "chw_followup_date",
+          "type": "Event",
+          "data_type": "date",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "chw_followup_date"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_sick_child_followup",
       "columns": [
         {

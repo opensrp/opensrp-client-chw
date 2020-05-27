@@ -13,6 +13,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
 import org.smartregister.chw.activity.ClientReferralActivity;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.growthmonitoring.domain.ZScore;
 import org.smartregister.growthmonitoring.repository.WeightForHeightRepository;
@@ -39,7 +40,7 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.gbv_referral),
-                    Constants.JSON_FORM.getGbvReferralForm()));
+                    Constants.JSON_FORM.getGbvReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
         return referralTypeModels;
     }

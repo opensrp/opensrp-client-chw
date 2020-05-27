@@ -178,10 +178,10 @@ public class HivProfileActivity extends CoreHivProfileActivity
     private void addHivReferralTypes() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
-                    CoreConstants.JSON_FORM.getHivReferralForm()));
+                    CoreConstants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
-                    CoreConstants.JSON_FORM.getGbvReferralForm()));
+                    CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
 
     }

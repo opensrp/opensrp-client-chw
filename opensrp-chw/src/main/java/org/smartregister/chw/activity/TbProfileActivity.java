@@ -183,10 +183,10 @@ public class TbProfileActivity extends CoreTbProfileActivity
     private void addTbReferralTypes() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
-                    CoreConstants.JSON_FORM.getTbReferralForm()));
+                    CoreConstants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
-                    CoreConstants.JSON_FORM.getGbvReferralForm()));
+                    CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
 
     }
