@@ -18,7 +18,6 @@ import org.smartregister.chw.application.TestChwApplication;
 import org.smartregister.chw.shadows.BaseJobShadow;
 import org.smartregister.chw.shadows.ContextShadow;
 
-
 @RunWith(RobolectricTestRunner.class)
 @Config(application = TestChwApplication.class, shadows = {ContextShadow.class, BaseJobShadow.class})
 public class PncMemberProfileActivityTest {
