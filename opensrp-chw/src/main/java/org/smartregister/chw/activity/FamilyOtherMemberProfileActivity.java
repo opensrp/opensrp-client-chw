@@ -30,6 +30,8 @@ import org.smartregister.view.contract.BaseProfileContract;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
+
 public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
@@ -115,7 +117,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     @Override
     protected void startHivRegister() {
-        HivRegisterActivity.startHIVRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
+        HivRegisterActivity.startHIVFormActivity(FamilyOtherMemberProfileActivity.this,baseEntityId,org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration(),getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration()).toString());
     }
 
     @Override

@@ -64,6 +64,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
+
 public class PncMemberProfileActivity extends CorePncMemberProfileActivity implements PncMemberProfileContract.View {
 
     private Flavor flavor = new PncMemberProfileActivityFlv();
@@ -378,7 +380,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     @Override
     protected void startHivRegister() {
-        HivRegisterActivity.startHIVRegistrationActivity(this, memberObject.getBaseEntityId());
+        HivRegisterActivity.startHIVFormActivity(this, memberObject.getBaseEntityId(),org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration(),getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration()).toString());
     }
 
     @Override

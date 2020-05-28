@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
@@ -20,7 +20,7 @@ import org.smartregister.chw.hiv.activity.BaseHivRegisterActivity;
 import org.smartregister.chw.hiv.activity.BaseHivRegistrationFormsActivity;
 import org.smartregister.chw.hiv.fragment.BaseHivRegisterFragment;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
@@ -30,18 +30,15 @@ import org.smartregister.listener.BottomNavigationListener;
 
 import java.util.List;
 
-import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
-
 public class HivRegisterActivity extends BaseHivRegisterActivity {
+    private String baseEntityID;
 
-    public static void startHIVRegistrationActivity(Activity activity, String baseEntityID) {
-        Intent intent = new Intent(activity, BaseHivRegistrationFormsActivity.class);
+    public static void startHIVFormActivity(Activity activity, String baseEntityID, String formName, String payloadType) {
+        Intent intent = new Intent(activity, HivRegisterActivity.class);
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration()).toString());
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, org.smartregister.chw.hiv.util.Constants.ActivityPayloadType.REGISTRATION);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT,false);
-
-        activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, payloadType);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.HIV_REGISTRATION_FORM_NAME, formName);
+        activity.startActivity(intent);
     }
 
     @NotNull
@@ -64,6 +61,7 @@ public class HivRegisterActivity extends BaseHivRegisterActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        baseEntityID = getIntent().getStringExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID);
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
     }
@@ -89,9 +87,15 @@ public class HivRegisterActivity extends BaseHivRegisterActivity {
         }
     }
 
+
     @Override
-    public void startFormActivity(JSONObject jsonForm) {
-        //Implement
+    public void startFormActivity(@Nullable String formName, @Nullable String entityId, @Nullable String metaData) {
+        Intent intent = new Intent(this, BaseHivRegistrationFormsActivity.class);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, metaData);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
+
+        this.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     private void startRegisterActivity() {

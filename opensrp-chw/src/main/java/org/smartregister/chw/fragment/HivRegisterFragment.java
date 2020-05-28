@@ -14,6 +14,8 @@ import java.util.Objects;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
+
 public class HivRegisterFragment extends CoreHivRegisterFragment {
     @Override
     protected void initializePresenter() {
@@ -39,7 +41,7 @@ public class HivRegisterFragment extends CoreHivRegisterFragment {
     @Override
     protected void openFollowUpVisit(@Nullable HivMemberObject hivMemberObject) {
         if (getActivity() != null)
-            HivProfileActivity.startHivFollowupActivity(getActivity(), hivMemberObject.getBaseEntityId());
+            HivRegisterActivity.startHIVFormActivity(getActivity(),hivMemberObject.getBaseEntityId(),org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration(),getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getHivFollowupVisit()).toString());
     }
 
 

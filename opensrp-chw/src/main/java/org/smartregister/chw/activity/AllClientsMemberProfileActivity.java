@@ -54,6 +54,7 @@ import timber.log.Timber;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.COUNT;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
 import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
+import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
 import static org.smartregister.family.util.JsonFormUtils.STEP2;
 
 public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity implements OnClickFloatingMenu, AllClientsMemberContract.View {
@@ -169,7 +170,7 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
 
     @Override
     protected void startHivRegister() {
-        HivRegisterActivity.startHIVRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId);
+        HivRegisterActivity.startHIVFormActivity(AllClientsMemberProfileActivity.this,baseEntityId,org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration(),getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration()).toString());
     }
 
     @Override
