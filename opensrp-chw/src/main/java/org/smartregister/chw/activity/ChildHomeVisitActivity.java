@@ -14,7 +14,7 @@ public class ChildHomeVisitActivity extends CoreChildHomeVisitActivity {
     @Override
     public void submittedAndClose() {
         super.submittedAndClose();
-        ChildProfileActivity.startMe(this,  memberObject, ChildProfileActivity.class);
+        ChildProfileActivity.startMe(this, memberObject, ChildProfileActivity.class);
     }
 
 }

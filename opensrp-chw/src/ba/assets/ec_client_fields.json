@@ -1840,6 +1840,13 @@
       "name": "ec_sick_child_followup",
       "columns": [
         {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
@@ -2015,6 +2022,13 @@
       "name": "ec_anc_danger_signs_outcome",
       "columns": [
         {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
@@ -2085,6 +2099,13 @@
       "name": "ec_pnc_danger_signs_outcome",
       "columns": [
         {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
@@ -2154,6 +2175,13 @@
     {
       "name": "ec_malaria_followup_hf",
       "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
         {
           "column_name": "base_entity_id",
           "type": "Event",
@@ -2299,6 +2327,13 @@
     {
       "name": "ec_family_planning_update",
       "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
         {
           "column_name": "base_entity_id",
           "type": "Event",
