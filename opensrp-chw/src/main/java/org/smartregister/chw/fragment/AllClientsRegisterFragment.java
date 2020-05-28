@@ -12,6 +12,8 @@ import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.model.FamilyDetailsModel;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.util.Constants;
+import org.smartregister.opd.utils.OpdDbConstants;
 
 public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
     public static final String REGISTER_TYPE = "register_type";
@@ -36,6 +38,7 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
             bundle.putString(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyDetailsModel.getFamilyHead());
             bundle.putString(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, familyDetailsModel.getPrimaryCareGiver());
             bundle.putString(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, familyDetailsModel.getFamilyName());
+            bundle.putString(Constants.INTENT_KEY.VILLAGE_TOWN, commonPersonObjectClient.getDetails().get(OpdDbConstants.KEY.HOME_ADDRESS));
         }
 
         if (registerType != null) {
