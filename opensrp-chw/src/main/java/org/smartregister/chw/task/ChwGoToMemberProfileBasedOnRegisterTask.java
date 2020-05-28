@@ -20,7 +20,6 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public class ChwGoToMemberProfileBasedOnRegisterTask extends CoreChwNotificationGoToMemberProfileTask {
 
-
     public ChwGoToMemberProfileBasedOnRegisterTask(CommonPersonObjectClient commonPersonObjectClient, Bundle bundle, String notificationType, Activity activity) {
         super(commonPersonObjectClient, bundle, notificationType, activity);
     }

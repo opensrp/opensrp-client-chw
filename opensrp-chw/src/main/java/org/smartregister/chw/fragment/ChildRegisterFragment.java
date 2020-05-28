@@ -11,11 +11,14 @@ import org.smartregister.chw.provider.ChildRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.family.util.Utils;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.util.Set;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.FAMILY_LAST_NAME;
 
 public class ChildRegisterFragment extends CoreChildRegisterFragment {
 
@@ -30,13 +33,13 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
     }
 
     @Override
-    public void goToChildDetailActivity(CommonPersonObjectClient patient,
-                                        boolean launchDialog) {
+    public void goToChildDetailActivity(CommonPersonObjectClient patient, boolean launchDialog) {
         if (launchDialog) {
             Timber.i(patient.name);
         }
-
-        ChildProfileActivity.startMe(getActivity(), false, new MemberObject(patient), ChildProfileActivity.class);
+        MemberObject memberObject = new MemberObject(patient);
+        memberObject.setFamilyName(Utils.getValue(patient.getColumnmaps(), FAMILY_LAST_NAME, false));
+        ChildProfileActivity.startMe(getActivity(),memberObject , ChildProfileActivity.class);
     }
 
     @Override
