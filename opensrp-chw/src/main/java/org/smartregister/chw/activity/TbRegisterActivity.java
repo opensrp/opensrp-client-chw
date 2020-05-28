@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONObject;
+import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
@@ -30,25 +30,13 @@ import org.smartregister.listener.BottomNavigationListener;
 
 import java.util.List;
 
-import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
-
 public class TbRegisterActivity extends BaseTbRegisterActivity {
 
-    public static void startTbRegistrationActivity(Activity activity, String baseEntityID) {
-        Intent intent = new Intent(activity, BaseTbRegistrationFormsActivity.class);
+    public static void startTbFormActivity(Activity activity, String baseEntityID, String formName, String payloadType) {
+        Intent intent = new Intent(activity, TbRegisterActivity.class);
         intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(Constants.JSON_FORM.getTbRegistration()).toString());
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.ACTION, org.smartregister.chw.tb.util.Constants.ActivityPayloadType.REGISTRATION);
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
-        activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
-    }
-
-    public static void startTbCaseClosureActivity(Activity activity, String baseEntityID) {
-        Intent intent = new Intent(activity, BaseTbRegistrationFormsActivity.class);
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(Constants.JSON_FORM.getTbCaseClosure()).toString());
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.ACTION, org.smartregister.chw.tb.util.Constants.ActivityPayloadType.REGISTRATION);
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.ACTION, payloadType);
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.TB_REGISTRATION_FORM_NAME, formName);
         activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
@@ -98,8 +86,13 @@ public class TbRegisterActivity extends BaseTbRegisterActivity {
     }
 
     @Override
-    public void startFormActivity(JSONObject jsonForm) {
-        //Implement
+    public void startFormActivity(@Nullable String formName, @Nullable String entityId, @Nullable String metaData) {
+        Intent intent = new Intent(this, BaseTbRegistrationFormsActivity.class);
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.BASE_ENTITY_ID, entityId);
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.JSON_FORM, metaData);
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
+
+        this.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     private void startRegisterActivity() {

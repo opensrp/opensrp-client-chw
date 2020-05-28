@@ -18,7 +18,6 @@ import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.task.RunnableTask;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.HivFloatingMenu;
-import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.hiv.activity.BaseHivRegistrationFormsActivity;
 import org.smartregister.chw.hiv.domain.HivMemberObject;
 import org.smartregister.chw.hiv.util.HivUtil;
@@ -130,7 +129,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     @Override
     public void openHivRegistrationForm() {
-        TbRegisterActivity.startTbRegistrationActivity(this, getHivMemberObject().getBaseEntityId());
+        HivRegisterActivity.startHIVFormActivity(this, getHivMemberObject().getBaseEntityId(),org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration(),getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration()).toString());
 
     }
 

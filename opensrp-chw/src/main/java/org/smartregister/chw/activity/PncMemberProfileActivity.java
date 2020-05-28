@@ -385,7 +385,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     @Override
     protected void startTbRegister() {
-        TbRegisterActivity.startTbRegistrationActivity(this, memberObject.getBaseEntityId());
+        TbRegisterActivity.startTbFormActivity(this, memberObject.getBaseEntityId(),org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration(),getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration()).toString());
     }
 
     @Override

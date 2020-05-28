@@ -122,7 +122,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     @Override
     protected void startTbRegister() {
-        TbRegisterActivity.startTbRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
+        TbRegisterActivity.startTbFormActivity(FamilyOtherMemberProfileActivity.this, baseEntityId,org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration(),getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration()).toString());
     }
 
     @Override

@@ -175,7 +175,7 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
 
     @Override
     protected void startTbRegister() {
-        TbRegisterActivity.startTbRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId);
+        TbRegisterActivity.startTbFormActivity(AllClientsMemberProfileActivity.this, baseEntityId,org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration(),getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration()).toString());
     }
 
     @Override

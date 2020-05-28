@@ -15,6 +15,8 @@ import java.util.Objects;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
+
 public class TbRegisterFragment extends CoreTbRegisterFragment {
 
     @Override
@@ -40,7 +42,7 @@ public class TbRegisterFragment extends CoreTbRegisterFragment {
     @Override
     protected void openFollowUpVisit(@Nullable TbMemberObject tbMemberObject) {
         if (getActivity() != null)
-            TbProfileActivity.startTbFollowupActivity(getActivity(), tbMemberObject.getBaseEntityId());
+            TbRegisterActivity.startTbFormActivity(getActivity(), tbMemberObject.getBaseEntityId(),org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit(),getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit()).toString());
     }
 
 }

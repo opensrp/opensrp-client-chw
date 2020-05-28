@@ -45,11 +45,10 @@ public class TbProfileActivity extends CoreTbProfileActivity
         activity.startActivity(intent);
     }
 
-    public static void startTbFollowupActivity(Activity activity, String baseEntityID) {
+    public void startTbFollowupActivity(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, BaseTbRegistrationFormsActivity.class);
         intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
         intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit()).toString());
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
         intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
 
         activity.startActivityForResult(intent, org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT);
@@ -71,7 +70,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     @Override
     protected void startTbCaseClosure() {
-        TbRegisterActivity.startTbCaseClosureActivity(this, getTbMemberObject().getBaseEntityId());
+        TbRegisterActivity.startTbFormActivity(this, getTbMemberObject().getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getTbCaseClosure(), getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbCaseClosure()).toString());
     }
 
     @Override
@@ -135,7 +134,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     @Override
     public void openTbRegistrationForm() {
-        TbRegisterActivity.startTbRegistrationActivity(this, getTbMemberObject().getBaseEntityId());
+        TbRegisterActivity.startTbFormActivity(this, getTbMemberObject().getBaseEntityId(),org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration(),getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration()).toString());
 
     }
 
