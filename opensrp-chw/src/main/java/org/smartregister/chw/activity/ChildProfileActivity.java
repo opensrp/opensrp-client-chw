@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -63,11 +62,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
             addChildReferralTypes();
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
     }

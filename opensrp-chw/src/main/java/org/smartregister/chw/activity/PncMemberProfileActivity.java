@@ -2,7 +2,6 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -82,13 +81,6 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, baseEntityID);
         passToolbarTitle(activity, intent);
         activity.startActivity(intent);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
-        notificationListAdapter.setOnClickListener(this);
     }
 
     @Override
@@ -242,6 +234,8 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
             addPncReferralTypes();
         }
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
     }
 
     @Override
