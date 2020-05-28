@@ -130,24 +130,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     @Override
     public void openMedicalHistory() {
-        OnMemberTypeLoadedListener onMemberTypeLoadedListener = memberType -> {
-
-            switch (memberType.getMemberType()) {
-                case CoreConstants.TABLE_NAME.ANC_MEMBER:
-                    AncMedicalHistoryActivity.startMe(TbProfileActivity.this, memberType.getMemberObject());
-                    break;
-                case CoreConstants.TABLE_NAME.PNC_MEMBER:
-                    PncMedicalHistoryActivity.startMe(TbProfileActivity.this, memberType.getMemberObject());
-                    break;
-                case CoreConstants.TABLE_NAME.CHILD:
-                    ChildMedicalHistoryActivity.startMe(TbProfileActivity.this, memberType.getMemberObject());
-                    break;
-                default:
-                    Timber.v("Member info undefined");
-                    break;
-            }
-        };
-        executeOnLoaded(onMemberTypeLoadedListener);
+        //TODO implement
     }
 
     @Override
