@@ -125,7 +125,7 @@
         "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Check for general danger signs:",
-        "toaster_info_text": "Ask the caregiver and observe.",
+        "label_info_text": "Ask the caregiver and observe.",
         "combine_checkbox_option_values": "true",
         "exclusive": [
           "None"
@@ -1850,8 +1850,7 @@
         "openmrs_entity_id": "152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment for dysentery: Have you given ciprofloxacin for 3 days?",
-        "toaster_info_text": "Follow-up in 3 days.",
-        "toaster_type": "positive",
+        "label_info_text": "Follow-up in 3 days.",
         "options": [
           {
             "key": "yes",
@@ -1894,8 +1893,7 @@
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Does the child have fever?",
-        "toaster_info_text": "*These temperatures are based on axillary temperature. Rectal temperatures are approximately 0.5°C higher.",
-        "toaster_type": "info",
+        "label_info_text": "*These temperatures are based on axillary temperature. Rectal temperatures are approximately 0.5°C higher.",
         "options": [
           {
             "key": "yes",
@@ -2128,8 +2126,7 @@
         "openmrs_entity_id": "1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "What fever causes does the child display?",
-        "toaster_info_text": "Look and feel for fever symptoms **Look for local tenderness; oral sores; refusal to use a limb; hot tender swelling; red tender skin or boils; lower abdominal pain or pain on passing urine in older children.",
-        "toaster_type": "info",
+        "label_info_text": "Look and feel for fever symptoms **Look for local tenderness; oral sores; refusal to use a limb; hot tender swelling; red tender skin or boils; lower abdominal pain or pain on passing urine in older children.",
         "combine_checkbox_option_values": "true",
         "exclusive": [
           "none_fever_cause"
@@ -2179,8 +2176,7 @@
         "openmrs_entity_id": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Which measles symptoms does the child have?",
-        "toaster_info_text": "Look and feel for measles symptoms.",
-        "toaster_type": "info",
+        "label_info_text": "Look and feel for measles symptoms.",
         "combine_checkbox_option_values": "true",
         "options": [
           {

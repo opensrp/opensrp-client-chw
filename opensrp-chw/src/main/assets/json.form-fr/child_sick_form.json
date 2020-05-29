@@ -125,7 +125,7 @@
         "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Vérifiez les signes généraux de danger :",
-        "toaster_info_text": "Demandez à l'aidant et observez.",
+        "label_info_text": "Demandez à l'aidant et observez.",
         "combine_checkbox_option_values": "true",
         "exclusive": [
           "None"
@@ -1850,8 +1850,7 @@
         "openmrs_entity_id": "152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Traitement de la dysenterie : \nAvez-vous reçu de la ciprofloxacine pendant 3 jours ?",
-        "toaster_info_text": "Suivi dans 3 jours.",
-        "toaster_type": "positive",
+        "label_info_text": "Suivi dans 3 jours.",
         "options": [
           {
             "key": "yes",
@@ -1894,8 +1893,7 @@
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "L'enfant a-t-il de la fièvre ?",
-        "toaster_info_text": "\n*Ces températures sont basées sur la température axillaire. Les températures rectales sont supérieures d'environ 0,5°C. ",
-        "toaster_type": "info",
+        "label_info_text": "\n*Ces températures sont basées sur la température axillaire. Les températures rectales sont supérieures d'environ 0,5°C. ",
         "options": [
           {
             "key": "yes",
@@ -2128,8 +2126,7 @@
         "openmrs_entity_id": "1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Quelles sont les causes de la fièvre dont souffre l'enfant ?",
-        "toaster_info_text": "Rechercher des symptômes de fièvre ** Rechercher une sensibilité locale ; des plaies buccales ; un refus d'utiliser un membre ; un gonflement chaud et sensible ; une peau rouge et sensible ou des furoncles ; une douleur dans le bas du ventre ou une douleur au moment d'uriner chez les enfants plus âgés",
-        "toaster_type": "info",
+        "label_info_text": "Rechercher des symptômes de fièvre ** Rechercher une sensibilité locale ; des plaies buccales ; un refus d'utiliser un membre ; un gonflement chaud et sensible ; une peau rouge et sensible ou des furoncles ; une douleur dans le bas du ventre ou une douleur au moment d'uriner chez les enfants plus âgés",
         "combine_checkbox_option_values": "true",
         "exclusive": [
           "none_fever_cause"
@@ -2179,8 +2176,7 @@
         "openmrs_entity_id": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Quels symptômes de la rougeole l'enfant présente-t-il ?",
-        "toaster_info_text": "Rechercher les symptômes de la rougeole.",
-        "toaster_type": "info",
+        "label_info_text": "Rechercher les symptômes de la rougeole.",
         "combine_checkbox_option_values": "true",
         "options": [
           {
