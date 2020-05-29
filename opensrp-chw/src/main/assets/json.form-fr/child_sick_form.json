@@ -4706,7 +4706,7 @@
         "type": "toaster_notes",
         "text": "L'enfant a : INFECTION CONFIRMÉE PAR LE VIH\n\n- Lancer le traitement ART et les soins du VIH\n- Donner une prophylaxie au cotrimoxazole*.\n- Évaluer l'alimentation de l'enfant et fournir des conseils appropriés à la mère\n- Conseiller la mère sur les soins à domicile\n- Évaluer ou orienter pour une évaluation de la tuberculose à la thérapie préventive de l'INH\n- Suivi régulier selon les lignes directrices nationales.",
         "toaster_info_text": "* Donner une prophylaxie au cotrimoxazole à tous les enfants infectés par le VIH ou exposés au VIH jusqu'à ce que leur état soit confirmé comme négatif après la fin de l'allaitement.",
-        "toaster_type": "info",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -4737,7 +4737,7 @@
         "type": "toaster_notes",
         "text": "L'enfant est : VIH EXPOSÉ\n\n- Donner une prophylaxie au cotrimoxazole\n- Commencer ou continuer la prophylaxie ARV selon les recommandations\n- Faire un test virologique pour confirmer le statut VIH**\n- Évaluer l'alimentation de l'enfant et fournir des conseils appropriés à la mère\n- Conseiller la mère sur les soins à domicile\n- Suivi régulier selon les lignes directrices nationales.",
         "toaster_info_text": "** Si le test virologique est négatif, répéter le test 6 semaines après l'arrêt de l'allaitement ; si le test sérologique est positif, faire un test virologique dès que possible.",
-        "toaster_type": "info",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

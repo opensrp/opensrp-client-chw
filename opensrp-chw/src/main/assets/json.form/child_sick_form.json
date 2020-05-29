@@ -4706,7 +4706,7 @@
         "type": "toaster_notes",
         "text": "Child has: CONFIRMED HIV INFECTION\n\n- Initiate ART treatment and HIV care\n- Give cotrimoxazole prophylaxis*\n- Assess the chil's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Assess or refer for TB assessment at INH preventive therapy\n- Follow-up regularly as per national guidelines",
         "toaster_info_text": "* Give cotrimoxazole prophylaxis to all HIV infected and HIV-exposed children until confirmed negative after cessation of breastfeeding.",
-        "toaster_type": "info",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -4737,7 +4737,7 @@
         "type": "toaster_notes",
         "text": "Child is: HIV EXPOSED\n\n- Give cotrimoxazole prophylaxis\n- Start or continue ARV prophylaxis as recommended\n- Do virological test to confirm HIV status**\n- Assess the child's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Follow-up regularly as per national guidelines",
         "toaster_info_text": "** If virological test is negative, repeat test 6 weeks after the breastfeeding has stopped; if serological test is positive, do a virological test as soon as possible.",
-        "toaster_type": "info",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

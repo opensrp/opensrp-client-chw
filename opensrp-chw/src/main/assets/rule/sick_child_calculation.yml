@@ -351,10 +351,10 @@ description: Calculated field for when the child is HIV exposed
 priority: 1
 condition: "true"
 actions:
-  - "calculation = ((((step10_mother_test_result.contains('positive') && (step10_child_test_result.contains('v_neg') || step10_child_hiv_test2.contains('v_neg'))) &&
+  - "calculation = ((((step10_mother_test_result.contains('positive') || step10_test_mother_results.contains('mother_positive') && (step10_child_test_result.contains('v_neg') || step10_child_hiv_test2.contains('v_neg'))) &&
      (step10_hiv_breastfeeding.contains('yes') || step10_hiv_breastfeeding_now.contains('yes'))) ||
-       (step10_mother_test_result.contains('positive') && (step10_child_hiv_test.contains('no') || step10_child_test_result.contains('s_pos') || step10_child_hiv_test2.contains.('s_pos'))
-       && step1_age_in_months >= 18))? 1 : 0)"
+       (step10_mother_test_result.contains('positive') || step10_test_mother_results.contains('mother_positive') && (step10_child_hiv_test.contains('no') || step10_child_test_result.contains('s_pos') || step10_child_hiv_test2.contains.('s_pos'))
+       && step1_age_in_months < 18))? 1 : 0)"
 ---
 name: step10_hiv_unlikely
 description: Calculated field for when the child HIV infection is unlikely
