@@ -68,10 +68,7 @@
             "openmrs_entity_id": "community_client_tb_registration_number",
             "openmrs_entity_parent": ""
           },
-          "required_status": "yes:Tafadhali jaza namba ya Kliniki ya TB:",
-          "dependent_calculations": [
-            "tb_registration_date"
-          ]
+          "required_status": "no"
         },
         {
           "name": "client_tb_status_during_registration",
@@ -113,7 +110,10 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali jaza hali ya maambukizo ya TB wakati wa kuandikishwa"
+          "required_status": "yes:Tafadhali jaza hali ya maambukizo ya TB wakati wa kuandikishwa",
+          "dependent_calculations": [
+            "tb_registration_date"
+          ]
         },
         {
           "name": "place_of_domicile",

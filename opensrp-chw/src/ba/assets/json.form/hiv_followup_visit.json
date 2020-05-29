@@ -326,7 +326,7 @@
             },
             {
               "name": "wood_workers",
-              "text": "Wood workers",
+              "text": "Lumberman",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "wood_workers",

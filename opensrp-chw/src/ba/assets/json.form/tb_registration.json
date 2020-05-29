@@ -61,17 +61,14 @@
           "name": "community_client_tb_registration_number",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Community Based Health Services Registration Number (CBHS Number)"
+            "hint": "Client TB Clinic Registration Number"
           },
           "meta_data": {
             "openmrs_entity": "concept",
             "openmrs_entity_id": "community_client_tb_registration_number",
             "openmrs_entity_parent": ""
           },
-          "required_status": "yes:Please add cbhs number",
-          "dependent_calculations": [
-            "tb_registration_date"
-          ]
+          "required_status": "no"
         },
         {
           "name": "client_tb_status_during_registration",
@@ -113,7 +110,10 @@
               }
             }
           ],
-          "required_status": "yes:Please specify Client's TB status during registration"
+          "required_status": "yes:Please specify Client's TB status during registration",
+          "dependent_calculations": [
+            "tb_registration_date"
+          ]
         },
         {
           "name": "place_of_domicile",
@@ -179,14 +179,14 @@
           "name": "district_council_number_of_current_tb_client",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Jaza namba ya wilaya ya mgonjwa wa TB"
+            "hint": "District council number of the TB client in the family"
           },
           "meta_data": {
             "openmrs_entity": "concept",
             "openmrs_entity_id": "district_council_number_of_current_tb_client",
             "openmrs_entity_parent": ""
           },
-          "required_status": "yes:Tafadhali jaza jaza namba ya wilaya ya mgonjwa wa TB",
+          "required_status": "yes:Fill in the district council number of the TB client in the family",
           "subjects": "place_of_domicile:text"
         },
         {
