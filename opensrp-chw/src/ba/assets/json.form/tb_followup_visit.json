@@ -238,7 +238,7 @@
           "name": "problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other symptoms",
+            "hint": "Other Problems",
             "type": "name"
           },
           "meta_data": {
@@ -262,8 +262,8 @@
           },
           "options": [
             {
-              "name": "none",
-              "text": "None",
+              "name": "na",
+              "text": "Not Applicable",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "",
@@ -441,8 +441,8 @@
               }
             },
             {
-              "name": "none",
-              "text": "None",
+              "name": "na",
+              "text": "Not Applicable",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "",

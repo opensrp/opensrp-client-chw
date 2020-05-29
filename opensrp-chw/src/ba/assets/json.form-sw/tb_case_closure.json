@@ -1,10 +1,10 @@
 {
-  "form": "HIV Registration form",
+  "form": "TB Case Closure form",
   "count": "1",
-  "encounter_type": "HIV Registration",
+  "encounter_type": "TB Case Closure",
   "entity_id": "",
   "relational_id": "",
-  "rules_file": "rule/hiv_registration_form_rules.yml",
+  "rules_file": "rule/tb_case_closure_form_rules.yml",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -55,79 +55,85 @@
   },
   "steps": [
     {
-      "title": "HIV Clients Registration form",
+      "title": "Fuzu huduma za TB",
       "fields": [
         {
-          "name": "ctc_number",
-          "type": "text_input_edit_text",
-          "properties": {
-            "hint": "CTC Number",
-            "type": "Clinic of Treatment and Care registration number (CTC Number)"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "ctc_number",
-            "openmrs_entity_parent": ""
-          },
-          "required_status": "false"
-        },
-        {
-          "name": "cbhs_number",
-          "type": "text_input_edit_text",
-          "properties": {
-            "hint": "Community Based Health Services Registration Number (CBHS Number)"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "cbhs_number",
-            "openmrs_entity_parent": ""
-          },
-          "required_status": "false"
-        },
-        {
-          "name": "client_hiv_status_during_registration",
+          "name": "client_condition",
           "type": "spinner",
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "client_hiv_status_during_registration",
+            "openmrs_entity_id": "client_condition",
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Client's HIV status during registration"
+            "text": "Hali ya mteja wakati wakumtembelea"
           },
           "options": [
             {
-              "name": "unknown",
-              "text": "Unknown",
+              "name": "client_does_her_daily_activities",
+              "text": "Anaweza kufanya shughuli zake za kila siku",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "unknown",
+                "openmrs_entity_id": "client_does_her_daily_activities",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "positive",
-              "text": "Positive",
+              "name": "client_takes_care_of_himself",
+              "text": "Anajimudu mwenyewe (kuoga, kula, kuvaa)",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "positive",
+                "openmrs_entity_id": "client_takes_care_of_himself",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "negative",
-              "text": "Negative",
+              "name": "client_is_unable_to_take_care_of_himself",
+              "text": "Hajimudu",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "negative",
+                "openmrs_entity_id": "client_is_unable_to_take_care_of_himself",
                 "openmrs_entity_parent": ""
               }
             }
           ],
-          "required_status": "yes:Please specify client's hiv status",
+          "required_status": "yes:Tafadhali jaza hali ya mteja wakati wa kumtembelea",
           "dependent_calculations": [
-            "hiv_registration_date"
+            "tb_case_closure_date"
           ]
+        },
+        {
+          "name": "completed_medication_as_required",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "completed_medication_as_required",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Mteja ametumia dawa kwa usahihi"
+          },
+          "options": [
+            {
+              "name": "yes",
+              "text": "Ndio",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "yes",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "no",
+              "text": "Hapana",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "no",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Tafadhali jibu swali hili"
         }
       ]
     }

@@ -262,7 +262,7 @@
           },
           "options": [
             {
-              "name": "none",
+              "name": "na",
               "text": "Not Applicable",
               "meta_data": {
                 "openmrs_entity": "",
@@ -477,7 +477,7 @@
           },
           "options": [
             {
-              "name": "none",
+              "name": "na",
               "text": "Not Applicable",
               "meta_data": {
                 "openmrs_entity": "",

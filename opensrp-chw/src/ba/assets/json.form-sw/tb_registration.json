@@ -55,20 +55,20 @@
   },
   "steps": [
     {
-      "title": "TB Clients Registration form",
+      "title": "Usajili wa wagonjwa wa TB",
       "fields": [
         {
           "name": "community_client_tb_registration_number",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Community Based Health Services Registration Number (CBHS Number)"
+            "hint": "Namba ya Kliniki ya TB"
           },
           "meta_data": {
             "openmrs_entity": "concept",
             "openmrs_entity_id": "community_client_tb_registration_number",
             "openmrs_entity_parent": ""
           },
-          "required_status": "yes:Please add cbhs number",
+          "required_status": "yes:Tafadhali jaza namba ya Kliniki ya TB:",
           "dependent_calculations": [
             "tb_registration_date"
           ]
@@ -82,12 +82,12 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Client's TB status during registration"
+            "text": "Hali ya maambukizo ya TB wakati wa kuandikishwa"
           },
           "options": [
             {
               "name": "unknown",
-              "text": "Unknown",
+              "text": "Haijulikani",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "unknown",
@@ -96,7 +96,7 @@
             },
             {
               "name": "positive",
-              "text": "Positive",
+              "text": "Ana maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "positive",
@@ -105,7 +105,7 @@
             },
             {
               "name": "negative",
-              "text": "Negative",
+              "text": "Hana maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "negative",
@@ -113,7 +113,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify Client's TB status during registration"
+          "required_status": "yes:Tafadhali jaza hali ya maambukizo ya TB wakati wa kuandikishwa"
         },
         {
           "name": "place_of_domicile",
@@ -124,12 +124,12 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Place of Domicile"
+            "text": "Mahali alipotokea mteja/alipohojiwa"
           },
           "options": [
             {
               "name": "a_family_with_tb_patient",
-              "text": "A family with TB patient",
+              "text": "Familia yenye mgonjwa wa TB (Andika namba ya wilaya ya mgonjwa wa TB)",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "a_family_with_tb_patient",
@@ -138,7 +138,7 @@
             },
             {
               "name": "a_family_without_tb_patient",
-              "text": "A family  without TB patient",
+              "text": "Familia isiyo na mgonjwa wa TB/DR-TB",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "a_family_without_tb_patient",
@@ -147,7 +147,7 @@
             },
             {
               "name": "community_gathering",
-              "text": "Community Gathering",
+              "text": "Mkusanyiko wa watu/sehemu nyingine",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "community_gathering",
@@ -156,7 +156,7 @@
             },
             {
               "name": "pharmacy",
-              "text": "Pharmacy",
+              "text": "Duka la dawa",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "pharmacy",
@@ -165,7 +165,7 @@
             },
             {
               "name": "traditional_doctors",
-              "text": "Traditional doctors",
+              "text": "Mganga wa jadi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "traditional_doctors",
@@ -173,7 +173,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify place of domicile"
+          "required_status": "yes:Tafadhali jaza mahali alipotokea mteja/alipohojiwa"
         },
         {
           "name": "district_council_number_of_current_tb_client",
@@ -198,12 +198,12 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Type of community gathering"
+            "text": "Mkusanyiko wa watu/sehemu nyingine"
           },
           "options": [
             {
               "name": "school",
-              "text": "School",
+              "text": "Shule",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "school",
@@ -212,7 +212,7 @@
             },
             {
               "name": "worship_houses",
-              "text": "Worship houses",
+              "text": "Nyumba za Ibada",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "worship_houses",
@@ -221,7 +221,7 @@
             },
             {
               "name": "mining",
-              "text": "Mining",
+              "text": "Machimbo",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "mining",
@@ -230,7 +230,7 @@
             },
             {
               "name": "public_meetings",
-              "text": "Public meetings",
+              "text": "Mikutano ya hadhara",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "public_meetings",
@@ -239,7 +239,7 @@
             },
             {
               "name": "prison",
-              "text": "Prison",
+              "text": "Magereza",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "prison",
@@ -248,7 +248,7 @@
             },
             {
               "name": "others",
-              "text": "Others",
+              "text": "Kwingineko",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "others",
@@ -256,21 +256,21 @@
               }
             }
           ],
-          "required_status": "yes:Please specify the type of community gathering",
+          "required_status": "yes:Tafadhali jaza mkusanyiko wa watu/sehemu nyingine",
           "subjects": "place_of_domicile:text"
         },
         {
           "name": "other_community_gathering",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Specify other community gathering"
+            "hint": "Taja kwingineko"
           },
           "meta_data": {
             "openmrs_entity": "concept",
             "openmrs_entity_id": "other_community_gathering",
             "openmrs_entity_parent": ""
           },
-          "required_status": "yes:Please specify other community gathering",
+          "required_status": "yes:Tafadhali jaza kwingineko",
           "subjects": "community_gathering:text"
         },
         {
@@ -282,12 +282,12 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Client's screening results"
+            "text": "Matokeo ya mahojiano (*Dalili alizonazo)"
           },
           "options": [
             {
               "name": "coughing",
-              "text": "Coughing",
+              "text": "Kikihozi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "coughing",
@@ -296,7 +296,7 @@
             },
             {
               "name": "hemoptysis",
-              "text": "Sputum with blood (hemoptysis) ",
+              "text": "Makohozi yaliyochanganyika na Damu",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "hemoptysis",
@@ -305,7 +305,7 @@
             },
             {
               "name": "fever",
-              "text": "Fever",
+              "text": "Homa",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "fever",
@@ -314,7 +314,7 @@
             },
             {
               "name": "weight_lose",
-              "text": "Weight lose",
+              "text": "Kupungua uzito",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "weight_lose",
@@ -322,16 +322,16 @@
               }
             },
             {
-              "name": "history_of_night_sweats",
-              "text": "History of night sweats",
+              "name": "night_sweats",
+              "text": "Kutokwa jasho jingi kuliko kawaida hasa nyakati za usiku",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "history_of_night_sweats",
+                "openmrs_entity_id": "night_sweats",
                 "openmrs_entity_parent": ""
               }
             }
           ],
-          "required_status": "yes:Please specify clients screening results"
+          "required_status": "yes:Tafadhali jaza matokeo ya mahojiano (*Dalili alizonazo)"
         }
       ]
     }

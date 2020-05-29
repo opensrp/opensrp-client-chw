@@ -1,4 +1,11 @@
 ---
+name: "district_council_number_of_current_tb_client_visibility"
+description: "district council number of current tb client when a family with tb client is chosen"
+priority: 1
+condition: "place_of_domicile.value == 'A family with TB patient'"
+actions:
+  - "district_council_number_of_current_tb_client_visibility =  true"
+---
 name: "community_gathering_visibility"
 description: "Display community gathering types if community gathering is chosen"
 priority: 1

@@ -1,10 +1,10 @@
 {
-  "form": "HIV Followup form",
+  "form": "TB Followup form",
   "count": "1",
-  "encounter_type": "HIV Followup",
+  "encounter_type": "TB Followup",
   "entity_id": "",
   "relational_id": "",
-  "rules_file": "rule/hiv_followup_form_rules.yml",
+  "rules_file": "rule/tb_followup_form_rules.yml",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -55,7 +55,7 @@
   },
   "steps": [
     {
-      "title": "Fomu ya kumtembelea mgonjwa wa VVU",
+      "title": "Fomu ya kumtembelea mgonjwa wa TB",
       "fields": [
         {
           "name": "registration_or_followup_status",
@@ -151,9 +151,9 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua hali ya ufwatiliaji",
+          "required_status": "yes:Tafadhali jaza hali ya usajili/ ufuatiliaji",
           "dependent_calculations": [
-            "hiv_followup_visit_date"
+            "tb_followup_visit_date"
           ]
         },
         {
@@ -179,7 +179,7 @@
             },
             {
               "name": "client_takes_care_of_himself",
-              "text": "Anajimudu mwenyewe (kuoga, kula, kuvaa) ",
+              "text": "Anajimudu mwenyewe (kuoga, kula, kuvaa)",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_takes_care_of_himself",
@@ -196,7 +196,7 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua hali ya mteja",
+          "required_status": "yes:Tafadhali jaza hali ya mteja",
           "subjects": "registration_or_followup_status:text"
         },
         {
@@ -222,7 +222,7 @@
             },
             {
               "name": "none",
-              "text": "hana tatizo",
+              "text": "Hana tatizo",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
@@ -246,7 +246,7 @@
             "openmrs_entity_id": "problem_other",
             "openmrs_entity_parent": "problem"
           },
-          "required_status": "true:Tafadhali jaza matatizo mengine",
+          "required_status": "Tafadhali jaza matatizo mengine",
           "subjects": "problem:map"
         },
         {
@@ -262,7 +262,7 @@
           },
           "options": [
             {
-              "name": "none",
+              "name": "na",
               "text": "Haihusiki",
               "meta_data": {
                 "openmrs_entity": "",
@@ -280,88 +280,25 @@
               }
             },
             {
-              "name": "has_multiple_sexual_partners",
-              "text": "Ana wapenzi wengi",
+              "name": "vulnerable_environment",
+              "text": "Anaishi kwenye mazingira hatarishi",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "has_multiple_sexual_partners",
+                "openmrs_entity_id": "vulnerable_environment",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "has_sexual_relations_with_different_peers",
-              "text": "Mahusiano ya kingono na rika tofauti (Ngono  mtambuka rika",
+              "name": "hiv_positive",
+              "text": "Anamambukizi ya VVU",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "has_sexual_relations_with_different_peers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "fisherman",
-              "text": "Wavuvi",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "fisherman",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "women_having_sex_with_other_women",
-              "text": "Wanawake wanaofanya ngono na wanawake wenzao",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "women_having_sex_with_other_women",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "sex_workers",
-              "text": "Wanaofanya biashara ya ngono",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "sex_workers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "wood_workers",
-              "text": "Wapasua mbao",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "wood_workers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "mining_workers",
-              "text": "Wachimba madini",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "mining_workers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "men_having_sex_with_other_men ",
-              "text": "Wanaume wanaofanya ngono na wanaume wenzao",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "men_having_sex_with_other_men",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "truck_drivers ",
-              "text": "Madreva wa masafa marefu",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "truck_drivers",
+                "openmrs_entity_id": "hiv_positive",
                 "openmrs_entity_parent": ""
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua tabia na mazingira hatarishi ya mteja",
+          "required_status": "yes:Tafadhali jaza tabia na mazingira hatarishi ya mteja",
           "subjects": "registration_or_followup_status:text"
         },
         {
@@ -403,8 +340,7 @@
           "name": "supplies_provided_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Vifaa na dawa nyingine vilivyotolewa",
-            "type": "name"
+            "hint": "Vifaa na dawa nyingine vilivyotolewa"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -415,23 +351,23 @@
           "subjects": "supplies_provided:map"
         },
         {
-          "name": "hiv_services_provided",
+          "name": "tb_services_provided",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Huduma zilizotolewa (Huduma za UKIMWI katika jamii ikiwemo ACUK) "
+            "text": "Huduma zilizotolewa (Huduma za TB/DR-TB katika Jamii ikiwemo TB/DR-TB) "
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_services_provided",
+            "openmrs_entity_id": "tb_services_provided",
             "openmrs_entity_parent": ""
           },
           "options": [
             {
-              "name": "other_hiv_services",
-              "text": "Huduma nyingnie za UKIMWI katika jamii",
+              "name": "other_services",
+              "text": "Huduma nyingnie za TB katika jamii",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "other_hiv_services",
+                "openmrs_entity_id": "other_tb_services",
                 "openmrs_entity_parent": ""
               }
             },
@@ -446,29 +382,29 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali jaza huduma nyingnie za UKIMWI katika jamii",
+          "required_status": "yes:Please TB services provided",
           "subjects": "registration_or_followup_status:text"
         },
         {
-          "name": "hiv_services_provided_other",
+          "name": "tb_services_provided_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Huduma nyingnie za UKIMWI katika jamii zilizotolewa",
+            "hint": "Huduma nyingnie za TB katika jamii zilizotolewa",
             "type": "name"
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_services_provided_other",
-            "openmrs_entity_parent": "hiv_services_provided"
+            "openmrs_entity_id": "tb_services_provided_other",
+            "openmrs_entity_parent": "tb_services_provided"
           },
-          "required_status": "true:Tafadhali jaza huduma nyingnie za UKIMWI katika jamii zilizotolewa",
-          "subjects": "hiv_services_provided:map"
+          "required_status": "true:Tafadhali jaza huduma nyingnie za TB katika jamii zilizotolewa",
+          "subjects": "tb_services_provided:map"
         },
         {
           "name": "state_of_therapy",
           "type": "spinner",
           "properties": {
-            "text": "Hali ya Tiba na Matunzo (CTC)"
+            "text": "Hali ya Tiba na Matunzo (TB/DR-TB)"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -478,7 +414,7 @@
           "options": [
             {
               "name": "registered_but_not_began_medication",
-              "text": "Ameandikishwa CTC/PMTCT lakini hajaanza ARV",
+              "text": "Ameandikishwa TB klinik lakini hajaanza TB/ DR TB",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "registered_but_not_began_medication",
@@ -487,7 +423,7 @@
             },
             {
               "name": "registered_and_uses_medication",
-              "text": "Ameandikishwa CTC/PMTCT na anatumia ARV",
+              "text": "Ameandikishwa TB klinik na anatumia TB/ DR TB",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "registered_and_uses_medication",
@@ -495,16 +431,16 @@
               }
             },
             {
-              "name": "not_registered_in_ctc_clinic",
-              "text": "Hajaandikishwa CTC/PMTCT",
+              "name": "not_registered_in_tb_clinic",
+              "text": "Hajaandikishwa TB klinik",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "not_registered_in_ctc_clinic",
+                "openmrs_entity_id": "not_registered_in_tb_clinic",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "none",
+              "name": "na",
               "text": "Haihusiki",
               "meta_data": {
                 "openmrs_entity": "",
@@ -513,7 +449,7 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali jaza hali ya Tiba na Matunzo (CTC)",
+          "required_status": "yes:Tafadhali jaza hali ya Tiba na Matunzo ",
           "subjects": "registration_or_followup_status:text"
         }
       ]
