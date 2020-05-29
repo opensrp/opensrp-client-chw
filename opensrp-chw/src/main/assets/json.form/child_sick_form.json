@@ -125,6 +125,7 @@
         "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Check for general danger signs:",
+        "toaster_info_text": "Ask the caregiver and observe.",
         "combine_checkbox_option_values": "true",
         "exclusive": [
           "None"
@@ -179,7 +180,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child Has: VERY SEVERE DISEASE \n- Quickly complete the rest of this assessment \n- Give any pre-referral treatment immediately \n- Treat to prevent low blood sugar \n- Keep the child warm \n- Refer URGENTLY",
-        "toaster_info_text": "Child Has: VERY SEVERE DISEASE \n- Quickly complete the rest of this assessment \n- Give any pre-referral treatment immediately \n- Treat to prevent low blood sugar \n- Keep the child warm \n- Refer URGENTLY",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -286,7 +286,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has no danger signs or symptoms . \nFollow-up with the caregiver to make sure the child stays healthy.",
-        "toaster_info_text": "Child has no danger signs or symptoms . \nFollow-up with the caregiver to make sure the child stays healthy.",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -365,8 +364,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Procedure:\n- Count the breaths in one minute. \n- Look for chest indrawing.\n- Look and listen for stridor.\n- Look and listen for wheezing.",
-        "toaster_info_text": "Procedure:\n- Count the breaths in one minute. \n- Look for chest indrawing.\n- Look and listen for stridor.\n- Look and listen for wheezing.",
-        "toaster_type": "info",
+        "toaster_info_text": "CHILD MUST BE CALM. \n- If pulse oximeter is available determine oxygen saturation and refer if < 90%.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -466,7 +464,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Give a trial of rapid acting bronchodilator up to 3 times, 15-20 minutes apart.",
-        "toaster_info_text": "Give a trial of rapid acting bronchodilator up to 3 times, 15-20 minutes apart.",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -518,7 +515,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Count the breaths per minute again and look again for wheezing and/or chest indrawing.",
-        "toaster_info_text": "Count the breaths per minute again and look again for wheezing and/or chest indrawing.",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -716,7 +712,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: SEVERE PNEUMONIA OR VERY SEVERE DISEASE\n\n- Give first dose of an appropriate antibiotic \n- Refer URGENTLY to the hospital**",
-        "toaster_info_text": "Child has: SEVERE PNEUMONIA OR VERY SEVERE DISEASE\n\n- Give first dose of an appropriate antibiotic \n- Refer URGENTLY to the hospital**",
+        "toaster_info_text": "** If referral is not possible, manage the child as described in the pneumonia section of the national referral guidelines or as in WHO Pocket Book for hospital care for children.",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -733,7 +729,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: PNEUMONIA\n\n\n- Give oral Amoxicillin for 5 days ***\n- If wheezing (or disappeared afte rapidly acting bronchodilator) give an inhaled bronchodilator for 5 days ****\n- Soothe the throat and relieve the cough with a safe remedy\n- If coughing or more than 14 days or recurrent wheeze, refer for possible TB or asthma assessment\n- Advise mother when to return immediately\n- Follow-up in 3 days",
-        "toaster_info_text": "Child has: PNEUMONIA\n\n\n- Give oral Amoxicillin for 5 days ***\n- If wheezing (or disappeared afte rapidly acting bronchodilator) give an inhaled bronchodilator for 5 days ****\n- Soothe the throat and relieve the cough with a safe remedy\n- If coughing or more than 14 days or recurrent wheeze, refer for possible TB or asthma assessment\n- Advise mother when to return immediately\n- Follow-up in 3 days",
+        "toaster_info_text": "***Oral Amoxicillin for 3 days could be used in patients with fast breathing but no chest indrawing in low HIV settings.\n- **** In settings where inhaled bronchodilator is not available, oral salbutamol may be tried but not recommended for treatment of severe acute wheeze.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -750,25 +746,8 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: COUGH OR COLD\n\n- If wheezing (or disappeared afte rapidly acting bronchodilator) give an inhaled bronchodilator for 5 days ****\n- Soothe the throat and relieve the cough with a safe remedy\n- If coughing or more than 14 days or recurrent wheeze, refer for possible TB or asthma assessment\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
-        "toaster_info_text": "Child has: COUGH OR COLD\n\n- If wheezing (or disappeared afte rapidly acting bronchodilator) give an inhaled bronchodilator for 5 days ****\n- Soothe the throat and relieve the cough with a safe remedy\n- If coughing or more than 14 days or recurrent wheeze, refer for possible TB or asthma assessment\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
+        "toaster_info_text": "**** In settings where inhaled bronchodilator is not available, oral salbutamol may be tried but not recommended for treatment of severe acute wheeze.",
         "toaster_type": "positive",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "severe_pneumonia_treat_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "SEVERE PNEUMONIA OR VERY SEVERE DISEASE",
-        "toaster_info_text": "SEVERE PNEUMONIA OR VERY SEVERE DISEASE",
-        "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -793,7 +772,7 @@
             "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "refrered_urgently2",
+            "key": "referred_urgently2",
             "text": "URGENTLY referred to hospital",
             "value": false,
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -818,7 +797,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "CHEST INDRAWING & HIV EXPOSED/INFECTED TREATMENT:\n\n- Give first dose of amoxicillin and refer.",
-        "toaster_info_text": "CHEST INDRAWING & HIV EXPOSED/INFECTED TREATMENT:\n\n- Give first dose of amoxicillin and refer.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -860,23 +838,6 @@
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
-        }
-      },
-      {
-        "key": "pneumonia_treatment_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "PNEUMONIA TREATMENT:",
-        "toaster_info_text": "PNEUMONIA TREATMENT:",
-        "toaster_type": "warning",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
         }
       },
       {
@@ -923,23 +884,6 @@
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
-        }
-      },
-      {
-        "key": "cold_treatment_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "COUGH OR COLD TREATMENT:",
-        "toaster_info_text": "COUGH OR COLD TREATMENT:",
-        "toaster_type": "warning",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
         }
       },
       {
@@ -1375,7 +1319,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: SEVERE DEHYDRATION\n- If child has no other severe classification:\nGive fluid for severe dehydration (Plan C)\n\nOR\n\nIf child also has another severe\nclassification:\n- Refer URGENTLY to hospital with mother\ngiving frequent sips of ORS on the way\n- Advise the mother to continue\nbreastfeeding\n- If child is 2 years or older and there is\ncholera in your area, give antibiotic for\ncholera",
-        "toaster_info_text": "Child has: SEVERE DEHYDRATION\n- If child has no other severe classification:\nGive fluid for severe dehydration (Plan C)\n\nOR\n\nIf child also has another severe\nclassification:\n- Refer URGENTLY to hospital with mother\ngiving frequent sips of ORS on the way\n- Advise the mother to continue\nbreastfeeding\n- If child is 2 years or older and there is\ncholera in your area, give antibiotic for\ncholera",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -1420,8 +1363,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: SOME DEHYDRATION\n- Give fluid, zinc supplements, and food for some\ndehydration (Plan B)\n\nIf child also has a severe classification:\n- Refer URGENTLY to hospital with mother\ngiving frequent sips of ORS on the way\n- Advise the mother to continue\nbreastfeeding\n\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
-        "toaster_info_text": "Child has: SOME DEHYDRATION\n- Give fluid, zinc supplements, and food for some\ndehydration (Plan B)\n\nIf child also has a severe classification:\n- Refer URGENTLY to hospital with mother\ngiving frequent sips of ORS on the way\n- Advise the mother to continue\nbreastfeeding\n\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
-        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1445,13 +1386,12 @@
         }
       },
       {
-        "key": "no_dehydration_note",
+        "key": "no_dehydration_note", 
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: NO DEHYDRATION\n- Give fluid, zinc supplements, and food to treat\ndiarrhoea at home (Plan A)\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
-        "toaster_info_text": "Child has: NO DEHYDRATION\n- Give fluid, zinc supplements, and food to treat\ndiarrhoea at home (Plan A)\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -1482,7 +1422,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: SEVERE PERSISTENT DIARRHOEA\n- Treat dehydration before referral unless the child\nhas another severe classification\n- REFER TO HOSPITAL URGENTLY",
-        "toaster_info_text": "Child has: SEVERE PERSISTENT DIARRHOEA\n- Treat dehydration before referral unless the child\nhas another severe classification\n- REFER TO HOSPITAL URGENTLY",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -1513,7 +1452,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: PERSISTENT DIARRHOEA\n- Advise the mother on feeding a child who has\nPERSISTENT DIARRHOEA\n- Give multivitamins and minerals (including zinc) for 14 days\n- Follow-up in 5 days\n",
-        "toaster_info_text": "Child has: PERSISTENT DIARRHOEA\n- Advise the mother on feeding a child who has\nPERSISTENT DIARRHOEA\n- Give multivitamins and minerals (including zinc) for 14 days\n- Follow-up in 5 days\n",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -1544,7 +1482,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: DYSENTERY\n- Give ciprofloxacin for 3 days\n- Follow-up in 3 days",
-        "toaster_info_text": "Child has: DYSENTERY\n- Give ciprofloxacin for 3 days\n- Follow-up in 3 days",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -1764,7 +1701,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "154017AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment some dehydration:",
+        "label": "Treatment for some dehydration:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
@@ -1804,7 +1741,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment: Plan A",
+        "label": "Treatment for no dehydration: Plan A",
         "combine_checkbox_option_values": "true",
         "options": [
           {
@@ -1844,7 +1781,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "126626AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment:",
+        "label": "Treatment for severe persistent diarrhoea",
         "combine_checkbox_option_values": "true",
         "options": [
           {
@@ -1878,7 +1815,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5018AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment:",
+        "label": "Treatment for persistent diarrhoea",
         "combine_checkbox_option_values": "true",
         "options": [
           {
@@ -1913,6 +1850,8 @@
         "openmrs_entity_id": "152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Treatment for dysentery: Have you given ciprofloxacin for 3 days?",
+        "toaster_info_text": "Follow-up in 3 days.",
+        "toaster_type": "positive",
         "options": [
           {
             "key": "yes",
@@ -1955,6 +1894,8 @@
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Does the child have fever?",
+        "toaster_info_text": "*These temperatures are based on axillary temperature. Rectal temperatures are approximately 0.5°C higher.",
+        "toaster_type": "info",
         "options": [
           {
             "key": "yes",
@@ -1990,7 +1931,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "By history or feels hot or temperature 37.5°C* or above.",
-        "toaster_info_text": "By history or feels hot or temperature 37.5°C* or above.",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -2188,6 +2128,8 @@
         "openmrs_entity_id": "1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "What fever causes does the child display?",
+        "toaster_info_text": "Look and feel for fever symptoms **Look for local tenderness; oral sores; refusal to use a limb; hot tender swelling; red tender skin or boils; lower abdominal pain or pain on passing urine in older children.",
+        "toaster_type": "info",
         "combine_checkbox_option_values": "true",
         "exclusive": [
           "none_fever_cause"
@@ -2237,6 +2179,8 @@
         "openmrs_entity_id": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "Which measles symptoms does the child have?",
+        "toaster_info_text": "Look and feel for measles symptoms.",
+        "toaster_type": "info",
         "combine_checkbox_option_values": "true",
         "options": [
           {
@@ -2303,7 +2247,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Do a malaria test",
-        "toaster_info_text": "Do a malaria test",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -2459,7 +2402,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: VERY SEVERE FEBRILE\nDISEASE\n- Give first dose of artesunate or quinine for severe malaria\n- Give first dose of an appropriate antibiotic\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Treat the child to prevent low blood sugar\n- Refer URGENTLY to hospital",
-        "toaster_info_text": "Child has: VERY SEVERE FEBRILE\nDISEASE\n- Give first dose of artesunate or quinine for severe malaria\n- Give first dose of an appropriate antibiotic\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Treat the child to prevent low blood sugar\n- Refer URGENTLY to hospital",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -2490,7 +2432,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: MALARIA\n- Give recommended first line oral antimalarial\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial cause\nof fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
-        "toaster_info_text": "Child has: MALARIA\n- Give recommended first line oral antimalarial\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial cause\nof fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -2521,7 +2462,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: MALARIA\n- Give recommended first line oral antimalarial\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial cause\nof fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
-        "toaster_info_text": "Child has: MALARIA\n- Give recommended first line oral antimalarial\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial cause\nof fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -2552,7 +2492,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: FEVER:\nNO MALARIA\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
-        "toaster_info_text": "Child has: FEVER:\nNO MALARIA\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -2583,7 +2522,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: VERY SEVERE FEBRILE\nDISEASE\n- Give first dose of an appropriate antibiotic.\n- Treat the child to prevent low blood sugar.\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Refer URGENTLY to hospital.",
-        "toaster_info_text": "Child has: VERY SEVERE FEBRILE\nDISEASE\n- Give first dose of an appropriate antibiotic.\n- Treat the child to prevent low blood sugar.\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Refer URGENTLY to hospital.",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -2614,7 +2552,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: FEVER\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for any identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 2 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
-        "toaster_info_text": "Child has: FEVER\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for any identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 2 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -2645,7 +2582,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: SEVERE COMPLICATED\nMEASLES****\n- Give Vitamin A treatment\n- Give first dose of an appropriate antibiotic\n- If clouding of the cornea or pus draining from the eye, apply\ntetracycline eye ointment\n- Refer URGENTLY to hospital",
-        "toaster_info_text": "Child has: SEVERE COMPLICATED\nMEASLES****\n- Give Vitamin A treatment\n- Give first dose of an appropriate antibiotic\n- If clouding of the cornea or pus draining from the eye, apply\ntetracycline eye ointment\n- Refer URGENTLY to hospital",
+        "toaster_info_text": "**** Other important complications of measles - pneumonia, stridor, diarrhoea, ear infection, and acute malnutrition - are classified in other tables.",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -2676,7 +2613,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: MEASLES WITH EYE OR\nMOUTH\nCOMPLICATIONS****\n- Give Vitamin A treatment\n- If pus draining from the eye, treat eye infection with\ntetracycline eye ointment\n- If mouth ulcers, treat with gentian violet\n- Follow-up in 3 days",
-        "toaster_info_text": "Child has: MEASLES WITH EYE OR\nMOUTH\nCOMPLICATIONS****\n- Give Vitamin A treatment\n- If pus draining from the eye, treat eye infection with\ntetracycline eye ointment\n- If mouth ulcers, treat with gentian violet\n- Follow-up in 3 days",
+        "toaster_info_text": "**** Other important complications of measles - pneumonia, stridor, diarrhoea, ear infection, and acute malnutrition - are classified in other tables.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -2707,42 +2644,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has:\nMEASLES\n- Give Vitamin A treatment",
-        "toaster_info_text": "Child has:\nMEASLES\n- Give Vitamin A treatment",
         "toaster_type": "positive",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "fever_treatment_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "FEVER TREATMENT ",
-        "toaster_info_text": "FEVER TREATMENT",
-        "toaster_type": "info",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "vsf_disease_treat_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "VERY SEVERE FEBRILE DISEASE",
-        "toaster_info_text": "VERY SEVERE FEBRILE DISEASE",
-        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2757,7 +2659,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1714",
         "openmrs_entity_parent": "",
-        "label": "Treatment: \n\nRefer URGENTLY to hospital",
+        "label": "Treatment for VERY SEVERE FEBRILE DISEASE: \n\nRefer URGENTLY to hospital",
         "combine_checkbox_option_values": "true",
         "options": [
           {
@@ -2786,7 +2688,7 @@
           },
           {
             "key": "referal_vsf",
-            "text": "URGENTLY REFERED child to hospital",
+            "text": "URGENTLY REFERRED child to hospital",
             "value": false,
             "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
@@ -2810,29 +2712,12 @@
         }
       },
       {
-        "key": "malaria_treat_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "MALARIA",
-        "toaster_info_text": "MALARIA",
-        "toaster_type": "info",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "malaria_treat",
         "type": "check_box",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "116125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment:",
+        "label": "Treatment for MALARIA:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
@@ -2861,7 +2746,7 @@
           },
           {
             "key": "referal_mal",
-            "text": "Fever was present everyday for more than 7 days, reffered for assessment",
+            "text": "Fever was present everyday for more than 7 days, referred for assessment",
             "value": false,
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
@@ -2897,7 +2782,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: FEVER:\nNO MALARIA\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
-        "toaster_info_text": "Child has: FEVER:\nNO MALARIA\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -2913,7 +2797,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment:",
+        "label": "Treatment for NO MALARIA FEVER:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
@@ -2966,29 +2850,12 @@
         }
       },
       {
-        "key": "vsf_disease2_treat_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "VERY SEVERE FEBRILE DISEASE",
-        "toaster_info_text": "VERY SEVERE FEBRILE DISEASE",
-        "toaster_type": "info",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "vsf_disease2_treat",
         "type": "check_box",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1714",
         "openmrs_entity_parent": "",
-        "label": "Treatment:",
+        "label": "Treatment  for VERY SEVERE FEBRILE DISEASE:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
@@ -3035,29 +2902,12 @@
         }
       },
       {
-        "key": "illness_fever_treat_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "FEVER",
-        "toaster_info_text": "FEVER",
-        "toaster_type": "info",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "illness_fever_treat",
         "type": "check_box",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment:",
+        "label": "Treatment for FEVER:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
@@ -3110,29 +2960,12 @@
         }
       },
       {
-        "key": "complicated_measles_treat_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "COMPLICATED MEASLES\nRefer URGENTLY to hospital!",
-        "toaster_info_text": "COMPLICATED MEASLES\nRefer URGENTLY to hospital!",
-        "toaster_type": "info",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "complicated_measles_treat",
         "type": "check_box",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "115885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment:",
+        "label": "Treatment for COMPLICATED MEASLES:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
@@ -3179,29 +3012,12 @@
         }
       },
       {
-        "key": "measles_eye_mouth_treat_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "MEASLES WITH EYE OR MOUTH COMPLICATIONS",
-        "toaster_info_text": "MEASLES WITH EYE OR MOUTH COMPLICATIONS",
-        "toaster_type": "info",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "measles_eye_mouth_treat",
         "type": "check_box",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "157691AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment:",
+        "label": "Treatment for MEASLES WITH EYE OR MOUTH COMPLICATIONS:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
@@ -3248,29 +3064,12 @@
         }
       },
       {
-        "key": "illness_measles_treat_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "MEASLES",
-        "toaster_info_text": "MEASLES",
-        "toaster_type": "info",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "illness_measles_treat",
         "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "152209AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment given to the child for measles",
+        "label": "Treatment for MEASLES",
         "options": [
           {
             "key": "vit_a_measles",
@@ -3522,7 +3321,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: MASTOIDITIS\n- Give first dose of an appropriate antibiotic\n- Give first dose of paracetamol for pain\n- Refer URGENTLY to hospital",
-        "toaster_info_text": "Child has: MASTOIDITIS\n- Give first dose of an appropriate antibiotic\n- Give first dose of paracetamol for pain\n- Refer URGENTLY to hospital",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -3553,7 +3351,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: ACUTE EAR INFECTION\n- Give an antibiotic for 5 days\n- Give paracetamol for pain\n- Dry the ear by wicking\n- Follow-up in 5 days",
-        "toaster_info_text": "Child has: ACUTE EAR INFECTION\n- Give an antibiotic for 5 days\n- Give paracetamol for pain\n- Dry the ear by wicking\n- Follow-up in 5 days",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -3584,7 +3381,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: CHRONIC EAR INFECTION\n- Dry the ear by wicking\n- Treat with topical quinolone eardrops for 14 days\n- Follow-up in 5 days",
-        "toaster_info_text": "Child has: CHRONIC EAR INFECTION\n- Dry the ear by wicking\n- Treat with topical quinolone eardrops for 14 days\n- Follow-up in 5 days",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -3615,25 +3411,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: NO EAR INFECTION\n- No treatment",
-        "toaster_info_text": "Child has: NO EAR INFECTION\n- No treatment",
         "toaster_type": "positive",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "ear_problem_treatment_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "EAR PROBLEM TREATMENT",
-        "toaster_info_text": "EAR PROBLEM TREATMENT",
-        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -3755,23 +3533,6 @@
           "value": "true",
           "err": "Please select at least one"
         }
-      },
-      {
-        "key": "ear_treatment_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "Child has: NO EAR INFECTION\n- No treatment",
-        "toaster_info_text": "Child has: NO EAR INFECTION\n- No treatment",
-        "toaster_type": "positive",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
       }
     ]
   },
@@ -3821,8 +3582,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "SEVERE PALMAR PALLOR:\n\n- Check for sickle cell anaemia if common in this area.\n- Refer URGENTLY to hopsital",
-        "toaster_info_text": "SEVERE PALMAR PALLOR:\n\n- Check for sickle cell anaemia if common in this area.\n- Refer URGENTLY to hopsital",
+        "text": "Child has: SEVERE ANAEMIA:\n\n- Check for sickle cell anaemia if common in this area.\n- Refer URGENTLY to hopsital",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -3842,23 +3602,6 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "sick_child_calculation.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "severe_anaemia_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "Child has: SEVERE ANAEMIA\n- Refer URGENTLY to hopsital",
-        "toaster_info_text": "Child has: SEVERE ANAEMIA\n- Refer URGENTLY to hopsital",
-        "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
             }
           }
         }
@@ -3884,7 +3627,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: ANAEMIA\n- Give iron**\n- Give mebendazole if child is 1 year or older and\nhas not had a dose in the previous 6 months\n- Advise mother when to return immediately\n- Follow-up in 14 days",
-        "toaster_info_text": "Child has: ANAEMIA\n- Give iron**\n- Give mebendazole if child is 1 year or older and\nhas not had a dose in the previous 6 months\n- Advise mother when to return immediately\n- Follow-up in 14 days",
+        "toaster_info_text": "**If child has severe acute malnutrition and is receiving RUTF, DO NOT give iron because there is already an adequate amount of iron in RUTF.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -3915,7 +3658,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: NO ANAEMIA\n- If child is less than 2 years old, assess the child's feeding and counsel the mother according to the feeding recommendations.",
-        "toaster_info_text": "Child has: NO ANAEMIA\n- If child is less than 2 years old, assess the child's feeding and counsel the mother according to the feeding recommendations.",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -3967,25 +3709,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: NO ANAEMIA\n- No treatment required.",
-        "toaster_info_text": "Child has: NO ANAEMIA\n- No treatment required.",
         "toaster_type": "positive",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "anemia_treatment_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "ANAEMIA TREATMENT",
-        "toaster_info_text": "ANAEMIA TREATMENT",
-        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -4076,7 +3800,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has feeding problem: Follow-up in 5 days",
-        "toaster_info_text": "Child has feeding problem: Follow-up in 5 days",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -4132,7 +3855,9 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the child's reading"
-        }
+        },
+        "toaster_info_text": "MUAC is Mid-Upper Arm Circumference measured using MUAC tape in all children 6 months or older.",
+        "toaster_type": "info"
       },
       {
         "key": "wfh_zscore",
@@ -4155,7 +3880,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Weight-for-height (WFH) z-score is: \n {wfh_zscore}",
-        "toaster_info_text": "Weight-for-height (WFH) z-score is: \n {wfh_zscore}",
         "toaster_type": "info",
         "calculation": {
           "rules-engine": {
@@ -4186,6 +3910,8 @@
         "openmrs_entity_id": "ruft_feed",
         "openmrs_entity_parent": "",
         "label": "Offer the child RUTF** to eat. Child is:",
+        "toaster_info_text": "**RUTF is Ready-to-Use Therapeutic Food for conducting the appetite test and feeding children with severe acute malnutrition..",
+        "toaster_type": "info",
         "options": [
           {
             "key": "not_finished_rutf",
@@ -4270,7 +3996,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: COMPLICATED SEVERE ACUTE MALNUTRITION\n- Give first dose of an appropriate antibiotic\n- Treat the child to prevent low blood sugar\n- Keep the child warm\n- Refer URGENTLY to hospital",
-        "toaster_info_text": "Child has: COMPLICATED SEVERE ACUTE MALNUTRITION\n- Give first dose of an appropriate antibiotic\n- Treat the child to prevent low blood sugar\n- Keep the child warm\n- Refer URGENTLY to hospital",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -4301,7 +4026,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: UNCOMPLICATED SEVERE ACUTE MALNUTRITION\n- Give oral antibiotics for 5 days\n- Give ready-to-use therapeutic food for a child aged 6 months or more\n- Counsel the mother on how to feed the child\n- Assess for possible TB infection\n- Advise mother when to return immediately\n- Follow up in 7 days",
-        "toaster_info_text": "Child has: UNCOMPLICATED SEVERE ACUTE MALNUTRITION\n- Give oral antibiotics for 5 days\n- Give ready-to-use therapeutic food for a child aged 6 months or more\n- Counsel the mother on how to feed the child\n- Assess for possible TB infection\n- Advise mother when to return immediately\n- Follow up in 7 days",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -4332,7 +4056,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: MODERATE ACUTE MALNUTRITION\n- Assess the child's feeding and counsel the mother on the feeding recommendations\n- If feeding problem, follow up in 7 days\n- Assess for possible TB infection.\n- Advise mother when to return immediately\n- Follow-up in 30 days",
-        "toaster_info_text": "Child has: MODERATE ACUTE MALNUTRITION\n- Assess the child's feeding and counsel the mother on the feeding recommendations\n- If feeding problem, follow up in 7 days\n- Assess for possible TB infection.\n- Advise mother when to return immediately\n- Follow-up in 30 days",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -4363,25 +4086,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: NO ACUTE MALNUTRITION\n- If child is less than 2 years old, assess the child's feeding and counsel the mother on feeding according to the feeding recommendations\n- If feeding problem, follow-up in 7 days",
-        "toaster_info_text": "Child has: NO ACUTE MALNUTRITION\n- If child is less than 2 years old, assess the child's feeding and counsel the mother on feeding according to the feeding recommendations\n- If feeding problem, follow-up in 7 days",
         "toaster_type": "positive",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "acute_malnutrition_treatment_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "ACUTE MALNUTRITION TREATMENT\n",
-        "type": "toaster_notes",
-        "text": "ACUTE MALNUTRITION TREATMENT",
-        "toaster_info_text": "ACUTE MALNUTRITION TREATMENT",
-        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -4880,8 +4585,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Mother and child status unknown: TEST mother",
-        "toaster_info_text": "Mother and child status unknown: TEST mother",
-        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -4897,8 +4600,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Mother HIV positive and child status unknown: TEST child",
-        "toaster_info_text": "Mother HIV positive and child status unknown: TEST child",
-        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -5008,8 +4709,8 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: CONFIRMED HIV INFECTION\n\n- Initiate ART treatment and HIV care\n- Give cotrimoxazole prophylaxis*\n- Assess the chil's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Assess or refer for TB assessment at INH preventive therapy\n- Follow-up regularly as per national guidelines",
-        "toaster_info_text": "Child has: CONFIRMED HIV INFECTION\n\n- Initiate ART treatment and HIV care\n- Give cotrimoxazole prophylaxis*\n- Assess the chil's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Assess or refer for TB assessment at INH preventive therapy\n- Follow-up regularly as per national guidelines",
-        "toaster_type": "warning",
+        "toaster_info_text": "* Give cotrimoxazole prophylaxis to all HIV infected and HIV-exposed children until confirmed negative after cessation of breastfeeding.",
+        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -5039,8 +4740,8 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child is: HIV EXPOSED\n\n- Give cotrimoxazole prophylaxis\n- Start or continue ARV prophylaxis as recommended\n- Do virological test to confirm HIV status**\n- Assess the child's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Follow-up regularly as per national guidelines",
-        "toaster_info_text": "Child is: HIV EXPOSED\n\n- Give cotrimoxazole prophylaxis\n- Start or continue ARV prophylaxis as recommended\n- Do virological test to confirm HIV status**\n- Assess the child's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Follow-up regularly as per national guidelines",
-        "toaster_type": "warning",
+        "toaster_info_text": "** If virological test is negative, repeat test 6 weeks after the breastfeeding has stopped; if serological test is positive, do a virological test as soon as possible.",
+        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -5070,25 +4771,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child: HIV INFECTION UNLIKELY\n- Treat, counsel and follow-up existing infections",
-        "toaster_info_text": "Child: HIV INFECTION UNLIKELY\n- Treat, counsel and follow-up existing infections",
         "toaster_type": "positive",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "hiv_treatment_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "HIV TREATMENT",
-        "toaster_info_text": "HIV TREATMENT",
-        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
