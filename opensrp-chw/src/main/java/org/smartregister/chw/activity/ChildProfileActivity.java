@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,9 +17,12 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.malaria.dao.MalariaDao;
@@ -34,11 +38,14 @@ import java.util.Date;
 import java.util.List;
 
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
-public class ChildProfileActivity extends CoreChildProfileActivity {
+public class ChildProfileActivity extends CoreChildProfileActivity implements OnRetrieveNotifications {
     public FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new ChildProfileActivityFlv();
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
@@ -55,6 +62,16 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
             addChildReferralTypes();
         }
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                childBaseEntityId, this);
     }
 
     @Override
@@ -79,6 +96,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         } else if (i == R.id.textview_undo) {
             presenter().updateVisitNotDone(0);
         }
+        handleNotificationRowClick(this, view, notificationListAdapter, childBaseEntityId);
     }
 
     @Override
@@ -181,15 +199,15 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
     private void addChildReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.sick_child),
-                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getChildUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getChildReferralForm()));
+                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getChildUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getChildReferralForm(),CoreConstants.TASKS_FOCUS.SICK_CHILD));
 
         if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.child_gbv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getChildGbvReferralForm()));
+                    org.smartregister.chw.util.Constants.JSON_FORM.getChildGbvReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_CHILD_GBV));
         }
 
         if (MalariaDao.isRegisteredForMalaria(childBaseEntityId)) {
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null,null));
         }
     }
 
@@ -205,6 +223,11 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     @Override
         public void startFormActivity(JSONObject jsonForm) {
         startActivityForResult(flavor.getSickChildFormActivityIntent(jsonForm, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 
     public interface Flavor {

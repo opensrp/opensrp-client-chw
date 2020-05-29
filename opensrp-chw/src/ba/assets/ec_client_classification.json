@@ -283,6 +283,13 @@
             "creates_case": [
               "ec_referral_dismissal"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Not Yet Done Referral",
+            "creates_case": [
+              "ec_not_yet_done_referral"
+            ]
           }
         ]
       }

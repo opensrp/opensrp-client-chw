@@ -3,6 +3,8 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,9 +25,11 @@ import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.AncMemberProfileContract;
 import org.smartregister.chw.core.activity.CoreAncMemberProfileActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
@@ -61,13 +65,19 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private AncMemberProfileActivity.Flavor flavor = new AncMemberProfileActivityFlv();
+    private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
+        passToolbarTitle(activity, intent);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, baseEntityID);
         activity.startActivity(intent);
     }
@@ -77,6 +87,20 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
                 || !StringUtils.isBlank(getFamilyHeadPhoneNumber()));
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                memberObject.getBaseEntityId(), this);
+    }
 
     @Override
     protected void onCreation() {
@@ -126,21 +150,21 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     private void addAncReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs),
-                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getAncReferralForm()));
+                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getAncReferralForm(), CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS));
 
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm()));
+                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm()));
+                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm()));
+                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
 
         if (MalariaDao.isRegisteredForMalaria(baseEntityID)) {
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null, null));
         }
     }
 
@@ -252,6 +276,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
     @Override
+    public boolean hasEmergencyTransport() {
+        return flavor.hasEmergencyTransport();
+    }
+
+    @Override
     public void openMedicalHistory() {
         AncMedicalHistoryActivity.startMe(this, memberObject);
     }
@@ -276,13 +305,13 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     @Override
     public void setFamilyLocation() {
-        if (flavor.hasFamilyLocationRow() && !StringUtils.isBlank(getMemberGPS())){
+        if (flavor.hasFamilyLocationRow() && !StringUtils.isBlank(getMemberGPS())) {
             view_family_location_row.setVisibility(View.VISIBLE);
             rlFamilyLocation.setVisibility(View.VISIBLE);
         }
     }
 
-    protected String getMemberGPS(){
+    protected String getMemberGPS() {
         return memberObject.getGps();
     }
 
@@ -295,6 +324,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         } else if (id == R.id.textview_edit) {
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
         }
+        handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }
 
     @Override
@@ -355,8 +385,15 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         return referralTypeModels;
     }
 
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
+    }
+
     public interface Flavor {
         Boolean hasFamilyLocationRow();
+
+        Boolean hasEmergencyTransport();
     }
 
 }
