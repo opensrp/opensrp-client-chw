@@ -35,6 +35,7 @@ import org.smartregister.chw.presenter.AllClientsMemberPresenter;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.chw.util.UtilsFlv;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
@@ -124,8 +125,8 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         menu.findItem(R.id.action_location_info).setVisible(true);
-        menu.findItem(R.id.action_hiv_registration).setVisible(true);
-        menu.findItem(R.id.action_tb_registration).setVisible(true);
+        UtilsFlv.updateHivMenuItems(baseEntityId, menu);
+        UtilsFlv.updateTbMenuItems(baseEntityId, menu);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
@@ -141,12 +142,6 @@ public class AllClientsMemberProfileActivity extends CoreFamilyOtherMemberProfil
                     CoreConstants.JSON_FORM.getFamilyDetailsRegister(), this,
                     getFamilyRegistrationDetails(), Utils.metadata().familyRegister.updateEventType);
             if (preFilledForm != null) startFormActivity(preFilledForm);
-            return true;
-        } else if (itemId == R.id.action_hiv_registration) {
-            //TODO Start HIV registration form
-            return true;
-        } else if (itemId == R.id.action_tb_registration) {
-            //TODO Start HIV registration form
             return true;
         }
         return true;
