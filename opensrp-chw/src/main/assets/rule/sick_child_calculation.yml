@@ -173,7 +173,8 @@ description: Malaria test calculation
 priority: 1
 condition: "step6_fever.contains('yes')"
 actions:
-  - 'calculation = (((step2_danger_signs.contains("None") && step4_severe_pneumonia == 0 && step5_sev_dehydration == 0 && step5_sev_persistent_diarrhoea == 0 && step6_fever.contains("yes") && step6_malaria_risk.contains("high") && step6_travel_malaria_area.contains("yes")) || (step6_fever_causes.contains("none_fever_cause") && step6_malaria_risk.contains("low") && step6_travel_malaria_area.contains("no")))? 1 : 0)'
+  - 'calculation = (((step2_danger_signs.contains("None") && step4_severe_pneumonia == 0 && step5_sev_dehydration == 0 && step5_sev_persistent_diarrhoea == 0 && step6_fever.contains("yes") && step6_malaria_risk.contains("high") && step6_travel_malaria_area.contains("yes"))
+  || (step6_fever_causes.contains("none_fever_cause") && step6_malaria_risk.contains("low") && step6_travel_malaria_area.contains("no")))? 1 : 0)'
 ---
 name: step6_vsf_disease
 description: Dysentry calculation
@@ -361,4 +362,4 @@ description: Calculated field for when the child HIV infection is unlikely
 priority: 1
 condition: "true"
 actions:
-  - "calculation = ((step10_mother_test_result.contains('negative') || step10_child_test_result.contains('v_neg') || step10_child_hiv_test2.contains('v_neg') || step10_child_hiv_test2.contains('s_neg'))? 1 : 0)"
+  - "calculation = ((step10_mother_test_result.contains('negative') || step10_child_test_result.contains('v_neg') || step10_child_hiv_test2.contains('v_neg') || step10_child_hiv_test2.contains('s_neg') || step10_test_mother_results.contains('mother_negative'))? 1 : 0)"

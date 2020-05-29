@@ -3579,7 +3579,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "L'enfant a : ANÉMIE SÉVÈRE\n\n- Vérifiez si la drépanocytose est fréquente dans cette région.\n- Référez-vous URGENTEMENT à l'hôpital.",
-        "toaster_type": "info",
+        "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

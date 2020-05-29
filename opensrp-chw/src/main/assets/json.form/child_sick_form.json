@@ -3579,7 +3579,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has: SEVERE ANAEMIA:\n\n- Check for sickle cell anaemia if common in this area.\n- Refer URGENTLY to hopsital",
-        "toaster_type": "info",
+        "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
