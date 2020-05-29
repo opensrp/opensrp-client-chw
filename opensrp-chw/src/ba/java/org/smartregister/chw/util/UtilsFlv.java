@@ -11,6 +11,7 @@ import org.smartregister.chw.core.utils.MalariaVisitUtil;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.malaria.dao.MalariaDao;
+import org.smartregister.chw.tb.dao.TbDao;
 import org.smartregister.util.Utils;
 
 import java.util.Date;
@@ -67,7 +68,7 @@ public class UtilsFlv {
     }
 
     public static void updateTbMenuItems(String baseEntityId, Menu menu) {
-        if (HivDao.isRegisteredForHiv(baseEntityId)) {
+        if (TbDao.isRegisteredForTb(baseEntityId)) {
             menu.findItem(R.id.action_tb_registration).setVisible(false);
         }else{
             menu.findItem(R.id.action_tb_registration).setVisible(true);
