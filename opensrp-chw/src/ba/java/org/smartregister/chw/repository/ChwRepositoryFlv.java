@@ -86,6 +86,9 @@ public class ChwRepositoryFlv {
                 case 18:
                     upgradeToVersion18(db);
                     break;
+                case 19:
+                    upgradeToVersion19(db);
+                    break;
                 default:
                     break;
             }
@@ -292,10 +295,21 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion18(SQLiteDatabase db) {
         try {
             DatabaseMigrationUtils.createAddedECTables(db,
-                    new HashSet<>(Arrays.asList("ec_not_yet_done_referral", "ec_family_planning")),
+                    new HashSet<>(Arrays.asList("ec_not_yet_done_referral", "ec_family_planning", "ec_sick_child_followup", "ec_malaria_followup_hf", "ec_pnc_danger_signs_outcome", "ec_anc_danger_signs_outcome", "ec_referral", "ec_family_planning_update")),
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion18");
+        }
+    }
+
+    private static void upgradeToVersion19(SQLiteDatabase db) {
+        try {
+            RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
+            String addMissingColumnsQuery = "ALTER TABLE ec_family_member\n" +
+                    " ADD COLUMN primary_caregiver_name VARCHAR;\n";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion19");
         }
     }
 }
