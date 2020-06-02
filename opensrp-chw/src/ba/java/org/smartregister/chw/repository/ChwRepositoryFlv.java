@@ -6,6 +6,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
@@ -24,6 +25,8 @@ import org.smartregister.repository.EventClientRepository;
 import org.smartregister.util.DatabaseMigrationUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import timber.log.Timber;
@@ -79,6 +82,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 17:
                     upgradeToVersion17(db);
+                    break;
+                case 18:
+                    upgradeToVersion18(db);
                     break;
                 default:
                     break;
@@ -280,6 +286,16 @@ public class ChwRepositoryFlv {
             db.execSQL(addMissingColumnsQuery);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion17 ");
+        }
+    }
+
+    private static void upgradeToVersion18(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_not_yet_done_referral", "ec_family_planning")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion18");
         }
     }
 }
