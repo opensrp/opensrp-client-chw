@@ -222,3 +222,38 @@ indicators:
     indicatorQuery: "select count(distinct ev.baseEntityId) from event ev
                      inner join ec_child ec on ec.base_entity_id = ev.baseEntityId
                      where ev.eventType = 'Remove Child Under 5'and date(ec.dob) >= date('now', '-28 days') and date(ec.dod) >= date('now', '-12 month')"
+
+
+  - key: "pnc_report_indicator_10_1"
+    description: "COUNT of PNC women who are currently not due or due for a PNC health facility visit."
+    indicatorQuery: "select count(DISTINCT base_entity_id) from
+                     (select DISTINCT po.base_entity_id from ec_pregnancy_outcome po
+                                           inner join visits vi on vi.base_entity_id = po.base_entity_id
+                                           inner join visit_details vd on vd.visit_id = vi.visit_id
+                                           inner join ec_family_member fm on fm.base_entity_id = po.base_entity_id
+                                           where vi.visit_id IN (select visit_id from (select vdt.visit_id, max(vdt.details) next_visit_date from visit_details vdt where vdt.visit_key = 'pnc_hf_next_visit_date' group by vdt.visit_id ) rd where rd.next_visit_date >= date())
+                                           and po.is_closed = 0 and fm.date_removed IS NULL
+                     					  UNION
+                     					  select DISTINCT po.base_entity_id from ec_pregnancy_outcome po
+                     					  inner join ec_family_member fm on fm.base_entity_id = po.base_entity_id
+                     					  LEFT JOIN visits vi on vi.base_entity_id = po.base_entity_id
+                     					  where vi.base_entity_id IS NULL  and po.is_closed = 0 and fm.date_removed IS NULL
+                     					  and cast (julianday(date('now')) - julianday(substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) as int) <= 2
+                     					  )"
+
+  - key: "pnc_report_indicator_10_2"
+    description: "COUNT of PNC women who are currently overdue for a PNC health facility visit."
+    indicatorQuery: "select count(DISTINCT base_entity_id) from
+                     (select DISTINCT po.base_entity_id from ec_pregnancy_outcome po
+                                           inner join visits vi on vi.base_entity_id = po.base_entity_id
+                                           inner join visit_details vd on vd.visit_id = vi.visit_id
+                                           inner join ec_family_member fm on fm.base_entity_id = po.base_entity_id
+                                           where vi.visit_id in (select visit_id from (select vdt.visit_id, max(vdt.details) next_visit_date from visit_details vdt where vdt.visit_key = 'pnc_hf_next_visit_date' group by vdt.visit_id) rd where next_visit_date < date())
+                                           and po.is_closed = 0 and fm.date_removed IS NULL
+                     					  UNION
+                     					  select DISTINCT po.base_entity_id from ec_pregnancy_outcome po
+                     					  inner join ec_family_member fm on fm.base_entity_id = po.base_entity_id
+                     					  LEFT JOIN visits vi on vi.base_entity_id = po.base_entity_id
+                     					  where vi.base_entity_id IS NULL  and po.is_closed = 0 and fm.date_removed IS NULL
+                     					  and cast (julianday(date('now')) - julianday(substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) as int) > 2
+                     					  )"
