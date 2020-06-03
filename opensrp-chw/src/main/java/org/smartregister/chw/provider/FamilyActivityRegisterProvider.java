@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
@@ -112,12 +113,14 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
                 return context.getString(R.string.anc_visit_suffix);
             case CoreConstants.EventType.PNC_HOME_VISIT:
                 return context.getString(R.string.pnc_visit_suffix);
-            case CoreConstants.EventType.MALARIA_FOLLOW_UP_VISIT:
+            case Constants.FORMS.MALARIA_FOLLOW_UP_VISIT:
                 return context.getString(R.string.malaria_visit_suffix);
             case CoreConstants.EventType.WASH_CHECK:
                 return " · " + context.getString(R.string.wash_check);
             case CoreConstants.EventType.CHILD_HOME_VISIT:
                 return context.getString(R.string.home_visit_suffix);
+            case CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT:
+                return " · " + context.getString(R.string.routine_household_visit);
             default:
                 return "";
         }

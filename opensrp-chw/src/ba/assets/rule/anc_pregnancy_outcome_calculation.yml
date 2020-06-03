@@ -20,6 +20,14 @@ description: calculate dob
 priority: 1
 condition: "true"
 actions:
+  - "calculation = step1_delivery_date"---
+
+---
+name: step1_no_children
+description: number_of_babies
+priority: 1
+condition: "true"
+actions:
   - "calculation = step1_delivery_date"
 
 ---

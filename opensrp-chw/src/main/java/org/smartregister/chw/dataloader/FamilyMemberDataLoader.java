@@ -11,8 +11,8 @@ import org.joda.time.Years;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.core.form_data.NativeFormsDataLoader;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.form_data.NativeFormsDataLoader;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
@@ -30,12 +30,14 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
     private boolean isPrimaryCaregiver;
     private String title;
     private String eventType;
+    private String uniqueID;
 
-    public FamilyMemberDataLoader(String familyName, boolean isPrimaryCaregiver, String title, String eventType) {
+    public FamilyMemberDataLoader(String familyName, boolean isPrimaryCaregiver, String title, String eventType, String uniqueID) {
         this.familyName = familyName;
         this.isPrimaryCaregiver = isPrimaryCaregiver;
         this.title = title;
         this.eventType = eventType;
+        this.uniqueID = uniqueID;
     }
 
     @Override
@@ -82,6 +84,9 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
         super.bindNativeFormsMetaData(jsonObjectForm, context, baseEntityID);
 
         jsonObjectForm.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, eventType);
+        if (StringUtils.isNotBlank(uniqueID))
+            jsonObjectForm.put("current_opensrp_id", uniqueID);
+
         Map<String, Map<String, Object>> dbVals = getDbData(context, baseEntityID, eventType);
         if (dbVals != null) {
             for (Map.Entry<String, Map<String, Object>> entry : dbVals.entrySet()) {
@@ -120,19 +125,23 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
         String lastName = client.getLastName();
 
         JSONObject sameAsFamName = org.smartregister.util.JsonFormUtils.getFieldJSONObject(jsonArray, SAME_AS_FAM_NAME);
-        JSONObject sameOptions = sameAsFamName.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+        if(sameAsFamName != null) {
+            JSONObject sameOptions = sameAsFamName.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
 
-        if (familyName.equals(lastName)) {
-            sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, true);
-        } else {
-            sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, false);
+            if (familyName.equals(lastName)) {
+                sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, true);
+            } else {
+                sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, false);
+            }
         }
 
         JSONObject surname = org.smartregister.util.JsonFormUtils.getFieldJSONObject(jsonArray, SURNAME);
-        if (!familyName.equals(lastName)) {
-            surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, lastName);
-        } else {
-            surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, "");
+        if(surname != null) {
+            if (!familyName.equals(lastName)) {
+                surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, lastName);
+            } else {
+                surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, "");
+            }
         }
     }
 

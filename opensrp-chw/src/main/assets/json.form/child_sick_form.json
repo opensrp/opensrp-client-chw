@@ -1,0 +1,5247 @@
+{
+  "validate_on_submit": true,
+  "show_errors_on_submit": false,
+  "skip_blank_steps": true,
+  "count": "10",
+  "encounter_type": "Sick Child",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "CHILD DETAILS",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "age_in_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "gender",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "child_height",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "hint": "Take the child's height (cm)",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the child's height"
+        }
+      },
+      {
+        "key": "child_weight",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "hint": "Take the child's weight (kgs)",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the child's weight"
+        }
+      },
+      {
+        "key": "child_prob",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_prob",
+        "openmrs_entity_parent": "",
+        "edit_type": "name",
+        "hint": "What is the child's problem?",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the child's problem"
+        }
+      }
+    ]
+  },
+  "step2": {
+    "title": "GENERAL DANGER SIGNS",
+    "display_back_button": "true",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "danger_signs",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Check for general danger signs:",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "None"
+        ],
+        "options": [
+          {
+            "key": "not_able_to_drink",
+            "text": "Child is not able to drink or breastfeed",
+            "value": false,
+            "openmrs_choice_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "vomiting_everything",
+            "text": "Child is vomiting everything",
+            "value": false,
+            "openmrs_choice_id": "164482AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "convulsions",
+            "text": "Child has had convulsions",
+            "value": false,
+            "openmrs_choice_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "lethargic",
+            "text": "Child is lethargic or unconscious",
+            "value": false,
+            "openmrs_choice_id": "123818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "child_convulsing_now",
+            "text": "Child is convulsing now",
+            "value": false,
+            "openmrs_choice_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "None",
+            "text": "None",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "very_sev_disease",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child Has: VERY SEVERE DISEASE \n- Quickly complete the rest of this assessment \n- Give any pre-referral treatment immediately \n- Treat to prevent low blood sugar \n- Keep the child warm \n- Refer URGENTLY",
+        "toaster_info_text": "Child Has: VERY SEVERE DISEASE \n- Quickly complete the rest of this assessment \n- Give any pre-referral treatment immediately \n- Treat to prevent low blood sugar \n- Keep the child warm \n- Refer URGENTLY",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "diazepam_given",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "74745AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "CHILD IS CONVULSING NOW: Give diazepam",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "165169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Diazepam given"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "162854AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Diazepam NOT given"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      }
+    ]
+  },
+  "step3": {
+    "title": "MAIN SYMPTOMS",
+    "display_back_button": "true",
+    "next": "step4",
+    "fields": [
+      {
+        "key": "main_symptoms",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Does the child have any of these symptoms?",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "no_symptom"
+        ],
+        "options": [
+          {
+            "key": "difficult_breathing",
+            "text": "Cough or difficulty breathing",
+            "value": false,
+            "openmrs_choice_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "diarrhoea",
+            "text": "Diarrhoea",
+            "value": false,
+            "openmrs_choice_id": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "fever",
+            "text": "Fever",
+            "value": false,
+            "openmrs_choice_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "ear_problems",
+            "text": "Ear problems",
+            "value": false,
+            "openmrs_choice_id": "141585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no_symptom",
+            "text": "None",
+            "value": false,
+            "openmrs_choice_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "no_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has no danger signs or symptoms . \nFollow-up with the caregiver to make sure the child stays healthy.",
+        "toaster_info_text": "Child has no danger signs or symptoms . \nFollow-up with the caregiver to make sure the child stays healthy.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "COUGH OR DIFFICULT BREATHING",
+    "next": "step5",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "difficult_breathing",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Does the child have cough or difficult breathing?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "period_difficult_breathing",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "hint": "How many days has the child had a cough or difficult breathing?",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number of days"
+        }
+      },
+      {
+        "key": "breaths_minute_procedure",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Procedure:\n- Count the breaths in one minute. \n- Look for chest indrawing.\n- Look and listen for stridor.\n- Look and listen for wheezing.",
+        "toaster_info_text": "Procedure:\n- Count the breaths in one minute. \n- Look for chest indrawing.\n- Look and listen for stridor.\n- Look and listen for wheezing.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breaths_minute",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "hint": "Number of breaths per minute",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number of breaths"
+        }
+      },
+      {
+        "key": "fast_breathing",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breathing_symptoms",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Which of these difficult breathing symptoms does the child display?",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none",
+          "stridor"
+        ],
+        "options": [
+          {
+            "key": "wheezing",
+            "text": "Child is wheezing",
+            "value": false,
+            "openmrs_choice_id": "122863AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chest_indrawing",
+            "text": "Child has chest indrawing",
+            "value": false,
+            "openmrs_choice_id": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "stridor",
+            "text": "Child has stridor",
+            "value": false,
+            "openmrs_choice_id": "125782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_choice_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "bronchodilator",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Give a trial of rapid acting bronchodilator up to 3 times, 15-20 minutes apart.",
+        "toaster_info_text": "Give a trial of rapid acting bronchodilator up to 3 times, 15-20 minutes apart.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bronchodilator_given",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Did you administer the bronchodilator?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "breaths_minute2_procedure",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Count the breaths per minute again and look again for wheezing and/or chest indrawing.",
+        "toaster_info_text": "Count the breaths per minute again and look again for wheezing and/or chest indrawing.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breaths_minute2",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "hint": "Number of breaths per minute",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number of breaths"
+        }
+      },
+      {
+        "key": "fast_breathing2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "indrawing_bronchodilator",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Chest indrawing stopped after administering bronchodilator?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "fast_breathing_final",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "chest_indrawing",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hiv_exposure",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Has the child been exposed to or is infected with HIV?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          },
+          {
+            "key": "dont_know",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Don't know"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "severe_pneumonia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pneumonia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "cough_cold",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "severe_pneumonia_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: SEVERE PNEUMONIA OR VERY SEVERE DISEASE\n\n- Give first dose of an appropriate antibiotic \n- Refer URGENTLY to the hospital**",
+        "toaster_info_text": "Child has: SEVERE PNEUMONIA OR VERY SEVERE DISEASE\n\n- Give first dose of an appropriate antibiotic \n- Refer URGENTLY to the hospital**",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pneumonia_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: PNEUMONIA\n\n\n- Give oral Amoxicillin for 5 days ***\n- If wheezing (or disappeared afte rapidly acting bronchodilator) give an inhaled bronchodilator for 5 days ****\n- Soothe the throat and relieve the cough with a safe remedy\n- If coughing or more than 14 days or recurrent wheeze, refer for possible TB or asthma assessment\n- Advise mother when to return immediately\n- Follow-up in 3 days",
+        "toaster_info_text": "Child has: PNEUMONIA\n\n\n- Give oral Amoxicillin for 5 days ***\n- If wheezing (or disappeared afte rapidly acting bronchodilator) give an inhaled bronchodilator for 5 days ****\n- Soothe the throat and relieve the cough with a safe remedy\n- If coughing or more than 14 days or recurrent wheeze, refer for possible TB or asthma assessment\n- Advise mother when to return immediately\n- Follow-up in 3 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "cough_cold_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: COUGH OR COLD\n\n- If wheezing (or disappeared afte rapidly acting bronchodilator) give an inhaled bronchodilator for 5 days ****\n- Soothe the throat and relieve the cough with a safe remedy\n- If coughing or more than 14 days or recurrent wheeze, refer for possible TB or asthma assessment\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
+        "toaster_info_text": "Child has: COUGH OR COLD\n\n- If wheezing (or disappeared afte rapidly acting bronchodilator) give an inhaled bronchodilator for 5 days ****\n- Soothe the throat and relieve the cough with a safe remedy\n- If coughing or more than 14 days or recurrent wheeze, refer for possible TB or asthma assessment\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "severe_pneumonia_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "SEVERE PNEUMONIA OR VERY SEVERE DISEASE",
+        "toaster_info_text": "SEVERE PNEUMONIA OR VERY SEVERE DISEASE",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "severe_pneumonia_treatment",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "severe_pneumonia_treatment",
+        "openmrs_entity_parent": "",
+        "label": "Treatment given:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "first_dose_antibiotic",
+            "text": "First dose of an appropriate antibiotic given",
+            "value": false,
+            "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "refrered_urgently2",
+            "text": "URGENTLY referred to hospital",
+            "value": false,
+            "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "chest_indrawing_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "CHEST INDRAWING & HIV EXPOSED/INFECTED TREATMENT:\n\n- Give first dose of amoxicillin and refer.",
+        "toaster_info_text": "CHEST INDRAWING & HIV EXPOSED/INFECTED TREATMENT:\n\n- Give first dose of amoxicillin and refer.",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "chest_indraw_hiv",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment given:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "first_dose_antibiotic",
+            "text": "First dose of amoxicillin given",
+            "value": false,
+            "openmrs_choice_id": "71160AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "referred",
+            "text": "Referred",
+            "value": false,
+            "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "pneumonia_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "PNEUMONIA TREATMENT:",
+        "toaster_info_text": "PNEUMONIA TREATMENT:",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pneumonia_treatment",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "114100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment given:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "oral_amoxicillin",
+            "text": "Oral Amoxicillin given for 5 days",
+            "value": false,
+            "openmrs_choice_id": "71160AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "oral_amoxicillin2",
+            "text": "Oral Amoxicillin given for 3 days",
+            "value": false,
+            "openmrs_choice_id": "71160AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "inhaled_broncodilator",
+            "text": "Inhaled bronchodilator given for 5 days",
+            "value": false,
+            "openmrs_choice_id": "162400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "referred_tb_asthma",
+            "text": "Referred for possible TB or asthma assessment",
+            "value": false,
+            "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "cold_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "COUGH OR COLD TREATMENT:",
+        "toaster_info_text": "COUGH OR COLD TREATMENT:",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "cough_cold_treatment",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment given:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "inhaled_bronchodilator_cough",
+            "text": "Inhaled bronchodilator given for 5 days",
+            "value": false,
+            "openmrs_choice_id": "162400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "referred_tb_asthma",
+            "text": "Referred for possible TB or asthma assessment",
+            "value": false,
+            "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      }
+    ]
+  },
+  "step5": {
+    "title": "DIARRHOEA CHECK",
+    "next": "step6",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "diarrhoea",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Does the child have diarrhoea?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "diarrhoea_period",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164456AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "hint": "For how many days?",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number of days"
+        }
+      },
+      {
+        "key": "blood_stool",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "117671AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Is there blood in the stool?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "gen_condition",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "",
+        "label": "What is the general condition on the child?",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "lethargic_unconcious",
+            "text": "Child is lethargic and unconscious",
+            "value": false,
+            "openmrs_choice_id": "123818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "restless_irritable",
+            "text": "Child is restless and irritable",
+            "value": false,
+            "openmrs_choice_id": "152330AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "none",
+            "text": "Child not lethargic, unconscious, restless or irritable",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "sunken_eyes",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164457AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Does the child have sunken eyes?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child has sunken eyes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child does not have sunken eyes"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "drinking",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "drinking",
+        "openmrs_entity_parent": "",
+        "label": "Offer the child fluid. How is the child drinking?",
+        "options": [
+          {
+            "key": "drinking_poorly",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child is not able to drink or drinking poorly"
+          },
+          {
+            "key": "drinking_eargerly",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1840AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child is drinking eagerly, thirsty"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "pinching",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164459AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "How does the skin of the abdomen react when pinched?",
+        "options": [
+          {
+            "key": "skin_very_slowly",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "164458AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Skin pinch goes back very slowly (longer than 2 seconds)?"
+          },
+          {
+            "key": "skin_slowly",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Skin pinch goes back quickly"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "cholera_present",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "145621AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Has there been cholera instances in the community or have you visited an area with cholera?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "lethargic_unconcious_calc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sunken_eyes_calc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "not_able_drink",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "drinks",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pinched_skin_slowly",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "restless_irritable_calc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sev_dehydration_class",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sev_dehydration",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sev_dehydration_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: SEVERE DEHYDRATION\n- If child has no other severe classification:\nGive fluid for severe dehydration (Plan C)\n\nOR\n\nIf child also has another severe\nclassification:\n- Refer URGENTLY to hospital with mother\ngiving frequent sips of ORS on the way\n- Advise the mother to continue\nbreastfeeding\n- If child is 2 years or older and there is\ncholera in your area, give antibiotic for\ncholera",
+        "toaster_info_text": "Child has: SEVERE DEHYDRATION\n- If child has no other severe classification:\nGive fluid for severe dehydration (Plan C)\n\nOR\n\nIf child also has another severe\nclassification:\n- Refer URGENTLY to hospital with mother\ngiving frequent sips of ORS on the way\n- Advise the mother to continue\nbreastfeeding\n- If child is 2 years or older and there is\ncholera in your area, give antibiotic for\ncholera",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "some_dehydration_class",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "some_dehydration",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "some_dehydration_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: SOME DEHYDRATION\n- Give fluid, zinc supplements, and food for some\ndehydration (Plan B)\n\nIf child also has a severe classification:\n- Refer URGENTLY to hospital with mother\ngiving frequent sips of ORS on the way\n- Advise the mother to continue\nbreastfeeding\n\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
+        "toaster_info_text": "Child has: SOME DEHYDRATION\n- Give fluid, zinc supplements, and food for some\ndehydration (Plan B)\n\nIf child also has a severe classification:\n- Refer URGENTLY to hospital with mother\ngiving frequent sips of ORS on the way\n- Advise the mother to continue\nbreastfeeding\n\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_dehydration",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_dehydration_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: NO DEHYDRATION\n- Give fluid, zinc supplements, and food to treat\ndiarrhoea at home (Plan A)\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
+        "toaster_info_text": "Child has: NO DEHYDRATION\n- Give fluid, zinc supplements, and food to treat\ndiarrhoea at home (Plan A)\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sev_persistent_diarrhoea",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sev_persistent_diarrhoea_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: SEVERE PERSISTENT DIARRHOEA\n- Treat dehydration before referral unless the child\nhas another severe classification\n- REFER TO HOSPITAL URGENTLY",
+        "toaster_info_text": "Child has: SEVERE PERSISTENT DIARRHOEA\n- Treat dehydration before referral unless the child\nhas another severe classification\n- REFER TO HOSPITAL URGENTLY",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "persistent_diarrhoea",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "persistent_diarrhoea_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: PERSISTENT DIARRHOEA\n- Advise the mother on feeding a child who has\nPERSISTENT DIARRHOEA\n- Give multivitamins and minerals (including zinc) for 14 days\n- Follow-up in 5 days\n",
+        "toaster_info_text": "Child has: PERSISTENT DIARRHOEA\n- Advise the mother on feeding a child who has\nPERSISTENT DIARRHOEA\n- Give multivitamins and minerals (including zinc) for 14 days\n- Follow-up in 5 days\n",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dysentery",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dysentery_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: DYSENTERY\n- Give ciprofloxacin for 3 days\n- Follow-up in 3 days",
+        "toaster_info_text": "Child has: DYSENTERY\n- Give ciprofloxacin for 3 days\n- Follow-up in 3 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sev_dehydratn_treat1_calc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sev_dehydratn_treat1",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "154015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment for severe dehydration (Plan C)",
+        "options": [
+          {
+            "key": "sev_dehydratn_other_fluids",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Given fluid for severe dehydration (Plan C)"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "sev_dehydratn_treat2_calc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sev_dehydratn_treat2",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "154015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment for Severe dehydration with other classification",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "sev_dehydratn_no_treat",
+            "text": "No treatment given",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "sev_deh_referral",
+            "text": "Referred URGENTLY to hospital with mother giving frequent sips of ORS on the way",
+            "value": false,
+            "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "sev_deh_breastfeed",
+            "text": "Advised the mother to continue breastfeeding",
+            "value": false,
+            "openmrs_choice_id": "1910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "sev_deh_no_treat",
+            "text": "No treatment given",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "sev_dehydratn_treat3_calc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sev_dehydratn_treat3",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "154015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment for severe dehydration for child in a cholera prone area",
+        "options": [
+          {
+            "key": "sev_deh_other_fluids",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Given fluid for severe dehydration (Plan C)"
+          },
+          {
+            "key": "sev_deh_antibiotic",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Given antibiotic for cholera"
+          },
+          {
+            "key": "sev_deh_cholera_no_treatmnt",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No treatment"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "some_dehydration_others",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "154016AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment some dehydration: Plan B",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "some_dehydration_referal",
+            "text": "Refered URGENTLY to hospital with mother\ngiving frequent sips of ORS on the way",
+            "value": false,
+            "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "some_dehydration_breastfeeding",
+            "text": "Advised the mother to continue breastfeeding",
+            "value": false,
+            "openmrs_choice_id": "1910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "some_dehydration_return",
+            "text": "Advised mother when to return immediately",
+            "value": false,
+            "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "some_dehydration_follow_up",
+            "text": "Scheduled a follow-up in 5 days",
+            "value": false,
+            "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "some_dehydration_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "154017AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment some dehydration:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "some_dehydration_treat_zinc",
+            "text": "Given fluid, zinc supplements, and food for some dehydration (Plan B)",
+            "value": false,
+            "openmrs_choice_id": "161648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "some_dehydration_treat_return",
+            "text": "Advised mother when to return immediately",
+            "value": false,
+            "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "some_dehydration_treat_follow_up",
+            "text": "Scheduled a follow-up in 5 days if not improving",
+            "value": false,
+            "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "no_dehydration_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment: Plan A",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "no_dehydration_fluids",
+            "text": "Given fluid, zinc supplements, and food to treat diarrhoea at home (Plan A)",
+            "value": false,
+            "openmrs_choice_id": "161648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no_dehydration_return",
+            "text": "Advised mother when to return immediately",
+            "value": false,
+            "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no_dehydration_follow_up",
+            "text": "Follow-up in 5 days if not improving",
+            "value": false,
+            "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "sev_persistent_diarrhoea_treatment",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "126626AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "sev_pers_diarrhoea_treatment",
+            "text": "Treated dehydration before referral unless the child has another severe classification",
+            "value": false,
+            "openmrs_choice_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "sev_pers_referel",
+            "text": "Refered to hospital",
+            "value": false,
+            "openmrs_choice_id": "1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "persistent_diarrhoea_treatment",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5018AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "sev_pers_feeding",
+            "text": "Advised the mother on feeding a child who has PERSISTENT DIARRHOEA",
+            "value": false,
+            "openmrs_choice_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "sev_pers_multivitamins",
+            "text": "Gave multivitamins and minerals (including zinc) for 14 days",
+            "value": false,
+            "openmrs_choice_id": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "dysentery_treat",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment for dysentery: Have you given ciprofloxacin for 3 days?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Ciprofloxacin for 3 days given"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Ciprofloxacin for 3 days NOT given"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      }
+    ]
+  },
+  "step6": {
+    "title": "FEVER",
+    "display_back_button": "true",
+    "next": "step7",
+    "fields": [
+      {
+        "key": "fever",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Does the child have fever?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "fever_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "By history or feels hot or temperature 37.5°C* or above.",
+        "toaster_info_text": "By history or feels hot or temperature 37.5°C* or above.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_risk",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164485AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Is the child sleeping under a long-lasting insecticide treated mosquito net?",
+        "options": [
+          {
+            "key": "low",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child sleeping under a LLIT mosquito net."
+          },
+          {
+            "key": "high",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1408AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child NOT sleeping under a LLIT mosquito net."
+          },
+          {
+            "key": "no_risk",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child not at risk at all"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "travel_malaria_area",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160906AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Has child travelled to malaria risk areas?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Have traveled to Malaria Risk Areas"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Not travel to Malaria risk areas"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "fever_period",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "hint": "For how many days has the child had fever?",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number of days"
+        }
+      },
+      {
+        "key": "fever_everyday",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Has the fever been present everyday?\n\nIf fever has been more than 7 days",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "measles",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "measles",
+        "openmrs_entity_parent": "",
+        "label": "Has the child had measles within the last 3 months?",
+        "options": [
+          {
+            "key": "measles_3_months",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "134561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child had measles in the last 3 months"
+          },
+          {
+            "key": "measles_now",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child has measles now"
+          },
+          {
+            "key": "no_measles",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child has NOT had measles in the last 3 months"
+          },
+          {
+            "key": "not_known",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "163609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Not known"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "fever_causes",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "What fever causes does the child display?",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none_fever_cause"
+        ],
+        "options": [
+          {
+            "key": "stiff_neck",
+            "text": "Stiff neck",
+            "value": false,
+            "openmrs_choice_id": "112721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "fever_runny_nose",
+            "text": "Runny nose",
+            "value": false,
+            "openmrs_choice_id": "113224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "fever_bacteria",
+            "text": "Bacterial cause of fever**",
+            "value": false,
+            "openmrs_choice_id": "121262AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "none_fever_cause",
+            "text": "None",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "measles_symptoms",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Which measles symptoms does the child have?",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "gen_rash",
+            "text": "Generalized rash",
+            "value": false,
+            "openmrs_choice_id": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "cough",
+            "text": "Cough",
+            "value": false,
+            "openmrs_choice_id": "1488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "measles_runny_nose",
+            "text": "Runny nose",
+            "value": false,
+            "openmrs_choice_id": "113224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "red_eyes",
+            "text": "Red eyes",
+            "value": false,
+            "openmrs_choice_id": "127777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "measles_no_symptoms",
+            "text": "None",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "malaria_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_test_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Do a malaria test",
+        "toaster_info_text": "Do a malaria test",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_test_done",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Was Malaria test done?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Test done"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Test not available or not done"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "malaria_results",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "What were the Malaria test results?",
+        "options": [
+          {
+            "key": "mal_pos",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child Malaria test is POSITIVE"
+          },
+          {
+            "key": "mal_neg",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child Malaria test in NEGATIVE"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "add_measles_symptoms",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "115885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Does the child display any additional measles symptoms?",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "deep_ulcers",
+            "text": "Deep mouth ulcers",
+            "value": false,
+            "openmrs_choice_id": "111721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "ext_ulcers",
+            "text": "Extensive mouth ulcers",
+            "value": false,
+            "openmrs_choice_id": "105768BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+          },
+          {
+            "key": "pus_eye",
+            "text": "Pus draining from eye",
+            "value": false,
+            "openmrs_choice_id": "164491AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "clouding_cornea",
+            "text": "Clouding of the cornea",
+            "value": false,
+            "openmrs_choice_id": "152939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "vsf_disease",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "vsf_disease_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: VERY SEVERE FEBRILE\nDISEASE\n- Give first dose of artesunate or quinine for severe malaria\n- Give first dose of an appropriate antibiotic\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Treat the child to prevent low blood sugar\n- Refer URGENTLY to hospital",
+        "toaster_info_text": "Child has: VERY SEVERE FEBRILE\nDISEASE\n- Give first dose of artesunate or quinine for severe malaria\n- Give first dose of an appropriate antibiotic\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Treat the child to prevent low blood sugar\n- Refer URGENTLY to hospital",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_test_malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_test_malaria_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: MALARIA\n- Give recommended first line oral antimalarial\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial cause\nof fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_info_text": "Child has: MALARIA\n- Give recommended first line oral antimalarial\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial cause\nof fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: MALARIA\n- Give recommended first line oral antimalarial\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial cause\nof fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_info_text": "Child has: MALARIA\n- Give recommended first line oral antimalarial\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial cause\nof fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_malaria_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: FEVER:\nNO MALARIA\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_info_text": "Child has: FEVER:\nNO MALARIA\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "vsf_disease2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "vsf_disease2_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: VERY SEVERE FEBRILE\nDISEASE\n- Give first dose of an appropriate antibiotic.\n- Treat the child to prevent low blood sugar.\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Refer URGENTLY to hospital.",
+        "toaster_info_text": "Child has: VERY SEVERE FEBRILE\nDISEASE\n- Give first dose of an appropriate antibiotic.\n- Treat the child to prevent low blood sugar.\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Refer URGENTLY to hospital.",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "illness_fever",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "illness_fever_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: FEVER\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for any identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 2 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_info_text": "Child has: FEVER\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for any identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 2 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "complicated_measles",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "complicated_measles_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: SEVERE COMPLICATED\nMEASLES****\n- Give Vitamin A treatment\n- Give first dose of an appropriate antibiotic\n- If clouding of the cornea or pus draining from the eye, apply\ntetracycline eye ointment\n- Refer URGENTLY to hospital",
+        "toaster_info_text": "Child has: SEVERE COMPLICATED\nMEASLES****\n- Give Vitamin A treatment\n- Give first dose of an appropriate antibiotic\n- If clouding of the cornea or pus draining from the eye, apply\ntetracycline eye ointment\n- Refer URGENTLY to hospital",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "measles_eye_mouth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "measles_eye_mouth_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: MEASLES WITH EYE OR\nMOUTH\nCOMPLICATIONS****\n- Give Vitamin A treatment\n- If pus draining from the eye, treat eye infection with\ntetracycline eye ointment\n- If mouth ulcers, treat with gentian violet\n- Follow-up in 3 days",
+        "toaster_info_text": "Child has: MEASLES WITH EYE OR\nMOUTH\nCOMPLICATIONS****\n- Give Vitamin A treatment\n- If pus draining from the eye, treat eye infection with\ntetracycline eye ointment\n- If mouth ulcers, treat with gentian violet\n- Follow-up in 3 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "illness_measles",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "illness_measles_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has:\nMEASLES\n- Give Vitamin A treatment",
+        "toaster_info_text": "Child has:\nMEASLES\n- Give Vitamin A treatment",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fever_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "FEVER TREATMENT ",
+        "toaster_info_text": "FEVER TREATMENT",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "vsf_disease_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "VERY SEVERE FEBRILE DISEASE",
+        "toaster_info_text": "VERY SEVERE FEBRILE DISEASE",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "vsf_disease_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1714",
+        "openmrs_entity_parent": "",
+        "label": "Treatment: \n\nRefer URGENTLY to hospital",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "1st_dose_quinine_vsf",
+            "text": "Given first dose of artesunate or quinine for severe malaria",
+            "value": false,
+            "openmrs_choice_id": "83023AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "1st_dose_antibiotic_vsf",
+            "text": "Given first dose of an appropriate antibiotic",
+            "value": false,
+            "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "treat_low_blood_vsf",
+            "text": "Treated the child to prevent low blood sugar",
+            "value": false,
+            "openmrs_choice_id": "138065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "paracetamol_vsf",
+            "text": "Given one dose of Paracetamol in clinic for high fever (38.5°C or above)",
+            "value": false,
+            "openmrs_choice_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "referal_vsf",
+            "text": "URGENTLY REFERED child to hospital",
+            "value": false,
+            "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no_treat_vsf",
+            "text": "No treatment given",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "malaria_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "MALARIA",
+        "toaster_info_text": "MALARIA",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "116125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "1st_dose_antimalarial",
+            "text": "Given recommended first line oral antimalarial",
+            "value": false,
+            "openmrs_choice_id": "5839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "paracetamol_mal",
+            "text": "Given one dose of Paracetamol in clinic for high fever (38.5°C or above)",
+            "value": false,
+            "openmrs_choice_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "antibiotic_mal",
+            "text": "Given appropriate antibiotic treatment for an identified bacterial cause of fever",
+            "value": false,
+            "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "retrun_mal",
+            "text": "Advised mother when to return immediately",
+            "value": false,
+            "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "referal_mal",
+            "text": "Fever was present everyday for more than 7 days, reffered for assessment",
+            "value": false,
+            "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "follow_up_mal",
+            "text": "Scheduled a follow-up visit in 3 days",
+            "value": false,
+            "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no_treat_mal",
+            "text": "No treatment given",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "no_malaria_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: FEVER:\nNO MALARIA\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_info_text": "Child has: FEVER:\nNO MALARIA\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_malaria_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "paracetamol_no_mal",
+            "text": "Given one dose of Paracetamol in clinic for high fever (38.5°C or above)",
+            "value": false,
+            "openmrs_choice_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "antibiotic_no_mal",
+            "text": "Given appropriate antibiotic treatment for an identified bacterial cause of fever",
+            "value": false,
+            "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "retrun_no_mal",
+            "text": "Advised mother when to return immediately",
+            "value": false,
+            "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "referal_no_mal",
+            "text": "Fever was present everyday for more than 7 days, reffered for assessment",
+            "value": false,
+            "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "follow_up_no_mal",
+            "text": "Scheduled a follow-up visit in 3 days (if fever persists)",
+            "value": false,
+            "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no_treat_no_mal",
+            "text": "No treatment given",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "vsf_disease2_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "VERY SEVERE FEBRILE DISEASE",
+        "toaster_info_text": "VERY SEVERE FEBRILE DISEASE",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "vsf_disease2_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1714",
+        "openmrs_entity_parent": "",
+        "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "1st_dose_antibiotic_vsf2",
+            "text": "Given first dose of an appropriate antibiotic",
+            "value": false,
+            "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "treat_low_blood_vsf2",
+            "text": "Treated the child to prevent low blood sugar",
+            "value": false,
+            "openmrs_choice_id": "138065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "paracetamol_vsf2",
+            "text": "Given one dose of Paracetamol in clinic for high fever (38.5°C or higher)",
+            "value": false,
+            "openmrs_choice_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "referal_vsf2",
+            "text": "URGENTLY REFERED child to hospital",
+            "value": false,
+            "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no_treat_vsf2",
+            "text": "No treatment given",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "illness_fever_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "FEVER",
+        "toaster_info_text": "FEVER",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "illness_fever_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "paracetamol_fever",
+            "text": "Given one dose of Paracetamol in clinic for high fever (38.5°C or higher)",
+            "value": false,
+            "openmrs_choice_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "antibiotic_fever",
+            "text": "Give appropriate antibiotic treatment for an identified bacterial cause of fever",
+            "value": false,
+            "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "return_fever",
+            "text": "Advised mother when to return immediately",
+            "value": false,
+            "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "follow_up_fever",
+            "text": "Scheduled follow-up in 2 days (if fever persists)",
+            "value": false,
+            "openmrs_choice_id": "76948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "referal_fever",
+            "text": "Fever was present everyday for more than 7 days, reffered for assessment",
+            "value": false,
+            "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no_treat_fever",
+            "text": "No treatment given",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "complicated_measles_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "COMPLICATED MEASLES\nRefer URGENTLY to hospital!",
+        "toaster_info_text": "COMPLICATED MEASLES\nRefer URGENTLY to hospital!",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "complicated_measles_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "115885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "vit_a_cm",
+            "text": "Given Vitamin A treatment",
+            "value": false,
+            "openmrs_choice_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "1st_dose_antibiotic_cm",
+            "text": "Given first dose of an appropriate antibiotic",
+            "value": false,
+            "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "tetracycline_cm",
+            "text": "Clouding of the cornea or pus draining from the eye present, applied tetracycline eye ointment",
+            "value": false,
+            "openmrs_choice_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "referal_cm",
+            "text": "URGENTLY REFERED child to hospital",
+            "value": false,
+            "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no_treat_cm",
+            "text": "No treatment",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "measles_eye_mouth_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "MEASLES WITH EYE OR MOUTH COMPLICATIONS",
+        "toaster_info_text": "MEASLES WITH EYE OR MOUTH COMPLICATIONS",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "measles_eye_mouth_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "157691AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "vit_a_mem",
+            "text": "Given Vitamin A treatment",
+            "value": false,
+            "openmrs_choice_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "tetracycline_mem",
+            "text": "Pus draining from the eye, treated eye infection with tetracycline eye ointment",
+            "value": false,
+            "openmrs_choice_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "gentian_violet9",
+            "text": "Mouth has ulcers, treated with gentian violet 9",
+            "value": false,
+            "openmrs_choice_id": "84893AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "mem_follow_up",
+            "text": "Scheduled follow-up in 3 days",
+            "value": false,
+            "openmrs_choice_id": "76948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no_treat_mem",
+            "text": "No treatment",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "illness_measles_treat_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "MEASLES",
+        "toaster_info_text": "MEASLES",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "illness_measles_treat",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "152209AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment given to the child for measles",
+        "options": [
+          {
+            "key": "vit_a_measles",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Given Vitamin A treatment"
+          },
+          {
+            "key": "no_treat_measles",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No treatment"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      }
+    ]
+  },
+  "step7": {
+    "title": "EAR PROBLEMS",
+    "display_back_button": "true",
+    "next": "step8",
+    "fields": [
+      {
+        "key": "ear_problem",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "141585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Does the child have an ear problem?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "ear_pain",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Is there ear pain?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "ear_discharge",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1070AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Is there ear discharge?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "ear_discharge_time",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "hint": "For how many days?",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number of days"
+        }
+      },
+      {
+        "key": "pus",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164490AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Is there pus draining from the ear?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "tender_swelling",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Is there tender swelling behind the ear?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "mastoiditis_infection",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mastoiditis_infection_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: MASTOIDITIS\n- Give first dose of an appropriate antibiotic\n- Give first dose of paracetamol for pain\n- Refer URGENTLY to hospital",
+        "toaster_info_text": "Child has: MASTOIDITIS\n- Give first dose of an appropriate antibiotic\n- Give first dose of paracetamol for pain\n- Refer URGENTLY to hospital",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "acute_ear_infection",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "acute_ear_infection_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: ACUTE EAR INFECTION\n- Give an antibiotic for 5 days\n- Give paracetamol for pain\n- Dry the ear by wicking\n- Follow-up in 5 days",
+        "toaster_info_text": "Child has: ACUTE EAR INFECTION\n- Give an antibiotic for 5 days\n- Give paracetamol for pain\n- Dry the ear by wicking\n- Follow-up in 5 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "chronic_ear_infection",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "chronic_ear_infection_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: CHRONIC EAR INFECTION\n- Dry the ear by wicking\n- Treat with topical quinolone eardrops for 14 days\n- Follow-up in 5 days",
+        "toaster_info_text": "Child has: CHRONIC EAR INFECTION\n- Dry the ear by wicking\n- Treat with topical quinolone eardrops for 14 days\n- Follow-up in 5 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_ear_infection",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_ear_infection_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: NO EAR INFECTION\n- No treatment",
+        "toaster_info_text": "Child has: NO EAR INFECTION\n- No treatment",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ear_problem_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "EAR PROBLEM TREATMENT",
+        "toaster_info_text": "EAR PROBLEM TREATMENT",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mastoiditis_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "134614AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment given for mastoiditis:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "1st_dose_antibiotic",
+            "text": "First dose of an appropriate antibiotic given",
+            "value": false,
+            "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "1st_dose_paracetamol",
+            "text": "First dose of paracetamol given for pain",
+            "value": false,
+            "openmrs_choice_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "ear_referral",
+            "text": "URGENTLY referred to hospital",
+            "value": false,
+            "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "acute_ear_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "117086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment given for acute ear infection:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "acute_ear_antibiotic",
+            "text": "Antibiotic given for 5 days",
+            "value": false,
+            "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "acute_ear_paracetamol",
+            "text": "Paracetamol given for pain",
+            "value": false,
+            "openmrs_choice_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "acute_ear_dry",
+            "text": "Ear dried by wicking",
+            "value": false,
+            "openmrs_choice_id": "1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "chronic_ear_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "117087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment given for chronic ear infection:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "chronic_ear_dry",
+            "text": "Ear dried by wicking",
+            "value": false,
+            "openmrs_choice_id": "1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "topical_quinolone",
+            "text": "Treated with topical quinolone eardrops for 14 days",
+            "value": false,
+            "openmrs_choice_id": "162304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "ear_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: NO EAR INFECTION\n- No treatment",
+        "toaster_info_text": "Child has: NO EAR INFECTION\n- No treatment",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step8": {
+    "title": "CHECK FOR ANAEMIA",
+    "display_back_button": "true",
+    "next": "step9",
+    "fields": [
+      {
+        "key": "palmar_pallor",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Does the child have palmar pallor?",
+        "options": [
+          {
+            "key": "severe",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child has severe palmar pallor"
+          },
+          {
+            "key": "some",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "164493AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child has some palmar pallor"
+          },
+          {
+            "key": "no_pallor",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No palmar pallor"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "sev_palmar_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "SEVERE PALMAR PALLOR:\n\n- Check for sickle cell anaemia if common in this area.\n- Refer URGENTLY to hopsital",
+        "toaster_info_text": "SEVERE PALMAR PALLOR:\n\n- Check for sickle cell anaemia if common in this area.\n- Refer URGENTLY to hopsital",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "severe_anaemia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "severe_anaemia_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: SEVERE ANAEMIA\n- Refer URGENTLY to hopsital",
+        "toaster_info_text": "Child has: SEVERE ANAEMIA\n- Refer URGENTLY to hopsital",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "anaemia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "anaemia_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: ANAEMIA\n- Give iron**\n- Give mebendazole if child is 1 year or older and\nhas not had a dose in the previous 6 months\n- Advise mother when to return immediately\n- Follow-up in 14 days",
+        "toaster_info_text": "Child has: ANAEMIA\n- Give iron**\n- Give mebendazole if child is 1 year or older and\nhas not had a dose in the previous 6 months\n- Advise mother when to return immediately\n- Follow-up in 14 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_anaemia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_anaemia_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: NO ANAEMIA\n- If child is less than 2 years old, assess the child's feeding and counsel the mother according to the feeding recommendations.",
+        "toaster_info_text": "Child has: NO ANAEMIA\n- If child is less than 2 years old, assess the child's feeding and counsel the mother according to the feeding recommendations.",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "feeding_problem",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "158420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Does the child have a feeding problem?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "no_anaemia_treat_under2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: NO ANAEMIA\n- No treatment required.",
+        "toaster_info_text": "Child has: NO ANAEMIA\n- No treatment required.",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "anemia_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "ANAEMIA TREATMENT",
+        "toaster_info_text": "ANAEMIA TREATMENT",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "anaemia_treat_refer",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Was child referred to the nearest hospital?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "anaemia_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Anaemia treatment provided:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "give_iron",
+            "text": "Iron given",
+            "value": false,
+            "openmrs_choice_id": "78218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "mabedazol",
+            "text": "Mebendazole given",
+            "value": false,
+            "openmrs_choice_id": "79413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "anaemia_advise_mother",
+            "text": "Advised mother when to return immediately",
+            "value": false,
+            "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "feeding_problem_follow_up",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has feeding problem: Follow-up in 5 days",
+        "toaster_info_text": "Child has feeding problem: Follow-up in 5 days",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step9": {
+    "title": "ACUTE MALNUTRITION CHECK",
+    "display_back_button": "true",
+    "next": "step10",
+    "fields": [
+      {
+        "key": "oedema",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165375AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Does the child have oedema of both feet?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "muac",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "edit_type": "number",
+        "hint": "What is the child's MUAC reading (in mm)?",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the child's reading"
+        }
+      },
+      {
+        "key": "wfh_zscore",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "wfh_zscore_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Weight-for-height (WFH) z-score is: \n {wfh_zscore}",
+        "toaster_info_text": "Weight-for-height (WFH) z-score is: \n {wfh_zscore}",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "medical_complications",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "rutf_feed",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ruft_feed",
+        "openmrs_entity_parent": "",
+        "label": "Offer the child RUTF** to eat. Child is:",
+        "options": [
+          {
+            "key": "not_finished_rutf",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Not able to finish RUTF portion"
+          },
+          {
+            "key": "finished_rutf",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Able to finish RUTF portion"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "breastfeeding_prob",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164467AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Does the child have a breastfeeding\nproblem?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "complicated_sam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "complicated_sam_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: COMPLICATED SEVERE ACUTE MALNUTRITION\n- Give first dose of an appropriate antibiotic\n- Treat the child to prevent low blood sugar\n- Keep the child warm\n- Refer URGENTLY to hospital",
+        "toaster_info_text": "Child has: COMPLICATED SEVERE ACUTE MALNUTRITION\n- Give first dose of an appropriate antibiotic\n- Treat the child to prevent low blood sugar\n- Keep the child warm\n- Refer URGENTLY to hospital",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "uncomplicated_sam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "uncomplicated_sam_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: UNCOMPLICATED SEVERE ACUTE MALNUTRITION\n- Give oral antibiotics for 5 days\n- Give ready-to-use therapeutic food for a child aged 6 months or more\n- Counsel the mother on how to feed the child\n- Assess for possible TB infection\n- Advise mother when to return immediately\n- Follow up in 7 days",
+        "toaster_info_text": "Child has: UNCOMPLICATED SEVERE ACUTE MALNUTRITION\n- Give oral antibiotics for 5 days\n- Give ready-to-use therapeutic food for a child aged 6 months or more\n- Counsel the mother on how to feed the child\n- Assess for possible TB infection\n- Advise mother when to return immediately\n- Follow up in 7 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mam_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: MODERATE ACUTE MALNUTRITION\n- Assess the child's feeding and counsel the mother on the feeding recommendations\n- If feeding problem, follow up in 7 days\n- Assess for possible TB infection.\n- Advise mother when to return immediately\n- Follow-up in 30 days",
+        "toaster_info_text": "Child has: MODERATE ACUTE MALNUTRITION\n- Assess the child's feeding and counsel the mother on the feeding recommendations\n- If feeding problem, follow up in 7 days\n- Assess for possible TB infection.\n- Advise mother when to return immediately\n- Follow-up in 30 days",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_acute_maln",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_acute_maln_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: NO ACUTE MALNUTRITION\n- If child is less than 2 years old, assess the child's feeding and counsel the mother on feeding according to the feeding recommendations\n- If feeding problem, follow-up in 7 days",
+        "toaster_info_text": "Child has: NO ACUTE MALNUTRITION\n- If child is less than 2 years old, assess the child's feeding and counsel the mother on feeding according to the feeding recommendations\n- If feeding problem, follow-up in 7 days",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "acute_malnutrition_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ACUTE MALNUTRITION TREATMENT\n",
+        "type": "toaster_notes",
+        "text": "ACUTE MALNUTRITION TREATMENT",
+        "toaster_info_text": "ACUTE MALNUTRITION TREATMENT",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "compl_sev_maln_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162330AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Complicated severe acute malnutrition treatment given:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "complicated_sam_antibiotic",
+            "text": "Given first dose appropriate antibiotic",
+            "value": false,
+            "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "complicated_sam_low_bllod_sugar",
+            "text": "Treated the child to prevent low blood sugar",
+            "value": false,
+            "openmrs_choice_id": "1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "complicated_sam_keepwarm",
+            "text": "Kept the child warm",
+            "value": false,
+            "openmrs_choice_id": "164479AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "complicated_sam_referal",
+            "text": "Referred URGENTLY to hospital",
+            "value": false,
+            "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "sev_acute_maln_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Uncomplicated severe acute malnutrition treatment given:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "sam_anitbiotics",
+            "text": "Given oral antibiotics for 5 days",
+            "value": false,
+            "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "sam_therapeauticfood",
+            "text": "Given ready-to-use therapeutic food for a child aged 6 months or more",
+            "value": false,
+            "openmrs_choice_id": "161648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "sam_maln_councelling",
+            "text": "Counselled mother on how to feed the child",
+            "value": false,
+            "openmrs_choice_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "sam_maln_tb",
+            "text": "Assessed child for possible TB infection",
+            "value": false,
+            "openmrs_choice_id": "112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "sam_maln_return",
+            "text": "Advised mother when to return immediately",
+            "value": false,
+            "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "acute_maln_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Moderate acute malnutrition treatment given:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "acute_mal_feeding",
+            "text": "Assessed the child's feeding and counselled the mother on the feeding recommendations",
+            "value": false,
+            "openmrs_choice_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "acute_maln_follow_up7",
+            "text": "If feeding problem, followed up in 7 days",
+            "value": false,
+            "openmrs_choice_id": "159490AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "acute_maln_tb",
+            "text": "Assessed for possible TB infection",
+            "value": false,
+            "openmrs_choice_id": "112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "acute_maln_return",
+            "text": "Advised mother when to return immediately",
+            "value": false,
+            "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "acute_maln_follow_up30",
+            "text": "Scheduled a follow-up in 30 days",
+            "value": false,
+            "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "no_acute_maln_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "No acute malnutrition: Counseling given",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "no_acute_maln_feeding",
+            "text": "Assessed the child's feeding",
+            "value": false,
+            "openmrs_choice_id": "140475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no_acute_maln_couselling",
+            "text": "Counselled the mother on feeding according to the feeding recommendations",
+            "value": false,
+            "openmrs_choice_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no_acute_maln_follow_up",
+            "text": "Scheduled a follow-up after 7 days",
+            "value": false,
+            "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      }
+    ]
+  },
+  "step10": {
+    "title": "CHECK FOR HIV INFECTION",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "child_hiv_care",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159811AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Is the child already enrolled in HIV care?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "mother_hiv_test",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Has the mother had an HIV test?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "mother_test_result",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "What was the result for the mother HIV test?",
+        "options": [
+          {
+            "key": "positive",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Mother is HIV+"
+          },
+          {
+            "key": "negative",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Mother does not have HIV"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "child_hiv_test",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Has the child had an HIV test?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "child_test_result",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "What was the result of the child HIV test?",
+        "options": [
+          {
+            "key": "v_pos",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "163718AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Virological test positive"
+          },
+          {
+            "key": "v_neg",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Virological test negative"
+          },
+          {
+            "key": "s_pos",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "163717AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Serological test positive"
+          },
+          {
+            "key": "s_neg",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Serological test negative"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "hiv_breastfeeding",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1404AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Was the child breastfeeding at the time or 6 weeks before the test?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "hiv_breastfeeding_now",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Is the child breastfeeding now?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "on_arv",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "on_arv",
+        "openmrs_entity_parent": "",
+        "label": "Is the mother and child on ARV prophylaxis?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "test_mother_results_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mother and child status unknown: TEST mother",
+        "toaster_info_text": "Mother and child status unknown: TEST mother",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_hiv_test2_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mother HIV positive and child status unknown: TEST child",
+        "toaster_info_text": "Mother HIV positive and child status unknown: TEST child",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "test_mother_results",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "What is the mother's HIV status after the test?",
+        "options": [
+          {
+            "key": "mother_positive",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Mother is HIV positive"
+          },
+          {
+            "key": "mother_negative",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Mother is HIV negative"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "child_hiv_test2",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "What is the child's HIV status after the test?",
+        "options": [
+          {
+            "key": "v_pos",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "163718AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Virological test positive"
+          },
+          {
+            "key": "v_neg",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Virological test negative"
+          },
+          {
+            "key": "s_pos",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "163717AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Serological test positive"
+          },
+          {
+            "key": "s_neg",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Serological test negative"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "confirmed_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "confirmed_hiv_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child has: CONFIRMED HIV INFECTION\n\n- Initiate ART treatment and HIV care\n- Give cotrimoxazole prophylaxis*\n- Assess the chil's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Assess or refer for TB assessment at INH preventive therapy\n- Follow-up regularly as per national guidelines",
+        "toaster_info_text": "Child has: CONFIRMED HIV INFECTION\n\n- Initiate ART treatment and HIV care\n- Give cotrimoxazole prophylaxis*\n- Assess the chil's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Assess or refer for TB assessment at INH preventive therapy\n- Follow-up regularly as per national guidelines",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_hiv_exposed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_hiv_exposed_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child is: HIV EXPOSED\n\n- Give cotrimoxazole prophylaxis\n- Start or continue ARV prophylaxis as recommended\n- Do virological test to confirm HIV status**\n- Assess the child's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Follow-up regularly as per national guidelines",
+        "toaster_info_text": "Child is: HIV EXPOSED\n\n- Give cotrimoxazole prophylaxis\n- Start or continue ARV prophylaxis as recommended\n- Do virological test to confirm HIV status**\n- Assess the child's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Follow-up regularly as per national guidelines",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hiv_unlikely",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hiv_unlikely_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Child: HIV INFECTION UNLIKELY\n- Treat, counsel and follow-up existing infections",
+        "toaster_info_text": "Child: HIV INFECTION UNLIKELY\n- Treat, counsel and follow-up existing infections",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hiv_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "HIV TREATMENT",
+        "toaster_info_text": "HIV TREATMENT",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "confirmed_hiv_treat",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "HIV treatment given for child:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "art_initiated",
+            "text": "Initiated ART treatment and HIV care",
+            "value": false,
+            "openmrs_choice_id": "159811AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "cotrimoxazole",
+            "text": "Given Cotrimoxazole prophylaxis",
+            "value": false,
+            "openmrs_choice_id": "164361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hiv_feeding_assessment",
+            "text": "Assessed the child's feeding and provided appropriate counselling to the mother",
+            "value": false,
+            "openmrs_choice_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hiv_advise",
+            "text": "Advised the mother on home care",
+            "value": false,
+            "openmrs_choice_id": "165328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "tb_assessment",
+            "text": "Conducted TB assessment",
+            "value": false,
+            "openmrs_choice_id": "112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hiv_referal",
+            "text": "Referred for TB assessment and INH preventive therapy",
+            "value": false,
+            "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "hiv_exposed",
+        "type": "check_box",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "HIV treatment given for exposed child:",
+        "combine_checkbox_option_values": "true",
+        "options": [
+          {
+            "key": "cotrimoxazole2",
+            "text": "Given cotrimoxazole prophylaxis",
+            "value": false,
+            "openmrs_choice_id": "164361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hiv_arv_start",
+            "text": "Started or continued ARV prophylaxis as recommended",
+            "value": false,
+            "openmrs_choice_id": "163768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "virological_test",
+            "text": "Done virological test to confirm HIV status",
+            "value": false,
+            "openmrs_choice_id": "164401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hiv_feeding_assessment2",
+            "text": "Assessed the child's feeding and provided appropriate counselling to the mother",
+            "value": false,
+            "openmrs_choice_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hiv_advise2",
+            "text": "Advised the mother on home care",
+            "value": false,
+            "openmrs_choice_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        }
+      },
+      {
+        "key": "hiv_unlikely_treat",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Treatment for HIV unlikely child:",
+        "options": [
+          {
+            "key": "treated",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Child treated, mother counseled and followed up for other infections"
+          },
+          {
+            "key": "not_treated",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "None"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      }
+    ]
+  }
+}

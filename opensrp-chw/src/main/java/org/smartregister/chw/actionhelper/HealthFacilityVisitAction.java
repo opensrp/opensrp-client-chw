@@ -30,7 +30,7 @@ import timber.log.Timber;
 public class HealthFacilityVisitAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
     private Context context;
     private String jsonPayload;
-    private MemberObject memberObject;
+    protected MemberObject memberObject;
     private Map<Integer, LocalDate> dateMap;
 
     private String anc_hf_visit;

@@ -3,34 +3,33 @@ package org.smartregister.chw.activity;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import com.google.android.material.bottomnavigation.LabelVisibilityMode;
-import com.google.android.material.tabs.TabLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.widget.Toolbar;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import com.github.ybq.android.spinkit.style.FadingCircle;
+import com.google.android.material.tabs.TabLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.fragment.JobAidsDashboardFragment;
 import org.smartregister.chw.fragment.JobAidsGuideBooksFragment;
 import org.smartregister.chw.listener.JobsAidsBottomNavigationListener;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.reporting.domain.TallyStatus;
 import org.smartregister.reporting.event.IndicatorTallyEvent;
@@ -164,31 +163,10 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        if (bottomNavigationView != null) {
-
-            bottomNavigationView.getMenu().add(Menu.NONE, org.smartregister.R.string.action_me, Menu.NONE, org.smartregister.R.string.me)
-                    .setIcon(bottomNavigationHelper
-                            .writeOnDrawable(org.smartregister.R.drawable.bottom_bar_initials_background, "", getResources()));
-            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-
-            bottomNavigationView.getMenu().removeItem(org.smartregister.R.string.action_me);
-
-            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-
-            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-            bottomNavigationView.setSelectedItemId(org.smartregister.family.R.id.action_job_aids);
-
-            JobsAidsBottomNavigationListener childBottomNavigationListener = new JobsAidsBottomNavigationListener(this);
-            bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
-
-        }
-
-        if (!BuildConfig.SUPPORT_QR)
-            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
-
-        if (!BuildConfig.SUPPORT_REPORT)
-            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_job_aids);
-
+        JobsAidsBottomNavigationListener navigationListener = new JobsAidsBottomNavigationListener(this);
+        Utils.setupBottomNavigation(bottomNavigationHelper, bottomNavigationView, navigationListener);
+        if (bottomNavigationView != null)
+            bottomNavigationView.getMenu().findItem(R.id.action_job_aids).setChecked(true);
     }
 
     /**

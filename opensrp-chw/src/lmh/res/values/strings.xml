@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name" translatable="false">MOH VTS</string>
+    <string name="login_title" translatable="false">MOH VTS</string>
+    <string name="nav_logo" translatable="false">MOH VTS</string>
+</resources>

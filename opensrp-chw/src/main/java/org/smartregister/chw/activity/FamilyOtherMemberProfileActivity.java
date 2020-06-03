@@ -11,11 +11,11 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
+import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
-import org.smartregister.chw.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
@@ -29,15 +29,25 @@ import org.smartregister.view.contract.BaseProfileContract;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
+
 public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
 
     @Override
+    protected void onCreation() {
+        super.onCreation();
+        setIndependentClient(false);
+        updateToolbarTitle(this, R.id.toolbar_title, familyName);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+        String gender = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
         // Check if woman is already registered
-        if (!presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isWra(commonPersonObject)) {
+        if (flavor.hasANC() && !presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isOfReproductiveAge(commonPersonObject, "Female") &&  gender.equalsIgnoreCase("Female") ) {
             flavor.updateFpMenuItems(baseEntityId, menu);
             menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {
@@ -48,6 +58,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
 
         flavor.updateMalariaMenuItems(baseEntityId, menu);
+
+        if (gender.equalsIgnoreCase("Male") && flavor.isOfReproductiveAge(commonPersonObject, "Male")) {
+            flavor.updateMaleFpMenuItems(baseEntityId, menu);
+        }
+
         return true;
     }
 
@@ -64,19 +79,23 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     @Override
     protected void startMalariaRegister() {
-        MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
+        MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, familyBaseEntityId);
     }
 
     @Override
     protected void startFpRegister() {
         String dob = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
-        FpRegisterActivity.startFpRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpRegistrationForm(), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
+        String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
+
+        FpRegisterActivity.startFpRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpRegistrationForm(gender), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
     }
 
     @Override
     protected void startFpChangeMethod() {
         String dob = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
-        FpRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpChengeMethodForm(), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+        String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
+
+        FpRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpChangeMethodForm(gender), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
     }
 
     @Override
@@ -92,9 +111,10 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         boolean isPrimaryCareGiver = commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver);
         String eventName = Utils.metadata().familyMemberRegister.updateEventType;
 
+        String uniqueID = commonPersonObject.getColumnmaps().get(DBConstants.KEY.UNIQUE_ID);
 
-        NativeFormsDataBinder binder = new NativeFormsDataBinder(this, client.getCaseId());
-        binder.setDataLoader(new FamilyMemberDataLoader(familyName, isPrimaryCareGiver, titleString, eventName));
+        NativeFormsDataBinder binder = new NativeFormsDataBinder(getContext(), client.getCaseId());
+        binder.setDataLoader(new FamilyMemberDataLoader(familyName, isPrimaryCareGiver, titleString, eventName, uniqueID));
         JSONObject jsonObject = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getFamilyMemberRegister());
 
         try {
@@ -133,7 +153,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void initializePresenter() {
         super.initializePresenter();
-        onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, familyBaseEntityId);
+        onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, familyBaseEntityId,baseEntityId);
     }
 
     @Override
@@ -156,13 +176,17 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
      * build implementation differences file
      */
     public interface Flavor {
-        OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId);
+        OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId , final String baseEntityId);
 
-        boolean isWra(CommonPersonObjectClient commonPersonObject);
+        boolean isOfReproductiveAge(CommonPersonObjectClient commonPersonObject, String gender);
 
         void updateFpMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
 
         void updateMalariaMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+
+        void updateMaleFpMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+
+        boolean hasANC();
     }
 
     @Override
@@ -170,4 +194,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, baseEntityId);
     }
 
+    @Override
+    protected void setIndependentClient(boolean isIndependentClient) {
+        super.isIndependent = isIndependentClient;
+    }
 }

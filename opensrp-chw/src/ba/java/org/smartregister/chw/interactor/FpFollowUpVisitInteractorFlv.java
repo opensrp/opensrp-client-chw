@@ -133,6 +133,34 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
     }
 
     private void evaluateResupply() throws Exception {
+        String familyPlanningMethodTranslated = null;
+        switch (familyPlanningMethod){
+            case "COC":
+                familyPlanningMethodTranslated = context.getString(R.string.coc);
+                break;
+            case "POP":
+                familyPlanningMethodTranslated = context.getString(R.string.pop);
+                break;
+            case "Female sterilization":
+                familyPlanningMethodTranslated = context.getString(R.string.female_sterilization);
+                break;
+            case "Injectable":
+                familyPlanningMethodTranslated = context.getString(R.string.injectable);
+                break;
+            case "Male condom":
+                familyPlanningMethodTranslated = context.getString(R.string.male_condom);
+                break;
+            case "Female condom":
+                familyPlanningMethodTranslated = context.getString(R.string.female_condom);
+                break;
+            case "IUCD":
+                familyPlanningMethodTranslated = context.getString(R.string.iucd);
+                break;
+            default:
+                familyPlanningMethodTranslated = " ";
+                break;
+        }
+
         if (!familyPlanningMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_FEMALE_STERLIZATION) && !familyPlanningMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_IUCD)) {
             Map<String, List<VisitDetail>> details = null;
             if (editMode) {
@@ -150,7 +178,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
             }
 
             if (!familyPlanningMethod.equalsIgnoreCase(FamilyPlanningConstants.DBConstants.FP_INJECTABLE)) {
-                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.resupply, familyPlanningMethod))
+                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.resupply, familyPlanningMethodTranslated))
                         .withOptional(false)
                         .withDetails(details)
                         .withBaseEntityID(memberObject.getBaseEntityId())
@@ -160,7 +188,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
                         .withJsonPayload(jsonObject.toString())
                         .build();
 
-                actionList.put(context.getString(R.string.resupply, familyPlanningMethod), action);
+                actionList.put(context.getString(R.string.resupply, familyPlanningMethodTranslated), action);
             } else {
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.next_health_facility_visit))
                         .withOptional(false)
@@ -178,7 +206,7 @@ public class FpFollowUpVisitInteractorFlv extends DefaultFpFollowUpVisitInteract
         }
     }
 
-    public JSONObject injectFamilyPlaningMethod(JSONObject form) throws Exception {
+    private JSONObject injectFamilyPlaningMethod(JSONObject form) throws Exception {
         if (form == null) {
             return null;
         } else {

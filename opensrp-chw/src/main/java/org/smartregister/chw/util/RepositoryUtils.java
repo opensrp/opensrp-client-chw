@@ -1,5 +1,17 @@
 package org.smartregister.chw.util;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.family.util.DBConstants;
+import org.smartregister.util.DatabaseMigrationUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import timber.log.Timber;
+
 public interface RepositoryUtils {
 
     String[] UPDATE_REPOSITORY_TYPES = {
@@ -19,5 +31,23 @@ public interface RepositoryUtils {
             ")";
 
     String ADD_MISSING_REPORTING_COLUMN = "ALTER TABLE 'indicator_queries' ADD COLUMN expected_indicators TEXT NULL;";
+
+    String FAMILY_MEMBER_ADD_REASON_FOR_REGISTRATION = "ALTER TABLE 'ec_family_member' ADD COLUMN reasons_for_registration TEXT NULL;";
+
+    static void addDetailsColumnToFamilySearchTable(SQLiteDatabase db) {
+        try {
+
+            db.execSQL("ALTER TABLE ec_family ADD COLUMN entity_type VARCHAR; " +
+                    "UPDATE ec_family SET entity_type = 'ec_family' WHERE id is not null;");
+
+            List<String> columns = new ArrayList<>();
+            columns.add(CoreConstants.DB_CONSTANTS.DETAILS);
+            columns.add(DBConstants.KEY.ENTITY_TYPE);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.FAMILY, columns);
+
+        } catch (Exception e) {
+            Timber.e(e, "commonUpgrade -> Failed to add column 'entity_type' and 'details' to ec_family_search ");
+        }
+    }
 
 }

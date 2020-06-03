@@ -30,35 +30,12 @@ public class ChildUtilsTest extends BaseUnitTest {
         childUtilsFlv = Mockito.spy(ChildUtilsFlv.class);
     }
 
-    @Test
-    public void isFullyImmunizedForTwoYears() throws Exception {
-        String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
-                , "Penta1".toLowerCase(), "Penta2".toLowerCase(), "Penta3".toLowerCase(), "PCV1".toLowerCase(), "PCV2".toLowerCase()
-                , "PCV3".toLowerCase(), "Rota1".toLowerCase(), "Rota2".toLowerCase(), "IPV".toLowerCase(), "MCV1".toLowerCase()
-                , "MCV2".toLowerCase(), "yellowfever".toLowerCase(), "mcv2", "rota3", "mena", "rubella1", "rubella2"};
-        List<String> receivedVaccine = Arrays.asList(list);
-        setFinalStatic(ChildUtils.class.getDeclaredField("childUtilsFlv"), childUtilsFlv);
-
-        Assert.assertEquals("2", ChildUtils.isFullyImmunized(receivedVaccine));
-    }
-
     private static void setFinalStatic(Field field, Object newValue) throws Exception {
         field.setAccessible(true);
         Field modifiersField = Field.class.getDeclaredField("modifiers");
         modifiersField.setAccessible(true);
         modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
         field.set(null, newValue);
-    }
-
-    @Test
-    public void isFullyImmunizedForOneYears() throws Exception {
-        String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
-                , "Penta1".toLowerCase(), "Penta2".toLowerCase(), "Penta3".toLowerCase(), "PCV1".toLowerCase(), "PCV2".toLowerCase()
-                , "PCV3".toLowerCase(), "Rota1".toLowerCase(), "Rota2".toLowerCase(), "IPV".toLowerCase(),
-                "MCV1".toLowerCase(), "yellowfever".toLowerCase(), "rota3", "mena", "rubella1"};
-        List<String> receivedVaccine = Arrays.asList(list);
-        setFinalStatic(ChildUtils.class.getDeclaredField("childUtilsFlv"), childUtilsFlv);
-        Assert.assertEquals("1", ChildUtils.isFullyImmunized(receivedVaccine));
     }
 
     @Test

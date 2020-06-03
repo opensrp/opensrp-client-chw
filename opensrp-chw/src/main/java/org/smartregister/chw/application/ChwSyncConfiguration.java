@@ -5,6 +5,9 @@ import org.smartregister.SyncFilter;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.utils.Utils;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by samuelgithengi on 10/19/18.
  */
@@ -53,5 +56,20 @@ public class ChwSyncConfiguration extends SyncConfiguration {
     @Override
     public boolean updateClientDetailsTable() {
         return false;
+    }
+
+    @Override
+    public boolean isSyncUsingPost() {
+        return !BuildConfig.DEBUG;
+    }
+
+    @Override
+    public List<String> getSynchronizedLocationTags() {
+        return Collections.singletonList("MOH Jhpiego Facility Name");
+    }
+
+    @Override
+    public String getTopAllowedLocationLevel() {
+        return "Council";
     }
 }

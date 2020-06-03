@@ -2,16 +2,17 @@ package org.smartregister.chw.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.presenter.JobAidsDashboardFragmentPresenter;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class JobAidsDashboardFragment extends Fragment implements ReportContract.View, LoaderManager.LoaderCallbacks<List<Map<String, IndicatorTally>>> {
+    public static final String TAG = "JobAidsDashboardFragment";
 
     private static ReportContract.Presenter presenter;
     private ViewGroup visualizationsViewGroup;

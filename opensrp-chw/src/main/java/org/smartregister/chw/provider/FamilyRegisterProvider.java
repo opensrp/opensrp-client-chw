@@ -13,6 +13,7 @@ import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.fp.dao.FpDao;
+import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Utils;
@@ -26,14 +27,12 @@ import java.util.Set;
 public class FamilyRegisterProvider extends CoreRegisterProvider {
     protected final Context context;
     private final View.OnClickListener onClickListener;
-    private Flavor flavor = new FamilyRegisterProviderFlv();
 
     public FamilyRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
         super(context, commonRepository, visibleColumns, onClickListener, paginationClickListener);
         this.context = context;
         this.onClickListener = onClickListener;
     }
-
 
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
@@ -46,7 +45,6 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         }
     }
 
-
     @Override
     public void updateDueColumn(Context context, RegisterViewHolder viewHolder, ChildVisit childVisit) {
 
@@ -56,7 +54,6 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
     public List<ChildVisit> retrieveChildVisitList(Rules rules, List<Map<String, String>> list) {
         return null;
     }
-
 
     protected void setTasksDoneStatus(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.alert_complete_green));
@@ -104,8 +101,8 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             if (due > 0 && over_due > 0) {
                 over_due = over_due + due;
             }
-            //over_due = over_due + due;
 
+            //over_due = over_due + due;
             if (over_due > 0) {
                 setTasksOverdueStatus(context, viewHolder.dueButton, over_due);
             } else if (due > 0) {
@@ -142,13 +139,19 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         @Override
         protected Void doInBackground(Void... params) {
             list = getChildren(familyBaseEntityId);
-            ancWomanCount = getAncWomenCount(familyBaseEntityId);
-            pncWomanCount = getPncWomenCount(familyBaseEntityId);
 
-            if (flavor.hasMalaria())
-                malariaCount = ChwApplication.malariaRegisterRepository().getMalariaCount(familyBaseEntityId, CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION);
-            if(flavor.hasFp())
-                fpCount = FpDao.getFpWomenCount(familyBaseEntityId) != null ?  FpDao.getFpWomenCount(familyBaseEntityId)  : 0;
+            if (ChwApplication.getApplicationFlavor().hasANC())
+                ancWomanCount = getAncWomenCount(familyBaseEntityId);
+
+            if (ChwApplication.getApplicationFlavor().hasPNC())
+                pncWomanCount = getPncWomenCount(familyBaseEntityId);
+
+            if (ChwApplication.getApplicationFlavor().hasMalaria())
+                malariaCount = MalariaDao.getMalariaFamilyMembersCount(familyBaseEntityId);
+
+            if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
+                fpCount = FpDao.getFpWomenCount(familyBaseEntityId) != null ? FpDao.getFpWomenCount(familyBaseEntityId) : 0;
+
             services = FamilyDao.getFamilyServiceSchedule(familyBaseEntityId);
             return null;
         }
@@ -159,12 +162,8 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             updateChildIcons(viewHolder, list, ancWomanCount, pncWomanCount);
             updateMalariaIcons(viewHolder, malariaCount);
             updateButtonState(context, viewHolder, services);
-            updateFpIcons(viewHolder,fpCount);
+            updateFpIcons(viewHolder, fpCount);
         }
     }
 
-    public interface Flavor {
-        boolean hasMalaria();
-        boolean hasFp();
-    }
 }

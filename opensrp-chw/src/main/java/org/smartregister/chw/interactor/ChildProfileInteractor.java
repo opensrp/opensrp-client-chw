@@ -1,12 +1,15 @@
 package org.smartregister.chw.interactor;
 
 import android.content.Context;
-import androidx.annotation.VisibleForTesting;
 import android.util.Pair;
+
+import androidx.annotation.VisibleForTesting;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
@@ -104,8 +107,10 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
 
         String dobString = Utils.getDuration(Utils.getValue(getpClient().getColumnmaps(), DBConstants.KEY.DOB, false));
 
-        final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
+        Visit visit = AncLibrary.getInstance().visitRepository().getLatestVisit(baseEntityId, CoreConstants.EventType.CHILD_VISIT_NOT_DONE);
 
+        final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
+        childVisit.setLastNotVisitDate((visit == null || visit.getProcessed()) ? null : visit.getDate().getTime());
         Runnable runnable = () -> appExecutors.mainThread().execute(() -> callback.updateChildVisit(childVisit));
         appExecutors.diskIO().execute(runnable);
     }
