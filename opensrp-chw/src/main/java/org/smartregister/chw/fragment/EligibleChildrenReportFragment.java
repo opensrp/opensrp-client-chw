@@ -16,6 +16,7 @@ import org.smartregister.chw.domain.EligibleChild;
 import org.smartregister.chw.viewholder.ListableViewHolder;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.util.Utils;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -24,6 +25,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.FAMILY_LAST_NAME;
 import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
 
 public class EligibleChildrenReportFragment extends ReportResultFragment<EligibleChild> {
@@ -65,8 +67,11 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
             public void onNext(CommonPersonObjectClient client) {
                 setLoadingState(false);
                 Activity activity = getActivity();
-                if (activity != null)
-                    ChildProfileActivity.startMe(activity, false, new MemberObject(client), ChildProfileActivity.class);
+                if (activity != null) {
+                    MemberObject memberObject = new MemberObject(client);
+                    memberObject.setFamilyName(Utils.getValue(client.getColumnmaps(), FAMILY_LAST_NAME, false));
+                    ChildProfileActivity.startMe(activity, memberObject, ChildProfileActivity.class);
+                }
             }
 
             @Override
