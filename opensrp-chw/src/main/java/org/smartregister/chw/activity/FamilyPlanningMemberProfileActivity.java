@@ -3,6 +3,8 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,12 +13,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyPlanningMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFpUpcomingServicesActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreFamilyPlanningProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.presenter.CoreFamilyPlanningProfilePresenter;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FpUtil;
 import org.smartregister.chw.custom_view.FamilyPlanningFloatingMenu;
@@ -33,13 +39,19 @@ import java.util.List;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMemberProfileActivity
-        implements FamilyProfileExtendedContract.PresenterCallBack {
+        implements FamilyProfileExtendedContract.PresenterCallBack, OnRetrieveNotifications {
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     public static void startFpMemberProfileActivity(Activity activity, FpMemberObject memberObject) {
         Intent intent = new Intent(activity, FamilyPlanningMemberProfileActivity.class);
+        passToolbarTitle(activity, intent);
         intent.putExtra(FamilyPlanningConstants.FamilyPlanningMemberObject.MEMBER_OBJECT, memberObject);
         activity.startActivity(intent);
     }
@@ -48,6 +60,21 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     protected void onCreation() {
         super.onCreation();
         addFpReferralTypes();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                fpMemberObject.getBaseEntityId(), this);
     }
 
     @Override
@@ -108,6 +135,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
         if (id == R.id.record_fp_followup_visit) {
             openFollowUpVisitForm(false);
         }
+        handleNotificationRowClick(this, view, notificationListAdapter, fpMemberObject.getBaseEntityId());
     }
 
     private void checkPhoneNumberProvided() {
@@ -202,22 +230,27 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
 
     private void addFpReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.family_planning_referral),
-                org.smartregister.chw.util.Constants.JSON_FORM.getFamilyPlanningReferralForm(fpMemberObject.getGender())));
+                org.smartregister.chw.util.Constants.JSON_FORM.getFamilyPlanningReferralForm(fpMemberObject.getGender()), CoreConstants.TASKS_FOCUS.FP_SIDE_EFFECTS));
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm()));
+                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm()));
+                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm()));
+                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
 
     }
 
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 }
 
