@@ -80,6 +80,9 @@ public class ChwRepositoryFlv {
                 case 17:
                     upgradeToVersion17(db);
                     break;
+                case 18:
+                    upgradeToVersion18(db);
+                    break;
                 default:
                     break;
             }
@@ -280,6 +283,14 @@ public class ChwRepositoryFlv {
             db.execSQL(addMissingColumnsQuery);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion17 ");
+        }
+    }
+
+    private static void upgradeToVersion18(SQLiteDatabase db) {
+        try {
+            db.execSQL(RepositoryUtils.EC_REFERRAL_ADD_FP_METHOD_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 }

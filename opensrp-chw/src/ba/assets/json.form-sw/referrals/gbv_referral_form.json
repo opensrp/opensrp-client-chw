@@ -1,6 +1,5 @@
 {
   "form": "Referral form",
-  "count": "1",
   "encounter_type": "Referral Registration",
   "entity_id": "",
   "relational_id": "",
@@ -57,20 +56,6 @@
     {
       "title": "Rufaa kwenda Huduma ya kuzui ukatili wa kijinsia (dawati la jinsia)",
       "fields": [
-        {
-          "name": "chw_referral_service",
-          "type": "invisible",
-          "properties": {
-            "text": "Choose referral service"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "09978",
-            "openmrs_entity_parent": ""
-          },
-          "options": [],
-          "required_status": "yes:Please specify referral service"
-        },
         {
           "name": "problem",
           "type": "multi_choice_checkbox",
@@ -145,7 +130,13 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali taja hali ya mteja / shida"
+          "required_status": "yes:Tafadhali taja hali ya mteja / shida",
+          "dependent_calculations": [
+            "referral_date",
+            "referral_time",
+            "referral_type",
+            "referral_status"
+          ]
         },
         {
           "name": "problem_other",
@@ -191,36 +182,6 @@
             "openmrs_entity_parent": ""
           },
           "required_status": "true:Tafadhali chagua tarehe ya kuhudhuria hospitali"
-        },
-        {
-          "name": "referral_date",
-          "meta_data": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          "type": "hidden"
-        },
-        {
-          "name": "referral_time",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "referral_time",
-          "type": "hidden"
-        },
-        {
-          "name": "referral_type",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "referral_type",
-          "type": "hidden"
-        },
-        {
-          "name": "referral_status",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "referral_status",
-          "type": "hidden"
         }
       ]
     }

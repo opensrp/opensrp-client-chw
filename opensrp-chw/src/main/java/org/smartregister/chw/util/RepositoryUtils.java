@@ -50,4 +50,6 @@ public interface RepositoryUtils {
         }
     }
 
+    String EC_REFERRAL_ADD_FP_METHOD_COLUMN = "ALTER TABLE 'ec_referral' ADD COLUMN fp_method_accepted_referral TEXT NULL;";
+
 }

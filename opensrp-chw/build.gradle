@@ -148,7 +148,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"MOH Jhpiego Facility Name" , "Village"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '17'
+            buildConfigField "int", "DATABASE_VERSION", '18'
         }
         chad {
             dimension = 'baseDimension'
@@ -254,7 +254,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.2.11-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.2.12-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'

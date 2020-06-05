@@ -1,6 +1,5 @@
 {
   "form": "Referral form",
-  "count": "1",
   "encounter_type": "Referral Registration",
   "entity_id": "",
   "relational_id": "",
@@ -104,7 +103,8 @@
                 "openmrs_entity_id": "needs_more_services",
                 "openmrs_entity_parent": ""
               }
-            },{
+            },
+            {
               "name": "has_great_level_of_stress_and_fear",
               "text": "Has great level of stress and fear",
               "meta_data": {
@@ -112,7 +112,8 @@
                 "openmrs_entity_id": "has_great_level_of_stress_and_fear",
                 "openmrs_entity_parent": ""
               }
-            },{
+            },
+            {
               "name": "threatened_to_be_killed",
               "text": "Threatened to be killed",
               "meta_data": {
@@ -120,7 +121,8 @@
                 "openmrs_entity_id": "threatened_to_be_killed",
                 "openmrs_entity_parent": ""
               }
-            },{
+            },
+            {
               "name": "child_has_a_disability",
               "text": "The child has a disability / has trouble walking",
               "meta_data": {
@@ -128,7 +130,8 @@
                 "openmrs_entity_id": "child_has_a_disability",
                 "openmrs_entity_parent": ""
               }
-            },{
+            },
+            {
               "name": "child_does_not_want_to_go_home",
               "text": "The child does not want to go home / go to school",
               "meta_data": {
@@ -147,7 +150,13 @@
               }
             }
           ],
-          "required_status": "yes:Please specify client's problems"
+          "required_status": "yes:Please specify client's problems",
+          "dependent_calculations": [
+            "referral_date",
+            "referral_time",
+            "referral_type",
+            "referral_status"
+          ]
         },
         {
           "name": "problem_other",
@@ -193,36 +202,6 @@
             "openmrs_entity_parent": ""
           },
           "required_status": "true:Please specify the appointment date"
-        },
-        {
-          "name": "referral_date",
-          "meta_data": {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          "type": "hidden"
-        },
-        {
-          "name": "referral_time",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "referral_time",
-          "type": "hidden"
-        },
-        {
-          "name": "referral_type",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "referral_type",
-          "type": "hidden"
-        },
-        {
-          "name": "referral_status",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "referral_status",
-          "type": "hidden"
         }
       ]
     }
