@@ -353,8 +353,15 @@
     <string name="add_client">Ongeza mteja</string>
 
     <!--    Unified Referral Forms-->
-    <string name="hiv_referral">Kliniki ya tiba na matunzo</string>
-    <string name="tb_referral">Kliniki ya tiba ya kifua kikuu</string>
+    <string name="hiv_referral">Kliniki ya Tiba na Matunzo</string>
+    <string name="tb_referral">Kliniki ya Tiba ya Kifua kikuu</string>
     <string name="gbv_referral">Rufaa ya ukatili wa kijinsia</string>
     <string name="child_gbv_referral">Rufaa ya ukatili wa kijinsia kwa mtoto</string>
+    <string name="client_registration" >Usajili wa mteja</string>
+    <string name="error_opening_profile">Kosa wakati wa kufungua profile</string>
+    <string name="location_details">Taarifa za Mahali</string>
+    <string name="update_client_registration" >Update taarifa za mteja</string>
+
+    <!---Anc Home Visit Strings -->
+    <string name="anc_home_visit_pregnancy_risk">Hatari ya ujauzito</string>
 </resources>
