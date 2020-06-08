@@ -377,7 +377,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.suspected_malaria),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getMalariaReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
+                    JSON_FORM.getMalariaReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
                     JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));

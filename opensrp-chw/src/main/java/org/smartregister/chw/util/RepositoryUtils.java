@@ -14,6 +14,10 @@ import timber.log.Timber;
 
 public interface RepositoryUtils {
 
+    String ADD_MISSING_REPORTING_COLUMN = "ALTER TABLE 'indicator_queries' ADD COLUMN expected_indicators TEXT NULL;";
+    String FAMILY_MEMBER_ADD_REASON_FOR_REGISTRATION = "ALTER TABLE 'ec_family_member' ADD COLUMN reasons_for_registration TEXT NULL;";
+    String EC_REFERRAL_ADD_FP_METHOD_COLUMN = "ALTER TABLE 'ec_referral' ADD COLUMN fp_method_accepted_referral TEXT NULL;";
+
     String[] UPDATE_REPOSITORY_TYPES = {
             "UPDATE recurring_service_types SET service_group = 'woman' WHERE type = 'IPTp-SP';",
             "UPDATE recurring_service_types SET service_group = 'child' WHERE type != 'IPTp-SP';",
@@ -30,10 +34,6 @@ public interface RepositoryUtils {
             "having count(*) > 1 " +
             ")";
 
-    String ADD_MISSING_REPORTING_COLUMN = "ALTER TABLE 'indicator_queries' ADD COLUMN expected_indicators TEXT NULL;";
-
-    String FAMILY_MEMBER_ADD_REASON_FOR_REGISTRATION = "ALTER TABLE 'ec_family_member' ADD COLUMN reasons_for_registration TEXT NULL;";
-
     static void addDetailsColumnToFamilySearchTable(SQLiteDatabase db) {
         try {
 
@@ -49,7 +49,5 @@ public interface RepositoryUtils {
             Timber.e(e, "commonUpgrade -> Failed to add column 'entity_type' and 'details' to ec_family_search ");
         }
     }
-
-    String EC_REFERRAL_ADD_FP_METHOD_COLUMN = "ALTER TABLE 'ec_referral' ADD COLUMN fp_method_accepted_referral TEXT NULL;";
 
 }
