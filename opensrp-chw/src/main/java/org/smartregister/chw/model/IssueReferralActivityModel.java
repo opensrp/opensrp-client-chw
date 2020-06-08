@@ -1,6 +1,5 @@
 package org.smartregister.chw.model;
 
-
 import androidx.annotation.NonNull;
 
 import org.smartregister.chw.core.utils.ChildDBConstants;

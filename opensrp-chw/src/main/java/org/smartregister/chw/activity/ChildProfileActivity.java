@@ -24,8 +24,8 @@ import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreConstants.JSON_FORM;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
-import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
@@ -38,6 +38,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
+import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
@@ -135,10 +136,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_malaria_registration:
-                MalariaRegisterActivity.startMalariaRegistrationActivity(ChildProfileActivity.this, ((CoreChildProfilePresenter) presenter()).getChildClient().getCaseId(), ((ChildProfilePresenter) presenter()).getFamilyID());
+                MalariaRegisterActivity.startMalariaRegistrationActivity(ChildProfileActivity.this, presenter().getChildClient().getCaseId(), ((ChildProfilePresenter) presenter()).getFamilyID());
                 return true;
             case R.id.action_remove_member:
-                IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, ((ChildProfilePresenter) presenter()).getChildClient(),
+                IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, presenter().getChildClient(),
                         ((ChildProfilePresenter) presenter()).getFamilyID()
                         , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID(), ChildRegisterActivity.class.getCanonicalName());
 
@@ -177,7 +178,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     }
 
     private void openUpcomingServicePage() {
-        MemberObject memberObject = new MemberObject(((ChildProfilePresenter) presenter()).getChildClient());
+        MemberObject memberObject = new MemberObject(presenter().getChildClient());
         CoreUpcomingServicesActivity.startMe(this, memberObject);
     }
 
@@ -199,15 +200,17 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
     private void addChildReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.sick_child),
-                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getChildUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getChildReferralForm(),CoreConstants.TASKS_FOCUS.SICK_CHILD));
+                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getChildUnifiedReferralForm()
+                        : JSON_FORM.getChildReferralForm(), CoreConstants.TASKS_FOCUS.SICK_CHILD));
 
-        if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.child_gbv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getChildGbvReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_CHILD_GBV));
+        if (memberObject.getAge() >= 5) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.suspected_malaria),
+                    BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? CoreConstants.JSON_FORM.getMalariaReferralForm()
+                            : MALARIA_REFERRAL_FORM, CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
         }
-
-        if (MalariaDao.isRegisteredForMalaria(childBaseEntityId)) {
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null,null));
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.child_gbv_referral),
+                    JSON_FORM.getChildGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_CHILD_GBV));
         }
     }
 
@@ -221,7 +224,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     }
 
     @Override
-        public void startFormActivity(JSONObject jsonForm) {
+    public void startFormActivity(JSONObject jsonForm) {
         startActivityForResult(flavor.getSickChildFormActivityIntent(jsonForm, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 

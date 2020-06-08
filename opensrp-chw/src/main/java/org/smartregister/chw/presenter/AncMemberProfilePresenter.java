@@ -46,7 +46,7 @@ public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
                 JSONObject formJson = FormUtils.getInstance(context).getFormJsonFromRepositoryOrAssets(Constants.JSON_FORM.getAncUnifiedReferralForm());
                 formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
                 ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(context,
-                        getEntityId(), formJson);
+                        getEntityId(), formJson, true);
             } catch (Exception ex) {
                 Timber.e(ex);
             }

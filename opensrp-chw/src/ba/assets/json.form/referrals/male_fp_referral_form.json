@@ -1,9 +1,9 @@
 {
-  "form": "Referral form",
-  "encounter_type": "Referral Registration",
+  "form": "Family Planning Referral",
+  "encounter_type": "Family Planning Referral",
   "entity_id": "",
   "relational_id": "",
-  "rules_file": "rule/general_neat_referral_form_rules.yml",
+  "rules_file": "rule/family_planning_referral_rules.yml",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -54,103 +54,69 @@
   },
   "steps": [
     {
-      "title": "Child Gender-based violence services Referral Form",
+      "title": "Family Planning Referral",
       "fields": [
         {
-          "name": "problem",
-          "type": "multi_choice_checkbox",
-          "properties": {
-            "text": "Tatizo / hali ya afya ya mteja"
-          },
+          "name": "fp_method_accepted_referral",
+          "type": "radio_group",
           "meta_data": {
-            "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "FP method chosen requiring a referral"
           },
           "options": [
             {
-              "name": "has_moved_out_from_home",
-              "text": "Amehama nyumbani",
+              "name": "Male_condom",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "has_moved_out_from_home",
+                "openmrs_entity_id": "164813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
-              }
+              },
+              "text": "Male condom"
             },
             {
-              "name": "ulcers_and_scars",
-              "text": "Vidonda na makovu",
+              "name": "Female_condom",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "ulcers_and_scars",
+                "openmrs_entity_id": "164814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
-              }
+              },
+              "text": "Female condom"
             },
             {
-              "name": "is_weak",
-              "text": "Amedhoofika",
+              "name": "Male_sterilization",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "is_weak",
+                "openmrs_entity_id": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
-              }
+              },
+              "text": "Male sterilization"
             },
             {
-              "name": "needs_more_services",
-              "text": "Anahitaji huduma zaidi",
+              "name": "None",
+              "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "needs_more_services",
+                "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
-              }
+              },
+              "text": "None"
             },
             {
-              "name": "has_great_level_of_stress_and_fear",
-              "text": "Sonona (msongo wa mawazo)/ kuwa na woga mkuu",
+              "name": "Not_applicable",
+              "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "has_great_level_of_stress_and_fear",
+                "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "threatened_to_be_killed",
-              "text": "Kutishiwa kuuawa",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "threatened_to_be_killed",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "child_has_a_disability",
-              "text": "Mtoto ana ulemavu /hawezi kukaa au anatembea kwa shida",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "child_has_a_disability",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "child_does_not_want_to_go_home",
-              "text": "Mtoto hataki kurudi nyumbani/kwenda shuleni",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "child_does_not_want_to_go_home",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Other_symptom",
-              "text": "Other Symptom",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "Other_symptom",
-                "openmrs_entity_parent": ""
-              }
+              },
+              "text": "Not applicable"
             }
           ],
-          "required_status": "yes:Please specify client's problems",
+          "required_status": "yes:Please select a family planning method",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -159,19 +125,96 @@
           ]
         },
         {
+          "name": "side_effects_sterilization",
+          "type": "multi_choice_checkbox",
+          "meta_data": {
+            "openmrs_entity": "side_effects_sterilization",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Family planning side-effects"
+          },
+          "options": [
+            {
+              "name": "Incisional_bleeding",
+              "text": "Incisional bleeding",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Pus_Discharge_from_incision",
+              "text": "Pus/Discharge from incision",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "164495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Swollen_around_the_incision",
+              "text": "Swollen around the incision",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "159012AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Others",
+              "text": "Others",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "None",
+              "text": "None",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              },
+              "is_exclusive": true
+            },
+            {
+              "name": "Not_applicable",
+              "text": "Not applicable",
+              "is_exclusive": true,
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "dependent_calculations": [
+            "problem"
+          ],
+          "required_status": "yes:Family planning side-effects is required",
+          "subjects": "fp_method_accepted_referral:map"
+        },
+        {
           "name": "problem_other",
           "type": "text_input_edit_text",
-          "properties": {
-            "hint": "Dalili nyingine",
-            "type": "name"
-          },
           "meta_data": {
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_parent": ""
           },
-          "required_status": "true:Please specify other symptoms",
-          "subjects": "problem:map"
+          "properties": {
+            "hint": "Other side effects"
+          },
+          "required_status": "yes:Please specify other side effects",
+          "dependent_calculations": [
+            "problem"
+          ],
+          "subjects": "side_effects_sterilization:map"
         },
         {
           "name": "chw_referral_hf",
@@ -182,17 +225,17 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Chagua Kituo cha Afya",
-            "searchable": "Chagua Kituo cha Afya"
+            "text": "Choose referral facility",
+            "searchable": "Choose referral facility"
           },
           "options": [],
-          "required_status": "yes:Tafadhali chagua kituo cha Afya cha kutuma rufaa"
+          "required_status": "yes:Please specify referral facility"
         },
         {
           "name": "referral_appointment_date",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Tarehe ya kuhudhuria hospitali",
+            "hint": "Please select the appointment date",
             "type": "date_picker",
             "display_format": "dd/MM/yyyy"
           },

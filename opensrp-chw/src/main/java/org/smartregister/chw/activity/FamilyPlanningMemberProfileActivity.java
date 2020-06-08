@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
@@ -40,6 +39,7 @@ import java.util.List;
 import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.Constants.JSON_FORM;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
@@ -60,11 +60,6 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     protected void onCreation() {
         super.onCreation();
         addFpReferralTypes();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
     }
@@ -230,16 +225,21 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
 
     private void addFpReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.family_planning_referral),
-                org.smartregister.chw.util.Constants.JSON_FORM.getFamilyPlanningReferralForm(fpMemberObject.getGender()), CoreConstants.TASKS_FOCUS.FP_SIDE_EFFECTS));
+                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getFamilyPlanningUnifiedReferralForm(fpMemberObject.getGender()) :
+                        JSON_FORM.getFamilyPlanningReferralForm(fpMemberObject.getGender()), CoreConstants.TASKS_FOCUS.FP_SIDE_EFFECTS));
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.suspected_malaria),
+                    JSON_FORM.getMalariaReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
+
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
+                    JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
+                    JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+                    JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
 
     }

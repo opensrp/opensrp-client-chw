@@ -1,6 +1,9 @@
 package org.smartregister.chw.presenter;
 
+import android.app.Activity;
+
 import org.jetbrains.annotations.NotNull;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.model.IssueReferralActivityModel;
 import org.smartregister.chw.referral.contract.BaseIssueReferralContract;
 import org.smartregister.chw.referral.model.AbstractIssueReferralModel;
@@ -19,17 +22,25 @@ public class IssueReferralActivityPresenter extends BaseIssueReferralPresenter {
         return IssueReferralActivityModel.class;
     }
 
-
     @NotNull
     @Override
     public String getMainCondition() {
         return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.Key.BASE_ENTITY_ID + " = '" + getBaseEntityID() + "'";
     }
 
-
     @NotNull
     @Override
     public String getMainTable() {
         return Constants.TABLE_NAME.FAMILY_MEMBER;
+    }
+
+    @Override
+    public void onRegistrationSaved(boolean saveSuccessful) {
+        super.onRegistrationSaved(saveSuccessful);
+        NavigationMenu navigationMenu = NavigationMenu.getInstance((Activity) getView(),
+                null, null);
+        if (navigationMenu != null) {
+            navigationMenu.refreshCount();
+        }
     }
 }
