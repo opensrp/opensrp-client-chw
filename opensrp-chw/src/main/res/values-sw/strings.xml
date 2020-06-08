@@ -364,4 +364,5 @@
 
     <!---Anc Home Visit Strings -->
     <string name="anc_home_visit_pregnancy_risk">Hatari ya ujauzito</string>
+    <string name="loading_content">Inapakia taarifa</string>
 </resources>
