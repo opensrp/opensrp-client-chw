@@ -9,28 +9,17 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.smartregister.chw.R;
+import org.smartregister.chw.core.activity.CoreHivRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.core.job.HomeVisitServiceJob;
-import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.fragment.HivFollowupRegisterFragment;
 import org.smartregister.chw.fragment.HivRegisterFragment;
-import org.smartregister.chw.hiv.activity.BaseHivRegisterActivity;
-import org.smartregister.chw.hiv.activity.BaseHivRegistrationFormsActivity;
 import org.smartregister.chw.hiv.fragment.BaseHivRegisterFragment;
-import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.helper.BottomNavigationHelper;
-import org.smartregister.job.ImageUploadServiceJob;
-import org.smartregister.job.PullUniqueIdsServiceJob;
-import org.smartregister.job.SyncServiceJob;
-import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.listener.BottomNavigationListener;
 
 import java.util.List;
 
-public class HivRegisterActivity extends BaseHivRegisterActivity {
+public class HivRegisterActivity extends CoreHivRegisterActivity {
     private String baseEntityID;
 
     public static void startHIVFormActivity(Activity activity, String baseEntityID, String formName, String payloadType) {
@@ -87,49 +76,5 @@ public class HivRegisterActivity extends BaseHivRegisterActivity {
         }
     }
 
-
-    @Override
-    public void startFormActivity(@Nullable String formName, @Nullable String entityId, @Nullable String metaData) {
-        Intent intent = new Intent(this, BaseHivRegistrationFormsActivity.class);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, metaData);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
-
-        this.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
-    }
-
-    private void startRegisterActivity() {
-        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
-        VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
-        ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
-        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
-        PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
-        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
-        SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
-        Intent intent = new Intent(this, HivRegisterActivity.class);
-        this.startActivity(intent);
-        this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-        this.finish();
-    }
-
-    @Override
-    protected void onResumption() {
-        super.onResumption();
-        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
-        if (menu != null) {
-            menu.getNavigationAdapter().setSelectedView(Constants.DrawerMenu.HIV_CLIENTS);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == org.smartregister.chw.malaria.util.Constants.REQUEST_CODE_GET_JSON) {
-            startRegisterActivity();
-        } else {
-            finish();
-        }
-
-    }
 }
  

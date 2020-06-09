@@ -3,6 +3,8 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -10,12 +12,16 @@ import android.widget.LinearLayout;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreTbProfileActivity;
 import org.smartregister.chw.core.activity.CoreTbUpcomingServicesActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreTbProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.task.RunnableTask;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.TbFloatingMenu;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -33,11 +39,14 @@ import java.util.List;
 import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
 public class TbProfileActivity extends CoreTbProfileActivity
-        implements FamilyProfileExtendedContract.PresenterCallBack {
+        implements FamilyProfileExtendedContract.PresenterCallBack, OnRetrieveNotifications {
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     public static void startTbProfileActivity(Activity activity, TbMemberObject memberObject) {
         Intent intent = new Intent(activity, TbProfileActivity.class);
@@ -58,6 +67,21 @@ public class TbProfileActivity extends CoreTbProfileActivity
     protected void onCreation() {
         super.onCreation();
         addTbReferralTypes();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                getTbMemberObject().getBaseEntityId(), this);
     }
 
     @Override
@@ -94,6 +118,8 @@ public class TbProfileActivity extends CoreTbProfileActivity
         if (id == R.id.record_tb_followup_visit) {
             openFollowUpVisitForm(false);
         }
+        handleNotificationRowClick(this, view, notificationListAdapter, getTbMemberObject().getBaseEntityId());
+
     }
 
     @Override
@@ -134,7 +160,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     @Override
     public void openTbRegistrationForm() {
-        TbRegisterActivity.startTbFormActivity(this, getTbMemberObject().getBaseEntityId(),org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration(),getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration()).toString());
+        TbRegisterActivity.startTbFormActivity(this, getTbMemberObject().getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration(), getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration()).toString());
 
     }
 
@@ -206,6 +232,11 @@ public class TbProfileActivity extends CoreTbProfileActivity
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         addContentView(getTbFloatingMenu(), linearLayoutParams);
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 
 
