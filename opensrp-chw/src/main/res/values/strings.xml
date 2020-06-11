@@ -365,4 +365,5 @@
 
     <!---Anc Home Visit Strings -->
     <string name="anc_home_visit_pregnancy_risk">Pregnancy risk</string>
+    <string name="loading_content">Loading content</string>
 </resources>

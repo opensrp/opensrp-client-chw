@@ -1703,6 +1703,22 @@
             "field": "obs.formSubmissionField",
             "concept": "referral_type"
           }
+        },
+        {
+          "column_name": "referral_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referral_status"
+          }
+        },
+        {
+          "column_name": "fp_method_accepted_referral",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
         }
       ]
     },
@@ -1850,7 +1866,7 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
-            "field": "baseEntityId"
+            "field": "formSubmissionId"
           }
         },
         {
@@ -2032,7 +2048,7 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
-            "field": "baseEntityId"
+            "field": "formSubmissionId"
           }
         },
         {
@@ -2063,10 +2079,17 @@
         {
           "column_name": "action_taken",
           "type": "Event",
-          "save_format": "json_array",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "formSubmissionField": "action_taken_anc_danger_signs"
+            "concept": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "status_visit",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "status_visit"
           }
         },
         {
@@ -2109,7 +2132,7 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
-            "field": "baseEntityId"
+            "field": "formSubmissionId"
           }
         },
         {
@@ -2140,10 +2163,17 @@
         {
           "column_name": "action_taken",
           "type": "Event",
-          "save_format": "json_array",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "action_taken_pnc_danger_signs"
+          }
+        },
+        {
+          "column_name": "status_visit",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "status_visit"
           }
         },
         {
@@ -2186,7 +2216,7 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
-            "field": "baseEntityId"
+            "field": "formSubmissionId"
           }
         },
         {
@@ -2242,7 +2272,6 @@
         {
           "column_name": "test_results",
           "type": "Event",
-          "save_format": "json_array",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "test_results_malaria_hf"
@@ -2338,7 +2367,7 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
-            "field": "baseEntityId"
+            "field": "formSubmissionId"
           }
         },
         {
@@ -2355,6 +2384,14 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "fp_reg_date"
+          }
+        },
+        {
+          "column_name": "fp_reg_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "fp_change_or_stop_date"
           }
         },
         {

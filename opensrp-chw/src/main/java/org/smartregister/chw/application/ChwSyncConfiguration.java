@@ -65,11 +65,11 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public List<String> getSynchronizedLocationTags() {
-        return Collections.singletonList("Facility");
+        return Collections.singletonList("MOH Jhpiego Facility Name");
     }
 
     @Override
     public String getTopAllowedLocationLevel() {
-        return "Council";
+        return "Ward";
     }
 }
