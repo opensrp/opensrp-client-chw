@@ -1711,14 +1711,6 @@
             "field": "obs.formSubmissionField",
             "concept": "referral_status"
           }
-        },
-        {
-          "column_name": "fp_method_accepted_referral",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
         }
       ]
     },

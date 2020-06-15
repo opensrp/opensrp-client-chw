@@ -94,7 +94,7 @@ android {
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '360'
             buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
-            buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
+            buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "false"
             testCoverageEnabled true
         }
     }
@@ -148,7 +148,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"MOH Jhpiego Facility Name" , "Village"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '20'
+            buildConfigField "int", "DATABASE_VERSION", '17'
         }
         chad {
             dimension = 'baseDimension'
@@ -254,7 +254,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.2.12-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.2.10-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'

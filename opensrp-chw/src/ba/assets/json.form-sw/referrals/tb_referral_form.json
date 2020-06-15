@@ -1,5 +1,6 @@
 {
   "form": "Referral form",
+  "count": "1",
   "encounter_type": "Referral Registration",
   "entity_id": "",
   "relational_id": "",
@@ -56,6 +57,20 @@
     {
       "title": "Refaa ya Kliniki ya kutibu kifua kikuu",
       "fields": [
+        {
+          "name": "chw_referral_service",
+          "type": "invisible",
+          "properties": {
+            "text": "Choose referral service"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "09978",
+            "openmrs_entity_parent": ""
+          },
+          "options": [],
+          "required_status": "yes:Please specify referral service"
+        },
         {
           "name": "problem",
           "type": "multi_choice_checkbox",
@@ -209,6 +224,36 @@
             "openmrs_entity_parent": ""
           },
           "required_status": "true:Tafadhali chagua tarehe ya kuhudhuria hospitali"
+        },
+        {
+          "name": "referral_date",
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          "type": "hidden"
+        },
+        {
+          "name": "referral_time",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "referral_time",
+          "type": "hidden"
+        },
+        {
+          "name": "referral_type",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "referral_type",
+          "type": "hidden"
+        },
+        {
+          "name": "referral_status",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "referral_status",
+          "type": "hidden"
         }
       ]
     }
