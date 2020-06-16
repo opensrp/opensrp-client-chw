@@ -1,5 +1,10 @@
 package org.smartregister.chw.fragment;
 
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildHomeVisitActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
@@ -21,6 +26,8 @@ import timber.log.Timber;
 import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.FAMILY_LAST_NAME;
 
 public class ChildRegisterFragment extends CoreChildRegisterFragment {
+
+    private static final String DUE_FILTER_TAG = "PRESSED";
 
     @Override
     protected void onViewClicked(android.view.View view) {
@@ -55,8 +62,19 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
         if (getActivity() == null) {
             return;
         }
-
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         presenter = new ChildRegisterFragmentPresenter(this, new ChildRegisterFragmentModel(), viewConfigurationIdentifier);
     }
+
+    @Override
+    public void setupViews(android.view.View view) {
+        super.setupViews(view);
+
+        android.view.View dueOnlyLayout = view.findViewById(org.smartregister.chw.core.R.id.due_only_layout);
+        dueOnlyLayout.setVisibility(android.view.View.VISIBLE);
+        dueOnlyLayout.setOnClickListener(registerActionHandler);
+        dueOnlyLayout.setTag(DUE_FILTER_TAG);
+        toggleFilterSelection(view);
+    }
+
 }
