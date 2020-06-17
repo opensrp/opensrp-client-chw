@@ -80,4 +80,24 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean hasTasks() {
         return false;
     }
+
+    @Override
+    public boolean hasJobAidsVitaminAGraph() {
+        return true;
+    }
+
+    @Override
+    public boolean hasJobAidsDewormingGraph() {
+        return true;
+    }
+
+    @Override
+    public boolean hasJobAidsBreastfeedingGraph() {
+        return true;
+    }
+
+    @Override
+    public boolean hasJobAidsBirthCertificationGraph() {
+        return true;
+    }
 }
