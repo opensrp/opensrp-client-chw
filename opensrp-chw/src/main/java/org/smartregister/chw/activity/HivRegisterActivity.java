@@ -13,6 +13,7 @@ import org.smartregister.chw.core.activity.CoreHivRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.HivFollowupRegisterFragment;
 import org.smartregister.chw.fragment.HivRegisterFragment;
+import org.smartregister.chw.hiv.fragment.BaseHivCommunityFollowupRegisterFragment;
 import org.smartregister.chw.hiv.fragment.BaseHivRegisterFragment;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.listener.BottomNavigationListener;
@@ -28,13 +29,6 @@ public class HivRegisterActivity extends CoreHivRegisterActivity {
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, payloadType);
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.HIV_REGISTRATION_FORM_NAME, formName);
         activity.startActivity(intent);
-    }
-
-    @NotNull
-    @Override
-    protected Fragment[] getOtherFragments() {
-        Fragment fg = new HivFollowupRegisterFragment();
-        return new Fragment[]{fg};
     }
 
     @NotNull
@@ -76,5 +70,11 @@ public class HivRegisterActivity extends CoreHivRegisterActivity {
         }
     }
 
+    @NotNull
+    @Override
+    protected BaseHivCommunityFollowupRegisterFragment[] getOtherFragments() {
+        return new HivFollowupRegisterFragment[]{
+                new HivFollowupRegisterFragment()};
+    }
 }
  

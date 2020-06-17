@@ -263,6 +263,14 @@
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
+            android:name=".activity.HivCommunityFollowupDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.TbCommunityFollowupDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
             android:name=".core.activity.CoreHivUpcomingServicesActivity"
             android:label="@string/upcoming_services"
             android:theme="@style/ChwTheme.NoActionBar" />

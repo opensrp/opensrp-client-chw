@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import org.jetbrains.annotations.NotNull;
@@ -13,6 +11,7 @@ import org.smartregister.chw.core.activity.CoreTbRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.TbFollowupRegisterFragment;
 import org.smartregister.chw.fragment.TbRegisterFragment;
+import org.smartregister.chw.tb.fragment.BaseTbCommunityFollowupRegisterFragment;
 import org.smartregister.chw.tb.fragment.BaseTbRegisterFragment;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.helper.BottomNavigationHelper;
@@ -30,15 +29,15 @@ public class TbRegisterActivity extends CoreTbRegisterActivity {
 
     @NotNull
     @Override
-    protected Fragment[] getOtherFragments() {
-        Fragment fg = new TbFollowupRegisterFragment();
-        return new Fragment[]{fg};
+    protected BaseTbRegisterFragment getRegisterFragment() {
+        return new TbRegisterFragment();
     }
 
     @NotNull
     @Override
-    protected BaseTbRegisterFragment getRegisterFragment() {
-        return new TbRegisterFragment();
+    protected BaseTbCommunityFollowupRegisterFragment[] getOtherFragments() {
+        return new TbFollowupRegisterFragment[]{
+                new TbFollowupRegisterFragment()};
     }
 
     @Override

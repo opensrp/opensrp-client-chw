@@ -1,10 +1,57 @@
 package org.smartregister.chw.fragment;
 
-import org.smartregister.chw.tb.fragment.BaseTbCommunityFollowupRegisterFragment;
+import android.content.Intent;
+import android.os.Bundle;
 
-public class TbFollowupRegisterFragment extends BaseTbCommunityFollowupRegisterFragment {
+import androidx.annotation.Nullable;
 
+import org.smartregister.chw.activity.TbCommunityFollowupDetailsActivity;
+import org.smartregister.chw.activity.TbRegisterActivity;
+import org.smartregister.chw.core.fragment.CoreTbCommunityFollowupRegisterFragment;
+import org.smartregister.chw.model.TbCommunityFollowupFragmentModel;
+import org.smartregister.chw.presenter.TbCommunityFollowupFragmentPresenter;
+import org.smartregister.chw.tb.dao.TbDao;
+import org.smartregister.chw.tb.domain.TbMemberObject;
+import org.smartregister.chw.tb.util.Constants;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
+
+import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
+
+public class TbFollowupRegisterFragment extends CoreTbCommunityFollowupRegisterFragment {
+
+    @Override
+    protected void initializePresenter() {
+        if (getActivity() == null) {
+            return;
+        }
+        String viewConfigurationIdentifier = null;
+        try {
+            viewConfigurationIdentifier = ((TbRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        } catch (NullPointerException e) {
+            Timber.e(e);
+        }
+        presenter = new TbCommunityFollowupFragmentPresenter(this, new TbCommunityFollowupFragmentModel(), viewConfigurationIdentifier);
+    }
+
+    @Override
+    protected void openProfile(CommonPersonObjectClient client) {
+        if (getActivity() != null) {
+            Intent intent = new Intent(getActivity(), TbCommunityFollowupDetailsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(Constants.TbMemberObject.MEMBER_OBJECT, TbDao.getCommunityFollowupMember(client.getCaseId()));
+            intent.putExtras(bundle);
+
+            getActivity().startActivity(intent);
+        }
+    }
+
+    @Override
+    protected void openFollowUpVisit(@Nullable TbMemberObject tbMemberObject) {
+        if (getActivity() != null)
+            TbRegisterActivity.startTbFormActivity(getActivity(), tbMemberObject.getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit(), getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit()).toString());
+    }
 
 }
-
 
