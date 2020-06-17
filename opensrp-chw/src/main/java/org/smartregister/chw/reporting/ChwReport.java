@@ -3,10 +3,8 @@ package org.smartregister.chw.reporting;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ReportingConstants;
 import org.smartregister.reporting.contract.ReportContract;
 import org.smartregister.reporting.domain.IndicatorTally;
