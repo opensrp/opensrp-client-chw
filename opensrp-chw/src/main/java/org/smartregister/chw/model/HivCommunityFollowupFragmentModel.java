@@ -15,6 +15,8 @@ import org.smartregister.family.util.DBConstants;
 import java.util.HashSet;
 import java.util.Set;
 
+import timber.log.Timber;
+
 public class HivCommunityFollowupFragmentModel extends BaseHivCommunityFollowupModel {
 
     @NonNull

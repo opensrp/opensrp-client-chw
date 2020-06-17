@@ -2582,6 +2582,64 @@
       ]
     },
     {
+      "name": "ec_hiv_community_feedback",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "hiv_community_followup_visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_community_followup_visit_date"
+          }
+        },
+        {
+          "column_name": "followup_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "followup_status"
+          }
+        },
+        {
+          "column_name": "community_referral_form_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "community_referral_form_id"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_tb_register",
       "columns": [
         {
@@ -2728,6 +2786,64 @@
           "json_mapping": {
             "field": "obs.formSubmissionField",
             "concept": "reasons_for_issuing_community_referral"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_tb_community_feedback",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "tb_community_followup_visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tb_community_followup_visit_date"
+          }
+        },
+        {
+          "column_name": "followup_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "followup_status"
+          }
+        },
+        {
+          "column_name": "community_referral_form_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "community_referral_form_id"
           }
         }
       ]

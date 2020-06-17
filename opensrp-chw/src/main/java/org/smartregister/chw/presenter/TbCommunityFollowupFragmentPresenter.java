@@ -19,7 +19,8 @@ public class TbCommunityFollowupFragmentPresenter extends BaseTbCommunityFollowu
     @NotNull
     public String getMainCondition() {
         return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.Key.DATE_REMOVED + " is null " +
-                "AND " + Tables.TB_COMMUNITY_FOLLOWUP + "." + DBConstants.Key.IS_CLOSED + " = '0' ";
+                "AND " + Tables.TB_COMMUNITY_FOLLOWUP + "." + DBConstants.Key.IS_CLOSED + " = '0' " +
+                "AND " + Tables.TB_COMMUNITY_FOLLOWUP + "." + DBConstants.Key.BASE_ENTITY_ID + " NOT IN (SELECT " + DBConstants.Key.COMMUNITY_REFERRAL_FORM_ID + " FROM " + Tables.TB_COMMUNITY_FEEDBACK + " ) ";
 
     }
 
