@@ -4,11 +4,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.provider.CoreChildRegisterProvider;
 import org.smartregister.chw.core.task.UpdateLastAsyncTask;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
 
@@ -19,6 +22,7 @@ import java.util.Set;
  */
 
 public class ChildRegisterProvider extends CoreChildRegisterProvider {
+    private static ChildRegisterProvider.Flavor childRegisterProviderFlv = new ChildRegisterProviderFlv();
 
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
 
@@ -48,8 +52,36 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
         }
     }
 
+    protected void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
+
+        String parentFirstName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
+        String parentLastName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
+        String parentMiddleName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
+
+        String parentName = context.getResources().getString(org.smartregister.chw.core.R.string.care_giver_initials) + ": " + org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName);
+        String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
+        String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
+        String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
+        String childName = childRegisterProviderFlv.getChildName(firstName, middleName, lastName);
+
+        fillValue(viewHolder.textViewParentName, WordUtils.capitalize(parentName));
+
+        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
+        //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
+        fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName) + ", " + WordUtils.capitalize(Utils.getTranslatedDate(dobString, context)));
+        setAddressAndGender(pc, viewHolder);
+
+        addButtonClickListeners(client, viewHolder);
+
+    }
+
     private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
         Utils.startAsyncTask(new UpdateLastAsyncTask(context, commonRepository, viewHolder, pc.entityId(), onClickListener), null);
+    }
+
+
+    public interface Flavor {
+        String getChildName(String firstName, String middleName, String lastName);
     }
 
 }

@@ -153,8 +153,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.findItem(R.id.action_sick_child_form).setVisible(ChwApplication.getApplicationFlavor().hasChildSickForm() && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()))
-        ;
+        menu.findItem(R.id.action_sick_child_form).setVisible(ChwApplication.getApplicationFlavor().hasChildSickForm() && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()));
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);

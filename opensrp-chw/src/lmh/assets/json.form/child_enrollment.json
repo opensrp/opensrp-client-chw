@@ -81,21 +81,6 @@
         "hidden": "true"
       },
       {
-        "key": "surname_calculation",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "hidden",
-        "hint": "Surname as Family name",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family-child-calculation.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "first_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
