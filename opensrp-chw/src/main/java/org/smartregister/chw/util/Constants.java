@@ -9,7 +9,6 @@ public class Constants extends CoreConstants {
     public static final String APP_VERSION = "app_version";
     public static final String DB_VERSION = "db_version";
     public static  final  String MALARIA_REFERRAL_FORM = "malaria_referral_form";
-    public static final String ALL_CLIENT_REGISTRATION_FORM = "all_clients_registration_form";
 
     public static class FORM_SUBMISSION_FIELD {
         public static String pncHfNextVisitDateFieldType = "pnc_hf_next_visit_date";
