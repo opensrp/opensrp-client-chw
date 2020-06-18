@@ -62,7 +62,7 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-        String childName = childRegisterProviderFlv.getChildName(firstName, middleName, lastName);
+        String childName = childRegisterProviderFlv.getChildName(firstName.trim(), middleName.trim(), lastName.trim());
 
         fillValue(viewHolder.textViewParentName, WordUtils.capitalize(parentName));
 

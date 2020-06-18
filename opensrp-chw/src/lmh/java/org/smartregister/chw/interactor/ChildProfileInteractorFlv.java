@@ -13,4 +13,5 @@ public class ChildProfileInteractorFlv implements ChildProfileInteractor.Flavour
         String familyName = org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, false);
         jsonObject.put(JsonFormUtils.VALUE, familyName);
     }
+
 }
