@@ -246,11 +246,6 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
         }
     }
 
-    private void getFamilyName(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray) throws JSONException {
-        String familyName = org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, false);
-        jsonObject.put(JsonFormUtils.VALUE, familyName);
-    }
-
     private void getAge(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
         String dobString = org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
         dobString = org.smartregister.family.util.Utils.getDuration(dobString);

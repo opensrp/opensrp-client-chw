@@ -68,7 +68,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         String firstName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String middleName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
-        String childName = registerProviderFlv.getChildName(firstName, middleName, lastName);
+        String childName = registerProviderFlv.getChildName(firstName.trim(), middleName.trim(), lastName.trim());
         getView().setProfileName(childName);
     }
 
