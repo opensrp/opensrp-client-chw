@@ -10,7 +10,6 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
-import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
 import org.smartregister.chw.activity.ClientReferralActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -25,9 +24,6 @@ import java.util.List;
 public class Utils extends org.smartregister.chw.core.utils.Utils {
 
     public static void launchClientReferralActivity(Activity activity, List<ReferralTypeModel> referralTypeModels, String baseEntityId) {
-        if (activity instanceof AllClientsMemberProfileActivity){
-            ClientReferralActivity.isStartedFromAllClients = true;
-        }
         Bundle bundle = new Bundle();
         bundle.putString(Constants.ENTITY_ID, baseEntityId);
         bundle.setClassLoader(ReferralTypeModel.class.getClassLoader());
@@ -39,14 +35,18 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
     public static List<ReferralTypeModel> getCommonReferralTypes(Activity activity) {
         List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+
+            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.suspected_malaria),
+                    Constants.JSON_FORM.getMalariaReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
+
             referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.hiv_referral),
                     Constants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
 
             referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.tb_referral),
-                   Constants.JSON_FORM.getTbReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
+                    Constants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
 
             referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.gbv_referral),
-                    Constants.JSON_FORM.getGbvReferralForm(),CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+                    Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
         return referralTypeModels;
     }
@@ -65,8 +65,7 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
 
     public static void setupBottomNavigation(BottomNavigationHelper bottomNavigationHelper,
                                              BottomNavigationView bottomNavigationView,
-                                             BottomNavigationView.OnNavigationItemSelectedListener listener)
-    {
+                                             BottomNavigationView.OnNavigationItemSelectedListener listener) {
         if (bottomNavigationView != null) {
             bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
 

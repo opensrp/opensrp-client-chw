@@ -1,6 +1,6 @@
 {
-  "form": "Sick Child Referral",
-  "encounter_type": "Sick Child Referral",
+  "form": "Malaria Referral",
+  "encounter_type": "Malaria Referral",
   "entity_id": "",
   "relational_id": "",
   "rules_file": "rule/general_neat_referral_form_rules.yml",
@@ -54,152 +54,26 @@
   },
   "steps": [
     {
-      "title": "Fomu ya wagonjwa wa mtoto",
+      "title": "Malaria Referral",
       "fields": [
         {
           "name": "problem",
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "problem"
+          },
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Tatizo / hali ya afya ya mteja"
-          },
-          "meta_data": {
-            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "text": "Maelezo ya tatizo la mgonjwa"
           },
           "options": [
-            {
-              "name": "Fast_breathing_and_difficulty_with_breathing",
-              "text": "Kupumua kwa haraka na kushindwa kupumua",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Umbilical_cord_navel_bleeding",
-              "text": "Kutoka damu kwenye kitovu cha mtoto",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "123844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Excessive_crying",
-              "text": "Kulia sana kwa Mtoto",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "140944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Convulsions",
-              "text": "Degedege",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Unable_to_breastfeed_or_swallow",
-              "text": "Kushindwa kunyonya au kumeza",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Neck_stiffness",
-              "text": "Shingo kukakamaa",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "112721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
             {
               "name": "Fever",
               "text": "Homa",
               "meta_data": {
-                "openmrs_entity": "concept",
+                "openmrs_entity": "",
                 "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Bloating",
-              "text": "Tumbo kujaa",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "147132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Redness_around_the_umbilical_cord_foul_smelling_discharge_from_the_umbilical_cord",
-              "text": "Uambukizo kwenye kitovu",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "132407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Bacterial_conjunctivitis",
-              "text": "Macho kutoa uchafu / usaa",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "148026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Severe_anaemia",
-              "text": "Upungufu mkubwa wa damu",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Severe_abdominal_pain",
-              "text": "Maumivu makali ya tumbo",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Pale_or_jaundiced",
-              "text": "Mwili kuwa njano",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Cyanosis_blueness_of_lips",
-              "text": "Kubadilika kwa sababu ya kukosa hewa (midomo kuwa bluu, ulimi au viganja",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Skin_rash_pustules",
-              "text": "Vipele mwilini",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
               }
             },
@@ -207,7 +81,7 @@
               "name": "Diarrhea",
               "text": "Kuharisha",
               "meta_data": {
-                "openmrs_entity": "concept",
+                "openmrs_entity": "",
                 "openmrs_entity_id": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
               }
@@ -216,58 +90,193 @@
               "name": "Vomiting",
               "text": "Kutapika",
               "meta_data": {
-                "openmrs_entity": "concept",
+                "openmrs_entity": "",
                 "openmrs_entity_id": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "Disabilities",
-              "text": "Kuzaliwa na ulemavu",
+              "name": "Nausea",
+              "text": "Kichefuchefu",
               "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "Premature_baby",
-              "text": "Mtoto aliyezaliwa na uzito pungufu / njiti",
+              "name": "Trembling",
+              "text": "Kutetemeka",
               "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "159908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "158359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "Care_of_HIV_exposed_infant",
-              "text": "Huduma za kumsaidia mtoto aliyezaliwa na mama mwenye VVU",
+              "name": "A_severe_headache_dizziness",
+              "text": "Maumivu makali ya kichwa / kizunguzungu",
               "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "Immunisation",
-              "text": "Huduma za chanjo",
+              "name": "Sweating",
+              "text": "Kutoka jasho",
               "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "140941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "Other_symptom",
-              "text": "Dalili nyingine",
+              "name": "Severe_abdominal_pain",
+              "text": "Maumivu makali ya tumbo",
               "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Muscle_pain",
+              "text": "Maumivu ya misuli",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "133632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Sweling_of_the_face_and_or_hands",
+              "text": "Kuvimba uso na / au mikono",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "163894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Difficult_in_breathing_fast_and_laboured_breathing",
+              "text": "Kushindwa kupumua",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Convulsions",
+              "text": "Degedege/ Mtukutiko wa mwili",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Very_weak",
+              "text": "Kulegea",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "5226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Irritable_easily_disturbed",
+              "text": "Kukereka kirahisi",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "118296AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Unconcious",
+              "text": "Kukosa fahamu",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "123818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Unusually_sleepy",
+              "text": "Kulala kusiko kwa kawaida",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "117417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Neck_stiffness",
+              "text": "Shingo kukakamaa",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "112721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Unable_to_sit_without_support",
+              "text": "Kushindwa kukaa bila msaada",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "123833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Abnormal_bleeding_or_passing_of_urine_with_blood",
+              "text": "Kutokwa na damu au mkojo wenye damu",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Severe_anaemia_pale_palms_and_inner_eyelids",
+              "text": "Upungufu mkubwa wa damu",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Yellowing_of_the_eyes_jaundice",
+              "text": "Macho kuwa ya njano",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Severe_malnutrition",
+              "text": "Utapiamlo mkali",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "163302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Bloating",
+              "text": "Tumbo kujaa",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "147132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
               }
             }
           ],
-          "required_status": "yes:Tafadhali taja shida ya kiafya",
+          "required_status": "yes:Tafadhali taja tatizo la mgonjwa",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -276,83 +285,76 @@
           ]
         },
         {
-          "name": "problem_other",
-          "type": "text_input_edit_text",
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          "properties": {
-            "hint": "Dalili nyingine",
-            "type": "name"
-          },
-          "required_status": "true:Tafadhali taja dalili nyingine",
-          "subjects": "problem:map"
-        },
-        {
           "name": "service_before_referral",
           "meta_data": {
             "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity": "",
+            "openmrs_entity_id": "service_before_referral"
           },
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Huduma aliyopewa kabla ya rufaa."
+            "text": "Huduma aliyopewa kabla ya rufaa"
           },
           "options": [
             {
-              "name": "ORS",
-              "text": "ORS",
+              "name": "Rectal_artesunate",
+              "text": "Rectal artesunate",
               "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "71561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
               }
             },
             {
               "name": "Panadol",
-              "text": "Matibabu mengine",
+              "text": "Panadol",
               "meta_data": {
-                "openmrs_entity": "concept",
+                "openmrs_entity": "",
                 "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "Other_treatment",
-              "text": "Other treatment",
+              "name": "ORS",
+              "text": "ORS",
               "meta_data": {
-                "openmrs_entity": "concept",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Other_treatment",
+              "text": "Matibabu mengine",
+              "meta_data": {
+                "openmrs_entity": "",
                 "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
               }
             },
             {
               "name": "None",
-              "text": "Hajapewa matibabu yoyote",
+              "text": "Hakuna",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "concept",
+                "openmrs_entity": "",
                 "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "openmrs_entity_parent": ""
               }
             }
           ],
-          "required_status": "True:Huduma aliyopewa kabla ya rufaa ni lazima"
+          "required_status": "yes:Tafadhali taja huduma aliyopewa kabla ya rufaa"
         },
         {
           "name": "service_before_referral_other",
           "type": "text_input_edit_text",
           "meta_data": {
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_parent": ""
           },
           "properties": {
-            "hint": "Matibabu mengine",
-            "type": "name"
+            "hint": "Matibabu mengine"
           },
           "required_status": "true:Tafadhali taja matibabu mengine",
           "subjects": "service_before_referral:map"
@@ -366,15 +368,10 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Chagua Kituo cha Afya",
-            "searchable": "Chagua Kituo cha Afya"
+            "text": "Chagua kituo cha rufaa",
+            "searchable": "Choose referral facility"
           },
-          "options": [
-            {
-              "name": "none",
-              "text": "Chagua Kituo cha Afya"
-            }
-          ],
+          "options": [],
           "required_status": "yes:Tafadhali chagua kituo cha Afya cha kutuma rufaa"
         },
         {
