@@ -10,20 +10,15 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.domain.EligibleChild;
 import org.smartregister.chw.domain.VillageDose;
-import org.smartregister.chw.model.FilterReportFragmentModel;
 import org.smartregister.chw.util.ReportingConstants;
 import org.smartregister.repository.Repository;
 
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
-import static org.junit.Assert.*;
 
 public class ReportDaoTest extends ReportDao {
     @Mock
@@ -100,7 +95,7 @@ public class ReportDaoTest extends ReportDao {
         Date dueDate = new DateTime().plusDays(7).toDate();
         Map<String, Integer> map = new TreeMap<>();
         map.put("ROTA", 0);
-        List<VillageDose> villageDoseList = ReportDao.villageDosesReport(villageName,communityId, dueDate);
+        List<VillageDose> villageDoseList = ReportDao.villageDosesReport(villageName, communityId, dueDate);
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
         Assert.assertEquals(villageDoseList.get(0).getRecurringServices(), map);
     }
