@@ -101,7 +101,7 @@ public class ReportDaoTest extends ReportDao {
     }
 
     @Test
-    public void testMyCommunityActivityReportDetailsChildren12_59Dewormed() {
+    public void testMyCommunityActivityReportDetailsChildrenDewormed() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{
                 "base_entity_id"});
@@ -114,7 +114,7 @@ public class ReportDaoTest extends ReportDao {
     }
 
     @Test
-    public void testMyCommunityActivityReportDetailsChildren12_59NotDewormed() {
+    public void testMyCommunityActivityReportDetailsChildrenNotDewormed() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{
                 "base_entity_id"});
