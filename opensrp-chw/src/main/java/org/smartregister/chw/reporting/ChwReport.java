@@ -1,6 +1,5 @@
 package org.smartregister.chw.reporting;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ public class ChwReport {
      * @param mainLayout       view holding the visualisations being displayed
      * @param indicatorTallies list containing indicator counts for display
      */
-    public static void showIndicatorVisualisations(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies,Activity context ) {
+    public static void showIndicatorVisualisations(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies, Activity context) {
         // Display order as determined in https://docs.google.com/spreadsheets/d/1q9YiWqjLiToTd0--Q8CbwhBwwcNDspbDxVrUfDm8VGU/edit#gid=315573423
         ChwChartListener chwChartListener = new ChwChartListener(context);
         NumericDisplayModel indicator1 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.COUNT_CHILDREN_UNDER_5, R.string.total_under_5_children_label, indicatorTallies);
