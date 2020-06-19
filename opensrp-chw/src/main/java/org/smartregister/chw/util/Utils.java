@@ -3,10 +3,12 @@ package org.smartregister.chw.util;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -93,4 +95,56 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         }
         return zScore;
     }
+
+    public static String getClientName(String firstName, String middleName, String lastName) {
+        firstName = firstName.trim();
+        middleName = middleName.trim();
+        lastName = lastName.trim();
+        if (ChwApplication.getApplicationFlavor().hasSurname()) {
+            if (StringUtils.isNotBlank(firstName) && StringUtils.isNotBlank(lastName)) {
+                if (StringUtils.isNotBlank(middleName)) {
+                    return firstName + " " + middleName + " " + lastName;
+                }
+                return firstName + " " + lastName;
+
+            } else {
+                if (StringUtils.isNotBlank(firstName)) {
+                    if (StringUtils.isNotBlank(middleName)) {
+                        return firstName + " " + middleName;
+                    }
+                    return firstName;
+
+                } else if (StringUtils.isNotBlank(lastName)) {
+                    if (StringUtils.isNotBlank(middleName)) {
+                        return middleName + " " + lastName;
+                    }
+                    return lastName;
+                }
+            }
+        } else {
+            if (StringUtils.isNotBlank(firstName)) {
+                if (StringUtils.isNotBlank(middleName)) {
+                    return firstName + " " + middleName;
+                }
+                return firstName;
+            }
+        }
+        return "";
+    }
+
+
+    public static void updateToolbarTitle(Activity activity, int toolbarTextViewId) {
+        int titleResource = -1;
+        if (activity.getIntent().getExtras() != null)
+            titleResource = activity.getIntent().getExtras().getInt(CoreConstants.INTENT_KEY.TOOLBAR_TITLE, -1);
+        if (titleResource != -1) {
+            TextView toolbarTitleTextView = activity.findViewById(toolbarTextViewId);
+            if (titleResource == org.smartregister.chw.core.R.string.return_to_family_members) {
+                toolbarTitleTextView.setText(activity.getString(org.smartregister.chw.core.R.string.return_to_family_members));
+            } else {
+                toolbarTitleTextView.setText(titleResource);
+            }
+        }
+    }
+
 }

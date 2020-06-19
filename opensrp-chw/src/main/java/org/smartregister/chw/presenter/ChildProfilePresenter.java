@@ -36,9 +36,10 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.util.Utils.getClientName;
+
 public class ChildProfilePresenter extends CoreChildProfilePresenter {
 
-    private static ChildProfilePresenter.Flavor registerProviderFlv = new ChildProfilePresenterFlv();
     private List<ReferralTypeModel> referralTypeModels;
 
     public ChildProfilePresenter(CoreChildProfileContract.View childView, CoreChildProfileContract.Model model, String childBaseEntityId) {
@@ -68,7 +69,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         String firstName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String middleName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
-        String childName = registerProviderFlv.getChildName(firstName.trim(), middleName.trim(), lastName.trim());
+        String childName = getClientName(firstName, middleName, lastName);
         getView().setProfileName(childName);
     }
 
@@ -138,7 +139,4 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         }
     }
 
-    public interface Flavor {
-        String getChildName(String firstName, String middleName, String lastName);
-    }
 }

@@ -17,12 +17,13 @@ import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Set;
 
+import static org.smartregister.chw.util.Utils.getClientName;
+
 /**
  * Created by keyman on 13/11/2018.
  */
 
 public class ChildRegisterProvider extends CoreChildRegisterProvider {
-    private static ChildRegisterProvider.Flavor childRegisterProviderFlv = new ChildRegisterProviderFlv();
 
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
 
@@ -62,7 +63,7 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-        String childName = childRegisterProviderFlv.getChildName(firstName.trim(), middleName.trim(), lastName.trim());
+        String childName = getClientName(firstName, middleName, lastName);
 
         fillValue(viewHolder.textViewParentName, WordUtils.capitalize(parentName));
 
@@ -77,11 +78,6 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
 
     private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
         Utils.startAsyncTask(new UpdateLastAsyncTask(context, commonRepository, viewHolder, pc.entityId(), onClickListener), null);
-    }
-
-
-    public interface Flavor {
-        String getChildName(String firstName, String middleName, String lastName);
     }
 
 }

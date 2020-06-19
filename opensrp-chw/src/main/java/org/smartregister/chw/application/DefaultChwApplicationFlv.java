@@ -100,4 +100,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean hasJobAidsBirthCertificationGraph() {
         return true;
     }
+
+    @Override
+    public boolean hasSurname() {
+        return true;
+    }
 }

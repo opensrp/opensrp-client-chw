@@ -61,4 +61,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return false;
     }
 
+    @Override
+    public boolean hasSurname() {
+        return false;
+    }
+
 }

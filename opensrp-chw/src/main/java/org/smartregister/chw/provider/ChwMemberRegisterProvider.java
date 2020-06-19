@@ -43,8 +43,6 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-import static org.smartregister.family.util.Utils.getName;
-
 public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private Context context;
     private View.OnClickListener onClickListener;
@@ -89,7 +87,7 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         String middleName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String lastName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String baseEntityId = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
-        String patientName = getName(firstName, middleName, lastName);
+        String patientName = Utils.getClientName(firstName, middleName, lastName);
         String dob = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
         String dobString = org.smartregister.family.util.Utils.getDuration(dob);
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;

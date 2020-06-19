@@ -38,6 +38,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
+import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
 import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
@@ -65,6 +66,12 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         }
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
+    }
+
+    @Override
+    public void setUpToolbar() {
+        updateToolbarTitle(this, org.smartregister.chw.core.R.id.toolbar_title, memberObject.getFirstName());
+
     }
 
     @Override
