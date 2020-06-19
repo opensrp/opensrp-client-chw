@@ -6,6 +6,8 @@ import android.widget.Toast;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.FragmentBaseActivity;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.application.ChwApplicationFlv;
 import org.smartregister.chw.fragment.MyCommunityActivityDetailsFragment;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.reporting.domain.PieChartSlice;
@@ -13,7 +15,6 @@ import org.smartregister.reporting.listener.PieChartSelectListener;
 
 public class ChwChartListener implements PieChartSelectListener {
     private Activity context;
-    private ChwChartListener.Flavor flavor = new ChwChartListenerFlv();
 
     public ChwChartListener(Activity context) {
         this.context = context;
@@ -21,7 +22,7 @@ public class ChwChartListener implements PieChartSelectListener {
 
     @Override
     public void handleOnSelectEvent(PieChartSlice pieChartSlice) {
-        if (flavor.showMyCommunityActivityReport()) {
+        if (ChwApplication.getApplicationFlavor().showMyCommunityActivityReport()) {
             Bundle bundle = new Bundle();
             bundle.putString(Constants.ReportParameters.INDICATOR_CODE, pieChartSlice.getKey());
             FragmentBaseActivity.startMe(context, MyCommunityActivityDetailsFragment.TAG, context.getString(R.string.children), bundle);
@@ -29,9 +30,5 @@ public class ChwChartListener implements PieChartSelectListener {
         } else {
             Toast.makeText(context, pieChartSlice.getLabel(), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public interface Flavor {
-        Boolean showMyCommunityActivityReport();
     }
 }
