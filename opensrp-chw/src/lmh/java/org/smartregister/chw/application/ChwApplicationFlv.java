@@ -41,4 +41,8 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return false;
     }
 
+    @Override
+    public boolean hasDefaultDueFilterForChildClient() {
+        return true;
+    }
 }

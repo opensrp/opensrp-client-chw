@@ -1,14 +1,10 @@
 package org.smartregister.chw.fragment;
 
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildHomeVisitActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.fragment.CoreChildRegisterFragment;
 import org.smartregister.chw.model.ChildRegisterFragmentModel;
 import org.smartregister.chw.presenter.ChildRegisterFragmentPresenter;
@@ -46,7 +42,7 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
         }
         MemberObject memberObject = new MemberObject(patient);
         memberObject.setFamilyName(Utils.getValue(patient.getColumnmaps(), FAMILY_LAST_NAME, false));
-        ChildProfileActivity.startMe(getActivity(),memberObject , ChildProfileActivity.class);
+        ChildProfileActivity.startMe(getActivity(), memberObject, ChildProfileActivity.class);
     }
 
     @Override
@@ -70,11 +66,13 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
     public void setupViews(android.view.View view) {
         super.setupViews(view);
 
-        android.view.View dueOnlyLayout = view.findViewById(org.smartregister.chw.core.R.id.due_only_layout);
-        dueOnlyLayout.setVisibility(android.view.View.VISIBLE);
-        dueOnlyLayout.setOnClickListener(registerActionHandler);
-        dueOnlyLayout.setTag(DUE_FILTER_TAG);
-        toggleFilterSelection(view);
+        if (ChwApplication.getApplicationFlavor().hasDefaultDueFilterForChildClient()) {
+            android.view.View dueOnlyLayout = view.findViewById(org.smartregister.chw.core.R.id.due_only_layout);
+            dueOnlyLayout.setVisibility(android.view.View.VISIBLE);
+            dueOnlyLayout.setOnClickListener(registerActionHandler);
+            dueOnlyLayout.setTag(null);
+            toggleFilterSelection(dueOnlyLayout);
+        }
     }
 
 }
