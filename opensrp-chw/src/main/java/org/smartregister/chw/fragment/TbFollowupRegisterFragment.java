@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import org.smartregister.chw.activity.TbCommunityFollowupDetailsActivity;
 import org.smartregister.chw.activity.TbRegisterActivity;
 import org.smartregister.chw.core.fragment.CoreTbCommunityFollowupRegisterFragment;
+import org.smartregister.chw.hiv.util.DBConstants;
 import org.smartregister.chw.model.TbCommunityFollowupFragmentModel;
 import org.smartregister.chw.presenter.TbCommunityFollowupFragmentPresenter;
 import org.smartregister.chw.tb.dao.TbDao;
@@ -40,7 +41,7 @@ public class TbFollowupRegisterFragment extends CoreTbCommunityFollowupRegisterF
         if (getActivity() != null) {
             Intent intent = new Intent(getActivity(), TbCommunityFollowupDetailsActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable(Constants.TbMemberObject.MEMBER_OBJECT, TbDao.getCommunityFollowupMember(client.getCaseId()));
+            bundle.putSerializable(Constants.TbMemberObject.MEMBER_OBJECT, TbDao.getCommunityFollowupMember(client.getColumnmaps().get(DBConstants.Key.BASE_ENTITY_ID)));
             intent.putExtras(bundle);
 
             getActivity().startActivity(intent);

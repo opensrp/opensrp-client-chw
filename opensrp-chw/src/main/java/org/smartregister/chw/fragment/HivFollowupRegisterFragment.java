@@ -8,6 +8,7 @@ import org.smartregister.chw.activity.HivRegisterActivity;
 import org.smartregister.chw.core.fragment.CoreHivCommunityFollowupRegisterFragment;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.util.Constants;
+import org.smartregister.chw.hiv.util.DBConstants;
 import org.smartregister.chw.model.HivCommunityFollowupFragmentModel;
 import org.smartregister.chw.presenter.HivCommunityFollowupFragmentPresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -34,7 +35,7 @@ public class HivFollowupRegisterFragment extends CoreHivCommunityFollowupRegiste
         if (getActivity() != null) {
             Intent intent = new Intent(getActivity(), HivCommunityFollowupDetailsActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable(Constants.HivMemberObject.MEMBER_OBJECT, HivDao.getCommunityFollowupMember(client.getCaseId()));
+            bundle.putSerializable(Constants.HivMemberObject.MEMBER_OBJECT, HivDao.getCommunityFollowupMember(client.getColumnmaps().get(DBConstants.Key.BASE_ENTITY_ID)));
             intent.putExtras(bundle);
 
             getActivity().startActivity(intent);

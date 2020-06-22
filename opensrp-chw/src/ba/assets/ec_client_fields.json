@@ -2575,7 +2575,7 @@
           "column_name": "reasons_for_issuing_community_referral",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.formSubmissionField",
+            "field": "obs.fieldCode",
             "concept": "reasons_for_issuing_community_referral"
           }
         }
