@@ -352,5 +352,7 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasReports();
 
         boolean hasTasks();
+
+        boolean showMyCommunityActivityReport();
     }
 }
