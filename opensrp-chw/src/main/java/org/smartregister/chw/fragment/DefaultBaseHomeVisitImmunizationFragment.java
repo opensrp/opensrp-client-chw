@@ -49,15 +49,15 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
     private List<VaccineView> vaccineViews = new ArrayList<>();
     protected Map<String, VaccineDisplay> vaccineDisplays = new LinkedHashMap<>();
     private LayoutInflater inflater;
-    private LinearLayout multipleVaccineDatePickerView, singleVaccineAddView, vaccinationNameLayout;
+    private LinearLayout multipleVaccineDatePickerView;
+    private LinearLayout singleVaccineAddView;
+    private LinearLayout vaccinationNameLayout;
     private TextView textViewAddDate;
     private CheckBox checkBoxNoVaccinesDone;
     protected DatePicker singleDatePicker;
     private Button saveButton;
     private SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DATE_FORMATS.DOB, Locale.getDefault());
     protected boolean vaccinesDefaultChecked = true;
-
-
 
 
     @Override

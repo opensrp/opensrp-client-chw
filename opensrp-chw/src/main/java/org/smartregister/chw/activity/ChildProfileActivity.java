@@ -41,7 +41,6 @@ import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER
 import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
-import static org.smartregister.chw.util.Utils.formatDateForVisual;
 import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
 
 public class ChildProfileActivity extends CoreChildProfileActivity implements OnRetrieveNotifications {
@@ -236,12 +235,12 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
     @Override
     public void setServiceNameDue(String serviceName, String dueDate) {
-        super.setServiceNameDue(serviceName, formatDateForVisual(dueDate, YYYY_MM_DD));
+        super.setServiceNameDue(serviceName, flavor.getFormattedDateForVisual(dueDate, YYYY_MM_DD));
     }
 
     @Override
     public void setServiceNameOverDue(String serviceName, String dueDate) {
-        super.setServiceNameOverDue(serviceName, formatDateForVisual(dueDate, YYYY_MM_DD));
+        super.setServiceNameOverDue(serviceName, flavor.getFormattedDateForVisual(dueDate, YYYY_MM_DD));
     }
 
     @Override
