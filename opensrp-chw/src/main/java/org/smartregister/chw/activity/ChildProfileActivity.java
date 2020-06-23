@@ -41,6 +41,8 @@ import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER
 import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.chw.util.Utils.formatDateForVisual;
+import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
 
 public class ChildProfileActivity extends CoreChildProfileActivity implements OnRetrieveNotifications {
     public FamilyMemberFloatingMenu familyFloatingMenu;
@@ -153,8 +155,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.findItem(R.id.action_sick_child_form).setVisible(ChwApplication.getApplicationFlavor().hasChildSickForm() && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()))
-        ;
+        menu.findItem(R.id.action_sick_child_form).setVisible(ChwApplication.getApplicationFlavor().hasChildSickForm() && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()));
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
@@ -233,11 +234,29 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 
+    @Override
+    public void setServiceNameDue(String serviceName, String dueDate) {
+        super.setServiceNameDue(serviceName, formatDateForVisual(dueDate, YYYY_MM_DD));
+    }
+
+    @Override
+    public void setServiceNameOverDue(String serviceName, String dueDate) {
+        super.setServiceNameOverDue(serviceName, formatDateForVisual(dueDate, YYYY_MM_DD));
+    }
+
+    @Override
+    public void setServiceNameUpcoming(String serviceName, String dueDate) {
+        super.setServiceNameUpcoming(serviceName, flavor.getFormattedDateForVisual(dueDate, YYYY_MM_DD));
+    }
+
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
 
         boolean isChildOverTwoMonths(CommonPersonObjectClient client);
 
         Intent getSickChildFormActivityIntent(JSONObject jsonObject, Context context);
+
+        String getFormattedDateForVisual(String dueDate, String inputFormat);
+
     }
 }

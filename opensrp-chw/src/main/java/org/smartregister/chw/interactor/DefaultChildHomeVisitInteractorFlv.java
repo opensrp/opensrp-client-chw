@@ -31,7 +31,6 @@ import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
-import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
@@ -46,6 +45,7 @@ import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.core.utils.VisitVaccineUtil;
+import org.smartregister.chw.fragment.BaseHomeVisitImmunizationFragmentFlv;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.domain.Alert;
@@ -254,8 +254,8 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             List<VaccineDisplay> displays = VisitVaccineUtil.toDisplays(wrappers);
 
             String title = MessageFormat.format(context.getString(R.string.immunizations_count), VisitVaccineUtil.getVaccineTitle(entry.getKey().name, context));
-            BaseHomeVisitImmunizationFragment fragment =
-                    BaseHomeVisitImmunizationFragment.getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked);
+            BaseHomeVisitImmunizationFragmentFlv fragment =
+                    BaseHomeVisitImmunizationFragmentFlv.getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked);
 
             validator.addFragment(title, fragment, entry.getKey(), new DateTime(dob));
 
