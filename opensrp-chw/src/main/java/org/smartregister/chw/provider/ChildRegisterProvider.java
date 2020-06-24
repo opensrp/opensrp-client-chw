@@ -59,7 +59,7 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
         String parentLastName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
         String parentMiddleName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
 
-        String parentName = context.getResources().getString(org.smartregister.chw.core.R.string.care_giver_initials) + ": " + org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName);
+        String parentName = context.getResources().getString(org.smartregister.chw.core.R.string.care_giver_initials) + ": " + getClientName(parentFirstName, parentMiddleName, parentLastName);
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
