@@ -66,4 +66,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return false;
     }
 
+    public boolean showMyCommunityActivityReport() {
+        return true;
+    }
 }

@@ -105,4 +105,8 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean hasSurname() {
         return true;
     }
+
+    public boolean showMyCommunityActivityReport() {
+        return false;
+    }
 }
