@@ -85,4 +85,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean showMyCommunityActivityReport() {
         return false;
     }
+
+    @Override
+    public boolean showChildrenUnder5(){return true;}
 }
