@@ -34,7 +34,7 @@ import timber.log.Timber;
  */
 public abstract class ReportResultFragment<T extends ListContract.Identifiable> extends Fragment implements ListContract.View<T> {
 
-    private View view;
+    protected View view;
     private ListableAdapter<T, ListableViewHolder<T>> mAdapter;
     private ProgressBar progressBar;
     protected ListContract.Presenter<T> presenter;
@@ -43,6 +43,7 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
     protected String communityID;
     protected Date reportDate = null;
     protected String communityName;
+    protected String indicatorCode;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -85,4 +85,8 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean hasDefaultDueFilterForChildClient() {
         return false;
     }
+
+    public boolean showMyCommunityActivityReport() {
+        return false;
+    }
 }

@@ -354,5 +354,7 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasTasks();
 
         boolean hasDefaultDueFilterForChildClient();
+
+        boolean showMyCommunityActivityReport();
     }
 }

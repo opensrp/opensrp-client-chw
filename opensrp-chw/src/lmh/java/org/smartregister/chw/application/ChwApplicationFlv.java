@@ -45,4 +45,8 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean hasDefaultDueFilterForChildClient() {
         return true;
     }
+
+    public boolean showMyCommunityActivityReport() {
+        return true;
+    }
 }
