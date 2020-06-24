@@ -23,8 +23,6 @@ import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.FAMILY_LAST_
 
 public class ChildRegisterFragment extends CoreChildRegisterFragment {
 
-    private static final String DUE_FILTER_TAG = "PRESSED";
-
     @Override
     protected void onViewClicked(android.view.View view) {
         super.onViewClicked(view);
