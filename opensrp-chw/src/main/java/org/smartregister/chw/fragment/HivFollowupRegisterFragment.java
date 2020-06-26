@@ -15,6 +15,8 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import timber.log.Timber;
 
+import static android.view.View.GONE;
+
 public class HivFollowupRegisterFragment extends CoreHivCommunityFollowupRegisterFragment {
     @Override
     protected void initializePresenter() {
@@ -28,6 +30,12 @@ public class HivFollowupRegisterFragment extends CoreHivCommunityFollowupRegiste
             Timber.e(e);
         }
         presenter = new HivCommunityFollowupFragmentPresenter(this, new HivCommunityFollowupFragmentModel(), viewConfigurationIdentifier);
+    }
+
+    @Override
+    public void setupViews(android.view.View view) {
+        super.setupViews(view);
+        view.findViewById(org.smartregister.chw.core.R.id.due_only_layout).setVisibility(GONE);
     }
 
     @Override

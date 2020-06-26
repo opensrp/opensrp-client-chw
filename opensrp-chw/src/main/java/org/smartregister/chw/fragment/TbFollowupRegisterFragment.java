@@ -18,6 +18,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import timber.log.Timber;
 
+import static android.view.View.GONE;
 import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
 
 public class TbFollowupRegisterFragment extends CoreTbCommunityFollowupRegisterFragment {
@@ -34,6 +35,12 @@ public class TbFollowupRegisterFragment extends CoreTbCommunityFollowupRegisterF
             Timber.e(e);
         }
         presenter = new TbCommunityFollowupFragmentPresenter(this, new TbCommunityFollowupFragmentModel(), viewConfigurationIdentifier);
+    }
+
+    @Override
+    public void setupViews(android.view.View view) {
+        super.setupViews(view);
+        view.findViewById(org.smartregister.chw.core.R.id.due_only_layout).setVisibility(GONE);
     }
 
     @Override
