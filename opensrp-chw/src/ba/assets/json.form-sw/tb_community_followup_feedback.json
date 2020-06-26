@@ -1,10 +1,10 @@
 {
-  "form": "HIV Community Followup Feedback",
+  "form": "TB Community Followup Feedback",
   "count": "1",
-  "encounter_type": "HIV Community Followup Feedback",
+  "encounter_type": "TB Community Followup Feedback",
   "entity_id": "",
   "relational_id": "",
-  "rules_file": "rule/hiv_community_followup_feedback_rules.yml",
+  "rules_file": "rule/tb_community_followup_feedback_rules.yml",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -55,7 +55,7 @@
   },
   "steps": [
     {
-      "title": "HIV Community Followup Feedback",
+      "title": "Fomu ya mrejesho wa ufwatiliaji wa mteja wenye Kifua Kikuu",
       "fields": [
         {
           "name": "followup_status",
@@ -71,7 +71,7 @@
           "options": [
             {
               "name": "continuing_with_services",
-              "text": "Continuing with services",
+              "text": "Anaendelea na Huduma.",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "continuing_with_services",
@@ -80,7 +80,7 @@
             },
             {
               "name": "deceased",
-              "text": "Deceased",
+              "text": "Amefariki",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "deceased",
@@ -89,7 +89,7 @@
             },
             {
               "name": "client_not_found",
-              "text": "Client not found",
+              "text": "Hapatikani",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_not_found",
@@ -98,7 +98,7 @@
             },
             {
               "name": "client_relocated_to_another_location",
-              "text": "Client has relocated to another location",
+              "text": "Amehamishiwa mahali pengine",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_relocated_to_another_location",
@@ -107,7 +107,7 @@
             },
             {
               "name": "client_has_moved",
-              "text": "Client has moved ",
+              "text": "Amehama",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_has_moved",
@@ -116,7 +116,7 @@
             },
             {
               "name": "client_has_absconded",
-              "text": "Client has absconded",
+              "text": "Amejitoa",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_has_absconded",
@@ -125,7 +125,7 @@
             },
             {
               "name": "client_continues_with_clinic_from_elsewhere",
-              "text": "Clients continues with clinic from elsewhere",
+              "text": "Anaendelea na huduma akitokea mahali pengine",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_continues_with_clinic_from_elsewhere",
@@ -133,9 +133,9 @@
               }
             }
           ],
-          "required_status": "yes:Please select followup feedback",
+          "required_status": "yes:Please select the followup feedback",
           "dependent_calculations": [
-            "hiv_community_followup_visit_date"
+            "tb_community_followup_visit_date"
           ]
         }
       ]
