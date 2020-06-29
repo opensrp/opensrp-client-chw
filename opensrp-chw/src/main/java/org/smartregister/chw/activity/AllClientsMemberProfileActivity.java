@@ -116,20 +116,10 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         NativeFormsDataBinder binder = new NativeFormsDataBinder(getContext(), commonPersonObject.getCaseId());
         binder.setDataLoader(new FamilyMemberDataLoader(familyName, isPrimaryCareGiver, titleString,
                 Utils.metadata().familyMemberRegister.updateEventType, uniqueID));
-        JSONObject jsonObject = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getAllClientRegistrationForm());
+        JSONObject jsonObject = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm());
 
         try {
-            //Remove the first step and use the updated one
-            if (jsonObject != null && jsonObject.has(STEP1)) {
-
-                jsonObject.put(JsonFormUtils.ENTITY_ID, baseEntityId);
-                jsonObject.put(COUNT, "1");
-                jsonObject.remove(STEP1);
-                jsonObject.put(STEP1, jsonObject.getJSONObject(STEP2));
-                jsonObject.remove(STEP2);
-                startFormActivity(jsonObject);
-            }
-
+            startFormActivity(jsonObject);
         } catch (Exception e) {
             Timber.e(e);
         }
