@@ -355,6 +355,16 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasDefaultDueFilterForChildClient();
 
+         boolean hasJobAidsVitaminAGraph();
+
+        boolean hasJobAidsDewormingGraph();
+
+        boolean hasJobAidsBreastfeedingGraph();
+
+        boolean hasJobAidsBirthCertificationGraph();
+
+        boolean hasSurname();
+
         boolean showMyCommunityActivityReport();
     }
 }
