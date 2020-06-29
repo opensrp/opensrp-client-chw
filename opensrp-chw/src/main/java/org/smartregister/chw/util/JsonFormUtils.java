@@ -155,9 +155,11 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             if (StringUtils.isNotBlank(surnam_familyName_SameString) && Boolean.valueOf(surnam_familyName_SameString)) {
                 String familyId = jsonForm.getJSONObject("metadata").getJSONObject("look_up").getString("value");
                 CommonPersonObject familyObject = ChwApplication.getInstance().getContext().commonrepository("ec_family").findByCaseID(familyId);
-                String lastname = familyObject.getColumnmaps().get(DBConstants.KEY.LAST_NAME);
-                JSONObject surname_object = getFieldJSONObject(fields, "surname");
-                surname_object.put(VALUE, lastname);
+                if (ChwApplication.getApplicationFlavor().hasSurname()) {
+                    String lastname = familyObject.getColumnmaps().get(DBConstants.KEY.LAST_NAME);
+                    JSONObject surname_object = getFieldJSONObject(fields, "surname");
+                    surname_object.put(VALUE, lastname);
+                }
             }
         } catch (Exception e) {
             Timber.e(e);
