@@ -73,4 +73,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean showMyCommunityActivityReport() {
         return true;
     }
+
+    @Override
+    public boolean launchChildClientsAtLogin() {
+        return true;
+    }
 }

@@ -113,4 +113,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean showMyCommunityActivityReport() {
         return false;
     }
+
+    @Override
+    public boolean launchChildClientsAtLogin() {
+        return false;
+    }
 }

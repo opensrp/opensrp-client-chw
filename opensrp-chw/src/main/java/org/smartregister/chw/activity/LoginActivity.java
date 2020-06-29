@@ -111,8 +111,9 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         finish();
     }
 
-    private void startHome(boolean remote){
-        Intent intent = new Intent(this, FamilyRegisterActivity.class);
+    private void startHome(boolean remote) {
+        Intent intent = new Intent(this, ChwApplication.getApplicationFlavor().launchChildClientsAtLogin() ?
+                ChildRegisterActivity.class : FamilyRegisterActivity.class);
         intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
         startActivity(intent);
     }
@@ -132,7 +133,8 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
             startActivity(intent);
             finish();
         } else {
-            Intent intent = new Intent(this, FamilyRegisterActivity.class);
+            Intent intent = new Intent(this, ChwApplication.getApplicationFlavor().launchChildClientsAtLogin() ?
+                    ChildRegisterActivity.class : FamilyRegisterActivity.class);
             intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
             startActivity(intent);
         }
