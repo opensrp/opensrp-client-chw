@@ -66,4 +66,9 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         return intent;
     }
+
+    @Override
+    public String getFormattedDateForVisual(String dueDate, String inputFormat) {
+        return dueDate;
+    }
 }
