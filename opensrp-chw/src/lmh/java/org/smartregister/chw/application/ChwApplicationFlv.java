@@ -41,4 +41,32 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return false;
     }
 
+    @Override
+    public boolean hasJobAidsVitaminAGraph() {
+        return false;
+    }
+
+    @Override
+    public boolean hasJobAidsDewormingGraph() {
+        return false;
+    }
+
+    @Override
+    public boolean hasJobAidsBreastfeedingGraph() {
+        return false;
+    }
+
+    @Override
+    public boolean hasJobAidsBirthCertificationGraph() {
+        return false;
+    }
+
+    @Override
+    public boolean hasSurname() {
+        return false;
+    }
+
+    public boolean showMyCommunityActivityReport() {
+        return true;
+    }
 }

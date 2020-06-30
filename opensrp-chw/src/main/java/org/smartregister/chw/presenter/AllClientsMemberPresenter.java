@@ -14,7 +14,7 @@ import org.smartregister.family.util.Utils;
 
 import java.text.MessageFormat;
 
-import static org.smartregister.util.Utils.getName;
+import static org.smartregister.chw.util.Utils.getClientName;
 
 public class AllClientsMemberPresenter extends CoreAllClientsMemberPresenter {
     public AllClientsMemberPresenter(CoreAllClientsMemberProfileActivity allClientsMemberProfileActivity, String baseEntityId) {
@@ -32,7 +32,7 @@ public class AllClientsMemberPresenter extends CoreAllClientsMemberPresenter {
             int age = StringUtils.isNotBlank(dob) ? Utils.getAgeFromDate(dob) : 0;
 
             AllClientsMemberProfileActivity currentView = (AllClientsMemberProfileActivity) getView();
-            currentView.setProfileName(MessageFormat.format("{0}, {1}", getName(getName(firstName, middleName), lastName), age));
+            currentView.setProfileName(MessageFormat.format("{0}, {1}", getClientName(firstName, middleName, lastName), age));
             String gestationAge = CoreChwApplication.ancRegisterRepository().getGaIfAncWoman(client.getCaseId());
             if (gestationAge != null) {
                 currentView.setProfileDetailOne(NCUtils.gestationAgeString(gestationAge, currentView.getContext(), true));
