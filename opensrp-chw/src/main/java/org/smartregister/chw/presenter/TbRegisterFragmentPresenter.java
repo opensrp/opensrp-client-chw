@@ -20,6 +20,7 @@ public class TbRegisterFragmentPresenter extends BaseTbRegisterFragmentPresenter
     public String getMainCondition() {
         return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.Key.DATE_REMOVED + " is null " +
                 "AND " + Tables.TB + "." + DBConstants.Key.TB_CASE_CLOSURE_DATE + " is null " +
+                "AND (" + Tables.TB + "." + DBConstants.Key.CLIENT_TB_STATUS_AFTER_TESTING + " = 'Positive' OR " + Tables.TB + "." + DBConstants.Key.CLIENT_TB_STATUS_AFTER_TESTING + " IS NULL ) "+
                 "AND " + Tables.TB + "." + DBConstants.Key.IS_CLOSED + " = '0' ";
 
     }
