@@ -119,35 +119,10 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         String trimMiddleName = middleName.trim();
         String trimLastName = lastName.trim();
         if (ChwApplication.getApplicationFlavor().hasSurname()) {
-            if (StringUtils.isNotBlank(trimFirstName) && StringUtils.isNotBlank(trimLastName)) {
-                if (StringUtils.isNotBlank(trimMiddleName)) {
-                    return trimFirstName + " " + trimMiddleName + " " + trimLastName;
-                }
-                return trimFirstName + " " + trimLastName;
-
-            } else {
-                if (StringUtils.isNotBlank(trimFirstName)) {
-                    if (StringUtils.isNotBlank(trimMiddleName)) {
-                        return trimFirstName + " " + trimMiddleName;
-                    }
-                    return trimFirstName;
-
-                } else if (StringUtils.isNotBlank(trimLastName)) {
-                    if (StringUtils.isNotBlank(trimMiddleName)) {
-                        return trimMiddleName + " " + trimLastName;
-                    }
-                    return trimLastName;
-                }
-            }
+            return getName(trimFirstName, trimMiddleName, trimLastName);
         } else {
-            if (StringUtils.isNotBlank(trimFirstName)) {
-                if (StringUtils.isNotBlank(trimMiddleName)) {
-                    return trimFirstName + " " + trimMiddleName;
-                }
-                return trimFirstName;
-            }
+            return Utils.getName(trimFirstName, trimMiddleName);
         }
-        return "";
     }
 
 

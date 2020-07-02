@@ -6,7 +6,6 @@ import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.core.utils.Utils;
 
 import static org.smartregister.chw.util.Utils.formatDateForVisual;
-import static org.smartregister.chw.util.Utils.getClientName;
 
 public class UtilsTest extends BaseUnitTest {
 
@@ -34,11 +33,4 @@ public class UtilsTest extends BaseUnitTest {
         Assert.assertEquals(formattedDate, "23 Jun 2020");
     }
 
-    @Test
-    public void testGetClientNameShouldReturnCorrectValue() {
-        String firstName = " first";
-        String middleName = "middle";
-        String lastName = "last";
-        Assert.assertEquals("first middle", getClientName(firstName, middleName, lastName));
-    }
 }
