@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -31,6 +33,7 @@ import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.tb.util.Constants;
+import org.smartregister.chw.util.UtilsFlv;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -231,6 +234,28 @@ public class HivProfileActivity extends CoreHivProfileActivity
     @Override
     public void onReceivedNotifications(List<Pair<String, String>> notifications) {
         handleReceivedNotifications(this, notifications, notificationListAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(org.smartregister.chw.core.R.menu.hiv_profile_menu, menu);
+
+        UtilsFlv.updateTbMenuItems(getHivMemberObject().getBaseEntityId(),menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == org.smartregister.chw.core.R.id.action_tb_registration) {
+            startTbRegister();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void startTbRegister() {
+        TbRegisterActivity.startTbFormActivity(HivProfileActivity.this, getHivMemberObject().getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration(), getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration()).toString());
     }
 }
 
