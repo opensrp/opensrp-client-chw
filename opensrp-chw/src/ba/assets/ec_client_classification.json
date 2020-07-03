@@ -362,6 +362,20 @@
               "ec_tb_outcome",
               "ec_tb_register"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HIV Notification Dismissal",
+            "creates_case": [
+              "ec_hiv_outcome"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "TB Notification Dismissal",
+            "creates_case": [
+              "ec_tb_outcome"
+            ]
           }
         ]
       }
