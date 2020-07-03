@@ -353,7 +353,11 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasTasks();
 
-        boolean hasJobAidsVitaminAGraph();
+        boolean hasDefaultDueFilterForChildClient();
+
+        boolean launchChildClientsAtLogin();
+
+         boolean hasJobAidsVitaminAGraph();
 
         boolean hasJobAidsDewormingGraph();
 
