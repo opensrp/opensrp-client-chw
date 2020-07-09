@@ -10,6 +10,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 import com.vijay.jsonwizard.domain.Form;
+import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -223,6 +224,8 @@ public class ChwApplication extends CoreChwApplication {
         // Set display date format for date pickers in native forms
         Form form = new Form();
         form.setDatePickerDisplayFormat("dd MMM yyyy");
+
+        NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
     }
 
     @Override
@@ -362,7 +365,7 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean launchChildClientsAtLogin();
 
-         boolean hasJobAidsVitaminAGraph();
+        boolean hasJobAidsVitaminAGraph();
 
         boolean hasJobAidsDewormingGraph();
 
