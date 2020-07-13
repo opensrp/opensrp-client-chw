@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 
+import androidx.annotation.Nullable;
+
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
@@ -14,6 +16,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 import org.koin.core.context.GlobalContextKt;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
@@ -72,6 +75,8 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
+import org.smartregister.chw.util.ChwLocationBasedClassifier;
+import org.smartregister.sync.P2PClassifier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -174,10 +179,16 @@ public class ChwApplication extends CoreChwApplication {
         EventBus.getDefault().register(this);
     }
 
+    @Nullable
+    @Override
+    public P2PClassifier<JSONObject> getP2PClassifier() {
+        return flavor.hasForeignData() ? new ChwLocationBasedClassifier() : null;
+    }
+
     private void initializeLibraries() {
         //Initialize Modules
         P2POptions p2POptions = new P2POptions(true);
-        p2POptions.setAuthorizationService(new CoreAuthorizationService());
+        p2POptions.setAuthorizationService(flavor.hasForeignData() ? new LmhAuthorizationService() : new CoreAuthorizationService());
         p2POptions.setRecalledIdentifier(new FailSafeRecalledID());
 
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
@@ -357,7 +368,7 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean launchChildClientsAtLogin();
 
-         boolean hasJobAidsVitaminAGraph();
+        boolean hasJobAidsVitaminAGraph();
 
         boolean hasJobAidsDewormingGraph();
 
@@ -368,5 +379,7 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasSurname();
 
         boolean showMyCommunityActivityReport();
+
+        boolean hasForeignData();
     }
 }
