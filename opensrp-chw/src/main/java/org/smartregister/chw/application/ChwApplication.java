@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
+import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -229,6 +230,7 @@ public class ChwApplication extends CoreChwApplication {
 
         // set up processor
         FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
+        NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
     }
 
     @Override
