@@ -82,6 +82,10 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean hasDefaultDueFilterForChildClient() {
+        return false;
+    }
+
     public boolean hasJobAidsVitaminAGraph() {
         return true;
     }
@@ -107,6 +111,11 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     public boolean showMyCommunityActivityReport() {
+        return false;
+    }
+
+    @Override
+    public boolean launchChildClientsAtLogin() {
         return false;
     }
 

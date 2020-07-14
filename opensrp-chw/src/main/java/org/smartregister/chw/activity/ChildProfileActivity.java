@@ -42,6 +42,7 @@ import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
 import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
 
 public class ChildProfileActivity extends CoreChildProfileActivity implements OnRetrieveNotifications {
     public FamilyMemberFloatingMenu familyFloatingMenu;
@@ -240,11 +241,29 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 
+    @Override
+    public void setServiceNameDue(String serviceName, String dueDate) {
+        super.setServiceNameDue(serviceName, flavor.getFormattedDateForVisual(dueDate, YYYY_MM_DD));
+    }
+
+    @Override
+    public void setServiceNameOverDue(String serviceName, String dueDate) {
+        super.setServiceNameOverDue(serviceName, flavor.getFormattedDateForVisual(dueDate, YYYY_MM_DD));
+    }
+
+    @Override
+    public void setServiceNameUpcoming(String serviceName, String dueDate) {
+        super.setServiceNameUpcoming(serviceName, flavor.getFormattedDateForVisual(dueDate, YYYY_MM_DD));
+    }
+
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
 
         boolean isChildOverTwoMonths(CommonPersonObjectClient client);
 
         Intent getSickChildFormActivityIntent(JSONObject jsonObject, Context context);
+
+        String getFormattedDateForVisual(String dueDate, String inputFormat);
+
     }
 }

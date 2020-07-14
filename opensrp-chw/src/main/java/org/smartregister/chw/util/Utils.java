@@ -20,10 +20,15 @@ import org.smartregister.growthmonitoring.domain.ZScore;
 import org.smartregister.growthmonitoring.repository.WeightForHeightRepository;
 import org.smartregister.helper.BottomNavigationHelper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Utils extends org.smartregister.chw.core.utils.Utils {
+
+    public static final String dd_MMM_yyyy = "dd MMM yyyy";
 
     public static void launchClientReferralActivity(Activity activity, List<ReferralTypeModel> referralTypeModels, String baseEntityId) {
         Bundle bundle = new Bundle();
@@ -86,40 +91,28 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         return zScore;
     }
 
+    public static String formatDateForVisual(String date, String inputFormat) {
+        if (StringUtils.isEmpty(date)) return "";
+        SimpleDateFormat format = new SimpleDateFormat(inputFormat);
+        Date newDate = null;
+        try {
+            newDate = format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        format = new SimpleDateFormat(dd_MMM_yyyy);
+        return format.format(newDate);
+    }
+
     public static String getClientName(String firstName, String middleName, String lastName) {
         String trimFirstName = firstName.trim();
         String trimMiddleName = middleName.trim();
         String trimLastName = lastName.trim();
         if (ChwApplication.getApplicationFlavor().hasSurname()) {
-            if (StringUtils.isNotBlank(trimFirstName) && StringUtils.isNotBlank(trimLastName)) {
-                if (StringUtils.isNotBlank(trimMiddleName)) {
-                    return trimFirstName + " " + trimMiddleName + " " + trimLastName;
-                }
-                return trimFirstName + " " + trimLastName;
-
-            } else {
-                if (StringUtils.isNotBlank(trimFirstName)) {
-                    if (StringUtils.isNotBlank(trimMiddleName)) {
-                        return trimFirstName + " " + trimMiddleName;
-                    }
-                    return trimFirstName;
-
-                } else if (StringUtils.isNotBlank(trimLastName)) {
-                    if (StringUtils.isNotBlank(trimMiddleName)) {
-                        return trimMiddleName + " " + trimLastName;
-                    }
-                    return trimLastName;
-                }
-            }
+            return getName(trimFirstName, trimMiddleName, trimLastName);
         } else {
-            if (StringUtils.isNotBlank(trimFirstName)) {
-                if (StringUtils.isNotBlank(trimMiddleName)) {
-                    return trimFirstName + " " + trimMiddleName;
-                }
-                return trimFirstName;
-            }
+            return Utils.getName(trimFirstName, trimMiddleName);
         }
-        return "";
     }
 
 

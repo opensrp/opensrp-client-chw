@@ -42,6 +42,10 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean hasDefaultDueFilterForChildClient() {
+        return true;
+    }
+
     public boolean hasJobAidsVitaminAGraph() {
         return false;
     }
@@ -67,6 +71,11 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     public boolean showMyCommunityActivityReport() {
+        return true;
+    }
+
+    @Override
+    public boolean launchChildClientsAtLogin() {
         return true;
     }
 }
