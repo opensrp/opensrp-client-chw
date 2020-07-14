@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.vijay.jsonwizard.utils.FormUtils;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -60,7 +62,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
     public void startTbFollowupActivity(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, BaseTbRegistrationFormsActivity.class);
         intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.JSON_FORM, getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit()).toString());
+        intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.JSON_FORM, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit()).toString());
         intent.putExtra(org.smartregister.chw.tb.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
 
         activity.startActivityForResult(intent, org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT);
@@ -97,7 +99,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     @Override
     protected void startTbCaseClosure() {
-        TbRegisterActivity.startTbFormActivity(this, getTbMemberObject().getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getTbCaseClosure(), getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbCaseClosure()).toString());
+        TbRegisterActivity.startTbFormActivity(this, getTbMemberObject().getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getTbCaseClosure(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, org.smartregister.chw.util.Constants.JSON_FORM.getTbCaseClosure()).toString());
     }
 
     @Override
@@ -163,7 +165,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     @Override
     public void openTbRegistrationForm() {
-        TbRegisterActivity.startTbFormActivity(this, getTbMemberObject().getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration(), getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration()).toString());
+        TbRegisterActivity.startTbFormActivity(this, getTbMemberObject().getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration()).toString());
 
     }
 
@@ -245,7 +247,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.tb_profile_menu, menu);
-        UtilsFlv.updateHivMenuItems(getTbMemberObject().getBaseEntityId(),menu);
+        UtilsFlv.updateHivMenuItems(getTbMemberObject().getBaseEntityId(), menu);
         return true;
     }
 
@@ -260,7 +262,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
     }
 
     protected void startHivRegister() {
-        HivRegisterActivity.startHIVFormActivity(TbProfileActivity.this, getTbMemberObject().getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration(), getFormUtils().getFormJsonFromRepositoryOrAssets(org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration()).toString());
+        HivRegisterActivity.startHIVFormActivity(TbProfileActivity.this, getTbMemberObject().getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration()).toString());
     }
 
 }
