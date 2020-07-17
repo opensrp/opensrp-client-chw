@@ -14,7 +14,7 @@ public class PncMemberProfileActivityFlv implements PncMemberProfileActivity.Fla
         if (FpDao.isRegisteredForFp(baseEntityId)) {
             menu.findItem(R.id.action_fp_change).setVisible(true);
         } else {
-            menu.findItem(R.id.action_fp_initiation).setVisible(true);
+            menu.findItem(R.id.action_fp_initiation_pnc).setVisible(true);
         }
         return true;
     }

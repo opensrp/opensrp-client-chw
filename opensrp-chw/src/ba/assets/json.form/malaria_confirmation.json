@@ -4,7 +4,6 @@
   "count": "2",
   "encounter_type": "Malaria Confirmation",
   "entity_id": "",
-  "relational_id": "",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -62,7 +61,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
+        "hidden": "true",
+        "type": "edit_text",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -72,23 +72,58 @@
         }
       },
       {
+        "key": "date_chw_malaria_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "hidden": "true",
+        "type": "edit_text",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "malaria_confirmation_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "relational_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "relational_id",
+        "hidden": "true",
+        "type": "edit_text"
+      },
+      {
         "key": "fever_malaria_chw",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fever_malaria_chw",
-        "type": "spinner",
-        "hint": "Does this person have a fever or did they test positive for malaria in the last 14 days at a health facility?",
-        "values": [
-          "Has a fever",
-          "Tested positive for malaria in the last 14 days at a health facility"
+        "type": "native_radio",
+        "label": "Does this person have a fever or did they test positive for malaria in the last 14 days at a health facility?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "has_fever",
+            "text": "Has a fever",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "has_fever",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "tested_positive_last_14_days",
+            "text": "Tested positive for malaria in the last 14 days at a health facility",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tested_positive_last_14_days",
+            "openmrs_entity_parent": ""
+          }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
-        },
-        "openmrs_choice_ids": {
-          "Has a fever": "has_fever_conceptID",
-          "Tested positive for malaria in the last 14 days at a health facility": "positive_for_malaria_conceptID"
+          "err": "Please select one"
         }
       },
       {
@@ -119,6 +154,29 @@
         }
       },
       {
+        "key": "malaria_test_done",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_test_done",
+        "type": "spinner",
+        "hint": "Was a malaria test done?",
+        "values": [
+          "No",
+          "Yes, by the CHW"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "malaria_confirmation_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "malaria_results",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -127,13 +185,11 @@
         "hint": "mRDT results",
         "values": [
           "Positive",
-          "Negative",
-          "Not done"
+          "Negative"
         ],
         "openmrs_choice_ids": {
           "Positive": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Negative": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Not done": "160414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Negative": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -173,7 +229,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
+        "hidden": "true",
+        "type": "edit_text",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -187,7 +244,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
+        "hidden": "true",
+        "type": "edit_text",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -223,6 +281,23 @@
           "value": "true",
           "err": "Please select one choice"
         },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "malaria_confirmation_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Please refer the client for a malaria test",
+        "toaster_info_text": "Please refer the client for a malaria test",
+        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -314,28 +389,62 @@
         "key": "malaria_edu_chw",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Malaria topics covered",
-        "values": [
-          "Overview on malaria",
-          "Malaria prevention",
-          "Uncomplicated malaria",
-          "Severe malaria",
-          "Malaria in pregnancy",
-          "None"
+        "openmrs_entity_id": "malaria_edu_chw",
+        "type": "check_box",
+        "label": "Malaria topics covered",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "chk_none"
         ],
-        "openmrs_choice_ids": {
-          "Overview on malaria": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Malaria prevention": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Uncomplicated malaria": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Severe malaria": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Malaria in pregnancy": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
+        "options": [
+          {
+            "key": "overview_on_malaria",
+            "text": "Overview on malaria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "malaria_prevention",
+            "text": "Malaria prevention",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "uncomplicated_malaria",
+            "text": "Uncomplicated malaria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Severe_malaria",
+            "text": "Severe malaria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "malaria_in_pregnancy",
+            "text": "Malaria in pregnancy",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please select one choice"
+          "err": "Malaria topics covered required"
         }
       }
     ]

@@ -4,6 +4,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildHomeVisitActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.fragment.CoreChildRegisterFragment;
 import org.smartregister.chw.model.ChildRegisterFragmentModel;
 import org.smartregister.chw.presenter.ChildRegisterFragmentPresenter;
@@ -11,11 +12,14 @@ import org.smartregister.chw.provider.ChildRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.family.util.Utils;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.util.Set;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.FAMILY_LAST_NAME;
 
 public class ChildRegisterFragment extends CoreChildRegisterFragment {
 
@@ -30,13 +34,13 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
     }
 
     @Override
-    public void goToChildDetailActivity(CommonPersonObjectClient patient,
-                                        boolean launchDialog) {
+    public void goToChildDetailActivity(CommonPersonObjectClient patient, boolean launchDialog) {
         if (launchDialog) {
             Timber.i(patient.name);
         }
-
-        ChildProfileActivity.startMe(getActivity(), false, new MemberObject(patient), ChildProfileActivity.class);
+        MemberObject memberObject = new MemberObject(patient);
+        memberObject.setFamilyName(Utils.getValue(patient.getColumnmaps(), FAMILY_LAST_NAME, false));
+        ChildProfileActivity.startMe(getActivity(), memberObject, ChildProfileActivity.class);
     }
 
     @Override
@@ -52,8 +56,21 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
         if (getActivity() == null) {
             return;
         }
-
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         presenter = new ChildRegisterFragmentPresenter(this, new ChildRegisterFragmentModel(), viewConfigurationIdentifier);
     }
+
+    @Override
+    public void setupViews(android.view.View view) {
+        super.setupViews(view);
+
+        if (ChwApplication.getApplicationFlavor().hasDefaultDueFilterForChildClient()) {
+            android.view.View dueOnlyLayout = view.findViewById(org.smartregister.chw.core.R.id.due_only_layout);
+            dueOnlyLayout.setVisibility(android.view.View.VISIBLE);
+            dueOnlyLayout.setOnClickListener(registerActionHandler);
+            dueOnlyLayout.setTag(null);
+            toggleFilterSelection(dueOnlyLayout);
+        }
+    }
+
 }

@@ -57,6 +57,20 @@
     "title": "Sick Child",
     "fields": [
       {
+        "key": "age_in_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "child_first_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
         "key": "sick_child_warning",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -64,7 +78,14 @@
         "type": "toaster_notes",
         "text": "This child is below 2 months of age. If you continue, you will be providing this care outside of the recommended national guidelines. If you do not wish to proceed, please exit the form..",
         "text_color": "#CF0800",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "manual_date",
@@ -86,30 +107,61 @@
       {
         "key": "visit_type",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "visit_type",
-        "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "What kind of visit is this?",
-        "values": [
-          "Initial Visit",
-          "1st follow-up visit",
-          "2nd follow-up visit",
-          "3rd follow-up visit"
-        ]
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "What kind of visit is this?",
+        "options": [
+          {
+            "key": "Initial Visit",
+            "text": "Initial Visit"
+          },
+          {
+            "key": "1st follow-up visit",
+            "text": "1st follow-up visit"
+          },
+          {
+            "key": "2nd follow-up visit",
+            "text": "2nd follow-up visit"
+          },
+          {
+            "key": "3rd follow-up visit",
+            "text": "3rd follow-up visit"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        }
       },
       {
         "key": "source",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "source",
-        "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "How did you find the child?",
-        "values": [
-          "Passive case finding (Parent came to me)",
-          "Active case finding (CHA went to sick child or on routine visit)"
-        ]
+        "type": "native_radio",
+        "label": "How did you find the child?",
+        "options": [
+          {
+            "key": "Passive case finding (Parent came to me)",
+            "text": "Passive case finding (Parent came to me)"
+          },
+          {
+            "key": "Active case finding (CHA went to sick child or on routine visit)",
+            "text": "Active case finding (CHA went to sick child or on routine visit)"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "danger_signs",
@@ -117,9 +169,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "danger_signs",
         "type": "check_box",
-        "label": "Ask and look to see if the child has any DANGER SIGNS:a",
+        "label": "Ask and look to see if the child has any DANGER SIGNS:",
         "label_text_style": "normal",
-        "text_color": "#C0C0C0",
         "exclusive": [
           "chk_none"
         ],
@@ -144,13 +195,6 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_sleepy_unconscious"
-          },
-          {
-            "key": "chk_referred",
-            "text": "Amepewa rufaa",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_convulsions",
@@ -225,11 +269,18 @@
         ]
       },
       {
-        "key": "child_has_danger_signs_toaster",
+        "key": "child_has_danger_signs",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "type": "spacer"
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "danger_signs_present_toaster",
@@ -238,33 +289,23 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "{firstName} has the following danger signs and needs to be referred to a health facility:\n{dangerSigns}",
-        "text_color": "#CF0800",
         "toaster_type": "problem",
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_fever",
-                  "chk_running_stomach",
-                  "chk_other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -273,15 +314,24 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_information_one",
-        "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Explain why the caregiver must take the child to a health facility",
-        "values": [
-          "I have explained to the caregiver why the child must be moved to the health facility"
+        "type": "native_radio",
+        "label": "Explain why the caregiver must take the child to a health facility",
+        "options": [
+          {
+            "key": "I have explained to the caregiver why the child must be moved to the health facility",
+            "text": "I have explained to the caregiver why the child must be moved to the health facility"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -292,19 +342,14 @@
         "left_padding": "20dp",
         "right_padding": "20dp",
         "text_size": "7sp",
-        "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "chest_indrawing_label",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_chest_indrawing"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -313,28 +358,27 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_provided_amoxicillin",
-        "openmrs_data_type": "",
-        "label_info_title": "See dose card",
-        "label_info_text": "See dose card",
-        "type": "spinner",
-        "hint": "PNEUMONIA: If the child can drink, give child first dose of oral antibiotics (amoxicillin)",
-        "values": [
-          "Yes. I have given the child oral antibiotics (amoxicillin)",
-          "No. Oral antibiotics (amoxicillin) were not provided"
+        "type": "native_radio",
+        "label": "PNEUMONIA: If the child can drink, give child first dose of oral antibiotics (amoxicillin)",
+        "options": [
+          {
+            "key": "Yes. I have given the child oral antibiotics (amoxicillin)",
+            "text": "Yes. I have given the child oral antibiotics (amoxicillin)"
+          },
+          {
+            "key": "No. Oral antibiotics (amoxicillin) were not provided",
+            "text": "No. Oral antibiotics (amoxicillin) were not provided"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_chest_indrawing"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -346,19 +390,14 @@
         "left_padding": "20dp",
         "right_padding": "20dp",
         "text_size": "7sp",
-        "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "fever_label",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_fever"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -367,28 +406,29 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "give_act",
-        "openmrs_data_type": "",
+        "type": "native_radio",
+        "label": "MALARIA: Refer + Treat Malaria. Help caregiver give first dose of ACT and Paracetamol",
         "label_info_title": "See dose card",
         "label_info_text": "See dose card",
-        "type": "spinner",
-        "hint": "MALARIA: Refer + Treat Malaria. Help caregiver give first dose of ACT and Paracetamol",
-        "values": [
-          "Yes. I provided the first dose of ACT and Paracetamol",
-          "No. I did not provide the first dose of ACT and Paracetamol"
+        "options": [
+          {
+            "key": "Yes. I provided the first dose of ACT and Paracetamol",
+            "text": "Yes. I provided the first dose of ACT and Paracetamol"
+          },
+          {
+            "key": "No. I did not provide the first dose of ACT and Paracetamol",
+            "text": "No. I did not provide the first dose of ACT and Paracetamol"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_fever"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -403,17 +443,12 @@
         "text_color": "#000000",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "running_stomach_label",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_running_stomach",
-                  "chk_blood_in_poo"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -422,29 +457,29 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "provided_ors",
-        "openmrs_data_type": "",
+        "type": "native_radio",
+        "label": "DIARRHEA: Give ORS right away",
         "label_info_title": "See dose card",
         "label_info_text": "See dose card",
-        "type": "spinner",
-        "hint": "DIARRHEA: Give ORS right away",
-        "values": [
-          "Yes. I have given ORS to the child",
-          "No. I have not given ORS to the child"
+        "options": [
+          {
+            "key": "Yes. I have given ORS to the child",
+            "text": "Yes. I have given ORS to the child"
+          },
+          {
+            "key": "No. I have not given ORS to the child",
+            "text": "No. I have not given ORS to the child"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_running_stomach",
-                  "chk_blood_in_poo"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -454,36 +489,23 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_give_fluids",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Advise the caregiver to give water and continue feeding the child",
-        "values": [
-          "I have advised the caregiver to give fluids and continue feeding"
+        "type": "native_radio",
+        "label": "Advise the caregiver to give water and continue feeding the child",
+        "options": [
+          {
+            "key": "I have advised the caregiver to give fluids and continue feeding",
+            "text": "I have advised the caregiver to give fluids and continue feeding"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_fever",
-                  "chk_running_stomach",
-                  "chk_other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -493,38 +515,26 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_keep_child_warm",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Advise the caregiver to keep the child warm",
+        "type": "native_radio",
+        "label": "Advise the caregiver to keep the child warm",
         "values": [
           "I have advised the caregiver to keep the child warm"
+        ],
+        "options": [
+          {
+            "key": "I have advised the caregiver to keep the child warm",
+            "text": "I have advised the caregiver to keep the child warm"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_running_stomach",
-                  "chk_other"
-                ],
-                "not": [
-                  "chk_fever"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -534,24 +544,23 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_keep_child_cool",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Advise the caregiver to keep the child cool",
-        "values": [
-          "I have advised the caregiver to keep the child cool"
+        "type": "native_radio",
+        "label": "Advise the caregiver to keep the child cool",
+        "options": [
+          {
+            "key": "I have advised the caregiver to keep the child cool",
+            "text": "I have advised the caregiver to keep the child cool"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "and": [
-                  "chk_fever"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -561,37 +570,27 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_complete_form",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Complete the 1.3 Community Trigger and Referral Form",
-        "values": [
-          "Yes. I have completed the 1.3 Community Trigger and Referral Form",
-          "No. I have NOT completed the 1.3 Community Trigger and Referral Form"
+        "type": "native_radio",
+        "label": "Complete the 1.3 Community Trigger and Referral Form",
+        "options": [
+          {
+            "key": "Yes. I have completed the 1.3 Community Trigger and Referral Form",
+            "text": "Yes. I have completed the 1.3 Community Trigger and Referral Form"
+          },
+          {
+            "key": "No. I have NOT completed the 1.3 Community Trigger and Referral Form",
+            "text": "No. I have NOT completed the 1.3 Community Trigger and Referral Form"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_fever",
-                  "chk_running_stomach",
-                  "chk_other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -601,37 +600,27 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_arranged_transport",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Arrange transport for the child and refer the child to the health facility",
-        "values": [
-          "I have attempted and was successful in arranging transport for the child for a referral visit to the facility",
-          "I have attempted but was not successful in arranging transport for the child for a referral visit to the facility"
+        "type": "native_radio",
+        "label": "Arrange transport for the child and refer the child to the health facility",
+        "options": [
+          {
+            "key": "I have attempted and was successful in arranging transport for the child for a referral visit to the facility",
+            "text": "I have attempted and was successful in arranging transport for the child for a referral visit to the facility"
+          },
+          {
+            "key": "I have attempted but was not successful in arranging transport for the child for a referral visit to the facility",
+            "text": "I have attempted but was not successful in arranging transport for the child for a referral visit to the facility"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_fever",
-                  "chk_running_stomach",
-                  "chk_other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -639,39 +628,29 @@
         "key": "referral_successful",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "referral_arranged_transport",
+        "openmrs_entity_id": "referral_successful",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Has the caregiver agreed to take child to health facility?",
-        "values": [
-          "Yes",
-          "No"
+        "type": "native_radio",
+        "label": "Has the caregiver agreed to take child to health facility?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_fever",
-                  "chk_running_stomach",
-                  "chk_other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -682,17 +661,12 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Child has no danger signs. Please look for the following symptoms which can be treated at home",
-        "text_color": "#CF0800",
         "toaster_type": "positive",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_none"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -701,31 +675,15 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "type": "toaster_notes",
+        "type": "label",
+        "text_size": "6sp",
         "text": "Please look for the following symptoms which can be treated at home",
-        "text_color": "#CF0800",
         "toaster_type": "info",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_muac",
-                  "chk_feet_swelling",
-                  "chk_sleepy_unconscious",
-                  "chk_referred",
-                  "chk_convulsions",
-                  "chk_unable_to_eat",
-                  "chk_vomiting",
-                  "chk_blood_in_poo",
-                  "chk_coughing",
-                  "chk_chest_indrawing",
-                  "chk_fever",
-                  "chk_running_stomach",
-                  "chk_other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -742,14 +700,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_muac"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -759,25 +713,27 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_provided_amoxicillin",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Does the child have Yellow MUAC?",
-        "values": [
-          "Yes",
-          "No"
+        "type": "native_radio",
+        "label": "Does the child have Yellow MUAC?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_muac"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -794,14 +750,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_coughing"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -811,25 +763,27 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_provided_amoxicillin",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Is the child coughing?",
-        "values": [
-          "Yes",
-          "No"
+        "type": "native_radio",
+        "label": "Is the child coughing?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_coughing"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -839,27 +793,34 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_provided_amoxicillin",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Child has fast breathing?\n    - If 2-11 months: 50+ breaths per minute\n    - If 1-5 years: 40+ breaths per minute",
-        "values": [
-          "Yes, has fast breathing",
-          "Not fast breathing"
+        "type": "native_radio",
+        "label": "Child has fast breathing?\n    - If 2-11 months: 50+ breaths per minute\n    - If 1-5 years: 40+ breaths per minute",
+        "options": [
+          {
+            "key": "Yes, has fast breathing",
+            "text": "Yes, has fast breathing"
+          },
+          {
+            "key": "Not fast breathing",
+            "text": "Not fast breathing"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:child_coughing": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
       {
-        "key": "fever_label",
+        "key": "fever_group_label",
         "type": "label",
-        "text": "Fever Group",
+        "text": "Fever",
         "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
@@ -869,14 +830,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_fever"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -886,25 +843,27 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fever",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Child had fever in past 3 days?",
-        "values": [
-          "Yes",
-          "No"
+        "type": "native_radio",
+        "label": "Child had fever in past 3 days?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_fever"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -914,50 +873,64 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "gave_rdt",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Perform an RDT on the child",
-        "values": [
-          "Yes, I gave the child an RDT",
-          "No, I did not give the child an RDT"
+        "type": "native_radio",
+        "label": "Perform an RDT on the child",
+        "options": [
+          {
+            "key": "Yes, I gave the child an RDT",
+            "text": "Yes, I gave the child an RDT"
+          },
+          {
+            "key": "No, I did not give the child an RDT",
+            "text": "No, I did not give the child an RDT"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:fever": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
       {
-        "key": "postive_malaria",
+        "key": "positive_malaria",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "postive_malaria",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "What was the result of the RDT?",
-        "values": [
-          "Positive RDT",
-          "Negative RDT"
+        "type": "native_radio",
+        "label": "What was the result of the RDT?",
+        "options": [
+          {
+            "key": "Positive RDT",
+            "text": "Positive RDT"
+          },
+          {
+            "key": "Negative RDT",
+            "text": "Negative RDT"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:gave_rdt": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
       {
         "key": "diarrhea_label",
         "type": "label",
-        "text": "Diarrhea Group",
+        "text": "Diarrhea",
         "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
@@ -967,15 +940,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_running_stomach",
-                  "chk_blood_in_poo"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -985,26 +953,27 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fever",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Has the child had 3 or more diarrhea (watery poo poos) in the last 24 hours?",
-        "values": [
-          "Yes",
-          "No"
+        "type": "native_radio",
+        "label": "Has the child had 3 or more diarrhea (watery poo poos) in the last 24 hours?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes"
+          },
+          {
+            "key": "No",
+            "text": "No"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_running_stomach",
-                  "chk_blood_in_poo"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1013,50 +982,70 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "type": "spacer",
-        "expanded": false,
-        "read_only": "true",
-        "hidden": "false"
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "home_treatment_coughing",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "home_treatment_coughing",
-        "type": "spacer",
-        "expanded": false,
-        "read_only": "true",
-        "hidden": "false"
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "home_treatment_fever",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "home_treatment_fever",
-        "type": "spacer",
-        "expanded": false,
-        "read_only": "true",
-        "hidden": "false"
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "home_treatment_diarrhea",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "home_treatment_diarrhea",
-        "type": "spacer",
-        "expanded": false,
-        "read_only": "true",
-        "hidden": "false"
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "home_treatment_malnutrition",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "home_treatment_malnutrition",
-        "type": "spacer",
-        "expanded": false,
-        "read_only": "true",
-        "hidden": "false"
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "treat_at_home_toaster",
@@ -1064,41 +1053,50 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "treat_at_home_toaster",
         "type": "toaster_notes",
-        "text": "Begin home treatment. {firstName} has the following symptoms:\n\nhomeTreatment_coughing\nhomeTreatment_fever\nhomeTreatment_diarrhea\nhomeTreatment_malnutrition",
+        "text": "Begin home treatment. {firstName} has the following symptoms: {symptoms} ",
         "text_color": "#CF0800",
         "toaster_type": "warning",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_none"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
       {
         "key": "treat_pneumonia",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "fever",
-        "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "PNEUMONIA: Treat at home with Amoxicillin. Teach caregiver how to give treatment and watch caregiver give first dose now. Check caregiver's understanding and ask him/her to explain treatment plan",
-        "values": [
-          "Yes, I told the caregiver and gave him/her Amoxicillin",
-          "No, I did not give the caregiver Amoxicillin"
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "PNEUMONIA: Treat at home with Amoxicillin. Teach caregiver how to give treatment and watch caregiver give first dose now. Check caregiver's understanding and ask him/her to explain treatment plan",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes, I told the caregiver and gave him/her Amoxicillin"
+          },
+          {
+            "key": "No",
+            "text": "No, I did not give the caregiver Amoxicillin"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:fast_breathing": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes, has fast breathing\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1111,28 +1109,43 @@
         "label": "Dose given:",
         "hint": "Dose given:",
         "relevance": {
-          "step1:treat_pneumonia": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes, I told the caregiver and gave him/her Amoxicillin\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
       {
         "key": "did_not_treat_pneumonia_reason",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "did_not_treat_pneumonia_reason",
-        "type": "spinner",
-        "hint": "Why was treatment for Pneumonia not provided?",
-        "values": [
-          "Out of stock",
-          "Treatment provided by outreach  or clinic",
-          "Other"
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Why was treatment for Pneumonia not provided?",
+        "options": [
+          {
+            "key": "out_of_stock",
+            "text": "Out of stock"
+          },
+          {
+            "key": "treatment_provided_by_outreach_or_clinic",
+            "text": "Treatment provided by outreach  or clinic"
+          },
+          {
+            "key": "other",
+            "text": "Other"
+          }
         ],
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        },
         "relevance": {
-          "step1:treat_pneumonia": {
-            "type": "string",
-            "ex": "equalTo(., \"No, I did not give the caregiver Amoxicillin\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1145,9 +1158,10 @@
         "label": "Other:",
         "hint": "Other:",
         "relevance": {
-          "step1:did_not_treat_pneumonia_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Other\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1157,26 +1171,27 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "treat_malaria",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "MALARIA: Teach caregiver how to give treatment and watch caregiver give first ACT and Paracetamol doses now. Check caregiver's understanding and ask him/her to explain treatment plan",
-        "values": [
-          "Yes, I informed the caregiver and gave child ACT and Paracetamol",
-          "No, I did not give the child ACT and Paracetamol"
+        "type": "native_radio",
+        "label": "MALARIA: Teach caregiver how to give treatment and watch caregiver give first ACT and Paracetamol doses now. Check caregiver's understanding and ask him/her to explain treatment plan",
+        "options": [
+          {
+            "key": "Yes, I informed the caregiver and gave child ACT and Paracetamol",
+            "text": "Yes, I informed the caregiver and gave child ACT and Paracetamol"
+          },
+          {
+            "key": "No, I did not give the child ACT and Paracetamol",
+            "text": "No, I did not give the child ACT and Paracetamol"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:danger_signs": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "chk_running_stomach",
-                  "chk_blood_in_poo"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       },
@@ -1192,6 +1207,13 @@
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1200,16 +1222,32 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "did_not_treat_malaria_reason",
         "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Why was treatment for Malaria not provided?",
-        "values": [
-          "Out of stock",
-          "Treatment provided by outreach clinic",
-          "Other"
+        "type": "native_radio",
+        "label": "Why was treatment for Malaria not provided?",
+        "options": [
+          {
+            "key": "Out of stock",
+            "text": "Out of stock"
+          },
+          {
+            "key": "Treatment provided by outreach clinic",
+            "text": "Treatment provided by outreach clinic"
+          },
+          {
+            "key": "Other",
+            "text": "Other"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1224,6 +1262,13 @@
         "v_required": {
           "value": "true",
           "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1234,20 +1279,266 @@
         "openmrs_data_type": "",
         "label_info_text": "Use dose card to determine correct treatment plan",
         "label_info_title": "Treat diarrhea",
-        "type": "spinner",
-        "hint": "DIARRHEA: Teach caregiver how to give treatment and watch caregiver give first dose of ORS and Zinc now. Check caregiver's understanding and ask him/her to explain treatment plan",
-        "values": [
-          "Yes, I informed the caregiver and gave child ORS and Zinc",
-          "No, I did not give the child ORS and Zinc"
+        "type": "native_radio",
+        "label": "DIARRHEA: Teach caregiver how to give treatment and watch caregiver give first dose of ORS and Zinc now. Check caregiver's understanding and ask him/her to explain treatment plan",
+        "options": [
+          {
+            "key": "Yes, I informed the caregiver and gave child ORS and Zinc",
+            "text": "Yes, I informed the caregiver and gave child ORS and Zinc"
+          },
+          {
+            "key": "No, I did not give the child ORS and Zinc",
+            "text": "No, I did not give the child ORS and Zinc"
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Required field"
         },
         "relevance": {
-          "step1:did_not_treat_pneumonia_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Other\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "diarrhea_dose_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diarrhea_dose_given",
+        "openmrs_data_type": "",
+        "type": "edit_text",
+        "label": "Dose given:",
+        "hint": "Dose given:",
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "did_not_treat_diarrhea_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "did_not_treat_diarrhea_reason",
+        "openmrs_data_type": "",
+        "type": "native_radio",
+        "label": "Why was treatment for Diarrhea not provided?",
+        "options": [
+          {
+            "key": "Out of stock",
+            "text": "Out of stock"
+          },
+          {
+            "key": "Treatment provided by outreach clinic",
+            "text": "Treatment provided by outreach clinic"
+          },
+          {
+            "key": "Other",
+            "text": "Other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "did_not_treat_diarrhea_reason_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "did_not_treat_diarrhea_reason_other",
+        "openmrs_data_type": "",
+        "type": "edit_text",
+        "label": "Other:",
+        "hint": "Other:",
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "counseled_for_malnutrition",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "counseled_for_malnutrition",
+        "openmrs_data_type": "",
+        "type": "native_radio",
+        "label": "Yellow MUAC - Child is malnourished. Advise the caregiver on malnutrition and how to give child a balanced diet and good food. Notify your supervisor.",
+        "options": [
+          {
+            "key": "Yes, I advised on malnutrition and will notify my supervisor",
+            "text": "Yes, I advised on malnutrition and will notify my supervisor"
+          },
+          {
+            "key": "No, I did not advise on malnutrition",
+            "text": "No, I did not advise on malnutrition"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required field"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_has_danger_sign_toaster_warm",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_warm",
+        "type": "toaster_notes",
+        "text": "Advise the caregiver to keep the child warm",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_has_danger_sign_toaster_cool",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_cool",
+        "type": "toaster_notes",
+        "text": "Advise the caregiver to keep the child cool",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_has_danger_sign_toaster_fluids",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_fluids",
+        "type": "toaster_notes",
+        "text": "Advise caregiver to give more fluids and continue feeding",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_has_danger_sign_toaster_follow_up",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_follow_up",
+        "type": "toaster_notes",
+        "text": "Reminder: Follow up with the child",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_has_danger_sign_toaster_no_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_no_symptoms",
+        "type": "toaster_notes",
+        "text": "Child has no symptoms. Follow up with caregiver to make sure the child stays healthy",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "child_has_danger_sign_toaster_treatment_completed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "child_has_danger_sign_toaster_treatment_completed",
+        "type": "toaster_notes",
+        "text": "Treatment completed. Ask caregiver to return if the child has any other health problems",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "notify_supervisor",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "notify_supervisor",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "notify_supervisor_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "notify_supervisor_toaster",
+        "type": "toaster_notes",
+        "text": "Child has not recovered in three follow up visits. Please notify your supervisor",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_sick_form_relevance.yml"
+            }
           }
         }
       }

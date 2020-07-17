@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
 import org.smartregister.chw.fragment.FamilyProfileMemberFragment;
@@ -23,7 +25,6 @@ import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
-import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -92,7 +93,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     protected ViewPager setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
+        FamilyProfileMemberFragment profileMemberFragment = (FamilyProfileMemberFragment) FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
         profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
         FamilyProfileActivityFragment profileActivityFragment = (FamilyProfileActivityFragment) FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
 
@@ -135,8 +136,14 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     }
 
     @Override
+    protected void goToFpProfile(String baseEntityId, Activity activity) {
+        FamilyPlanningMemberProfileActivity.startFpMemberProfileActivity(activity, FpDao.getMember(baseEntityId));
+    }
+
+
+    @Override
     protected boolean isAncMember(String baseEntityId) {
-        return getFamilyProfilePresenter().isAncMember(baseEntityId);
+        return ChwApplication.getApplicationFlavor().hasANC() && getFamilyProfilePresenter().isAncMember(baseEntityId);
     }
 
     @Override
@@ -151,7 +158,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     @Override
     protected boolean isPncMember(String baseEntityId) {
-        return getFamilyProfilePresenter().isPncMember(baseEntityId);
+        return ChwApplication.getApplicationFlavor().hasPNC() && getFamilyProfilePresenter().isPncMember(baseEntityId);
     }
 
     @Override

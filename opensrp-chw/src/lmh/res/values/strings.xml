@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">LMH</string>
-    <string name="login_title" translatable="false">LMH</string>
-    <string name="nav_logo" translatable="false">LMH</string>
+    <string name="app_name" translatable="false">MOH VTS</string>
+    <string name="login_title" translatable="false">MOH VTS</string>
+    <string name="nav_logo" translatable="false">MOH VTS</string>
 </resources>

@@ -108,6 +108,13 @@
         "v_min": {
           "value": "0",
           "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -131,6 +138,13 @@
         "v_min": {
           "value": "0",
           "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -171,6 +185,13 @@
         "v_min": {
           "value": "0",
           "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -194,6 +215,13 @@
         "v_min": {
           "value": "0",
           "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -217,6 +245,13 @@
         "v_min": {
           "value": "0",
           "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -240,6 +275,13 @@
         "v_min": {
           "value": "0",
           "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -263,6 +305,13 @@
         "v_min": {
           "value": "0",
           "err": "Number must be equal or greater than 0"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -318,12 +367,116 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_bloody_diarrhea"
+          },
+          {
+            "key": "chk_human_rabies",
+            "text": "Human Rabies (dog bite)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_human_rabies"
+          },
+          {
+            "key": "chk_measles",
+            "text": "Measles",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_measles"
+          },
+          {
+            "key": "chk_hemorrhagic",
+            "text": "Hemorrhagic Fever (Ebola, Lassa Fever, Yellow Fever)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hemorrhagic"
+          },
+          {
+            "key": "chk_meningitis",
+            "text": "Meningitis (Stiff neck)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_meningitis"
+          },
+          {
+            "key": "chk_maternal_death",
+            "text": "Maternal Death (big belly death)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_maternal_death"
+          },
+          {
+            "key": "chk_neonatal_tetanus",
+            "text": "Neonatal Tetanus (Jerking sickness)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_neonatal_tetanus"
+          },
+          {
+            "key": "chk_neonatal_death",
+            "text": "Neonatal Death (Young baby death)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_neonatal_death"
+          },
+          {
+            "key": "chk_unknown_health_problems",
+            "text": "Unknown health problems grouped together",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_unknown_health_problems"
+          },
+          {
+            "key": "chk_any_death",
+            "text": "Any death in human or group of animals that you don't know why it happened",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_any_death"
+          },
+          {
+            "key": "chk_other",
+            "text": "Other",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
         }
+      },
+      {
+        "key": "community_trigger_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "community_trigger_other",
+        "type": "edit_text",
+        "hint": "Other:",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter value"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "routine_household_visit_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "form_feedback",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "form_feedback",
+        "type": "edit_text",
+        "hint": "Optional: Do you have any feedback on how we can improve this form?"
       }
     ]
   }

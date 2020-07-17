@@ -1,0 +1,7 @@
+---
+name: step1_service_before_malaria_other
+description: Service
+priority: 1
+condition: "!step1_service_before_malaria.isEmpty() && step1_service_before_malaria.contains('Other_treatment')"
+actions:
+  - "isRelevant = true"

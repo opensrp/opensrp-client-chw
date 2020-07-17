@@ -1,0 +1,209 @@
+{
+  "form": "Referral form",
+  "encounter_type": "Referral Registration",
+  "entity_id": "",
+  "relational_id": "",
+  "rules_file": "rule/general_neat_referral_form_rules.yml",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "steps": [
+    {
+      "title": "Child Gender-based violence services Referral Form",
+      "fields": [
+        {
+          "name": "problem",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Tatizo / hali ya afya ya mteja"
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          "options": [
+            {
+              "name": "has_moved_out_from_home",
+              "text": "Amehama nyumbani",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "has_moved_out_from_home",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "ulcers_and_scars",
+              "text": "Vidonda na makovu",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "ulcers_and_scars",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "is_weak",
+              "text": "Amedhoofika",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "is_weak",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "needs_more_services",
+              "text": "Anahitaji huduma zaidi",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "needs_more_services",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "has_great_level_of_stress_and_fear",
+              "text": "Sonona (msongo wa mawazo)/ kuwa na woga mkuu",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "has_great_level_of_stress_and_fear",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "threatened_to_be_killed",
+              "text": "Kutishiwa kuuawa",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "threatened_to_be_killed",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "child_has_a_disability",
+              "text": "Mtoto ana ulemavu /hawezi kukaa au anatembea kwa shida",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "child_has_a_disability",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "child_does_not_want_to_go_home",
+              "text": "Mtoto hataki kurudi nyumbani/kwenda shuleni",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "child_does_not_want_to_go_home",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "Other_symptom",
+              "text": "Other Symptom",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "Other_symptom",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify client's problems",
+          "dependent_calculations": [
+            "referral_date",
+            "referral_time",
+            "referral_type",
+            "referral_status"
+          ]
+        },
+        {
+          "name": "problem_other",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Dalili nyingine",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          "required_status": "true:Please specify other symptoms",
+          "subjects": "problem:map"
+        },
+        {
+          "name": "chw_referral_hf",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chw_referral_hf",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Chagua Kituo cha Afya",
+            "searchable": "Chagua Kituo cha Afya"
+          },
+          "options": [],
+          "required_status": "yes:Tafadhali chagua kituo cha Afya cha kutuma rufaa"
+        },
+        {
+          "name": "referral_appointment_date",
+          "type": "datetime_picker",
+          "properties": {
+            "hint": "Tarehe ya kuhudhuria hospitali",
+            "type": "date_picker",
+            "display_format": "dd/MM/yyyy"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referral_appointment_date",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "true:Please specify the appointment date"
+        }
+      ]
+    }
+  ]
+}

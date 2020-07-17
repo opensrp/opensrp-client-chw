@@ -162,7 +162,21 @@
             "field": "eventType",
             "field_value": "Sick Child Referral",
             "creates_case": [
+              "ec_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Sick Child Referral",
+            "creates_case": [
               "ec_child_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "ANC Referral",
+            "creates_case": [
+              "ec_referral"
             ]
           },
           {
@@ -176,7 +190,49 @@
             "field": "eventType",
             "field_value": "PNC Referral",
             "creates_case": [
+              "ec_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PNC Referral",
+            "creates_case": [
               "ec_pnc_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Referral Registration",
+            "creates_case": [
+              "ec_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Referral Followup Registration",
+            "creates_case": [
+              "ec_referral_followup"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Family Planning Referral",
+            "creates_case": [
+              "ec_fp_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Malaria Referral",
+            "creates_case": [
+              "ec_malaria_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Malaria Referral",
+            "creates_case": [
+              "ec_referral"
             ]
           },
           {
@@ -184,6 +240,62 @@
             "field_value": "FP Home Visit",
             "creates_case": [
               "ec_family_planning"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Close Referral",
+            "creates_case": [
+              "ec_close_referral"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Sick Child Follow-up",
+            "creates_case": [
+              "ec_sick_child_followup"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "ANC Danger Signs Outcome",
+            "creates_case": [
+              "ec_anc_danger_signs_outcome"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PNC Danger Signs Outcome",
+            "creates_case": [
+              "ec_pnc_danger_signs_outcome"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Malaria Follow-up HF",
+            "creates_case": [
+              "ec_malaria_followup_hf"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Family Planning Update",
+            "creates_case": [
+              "ec_family_planning_update"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Referral Dismissal",
+            "creates_case": [
+              "ec_referral_dismissal"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Not Yet Done Referral",
+            "creates_case": [
+              "ec_not_yet_done_referral"
             ]
           }
         ]

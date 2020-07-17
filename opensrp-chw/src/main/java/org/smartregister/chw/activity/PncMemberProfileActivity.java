@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -12,21 +13,24 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.PncMemberProfileContract;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.interactor.CorePncMemberProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
-import org.smartregister.chw.dao.MalariaDao;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
@@ -51,6 +55,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -60,15 +65,32 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.Constants.EventType;
+import static org.smartregister.chw.util.Constants.JSON_FORM;
+import static org.smartregister.chw.util.Constants.ProfileActivityResults;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 public class PncMemberProfileActivity extends CorePncMemberProfileActivity implements PncMemberProfileContract.View {
 
     private Flavor flavor = new PncMemberProfileActivityFlv();
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     public static void startMe(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, PncMemberProfileActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, baseEntityID);
+        passToolbarTitle(activity, intent);
         activity.startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                baseEntityID, this);
     }
 
     @Override
@@ -77,7 +99,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         if (resultCode != Activity.RESULT_OK) return;
 
         switch (requestCode) {
-            case org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
+            case ProfileActivityResults.CHANGE_COMPLETED:
                 Intent intent = new Intent(PncMemberProfileActivity.this, PncRegisterActivity.class);
                 intent.putExtras(getIntent().getExtras());
                 startActivity(intent);
@@ -94,7 +116,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                         new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, (FamilyProfileContract.InteractorCallBack) pncMemberProfilePresenter());
                     }
 
-                    if (org.smartregister.chw.util.Constants.EventType.UPDATE_CHILD_REGISTRATION.equals(form.getString(JsonFormUtils.ENCOUNTER_TYPE))) {
+                    if (EventType.UPDATE_CHILD_REGISTRATION.equals(form.getString(JsonFormUtils.ENCOUNTER_TYPE))) {
                         Pair<Client, Event> pair = new ChildRegisterModel().processRegistration(jsonString);
 
                         if (pair != null) {
@@ -171,6 +193,8 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 displayView();
                 setLastVisit(visit.getDate());
                 setupViews();
+                (pncMemberProfileInteractor).refreshProfileInfo(memberObject, (BaseAncMemberProfilePresenter) pncMemberProfilePresenter());
+
             }
 
             @Override
@@ -212,10 +236,12 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
             addPncReferralTypes();
         }
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
     }
 
     @Override
-    protected void registerPresenter() {
+    public void registerPresenter() {
         presenter = new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), memberObject);
     }
 
@@ -270,7 +296,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     public void onClick(View view) {
         super.onClick(view);
-
+        handleNotificationRowClick(this, view, notificationListAdapter, baseEntityID);
         switch (view.getId()) {
             case R.id.textview_record_visit:
             case R.id.textview_record_reccuring_visit:
@@ -347,31 +373,60 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     private void addPncReferralTypes() {
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_danger_signs),
-                org.smartregister.chw.util.Constants.JSON_FORM.getPncReferralForm()));
-        referralTypeModels.add(new ReferralTypeModel(getString(R.string.fp_post_partum), null));
-        if (MalariaDao.isRegisteredForMalaria(((PncMemberProfilePresenter) presenter()).getEntityId())) {
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null));
+                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getPncUnifiedReferralForm() : JSON_FORM.getPncReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
+
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.suspected_malaria),
+                    JSON_FORM.getMalariaReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
+                    JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
+                    JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
+                    JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
+
     }
 
     @Override
     protected void startMalariaRegister() {
-        MalariaRegisterActivity.startMalariaRegistrationActivity(this, memberObject.getBaseEntityId());
+        MalariaRegisterActivity.startMalariaRegistrationActivity(this, memberObject.getBaseEntityId(), memberObject.getFamilyBaseEntityId());
     }
 
     @Override
     protected void startFpRegister() {
-        FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), memberObject.getDob(), CoreConstants.JSON_FORM.getFpRegistrationForm(), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
+        FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), memberObject.getDob(), CoreConstants.JSON_FORM.getFpRegistrationForm("Female"), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
     }
 
     @Override
     protected void startFpChangeMethod() {
-        FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), memberObject.getDob(), CoreConstants.JSON_FORM.getFpChengeMethodForm(), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+        FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), memberObject.getDob(), CoreConstants.JSON_FORM.getFpChangeMethodForm("female"), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
     }
 
     @Override
     protected void startMalariaFollowUpVisit() {
         MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, memberObject.getBaseEntityId());
+    }
+
+    @Override
+    protected void getRemoveBabyMenuItem(MenuItem item) {
+        for (CommonPersonObjectClient child : getChildren(memberObject)) {
+            for (Map.Entry<String, String> entry : menuItemRemoveNames.entrySet()) {
+                if (entry.getKey().equalsIgnoreCase(item.getTitle().toString()) && entry.getValue().equalsIgnoreCase(child.entityId())) {
+                    IndividualProfileRemoveActivity.startIndividualProfileActivity(PncMemberProfileActivity.this, child,
+                            memberObject.getFamilyBaseEntityId()
+                            , memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), ChildRegisterActivity.class.getCanonicalName());
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onReceivedNotifications(List<Pair<String, String>> notifications) {
+        handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 
     public interface Flavor {

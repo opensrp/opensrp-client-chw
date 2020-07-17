@@ -75,17 +75,20 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
         try {
             evaluateDangerSignsMother();
-            evaluateDangerSignsBaby();
             evaluatePNCHealthFacilityVisit();
             evaluateFamilyPlanning();
-            evaluateImmunization();
-            evaluateExclusiveBreastFeeding();
             evaluateCounselling();
-            evaluateNutritionStatusMother();
-            evaluateNutritionStatusBaby();
             evaluateMalariaPrevention();
+            evaluateNutritionStatusMother();
             evaluateObsIllnessMother();
-            evaluateObsIllnessBaby();
+
+            for (Person baby : children) {
+                evaluateDangerSignsBaby(baby);
+                evaluateImmunization(baby);
+                evaluateExclusiveBreastFeeding(baby);
+                evaluateNutritionStatusBaby(baby);
+                evaluateObsIllnessBaby(baby);
+            }
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
         } catch (Exception e) {
@@ -137,7 +140,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_danger_signs_mother), action);
     }
 
-    private void evaluateDangerSignsBaby() throws Exception {
+    private void evaluateDangerSignsBaby(Person baby) throws Exception {
         class PNCDangerSignsBabyHelper extends HomeVisitActionHelper {
             private String danger_signs_present_child;
 
@@ -170,26 +173,24 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             }
         }
 
-        for (Person baby : children) {
-            if (getAgeInDays(baby.getDob()) <= 28) {
-                Map<String, List<VisitDetail>> details = null;
-                if (editMode) {
-                    Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.DANGER_SIGNS_BABY);
-                    if (lastVisit != null) {
-                        details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
-                    }
+        if (getAgeInDays(baby.getDob()) <= 28) {
+            Map<String, List<VisitDetail>> details = null;
+            if (editMode) {
+                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.DANGER_SIGNS_BABY);
+                if (lastVisit != null) {
+                    details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
                 }
-
-                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()))
-                        .withOptional(false)
-                        .withDetails(details)
-                        .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                        .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
-                        .withHelper(new PNCDangerSignsBabyHelper())
-                        .build();
-                actionList.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()), action);
             }
+
+            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
+                    .withHelper(new PNCDangerSignsBabyHelper())
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()), action);
         }
     }
 
@@ -263,11 +264,10 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             @Override
             public String evaluateSubTitle() {
                 StringBuilder builder = new StringBuilder();
-                builder.append(
-                        MessageFormat.format("{0}: {1}\n",
-                                context.getString(R.string.fp_counseling),
-                                "Yes".equalsIgnoreCase(fp_counseling) ? evaluateFpPeriod() : context.getString(R.string.not_done).toLowerCase())
-                );
+                String subTitleText = MessageFormat.format("{0}: {1}\n",
+                        context.getString(R.string.fp_counseling),
+                        "Yes".equalsIgnoreCase(fp_counseling) ? evaluateFpPeriod() : context.getString(R.string.not_done).toLowerCase());
+                builder.append(subTitleText);
 
                 if (StringUtils.isNotBlank(fp_method)) {
                     String method = "";
@@ -302,7 +302,12 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         default:
                             break;
                     }
-                    builder.append(MessageFormat.format("{0}: {1}", method, StringUtils.isNoneBlank(fp_start_date) ? new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(start_date) : ""));
+                    if (StringUtils.isBlank(fp_start_date) || fp_method.equals("None")) {
+                        subTitleText = MessageFormat.format("{0}", method);
+                    } else {
+                        subTitleText = MessageFormat.format("{0}: {1}", method, new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(start_date));
+                    }
+                    builder.append(subTitleText);
                 }
                 return builder.toString();
             }
@@ -329,7 +334,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_family_planning), action);
     }
 
-    private void evaluateExclusiveBreastFeeding() throws Exception {
+    private void evaluateExclusiveBreastFeeding(Person baby) throws Exception {
         class ExclusiveBreastFeedingHelper extends HomeVisitActionHelper {
             private String exclusive_breast_feeding;
             private Date dob;
@@ -377,26 +382,23 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 }
             }
         }
-
-        for (Person baby : children) {
-            if (getAgeInDays(baby.getDob()) <= 28) {
-                Map<String, List<VisitDetail>> details = null;
-                if (editMode) {
-                    Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.EXCLUSIVE_BREASTFEEDING);
-                    if (lastVisit != null) {
-                        details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
-                    }
+        if (getAgeInDays(baby.getDob()) <= 28) {
+            Map<String, List<VisitDetail>> details = null;
+            if (editMode) {
+                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.EXCLUSIVE_BREASTFEEDING);
+                if (lastVisit != null) {
+                    details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
                 }
-                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName()))
-                        .withOptional(false)
-                        .withDetails(details)
-                        .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                        .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), null, details, null))
-                        .withHelper(new ExclusiveBreastFeedingHelper(baby.getDob()))
-                        .build();
-                actionList.put(MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName()), action);
             }
+            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName()))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), null, details, null))
+                    .withHelper(new ExclusiveBreastFeedingHelper(baby.getDob()))
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName()), action);
         }
     }
 
@@ -481,7 +483,8 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_nutrition_status), action);
     }
 
-    private void evaluateNutritionStatusBaby() throws Exception {
+    private void evaluateNutritionStatusBaby(Person baby) throws Exception {
+
         class NutritionStatusBabyHelper extends HomeVisitActionHelper {
             private String nutrition_status_1m;
 
@@ -510,26 +513,24 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             }
         }
 
-        for (Person baby : children) {
-            if (getAgeInDays(baby.getDob()) <= 28) {
-                Map<String, List<VisitDetail>> details = null;
-                if (editMode) {
-                    Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.NUTRITION_STATUS_BABY);
-                    if (lastVisit != null) {
-                        details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
-                    }
+        if (getAgeInDays(baby.getDob()) <= 28) {
+            Map<String, List<VisitDetail>> details = null;
+            if (editMode) {
+                Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.NUTRITION_STATUS_BABY);
+                if (lastVisit != null) {
+                    details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
                 }
-
-                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()))
-                        .withOptional(true)
-                        .withDetails(details)
-                        .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                        .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getNutritionStatusInfant())
-                        .withHelper(new NutritionStatusBabyHelper())
-                        .build();
-                actionList.put(MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()), action);
             }
+
+            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()))
+                    .withOptional(true)
+                    .withDetails(details)
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getNutritionStatusInfant())
+                    .withHelper(new NutritionStatusBabyHelper())
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()), action);
         }
     }
 
@@ -638,7 +639,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_observation_and_illness_mother), action);
     }
 
-    private void evaluateObsIllnessBaby() throws Exception {
+    private void evaluateObsIllnessBaby(Person baby) throws Exception {
         class ObsIllnessBabyHelper extends HomeVisitActionHelper {
             private String date_of_illness;
             private String illness_description;
@@ -679,17 +680,14 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 return BaseAncHomeVisitAction.Status.COMPLETED;
             }
         }
-
-        for (Person baby : children) {
-            if (getAgeInDays(baby.getDob()) <= 28) {
-                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
-                        .withOptional(true)
-                        .withDetails(details)
-                        .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessInfant())
-                        .withHelper(new ObsIllnessBabyHelper())
-                        .build();
-                actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()), action);
-            }
+        if (getAgeInDays(baby.getDob()) <= 28) {
+            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
+                    .withOptional(true)
+                    .withDetails(details)
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessInfant())
+                    .withHelper(new ObsIllnessBabyHelper())
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()), action);
         }
     }
 
@@ -734,39 +732,37 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     }
 
     @Override
-    protected void evaluateImmunization() throws Exception {
-        for (Person baby : children) {
-            if (getAgeInDays(baby.getDob()) <= 28) {
-                List<VaccineWrapper> wrappers = VaccineScheduleUtil.getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
-                if (wrappers.size() > 0) {
-                    List<VaccineDisplay> displays = new ArrayList<>();
-                    for (VaccineWrapper vaccineWrapper : wrappers) {
-                        VaccineDisplay display = new VaccineDisplay();
-                        display.setVaccineWrapper(vaccineWrapper);
-                        display.setStartDate(baby.getDob());
-                        display.setEndDate(new Date());
-                        displays.add(display);
-                    }
-
-                    Map<String, List<VisitDetail>> details = null;
-                    if (editMode) {
-                        Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.IMMUNIZATION_VISIT);
-                        if (lastVisit != null) {
-                            details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
-                        }
-                    }
-
-                    BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
-                            .withOptional(false)
-                            .withDetails(details)
-                            .withBaseEntityID(baby.getBaseEntityID())
-                            .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                            .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
-                            .withHelper(new ImmunizationActionHelper(context, wrappers))
-                            .build();
-                    actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
-
+    protected void evaluateImmunization(Person baby) throws Exception {
+        if (getAgeInDays(baby.getDob()) <= 28) {
+            List<VaccineWrapper> wrappers = VaccineScheduleUtil.getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
+            if (wrappers.size() > 0) {
+                List<VaccineDisplay> displays = new ArrayList<>();
+                for (VaccineWrapper vaccineWrapper : wrappers) {
+                    VaccineDisplay display = new VaccineDisplay();
+                    display.setVaccineWrapper(vaccineWrapper);
+                    display.setStartDate(baby.getDob());
+                    display.setEndDate(new Date());
+                    displays.add(display);
                 }
+
+                Map<String, List<VisitDetail>> details = null;
+                if (editMode) {
+                    Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(baby.getBaseEntityID(), Constants.EventType.IMMUNIZATION_VISIT);
+                    if (lastVisit != null) {
+                        details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+                    }
+                }
+
+                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
+                        .withOptional(false)
+                        .withDetails(details)
+                        .withBaseEntityID(baby.getBaseEntityID())
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                        .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, displays))
+                        .withHelper(new ImmunizationActionHelper(context, wrappers))
+                        .build();
+                actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
+
             }
         }
     }

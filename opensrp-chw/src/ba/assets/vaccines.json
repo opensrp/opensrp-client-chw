@@ -286,7 +286,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+59"
+              "offset": "+59m"
             }
           ]
         }

@@ -1,0 +1,21 @@
+---
+name: step1_fp_period_received
+description: Family Planning Period Received
+priority: 1
+condition: "step1_fp_counseling.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_fp_method
+description: Family Planning Method
+priority: 1
+condition: "step1_fp_counseling.contains('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_fp_start_date
+description: Family Planning Start Date
+priority: 1
+condition: "step1_fp_counseling.contains('Yes') && !step1_fp_method.contains('None') && !step1_fp_method.isEmpty()"
+actions:
+  - "isRelevant = true"

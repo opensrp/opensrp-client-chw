@@ -10,14 +10,13 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.powermock.reflect.Whitebox;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowApplication;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseActivityTest;
 import org.smartregister.chw.R;
 import org.smartregister.view.contract.BaseLoginContract;
@@ -52,14 +51,14 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
     @Test
     public void testUserNameEditTextIsInitialized() {
 
-        EditText userNameEditText = Whitebox.getInternalState(getActivity(), "userNameEditText");
+        EditText userNameEditText = ReflectionHelpers.getField(getActivity(), "userNameEditText");
         Assert.assertNotNull(userNameEditText);
     }
 
     @Test
     public void testPasswordEditTextIsInitialized() {
 
-        EditText userPasswordEditText = Whitebox.getInternalState(getActivity(), "passwordEditText");
+        EditText userPasswordEditText = ReflectionHelpers.getField(getActivity(), "passwordEditText");
         Assert.assertNotNull(userPasswordEditText);
     }
 
@@ -67,14 +66,14 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
     @Test
     public void testShowPasswordCheckBoxIsInitialized() {
 
-        CheckBox showPasswordCheckBox = Whitebox.getInternalState(getActivity(), "showPasswordCheckBox");
+        CheckBox showPasswordCheckBox = ReflectionHelpers.getField(getActivity(), "showPasswordCheckBox");
         Assert.assertNotNull(showPasswordCheckBox);
     }
 
     @Test
     public void testProgressDialogIsInitialized() {
 
-        ProgressDialog progressDialog = Whitebox.getInternalState(getActivity(), "progressDialog");
+        ProgressDialog progressDialog = ReflectionHelpers.getField(getActivity(), "progressDialog");
         Assert.assertNotNull(progressDialog);
     }
 
@@ -82,7 +81,7 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
     public void testGoToHome() {
 
         try {
-            Whitebox.invokeMethod(getActivity(), LoginActivity.class, "goToHome", false);
+            getActivity().goToHome(false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,7 +100,7 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
     public void testGoToHomeWithRemoteTrue() {
 
         try {
-            Whitebox.invokeMethod(getActivity(), LoginActivity.class, "goToHome", true);
+            getActivity().goToHome(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -122,7 +121,7 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
     public void testOnResumeShouldCallProcessViewCustomizationsPresenterMethod() {
 
         LoginActivity spyActivity = Mockito.spy(getActivity());
-        Whitebox.setInternalState(spyActivity, "mLoginPresenter", presenter);
+        ReflectionHelpers.setField(spyActivity, "mLoginPresenter", presenter);
         spyActivity.onResume();
         Mockito.verify(presenter).processViewCustomizations();
     }
@@ -132,7 +131,7 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
 
         LoginActivity spyActivity = Mockito.spy(getActivity());
 
-        Whitebox.setInternalState(spyActivity, "mLoginPresenter", presenter);
+        ReflectionHelpers.setField(spyActivity, "mLoginPresenter", presenter);
         Mockito.doReturn(false).when(presenter).isUserLoggedOut();
         Mockito.doNothing().when(spyActivity).goToHome(false);
 
@@ -147,7 +146,7 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
     public void testOnDestroyShouldCallOnDestroyPresenterMethod() {
 
         LoginActivity spyActivity = Mockito.spy(getActivity());
-        Whitebox.setInternalState(spyActivity, "mLoginPresenter", presenter);
+        ReflectionHelpers.setField(spyActivity, "mLoginPresenter", presenter);
         spyActivity.onDestroy();
         Mockito.verify(presenter).onDestroy(Mockito.anyBoolean());
     }
@@ -156,7 +155,7 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
     @Test
     public void testShowProgressShouldShowProgressDialogWhenParamIsTrue() {
         LoginActivity spyActivity = Mockito.spy(getActivity());
-        Whitebox.setInternalState(spyActivity, "progressDialog", progressDialog);
+        ReflectionHelpers.setField(spyActivity, "progressDialog", progressDialog);
         spyActivity.showProgress(true);
         Mockito.verify(progressDialog).show();
     }
@@ -164,7 +163,7 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
     @Test
     public void testShowProgressShouldDismissProgressDialogWhenParamIsFalse() {
         LoginActivity spyActivity = Mockito.spy(getActivity());
-        Whitebox.setInternalState(spyActivity, "progressDialog", progressDialog);
+        ReflectionHelpers.setField(spyActivity, "progressDialog", progressDialog);
         spyActivity.showProgress(false);
         Mockito.verify(progressDialog).dismiss();
     }
@@ -172,7 +171,7 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
     @Test
     public void testEnableLoginShouldCallLoginButtonSetClickableMethodWithCorrectParameter() {
         LoginActivity spyActivity = Mockito.spy(getActivity());
-        Whitebox.setInternalState(spyActivity, "loginButton", loginButton);
+        ReflectionHelpers.setField(spyActivity, "loginButton", loginButton);
         spyActivity.enableLoginButton(false);
         Mockito.verify(loginButton).setClickable(Mockito.anyBoolean());
     }
@@ -183,11 +182,11 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
 
         LoginActivity spyActivity = Mockito.spy(getActivity());
 
-        Whitebox.setInternalState(spyActivity, "mLoginPresenter", presenter);
+        ReflectionHelpers.setField(spyActivity, "mLoginPresenter", presenter);
 
         EditText passwordEditText = Mockito.spy(new EditText(RuntimeEnvironment.application));
 
-        Whitebox.setInternalState(spyActivity, "passwordEditText", passwordEditText);
+        ReflectionHelpers.setField(spyActivity, "passwordEditText", passwordEditText);
 
         spyActivity.resetPaswordError();
 
@@ -199,11 +198,11 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
 
         LoginActivity spyActivity = Mockito.spy(getActivity());
 
-        Whitebox.setInternalState(spyActivity, "mLoginPresenter", presenter);
+        ReflectionHelpers.setField(spyActivity, "mLoginPresenter", presenter);
 
         EditText passwordEditText = Mockito.spy(new EditText(RuntimeEnvironment.application));
 
-        Whitebox.setInternalState(spyActivity, "passwordEditText", passwordEditText);
+        ReflectionHelpers.setField(spyActivity, "passwordEditText", passwordEditText);
 
         Mockito.doNothing().when(spyActivity).showErrorDialog(RuntimeEnvironment.application.getString(R.string.unauthorized));
 
@@ -217,11 +216,11 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
 
         LoginActivity spyActivity = Mockito.spy(getActivity());
 
-        Whitebox.setInternalState(spyActivity, "mLoginPresenter", presenter);
+        ReflectionHelpers.setField(spyActivity, "mLoginPresenter", presenter);
 
         EditText userNameEditText = Mockito.spy(new EditText(RuntimeEnvironment.application));
 
-        Whitebox.setInternalState(spyActivity, "userNameEditText", userNameEditText);
+        ReflectionHelpers.setField(spyActivity, "userNameEditText", userNameEditText);
 
         Mockito.doNothing().when(spyActivity).showErrorDialog(RuntimeEnvironment.application.getString(R.string.unauthorized));
 
@@ -235,11 +234,11 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
 
         LoginActivity spyActivity = Mockito.spy(getActivity());
 
-        Whitebox.setInternalState(spyActivity, "mLoginPresenter", presenter);
+        ReflectionHelpers.setField(spyActivity, "mLoginPresenter", presenter);
 
         EditText userNameEditText = Mockito.spy(new EditText(RuntimeEnvironment.application));
 
-        Whitebox.setInternalState(spyActivity, "userNameEditText", userNameEditText);
+        ReflectionHelpers.setField(spyActivity, "userNameEditText", userNameEditText);
 
         spyActivity.resetUsernameError();
 

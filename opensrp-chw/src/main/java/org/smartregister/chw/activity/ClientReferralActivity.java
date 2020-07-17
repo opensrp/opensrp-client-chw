@@ -3,14 +3,16 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
 
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.ReferralTypeAdapter;
 import org.smartregister.chw.contract.ClientReferralContract;
@@ -28,6 +30,8 @@ import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.util.Constants.REFERRAL_TASK_FOCUS;
 
 public class ClientReferralActivity extends AppCompatActivity implements ClientReferralContract.View, View.OnClickListener {
 
@@ -55,38 +59,47 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
 
     @Override
     public void setUpView() {
-        List<ReferralTypeModel> referralTypeModels = null;
+        List<ReferralTypeModel> referralTypeModels;
         RecyclerView referralTypesRecyclerView = findViewById(R.id.referralTypeRecyclerView);
 
         ImageView closeImageView = findViewById(R.id.close);
         closeImageView.setOnClickListener(this);
 
         if (getIntent().getExtras() != null) {
-            referralTypeModels = getIntent().getExtras().getParcelableArrayList(Constants.REFERRAL_TYPES);
-            baseEntityId = getIntent().getStringExtra(Constants.ENTITY_ID);
+            referralTypeModels = getIntent().getParcelableArrayListExtra(Constants.REFERRAL_TYPES);
+            baseEntityId = getIntent().getStringExtra(CoreConstants.ENTITY_ID);
+            referralTypeAdapter.setReferralTypes(referralTypeModels);
         }
 
-        referralTypeAdapter.setReferralTypes(referralTypeModels);
         referralTypesRecyclerView.setAdapter(referralTypeAdapter);
         referralTypesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        referralTypesRecyclerView.setMotionEventSplittingEnabled(false);
     }
 
     @Override
-    public void startReferralForm(JSONObject jsonObject) {
-        startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, jsonObject,
-                Utils.metadata().familyMemberFormActivity), JsonFormUtils.REQUEST_CODE_GET_JSON);
+    public void startReferralForm(JSONObject jsonObject, ReferralTypeModel referralTypeModel) {
+
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            //TODO Define custom layout on referral library for family planning referrals otherwise do not use custom layout for now
+            ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this,
+                    baseEntityId, jsonObject, !CoreConstants.TASKS_FOCUS.FP_SIDE_EFFECTS.equalsIgnoreCase(referralTypeModel.getFocus()));
+        } else {
+            startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, jsonObject,
+                    Utils.metadata().familyMemberFormActivity), JsonFormUtils.REQUEST_CODE_GET_JSON);
+        }
+
     }
 
     @Override
     public FormUtils getFormUtils() throws Exception {
         if (this.formUtils == null) {
-            this.formUtils = new FormUtils(this.getApplicationContext());
+            this.formUtils = new FormUtils(this);
         }
         return this.formUtils;
     }
 
-    @Override
-    public boolean isReferralForm(String encounterType) {
+
+    private boolean isReferralForm(String encounterType) {
         switch (encounterType) {
             case CoreConstants.EventType.CHILD_REFERRAL:
             case CoreConstants.EventType.PNC_REFERRAL:
@@ -101,18 +114,32 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
     public void onClick(View v) {
         if (v.getId() == R.id.close) {
             finish();
-        } else if (v.getTag() instanceof ReferralTypeAdapter.ReferralTypeViewHolder) {
+        } else if (v.getTag() instanceof ReferralTypeAdapter.ReferralTypeViewHolder && referralTypeAdapter.canStart) {
+            referralTypeAdapter.canStart = false;
             ReferralTypeAdapter.ReferralTypeViewHolder referralTypeViewHolder = (ReferralTypeAdapter.ReferralTypeViewHolder) v.getTag();
             ReferralTypeModel referralTypeModel = referralTypeAdapter.getReferralTypes().get(referralTypeViewHolder.getAdapterPosition());
             try {
                 if (referralTypeModel.getFormName() == null) {
                     org.smartregister.util.Utils.showShortToast(this, getString(R.string.open_referral_form, referralTypeModel.getReferralType()));
+                    referralTypeAdapter.canStart = true; //TODO Remove this necessary evil; necessary since on resume is not revoked again
                 }
-                startReferralForm(getFormUtils().getFormJson(referralTypeModel.getFormName()));
+                JSONObject formJson = (new com.vijay.jsonwizard.utils.FormUtils()).getFormJsonFromRepositoryOrAssets(this, referralTypeModel.getFormName());
+                formJson.put(REFERRAL_TASK_FOCUS, referralTypeModel.getFocus());
+                startReferralForm(formJson, referralTypeModel);
             } catch (Exception e) {
                 Timber.e(e, "ClientReferralActivity --> onActivityResult");
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        referralTypeAdapter.canStart = true;
+    }
+
+    public String getBaseEntityId() {
+        return baseEntityId;
     }
 
     @Override

@@ -285,7 +285,7 @@
     <string name="pnc_observation_and_illness_baby">Observations &amp; illness - baby ({0}) </string>
 
     <string name="pnc_counselling">Counselling</string>
-    <string name="pnc_nutrition_status">Nutrition status</string>
+    <string name="pnc_nutrition_status">Nutrition status - mother </string>
     <string name="pnc_nutrition_status_baby_name">Nutrition status baby ({0})</string>
     <string name="pnc_malaria_prevention">Malaria prevention</string>
     <!-- PNC Home visit subtitle text -->
@@ -310,10 +310,12 @@
     <string name="referral_reason">Reason for referral</string>
     <string name="open_referral_form">Open %s referral form</string>
     <string name="sick_child">Sick child</string>
+    <string name="family_planning_referral">Family Planning</string>
     <string name="client_malaria_follow_up">Malaria follow-up</string>
     <string name="pnc_danger_signs">PNC danger signs</string>
     <string name="fp_post_partum">FP post-partum</string>
     <string name="anc_danger_signs">ANC danger signs</string>
+    <string name="suspected_malaria">Suspected Malaria</string>
 
     <string name="jobs_aid_failed_download">Jobs aid video \"%s\" failed to download.</string>
 
@@ -334,5 +336,34 @@
 
     <string name="typhoid">Typhoid</string>
     <string name="routine_household_visit">Routine Household Visit</string>
+    <string name="sick_visits">Sick Visits</string>
+    <string name="sick_visit">Sick Visit</string>
+    <string name="reports">Reports</string>
 
+    <string name="eligible_children">Eligible Children</string>
+    <string name="doses_needed">Doses Needed</string>
+    <string name="community_activity">My Community Activity</string>
+    <string name="children">Children</string>
+
+    <string name="forgot_pin">Forgot pin?</string>
+    <string name="use_your_password"> Use your password?</string>
+    <string name="enter_pin_for_user">Enter pin for %s</string>
+    <string name="use_4_digit_pin_number_promt">You can use a 4 digit pin number to make logging in faster</string>
+
+    <!-- All Clients -->
+    <string name="add_client">Add client</string>
+
+    <!--    Unified Referral Forms-->
+    <string name="hiv_referral">Clinic of Treatment and Care</string>
+    <string name="tb_referral">Clinic Of Tuberculosis Treatment</string>
+    <string name="gbv_referral">Gender Based Violence Referral</string>
+    <string name="child_gbv_referral">Child Gender Based Violence Referral</string>
+    <string name="client_registration" >Client Registration</string>
+    <string name="error_opening_profile">Error opening client profile</string>
+    <string name="location_details">Location Details</string>
+    <string name="update_client_registration" >Update Client Details</string>
+
+    <!---Anc Home Visit Strings -->
+    <string name="anc_home_visit_pregnancy_risk">Pregnancy risk</string>
+    <string name="loading_content">Loading content</string>
 </resources>

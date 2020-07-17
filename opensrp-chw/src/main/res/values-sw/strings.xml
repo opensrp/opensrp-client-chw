@@ -250,7 +250,7 @@
     <string name="pnc_indicator_4">Watoto ambao walipokea chanjo ya BCG kwa wakati (miezi 6 iliyopita)</string>
     <string name="pnc_indicator_4_note">Kwa wakati inamaanisha ndani ya wiki nne za kuzaliwa</string>
     <string name="pnc_indicator_5">WRA ambao wamekufa katika mwaka jana</string>
-    <string name="pnc_indicator_5_note">WRA = Wanawake wa umri wa uzazi (10 & # 8211; 49)</string>
+    <string name="pnc_indicator_5_note">WRA = Wanawake wa umri wa uzazi (10 &amp; # 8211; 49)</string>
     <string name="pnc_indicator_6">Wanawake wasio na dalili za hatari katika tembeleo la mwisho ya nyumbani baada ya kujifungua</string>
     <string name="pnc_indicator_7">Watoto wachanga wasio na dalili za hatari katika tembeleo la mwisho ya nyumbani baada ya kujifungua</string>
     <string name="pnc_indicator_8">Njia za wanawake za kuchaguliwa uzazi wa mpango baada ya kujifungua (miezi 6 iliyopita)</string>
@@ -285,7 +285,7 @@
     <string name="pnc_observation_and_illness_baby">Uchunguzi na ugonjwa - mtoto ({0})</string>
 
     <string name="pnc_counselling">Ushauri</string>
-    <string name="pnc_nutrition_status">Hali ya lishe-mama</string>
+    <string name="pnc_nutrition_status">Hali ya lishe - mama </string>
     <string name="pnc_nutrition_status_baby_name">Hali ya lishe kwa mtoto ({0})</string>
     <string name="pnc_malaria_prevention">Kinga dhidi ya malaria</string>
     <!-- PNC Home visit subtitle text -->

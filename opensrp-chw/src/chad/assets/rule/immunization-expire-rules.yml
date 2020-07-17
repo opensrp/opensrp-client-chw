@@ -1,8 +1,0 @@
----
-name: expired_all_other_vaccine
-description: expired all other vaccine after 24 month
-priority: 3
-condition: "immunizationExpireRule.isAllVaccineExpired(24)"
-actions:
-  - "immunizationExpireRule.isExpired = true"
-

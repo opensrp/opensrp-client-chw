@@ -9,6 +9,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +18,6 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -41,6 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -154,9 +155,11 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             if (StringUtils.isNotBlank(surnam_familyName_SameString) && Boolean.valueOf(surnam_familyName_SameString)) {
                 String familyId = jsonForm.getJSONObject("metadata").getJSONObject("look_up").getString("value");
                 CommonPersonObject familyObject = ChwApplication.getInstance().getContext().commonrepository("ec_family").findByCaseID(familyId);
-                String lastname = familyObject.getColumnmaps().get(DBConstants.KEY.LAST_NAME);
-                JSONObject surname_object = getFieldJSONObject(fields, "surname");
-                surname_object.put(VALUE, lastname);
+                if (ChwApplication.getApplicationFlavor().hasSurname()) {
+                    String lastname = familyObject.getColumnmaps().get(DBConstants.KEY.LAST_NAME);
+                    JSONObject surname_object = getFieldJSONObject(fields, "surname");
+                    surname_object.put(VALUE, lastname);
+                }
             }
         } catch (Exception e) {
             Timber.e(e);
@@ -564,9 +567,9 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         return "";
     }
 
-    public static JSONObject getJson(String formName, String baseEntityID) throws Exception {
+    public static JSONObject getJson(Context context, String formName, String baseEntityID) throws Exception {
         String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-        JSONObject jsonObject = org.smartregister.chw.anc.util.JsonFormUtils.getFormAsJson(formName);
+        JSONObject jsonObject = FormUtils.getInstance(context).getFormJson(formName);
         org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(jsonObject, baseEntityID, locationId);
         return jsonObject;
     }
@@ -575,6 +578,29 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         return flavor.getAutoJsonEditMemberFormString(title, formName, context, client, eventType, familyName, isPrimaryCaregiver);
     }
 
+    public static void populatedJsonForm(@NotNull JSONObject jsonObject, @NotNull Map<String, String> valueMap) throws JSONException {
+        Map<String, String> _valueMap = new HashMap<>(valueMap);
+        int step = 1;
+        while (jsonObject.has("step" + step)) {
+            JSONObject jsonStepObject = jsonObject.getJSONObject("step" + step);
+            JSONArray array = jsonStepObject.getJSONArray(JsonFormConstants.FIELDS);
+            int position = 0;
+            while (position < array.length() && _valueMap.size() > 0) {
+
+                JSONObject object = array.getJSONObject(position);
+                String key = object.getString(JsonFormConstants.KEY);
+
+                if (_valueMap.containsKey(key)) {
+                    object.put(JsonFormConstants.VALUE, _valueMap.get(key));
+                    _valueMap.remove(key);
+                }
+
+                position++;
+            }
+
+            step++;
+        }
+    }
 
     public interface Flavor {
         JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver);

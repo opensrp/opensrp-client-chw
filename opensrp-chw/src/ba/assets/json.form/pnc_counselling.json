@@ -197,7 +197,7 @@
           },
           {
             "key": "chk_none",
-            "text": "Hakushauriwa",
+            "text": "None",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

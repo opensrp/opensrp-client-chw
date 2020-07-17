@@ -1,0 +1,47 @@
+---
+name: step1_miscarriage_date
+description: miscarriage_date relevance
+priority: 1
+condition: "step1_preg_outcome == 'Miscarriage'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_delivery_date
+description: miscarriage_date relevance
+priority: 1
+condition: "step1_preg_outcome == 'Live birth' || step1_preg_outcome == 'Stillbirth'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_delivery_place
+description: delivery_place relevance
+priority: 1
+condition: "step1_preg_outcome == 'Live birth' || step1_preg_outcome == 'Stillbirth'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_baby_label
+description: baby_label relevance
+priority: 1
+condition: "step1_preg_outcome == 'Live birth'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_no_children_no
+description: no_children_no relevance
+priority: 1
+condition: "step1_preg_outcome == 'Live birth'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_surname
+description: surname relevance
+priority: 1
+condition: "!step1_same_as_fam_name.contains('same_as_fam_name')"
+actions:
+  - "isRelevant = true"

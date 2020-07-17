@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
@@ -26,6 +27,8 @@ import java.util.List;
 import java.util.Set;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.util.Utils.getClientName;
 
 public class FamilyActivityRegisterProvider extends org.smartregister.family.provider.FamilyActivityRegisterProvider {
     public FamilyActivityRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
@@ -63,7 +66,7 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
             fillValue(viewHolder.lastVisit, String.format(context.getString(R.string.profile_activity_completed), new SimpleDateFormat("dd MMM yyyy").format(new Date(eventDate))));
         }
 
-        String patientName = Utils.getName(firstName, middleName, lastName);
+        String patientName = getClientName(firstName, middleName, lastName);
 
         String dob = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
         String dobString = Utils.getDuration(dob);
@@ -112,7 +115,7 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
                 return context.getString(R.string.anc_visit_suffix);
             case CoreConstants.EventType.PNC_HOME_VISIT:
                 return context.getString(R.string.pnc_visit_suffix);
-            case CoreConstants.EventType.MALARIA_FOLLOW_UP_VISIT:
+            case Constants.FORMS.MALARIA_FOLLOW_UP_VISIT:
                 return context.getString(R.string.malaria_visit_suffix);
             case CoreConstants.EventType.WASH_CHECK:
                 return " · " + context.getString(R.string.wash_check);

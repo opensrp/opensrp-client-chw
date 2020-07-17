@@ -1,0 +1,339 @@
+{
+  "count": "1",
+  "encounter_type": "Malaria Referral",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Malaria Referral",
+    "fields": [
+      {
+        "key": "referral_problem_malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_problem_malaria",
+        "type": "check_box",
+        "label": "Details of the patient's problem",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "Fever",
+            "text": "Fever",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Diarrhea",
+            "text": "Diarrhea",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Vomiting",
+            "text": "Vomiting",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Nausea",
+            "text": "Nausea",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5978AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Trembling",
+            "text": "Trembling, shivering",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "158359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "A_severe_headache_dizziness",
+            "text": "A severe headache / dizziness",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Sweating",
+            "text": "Sweating",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "140941AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Severe_abdominal_pain",
+            "text": "Severe abdominal pain",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Muscle_pain",
+            "text": "Muscle pain",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "133632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Sweling_of_the_face_and_or_hands",
+            "text": "Sweling of the face and/or hands",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "163894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Difficult_in_breathing_fast_and_laboured_breathing",
+            "text": "Difficult in breathing (fast and laboured breathing)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Convulsions",
+            "text": "Convulsions",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Very_weak",
+            "text": "Very weak",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Irritable_easily_disturbed",
+            "text": "Irritable (easily disturbed)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "118296AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Unconcious",
+            "text": "Unconcious",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "123818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Unusually_sleepy",
+            "text": "Unusually sleepy",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "117417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Neck_stiffness",
+            "text": "Neck stiffness",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "112721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Unable_to_sit_without_support",
+            "text": "Unable to sit without support",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "123833AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Abnormal_bleeding_or_passing_of_urine_with_blood",
+            "text": "Abnormal bleeding or passing of urine with blood",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Severe_anaemia_pale_palms_and_inner_eyelids",
+            "text": "Severe anaemia (pale palms and inner eyelids)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Yellowing_of_the_eyes_jaundice",
+            "text": "Yellowing of the eyes (jaundice)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Severe_malnutrition",
+            "text": "Severe malnutrition",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "163302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Bloating",
+            "text": "Bloating",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "147132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please specify problem associated with the client"
+        }
+      },
+      {
+        "key": "service_before_malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "service_before_malaria",
+        "type": "check_box",
+        "label": "Treatment given before the referral",
+        "label_text_style": "bold",
+        "is_problem": false,
+        "exclusive": [
+          "None"
+        ],
+        "options": [
+          {
+            "key": "Rectal_artesunate",
+            "text": "Rectal artesunate",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "71561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Panadol",
+            "text": "Panadol",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "ORS",
+            "text": "ORS",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Other_treatment",
+            "text": "Other treatment",
+            "value": false,
+            "ignore": true,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "None",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Treatment given before referral is required"
+        }
+      },
+      {
+        "key": "service_before_malaria_other",
+        "type": "edit_text",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "edit_type": "name",
+        "hint": "Other treatment",
+        "is_problem": false,
+        "v_required": {
+          "value": "true",
+          "err": "Please specify other treatment"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "malaria_referral_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

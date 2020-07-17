@@ -2,6 +2,8 @@ package org.smartregister.chw.dao;
 
 import android.util.Pair;
 
+import org.smartregister.chw.core.dao.AlertDao;
+import org.smartregister.chw.model.FamilyDetailsModel;
 import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.AlertStatus;
 
@@ -94,22 +96,36 @@ public class FamilyDao extends AbstractDao {
         return res.get(0) > 0;
     }
 
-    // checks if the
     public static AlertStatus getFamilyAlertStatus(String baseEntityID) {
-        String sql = "select max(case when over_due_date <= date('now') then 2 else 1 end) status " +
-                "from schedule_service where (base_entity_id = '" + baseEntityID + "' " +
-                "or base_entity_id in (select base_entity_id from ec_family_member where relational_id = '" + baseEntityID + "')) " +
-                "and due_date <= date('now') and expiry_date > date('now') and completion_date is null ";
+        return AlertDao.getFamilyAlertStatus(baseEntityID);
+    }
 
-        DataMap<Integer> dataMap = c -> getCursorIntValue(c, "status");
-        List<Integer> readData = readData(sql, dataMap);
+    public static FamilyDetailsModel getFamilyDetail(String baseEntityId) {
+        String sql = String.format(
+                "SELECT ec_family.base_entity_id,\n" +
+                        "       ec_family.primary_caregiver,\n" +
+                        "       ec_family.first_name as family_name,\n" +
+                        "       ec_family.village_town as village_town,\n" +
+                        "       ec_family.family_head\n" +
+                        "FROM ec_family\n" +
+                        "         INNER JOIN ec_family_member ON ec_family.base_entity_id = ec_family_member.relational_id\n" +
+                        "WHERE ec_family_member.base_entity_id = '%s'", baseEntityId);
 
-        if (readData == null || readData.size() == 0 || readData.get(0) == null)
-            return AlertStatus.complete;
+        DataMap<FamilyDetailsModel> dataMap = cursor -> {
+            FamilyDetailsModel familyDetailsModel = new FamilyDetailsModel(
+                    getCursorValue(cursor, "base_entity_id"),
+                    getCursorValue(cursor, "family_head"),
+                    getCursorValue(cursor, "primary_caregiver"),
+                    getCursorValue(cursor, "family_name")
+            );
+            familyDetailsModel.setVillageTown(getCursorValue(cursor, "village_town"));
+            return familyDetailsModel;
+        };
 
-        if (readData.get(0).equals(2))
-            return AlertStatus.urgent;
+        List<FamilyDetailsModel> familyProfileModels = readData(sql, dataMap);
+        if (familyProfileModels == null || familyProfileModels.size() != 1)
+            return null;
 
-        return AlertStatus.normal;
+        return familyProfileModels.get(0);
     }
 }

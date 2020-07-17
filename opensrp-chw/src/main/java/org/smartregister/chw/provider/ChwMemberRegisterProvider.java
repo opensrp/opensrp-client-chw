@@ -43,8 +43,6 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-import static org.smartregister.family.util.Utils.getName;
-
 public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private Context context;
     private View.OnClickListener onClickListener;
@@ -89,7 +87,7 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         String middleName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String lastName = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String baseEntityId = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
-        String patientName = getName(firstName, middleName, lastName);
+        String patientName = Utils.getClientName(firstName, middleName, lastName);
         String dob = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
         String dobString = org.smartregister.family.util.Utils.getDuration(dob);
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
@@ -128,26 +126,11 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         }
         fillValue(viewHolder.gender, gender);
 
-        viewHolder.nextArrowColumn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewHolder.nextArrow.performClick();
-            }
-        });
+        viewHolder.nextArrowColumn.setOnClickListener(v -> viewHolder.nextArrow.performClick());
 
-        viewHolder.profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewHolder.patientColumn.performClick();
-            }
-        });
+        viewHolder.profile.setOnClickListener(v -> viewHolder.patientColumn.performClick());
 
-        viewHolder.registerColumns.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewHolder.patientColumn.performClick();
-            }
-        });
+        viewHolder.registerColumns.setOnClickListener(v -> viewHolder.patientColumn.performClick());
         if (StringUtils.isBlank(dod)) {
             View patient = viewHolder.patientColumn;
             attachPatientOnclickListener(patient, client);
@@ -214,17 +197,19 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
                 setMemberProfileAvatar(Utils.getMemberImageResourceIdentifier(), commonPersonObject, viewHolder);
             }
         } else {
-            if (Constants.FamilyMemberType.ANC.equals(memberType)) {
+            if (Constants.FamilyMemberType.ANC.equals(memberType) && ChwApplication.getApplicationFlavor().hasANC()) {
                 setMemberProfileAvatar(Utils.getAnCWomanImageResourceIdentifier(), commonPersonObject, viewHolder);
-            } else if (Constants.FamilyMemberType.PNC.equals(memberType)) {
+            } else if (Constants.FamilyMemberType.PNC.equals(memberType) && ChwApplication.getApplicationFlavor().hasPNC()) {
                 setMemberProfileAvatar(Utils.getPnCWomanImageResourceIdentifier(), commonPersonObject, viewHolder);
+            } else {
+                setMemberProfileAvatar(Utils.getMemberImageResourceIdentifier(), commonPersonObject, viewHolder);
             }
         }
     }
 
     private Map<String, String> getChildDetails(String baseEntityId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD), new String[]{CommonFtsObject.idColumn, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED});
+        queryBUilder.selectInitiateMainTable(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD), new String[]{CommonFtsObject.idColumn, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED});
         String query = queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' AND %s ",
                 DBConstants.KEY.DATE_REMOVED,
                 CommonFtsObject.idColumn,

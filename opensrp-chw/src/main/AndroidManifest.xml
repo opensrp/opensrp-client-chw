@@ -33,19 +33,12 @@
         <activity
             android:name=".activity.FamilyPlanningMemberProfileActivity"
             android:label="@string/family_planning"
-            android:theme="@style/ChwTheme.NoActionBar"
-            />
+            android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.AncUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.FpUpcomingServicesActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
             android:name=".activity.AncMedicalHistoryActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
-            android:name=".core.activity.BaseChildMedicalHistory"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.AncHomeVisitActivity"
@@ -141,6 +134,10 @@
             android:label="@string/upcoming_services"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".core.activity.CoreFpUpcomingServicesActivity"
+            android:label="@string/upcoming_services"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.IndividualProfileRemoveActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -176,8 +173,71 @@
         <activity
             android:name=".activity.MalariaUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-        <activity android:name=".activity.FpFollowUpVisitActivity"
+        <activity
+            android:name=".activity.ReferralRegisterActivity"
+            android:label="@string/anc_register"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ReferralRegistrationActivity"
+            android:label="@string/issue_referral"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.FpFollowUpVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.SickFormMedicalHistory"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.HIA2ReportsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.ReportSummaryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.ServiceJsonFormActivity"
+            android:label="@string/stock_usage_report"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+          <activity  android:name=".core.activity.CoreStockInventoryReportActivity"
+            android:label="@string/stock_usage_report"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.CoreStockInventoryItemDetailsReportActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.ReportsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.FragmentBaseActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.PinLoginActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AllClientsRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name="org.smartregister.opd.activity.BaseOpdFormActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.SickChildJsonFormActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.UpdatesRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.UpdateRegisterDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.AllClientsMemberProfileActivity"
+            android:label="@string/title_family_detail"
+            android:parentActivityName=".activity.AllClientsRegisterActivity"
+            android:theme="@style/FamilyTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
@@ -197,15 +257,19 @@
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.SyncLocationsByLevelAndTagsIntentService" />
+        <service android:name="org.smartregister.sync.intent.DocumentConfigurationIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
         <service android:name=".anc.intent.HomeVisitIntentService" />
-        <service android:name="org.smartregister.sync.intent.SyncTaskIntentService" />
+        <service android:name=".sync.intent.ChwSyncTaskIntentService" />
         <service android:name="org.smartregister.sync.intent.PlanIntentService" />
         <service android:name=".intent.ChwPncCloseDateIntent" />
         <service android:name="org.smartregister.reporting.service.IndicatorGeneratorIntentService" />
         <service android:name=".service.SchedulesIntentService" />
         <service android:name=".sync.ChwSyncIntentService" />
+        <service android:name="org.smartregister.chw.core.service.StockUsageReportService" />
+        <service android:name="org.smartregister.growthmonitoring.service.intent.WeightForHeightIntentService" />
 
         <uses-library
             android:name="org.apache.http.legacy"

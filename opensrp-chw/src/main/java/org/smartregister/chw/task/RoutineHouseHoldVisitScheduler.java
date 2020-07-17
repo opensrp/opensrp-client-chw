@@ -3,10 +3,10 @@ package org.smartregister.chw.task;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.ScheduleTask;
 import org.smartregister.chw.core.domain.BaseScheduleTask;
+import org.smartregister.chw.core.rule.RoutineHouseHoldVisitRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.dao.RoutineHouseHoldDao;
-import org.smartregister.chw.core.rule.RoutineHouseHoldVisitRule;
 
 import java.util.Date;
 import java.util.List;
@@ -16,7 +16,7 @@ public class RoutineHouseHoldVisitScheduler extends BaseTaskExecutor {
     public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate) {
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
 
-        long lastWashCheck = RoutineHouseHoldDao.getLastRoutineVisitkDate(baseEntityID);
+        long lastWashCheck = RoutineHouseHoldDao.getLastRoutineVisitDate(baseEntityID);
         long dateCreatedFamily = FamilyDao.getFamilyCreateDate(baseEntityID);
 
         RoutineHouseHoldVisitRule alertRule = new RoutineHouseHoldVisitRule(
