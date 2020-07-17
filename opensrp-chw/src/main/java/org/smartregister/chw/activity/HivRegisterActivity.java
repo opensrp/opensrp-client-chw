@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +19,6 @@ import org.smartregister.listener.BottomNavigationListener;
 import java.util.List;
 
 public class HivRegisterActivity extends CoreHivRegisterActivity {
-    private String baseEntityID;
 
     public static void startHIVFormActivity(Activity activity, String baseEntityID, String formName, String payloadType) {
         Intent intent = new Intent(activity, HivRegisterActivity.class);
@@ -44,7 +41,6 @@ public class HivRegisterActivity extends CoreHivRegisterActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        baseEntityID = getIntent().getStringExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID);
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
     }

@@ -21,7 +21,6 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import timber.log.Timber;
 
 import static android.view.View.GONE;
-import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
 
 public class TbFollowupRegisterFragment extends CoreTbCommunityFollowupRegisterFragment {
 

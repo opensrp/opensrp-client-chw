@@ -43,7 +43,6 @@ import java.util.List;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 

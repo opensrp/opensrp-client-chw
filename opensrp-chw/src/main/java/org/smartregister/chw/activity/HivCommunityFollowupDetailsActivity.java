@@ -4,8 +4,6 @@ import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.smartregister.chw.hiv.activity.BaseHivCommunityFollowupDetailsActivity;
 
-import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
-
 public class HivCommunityFollowupDetailsActivity extends BaseHivCommunityFollowupDetailsActivity {
     @Override
     protected void openFollowupForm() {

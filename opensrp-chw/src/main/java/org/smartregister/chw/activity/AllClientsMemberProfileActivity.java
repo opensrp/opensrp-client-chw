@@ -29,15 +29,9 @@ import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.view.contract.BaseProfileContract;
 
 import timber.log.Timber;
-
-import static com.vijay.jsonwizard.constants.JsonFormConstants.COUNT;
-import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
-import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
-import static org.smartregister.family.util.JsonFormUtils.STEP2;
 
 public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfileActivity {
 

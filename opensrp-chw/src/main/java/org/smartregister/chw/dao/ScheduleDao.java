@@ -5,8 +5,6 @@ import org.smartregister.dao.AbstractDao;
 
 import java.util.List;
 
-import timber.log.Timber;
-
 public class ScheduleDao extends AbstractDao {
 
     //TODO

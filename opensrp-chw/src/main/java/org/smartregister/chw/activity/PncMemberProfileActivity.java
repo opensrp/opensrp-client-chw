@@ -2,7 +2,6 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -68,7 +67,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.util.Constants.EventType;
 import static org.smartregister.chw.util.Constants.JSON_FORM;
@@ -379,7 +377,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_danger_signs),
                 BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getPncUnifiedReferralForm() : JSON_FORM.getPncReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
 
-        if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
                     org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
@@ -398,12 +396,12 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     @Override
     protected void startHivRegister() {
-        HivRegisterActivity.startHIVFormActivity(this, memberObject.getBaseEntityId(),org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration(),(new FormUtils()).getFormJsonFromRepositoryOrAssets(this, org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration()).toString());
+        HivRegisterActivity.startHIVFormActivity(this, memberObject.getBaseEntityId(), CoreConstants.JSON_FORM.getHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getHivRegistration()).toString());
     }
 
     @Override
     protected void startTbRegister() {
-        TbRegisterActivity.startTbFormActivity(this, memberObject.getBaseEntityId(),org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration(),(new FormUtils()).getFormJsonFromRepositoryOrAssets(this, org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration()).toString());
+        TbRegisterActivity.startTbFormActivity(this, memberObject.getBaseEntityId(), CoreConstants.JSON_FORM.getTbRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getTbRegistration()).toString());
     }
 
     @Override
