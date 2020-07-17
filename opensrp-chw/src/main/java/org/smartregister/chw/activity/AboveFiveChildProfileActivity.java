@@ -1,12 +1,39 @@
 package org.smartregister.chw.activity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
+import org.smartregister.chw.core.model.CoreChildProfileModel;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.presenter.AboveFiveChildProfilePresenter;
+import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
+import org.smartregister.family.util.Constants;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
 
 public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActivity {
+    public FamilyMemberFloatingMenu familyFloatingMenu;
+    private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private ChildProfileActivity.Flavor flavor = new ChildProfileActivityFlv();
+
+    public List<ReferralTypeModel> getReferralTypeModels() {
+        return referralTypeModels;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -23,6 +50,9 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
         setUpToolbar();
         registerReceiver(mDateTimeChangedReceiver, sIntentFilter);
         invisibleRecordVisitPanel();
+        if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
+            addChildReferralTypes();
+        }
     }
 
     private void invisibleRecordVisitPanel() {
@@ -30,4 +60,103 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
             recordVisitPanel.setVisibility(View.GONE);
         }
     }
+
+    @Override
+    protected void initializePresenter() {
+        String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
+        if (familyName == null) {
+            familyName = "";
+        }
+
+        presenter = new AboveFiveChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
+    }
+
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+        familyFloatingMenu = new FamilyMemberFloatingMenu(this);
+        LinearLayout.LayoutParams linearLayoutParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        addContentView(familyFloatingMenu, linearLayoutParams);
+
+        onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, (AboveFiveChildProfilePresenter) presenter);
+        familyFloatingMenu.setClickListener(onClickFloatingMenu);
+        fetchProfileData();
+    }
+
+    @Override
+    public void updateHasPhone(boolean hasPhone) {
+        if (familyFloatingMenu != null) {
+            familyFloatingMenu.reDraw(hasPhone);
+        }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_remove_member:
+                IndividualProfileRemoveActivity.startIndividualProfileActivity(AboveFiveChildProfileActivity.this, presenter().getChildClient(),
+                        ((AboveFiveChildProfilePresenter) presenter()).getFamilyID()
+                        , ((AboveFiveChildProfilePresenter) presenter()).getFamilyHeadID(), ((AboveFiveChildProfilePresenter) presenter()).getPrimaryCareGiverID(), ChildRegisterActivity.class.getCanonicalName());
+
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        int i = view.getId();
+        if (i == R.id.family_has_row) {
+            openFamilyDueTab();
+        }
+    }
+
+    private void openFamilyDueTab() {
+        Intent intent = new Intent(this, FamilyProfileActivity.class);
+
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, ((AboveFiveChildProfilePresenter) presenter()).getFamilyId());
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, ((AboveFiveChildProfilePresenter) presenter()).getFamilyHeadID());
+        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((AboveFiveChildProfilePresenter) presenter()).getPrimaryCareGiverID());
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, ((AboveFiveChildProfilePresenter) presenter()).getFamilyName());
+
+        intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.SERVICE_DUE, true);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED && resultCode == Activity.RESULT_OK) {
+            Intent intent = new Intent(AboveFiveChildProfileActivity.this, ChildProfileActivity.class);
+            intent.putExtras(getIntent().getExtras());
+            startActivity(intent);
+            finish();
+        }
+        ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
+    }
+
+    private void addChildReferralTypes() {
+        referralTypeModels.add(new ReferralTypeModel(getString(R.string.sick_child),
+                BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? CoreConstants.JSON_FORM.getChildUnifiedReferralForm()
+                        : CoreConstants.JSON_FORM.getChildReferralForm(), CoreConstants.TASKS_FOCUS.SICK_CHILD));
+
+        if (memberObject.getAge() >= 5) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.suspected_malaria),
+                    BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? CoreConstants.JSON_FORM.getMalariaReferralForm()
+                            : MALARIA_REFERRAL_FORM, CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
+        }
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.child_gbv_referral),
+                    CoreConstants.JSON_FORM.getChildGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_CHILD_GBV));
+        }
+    }
+
 }
