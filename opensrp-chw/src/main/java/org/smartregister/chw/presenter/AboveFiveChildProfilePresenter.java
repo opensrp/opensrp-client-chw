@@ -13,8 +13,6 @@ import java.util.List;
 
 public class AboveFiveChildProfilePresenter extends ChildProfilePresenter {
 
-    private List<ReferralTypeModel> referralTypeModels;
-
     public AboveFiveChildProfilePresenter(CoreChildProfileContract.View childView, CoreChildProfileContract.Model model, String childBaseEntityId) {
         super(childView, model, childBaseEntityId);
         setView(new WeakReference<>(childView));
@@ -24,7 +22,7 @@ public class AboveFiveChildProfilePresenter extends ChildProfilePresenter {
     }
 
     public void referToFacility() {
-        referralTypeModels = ((AboveFiveChildProfileActivity) getView()).getReferralTypeModels();
+        List<ReferralTypeModel> referralTypeModels = ((AboveFiveChildProfileActivity) getView()).getReferralTypeModels();
         if (referralTypeModels.size() == 1) {
             startSickChildReferralForm();
         } else {
