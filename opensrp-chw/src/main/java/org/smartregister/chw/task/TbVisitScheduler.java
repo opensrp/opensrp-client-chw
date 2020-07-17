@@ -32,7 +32,6 @@ public class TbVisitScheduler extends BaseTaskExecutor {
 
         baseScheduleTask.setScheduleDueDate(tbFollowupRule.getDueDate());
         baseScheduleTask.setScheduleExpiryDate(tbFollowupRule.getExpiryDate());
-        baseScheduleTask.setScheduleCompletionDate(tbFollowupRule.getCompletionDate());
         baseScheduleTask.setScheduleOverDueDate(tbFollowupRule.getOverDueDate());
 
         return toScheduleList(baseScheduleTask);
