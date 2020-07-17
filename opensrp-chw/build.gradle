@@ -139,8 +139,8 @@ android {
         ba {
             dimension = 'baseDimension'
             applicationIdSuffix ".ba"
-            versionCode 3
-            versionName "1.0.3"
+            versionCode 6
+            versionName "1.0.6"
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
