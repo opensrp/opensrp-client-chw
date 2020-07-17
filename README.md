@@ -25,15 +25,15 @@ These instructions will get you a copy of the project up and running on your loc
 [Production releases](https://smartregister.atlassian.net/wiki/spaces/Documentation/pages/1141866503/How+to+create+a+release+APK)
 
 ## Features
--  Child health care
--  Antenatal care (ANC)
--  Postnatal care (PNC) 
--  Malaria module
--  Stock Management
--  Service Activity
--  Family Planning
--  All Families register
--  Peer to peer sync
+-   Child health care
+-   Antenatal care (ANC)
+-   Postnatal care (PNC) 
+-   Malaria module
+-   Stock Management
+-   Service Activity
+-   Family Planning
+-   All Families register
+-   Peer to peer sync
 
 ## Versioning
 We use SemVer for versioning. For the versions available, see the tags on this repository.
