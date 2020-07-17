@@ -88,7 +88,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     public void startSickChildReferralForm() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             try {
-                JSONObject formJson = FormUtils.getInstance(getView().getContext()).getFormJsonFromRepositoryOrAssets(Constants.JSON_FORM.getChildUnifiedReferralForm());
+                JSONObject formJson = FormUtils.getInstance(getView().getContext()).getFormJson(Constants.JSON_FORM.getChildUnifiedReferralForm());
                 formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
                 ReferralRegistrationActivity.startGeneralReferralFormActivityForResults((Activity) getView().getContext(),
                         getChildBaseEntityId(), formJson, true);
