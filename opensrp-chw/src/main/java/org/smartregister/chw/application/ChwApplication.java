@@ -372,5 +372,7 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasSurname();
 
         boolean showMyCommunityActivityReport();
+
+        boolean useThinkMd();
     }
 }
