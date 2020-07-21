@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CFC-RTM - Togo</string>
-    <string name="login_title">Communautés Amies des Enfants Suivi en Temps Réel - Togo</string>
-    <string name="nav_logo">CFC-RTM - Togo</string>
+    <string name="app_name" translatable="false">Malawi iCHIS</string>
+    <string name="login_title" translatable="false">Malawi iCHIS</string>
+    <string name="nav_logo" translatable="false">Malawi CHW</string>
 </resources>
