@@ -9,6 +9,7 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
+import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -218,6 +219,7 @@ public class ChwApplication extends CoreChwApplication {
 
         // set up processor
         FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
+        NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
     }
 
     @Override
@@ -273,6 +275,8 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, MalariaRegisterActivity.class);
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, ReferralRegisterActivity.class);
+        }
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ALL_CLIENTS_REGISTERED_ACTIVITY, AllClientsRegisterActivity.class);
         }
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FP_REGISTER_ACTIVITY, FpRegisterActivity.class);
@@ -353,8 +357,24 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasTasks();
 
+        boolean hasDefaultDueFilterForChildClient();
+
+        boolean launchChildClientsAtLogin();
+
+        boolean hasJobAidsVitaminAGraph();
+
+        boolean hasJobAidsDewormingGraph();
+
+        boolean hasJobAidsBreastfeedingGraph();
+
+        boolean hasJobAidsBirthCertificationGraph();
+
+        boolean hasSurname();
+
         boolean showMyCommunityActivityReport();
 
         boolean showChildrenUnder5();
+
+        boolean useThinkMd();
     }
 }

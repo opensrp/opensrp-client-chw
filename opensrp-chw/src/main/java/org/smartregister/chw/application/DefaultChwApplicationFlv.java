@@ -82,10 +82,49 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean hasDefaultDueFilterForChildClient() {
+        return false;
+    }
+
+    public boolean hasJobAidsVitaminAGraph() {
+        return true;
+    }
+
+    @Override
+    public boolean hasJobAidsDewormingGraph() {
+        return true;
+    }
+
+    @Override
+    public boolean hasJobAidsBreastfeedingGraph() {
+        return true;
+    }
+
+    @Override
+    public boolean hasJobAidsBirthCertificationGraph() {
+        return true;
+    }
+
+    @Override
+    public boolean hasSurname() {
+        return true;
+    }
+
+    @Override
     public boolean showMyCommunityActivityReport() {
         return false;
     }
 
     @Override
     public boolean showChildrenUnder5(){return true;}
+
+    @Override
+    public boolean launchChildClientsAtLogin() {
+        return false;
+    }
+
+    @Override
+    public boolean useThinkMd() {
+        return false;
+    }
 }

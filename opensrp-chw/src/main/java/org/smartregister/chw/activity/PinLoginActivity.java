@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.PinViewContract;
 import org.smartregister.chw.fragment.ChooseLoginMethodFragment;
 import org.smartregister.chw.fragment.PinLoginFragment;
@@ -65,7 +66,8 @@ public class PinLoginActivity extends AppCompatActivity implements PinViewContra
 
     @Override
     public void startHomeActivity() {
-        Intent intent = new Intent(this, FamilyRegisterActivity.class);
+        Intent intent = new Intent(this, ChwApplication.getApplicationFlavor().launchChildClientsAtLogin() ?
+                ChildRegisterActivity.class : FamilyRegisterActivity.class);
         startActivity(intent);
         finish();
     }

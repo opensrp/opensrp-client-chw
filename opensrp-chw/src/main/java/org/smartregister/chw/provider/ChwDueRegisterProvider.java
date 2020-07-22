@@ -25,6 +25,8 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.util.Utils.getClientName;
+
 public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
 
     private final Context context;
@@ -59,7 +61,7 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
 
         if (StringUtils.isNotBlank(firstName) || StringUtils.isNotBlank(middleName) || StringUtils.isNotBlank(lastName)) {
-            String patientName = org.smartregister.family.util.Utils.getName(firstName, middleName, lastName);
+            String patientName = getClientName(firstName, middleName, lastName);
             patientName = patientName + ", " + dobString + " " + getVisitType(scheduleName);
             fillValue(viewHolder.patientNameAge, patientName);
         } else {
