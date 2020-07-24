@@ -51,6 +51,12 @@ android {
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "false"
+        buildConfigField "String", "THINKMD_BASE_URL", '"https://thinkmd-v4-app-b-ona.herokuapp.com/"'
+        buildConfigField "String", "THINKMD_END_POINT", '"https://fhir-v4-staging-thinkmd-tech.herokuapp.com/fhir"'
+        buildConfigField "String", "PATIENT_IDENTIFIER", '"https://fhir.smartregister.org/thinkMD_id"'
+        buildConfigField "String", "ENCOUNTER_IDENTIFIER", '"https://fhir.smartregister.org/encounterUuid"'
+        buildConfigField "String", "MESSAGE_EVENT_URL", '"http://hl7.org/fhir/ValueSet/message-events"'
+        buildConfigField "String", "PRACTITIONER_COMMUNICATION_CODING_SYSTEM", '"urn:ietf:bcp:47"'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -257,6 +263,15 @@ android {
 
 dependencies {
     implementation('org.smartregister:opensrp-client-chw-core:1.3.2-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'androidx.legacy', module: 'legacy-support-v4'
+        exclude group: 'androidx.appcompat', module: 'appcompat'
+        exclude group: 'androidx.constraintlayout', module: 'constraintlayout'
+        exclude group: 'com.google.guava', module: 'guava'
+        exclude group: 'com.rengwuxian.materialedittext', module: 'library'
+    }
+    implementation('org.smartregister:opensrp-client-thinkmd:1.0.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'

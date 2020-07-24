@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -32,6 +34,8 @@ import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.thinkmd.ThinkMDLibrary;
+import org.smartregister.thinkmd.model.FHIRBundleModel;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,6 +46,11 @@ import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
 import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.chw.util.Utils.fetchMUACFromDB;
+import static org.smartregister.chw.util.Utils.getRandomGeneratedId;
+import static org.smartregister.chw.util.Utils.getAppLanguage;
+import static org.smartregister.chw.util.Utils.getDisplayLanguage;
+import static org.smartregister.chw.util.Utils.fetchUserProfileFromDB;
 import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
 
 public class ChildProfileActivity extends CoreChildProfileActivity implements OnRetrieveNotifications {
@@ -150,12 +159,44 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, presenter().getChildClient(),
                         ((ChildProfilePresenter) presenter()).getFamilyID()
                         , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID(), ChildRegisterActivity.class.getCanonicalName());
-
                 return true;
+            case R.id.action_thinkmd_health_assessment:
+                try {
+                    ThinkMDLibrary.getInstance().processHealthAssessment(prepareFHIRModel());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private FHIRBundleModel prepareFHIRModel() {
+        FHIRBundleModel model = new FHIRBundleModel();
+        model.setRandomlyGeneratedId(getRandomGeneratedId());
+        model.setEncounterId(getRandomGeneratedId());
+        model.setRootPackageName(getApplicationContext().getPackageName());
+        model.setAppVersion(BuildConfig.VERSION_NAME);
+        model.setDisplayLanguage(getDisplayLanguage(this));
+        model.setAppName(getResources().getString(R.string.app_name));
+        model.setAppLanguage(getAppLanguage(this));
+        Triple<String, String, String> userProfile = fetchUserProfileFromDB(childBaseEntityId);
+        model.setGender(userProfile.getRight());
+        model.setDob(userProfile.getMiddle());
+        model.setAgeInDays(userProfile.getLeft());
+        Pair<String, String> muacPair = fetchMUACFromDB(childBaseEntityId);
+        model.setMUACValueCode(muacPair.first);
+        model.setMUACValueDisplay(muacPair.second);
+        //Todo: these values needs to be query and set into model
+        model.setPractitionerId(null);
+        model.setPatientId(null);
+        model.setUserName(null);
+        model.setLocationId(null);
+        model.setUniqueIdGeneratedForThinkMD(null);
+        model.setEndPointPackageName(null);
+
+        return model;
     }
 
     @Override

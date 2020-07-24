@@ -73,6 +73,8 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
+import org.smartregister.thinkmd.ThinkMDConfig;
+import org.smartregister.thinkmd.ThinkMDLibrary;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -220,6 +222,15 @@ public class ChwApplication extends CoreChwApplication {
         // set up processor
         FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
         NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
+        // ThinkMD library
+        ThinkMDConfig thinkMDConfig = new ThinkMDConfig();
+        thinkMDConfig.setThinkmdEndPoint(BuildConfig.THINKMD_BASE_URL);
+        thinkMDConfig.setThinkmdBaseUrl(BuildConfig.THINKMD_END_POINT);
+        thinkMDConfig.setPractitionerCommunicationCodingSystem(BuildConfig.PATIENT_IDENTIFIER);
+        thinkMDConfig.setPatientIdentifier(BuildConfig.ENCOUNTER_IDENTIFIER);
+        thinkMDConfig.setMessageEventUrl(BuildConfig.MESSAGE_EVENT_URL);
+        thinkMDConfig.setEncounterIdentifier(BuildConfig.PRACTITIONER_COMMUNICATION_CODING_SYSTEM);
+        ThinkMDLibrary.init(getApplicationContext(), thinkMDConfig);
     }
 
     @Override
@@ -274,7 +285,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, PncRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, MalariaRegisterActivity.class);
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-                registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, ReferralRegisterActivity.class);
+            registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, ReferralRegisterActivity.class);
         }
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ALL_CLIENTS_REGISTERED_ACTIVITY, AllClientsRegisterActivity.class);
