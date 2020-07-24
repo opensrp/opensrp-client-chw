@@ -70,12 +70,18 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return false;
     }
 
+    @Override
     public boolean showMyCommunityActivityReport() {
         return true;
     }
 
     @Override
     public boolean launchChildClientsAtLogin() {
+        return true;
+    }
+
+    @Override
+    public boolean prioritizeChildNameOnChildRegister() {
         return true;
     }
 }

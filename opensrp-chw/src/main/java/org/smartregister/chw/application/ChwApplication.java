@@ -374,5 +374,7 @@ public class ChwApplication extends CoreChwApplication {
         boolean showMyCommunityActivityReport();
 
         boolean useThinkMd();
+
+        boolean prioritizeChildNameOnChildRegister();
     }
 }
