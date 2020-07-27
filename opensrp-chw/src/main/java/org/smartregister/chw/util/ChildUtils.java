@@ -80,10 +80,10 @@ public class ChildUtils extends CoreChildUtils {
 
     public static ServiceTask createServiceTaskFromEvent(String taskType, String details, String title, String formSubmissionId) {
         ServiceTask serviceTask = new ServiceTask();
-        org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.db.Event>() {
+        org.smartregister.domain.Event event = ChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.Event>() {
         }.getType());
-        List<org.smartregister.domain.db.Obs> observations = event.getObs();
-        for (org.smartregister.domain.db.Obs obs : observations) {
+        List<org.smartregister.domain.Obs> observations = event.getObs();
+        for (org.smartregister.domain.Obs obs : observations) {
             if (obs.getFormSubmissionField().equalsIgnoreCase(formSubmissionId)) {
                 List<Object> hu = obs.getHumanReadableValues();
                 String value = "";
@@ -101,11 +101,11 @@ public class ChildUtils extends CoreChildUtils {
 
     public static ServiceTask createECDTaskFromEvent(Context context, String taskType, String details, String title) {
         ServiceTask serviceTask = new ServiceTask();
-        org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.db.Event>() {
+        org.smartregister.domain.Event event = ChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.Event>() {
         }.getType());
-        List<org.smartregister.domain.db.Obs> observations = event.getObs();
+        List<org.smartregister.domain.Obs> observations = event.getObs();
         String label = "";
-        for (org.smartregister.domain.db.Obs obs : observations) {
+        for (org.smartregister.domain.Obs obs : observations) {
             if (obs.getFormSubmissionField().equalsIgnoreCase("develop_warning_signs")) {
                 List<Object> hu = obs.getHumanReadableValues();
                 String value = "";

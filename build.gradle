@@ -14,7 +14,7 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'io.fabric.tools:gradle:1.31.2'
@@ -62,11 +62,11 @@ subprojects {
 
     group = 'org.smartregister'
 
-    ext.androidToolsBuildGradle = '28.0.3'
-    ext.androidBuildToolsVersion = '28.0.3'
-    ext.androidMinSdkVersion = 18
-    ext.androidCompileSdkVersion = 28
-    ext.androidTargetSdkVersion = 28
+    ext.androidToolsBuildGradle     = '4.0.0'
+    ext.androidBuildToolsVersion    = '29.0.3'
+    ext.androidMinSdkVersion        = 18
+    ext.androidCompileSdkVersion    = 28
+    ext.androidTargetSdkVersion     = 28
 
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'
