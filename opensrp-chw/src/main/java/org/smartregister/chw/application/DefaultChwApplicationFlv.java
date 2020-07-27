@@ -118,4 +118,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean launchChildClientsAtLogin() {
         return false;
     }
+
+    @Override
+    public boolean useThinkMd() {
+        return false;
+    }
 }

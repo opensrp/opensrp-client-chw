@@ -1,11 +1,12 @@
 package org.smartregister.chw.application;
 
+import com.google.common.collect.ImmutableList;
+
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.core.utils.Utils;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -65,11 +66,11 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public List<String> getSynchronizedLocationTags() {
-        return Collections.singletonList("MOH Jhpiego Facility Name");
+        return ImmutableList.of("MOH Jhpiego Facility Name", "Health Facility", "Facility");
     }
 
     @Override
     public String getTopAllowedLocationLevel() {
-        return "Ward";
+        return "District";
     }
 }

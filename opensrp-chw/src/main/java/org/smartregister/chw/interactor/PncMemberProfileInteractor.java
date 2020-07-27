@@ -32,6 +32,7 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -100,11 +101,19 @@ public class PncMemberProfileInteractor extends CorePncMemberProfileInteractor i
                 Collections.sort(baseUpcomingServices, comparator);
 
                 BaseUpcomingService baseUpcomingService = baseUpcomingServices.get(0);
+                Date overDueDate = baseUpcomingService.getOverDueDate();
+                if (overDueDate == null) {
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(baseUpcomingService.getServiceDate());
+                    c.add(Calendar.DATE, 1);
+                    overDueDate = c.getTime();
+                }
+
                 return new Alert(
                         memberObject.getBaseEntityId(),
                         baseUpcomingService.getServiceName(),
                         baseUpcomingService.getServiceName(),
-                        baseUpcomingService.getOverDueDate().before(new Date()) ? AlertStatus.urgent : AlertStatus.normal,
+                        overDueDate.before(new Date()) ? AlertStatus.urgent : AlertStatus.normal,
                         AbstractDao.getDobDateFormat().format(baseUpcomingService.getServiceDate()),
                         "",
                         true
