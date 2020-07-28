@@ -158,6 +158,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
             case R.id.action_thinkmd_health_assessment:
                 ChildFHIRBundleDao fhirBundleDao = new ChildFHIRBundleDao();
                 FHIRBundleModel bundle = fhirBundleDao.fetchFHIRDateModel(this, childBaseEntityId);
+                bundle.setEndPointPackageName(getClass().getName());
                 try {
                     ThinkMDLibrary.getInstance().processHealthAssessment(bundle);
                 } catch (JSONException e) {
