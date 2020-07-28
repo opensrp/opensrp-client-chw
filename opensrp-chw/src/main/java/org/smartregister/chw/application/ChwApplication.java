@@ -226,10 +226,6 @@ public class ChwApplication extends CoreChwApplication {
         ThinkMDConfig thinkMDConfig = new ThinkMDConfig();
         thinkMDConfig.setThinkmdEndPoint(BuildConfig.THINKMD_BASE_URL);
         thinkMDConfig.setThinkmdBaseUrl(BuildConfig.THINKMD_END_POINT);
-        thinkMDConfig.setPractitionerCommunicationCodingSystem(BuildConfig.PATIENT_IDENTIFIER);
-        thinkMDConfig.setPatientIdentifier(BuildConfig.ENCOUNTER_IDENTIFIER);
-        thinkMDConfig.setMessageEventUrl(BuildConfig.MESSAGE_EVENT_URL);
-        thinkMDConfig.setEncounterIdentifier(BuildConfig.PRACTITIONER_COMMUNICATION_CODING_SYSTEM);
         ThinkMDLibrary.init(getApplicationContext(), thinkMDConfig);
     }
 

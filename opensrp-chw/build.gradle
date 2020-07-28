@@ -53,10 +53,6 @@ android {
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "false"
         buildConfigField "String", "THINKMD_BASE_URL", '"https://thinkmd-v4-app-b-ona.herokuapp.com/"'
         buildConfigField "String", "THINKMD_END_POINT", '"https://fhir-v4-staging-thinkmd-tech.herokuapp.com/fhir"'
-        buildConfigField "String", "PATIENT_IDENTIFIER", '"https://fhir.smartregister.org/thinkMD_id"'
-        buildConfigField "String", "ENCOUNTER_IDENTIFIER", '"https://fhir.smartregister.org/encounterUuid"'
-        buildConfigField "String", "MESSAGE_EVENT_URL", '"http://hl7.org/fhir/ValueSet/message-events"'
-        buildConfigField "String", "PRACTITIONER_COMMUNICATION_CODING_SYSTEM", '"urn:ietf:bcp:47"'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
