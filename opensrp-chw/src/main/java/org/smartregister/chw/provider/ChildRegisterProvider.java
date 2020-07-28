@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.apache.commons.lang3.text.WordUtils;
+import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.provider.CoreChildRegisterProvider;
@@ -57,7 +58,7 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
     }
 
     private int getChildRegisterLayout(){
-        return !ChwApplication.getApplicationFlavor().prioritizeChildNameOnChildRegister() ? org.smartregister.chw.core.R.layout.adapter_child_register_list_row : org.smartregister.chw.core.R.layout.adapter_lmh_child_register_list_row;
+        return !ChwApplication.getApplicationFlavor().prioritizeChildNameOnChildRegister() ? org.smartregister.chw.core.R.layout.adapter_child_register_list_row : R.layout.adapter_prioritize_child_register_list_row;
     }
 
     @Override
