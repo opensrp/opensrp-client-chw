@@ -11,7 +11,6 @@ public class PositionTest {
         Position root = new Position("Kenya");
 
         Position nax = new Position(root, "Nax");
-        Position max_a = new Position(nax, "Rongai");
         Position max_b = new Position(nax, "Town");
 
 
