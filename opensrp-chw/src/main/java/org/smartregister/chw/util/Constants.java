@@ -39,7 +39,7 @@ public class Constants extends CoreConstants {
         public static String INDICATOR_CODE = "INDICATOR_CODE";
     }
 
-    public static class PeerToPeer {
+    public static class PeerToPeerUtil {
         public static String COUNTRY_ID = "COUNTRY_ID";
     }
 }

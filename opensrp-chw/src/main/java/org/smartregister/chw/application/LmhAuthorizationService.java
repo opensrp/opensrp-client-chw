@@ -31,7 +31,7 @@ public class LmhAuthorizationService implements P2PAuthorizationService {
                 Object peerDeviceLocationId = peerDeviceMap.get(CoreConstants.PEER_TO_PEER.LOCATION_ID);
                 Object myLocationId = authorizationDetails.get(CoreConstants.PEER_TO_PEER.LOCATION_ID);
                 Object myPeerStatus = authorizationDetails.get(org.smartregister.p2p.util.Constants.AuthorizationKeys.PEER_STATUS);
-                Object myCountryId = authorizationDetails.get(Constants.PeerToPeer.COUNTRY_ID);
+                Object myCountryId = authorizationDetails.get(Constants.PeerToPeerUtil.COUNTRY_ID);
 
                 if (peerDeviceLocationId instanceof String && myLocationId instanceof String && myPeerStatus instanceof String && myCountryId instanceof String) {
 
@@ -87,7 +87,7 @@ public class LmhAuthorizationService implements P2PAuthorizationService {
         AllSharedPreferences allSharedPreferences = CoreLibrary.getInstance().context().allSharedPreferences();
         authorizationDetails.put(AllConstants.PeerToPeer.KEY_TEAM_ID, allSharedPreferences.fetchDefaultTeamId(allSharedPreferences.fetchRegisteredANM()));
         authorizationDetails.put(CoreConstants.PEER_TO_PEER.LOCATION_ID, allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM()));
-        authorizationDetails.put(Constants.PeerToPeer.COUNTRY_ID, getCountryId());
+        authorizationDetails.put(Constants.PeerToPeerUtil.COUNTRY_ID, getCountryId());
         onAuthorizationDetailsProvidedCallback.onAuthorizationDetailsProvided(authorizationDetails);
     }
 }

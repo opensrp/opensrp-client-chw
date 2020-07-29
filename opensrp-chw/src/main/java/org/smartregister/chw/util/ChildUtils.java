@@ -79,7 +79,7 @@ public class ChildUtils extends CoreChildUtils {
 
     public static ServiceTask createServiceTaskFromEvent(String taskType, String details, String title, String formSubmissionId) {
         ServiceTask serviceTask = new ServiceTask();
-        Event event = ChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.Event>() {
+        Event event = ChildUtils.gsonConverter.fromJson(details, new TypeToken<Event>() {
         }.getType());
         List<org.smartregister.domain.Obs> observations = event.getObs();
         for (org.smartregister.domain.Obs obs : observations) {
