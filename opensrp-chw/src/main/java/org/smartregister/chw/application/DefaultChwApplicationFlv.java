@@ -110,6 +110,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
         return true;
     }
 
+    @Override
     public boolean showMyCommunityActivityReport() {
         return false;
     }
@@ -120,7 +121,12 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean hasForeignData(){
-        return  false;
+    public boolean hasForeignData() {
+        return false;
+    }
+
+    @Override
+    public boolean useThinkMd() {
+        return false;
     }
 }

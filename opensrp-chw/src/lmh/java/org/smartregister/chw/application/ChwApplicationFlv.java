@@ -70,6 +70,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return false;
     }
 
+    @Override
     public boolean showMyCommunityActivityReport() {
         return true;
     }
