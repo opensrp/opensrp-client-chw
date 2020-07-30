@@ -77,7 +77,8 @@ android {
             buildConfigField "int", "BASE_PNC_CLOSE_MINUTES", '1440'
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '720'
             buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
-            buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "false"
+            buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
+            buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "false"
         }
 
         debug {
@@ -95,6 +96,7 @@ android {
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '360'
             buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
+            buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "false"
             testCoverageEnabled true
         }
     }
@@ -138,7 +140,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".ba"
             versionCode 3
-            versionName "1.1.0"
+            versionName "1.0.3"
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
@@ -254,7 +256,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.3.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.3.2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
