@@ -390,8 +390,6 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasJobAidsVitaminAGraph();
 
-        boolean hasJobAidsVitaminAGraph();
-
         boolean hasHIV();
 
         boolean hasTB();

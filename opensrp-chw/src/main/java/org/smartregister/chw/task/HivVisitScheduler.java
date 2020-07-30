@@ -32,7 +32,6 @@ public class HivVisitScheduler extends BaseTaskExecutor {
 
         baseScheduleTask.setScheduleDueDate(hivFollowupRule.getDueDate());
         baseScheduleTask.setScheduleExpiryDate(hivFollowupRule.getExpiryDate());
-        baseScheduleTask.setScheduleCompletionDate(hivFollowupRule.getCompletionDate());
         baseScheduleTask.setScheduleOverDueDate(hivFollowupRule.getOverDueDate());
 
         return toScheduleList(baseScheduleTask);
