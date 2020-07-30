@@ -4,15 +4,14 @@ package org.smartregister.chw.activity;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.smartregister.chw.tb.activity.BaseTbCommunityFollowupDetailsActivity;
-
-import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
+import org.smartregister.chw.util.Constants;
 
 public class TbCommunityFollowupDetailsActivity extends BaseTbCommunityFollowupDetailsActivity {
 
 
     @Override
-    public void openFollowupForm(){
-        TbRegisterActivity.startTbFormActivity(this, getMemberObject().getBaseEntityId(),org.smartregister.chw.util.Constants.JSON_FORM.getHivCommunityFollowFeedback(),(new FormUtils()).getFormJsonFromRepositoryOrAssets(this, org.smartregister.chw.util.Constants.JSON_FORM.getHivCommunityFollowFeedback()).toString());
+    public void openFollowupForm() {
+        TbRegisterActivity.startTbFormActivity(this, getMemberObject().getBaseEntityId(), Constants.JSON_FORM.getHivCommunityFollowFeedback(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, Constants.JSON_FORM.getHivCommunityFollowFeedback()).toString());
     }
 }
  
