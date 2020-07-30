@@ -46,6 +46,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return true;
     }
 
+    @Override
     public boolean hasJobAidsVitaminAGraph() {
         return false;
     }
@@ -70,6 +71,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return false;
     }
 
+    @Override
     public boolean showMyCommunityActivityReport() {
         return true;
     }
@@ -77,5 +79,10 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     @Override
     public boolean launchChildClientsAtLogin() {
         return true;
+    }
+
+    @Override
+    public boolean hasForeignData(){
+        return  true;
     }
 }

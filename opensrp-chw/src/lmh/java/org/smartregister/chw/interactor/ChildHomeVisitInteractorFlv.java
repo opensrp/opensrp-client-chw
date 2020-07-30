@@ -15,7 +15,6 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         try {
             evaluateChildVaccineCard();
             evaluateImmunization();
-            evaluateMUAC();
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
         } catch (Exception e) {
