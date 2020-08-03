@@ -72,21 +72,6 @@
         }
       },
       {
-        "key": "date_chw_malaria_test",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "hidden": "true",
-        "type": "edit_text",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "malaria_confirmation_calculation.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "relational_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
