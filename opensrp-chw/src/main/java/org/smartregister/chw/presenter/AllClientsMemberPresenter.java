@@ -19,7 +19,7 @@ import org.smartregister.family.util.Utils;
 import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
 
-import static org.smartregister.util.Utils.getName;
+import static org.smartregister.chw.util.Utils.getClientName;
 
 public class AllClientsMemberPresenter implements AllClientsMemberContract.Presenter, FamilyProfileContract.InteractorCallBack, FamilyOtherMemberContract.InteractorCallBack {
 
@@ -60,14 +60,14 @@ public class AllClientsMemberPresenter implements AllClientsMemberContract.Prese
             int age = StringUtils.isNotBlank(dob) ? Utils.getAgeFromDate(dob) : 0;
 
             AllClientsMemberProfileActivity currentView = (AllClientsMemberProfileActivity) getView();
-            currentView.setProfileName(MessageFormat.format("{0}, {1}", getName(getName(firstName, middleName), lastName), age));
+            currentView.setProfileName(MessageFormat.format("{0}, {1}", getClientName(firstName, middleName, lastName), age));
             String gestationAge = CoreChwApplication.ancRegisterRepository().getGaIfAncWoman(client.getCaseId());
             if (gestationAge != null) {
                 currentView.setProfileDetailOne(NCUtils.gestationAgeString(gestationAge, currentView.getContext(), true));
             }
             String gender = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true);
             currentView.setProfileDetailOne(gender);
-            String villageTown =  FamilyDao.getFamilyDetail(client.getCaseId()).getVillageTown();
+            String villageTown = FamilyDao.getFamilyDetail(client.getCaseId()).getVillageTown();
             currentView.setProfileDetailTwo(villageTown);
             String uniqueId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
             currentView.setProfileDetailThree(String.format(currentView.getString(org.smartregister.chw.core.R.string.id_with_value), uniqueId));

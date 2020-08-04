@@ -28,6 +28,8 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.util.Utils.getClientName;
+
 public class FamilyActivityRegisterProvider extends org.smartregister.family.provider.FamilyActivityRegisterProvider {
     public FamilyActivityRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
         super(context, commonRepository, visibleColumns, onClickListener, paginationClickListener);
@@ -64,7 +66,7 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
             fillValue(viewHolder.lastVisit, String.format(context.getString(R.string.profile_activity_completed), new SimpleDateFormat("dd MMM yyyy").format(new Date(eventDate))));
         }
 
-        String patientName = Utils.getName(firstName, middleName, lastName);
+        String patientName = getClientName(firstName, middleName, lastName);
 
         String dob = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
         String dobString = Utils.getDuration(dob);

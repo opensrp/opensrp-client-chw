@@ -2,6 +2,8 @@ package org.smartregister.chw.presenter;
 
 import android.app.Activity;
 
+import com.vijay.jsonwizard.utils.FormUtils;
+
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
@@ -12,7 +14,6 @@ import org.smartregister.chw.core.presenter.CoreAncMemberProfilePresenter;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
-import org.smartregister.util.FormUtils;
 
 import java.util.List;
 
@@ -43,10 +44,10 @@ public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             try {
                 Activity context = ((Activity) getView());
-                JSONObject formJson = FormUtils.getInstance(context).getFormJsonFromRepositoryOrAssets(Constants.JSON_FORM.getAncUnifiedReferralForm());
+                JSONObject formJson = (new FormUtils()).getFormJsonFromRepositoryOrAssets(context, Constants.JSON_FORM.getAncUnifiedReferralForm());
                 formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
                 ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(context,
-                        getEntityId(), formJson);
+                        getEntityId(), formJson, true);
             } catch (Exception ex) {
                 Timber.e(ex);
             }
