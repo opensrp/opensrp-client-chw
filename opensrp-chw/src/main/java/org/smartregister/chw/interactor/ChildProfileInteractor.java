@@ -7,12 +7,14 @@ import androidx.annotation.VisibleForTesting;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.ChildHomeVisit;
 import org.smartregister.chw.core.utils.CoreChildService;
 import org.smartregister.chw.core.utils.CoreChildUtils;
@@ -24,11 +26,13 @@ import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.Photo;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.FormUtils;
+import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
 
 import java.util.Date;
@@ -46,6 +50,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
     public static final String TAG = ChildProfileInteractor.class.getName();
     private AppExecutors appExecutors;
     private Map<String, Date> vaccineList = new LinkedHashMap<>();
+    private static ChildProfileInteractor.Flavour childProfileInteractorFlv = new ChildProfileInteractorFlv();
 
     public ChildProfileInteractor() {
         this(new AppExecutors());
@@ -178,6 +183,92 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
         return null;
     }
 
+    public void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray) throws JSONException {
+
+        switch (jsonObject.getString(JsonFormUtils.KEY).toLowerCase()) {
+            case org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN:
+                jsonObject.put(JsonFormUtils.READ_ONLY, false);
+                JSONObject optionsObject = jsonObject.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+                optionsObject.put(JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
+                break;
+            case "age": {
+                getAge(client, jsonObject);
+            }
+            break;
+            case DBConstants.KEY.DOB:
+                String dobString = org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+                getDob(jsonObject, dobString);
+                break;
+            case org.smartregister.family.util.Constants.KEY.PHOTO:
+                getPhoto(client, jsonObject);
+                break;
+            case DBConstants.KEY.UNIQUE_ID:
+                String uniqueId = org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
+                jsonObject.put(JsonFormUtils.VALUE, uniqueId.replace("-", ""));
+                break;
+            case CoreConstants.JsonAssets.FAM_NAME:
+                childProfileInteractorFlv.getFamilyName(client, jsonObject, jsonArray);
+                break;
+            case CoreConstants.JsonAssets.INSURANCE_PROVIDER:
+                jsonObject.put(JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER, false));
+                break;
+            case CoreConstants.JsonAssets.INSURANCE_PROVIDER_NUMBER:
+                jsonObject.put(JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER_NUMBER, false));
+                break;
+            case CoreConstants.JsonAssets.INSURANCE_PROVIDER_OTHER:
+                jsonObject.put(JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER_OTHER, false));
+                break;
+            case CoreConstants.JsonAssets.DISABILITIES:
+                jsonObject.put(JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.CHILD_PHYSICAL_CHANGE, false));
+                break;
+            case CoreConstants.JsonAssets.DISABILITY_TYPE:
+                jsonObject.put(JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.TYPE_OF_DISABILITY, false));
+                break;
+            case CoreConstants.JsonAssets.BIRTH_CERT_AVAILABLE:
+                jsonObject.put(JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT, false));
+                break;
+            case CoreConstants.JsonAssets.BIRTH_REGIST_NUMBER:
+                jsonObject.put(JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_NUMBER, false));
+                break;
+            case CoreConstants.JsonAssets.RHC_CARD:
+                jsonObject.put(JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.RHC_CARD, false));
+                break;
+            case CoreConstants.JsonAssets.NUTRITION_STATUS:
+                jsonObject.put(JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.NUTRITION_STATUS, false));
+                break;
+            case DBConstants.KEY.GPS:
+                jsonObject.put(JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GPS, false));
+                break;
+            default:
+                jsonObject.put(JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), jsonObject.getString(JsonFormUtils.KEY), false));
+                break;
+
+        }
+    }
+
+    private void getAge(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
+        String dobString = org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+        dobString = org.smartregister.family.util.Utils.getDuration(dobString);
+        dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "0";
+        jsonObject.put(JsonFormUtils.VALUE, Integer.valueOf(dobString));
+    }
+
+    private void getDob(JSONObject jsonObject, String dobString) throws JSONException {
+        if (StringUtils.isNotBlank(dobString)) {
+            Date dob = org.smartregister.chw.core.utils.Utils.dobStringToDate(dobString);
+            if (dob != null) {
+                jsonObject.put(JsonFormUtils.VALUE, JsonFormUtils.dd_MM_yyyy.format(dob));
+            }
+        }
+    }
+
+    private void getPhoto(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
+        Photo photo = ImageUtils.profilePhotoByClientID(client.getCaseId(), org.smartregister.chw.core.utils.Utils.getProfileImageResourceIDentifier());
+        if (StringUtils.isNotBlank(photo.getFilePath())) {
+            jsonObject.put(JsonFormUtils.VALUE, photo.getFilePath());
+        }
+    }
+
     @Override
     public void processBackGroundEvent(final CoreChildProfileContract.InteractorCallBack callback) {
         Runnable runnable = () -> {
@@ -256,5 +347,9 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
             ChwScheduleTaskExecutor.getInstance().execute(getpClient().entityId(), CoreConstants.EventType.CHILD_VISIT_NOT_DONE, new Date());
             objectObservableEmitter.onNext("");
         });
+    }
+
+    interface Flavour {
+        void getFamilyName(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray) throws JSONException;
     }
 }

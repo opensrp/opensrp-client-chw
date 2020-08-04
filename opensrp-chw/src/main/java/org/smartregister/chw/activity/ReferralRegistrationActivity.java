@@ -19,13 +19,13 @@ import org.smartregister.family.util.JsonFormUtils;
 public class ReferralRegistrationActivity extends BaseIssueReferralActivity {
     public static String BASE_ENTITY_ID;
 
-    public static void startGeneralReferralFormActivityForResults(Activity activity, String baseEntityID, JSONObject formJsonObject) {
+    public static void startGeneralReferralFormActivityForResults(Activity activity, String baseEntityID, JSONObject formJsonObject, boolean useCustomLayout) {
         BASE_ENTITY_ID = baseEntityID;
         Intent intent = new Intent(activity, ReferralRegistrationActivity.class);
         intent.putExtra(Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
         intent.putExtra(Constants.ActivityPayload.JSON_FORM, formJsonObject.toString());
         intent.putExtra(Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.REGISTRATION);
-
+        intent.putExtra(Constants.ActivityPayload.USE_CUSTOM_LAYOUT, useCustomLayout);
         activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 

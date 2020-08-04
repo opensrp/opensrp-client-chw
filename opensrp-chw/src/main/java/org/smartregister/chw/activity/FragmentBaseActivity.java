@@ -18,14 +18,17 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.EligibleChildrenReportFragment;
 import org.smartregister.chw.fragment.FilterReportFragment;
 import org.smartregister.chw.fragment.JobAidsDashboardFragment;
+import org.smartregister.chw.fragment.MyCommunityActivityDetailsFragment;
 import org.smartregister.chw.fragment.VillageDoseReportFragment;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.view.activity.SecuredActivity;
 
 import timber.log.Timber;
 
 public class FragmentBaseActivity extends SecuredActivity {
-    public static final String DISPLAY_FRAGMENT = "DISPLAY_FRAGMENT";
-    public static final String TITLE = "TITLE";
+    protected static final String DISPLAY_FRAGMENT = "DISPLAY_FRAGMENT";
+    protected static final String TITLE = "TITLE";
+    protected String INDICATOR_CODE = "INDICATOR_CODE";
 
     private TextView titleTextView;
 
@@ -72,7 +75,7 @@ public class FragmentBaseActivity extends SecuredActivity {
             if (StringUtils.isNotBlank(title)) {
                 titleTextView.setText(title);
             }
-
+            INDICATOR_CODE = bundle.getString(INDICATOR_CODE);
             String fragmentName = bundle.getString(DISPLAY_FRAGMENT);
             Fragment fragment = getRequestedFragment(fragmentName);
             if (fragment != null)
@@ -116,6 +119,10 @@ public class FragmentBaseActivity extends SecuredActivity {
                     .TAG:
                 fragment = new EligibleChildrenReportFragment();
                 break;
+            case MyCommunityActivityDetailsFragment
+                    .TAG:
+                fragment = new MyCommunityActivityDetailsFragment();
+                break;
             case JobAidsDashboardFragment
                     .TAG:
                 fragment = new JobAidsDashboardFragment();
@@ -128,6 +135,12 @@ public class FragmentBaseActivity extends SecuredActivity {
         if (fragment != null)
             fragment.setArguments(getIntent().getExtras());
 
+        assert fragment != null;
+        if (name.equalsIgnoreCase(MyCommunityActivityDetailsFragment.TAG)){
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.ReportParameters.INDICATOR_CODE, INDICATOR_CODE);
+            fragment.setArguments(bundle);
+        }
         return fragment;
     }
 

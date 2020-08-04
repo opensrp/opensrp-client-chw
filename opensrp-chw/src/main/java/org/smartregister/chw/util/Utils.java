@@ -3,14 +3,15 @@ package org.smartregister.chw.util;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
-import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
 import org.smartregister.chw.activity.ClientReferralActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -19,15 +20,17 @@ import org.smartregister.growthmonitoring.domain.ZScore;
 import org.smartregister.growthmonitoring.repository.WeightForHeightRepository;
 import org.smartregister.helper.BottomNavigationHelper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Utils extends org.smartregister.chw.core.utils.Utils {
 
+    public static final String dd_MMM_yyyy = "dd MMM yyyy";
+
     public static void launchClientReferralActivity(Activity activity, List<ReferralTypeModel> referralTypeModels, String baseEntityId) {
-        if (activity instanceof AllClientsMemberProfileActivity) {
-            ClientReferralActivity.isStartedFromAllClients = true;
-        }
         Bundle bundle = new Bundle();
         bundle.putString(Constants.ENTITY_ID, baseEntityId);
         bundle.setClassLoader(ReferralTypeModel.class.getClassLoader());
@@ -39,6 +42,10 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
     public static List<ReferralTypeModel> getCommonReferralTypes(Activity activity) {
         List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+
+            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.suspected_malaria),
+                    Constants.JSON_FORM.getMalariaReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
+
             referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.hiv_referral),
                     Constants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
 
@@ -93,4 +100,44 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         }
         return zScore;
     }
+
+    public static String formatDateForVisual(String date, String inputFormat) {
+        if (StringUtils.isEmpty(date)) return "";
+        SimpleDateFormat format = new SimpleDateFormat(inputFormat);
+        Date newDate = null;
+        try {
+            newDate = format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        format = new SimpleDateFormat(dd_MMM_yyyy);
+        return format.format(newDate);
+    }
+
+    public static String getClientName(String firstName, String middleName, String lastName) {
+        String trimFirstName = firstName.trim();
+        String trimMiddleName = middleName.trim();
+        String trimLastName = lastName.trim();
+        if (ChwApplication.getApplicationFlavor().hasSurname()) {
+            return getName(trimFirstName, trimMiddleName, trimLastName);
+        } else {
+            return Utils.getName(trimFirstName, trimMiddleName);
+        }
+    }
+
+
+    public static void updateToolbarTitle(Activity activity, int toolbarTextViewId) {
+        int titleResource = -1;
+        if (activity.getIntent().getExtras() != null)
+            titleResource = activity.getIntent().getExtras().getInt(CoreConstants.INTENT_KEY.TOOLBAR_TITLE, -1);
+        if (titleResource != -1) {
+            TextView toolbarTitleTextView = activity.findViewById(toolbarTextViewId);
+            if (titleResource == org.smartregister.chw.core.R.string.return_to_family_members) {
+                toolbarTitleTextView.setText(activity.getString(org.smartregister.chw.core.R.string.return_to_family_members));
+            } else {
+                toolbarTitleTextView.setText(titleResource);
+            }
+        }
+    }
+
 }

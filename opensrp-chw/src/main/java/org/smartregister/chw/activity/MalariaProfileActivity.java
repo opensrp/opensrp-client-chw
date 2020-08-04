@@ -21,6 +21,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.NCUtils;
@@ -150,17 +151,24 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
     }
 
     private void addMalariaReferralTypes() {
-        getReferralTypeModels().add(new ReferralTypeModel(getString(R.string.suspected_malaria),
-                Constants.MALARIA_REFERRAL_FORM, CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
+        getReferralTypeModels().add(
+                new ReferralTypeModel(getString(R.string.suspected_malaria), BuildConfig.USE_UNIFIED_REFERRAL_APPROACH
+                        ? CoreConstants.JSON_FORM.getMalariaReferralForm() : Constants.MALARIA_REFERRAL_FORM, CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
     }
 
     @Override
     public void referToFacility() {
         if (getReferralTypeModels().size() == 1) {
             try {
-                startFormActivity(getFormUtils().getFormJson(getReferralTypeModels().get(0).getFormName()));
-            } catch (Exception e) {
-                Timber.e(e);
+                if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+                    JSONObject formJson = getFormUtils().getFormJson(Constants.JSON_FORM.getMalariaReferralForm());
+                    formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
+                    ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, baseEntityId, formJson, true);
+                } else {
+                    startFormActivity(getFormUtils().getFormJson(getReferralTypeModels().get(0).getFormName()));
+                }
+            } catch (Exception ex) {
+                Timber.e(ex);
             }
         } else {
             Utils.launchClientReferralActivity(this, getReferralTypeModels(), baseEntityId);

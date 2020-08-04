@@ -15,17 +15,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.core.job.HomeVisitServiceJob;
-import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.fragment.ReferralRegisterFragment;
 import org.smartregister.chw.malaria.util.MalariaJsonFormUtils;
 import org.smartregister.chw.referral.activity.BaseReferralRegisterActivity;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.helper.BottomNavigationHelper;
-import org.smartregister.job.ImageUploadServiceJob;
-import org.smartregister.job.PullUniqueIdsServiceJob;
-import org.smartregister.job.SyncServiceJob;
-import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.listener.BottomNavigationListener;
 
 import java.util.Collections;
