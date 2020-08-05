@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "FP Follow up visit Counselling",
+  "encounter_type": "CHW Monthly tallies Report",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,37 +47,62 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Counselling",
+    "title": "Misaada ya kila mwezi",
     "fields": [
       {
-        "key": "fp_counselling",
-        "type": "native_radio",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "key": "indicator_code",
         "openmrs_entity_parent": "",
-        "label": "Did the client receive any family planning counselling?",
-        "options": [
-          {
-            "key": "yes",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "",
-            "text": "Yes"
-          },
-          {
-            "key": "no",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "",
-            "text": "No"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "This value cannot be null"
-        }
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "indicator_code",
+        "type": "edit_text",
+        "hint": "Nambari ya kiashiria",
+        "value": ""
+      },
+      {
+        "key": "month",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "month",
+        "type": "edit_text",
+        "hint": "Mwezi",
+        "value": ""
+      },
+      {
+        "key": "edited",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "edited",
+        "type": "edit_text",
+        "hint": "imehaririwa",
+        "value": ""
+      },
+      {
+        "key": "date_sent",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "date_sent",
+        "type": "edit_text",
+        "hint": "Tarehe iliyotumwa",
+        "value": ""
+      },
+      {
+        "key": "created_at",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "created_at",
+        "type": "edit_text",
+        "hint": "Imeundwa kwa",
+        "value": ""
+      },
+      {
+        "key": "value",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "value",
+        "type": "edit_text",
+        "hint": "Imesasishwa kwa",
+        "value": ""
       }
-
     ]
   }
 }
