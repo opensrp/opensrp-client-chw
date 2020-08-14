@@ -9,15 +9,23 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFpRegisterActivity;
 import org.smartregister.chw.core.dataloader.FPDataLoader;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FpRegisterFragment;
+import org.smartregister.dao.LocationsDao;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.util.Collections;
+
+import static org.smartregister.AllConstants.LocationConstants.SPECIAL_TAG_FOR_OPENMRS_TEAM_MEMBERS;
+import static org.smartregister.util.JsonFormUtils.STEP1;
+
 public class FpRegisterActivity extends CoreFpRegisterActivity {
 
     private static String baseEntityId;
+    private static String fpFormName;
 
     public static void startFpRegistrationActivity(Activity activity, String baseEntityID, String dob, String formName, String payloadType) {
         Intent intent = new Intent(activity, FpRegisterActivity.class);
@@ -25,6 +33,7 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
         intent.putExtra(FamilyPlanningConstants.ActivityPayload.DOB, dob);
         intent.putExtra(FamilyPlanningConstants.ActivityPayload.FP_FORM_NAME, formName);
         intent.putExtra(FamilyPlanningConstants.ActivityPayload.ACTION, payloadType);
+        fpFormName = formName;
         baseEntityId = baseEntityID;
         activity.startActivity(intent);
     }
@@ -59,7 +68,8 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
         NativeFormsDataBinder binder = new NativeFormsDataBinder(this, baseEntityId);
         binder.setDataLoader(new FPDataLoader(getString(R.string.fp_update_family_planning)));
 
-        JSONObject form = binder.getPrePopulatedForm(FamilyPlanningConstants.Forms.MALE_FAMILY_PLANNING_REGISTRATION_FORM);
+        JSONObject form = binder.getPrePopulatedForm(fpFormName);
+
         try {
             form.put(JsonFormUtils.ENCOUNTER_TYPE, FamilyPlanningConstants.EventType.UPDATE_FAMILY_PLANNING_REGISTRATION);
         } catch (JSONException e) {
@@ -67,5 +77,4 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
         }
         return form;
     }
-
 }
