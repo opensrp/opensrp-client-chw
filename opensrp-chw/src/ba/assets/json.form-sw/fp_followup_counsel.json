@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Counselling",
+    "title": "Ushauri",
     "fields": [
       {
         "key": "fp_counselling",
@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Did the client receive any family planning counselling?",
+        "label": "Je, anapata ushauri wowote wa uzazi wa mpango?",
         "options": [
           {
             "key": "yes",
@@ -74,7 +74,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "This value cannot be null"
+          "err": "Thamani hii haiwezi kuwa laini"
         }
       }
 

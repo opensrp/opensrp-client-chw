@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "FP Follow up visit Counselling",
+  "encounter_type": "Stock Usage Report",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,37 +47,53 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Counselling",
+    "title": "Ripoti ya Hisa",
     "fields": [
       {
-        "key": "fp_counselling",
-        "type": "native_radio",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "key": "stock_name",
         "openmrs_entity_parent": "",
-        "label": "Did the client receive any family planning counselling?",
-        "options": [
-          {
-            "key": "yes",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "",
-            "text": "Yes"
-          },
-          {
-            "key": "no",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "",
-            "text": "No"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "This value cannot be null"
-        }
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "stock_name",
+        "type": "edit_text",
+        "hint": "Jina la Hisa",
+        "value": ""
+      },
+      {
+        "key": "stock_year",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "stock_year",
+        "type": "edit_text",
+        "hint": "Mwaka wa Hisa",
+        "value": ""
+      },
+      {
+        "key": "stock_month",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "stock_month",
+        "type": "edit_text",
+        "hint": "Mwezi wa Hisa",
+        "value": ""
+      },
+      {
+        "key": "stock_usage",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "stock_usage",
+        "type": "edit_text",
+        "hint": "Matumizi ya Hisa",
+        "value": ""
+      },
+      {
+        "key": "stock_provider",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "stock_provider",
+        "type": "edit_text",
+        "hint": "Mtoaji wa Hisa",
+        "value": ""
       }
-
     ]
   }
 }

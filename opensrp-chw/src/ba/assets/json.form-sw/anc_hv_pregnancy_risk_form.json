@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "FP Follow up visit Counselling",
+  "encounter_type": "Pregnancy risk",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,37 +47,51 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Counselling",
+    "title": "Hatari ya ujazito",
     "fields": [
       {
-        "key": "fp_counselling",
-        "type": "native_radio",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "key": "preg_risk",
         "openmrs_entity_parent": "",
-        "label": "Did the client receive any family planning counselling?",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_risk",
+        "type": "check_box",
+        "label": "Hatari ya ujazito",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "saveObsAsArray": true,
+        "exclusive": [
+          "Low",
+          "Medium",
+          "High"
+        ],
         "options": [
           {
-            "key": "yes",
+            "key": "Low",
+            "text": "Kidogo",
+            "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "",
-            "text": "Yes"
+            "openmrs_entity_id": "Low"
           },
           {
-            "key": "no",
+            "key": "Medium",
+            "text": "Kati kati",
+            "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "",
-            "text": "No"
+            "openmrs_entity_id": "Medium"
+          },
+          {
+            "key": "High",
+            "text": "Kubwa",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "High"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This value cannot be null"
+          "err": "Tafadhali chagua angalau moja"
         }
       }
-
     ]
   }
 }

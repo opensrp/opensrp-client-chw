@@ -193,8 +193,8 @@
           "value": "true",
           "err": "Ingiza thamani sawa au kubwa kuliko 0"
         },
-        "v_relative_max": {
-          "value": "no_prev_preg",
+        "v_min": {
+          "value": "0",
           "err": "Nambari lazima iwe chini ya au sawa na Idadi ya Mimba za awali"
         }
       },
