@@ -9,18 +9,11 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFpRegisterActivity;
 import org.smartregister.chw.core.dataloader.FPDataLoader;
 import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
-import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FpRegisterFragment;
-import org.smartregister.dao.LocationsDao;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
-
-import java.util.Collections;
-
-import static org.smartregister.AllConstants.LocationConstants.SPECIAL_TAG_FOR_OPENMRS_TEAM_MEMBERS;
-import static org.smartregister.util.JsonFormUtils.STEP1;
 
 public class FpRegisterActivity extends CoreFpRegisterActivity {
 
