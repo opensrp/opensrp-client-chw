@@ -4,7 +4,6 @@
   "count": "2",
   "encounter_type": "Malaria Confirmation",
   "entity_id": "",
-  "relational_id": "",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -62,7 +61,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
+        "hidden": "true",
+        "type": "edit_text",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -72,27 +72,43 @@
         }
       },
       {
+        "key": "relational_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "relational_id",
+        "hidden": "true",
+        "type": "edit_text"
+      },
+      {
         "key": "fever_malaria_chw",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fever_malaria_chw",
-        "type": "spinner",
-        "hint": "Je, mteja ana homa au aligunduliwa kuwa na malaria ndani ya siku 14 katika kituo cha afya?",
-        "values": [
-          "Ana homa",
-          "Alikuwa na malaria ndani ya siku 14"
-        ],
-        "keys": [
-          "Has a fever",
-          "Tested positive for malaria in the last 14 days at a health facility"
+        "type": "native_radio",
+        "label": "Je, mteja ana homa au aligunduliwa kuwa na malaria ndani ya siku 14 katika kituo cha afya?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "has_fever",
+            "text": "Ana homa",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "has_fever",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "tested_positive_last_14_days",
+            "text": "Alikuwa na malaria ndani ya siku 14",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tested_positive_last_14_days",
+            "openmrs_entity_parent": ""
+          }
         ],
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua chaguo moja"
-        },
-        "openmrs_choice_ids": {
-          "Has a fever": "has_fever_conceptID",
-          "Tested positive for malaria in the last 14 days at a health facility": "positive_for_malaria_conceptID"
         }
       },
       {
@@ -127,6 +143,33 @@
         }
       },
       {
+        "key": "malaria_test_done",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_test_done",
+        "type": "spinner",
+        "hint": "Kipimo cha malaria kimefanyika?",
+        "values": [
+          "Hapana",
+          "Ndiyo, kwa WAJA"
+        ],
+        "keys": [
+          "No",
+          "Yes, by the CHW"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "malaria_confirmation_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "malaria_results",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -135,18 +178,15 @@
         "hint": "Majibu ya mRDT",
         "values": [
           "Chanya",
-          "Hasi",
-          "Kipimo hakijafanyika"
+          "Hasi"
         ],
         "keys": [
           "Positive",
-          "Negative",
-          "Not done"
+          "Negative"
         ],
         "openmrs_choice_ids": {
           "Positive": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Negative": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Not done": "160414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Negative": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -186,7 +226,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
+        "hidden": "true",
+        "type": "edit_text",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -200,7 +241,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
+        "hidden": "true",
+        "type": "edit_text",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -244,6 +286,23 @@
           "value": "true",
           "err": "Tafadhali chagua chaguo moja"
         },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "malaria_confirmation_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Tafadhali mpe rufaa kwa kipimo cha malaria",
+        "toaster_info_text": "Tafadhali mpe rufaa kwa kipimo cha malaria",
+        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -347,33 +406,59 @@
         "key": "malaria_edu_chw",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Mada juu ya ugonjwa wa malaria zilizofundishwa",
-        "values": [
-          "Muktasari kuhusu ugonjwa wa malaria",
-          "Kuzuia malaria",
-          "Malaria isiyokali",
-          "Malaria kali",
-          "Malaria kwa mama mjamzito",
-          "Hajafanya"
+        "openmrs_entity_id": "malaria_edu_chw",
+        "type": "check_box",
+        "label": "Mada juu ya ugonjwa wa Malaria zilizofundishwa",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "chk_none"
         ],
-        "keys": [
-          "Overview on malaria",
-          "Malaria prevention",
-          "Uncomplicated malaria",
-          "Severe malaria",
-          "Malaria in pregnancy",
-          "None"
+        "options": [
+          {
+            "key": "overview_on_malaria",
+            "text": "Muktasari kuhusu ugonjwa wa malaria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "malaria_prevention",
+            "text": "Kuzuia malaria",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "uncomplicated_malaria",
+            "text": "Malaria isiyokali",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Severe_malaria",
+            "text": "Malaria kali",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "malaria_in_pregnancy",
+            "text": "Malaria kwa mama mjamzito",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hajafanya",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Overview on malaria": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Malaria prevention": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Uncomplicated malaria": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Severe malaria": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Malaria in pregnancy": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua chaguo moja"
