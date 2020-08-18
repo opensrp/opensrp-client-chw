@@ -28,7 +28,7 @@ buildscript {
 apply plugin: 'jacoco'
 
 jacoco {
-    toolVersion = "0.8.0"
+    toolVersion = "0.8.5"
 }
 
 allprojects {
@@ -63,9 +63,9 @@ subprojects {
 
     group = 'org.smartregister'
 
-    ext.androidToolsBuildGradle = '28.0.3'
-    ext.androidBuildToolsVersion = '28.0.3'
-    ext.androidMinSdkVersion = 18
+    ext.androidToolsBuildGradle = '30.0.0'
+    ext.androidBuildToolsVersion = '30.0.0'
+    ext.androidMinSdkVersion = 19
     ext.androidCompileSdkVersion = 28
     ext.androidTargetSdkVersion = 28
 
