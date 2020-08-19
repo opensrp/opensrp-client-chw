@@ -3,7 +3,7 @@ language: android
 # Setting sudo to required prevents Travis from testing the project in a Docker container.
 sudo: required
 jdk: oraclejdk8
-dist: precise
+dist: trusty
 
 before_cache:
   -rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -14,18 +14,36 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
+env:
+  matrix:
+    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
+  global:
+    # wait up to 10 minutes for adb to connect to emulator
+    - MALLOC_ARENA_MAX=2
+    - ADB_INSTALL_TIMEOUT=10
+    # git hub token
+    - secure: zlcwxv20f3o5dYhbXqKYtA60R96Qz6H+SClZGm8SdlGopFKGktrn17G0d2KSlkx0kw0tHEwV0TfjyNKZrh9rPqwByPZ9WOkp3qKCJyQ0uclLERPtruNY9KWXYF4k0r0RWZP/DMNMCzPNrRqwqxTSISX2apznfKof3iIczH4HTQ3vUt+yVKHtP3IW1fjDlhhqdO6d/4fecLb9NEi7uVOyB/ZAdNrp7jAmKpEGPSVD31NgHxIVqfCpNW6xNFR7sVWsz/rnJbk5V0oAl++hq+/EkMuR46w+wO6L4a3BnDs8iJbF1lVS/C1orKsAP4K/4agEFpTbq7uZQKEOelq0s08qTt2zQzfFIFWf7Cdxr+Y6S8IAg472CV+h8r4VTER9b3svyXlVjPkofwnB5txKmDupB7pHFmjswP1GTD5SSP4MLoImUZTS8XjrEAsOxh5FWwz6R7hYlw2PssIem7YMGNR0srhycVrKiQTtLRodLlNe2Qc0jPuM2nmgUziyBOdJznIetfOC+JmA9pPNSSeFzOxtDRkKTTZjAEZRKGLjbZvcyM2mcP8RVrIP0951DMzHyfIGaR1gjN2G/ygV0T4wXVET6oHs4jtMHLG5Gfx7v3fKtwIaA+a42wM8L4fo97O3hD/n85tt2UhVGB9pZfjC7oZUctR71E40ZLe7yWCeMTArRpo=
+
 android:
   components:
     # tools required
     - tools
     # The BuildTools version used by your project
-    - build-tools-28.0.3
+    - build-tools-29.0.3
     # The SDK version used to compile your projects
     - android-22
-    - android-28
-    # Additional components
-    - extra-google-m2repository
-    - extra-android-m2repository
+    - android-29
+
+    # Specify at least one system image,
+    # if you need to run emulator(s) during your tests
+#    - sys-img-armeabi-v7a-android-22
+
+before_script:
+# Emulator Management: Create, Start and Wait
+#  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+#  - emulator -avd test -no-skin -no-audio -no-window &
+#  - android-wait-for-emulator
+#  - adb shell input keyevent 82 &
 
 script:
   - echo "Travis branch is $TRAVIS_BRANCH"
@@ -33,7 +51,10 @@ script:
   - chmod 755 gradlew
   - ls -la
   #Run jacocoTestReport -> Runs all unit tests & instrumentation tests
-  - travis_wait ./gradlew :opensrp-chw:clean :opensrp-chw:jacocoTestReport coveralls --stacktrace
+  - ./gradlew :opensrp-chw:clean :opensrp-chw:jacocoTestReport --stacktrace
+
+after_success:
+  - ./gradlew :opensrp-chw:coveralls --stacktrace
 
 notifications:
   slack:

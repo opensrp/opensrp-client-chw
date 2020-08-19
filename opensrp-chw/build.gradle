@@ -5,8 +5,9 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'org.apache.commons:commons-lang3:3.10'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'io.fabric.tools:gradle:1.31.2'
         classpath 'com.android.tools.build:gradle:4.0.1'
     }
@@ -112,7 +113,9 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.md'
         exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.md'
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/license.txt'
@@ -323,11 +326,11 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
     def debugTree = fileTree(dir: "$project.buildDir/intermediates/javac/baDebug/classes/", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
 
-    sourceDirectories = files([mainSrc])
-    classDirectories = files([debugTree])
-    executionData = fileTree(dir: project.buildDir, includes: [
+    sourceDirectories.setFrom(files([mainSrc]))
+    classDirectories.setFrom(files([debugTree]))
+    executionData.setFrom(fileTree(dir: project.buildDir, includes: [
             'jacoco/testBaDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
-    ])
+    ]))
 }
 
 tasks.withType(Test) {
@@ -340,4 +343,5 @@ tasks.coveralls {
 
 coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
+    sourceDirs = ["$project.projectDir/src/main/java"]
 }

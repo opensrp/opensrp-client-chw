@@ -12,23 +12,25 @@ buildscript {
         jcenter()
         mavenLocal()
         maven { url 'https://maven.fabric.io/public' }
+        maven{  url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'io.fabric.tools:gradle:1.31.2'
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:${dokkaVersion}"
         classpath 'com.dicedmelon.gradle:jacoco-android:0.1.4'
+        classpath 'gradle.plugin.org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.10.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
+apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco'
 
 jacoco {
-    toolVersion = "0.8.5"
+    toolVersion = "0.8.0"
 }
 
 allprojects {
@@ -63,11 +65,11 @@ subprojects {
 
     group = 'org.smartregister'
 
-    ext.androidToolsBuildGradle = '30.0.0'
-    ext.androidBuildToolsVersion = '30.0.0'
-    ext.androidMinSdkVersion = 19
-    ext.androidCompileSdkVersion = 28
-    ext.androidTargetSdkVersion = 28
+    ext.androidToolsBuildGradle     = '4.0.1'
+    ext.androidBuildToolsVersion    = '29.0.3'
+    ext.androidMinSdkVersion        = 18
+    ext.androidCompileSdkVersion    = 29
+    ext.androidTargetSdkVersion     = 29
 
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'
