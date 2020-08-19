@@ -51,10 +51,8 @@ script:
   - chmod 755 gradlew
   - ls -la
   #Run jacocoTestReport -> Runs all unit tests & instrumentation tests
-  - ./gradlew :opensrp-chw:clean :opensrp-chw:jacocoTestReport --stacktrace
-
-after_success:
-  - ./gradlew :opensrp-chw:coveralls --stacktrace
+  - travis_wait ./gradlew :opensrp-chw:jacocoTestReport --stacktrace
+  - travis_wait ./gradlew :opensrp-chw:coveralls --stacktrace
 
 notifications:
   slack:
