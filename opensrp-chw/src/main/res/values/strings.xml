@@ -366,4 +366,9 @@
     <!---Anc Home Visit Strings -->
     <string name="anc_home_visit_pregnancy_risk">Pregnancy risk</string>
     <string name="loading_content">Loading content</string>
+
+<!--    thindmd integration-->
+    <string name="thinkmd_assessment_saved">ThinkMD health assessment saved</string>
+    <string name="fhir_bundle">fhirBundle</string>
+    <string name="thinkmd_identifier_type">thinkmd_id</string>
 </resources>
