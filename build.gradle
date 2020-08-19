@@ -17,10 +17,10 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'io.fabric.tools:gradle:1.31.2'
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:${dokkaVersion}"
         classpath 'com.dicedmelon.gradle:jacoco-android:0.1.4'
-        classpath 'gradle.plugin.org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.10.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
