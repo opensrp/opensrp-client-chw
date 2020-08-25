@@ -250,13 +250,6 @@
           }
         },
         {
-          "column_name": "thinkmd_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "identifiers.thinkmd_id"
-          }
-        },
-        {
           "column_name": "unique_id",
           "type": "Client",
           "json_mapping": {
