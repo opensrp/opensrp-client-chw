@@ -29,6 +29,7 @@ import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.db.Column;
+import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
