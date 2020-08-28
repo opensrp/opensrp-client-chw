@@ -52,8 +52,8 @@ android {
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "false"
-        buildConfigField "String", "THINKMD_BASE_URL", '"https://thinkmd-v4-app-b-ona.herokuapp.com/"'
-        buildConfigField "String", "THINKMD_END_POINT", '"https://fhir-v4-staging-thinkmd-tech.herokuapp.com/fhir"'
+        buildConfigField "String", "THINKMD_BASE_URL", '"https://thinkmd-v4-app-b-ona.herokuapp.com"'
+        buildConfigField "String", "THINKMD_END_POINT", '"/access/ona/2020new"'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -271,7 +271,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.4.3-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.4.6-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'

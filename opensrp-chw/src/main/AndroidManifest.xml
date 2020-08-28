@@ -120,7 +120,19 @@
         <activity
             android:name=".activity.ChildProfileActivity"
             android:label="@string/child_details"
-            android:theme="@style/ChwTheme.NoActionBar" />
+            android:theme="@style/ChwTheme.NoActionBar">
+            <intent-filter android:label="@string/app_name">
+                <action android:name="org.smartregister.action.THINKMD_ASSESSMENT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="https://thinkmd-v4-app-b-ona.herokuapp.com"
+                    android:path="/smartregister.org"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.ChildMedicalHistoryActivity"
             android:label="@string/medical_history"
@@ -198,7 +210,8 @@
             android:label="@string/stock_usage_report"
             android:theme="@style/ChwTheme.NoActionBar" />
 
-          <activity  android:name=".core.activity.CoreStockInventoryReportActivity"
+        <activity
+            android:name=".core.activity.CoreStockInventoryReportActivity"
             android:label="@string/stock_usage_report"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
