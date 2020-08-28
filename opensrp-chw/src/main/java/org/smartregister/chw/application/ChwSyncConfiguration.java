@@ -73,4 +73,9 @@ public class ChwSyncConfiguration extends SyncConfiguration {
     public String getTopAllowedLocationLevel() {
         return "District";
     }
+
+    @Override
+    public boolean runPlanEvaluationOnClientProcessing() {
+        return true;
+    }
 }

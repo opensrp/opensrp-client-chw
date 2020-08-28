@@ -1,0 +1,211 @@
+[
+  {
+    "identifier": "2427d5fe-3c19-5bbe-b3c4-142482082a74",
+    "version": "2",
+    "name": "CHW Dynamic Tasking Plan",
+    "title": "CHW Dynamic Tasking Plan",
+    "status": "active",
+    "date": "2020-08-25",
+    "effectivePeriod": {
+      "start": "2020-08-25",
+      "end": "2021-10-14"
+    },
+    "useContext": [
+      {
+        "code": "interventionType",
+        "valueCodableConcept": "Dynamic-MDA"
+      },
+      {
+        "code": "taskGenerationStatus",
+        "valueCodableConcept": "Disabled"
+      }
+    ],
+    "jurisdiction": [
+      {
+        "code": "6be2f032-ab8e-4f0d-999c-d951f7040418"
+      }
+    ],
+    "serverVersion": 1598389762107,
+    "goal": [
+      {
+        "id": "RACD_register_families",
+        "description": "Register all families &amp; family members in all residential structures enumerated (100%) within the operational area",
+        "priority": "medium-priority",
+        "target": [
+          {
+            "measure": "Percent of residential structures with full family registration",
+            "detail": {
+              "detailQuantity": {
+                "value": 100,
+                "comparator": "&gt;=",
+                "unit": "Percent"
+              }
+            },
+            "due": "2020-09-01"
+          }
+        ]
+      },
+      {
+        "id": "MDA_Dispense",
+        "description": "Visit all residential structures (100%) dispense prophylaxis to each registered person",
+        "priority": "medium-priority",
+        "target": [
+          {
+            "measure": "Percent of Registered person(s)",
+            "detail": {
+              "detailQuantity": {
+                "value": 75,
+                "comparator": "&gt;=",
+                "unit": "Percent"
+              }
+            },
+            "due": "2020-09-01"
+          }
+        ]
+      },
+      {
+        "id": "MDA_Adherence",
+        "description": "Visit all residential structures (100%) and confirm adherence of each registered person",
+        "priority": "medium-priority",
+        "target": [
+          {
+            "measure": "Percent of dispense recipients",
+            "detail": {
+              "detailQuantity": {
+                "value": 100,
+                "comparator": "&gt;=",
+                "unit": "Percent"
+              }
+            },
+            "due": "2020-09-01"
+          }
+        ]
+      }
+    ],
+    "action": [
+      {
+        "identifier": "92e89800-9159-59ef-b5f9-328ac7c8843a",
+        "prefix": 1,
+        "title": "Family Registration",
+        "description": "Register all families &amp; family members in all residential structures enumerated (100%) within the operational area",
+        "code": "RACD Register Family",
+        "timingPeriod": {
+          "start": "2020-08-25",
+          "end": "2020-09-01"
+        },
+        "reason": "Routine",
+        "goalId": "RACD_register_families",
+        "subjectCodableConcept": {
+          "text": "Location"
+        },
+        "trigger": [
+          {
+            "type": "named-event",
+            "name": "plan-activation"
+          },
+          {
+            "type": "named-event",
+            "name": "event-submission",
+            "expression": {
+              "description": "Trigger when a Register_Structure event is submitted",
+              "expression": "questionnaire = 'Register_Structure'"
+            }
+          }
+        ],
+        "condition": [
+          {
+            "kind": "applicability",
+            "expression": {
+              "description": "Structure is residential or type does not exist",
+              "expression": "$this.is(FHIR.QuestionnaireResponse) or (($this.type.where(id='locationType').exists().not() or $this.type.where(id='locationType').text = 'Residential Structure') and $this.contained.exists().not())",
+              "subjectCodableConcept": {
+                "text": "Family"
+              }
+            }
+          },
+          {
+            "kind": "applicability",
+            "expression": {
+              "description": "Apply to residential structures in Register_Structure questionnaires",
+              "expression": "$this.is(FHIR.Location) or (questionnaire = 'Register_Structure' and $this.item.where(linkId='structureType').answer.value ='Residential Structure')"
+            }
+          }
+        ],
+        "definitionUri": "family_register.json",
+        "type": "create"
+      },
+      {
+        "identifier": "b2b8fcc9-656e-5fb1-bf2d-8269ff30bcfd",
+        "prefix": 2,
+        "title": "Distribute Drugs",
+        "description": "Visit all residential structures (100%) and dispense prophylaxis to each registered person",
+        "code": "MDA Dispense",
+        "timingPeriod": {
+          "start": "2020-08-25",
+          "end": "2020-09-01"
+        },
+        "reason": "Routine",
+        "goalId": "MDA_Dispense",
+        "subjectCodableConcept": {
+          "text": "Person"
+        },
+        "trigger": [
+          {
+            "type": "named-event",
+            "name": "plan-activation"
+          },
+          {
+            "type": "named-event",
+            "name": "event-submission",
+            "expression": {
+              "description": "Trigger when a Family Registration or Family Member Registration event is submitted",
+              "expression": "questionnaire = 'Family_Registration' or questionnaire = 'Family_Member_Registration'"
+            }
+          }
+        ],
+        "condition": [
+          {
+            "kind": "applicability",
+            "expression": {
+              "description": "Person or person associated with questionaire response is older than 5 years and younger than 15 years",
+              "expression": "($this.is(FHIR.Patient) and $this.birthDate &lt;= today() - 5 'years' and $this.birthDate &gt; today() - 15 'years') or ($this.contained.where(Patient.birthDate &lt;= today() - 5 'years' and $this.birthDate &gt; today() - 15 'years').exists())"
+            }
+          }
+        ],
+        "definitionUri": "mda_dispense.json",
+        "type": "create"
+      },
+      {
+        "identifier": "9e2cbea2-80be-5c49-a2bd-1cc84c467926",
+        "prefix": 3,
+        "title": "Sick Child Follow-up",
+        "description": "Visit sick children to follow-up on recovery",
+        "code": "Sick Child Follow-up",
+        "timingPeriod": {
+          "start": "2020-08-25",
+          "end": "2021-09-01"
+        },
+        "reason": "Routine",
+        "goalId": "MDA_Adherence",
+        "subjectCodableConcept": {
+          "text": "Person"
+        },
+        "trigger": [
+          {
+            "type": "named-event",
+            "name": "event-submission",
+            "expression": {
+              "description": "Trigger when a MDA Dispense event is submitted",
+              "expression": "questionnaire = 'Sick Child'"
+            }
+          }
+        ],
+        "condition": [],
+        "definitionUri": "mda_adherence.json",
+        "type": "create"
+      }
+
+    ],
+    "experimental": false
+  }
+]
