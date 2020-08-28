@@ -17,6 +17,7 @@ import org.smartregister.job.DocumentConfigurationServiceJob;
 import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.P2pServiceJob;
+import org.smartregister.job.PlanIntentServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncLocationsByLevelAndTagsServiceJob;
 import org.smartregister.job.SyncServiceJob;
@@ -65,8 +66,8 @@ public class ChwJobCreator implements JobCreator {
             case DocumentConfigurationServiceJob.TAG:
                 return new DocumentConfigurationServiceJob(DocumentConfigurationIntentService.class);
             //TODO uncomment to enable plans
-            /*case PlanIntentServiceJob.TAG:
-                return new PlanIntentServiceJob();*/
+            case PlanIntentServiceJob.TAG:
+                return new PlanIntentServiceJob();
             default:
                 Timber.d("Looks like you tried to create a job " + tag + " that is not declared in the Chw Job Creator");
                 return null;

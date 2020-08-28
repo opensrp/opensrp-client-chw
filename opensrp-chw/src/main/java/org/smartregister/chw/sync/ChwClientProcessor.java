@@ -45,6 +45,8 @@ public class ChwClientProcessor extends CoreClientProcessor {
         }
 
         super.processEvents(clientClassification, vaccineTable, serviceTable, eventClient, event, eventType);
+        eventClient.getEvent().addDetails("planIdentifier", "2427d5fe-3c19-5bbe-b3c4-142482082a74");
+        super.processPlanEvaluation(eventClient);
         ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
     }
 }
