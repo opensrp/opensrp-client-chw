@@ -29,7 +29,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+28d"
+              "offset": "+14d"
             }
           ]
         }
@@ -59,7 +59,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+5y"
             }
           ]
         }
@@ -96,7 +96,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+5y"
             }
           ]
         }
@@ -126,7 +126,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+4y"
             }
           ]
         }
@@ -156,7 +156,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+5y"
             }
           ]
         }
@@ -186,7 +186,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+105d"
             }
           ]
         }
@@ -224,7 +224,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+5y"
             }
           ]
         }
@@ -255,7 +255,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+4y"
             }
           ]
         }
@@ -286,7 +286,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+5y"
             }
           ]
         }
@@ -317,7 +317,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+105d"
             }
           ]
         }
@@ -355,7 +355,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+5y"
             }
           ]
         }
@@ -386,7 +386,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+4y"
             }
           ]
         }
@@ -402,7 +402,7 @@
         "openmrs_calculate": {
           "parent_entity": "162342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "enOPVtity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "calculation": 3
         },
         "schedule": {
@@ -417,7 +417,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+1y"
             }
           ]
         }
@@ -447,7 +447,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+5y"
             }
           ]
         }
@@ -484,37 +484,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
-            }
-          ]
-        }
-      },
-      {
-        "name": "Typhoid",
-        "type": "Typhoid",
-        "openmrs_date": {
-          "parent_entity": "86022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "openmrs_calculate": {
-          "parent_entity": "86022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 1
-        },
-        "schedule": {
-          "due": [
-            {
-              "reference": "dob",
-              "offset": "+9m",
-              "window": "+5d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
+              "offset": "+5y"
             }
           ]
         }
@@ -544,7 +514,7 @@
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+5y"
             }
           ]
         }
@@ -573,15 +543,16 @@
         "schedule": {
           "due": [
             {
-              "reference": "dob",
-              "offset": "+15m",
+              "reference": "prerequisite",
+              "prerequisite": "MCV 1",
+              "offset": "+28d",
               "window": "+5d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+5y"
             }
           ]
         }
