@@ -257,6 +257,21 @@
           }
         },
         {
+          "column_name": "html_assessment",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.values",
+            "formSubmissionField": "generatedDiv"
+          }
+        },
+        {
+          "column_name": "care_plan_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
+        },
+        {
           "column_name": "unique_id",
           "type": "Client",
           "json_mapping": {

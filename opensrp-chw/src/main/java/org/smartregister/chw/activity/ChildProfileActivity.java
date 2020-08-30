@@ -17,9 +17,11 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.activity.ChromeContainer;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
+import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
@@ -35,7 +37,6 @@ import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.domain.tag.FormTag;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -51,8 +52,11 @@ import java.util.List;
 import timber.log.Timber;
 
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
+import static org.smartregister.chw.core.utils.CoreConstants.INTENT_KEY.CONTENT_TO_DISPLAY;
 import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
 import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
+import static org.smartregister.chw.util.Constants.ThinkMdConstants.CARE_PLAN_DATE;
+import static org.smartregister.chw.util.Constants.ThinkMdConstants.HTML_ASSESSMENT;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
@@ -89,10 +93,14 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
     private void createCarePlanEvent(String encodedBundle) {
         try {
-            FormTag formTag = Utils.getFormTag(ChwApplication.getInstance().getContext().allSharedPreferences());
-            Event carePlanEvent = ThinkMDLibrary.getInstance().createCarePlanEvent(encodedBundle, formTag, childBaseEntityId);
+            String thinkMdId = ThinkMDLibrary.getInstance().getThinkMDPatientId(encodedBundle);
+            String baseEntityId = ChildDao.getBaseEntityID(getResources().getString(R.string.thinkmd_identifier_type),
+                    thinkMdId);
+            Event carePlanEvent = ThinkMDLibrary.getInstance().createCarePlanEvent(encodedBundle,
+                    Utils.getFormTag(ChwApplication.getInstance().getContext().allSharedPreferences()),
+                    baseEntityId);
             JSONObject eventPartialJson = new JSONObject(JsonFormUtils.gson.toJson(carePlanEvent));
-            ECSyncHelper.getInstance(getContext()).addEvent(childBaseEntityId, eventPartialJson);
+            ECSyncHelper.getInstance(getContext()).addEvent(baseEntityId, eventPartialJson);
             showToast(context().getStringResource(R.string.thinkmd_assessment_saved));
         } catch (Exception e) {
             Timber.e(e);
@@ -187,6 +195,12 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
                 bundle.setEndPointPackageName(getClass().getName());
                 addThinkmdIdentifier(bundle.getUniqueIdGeneratedForThinkMD());
                 ThinkMDLibrary.getInstance().processHealthAssessment(bundle);
+                break;
+            case R.id.action_thinkmd_careplan:
+                Intent intent = new Intent(this, ChromeContainer.class);
+                intent.putExtra(CONTENT_TO_DISPLAY, ChildDao.queryColumnWithEntityId(childBaseEntityId,HTML_ASSESSMENT));
+                startActivity(intent);
+                break;
             default:
                 break;
         }
@@ -236,6 +250,13 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         menu.findItem(R.id.action_thinkmd_health_assessment).setVisible(ChwApplication.getApplicationFlavor().useThinkMd()
                 && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()));
+        if(ChwApplication.getApplicationFlavor().useThinkMd()
+                && ChildDao.isThinkmdCarePlanExist(childBaseEntityId)){
+            menu.findItem(R.id.action_thinkmd_careplan).setVisible(true);
+            menu.findItem(R.id.action_thinkmd_careplan).setTitle(
+                    String.format(getResources().getString(R.string.thinkmd_careplan), ChildDao.queryColumnWithEntityId(childBaseEntityId,CARE_PLAN_DATE))
+            );
+        }
         return true;
     }
 
