@@ -40,8 +40,4 @@ public class Constants extends CoreConstants {
 
     }
 
-    public static class ThinkMdConstants {
-        public static String HTML_ASSESSMENT = "html_assessment";
-        public static String CARE_PLAN_DATE = "care_plan_date";
-    }
 }

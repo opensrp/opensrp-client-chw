@@ -10,14 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.core.activity.ChromeContainer;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
@@ -30,37 +27,24 @@ import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreConstants.JSON_FORM;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
-import org.smartregister.chw.dao.ChildFHIRBundleDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
-import org.smartregister.chw.util.Utils;
-import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
-import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.sync.helper.ECSyncHelper;
-import org.smartregister.thinkmd.ThinkMDLibrary;
-import org.smartregister.thinkmd.model.FHIRBundleModel;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import timber.log.Timber;
-
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
-import static org.smartregister.chw.core.utils.CoreConstants.INTENT_KEY.CONTENT_TO_DISPLAY;
+import static org.smartregister.chw.core.utils.CoreConstants.ThinkMdConstants.CARE_PLAN_DATE;
 import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
 import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
-import static org.smartregister.chw.util.Constants.ThinkMdConstants.CARE_PLAN_DATE;
-import static org.smartregister.chw.util.Constants.ThinkMdConstants.HTML_ASSESSMENT;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
-import static org.smartregister.opd.utils.OpdJsonFormUtils.locationId;
 
 public class ChildProfileActivity extends CoreChildProfileActivity implements OnRetrieveNotifications {
     public FamilyMemberFloatingMenu familyFloatingMenu;
@@ -87,23 +71,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         notificationListAdapter.setOnClickListener(this);
 
         if (getIntent().hasExtra(context().getStringResource(R.string.fhir_bundle))) {
-            createCarePlanEvent(getIntent().getStringExtra(context().getStringResource(R.string.fhir_bundle)));
-        }
-    }
-
-    private void createCarePlanEvent(String encodedBundle) {
-        try {
-            String thinkMdId = ThinkMDLibrary.getInstance().getThinkMDPatientId(encodedBundle);
-            String baseEntityId = ChildDao.getBaseEntityID(getResources().getString(R.string.thinkmd_identifier_type),
-                    thinkMdId);
-            Event carePlanEvent = ThinkMDLibrary.getInstance().createCarePlanEvent(encodedBundle,
-                    Utils.getFormTag(ChwApplication.getInstance().getContext().allSharedPreferences()),
-                    baseEntityId);
-            JSONObject eventPartialJson = new JSONObject(JsonFormUtils.gson.toJson(carePlanEvent));
-            ECSyncHelper.getInstance(getContext()).addEvent(baseEntityId, eventPartialJson);
-            showToast(context().getStringResource(R.string.thinkmd_assessment_saved));
-        } catch (Exception e) {
-            Timber.e(e);
+            presenter().createCarePlanEvent(getContext(), getIntent().getStringExtra(context().getStringResource(R.string.fhir_bundle)));
         }
     }
 
@@ -190,16 +158,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
                         , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID(), ChildRegisterActivity.class.getCanonicalName());
                 return true;
             case R.id.action_thinkmd_health_assessment:
-                ChildFHIRBundleDao fhirBundleDao = new ChildFHIRBundleDao();
-                FHIRBundleModel bundle = fhirBundleDao.fetchFHIRDateModel(this, childBaseEntityId);
-                bundle.setEndPointPackageName(getClass().getName());
-                addThinkmdIdentifier(bundle.getUniqueIdGeneratedForThinkMD());
-                ThinkMDLibrary.getInstance().processHealthAssessment(bundle);
+                presenter().launchThinkMDHealthAssessment(getContext());
                 break;
             case R.id.action_thinkmd_careplan:
-                Intent intent = new Intent(this, ChromeContainer.class);
-                intent.putExtra(CONTENT_TO_DISPLAY, ChildDao.queryColumnWithEntityId(childBaseEntityId,HTML_ASSESSMENT));
-                startActivity(intent);
+                presenter().showThinkMDCarePlan(getContext());
                 break;
             default:
                 break;
@@ -207,41 +169,12 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         return super.onOptionsItemSelected(item);
     }
 
-    private void addThinkmdIdentifier(String uniqueIdGeneratedForThinkMD) {
-        Event event = new Event()
-                .withBaseEntityId(childBaseEntityId)
-                .withEventType("Update ThinkMD Id")
-                .withEntityType("ec_child")
-                .addIdentifier(this.getString(R.string.thinkmd_identifier_type), uniqueIdGeneratedForThinkMD);
-        tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), event);
-
-        try {
-            JSONObject eventPartialJson = new JSONObject(JsonFormUtils.gson.toJson(event));
-            getSyncHelper().addEvent(childBaseEntityId, eventPartialJson);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
-        String providerId = allSharedPreferences.fetchRegisteredANM();
-        event.setProviderId(providerId);
-        event.setLocationId(locationId(allSharedPreferences));
-        event.setChildLocationId(allSharedPreferences.fetchCurrentLocality());
-        event.setTeam(allSharedPreferences.fetchDefaultTeam(providerId));
-        event.setTeamId(allSharedPreferences.fetchDefaultTeamId(providerId));
-        event.setClientDatabaseVersion(FamilyLibrary.getInstance().getDatabaseVersion());
-        event.setClientApplicationVersion(FamilyLibrary.getInstance().getApplicationVersion());
-    }
-
-    @NotNull
-    public ECSyncHelper getSyncHelper() {
-        return ChwApplication.getInstance().getEcSyncHelper();
-    }
+    Menu menu;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+        this.menu = menu;
         menu.findItem(R.id.action_sick_child_form).setVisible(ChwApplication.getApplicationFlavor().hasChildSickForm()
                 && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient())
                 && !ChwApplication.getApplicationFlavor().useThinkMd());
@@ -250,11 +183,11 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         menu.findItem(R.id.action_thinkmd_health_assessment).setVisible(ChwApplication.getApplicationFlavor().useThinkMd()
                 && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()));
-        if(ChwApplication.getApplicationFlavor().useThinkMd()
-                && ChildDao.isThinkmdCarePlanExist(childBaseEntityId)){
+        if (ChwApplication.getApplicationFlavor().useThinkMd()
+                && ChildDao.isThinkmdCarePlanExist(childBaseEntityId)) {
             menu.findItem(R.id.action_thinkmd_careplan).setVisible(true);
             menu.findItem(R.id.action_thinkmd_careplan).setTitle(
-                    String.format(getResources().getString(R.string.thinkmd_careplan), ChildDao.queryColumnWithEntityId(childBaseEntityId,CARE_PLAN_DATE))
+                    String.format(getResources().getString(R.string.thinkmd_careplan), ChildDao.queryColumnWithEntityId(childBaseEntityId, CARE_PLAN_DATE))
             );
         }
         return true;

@@ -139,5 +139,4 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
             Utils.launchClientReferralActivity((Activity) getView(), referralTypeModels, childBaseEntityId);
         }
     }
-
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.dao.FHIRBundleDao;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.fp.BuildConfig;
 import org.smartregister.thinkmd.model.FHIRBundleModel;
@@ -18,6 +19,7 @@ public class ChildFHIRBundleDao extends FHIRBundleDao {
         bundle.setDisplayLanguage(Utils.getDisplayLanguage(context));
         bundle.setAppName(context.getResources().getString(R.string.app_name));
         bundle.setAppLanguage(Utils.getAppLanguage(context));
+        bundle.setEndPointPackageName(Constants.ThinkMdConstants.CHILD_PROFILE_ACTIVITY);
         return bundle;
     }
 

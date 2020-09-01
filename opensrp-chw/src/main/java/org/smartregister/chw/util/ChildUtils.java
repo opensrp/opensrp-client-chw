@@ -8,10 +8,8 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.ServiceTask;
-import org.smartregister.domain.Obs;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.util.DateUtil;
-import org.smartregister.domain.Event;
 
 import java.util.ArrayList;
 import java.util.Arrays;

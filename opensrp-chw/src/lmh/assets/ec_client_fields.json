@@ -268,7 +268,8 @@
           "column_name": "care_plan_date",
           "type": "Event",
           "json_mapping": {
-            "field": "eventDate"
+            "field": "obs.values",
+            "formSubmissionField": "carePlanDate"
           }
         },
         {
