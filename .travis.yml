@@ -54,7 +54,7 @@ script:
   - travis_wait ./gradlew :opensrp-chw:clean :opensrp-chw:jacocoTestReport --stacktrace
 
 after_success:
-  - travis_wait ./gradlew :opensrp-chw:coveralls --stacktrace
+  - ./gradlew :opensrp-chw:coveralls --stacktrace
 
 notifications:
   slack:
