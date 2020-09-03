@@ -78,7 +78,7 @@
           "Others": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
-        "hint": "Is she experiencing any side effects?",
+        "hint": "Is she/he experiencing any side effects?",
         "v_required": {
           "value": "true",
           "err": "This value cannot be null"
@@ -318,7 +318,7 @@
           "Others": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
-        "hint": "Is she experiencing any side effects?",
+        "hint": "Is she/he experiencing any side effects?",
         "v_required": {
           "value": "true",
           "err": "This value cannot be null"

@@ -72,7 +72,6 @@ import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotific
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
-    private AncMemberProfileActivity.Flavor flavor = new AncMemberProfileActivityFlv();
     private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     public static void startMe(Activity activity, String baseEntityID) {
@@ -182,6 +181,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             IndividualProfileRemoveActivity.startIndividualProfileActivity(AncMemberProfileActivity.this, client, memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), AncRegisterActivity.class.getCanonicalName());
             return true;
         } else if (itemId == R.id.action_pregnancy_out_come) {
+            CoreConstants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
             PncRegisterActivity.startPncRegistrationActivity(AncMemberProfileActivity.this, memberObject.getBaseEntityId(), null, CoreConstants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName());
             return true;
         }
@@ -276,8 +276,8 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
     @Override
-    public boolean hasEmergencyTransport() {
-        return flavor.hasEmergencyTransport();
+    public boolean usesPregnancyRiskProfileLayout() {
+        return ChwApplication.getApplicationFlavor().usesPregnancyRiskProfileLayout();
     }
 
     @Override
@@ -305,7 +305,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     @Override
     public void setFamilyLocation() {
-        if (flavor.hasFamilyLocationRow() && !StringUtils.isBlank(getMemberGPS())) {
+        if (ChwApplication.getApplicationFlavor().hasFamilyLocationRow() && !StringUtils.isBlank(getMemberGPS())) {
             view_family_location_row.setVisibility(View.VISIBLE);
             rlFamilyLocation.setVisibility(View.VISIBLE);
         }

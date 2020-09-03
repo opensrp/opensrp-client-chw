@@ -74,7 +74,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164901AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Reason the man is stopping her current family planning method",
+        "label": "Reason the man is stopping his current family planning method",
         "options": [
           {
             "key": "side_effects",
@@ -220,7 +220,7 @@
         "openmrs_entity_id": "no_condoms",
         "type": "edit_text",
         "edit_type": "number",
-        "hint": "How many condoms was she given?",
+        "hint": "How many condoms was he given?",
         "v_required": {
           "value": "true",
           "err": "Equal or greater than 0"
@@ -268,7 +268,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "counselling_use",
         "type": "spinner",
-        "hint": "Was she counselled on how to use the family planning method?",
+        "hint": "Was he counselled on how to use the family planning method?",
         "values": [
           "Yes",
           "No"
@@ -332,7 +332,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_given",
         "openmrs_entity_parent": "",
-        "label": "Was she referred to the health facility?",
+        "label": "Was he referred to the health facility?",
         "options": [
           {
             "key": "yes",

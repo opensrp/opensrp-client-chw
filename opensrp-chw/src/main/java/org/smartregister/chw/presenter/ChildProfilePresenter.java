@@ -3,6 +3,8 @@ package org.smartregister.chw.presenter;
 import android.app.Activity;
 import android.util.Pair;
 
+import com.vijay.jsonwizard.utils.FormUtils;
+
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.json.JSONObject;
@@ -24,7 +26,6 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.util.FormUtils;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -35,6 +36,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.util.Utils.getClientName;
 
 public class ChildProfilePresenter extends CoreChildProfilePresenter {
 
@@ -61,6 +64,17 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     }
 
     @Override
+    public void refreshProfileTopSection(CommonPersonObjectClient client) {
+        super.refreshProfileTopSection(client);
+
+        String firstName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
+        String lastName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
+        String middleName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
+        String childName = getClientName(firstName, middleName, lastName);
+        getView().setProfileName(childName);
+    }
+
+    @Override
     public void updateChildProfile(String jsonString) {
         getView().showProgressDialog(R.string.updating);
         Pair<Client, Event> pair = new ChildRegisterModel().processRegistration(jsonString);
@@ -75,7 +89,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     public void startSickChildReferralForm() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             try {
-                JSONObject formJson = FormUtils.getInstance(getView().getContext()).getFormJsonFromRepositoryOrAssets(Constants.JSON_FORM.getChildUnifiedReferralForm());
+                JSONObject formJson = (new FormUtils()).getFormJsonFromRepositoryOrAssets(getView().getContext(), Constants.JSON_FORM.getChildUnifiedReferralForm());
                 formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
                 ReferralRegistrationActivity.startGeneralReferralFormActivityForResults((Activity) getView().getContext(),
                         getChildBaseEntityId(), formJson, true);

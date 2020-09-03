@@ -5,7 +5,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.dao.AbstractDao;
-import org.smartregister.domain.db.Event;
+import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
 
 import java.util.ArrayList;

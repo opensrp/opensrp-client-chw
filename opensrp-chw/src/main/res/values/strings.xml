@@ -343,6 +343,7 @@
     <string name="eligible_children">Eligible Children</string>
     <string name="doses_needed">Doses Needed</string>
     <string name="community_activity">My Community Activity</string>
+    <string name="children">Children</string>
 
     <string name="forgot_pin">Forgot pin?</string>
     <string name="use_your_password"> Use your password?</string>
