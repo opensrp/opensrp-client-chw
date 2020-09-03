@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
-        classpath 'org.apache.commons:commons-lang3:3.3.2'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'io.fabric.tools:gradle:1.31.2'
     }
 }
@@ -15,12 +15,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'io.fabric'
+
 apply from: "jacoco.gradle"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 jacoco {
-    toolVersion = "0.8.5"
+    toolVersion = "0.8.0"
 }
 
 android {
@@ -263,7 +264,15 @@ android {
     }
 }
 
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    maxHeapSize = "2g"
+}
+
 dependencies {
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
+
     implementation('org.smartregister:opensrp-client-chw-core:1.4.3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -274,7 +283,7 @@ dependencies {
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
     //Do not upgrade to 1.1.0 due to compatibility issues
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //Do not upgrade to 1.1.0 due to compatibility issues
@@ -331,9 +340,6 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
     ]))
 }
 
-tasks.withType(Test) {
-    jacoco.includeNoLocationClasses = true
-}
 
 tasks.coveralls {
     dependsOn 'jacocoTestReport'
