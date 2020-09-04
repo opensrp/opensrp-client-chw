@@ -236,11 +236,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     }
 
     @Override
-    public void startFormActivity(JSONObject jsonForm) {
-        startActivityForResult(flavor.getSickChildFormActivityIntent(jsonForm, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
-    }
-
-    @Override
     public void onReceivedNotifications(List<Pair<String, String>> notifications) {
         handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
