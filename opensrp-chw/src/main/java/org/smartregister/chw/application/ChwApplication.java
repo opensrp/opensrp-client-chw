@@ -380,5 +380,9 @@ public class ChwApplication extends CoreChwApplication {
         boolean showMyCommunityActivityReport();
 
         boolean useThinkMd();
+
+        boolean hasFamilyLocationRow();
+
+        boolean usesPregnancyRiskProfileLayout();
     }
 }

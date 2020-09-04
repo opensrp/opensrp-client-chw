@@ -17,7 +17,7 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.domain.Photo;
-import org.smartregister.domain.db.Client;
+import org.smartregister.domain.Client;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.util.ImageUtils;
 
