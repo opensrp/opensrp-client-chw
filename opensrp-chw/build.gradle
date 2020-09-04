@@ -15,7 +15,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'io.fabric'
-
 apply from: "jacoco.gradle"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -131,7 +130,7 @@ android {
             includeAndroidResources = true
         }
         unitTests.all {
-            systemProperty 'robolectric.enabledSdks', '28'
+            systemProperty 'robolectric.enabledSdks', '29'
             jvmArgs '-noverify'
         }
     }
@@ -270,9 +269,6 @@ tasks.withType(Test) {
 }
 
 dependencies {
-
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
-
     implementation('org.smartregister:opensrp-client-chw-core:1.4.3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
