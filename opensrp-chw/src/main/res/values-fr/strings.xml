@@ -7,6 +7,7 @@
     <string name="not_provided">N\'a pas été donné</string>
 
     <string name="child_under_five">Enfant de moins de 5 ans</string>
+    <string name="add_eligible_child">Enfant éligible</string>
     <string name="go_to_family_s_profile">Aller au profil du ménage</string>
     <string name="family_has_nothing_due">Le ménage n\'a pas de service attendu</string>
     <string name="family_has_services_due">Le ménage a des services attendus</string>

@@ -365,6 +365,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasJobAidsDewormingGraph();
 
+        boolean hasChildrenMNPSupplementationGraph();
+
         boolean hasJobAidsBreastfeedingGraph();
 
         boolean hasJobAidsBirthCertificationGraph();

@@ -96,6 +96,11 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean hasChildrenMNPSupplementationGraph() {
+        return true;
+    }
+
+    @Override
     public boolean hasJobAidsBreastfeedingGraph() {
         return true;
     }

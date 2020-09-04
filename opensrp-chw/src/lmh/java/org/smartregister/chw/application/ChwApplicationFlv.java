@@ -56,6 +56,11 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean hasChildrenMNPSupplementationGraph() {
+        return false;
+    }
+
+    @Override
     public boolean hasJobAidsBreastfeedingGraph() {
         return false;
     }
