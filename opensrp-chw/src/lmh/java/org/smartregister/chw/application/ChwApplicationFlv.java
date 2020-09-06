@@ -83,4 +83,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean launchChildClientsAtLogin() {
         return true;
     }
+
+    @Override
+    public boolean splitUpcomingServicesView() {
+        return true;
+    }
 }

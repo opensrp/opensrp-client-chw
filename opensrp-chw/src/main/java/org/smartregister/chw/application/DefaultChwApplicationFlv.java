@@ -138,4 +138,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean usesPregnancyRiskProfileLayout() {
         return false;
     }
+
+    @Override
+    public boolean splitUpcomingServicesView() {
+        return false;
+    }
 }

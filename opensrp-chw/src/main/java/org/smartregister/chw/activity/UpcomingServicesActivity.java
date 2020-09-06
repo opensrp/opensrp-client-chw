@@ -13,6 +13,7 @@ import org.smartregister.chw.anc.adapter.BaseUpcomingServiceAdapter;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
@@ -46,14 +47,15 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
 
     @Override
     public void refreshServices(List<BaseUpcomingService> serviceList) {
-        List<BaseUpcomingService> dueNowServiceList = filterDueTodayServiceList(serviceList);
+        if (ChwApplication.getApplicationFlavor().splitUpcomingServicesView()) {
+            List<BaseUpcomingService> dueNowServiceList = filterDueTodayServiceList(serviceList);
 
-        if (dueNowServiceList.isEmpty()) updateUi();
-        else serviceList.removeAll(dueNowServiceList);
+            if (dueNowServiceList.isEmpty()) updateUi();
+            else serviceList.removeAll(dueNowServiceList);
 
-        RecyclerView.Adapter dueTodayAdapter = new BaseUpcomingServiceAdapter(this, dueNowServiceList);
-        dueTodayRV.setAdapter(dueTodayAdapter);
-
+            RecyclerView.Adapter dueTodayAdapter = new BaseUpcomingServiceAdapter(this, dueNowServiceList);
+            dueTodayRV.setAdapter(dueTodayAdapter);
+        }
         super.refreshServices(serviceList);
     }
 
