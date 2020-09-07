@@ -43,7 +43,7 @@ public class AboveFiveChildProfileActivityTest extends BaseActivityTest<AboveFiv
         ReflectionHelpers.setField(spyActivity, "imageViewProfile", imageView);
         ReflectionHelpers.setField(spyActivity, "imageRenderHelper", imageRenderHelper);
         spyActivity.setProfileImage("1234");
-        Assert.assertEquals(2, imageView.getBorderWidth());
+        Assert.assertEquals(0, imageView.getBorderWidth());
 
     }
 
