@@ -14,8 +14,10 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 env:
-    matrix:
-      - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
+  global:
+    - ANDROID_API_LEVEL=29
+    - ANDROID_BUILD_TOOLS_VERSION=29.0.3
+    - ANDROID_ABI=armeabi-v7a
 android:
   components:
     # tools required
@@ -31,7 +33,9 @@ script:
   - chmod 755 gradlew
   - ls -la
   #Run jacocoTestReport -> Runs all unit tests & instrumentation tests
-  - travis_wait ./gradlew :opensrp-chw:clean :opensrp-chw:jacocoTestReport coveralls --stacktrace
+  - travis_wait ./gradlew :opensrp-chw:clean
+  - travis_wait ./gradlew :opensrp-chw:jacocoTestReport --no-parallel
+  - travis_wait ./gradlew coveralls --stacktrace --no-parallel
 
 notifications:
   slack:

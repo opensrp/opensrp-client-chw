@@ -30,7 +30,7 @@ project.afterEvaluate {
             description = "Generate Jacoco coverage reports on the ${taskNameWithFlavor.capitalize()} build."
 
             classDirectories.setFrom(fileTree(
-                    dir: "${project.buildDir}/intermediates/classes/${pathNameWithFlavor}",
+                    dir: "${project.buildDir}/intermediates/javac/${pathNameWithFlavor}/classes",
                     excludes: ['**/R.class',
                                '**/R$*.class',
                                '**/BuildConfig.class',
