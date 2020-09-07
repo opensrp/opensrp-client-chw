@@ -127,4 +127,14 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean useThinkMd() {
         return false;
     }
+
+    @Override
+    public boolean hasFamilyLocationRow() {
+        return false;
+    }
+
+    @Override
+    public boolean usesPregnancyRiskProfileLayout() {
+        return false;
+    }
 }

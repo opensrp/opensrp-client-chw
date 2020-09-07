@@ -376,5 +376,9 @@ public class ChwApplication extends CoreChwApplication {
         boolean showChildrenUnder5();
 
         boolean useThinkMd();
+
+        boolean hasFamilyLocationRow();
+
+        boolean usesPregnancyRiskProfileLayout();
     }
 }
