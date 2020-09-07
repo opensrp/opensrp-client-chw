@@ -50,18 +50,20 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
         if (ChwApplication.getApplicationFlavor().splitUpcomingServicesView()) {
             List<BaseUpcomingService> dueNowServiceList = filterDueTodayServiceList(serviceList);
 
-            if (dueNowServiceList.isEmpty()) updateUi();
-            else serviceList.removeAll(dueNowServiceList);
+            if (!dueNowServiceList.isEmpty()) {
+                updateUi();
+                serviceList.removeAll(dueNowServiceList);
+                RecyclerView.Adapter dueTodayAdapter = new BaseUpcomingServiceAdapter(this, dueNowServiceList);
+                dueTodayRV.setAdapter(dueTodayAdapter);
+            }
 
-            RecyclerView.Adapter dueTodayAdapter = new BaseUpcomingServiceAdapter(this, dueNowServiceList);
-            dueTodayRV.setAdapter(dueTodayAdapter);
         }
         super.refreshServices(serviceList);
     }
 
     private void updateUi() {
-        todayServicesTV.setVisibility(View.GONE);
-        dueTodayRV.setVisibility(View.GONE);
+        todayServicesTV.setVisibility(View.VISIBLE);
+        dueTodayRV.setVisibility(View.VISIBLE);
     }
 
     private List<BaseUpcomingService> filterDueTodayServiceList(List<BaseUpcomingService> serviceList) {
