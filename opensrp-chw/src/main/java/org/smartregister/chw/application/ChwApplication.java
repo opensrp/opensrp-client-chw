@@ -385,6 +385,7 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasForeignData();
 
+        boolean prioritizeChildNameOnChildRegister();
     }
 
 }

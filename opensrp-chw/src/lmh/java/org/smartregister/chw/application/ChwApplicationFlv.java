@@ -76,7 +76,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
-    public boolean showChildrenUnder5(){return false;}
+    public boolean showChildrenUnder5() {
+        return false;
+    }
 
     @Override
     public boolean launchChildClientsAtLogin() {
@@ -84,7 +86,12 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
-    public boolean hasForeignData(){
-        return  true;
+    public boolean hasForeignData() {
+        return true;
+    }
+
+    @Override
+    public boolean prioritizeChildNameOnChildRegister() {
+        return true;
     }
 }
