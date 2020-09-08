@@ -9,6 +9,7 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
+import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.greenrobot.eventbus.EventBus;
@@ -219,6 +220,11 @@ public class ChwApplication extends CoreChwApplication {
 
         // set up processor
         FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
+
+        // Set display date format for date pickers in native forms
+        Form form = new Form();
+        form.setDatePickerDisplayFormat("dd MMM yyyy");
+
         NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
     }
 
