@@ -82,4 +82,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean launchChildClientsAtLogin() {
         return true;
     }
+
+    @Override
+    public boolean hasForeignData(){
+        return  true;
+    }
 }

@@ -373,12 +373,18 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean showMyCommunityActivityReport();
 
-        boolean showChildrenUnder5();
-
         boolean useThinkMd();
 
         boolean hasFamilyLocationRow();
 
         boolean usesPregnancyRiskProfileLayout();
+
+        boolean getChildFlavorUtil();
+
+        boolean showChildrenUnder5();
+
+        boolean hasForeignData();
+
     }
+
 }
