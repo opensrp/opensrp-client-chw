@@ -2,7 +2,6 @@ package org.smartregister.chw.provider;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.text.Layout;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -57,7 +56,7 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
         }
     }
 
-    private int getChildRegisterLayout(){
+    private int getChildRegisterLayout() {
         return !ChwApplication.getApplicationFlavor().prioritizeChildNameOnChildRegister() ? org.smartregister.chw.core.R.layout.adapter_child_register_list_row : R.layout.adapter_prioritize_child_register_list_row;
     }
 
@@ -67,12 +66,11 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
         return new RegisterViewHolder(view);
     }
 
-    private void fillChildNameAndAge(RegisterViewHolder viewHolder, String childName, String dobString){
+    private void fillChildNameAndAge(RegisterViewHolder viewHolder, String childName, String dobString) {
         String age = context.getResources().getString(org.smartregister.chw.core.R.string.age) + ": " + WordUtils.capitalize(Utils.getTranslatedDate(dobString, context));
-        if(!ChwApplication.getApplicationFlavor().prioritizeChildNameOnChildRegister()){
+        if (!ChwApplication.getApplicationFlavor().prioritizeChildNameOnChildRegister()) {
             fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName) + ", " + WordUtils.capitalize(Utils.getTranslatedDate(dobString, context)));
-        }
-        else{
+        } else {
             fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName));
             fillValue(viewHolder.textViewChildAge, age);
         }
