@@ -280,7 +280,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         return ChwApplication.getApplicationFlavor().usesPregnancyRiskProfileLayout();
     }
 
-    @Override
     public void openMedicalHistory() {
         AncMedicalHistoryActivity.startMe(this, memberObject);
     }

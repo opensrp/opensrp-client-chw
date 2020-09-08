@@ -366,4 +366,6 @@
     <!---Anc Home Visit Strings -->
     <string name="anc_home_visit_pregnancy_risk">Pregnancy risk</string>
     <string name="loading_content">Loading content</string>
+
+    <string name="ten_digits_validation">Number must be 10 digits</string>
 </resources>
