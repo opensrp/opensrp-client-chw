@@ -66,14 +66,15 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
         dueTodayRV.setVisibility(View.VISIBLE);
     }
 
-    private List<BaseUpcomingService> filterDueTodayServiceList(List<BaseUpcomingService> serviceList) {
+    protected List<BaseUpcomingService> filterDueTodayServiceList(List<BaseUpcomingService> serviceList) {
         Date date = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
         List<BaseUpcomingService> dueNowServiceList = new ArrayList<>();
         for (BaseUpcomingService service : serviceList) {
-            if (service.getServiceDate().equals(date)) {
+            if (service.getServiceDate() != null && service.getServiceDate().equals(date)) {
                 dueNowServiceList.add(service);
             }
         }
         return dueNowServiceList;
     }
+
 }
