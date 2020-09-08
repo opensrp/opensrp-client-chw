@@ -9,13 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
@@ -33,9 +30,6 @@ import java.util.List;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = ChwApplication.class, sdk = 22)
 public class UpcomingServicesActivityTest {
-
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Before
     public void setUp() {
