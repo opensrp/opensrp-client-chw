@@ -46,6 +46,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return true;
     }
 
+    @Override
     public boolean hasJobAidsVitaminAGraph() {
         return false;
     }
