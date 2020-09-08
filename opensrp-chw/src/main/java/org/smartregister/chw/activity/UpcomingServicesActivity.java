@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -40,25 +39,26 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
         dueTodayRV = findViewById(R.id.today_services_recyclerView);
         todayServicesTV = findViewById(R.id.today_services);
         dueTodayRV.setHasFixedSize(false);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        dueTodayRV.setLayoutManager(layoutManager);
     }
 
     @Override
     public void refreshServices(List<BaseUpcomingService> serviceList) {
         if (ChwApplication.getApplicationFlavor().splitUpcomingServicesView()) {
-            List<BaseUpcomingService> dueNowServiceList = filterDueTodayServiceList(serviceList);
-
-            if (!dueNowServiceList.isEmpty()) {
-                updateUi();
-                serviceList.removeAll(dueNowServiceList);
-                RecyclerView.Adapter dueTodayAdapter = new BaseUpcomingServiceAdapter(this, dueNowServiceList);
-                dueTodayRV.setAdapter(dueTodayAdapter);
-            }
-
+            filterAndPopulateDueTodayServices(serviceList);
         }
+
         super.refreshServices(serviceList);
+    }
+
+    protected void filterAndPopulateDueTodayServices(List<BaseUpcomingService> serviceList) {
+        List<BaseUpcomingService> dueNowServiceList = filterDueTodayServices(serviceList);
+
+        if (!dueNowServiceList.isEmpty()) {
+            updateUi();
+            serviceList.removeAll(dueNowServiceList);
+            RecyclerView.Adapter dueTodayAdapter = new BaseUpcomingServiceAdapter(this, dueNowServiceList);
+            dueTodayRV.setAdapter(dueTodayAdapter);
+        }
     }
 
     private void updateUi() {
@@ -66,7 +66,7 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
         dueTodayRV.setVisibility(View.VISIBLE);
     }
 
-    protected List<BaseUpcomingService> filterDueTodayServiceList(List<BaseUpcomingService> serviceList) {
+    protected List<BaseUpcomingService> filterDueTodayServices(List<BaseUpcomingService> serviceList) {
         Date date = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
         List<BaseUpcomingService> dueNowServiceList = new ArrayList<>();
         for (BaseUpcomingService service : serviceList) {
