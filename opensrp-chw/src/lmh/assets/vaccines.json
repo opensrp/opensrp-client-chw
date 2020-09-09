@@ -23,7 +23,7 @@
             {
               "reference": "dob",
               "offset": "+0d",
-              "window": "+5d"
+              "window": "+14d"
             }
           ],
           "expiry": [
@@ -53,7 +53,7 @@
             {
               "reference": "dob",
               "offset": "+0d",
-              "window": "+5d"
+              "window": "+5y"
             }
           ],
           "expiry": [
@@ -90,7 +90,7 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+5d"
+              "window": "+5y"
             }
           ],
           "expiry": [
@@ -188,7 +188,7 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+5d"
+              "window": "+4y"
             }
           ],
           "expiry": [
@@ -218,7 +218,7 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+5d"
+              "window": "+5y"
             }
           ],
           "expiry": [
@@ -248,7 +248,7 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+5d"
+              "window": "+105d"
             }
           ],
           "expiry": [
@@ -286,7 +286,7 @@
               "reference": "prerequisite",
               "prerequisite": "OPV 1",
               "offset": "+28d",
-              "window": "+5d"
+              "window": "+5y"
             }
           ],
           "expiry": [
@@ -385,7 +385,7 @@
               "reference": "prerequisite",
               "prerequisite": "Penta 1",
               "offset": "+28d",
-              "window": "+5d"
+              "window": "+4y"
             }
           ],
           "expiry": [
@@ -416,7 +416,7 @@
               "reference": "prerequisite",
               "prerequisite": "PCV 1",
               "offset": "+28d",
-              "window": "+5d"
+              "window": "+5y"
             }
           ],
           "expiry": [
@@ -474,7 +474,7 @@
               "reference": "prerequisite",
               "prerequisite": "Rota 1",
               "offset": "+28d",
-              "window": "+5d"
+              "window": "+105d"
             }
           ],
           "expiry": [
@@ -512,7 +512,7 @@
               "reference": "prerequisite",
               "prerequisite": "OPV 2",
               "offset": "+28d",
-              "window": "+5d"
+              "window": "+5y"
             }
           ],
           "expiry": [
@@ -611,7 +611,7 @@
               "reference": "prerequisite",
               "prerequisite": "Penta 2",
               "offset": "+28d",
-              "window": "+5d"
+              "window": "+4y"
             }
           ],
           "expiry": [
@@ -689,7 +689,7 @@
               "reference": "prerequisite",
               "prerequisite": "PCV 2",
               "offset": "+28d",
-              "window": "+5d"
+              "window": "+1y"
             }
           ],
           "expiry": [
@@ -719,7 +719,7 @@
             {
               "reference": "dob",
               "offset": "+98d",
-              "window": "+5d"
+              "window": "+5y"
             }
           ],
           "expiry": [
@@ -756,7 +756,7 @@
             {
               "reference": "dob",
               "offset": "+9m",
-              "window": "+5d"
+              "window": "+5y"
             }
           ],
           "expiry": [
@@ -898,7 +898,7 @@
             {
               "reference": "dob",
               "offset": "+9m",
-              "window": "+5d"
+              "window": "+5y"
             }
           ],
           "expiry": [
@@ -1047,9 +1047,9 @@
     ]
   },
   {
-    "name": "15 Months",
-    "id": "Fifteen_Months",
-    "days_after_birth_due": 456,
+    "name": "18 Months",
+    "id": "Eighteen_Months",
+    "days_after_birth_due": 548,
     "vaccines": [
       {
         "name": "MCV 2",
@@ -1071,7 +1071,7 @@
               "reference": "prerequisite",
               "prerequisite": "MCV 1",
               "offset": "+28d",
-              "window": "+5d"
+              "window": "+5y"
             }
           ],
           "expiry": [
@@ -1190,6 +1190,81 @@
                   "type": "not_given"
                 }
               ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "108 Months",
+    "id": "One_Hundred_Eight_Months",
+    "days_after_birth_due": 3285,
+    "vaccines": [
+      {
+        "name": "HPV 1",
+        "type": "HPV",
+        "openmrs_date": {
+          "parent_entity": "79505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "parent_entity": "79505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "calculation": 2
+        },
+        "schedule": {
+          "due": [
+            {
+              "reference": "dob",
+              "offset": "+9y",
+              "window": "+10y"
+            }
+          ],
+          "expiry": [
+            {
+              "reference": "dob",
+              "offset": "+10y"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "114 Months",
+    "id": "One_Hundred_Fourteen_Months",
+    "days_after_birth_due": 3468,
+    "vaccines": [
+      {
+        "name": "HPV 2",
+        "type": "HPV",
+        "openmrs_date": {
+          "parent_entity": "79717AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "parent_entity": "79717AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "calculation": 2
+        },
+        "schedule": {
+          "due": [
+            {
+              "reference": "prerequisite",
+              "prerequisite": "HPV 1",
+              "offset": "+180",
+              "window": "+11y"
+            }
+          ],
+          "expiry": [
+            {
+              "reference": "dob",
+              "offset": "+11y"
             }
           ]
         }
