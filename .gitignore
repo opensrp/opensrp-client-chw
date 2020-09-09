@@ -19,3 +19,4 @@ project.properties
 .settings
 build/
 jacoco.exec
+opensrp-chw/ba/

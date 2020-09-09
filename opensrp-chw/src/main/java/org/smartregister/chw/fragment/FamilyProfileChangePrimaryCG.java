@@ -6,9 +6,14 @@ import org.smartregister.chw.core.fragment.CoreFamilyProfileChangeHead;
 import org.smartregister.chw.core.fragment.CoreFamilyProfileChangePrimaryCG;
 import org.smartregister.chw.core.presenter.CoreFamilyChangePresenter;
 import org.smartregister.chw.presenter.FamilyChangePresenter;
+import org.smartregister.chw.util.PhoneNumberFlv;
 
 public class FamilyProfileChangePrimaryCG extends CoreFamilyProfileChangePrimaryCG {
     private FamilyChangePresenter familyChangePresenter;
+
+    public FamilyProfileChangePrimaryCG() {
+        phoneNumberLengthFlavor = new PhoneNumberFlv();
+    }
 
     public static CoreFamilyProfileChangePrimaryCG newInstance(String familyID) {
         CoreFamilyProfileChangePrimaryCG fragment = new FamilyProfileChangePrimaryCG();
