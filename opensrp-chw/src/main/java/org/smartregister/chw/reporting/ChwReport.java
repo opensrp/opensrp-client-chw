@@ -22,7 +22,6 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class ChwReport {
-
     /**
      * Create and add indicator chart and numeric visualisations in dashboard
      *
@@ -32,7 +31,8 @@ public class ChwReport {
     public static void showIndicatorVisualisations(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies, Activity context) {
         // Display order as determined in https://docs.google.com/spreadsheets/d/1q9YiWqjLiToTd0--Q8CbwhBwwcNDspbDxVrUfDm8VGU/edit#gid=315573423
         ChwChartListener chwChartListener = new ChwChartListener(context);
-        NumericDisplayModel indicator1 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.COUNT_CHILDREN_UNDER_5, R.string.total_under_5_children_label, indicatorTallies);
+        int indicator1String = ChwApplication.getApplicationFlavor().showChildrenUnder5() ? R.string.total_under_5_children_label : R.string.total_under_2_children_label;
+        NumericDisplayModel indicator1 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.COUNT_CHILDREN_UNDER_5, indicator1String, indicatorTallies);
         appendView(mainLayout, new NumericIndicatorView(mainLayout.getContext(), indicator1));
 
         if (ChwApplication.getApplicationFlavor().hasANC())
@@ -61,7 +61,8 @@ public class ChwReport {
         NumericDisplayModel indicator8 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.DECEASED_CHILDREN_0_11_MONTHS, R.string.deceased_children_0_11_months, indicatorTallies);
         appendView(mainLayout, new NumericIndicatorView(mainLayout.getContext(), indicator8));
 
-        NumericDisplayModel indicator9 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.DECEASED_CHILDREN_12_59_MONTHS, R.string.deceased_children_12_59_months, indicatorTallies);
+        int indicator9String = ChwApplication.getApplicationFlavor().showChildrenUnder5() ? R.string.deceased_children_12_59_months : R.string.deceased_children_12_23_months;
+        NumericDisplayModel indicator9 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.DECEASED_CHILDREN_12_59_MONTHS, indicator9String , indicatorTallies);
         appendView(mainLayout, new NumericIndicatorView(mainLayout.getContext(), indicator9));
 
         if (ChwApplication.getApplicationFlavor().hasPNC()) {
