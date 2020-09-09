@@ -35,21 +35,10 @@ public class LmhAuthorizationService implements P2PAuthorizationService {
 
                 if (peerDeviceLocationId instanceof String && myLocationId instanceof String && myPeerStatus instanceof String && myCountryId instanceof String) {
 
-                    if (org.smartregister.p2p.util.Constants.PeerStatus.SENDER.equals(myPeerStatus)) {
-                        // If this device is a sender
-                        // Make sure that
-                        if (isKnownLocation((String) myCountryId)) {
-                            authorizationCallback.onConnectionAuthorized();
-                        } else {
-                            rejectConnection(authorizationCallback);
-                        }
+                    if (isKnownLocation((String) myCountryId)) {
+                        authorizationCallback.onConnectionAuthorized();
                     } else {
-                        // If this device is a receiver
-                        if (isKnownLocation((String) myCountryId)) {
-                            authorizationCallback.onConnectionAuthorized();
-                        } else {
-                            rejectConnection(authorizationCallback);
-                        }
+                        rejectConnection(authorizationCallback);
                     }
                 } else {
                     rejectConnection(authorizationCallback);

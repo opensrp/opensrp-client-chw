@@ -330,6 +330,11 @@ public class ChwApplication extends CoreChwApplication {
         return appExecutors;
     }
 
+    @Override
+    public boolean getChildFlavorUtil(){
+        return flavor.getChildFlavorUtil();
+    }
+
     public interface Flavor {
         boolean hasP2P();
 
