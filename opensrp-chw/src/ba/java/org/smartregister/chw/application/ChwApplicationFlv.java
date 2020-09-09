@@ -74,4 +74,8 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean usesPregnancyRiskProfileLayout() {
         return true;
     }
+
+    public boolean getChildFlavorUtil(){
+        return true;
+    }
 }

@@ -144,7 +144,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean getChildFlavorUtil() {return false;}
+    public boolean getChildFlavorUtil() {
+        return false;
+    }
 
     @Override
     public boolean prioritizeChildNameOnChildRegister() {
