@@ -146,6 +146,21 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     }
 
     @Override
+    protected void startMalariaRegister() {
+        MalariaRegisterActivity.startMalariaRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getFamilyBaseEntityId());
+    }
+
+    @Override
+    protected void startMalariaFollowUpVisit() {
+        MalariaFollowUpVisitActivity.startMalariaFollowUpActivity(this, fpMemberObject.getBaseEntityId());
+    }
+
+    @Override
+    protected void startHfMalariaFollowupForm() {
+        //Implements from super
+    }
+
+    @Override
     public void verifyHasPhone() {
         // Implement
     }
@@ -197,7 +212,6 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
     @Override
     public void openFamilyPlanningRegistration() {
         FpRegisterActivity.startFpRegistrationActivity(this, fpMemberObject.getBaseEntityId(), fpMemberObject.getAge(), CoreConstants.JSON_FORM.getFpRegistrationForm(fpMemberObject.getGender()), FamilyPlanningConstants.ActivityPayload.UPDATE_REGISTRATION_PAYLOAD_TYPE);
-
     }
 
     @Override
