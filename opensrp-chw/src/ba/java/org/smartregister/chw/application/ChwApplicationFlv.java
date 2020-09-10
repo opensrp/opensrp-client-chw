@@ -71,7 +71,21 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean hasFamilyLocationRow() {
+        return true;
+    }
+
+    @Override
     public boolean hasTB() {
+     return true;
+    }
+
+    @Override
+    public boolean usesPregnancyRiskProfileLayout() {
+        return true;
+    }
+
+    public boolean getChildFlavorUtil(){
         return true;
     }
 }

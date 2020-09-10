@@ -198,9 +198,9 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "label_info_title": "Did the mother receive counselling",
-        "label_info_text": "Did the mother receive counselling on danger signs at the health facility recently?",
-        "hint": "Did the mother receive counselling on danger signs at the health facility recently?",
+        "label_info_title": "Je, mama alipewa ushauri kuhusu dalili za hatari wakati wa ujauzito kwenye kituo cha kutolea huduma za afya?",
+        "label_info_text": "Je, mama alipewa ushauri kuhusu dalili za hatari wakati wa ujauzito kwenye kituo cha kutolea huduma za afya?",
+        "hint": "Je, mama alipewa ushauri kuhusu dalili za hatari wakati wa ujauzito kwenye kituo cha kutolea huduma za afya?",
         "values": [
           "Ndiyo",
           "Hapana"

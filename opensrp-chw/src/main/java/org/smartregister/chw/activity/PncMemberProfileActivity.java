@@ -415,6 +415,11 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     }
 
     @Override
+    protected void startHfMalariaFollowupForm() {
+        //Implements from super
+    }
+
+    @Override
     protected void getRemoveBabyMenuItem(MenuItem item) {
         for (CommonPersonObjectClient child : getChildren(memberObject)) {
             for (Map.Entry<String, String> entry : menuItemRemoveNames.entrySet()) {

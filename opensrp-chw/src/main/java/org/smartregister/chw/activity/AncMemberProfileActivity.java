@@ -72,7 +72,6 @@ import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotific
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
-    private AncMemberProfileActivity.Flavor flavor = new AncMemberProfileActivityFlv();
     private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     public static void startMe(Activity activity, String baseEntityID) {
@@ -271,11 +270,10 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
     @Override
-    public boolean hasEmergencyTransport() {
-        return flavor.hasEmergencyTransport();
+    public boolean usesPregnancyRiskProfileLayout() {
+        return ChwApplication.getApplicationFlavor().usesPregnancyRiskProfileLayout();
     }
 
-    @Override
     public void openMedicalHistory() {
         AncMedicalHistoryActivity.startMe(this, memberObject);
     }
@@ -300,7 +298,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     @Override
     public void setFamilyLocation() {
-        if (flavor.hasFamilyLocationRow() && !StringUtils.isBlank(getMemberGPS())) {
+        if (ChwApplication.getApplicationFlavor().hasFamilyLocationRow() && !StringUtils.isBlank(getMemberGPS())) {
             view_family_location_row.setVisibility(View.VISIBLE);
             rlFamilyLocation.setVisibility(View.VISIBLE);
         }

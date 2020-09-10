@@ -312,7 +312,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "counselling_use",
         "type": "spinner",
-        "hint": "Was she counselled on how to use the family planning method?",
+        "hint": "Was he counselled on how to use the family planning method?",
         "values": [
           "Yes",
           "No"
@@ -376,7 +376,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_given",
         "openmrs_entity_parent": "",
-        "label": "Was she referred to the health facility?",
+        "label": "Was he referred to the health facility?",
         "options": [
           {
             "key": "yes",

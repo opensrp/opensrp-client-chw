@@ -74,7 +74,6 @@ public class ChildUtils extends CoreChildUtils {
         columnList.add(tableName + "." + ChildDBConstants.KEY.DATE_CREATED);
         columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION);
         columnList.add(tableName + "." + ChildDBConstants.KEY.VACCINE_CARD);
-        columnList.addAll(childUtilsFlv.mainColumns(tableName, familyTable, familyMemberTable));
 
         return columnList.toArray(new String[columnList.size()]);
 
@@ -151,5 +150,4 @@ public class ChildUtils extends CoreChildUtils {
         return DateUtil.getDuration(timeDiff);
 
     }
-
 }

@@ -29,8 +29,8 @@ project.afterEvaluate {
             group = "Reporting"
             description = "Generate Jacoco coverage reports on the ${taskNameWithFlavor.capitalize()} build."
 
-            classDirectories = fileTree(
-                    dir: "${project.buildDir}/intermediates/classes/${pathNameWithFlavor}",
+            classDirectories.setFrom(fileTree(
+                    dir: "${project.buildDir}/intermediates/javac/${pathNameWithFlavor}/classes",
                     excludes: ['**/R.class',
                                '**/R$*.class',
                                '**/BuildConfig.class',
@@ -45,16 +45,16 @@ project.afterEvaluate {
                                '**/*Module_*Factory.class',
                                '**/*$ViewInjector*.*',
                                '**/*$ViewBinder*.*'
-                    ])
+                    ]))
 
             def coverageSourceDirs = [
                     "src/main/java",
                     "src/$productFlavorName/java",
                     "src/$buildType/java"
             ]
-            additionalSourceDirs = files(coverageSourceDirs)
-            sourceDirectories = files(coverageSourceDirs)
-            executionData = fileTree(dir: project.projectDir, includes: ["**/*.exec", "**/*.ec"])
+            additionalSourceDirs.setFrom(files(coverageSourceDirs))
+            sourceDirectories.setFrom(files(coverageSourceDirs))
+            executionData.setFrom(fileTree(dir: project.projectDir, includes: ["**/*.exec", "**/*.ec"]))
 
             reports {
                 xml.enabled = true

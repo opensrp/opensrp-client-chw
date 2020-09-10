@@ -9,6 +9,7 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
+import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.greenrobot.eventbus.EventBus;
@@ -237,6 +238,11 @@ public class ChwApplication extends CoreChwApplication {
 
         // set up processor
         FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
+
+        // Set display date format for date pickers in native forms
+        Form form = new Form();
+        form.setDatePickerDisplayFormat("dd MMM yyyy");
+
         NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
     }
 
@@ -292,7 +298,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, PncRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, MalariaRegisterActivity.class);
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-                registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, ReferralRegisterActivity.class);
+            registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, ReferralRegisterActivity.class);
         }
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ALL_CLIENTS_REGISTERED_ACTIVITY, AllClientsRegisterActivity.class);
@@ -351,6 +357,11 @@ public class ChwApplication extends CoreChwApplication {
         return appExecutors;
     }
 
+    @Override
+    public boolean getChildFlavorUtil(){
+        return flavor.getChildFlavorUtil();
+    }
+
     public interface Flavor {
         boolean hasP2P();
 
@@ -405,5 +416,18 @@ public class ChwApplication extends CoreChwApplication {
         boolean showMyCommunityActivityReport();
 
         boolean useThinkMd();
+
+        boolean hasFamilyLocationRow();
+
+        boolean usesPregnancyRiskProfileLayout();
+
+        boolean getChildFlavorUtil();
+
+        boolean showChildrenUnder5();
+
+        boolean hasForeignData();
+
+        boolean prioritizeChildNameOnChildRegister();
     }
+
 }

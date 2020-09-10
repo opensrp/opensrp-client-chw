@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Did the woman receive any family planning counselling?",
+        "label": "Did the client receive any family planning counselling?",
         "options": [
           {
             "key": "yes",

@@ -206,6 +206,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         super.isIndependent = isIndependentClient;
     }
 
+    @Override
+    protected void startHfMalariaFollowupForm() {
+        //Implements from super
+    }
+
     /**
      * build implementation differences file
      */

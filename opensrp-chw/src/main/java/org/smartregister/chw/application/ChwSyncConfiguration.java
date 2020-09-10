@@ -24,7 +24,6 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-
         return Utils.getSyncFilterValue();
     }
 

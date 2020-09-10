@@ -5,7 +5,7 @@ import org.smartregister.chw.core.utils.ChildDBConstants;
 import java.util.ArrayList;
 
 public class ChildUtilsFlv implements ChildUtils.Flavor {
-    @Override
+
     public ArrayList<String> mainColumns(String tableName, String familyTable, String familyMemberTable) {
         ArrayList<String> columnList = new ArrayList<>();
 
