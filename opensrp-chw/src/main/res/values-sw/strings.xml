@@ -29,7 +29,7 @@
     <string name="visit_not_done_btn_child_profile">Tembeleo halijakamilika</string>
     <string name="medical_history">Historia ya matibabu</string>
     <string name="fully_immunized_at_age">Chanjo kamili katika umri wa %1$s</string>
-    <string name="add_date_separately">Ongeza tarehe ya kila chanjo</string>
+    <string name="add_date_separately">+ONGEZA TAREHE YA KILA CHANJO</string>
     <string name="which_vaccines_given_text">Chanjo zipi zilitolewa?</string>
     <string name="vitamin_a">Vitamini A</string>
     <string name="tab_text_1">DASHBOARD</string>
@@ -65,7 +65,7 @@
     <string name="anc_registration_form_title">Usajili wa mama mjamzito</string>
     <string name="anc_pregnancy_outcome_form_title">Matokeo ya mimba</string>
 
-    <string name="birth_cert_value">Je, mtoto ana cheti cha kuzaliwa?%s</string>
+    <string name="birth_cert_value">Je, mtoto ana cheti cha kuzaliwa? %s</string>
     <string name="birth_cert_date">Tarehe ya kutolewa kwa cheti cha kuzaliwa: %s</string>
     <string name="birth_cert_number">Namba ya cheti cha kuzaliwa: %s</string>
     <string name="birth_cert_notification">Tangazo la uzazi lilitolewa? %s</string>
@@ -112,7 +112,7 @@
     <string name="yes_slice_label">Ndiyo</string>
     <string name="no_slice_label">Hapana</string>
 
-    <string name="immunisation_and_services"><![CDATA[CHANJO & HUDUMA]]></string>
+    <string name="immunisation_and_services"><![CDATA[CHANJO na HUDUMA]]></string>
     <string name="menu_labour_and_delivery"><![CDATA[L&D]]></string>
     <string name="menu_child">Watoto</string>
     <string name="menu_family_planing">Uzazi wa Mpango</string>
@@ -147,7 +147,7 @@
     <string name="anc_home_visit_nutrition_status">Hali ya lishe</string>
     <string name="anc_home_visit_counselling_task">Ushauri</string>
     <string name="anc_home_visit_malaria_prevention">Kinga dhidi ya malaria</string>
-    <string name="anc_home_visit_observations_n_illnes">Uchunguzi &amp; ugonjwa</string>
+    <string name="anc_home_visit_observations_n_illnes">Uchunguzi na ugonjwa</string>
     <string name="anc_home_visit_remarks_and_comments">Maoni</string>
 
     <string name="anc_home_visit_anc_card_received">Amepewa kadi ya kliniki ya mama mjamzito</string>
@@ -156,7 +156,7 @@
     <string name="anc_home_visit_tt_immunization">Pepopunda {0} chanjo</string>
     <string name="anc_home_visit_iptp_sp">Dozi ya IPTp-SP {0}</string>
     <string name="gest_age">Umri wa mimba: %1$s</string>
-    <string name="gest_age_weeks">Wiki</string>
+    <string name="gest_age_weeks">wiki</string>
 
     <string name="action_taken">Hatua iliyochukuliwa</string>
     <string name="date">Tarehe</string>
@@ -173,10 +173,10 @@
     <string name="counselling">Ushauri</string>
 
     <string name="normal">Kawaida</string>
-    <string name="moderate">Dhaifu</string>
-    <string name="severe">Dhaifu sana</string>
-    <string name="okay">Nzima</string>
-    <string name="bad">Mbovu</string>
+    <string name="moderate">Wastani</string>
+    <string name="severe">Mkali</string>
+    <string name="okay">Sawa</string>
+    <string name="bad">Mbaya</string>
 
     <string name="uses_net">Hutumia Chandarua</string>
     <string name="slept_under_net">Amelala kwenye chandarua</string>
@@ -204,7 +204,7 @@
 
     <string name="health_facility_visit_num">Hudhurio la kliniki ya wajawazito {0} katika kituo cha kutolea huduma za afya </string>
     <string name="tt_dose">PEPOPUNDA {0}</string>
-    <string name="iptp_sp_dose">IPTP-sp {0}</string>
+    <string name="iptp_sp_dose">IPTp-SP dose {0}</string>
 
     <string name="opv_0">OPV 0</string>
     <string name="opv_1">OPV 1</string>
@@ -242,6 +242,31 @@
     <string name="anc_indicator7">Mama wajawazito waliopata chanjo ya Pepopunda mpaka sasa</string>
     <string name="anc_indicator8">Mama wajawazito walioko kwenye dozi za IPTp-SP mpaka sasa</string>
 
+    <!-- PNC Reporting indicators labels: Check PNC reporting data dictionary. Strings are named by number
+ as defined in the data dictionary -->
+    <string name="pnc_indicator_1">Wanawake wajawazito waliojifungua katika kituo cha afya (miezi 6 iliyopita)</string>
+    <string name="pnc_indicator_2">Watoto waliozaliwa na uzito wa kawaida (miezi 6 iliyopita)</string>
+    <string name="pnc_indicator_3">Watoto wachanga walianzishwa mapema (chini ya saa 1) kwa kunyonyesha maziwa ya mama (miezi 6 iliyopita)</string>
+    <string name="pnc_indicator_4">Watoto ambao walipokea chanjo ya BCG kwa wakati (miezi 6 iliyopita)</string>
+    <string name="pnc_indicator_4_note">Kwa wakati inamaanisha ndani ya wiki nne za kuzaliwa</string>
+    <string name="pnc_indicator_5">WRA ambao wamekufa katika mwaka jana</string>
+    <string name="pnc_indicator_5_note">WRA = Wanawake wa umri wa uzazi (10 &amp; # 8211; 49)</string>
+    <string name="pnc_indicator_6">Wanawake wasio na dalili za hatari katika tembeleo la mwisho ya nyumbani baada ya kujifungua</string>
+    <string name="pnc_indicator_7">Watoto wachanga wasio na dalili za hatari katika tembeleo la mwisho ya nyumbani baada ya kujifungua</string>
+    <string name="pnc_indicator_8">Njia za wanawake za kuchaguliwa uzazi wa mpango baada ya kujifungua (miezi 6 iliyopita)</string>
+    <string name="pnc_indicator_9">Watoto wachanga (0&#8211;siku 28) aliyekufa katika mwaka uliopita</string>
+
+    <string name="maternal_deaths_slice_label">Vifo vya mama</string>
+    <string name="other_wra_deaths_slice_label">Vifo vingine vya WRA</string>
+    <string name="none">Hakuna</string>
+    <string name="abstinence">Kugunga au kuahirisha kufanya tendo la ndoa</string>
+    <string name="condom">Kondomu</string>
+    <string name="tablets">Vidonge</string>
+    <string name="injectable">Sindano</string>
+    <string name="iud">Kitanzi</string>
+    <string name="implant">Kipandikizi</string>
+    <string name="other">Nyingine</string>
+
     <!-- PNC Home visit-->
     <!-- PNC home visit tasks labels -->
     <string name="pnc_danger_signs_mother">Dalili za hatari - mama</string>
@@ -251,12 +276,13 @@
     <string name="pnc_child_vaccine_card_recevied">Kadi ya chanjo ya mtoto imetolewa ({0})</string>
     <string name="pnc_immunization_at_birth">Chanjo (wakati wa kuzaliwa) ({0})</string>
     <string name="pnc_umblicord_care">Utunzaji wa kitovu</string>
-    <string name="pnc_umblicord_care_child">Utunzaji wa kitovu ({0})</string>
+    <string name="pnc_umblicord_care_child">Umbilical cord care ({0})</string>
     <string name="pnc_exclusive_breastfeeding">Unyonyeshwaji wa maziwa ya mama pekee ({0})</string>
     <string name="pnc_kangaroo_mother_care">Huduma ya Kangaruu (KMC) </string>
     <string name="pnc_family_planning">Uzazi wa Mpango</string>
-    <string name="pnc_observation_and_illness_mother">Uchunguzi &amp; ugonjwa - mama</string>
-    <string name="pnc_observation_and_illness_baby">Uchunguzi &amp; ugonjwa - mtoto ({0})</string>
+    <string name="fp_update_family_planning">Update usajili wa uzazi wa mpango</string>
+    <string name="pnc_observation_and_illness_mother">Uchunguzi na ugonjwa - mama</string>
+    <string name="pnc_observation_and_illness_baby">Uchunguzi na ugonjwa - mtoto ({0})</string>
 
     <string name="pnc_counselling">Ushauri</string>
     <string name="pnc_nutrition_status">Hali ya lishe - mama </string>
@@ -277,9 +303,67 @@
     <string name="deworming_number_dose">%s dozi ya tiba na kinga ya minyoo</string>
     <string name="vitamin_a_number_dose">%s dozi ya Vitamini A</string>
     <string name="mnp_number_pack">MNP %s pack</string>
+    <string name="permission_denied">Ruhusa imekataliwa</string>
+    <string name="storage_permissions_message">App inahitaji ruhusa hiyo kuorodhesha video za mwongozo. \ n Bila ruhusa hiyo huwezi kutazama video zozote za mwongozo</string>
+
+    <!--Referral -->
+    <string name="referral_reason">Sababu ya rufaa</string>
+    <string name="open_referral_form">Fungua rufaa ya %s</string>
+    <string name="sick_child">Mtoto mgonjwa</string>
+    <string name="family_planning_referral">Uzazi wa mpango</string>
+    <string name="client_malaria_follow_up">Ufuatiliaji wa malaria</string>
+    <string name="pnc_danger_signs">Dalili za hatari baada ya kujifungua</string>
+    <string name="fp_post_partum">Uzazi wa mpango baada ya kujifungua</string>
+    <string name="anc_danger_signs">Dalili za hatari ya ujazito</string>
+    <string name="suspected_malaria">Malaria inayodhaniwa</string>
+
+    <string name="jobs_aid_failed_download">Video ya vitendea kazi \"%s\" imefeli kupakua</string>
 
     <!--ANC Family Planning Ba-->
-    <string name="family_planning_done">Ushauri wa uzazi wa mpango kutoka kituo cha afya umefanyika</string>
-    <string name="family_planning_not_done">Ushauri wa uzazi wa mpango kutoka kituo cha afya haujakamilika</string>
+    <string name="family_planning_done">\"Ushauri juu ya uzazi wa mpango kituoni umefanyika</string>
+    <string name="family_planning_not_done">Ushauri juu ya uzazi wa mpango kituoni haujafanyika</string>
 
+    <!-- Medical history -->
+    <string name="dose_number">Dozi  ya %s</string>
+
+    <!--PNC Family Planning Ba-->
+    <string name="during_anc">Wakati wa kliniki ya wajawazito</string>
+    <string name="during_pnc">Wakati wa kliniki ya mama na mtoto baada ya kujifungua</string>
+    <string name="during_labour_and_delivery">Wakati wa uchungu na kujifungua</string>
+
+    <string name="cancel_download_confirmation">Una uhakika unataka kughairi kupakua huku?</string>
+    <string name="cancel_download">Ghairi Upakuaji</string>
+
+    <string name="typhoid">Homa ya matumbo</string>
+    <string name="routine_household_visit">Tembeleo la kawaida</string>
+    <string name="sick_visits">Matembeleo ya ugonjwa</string>
+    <string name="sick_visit">Tembeleo la ugonjwa</string>
+    <string name="reports">Ripoti</string>
+
+    <string name="eligible_children">Watoto wanaostahili</string>
+    <string name="doses_needed">Dozi inahitajika</string>
+    <string name="community_activity">Shughuli zangu kwenye jamii</string>
+    <string name="children">Watoto</string>
+
+    <string name="forgot_pin">Umesahau siri?</string>
+    <string name="use_your_password">Tumia neno lako la siri?</string>
+    <string name="enter_pin_for_user">Ingiza siri kwa %s</string>
+    <string name="use_4_digit_pin_number_promt">Unaweza kutumia number ya siri ya tarakimu 4 kurahisha kuingia kwenye mfumo haraka</string>
+
+    <!-- All Clients -->
+    <string name="add_client">Ongeza mteja</string>
+
+    <!--    Unified Referral Forms-->
+    <string name="hiv_referral">Kliniki ya Tiba na Matunzo</string>
+    <string name="tb_referral">Kliniki ya Tiba ya Kifua kikuu</string>
+    <string name="gbv_referral">Rufaa ya ukatili wa kijinsia</string>
+    <string name="child_gbv_referral">Rufaa ya ukatili wa kijinsia kwa mtoto</string>
+    <string name="client_registration" >Usajili wa mteja</string>
+    <string name="error_opening_profile">Kosa wakati wa kufungua profile</string>
+    <string name="location_details">Taarifa za Mahali</string>
+    <string name="update_client_registration" >Update taarifa za mteja</string>
+
+    <!---Anc Home Visit Strings -->
+    <string name="anc_home_visit_pregnancy_risk">Hatari ya ujauzito</string>
+    <string name="loading_content">Inapakia taarifa</string>
 </resources>

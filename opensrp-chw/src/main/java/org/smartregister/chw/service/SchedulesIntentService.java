@@ -5,8 +5,6 @@ import android.content.Intent;
 
 import androidx.annotation.Nullable;
 
-import com.google.gson.Gson;
-
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ScheduleDao;
