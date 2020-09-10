@@ -3,6 +3,7 @@ package org.smartregister.chw.fragment;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONException;
 import org.smartregister.chw.activity.HivProfileActivity;
 import org.smartregister.chw.activity.HivRegisterActivity;
 import org.smartregister.chw.core.fragment.CoreHivRegisterFragment;
@@ -40,11 +41,14 @@ public class HivRegisterFragment extends CoreHivRegisterFragment {
 
     @Override
     protected void openFollowUpVisit(@Nullable HivMemberObject hivMemberObject) {
-        if (getActivity() != null)
-            HivRegisterActivity.startHIVFormActivity(getActivity(), hivMemberObject.getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(getActivity(), org.smartregister.chw.util.Constants.JSON_FORM.getHivFollowupVisit()).toString());
+        if (getActivity() != null) {
+            try {
+                HivRegisterActivity.startHIVFormActivity(getActivity(), hivMemberObject.getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(getActivity(), org.smartregister.chw.util.Constants.JSON_FORM.getHivFollowupVisit()).toString());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
     }
-
-
 }
 
 

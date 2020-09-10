@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -22,6 +23,7 @@ import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
@@ -120,12 +122,20 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     @Override
     protected void startHivRegister() {
-        HivRegisterActivity.startHIVFormActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, org.smartregister.chw.util.Constants.JSON_FORM.getHivRegistration()).toString());
+        try {
+            HivRegisterActivity.startHIVFormActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, Constants.JSON_FORM.getHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, Constants.JSON_FORM.getHivRegistration()).toString());
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
     }
 
     @Override
     protected void startTbRegister() {
-        TbRegisterActivity.startTbFormActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, org.smartregister.chw.util.Constants.JSON_FORM.getTbRegistration()).toString());
+        try {
+            TbRegisterActivity.startTbFormActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, Constants.JSON_FORM.getTbRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, Constants.JSON_FORM.getTbRegistration()).toString());
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
     }
 
     @Override

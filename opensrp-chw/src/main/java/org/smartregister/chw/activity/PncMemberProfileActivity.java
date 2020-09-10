@@ -14,6 +14,7 @@ import com.vijay.jsonwizard.utils.FormUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -396,12 +397,20 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     @Override
     protected void startHivRegister() {
-        HivRegisterActivity.startHIVFormActivity(this, memberObject.getBaseEntityId(), CoreConstants.JSON_FORM.getHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getHivRegistration()).toString());
+        try {
+            HivRegisterActivity.startHIVFormActivity(this, memberObject.getBaseEntityId(), JSON_FORM.getHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, JSON_FORM.getHivRegistration()).toString());
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
     }
 
     @Override
     protected void startTbRegister() {
-        TbRegisterActivity.startTbFormActivity(this, memberObject.getBaseEntityId(), CoreConstants.JSON_FORM.getTbRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getTbRegistration()).toString());
+        try {
+            TbRegisterActivity.startTbFormActivity(this, memberObject.getBaseEntityId(), JSON_FORM.getTbRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, JSON_FORM.getTbRegistration()).toString());
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
     }
 
     @Override

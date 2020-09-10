@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
+import org.json.JSONException;
 import org.smartregister.chw.activity.TbProfileActivity;
 import org.smartregister.chw.activity.TbRegisterActivity;
 import org.smartregister.chw.core.fragment.CoreTbRegisterFragment;
@@ -41,10 +42,14 @@ public class TbRegisterFragment extends CoreTbRegisterFragment {
 
     @Override
     protected void openFollowUpVisit(@Nullable TbMemberObject tbMemberObject) {
-        if (getActivity() != null)
-            TbRegisterActivity.startTbFormActivity(getActivity(), tbMemberObject.getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(getActivity(), org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit()).toString());
+        if (getActivity() != null) {
+            try {
+                TbRegisterActivity.startTbFormActivity(getActivity(), tbMemberObject.getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(getActivity(), org.smartregister.chw.util.Constants.JSON_FORM.getTbFollowupVisit()).toString());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
     }
-
 }
 
 
