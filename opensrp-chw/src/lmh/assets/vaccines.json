@@ -434,8 +434,8 @@
                   "vaccine": "PCV 1",
                   "type": "given",
                   "age": {
-                    "from": "0d",
-                    "to": "365d"
+                    "from": "+0d",
+                    "to": "+365d"
                   },
                   "comparison": "at_least",
                   "value": "+28d"
@@ -444,7 +444,7 @@
                   "vaccine": "PCV 1",
                   "type": "given",
                   "age": {
-                    "from": "366d"
+                    "from": "+366d"
                   },
                   "comparison": "at_least",
                   "value": "+56d"
@@ -633,8 +633,8 @@
                       "vaccine": "Penta 1",
                       "type": "given",
                       "age": {
-                        "from": "0d",
-                        "to": "365d"
+                        "from": "+0d",
+                        "to": "+365d"
                       }
                     },
                     {
@@ -653,7 +653,7 @@
                       "vaccine": "Penta 1",
                       "type": "given",
                       "age": {
-                        "from": "365d"
+                        "from": "+365d"
                       }
                     },
                     {
@@ -1257,7 +1257,7 @@
             {
               "reference": "prerequisite",
               "prerequisite": "HPV 1",
-              "offset": "+180",
+              "offset": "+180d",
               "window": "+11y"
             }
           ],
