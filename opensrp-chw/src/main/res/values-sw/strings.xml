@@ -7,12 +7,14 @@
     <string name="not_provided">Haijatolewa</string>
 
     <string name="child_under_five">Mtoto chini ya miaka 5</string>
+    <string name="add_eligible_child">Mtoto anayefaa</string>
     <string name="go_to_family_s_profile">Elekea kwenye taarifa binafsi za kaya</string>
     <string name="family_has_nothing_due">Muda wa huduma kwenye kaya haujafika</string>
     <string name="family_has_services_due">Muda wa huduma kwenye kaya umefika</string>
     <string name="vaccine_service_overdue"><![CDATA[%1$s <font color=#f04646> muda umepita (%2$s)</font> </b>]]></string>
     <string name="vaccine_service_due"><![CDATA[%1$s <font color=#000000> imefika (%2$s)</font></b>]]></string>
     <string name="vaccine_service_upcoming"><![CDATA[%1$s <font color=#7f7f7f> inakaribia (%2$s) </font> </b>]]></string>
+    <string name="due_today">Kwa Leo</string>
 
     <string name="family_has_service_overdue"><![CDATA[Kaya ina <font color=#FF0000>huduma zilizopitiliza muda wake </font></b>]]></string>
     <string name="view_upcoming_services">Angalia huduma zinazokaribia</string>
