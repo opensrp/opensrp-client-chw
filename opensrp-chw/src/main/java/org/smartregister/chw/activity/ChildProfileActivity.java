@@ -195,6 +195,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
     private void openUpcomingServicePage() {
         MemberObject memberObject = new MemberObject(presenter().getChildClient());
+        if (!ChwApplication.getApplicationFlavor().hasSurname()) memberObject.setLastName("");
         UpcomingServicesActivity.startMe(this, memberObject);
     }
 
