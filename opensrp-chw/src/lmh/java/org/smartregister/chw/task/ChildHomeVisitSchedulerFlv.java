@@ -12,6 +12,7 @@ import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,9 +34,8 @@ public class ChildHomeVisitSchedulerFlv extends DefaultChildHomeVisitSchedulerFl
             baseScheduleTask.setScheduleExpiryDate(alertRule.getExpiryDate());
             baseScheduleTask.setScheduleCompletionDate(alertRule.getCompletionDate());
             baseScheduleTask.setScheduleOverDueDate(alertRule.getOverDueDate());
-
+            return toScheduleList(baseScheduleTask);
         }
-        return toScheduleList(baseScheduleTask);
-
+        return  new ArrayList<>();
     }
 }
