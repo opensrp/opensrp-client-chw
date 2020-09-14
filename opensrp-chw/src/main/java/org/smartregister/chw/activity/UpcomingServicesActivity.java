@@ -37,7 +37,6 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
 
         dueTodayRV = findViewById(R.id.today_services_recyclerView);
         todayServicesTV = findViewById(R.id.today_services);
-        dueTodayRV.setHasFixedSize(false);
     }
 
     @Override
