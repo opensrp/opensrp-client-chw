@@ -18,7 +18,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
-import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.listener.OnRetrieveNotifications;
@@ -33,7 +32,6 @@ import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
-import org.smartregister.family.util.JsonFormUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -197,7 +195,8 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
     private void openUpcomingServicePage() {
         MemberObject memberObject = new MemberObject(presenter().getChildClient());
-        CoreUpcomingServicesActivity.startMe(this, memberObject);
+        if (!ChwApplication.getApplicationFlavor().hasSurname()) memberObject.setLastName("");
+        UpcomingServicesActivity.startMe(this, memberObject);
     }
 
     private void openVisitHomeScreen(boolean isEditMode) {
