@@ -219,7 +219,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "Village 1"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village 1"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village 1"'
-            buildConfigField "int", "DATABASE_VERSION", '8'
+            buildConfigField "int", "DATABASE_VERSION", '3'
         }
         guinea {
             dimension = 'baseDimension'
