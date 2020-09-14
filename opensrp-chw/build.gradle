@@ -210,7 +210,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".drc"
             versionCode 1
-            versionName "0.0.1"
+            versionName "0.0.2"
             buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/default/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
@@ -219,7 +219,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "Village 1"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village 1"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village 1"'
-            buildConfigField "int", "DATABASE_VERSION", '8'
+            buildConfigField "int", "DATABASE_VERSION", '3'
         }
         guinea {
             dimension = 'baseDimension'
@@ -295,7 +295,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.4.9-alpha-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.4.9-alpha1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
