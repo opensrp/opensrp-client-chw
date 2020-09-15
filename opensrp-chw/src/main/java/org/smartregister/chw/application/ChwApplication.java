@@ -9,8 +9,8 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
-import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.NativeFormLibrary;
+import com.vijay.jsonwizard.domain.Form;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -223,7 +223,8 @@ public class ChwApplication extends CoreChwApplication {
 
         // Set display date format for date pickers in native forms
         Form form = new Form();
-        form.setDatePickerDisplayFormat("dd MMM yyyy");
+        if (flavor.hasCustomDate())
+            form.setDatePickerDisplayFormat("dd MMM yyyy");
 
         NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
     }
@@ -331,11 +332,13 @@ public class ChwApplication extends CoreChwApplication {
     }
 
     @Override
-    public boolean getChildFlavorUtil(){
+    public boolean getChildFlavorUtil() {
         return flavor.getChildFlavorUtil();
     }
 
     public interface Flavor {
+        boolean hasCustomDate();
+
         boolean hasP2P();
 
         boolean hasReferrals();
@@ -392,8 +395,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean usesPregnancyRiskProfileLayout();
 
-        boolean splitUpcomingServicesView(); 
-        
+        boolean splitUpcomingServicesView();
+
         boolean getChildFlavorUtil();
 
         boolean showChildrenUnder5();
