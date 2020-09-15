@@ -115,6 +115,9 @@
             android:name=".activity.ChildRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.UpcomingServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.ChildHomeVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity

@@ -57,6 +57,11 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean hasChildrenMNPSupplementationGraph() {
+        return false;
+    }
+
+    @Override
     public boolean hasJobAidsBreastfeedingGraph() {
         return false;
     }
@@ -87,6 +92,10 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean splitUpcomingServicesView() {
+        return true;
+    }
+
     public boolean hasForeignData() {
         return true;
     }

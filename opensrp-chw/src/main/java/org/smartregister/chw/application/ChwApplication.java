@@ -407,6 +407,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasJobAidsDewormingGraph();
 
+        boolean hasChildrenMNPSupplementationGraph();
+
         boolean hasJobAidsBreastfeedingGraph();
 
         boolean hasJobAidsBirthCertificationGraph();
@@ -421,6 +423,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean usesPregnancyRiskProfileLayout();
 
+        boolean splitUpcomingServicesView(); 
+        
         boolean getChildFlavorUtil();
 
         boolean showChildrenUnder5();
