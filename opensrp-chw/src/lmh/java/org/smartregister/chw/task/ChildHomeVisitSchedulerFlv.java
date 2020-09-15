@@ -9,7 +9,6 @@ import org.smartregister.chw.core.utils.ChildHomeVisit;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ChildDao;
 import org.smartregister.chw.dao.PersonDao;
-import org.smartregister.chw.rules.LmhHomeAlertRule;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
 
@@ -24,12 +23,12 @@ public class ChildHomeVisitSchedulerFlv extends DefaultChildHomeVisitSchedulerFl
         ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(Constants.TABLE_NAME.CHILD, baseEntityID);
         String yearOfBirth = PersonDao.getDob(baseEntityID);
 
-        LmhHomeAlertRule alertRule = new LmhHomeAlertRule(
+        HomeAlertRule alertRule = new HomeAlertRule(
                 ChwApplication.getInstance().getApplicationContext(), yearOfBirth, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
         CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, CoreConstants.RULE_FILE.HOME_VISIT);
 
         // Check If any task are due for that child
-        if(ChildDao.hasDueVaccines(baseEntityID)){
+        if (ChildDao.hasDueVaccines(baseEntityID)) {
             baseScheduleTask.setScheduleDueDate(alertRule.getDueDate());
             baseScheduleTask.setScheduleNotDoneDate(alertRule.getNotDoneDate());
             baseScheduleTask.setScheduleExpiryDate(alertRule.getExpiryDate());
@@ -37,6 +36,6 @@ public class ChildHomeVisitSchedulerFlv extends DefaultChildHomeVisitSchedulerFl
             baseScheduleTask.setScheduleOverDueDate(alertRule.getOverDueDate());
             return toScheduleList(baseScheduleTask);
         }
-        return  new ArrayList<>();
+        return new ArrayList<>();
     }
 }
