@@ -21,4 +21,17 @@ public class ChildDao extends AbstractDao {
         res.size();
         return true;
     }
+
+    public static String getChildGender(String baseEntityID) {
+        String sql = String.format("SELECT gender from ec_child\n" +
+                "where base_entity_id = '%s'", baseEntityID);
+
+        DataMap<String> dataMap = c -> getCursorValue(c, "gender");
+
+        List<String> values = AbstractDao.readData(sql, dataMap);
+        if (values == null || values.size() == 0)
+            return "";
+
+        return values.get(0) == null ? "" : values.get(0); // Return a default value of Low
+    }
 }
