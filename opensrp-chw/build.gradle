@@ -304,7 +304,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.4.91-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.4.93-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -313,11 +313,7 @@ dependencies {
         exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
-    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
 
-    implementation ('io.ona.kujaku:library:0.8.3') {
-        exclude group: 'com.android.volley', module: 'volley'
-    }
     //Do not upgrade to 1.1.0 due to compatibility issues
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.google.android.material:material:1.0.0'

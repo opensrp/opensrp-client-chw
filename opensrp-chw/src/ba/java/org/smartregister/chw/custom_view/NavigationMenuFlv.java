@@ -50,11 +50,6 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
     }
 
     @Override
-    public Intent getCommunityRespondersIntent(Activity activity) {
-        return null;
-    }
-
-    @Override
     public Intent getServiceReportIntent(Activity activity) {
         return new Intent(activity, HIA2ReportsActivity.class);
     }

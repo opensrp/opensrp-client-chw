@@ -50,9 +50,6 @@
             android:name=".activity.AncMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.AncMemberMapActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
             android:name=".activity.PncUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -60,10 +57,6 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.PncHomeVisitActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
-            android:name=".core.activity.CoreCommunityRespondersRegisterActivity"
-            android:label="@string/medical_history"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.PncRegisterActivity"
@@ -248,6 +241,14 @@
             android:label="@string/title_family_detail"
             android:parentActivityName=".activity.AllClientsRegisterActivity"
             android:theme="@style/FamilyTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.AncMemberMapActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".core.activity.CoreCommunityRespondersRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
