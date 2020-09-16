@@ -9,8 +9,8 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
-import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
+import com.vijay.jsonwizard.domain.Form;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -82,8 +82,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
-import io.ona.kujaku.KujakuLibrary;
 import timber.log.Timber;
+
+import com.mapbox.mapboxsdk.Mapbox;
 
 public class ChwApplication extends CoreChwApplication {
 
@@ -199,9 +200,6 @@ public class ChwApplication extends CoreChwApplication {
         GrowthMonitoringConfig growthMonitoringConfig = new GrowthMonitoringConfig();
         growthMonitoringConfig.setWeightForHeightZScoreFile("weight_for_height.csv");
         GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION, growthMonitoringConfig);
-
-        Mapbox.getInstance(getApplicationContext(), BuildConfig.MAPBOX_SDK_ACCESS_TOKEN);
-        KujakuLibrary.init(getApplicationContext());
 
         if (hasReferrals()) {
             //Setup referral library
@@ -335,7 +333,7 @@ public class ChwApplication extends CoreChwApplication {
     }
 
     @Override
-    public boolean getChildFlavorUtil(){
+    public boolean getChildFlavorUtil() {
         return flavor.getChildFlavorUtil();
     }
 
@@ -343,6 +341,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasP2P();
 
         boolean hasReferrals();
+
+        boolean flvSetFamilyLocation();
 
         boolean hasANC();
 
@@ -396,8 +396,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean usesPregnancyRiskProfileLayout();
 
-        boolean splitUpcomingServicesView(); 
-        
+        boolean splitUpcomingServicesView();
+
         boolean getChildFlavorUtil();
 
         boolean showChildrenUnder5();
