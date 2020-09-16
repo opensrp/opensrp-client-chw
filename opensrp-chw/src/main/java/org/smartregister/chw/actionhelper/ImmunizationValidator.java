@@ -3,10 +3,10 @@ package org.smartregister.chw.actionhelper;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.smartregister.chw.anc.domain.VaccineDisplay;
-import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.core.utils.VisitVaccineUtil;
+import org.smartregister.chw.fragment.BaseHomeVisitImmunizationFragmentFlv;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
@@ -23,7 +23,7 @@ import java.util.Map;
  * This view driver evaluates if a view is valid or not
  */
 public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
-    private Map<String, BaseHomeVisitImmunizationFragment> fragments = new LinkedHashMap<>();
+    private Map<String, BaseHomeVisitImmunizationFragmentFlv> fragments = new LinkedHashMap<>();
     private Map<String, DateTime> anchorDates = new HashMap<>();
     private Map<String, VaccineGroup> vaccineGroupMap = new HashMap<>();
     private List<String> keyPositions = new ArrayList<>();
@@ -43,7 +43,7 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
         }
     }
 
-    public void addFragment(String key, BaseHomeVisitImmunizationFragment fragment, VaccineGroup vaccineGroup, DateTime anchorDate) {
+    public void addFragment(String key, BaseHomeVisitImmunizationFragmentFlv fragment, VaccineGroup vaccineGroup, DateTime anchorDate) {
         if (!fragments.containsKey(key)) {
             keyPositions.add(key);
         }
@@ -60,7 +60,7 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
      */
     @Override
     public boolean isValid(String s) {
-        BaseHomeVisitImmunizationFragment fragment = fragments.get(s);
+        BaseHomeVisitImmunizationFragmentFlv fragment = fragments.get(s);
         if (fragment == null)
             return false;
 
@@ -100,9 +100,9 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
 
         while (x < keyPositions.size()) {
 
-            BaseHomeVisitImmunizationFragment prevFragment = fragments.get(key);
+            BaseHomeVisitImmunizationFragmentFlv prevFragment = fragments.get(key);
             key = keyPositions.get(x);
-            BaseHomeVisitImmunizationFragment fragment = fragments.get(key);
+            BaseHomeVisitImmunizationFragmentFlv fragment = fragments.get(key);
 
             if (fragment == null)
                 continue;
@@ -132,7 +132,7 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
         }
 
         String next_key = keyPositions.get(next);
-        BaseHomeVisitImmunizationFragment nextFragment = fragments.get(next_key);
+        BaseHomeVisitImmunizationFragmentFlv nextFragment = fragments.get(next_key);
         while (nextFragment != null && nextFragment.getVaccineDisplays().size() == 0) {
             lastValidKeyPosition++;
             next++;

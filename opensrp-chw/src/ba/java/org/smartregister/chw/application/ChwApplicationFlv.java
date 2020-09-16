@@ -64,4 +64,18 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean hasStockUsageReport() {
         return true;
     }
+
+    @Override
+    public boolean hasFamilyLocationRow() {
+        return true;
+    }
+
+    @Override
+    public boolean usesPregnancyRiskProfileLayout() {
+        return true;
+    }
+
+    public boolean getChildFlavorUtil(){
+        return true;
+    }
 }

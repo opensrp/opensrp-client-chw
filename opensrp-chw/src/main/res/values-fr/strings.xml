@@ -7,12 +7,14 @@
     <string name="not_provided">N\'a pas été donné</string>
 
     <string name="child_under_five">Enfant de moins de 5 ans</string>
+    <string name="add_eligible_child">Enfant éligible</string>
     <string name="go_to_family_s_profile">Aller au profil du ménage</string>
     <string name="family_has_nothing_due">Le ménage n\'a pas de service attendu</string>
     <string name="family_has_services_due">Le ménage a des services attendus</string>
     <string name="vaccine_service_overdue"><![CDATA[%1$s <font color=#f04646>en retard (%2$s)</font></b>]]></string>
     <string name="vaccine_service_due"><![CDATA[%1$s <font color=#000000>attendu (%2$s)</font></b>]]></string>
     <string name="vaccine_service_upcoming"><![CDATA[%1$s <font color=#7f7f7f>prochain (%2$s)</font></b>]]></string>
+    <string name="due_today">Dû aujourd\'hui</string>
 
     <string name="family_has_service_overdue"><![CDATA[Ménage a <font color=#FF0000>des services en retard</font></b>]]></string>
     <string name="view_upcoming_services">Voir les prochains services</string>

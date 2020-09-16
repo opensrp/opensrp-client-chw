@@ -105,17 +105,22 @@ public class FamilyDao extends AbstractDao {
                 "SELECT ec_family.base_entity_id,\n" +
                         "       ec_family.primary_caregiver,\n" +
                         "       ec_family.first_name as family_name,\n" +
+                        "       ec_family.village_town as village_town,\n" +
                         "       ec_family.family_head\n" +
                         "FROM ec_family\n" +
                         "         INNER JOIN ec_family_member ON ec_family.base_entity_id = ec_family_member.relational_id\n" +
                         "WHERE ec_family_member.base_entity_id = '%s'", baseEntityId);
 
-        DataMap<FamilyDetailsModel> dataMap = cursor -> new FamilyDetailsModel(
-                getCursorValue(cursor, "base_entity_id"),
-                getCursorValue(cursor, "family_head"),
-                getCursorValue(cursor, "primary_caregiver"),
-                getCursorValue(cursor, "family_name")
-        );
+        DataMap<FamilyDetailsModel> dataMap = cursor -> {
+            FamilyDetailsModel familyDetailsModel = new FamilyDetailsModel(
+                    getCursorValue(cursor, "base_entity_id"),
+                    getCursorValue(cursor, "family_head"),
+                    getCursorValue(cursor, "primary_caregiver"),
+                    getCursorValue(cursor, "family_name")
+            );
+            familyDetailsModel.setVillageTown(getCursorValue(cursor, "village_town"));
+            return familyDetailsModel;
+        };
 
         List<FamilyDetailsModel> familyProfileModels = readData(sql, dataMap);
         if (familyProfileModels == null || familyProfileModels.size() != 1)

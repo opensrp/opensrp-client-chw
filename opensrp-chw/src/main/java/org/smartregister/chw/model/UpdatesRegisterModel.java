@@ -1,6 +1,7 @@
 package org.smartregister.chw.model;
 
-import org.smartregister.chw.core.model.BaseReferralNotificationModel;
 
-public class UpdatesRegisterModel extends BaseReferralNotificationModel {
+import org.smartregister.chw.core.model.BaseChwNotificationModel;
+
+public class UpdatesRegisterModel extends BaseChwNotificationModel {
 }

@@ -72,7 +72,7 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity
         intent.putExtra(OpdConstants.JSON_FORM_EXTRA.JSON, jsonObject.toString());
 
         Form form = new Form();
-        form.setName(getString(R.string.add_client));
+        form.setName(getString(R.string.client_registration));
         form.setActionBarBackground(R.color.family_actionbar);
         form.setNavigationBackground(R.color.family_navigation);
         form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
@@ -91,7 +91,7 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity
 
                 JSONObject form = new JSONObject(jsonString);
                 String encounterType = form.getString(OpdJsonFormUtils.ENCOUNTER_TYPE);
-                if (encounterType.equals(Constants.EncounterType.CLIENT_REGISTRATION)) {
+                if (encounterType.equals(Constants.EventType.FAMILY_REGISTRATION)) {
                     RegisterParams registerParam = new RegisterParams();
                     registerParam.setEditMode(false);
                     registerParam.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.context().allSharedPreferences()));

@@ -106,7 +106,7 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
                     return BaseAncHomeVisitAction.Status.PENDING;
                 }
 
-                if (famllin1m5yr.equalsIgnoreCase("Yes") && llin2days1m5yr.equalsIgnoreCase("Yes") && llinCondition1m5yr.equalsIgnoreCase("Okay")) {
+                if (famllin1m5yr.equalsIgnoreCase(context.getString(R.string.yes)) && llin2days1m5yr.equalsIgnoreCase(context.getString(R.string.yes)) && llinCondition1m5yr.equalsIgnoreCase(context.getString(R.string.okay))) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else {
                     return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;

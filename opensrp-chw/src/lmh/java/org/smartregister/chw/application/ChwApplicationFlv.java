@@ -41,4 +41,67 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return false;
     }
 
+    @Override
+    public boolean hasDefaultDueFilterForChildClient() {
+        return true;
+    }
+
+    @Override
+    public boolean hasJobAidsVitaminAGraph() {
+        return false;
+    }
+
+    @Override
+    public boolean hasJobAidsDewormingGraph() {
+        return false;
+    }
+
+    @Override
+    public boolean hasChildrenMNPSupplementationGraph() {
+        return false;
+    }
+
+    @Override
+    public boolean hasJobAidsBreastfeedingGraph() {
+        return false;
+    }
+
+    @Override
+    public boolean hasJobAidsBirthCertificationGraph() {
+        return false;
+    }
+
+    @Override
+    public boolean hasSurname() {
+        return false;
+    }
+
+    @Override
+    public boolean showMyCommunityActivityReport() {
+        return true;
+    }
+
+    @Override
+    public boolean showChildrenUnder5() {
+        return false;
+    }
+
+    @Override
+    public boolean launchChildClientsAtLogin() {
+        return true;
+    }
+
+    @Override
+    public boolean splitUpcomingServicesView() {
+        return true;
+    }
+
+    public boolean hasForeignData() {
+        return true;
+    }
+
+    @Override
+    public boolean prioritizeChildNameOnChildRegister() {
+        return true;
+    }
 }

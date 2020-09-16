@@ -3,6 +3,10 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -66,4 +70,28 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         return intent;
     }
+
+    @Override
+    public String getFormattedDateForVisual(String dueDate, String inputFormat) {
+        return dueDate;
+    }
+
+    @Override
+    public void setLastVisitRowView (String days, RelativeLayout layoutLastVisitRow, View viewLastVisitRow, TextView textViewLastVisit, Context context){
+        if (TextUtils.isEmpty(days)) {
+            layoutLastVisitRow.setVisibility(View.GONE);
+            viewLastVisitRow.setVisibility(View.GONE);
+        } else {
+            layoutLastVisitRow.setVisibility(View.VISIBLE);
+            textViewLastVisit.setText(context.getString(org.smartregister.chw.core.R.string.last_visit_40_days_ago, days));
+            viewLastVisitRow.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void setVaccineHistoryView(String days, RelativeLayout layoutVaccineHistoryRow, View viewVaccineHistoryRow, Context context){
+            layoutVaccineHistoryRow.setVisibility(View.GONE);
+            viewVaccineHistoryRow.setVisibility(View.GONE);
+    }
+
 }

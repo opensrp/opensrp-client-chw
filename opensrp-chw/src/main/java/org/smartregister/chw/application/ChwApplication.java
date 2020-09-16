@@ -10,6 +10,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -68,9 +69,7 @@ import org.smartregister.growthmonitoring.GrowthMonitoringLibrary;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.opd.OpdLibrary;
-import org.smartregister.opd.activity.BaseOpdFormActivity;
 import org.smartregister.opd.configuration.OpdConfiguration;
-import org.smartregister.opd.pojo.OpdMetadata;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
@@ -85,11 +84,6 @@ import java.util.Map;
 import io.fabric.sdk.android.Fabric;
 import io.ona.kujaku.KujakuLibrary;
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.Constants.ALL_CLIENT_REGISTRATION_FORM;
-import static org.smartregister.chw.util.Constants.EncounterType.CLIENT_REGISTRATION;
-import static org.smartregister.chw.util.Constants.EventType;
-import static org.smartregister.chw.util.Constants.TABLE_NAME;
 
 public class ChwApplication extends CoreChwApplication {
 
@@ -216,13 +210,8 @@ public class ChwApplication extends CoreChwApplication {
             ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
         }
 
-        OpdMetadata opdMetadata = new OpdMetadata(ALL_CLIENT_REGISTRATION_FORM, TABLE_NAME.FAMILY_MEMBER,
-                CLIENT_REGISTRATION, EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, "",
-                BaseOpdFormActivity.class, null, true);
-
         OpdLibrary.init(context, getRepository(),
                 new OpdConfiguration.Builder(CoreAllClientsRegisterQueryProvider.class)
-                        .setOpdMetadata(opdMetadata)
                         .setBottomNavigationEnabled(true)
                         .setOpdRegisterRowOptions(AllClientsRegisterRowOptions.class)
                         .build(),
@@ -235,6 +224,12 @@ public class ChwApplication extends CoreChwApplication {
 
         // set up processor
         FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
+
+        // Set display date format for date pickers in native forms
+        Form form = new Form();
+        form.setDatePickerDisplayFormat("dd MMM yyyy");
+
+        NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
     }
 
     @Override
@@ -290,6 +285,8 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, MalariaRegisterActivity.class);
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, ReferralRegisterActivity.class);
+        }
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ALL_CLIENTS_REGISTERED_ACTIVITY, AllClientsRegisterActivity.class);
         }
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FP_REGISTER_ACTIVITY, FpRegisterActivity.class);
@@ -337,6 +334,11 @@ public class ChwApplication extends CoreChwApplication {
         return appExecutors;
     }
 
+    @Override
+    public boolean getChildFlavorUtil(){
+        return flavor.getChildFlavorUtil();
+    }
+
     public interface Flavor {
         boolean hasP2P();
 
@@ -369,5 +371,40 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasReports();
 
         boolean hasTasks();
+
+        boolean hasDefaultDueFilterForChildClient();
+
+        boolean launchChildClientsAtLogin();
+
+        boolean hasJobAidsVitaminAGraph();
+
+        boolean hasJobAidsDewormingGraph();
+
+        boolean hasChildrenMNPSupplementationGraph();
+
+        boolean hasJobAidsBreastfeedingGraph();
+
+        boolean hasJobAidsBirthCertificationGraph();
+
+        boolean hasSurname();
+
+        boolean showMyCommunityActivityReport();
+
+        boolean useThinkMd();
+
+        boolean hasFamilyLocationRow();
+
+        boolean usesPregnancyRiskProfileLayout();
+
+        boolean splitUpcomingServicesView(); 
+        
+        boolean getChildFlavorUtil();
+
+        boolean showChildrenUnder5();
+
+        boolean hasForeignData();
+
+        boolean prioritizeChildNameOnChildRegister();
     }
+
 }

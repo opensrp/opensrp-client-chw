@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AboveFiveChildProfileActivity;
 import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
@@ -16,37 +17,28 @@ import org.smartregister.chw.activity.MalariaProfileActivity;
 import org.smartregister.chw.activity.PncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.dao.AncDao;
-import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fp.dao.FpDao;
-import org.smartregister.chw.malaria.dao.MalariaDao;
+import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+import org.smartregister.opd.pojo.OpdEventClient;
 import org.smartregister.opd.utils.OpdDbConstants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.smartregister.chw.core.utils.CoreConstants.INTENT_KEY.CLIENT;
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.opd.utils.OpdDbConstants.KEY.REGISTER_TYPE;
+import static org.smartregister.util.Utils.showShortToast;
 
 public class AllClientsUtils {
-
-    public static void goToAdultMemberProfile(Activity activity, CommonPersonObjectClient commonPersonObjectClient, Bundle bundle) {
-        if (AncDao.isANCMember(commonPersonObjectClient.entityId())) {
-            goToAncProfile(activity, commonPersonObjectClient, bundle);
-        } else if (PNCDao.isPNCMember(commonPersonObjectClient.entityId())) {
-            gotToPncProfile(activity, commonPersonObjectClient, bundle);
-        } else if (MalariaDao.isRegisteredForMalaria(commonPersonObjectClient.entityId())) {
-            gotToMalariaProfile(activity, commonPersonObjectClient);
-        } else if (FpDao.isRegisteredForFp(commonPersonObjectClient.entityId())) {
-            goToFamilyPlanningProfile(activity, commonPersonObjectClient);
-        } else {
-            goToOtherMemberProfile(activity, commonPersonObjectClient, bundle,
-                    bundle.getString(Constants.INTENT_KEY.FAMILY_HEAD),
-                    bundle.getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER));
-        }
-    }
 
     public static void goToChildProfile(Activity activity, CommonPersonObjectClient patient, Bundle bundle) {
         String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
@@ -60,45 +52,27 @@ public class AllClientsUtils {
         if (bundle != null) {
             intent.putExtras(bundle);
         }
-        intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, false);
+        passToolbarTitle(activity, intent);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, new MemberObject(patient));
         activity.startActivity(intent);
     }
 
-    public static void goToOtherMemberProfile(Activity activity, CommonPersonObjectClient patient,
-                                              Bundle bundle, String familyHead, String primaryCaregiver) {
-        Intent intent;
-        if (StringUtils.isBlank(familyHead) && StringUtils.isBlank(primaryCaregiver)) {
-            intent = new Intent(activity, AllClientsMemberProfileActivity.class);
-        } else {
-            intent = new Intent(activity, FamilyOtherMemberProfileActivity.class);
-        }
-
-        intent.putExtras(bundle != null ? bundle : new Bundle());
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-        intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, patient);
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
-        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
-        intent.putExtra(Constants.INTENT_KEY.VILLAGE_TOWN, patient.getDetails().get(OpdDbConstants.KEY.HOME_ADDRESS));
-        activity.startActivity(intent);
-    }
-
-    private static void gotToPncProfile(Activity activity, CommonPersonObjectClient patient, Bundle bundle) {
+    public static void gotToPncProfile(Activity activity, CommonPersonObjectClient patient, Bundle bundle) {
         patient.getColumnmaps().putAll(CoreChwApplication.pncRegisterRepository().getPncCommonPersonObject(patient.entityId()).getColumnmaps());
         activity.startActivity(initProfileActivityIntent(activity, patient, bundle, PncMemberProfileActivity.class));
     }
 
-    private static void goToAncProfile(Activity activity, CommonPersonObjectClient patient, Bundle bundle) {
+    public static void goToAncProfile(Activity activity, CommonPersonObjectClient patient, Bundle bundle) {
         patient.getColumnmaps().putAll(CoreChwApplication.ancRegisterRepository().getAncCommonPersonObject(patient.entityId()).getColumnmaps());
         activity.startActivity(initProfileActivityIntent(activity, patient, bundle, AncMemberProfileActivity.class));
     }
 
-    private static void gotToMalariaProfile(Activity activity, CommonPersonObjectClient patient) {
+    public static void gotToMalariaProfile(Activity activity, CommonPersonObjectClient patient) {
         MalariaProfileActivity.startMalariaActivity(activity, patient.getCaseId());
     }
 
-    private static void goToFamilyPlanningProfile(Activity activity, CommonPersonObjectClient patient) {
+    public static void goToFamilyPlanningProfile(Activity activity, CommonPersonObjectClient patient) {
         FamilyPlanningMemberProfileActivity.startFpMemberProfileActivity(activity, FpDao.getMember(patient.getCaseId()));
     }
 
@@ -109,7 +83,69 @@ public class AllClientsUtils {
         }
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, patient.entityId());
         intent.putExtra(CLIENT, patient);
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.TITLE_VIEW_TEXT, R.string.return_to_all_client);
+        passToolbarTitle(activity, intent);
         return intent;
+    }
+
+    public static void goToOtherMemberProfile(Activity activity, CommonPersonObjectClient patient,
+                                              Bundle bundle, String familyHead, String primaryCaregiver) {
+
+        if (StringUtils.isBlank(familyHead) && StringUtils.isBlank(primaryCaregiver)) {
+            showShortToast(activity, activity.getString(R.string.error_opening_profile));
+        } else {
+            String registerType = patient.getDetails().get(REGISTER_TYPE);
+            Intent intent;
+            if (CoreConstants.REGISTER_TYPE.INDEPENDENT.equals(registerType)) {
+                intent = new Intent(activity, AllClientsMemberProfileActivity.class);
+            } else {
+                intent = new Intent(activity, FamilyOtherMemberProfileActivity.class);
+            }
+            intent.putExtras(bundle != null ? bundle : new Bundle());
+            intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
+            intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, patient);
+            intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
+            intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
+            intent.putExtra(Constants.INTENT_KEY.VILLAGE_TOWN, patient.getDetails().get(OpdDbConstants.KEY.HOME_ADDRESS));
+            passToolbarTitle(activity, intent);
+            activity.startActivity(intent);
+        }
+    }
+
+    @NotNull
+    public static List<OpdEventClient> getOpdEventClients(String jsonString) {
+        List<OpdEventClient> allClientMemberEvents = new ArrayList<>();
+
+        FamilyEventClient locationDetailsEvent = JsonFormUtils.processFamilyUpdateForm(
+                Utils.context().allSharedPreferences(), jsonString);
+        if (locationDetailsEvent == null) {
+            return allClientMemberEvents;
+        }
+
+        FamilyEventClient clientDetailsEvent = JsonFormUtils.processFamilyHeadRegistrationForm(
+                Utils.context().allSharedPreferences(), jsonString, locationDetailsEvent.getClient().getBaseEntityId());
+        if (clientDetailsEvent == null) {
+            return allClientMemberEvents;
+        }
+
+        if (clientDetailsEvent.getClient() != null && locationDetailsEvent.getClient() != null) {
+            String headUniqueId = clientDetailsEvent.getClient().getIdentifier(Utils.metadata().uniqueIdentifierKey);
+            if (StringUtils.isNotBlank(headUniqueId)) {
+                String familyUniqueId = headUniqueId + Constants.IDENTIFIER.FAMILY_SUFFIX;
+                locationDetailsEvent.getClient().addIdentifier(Utils.metadata().uniqueIdentifierKey, familyUniqueId);
+            }
+        }
+
+        // Update the family head and primary caregiver
+        Client familyClient = locationDetailsEvent.getClient();
+        familyClient.addRelationship(Utils.metadata().familyRegister.familyHeadRelationKey, clientDetailsEvent.getClient().getBaseEntityId());
+        familyClient.addRelationship(Utils.metadata().familyRegister.familyCareGiverRelationKey, clientDetailsEvent.getClient().getBaseEntityId());
+
+        //Use different entity type for independent members
+        locationDetailsEvent.getEvent().setEntityType(CoreConstants.TABLE_NAME.INDEPENDENT_CLIENT);
+        clientDetailsEvent.getEvent().setEntityType(CoreConstants.TABLE_NAME.INDEPENDENT_CLIENT);
+
+        allClientMemberEvents.add(new OpdEventClient(locationDetailsEvent.getClient(), locationDetailsEvent.getEvent()));
+        allClientMemberEvents.add(new OpdEventClient(clientDetailsEvent.getClient(), clientDetailsEvent.getEvent()));
+        return allClientMemberEvents;
     }
 }

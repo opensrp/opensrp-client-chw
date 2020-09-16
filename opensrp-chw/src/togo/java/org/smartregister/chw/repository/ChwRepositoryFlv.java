@@ -28,7 +28,7 @@ import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.db.Column;
-import org.smartregister.domain.db.Event;
+import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
@@ -93,6 +93,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 15:
                     upgradeToVersion15(db);
+                    break;
+                case 16:
+                    upgradeToVersion16(db);
                     break;
                 default:
                     break;
@@ -379,6 +382,14 @@ public class ChwRepositoryFlv {
         try {
             // delete possible duplication
             db.execSQL(RepositoryUtils.ADD_MISSING_REPORTING_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion16(SQLiteDatabase db) {
+        try {
+           RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
         } catch (Exception e) {
             Timber.e(e);
         }

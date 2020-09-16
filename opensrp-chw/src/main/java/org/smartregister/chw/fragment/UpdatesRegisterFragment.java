@@ -2,17 +2,17 @@ package org.smartregister.chw.fragment;
 
 import android.view.View;
 
-import org.smartregister.chw.core.fragment.BaseReferralNotificationFragment;
+import org.smartregister.chw.core.fragment.BaseChwNotificationFragment;
 import org.smartregister.chw.presenter.UpdatesFragmentPresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Utils;
 
 import java.util.HashMap;
 
+import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.NOTIFICATION_ID;
 import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.NOTIFICATION_TYPE;
-import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.REFERRAL_TASK_ID;
 
-public class UpdatesRegisterFragment extends BaseReferralNotificationFragment {
+public class UpdatesRegisterFragment extends BaseChwNotificationFragment {
 
     @Override
     protected void startRegistration() {
@@ -38,8 +38,8 @@ public class UpdatesRegisterFragment extends BaseReferralNotificationFragment {
     protected void onViewClicked(View view) {
         CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
         String notificationType = Utils.getValue(client.getColumnmaps(), NOTIFICATION_TYPE, true);
-        String referralTaskId = Utils.getValue(client.getColumnmaps(), REFERRAL_TASK_ID, true);
-        getFragmentPresenter().displayDetailsActivity(referralTaskId, notificationType);
+        String notificationId = Utils.getValue(client.getColumnmaps(), NOTIFICATION_ID, false);
+        getFragmentPresenter().displayDetailsActivity(client, notificationId, notificationType);
     }
 
     @Override

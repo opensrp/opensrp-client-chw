@@ -6,6 +6,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
@@ -24,6 +25,8 @@ import org.smartregister.repository.EventClientRepository;
 import org.smartregister.util.DatabaseMigrationUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import timber.log.Timber;
@@ -76,6 +79,18 @@ public class ChwRepositoryFlv {
                     break;
                 case 16:
                     upgradeToVersion16(db);
+                    break;
+                case 17:
+                    upgradeToVersion17(db);
+                    break;
+                case 18:
+                    upgradeToVersion18(db);
+                    break;
+                case 19:
+                    upgradeToVersion19(db);
+                    break;
+                case 20:
+                    upgradeToVersion20(db);
                     break;
                 default:
                     break;
@@ -264,6 +279,48 @@ public class ChwRepositoryFlv {
             db.execSQL(RepositoryUtils.FAMILY_MEMBER_ADD_REASON_FOR_REGISTRATION);
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion17(SQLiteDatabase db) {
+        try {
+            RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
+            String addMissingColumnsQuery = "ALTER TABLE ec_family_member\n" +
+                    "    ADD COLUMN has_primary_caregiver VARCHAR;\n" +
+                    "ALTER TABLE ec_family_member\n" +
+                    "    ADD COLUMN primary_caregiver_name VARCHAR;";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion17 ");
+        }
+    }
+
+    private static void upgradeToVersion18(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_not_yet_done_referral", "ec_family_planning", "ec_sick_child_followup", "ec_malaria_followup_hf", "ec_pnc_danger_signs_outcome", "ec_anc_danger_signs_outcome", "ec_referral", "ec_family_planning_update")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion18");
+        }
+    }
+
+    private static void upgradeToVersion19(SQLiteDatabase db) {
+        try {
+            RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
+            String addMissingColumnsQuery = "ALTER TABLE ec_family_member\n" +
+                    " ADD COLUMN primary_caregiver_name VARCHAR;\n";
+            db.execSQL(addMissingColumnsQuery);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion19");
+        }
+    }
+
+    private static void upgradeToVersion20(SQLiteDatabase db) {
+        try {
+            db.execSQL(RepositoryUtils.EC_REFERRAL_ADD_FP_METHOD_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion20");
         }
     }
 }

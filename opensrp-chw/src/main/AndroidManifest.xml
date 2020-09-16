@@ -122,6 +122,9 @@
             android:name=".activity.ChildRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.UpcomingServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.ChildHomeVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -161,7 +164,6 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -185,10 +187,6 @@
             android:label="@string/anc_register"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.ReferralFollowupActivity"
-            android:label="@string/followup_referral"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
             android:name=".activity.ReferralRegistrationActivity"
             android:label="@string/issue_referral"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -209,7 +207,8 @@
             android:label="@string/stock_usage_report"
             android:theme="@style/ChwTheme.NoActionBar" />
 
-          <activity  android:name=".core.activity.CoreStockInventoryReportActivity"
+        <activity
+            android:name=".core.activity.CoreStockInventoryReportActivity"
             android:label="@string/stock_usage_report"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
