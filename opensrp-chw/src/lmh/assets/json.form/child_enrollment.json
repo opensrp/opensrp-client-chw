@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Add Child Under 5",
+    "title": "Eligible child",
     "fields": [
       {
         "key": "unique_id",
@@ -123,7 +123,7 @@
         "duration": {
           "label": "Age"
         },
-        "min_date": "today-5y",
+        "min_date": "today-11y",
         "max_date": "today",
         "v_required": {
           "value": "true",

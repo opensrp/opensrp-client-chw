@@ -33,6 +33,9 @@ public class ChwRepositoryFlv {
                 case 3:
                     upgradeToVersion3(db);
                     break;
+                case 4:
+                    upgradeToVersion4(db);
+                    break;
                 default:
                     break;
             }
@@ -93,6 +96,15 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion3(SQLiteDatabase db) {
         try {
             RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion3");
+        }
+    }
+
+    private static void upgradeToVersion4(SQLiteDatabase db) {
+        try {
+            EventClientRepository.createTable(db, EventClientRepository.Table.foreignEvent, EventClientRepository.event_column.values());
+            EventClientRepository.createTable(db, EventClientRepository.Table.foreignClient, EventClientRepository.client_column.values());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion3");
         }

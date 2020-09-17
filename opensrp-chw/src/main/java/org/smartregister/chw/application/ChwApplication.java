@@ -9,6 +9,7 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
+import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.greenrobot.eventbus.EventBus;
@@ -221,6 +222,11 @@ public class ChwApplication extends CoreChwApplication {
 
         // set up processor
         FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
+
+        // Set display date format for date pickers in native forms
+        Form form = new Form();
+        form.setDatePickerDisplayFormat("dd MMM yyyy");
+
         NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
         // ThinkMD library
         ThinkMDConfig thinkMDConfig = new ThinkMDConfig();
@@ -331,6 +337,11 @@ public class ChwApplication extends CoreChwApplication {
         return appExecutors;
     }
 
+    @Override
+    public boolean getChildFlavorUtil(){
+        return flavor.getChildFlavorUtil();
+    }
+
     public interface Flavor {
         boolean hasP2P();
 
@@ -372,6 +383,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasJobAidsDewormingGraph();
 
+        boolean hasChildrenMNPSupplementationGraph();
+
         boolean hasJobAidsBreastfeedingGraph();
 
         boolean hasJobAidsBirthCertificationGraph();
@@ -385,5 +398,18 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasFamilyLocationRow();
 
         boolean usesPregnancyRiskProfileLayout();
+
+        boolean splitUpcomingServicesView(); 
+        
+        boolean getChildFlavorUtil();
+
+        boolean showChildrenUnder5();
+
+        boolean hasForeignData();
+
+        boolean prioritizeChildNameOnChildRegister();
+
+        boolean dueVaccinesFilterInChildRegister();
     }
+
 }

@@ -96,6 +96,11 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean hasChildrenMNPSupplementationGraph() {
+        return true;
+    }
+
+    @Override
     public boolean hasJobAidsBreastfeedingGraph() {
         return true;
     }
@@ -110,12 +115,21 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
         return true;
     }
 
+    @Override
     public boolean showMyCommunityActivityReport() {
         return false;
     }
 
     @Override
+    public boolean showChildrenUnder5(){return true;}
+
+    @Override
     public boolean launchChildClientsAtLogin() {
+        return false;
+    }
+
+    @Override
+    public boolean hasForeignData() {
         return false;
     }
 
@@ -131,6 +145,26 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
 
     @Override
     public boolean usesPregnancyRiskProfileLayout() {
+        return false;
+    }
+
+    @Override
+    public boolean getChildFlavorUtil() {
+        return false;
+    }
+
+    @Override
+    public boolean prioritizeChildNameOnChildRegister() {
+        return false;
+    }
+
+    @Override
+    public boolean splitUpcomingServicesView() {
+        return false;
+    }
+
+    @Override
+    public boolean dueVaccinesFilterInChildRegister() {
         return false;
     }
 }

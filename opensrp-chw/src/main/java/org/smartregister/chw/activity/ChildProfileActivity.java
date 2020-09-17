@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
@@ -16,7 +18,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
-import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
@@ -32,7 +33,6 @@ import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
-import org.smartregister.family.util.JsonFormUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,6 +73,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         if (getIntent().hasExtra(context().getStringResource(R.string.fhir_bundle))) {
             presenter().createCarePlanEvent(getContext(), getIntent().getStringExtra(context().getStringResource(R.string.fhir_bundle)));
         }
+      //  setVaccineHistoryView(lastVisitDay);
     }
 
     @Override
@@ -95,7 +96,11 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         int i = view.getId();
         if (i == R.id.last_visit_row) {
             openMedicalHistoryScreen();
-        } else if (i == R.id.most_due_overdue_row) {
+        }
+        else if(i== R.id.vaccine_history){
+            openMedicalHistoryScreen();
+        }
+        else if (i == R.id.most_due_overdue_row) {
             openUpcomingServicePage();
         } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
             openVisitHomeScreen(false);
@@ -212,7 +217,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     private void openUpcomingServicePage() {
         MemberObject memberObject = new MemberObject(presenter().getChildClient());
         if (!ChwApplication.getApplicationFlavor().hasSurname()) memberObject.setLastName("");
-        CoreUpcomingServicesActivity.startMe(this, memberObject);
+        UpcomingServicesActivity.startMe(this, memberObject);
     }
 
     private void openVisitHomeScreen(boolean isEditMode) {
@@ -257,11 +262,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     }
 
     @Override
-    public void startFormActivity(JSONObject jsonForm) {
-        startActivityForResult(flavor.getSickChildFormActivityIntent(jsonForm, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
-    }
-
-    @Override
     public void onReceivedNotifications(List<Pair<String, String>> notifications) {
         handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
@@ -281,7 +281,17 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         super.setServiceNameUpcoming(serviceName, flavor.getFormattedDateForVisual(dueDate, YYYY_MM_DD));
     }
 
+    @Override
+    public void setLastVisitRowView(String days) {
+        lastVisitDay = days;
+        flavor.setLastVisitRowView(lastVisitDay,layoutLastVisitRow, viewLastVisitRow, textViewLastVisit, this);
+        flavor.setVaccineHistoryView(lastVisitDay,layoutVaccineHistoryRow, viewVaccineHistoryRow, this);
+
+    }
+
+
     public interface Flavor {
+
         OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
 
         boolean isChildOverTwoMonths(CommonPersonObjectClient client);
@@ -289,6 +299,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         Intent getSickChildFormActivityIntent(JSONObject jsonObject, Context context);
 
         String getFormattedDateForVisual(String dueDate, String inputFormat);
+
+        void setLastVisitRowView(String days, RelativeLayout layoutLastVisitRow, View viewLastVisitRow, TextView textViewLastVisit, Context context);
+
+        void setVaccineHistoryView(String days, RelativeLayout layoutVaccineHistoryRow, View viewVaccineHistoryRow, Context context);
 
     }
 }
