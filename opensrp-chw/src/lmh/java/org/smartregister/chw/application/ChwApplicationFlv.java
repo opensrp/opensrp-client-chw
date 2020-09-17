@@ -104,4 +104,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean prioritizeChildNameOnChildRegister() {
         return true;
     }
+
+    @Override
+    public boolean dueVaccinesFilterInChildRegister() {
+        return true;
+    }
 }
