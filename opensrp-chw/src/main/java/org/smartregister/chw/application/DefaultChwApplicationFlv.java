@@ -170,4 +170,8 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
         return false;
     }
 
+    @Override
+    public boolean dueVaccinesFilterInChildRegister() {
+        return false;
+    }
 }
