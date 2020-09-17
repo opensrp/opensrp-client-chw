@@ -1,8 +1,8 @@
 ---
 name: expiry
-description: expire dob greter then 5 yr
+description: expire dob greter then 11 yr
 priority: 1
-condition: "homeAlertRule.isExpiry(5)"
+condition: "homeAlertRule.isExpiry(11)"
 actions:
   - "homeAlertRule.buttonStatus = 'EXPIRY'"
 ---
