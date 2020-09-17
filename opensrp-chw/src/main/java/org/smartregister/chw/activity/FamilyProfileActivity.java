@@ -181,7 +181,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         return this;
     }
 
-    private Intent getMaleChildrenIntent(Integer yearOfBirth){
+    private Intent getMaleAndFemaleChildrenIntent(Integer yearOfBirth){
         if (yearOfBirth != null && yearOfBirth >= 5) {
             return new Intent(this, getAboveFiveChildProfileActivityClass());
         } else {
@@ -201,14 +201,14 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
         Integer yearOfBirth = CoreChildUtils.dobStringToYear(dobString);
         if(!ChwApplication.getApplicationFlavor().hasHpvVaccineChildren()){
-           return getMaleChildrenIntent(yearOfBirth);
+           return getMaleAndFemaleChildrenIntent(yearOfBirth);
         }
         else {
             if(ChildDao.getChildGender(patient.entityId()).equalsIgnoreCase("Female")){
              return getFemaleChildrenIntent(yearOfBirth);
             }
             else {
-                return getMaleChildrenIntent(yearOfBirth);
+                return getMaleAndFemaleChildrenIntent(yearOfBirth);
             }
         }
     }
