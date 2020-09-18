@@ -38,8 +38,6 @@ import static org.mockito.Mockito.when;
 
 public class ChildRegisterFragmentTest extends BaseUnitTest {
     @Mock
-    public RecyclerView clientsView;
-    @Mock
     private CommonRepository commonRepository;
     @Mock
     private Context context;
@@ -52,19 +50,8 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
     private ChildRegisterFragment fragment;
     @Mock
     private View view;
-    @Mock
-    private TextView textView;
 
     private FragmentActivity activity;
-
-    @Mock
-    private ChildRegisterActivity childRegisterActivity;
-
-    @Mock
-    private FragmentManager fragmentManager;
-
-    @Mock
-    private FragmentTransaction fragmentTransaction;
 
     @Before
     public void setUp() {
