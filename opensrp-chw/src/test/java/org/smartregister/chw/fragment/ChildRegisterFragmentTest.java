@@ -1,16 +1,12 @@
 package org.smartregister.chw.fragment;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +18,6 @@ import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BaseUnitTest;
-import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.core.presenter.CoreChildRegisterFragmentPresenter;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.FetchStatus;
