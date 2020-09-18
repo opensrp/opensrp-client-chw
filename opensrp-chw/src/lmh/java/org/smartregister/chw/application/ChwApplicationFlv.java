@@ -109,4 +109,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean hasHpvVaccineChildren() {
         return true;
     }
+
+        @Override
+    public boolean dueVaccinesFilterInChildRegister() {
+        return true;
+    }
 }
