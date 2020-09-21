@@ -92,6 +92,9 @@ public class ChwRepositoryFlv {
                 case 20:
                     upgradeToVersion20(db);
                     break;
+                case 21:
+                    upgradeToVersion21(db);
+                    break;
                 default:
                     break;
             }
@@ -321,6 +324,16 @@ public class ChwRepositoryFlv {
             db.execSQL(RepositoryUtils.EC_REFERRAL_ADD_FP_METHOD_COLUMN);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion20");
+        }
+    }
+
+    private static void upgradeToVersion21(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_hiv_register", "ec_hiv_community_followup", "ec_hiv_community_feedback", "ec_tb_register", "ec_tb_community_followup", "ec_tb_community_feedback", "ec_hiv_outcome", "ec_tb_outcome")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion21");
         }
     }
 }

@@ -160,7 +160,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Ward", "MOH Jhpiego Facility Name", "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '20'
+            buildConfigField "int", "DATABASE_VERSION", '21'
         }
         chad {
             dimension = 'baseDimension'
