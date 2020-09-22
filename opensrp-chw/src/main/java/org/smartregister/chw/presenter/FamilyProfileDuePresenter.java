@@ -18,7 +18,7 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
         String tableName = CoreConstants.TABLE_NAME.SCHEDULE_SERVICE;
 
         String selectCondition = " ( ec_family_member.relational_id = '" + this.familyBaseEntityId + "' or ec_family.base_entity_id = '" + this.familyBaseEntityId + "' ) AND "
-                + getDueQuery();
+                + getDueQuery() + getPNCChildQuery();
 
         String countSelect = model.countSelect(tableName, selectCondition);
         String mainSelect = model.mainSelect(tableName, selectCondition);
@@ -28,6 +28,12 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
 
         getView().countExecute();
         getView().filterandSortInInitializeQueries();
+    }
+
+    private String getPNCChildQuery() {
+        return "AND CASE WHEN ec_family_member.entity_type = 'ec_child' THEN ((date(ec_family_member.dob, '+28 days') <= date()) OR " +
+                "  ((date(ec_family_member.dob, '+28 days') >= date()) AND ifnull(ec_child.entry_point,'') <> 'PNC'))" +
+                " ELSE true END";
     }
 
     private String getDueQuery() {
