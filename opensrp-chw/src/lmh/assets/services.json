@@ -3,15 +3,6 @@
     "name": "Recurring Services",
     "id": "Recurring_Services",
     "services": [
-      {
-        "type": "Exclusive breastfeeding"
-      },
-      {
-        "type": "Deworming"
-      },
-      {
-        "type": "IPTp-SP"
-      }
     ]
   }
 ]
