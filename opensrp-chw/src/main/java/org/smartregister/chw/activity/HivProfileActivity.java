@@ -36,12 +36,12 @@ import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.tb.util.Constants;
-import org.smartregister.chw.util.UtilsFlv;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.annotations.Nullable;
 import timber.log.Timber;
 
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
@@ -52,6 +52,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+    private Flavor flavor = new HivProfileActivityFlv();
 
     public static void startHivProfileActivity(Activity activity, HivMemberObject memberObject) {
         Intent intent = new Intent(activity, HivProfileActivity.class);
@@ -251,7 +252,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.hiv_profile_menu, menu);
 
-        UtilsFlv.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
+        flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
         return true;
     }
 
@@ -271,6 +272,10 @@ public class HivProfileActivity extends CoreHivProfileActivity
         } catch (JSONException e) {
             Timber.e(e);
         }
+    }
+
+    public interface Flavor {
+        void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
     }
 }
 

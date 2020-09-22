@@ -36,12 +36,12 @@ import org.smartregister.chw.tb.activity.BaseTbRegistrationFormsActivity;
 import org.smartregister.chw.tb.domain.TbMemberObject;
 import org.smartregister.chw.tb.util.Constants;
 import org.smartregister.chw.tb.util.TbUtil;
-import org.smartregister.chw.util.UtilsFlv;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.annotations.Nullable;
 import timber.log.Timber;
 
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
@@ -52,6 +52,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+    private Flavor flavor = new TbProfileActivityFlv();
 
     public static void startTbProfileActivity(Activity activity, TbMemberObject memberObject) {
         Intent intent = new Intent(activity, TbProfileActivity.class);
@@ -259,7 +260,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.tb_profile_menu, menu);
-        UtilsFlv.updateHivMenuItems(getTbMemberObject().getBaseEntityId(), menu);
+        flavor.updateHivMenuItems(getTbMemberObject().getBaseEntityId(), menu);
         return true;
     }
 
@@ -279,6 +280,10 @@ public class TbProfileActivity extends CoreTbProfileActivity
         } catch (JSONException e) {
             Timber.e(e);
         }
+    }
+
+    public interface Flavor {
+        void updateHivMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
     }
 
 }

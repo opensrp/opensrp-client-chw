@@ -24,7 +24,6 @@ import org.smartregister.chw.presenter.AllClientsMemberPresenter;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
-import org.smartregister.chw.util.UtilsFlv;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
@@ -43,8 +42,8 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         menu.findItem(R.id.action_location_info).setVisible(true);
-        UtilsFlv.updateHivMenuItems(baseEntityId, menu);
-        UtilsFlv.updateTbMenuItems(baseEntityId, menu);
+        menu.findItem(R.id.action_hiv_registration).setVisible(true);
+        menu.findItem(R.id.action_tb_registration).setVisible(true);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
