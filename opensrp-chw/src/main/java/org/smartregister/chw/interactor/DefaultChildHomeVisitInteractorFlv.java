@@ -205,7 +205,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
     protected void evaluateChildVaccineCard() throws Exception {
         // expires after 24 months. verify that vaccine card is not received
-        if (!new LocalDate().isAfter(new LocalDate(dob).plusMonths(24)) && !vaccineCardReceived) {
+        if ((!new LocalDate().isAfter(new LocalDate(dob).plusMonths(24)) || !new LocalDate().isEqual(new LocalDate(dob).plusMonths(24))) && !vaccineCardReceived) {
             Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.CHILD_VACCINE_CARD_RECEIVED);
 
             BaseAncHomeVisitAction vaccine_card = getBuilder(context.getString(R.string.vaccine_card_title))
