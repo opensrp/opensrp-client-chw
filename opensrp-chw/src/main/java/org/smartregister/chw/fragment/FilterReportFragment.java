@@ -1,18 +1,17 @@
 package org.smartregister.chw.fragment;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import org.joda.time.DateTime;
@@ -22,13 +21,11 @@ import org.smartregister.chw.contract.FindReportContract;
 import org.smartregister.chw.interactor.FindReportInteractor;
 import org.smartregister.chw.model.FilterReportFragmentModel;
 import org.smartregister.chw.presenter.FilterReportFragmentPresenter;
-import org.smartregister.chw.util.Constants;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -44,11 +41,13 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     private Calendar myCalendar = Calendar.getInstance();
     private String titleName;
     private EditText editTextDate;
-    private Spinner spinnerCommunity;
     private ProgressBar progressBar;
 
     private List<String> communityList = new ArrayList<>();
     private LinkedHashMap<String, String> communityIDList = new LinkedHashMap<>();
+    private TextView selectedCommunitiesTV;
+    private boolean[] checkedCommunities = null;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,11 +78,11 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         progressBar.setVisibility(View.GONE);
 
         editTextDate = view.findViewById(R.id.editTextDate);
-        spinnerCommunity = view.findViewById(R.id.spinnerCommunity);
+        selectedCommunitiesTV = view.findViewById(R.id.selected_communities);
+        selectedCommunitiesTV.setOnClickListener(view -> showCommunitiesSelectDialog());
 
         communityList.add("All communities");
 
-        bindSpinner();
         bindDatePicker();
         updateLabel();
     }
@@ -92,28 +91,22 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     public void onLocationDataLoaded(Map<String, String> locationData) {
         communityIDList = new LinkedHashMap<>(locationData);
         communityList.addAll(communityIDList.values());
-        bindSpinner();
     }
 
     @Override
     public void runReport() {
-        Map<String, String> map = new HashMap<>();
+        if(checkedCommunities!=null && checkedCommunities.length>0){
+//        need to send list of selected communities
+            /*        Map<String, String> map = new HashMap<>();
         map.put(Constants.ReportParameters.COMMUNITY, spinnerCommunity.getSelectedItem().toString());
 
         String communityID = spinnerCommunity.getSelectedItemPosition() == 0 ? "" :
                 new ArrayList<>(communityIDList.keySet()).get(spinnerCommunity.getSelectedItemPosition() - 1);
         map.put(Constants.ReportParameters.COMMUNITY_ID, communityID);
         map.put(Constants.ReportParameters.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
-        presenter.runReport(map);
-    }
+        presenter.runReport(map);*/
+        }
 
-    private void bindSpinner() {
-        Context context = getContext();
-        if (context == null) return;
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, communityList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCommunity.setAdapter(adapter);
     }
 
     private void bindDatePicker() {
@@ -158,6 +151,34 @@ public class FilterReportFragment extends Fragment implements FindReportContract
             FragmentBaseActivity.startMe(getActivity(), EligibleChildrenReportFragment.TAG, getString(R.string.eligible_children), bundle);
         } else if (titleName.equalsIgnoreCase(getString(R.string.doses_needed))) {
             FragmentBaseActivity.startMe(getActivity(), VillageDoseReportFragment.TAG, getString(R.string.doses_needed), bundle);
+        }
+    }
+
+    private void showCommunitiesSelectDialog() {
+        if (getActivity() != null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(getActivity().getResources().getString(R.string.select_communities));
+            String[] itemsArray = new String[communityList.size()];
+            checkedCommunities = new boolean[communityList.size()];
+            builder.setMultiChoiceItems(communityList.toArray(itemsArray), null, (dialogInterface, i, b) -> {
+                checkedCommunities[i] = b;
+            });
+            builder.setPositiveButton("OK", (dialog, which) -> {
+                selectedCommunitiesTV.setText("Communities Selected\n");
+                for (int i = 0; i < checkedCommunities.length; i++) {
+                    boolean checked = checkedCommunities[i];
+                    if (checked) {
+                        selectedCommunitiesTV.setText(communityList.get(i) + "\n");
+                    }
+                }
+            });
+
+            builder.setNeutralButton("Cancel", (dialog, which) -> {
+                dialog.dismiss();
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
 }
