@@ -2,6 +2,7 @@ package org.smartregister.chw.application;
 
 import com.google.common.collect.ImmutableList;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.chw.BuildConfig;
@@ -27,7 +28,16 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-        return Utils.getSyncFilterValue();
+        String locationFilter = Utils.getSyncFilterValue();
+        if(StringUtils.isBlank(locationFilter)){
+            locationFilter = getUserLocation();
+        }
+        return locationFilter;
+    }
+
+    private String getUserLocation(){
+        String providerId = org.smartregister.Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+        return org.smartregister.Context.getInstance().allSharedPreferences().fetchUserLocalityId(providerId);
     }
 
     @Override
