@@ -432,6 +432,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasForeignData();
 
         boolean prioritizeChildNameOnChildRegister();
+
+        boolean dueVaccinesFilterInChildRegister();
     }
 
 }
