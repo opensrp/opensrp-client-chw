@@ -38,7 +38,9 @@ import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.VisitDao;
+import org.smartregister.chw.core.domain.Child;
 import org.smartregister.chw.core.interactor.CoreChildHomeVisitInteractor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
@@ -89,11 +91,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         context = view.getContext();
         this.memberObject = memberObject;
         editMode = view.getEditMode();
-        try {
-            this.dob = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(memberObject.getDob());
-        } catch (ParseException e) {
-            Timber.e(e);
-        }
+        this.dob = ChildDao.getChild(memberObject.getBaseEntityId()).getDateOfBirth();
         this.view = view;
         // get the preloaded data
         if (view.getEditMode()) {
@@ -205,20 +203,24 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
     protected void evaluateChildVaccineCard() throws Exception {
         // expires after 24 months. verify that vaccine card is not received
-        if ((!new LocalDate().isAfter(new LocalDate(dob).plusMonths(24)) || !new LocalDate().isEqual(new LocalDate(dob).plusMonths(24))) && !vaccineCardReceived) {
-            Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.CHILD_VACCINE_CARD_RECEIVED);
 
-            BaseAncHomeVisitAction vaccine_card = getBuilder(context.getString(R.string.vaccine_card_title))
-                    .withOptional(false)
-                    .withDetails(details)
-                    .withBaseEntityID(memberObject.getBaseEntityId())
-                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                    .withHelper(new ChildVaccineCardHelper(dob))
-                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getVaccineCard(), null, details, null))
-                    .build();
+        LocalDate endDate = new LocalDate(dob).plusMonths(24);
+        LocalDate today = new LocalDate();
+        if ((endDate.isBefore(today) || endDate.isEqual(today)) || vaccineCardReceived)
+            return;
 
-            actionList.put(context.getString(R.string.vaccine_card_title), vaccine_card);
-        }
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.CHILD_VACCINE_CARD_RECEIVED);
+
+        BaseAncHomeVisitAction vaccine_card = getBuilder(context.getString(R.string.vaccine_card_title))
+                .withOptional(false)
+                .withDetails(details)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                .withHelper(new ChildVaccineCardHelper(dob))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getVaccineCard(), null, details, null))
+                .build();
+
+        actionList.put(context.getString(R.string.vaccine_card_title), vaccine_card);
     }
 
     protected void evaluateImmunization() throws Exception {
@@ -509,7 +511,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.ECD);
         try {
             jsonObject = CoreJsonFormUtils.getEcdWithDatePass(jsonObject, memberObject.getDob());
-            JsonFormUtils.populateForm(jsonObject,details);
+            JsonFormUtils.populateForm(jsonObject, details);
         } catch (Exception e) {
             Timber.e(e);
         }
