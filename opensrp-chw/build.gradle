@@ -192,13 +192,11 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Ward", "MOH Jhpiego Facility Name", "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '16'
             // Kujaku variables
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
             buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", localProperties["mapbox.sdk.token"]
 
-            buildConfigField "int", "DATABASE_VERSION", '20'
-
+            buildConfigField "int", "DATABASE_VERSION", '21'
         }
         chad {
             dimension = 'baseDimension'
