@@ -53,12 +53,12 @@ public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements Fami
 
     @Override
     public void updateHivMenuItems(@Nullable String baseEntityId, @Nullable Menu menu) {
-//        TODO implement if wcaro would need malaria module
+//        TODO implement if wcaro would need hiv module
     }
 
     @Override
     public void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu) {
-//        TODO implement if wcaro would need malaria module
+//        TODO implement if wcaro would need tb module
     }
 
     @Override
