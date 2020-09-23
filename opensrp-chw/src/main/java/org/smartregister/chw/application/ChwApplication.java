@@ -186,7 +186,7 @@ public class ChwApplication extends CoreChwApplication {
     private void initializeLibraries() {
         //Initialize Modules
         P2POptions p2POptions = new P2POptions(true);
-        p2POptions.setAuthorizationService(new CoreAuthorizationService());
+        p2POptions.setAuthorizationService(new CoreAuthorizationService(flavor.checkP2PTeamId()));
         p2POptions.setRecalledIdentifier(new FailSafeRecalledID());
 
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
@@ -344,6 +344,8 @@ public class ChwApplication extends CoreChwApplication {
     }
 
     public interface Flavor {
+        boolean checkP2PTeamId();
+
         boolean hasCustomDate();
 
         boolean hasP2P();
@@ -411,6 +413,10 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasForeignData();
 
         boolean prioritizeChildNameOnChildRegister();
+
+        boolean hasHpvVaccineChildren();
+
+        boolean dueVaccinesFilterInChildRegister();
     }
 
 }

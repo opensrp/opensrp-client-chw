@@ -32,7 +32,6 @@ import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
-import org.smartregister.family.util.JsonFormUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -269,10 +268,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
     }
 
-   /*  private void setVaccineHistoryView(String days){
-         lastVisitDay = days;
-         flavor.setVaccineHistoryView(lastVisitDay,layoutVaccineHistoryRow, viewVaccineHistoryRow, this);
-     }*/
 
     public interface Flavor {
 

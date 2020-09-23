@@ -17,7 +17,6 @@ import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +37,6 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
 
         dueTodayRV = findViewById(R.id.today_services_recyclerView);
         todayServicesTV = findViewById(R.id.today_services);
-        dueTodayRV.setHasFixedSize(false);
     }
 
     @Override
@@ -67,10 +65,10 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
     }
 
     protected List<BaseUpcomingService> filterDueTodayServices(List<BaseUpcomingService> serviceList) {
-        Date date = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
+        Date date = new Date();
         List<BaseUpcomingService> dueNowServiceList = new ArrayList<>();
         for (BaseUpcomingService service : serviceList) {
-            if (service.getServiceDate() != null && service.getServiceDate().equals(date)) {
+            if (service.getServiceDate() != null && DateUtils.isSameDay(date, service.getServiceDate())) {
                 dueNowServiceList.add(service);
             }
         }
