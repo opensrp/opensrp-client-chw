@@ -25,11 +25,11 @@ public class FamilyProfileDuePresenterTest {
     @Spy
     private FamilyProfileDueContract.Model model;
 
-    String viewConfigurationIdentifier = "viewConfigurationIdentifier";
-    String familyBaseEntityId = "familyBaseEntityId";
+    private String familyBaseEntityId = "familyBaseEntityId";
 
     @Before
     public void setUp() {
+        String viewConfigurationIdentifier = "viewConfigurationIdentifier";
         presenter = new FamilyProfileDuePresenter(view, model, viewConfigurationIdentifier, familyBaseEntityId);
     }
 
