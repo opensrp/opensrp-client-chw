@@ -131,7 +131,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="https://thinkmd-v4-app-b-ona.herokuapp.com"
+                    android:host="thinkmd-v4-app-b-ona.herokuapp.com"
                     android:path="/smartregister.org"
                     android:scheme="https" />
             </intent-filter>

@@ -189,10 +189,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         menu.findItem(R.id.action_thinkmd_health_assessment).setVisible(ChwApplication.getApplicationFlavor().useThinkMd()
                 && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()));
         if (ChwApplication.getApplicationFlavor().useThinkMd()
-                && ChildDao.isThinkmdCarePlanExist(childBaseEntityId)) {
+                && ChildDao.isThinkMDCarePlanExist(childBaseEntityId)) {
             menu.findItem(R.id.action_thinkmd_careplan).setVisible(true);
             menu.findItem(R.id.action_thinkmd_careplan).setTitle(
-                    String.format(getResources().getString(R.string.thinkmd_careplan), ChildDao.queryColumnWithEntityId(childBaseEntityId, CARE_PLAN_DATE))
+                    String.format(getResources().getString(R.string.thinkmd_careplan), ChildDao.getThinkMDCarePlan(childBaseEntityId, CARE_PLAN_DATE))
             );
         }
         return true;

@@ -127,20 +127,6 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
     }
 
 
-    public static void updateToolbarTitle(Activity activity, int toolbarTextViewId) {
-        int titleResource = -1;
-        if (activity.getIntent().getExtras() != null)
-            titleResource = activity.getIntent().getExtras().getInt(CoreConstants.INTENT_KEY.TOOLBAR_TITLE, -1);
-        if (titleResource != -1) {
-            TextView toolbarTitleTextView = activity.findViewById(toolbarTextViewId);
-            if (titleResource == org.smartregister.chw.core.R.string.return_to_family_members) {
-                toolbarTitleTextView.setText(activity.getString(org.smartregister.chw.core.R.string.return_to_family_members));
-            } else {
-                toolbarTitleTextView.setText(titleResource);
-            }
-        }
-    }
-
     public static String getDisplayLanguage(Context context) {
         Locale locale = context.getResources().getConfiguration().locale;
         return locale.getDisplayLanguage();
