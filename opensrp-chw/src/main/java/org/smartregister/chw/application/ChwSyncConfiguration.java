@@ -7,10 +7,12 @@ import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.LoginActivity;
-import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.view.activity.BaseLoginActivity;
 
 import java.util.List;
+
+import static org.smartregister.util.Utils.isEmptyCollection;
 
 /**
  * Created by samuelgithengi on 10/19/18.
@@ -28,16 +30,15 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-        String locationFilter = Utils.getSyncFilterValue();
-        if(StringUtils.isBlank(locationFilter)){
-            locationFilter = getUserLocation();
-        }
-        return locationFilter;
-    }
-
-    private String getUserLocation(){
         String providerId = org.smartregister.Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        return org.smartregister.Context.getInstance().allSharedPreferences().fetchUserLocalityId(providerId);
+        String userLocationId = org.smartregister.Context.getInstance().allSharedPreferences().fetchUserLocalityId(providerId);
+        List<String> locationIds = LocationHelper.getInstance().locationsFromHierarchy(true, null);
+        if (!isEmptyCollection(locationIds)) {
+            int index = locationIds.indexOf(userLocationId);
+            List<String> subLocationIds = locationIds.subList(index, locationIds.size());
+            return StringUtils.join(subLocationIds, ",");
+        }
+        return userLocationId;
     }
 
     @Override
