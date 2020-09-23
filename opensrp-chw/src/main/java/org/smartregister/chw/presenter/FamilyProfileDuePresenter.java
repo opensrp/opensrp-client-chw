@@ -30,11 +30,11 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
         getView().filterandSortInInitializeQueries();
     }
 
-    private String getPNCChildQuery() {
+    protected String getPNCChildQuery() {
         return "AND CASE WHEN ec_family_member.entity_type = 'ec_child' THEN ((date(ec_family_member.dob, '+28 days') <= date()) OR ((date(ec_family_member.dob, '+28 days') >= date()) AND ifnull(ec_child.entry_point,'') <> 'PNC')) ELSE true END";
     }
 
-    private String getDueQuery() {
+    protected String getDueQuery() {
         return " (ifnull(schedule_service.completion_date,'') = '' and schedule_service.expiry_date >= strftime('%Y-%m-%d') and schedule_service.due_date <= strftime('%Y-%m-%d') and ifnull(schedule_service.not_done_date,'') = '' ) ";
     }
 
