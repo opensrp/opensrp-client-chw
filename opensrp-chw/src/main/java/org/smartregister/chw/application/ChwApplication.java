@@ -75,6 +75,7 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
+import org.smartregister.util.LangUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -153,20 +154,21 @@ public class ChwApplication extends CoreChwApplication {
 
         setOpenSRPUrl();
 
-        Configuration configuration = getApplicationContext().getResources().getConfiguration();
         String language = getInstance().getContext().allSharedPreferences().fetchLanguagePreference();
-        if(StringUtils.isBlank(language)){
+
+        if (StringUtils.isBlank(language)) {
+            Configuration configuration = getApplicationContext().getResources().getConfiguration();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 language = configuration.getLocales().get(0).getLanguage();
             } else {
                 language = configuration.locale.getLanguage();
             }
-
-            if (language.equals(Locale.FRENCH.getLanguage())) {
-                saveLanguage(Locale.FRENCH.getLanguage());
-            }
         }
 
+        if (language.equals(Locale.FRENCH.getLanguage())) {
+            saveLanguage(Locale.FRENCH.getLanguage());
+            LangUtils.saveLanguage(getApplicationContext(), Locale.FRENCH.getLanguage());
+        }
 
 
         // create a folder for guidebooks
