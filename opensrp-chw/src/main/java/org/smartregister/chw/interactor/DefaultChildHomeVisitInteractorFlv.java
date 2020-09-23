@@ -40,7 +40,6 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.VisitDao;
-import org.smartregister.chw.core.domain.Child;
 import org.smartregister.chw.core.interactor.CoreChildHomeVisitInteractor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
@@ -61,7 +60,6 @@ import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.util.FormUtils;
 
 import java.text.MessageFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -91,7 +89,11 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         context = view.getContext();
         this.memberObject = memberObject;
         editMode = view.getEditMode();
-        this.dob = ChildDao.getChild(memberObject.getBaseEntityId()).getDateOfBirth();
+        try {
+            this.dob = ChildDao.getChild(memberObject.getBaseEntityId()).getDateOfBirth();
+        } catch (Exception e) {
+            Timber.e(e);
+        }
         this.view = view;
         // get the preloaded data
         if (view.getEditMode()) {

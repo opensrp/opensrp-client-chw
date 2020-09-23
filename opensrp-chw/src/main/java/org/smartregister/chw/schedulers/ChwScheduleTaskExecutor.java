@@ -47,7 +47,8 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
             if (ChwApplication.getApplicationFlavor().hasPNC())
                 initializePNCClassifier(scheduleServiceMap);
 
-            initializeMalariaClassifier(scheduleServiceMap);
+            if (ChwApplication.getApplicationFlavor().hasMalaria())
+                initializeMalariaClassifier(scheduleServiceMap);
 
             if (ChwApplication.getApplicationFlavor().hasWashCheck())
                 initializeWashClassifier(scheduleServiceMap);
