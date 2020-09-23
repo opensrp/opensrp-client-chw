@@ -3,18 +3,22 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAboveFiveChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
+import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.ChildDao;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
@@ -23,12 +27,18 @@ import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
+
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.family.util.DBConstants.KEY.LAST_NAME;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private BaseFamilyProfileDueFragment profileDueFragment;
@@ -170,4 +180,52 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     public Context getApplicationContext() {
         return this;
     }
+
+    private Intent getMaleAndFemaleChildrenIntent(Integer yearOfBirth){
+        if (yearOfBirth != null && yearOfBirth >= 5) {
+            return new Intent(this, getAboveFiveChildProfileActivityClass());
+        } else {
+            return new Intent(this, getChildProfileActivityClass());
+        }
+    }
+
+    private Intent getFemaleChildrenIntent(Integer yearOfBirth){
+        if (yearOfBirth != null && ((yearOfBirth >= 5 && yearOfBirth < 9) || (yearOfBirth >= 11))) {
+            return new Intent(this, getAboveFiveChildProfileActivityClass());
+        } else {
+            return new Intent(this, getChildProfileActivityClass());
+        }
+    }
+
+    private Intent getChildIntent(CommonPersonObjectClient patient){
+        String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
+        Integer yearOfBirth = CoreChildUtils.dobStringToYear(dobString);
+        if(!ChwApplication.getApplicationFlavor().hasHpvVaccineChildren()){
+           return getMaleAndFemaleChildrenIntent(yearOfBirth);
+        }
+        else {
+            if(ChildDao.getChildGender(patient.entityId()).equalsIgnoreCase("Female")){
+             return getFemaleChildrenIntent(yearOfBirth);
+            }
+            else {
+                return getMaleAndFemaleChildrenIntent(yearOfBirth);
+            }
+        }
+    }
+
+    @Override
+    public void goToChildProfileActivity(CommonPersonObjectClient patient, Bundle bundle) {
+       Intent intent = getChildIntent(patient);
+
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        MemberObject memberObject = new MemberObject(patient);
+        memberObject.setFamilyName(Utils.getValue(patient.getColumnmaps(), LAST_NAME, false));
+        passToolbarTitle(this, intent);
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject );
+        startActivity(intent);
+    }
+
 }

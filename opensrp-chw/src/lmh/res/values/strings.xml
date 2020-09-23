@@ -2,4 +2,16 @@
     <string name="app_name" translatable="false">MOH VTS</string>
     <string name="login_title" translatable="false">MOH VTS</string>
     <string name="nav_logo" translatable="false">MOH VTS</string>
+
+    <string name="opv_0">Polio (OPV 0)</string>
+    <string name="opv_1">Polio (OPV 1)</string>
+    <string name="opv_2">Polio (OPV 2)</string>
+    <string name="opv_3">Polio (OPV 3)</string>
+    <string name="bcg">BCG (Anti-TB)</string>
+    <string name="pcv_1">Pneumo (PCV 1)</string>
+    <string name="pcv_2">Pneumo (PCV 2)</string>
+    <string name="pcv_3">Pneumo (PCV 3)</string>
+    <string name="ipv">Polio (IPV)</string>
+    <string name="mcv_1">Measles (MCV 1)</string>
+    <string name="mcv_2">Measles (MCV 2)</string>
 </resources>
