@@ -12,6 +12,7 @@ import com.evernote.android.job.JobManager;
 import com.vijay.jsonwizard.NativeFormLibrary;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -153,16 +154,20 @@ public class ChwApplication extends CoreChwApplication {
         setOpenSRPUrl();
 
         Configuration configuration = getApplicationContext().getResources().getConfiguration();
-        String language;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            language = configuration.getLocales().get(0).getLanguage();
-        } else {
-            language = configuration.locale.getLanguage();
+        String language = getInstance().getContext().allSharedPreferences().fetchLanguagePreference();
+        if(StringUtils.isBlank(language)){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                language = configuration.getLocales().get(0).getLanguage();
+            } else {
+                language = configuration.locale.getLanguage();
+            }
+
+            if (language.equals(Locale.FRENCH.getLanguage())) {
+                saveLanguage(Locale.FRENCH.getLanguage());
+            }
         }
 
-        if (language.equals(Locale.FRENCH.getLanguage())) {
-            saveLanguage(Locale.FRENCH.getLanguage());
-        }
+
 
         // create a folder for guidebooks
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
