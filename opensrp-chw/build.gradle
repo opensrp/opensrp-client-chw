@@ -211,14 +211,14 @@ android {
             applicationIdSuffix ".drc"
             versionCode 1
             versionName "0.0.7"
-            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-cd.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/default/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "Village 1"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "Village 1"}'
-            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village 1"'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"Village 1"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-cd-preview.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante","VILLAGE/COMMUNAUTE"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante","VILLAGE/COMMUNAUTE"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante","VILLAGE/COMMUNAUTE"}'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"VILLAGE/COMMUNAUTE"'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"VILLAGE/COMMUNAUTE"'
             buildConfigField "int", "DATABASE_VERSION", '3'
         }
         guinea {
@@ -295,7 +295,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.4.10-alpha9-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.4.10-alpha10-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
