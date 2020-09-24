@@ -110,8 +110,13 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return true;
     }
 
-        @Override
+    @Override
     public boolean dueVaccinesFilterInChildRegister() {
         return true;
+    }
+
+    @Override
+    public boolean showAllChildServicesDueIncludingCurrentChild(){
+        return false;
     }
 }

@@ -127,7 +127,6 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
         }
         updateUpcomingServices(callback, context);
         updateFamilyDueStatus(context, familyId, baseEntityId, callback);
-
     }
 
     @Override

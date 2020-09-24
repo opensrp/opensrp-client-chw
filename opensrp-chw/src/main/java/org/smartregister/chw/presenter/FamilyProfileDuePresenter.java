@@ -1,5 +1,6 @@
 package org.smartregister.chw.presenter;
 
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.WashCheckModel;
 import org.smartregister.family.contract.FamilyProfileDueContract;
@@ -7,18 +8,20 @@ import org.smartregister.family.presenter.BaseFamilyProfileDuePresenter;
 
 public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
     private WashCheckModel washCheckModel;
+    private String childBaseEntityId;
 
-    public FamilyProfileDuePresenter(FamilyProfileDueContract.View view, FamilyProfileDueContract.Model model, String viewConfigurationIdentifier, String familyBaseEntityId) {
+    public FamilyProfileDuePresenter(FamilyProfileDueContract.View view, FamilyProfileDueContract.Model model, String viewConfigurationIdentifier, String familyBaseEntityId, String childBaseEntityId) {
         super(view, model, viewConfigurationIdentifier, familyBaseEntityId);
         washCheckModel = new WashCheckModel(familyBaseEntityId);
+        this.childBaseEntityId = childBaseEntityId;
     }
 
     @Override
     public void initializeQueries(String mainCondition) {
         String tableName = CoreConstants.TABLE_NAME.SCHEDULE_SERVICE;
 
-        String selectCondition = " ( ec_family_member.relational_id = '" + this.familyBaseEntityId + "' or ec_family.base_entity_id = '" + this.familyBaseEntityId + "' ) AND "
-                + getDueQuery();
+        String selectCondition = getSelectCondition();
+
 
         String countSelect = model.countSelect(tableName, selectCondition);
         String mainSelect = model.mainSelect(tableName, selectCondition);
@@ -30,8 +33,24 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
         getView().filterandSortInInitializeQueries();
     }
 
-    private String getDueQuery() {
+    private String getDefaultChildDueQuery() {
         return " (ifnull(schedule_service.completion_date,'') = '' and schedule_service.expiry_date >= strftime('%Y-%m-%d') and schedule_service.due_date <= strftime('%Y-%m-%d') and ifnull(schedule_service.not_done_date,'') = '' ) ";
+    }
+
+    private String getOtherChildDueQuery() {
+        return " (ifnull(schedule_service.completion_date,'') = '' and schedule_service.expiry_date >= strftime('%Y-%m-%d') and schedule_service.due_date <= strftime('%Y-%m-%d') and ifnull(schedule_service.not_done_date,'') = '' ) AND ec_family_member.base_entity_id <> '" + this.childBaseEntityId + "'";
+    }
+
+    private String getSelectCondition(){
+        if(ChwApplication.getApplicationFlavor().showAllChildServicesDueIncludingCurrentChild()){
+          return " ( ec_family_member.relational_id = '" + this.familyBaseEntityId + "' or ec_family.base_entity_id = '" + this.familyBaseEntityId + "' ) AND "
+                  + getDefaultChildDueQuery();
+        }
+
+        else {
+            return " ( ec_family_member.relational_id = '" + this.familyBaseEntityId + "' or ec_family.base_entity_id = '" + this.familyBaseEntityId + "' ) AND "
+                    + getOtherChildDueQuery();
+        }
     }
 
     public boolean saveData(String jsonObject) {

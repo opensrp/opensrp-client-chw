@@ -39,6 +39,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     private int dueCount = 0;
     private View emptyView;
     private String familyBaseEntityId;
+    private String childBaseEntityId;
 
     public static BaseFamilyProfileDueFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -53,7 +54,8 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     @Override
     protected void initializePresenter() {
         familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        presenter = new FamilyProfileDuePresenter(this, new FamilyProfileDueModel(), null, familyBaseEntityId);
+        childBaseEntityId = getArguments().getString(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        presenter = new FamilyProfileDuePresenter(this, new FamilyProfileDueModel(), null, familyBaseEntityId, childBaseEntityId);
     }
 
     @Override
