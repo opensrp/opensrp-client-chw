@@ -12,6 +12,16 @@ buildscript {
     }
 }
 
+allprojects {
+    repositories {
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url "http://dl.bintray.com/ona/kujaku" }
+        maven { url 'https://maven.fabric.io/public' }
+        mavenLocal()
+    }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
@@ -266,7 +276,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.4.11-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.5.3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -276,12 +286,12 @@ dependencies {
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
     //Do not upgrade to 1.1.0 due to compatibility issues
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //Do not upgrade to 1.1.0 due to compatibility issues
-    implementation 'androidx.recyclerview:recyclerview:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'com.android.support:multidex:1.0.3'
     //Do not upgrade to 24.jre-1 due to compatibility issues
     implementation 'com.google.guava:guava:20.0'

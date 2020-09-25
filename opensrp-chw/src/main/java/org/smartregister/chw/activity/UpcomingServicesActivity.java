@@ -6,7 +6,7 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.apache.commons.lang3.time.DateUtils;
+import org.joda.time.LocalDate;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.adapter.BaseUpcomingServiceAdapter;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -54,7 +54,7 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
         if (!dueNowServiceList.isEmpty()) {
             updateUi();
             serviceList.removeAll(dueNowServiceList);
-            RecyclerView.Adapter dueTodayAdapter = new BaseUpcomingServiceAdapter(this, dueNowServiceList);
+            RecyclerView.Adapter<?> dueTodayAdapter = new BaseUpcomingServiceAdapter(this, dueNowServiceList);
             dueTodayRV.setAdapter(dueTodayAdapter);
         }
     }
@@ -65,10 +65,10 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
     }
 
     protected List<BaseUpcomingService> filterDueTodayServices(List<BaseUpcomingService> serviceList) {
-        Date date = new Date();
         List<BaseUpcomingService> dueNowServiceList = new ArrayList<>();
         for (BaseUpcomingService service : serviceList) {
-            if (service.getServiceDate() != null && DateUtils.isSameDay(date, service.getServiceDate())) {
+            if (service.getServiceDate() != null && (service.getExpiryDate() == null || new LocalDate(service.getExpiryDate()).isAfter(new LocalDate()))
+            ) {
                 dueNowServiceList.add(service);
             }
         }
