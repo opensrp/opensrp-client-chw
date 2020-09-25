@@ -31,7 +31,6 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.ona.kujaku.listeners.OnFeatureClickListener;
 import io.ona.kujaku.utils.CoordinateUtils;
 import io.ona.kujaku.views.KujakuMapView;
 import timber.log.Timber;
@@ -77,19 +76,10 @@ public class AncMemberMapActivity extends AppCompatActivity {
     }
 
     private void addCommunityTransporterClickListener(@NonNull KujakuMapView kujakuMapView) {
-        kujakuMapView.setOnFeatureClickListener(new OnFeatureClickListener() {
-            @Override
-            public void onFeatureClick(List<Feature> features) {
-                // We only pick the first one
-                Feature feature = features.get(0);
-
-                Number recyclerViewPosition = feature.getNumberProperty(RECYCLER_VIEW_POSITION_PROPERTY);
-                if (recyclerViewPosition != null) {
-                    // To be implemented
-                }
-
-                featureClicked(feature);
-            }
+        kujakuMapView.setOnFeatureClickListener(features -> {
+            // We only pick the first one
+            Feature feature = features.get(0);
+            featureClicked(feature);
         }, "community-transporters");
     }
 
