@@ -24,38 +24,6 @@ jacoco {
     toolVersion = "0.8.5"
 }
 
-// LOAD PROPERTIES FILE
-Properties localProperties = new Properties()
-String[] propertyKeys = ["mapbox.sdk.token"]
-if (project.rootProject.file("local.properties").exists()) {
-    localProperties.load(project.rootProject.file("local.properties").newDataInputStream())
-    if (localProperties != null) {
-        boolean containsAllKeys = true
-        for (String propertyKey : propertyKeys) {
-            if (!localProperties.containsKey(propertyKey)) {
-                containsAllKeys = false;
-                break
-            }
-        }
-        if (!containsAllKeys) {
-            println(("One of the required config variables is not set in your local.properties. Make sure you have " + propertyKeys.join(", ")))
-        }
-    } else {
-        println("Properties was null!! The file does not exist or contains nothing")
-    }
-} else {
-    println("local.properties does not exist")
-}
-if (localProperties == null) {
-    localProperties = new Properties();
-}
-for (String propertyKey : propertyKeys) {
-    if (!localProperties.containsKey(propertyKey)) {
-        localProperties.put(propertyKey, "\"\"")
-    }
-}
-
-
 android {
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
@@ -89,6 +57,22 @@ android {
             annotationProcessorOptions {
                 includeCompileClasspath = true
             }
+        }
+
+        if (project.rootProject.file("local.properties").exists()) {
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file("local.properties").newDataInputStream())
+            if (properties != null &&
+                    properties.containsKey("mapbox.sdk.token")) {
+                buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", properties["mapbox.sdk.token"]
+            } else {
+                println("Mapbox key config variables is not set in your local.properties")
+                buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", "\"sample_key\""
+            }
+
+        } else {
+            println("local.properties does not exist")
+            buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", "\"sample_key\""
         }
     }
 
@@ -194,7 +178,6 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             // Kujaku variables
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
-            buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", localProperties["mapbox.sdk.token"]
 
             buildConfigField "int", "DATABASE_VERSION", '21'
         }
