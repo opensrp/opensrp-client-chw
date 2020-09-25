@@ -9,6 +9,7 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
+import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -83,8 +84,6 @@ import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
-
-import com.mapbox.mapboxsdk.Mapbox;
 
 public class ChwApplication extends CoreChwApplication {
 
@@ -176,6 +175,8 @@ public class ChwApplication extends CoreChwApplication {
         }
 
         EventBus.getDefault().register(this);
+
+        Mapbox.getInstance(this, BuildConfig.MAPBOX_SDK_ACCESS_TOKEN);
     }
 
     private void initializeLibraries() {

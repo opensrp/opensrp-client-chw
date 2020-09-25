@@ -54,7 +54,7 @@ public class AncMemberMapActivity extends AppCompatActivity {
         kujakuMapView.showCurrentLocationBtn(true);
         kujakuMapView.setDisableMyLocationOnMapMove(true);
 
-        userLocation = extractUserLocation(savedInstanceState);
+        userLocation = extractUserLocation();
 
         kujakuMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -101,11 +101,11 @@ public class AncMemberMapActivity extends AppCompatActivity {
     }
 
     private void scrollToCardAtPosition(int itemPosition) {
-
+        // To be implemented
     }
 
     @Nullable
-    private LatLng extractUserLocation(Bundle savedInstanceState) {
+    private LatLng extractUserLocation() {
         double latitude = Double.parseDouble("-1.9885");
         double longitude = Double.parseDouble("33.7799");
         return new LatLng(latitude, longitude);
@@ -127,27 +127,25 @@ public class AncMemberMapActivity extends AppCompatActivity {
             mapboxMap.addMarker(markerOptions);
         }
 
-        if (boundingBox != null) {
-            if (!CoordinateUtils.isLocationInBounds(userLocation, boundingBox.north(), boundingBox.south(), boundingBox.east(), boundingBox.west())) {
-                double north = boundingBox.north();
-                double south = boundingBox.south();
-                double east = boundingBox.east();
-                double west = boundingBox.west();
+        if (boundingBox != null && !CoordinateUtils.isLocationInBounds(userLocation, boundingBox.north(), boundingBox.south(), boundingBox.east(), boundingBox.west())) {
+            double north = boundingBox.north();
+            double south = boundingBox.south();
+            double east = boundingBox.east();
+            double west = boundingBox.west();
 
-                if (userLocation.getLatitude() > north) {
-                    north = userLocation.getLatitude();
-                } else if (userLocation.getLatitude() < south) {
-                    south = userLocation.getLatitude();
-                }
-
-                if (userLocation.getLongitude() > east) {
-                    east = userLocation.getLongitude();
-                } else if (userLocation.getLongitude() < west) {
-                    west = userLocation.getLongitude();
-                }
-
-                mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds.from(north, east, south, west), BOUNDING_BOX_PADDING));
+            if (userLocation.getLatitude() > north) {
+                north = userLocation.getLatitude();
+            } else if (userLocation.getLatitude() < south) {
+                south = userLocation.getLatitude();
             }
+
+            if (userLocation.getLongitude() > east) {
+                east = userLocation.getLongitude();
+            } else if (userLocation.getLongitude() < west) {
+                west = userLocation.getLongitude();
+            }
+
+            mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds.from(north, east, south, west), BOUNDING_BOX_PADDING));
         }
     }
 
