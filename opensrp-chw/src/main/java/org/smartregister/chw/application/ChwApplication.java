@@ -83,6 +83,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
+import io.ona.kujaku.KujakuLibrary;
 import timber.log.Timber;
 
 public class ChwApplication extends CoreChwApplication {
@@ -176,7 +177,9 @@ public class ChwApplication extends CoreChwApplication {
 
         EventBus.getDefault().register(this);
 
+        // Init Kujaku
         Mapbox.getInstance(this, BuildConfig.MAPBOX_SDK_ACCESS_TOKEN);
+        KujakuLibrary.init(getApplicationContext());
     }
 
     private void initializeLibraries() {
