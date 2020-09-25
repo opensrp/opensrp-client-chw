@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.domain.VisitSummary;
 import org.smartregister.chw.core.enums.ImmunizationState;
@@ -11,6 +12,7 @@ import org.smartregister.chw.core.interactor.CoreFamilyInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.ChwAlertDao;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
@@ -24,10 +26,19 @@ import io.reactivex.Observable;
 
 public class FamilyInteractor extends CoreFamilyInteractor {
 
+    private AlertStatus getChildAlert(String familyId, String childId){
+        if(ChwApplication.getApplicationFlavor().showAllChildServicesDueIncludingCurrentChild()){
+          return FamilyDao.getFamilyAlertStatus(familyId);
+        }
+        else {
+           return   ChwAlertDao.getFamilyAlertStatus(familyId, childId);
+        }
+    }
+
     @Override
     public Observable<String> updateFamilyDueStatus(final Context context, final String childId, final String familyId) {
         return Observable.create(e -> {
-            AlertStatus alertStatus = FamilyDao.getFamilyAlertStatus(familyId);
+            AlertStatus alertStatus = getChildAlert(familyId, childId);
             switch (alertStatus) {
                 case normal:
                     e.onNext(CoreConstants.FamilyServiceType.DUE.name());

@@ -53,7 +53,8 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     @Override
     protected void initializePresenter() {
         familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        presenter = new FamilyProfileDuePresenter(this, new FamilyProfileDueModel(), null, familyBaseEntityId);
+        String childBaseEntityId = getArguments().getString(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        presenter = new FamilyProfileDuePresenter(this, new FamilyProfileDueModel(), null, familyBaseEntityId, childBaseEntityId);
     }
 
     @Override
