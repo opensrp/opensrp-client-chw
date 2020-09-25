@@ -100,7 +100,7 @@ public class AncMemberMapActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void scrollToCardAtPosition(int itemPosition) {
+    private void scrollToCardAtPosition() {
         // To be implemented
     }
 
@@ -192,7 +192,7 @@ public class AncMemberMapActivity extends AppCompatActivity {
         return featureList;
     }
 
-    private com.mapbox.geojson.Feature getFeature(CommunityResponderModel communityResponderModel) throws JSONException {
+    private Feature getFeature(CommunityResponderModel communityResponderModel) throws JSONException {
         String[] latLong = communityResponderModel.getResponderLocation().split(" ");
         double latitude = Double.parseDouble(latLong[0]);
         double longitude = Double.parseDouble(latLong[1]);
