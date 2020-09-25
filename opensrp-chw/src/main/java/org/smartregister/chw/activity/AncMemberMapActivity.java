@@ -85,7 +85,7 @@ public class AncMemberMapActivity extends AppCompatActivity {
 
                 Number recyclerViewPosition = feature.getNumberProperty(RECYCLER_VIEW_POSITION_PROPERTY);
                 if (recyclerViewPosition != null) {
-                    scrollToCardAtPosition(recyclerViewPosition.intValue());
+                    // To be implemented
                 }
 
                 featureClicked(feature);
@@ -98,10 +98,6 @@ public class AncMemberMapActivity extends AppCompatActivity {
         String respondersPhoneNumber = feature.getStringProperty(CoreConstants.JsonAssets.RESPONDER_PHONE_NUMBER);
         Toast.makeText(AncMemberMapActivity.this, String.format("Clicked on RESPONDER\nName: %s\nPhone No: %s", responderName, respondersPhoneNumber), Toast.LENGTH_LONG)
                 .show();
-    }
-
-    private void scrollToCardAtPosition() {
-        // To be implemented
     }
 
     @Nullable
