@@ -31,6 +31,6 @@ public class VillageDoseReportFragment extends ReportResultFragment<VillageDose>
     @NonNull
     @Override
     public ListableAdapter<VillageDose, ListableViewHolder<VillageDose>> adapter() {
-        return new VillageDoseAdapter(list, this);
+        return new VillageDoseAdapter(list, this, this.getContext());
     }
 }

@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;

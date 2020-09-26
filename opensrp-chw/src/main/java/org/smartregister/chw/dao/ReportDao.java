@@ -101,13 +101,15 @@ public class ReportDao extends AbstractDao {
         Map<String, Integer> map = new TreeMap<>();
 
         DataMap<Void> dataMap = c -> {
-            String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
+            //String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
+            String scheduleName = getCursorValue(c, "scheduleName", "");
+
             Integer count = getCursorIntValue(c, "cnt", 0);
 
-            Integer total = map.get(scheduleName);
-            total = ((total == null) ? 0 : total) + count;
+         /*   Integer total = map.get(scheduleName);
+            total = ((total == null) ? 0 : total) + count;*/
 
-            map.put(scheduleName, total);
+            map.put(scheduleName, count);
             return null;
         };
         readData(sql, dataMap);
@@ -142,16 +144,17 @@ public class ReportDao extends AbstractDao {
 
         DataMap<Void> dataMap = c -> {
             String location_id = getCursorValue(c, "location_id", "");
-            String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
+            String scheduleName = getCursorValue(c, "scheduleName", "");
+          //  String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
             Integer count = getCursorIntValue(c, "cnt", 0);
 
             TreeMap<String, Integer> vaccineMaps = resultMap.get(location_id);
             if (vaccineMaps == null) vaccineMaps = new TreeMap<>();
 
-            Integer total = vaccineMaps.get(scheduleName);
-            total = ((total == null) ? 0 : total) + count;
+          /*  Integer total = vaccineMaps.get(scheduleName);
+            total = ((total == null) ? 0 : total) + count;*/
 
-            vaccineMaps.put(scheduleName, total);
+            vaccineMaps.put(scheduleName, count);
             resultMap.put(location_id, vaccineMaps);
 
             return null;
