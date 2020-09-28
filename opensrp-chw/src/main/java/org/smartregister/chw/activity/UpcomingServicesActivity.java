@@ -73,16 +73,12 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
 
         LmhHomeAlertRule alertRule = new LmhHomeAlertRule(
                 ChwApplication.getInstance().getApplicationContext(), yearOfBirth, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
-        if ((CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, CoreConstants.RULE_FILE.HOME_VISIT)).equalsIgnoreCase("Due")) {
-            return true;
-        }
-        return false;
+         return ((CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, CoreConstants.RULE_FILE.HOME_VISIT)).equalsIgnoreCase("Due"));
     }
 
     private List<BaseUpcomingService> getServiceList(List<BaseUpcomingService> serviceList) {
         List<BaseUpcomingService> eligibleServiceList = new ArrayList<>();
-        List<BaseUpcomingService> filterServiceList = new ArrayList<>(serviceList);
-        for (BaseUpcomingService filterService : filterServiceList) {
+        for (BaseUpcomingService filterService : serviceList) {
             List<BaseUpcomingService> eligibleVaccines = new ArrayList<>();
             for (BaseUpcomingService vaccine : filterService.getUpcomingServiceList()) {
                 if (vaccine.getExpiryDate() == null || new LocalDate(vaccine.getExpiryDate()).isAfter(new LocalDate())) {

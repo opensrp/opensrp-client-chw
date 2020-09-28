@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
-import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
@@ -68,7 +67,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         }
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
-      //  setVaccineHistoryView(lastVisitDay);
+        //  setVaccineHistoryView(lastVisitDay);
     }
 
     @Override
@@ -91,11 +90,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         int i = view.getId();
         if (i == R.id.last_visit_row) {
             openMedicalHistoryScreen();
-        }
-        else if(i== R.id.vaccine_history){
+        } else if (i == R.id.vaccine_history) {
             openMedicalHistoryScreen();
-        }
-        else if (i == R.id.most_due_overdue_row) {
+        } else if (i == R.id.most_due_overdue_row) {
             openUpcomingServicePage();
         } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
             openVisitHomeScreen(false);
@@ -265,8 +262,8 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     @Override
     public void setLastVisitRowView(String days) {
         lastVisitDay = days;
-        flavor.setLastVisitRowView(lastVisitDay,layoutLastVisitRow, viewLastVisitRow, textViewLastVisit, this);
-        flavor.setVaccineHistoryView(lastVisitDay,layoutVaccineHistoryRow, viewVaccineHistoryRow, this);
+        flavor.setLastVisitRowView(lastVisitDay, layoutLastVisitRow, viewLastVisitRow, textViewLastVisit, this);
+        flavor.setVaccineHistoryView(lastVisitDay, layoutVaccineHistoryRow, viewVaccineHistoryRow, this);
 
     }
 
