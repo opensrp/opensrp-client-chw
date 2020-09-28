@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.hl7.fhir.r4.model.Base;
 import org.joda.time.LocalDate;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.adapter.BaseUpcomingServiceAdapter;
@@ -47,24 +48,43 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
     @Override
     public void refreshServices(List<BaseUpcomingService> serviceList) {
         if (ChwApplication.getApplicationFlavor().splitUpcomingServicesView()) {
-            filterAndPopulateDueTodayServices(new ArrayList<>(serviceList));
+
+            boolean visitDue = isVisitDue();
+            // get all eligible vaccines
+            List<BaseUpcomingService> eligibleServiceList = new ArrayList<>();
+            for (BaseUpcomingService filterService : serviceList) {
+                List<BaseUpcomingService> eligibleVaccines = new ArrayList<>();
+                for (BaseUpcomingService vaccine : filterService.getUpcomingServiceList()) {
+                    if (vaccine.getExpiryDate() == null || new LocalDate(vaccine.getExpiryDate()).isAfter(new LocalDate())) {
+                        eligibleVaccines.add(vaccine);
+                    }
+                }
+                filterService.setUpcomingServiceList(eligibleVaccines);
+                if (filterService.getUpcomingServiceList().size() > 0) {
+                    eligibleServiceList.add(filterService);
+                }
+            }
+
+            List<BaseUpcomingService> dueNowServiceList = new ArrayList<>();
+            for (BaseUpcomingService service : eligibleServiceList) {
+                if (service.getServiceDate() != null && visitDue) {
+                    serviceList.removeAll(dueNowServiceList);
+                    if (serviceList.isEmpty())
+                        eligibleServiceList.remove(service);
+
+                    dueNowServiceList.add(service);
+                }
+            }
+
+            if (!dueNowServiceList.isEmpty()) {
+                todayServicesTV.setVisibility(View.VISIBLE);
+                dueTodayRV.setVisibility(View.VISIBLE);
+                RecyclerView.Adapter<?> dueTodayAdapter = new BaseUpcomingServiceAdapter(this, dueNowServiceList);
+                dueTodayRV.setAdapter(dueTodayAdapter);
+            }
+
         }
         super.refreshServices(serviceList);
-    }
-
-    protected void filterAndPopulateDueTodayServices(List<BaseUpcomingService> serviceList) {
-        List<BaseUpcomingService> dueNowServiceList = filterDueTodayServices(serviceList);
-        if (!dueNowServiceList.isEmpty()) {
-            updateUi();
-            serviceList.removeAll(dueNowServiceList);
-            RecyclerView.Adapter<?> dueTodayAdapter = new BaseUpcomingServiceAdapter(this, dueNowServiceList);
-            dueTodayRV.setAdapter(dueTodayAdapter);
-        }
-    }
-
-    private void updateUi() {
-        todayServicesTV.setVisibility(View.VISIBLE);
-        dueTodayRV.setVisibility(View.VISIBLE);
     }
 
     private boolean isVisitDue() {
@@ -104,5 +124,4 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
         }
         return dueNowServiceList;
     }
-
 }
