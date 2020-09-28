@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.joda.time.LocalDate;
@@ -47,55 +48,93 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
     @Override
     public void refreshServices(List<BaseUpcomingService> serviceList) {
         if (ChwApplication.getApplicationFlavor().splitUpcomingServicesView()) {
+            filterAndPopulateDueTodayServices(serviceList);
+            // filter update view
 
-            boolean visitDue = isVisitDue();
-            // get all eligible vaccines
-            List<BaseUpcomingService> eligibleServiceList = new ArrayList<>();
-            for (BaseUpcomingService filterService : serviceList) {
-                List<BaseUpcomingService> eligibleVaccines = new ArrayList<>();
+            boolean isDue = isVisitDue();
+            List<BaseUpcomingService> expiredServices = new ArrayList<>();
+            for (BaseUpcomingService filterService : deepCopy(serviceList)) {
+                List<BaseUpcomingService> expiredVaccines = new ArrayList<>();
                 for (BaseUpcomingService vaccine : filterService.getUpcomingServiceList()) {
-                    if (vaccine.getExpiryDate() == null || new LocalDate(vaccine.getExpiryDate()).isAfter(new LocalDate())) {
-                        eligibleVaccines.add(vaccine);
+                    if (new LocalDate(vaccine.getExpiryDate()).isBefore(new LocalDate())) {
+                        expiredVaccines.add(vaccine);
                     }
                 }
-                filterService.setUpcomingServiceList(eligibleVaccines);
-                if (filterService.getUpcomingServiceList().size() > 0) {
-                    eligibleServiceList.add(filterService);
-                }
+
+                filterService.setUpcomingServiceList(expiredVaccines);
+                if (filterService.getUpcomingServiceList().size() > 0)
+                    expiredServices.add(filterService);
             }
 
-            List<BaseUpcomingService> dueNowServiceList = new ArrayList<>();
-            for (BaseUpcomingService service : eligibleServiceList) {
-                if (service.getServiceDate() != null && visitDue) {
-                    serviceList.removeAll(dueNowServiceList);
-                    if (serviceList.isEmpty())
-                        eligibleServiceList.remove(service);
-
-                    dueNowServiceList.add(service);
-                }
+            List<BaseUpcomingService> upcomingServices = new ArrayList<>();
+            for (BaseUpcomingService service : expiredServices) {
+                if (service.getServiceDate() != null && isDue)
+                    upcomingServices.add(service);
             }
 
-            if (!dueNowServiceList.isEmpty()) {
-                todayServicesTV.setVisibility(View.VISIBLE);
-                dueTodayRV.setVisibility(View.VISIBLE);
-                RecyclerView.Adapter<?> dueTodayAdapter = new BaseUpcomingServiceAdapter(this, dueNowServiceList);
-                dueTodayRV.setAdapter(dueTodayAdapter);
-            }
+            super.refreshServices(upcomingServices);
 
+        }else{
+            super.refreshServices(serviceList);
         }
-        super.refreshServices(serviceList);
+    }
+
+    private List<BaseUpcomingService> deepCopy(@Nullable List<BaseUpcomingService> serviceList){
+        if(serviceList == null) return null;
+
+        List<BaseUpcomingService> result = new ArrayList<>();
+
+        for(BaseUpcomingService service: serviceList){
+            BaseUpcomingService copy = new BaseUpcomingService();
+            copy.setServiceName(service.getServiceName());
+            copy.setServiceDate(service.getOverDueDate());
+            copy.setExpiryDate(service.getExpiryDate());
+            copy.setOverDueDate(service.getOverDueDate());
+
+            copy.setUpcomingServiceList(deepCopy(service.getUpcomingServiceList()));
+            result.add(copy);
+        }
+
+        return result;
     }
 
     private boolean isVisitDue() {
         ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, memberObject.getBaseEntityId());
         String yearOfBirth = PersonDao.getDob(memberObject.getBaseEntityId());
-
         LmhHomeAlertRule alertRule = new LmhHomeAlertRule(
                 ChwApplication.getInstance().getApplicationContext(), yearOfBirth, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
-        if ((CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, CoreConstants.RULE_FILE.HOME_VISIT)).equalsIgnoreCase("Due")) {
-            return true;
+        return (CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, CoreConstants.RULE_FILE.HOME_VISIT)).equalsIgnoreCase("Due");
+    }
+
+    private void filterAndPopulateDueTodayServices(List<BaseUpcomingService> serviceList){
+        boolean isDue = isVisitDue();
+        List<BaseUpcomingService> eligibleServiceList = new ArrayList<>();
+        for (BaseUpcomingService filterService : deepCopy(serviceList)) {
+            List<BaseUpcomingService> eligibleVaccines = new ArrayList<>();
+            for (BaseUpcomingService vaccine : filterService.getUpcomingServiceList()) {
+                if (vaccine.getExpiryDate() == null || new LocalDate(vaccine.getExpiryDate()).isAfter(new LocalDate())) {
+                    eligibleVaccines.add(vaccine);
+                }
+            }
+
+            filterService.setUpcomingServiceList(eligibleVaccines);
+            if (filterService.getUpcomingServiceList().size() > 0)
+                eligibleServiceList.add(filterService);
         }
-        return false;
+
+        List<BaseUpcomingService> dueNowServiceList = new ArrayList<>();
+        for (BaseUpcomingService service : eligibleServiceList) {
+            if (service.getServiceDate() != null && isDue)
+                dueNowServiceList.add(service);
+        }
+
+
+        if (!dueNowServiceList.isEmpty()) {
+            todayServicesTV.setVisibility(View.VISIBLE);
+            dueTodayRV.setVisibility(View.VISIBLE);
+            RecyclerView.Adapter<?> dueTodayAdapter = new BaseUpcomingServiceAdapter(this, dueNowServiceList);
+            dueTodayRV.setAdapter(dueTodayAdapter);
+        }
     }
 
 }
