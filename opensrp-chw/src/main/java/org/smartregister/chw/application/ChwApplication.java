@@ -402,7 +402,11 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean prioritizeChildNameOnChildRegister();
 
+        boolean hasHpvVaccineChildren();
+
         boolean dueVaccinesFilterInChildRegister();
+
+        boolean showAllChildServicesDueIncludingCurrentChild();
     }
 
 }

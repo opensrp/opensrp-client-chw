@@ -2,6 +2,7 @@ package org.smartregister.chw.interactor;
 
 
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.dao.ChildDao;
 import org.smartregister.immunization.domain.ServiceWrapper;
 
 import java.util.Map;
@@ -9,6 +10,22 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractorFlv {
+
+    @Override
+    protected int immunizationCeiling() {
+        String gender = ChildDao.getChildGender(memberObject.getBaseEntityId());
+
+        if(gender != null && gender.equalsIgnoreCase("Female")){
+            if(memberObject.getAge() >= 9 && memberObject.getAge() <= 11) {
+                return 132;
+            }
+            else {
+                return 60;
+            }
+        }
+
+        return 60;
+    }
 
     @Override
     protected void bindEvents(Map<String, ServiceWrapper> serviceWrapperMap) throws BaseAncHomeVisitAction.ValidationException {
