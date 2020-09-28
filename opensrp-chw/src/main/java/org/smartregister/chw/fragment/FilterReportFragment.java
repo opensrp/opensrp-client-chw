@@ -21,11 +21,13 @@ import org.smartregister.chw.contract.FindReportContract;
 import org.smartregister.chw.interactor.FindReportInteractor;
 import org.smartregister.chw.model.FilterReportFragmentModel;
 import org.smartregister.chw.presenter.FilterReportFragmentPresenter;
+import org.smartregister.chw.util.Constants;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -91,20 +93,20 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     public void onLocationDataLoaded(Map<String, String> locationData) {
         communityIDList = new LinkedHashMap<>(locationData);
         communityList.addAll(communityIDList.values());
+        checkedCommunities = new boolean[communityList.size()];
     }
 
     @Override
     public void runReport() {
-        if(checkedCommunities!=null && checkedCommunities.length>0){
-//        need to send list of selected communities
-            /*        Map<String, String> map = new HashMap<>();
-        map.put(Constants.ReportParameters.COMMUNITY, spinnerCommunity.getSelectedItem().toString());
+        if (checkedCommunities != null && checkedCommunities.length > 0) {
+            Map<String, String> map = new HashMap<>();
+            map.put(Constants.ReportParameters.COMMUNITY, spinnerCommunity.getSelectedItem().toString());
 
-        String communityID = spinnerCommunity.getSelectedItemPosition() == 0 ? "" :
-                new ArrayList<>(communityIDList.keySet()).get(spinnerCommunity.getSelectedItemPosition() - 1);
-        map.put(Constants.ReportParameters.COMMUNITY_ID, communityID);
-        map.put(Constants.ReportParameters.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
-        presenter.runReport(map);*/
+            String communityID = spinnerCommunity.getSelectedItemPosition() == 0 ? "" :
+                    new ArrayList<>(communityIDList.keySet()).get(spinnerCommunity.getSelectedItemPosition() - 1);
+            map.put(Constants.ReportParameters.COMMUNITY_ID, communityID);
+            map.put(Constants.ReportParameters.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
+            presenter.runReport(map);
         }
 
     }
@@ -159,23 +161,19 @@ public class FilterReportFragment extends Fragment implements FindReportContract
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(getActivity().getResources().getString(R.string.select_communities));
             String[] itemsArray = new String[communityList.size()];
-            checkedCommunities = new boolean[communityList.size()];
-            builder.setMultiChoiceItems(communityList.toArray(itemsArray), null, (dialogInterface, i, b) -> {
-                checkedCommunities[i] = b;
-            });
+            builder.setMultiChoiceItems(communityList.toArray(itemsArray), checkedCommunities, (dialogInterface, i, b) -> checkedCommunities[i] = b);
             builder.setPositiveButton("OK", (dialog, which) -> {
-                selectedCommunitiesTV.setText("Communities Selected\n");
+                StringBuilder stringBuffer = new StringBuilder();
                 for (int i = 0; i < checkedCommunities.length; i++) {
                     boolean checked = checkedCommunities[i];
                     if (checked) {
-                        selectedCommunitiesTV.setText(communityList.get(i) + "\n");
+                        stringBuffer.append(communityList.get(i)).append("\n");
                     }
                 }
+                selectedCommunitiesTV.setText(stringBuffer.toString());
             });
 
-            builder.setNeutralButton("Cancel", (dialog, which) -> {
-                dialog.dismiss();
-            });
+            builder.setNegativeButton("Close", (dialog, which) -> dialog.dismiss());
 
             AlertDialog dialog = builder.create();
             dialog.show();

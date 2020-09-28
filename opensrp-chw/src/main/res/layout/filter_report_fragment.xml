@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -25,16 +26,17 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="5dp"
-            android:paddingBottom="20dp"
             android:layout_marginBottom="15dp"
-            android:focusable="false" />
+            android:focusable="false"
+            android:paddingBottom="20dp"
+            tools:text="28 Sep 2020" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Community"
+            android:text="Communities"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
@@ -42,13 +44,14 @@
             android:id="@+id/selected_communities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="15dp"
             android:focusable="false"
             android:gravity="start"
-            android:textColor="@color/chw_primary_dark" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/chw_primary_dark"
+            tools:text="All Communities" />
 
         <View
             android:layout_width="match_parent"
