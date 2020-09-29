@@ -436,6 +436,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasHpvVaccineChildren();
 
         boolean dueVaccinesFilterInChildRegister();
+
+        boolean showAllChildServicesDueIncludingCurrentChild();
     }
 
 }
