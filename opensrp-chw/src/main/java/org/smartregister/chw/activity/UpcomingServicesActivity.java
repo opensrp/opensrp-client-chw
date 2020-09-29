@@ -52,12 +52,15 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
             // filter update view
 
             boolean isDue = isVisitDue();
-            List<BaseUpcomingService> otherServices  = new ArrayList<>();
-            if(isDue){
+            List<BaseUpcomingService> otherServices = new ArrayList<>();
+            if (isDue) {
                 for (BaseUpcomingService filterService : deepCopy(serviceList)) {
                     List<BaseUpcomingService> otherVaccines = new ArrayList<>();
                     for (BaseUpcomingService vaccine : filterService.getUpcomingServiceList()) {
-                        if ((new LocalDate(vaccine.getExpiryDate()).isBefore(new LocalDate())) || (new LocalDate(vaccine.getServiceDate()).isAfter(new LocalDate())) ) {
+                       /* if ((new LocalDate(vaccine.getExpiryDate()).isBefore(new LocalDate())) || (new LocalDate(vaccine.getServiceDate()).isAfter(new LocalDate())) ) {
+                            otherVaccines.add(vaccine);
+                        }*/
+                        if (new LocalDate(vaccine.getServiceDate()).isAfter(new LocalDate())) {
                             otherVaccines.add(vaccine);
                         }
                     }
@@ -66,12 +69,11 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
                     if (filterService.getUpcomingServiceList().size() > 0)
                         otherServices.add(filterService);
                 }
-            }
-            else {
+            } else {
                 for (BaseUpcomingService filterService : serviceList) {
                     List<BaseUpcomingService> otherVaccines = new ArrayList<>();
                     for (BaseUpcomingService vaccine : filterService.getUpcomingServiceList()) {
-                        if(vaccine.getServiceDate() != null){
+                        if (vaccine.getServiceDate() != null) {
                             otherVaccines.add(vaccine);
                         }
                     }
@@ -89,17 +91,17 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
 
             super.refreshServices(upcomingServices);
 
-        }else{
+        } else {
             super.refreshServices(serviceList);
         }
     }
 
-    private List<BaseUpcomingService> deepCopy(@Nullable List<BaseUpcomingService> serviceList){
-        if(serviceList == null) return null;
+    private List<BaseUpcomingService> deepCopy(@Nullable List<BaseUpcomingService> serviceList) {
+        if (serviceList == null) return null;
 
         List<BaseUpcomingService> result = new ArrayList<>();
 
-        for(BaseUpcomingService service: serviceList){
+        for (BaseUpcomingService service : serviceList) {
             BaseUpcomingService copy = new BaseUpcomingService();
             copy.setServiceName(service.getServiceName());
             copy.setServiceDate(service.getOverDueDate());
@@ -121,7 +123,7 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
         return (CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, CoreConstants.RULE_FILE.HOME_VISIT)).equalsIgnoreCase("Due");
     }
 
-    private void filterAndPopulateDueTodayServices(List<BaseUpcomingService> serviceList){
+    private void filterAndPopulateDueTodayServices(List<BaseUpcomingService> serviceList) {
         boolean isDue = isVisitDue();
         List<BaseUpcomingService> eligibleServiceList = new ArrayList<>();
         for (BaseUpcomingService filterService : deepCopy(serviceList)) {
