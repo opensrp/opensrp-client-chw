@@ -40,8 +40,6 @@ public class AncRegisterFragmentTest extends BaseUnitTest {
 
     private FragmentActivity activity;
 
-    private ActivityController controller;
-
     @Mock
     private CommonPersonObjectClient client;
 
@@ -53,7 +51,7 @@ public class AncRegisterFragmentTest extends BaseUnitTest {
 
         CoreLibrary.init(context);
         when(context.commonrepository(anyString())).thenReturn(commonRepository);
-        controller = Robolectric.buildActivity(AppCompatActivity.class).create().resume();
+        ActivityController controller = Robolectric.buildActivity(AppCompatActivity.class).create().resume();
         activity = (FragmentActivity) controller.get();
     }
 
