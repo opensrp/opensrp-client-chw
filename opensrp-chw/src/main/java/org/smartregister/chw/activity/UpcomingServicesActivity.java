@@ -57,10 +57,7 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
                 for (BaseUpcomingService filterService : deepCopy(serviceList)) {
                     List<BaseUpcomingService> otherVaccines = new ArrayList<>();
                     for (BaseUpcomingService vaccine : filterService.getUpcomingServiceList()) {
-                       /* if ((new LocalDate(vaccine.getExpiryDate()).isBefore(new LocalDate())) || (new LocalDate(vaccine.getServiceDate()).isAfter(new LocalDate())) ) {
-                            otherVaccines.add(vaccine);
-                        }*/
-                        if (new LocalDate(vaccine.getServiceDate()).isAfter(new LocalDate())) {
+                        if ((new LocalDate(vaccine.getExpiryDate()).isBefore(new LocalDate())) || (new LocalDate(vaccine.getServiceDate()).isAfter(new LocalDate())) ) {
                             otherVaccines.add(vaccine);
                         }
                     }
