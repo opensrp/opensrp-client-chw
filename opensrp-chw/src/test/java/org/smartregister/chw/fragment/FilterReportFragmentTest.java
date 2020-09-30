@@ -1,5 +1,6 @@
 package org.smartregister.chw.fragment;
 
+import android.content.DialogInterface;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -86,5 +87,24 @@ public class FilterReportFragmentTest {
         map.put(Constants.ReportParameters.COMMUNITY_ID, gson.toJson(communityIds));
         map.put(Constants.ReportParameters.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
         Mockito.verify(presenter).runReport(map);
+    }
+
+    @Test
+    public void testHandleCommunityMultiChoiceItemsDialog() {
+        FilterReportFragment spyFragment = Mockito.spy(FilterReportFragment.class);
+
+        boolean[] checkedCommunities = new boolean[2];
+        checkedCommunities[0] = true;
+        List<String> communityList = new ArrayList<>();
+        communityList.add("All communities");
+        communityList.add("CHW 1");
+        ReflectionHelpers.setField(spyFragment, "checkedCommunities", checkedCommunities);
+        ReflectionHelpers.setField(spyFragment, "communityList", communityList);
+        DialogInterface dialog = Mockito.spy(DialogInterface.class);
+        int which = 0;
+
+        Mockito.doNothing().when(spyFragment).updateDialogCheckItem(dialog, 1, false);
+        spyFragment.handleCommunityMultiChoiceItemsDialog(dialog, which, true);
+        Mockito.verify(spyFragment).updateDialogCheckItem(dialog, 1, false);
     }
 }

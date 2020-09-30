@@ -1,6 +1,7 @@
 package org.smartregister.chw.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -175,29 +176,33 @@ public class FilterReportFragment extends Fragment implements FindReportContract
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(getActivity().getResources().getString(R.string.select_communities));
             String[] itemsArray = new String[communityList.size()];
-            builder.setMultiChoiceItems(communityList.toArray(itemsArray), checkedCommunities, (dialog, which, isChecked) -> {
-                checkedCommunities[which] = isChecked;
-                if (which == 0 && isChecked) {
-                    int index = 1;
-                    while (index < communityList.size()) {
-                        ((AlertDialog) dialog).getListView().setItemChecked(index, false);
-                        checkedCommunities[index] = false;
-                        index++;
-                    }
-                } else if (isChecked) {
-                    ((AlertDialog) dialog).getListView().setItemChecked(0, false);
-                    checkedCommunities[0] = false;
-                }
-            });
-            builder.setPositiveButton("OK", (dialog, which) -> {
-                updateSelectedCommunitiesView();
-            });
+            builder.setMultiChoiceItems(communityList.toArray(itemsArray), checkedCommunities, this::handleCommunityMultiChoiceItemsDialog);
+            builder.setPositiveButton("OK", (dialog, which) -> updateSelectedCommunitiesView());
 
             builder.setNegativeButton("Close", (dialog, which) -> dialog.dismiss());
 
             AlertDialog dialog = builder.create();
             dialog.show();
         }
+    }
+
+    protected void handleCommunityMultiChoiceItemsDialog(DialogInterface dialog, int which, boolean isChecked) {
+        checkedCommunities[which] = isChecked;
+        if (which == 0 && isChecked) {
+            int index = 1;
+            while (index < communityList.size()) {
+                updateDialogCheckItem(dialog, index, false);
+                checkedCommunities[index] = false;
+                index++;
+            }
+        } else if (isChecked) {
+            updateDialogCheckItem(dialog, 0, false);
+            checkedCommunities[0] = false;
+        }
+    }
+
+    protected void updateDialogCheckItem(DialogInterface dialog, int index, boolean b) {
+        ((AlertDialog) dialog).getListView().setItemChecked(index, b);
     }
 
     protected void updateSelectedCommunitiesView() {
