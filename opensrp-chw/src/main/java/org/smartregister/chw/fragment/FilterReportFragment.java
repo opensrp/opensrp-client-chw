@@ -49,7 +49,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
     private List<String> communityList = new ArrayList<>();
     private LinkedHashMap<String, String> communityIDList = new LinkedHashMap<>();
-    private TextView selectedCommunitiesTV;
+    protected TextView selectedCommunitiesTV;
     private boolean[] checkedCommunities = null;
 
 
@@ -190,14 +190,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
                 }
             });
             builder.setPositiveButton("OK", (dialog, which) -> {
-                StringBuilder stringBuffer = new StringBuilder();
-                for (int i = 0; i < checkedCommunities.length; i++) {
-                    boolean checked = checkedCommunities[i];
-                    if (checked) {
-                        stringBuffer.append(communityList.get(i)).append("\n");
-                    }
-                }
-                selectedCommunitiesTV.setText(stringBuffer.toString());
+                updateSelectedCommunitiesView();
             });
 
             builder.setNegativeButton("Close", (dialog, which) -> dialog.dismiss());
@@ -205,5 +198,16 @@ public class FilterReportFragment extends Fragment implements FindReportContract
             AlertDialog dialog = builder.create();
             dialog.show();
         }
+    }
+
+    protected void updateSelectedCommunitiesView() {
+        StringBuilder stringBuffer = new StringBuilder();
+        for (int i = 0; i < checkedCommunities.length; i++) {
+            boolean checked = checkedCommunities[i];
+            if (checked) {
+                stringBuffer.append(communityList.get(i)).append("\n");
+            }
+        }
+        selectedCommunitiesTV.setText(stringBuffer.toString());
     }
 }

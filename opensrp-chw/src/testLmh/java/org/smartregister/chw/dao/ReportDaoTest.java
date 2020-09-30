@@ -87,14 +87,13 @@ public class ReportDaoTest extends ReportDao {
     }
 
     @Test
-    public void testVillageDosesReport() {
+    public void testVillageDosesReportSummary() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{
                 "scheduleName"});
         matrixCursor.addRow(new Object[]{"ROTA 1"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
         String villageName = "Grenaligne";
-        String communityId = "d5ff0ea1-bbc5-424d-84c2-5b084e10ef90";
         Date dueDate = new DateTime().plusDays(7).toDate();
         Map<String, Integer> map = new TreeMap<>();
         map.put("ROTA", 0);
