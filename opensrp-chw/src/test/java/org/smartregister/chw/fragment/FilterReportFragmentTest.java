@@ -85,6 +85,6 @@ public class FilterReportFragmentTest {
         map.put(Constants.ReportParameters.COMMUNITY, gson.toJson(communities));
         map.put(Constants.ReportParameters.COMMUNITY_ID, gson.toJson(communityIds));
         map.put(Constants.ReportParameters.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
-        Mockito.verify(presenter).runReport(Mockito.anyMap());
+        Mockito.verify(presenter).runReport(map);
     }
 }
