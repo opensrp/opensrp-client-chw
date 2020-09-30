@@ -28,8 +28,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginBottom="15dp"
             android:focusable="false"
-            android:paddingBottom="20dp"
-            tools:text="28 Sep 2020" />
+            android:paddingBottom="20dp" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             style="@style/CustomFontTextViewStyle.ClientList"
@@ -45,13 +44,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:paddingTop="15dp"
             android:layout_marginEnd="5dp"
             android:focusable="false"
             android:gravity="start"
+            android:paddingTop="15dp"
+            android:text="Select options"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/chw_primary_dark"
-            tools:text="All Communities" />
+            android:textColor="@color/chw_primary_dark" />
 
         <View
             android:layout_width="match_parent"

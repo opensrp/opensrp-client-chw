@@ -23,7 +23,7 @@ public class VillageDoseReportFragment extends ReportResultFragment<VillageDose>
             List<VillageDose> result = new ArrayList<>();
             if (communityNames.get(0).equals("All communities"))
                 result.addAll(ReportDao.villageDosesReportSummary(communityNames.get(0), reportDate));
-            
+
             result.addAll(ReportDao.villageDosesReport(communityIds, reportDate));
 
             return result;
