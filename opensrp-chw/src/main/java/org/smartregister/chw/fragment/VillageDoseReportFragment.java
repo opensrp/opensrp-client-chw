@@ -2,13 +2,13 @@ package org.smartregister.chw.fragment;
 
 import androidx.annotation.NonNull;
 
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.adapter.ListableAdapter;
 import org.smartregister.chw.adapter.VillageDoseAdapter;
 import org.smartregister.chw.dao.ReportDao;
 import org.smartregister.chw.domain.VillageDose;
 import org.smartregister.chw.viewholder.ListableViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,9 +20,11 @@ public class VillageDoseReportFragment extends ReportResultFragment<VillageDose>
     @Override
     protected void executeFetch() {
         presenter.fetchList(() -> {
-            List<VillageDose> result = ReportDao.villageDosesReport(communityName, communityID, reportDate);
-            if (StringUtils.isBlank(communityID))
-                result.addAll(ReportDao.villageDosesReportSummary(reportDate));
+            List<VillageDose> result = new ArrayList<>();
+            if (communityNames.get(0).equals("All communities"))
+                result.addAll(ReportDao.villageDosesReportSummary(communityNames.get(0), reportDate));
+            
+            result.addAll(ReportDao.villageDosesReport(communityIds, reportDate));
 
             return result;
         });

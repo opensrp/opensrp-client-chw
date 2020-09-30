@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.Gson;
+
 import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.FragmentBaseActivity;
@@ -98,16 +100,28 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
     @Override
     public void runReport() {
-        if (checkedCommunities != null && checkedCommunities.length > 0) {
-            Map<String, String> map = new HashMap<>();
-            map.put(Constants.ReportParameters.COMMUNITY, spinnerCommunity.getSelectedItem().toString());
+        List<String> communityIds = new ArrayList<>();
+        List<String> communities = new ArrayList<>();
 
-            String communityID = spinnerCommunity.getSelectedItemPosition() == 0 ? "" :
-                    new ArrayList<>(communityIDList.keySet()).get(spinnerCommunity.getSelectedItemPosition() - 1);
-            map.put(Constants.ReportParameters.COMMUNITY_ID, communityID);
-            map.put(Constants.ReportParameters.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
-            presenter.runReport(map);
+        if (checkedCommunities != null && checkedCommunities.length > 0) {
+            for (int i = 0; i < checkedCommunities.length; i++) {
+                boolean checked = checkedCommunities[i];
+                if (checked) {
+                    communities.add(communityList.get(i));
+                    if (i == 0) {
+                        communityIds.add("");
+                        break;
+                    } else
+                        communityIds.add(new ArrayList<>(communityIDList.keySet()).get(i - 1));
+                }
+            }
         }
+        Map<String, String> map = new HashMap<>();
+        Gson gson = new Gson();
+        map.put(Constants.ReportParameters.COMMUNITY, gson.toJson(communities));
+        map.put(Constants.ReportParameters.COMMUNITY_ID, gson.toJson(communityIds));
+        map.put(Constants.ReportParameters.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
+        presenter.runReport(map);
 
     }
 
@@ -161,7 +175,20 @@ public class FilterReportFragment extends Fragment implements FindReportContract
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(getActivity().getResources().getString(R.string.select_communities));
             String[] itemsArray = new String[communityList.size()];
-            builder.setMultiChoiceItems(communityList.toArray(itemsArray), checkedCommunities, (dialogInterface, i, b) -> checkedCommunities[i] = b);
+            builder.setMultiChoiceItems(communityList.toArray(itemsArray), checkedCommunities, (dialog, which, isChecked) -> {
+                checkedCommunities[which] = isChecked;
+                if (which == 0 && isChecked) {
+                    int index = 1;
+                    while (index < communityList.size()) {
+                        ((AlertDialog) dialog).getListView().setItemChecked(index, false);
+                        checkedCommunities[index] = false;
+                        index++;
+                    }
+                } else if (isChecked) {
+                    ((AlertDialog) dialog).getListView().setItemChecked(0, false);
+                    checkedCommunities[0] = false;
+                }
+            });
             builder.setPositiveButton("OK", (dialog, which) -> {
                 StringBuilder stringBuffer = new StringBuilder();
                 for (int i = 0; i < checkedCommunities.length; i++) {
