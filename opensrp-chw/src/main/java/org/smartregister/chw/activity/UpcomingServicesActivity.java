@@ -30,6 +30,8 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
 
     private RecyclerView dueTodayRV;
     private CustomFontTextView todayServicesTV;
+    private RecyclerView upcomingServicesRV;
+    private CustomFontTextView upcomingServiceTv;
 
     public static void startMe(Activity activity, MemberObject memberObject) {
         Intent intent = new Intent(activity, UpcomingServicesActivity.class);
@@ -40,55 +42,18 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
     @Override
     public void setUpView() {
         super.setUpView();
-
         dueTodayRV = findViewById(R.id.today_services_recyclerView);
         todayServicesTV = findViewById(R.id.today_services);
+        upcomingServicesRV = findViewById(R.id.recyclerView);
+        upcomingServiceTv = findViewById(R.id.upcoming_services);
     }
 
     @Override
     public void refreshServices(List<BaseUpcomingService> serviceList) {
         if (ChwApplication.getApplicationFlavor().splitUpcomingServicesView()) {
             filterAndPopulateDueTodayServices(serviceList);
-            // filter update view
-
-            boolean isDue = isVisitDue();
-            List<BaseUpcomingService> otherServices = new ArrayList<>();
-            if (isDue) {
-                for (BaseUpcomingService filterService : deepCopy(serviceList)) {
-                    List<BaseUpcomingService> otherVaccines = new ArrayList<>();
-                    for (BaseUpcomingService vaccine : filterService.getUpcomingServiceList()) {
-                        if ((new LocalDate(vaccine.getExpiryDate()).isBefore(new LocalDate())) || (new LocalDate(vaccine.getServiceDate()).isAfter(new LocalDate())) ) {
-                            otherVaccines.add(vaccine);
-                        }
-                    }
-
-                    filterService.setUpcomingServiceList(otherVaccines);
-                    if (filterService.getUpcomingServiceList().size() > 0)
-                        otherServices.add(filterService);
-                }
-            } else {
-                for (BaseUpcomingService filterService : serviceList) {
-                    List<BaseUpcomingService> otherVaccines = new ArrayList<>();
-                    for (BaseUpcomingService vaccine : filterService.getUpcomingServiceList()) {
-                        if (vaccine.getServiceDate() != null) {
-                            otherVaccines.add(vaccine);
-                        }
-                    }
-
-                    filterService.setUpcomingServiceList(otherVaccines);
-                    if (filterService.getUpcomingServiceList().size() > 0)
-                        otherServices.add(filterService);
-                }
-            }
-            List<BaseUpcomingService> upcomingServices = new ArrayList<>();
-            for (BaseUpcomingService service : otherServices) {
-                if (service.getServiceDate() != null)
-                    upcomingServices.add(service);
-            }
-
-            super.refreshServices(upcomingServices);
-
         } else {
+            setUpcomingServiceViews();
             super.refreshServices(serviceList);
         }
     }
@@ -138,7 +103,7 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
 
         List<BaseUpcomingService> dueNowServiceList = new ArrayList<>();
         for (BaseUpcomingService service : eligibleServiceList) {
-            if (service.getServiceDate() != null && isDue)
+            if (service.getServiceDate() != null)
                 dueNowServiceList.add(service);
         }
 
@@ -149,6 +114,11 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
             RecyclerView.Adapter<?> dueTodayAdapter = new BaseUpcomingServiceAdapter(this, dueNowServiceList);
             dueTodayRV.setAdapter(dueTodayAdapter);
         }
+    }
+
+    protected void setUpcomingServiceViews() {
+        upcomingServicesRV.setVisibility(View.VISIBLE);
+        upcomingServiceTv.setVisibility(View.VISIBLE);
     }
 
 }
