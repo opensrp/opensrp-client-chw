@@ -15,12 +15,6 @@ import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
-import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.utils.ChildHomeVisit;
-import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.dao.PersonDao;
-import org.smartregister.chw.rules.LmhHomeAlertRule;
-import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.ArrayList;
@@ -77,16 +71,7 @@ public class UpcomingServicesActivity extends CoreUpcomingServicesActivity {
         return result;
     }
 
-    private boolean isVisitDue() {
-        ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, memberObject.getBaseEntityId());
-        String yearOfBirth = PersonDao.getDob(memberObject.getBaseEntityId());
-        LmhHomeAlertRule alertRule = new LmhHomeAlertRule(
-                ChwApplication.getInstance().getApplicationContext(), yearOfBirth, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
-        return (CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, CoreConstants.RULE_FILE.HOME_VISIT)).equalsIgnoreCase("Due");
-    }
-
     private void filterAndPopulateDueTodayServices(List<BaseUpcomingService> serviceList) {
-        boolean isDue = isVisitDue();
         List<BaseUpcomingService> eligibleServiceList = new ArrayList<>();
         for (BaseUpcomingService filterService : deepCopy(serviceList)) {
             List<BaseUpcomingService> eligibleVaccines = new ArrayList<>();

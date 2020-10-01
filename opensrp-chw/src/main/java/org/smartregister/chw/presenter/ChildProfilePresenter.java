@@ -1,7 +1,6 @@
 package org.smartregister.chw.presenter;
 
 import android.app.Activity;
-import android.app.Application;
 import android.util.Pair;
 
 import com.vijay.jsonwizard.utils.FormUtils;
@@ -146,7 +145,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     @Override
     public void updateChildService(CoreChildService childService) {
         if (getView() != null) {
-            if(!(ChwApplication.getApplicationFlavor().splitUpcomingServicesView())){
+            if (!(ChwApplication.getApplicationFlavor().splitUpcomingServicesView())) {
                 if (childService != null) {
                     if (childService.getServiceStatus().equalsIgnoreCase(CoreConstants.ServiceType.UPCOMING.name())) {
                         getView().setServiceNameUpcoming(childService.getServiceName().trim(), childService.getServiceDate());
@@ -158,8 +157,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
                 } else {
                     getView().setServiceNameDue("", "");
                 }
-            }
-            else {
+            } else {
                 getView().setDueTodayServices();
             }
         }
