@@ -128,10 +128,7 @@
                 <action android:name="org.smartregister.action.THINKMD_ASSESSMENT" />
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-
-                <data
-                    android:host="thinkmd-v4-app-b-ona.herokuapp.com"
-                    android:scheme="https" />
+                <data android:scheme="https" android:host="smartregister.org" android:path="/"/>
             </intent-filter>
         </activity>
         <activity
