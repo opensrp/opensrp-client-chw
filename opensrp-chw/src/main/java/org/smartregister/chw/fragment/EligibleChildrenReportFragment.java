@@ -39,7 +39,7 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
     @NonNull
     @Override
     public ListableAdapter<EligibleChild, ListableViewHolder<EligibleChild>> adapter() {
-        return new EligibleChildrenAdapter(list, this);
+        return new EligibleChildrenAdapter(list, this, this.getContext());
     }
 
     @Override
