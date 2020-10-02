@@ -37,8 +37,6 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.Utils.getClientName;
-
 public class ChildProfilePresenter extends CoreChildProfilePresenter {
 
     private List<ReferralTypeModel> referralTypeModels;
@@ -61,17 +59,6 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         if (getView() != null) {
             getView().updateHasPhone(hasPhone);
         }
-    }
-
-    @Override
-    public void refreshProfileTopSection(CommonPersonObjectClient client) {
-        super.refreshProfileTopSection(client);
-
-        String firstName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
-        String lastName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-        String middleName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
-        String childName = getClientName(firstName, middleName, lastName);
-        getView().setProfileName(childName);
     }
 
     @Override
