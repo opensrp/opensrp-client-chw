@@ -267,9 +267,9 @@ android {
             applicationIdSuffix ".lmh"
             versionCode 1
             versionName "0.0.3"
-            buildConfigField "String", 'opensrp_url', '"https://wcaro-lmh.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url', '"https://lmh-liberia.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/lmh/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://lmh-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'

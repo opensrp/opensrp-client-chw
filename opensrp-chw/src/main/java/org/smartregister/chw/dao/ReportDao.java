@@ -38,9 +38,8 @@ public class ReportDao extends AbstractDao {
     }
 
     @NonNull
-    public static List<EligibleChild> eligibleChildrenReport(String communityID, Date dueDate) {
-
-        String _communityID = StringUtils.isBlank(communityID) ? "" : communityID;
+    public static List<EligibleChild> eligibleChildrenReport(ArrayList<String> communityIds, Date dueDate) {
+        String _communityIds = "('" + StringUtils.join(communityIds, "','") + "')";
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String paramDate = sdf.format(dueDate);
@@ -51,7 +50,7 @@ public class ReportDao extends AbstractDao {
                 "from ec_child c " +
                 "left join ec_family f on c.relational_id = f.base_entity_id " +
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
-                "where  (l.location_id = '" + _communityID + "' or '" + _communityID + "' = '') " +
+                "where ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') " +
                 "and l.base_entity_id in (select caseID from alerts where status not in ('expired','complete') and startDate <= '" + paramDate + "' and expiryDate >= '" + paramDate + "') " +
                 "order by c.first_name , c.last_name , c.middle_name ";
 
@@ -82,9 +81,8 @@ public class ReportDao extends AbstractDao {
     }
 
     @NonNull
-    public static List<VillageDose> villageDosesReport(String villageName, String communityID, Date dueDate) {
+    public static List<VillageDose> villageDosesReportSummary(String villageName, Date dueDate) {
 
-        String _communityID = StringUtils.isBlank(communityID) ? "" : communityID;
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String paramDate = sdf.format(dueDate);
@@ -94,7 +92,6 @@ public class ReportDao extends AbstractDao {
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
                 "inner join alerts al on caseID = c.base_entity_id " +
                 "where status <> 'expired' and startDate <= '" + paramDate + "' " +
-                "and  (l.location_id = '" + _communityID + "' or '" + _communityID + "' = '') " +
                 "group by scheduleName " +
                 "order by scheduleName";
 
@@ -114,7 +111,7 @@ public class ReportDao extends AbstractDao {
 
         VillageDose villageDose = new VillageDose();
         villageDose.setVillageName(villageName);
-        villageDose.setID(communityID);
+        villageDose.setID("");
         villageDose.setRecurringServices(map);
 
         List<VillageDose> res = new ArrayList<>();
@@ -124,8 +121,9 @@ public class ReportDao extends AbstractDao {
     }
 
     @NonNull
-    public static List<VillageDose> villageDosesReportSummary(Date dueDate) {
+    public static List<VillageDose> villageDosesReport(ArrayList<String> communityIds, Date dueDate) {
 
+        String _communityIds = "('" + StringUtils.join(communityIds, "','") + "')";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String paramDate = sdf.format(dueDate);
 
@@ -134,9 +132,9 @@ public class ReportDao extends AbstractDao {
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
                 "inner join alerts al on caseID = c.base_entity_id " +
                 "where status <> 'expired' and startDate <= '" + paramDate + "' " +
+                "AND CASE WHEN '" + communityIds.get(0) + "' <> '' THEN (l.location_id IN " + _communityIds + ")  ELSE true END " +
                 "group by scheduleName , location_id " +
                 "order by location_id , scheduleName ";
-
 
         Map<String, TreeMap<String, Integer>> resultMap = new HashMap<>();
 
@@ -173,8 +171,9 @@ public class ReportDao extends AbstractDao {
 
         return result;
     }
-    private static String getChildrenUpToDateVaccinations(){
-        return  "select c.base_entity_id , c.unique_id , c.first_name , c.last_name , c.middle_name ,\n" +
+
+    private static String getChildrenUpToDateVaccinations() {
+        return "select c.base_entity_id , c.unique_id , c.first_name , c.last_name , c.middle_name ,\n" +
                 "f.first_name family_name, c.dob\n" +
                 "from ec_child c\n" +
                 "left join ec_family f on c.relational_id = f.base_entity_id \n" +
@@ -184,8 +183,8 @@ public class ReportDao extends AbstractDao {
                 "in ('BCG','OPV 1', 'OPV 2', 'OPV 3', 'PCV 1', 'PCV 2', 'PCV 3', 'Penta 1', 'Penta 2', 'Penta 3', 'Rota 1', 'Rota 2', 'HPV 2', 'HPV 1', 'IPV', 'YF', 'MCV 1', 'MCV 2'))";
     }
 
-    private static String getChildrenNotUpToDateVaccinations(){
-        return  "select c.base_entity_id , c.unique_id , c.first_name , c.last_name , c.middle_name ,f.first_name family_name, c.dob  \n" +
+    private static String getChildrenNotUpToDateVaccinations() {
+        return "select c.base_entity_id , c.unique_id , c.first_name , c.last_name , c.middle_name ,f.first_name family_name, c.dob  \n" +
                 "from ec_child c\n" +
                 "left join ec_family f on c.relational_id = f.base_entity_id \n" +
                 "where date(c.dob) > date('now', '-24 month')\n" +
@@ -194,8 +193,8 @@ public class ReportDao extends AbstractDao {
                 "in ('BCG','OPV 1', 'OPV 2', 'OPV 3', 'PCV 1', 'PCV 2', 'PCV 3', 'Penta 1', 'Penta 2', 'Penta 3', 'Rota 1', 'Rota 2', 'HPV 2', 'HPV 1', 'IPV', 'YF', 'MCV 1', 'MCV 2'))";
     }
 
-    private static String getChildrenWithBirthCerts(){
-       return "select ec_child.base_entity_id , ec_child.unique_id , ec_child.first_name , ec_child.last_name , ec_child.middle_name,\n" +
+    private static String getChildrenWithBirthCerts() {
+        return "select ec_child.base_entity_id , ec_child.unique_id , ec_child.first_name , ec_child.last_name , ec_child.middle_name,\n" +
                 "f.first_name family_name, ec_child.dob\n" +
                 "from ec_child \n" +
                 "left join ec_family f on ec_child.relational_id = f.base_entity_id\n" +
@@ -208,8 +207,8 @@ public class ReportDao extends AbstractDao {
                 ")";
     }
 
-    private static String getChildrenWithNoBirthCerts(){
-       return "select ec_child.base_entity_id , ec_child.unique_id , ec_child.first_name , ec_child.last_name , ec_child.middle_name ,\n" +
+    private static String getChildrenWithNoBirthCerts() {
+        return "select ec_child.base_entity_id , ec_child.unique_id , ec_child.first_name , ec_child.last_name , ec_child.middle_name ,\n" +
                 "f.first_name family_name, ec_child.dob\n" +
                 "from ec_child\n" +
                 "left join ec_family f on ec_child.relational_id = f.base_entity_id\n" +
@@ -222,8 +221,8 @@ public class ReportDao extends AbstractDao {
                 ")";
     }
 
-    private static String getChildrenExclusiveBreastFeeding(){
-        return  "select ec.base_entity_id , ec.unique_id , ec.first_name , ec.last_name , ec.middle_name ,\n" +
+    private static String getChildrenExclusiveBreastFeeding() {
+        return "select ec.base_entity_id , ec.unique_id , ec.first_name , ec.last_name , ec.middle_name ,\n" +
                 "f.first_name family_name  ,ec.dob \n" +
                 "from ec_child ec\n" +
                 "left join ec_family f on ec.relational_id = f.base_entity_id\n" +
@@ -245,7 +244,7 @@ public class ReportDao extends AbstractDao {
                 "and date(ec.dob) between date('now', '-5 month') and date('now')";
     }
 
-    private static String getChildrenNotExclusiveBreastFeeding(){
+    private static String getChildrenNotExclusiveBreastFeeding() {
         return "select ec.base_entity_id , ec.unique_id , ec.first_name , ec.last_name , ec.middle_name ,\n" +
                 "f.first_name family_name  , ec.dob\n" +
                 "from ec_child ec\n" +
@@ -268,7 +267,7 @@ public class ReportDao extends AbstractDao {
                 "and date(ec.dob) between date('now', '-5 month') and date('now') and ex.base_entity_id is null";
     }
 
-    private static String getChildrenVitaminAReceived(){
+    private static String getChildrenVitaminAReceived() {
         return "select ec.base_entity_id , ec.unique_id , ec.first_name , ec.last_name , ec.middle_name ,\n" +
                 "f.first_name family_name  , ec.dob \n" +
                 "from recurring_service_types rt \n" +
@@ -281,7 +280,7 @@ public class ReportDao extends AbstractDao {
                 "and STRFTIME('%Y-%m-%d', datetime(re.date/1000,'unixepoch')) >=date('now', '-6 month')";
     }
 
-    private static String getChildrenVitaminANotReceived(){
+    private static String getChildrenVitaminANotReceived() {
         return "select ec.base_entity_id , ec.unique_id , ec.first_name , ec.last_name , ec.middle_name , \n" +
                 "f.first_name family_name  , ec.dob \n" +
                 "from ec_child ec \n" +
@@ -296,7 +295,7 @@ public class ReportDao extends AbstractDao {
                 "and STRFTIME('%Y-%m-%d', datetime(re.date/1000,'unixepoch')) >=date('now', '-6 month'))";
     }
 
-    private static String getChildrenDewormed(){
+    private static String getChildrenDewormed() {
         return "select ec.base_entity_id , ec.unique_id , ec.first_name , ec.last_name , ec.middle_name, \n" +
                 "f.first_name family_name  , ec.dob \n" +
                 "from recurring_service_types rt \n" +
@@ -309,7 +308,7 @@ public class ReportDao extends AbstractDao {
                 "and STRFTIME('%Y-%m-%d', datetime(re.date/1000,'unixepoch')) >=date('now', '-6 month')";
     }
 
-    private static String getChildrenNotDewormed(){
+    private static String getChildrenNotDewormed() {
         return "select ec.base_entity_id , ec.unique_id , ec.first_name , ec.last_name , ec.middle_name, \n" +
                 "f.first_name family_name  , ec.dob  \n" +
                 "from ec_child ec \n" +
@@ -343,7 +342,7 @@ public class ReportDao extends AbstractDao {
                 sql = ReportDao.getChildrenWithNoBirthCerts();
                 break;
             case ReportingConstants.ChildIndicatorKeys.COUNT_OF_CHILDREN_0_5_EXCLUSIVELY_BREASTFEEDING:
-                sql =  ReportDao.getChildrenExclusiveBreastFeeding();
+                sql = ReportDao.getChildrenExclusiveBreastFeeding();
                 break;
             case ReportingConstants.ChildIndicatorKeys.COUNT_OF_CHILDREN_0_5_NOT_EXCLUSIVELY_BREASTFEEDING:
                 sql = ReportDao.getChildrenNotExclusiveBreastFeeding();
