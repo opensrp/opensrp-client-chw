@@ -14,4 +14,6 @@
     <string name="ipv">Polio (IPV)</string>
     <string name="mcv_1">Measles (MCV 1)</string>
     <string name="mcv_2">Measles (MCV 2)</string>
+    <string name="hpv_1">HPV 1</string>
+    <string name="hpv_2">HPV 2</string>
 </resources>
