@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import org.jeasy.rules.api.Rules;
+import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
@@ -56,30 +57,30 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
     }
 
     protected void setTasksDoneStatus(Context context, Button dueButton) {
-        dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.alert_complete_green));
-        dueButton.setText(context.getString(org.smartregister.chw.core.R.string.tasks_done));
-        dueButton.setBackgroundColor(context.getResources().getColor(org.smartregister.chw.core.R.color.transparent));
+        dueButton.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
+        dueButton.setText(context.getString(R.string.tasks_done));
+        dueButton.setBackgroundColor(context.getResources().getColor(R.color.transparent));
         dueButton.setOnClickListener(null);
     }
 
     private void setTasksOverdueStatus(Context context, Button dueButton, Integer count) {
-        dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.white));
-        dueButton.setText(MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.tasks_status), count));
-        dueButton.setBackgroundResource(org.smartregister.chw.core.R.drawable.overdue_red_btn_selector);
+        dueButton.setTextColor(context.getResources().getColor(R.color.white));
+        dueButton.setText(MessageFormat.format(context.getString(R.string.tasks_status), count));
+        dueButton.setBackgroundResource(R.drawable.overdue_red_btn_selector);
         dueButton.setOnClickListener(onClickListener);
     }
 
     private void setTasksDueStatus(Context context, Button dueButton, Integer count) {
-        dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.alert_in_progress_blue));
-        dueButton.setText(MessageFormat.format(context.getString(org.smartregister.chw.core.R.string.tasks_status), count));
-        dueButton.setBackgroundResource(org.smartregister.chw.core.R.drawable.blue_btn_selector);
+        dueButton.setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
+        dueButton.setText(MessageFormat.format(context.getString(R.string.tasks_status), count));
+        dueButton.setBackgroundResource(R.drawable.blue_btn_selector);
         dueButton.setOnClickListener(onClickListener);
     }
 
     private void setTaskNotDone(Context context, Button dueButton) {
-        dueButton.setTextColor(context.getResources().getColor(org.smartregister.chw.core.R.color.progress_orange));
-        dueButton.setText(context.getString(org.smartregister.chw.core.R.string.tasks_not_done));
-        dueButton.setBackgroundColor(context.getResources().getColor(org.smartregister.chw.core.R.color.transparent));
+        dueButton.setTextColor(context.getResources().getColor(R.color.progress_orange));
+        dueButton.setText(context.getString(R.string.tasks_not_done));
+        dueButton.setBackgroundColor(context.getResources().getColor(R.color.transparent));
         dueButton.setOnClickListener(onClickListener);
     }
 

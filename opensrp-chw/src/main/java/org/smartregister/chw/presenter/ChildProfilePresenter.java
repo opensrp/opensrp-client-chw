@@ -12,8 +12,10 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ReferralRegistrationActivity;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
+import org.smartregister.chw.core.utils.CoreChildService;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
@@ -37,8 +39,6 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.Utils.getClientName;
-
 public class ChildProfilePresenter extends CoreChildProfilePresenter {
 
     private List<ReferralTypeModel> referralTypeModels;
@@ -61,17 +61,6 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         if (getView() != null) {
             getView().updateHasPhone(hasPhone);
         }
-    }
-
-    @Override
-    public void refreshProfileTopSection(CommonPersonObjectClient client) {
-        super.refreshProfileTopSection(client);
-
-        String firstName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
-        String lastName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-        String middleName = org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
-        String childName = getClientName(firstName, middleName, lastName);
-        getView().setProfileName(childName);
     }
 
     @Override
@@ -137,6 +126,27 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
             startSickChildReferralForm();
         } else {
             Utils.launchClientReferralActivity((Activity) getView(), referralTypeModels, childBaseEntityId);
+        }
+    }
+
+    @Override
+    public void updateChildService(CoreChildService childService) {
+        if (getView() != null) {
+            if (!(ChwApplication.getApplicationFlavor().splitUpcomingServicesView())) {
+                if (childService != null) {
+                    if (childService.getServiceStatus().equalsIgnoreCase(CoreConstants.ServiceType.UPCOMING.name())) {
+                        getView().setServiceNameUpcoming(childService.getServiceName().trim(), childService.getServiceDate());
+                    } else if (childService.getServiceStatus().equalsIgnoreCase(CoreConstants.ServiceType.OVERDUE.name())) {
+                        getView().setServiceNameOverDue(childService.getServiceName().trim(), childService.getServiceDate());
+                    } else {
+                        getView().setServiceNameDue(childService.getServiceName().trim(), childService.getServiceDate());
+                    }
+                } else {
+                    getView().setServiceNameDue("", "");
+                }
+            } else {
+                getView().setDueTodayServices();
+            }
         }
     }
 

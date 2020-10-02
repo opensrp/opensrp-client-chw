@@ -44,7 +44,12 @@ public abstract class DefaultNavigationMenuFlv implements NavigationMenu.Flavour
     }
 
     @Override
-    public String childNavigationMenuCountString(){
-        return  null;
+    public String childNavigationMenuCountString() {
+        return null;
+    }
+
+    @Override
+    public boolean hasCommunityResponders() {
+        return false;
     }
 }
