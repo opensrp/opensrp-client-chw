@@ -20,13 +20,11 @@ public class NavigationMenuFlv extends DefaultNavigationMenuFlv {
                 " and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = ec_child.mother_entity_id ) = 1)) \n" +
                 " and CASE WHEN ec_child.gender = 'Male' \n" +
                 " THEN (\n" +
-                " ((( julianday('now') - julianday(ec_child.dob))/365.25) < +1.8) OR ( (((( julianday('now') - julianday(ec_child.dob))/365.25) >= +1.8) AND ((( julianday('now') - julianday(ec_child.dob))/365.25) <= +2)) AND\n" +
-                "  ((SELECT count(*) FROM alerts WHERE alerts.caseID = ec_child.base_entity_id and alerts.status in ('normal','urgent', 'upcoming')) > 0))\n" +
-                "  )\n" +
+                " (( julianday('now') - julianday(ec_child.dob))/365.25) < 2\n" +
+                " )\n" +
                 "  WHEN ec_child.gender = 'Female' \n" +
                 " THEN (\n" +
-                " ((( julianday('now') - julianday(ec_child.dob))/365.25) < +1.8) OR ( (((( julianday('now') - julianday(ec_child.dob))/365.25) >= +1.8) AND ((( julianday('now') - julianday(ec_child.dob))/365.25) <= +2)) AND\n" +
-                "  ((SELECT count(*) FROM alerts WHERE alerts.caseID = ec_child.base_entity_id and alerts.status in ('normal','urgent', 'upcoming')) > 0))  OR (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11)\n" +
+                " ((( julianday('now') - julianday(ec_child.dob))/365.25) < 2) OR (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11)\n" +
                 "  ) END";
     }
 
