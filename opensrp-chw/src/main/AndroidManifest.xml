@@ -203,9 +203,6 @@
             android:name=".core.activity.ReportSummaryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".core.activity.ChromeContainer"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
             android:name=".core.activity.ServiceJsonFormActivity"
             android:label="@string/stock_usage_report"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -227,6 +224,9 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.AllClientsRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.WebViewActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name="org.smartregister.opd.activity.BaseOpdFormActivity"

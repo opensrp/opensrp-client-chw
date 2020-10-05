@@ -142,7 +142,14 @@
           },
           {
             "field": "eventType",
-            "field_value": "Update ThinkMD Id",
+            "field_value": "update_thinkmd_id",
+            "creates_case": [
+              "ec_child"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "thinkMd_assessment",
             "creates_case": [
               "ec_child"
             ]

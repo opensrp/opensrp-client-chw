@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -39,6 +40,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
+import static org.smartregister.chw.core.dao.ChildDao.getThinkMDCarePlan;
 import static org.smartregister.chw.core.utils.CoreConstants.ThinkMdConstants.CARE_PLAN_DATE;
 import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
 import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
@@ -70,16 +72,22 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
 
-        if (getIntent().hasExtra(context().getStringResource(R.string.fhir_bundle))) {
+        if (getIntent().hasExtra(context().getStringResource(R.string.fhir_bundle))
+                && !StringUtils.isEmpty(getIntent().getStringExtra(context().getStringResource(R.string.fhir_bundle)))) {
             presenter().createCarePlanEvent(getContext(), getIntent().getStringExtra(context().getStringResource(R.string.fhir_bundle)));
         }
-      //  setVaccineHistoryView(lastVisitDay);
+        //  setVaccineHistoryView(lastVisitDay);
+    }
+
+    @Override
+    public void finishActivity() {
+        this.finish();
     }
 
     @Override
     public void setUpToolbar() {
-        updateToolbarTitle(this, org.smartregister.chw.core.R.id.toolbar_title, memberObject.getFirstName());
-
+        if (memberObject != null && memberObject.getFirstName() != null)
+            updateToolbarTitle(this, org.smartregister.chw.core.R.id.toolbar_title, memberObject.getFirstName());
     }
 
     @Override
@@ -96,11 +104,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         int i = view.getId();
         if (i == R.id.last_visit_row) {
             openMedicalHistoryScreen();
-        }
-        else if(i== R.id.vaccine_history){
+        } else if (i == R.id.vaccine_history) {
             openMedicalHistoryScreen();
-        }
-        else if (i == R.id.most_due_overdue_row) {
+        } else if (i == R.id.most_due_overdue_row) {
             openUpcomingServicePage();
         } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
             openVisitHomeScreen(false);
@@ -192,7 +198,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
                 && ChildDao.isThinkMDCarePlanExist(childBaseEntityId)) {
             menu.findItem(R.id.action_thinkmd_careplan).setVisible(true);
             menu.findItem(R.id.action_thinkmd_careplan).setTitle(
-                    String.format(getResources().getString(R.string.thinkmd_careplan), ChildDao.getThinkMDCarePlan(childBaseEntityId, CARE_PLAN_DATE))
+                    String.format(getResources().getString(R.string.thinkmd_careplan), getThinkMDCarePlan(childBaseEntityId, CARE_PLAN_DATE))
             );
         }
         return true;
@@ -285,8 +291,8 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     @Override
     public void setLastVisitRowView(String days) {
         lastVisitDay = days;
-        flavor.setLastVisitRowView(lastVisitDay,layoutLastVisitRow, viewLastVisitRow, textViewLastVisit, this);
-        flavor.setVaccineHistoryView(lastVisitDay,layoutVaccineHistoryRow, viewVaccineHistoryRow, this);
+        flavor.setLastVisitRowView(lastVisitDay, layoutLastVisitRow, viewLastVisitRow, textViewLastVisit, this);
+        flavor.setVaccineHistoryView(lastVisitDay, layoutVaccineHistoryRow, viewVaccineHistoryRow, this);
 
     }
 

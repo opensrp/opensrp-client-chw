@@ -1,5 +1,6 @@
 package org.smartregister.chw.interactor;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.util.Pair;
 
@@ -14,6 +15,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
@@ -29,6 +31,7 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
 import org.smartregister.family.FamilyLibrary;
@@ -290,15 +293,24 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
     private void addThinkmdIdentifier(@NotNull Context context, String uniqueIdGeneratedForThinkMD, @NotNull String childBaseEntityId) {
         Event event = new Event()
                 .withBaseEntityId(childBaseEntityId)
-                .withEventType("Update ThinkMD Id")
+                .withEventType("update_thinkmd_id")
                 .withEntityType("ec_child")
                 .addIdentifier(context.getString(R.string.thinkmd_identifier_type), uniqueIdGeneratedForThinkMD);
         tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), event);
 
         try {
+            // update event
             JSONObject eventPartialJson = new JSONObject(JsonFormUtils.gson.toJson(event));
             getSyncHelper().addEvent(childBaseEntityId, eventPartialJson);
-        } catch (JSONException e) {
+            // update local storage
+            AllCommonsRepository allCommonsRepository = CoreChwApplication.getInstance().getAllCommonsRepository("ec_child");
+            //Update REGISTER and FTS Tables
+            if (allCommonsRepository != null) {
+                ContentValues values = new ContentValues();
+                values.put(context.getString(R.string.thinkmd_identifier_type), uniqueIdGeneratedForThinkMD);
+                allCommonsRepository.update("ec_child", values, childBaseEntityId);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
