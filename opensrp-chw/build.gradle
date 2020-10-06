@@ -279,6 +279,7 @@ dependencies {
         exclude group: 'com.ibm.fhir', module: 'fhir-model'
         exclude group: 'org.smartregister', module: 'opensrp-client-simprints'
     }
+
     implementation('org.smartregister:opensrp-client-core:1.15.4.3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
