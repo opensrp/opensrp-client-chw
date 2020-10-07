@@ -2,11 +2,12 @@ indicators:
   - key: "CHW_001"
     description: "Total U2 children"
     indicatorQuery: "select count(*) from ec_child c
-                     inner join ec_family_member m on c.base_entity_id = m.base_entity_id COLLATE NOCASE
-                     inner join ec_family f on f.base_entity_id = m.relational_id COLLATE NOCASE
-                     where m.date_removed is null and m.is_closed = 0
-                     and ((( julianday('now') - julianday(c.dob))/365.25) < 2) and c.is_closed = 0
-                     and ((( ifnull(entry_point,'') <> 'PNC' )) or (ifnull(entry_point,'') = 'PNC' and ( date (c.dob, '+28 days') <= date() and ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 0)))  or (ifnull(entry_point,'') = 'PNC'  and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 1))"
+                          inner join ec_family_member m on c.base_entity_id = m.base_entity_id COLLATE NOCASE
+                          inner join ec_family f on f.base_entity_id = m.relational_id COLLATE NOCASE
+                          where m.date_removed is null and m.is_closed = 0
+                          and ifnull(c.dod,'') = '' and ifnull(c.date_removed,'') = ''
+                          and ((( julianday('now') - julianday(c.dob))/365.25) < 2) and c.is_closed = 0
+                     	  and ((( ifnull(entry_point,'') <> 'PNC' )) or (ifnull(entry_point,'') = 'PNC' and ( date (c.dob, '+28 days') <= date() and ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 0)))  or (ifnull(entry_point,'') = 'PNC'  and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 1))"
 
   - key: "CHW_002"
     description: "Children (0-11 months) who died in the last year"
@@ -148,14 +149,18 @@ indicators:
 
   - key: "CHW_014"
     description: "Children (0-23 months) up to date on immunizations"
-    indicatorQuery: "select count(ec_child.base_entity_id) from ec_child where date(ec_child.dob) > date('now', '-24 month')
-                                          and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = '' and ec_child.base_entity_id not in
-                                          (select distinct alerts.caseID from alerts where (alerts.status = 'upcoming' or alerts.status = 'normal' or alerts.status = 'urgent') and alerts.scheduleName
-                     					 in ('BCG','OPV 1', 'OPV 2', 'OPV 3', 'PCV 1', 'PCV 2', 'PCV 3', 'Penta 1', 'Penta 2', 'Penta 3', 'Rota 1', 'Rota 2', 'Typhoid', 'IPV', 'YF', 'MCV 1', 'MCV 2'))"
+    indicatorQuery: "select count(ec_child.base_entity_id) from ec_child
+                                          		where date(ec_child.dob) > date('now', '-24 month')
+                                                 and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = '' and ec_child.base_entity_id not in
+                                                 (select distinct alerts.caseID from alerts where (alerts.status = 'upcoming' or alerts.status = 'normal' or alerts.status = 'urgent') and alerts.scheduleName
+                                                 in ('BCG','OPV 1', 'OPV 2', 'OPV 3', 'PCV 1', 'PCV 2', 'PCV 3', 'Penta 1', 'Penta 2', 'Penta 3', 'Rota 1', 'Rota 2', 'Typhoid', 'IPV', 'YF', 'MCV 1', 'MCV 2'))
+                                          		and ((( ifnull(entry_point,'') <> 'PNC' )) or (ifnull(entry_point,'') = 'PNC' and ( date (ec_child.dob, '+28 days') <= date() and ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 0)))  or (ifnull(entry_point,'') = 'PNC'  and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 1))"
 
   - key: "CHW_015"
     description: "Children (0-23 months)  who are currently overdue for at least one or more vaccinations"
-    indicatorQuery: "select count(ec_child.base_entity_id) from ec_child where date(ec_child.dob) > date('now', '-24 month')
-                                          and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = '' and ec_child.base_entity_id in
-                                          (select distinct alerts.caseID from alerts where alerts.status = 'urgent' and alerts.scheduleName
-                     					 in ('BCG','OPV 1', 'OPV 2', 'OPV 3', 'PCV 1', 'PCV 2', 'PCV 3', 'Penta 1', 'Penta 2', 'Penta 3', 'Rota 1', 'Rota 2', 'Typhoid', 'IPV', 'YF', 'MCV 1', 'MCV 2'))"
+    indicatorQuery: "select count(ec_child.base_entity_id) from ec_child
+                                          		where date(ec_child.dob) > date('now', '-24 month')
+                                                 and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = '' and ec_child.base_entity_id in
+                                                 (select distinct alerts.caseID from alerts where (alerts.status = 'upcoming' or alerts.status = 'normal' or alerts.status = 'urgent') and alerts.scheduleName
+                                                 in ('BCG','OPV 1', 'OPV 2', 'OPV 3', 'PCV 1', 'PCV 2', 'PCV 3', 'Penta 1', 'Penta 2', 'Penta 3', 'Rota 1', 'Rota 2', 'Typhoid', 'IPV', 'YF', 'MCV 1', 'MCV 2'))
+                                          		and ((( ifnull(entry_point,'') <> 'PNC' )) or (ifnull(entry_point,'') = 'PNC' and ( date (ec_child.dob, '+28 days') <= date() and ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 0)))  or (ifnull(entry_point,'') = 'PNC'  and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 1))"
