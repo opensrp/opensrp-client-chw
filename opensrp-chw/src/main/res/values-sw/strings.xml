@@ -7,14 +7,14 @@
     <string name="not_provided">Haijatolewa</string>
 
     <string name="child_under_five">Mtoto chini ya miaka 5</string>
-    <string name="add_eligible_child">Mtoto anayefaa</string>
+    <string name="add_eligible_child">Mtoto stahiki</string>
     <string name="go_to_family_s_profile">Elekea kwenye taarifa binafsi za kaya</string>
     <string name="family_has_nothing_due">Muda wa huduma kwenye kaya haujafika</string>
     <string name="family_has_services_due">Muda wa huduma kwenye kaya umefika</string>
     <string name="vaccine_service_overdue"><![CDATA[%1$s <font color=#f04646> muda umepita (%2$s)</font> </b>]]></string>
     <string name="vaccine_service_due"><![CDATA[%1$s <font color=#000000> imefika (%2$s)</font></b>]]></string>
     <string name="vaccine_service_upcoming"><![CDATA[%1$s <font color=#7f7f7f> inakaribia (%2$s) </font> </b>]]></string>
-    <string name="due_today">Kwa Leo</string>
+    <string name="due_today">Zinazopaswa leo</string>
 
     <string name="family_has_service_overdue"><![CDATA[Kaya ina <font color=#FF0000>huduma zilizopitiliza muda wake </font></b>]]></string>
     <string name="view_upcoming_services">Angalia huduma zinazokaribia</string>
@@ -109,6 +109,39 @@
 
     <string name="children_0_24_months_upto_date_vaccinations">Watoto (0&#8211;23 months) walio kwenye chanjo mpaka sasa</string>
     <string name="children_0_24_months_overdue_vaccinations">Watoto (6&#8211;23 months) ambao hivi sasa wamepitiliza muda wa kupata chanjo angalau moja au zaidi.</string>
+
+
+    <string name="total_under_2_children_label">Jumla ya watoto chini ya miaka 2</string>
+    <string name="deceased_children_12_23_months">Watoto (12&#8211;23 miezi) waliofariki mwaka uliopita</string>
+    <string name="children_0_23_months_with_birth_certificate">Watoto (0&#8211;23 miezi) waliofariki mwaka uliopita</string>
+    <string name="children_0_23_months_without_birth__certificate">Watoto (0&#8211;23 miezi) ambao hawana cheti cha kuzaliwa</string>
+    <string name="children_12_23_months_dewormed">Watoto (12&#8211;23 miezi) ambao walipata kinga tiba dhidi ya minyoo katika kipindi cha miezi 6 ya mwisho</string>
+    <string name="children_12_23_months_not_dewormed">Watoto (12&#8211;23 miezi) ambao hawakupata kinga tiba dhidi ya minyoo katika kipindi cha miezi 6 ya mwisho</string>
+    <string name="children_6_23_months_received_vitamin_A">Watoto (6&#8211;23 miezi) ambao walipata Vitamin A katika kipindi cha miezi 6 ya mwisho</string>
+    <string name="children_6_23_months_not_received_vitamin_A">Watoto (6&#8211;23 miezi) ambao hawakupata Vitamin A katika kipindi cha miezi 6 ya mwisho</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <string name="opv_0_not_included">OPV 0 haijajumuishwa</string>
 
     <string name="yes_slice_label">Ndiyo</string>
@@ -252,7 +285,7 @@
     <string name="pnc_indicator_4">Watoto ambao walipokea chanjo ya BCG kwa wakati (miezi 6 iliyopita)</string>
     <string name="pnc_indicator_4_note">Kwa wakati inamaanisha ndani ya wiki nne za kuzaliwa</string>
     <string name="pnc_indicator_5">WRA ambao wamekufa katika mwaka jana</string>
-    <string name="pnc_indicator_5_note">WRA = Wanawake wa umri wa uzazi (10 &amp; # 8211; 49)</string>
+    <string name="pnc_indicator_5_note">WRA = Wanawake wa umri wa uzazi (10 & # 8211; 49)</string>
     <string name="pnc_indicator_6">Wanawake wasio na dalili za hatari katika tembeleo la mwisho ya nyumbani baada ya kujifungua</string>
     <string name="pnc_indicator_7">Watoto wachanga wasio na dalili za hatari katika tembeleo la mwisho ya nyumbani baada ya kujifungua</string>
     <string name="pnc_indicator_8">Njia za wanawake za kuchaguliwa uzazi wa mpango baada ya kujifungua (miezi 6 iliyopita)</string>
@@ -287,7 +320,7 @@
     <string name="pnc_observation_and_illness_baby">Uchunguzi na ugonjwa - mtoto ({0})</string>
 
     <string name="pnc_counselling">Ushauri</string>
-    <string name="pnc_nutrition_status">Hali ya lishe - mama </string>
+    <string name="pnc_nutrition_status">Hali ya lishe-mama</string>
     <string name="pnc_nutrition_status_baby_name">Hali ya lishe kwa mtoto ({0})</string>
     <string name="pnc_malaria_prevention">Kinga dhidi ya malaria</string>
     <!-- PNC Home visit subtitle text -->
@@ -368,4 +401,7 @@
     <!---Anc Home Visit Strings -->
     <string name="anc_home_visit_pregnancy_risk">Hatari ya ujauzito</string>
     <string name="loading_content">Inapakia taarifa</string>
+
+    <string name="ten_digits_validation">Namba iwe na tarakimu 10</string>
+    <string name="select_communities">Chagua jamii</string>
 </resources>
