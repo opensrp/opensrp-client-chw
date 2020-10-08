@@ -119,4 +119,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean showAllChildServicesDueIncludingCurrentChild(){
         return false;
     }
+
+    @Override
+    public boolean saveOnSubmission() {
+        return true;
+    }
 }

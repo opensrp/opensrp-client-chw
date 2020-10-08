@@ -177,4 +177,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean showAllChildServicesDueIncludingCurrentChild(){
         return true;
     }
+
+    @Override
+    public boolean saveOnSubmission() {
+        return false;
+    }
 }
