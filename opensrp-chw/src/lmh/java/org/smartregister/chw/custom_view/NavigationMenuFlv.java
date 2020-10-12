@@ -12,7 +12,6 @@ public class NavigationMenuFlv extends DefaultNavigationMenuFlv {
                 " FROM ec_child\n" +
                 " LEFT JOIN ec_family ON  ec_child.relational_id = ec_family.id COLLATE NOCASE  \n" +
                 " LEFT JOIN ec_family_member ON  ec_family_member.base_entity_id = ec_family.primary_caregiver COLLATE NOCASE  \n" +
-                " LEFT JOIN (select base_entity_id , max(visit_date) visit_date from visits GROUP by base_entity_id) VISIT_SUMMARY ON VISIT_SUMMARY.base_entity_id = ec_child.base_entity_id \n" +
                 " WHERE  ec_child.date_removed is null\n" +
                 " AND  (( ifnull(ec_child.entry_point,'') <> 'PNC' )  or (ifnull(ec_child.entry_point,'') = 'PNC' and ( date(ec_child.dob, '+28 days') <= date() \n" +
                 " and ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = ec_child.mother_entity_id ) = 0))) \n" +
