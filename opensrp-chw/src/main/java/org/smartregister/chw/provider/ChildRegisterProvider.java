@@ -20,6 +20,7 @@ import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Set;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
 import static org.smartregister.chw.util.Utils.getClientName;
 
 /**
@@ -90,7 +91,7 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
 
         fillValue(viewHolder.textViewParentName, WordUtils.capitalize(parentName));
 
-        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
+        String dobString = getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
         //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         fillChildNameAndAge(viewHolder, childName, dobString);
         setAddressAndGender(pc, viewHolder);
