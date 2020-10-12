@@ -43,6 +43,8 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+
 public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private Context context;
     private View.OnClickListener onClickListener;
@@ -89,13 +91,13 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         String baseEntityId = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
         String patientName = Utils.getClientName(firstName, middleName, lastName);
         String dob = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
-        String dobString = org.smartregister.family.util.Utils.getDuration(dob);
+        String dobString = getDuration(dob);
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
 
         String dod = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOD, false);
         if (StringUtils.isNotBlank(dod)) {
 
-            dobString = org.smartregister.family.util.Utils.getDuration(dod, dob);
+            dobString = getDuration(dod, dob);
             dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
 
             patientName = patientName + ", " + org.smartregister.family.util.Utils.getTranslatedDate(dobString, context) + " " + context.getString(R.string.deceased_brackets);
@@ -250,7 +252,7 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
 
     private ChildVisit retrieveChildVisitList(Rules rules, CommonPersonObjectClient pc, Map<String, String> map) {
         String dob = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
-        String dobString = Utils.getDuration(dob);
+        String dobString = getDuration(dob);
         String lastVisitDate = map.get(ChildDBConstants.KEY.LAST_HOME_VISIT);
         String visitNotDone = map.get(ChildDBConstants.KEY.VISIT_NOT_DONE);
         String strDateCreated = map.get(ChildDBConstants.KEY.DATE_CREATED);

@@ -48,7 +48,7 @@
             android:focusable="false"
             android:gravity="start"
             android:paddingTop="15dp"
-            android:text="Select options"
+            android:text="@string/select_options"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/chw_primary_dark" />
 
