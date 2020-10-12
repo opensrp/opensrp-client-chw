@@ -206,8 +206,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     protected void updateSelectedCommunitiesView() {
         StringBuilder stringBuffer = new StringBuilder();
         for (int i = 0; i < checkedCommunities.length; i++) {
-            boolean checked = checkedCommunities[i];
-            if (checked) {
+            if (checkedCommunities[i]) {
                 stringBuffer.append(communityList.get(i)).append("\n");
             }
         }
