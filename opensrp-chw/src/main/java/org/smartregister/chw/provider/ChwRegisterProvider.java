@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+
 public class ChwRegisterProvider extends CoreRegisterProvider {
 
     public ChwRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
@@ -67,7 +69,7 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
     public List<ChildVisit> retrieveChildVisitList(Rules rules, List<Map<String, String>> list) {
         List<ChildVisit> childVisitList = new ArrayList<>();
         for (Map<String, String> map : list) {
-            String dobString = Utils.getDuration(map.get(DBConstants.KEY.DOB));
+            String dobString = getDuration(map.get(DBConstants.KEY.DOB));
             String lastVisitDate = map.get(ChildDBConstants.KEY.LAST_HOME_VISIT);
             String visitNotDone = map.get(ChildDBConstants.KEY.VISIT_NOT_DONE);
             String strDateCreated = map.get(ChildDBConstants.KEY.DATE_CREATED);

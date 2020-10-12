@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.FragmentBaseActivity;
@@ -51,7 +53,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     private List<String> communityList = new ArrayList<>();
     private LinkedHashMap<String, String> communityIDList = new LinkedHashMap<>();
     protected TextView selectedCommunitiesTV;
-    private boolean[] checkedCommunities = null;
+    private boolean[] checkedCommunities;
 
 
     @Override
@@ -112,18 +114,19 @@ public class FilterReportFragment extends Fragment implements FindReportContract
                     if (i == 0) {
                         communityIds.add("");
                         break;
-                    } else
-                        communityIds.add(new ArrayList<>(communityIDList.keySet()).get(i - 1));
+                    } else communityIds.add(new ArrayList<>(communityIDList.keySet()).get(i - 1));
                 }
             }
-        }
-        Map<String, String> map = new HashMap<>();
-        Gson gson = new Gson();
-        map.put(Constants.ReportParameters.COMMUNITY, gson.toJson(communities));
-        map.put(Constants.ReportParameters.COMMUNITY_ID, gson.toJson(communityIds));
-        map.put(Constants.ReportParameters.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
-        presenter.runReport(map);
+            if (communities.size() > 0) {
+                Map<String, String> map = new HashMap<>();
+                Gson gson = new Gson();
+                map.put(Constants.ReportParameters.COMMUNITY, gson.toJson(communities));
+                map.put(Constants.ReportParameters.COMMUNITY_ID, gson.toJson(communityIds));
+                map.put(Constants.ReportParameters.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
+                presenter.runReport(map);
+            } else Toast.makeText(getActivity(), "No CHA selected", Toast.LENGTH_SHORT).show();
 
+        }
     }
 
     private void bindDatePicker() {
@@ -173,14 +176,9 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
     private void showCommunitiesSelectDialog() {
         if (getActivity() != null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(getActivity().getResources().getString(R.string.select_communities));
-            String[] itemsArray = new String[communityList.size()];
-            builder.setMultiChoiceItems(communityList.toArray(itemsArray), checkedCommunities, this::handleCommunityMultiChoiceItemsDialog);
-            builder.setPositiveButton("OK", (dialog, which) -> updateSelectedCommunitiesView());
-
-            builder.setNegativeButton("Close", (dialog, which) -> dialog.dismiss());
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setTitle(getActivity().getResources().getString(R.string.select_communities)).setCancelable(false)
+                    .setMultiChoiceItems(communityList.toArray(new String[0]), checkedCommunities, this::handleCommunityMultiChoiceItemsDialog)
+                    .setPositiveButton("OK", (dialog, which) -> updateSelectedCommunitiesView());
             AlertDialog dialog = builder.create();
             dialog.show();
         }
@@ -208,11 +206,10 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     protected void updateSelectedCommunitiesView() {
         StringBuilder stringBuffer = new StringBuilder();
         for (int i = 0; i < checkedCommunities.length; i++) {
-            boolean checked = checkedCommunities[i];
-            if (checked) {
+            if (checkedCommunities[i]) {
                 stringBuffer.append(communityList.get(i)).append("\n");
             }
         }
-        selectedCommunitiesTV.setText(stringBuffer.toString());
+        selectedCommunitiesTV.setText(StringUtils.isNoneEmpty(stringBuffer.toString()) ? stringBuffer.toString() : getContext().getResources().getString(R.string.select_options));
     }
 }

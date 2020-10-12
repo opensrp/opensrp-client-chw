@@ -127,7 +127,7 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
 
     private void computeAge(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
         String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
-        dobString = org.smartregister.family.util.Utils.getDuration(dobString);
+        dobString = Utils.getDuration(dobString);
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "0";
         jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Integer.valueOf(dobString));
     }
