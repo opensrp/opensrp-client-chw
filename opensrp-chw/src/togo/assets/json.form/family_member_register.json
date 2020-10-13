@@ -287,6 +287,52 @@
         }
       },
       {
+        "key": "ever_school",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "ever_school",
+        "type": "spinner",
+        "expanded": false,
+        "hint": "Has the child ever attended school or any early childhood education programme?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-relevance.yml"
+            }
+          }
+        }
+      },
+
+      {
+        "key": "school_level",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "school_level",
+        "type": "spinner",
+        "expanded": false,
+        "hint": "What level or year of school is s/he attending right now?",
+        "values": [
+          "Not currently attending school or any learning program",
+          "Early childhood programme",
+          "Primary",
+          "Lower secondary",
+          "Upper secondary",
+          "Alternative learning program",
+          "Higher"
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "primary_caregiver",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

@@ -185,6 +185,20 @@
           }
         },
         {
+          "column_name": "ever_school",
+          "type": "Client",
+          "json_mapping": {
+            "field": "ever_school"
+          }
+        },
+        {
+          "column_name": "school_level",
+          "type": "Client",
+          "json_mapping": {
+            "field": "school_level"
+          }
+        },
+        {
           "column_name": "phone_number",
           "type": "Event",
           "json_mapping": {
