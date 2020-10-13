@@ -41,6 +41,20 @@ condition: "step1_primary_caregiver == 'Yes'"
 actions:
   - "isRelevant = true"
 ---
+name: step1_ever_school
+description: ever attended school relevance
+priority: 1
+condition: "(step1_dob != '' && helper.formatDate(step1_dob,'y') <= 18) || (step1_age != '' && step1_age <= 18)"
+actions:
+  - "isRelevant = true"
+---
+name: step1_school_level
+description: level of school relevance
+priority: 1
+condition: "step1_ever_school == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
 name: step1_primary_caregiver
 description: member is between 5yrs and 120 yrs
 priority: 1
