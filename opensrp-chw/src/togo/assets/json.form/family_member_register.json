@@ -289,7 +289,7 @@
       {
         "key": "ever_school",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "ever_school",
         "type": "spinner",
         "expanded": false,
@@ -310,7 +310,7 @@
       {
         "key": "school_level",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "school_level",
         "type": "spinner",
         "expanded": false,

@@ -186,16 +186,18 @@
         },
         {
           "column_name": "ever_school",
-          "type": "Client",
+          "type": "Event",
           "json_mapping": {
-            "field": "ever_school"
+            "field": "obs.fieldCode",
+            "concept": "ever_school"
           }
         },
         {
           "column_name": "school_level",
-          "type": "Client",
+          "type": "Event",
           "json_mapping": {
-            "field": "school_level"
+            "field": "obs.fieldCode",
+            "concept": "school_level"
           }
         },
         {
