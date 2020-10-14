@@ -304,6 +304,11 @@ dependencies {
         exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
+    implementation('io.ona.kujaku:library:0.8.9') {
+        exclude group: 'com.android.volley', module: 'volley'
+        exclude group: 'stax', module: 'stax-api'
+    }
 
     //Do not upgrade to 1.1.0 due to compatibility issues
     implementation 'androidx.appcompat:appcompat:1.2.0'
