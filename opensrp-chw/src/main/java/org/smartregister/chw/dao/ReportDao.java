@@ -51,6 +51,14 @@ public class ReportDao extends AbstractDao {
                 "left join ec_family f on c.relational_id = f.base_entity_id " +
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
                 "where ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') " +
+                " AND CASE WHEN c.gender = 'Male' \n" +
+                " THEN (\n" +
+                " (( julianday('now') - julianday(c.dob))/365.25) < 2\n" +
+                " )\n" +
+                " WHEN c.gender = 'Female' \n" +
+                " THEN (\n" +
+                " ((( julianday('now') - julianday(c.dob))/365.25) < 2) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)\n" +
+                "  ) END " +
                 "and l.base_entity_id in (select caseID from alerts where status not in ('expired','complete') and startDate <= '" + paramDate + "' and expiryDate >= '" + paramDate + "') " +
                 "order by c.first_name , c.last_name , c.middle_name ";
 
@@ -92,19 +100,29 @@ public class ReportDao extends AbstractDao {
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
                 "inner join alerts al on caseID = c.base_entity_id " +
                 "where status <> 'expired' and startDate <= '" + paramDate + "' " +
+                " AND CASE WHEN c.gender = 'Male' \n" +
+                " THEN (\n" +
+                " (( julianday('now') - julianday(c.dob))/365.25) < 2\n" +
+                " )\n" +
+                " WHEN c.gender = 'Female' \n" +
+                " THEN (\n" +
+                " ((( julianday('now') - julianday(c.dob))/365.25) < 2) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)\n" +
+                "  ) END " +
                 "group by scheduleName " +
                 "order by scheduleName";
 
         Map<String, Integer> map = new TreeMap<>();
 
         DataMap<Void> dataMap = c -> {
-            String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
+            //String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
+            String scheduleName = getCursorValue(c, "scheduleName", "");
+
             Integer count = getCursorIntValue(c, "cnt", 0);
 
-            Integer total = map.get(scheduleName);
-            total = ((total == null) ? 0 : total) + count;
+         /*   Integer total = map.get(scheduleName);
+            total = ((total == null) ? 0 : total) + count;*/
 
-            map.put(scheduleName, total);
+            map.put(scheduleName, count);
             return null;
         };
         readData(sql, dataMap);
@@ -133,6 +151,14 @@ public class ReportDao extends AbstractDao {
                 "inner join alerts al on caseID = c.base_entity_id " +
                 "where status <> 'expired' and startDate <= '" + paramDate + "' " +
                 "AND CASE WHEN '" + communityIds.get(0) + "' <> '' THEN (l.location_id IN " + _communityIds + ")  ELSE true END " +
+                " AND CASE WHEN c.gender = 'Male' \n" +
+                " THEN (\n" +
+                " (( julianday('now') - julianday(c.dob))/365.25) < 2\n" +
+                " )\n" +
+                " WHEN c.gender = 'Female' \n" +
+                " THEN (\n" +
+                " ((( julianday('now') - julianday(c.dob))/365.25) < 2) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)\n" +
+                "  ) END  " +
                 "group by scheduleName , location_id " +
                 "order by location_id , scheduleName ";
 
@@ -140,16 +166,17 @@ public class ReportDao extends AbstractDao {
 
         DataMap<Void> dataMap = c -> {
             String location_id = getCursorValue(c, "location_id", "");
-            String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
+            String scheduleName = getCursorValue(c, "scheduleName", "");
+          //  String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
             Integer count = getCursorIntValue(c, "cnt", 0);
 
             TreeMap<String, Integer> vaccineMaps = resultMap.get(location_id);
             if (vaccineMaps == null) vaccineMaps = new TreeMap<>();
 
-            Integer total = vaccineMaps.get(scheduleName);
-            total = ((total == null) ? 0 : total) + count;
+          /*  Integer total = vaccineMaps.get(scheduleName);
+            total = ((total == null) ? 0 : total) + count;*/
 
-            vaccineMaps.put(scheduleName, total);
+            vaccineMaps.put(scheduleName, count);
             resultMap.put(location_id, vaccineMaps);
 
             return null;
@@ -198,7 +225,7 @@ public class ReportDao extends AbstractDao {
                 "f.first_name family_name, ec_child.dob\n" +
                 "from ec_child \n" +
                 "left join ec_family f on ec_child.relational_id = f.base_entity_id\n" +
-                "where date(ec_child.dob) >= date('now', '-24 month')\n" +
+                "where date(ec_child.dob) > date('now', '-24 month')\n" +
                 "and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = ''\n" +
                 "and ec_child.base_entity_id in (\n" +
                 "select v.base_entity_id from visits v\n" +
@@ -212,7 +239,7 @@ public class ReportDao extends AbstractDao {
                 "f.first_name family_name, ec_child.dob\n" +
                 "from ec_child\n" +
                 "left join ec_family f on ec_child.relational_id = f.base_entity_id\n" +
-                "where date(ec_child.dob) >= date('now', '-24 month')\n" +
+                "where date(ec_child.dob) > date('now', '-24 month')\n" +
                 "and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = ''\n" +
                 "and ec_child.base_entity_id not in (\n" +
                 "select v.base_entity_id from visits v\n" +

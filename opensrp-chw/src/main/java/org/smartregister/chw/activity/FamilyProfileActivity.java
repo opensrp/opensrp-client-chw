@@ -37,6 +37,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.family.util.DBConstants.KEY.LAST_NAME;
 
@@ -198,7 +199,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     }
 
     private Intent getChildIntent(CommonPersonObjectClient patient){
-        String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
+        String dobString = getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
         Integer yearOfBirth = CoreChildUtils.dobStringToYear(dobString);
         if(!ChwApplication.getApplicationFlavor().hasHpvVaccineChildren()){
            return getMaleAndFemaleChildrenIntent(yearOfBirth);

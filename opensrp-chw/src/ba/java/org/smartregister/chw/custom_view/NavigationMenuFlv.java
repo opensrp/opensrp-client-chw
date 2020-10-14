@@ -53,4 +53,8 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
     public Intent getServiceReportIntent(Activity activity) {
         return new Intent(activity, HIA2ReportsActivity.class);
     }
+
+    @Override
+    public String childNavigationMenuCountString() {return null;
+    }
 }

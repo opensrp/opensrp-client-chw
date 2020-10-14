@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Communities"
+            android:text="CHA"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
@@ -48,7 +48,7 @@
             android:focusable="false"
             android:gravity="start"
             android:paddingTop="15dp"
-            android:text="Select options"
+            android:text="@string/select_options"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/chw_primary_dark" />
 

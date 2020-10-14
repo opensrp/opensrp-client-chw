@@ -20,6 +20,7 @@ import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Set;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
 import static org.smartregister.chw.util.Utils.getClientName;
 
 /**
@@ -57,7 +58,7 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
     }
 
     private int getChildRegisterLayout() {
-        return !ChwApplication.getApplicationFlavor().prioritizeChildNameOnChildRegister() ? org.smartregister.chw.core.R.layout.adapter_child_register_list_row : R.layout.adapter_prioritize_child_register_list_row;
+        return !ChwApplication.getApplicationFlavor().prioritizeChildNameOnChildRegister() ? R.layout.adapter_child_register_list_row : R.layout.adapter_prioritize_child_register_list_row;
     }
 
     @Override
@@ -67,7 +68,7 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
     }
 
     private void fillChildNameAndAge(RegisterViewHolder viewHolder, String childName, String dobString) {
-        String age = context.getResources().getString(org.smartregister.chw.core.R.string.age) + ": " + WordUtils.capitalize(Utils.getTranslatedDate(dobString, context));
+        String age = context.getResources().getString(R.string.age) + ": " + WordUtils.capitalize(Utils.getTranslatedDate(dobString, context));
         if (!ChwApplication.getApplicationFlavor().prioritizeChildNameOnChildRegister()) {
             fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName) + ", " + WordUtils.capitalize(Utils.getTranslatedDate(dobString, context)));
         } else {
@@ -82,7 +83,7 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
         String parentLastName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
         String parentMiddleName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
 
-        String parentName = context.getResources().getString(org.smartregister.chw.core.R.string.care_giver_initials) + ": " + getClientName(parentFirstName, parentMiddleName, parentLastName);
+        String parentName = context.getResources().getString(R.string.care_giver_initials) + ": " + getClientName(parentFirstName, parentMiddleName, parentLastName);
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
@@ -90,7 +91,7 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
 
         fillValue(viewHolder.textViewParentName, WordUtils.capitalize(parentName));
 
-        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
+        String dobString = getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
         //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         fillChildNameAndAge(viewHolder, childName, dobString);
         setAddressAndGender(pc, viewHolder);
