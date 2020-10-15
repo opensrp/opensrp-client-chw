@@ -257,7 +257,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".lmh"
             versionCode 1
-            versionName "0.0.5-rc1"
+            versionName "0.0.4"
             buildConfigField "String", 'opensrp_url', '"https://lmh-liberia.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/lmh/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://lmh-stage.smartregister.org/opensrp/"'
@@ -266,7 +266,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "int", "DATABASE_VERSION", '5'
+            buildConfigField "int", "DATABASE_VERSION", '4'
         }
     }
 
