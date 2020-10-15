@@ -7,7 +7,7 @@ import org.smartregister.chw.core.domain.BaseScheduleTask;
 import org.smartregister.chw.core.rule.HomeAlertRule;
 import org.smartregister.chw.core.utils.ChildHomeVisit;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.dao.ChildDao;
+import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
@@ -28,7 +28,7 @@ public class ChildHomeVisitSchedulerFlv extends DefaultChildHomeVisitSchedulerFl
         CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, CoreConstants.RULE_FILE.HOME_VISIT);
 
         // Check If any task are due for that child
-        if (ChildDao.hasDueVaccines(baseEntityID)) {
+        if (ChwChildDao.hasDueVaccines(baseEntityID)) {
             baseScheduleTask.setScheduleDueDate(alertRule.getDueDate());
             baseScheduleTask.setScheduleNotDoneDate(alertRule.getNotDoneDate());
             baseScheduleTask.setScheduleExpiryDate(alertRule.getExpiryDate());

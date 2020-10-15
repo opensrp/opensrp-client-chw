@@ -18,7 +18,7 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.dao.ChildDao;
+import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
@@ -205,7 +205,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
            return getMaleAndFemaleChildrenIntent(yearOfBirth);
         }
         else {
-            if(ChildDao.getChildGender(patient.entityId()).equalsIgnoreCase("Female")){
+            if(ChwChildDao.getChildGender(patient.entityId()).equalsIgnoreCase("Female")){
              return getFemaleChildrenIntent(yearOfBirth);
             }
             else {
