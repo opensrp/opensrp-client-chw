@@ -189,7 +189,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "ever_school"
+            "concept": "everSchool"
           }
         },
         {
@@ -197,7 +197,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "school_level"
+            "concept": "schoolLevel"
           }
         },
         {
