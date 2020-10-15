@@ -2,7 +2,7 @@ package org.smartregister.chw.interactor;
 
 
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
-import org.smartregister.chw.dao.ChildDao;
+import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.immunization.domain.ServiceWrapper;
 
 import java.util.Map;
@@ -13,7 +13,7 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
 
     @Override
     protected int immunizationCeiling() {
-        String gender = ChildDao.getChildGender(memberObject.getBaseEntityId());
+        String gender = ChwChildDao.getChildGender(memberObject.getBaseEntityId());
 
         if(gender != null && gender.equalsIgnoreCase("Female")){
             if(memberObject.getAge() >= 9 && memberObject.getAge() <= 11) {

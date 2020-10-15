@@ -4,6 +4,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.ScheduleTask;
 import org.smartregister.chw.core.domain.BaseScheduleTask;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.service.ChildAlertService;
 
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,7 @@ public class ChildHomeVisitScheduler extends BaseTaskExecutor {
     public void resetSchedule(String baseEntityID, String scheduleName) {
         super.resetSchedule(baseEntityID, scheduleName);
         ChwApplication.getInstance().getScheduleRepository().deleteScheduleByGroup(getScheduleGroup(), baseEntityID);
+        ChildAlertService.updateAlerts(baseEntityID);
     }
 
     @Override

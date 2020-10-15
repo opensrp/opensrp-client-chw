@@ -78,6 +78,7 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         addToClassifers(CoreConstants.EventType.CHILD_HOME_VISIT, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.CHILD_VISIT_NOT_DONE, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.CHILD_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION, classifier, scheduleServices);
     }
 
     private void initializeANCClassifier(Map<String, List<ScheduleService>> classifier) {
