@@ -124,4 +124,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean saveOnSubmission() {
         return true;
     }
+
+    @Override
+    public boolean showLastNameOnChildProfile() {
+        return true;
+    }
 }

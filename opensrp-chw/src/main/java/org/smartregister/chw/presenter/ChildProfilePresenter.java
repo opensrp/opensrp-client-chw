@@ -15,6 +15,7 @@ import org.smartregister.chw.activity.ReferralRegistrationActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildService;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
@@ -38,6 +39,10 @@ import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+import static org.smartregister.util.Utils.getName;
+import static org.smartregister.util.Utils.getValue;
 
 public class ChildProfilePresenter extends CoreChildProfilePresenter {
 
@@ -95,9 +100,9 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         try {
             getView().setProgressBarState(true);
             JSONObject jsonObject = this.getFormUtils().getFormJson(CoreConstants.JSON_FORM.getChildSickForm());
-            jsonObject.put(CoreConstants.ENTITY_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
+            jsonObject.put(CoreConstants.ENTITY_ID, getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
 
-            String dobStr = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+            String dobStr = getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
             Date dobDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(dobStr);
 
             LocalDate date1 = LocalDate.fromDateFields(dobDate);
@@ -106,8 +111,8 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
 
             Map<String, String> valueMap = new HashMap<>();
             valueMap.put("age_in_months", String.valueOf(months));
-            valueMap.put("child_first_name", Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true));
-            valueMap.put("gender", Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true).equals("Male") ? "1" : "2");
+            valueMap.put("child_first_name", getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true));
+            valueMap.put("gender", getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true).equals("Male") ? "1" : "2");
 
             JsonFormUtils.populatedJsonForm(jsonObject, valueMap);
 
@@ -117,6 +122,22 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         } finally {
             if (getView() != null)
                 getView().setProgressBarState(false);
+        }
+    }
+
+    @Override
+    public void refreshProfileTopSection(CommonPersonObjectClient client) {
+        super.refreshProfileTopSection(client);
+
+        if (ChwApplication.getApplicationFlavor().showLastNameOnChildProfile()) {
+            String parentLastName = getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
+
+            String firstName = getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
+            String lastName = getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
+            String middleName = getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
+            String childName = getName(firstName, middleName + " " + lastName);
+            getView().setProfileName(getName(childName, parentLastName));
+            getView().setAge(org.smartregister.family.util.Utils.getTranslatedDate(getDuration(org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false)), getView().getContext()));
         }
     }
 

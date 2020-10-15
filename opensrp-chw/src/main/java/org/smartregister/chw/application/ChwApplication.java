@@ -413,6 +413,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean showAllChildServicesDueIncludingCurrentChild();
 
         boolean saveOnSubmission();
+
+        boolean showLastNameOnChildProfile();
     }
 
 }

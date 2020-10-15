@@ -182,4 +182,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean saveOnSubmission() {
         return false;
     }
+
+    @Override
+    public boolean showLastNameOnChildProfile() {
+        return false;
+    }
 }
