@@ -88,7 +88,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         selectedCommunitiesTV = view.findViewById(R.id.selected_communities);
         selectedCommunitiesTV.setOnClickListener(view -> showCommunitiesSelectDialog());
 
-        communityList.add("All communities");
+        communityList.add("All CHAs");
 
         bindDatePicker();
         updateLabel();
@@ -176,7 +176,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
     private void showCommunitiesSelectDialog() {
         if (getActivity() != null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setTitle(getActivity().getResources().getString(R.string.select_communities)).setCancelable(false)
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setTitle(getActivity().getResources().getString(R.string.select_cha)).setCancelable(false)
                     .setMultiChoiceItems(communityList.toArray(new String[0]), checkedCommunities, this::handleCommunityMultiChoiceItemsDialog)
                     .setPositiveButton("OK", (dialog, which) -> updateSelectedCommunitiesView());
             AlertDialog dialog = builder.create();
