@@ -17,6 +17,7 @@ import org.smartregister.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -38,21 +39,27 @@ public class ReportDaoTest extends ReportDao {
     public void testExtractRecordedLocations() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{
-                "location_id"});
-        matrixCursor.addRow(new Object[]{"d5ff0ea1-bbc5-424d-84c2-5b084e10ef90"});
+                "location_id", "provider_id"});
+        matrixCursor.addRow(new Object[]{"d5ff0ea1-bbc5-424d-84c2-5b084e10ef90", "demo"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
-        List<String> locationList = ReportDao.extractRecordedLocations();
+        HashMap<String, String> locationList = ReportDao.extractRecordedLocations();
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
-        Assert.assertEquals(locationList.get(0), "d5ff0ea1-bbc5-424d-84c2-5b084e10ef90");
+        String expectedLocationId = null, expectedProviderId = null;
+        for (Map.Entry<String, String> entry : locationList.entrySet()) {
+            expectedLocationId = entry.getKey();
+            expectedProviderId = entry.getValue();
+        }
+        Assert.assertEquals(expectedLocationId, "d5ff0ea1-bbc5-424d-84c2-5b084e10ef90");
+        Assert.assertEquals(expectedProviderId, "demo");
     }
 
     @Test
     public void testExtractRecordedLocationsReturnsEmptyArrayList() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{
-                "location_id"});
+                "location_id", "provider_id"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
-        List<String> locationList = ReportDao.extractRecordedLocations();
+        HashMap<String, String> locationList = ReportDao.extractRecordedLocations();
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
         Assert.assertEquals(locationList.size(), 0);
     }
@@ -96,7 +103,7 @@ public class ReportDaoTest extends ReportDao {
         String villageName = "Grenaligne";
         Date dueDate = new DateTime().plusDays(7).toDate();
         Map<String, Integer> map = new TreeMap<>();
-        map.put("ROTA", 0);
+        map.put("ROTA 1", 0);
         List<VillageDose> villageDoseList = ReportDao.villageDosesReportSummary(villageName, dueDate);
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
         Assert.assertEquals(villageDoseList.get(0).getRecurringServices(), map);

@@ -2,6 +2,8 @@ package org.smartregister.chw.dao;
 
 import androidx.annotation.NonNull;
 
+import net.sqlcipher.Cursor;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Contract;
 import org.smartregister.chw.domain.EligibleChild;
@@ -20,21 +22,30 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
+import timber.log.Timber;
+
 /**
  * @author rkodev
  */
 public class ReportDao extends AbstractDao {
 
     @NonNull
-    public static List<String> extractRecordedLocations() {
-        String sql = "select distinct location_id from ec_family_member_location";
-
-        AbstractDao.DataMap<String> dataMap = c -> getCursorValue(c, "location_id");
-        List<String> res = AbstractDao.readData(sql, dataMap);
-        if (res == null || res.size() == 0)
-            return new ArrayList<>();
-
-        return res;
+    public static HashMap<String, String> extractRecordedLocations() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        try {
+            String query = "SELECT DISTINCT location_id, provider_id FROM ec_family_member_location";
+            Cursor cursor = getRepository().getReadableDatabase().rawQuery(query, null);
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    hashMap.put(cursor.getString(cursor.getColumnIndex("location_id")),
+                            cursor.getString(cursor.getColumnIndex("provider_id")));
+                }
+            }
+            return hashMap;
+        } catch (Exception ex) {
+            Timber.e(ex);
+        }
+        return hashMap;
     }
 
     @NonNull
@@ -167,7 +178,7 @@ public class ReportDao extends AbstractDao {
         DataMap<Void> dataMap = c -> {
             String location_id = getCursorValue(c, "location_id", "");
             String scheduleName = getCursorValue(c, "scheduleName", "");
-          //  String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
+            //  String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
             Integer count = getCursorIntValue(c, "cnt", 0);
 
             TreeMap<String, Integer> vaccineMaps = resultMap.get(location_id);
