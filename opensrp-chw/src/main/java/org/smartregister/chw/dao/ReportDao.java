@@ -6,6 +6,7 @@ import net.sqlcipher.Cursor;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Contract;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.EligibleChild;
 import org.smartregister.chw.domain.VillageDose;
 import org.smartregister.chw.model.FilterReportFragmentModel;
@@ -16,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -208,12 +208,13 @@ public class ReportDao extends AbstractDao {
         readData(sql, dataMap);
 
         FilterReportFragmentModel model = new FilterReportFragmentModel();
-        LinkedHashMap<String, String> map = model.getAllLocations();
+        HashMap<String, String> locations = ChwApplication.getApplicationFlavor().useCHWInReportingView() ? ReportDao.extractRecordedProviders() :
+                model.getAllLocations();
 
         List<VillageDose> result = new ArrayList<>();
         for (Map.Entry<String, TreeMap<String, Integer>> entry : resultMap.entrySet()) {
             VillageDose villageDose = new VillageDose();
-            villageDose.setVillageName(map.get(entry.getKey()));
+            villageDose.setVillageName(locations.get(entry.getKey()));
             villageDose.setID(entry.getKey());
             villageDose.setRecurringServices(entry.getValue());
             result.add(villageDose);
