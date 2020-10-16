@@ -40,6 +40,9 @@ public class ChwRepositoryFlv {
                 case 5:
                     upgradeToVersion5(db);
                     break;
+                case 6:
+                    upgradeToVersion6(db);
+                    break;
                 default:
                     break;
             }
@@ -119,6 +122,14 @@ public class ChwRepositoryFlv {
             db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion5");
+        }
+    }
+
+    private static void upgradeToVersion6(SQLiteDatabase db) {
+        try {
+            RepositoryUtils.addProviderIdColumnToFamilyMemberLocationTable(db);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion3");
         }
     }
 }
