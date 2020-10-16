@@ -30,7 +30,19 @@ import timber.log.Timber;
 public class ReportDao extends AbstractDao {
 
     @NonNull
-    public static HashMap<String, String> extractRecordedLocations() {
+    public static List<String> extractRecordedLocations() {
+        String sql = "select distinct location_id from ec_family_member_location";
+
+        AbstractDao.DataMap<String> dataMap = c -> getCursorValue(c, "location_id");
+        List<String> res = AbstractDao.readData(sql, dataMap);
+        if (res == null || res.size() == 0)
+            return new ArrayList<>();
+
+        return res;
+    }
+
+    @NonNull
+    public static HashMap<String, String> extractRecordedProviders() {
         HashMap<String, String> hashMap = new HashMap<>();
         try {
             String query = "SELECT DISTINCT location_id, provider_id FROM ec_family_member_location";
