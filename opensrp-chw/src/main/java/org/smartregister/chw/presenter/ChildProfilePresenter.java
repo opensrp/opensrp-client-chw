@@ -137,7 +137,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
             String middleName = getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
             String childName = getName(firstName, middleName + " " + lastName);
             getView().setProfileName(getName(childName, parentLastName));
-            getView().setAge(org.smartregister.family.util.Utils.getTranslatedDate(getDuration(org.smartregister.family.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false)), getView().getContext()));
+            getView().setAge(org.smartregister.family.util.Utils.getTranslatedDate(getDuration(getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false)), getView().getContext()));
         }
     }
 
