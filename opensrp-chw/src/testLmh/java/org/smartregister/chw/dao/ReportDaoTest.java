@@ -39,33 +39,10 @@ public class ReportDaoTest extends ReportDao {
     public void testExtractRecordedLocations() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{
-                "location_id"});
-        matrixCursor.addRow(new Object[]{"d5ff0ea1-bbc5-424d-84c2-5b084e10ef90"});
-        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
-        List<String> locationList = ReportDao.extractRecordedLocations();
-        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
-        Assert.assertEquals(locationList.get(0), "d5ff0ea1-bbc5-424d-84c2-5b084e10ef90");
-    }
-
-    @Test
-    public void testExtractRecordedLocationsReturnsEmptyArrayList() {
-        Mockito.doReturn(database).when(repository).getReadableDatabase();
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
-                "location_id"});
-        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
-        List<String> locationList = ReportDao.extractRecordedLocations();
-        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
-        Assert.assertEquals(locationList.size(), 0);
-    }
-
-    @Test
-    public void testExtractRecordedProviders() {
-        Mockito.doReturn(database).when(repository).getReadableDatabase();
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
                 "location_id", "provider_id"});
         matrixCursor.addRow(new Object[]{"d5ff0ea1-bbc5-424d-84c2-5b084e10ef90", "demo"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
-        HashMap<String, String> providerList = ReportDao.extractRecordedProviders();
+        HashMap<String, String> providerList = ReportDao.extractRecordedLocations();
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
         String expectedLocationId = null;
         String expectedProviderId = null;
@@ -78,12 +55,12 @@ public class ReportDaoTest extends ReportDao {
     }
 
     @Test
-    public void testExtractRecordedProvidersReturnsEmptyArrayList() {
+    public void testExtractRecordedLocationsReturnsEmptyArrayList() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{
                 "location_id", "provider_id"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
-        HashMap<String, String> providerList = ReportDao.extractRecordedProviders();
+        HashMap<String, String> providerList = ReportDao.extractRecordedLocations();
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
         Assert.assertEquals(providerList.size(), 0);
     }

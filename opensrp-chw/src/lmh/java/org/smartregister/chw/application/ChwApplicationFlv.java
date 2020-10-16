@@ -130,8 +130,4 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return true;
     }
 
-    @Override
-    public boolean useCHWInReportingView() {
-        return true;
-    }
 }

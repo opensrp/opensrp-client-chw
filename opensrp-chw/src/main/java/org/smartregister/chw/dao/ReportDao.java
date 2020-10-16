@@ -6,10 +6,8 @@ import net.sqlcipher.Cursor;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Contract;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.EligibleChild;
 import org.smartregister.chw.domain.VillageDose;
-import org.smartregister.chw.model.FilterReportFragmentModel;
 import org.smartregister.chw.util.ReportingConstants;
 import org.smartregister.dao.AbstractDao;
 
@@ -30,19 +28,7 @@ import timber.log.Timber;
 public class ReportDao extends AbstractDao {
 
     @NonNull
-    public static List<String> extractRecordedLocations() {
-        String sql = "select distinct location_id from ec_family_member_location";
-
-        AbstractDao.DataMap<String> dataMap = c -> getCursorValue(c, "location_id");
-        List<String> res = AbstractDao.readData(sql, dataMap);
-        if (res == null || res.size() == 0)
-            return new ArrayList<>();
-
-        return res;
-    }
-
-    @NonNull
-    public static HashMap<String, String> extractRecordedProviders() {
+    public static HashMap<String, String> extractRecordedLocations() {
         HashMap<String, String> hashMap = new HashMap<>();
         try {
             String query = "SELECT DISTINCT location_id, provider_id FROM ec_family_member_location";
@@ -207,9 +193,7 @@ public class ReportDao extends AbstractDao {
 
         readData(sql, dataMap);
 
-        FilterReportFragmentModel model = new FilterReportFragmentModel();
-        HashMap<String, String> locations = ChwApplication.getApplicationFlavor().useCHWInReportingView() ? ReportDao.extractRecordedProviders() :
-                model.getAllLocations();
+        HashMap<String, String> locations = ReportDao.extractRecordedLocations();
 
         List<VillageDose> result = new ArrayList<>();
         for (Map.Entry<String, TreeMap<String, Integer>> entry : resultMap.entrySet()) {
