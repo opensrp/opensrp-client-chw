@@ -44,7 +44,8 @@ public class ReportDaoTest extends ReportDao {
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
         HashMap<String, String> locationList = ReportDao.extractRecordedLocations();
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
-        String expectedLocationId = null, expectedProviderId = null;
+        String expectedLocationId = null;
+        String expectedProviderId = null;
         for (Map.Entry<String, String> entry : locationList.entrySet()) {
             expectedLocationId = entry.getKey();
             expectedProviderId = entry.getValue();
