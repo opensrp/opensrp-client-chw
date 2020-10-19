@@ -18,6 +18,7 @@ import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildService;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
@@ -130,13 +131,15 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         super.refreshProfileTopSection(client);
 
         if (ChwApplication.getApplicationFlavor().showLastNameOnChildProfile()) {
-            String parentLastName = getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
+            String relationalId = getValue(client.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, true).toLowerCase();
+           // String parentLastName = getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
+            String familyName = ChwChildDao.getChildFamilyName(relationalId);
 
             String firstName = getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
             String lastName = getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
             String middleName = getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
             String childName = getName(firstName, middleName + " " + lastName);
-            getView().setProfileName(getName(childName, parentLastName));
+            getView().setProfileName(getName(childName, familyName));
             getView().setAge(org.smartregister.family.util.Utils.getTranslatedDate(getDuration(getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false)), getView().getContext()));
         }
     }
