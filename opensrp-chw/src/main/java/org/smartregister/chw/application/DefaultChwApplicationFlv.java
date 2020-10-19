@@ -187,4 +187,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean relaxVisitDateRestrictions() {
         return false;
     }
+
+    @Override
+    public boolean showLastNameOnChildProfile() {
+        return false;
+    }
 }

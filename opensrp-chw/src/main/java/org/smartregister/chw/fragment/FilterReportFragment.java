@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
@@ -38,19 +37,21 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import timber.log.Timber;
+
 public class FilterReportFragment extends Fragment implements FindReportContract.View {
     public static final String TAG = "FilterReportFragment";
     public static final String REPORT_NAME = "REPORT_NAME";
 
     private FindReportContract.Presenter presenter;
     private View view;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.US);
-    private Calendar myCalendar = Calendar.getInstance();
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.US);
+    private final Calendar myCalendar = Calendar.getInstance();
     private String titleName;
     private EditText editTextDate;
     private ProgressBar progressBar;
 
-    private List<String> communityList = new ArrayList<>();
+    private final List<String> communityList = new ArrayList<>();
     private LinkedHashMap<String, String> communityIDList = new LinkedHashMap<>();
     protected TextView selectedCommunitiesTV;
     private boolean[] checkedCommunities;
@@ -88,7 +89,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         selectedCommunitiesTV = view.findViewById(R.id.selected_communities);
         selectedCommunitiesTV.setOnClickListener(view -> showCommunitiesSelectDialog());
 
-        communityList.add("All communities");
+        communityList.add("All CHAs");
 
         bindDatePicker();
         updateLabel();
@@ -154,7 +155,6 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         editTextDate.setText(dateFormat.format(myCalendar.getTime()));
     }
 
-    @NonNull
     @Override
     public void loadPresenter() {
         presenter = new FilterReportFragmentPresenter()
@@ -175,12 +175,16 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     }
 
     private void showCommunitiesSelectDialog() {
-        if (getActivity() != null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setTitle(getActivity().getResources().getString(R.string.select_communities)).setCancelable(false)
-                    .setMultiChoiceItems(communityList.toArray(new String[0]), checkedCommunities, this::handleCommunityMultiChoiceItemsDialog)
-                    .setPositiveButton("OK", (dialog, which) -> updateSelectedCommunitiesView());
-            AlertDialog dialog = builder.create();
-            dialog.show();
+        try {
+            if (getActivity() != null) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setTitle(getActivity().getResources().getString(R.string.select_cha)).setCancelable(false)
+                        .setMultiChoiceItems(communityList.toArray(new String[0]), checkedCommunities, this::handleCommunityMultiChoiceItemsDialog)
+                        .setPositiveButton("OK", (dialog, which) -> updateSelectedCommunitiesView());
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        }catch (Exception e){
+            Timber.e(e);
         }
     }
 
