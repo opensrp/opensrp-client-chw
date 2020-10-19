@@ -14,6 +14,7 @@ import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.core.utils.VisitVaccineUtil;
 import org.smartregister.chw.domain.EligibleChild;
 import org.smartregister.chw.domain.VillageDose;
+import org.smartregister.chw.model.FilterReportFragmentModel;
 import org.smartregister.chw.util.ReportingConstants;
 import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Alert;
