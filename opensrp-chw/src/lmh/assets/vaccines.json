@@ -23,13 +23,13 @@
             {
               "reference": "dob",
               "offset": "+0d",
-              "window": "+14d"
+              "window": "+15d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+14d"
+              "offset": "+15d"
             }
           ]
         }
@@ -99,7 +99,7 @@
               "offset": "+5y"
             }
           ],
-          "condition": [
+          "conditions": [
             {
               "value": "or",
               "type": "join",
@@ -107,7 +107,7 @@
                 {
                   "vaccine": "MCV 1",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -129,7 +129,7 @@
                 {
                   "vaccine": "MCV 2",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -151,7 +151,7 @@
                 {
                   "vaccine": "Yellow Fever",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -248,13 +248,13 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+105d"
+              "window": "+106d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+105d"
+              "offset": "+106d"
             }
           ]
         }
@@ -295,7 +295,7 @@
               "offset": "+5y"
             }
           ],
-          "condition": [
+          "conditions": [
             {
               "value": "or",
               "type": "join",
@@ -303,7 +303,7 @@
                 {
                   "vaccine": "MCV 1",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -325,7 +325,7 @@
                 {
                   "vaccine": "MCV 2",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -347,7 +347,7 @@
                 {
                   "vaccine": "Yellow Fever",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -425,7 +425,7 @@
               "offset": "+5y"
             }
           ],
-          "condition": [
+          "conditions": [
             {
               "value": "or",
               "type": "join",
@@ -437,7 +437,7 @@
                     "from": "+0d",
                     "to": "+365d"
                   },
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -446,7 +446,7 @@
                   "age": {
                     "from": "+366d"
                   },
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+56d"
                 }
               ]
@@ -474,13 +474,13 @@
               "reference": "prerequisite",
               "prerequisite": "Rota 1",
               "offset": "+28d",
-              "window": "+105d"
+              "window": "+106d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+105d"
+              "offset": "+106d"
             }
           ]
         }
@@ -521,7 +521,7 @@
               "offset": "+5y"
             }
           ],
-          "condition": [
+          "conditions": [
             {
               "value": "or",
               "type": "join",
@@ -529,7 +529,7 @@
                 {
                   "vaccine": "MCV 1",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -551,7 +551,7 @@
                 {
                   "vaccine": "MCV 2",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -573,7 +573,7 @@
                 {
                   "vaccine": "Yellow Fever",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -620,7 +620,7 @@
               "offset": "+4y"
             }
           ],
-          "condition": [
+          "conditions": [
             {
               "value": "or",
               "type": "join",
@@ -628,7 +628,7 @@
                 {
                   "value": "and",
                   "type": "join",
-                  "conditions":[
+                  "conditions": [
                     {
                       "vaccine": "Penta 1",
                       "type": "given",
@@ -648,7 +648,7 @@
                 {
                   "value": "and",
                   "type": "join",
-                  "conditions":[
+                  "conditions": [
                     {
                       "vaccine": "Penta 1",
                       "type": "given",
@@ -659,7 +659,7 @@
                     {
                       "vaccine": "Penta 2",
                       "type": "given",
-                      "comparison": "at_least",
+                      "comparison": "at_most",
                       "value": "+180d"
                     }
                   ]
@@ -765,29 +765,7 @@
               "offset": "+5y"
             }
           ],
-          "condition": [
-            {
-              "value": "or",
-              "type": "join",
-              "conditions": [
-                {
-                  "vaccine": "OPV",
-                  "type": "given",
-                  "comparison": "at_least",
-                  "value": "+28d"
-                },
-                {
-                  "vaccine": "OPV",
-                  "type": "given",
-                  "comparison": "exactly",
-                  "value": "+0d"
-                },
-                {
-                  "vaccine": "OPV",
-                  "type": "not_given"
-                }
-              ]
-            },
+          "conditions": [
             {
               "value": "or",
               "type": "join",
@@ -795,7 +773,7 @@
                 {
                   "vaccine": "OPV 1",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -817,7 +795,7 @@
                 {
                   "vaccine": "OPV 2",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -839,7 +817,7 @@
                 {
                   "vaccine": "OPV 3",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -861,7 +839,7 @@
                 {
                   "vaccine": "Yellow Fever",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -907,29 +885,7 @@
               "offset": "+5y"
             }
           ],
-          "condition": [
-            {
-              "value": "or",
-              "type": "join",
-              "conditions": [
-                {
-                  "vaccine": "OPV",
-                  "type": "given",
-                  "comparison": "at_least",
-                  "value": "+28d"
-                },
-                {
-                  "vaccine": "OPV",
-                  "type": "given",
-                  "comparison": "exactly",
-                  "value": "+0d"
-                },
-                {
-                  "vaccine": "OPV",
-                  "type": "not_given"
-                }
-              ]
-            },
+          "conditions": [
             {
               "value": "or",
               "type": "join",
@@ -937,7 +893,7 @@
                 {
                   "vaccine": "OPV 1",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -959,7 +915,7 @@
                 {
                   "vaccine": "OPV 2",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -981,7 +937,7 @@
                 {
                   "vaccine": "OPV 3",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -1003,7 +959,7 @@
                 {
                   "vaccine": "MCV 1",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -1025,7 +981,7 @@
                 {
                   "vaccine": "MCV 2",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -1041,7 +997,6 @@
               ]
             }
           ]
-
         }
       }
     ]
@@ -1080,29 +1035,7 @@
               "offset": "+5y"
             }
           ],
-          "condition": [
-            {
-              "value": "or",
-              "type": "join",
-              "conditions": [
-                {
-                  "vaccine": "OPV",
-                  "type": "given",
-                  "comparison": "at_least",
-                  "value": "+28d"
-                },
-                {
-                  "vaccine": "OPV",
-                  "type": "given",
-                  "comparison": "exactly",
-                  "value": "+0d"
-                },
-                {
-                  "vaccine": "OPV",
-                  "type": "not_given"
-                }
-              ]
-            },
+          "conditions": [
             {
               "value": "or",
               "type": "join",
@@ -1110,7 +1043,7 @@
                 {
                   "vaccine": "OPV 1",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -1132,7 +1065,7 @@
                 {
                   "vaccine": "OPV 2",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -1154,7 +1087,7 @@
                 {
                   "vaccine": "OPV 3",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
@@ -1176,7 +1109,7 @@
                 {
                   "vaccine": "Yellow Fever",
                   "type": "given",
-                  "comparison": "at_least",
+                  "comparison": "at_most",
                   "value": "+28d"
                 },
                 {
