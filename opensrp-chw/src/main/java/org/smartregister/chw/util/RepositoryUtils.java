@@ -12,9 +12,6 @@ import java.util.List;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.Constants.FAMILY_MEMBER_LOCATION_TABLE;
-import static org.smartregister.opd.utils.OpdDbConstants.Column.OpdVisit.PROVIDER_ID;
-
 public interface RepositoryUtils {
 
     String ADD_MISSING_REPORTING_COLUMN = "ALTER TABLE 'indicator_queries' ADD COLUMN expected_indicators TEXT NULL;";
@@ -50,19 +47,6 @@ public interface RepositoryUtils {
 
         } catch (Exception e) {
             Timber.e(e, "commonUpgrade -> Failed to add column 'entity_type' and 'details' to ec_family_search ");
-        }
-    }
-
-    static void addProviderIdColumnToFamilyMemberLocationTable(SQLiteDatabase db) {
-        try {
-
-            db.execSQL("ALTER TABLE ec_family_member_location ADD COLUMN provider_id VARCHAR; ");
-            List<String> columns = new ArrayList<>();
-            columns.add(PROVIDER_ID);
-            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), FAMILY_MEMBER_LOCATION_TABLE, columns);
-
-        } catch (Exception e) {
-            Timber.e(e, "commonUpgrade -> Failed to add column 'provider_id' to ec_family_member_location ");
         }
     }
 

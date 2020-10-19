@@ -37,6 +37,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import timber.log.Timber;
+
 public class FilterReportFragment extends Fragment implements FindReportContract.View {
     public static final String TAG = "FilterReportFragment";
     public static final String REPORT_NAME = "REPORT_NAME";
@@ -173,12 +175,16 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     }
 
     private void showCommunitiesSelectDialog() {
-        if (getActivity() != null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setTitle(getActivity().getResources().getString(R.string.select_cha)).setCancelable(false)
-                    .setMultiChoiceItems(communityList.toArray(new String[0]), checkedCommunities, this::handleCommunityMultiChoiceItemsDialog)
-                    .setPositiveButton("OK", (dialog, which) -> updateSelectedCommunitiesView());
-            AlertDialog dialog = builder.create();
-            dialog.show();
+        try {
+            if (getActivity() != null) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setTitle(getActivity().getResources().getString(R.string.select_cha)).setCancelable(false)
+                        .setMultiChoiceItems(communityList.toArray(new String[0]), checkedCommunities, this::handleCommunityMultiChoiceItemsDialog)
+                        .setPositiveButton("OK", (dialog, which) -> updateSelectedCommunitiesView());
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        }catch (Exception e){
+            Timber.e(e);
         }
     }
 

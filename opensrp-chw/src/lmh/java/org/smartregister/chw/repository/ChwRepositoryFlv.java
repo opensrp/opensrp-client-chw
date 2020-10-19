@@ -5,6 +5,7 @@ import android.content.Context;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.util.DatabaseMigrationUtils;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
@@ -127,9 +128,10 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion6(SQLiteDatabase db) {
         try {
-            RepositoryUtils.addProviderIdColumnToFamilyMemberLocationTable(db);
+            db.execSQL("ALTER TABLE ec_family_member_location ADD COLUMN provider_id VARCHAR;");
+            DatabaseMigrationUtils.fillFamilyMemberLocationTableWithProviderIds(db);
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion3");
+            Timber.e(e, "upgradeToVersion6");
         }
     }
 }
