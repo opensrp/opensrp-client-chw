@@ -30,9 +30,10 @@ public class ReportDao extends AbstractDao {
     @NonNull
     public static HashMap<String, String> extractRecordedLocations() {
         HashMap<String, String> hashMap = new HashMap<>();
+        Cursor cursor = null;
         try {
             String query = "SELECT DISTINCT location_id, provider_id FROM ec_family_member_location";
-            Cursor cursor = getRepository().getReadableDatabase().rawQuery(query, null);
+            cursor = getRepository().getReadableDatabase().rawQuery(query, null);
             if (cursor != null) {
                 while (cursor.moveToNext()) {
                     hashMap.put(cursor.getString(cursor.getColumnIndex("location_id")),
@@ -42,6 +43,9 @@ public class ReportDao extends AbstractDao {
             return hashMap;
         } catch (Exception ex) {
             Timber.e(ex);
+        } finally {
+            if (cursor != null)
+                cursor.close();
         }
         return hashMap;
     }
