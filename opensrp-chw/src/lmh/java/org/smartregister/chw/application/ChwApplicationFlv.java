@@ -116,7 +116,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
-    public boolean showAllChildServicesDueIncludingCurrentChild(){
+    public boolean showAllChildServicesDueIncludingCurrentChild() {
         return false;
     }
 
@@ -129,4 +129,10 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean relaxVisitDateRestrictions() {
         return true;
     }
+
+    @Override
+    public boolean showLastNameOnChildProfile() {
+        return true;
+    }
+
 }

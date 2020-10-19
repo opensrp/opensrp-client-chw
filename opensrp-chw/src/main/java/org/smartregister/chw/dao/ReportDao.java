@@ -3,6 +3,8 @@ package org.smartregister.chw.dao;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import net.sqlcipher.Cursor;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Contract;
 import org.joda.time.DateTime;
@@ -12,7 +14,6 @@ import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.core.utils.VisitVaccineUtil;
 import org.smartregister.chw.domain.EligibleChild;
 import org.smartregister.chw.domain.VillageDose;
-import org.smartregister.chw.model.FilterReportFragmentModel;
 import org.smartregister.chw.util.ReportingConstants;
 import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Alert;
@@ -28,7 +29,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -42,15 +42,26 @@ import timber.log.Timber;
 public class ReportDao extends AbstractDao {
 
     @NonNull
-    public static List<String> extractRecordedLocations() {
-        String sql = "select distinct location_id from ec_family_member_location";
-
-        AbstractDao.DataMap<String> dataMap = c -> getCursorValue(c, "location_id");
-        List<String> res = AbstractDao.readData(sql, dataMap);
-        if (res == null || res.size() == 0)
-            return new ArrayList<>();
-
-        return res;
+    public static HashMap<String, String> extractRecordedLocations() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        Cursor cursor = null;
+        try {
+            String query = "SELECT DISTINCT location_id, provider_id FROM ec_family_member_location";
+            cursor = getRepository().getReadableDatabase().rawQuery(query, null);
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    hashMap.put(cursor.getString(cursor.getColumnIndex("location_id")),
+                            cursor.getString(cursor.getColumnIndex("provider_id")));
+                }
+            }
+            return hashMap;
+        } catch (Exception ex) {
+            Timber.e(ex);
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return hashMap;
     }
 
     public static Map<String, List<Vaccine>> fetchAllVaccines() {
@@ -383,13 +394,12 @@ public class ReportDao extends AbstractDao {
 
         readData(sql, dataMap);
 
-        FilterReportFragmentModel model = new FilterReportFragmentModel();
-        LinkedHashMap<String, String> map = model.getAllLocations();
+        HashMap<String, String> locations = ReportDao.extractRecordedLocations();
 
         List<VillageDose> result = new ArrayList<>();
         for (Map.Entry<String, TreeMap<String, Integer>> entry : resultMap.entrySet()) {
             VillageDose villageDose = new VillageDose();
-            villageDose.setVillageName(map.get(entry.getKey()));
+            villageDose.setVillageName(locations.get(entry.getKey()));
             villageDose.setID(entry.getKey());
             villageDose.setRecurringServices(entry.getValue());
             result.add(villageDose);
