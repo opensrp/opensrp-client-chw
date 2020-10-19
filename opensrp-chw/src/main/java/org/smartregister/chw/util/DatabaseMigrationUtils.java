@@ -17,12 +17,11 @@ public class DatabaseMigrationUtils extends AbstractDao {
     public static void fillFamilyMemberLocationTableWithProviderIds(SQLiteDatabase db) {
         ArrayList<String> submissionsIds = getFormSubmissionsIds(db);
         ArrayList<String> jsonLists = getJSONLists(db, submissionsIds);
-        String updateQuery = buildUpdateQuery(jsonLists);
         if (db != null && db.isOpen())
-            db.rawExecSQL(updateQuery);
+            db.rawExecSQL(buildUpdateQuery(jsonLists));
     }
 
-    private static String buildUpdateQuery(ArrayList<String> jsonLists) {
+    public static String buildUpdateQuery(ArrayList<String> jsonLists) {
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("UPDATE ec_family_member_location SET provider_id = (case ");
         for (String item : jsonLists) {
@@ -42,7 +41,7 @@ public class DatabaseMigrationUtils extends AbstractDao {
         return queryBuilder.toString();
     }
 
-    private static ArrayList<String> getJSONLists(SQLiteDatabase db, ArrayList<String> submissionsIds) {
+    public static ArrayList<String> getJSONLists(SQLiteDatabase db, ArrayList<String> submissionsIds) {
         String _SubmissionsIds = "('" + StringUtils.join(submissionsIds, "','") + "')";
         ArrayList<String> JSONLists = new ArrayList<>();
         try {
@@ -60,7 +59,7 @@ public class DatabaseMigrationUtils extends AbstractDao {
         return JSONLists;
     }
 
-    private static ArrayList<String> getFormSubmissionsIds(SQLiteDatabase db) {
+    public static ArrayList<String> getFormSubmissionsIds(SQLiteDatabase db) {
         ArrayList<String> formSubmissionIds = new ArrayList<>();
         try {
             String query = "SELECT form_submission_id FROM ec_family_member_location";
