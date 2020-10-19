@@ -44,4 +44,20 @@ public class ChwChildDaoTest extends ChwChildDao {
         Assert.assertEquals(child.getBaseEntityID(), "12345");
     }
 
+
+    @Test
+    public void testGetChildGender() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"gender"});
+        matrixCursor.addRow(new Object[]{"female"});
+
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        String gender = ChwChildDao.getChildGender("12345");
+
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertEquals(gender, "female");
+    }
+
 }
