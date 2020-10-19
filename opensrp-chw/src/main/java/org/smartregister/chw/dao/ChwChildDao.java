@@ -77,4 +77,21 @@ public class ChwChildDao extends ChildDao {
 
         return values.get(0);
     }
+
+
+    public static String getChildFamilyName(String relationalId) {
+        String sql = String.format("select DISTINCT f.first_name from ec_family f\n" +
+                "INNER JOIN ec_family_member fm on fm.relational_id = f.base_entity_id\n" +
+                "and fm.relational_id = '%s'", relationalId);
+
+        DataMap<String> dataMap = c -> getCursorValue(c, "first_name");
+
+        List<String> values = AbstractDao.readData(sql, dataMap);
+        if (values == null || values.size() == 0)
+            return "";
+
+        return values.get(0) == null ? "" : values.get(0); // Return a default value of Low
+    }
+
+
 }

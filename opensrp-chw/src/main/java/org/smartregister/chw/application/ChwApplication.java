@@ -415,6 +415,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean saveOnSubmission();
 
         boolean relaxVisitDateRestrictions();
+
+        boolean showLastNameOnChildProfile();
     }
 
 }
