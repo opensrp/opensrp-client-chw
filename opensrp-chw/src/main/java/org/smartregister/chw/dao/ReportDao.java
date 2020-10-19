@@ -1,6 +1,7 @@
 package org.smartregister.chw.dao;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import net.sqlcipher.Cursor;
 
@@ -8,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Contract;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.core.utils.VisitVaccineUtil;
@@ -20,8 +20,11 @@ import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
+import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.VaccinatorUtils;
+import org.smartregister.repository.EventClientRepository;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -61,23 +64,79 @@ public class ReportDao extends AbstractDao {
         return hashMap;
     }
 
-    public static List<EligibleChild> fetchLiveEligibleChildrenReport(ArrayList<String> communityIds, Date dueDate) {
+    public static Map<String, List<Vaccine>> fetchAllVaccines() {
+        Map<String, List<Vaccine>> result = new HashMap<>();
+
+        String sql = "select * from vaccines";
+        DataMap<Void> dataMap = cursor -> {
+            String vaccineName = cursor.getString(cursor.getColumnIndex(VaccineRepository.NAME));
+            if (vaccineName != null) {
+                vaccineName = VaccineRepository.removeHyphen(vaccineName);
+            }
+
+            Date createdAt = null;
+            String dateCreatedString = cursor.getString(cursor.getColumnIndex(VaccineRepository.CREATED_AT));
+            if (StringUtils.isNotBlank(dateCreatedString)) {
+                try {
+                    createdAt = EventClientRepository.dateFormat.parse(dateCreatedString);
+                } catch (ParseException e) {
+                    Timber.e(e);
+                }
+            }
+            Vaccine vaccine = new Vaccine(cursor.getLong(cursor.getColumnIndex(VaccineRepository.ID_COLUMN)),
+                    cursor.getString(cursor.getColumnIndex(VaccineRepository.BASE_ENTITY_ID)),
+                    cursor.getString(cursor.getColumnIndex(VaccineRepository.PROGRAM_CLIENT_ID)),
+                    vaccineName,
+                    cursor.getInt(cursor.getColumnIndex(VaccineRepository.CALCULATION)),
+                    new Date(cursor.getLong(cursor.getColumnIndex(VaccineRepository.DATE))),
+                    cursor.getString(cursor.getColumnIndex(VaccineRepository.ANMID)),
+                    cursor.getString(cursor.getColumnIndex(VaccineRepository.LOCATION_ID)),
+                    cursor.getString(cursor.getColumnIndex(VaccineRepository.SYNC_STATUS)),
+                    cursor.getString(cursor.getColumnIndex(VaccineRepository.HIA2_STATUS)),
+                    cursor.getLong(cursor.getColumnIndex(VaccineRepository.UPDATED_AT_COLUMN)),
+                    cursor.getString(cursor.getColumnIndex(VaccineRepository.EVENT_ID)),
+                    cursor.getString(cursor.getColumnIndex(VaccineRepository.FORMSUBMISSION_ID)),
+                    cursor.getInt(cursor.getColumnIndex(VaccineRepository.OUT_OF_AREA)),
+                    createdAt
+            );
+
+            vaccine.setTeam(cursor.getString(cursor.getColumnIndex(VaccineRepository.TEAM)));
+            vaccine.setTeamId(cursor.getString(cursor.getColumnIndex(VaccineRepository.TEAM_ID)));
+            vaccine.setChildLocationId(cursor.getString(cursor.getColumnIndex(VaccineRepository.CHILD_LOCATION_ID)));
+
+            List<Vaccine> vaccines = result.get(vaccine.getBaseEntityId());
+            if (vaccines == null) vaccines = new ArrayList<>();
+            vaccines.add(vaccine);
+            result.put(vaccine.getBaseEntityId(), vaccines);
+            return null;
+        };
+
+        readData(sql, dataMap);
+
+        return result;
+    }
+
+    public static List<EligibleChild> fetchLiveEligibleChildrenReport(@Nullable List<String> communityIds, Date dueDate) {
         // fetch all children in the region
         String _communityIds = "('" + StringUtils.join(communityIds, "','") + "')";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
         int days = Days.daysBetween(new DateTime().toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays();
         String sql = "select c.base_entity_id , c.unique_id , c.first_name , c.last_name , c.middle_name ," +
-                "f.first_name family_name  , c.dob , c.gender " +
+                "f.first_name family_name  , c.dob , c.gender , l.location_id " +
                 "from ec_child c " +
                 "left join ec_family f on c.relational_id = f.base_entity_id " +
-                "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
-                "where ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') " +
-                "order by c.first_name , c.last_name , c.middle_name ";
+                "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id ";
 
+        if (communityIds != null && !communityIds.isEmpty())
+            sql += "where ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') ";
+
+        sql += "order by c.first_name , c.last_name , c.middle_name ";
+
+        Map<String, List<Vaccine>> allVaccines = fetchAllVaccines();
         List<EligibleChild> eligibleChildren = new ArrayList<>();
         DataMap<Void> dataMap = c -> {
-            // compute originals
+            // compute constants
             String baseEntityId = getCursorValue(c, "base_entity_id");
             String gender = getCursorValue(c, "gender");
             Date dob = getCursorValueAsDate(c, "dob", sdf);
@@ -86,7 +145,7 @@ public class ReportDao extends AbstractDao {
             String name = getCursorValue(c, "first_name", "") + " " + getCursorValue(c, "middle_name", "");
             name = name.trim() + " " + getCursorValue(c, "last_name", "");
 
-            List<Alert> alerts = computeChildAlerts(new DateTime(dob).minusDays(days), baseEntityId);
+            List<Alert> alerts = computeChildAlerts(new DateTime(dob).minusDays(days), baseEntityId, allVaccines.get(baseEntityId));
             String[] dueVaccines = new String[alerts.size()];
             int x = 0;
             while (x < alerts.size()) {
@@ -104,8 +163,9 @@ public class ReportDao extends AbstractDao {
             child.setFullName(name.trim());
             child.setFamilyName(getCursorValue(c, "family_name") + " Family");
             child.setDueVaccines(dueVaccines);
+            child.setAlerts(alerts);
 
-            if (age <= 2 || (age >= 9 && age <= 11 && "Female".equalsIgnoreCase(gender))) {
+            if (age <= 2 || (age >= 9 && age <= 11 && "Female".equalsIgnoreCase(gender)) && dueVaccines.length > 0) {
                 eligibleChildren.add(child);
             }
 
@@ -117,10 +177,9 @@ public class ReportDao extends AbstractDao {
         return eligibleChildren;
     }
 
-    private static List<Alert> computeChildAlerts(DateTime anchorDate, String baseEntityId) {
-        List<Vaccine> issuedVaccines = ChwApplication.getInstance().vaccineRepository().findByEntityId(baseEntityId);
+    private static List<Alert> computeChildAlerts(DateTime anchorDate, String baseEntityId, @Nullable List<Vaccine> issuedVaccines) {
         HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules = getVaccineSchedules("child");
-        return VisitVaccineUtil.getInMemoryAlerts(vaccineSchedules, baseEntityId, anchorDate, "child", issuedVaccines);
+        return VisitVaccineUtil.getInMemoryAlerts(vaccineSchedules, baseEntityId, anchorDate, "child", issuedVaccines == null ? new ArrayList<>() : issuedVaccines);
     }
 
     private static HashMap<String, HashMap<String, VaccineSchedule>> getVaccineSchedules(String category) {
@@ -233,6 +292,60 @@ public class ReportDao extends AbstractDao {
         res.add(villageDose);
 
         return res;
+    }
+
+    @NonNull
+    public static List<VillageDose> fetchLiveVillageDosesReport(List<String> communityIds, Date dueDate, boolean includeAll, String villageName) {
+        List<EligibleChild> children = fetchLiveEligibleChildrenReport(communityIds, dueDate);
+
+        Map<String, Integer> allLocation = new TreeMap<>();
+
+        Map<String, TreeMap<String, Integer>> resultMap = new HashMap<>();
+        for (EligibleChild child : children) {
+            if (child.getAlerts() == null) continue;
+
+            for (Alert alert : child.getAlerts()) {
+                TreeMap<String, Integer> vaccineMaps = resultMap.get(child.getLocationId());
+                if (vaccineMaps == null) vaccineMaps = new TreeMap<>();
+
+                Integer count = vaccineMaps.get(alert.scheduleName());
+                count = count == null ? 1 : count + 1;
+                vaccineMaps.put(alert.scheduleName(), count);
+
+                vaccineMaps.put(alert.scheduleName(), count);
+                resultMap.put(child.getLocationId(), vaccineMaps);
+
+                // count defaults
+                if (includeAll) {
+                    Integer allCount = allLocation.get(alert.scheduleName());
+                    allCount = allCount == null ? 1 : allCount + 1;
+                    allLocation.put(alert.scheduleName(), allCount);
+                }
+            }
+        }
+
+        FilterReportFragmentModel model = new FilterReportFragmentModel();
+        Map<String, String> map = model.getAllLocations();
+
+        List<VillageDose> result = new ArrayList<>();
+        if (includeAll) {
+            VillageDose villageDose = new VillageDose();
+            villageDose.setVillageName(villageName);
+            villageDose.setID("");
+            villageDose.setRecurringServices(allLocation);
+
+            result.add(villageDose);
+        }
+
+        for (Map.Entry<String, TreeMap<String, Integer>> entry : resultMap.entrySet()) {
+            VillageDose villageDose = new VillageDose();
+            villageDose.setVillageName(map.get(entry.getKey()));
+            villageDose.setID(entry.getKey());
+            villageDose.setRecurringServices(entry.getValue());
+            result.add(villageDose);
+        }
+
+        return result;
     }
 
     @NonNull
