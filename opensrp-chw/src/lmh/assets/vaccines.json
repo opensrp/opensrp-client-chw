@@ -23,13 +23,13 @@
             {
               "reference": "dob",
               "offset": "+0d",
-              "window": "+14d"
+              "window": "+15d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+14d"
+              "offset": "+15d"
             }
           ]
         }
@@ -248,13 +248,13 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+105d"
+              "window": "+106d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+105d"
+              "offset": "+106d"
             }
           ]
         }
@@ -474,13 +474,13 @@
               "reference": "prerequisite",
               "prerequisite": "Rota 1",
               "offset": "+28d",
-              "window": "+105d"
+              "window": "+106d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+105d"
+              "offset": "+106d"
             }
           ]
         }
