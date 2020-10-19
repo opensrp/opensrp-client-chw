@@ -20,11 +20,9 @@ public class VillageDoseReportFragment extends ReportResultFragment<VillageDose>
     @Override
     protected void executeFetch() {
         presenter.fetchList(() -> {
-            List<VillageDose> result = new ArrayList<>();
-            if (communityNames.get(0).equals("All communities"))
-                result.addAll(ReportDao.villageDosesReportSummary(communityNames.get(0), reportDate));
-
-            result.addAll(ReportDao.villageDosesReport(communityIds, reportDate));
+            boolean includeAll = communityNames.get(0).equals("All communities");
+            List<VillageDose> result = new ArrayList<>(ReportDao.fetchLiveVillageDosesReport(communityIds, reportDate, includeAll,
+                    includeAll ? communityNames.get(0) : null));
 
             return result;
         });
