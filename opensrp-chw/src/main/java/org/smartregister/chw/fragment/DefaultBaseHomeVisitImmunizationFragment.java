@@ -190,17 +190,10 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
 
         if (startDate.getTime() > endDate.getTime()) {
             datePicker.setMinDate(relaxedDates ? minimumDate.getTime() : endDate.getTime());
-
-            Date terminalDate = relaxedDates ? new Date() : endDate;
-            datePicker.setMaxDate(terminalDate.getTime());
-            datePicker.updateDate(terminalDate.getYear(), terminalDate.getMonth(), terminalDate.getDay());
         } else {
             datePicker.setMinDate(relaxedDates ? minimumDate.getTime() : startDate.getTime());
-
-            Date terminalDate = relaxedDates ? new Date() : endDate;
-            datePicker.setMaxDate(terminalDate.getTime());
-            datePicker.updateDate(terminalDate.getYear(), terminalDate.getMonth(), terminalDate.getDay());
         }
+        datePicker.setMaxDate((relaxedDates ? new Date() : endDate).getTime());
     }
 
     private void initializeDatePicker(@NotNull DatePicker datePicker, @NotNull Map<String, VaccineDisplay> vaccineDisplays) {
@@ -221,18 +214,11 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
 
         if (startDate != null && startDate.getTime() > endDate.getTime()) {
             datePicker.setMinDate(relaxedDates ? minimumDate.getTime() : endDate.getTime());
-
-            Date terminalDate = relaxedDates ? new Date() : endDate;
-            datePicker.setMaxDate(terminalDate.getTime());
-            datePicker.updateDate(terminalDate.getYear(), terminalDate.getMonth(), terminalDate.getDay());
         } else {
             long minDate = startDate != null ? startDate.getTime() : endDate.getTime();
             datePicker.setMinDate(relaxedDates ? minimumDate.getTime() : minDate);
-
-            Date terminalDate = relaxedDates ? new Date() : endDate;
-            datePicker.setMaxDate(terminalDate.getTime());
-            datePicker.updateDate(terminalDate.getYear(), terminalDate.getMonth(), terminalDate.getDay());
         }
+        datePicker.setMaxDate((relaxedDates ? new Date() : endDate).getTime());
     }
 
     private Date getDateFromDatePicker(DatePicker datePicker) {
@@ -247,7 +233,7 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
     }
 
     private void setDateFromDatePicker(DatePicker datePicker, Date date) {
-        datePicker.init(date.getYear(), date.getMonth(), date.getDay(), null);
+        datePicker.updateDate(date.getYear(), date.getMonth(), date.getDay());
     }
 
     /**
