@@ -58,7 +58,8 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
     private Button saveButton;
     private SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DATE_FORMATS.DOB, Locale.getDefault());
     protected boolean vaccinesDefaultChecked = true;
-
+    private Date minimumDate;
+    private boolean relaxedDates = false;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -98,6 +99,14 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
         initializePresenter();
 
         return view;
+    }
+
+    public void setMinimumDate(Date minimumDate) {
+        this.minimumDate = minimumDate;
+    }
+
+    public void setRelaxedDates(boolean relaxedDates) {
+        this.relaxedDates = relaxedDates;
     }
 
     private void setCheckBoxState(@Nullable CheckBox checkBox, boolean state) {
@@ -180,11 +189,17 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
                 vaccineDisplay.getEndDate() : new Date();
 
         if (startDate.getTime() > endDate.getTime()) {
-            datePicker.setMinDate(endDate.getTime());
-            datePicker.setMaxDate(endDate.getTime());
+            datePicker.setMinDate(relaxedDates ? minimumDate.getTime() : endDate.getTime());
+
+            Date terminalDate = relaxedDates ? new Date() : endDate;
+            datePicker.setMaxDate(terminalDate.getTime());
+            datePicker.updateDate(terminalDate.getYear(), terminalDate.getMonth(), terminalDate.getDay());
         } else {
-            datePicker.setMinDate(startDate.getTime());
-            datePicker.setMaxDate(endDate.getTime());
+            datePicker.setMinDate(relaxedDates ? minimumDate.getTime() : startDate.getTime());
+
+            Date terminalDate = relaxedDates ? new Date() : endDate;
+            datePicker.setMaxDate(terminalDate.getTime());
+            datePicker.updateDate(terminalDate.getYear(), terminalDate.getMonth(), terminalDate.getDay());
         }
     }
 
@@ -205,11 +220,18 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
         }
 
         if (startDate != null && startDate.getTime() > endDate.getTime()) {
-            datePicker.setMinDate(endDate.getTime());
-            datePicker.setMaxDate(endDate.getTime());
+            datePicker.setMinDate(relaxedDates ? minimumDate.getTime() : endDate.getTime());
+
+            Date terminalDate = relaxedDates ? new Date() : endDate;
+            datePicker.setMaxDate(terminalDate.getTime());
+            datePicker.updateDate(terminalDate.getYear(), terminalDate.getMonth(), terminalDate.getDay());
         } else {
-            datePicker.setMinDate(startDate != null ? startDate.getTime() : endDate.getTime());
-            datePicker.setMaxDate(endDate.getTime());
+            long minDate = startDate != null ? startDate.getTime() : endDate.getTime();
+            datePicker.setMinDate(relaxedDates ? minimumDate.getTime() : minDate);
+
+            Date terminalDate = relaxedDates ? new Date() : endDate;
+            datePicker.setMaxDate(terminalDate.getTime());
+            datePicker.updateDate(terminalDate.getYear(), terminalDate.getMonth(), terminalDate.getDay());
         }
     }
 
@@ -423,7 +445,7 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
     /**
      * holding container
      */
-    private class VaccineView {
+    private static class VaccineView {
         private String vaccineName;
         private DatePicker datePickerView;
         private CheckBox checkBox;
