@@ -26,5 +26,4 @@ public class NavigationMenuFlv extends DefaultNavigationMenuFlv {
                 " ((( julianday('now') - julianday(ec_child.dob))/365.25) < 2) OR (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11)\n" +
                 "  ) END";
     }
-
 }
