@@ -4,11 +4,22 @@ import androidx.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Contract;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.utils.VaccineScheduleUtil;
+import org.smartregister.chw.core.utils.VisitVaccineUtil;
 import org.smartregister.chw.domain.EligibleChild;
 import org.smartregister.chw.domain.VillageDose;
 import org.smartregister.chw.model.FilterReportFragmentModel;
 import org.smartregister.chw.util.ReportingConstants;
 import org.smartregister.dao.AbstractDao;
+import org.smartregister.domain.Alert;
+import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.immunization.domain.VaccineSchedule;
+import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
+import org.smartregister.immunization.util.VaccinatorUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,6 +47,79 @@ public class ReportDao extends AbstractDao {
 
         return res;
     }
+
+    public static List<EligibleChild> fetchLiveEligibleChildrenReport(ArrayList<String> communityIds, Date dueDate) {
+        // fetch all children in the region
+        String _communityIds = "('" + StringUtils.join(communityIds, "','") + "')";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+
+        int days = Days.daysBetween(new DateTime().toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays();
+        String sql = "select c.base_entity_id , c.unique_id , c.first_name , c.last_name , c.middle_name ," +
+                "f.first_name family_name  , c.dob , c.gender " +
+                "from ec_child c " +
+                "left join ec_family f on c.relational_id = f.base_entity_id " +
+                "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
+                "where ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') " +
+                "order by c.first_name , c.last_name , c.middle_name ";
+
+        List<EligibleChild> eligibleChildren = new ArrayList<>();
+        DataMap<Void> dataMap = c -> {
+            // compute originals
+            String baseEntityId = getCursorValue(c, "base_entity_id");
+            String gender = getCursorValue(c, "gender");
+            Date dob = getCursorValueAsDate(c, "dob", sdf);
+            Date adjustedDob = new DateTime(dob).minusDays(days).toDate();
+
+            String name = getCursorValue(c, "first_name", "") + " " + getCursorValue(c, "middle_name", "");
+            name = name.trim() + " " + getCursorValue(c, "last_name", "");
+
+            List<Alert> alerts = computeChildAlerts(new DateTime(dob).minusDays(days), baseEntityId);
+            String[] dueVaccines = new String[alerts.size()];
+            int x = 0;
+            while (x < alerts.size()) {
+                dueVaccines[x] = alerts.get(x).scheduleName();
+                x++;
+            }
+
+            int age = (int) Math.ceil(Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays() / 365.4);
+
+            // create return object
+
+            EligibleChild child = new EligibleChild();
+            child.setID(baseEntityId);
+            child.setDateOfBirth(adjustedDob);
+            child.setFullName(name.trim());
+            child.setFamilyName(getCursorValue(c, "family_name") + " Family");
+            child.setDueVaccines(dueVaccines);
+
+            if (age <= 2 || (age >= 9 && age <= 11 && "Female".equalsIgnoreCase(gender))) {
+                eligibleChildren.add(child);
+            }
+
+            return null;
+        };
+
+        readData(sql, dataMap);
+
+        return eligibleChildren;
+    }
+
+    private static List<Alert> computeChildAlerts(DateTime anchorDate, String baseEntityId) {
+        List<Vaccine> issuedVaccines = ChwApplication.getInstance().vaccineRepository().findByEntityId(baseEntityId);
+        HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules = getVaccineSchedules("child");
+        return VisitVaccineUtil.getInMemoryAlerts(vaccineSchedules, baseEntityId, anchorDate, "child", issuedVaccines);
+    }
+
+    private static HashMap<String, HashMap<String, VaccineSchedule>> getVaccineSchedules(String category) {
+        List<VaccineGroup> vaccineGroups =
+                VaccineScheduleUtil.getVaccineGroups(CoreChwApplication.getInstance().getApplicationContext(), category);
+
+        List<org.smartregister.immunization.domain.jsonmapping.Vaccine> specialVaccines =
+                VaccinatorUtils.getSpecialVaccines(CoreChwApplication.getInstance().getApplicationContext());
+
+        return VisitVaccineUtil.getSchedule(vaccineGroups, specialVaccines, category);
+    }
+
 
     @NonNull
     public static List<EligibleChild> eligibleChildrenReport(ArrayList<String> communityIds, Date dueDate) {
@@ -167,7 +251,7 @@ public class ReportDao extends AbstractDao {
         DataMap<Void> dataMap = c -> {
             String location_id = getCursorValue(c, "location_id", "");
             String scheduleName = getCursorValue(c, "scheduleName", "");
-          //  String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
+            //  String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
             Integer count = getCursorIntValue(c, "cnt", 0);
 
             TreeMap<String, Integer> vaccineMaps = resultMap.get(location_id);
