@@ -437,8 +437,8 @@
                     "from": "+0d",
                     "to": "+365d"
                   },
-                  "comparison": "at_most",
-                  "value": "+28d"
+                  "comparison": "at_least",
+                  "value": "-28d"
                 },
                 {
                   "vaccine": "PCV 1",
@@ -446,8 +446,8 @@
                   "age": {
                     "from": "+366d"
                   },
-                  "comparison": "at_most",
-                  "value": "+56d"
+                  "comparison": "at_least",
+                  "value": "-56d"
                 }
               ]
             }
@@ -635,13 +635,14 @@
                       "age": {
                         "from": "+0d",
                         "to": "+365d"
-                      }
+                      },
+                      "value": "-0d"
                     },
                     {
                       "vaccine": "Penta 2",
                       "type": "given",
                       "comparison": "at_least",
-                      "value": "+28d"
+                      "value": "-28d"
                     }
                   ]
                 },
@@ -653,14 +654,15 @@
                       "vaccine": "Penta 1",
                       "type": "given",
                       "age": {
-                        "from": "+365d"
-                      }
+                        "from": "+366d"
+                      },
+                      "value": "-0d"
                     },
                     {
                       "vaccine": "Penta 2",
                       "type": "given",
-                      "comparison": "at_most",
-                      "value": "+180d"
+                      "comparison": "at_least",
+                      "value": "-180d"
                     }
                   ]
                 }
