@@ -3,8 +3,6 @@ package org.smartregister.chw.dao;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import net.sqlcipher.Cursor;
-
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Contract;
 import org.joda.time.DateTime;
@@ -43,26 +41,17 @@ import timber.log.Timber;
 public class ReportDao extends AbstractDao {
 
     @NonNull
-    public static HashMap<String, String> extractRecordedLocations() {
-        HashMap<String, String> hashMap = new HashMap<>();
-        Cursor cursor = null;
-        try {
-            String query = "SELECT DISTINCT location_id, provider_id FROM ec_family_member_location";
-            cursor = getRepository().getReadableDatabase().rawQuery(query, null);
-            if (cursor != null) {
-                while (cursor.moveToNext()) {
-                    hashMap.put(cursor.getString(cursor.getColumnIndex("location_id")),
-                            cursor.getString(cursor.getColumnIndex("provider_id")));
-                }
-            }
-            return hashMap;
-        } catch (Exception ex) {
-            Timber.e(ex);
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-        return hashMap;
+    public static Map<String, String> extractRecordedLocations() {
+        Map<String, String> locations = new HashMap<>();
+
+        String sql = "SELECT DISTINCT location_id, provider_id FROM ec_family_member_location";
+        DataMap<Void> dataMap = cursor -> {
+            locations.put(getCursorValue(cursor, "location_id"), getCursorValue(cursor, "provider_id"));
+            return null;
+        };
+
+        readData(sql, dataMap);
+        return locations;
     }
 
     public static Map<String, List<Vaccine>> fetchAllVaccines() {
@@ -179,8 +168,13 @@ public class ReportDao extends AbstractDao {
     }
 
     private static List<Alert> computeChildAlerts(DateTime anchorDate, String baseEntityId, @Nullable List<Vaccine> issuedVaccines) {
-        HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules = getVaccineSchedules("child");
-        return VisitVaccineUtil.getInMemoryAlerts(vaccineSchedules, baseEntityId, anchorDate, "child", issuedVaccines == null ? new ArrayList<>() : issuedVaccines);
+        try {
+            HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules = getVaccineSchedules("child");
+            return VisitVaccineUtil.getInMemoryAlerts(vaccineSchedules, baseEntityId, anchorDate, "child", issuedVaccines == null ? new ArrayList<>() : issuedVaccines);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return new ArrayList<>();
     }
 
     private static HashMap<String, HashMap<String, VaccineSchedule>> getVaccineSchedules(String category) {
@@ -296,7 +290,7 @@ public class ReportDao extends AbstractDao {
     }
 
     @NonNull
-    public static List<VillageDose> fetchLiveVillageDosesReport(List<String> communityIds, Date dueDate, boolean includeAll, String villageName) {
+    public static List<VillageDose> fetchLiveVillageDosesReport(List<String> communityIds, Date dueDate, boolean includeAll, String villageName, Map<String, String> locationMap) {
         List<EligibleChild> children = fetchLiveEligibleChildrenReport(communityIds, dueDate);
 
         Map<String, Integer> allLocation = new TreeMap<>();
@@ -325,9 +319,6 @@ public class ReportDao extends AbstractDao {
             }
         }
 
-        FilterReportFragmentModel model = new FilterReportFragmentModel();
-        Map<String, String> map = model.getAllLocations();
-
         List<VillageDose> result = new ArrayList<>();
         if (includeAll) {
             VillageDose villageDose = new VillageDose();
@@ -340,67 +331,7 @@ public class ReportDao extends AbstractDao {
 
         for (Map.Entry<String, TreeMap<String, Integer>> entry : resultMap.entrySet()) {
             VillageDose villageDose = new VillageDose();
-            villageDose.setVillageName(map.get(entry.getKey()));
-            villageDose.setID(entry.getKey());
-            villageDose.setRecurringServices(entry.getValue());
-            result.add(villageDose);
-        }
-
-        return result;
-    }
-
-    @NonNull
-    public static List<VillageDose> villageDosesReport(ArrayList<String> communityIds, Date dueDate) {
-
-        String _communityIds = "('" + StringUtils.join(communityIds, "','") + "')";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-        String paramDate = sdf.format(dueDate);
-
-        String sql = "select count(*) cnt , scheduleName , location_id " +
-                "from ec_child c  " +
-                "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
-                "inner join alerts al on caseID = c.base_entity_id " +
-                "where status <> 'expired' and startDate <= '" + paramDate + "' " +
-                "AND CASE WHEN '" + communityIds.get(0) + "' <> '' THEN (l.location_id IN " + _communityIds + ")  ELSE true END " +
-                " AND CASE WHEN c.gender = 'Male' \n" +
-                " THEN (\n" +
-                " (( julianday('now') - julianday(c.dob))/365.25) < 2\n" +
-                " )\n" +
-                " WHEN c.gender = 'Female' \n" +
-                " THEN (\n" +
-                " ((( julianday('now') - julianday(c.dob))/365.25) < 2) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)\n" +
-                "  ) END  " +
-                "group by scheduleName , location_id " +
-                "order by location_id , scheduleName ";
-
-        Map<String, TreeMap<String, Integer>> resultMap = new HashMap<>();
-
-        DataMap<Void> dataMap = c -> {
-            String location_id = getCursorValue(c, "location_id", "");
-            String scheduleName = getCursorValue(c, "scheduleName", "");
-            //  String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
-            Integer count = getCursorIntValue(c, "cnt", 0);
-
-            TreeMap<String, Integer> vaccineMaps = resultMap.get(location_id);
-            if (vaccineMaps == null) vaccineMaps = new TreeMap<>();
-
-          /*  Integer total = vaccineMaps.get(scheduleName);
-            total = ((total == null) ? 0 : total) + count;*/
-
-            vaccineMaps.put(scheduleName, count);
-            resultMap.put(location_id, vaccineMaps);
-
-            return null;
-        };
-
-        readData(sql, dataMap);
-
-        HashMap<String, String> locations = ReportDao.extractRecordedLocations();
-
-        List<VillageDose> result = new ArrayList<>();
-        for (Map.Entry<String, TreeMap<String, Integer>> entry : resultMap.entrySet()) {
-            VillageDose villageDose = new VillageDose();
-            villageDose.setVillageName(locations.get(entry.getKey()));
+            villageDose.setVillageName(locationMap.get(entry.getKey()));
             villageDose.setID(entry.getKey());
             villageDose.setRecurringServices(entry.getValue());
             result.add(villageDose);
