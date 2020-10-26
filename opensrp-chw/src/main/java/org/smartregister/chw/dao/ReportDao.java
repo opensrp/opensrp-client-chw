@@ -115,10 +115,11 @@ public class ReportDao extends AbstractDao {
                 "f.first_name family_name  , c.dob , c.gender , l.location_id " +
                 "from ec_child c " +
                 "left join ec_family f on c.relational_id = f.base_entity_id " +
-                "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id ";
+                "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
+                "where c.date_removed is null and c.is_closed = 0 ";
 
         if (communityIds != null && !communityIds.isEmpty())
-            sql += "where ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') ";
+            sql += " and ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') ";
 
         sql += "order by c.first_name , c.last_name , c.middle_name ";
 
