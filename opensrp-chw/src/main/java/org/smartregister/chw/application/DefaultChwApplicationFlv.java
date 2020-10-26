@@ -164,7 +164,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean hasHpvVaccineChildren() {
+    public boolean ShowChildrenUnder2AndGirlsAge9to11() {
         return false;
     }
 
