@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label_info_image_src": "img/chw.png",
+        "label_info_image_src": "img/child_chw.png",
         "label_info_has_image": true,
         "label": "Any danger signs present?",
         "label_text_style": "normal",
