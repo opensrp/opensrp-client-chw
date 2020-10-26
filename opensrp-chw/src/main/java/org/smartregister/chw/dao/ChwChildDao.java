@@ -40,7 +40,7 @@ public class ChwChildDao extends ChildDao {
 
 
     public static String getChildQuery(String baseEntityID) {
-        if (!ChwApplication.getApplicationFlavor().ShowChildrenUnder2AndGirlsAge9to11()) {
+        if (!ChwApplication.getApplicationFlavor().ShowChildrenUnderTwoAndGirlsAgeNineToEleven()) {
             return ChildDao.getChildQuery(baseEntityID);
         } else {
             return "select  c.base_entity_id , c.first_name , c.last_name , c.middle_name , c.mother_entity_id , c.relational_id , c.dob , c.date_created ,  lastVisit.last_visit_date , last_visit_not_done_date " +

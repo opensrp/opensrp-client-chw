@@ -106,7 +106,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
-    public boolean ShowChildrenUnder2AndGirlsAge9to11() {
+    public boolean ShowChildrenUnderTwoAndGirlsAgeNineToEleven() {
         return true;
     }
 

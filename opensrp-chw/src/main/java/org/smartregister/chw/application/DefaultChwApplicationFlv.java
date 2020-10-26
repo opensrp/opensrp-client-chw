@@ -164,7 +164,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean ShowChildrenUnder2AndGirlsAge9to11() {
+    public boolean ShowChildrenUnderTwoAndGirlsAgeNineToEleven() {
         return false;
     }
 
