@@ -201,7 +201,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private Intent getChildIntent(CommonPersonObjectClient patient){
         String dobString = getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
         Integer yearOfBirth = CoreChildUtils.dobStringToYear(dobString);
-        if(!ChwApplication.getApplicationFlavor().ShowChildrenUnderTwoAndGirlsAgeNineToEleven()){
+        if(!ChwApplication.getApplicationFlavor().showChildrenUnderTwoAndGirlsAgeNineToEleven()){
            return getMaleAndFemaleChildrenIntent(yearOfBirth);
         }
         else {
