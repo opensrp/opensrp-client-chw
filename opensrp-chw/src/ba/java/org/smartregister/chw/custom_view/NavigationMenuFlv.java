@@ -40,6 +40,11 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
     }
 
     @Override
+    public boolean hasCommunityResponders() {
+        return true;
+    }
+
+    @Override
     public Intent getStockReportIntent(Activity activity) {
         return new Intent(activity, CoreStockInventoryReportActivity.class);
     }
@@ -47,5 +52,14 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
     @Override
     public Intent getServiceReportIntent(Activity activity) {
         return new Intent(activity, HIA2ReportsActivity.class);
+    }
+
+    @Override
+    public String childNavigationMenuCountString() {return null;
+    }
+
+    @Override
+    public Intent getHIA2ReportActivityIntent(Activity activity) {
+        return null;
     }
 }

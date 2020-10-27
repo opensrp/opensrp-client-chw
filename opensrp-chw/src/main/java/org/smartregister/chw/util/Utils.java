@@ -57,9 +57,9 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         return referralTypeModels;
     }
 
-    public static String toCSV(String[] list) {
+    public static String toCSV(List<String> list) {
         String result = "";
-        if (list.length > 0) {
+        if (list.size() > 0) {
             StringBuilder sb = new StringBuilder();
             for (String s : list) {
                 sb.append(s).append(", ");

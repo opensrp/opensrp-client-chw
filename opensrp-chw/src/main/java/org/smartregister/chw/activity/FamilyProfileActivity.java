@@ -18,7 +18,7 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.dao.ChildDao;
+import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
@@ -37,6 +37,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.family.util.DBConstants.KEY.LAST_NAME;
 
@@ -198,13 +199,13 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     }
 
     private Intent getChildIntent(CommonPersonObjectClient patient){
-        String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
+        String dobString = getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
         Integer yearOfBirth = CoreChildUtils.dobStringToYear(dobString);
         if(!ChwApplication.getApplicationFlavor().hasHpvVaccineChildren()){
            return getMaleAndFemaleChildrenIntent(yearOfBirth);
         }
         else {
-            if(ChildDao.getChildGender(patient.entityId()).equalsIgnoreCase("Female")){
+            if(ChwChildDao.getChildGender(patient.entityId()).equalsIgnoreCase("Female")){
              return getFemaleChildrenIntent(yearOfBirth);
             }
             else {

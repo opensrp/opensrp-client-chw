@@ -260,6 +260,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             String title = MessageFormat.format(context.getString(R.string.immunizations_count), VisitVaccineUtil.getVaccineTitle(entry.getKey().name, context));
             BaseHomeVisitImmunizationFragmentFlv fragment =
                     BaseHomeVisitImmunizationFragmentFlv.getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked);
+            if (ChwApplication.getApplicationFlavor().relaxVisitDateRestrictions()) {
+                fragment.setRelaxedDates(ChwApplication.getApplicationFlavor().relaxVisitDateRestrictions());
+                fragment.setMinimumDate(dob);
+            }
 
             validator.addFragment(title, fragment, entry.getKey(), new DateTime(dob));
 

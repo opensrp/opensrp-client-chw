@@ -12,6 +12,16 @@ buildscript {
     }
 }
 
+allprojects {
+    repositories {
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url "http://dl.bintray.com/ona/kujaku" }
+        maven { url 'https://maven.fabric.io/public' }
+        mavenLocal()
+    }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
@@ -257,7 +267,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHW"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '16'
+            buildConfigField "int", "DATABASE_VERSION", '17'
         }
         liberia {
             dimension = 'baseDimension'
@@ -277,16 +287,16 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".lmh"
             versionCode 1
-            versionName "0.0.3"
-            buildConfigField "String", 'opensrp_url', '"https://wcaro-lmh.smartregister.org/opensrp/"'
+            versionName "0.0.5-rc1"
+            buildConfigField "String", 'opensrp_url', '"https://lmh-liberia.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/lmh/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://lmh-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "int", "DATABASE_VERSION", '4'
+            buildConfigField "int", "DATABASE_VERSION", '5'
         }
     }
 
@@ -296,7 +306,8 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.4.10-alpha11-SNAPSHOT@aar') {
+
+    implementation('org.smartregister:opensrp-client-chw-core:1.5.12-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -306,12 +317,12 @@ dependencies {
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
     //Do not upgrade to 1.1.0 due to compatibility issues
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //Do not upgrade to 1.1.0 due to compatibility issues
-    implementation 'androidx.recyclerview:recyclerview:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'com.android.support:multidex:1.0.3'
     //Do not upgrade to 24.jre-1 due to compatibility issues
     implementation 'com.google.guava:guava:20.0'

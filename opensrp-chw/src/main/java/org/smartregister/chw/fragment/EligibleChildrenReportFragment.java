@@ -33,13 +33,13 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
 
     @Override
     protected void executeFetch() {
-        presenter.fetchList(() -> ReportDao.eligibleChildrenReport(communityID, reportDate));
+        presenter.fetchList(() -> ReportDao.fetchLiveEligibleChildrenReport(communityIds, reportDate));
     }
 
     @NonNull
     @Override
     public ListableAdapter<EligibleChild, ListableViewHolder<EligibleChild>> adapter() {
-        return new EligibleChildrenAdapter(list, this);
+        return new EligibleChildrenAdapter(list, this, this.getContext());
     }
 
     @Override

@@ -67,12 +67,12 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         }
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
-      //  setVaccineHistoryView(lastVisitDay);
+        //  setVaccineHistoryView(lastVisitDay);
     }
 
     @Override
     public void setUpToolbar() {
-        updateToolbarTitle(this, org.smartregister.chw.core.R.id.toolbar_title, memberObject.getFirstName());
+        updateToolbarTitle(this, R.id.toolbar_title, memberObject.getFirstName());
 
     }
 
@@ -90,13 +90,14 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         int i = view.getId();
         if (i == R.id.last_visit_row) {
             openMedicalHistoryScreen();
-        }
-        else if(i== R.id.vaccine_history){
+        } else if (i == R.id.vaccine_history) {
             openMedicalHistoryScreen();
-        }
-        else if (i == R.id.most_due_overdue_row) {
+        } else if (i == R.id.most_due_overdue_row) {
             openUpcomingServicePage();
-        } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
+        } else if(i == R.id.view_due_today){
+            openUpcomingServicePage();
+        }
+        else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
             openVisitHomeScreen(false);
         } else if (i == R.id.family_has_row) {
             openFamilyDueTab();
@@ -122,7 +123,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
         presenter = new ChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
     }
-
     @Override
     protected void setupViews() {
         super.setupViews();
@@ -210,6 +210,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, ((ChildProfilePresenter) presenter()).getFamilyHeadID());
         intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID());
         intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, ((ChildProfilePresenter) presenter()).getFamilyName());
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, ((ChildProfilePresenter) presenter()).getChildBaseEntityId());
 
         intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
@@ -263,8 +264,8 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     @Override
     public void setLastVisitRowView(String days) {
         lastVisitDay = days;
-        flavor.setLastVisitRowView(lastVisitDay,layoutLastVisitRow, viewLastVisitRow, textViewLastVisit, this);
-        flavor.setVaccineHistoryView(lastVisitDay,layoutVaccineHistoryRow, viewVaccineHistoryRow, this);
+        flavor.setLastVisitRowView(lastVisitDay, layoutLastVisitRow, viewLastVisitRow, textViewLastVisit, this);
+        flavor.setVaccineHistoryView(lastVisitDay, layoutVaccineHistoryRow, viewVaccineHistoryRow, this);
 
     }
 

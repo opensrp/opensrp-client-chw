@@ -115,8 +115,29 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return true;
     }
 
-        @Override
+    @Override
     public boolean dueVaccinesFilterInChildRegister() {
         return true;
     }
+
+    @Override
+    public boolean showAllChildServicesDueIncludingCurrentChild() {
+        return false;
+    }
+
+    @Override
+    public boolean saveOnSubmission() {
+        return true;
+    }
+
+    @Override
+    public boolean relaxVisitDateRestrictions() {
+        return true;
+    }
+
+    @Override
+    public boolean showLastNameOnChildProfile() {
+        return true;
+    }
+
 }

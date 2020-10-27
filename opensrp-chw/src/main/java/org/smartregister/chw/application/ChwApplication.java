@@ -194,9 +194,13 @@ public class ChwApplication extends CoreChwApplication {
 
         // init libraries
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        ImmunizationLibrary.getInstance().setAllowSyncImmediately(flavor.saveOnSubmission());
+
         ConfigurableViewsLibrary.init(context);
         FamilyLibrary.init(context, getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         AncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        AncLibrary.getInstance().setSubmitOnSave(flavor.saveOnSubmission());
+
         PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         FpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
@@ -417,6 +421,14 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasHpvVaccineChildren();
 
         boolean dueVaccinesFilterInChildRegister();
+
+        boolean showAllChildServicesDueIncludingCurrentChild();
+
+        boolean saveOnSubmission();
+
+        boolean relaxVisitDateRestrictions();
+
+        boolean showLastNameOnChildProfile();
     }
 
 }

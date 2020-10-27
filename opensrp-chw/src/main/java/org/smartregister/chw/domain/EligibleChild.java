@@ -1,8 +1,10 @@
 package org.smartregister.chw.domain;
 
 import org.smartregister.chw.contract.ListContract;
+import org.smartregister.domain.Alert;
 
 import java.util.Date;
+import java.util.List;
 
 public class EligibleChild implements ListContract.Identifiable {
 
@@ -11,6 +13,8 @@ public class EligibleChild implements ListContract.Identifiable {
     private Date dateOfBirth;
     private String familyName;
     private String[] dueVaccines;
+    private List<Alert> alerts;
+    private String locationId;
 
     @Override
     public String getID() {
@@ -51,5 +55,21 @@ public class EligibleChild implements ListContract.Identifiable {
 
     public void setDueVaccines(String[] dueVaccines) {
         this.dueVaccines = dueVaccines;
+    }
+
+    public List<Alert> getAlerts() {
+        return alerts;
+    }
+
+    public void setAlerts(List<Alert> alerts) {
+        this.alerts = alerts;
+    }
+
+    public String getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
     }
 }
