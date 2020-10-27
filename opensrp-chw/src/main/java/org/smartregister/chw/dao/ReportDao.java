@@ -228,7 +228,7 @@ public class ReportDao extends AbstractDao {
                 "left join ec_family f on c.relational_id = f.base_entity_id \n" +
                 "where date(c.dob) > date('now', '-24 month')\n" +
                 "and ifnull(c.dod,'') = '' and ifnull(c.date_removed,'') = '' and c.base_entity_id in\n" +
-                "(select distinct alerts.caseID from alerts where alerts.status = 'urgent' and alerts.scheduleName\n" +
+                "(select distinct alerts.caseID from alerts where alerts.status in ('urgent','normal','inProcess','upcoming') and alerts.scheduleName\n" +
                 "in ('BCG','OPV 1', 'OPV 2', 'OPV 3', 'PCV 1', 'PCV 2', 'PCV 3', 'Penta 1', 'Penta 2', 'Penta 3', 'Rota 1', 'Rota 2', 'HPV 2', 'HPV 1', 'IPV', 'YF', 'MCV 1', 'MCV 2'))";
     }
 
