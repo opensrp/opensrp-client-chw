@@ -1048,7 +1048,7 @@
                   "value": "+28d"
                 },
                 {
-                  "value": "or",
+                  "value": "and",
                   "type": "join",
                   "conditions": [
                     {
