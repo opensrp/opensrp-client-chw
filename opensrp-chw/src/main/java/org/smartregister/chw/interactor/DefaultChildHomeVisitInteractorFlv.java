@@ -774,7 +774,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         }
     }
 
-    private class BirthCertHelper extends HomeVisitActionHelper {
+    public static class BirthCertHelper extends HomeVisitActionHelper {
         private String birth_cert;
         private String birth_cert_issue_date;
         private String birth_cert_num;
