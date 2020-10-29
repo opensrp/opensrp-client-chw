@@ -237,7 +237,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHW"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '17'
+            buildConfigField "int", "DATABASE_VERSION", '16'
         }
         liberia {
             dimension = 'baseDimension'
