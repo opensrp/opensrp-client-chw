@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.core.contract.FamilyOtherMemberProfileExtendedContract;
@@ -81,7 +82,7 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
 
         Mockito.doReturn(familyEventClient).when(profileModel).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
 
-        spyPresenter.updateFamilyMember(jsonString, false);
+        spyPresenter.updateFamilyMember(RuntimeEnvironment.application, jsonString, false);
 
         Mockito.verify(view).showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
         Mockito.verify(profileModel).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
@@ -100,7 +101,7 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
 
         Mockito.doThrow(new RuntimeException()).when(profileModel).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
 
-        spyPresenter.updateFamilyMember(jsonString, false);
+        spyPresenter.updateFamilyMember(RuntimeEnvironment.application, jsonString, false);
 
         Mockito.verify(view).showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
         Mockito.verify(view).hideProgressDialog();
