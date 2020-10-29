@@ -18,7 +18,7 @@ public class ChwChildDao extends ChildDao {
         DataMap<Integer> dataMap = cursor -> getCursorIntValue(cursor, "count");
 
         List<Integer> res = readData(sql, dataMap);
-        if (res == null || res.size() == 0)
+        if (res == null || res.get(0) == 0)
             return false;
 
         res.size();
@@ -40,7 +40,7 @@ public class ChwChildDao extends ChildDao {
 
 
     public static String getChildQuery(String baseEntityID) {
-        if (!ChwApplication.getApplicationFlavor().hasHpvVaccineChildren()) {
+        if (!ChwApplication.getApplicationFlavor().showChildrenUnderTwoAndGirlsAgeNineToEleven()) {
             return ChildDao.getChildQuery(baseEntityID);
         } else {
             return "select  c.base_entity_id , c.first_name , c.last_name , c.middle_name , c.mother_entity_id , c.relational_id , c.dob , c.date_created ,  lastVisit.last_visit_date , last_visit_not_done_date " +
@@ -62,9 +62,10 @@ public class ChwChildDao extends ChildDao {
                     "where c.base_entity_id = '" + baseEntityID + "' " +
                     "and  m.date_removed is null and m.is_closed = 0 " +
                     " AND CASE WHEN c.gender = 'Male' \n" +
-                    " THEN ((( julianday('now') - julianday(c.dob))/365.25) < 5)\n" +
+                    " THEN ((( julianday('now') - julianday(c.dob))/365.25) < 2)\n" +
                     " WHEN c.gender = 'Female' \n" +
-                    " THEN (((( julianday('now') - julianday(c.dob))/365.25) < 5) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)) END ";
+                    " THEN (((( julianday('now') - julianday(c.dob))/365.25) < 2) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)) END " +
+                    "and c.is_closed = 0 ";
         }
     }
 
