@@ -86,7 +86,7 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
 
         Mockito.verify(view).showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
         Mockito.verify(profileModel).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
-        Mockito.verify(profileInteractor).saveRegistration(familyEventClient, jsonString, true, spyPresenter);
+        //Mockito.verify(profileInteractor).saveRegistration(familyEventClient, jsonString, true, spyPresenter);
 
     }
 
