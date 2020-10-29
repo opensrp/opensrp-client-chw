@@ -113,7 +113,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 evaluateUmbilicalCord(baby);
                 evaluateExclusiveBreastFeeding(baby);
                 evaluateKangarooMotherCare(baby);
-                evaluateBirthCertForm(baby);
+                evaluateBirthCertForm(baby, VisitDao.memberHasBirthCert(baby.getBaseEntityID()));
                 evaluateObservationAndIllnessBaby(baby);
             }
 
@@ -369,6 +369,27 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         }
     }
 
+    protected void evaluateBirthCertForm(Person person, Boolean hasBirthCert) throws Exception {
+        PncBaby baby = (PncBaby) person;
+        String title = MessageFormat.format(context.getString(R.string.pnc_birth_certification), baby.getFullName());
+
+        if (!hasBirthCert) {
+
+            Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.BIRTH_CERTIFICATION);
+
+            BaseAncHomeVisitAction action = getBuilder(title)
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withBaseEntityID(person.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                    .withHelper(new DefaultChildHomeVisitInteractorFlv.BirthCertHelper(baby.getDob()))
+                    .withFormName(Constants.JSON_FORM.getBirthCertification())
+                    .build();
+
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_birth_certification), baby.getFullName()), action);
+        }
+    }
+
     private void evaluateKangarooMotherCare(Person person) throws Exception {
         PncBaby baby = (PncBaby) person;
         if (baby.getLbw().equalsIgnoreCase("yes")) {
@@ -385,26 +406,6 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     .withHelper(new KangarooHelper())
                     .build();
             actionList.put(title, action);
-        }
-    }
-
-    protected void evaluateBirthCertForm(Person person) throws Exception {
-        PncBaby baby = (PncBaby) person;
-        hasBirthCert = VisitDao.memberHasBirthCert(baby.getBaseEntityID());
-        if (!hasBirthCert) {
-
-            Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.BIRTH_CERTIFICATION);
-
-            BaseAncHomeVisitAction action = getBuilder(context.getString(R.string.birth_certification))
-                    .withOptional(false)
-                    .withDetails(details)
-                    .withBaseEntityID(person.getBaseEntityID())
-                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                    .withHelper(new DefaultChildHomeVisitInteractorFlv.BirthCertHelper(baby.getDob()))
-                    .withFormName(Constants.JSON_FORM.getBirthCertification())
-                    .build();
-
-            actionList.put(context.getString(R.string.birth_certification), action);
         }
     }
 
