@@ -111,7 +111,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
-    public boolean hasHpvVaccineChildren() {
+    public boolean showChildrenUnderTwoAndGirlsAgeNineToEleven() {
         return true;
     }
 

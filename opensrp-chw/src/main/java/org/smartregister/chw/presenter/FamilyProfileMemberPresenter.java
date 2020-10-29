@@ -18,14 +18,16 @@ public class FamilyProfileMemberPresenter extends CoreFamilyProfileMemberPresent
     }
 
     public String getMainCondition() {
-        return String.format(" %s.%s = '%s' and (%s.%s is null or %s.%s is not null ) ",
+        return String.format(" %s.%s = '%s' and (%s.%s is null or %s.%s is not null ) and (%s.%s is null or %s.%s is not null ) ",
                 CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID, this.familyBaseEntityId,
                 CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DATE_REMOVED,
-                CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DOD
+                CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DOD,
+                CoreConstants.TABLE_NAME.CHILD, DBConstants.KEY.DATE_REMOVED,
+                CoreConstants.TABLE_NAME.CHILD, DBConstants.KEY.DOD
         );
     }
 
     public String getChildFilter() {
-      return  " and (( ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + ChildDBConstants.KEY.ENTRY_POINT + ",'') <> 'PNC' ) or (ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + ChildDBConstants.KEY.ENTRY_POINT + ",'') = 'PNC' and ( date(" + CoreConstants.TABLE_NAME.CHILD + "." +  DBConstants.KEY.DOB + ", '+28 days') <= date() and ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = " + CoreConstants.TABLE_NAME.CHILD + "." + ChildDBConstants.KEY.MOTHER_ENTITY_ID + " ) = 0)))  or (ifnull(ec_child.entry_point,'') = 'PNC'  and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = ec_child.mother_entity_id ) = 1)) " ;
+        return  " and (( ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + ChildDBConstants.KEY.ENTRY_POINT + ",'') <> 'PNC' ) or (ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + ChildDBConstants.KEY.ENTRY_POINT + ",'') = 'PNC' and ( date(" + CoreConstants.TABLE_NAME.CHILD + "." +  DBConstants.KEY.DOB + ", '+28 days') <= date() and ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = " + CoreConstants.TABLE_NAME.CHILD + "." + ChildDBConstants.KEY.MOTHER_ENTITY_ID + " ) = 0)))  or (ifnull(ec_child.entry_point,'') = 'PNC'  and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = ec_child.mother_entity_id ) = 1)) " ;
     }
 }

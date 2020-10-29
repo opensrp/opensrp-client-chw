@@ -38,11 +38,16 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
 
     private String getSelectCondition() {
         return " ( ec_family_member.relational_id = '" + this.familyBaseEntityId + "' or ec_family.base_entity_id = '" + this.familyBaseEntityId + "' ) AND "
-                + getDefaultChildDueQuery();
+                + getDefaultChildDueQuery()
+                + getMailTableFilter();
     }
 
     public boolean saveData(String jsonObject) {
         return washCheckModel.saveWashCheckEvent(jsonObject);
+    }
+
+    public String getMailTableFilter() {
+        return (" AND ec_family_member.date_removed is null");
     }
 
 }
