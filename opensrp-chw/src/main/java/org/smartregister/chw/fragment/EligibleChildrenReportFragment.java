@@ -33,7 +33,7 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
 
     @Override
     protected void executeFetch() {
-        presenter.fetchList(() -> ReportDao.eligibleChildrenReport(communityIds, reportDate));
+        presenter.fetchList(() -> ReportDao.fetchLiveEligibleChildrenReport(communityIds, reportDate));
     }
 
     @NonNull

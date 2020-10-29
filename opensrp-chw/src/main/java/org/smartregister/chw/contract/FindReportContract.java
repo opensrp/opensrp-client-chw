@@ -70,6 +70,6 @@ public interface FindReportContract {
 
     interface Interactor {
 
-        void processAvailableLocations(LinkedHashMap<String, String> locations, Presenter presenter);
+        void processAvailableLocations(Map<String, String> locations, Presenter presenter);
     }
 }
