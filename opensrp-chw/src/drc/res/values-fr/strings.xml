@@ -4,4 +4,5 @@
     <string name="nav_logo">CFC-RTM - RDC</string>
 
     <string name="anc_woman_delivery_kit_received">Kit de livraison reçu</string>
+    <string name="delivery_kit">Kit de livraison</string>
 </resources>

@@ -81,14 +81,14 @@ public class AncHomeVisitInteractorFlv extends DefaultAncHomeVisitInteractorFlv 
             return;
         }
 
-        BaseAncHomeVisitAction anc_card = new BaseAncHomeVisitAction.Builder(view.getContext(), view.getContext().getString(R.string.anc_woman_delivery_kit_received))
+        BaseAncHomeVisitAction deliveryKitAction = new BaseAncHomeVisitAction.Builder(view.getContext(), view.getContext().getString(R.string.anc_woman_delivery_kit_received))
                 .withOptional(false)
                 .withDetails(details)
                 .withHelper(new DeliveryKitAction())
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, getDeliveryKitReceived(), null, details, null))
                 .build();
 
-        actionList.put(view.getContext().getString(R.string.anc_woman_delivery_kit_received), anc_card);
+        actionList.put(view.getContext().getString(R.string.anc_woman_delivery_kit_received), deliveryKitAction);
 
     }
 }
