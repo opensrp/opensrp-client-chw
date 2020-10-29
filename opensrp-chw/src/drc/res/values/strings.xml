@@ -8,4 +8,6 @@
     <string name="minimum_dietary_choice_2">2 - Only 2 of the 4 products</string>
     <string name="minimum_dietary_choice_3">3 - Only 3 of the 4 products</string>
     <string name="minimum_dietary_choice_4">4 - All 4 of the products</string>
+
+    <string name="anc_woman_delivery_kit_received">Delivery kit received</string>
 </resources>

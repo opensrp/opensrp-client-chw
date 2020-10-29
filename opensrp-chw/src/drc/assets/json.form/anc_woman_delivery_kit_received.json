@@ -53,7 +53,7 @@
         "key": "delivery_kit",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1719AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "delivery_kit",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "image": "delivery_kit_received",
