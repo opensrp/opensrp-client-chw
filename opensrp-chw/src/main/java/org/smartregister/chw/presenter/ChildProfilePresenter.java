@@ -22,7 +22,6 @@ import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildService;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ChwChildDao;
-import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
@@ -136,7 +135,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
 
         if (ChwApplication.getApplicationFlavor().showLastNameOnChildProfile()) {
             String relationalId = getValue(client.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, true).toLowerCase();
-           // String parentLastName = getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
+            // String parentLastName = getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
             String familyName = ChwChildDao.getChildFamilyName(relationalId);
 
             String firstName = getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
@@ -177,20 +176,24 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
             }
         }
     }
+    private void getDueView(ChildVisit childVisit){
+        if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name())){
+            if(ChwChildDao.hasDueSchedule(childBaseEntityId)){
+                getView().setVisitButtonDueStatus();
+            }
+            else {
+                getView().setNoButtonView();
+            }
+        }
+    }
 
     @Override
     public void updateChildVisit(ChildVisit childVisit) {
-        if(!ChwApplication.getApplicationFlavor().showNoDueVaccineView()){
+        if (!ChwApplication.getApplicationFlavor().showNoDueVaccineView()) {
             super.updateChildVisit(childVisit);
-        }
-        else {
+        } else {
             if (childVisit != null) {
-                if(childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name()) && ChwChildDao.hasDueSchedule(childBaseEntityId)){
-                    getView().setVisitButtonDueStatus();
-                }
-                if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name()) && !ChwChildDao.hasDueSchedule(childBaseEntityId)) {
-                    getView().setNoButtonView();
-                }
+                getDueView(childVisit);
                 if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.OVERDUE.name())) {
                     getView().setVisitButtonOverdueStatus();
                 }

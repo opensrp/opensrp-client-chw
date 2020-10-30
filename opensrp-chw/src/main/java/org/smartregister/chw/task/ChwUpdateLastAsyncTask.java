@@ -26,7 +26,7 @@ public class ChwUpdateLastAsyncTask extends UpdateLastAsyncTask {
                 if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name()) && ChwChildDao.hasDueSchedule(baseEntityId)) {
                     setVisitButtonDueStatus(context, viewHolder.dueButton);
                 } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name()) && !ChwChildDao.hasDueSchedule(baseEntityId)) {
-                    setVisitButtonNoDueStatus(context, viewHolder.dueButton);
+                    setVisitButtonNoDueStatus(viewHolder.dueButton);
                 }
                 if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.OVERDUE.name())) {
                     setVisitButtonOverdueStatus(context, viewHolder.dueButton, childVisit.getNoOfMonthDue());
@@ -43,7 +43,7 @@ public class ChwUpdateLastAsyncTask extends UpdateLastAsyncTask {
         }
     }
 
-    private void setVisitButtonNoDueStatus(Context context, Button dueButton) {
+    private void setVisitButtonNoDueStatus(Button dueButton) {
         dueButton.setBackgroundResource(org.smartregister.chw.core.R.drawable.transparent_white_button);
         dueButton.setOnClickListener(null);
     }
