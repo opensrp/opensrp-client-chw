@@ -116,7 +116,8 @@ public class ReportDao extends AbstractDao {
                 "from ec_child c " +
                 "left join ec_family f on c.relational_id = f.base_entity_id " +
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
-                "where c.date_removed is null and c.is_closed = 0 ";
+                "inner join ec_family_member m on m.base_entity_id = c.base_entity_id " +
+                "where c.date_removed is null and c.is_closed = 0 and m.is_closed = 0  ";
 
         if (communityIds != null && !communityIds.isEmpty())
             sql += " and ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') ";
@@ -265,15 +266,15 @@ public class ReportDao extends AbstractDao {
         Map<String, Integer> map = new TreeMap<>();
 
         DataMap<Void> dataMap = c -> {
-            //String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
-            String scheduleName = getCursorValue(c, "scheduleName", "");
+            String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
+            //String scheduleName = getCursorValue(c, "scheduleName", "");
 
             Integer count = getCursorIntValue(c, "cnt", 0);
 
-         /*   Integer total = map.get(scheduleName);
-            total = ((total == null) ? 0 : total) + count;*/
+           Integer total = map.get(scheduleName);
+            total = ((total == null) ? 0 : total) + count;
 
-            map.put(scheduleName, count);
+            map.put(scheduleName, total);
             return null;
         };
         readData(sql, dataMap);

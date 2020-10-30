@@ -22,7 +22,8 @@ public class ChildDBConstants extends org.smartregister.chw.core.utils.ChildDBCo
                 " and ( date(" + CoreConstants.TABLE_NAME.CHILD + "." + dateColumn + ", '+28 days') <= date() " +
                 " and ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = " + CoreConstants.TABLE_NAME.CHILD + "." + motherEntityId + " ) = 0))) " +
                 " or (ifnull(ec_child.entry_point,'') = 'PNC' " +
-                " and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = ec_child.mother_entity_id ) = 1)) " +
+                " and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = ec_child.mother_entity_id ) = 1))" +
+                " and ec_family_member.is_closed = 0 " +
                 " and CASE WHEN ec_child.gender = 'Male' \n" +
                 " THEN (\n" +
                 " (( julianday('now') - julianday(ec_child.dob))/365.25) < 2\n" +

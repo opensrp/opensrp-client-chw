@@ -1,5 +1,6 @@
 package org.smartregister.chw.presenter;
 
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.WashCheckModel;
 import org.smartregister.family.contract.FamilyProfileDueContract;
@@ -36,18 +37,33 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
         return " (ifnull(schedule_service.completion_date,'') = '' and schedule_service.expiry_date >= strftime('%Y-%m-%d') and schedule_service.due_date <= strftime('%Y-%m-%d') and ifnull(schedule_service.not_done_date,'') = '' ) ";
     }
 
-    private String getSelectCondition() {
-        return " ( ec_family_member.relational_id = '" + this.familyBaseEntityId + "' or ec_family.base_entity_id = '" + this.familyBaseEntityId + "' ) AND "
-                + getDefaultChildDueQuery()
-                + getMailTableFilter();
+    private String getChildDueQueryForChildrenUnderTwoAndGirlsAgeNineToEleven() {
+        return " (ifnull(schedule_service.completion_date,'') = '' and schedule_service.expiry_date >= strftime('%Y-%m-%d') " +
+                "and schedule_service.due_date <= strftime('%Y-%m-%d') and ifnull(schedule_service.not_done_date,'') = '' ) " +
+                "AND CASE WHEN ec_child.gender = 'Male' \n" +
+                " THEN (\n" +
+                " (( julianday('now') - julianday(ec_child.dob))/365.25) < 2\n" +
+                " )\n" +
+                " WHEN ec_child.gender = 'Female' \n" +
+                " THEN (\n" +
+                " ((( julianday('now') - julianday(ec_child.dob))/365.25) < 2) OR (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11)\n" +
+                "  ) END";
+    }
+
+    private String getSelectCondition(){
+        if(ChwApplication.getApplicationFlavor().showChildrenAboveTwoDueStatus()){
+            return " ( ec_family_member.relational_id = '" + this.familyBaseEntityId + "' or ec_family.base_entity_id = '" + this.familyBaseEntityId + "' ) AND "
+                    + getDefaultChildDueQuery();
+        }
+
+        else {
+            return " ( ec_family_member.relational_id = '" + this.familyBaseEntityId + "' or ec_family.base_entity_id = '" + this.familyBaseEntityId + "' ) AND "
+                    + getChildDueQueryForChildrenUnderTwoAndGirlsAgeNineToEleven();
+        }
     }
 
     public boolean saveData(String jsonObject) {
         return washCheckModel.saveWashCheckEvent(jsonObject);
-    }
-
-    public String getMailTableFilter() {
-        return (" AND ec_family_member.date_removed is null");
     }
 
 }

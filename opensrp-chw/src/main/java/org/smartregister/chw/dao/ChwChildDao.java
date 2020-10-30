@@ -25,6 +25,20 @@ public class ChwChildDao extends ChildDao {
         return true;
     }
 
+    public static boolean hasDueSchedule(String baseEntityID) {
+        String sql = "select count(*) count from schedule_service\n" +
+                "where base_entity_id = '" + baseEntityID + "'";
+
+        DataMap<Integer> dataMap = cursor -> getCursorIntValue(cursor, "count");
+
+        List<Integer> res = readData(sql, dataMap);
+        if (res == null || res.get(0) == 0)
+            return false;
+
+        res.size();
+        return true;
+    }
+
     public static String getChildGender(String baseEntityID) {
         String sql = String.format("SELECT gender from ec_child\n" +
                 "where base_entity_id = '%s'", baseEntityID);
@@ -62,9 +76,9 @@ public class ChwChildDao extends ChildDao {
                     "where c.base_entity_id = '" + baseEntityID + "' " +
                     "and  m.date_removed is null and m.is_closed = 0 " +
                     " AND CASE WHEN c.gender = 'Male' \n" +
-                    " THEN ((( julianday('now') - julianday(c.dob))/365.25) < 2)\n" +
+                    " THEN ((( julianday('now') - julianday(c.dob))/365.25) < 5)\n" +
                     " WHEN c.gender = 'Female' \n" +
-                    " THEN (((( julianday('now') - julianday(c.dob))/365.25) < 2) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)) END " +
+                    " THEN (((( julianday('now') - julianday(c.dob))/365.25) < 5) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)) END " +
                     "and c.is_closed = 0 ";
         }
     }

@@ -34,11 +34,11 @@ public class ScheduleDao extends AbstractDao {
                 " schedule_name = '" + scheduleName + "' and schedule_group_name = '" + scheduleGroup + "')" +
                 " and CASE WHEN ec_child.gender = 'Male'\n" +
                 " THEN (\n" +
-                "(( julianday('now') - julianday(ec_child.dob))/365.25) < 2\n" +
+                "(( julianday('now') - julianday(ec_child.dob))/365.25) < 5\n" +
                 ")\n" +
                 "WHEN ec_child.gender = 'Female'\n" +
                 "THEN (\n" +
-                "((( julianday('now') - julianday(ec_child.dob))/365.25) < 2) OR (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11)\n" +
+                "((( julianday('now') - julianday(ec_child.dob))/365.25) < 5) OR (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11)\n" +
                 ") END";
 
         DataMap<String> dataMap = c -> getCursorValue(c, "base_entity_id");
