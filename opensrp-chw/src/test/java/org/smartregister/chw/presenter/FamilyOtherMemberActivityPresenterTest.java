@@ -1,5 +1,7 @@
 package org.smartregister.chw.presenter;
 
+import android.content.Context;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,6 +37,9 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
 
     @Mock
     private FamilyOtherMemberProfileInteractor interactor;
+
+    @Mock
+    private Context context;
 
     private FamilyOtherMemberContract.Presenter presenter;
 
@@ -81,7 +86,7 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
 
         Mockito.doReturn(familyEventClient).when(profileModel).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
 
-        spyPresenter.updateFamilyMember(jsonString, false);
+        spyPresenter.updateFamilyMember(context,jsonString, false);
 
         Mockito.verify(view).showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
         Mockito.verify(profileModel).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
@@ -100,7 +105,7 @@ public class FamilyOtherMemberActivityPresenterTest extends BaseUnitTest {
 
         Mockito.doThrow(new RuntimeException()).when(profileModel).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
 
-        spyPresenter.updateFamilyMember(jsonString, false);
+        spyPresenter.updateFamilyMember(context,jsonString, false);
 
         Mockito.verify(view).showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
         Mockito.verify(view).hideProgressDialog();
