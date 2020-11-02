@@ -1,5 +1,7 @@
 package org.smartregister.chw.interactor;
 
+import androidx.annotation.VisibleForTesting;
+
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
@@ -23,7 +25,6 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.Constants.ANC_HOME_VISIT.getDeliveryKitReceived;
 
 public class AncHomeVisitInteractorFlv extends DefaultAncHomeVisitInteractorFlv {
 
@@ -75,21 +76,25 @@ public class AncHomeVisitInteractorFlv extends DefaultAncHomeVisitInteractorFlv 
         return actionList;
     }
 
-
-    private void evaluateDeliveryKit() throws BaseAncHomeVisitAction.ValidationException {
+    protected void evaluateDeliveryKit() throws BaseAncHomeVisitAction.ValidationException {
         if (memberObject.getDeliveryKit() != null && memberObject.getDeliveryKit().equalsIgnoreCase("Yes")) {
             return;
         }
 
-        BaseAncHomeVisitAction deliveryKitAction = new BaseAncHomeVisitAction.Builder(view.getContext(), view.getContext().getString(R.string.anc_woman_delivery_kit_received))
+        BaseAncHomeVisitAction deliveryKitAction = getBuilder(context.getString(R.string.anc_woman_delivery_kit_received))
                 .withOptional(false)
                 .withDetails(details)
                 .withHelper(new DeliveryKitAction())
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, getDeliveryKitReceived(), null, details, null))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.ANC_HOME_VISIT.getDeliveryKitReceived(), null, details, null))
                 .build();
 
-        actionList.put(view.getContext().getString(R.string.anc_woman_delivery_kit_received), deliveryKitAction);
+        actionList.put(context.getString(R.string.anc_woman_delivery_kit_received), deliveryKitAction);
 
+    }
+
+    @VisibleForTesting
+    public BaseAncHomeVisitAction.Builder getBuilder(String title) {
+        return new BaseAncHomeVisitAction.Builder(context, title);
     }
 }
 

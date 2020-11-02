@@ -40,7 +40,7 @@ public class AncUpcomingServicesInteractorFlv extends DefaultAncUpcomingServices
         return services;
     }
 
-    private void evaluateDeliveryKit(List<BaseUpcomingService> services, MemberObject memberObject, Context context, Date createDate) {
+    protected void evaluateDeliveryKit(List<BaseUpcomingService> services, MemberObject memberObject, Context context, Date createDate) {
         if (memberObject.getDeliveryKit() != null && !memberObject.getDeliveryKit().equalsIgnoreCase("Yes")) {
             BaseUpcomingService cardService = new BaseUpcomingService();
             cardService.setServiceName(context.getString(R.string.delivery_kit));
