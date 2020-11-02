@@ -45,7 +45,7 @@ public class Constants extends CoreConstants {
         public static String COUNTRY_ID = "COUNTRY_ID";
     }
 
-    public static class ANC_HOME_VISIT {
+    public static class ANC_HOME_VISIT_Util {
         private static final String DELIVERY_KIT_RECEIVED = "anc_woman_delivery_kit_received";
 
         public static String getDeliveryKitReceived() {
