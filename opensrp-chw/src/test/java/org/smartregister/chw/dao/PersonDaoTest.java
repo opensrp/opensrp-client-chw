@@ -73,7 +73,6 @@ public class PersonDaoTest extends PersonDao {
         List<PncBaby> personList = PersonDao.getMothersPNCBabies(baseEntityId);
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
         Assert.assertEquals(personList.size(), 0);
-        ;
     }
 
     @Test
