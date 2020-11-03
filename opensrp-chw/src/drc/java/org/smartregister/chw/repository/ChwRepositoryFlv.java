@@ -138,10 +138,10 @@ public class ChwRepositoryFlv {
             Timber.e(e, "upgradeToVersion7 ");
         }
     }
-
     private static void upgradeToVersion9(SQLiteDatabase db) {
         try {
             db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
+            db.execSQL("ALTER TABLE ec_anc_register ADD COLUMN delivery_kit VARCHAR;");
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion9");
         }
