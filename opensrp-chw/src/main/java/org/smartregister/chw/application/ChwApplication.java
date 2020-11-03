@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
+import org.koin.core.context.GlobalContext;
 import org.koin.core.context.GlobalContextKt;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
@@ -210,10 +211,12 @@ public class ChwApplication extends CoreChwApplication {
         GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION, growthMonitoringConfig);
 
         if (hasReferrals()) {
-            //Setup referral library
-            ReferralLibrary.init(this);
-            ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
-            ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
+            //Setup referral library and initialize Koin dependencies once
+            if(GlobalContext.getOrNull() == null) {
+                ReferralLibrary.init(this);
+                ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
+                ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
+            }
         }
 
         OpdLibrary.init(context, getRepository(),
