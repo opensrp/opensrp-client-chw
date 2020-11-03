@@ -200,7 +200,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
-            buildConfigField "int", "DATABASE_VERSION", '8'
+            buildConfigField "int", "DATABASE_VERSION", '9'
         }
         guinea {
             dimension = 'baseDimension'
@@ -276,7 +276,8 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.5.13-SNAPSHOT@aar') {
+
+    implementation('org.smartregister:opensrp-client-chw-core:1.5.15-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
