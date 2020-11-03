@@ -1,6 +1,7 @@
 package org.smartregister.chw.util;
 
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.Utils;
 
 public class Constants extends CoreConstants {
     public static final String REFERRAL_TASK_FOCUS = "referral_task_focus";
@@ -42,5 +43,14 @@ public class Constants extends CoreConstants {
 
     public static class PeerToPeerUtil {
         public static String COUNTRY_ID = "COUNTRY_ID";
+    }
+
+    public static class AncHomeVisitUtil {
+        private static final String DELIVERY_KIT_RECEIVED = "anc_woman_delivery_kit_received";
+
+        public static String getDeliveryKitReceived() {
+            return Utils.getLocalForm(DELIVERY_KIT_RECEIVED, JSON_FORM.locale, JSON_FORM.assetManager);
+        }
+
     }
 }
