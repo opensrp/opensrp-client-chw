@@ -63,6 +63,20 @@ public class PersonDaoTest extends PersonDao {
     }
 
     @Test
+    public void testGetMothersPNCBabiesReturnsEmptyArrayList() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
+                "base_entity_id", "first_name", "last_name", "middle_name", "dob", "low_birth_weight"});
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        String baseEntityId = "1234";
+        List<PncBaby> personList = PersonDao.getMothersPNCBabies(baseEntityId);
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertEquals(personList.size(), 0);
+        ;
+    }
+
+    @Test
     public void getAncCreatedDate() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{
@@ -77,6 +91,19 @@ public class PersonDaoTest extends PersonDao {
     }
 
     @Test
+    public void getAncCreatedDateReturnsNull() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
+                "date_created"});
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        String baseEntityId = "1234";
+        String dateCreated = PersonDao.getAncCreatedDate(baseEntityId);
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertNull(dateCreated);
+    }
+
+    @Test
     public void getDob() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{
@@ -88,5 +115,17 @@ public class PersonDaoTest extends PersonDao {
         String dateCreated = PersonDao.getDob(baseEntityId);
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
         Assert.assertEquals(dateCreated, "dob");
+    }
+
+    @Test
+    public void getDobReturnsNull() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
+                "dob"});
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+        String baseEntityId = "1234";
+        String dateCreated = PersonDao.getDob(baseEntityId);
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertNull(dateCreated);
     }
 }
