@@ -282,6 +282,7 @@
     <string name="pnc_umblicord_care">Utunzaji wa kitovu</string>
     <string name="pnc_umblicord_care_child">Umbilical cord care ({0})</string>
     <string name="pnc_exclusive_breastfeeding">Unyonyeshwaji wa maziwa ya mama pekee ({0})</string>
+    <string name="pnc_birth_certification">Cheti cha kuzaliwa ({0})</string>
     <string name="pnc_kangaroo_mother_care">Huduma ya Kangaruu (KMC) </string>
     <string name="pnc_family_planning">Uzazi wa Mpango</string>
     <string name="fp_update_family_planning">Update usajili wa uzazi wa mpango</string>
