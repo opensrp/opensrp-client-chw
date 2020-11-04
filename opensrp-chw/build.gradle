@@ -205,7 +205,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".chad"
             versionCode 1
-            versionName "0.0.2"
+            versionName "1.0.0"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-td.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/chad/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
