@@ -40,14 +40,7 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
     private String getChildDueQueryForChildrenUnderTwoAndGirlsAgeNineToEleven() {
         return " (ifnull(schedule_service.completion_date,'') = '' and schedule_service.expiry_date >= strftime('%Y-%m-%d') " +
                 "and schedule_service.due_date <= strftime('%Y-%m-%d') and ifnull(schedule_service.not_done_date,'') = '' ) " +
-                "AND CASE WHEN ec_child.gender = 'Male' \n" +
-                " THEN (\n" +
-                " (( julianday('now') - julianday(ec_child.dob))/365.25) < 2\n" +
-                " )\n" +
-                " WHEN ec_child.gender = 'Female' \n" +
-                " THEN (\n" +
-                " ((( julianday('now') - julianday(ec_child.dob))/365.25) < 2) OR (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11)\n" +
-                "  ) END";
+                "and (((julianday('now') - julianday(ec_child.dob))/365.25) < 2 or (ec_child.gender = 'Female' and (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11)))\n";
     }
 
     private String getSelectCondition(){

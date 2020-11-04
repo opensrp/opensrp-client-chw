@@ -5,20 +5,13 @@ indicators:
                                           inner join ec_family_member m on c.base_entity_id = m.base_entity_id COLLATE NOCASE
                                           inner join ec_family f on f.base_entity_id = m.relational_id COLLATE NOCASE
                                           where m.date_removed is null and m.is_closed = 0
-                                          AND CASE WHEN c.gender = 'Male'
-                                           THEN (
-                                           (( julianday('now') - julianday(c.dob))/365.25) < 2
-                                           )
-                                           WHEN c.gender = 'Female'
-                                           THEN (
-                                           ((( julianday('now') - julianday(c.dob))/365.25) < 2) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)
-                                            ) END
-                                           and c.is_closed = 0
+                                          and (((julianday('now') - julianday(c.dob))/365.25) < 2 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)))
+                                          and c.is_closed = 0
                                           and ((( ifnull(entry_point,'') <> 'PNC' )) or (ifnull(entry_point,'') = 'PNC'
                                           and ( date (c.dob, '+28 days') <= date() and
-                                           ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 0)))
-                                             or (ifnull(entry_point,'') = 'PNC'
-                                             and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 1))"
+                                          ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 0)))
+                                          or (ifnull(entry_point,'') = 'PNC'
+                                          and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 1))"
 
   - key: "CHW_002"
     description: "Children (0-11 months) who died in the last year"

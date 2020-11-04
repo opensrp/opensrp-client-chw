@@ -57,14 +57,7 @@ public class FamilyDao extends AbstractDao {
                 " LEFT join ec_family_member m on s.base_entity_id  = m.base_entity_id COLLATE NOCASE \n" +
                 " INNER JOIN ec_child c on c.base_entity_id = s.base_entity_id\n" +
                 "WHERE visit_state is NOT NULL\n" +
-                "AND CASE WHEN c.gender = 'Male' \n" +
-                " THEN (\n" +
-                " (( julianday('now') - julianday(c.dob))/365.25) < 2\n" +
-                " )\n" +
-                " WHEN c.gender = 'Female' \n" +
-                " THEN (\n" +
-                " ((( julianday('now') - julianday(c.dob))/365.25) < 2) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)\n" +
-                "  ) END ) counters where " +
+                "and (((julianday('now') - julianday(c.dob))/365.25) < 2 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11))) ) counters where " +
                 " ((counters.relational_id = '" + familyBaseEntityID + "' COLLATE NOCASE) or " +
                 " (counters.base_entity_id = '" + familyBaseEntityID + "' COLLATE NOCASE)) " +
                 "group by visit_state";
@@ -121,14 +114,7 @@ public class FamilyDao extends AbstractDao {
                 "INNER JOIN ec_family_member m on s.base_entity_id  ='" + memberBaseEntityId + "'" + " COLLATE NOCASE " +
                 "INNER JOIN ec_child c on c.base_entity_id = s.base_entity_id\n" +
                 "WHERE visit_state is NOT NULL\n" +
-                "AND CASE WHEN c.gender = 'Male' \n" +
-                " THEN (\n" +
-                " (( julianday('now') - julianday(c.dob))/365.25) < 2\n" +
-                " )\n" +
-                " WHEN c.gender = 'Female' \n" +
-                " THEN (\n" +
-                " ((( julianday('now') - julianday(c.dob))/365.25) < 2) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)\n" +
-                "  ) END ) counters \n" +
+                "and (((julianday('now') - julianday(c.dob))/365.25) < 2 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)))\n ) counters \n" +
                 "group by visit_state";
 
         DataMap<String> dataMap = c -> getCursorValue(c, "visit_state");

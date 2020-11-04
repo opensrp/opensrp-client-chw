@@ -117,7 +117,7 @@ public class ReportDao extends AbstractDao {
                 "left join ec_family f on c.relational_id = f.base_entity_id " +
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
                 "inner join ec_family_member m on m.base_entity_id = c.base_entity_id " +
-                "where c.date_removed is null and c.is_closed = 0 and m.is_closed = 0  ";
+                "where c.date_removed is null and c.is_closed = 0 and m.is_closed = 0 ";
 
         if (communityIds != null && !communityIds.isEmpty())
             sql += " and ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') ";
@@ -156,7 +156,7 @@ public class ReportDao extends AbstractDao {
             child.setDueVaccines(dueVaccines);
             child.setAlerts(alerts);
 
-            if (age <= 2 || (age >= 9 && age <= 11 && "Female".equalsIgnoreCase(gender)) && dueVaccines.length > 0) {
+            if (age < 2 || (age >= 9 && age < 11 && "Female".equalsIgnoreCase(gender)) && dueVaccines.length > 0) {
                 eligibleChildren.add(child);
             }
 
@@ -203,14 +203,7 @@ public class ReportDao extends AbstractDao {
                 "left join ec_family f on c.relational_id = f.base_entity_id " +
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
                 "where ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') " +
-                " AND CASE WHEN c.gender = 'Male' \n" +
-                " THEN (\n" +
-                " (( julianday('now') - julianday(c.dob))/365.25) < 2\n" +
-                " )\n" +
-                " WHEN c.gender = 'Female' \n" +
-                " THEN (\n" +
-                " ((( julianday('now') - julianday(c.dob))/365.25) < 2) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)\n" +
-                "  ) END " +
+                " and (((julianday('now') - julianday(c.dob))/365.25) < 2 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)))\n " +
                 "and l.base_entity_id in (select caseID from alerts where status not in ('expired','complete') and startDate <= '" + paramDate + "' and expiryDate >= '" + paramDate + "') " +
                 "order by c.first_name , c.last_name , c.middle_name ";
 
@@ -252,14 +245,7 @@ public class ReportDao extends AbstractDao {
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
                 "inner join alerts al on caseID = c.base_entity_id " +
                 "where status <> 'expired' and startDate <= '" + paramDate + "' " +
-                " AND CASE WHEN c.gender = 'Male' \n" +
-                " THEN (\n" +
-                " (( julianday('now') - julianday(c.dob))/365.25) < 2\n" +
-                " )\n" +
-                " WHEN c.gender = 'Female' \n" +
-                " THEN (\n" +
-                " ((( julianday('now') - julianday(c.dob))/365.25) < 2) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)\n" +
-                "  ) END " +
+                "and (((julianday('now') - julianday(c.dob))/365.25) < 2 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)))\n" +
                 "group by scheduleName " +
                 "order by scheduleName";
 
