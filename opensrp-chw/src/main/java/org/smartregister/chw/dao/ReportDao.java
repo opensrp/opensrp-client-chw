@@ -1,7 +1,5 @@
 package org.smartregister.chw.dao;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
