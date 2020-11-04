@@ -40,7 +40,8 @@ public class FamilyKitDialogFragment extends DialogFragment implements View.OnCl
 
     private Long familyKitDate;
     private String baseEntityID;
-    RadioGroup radioGroupFamilyKit, radioGroupKitUsed;
+    private RadioGroup radioGroupFamilyKit;
+    private RadioGroup radioGroupKitUsed;
     private Map<String, String> selectedOptions = new HashMap<>();
 
     public static FamilyKitDialogFragment getInstance(String familyBaseEntityID, Long visitDate) {
