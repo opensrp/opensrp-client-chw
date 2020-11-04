@@ -82,6 +82,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     protected Boolean editMode = false;
     protected Boolean vaccinesDefaultChecked = true;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+    private static final int FIVE_YEARS = 5;
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
@@ -191,7 +192,12 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
     @VisibleForTesting
     public List<VaccineGroup> getVaccineGroups() {
-        return VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD);
+        return getVaccineGroups(CoreConstants.SERVICE_GROUPS.CHILD);
+    }
+
+    @VisibleForTesting
+    public List<VaccineGroup> getVaccineGroups(String category) {
+        return VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), category);
     }
 
     @VisibleForTesting
@@ -225,11 +231,11 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         //int age = getAgeInMonths();
         if (getAgeInMonths() >= immunizationCeiling()) return;
 
-        List<VaccineGroup> childVaccineGroups = getVaccineGroups();
+        List<VaccineGroup> childVaccineGroups = getVaccineGroups(memberObject.getAge() >= FIVE_YEARS ? Constants.CHILD_OVER_5 : CoreConstants.SERVICE_GROUPS.CHILD);
         List<Vaccine> specialVaccines = getSpecialVaccines();
         List<org.smartregister.immunization.domain.Vaccine> vaccines = getVaccineRepo().findByEntityId(memberObject.getBaseEntityId());
 
-        List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(CoreConstants.SERVICE_GROUPS.CHILD);
+        List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(memberObject.getAge() >= FIVE_YEARS ? Constants.CHILD_OVER_5 : CoreConstants.SERVICE_GROUPS.CHILD);
         Map<String, VaccineRepo.Vaccine> vaccinesRepo = new HashMap<>();
         for (VaccineRepo.Vaccine vaccine : allVacs) {
             vaccinesRepo.put(vaccine.display().toLowerCase().replace(" ", ""), vaccine);
