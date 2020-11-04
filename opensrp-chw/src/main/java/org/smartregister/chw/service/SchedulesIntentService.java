@@ -47,6 +47,10 @@ public class SchedulesIntentService extends IntentService {
         if (ChwApplication.getApplicationFlavor().hasWashCheck())
             executeWashCheckSchedules();
 
+        // execute all family kit check
+        if (ChwApplication.getApplicationFlavor().hasFamilyKitCheck())
+            executeFamilyKitSchedules();
+
         // execute all fp schedules
         if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
             executeFpVisitSchedules();
@@ -102,6 +106,18 @@ public class SchedulesIntentService extends IntentService {
         for (String baseID : baseEntityIDs) {
             Timber.v("  Computing Wash Check schedules for %s", baseID);
             ChwScheduleTaskExecutor.getInstance().execute(baseID, CoreConstants.EventType.WASH_CHECK, new Date());
+        }
+    }
+
+    private void executeFamilyKitSchedules() {
+        Timber.v("Computing Family Kit schedules");
+        ChwApplication.getInstance().getScheduleRepository().deleteSchedulesNotCreatedToday(CoreConstants.SCHEDULE_TYPES.FAMILY_KIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
+        List<String> baseEntityIDs = ScheduleDao.getActiveFamilies(CoreConstants.SCHEDULE_TYPES.FAMILY_KIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
+        if (baseEntityIDs == null) return;
+
+        for (String baseID : baseEntityIDs) {
+            Timber.v("  Computing Family Kit schedules for %s", baseID);
+            ChwScheduleTaskExecutor.getInstance().execute(baseID, CoreConstants.EventType.FAMILY_KIT, new Date());
         }
     }
 
