@@ -28,7 +28,6 @@ public class PinLoginPresenterTest extends BaseUnitTest {
         PinLoginContract.Interactor interactor = Mockito.mock(PinLoginContract.Interactor.class);
         PinLogger logger = Mockito.mock(PinLogger.class);
         String userName = "userName";
-        String passWord = "passWord";
         String pin = "1234";
 
         Mockito.doReturn(false).when(logger).attemptPinVerification(pin, presenter);
@@ -40,7 +39,7 @@ public class PinLoginPresenterTest extends BaseUnitTest {
 
         presenter.localLogin(pin);
 
-        Mockito.verify(interactor).authenticateUser(userName, passWord, presenter);
+        Mockito.verify(view).onLoginInitiated(presenter);
     }
 
     @Test
