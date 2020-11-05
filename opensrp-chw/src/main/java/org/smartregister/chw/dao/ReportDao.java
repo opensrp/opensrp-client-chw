@@ -300,7 +300,6 @@ public class ReportDao extends AbstractDao {
                 Integer count = vaccineMaps.get(scheduleName);
                 count = count == null ? 1 : count + 1;
                 vaccineMaps.put(scheduleName, count);
-                vaccineMaps.put(scheduleName, count);
 
                 resultMap.put(child.getLocationId(), vaccineMaps);
 
