@@ -144,4 +144,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     @Override
     public boolean showFamilyServicesScheduleWithChildrenAboveTwo() {return false;}
 
+    @Override
+    public boolean hasForeignData(){return true;}
+
 }

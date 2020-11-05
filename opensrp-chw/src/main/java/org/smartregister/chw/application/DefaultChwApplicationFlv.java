@@ -198,4 +198,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
 
     @Override
     public boolean showFamilyServicesScheduleWithChildrenAboveTwo(){return true;}
+
+    @Override
+    public boolean hasForeignData(){return false;}
 }
