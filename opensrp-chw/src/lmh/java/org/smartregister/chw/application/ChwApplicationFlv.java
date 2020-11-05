@@ -96,6 +96,11 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return true;
     }
 
+    @Override
+    public boolean showNoDueVaccineView() {
+        return true;
+    }
+  
     public boolean hasForeignData() {
         return true;
     }
@@ -134,5 +139,16 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean showLastNameOnChildProfile() {
         return true;
     }
+
+    @Override
+    public boolean showChildrenAboveTwoDueStatus(){
+        return false;
+    }
+
+    @Override
+    public boolean showFamilyServicesScheduleWithChildrenAboveTwo() {return false;}
+
+    @Override
+    public boolean hasForeignData(){return true;}
 
 }

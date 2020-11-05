@@ -30,7 +30,7 @@ public class ChwReport {
      */
     public static void showIndicatorVisualisations(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies, Activity context) {
         // Display order as determined in https://docs.google.com/spreadsheets/d/1q9YiWqjLiToTd0--Q8CbwhBwwcNDspbDxVrUfDm8VGU/edit#gid=315573423
-        ChwChartListener chwChartListener = new ChwChartListener(context);
+      //  ChwChartListener chwChartListener = new ChwChartListener(context);
         int indicator1String = ChwApplication.getApplicationFlavor().showChildrenUnder5() ? R.string.total_under_5_children_label : R.string.total_under_2_children_label;
         NumericDisplayModel indicator1 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.COUNT_CHILDREN_UNDER_5, indicator1String, indicatorTallies);
         appendView(mainLayout, new NumericIndicatorView(mainLayout.getContext(), indicator1));
@@ -43,7 +43,7 @@ public class ChwReport {
 
         PieChartSlice indicator2_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.COUNT_OF_CHILDREN_0_24_UPTO_DATE_VACCINATIONS, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes_green), indicatorTallies, ReportingConstants.ChildIndicatorKeys.COUNT_OF_CHILDREN_0_24_UPTO_DATE_VACCINATIONS);
         PieChartSlice indicator2_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.COUNT_OF_CHILDREN_0_24_OVERDUE_VACCINATIONS, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no_red), indicatorTallies, ReportingConstants.ChildIndicatorKeys.COUNT_OF_CHILDREN_0_24_OVERDUE_VACCINATIONS);
-        appendView(mainLayout, new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(indicator2_1, indicator2_2), R.string.children_0_24_months_upto_date_vaccinations, R.string.opv_0_not_included, chwChartListener)));
+        appendView(mainLayout, new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(indicator2_1, indicator2_2), R.string.children_0_24_months_upto_date_vaccinations, R.string.opv_0_not_included, null)));
 
         if (ChwApplication.getApplicationFlavor().hasPNC()) {
             PieChartSlice pnc_indicator_4_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_BABIES_RECEIVED_BGC_ON_TIME, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes_green), indicatorTallies, ReportingConstants.PncIndicatorKeysHelper.COUNT_BABIES_RECEIVED_BGC_ON_TIME);
