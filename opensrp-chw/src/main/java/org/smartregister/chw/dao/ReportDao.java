@@ -258,15 +258,15 @@ public class ReportDao extends AbstractDao {
         Map<String, Integer> map = new TreeMap<>();
 
         DataMap<Void> dataMap = c -> {
-            //String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
-            String scheduleName = getCursorValue(c, "scheduleName", "");
+            String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
+            //String scheduleName = getCursorValue(c, "scheduleName", "");
 
             Integer count = getCursorIntValue(c, "cnt", 0);
 
-         /*   Integer total = map.get(scheduleName);
-            total = ((total == null) ? 0 : total) + count;*/
+            Integer total = map.get(scheduleName);
+            total = ((total == null) ? 0 : total) + count;
 
-            map.put(scheduleName, count);
+            map.put(scheduleName, total);
             return null;
         };
         readData(sql, dataMap);
@@ -295,12 +295,12 @@ public class ReportDao extends AbstractDao {
             for (Alert alert : child.getAlerts()) {
                 TreeMap<String, Integer> vaccineMaps = resultMap.get(child.getLocationId());
                 if (vaccineMaps == null) vaccineMaps = new TreeMap<>();
+                String scheduleName = alert.scheduleName().replaceAll("\\d", "").trim();
 
-                Integer count = vaccineMaps.get(alert.scheduleName());
+                Integer count = vaccineMaps.get(scheduleName);
                 count = count == null ? 1 : count + 1;
-                vaccineMaps.put(alert.scheduleName(), count);
+                vaccineMaps.put(scheduleName, count);
 
-                vaccineMaps.put(alert.scheduleName(), count);
                 resultMap.put(child.getLocationId(), vaccineMaps);
 
                 // count defaults
@@ -484,7 +484,6 @@ public class ReportDao extends AbstractDao {
                 "and STRFTIME('%Y-%m-%d', datetime(re.date/1000,'unixepoch')) >=date('now', '-6 month'))";
     }
 
-
     @Contract(pure = true)
     private static String getSql(String indicatorCode) {
         String sql = "";
@@ -553,5 +552,4 @@ public class ReportDao extends AbstractDao {
 
         return res;
     }
-
 }
