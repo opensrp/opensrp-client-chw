@@ -117,7 +117,8 @@ public class ReportDao extends AbstractDao {
                 "from ec_child c " +
                 "left join ec_family f on c.relational_id = f.base_entity_id " +
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
-                "where c.date_removed is null and c.is_closed = 0 ";
+                "inner join ec_family_member m on m.base_entity_id = c.base_entity_id " +
+                "where c.date_removed is null and c.is_closed = 0 and m.is_closed = 0 ";
 
         if (communityIds != null && !communityIds.isEmpty())
             sql += " and ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') ";
@@ -162,7 +163,7 @@ public class ReportDao extends AbstractDao {
             child.setDueVaccines(dueVaccines);
             child.setAlerts(alerts);
 
-            if (age <= 2 || (age >= 9 && age <= 11 && "Female".equalsIgnoreCase(gender)) && dueVaccines.length > 0) {
+            if (age < 2 || (age >= 9 && age < 11 && "Female".equalsIgnoreCase(gender)) && dueVaccines.length > 0) {
                 eligibleChildren.add(child);
             }
 
@@ -209,7 +210,7 @@ public class ReportDao extends AbstractDao {
                 "left join ec_family f on c.relational_id = f.base_entity_id " +
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
                 "where ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') " +
-                "and (((julianday('now') - julianday(c.dob))/365.25) < 2 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11))) " +
+                " and (((julianday('now') - julianday(c.dob))/365.25) < 2 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11))) " +
                 "and l.base_entity_id in (select caseID from alerts where status not in ('expired','complete') and startDate <= '" + paramDate + "' and expiryDate >= '" + paramDate + "') " +
                 "order by c.first_name , c.last_name , c.middle_name ";
 
@@ -262,7 +263,6 @@ public class ReportDao extends AbstractDao {
             //String scheduleName = getCursorValue(c, "scheduleName", "");
 
             Integer count = getCursorIntValue(c, "cnt", 0);
-
             Integer total = map.get(scheduleName);
             total = ((total == null) ? 0 : total) + count;
 

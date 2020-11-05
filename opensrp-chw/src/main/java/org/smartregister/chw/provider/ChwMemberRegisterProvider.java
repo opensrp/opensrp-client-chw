@@ -157,9 +157,17 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         view.setTag(R.id.VIEW_ID, BaseFamilyProfileMemberFragment.CLICK_VIEW_NEXT_ARROW);
     }
 
+    private String getDueState(String memberBaseEntityId) {
+        if (ChwApplication.getApplicationFlavor().showChildrenAboveTwoDueStatus()) {
+            return FamilyDao.getMemberDueStatus(memberBaseEntityId);
+        } else {
+            return FamilyDao.getMemberDueStatusForUnderTwoChildren(memberBaseEntityId);
+        }
+    }
+
     private void updateDueColumn(RegisterViewHolder viewHolder, String memberBaseEntityId) {
         viewHolder.statusLayout.setVisibility(View.VISIBLE);
-        String dueState = FamilyDao.getMemberDueStatus(memberBaseEntityId);
+        String dueState = getDueState(memberBaseEntityId);
 
         try {
             if (dueState != null) {
