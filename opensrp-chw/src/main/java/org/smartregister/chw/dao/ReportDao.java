@@ -15,6 +15,7 @@ import org.smartregister.chw.domain.VillageDose;
 import org.smartregister.chw.util.ReportingConstants;
 import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Alert;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
@@ -135,7 +136,13 @@ public class ReportDao extends AbstractDao {
             String name = getCursorValue(c, "first_name", "") + " " + getCursorValue(c, "middle_name", "");
             name = name.trim() + " " + getCursorValue(c, "last_name", "");
 
-            List<Alert> alerts = computeChildAlerts(new DateTime(dob).minusDays(days), baseEntityId, allVaccines.get(baseEntityId));
+            List<Alert> raw_alerts = computeChildAlerts(new DateTime(dob).minusDays(days), baseEntityId, allVaccines.get(baseEntityId));
+            List<Alert> alerts = new ArrayList<>();
+            for(Alert alert: raw_alerts){
+                if(alert.startDate() != null && alert.status() != AlertStatus.complete)
+                    alerts.add(alert);
+            }
+
             String[] dueVaccines = new String[alerts.size()];
             int x = 0;
             while (x < alerts.size()) {
@@ -202,14 +209,7 @@ public class ReportDao extends AbstractDao {
                 "left join ec_family f on c.relational_id = f.base_entity_id " +
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
                 "where ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') " +
-                " AND CASE WHEN c.gender = 'Male' \n" +
-                " THEN (\n" +
-                " (( julianday('now') - julianday(c.dob))/365.25) < 2\n" +
-                " )\n" +
-                " WHEN c.gender = 'Female' \n" +
-                " THEN (\n" +
-                " ((( julianday('now') - julianday(c.dob))/365.25) < 2) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)\n" +
-                "  ) END " +
+                "and (((julianday('now') - julianday(c.dob))/365.25) < 2 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11))) " +
                 "and l.base_entity_id in (select caseID from alerts where status not in ('expired','complete') and startDate <= '" + paramDate + "' and expiryDate >= '" + paramDate + "') " +
                 "order by c.first_name , c.last_name , c.middle_name ";
 
@@ -251,14 +251,7 @@ public class ReportDao extends AbstractDao {
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
                 "inner join alerts al on caseID = c.base_entity_id " +
                 "where status <> 'expired' and startDate <= '" + paramDate + "' " +
-                " AND CASE WHEN c.gender = 'Male' \n" +
-                " THEN (\n" +
-                " (( julianday('now') - julianday(c.dob))/365.25) < 2\n" +
-                " )\n" +
-                " WHEN c.gender = 'Female' \n" +
-                " THEN (\n" +
-                " ((( julianday('now') - julianday(c.dob))/365.25) < 2) OR (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)\n" +
-                "  ) END " +
+                "and (((julianday('now') - julianday(c.dob))/365.25) < 2 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11))) " +
                 "group by scheduleName " +
                 "order by scheduleName";
 
