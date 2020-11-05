@@ -75,7 +75,7 @@ public class ChwChildDao extends ChildDao {
                     ") lastVisitNotDone on lastVisitNotDone.base_entity_id = c.base_entity_id " +
                     "where c.base_entity_id = '" + baseEntityID + "' " +
                     "and  m.date_removed is null and m.is_closed = 0 " +
-                    "and (((julianday('now') - julianday(c.dob))/365.25) < 5 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11)))\n" +
+                    "and (((julianday('now') - julianday(c.dob))/365.25) < 5 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11))) " +
                     "and c.is_closed = 0 ";
         }
     }

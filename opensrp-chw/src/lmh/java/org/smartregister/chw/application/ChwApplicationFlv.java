@@ -100,6 +100,10 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean showNoDueVaccineView() {
         return true;
     }
+  
+    public boolean hasForeignData() {
+        return true;
+    }
 
     @Override
     public boolean prioritizeChildNameOnChildRegister() {

@@ -32,7 +32,7 @@ public class ScheduleDao extends AbstractDao {
                 "where ec_child.is_closed = 0 and ec_child.base_entity_id not in " +
                 "(select base_entity_id from schedule_service where" +
                 " schedule_name = '" + scheduleName + "' and schedule_group_name = '" + scheduleGroup + "') " +
-                "and (((julianday('now') - julianday(ec_child.dob))/365.25) < 5 or (ec_child.gender = 'Female' and (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11)))\n";
+                "and (((julianday('now') - julianday(ec_child.dob))/365.25) < 5 or (ec_child.gender = 'Female' and (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11))) ";
 
         DataMap<String> dataMap = c -> getCursorValue(c, "base_entity_id");
         return AbstractDao.readData(sql, dataMap);
