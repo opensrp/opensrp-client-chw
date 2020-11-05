@@ -23,14 +23,7 @@ public class ChildDBConstants extends org.smartregister.chw.core.utils.ChildDBCo
                 " and ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = " + CoreConstants.TABLE_NAME.CHILD + "." + motherEntityId + " ) = 0))) " +
                 " or (ifnull(ec_child.entry_point,'') = 'PNC' " +
                 " and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = ec_child.mother_entity_id ) = 1)) " +
-                " and CASE WHEN ec_child.gender = 'Male' \n" +
-                " THEN (\n" +
-                " (( julianday('now') - julianday(ec_child.dob))/365.25) < 2\n" +
-                " )\n" +
-                " WHEN ec_child.gender = 'Female' \n" +
-                " THEN (\n" +
-                " ((( julianday('now') - julianday(ec_child.dob))/365.25) < 2) OR (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11)\n" +
-                "  ) END ";
+                "and (((julianday('now') - julianday(ec_child.dob))/365.25) < 2 or (ec_child.gender = 'Female' and (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11)))\n";
     }
 
     private static String tableColConcat(String tableName, String columnName) {
