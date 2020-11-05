@@ -15,6 +15,7 @@ import org.smartregister.chw.domain.VillageDose;
 import org.smartregister.chw.util.ReportingConstants;
 import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Alert;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
@@ -135,7 +136,13 @@ public class ReportDao extends AbstractDao {
             String name = getCursorValue(c, "first_name", "") + " " + getCursorValue(c, "middle_name", "");
             name = name.trim() + " " + getCursorValue(c, "last_name", "");
 
-            List<Alert> alerts = computeChildAlerts(new DateTime(dob).minusDays(days), baseEntityId, allVaccines.get(baseEntityId));
+            List<Alert> raw_alerts = computeChildAlerts(new DateTime(dob).minusDays(days), baseEntityId, allVaccines.get(baseEntityId));
+            List<Alert> alerts = new ArrayList<>();
+            for(Alert alert: raw_alerts){
+                if(alert.startDate() != null && alert.status() != AlertStatus.complete)
+                    alerts.add(alert);
+            }
+
             String[] dueVaccines = new String[alerts.size()];
             int x = 0;
             while (x < alerts.size()) {
