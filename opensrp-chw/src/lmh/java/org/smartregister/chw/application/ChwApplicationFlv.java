@@ -96,6 +96,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return true;
     }
 
+    @Override
     public boolean hasForeignData() {
         return true;
     }
