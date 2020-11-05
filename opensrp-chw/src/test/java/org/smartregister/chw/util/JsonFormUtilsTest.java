@@ -15,7 +15,7 @@ public class JsonFormUtilsTest {
     }
 
     @Test
-    public void TestGetValue() {
+    public void testGetValue() {
         JSONObject jsonObject = null;
         String key = "exclusive_breast_feeding";
         try {
