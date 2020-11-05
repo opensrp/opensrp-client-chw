@@ -404,6 +404,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasForeignData();
 
+        boolean showNoDueVaccineView();
+
         boolean prioritizeChildNameOnChildRegister();
 
         boolean showChildrenUnderTwoAndGirlsAgeNineToEleven();
@@ -417,6 +419,10 @@ public class ChwApplication extends CoreChwApplication {
         boolean relaxVisitDateRestrictions();
 
         boolean showLastNameOnChildProfile();
+
+        boolean showChildrenAboveTwoDueStatus();
+
+        boolean showFamilyServicesScheduleWithChildrenAboveTwo();
     }
 
 }

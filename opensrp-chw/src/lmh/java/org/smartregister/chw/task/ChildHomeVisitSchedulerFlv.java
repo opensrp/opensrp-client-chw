@@ -28,12 +28,12 @@ public class ChildHomeVisitSchedulerFlv extends DefaultChildHomeVisitSchedulerFl
         CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, CoreConstants.RULE_FILE.HOME_VISIT);
 
         // Check If any task are due for that child
-        if (ChwChildDao.hasDueVaccines(baseEntityID) && ChwChildDao.getChild(baseEntityID) != null) {
+        if (ChwChildDao.hasDueVaccines(baseEntityID)) {
             baseScheduleTask.setScheduleDueDate(alertRule.getDueDate());
             baseScheduleTask.setScheduleNotDoneDate(alertRule.getNotDoneDate());
             baseScheduleTask.setScheduleExpiryDate(alertRule.getExpiryDate());
             baseScheduleTask.setScheduleCompletionDate(alertRule.getCompletionDate());
-            baseScheduleTask.setScheduleOverDueDate(alertRule.getOverDueDate());
+            baseScheduleTask.setScheduleOverDueDate(alertRule.overDueDate());
             return toScheduleList(baseScheduleTask);
         }
         return new ArrayList<>();
