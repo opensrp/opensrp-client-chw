@@ -5,8 +5,10 @@ import android.util.Pair;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
+import org.joda.time.Period;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -14,6 +16,7 @@ import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ReferralRegistrationActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
+import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildService;
@@ -132,7 +135,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
 
         if (ChwApplication.getApplicationFlavor().showLastNameOnChildProfile()) {
             String relationalId = getValue(client.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, true).toLowerCase();
-           // String parentLastName = getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
+            // String parentLastName = getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
             String familyName = ChwChildDao.getChildFamilyName(relationalId);
 
             String firstName = getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
@@ -172,6 +175,47 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
                 getView().setDueTodayServices();
             }
         }
+    }
+    private void getDueView(ChildVisit childVisit){
+        if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name())){
+            if(ChwChildDao.hasDueSchedule(childBaseEntityId)){
+                getView().setVisitButtonDueStatus();
+            }
+            else {
+                getView().setNoButtonView();
+            }
+        }
+    }
+
+    @Override
+    public void updateChildVisit(ChildVisit childVisit) {
+        if (!ChwApplication.getApplicationFlavor().showNoDueVaccineView()) {
+            super.updateChildVisit(childVisit);
+        } else {
+            if (childVisit != null) {
+                getDueView(childVisit);
+                if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.OVERDUE.name())) {
+                    getView().setVisitButtonOverdueStatus();
+                }
+                if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.LESS_TWENTY_FOUR.name())) {
+                    getView().setVisitLessTwentyFourView(childVisit.getLastVisitMonthName());
+                }
+                if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.VISIT_THIS_MONTH.name())) {
+                    getView().setVisitAboveTwentyFourView();
+                }
+                if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.NOT_VISIT_THIS_MONTH.name())) {
+                    boolean withinEditPeriod = isWithinEditPeriod(childVisit.getLastNotVisitDate());
+                    getView().setVisitNotDoneThisMonth(withinEditPeriod);
+                }
+                if (childVisit.getLastVisitTime() != 0) {
+                    getView().setLastVisitRowView(childVisit.getLastVisitDays());
+                }
+                if (!childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.NOT_VISIT_THIS_MONTH.name()) && childVisit.getLastVisitTime() != 0) {
+                    getView().enableEdit(new Period(new DateTime(childVisit.getLastVisitTime()), DateTime.now()).getHours() <= 24);
+                }
+            }
+        }
+
     }
 
 }
