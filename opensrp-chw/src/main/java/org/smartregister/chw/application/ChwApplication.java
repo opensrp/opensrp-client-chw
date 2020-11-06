@@ -181,7 +181,7 @@ public class ChwApplication extends CoreChwApplication {
     private void initializeLibraries() {
         //Initialize Modules
         P2POptions p2POptions = new P2POptions(true);
-        p2POptions.setAuthorizationService(new CoreAuthorizationService());
+        p2POptions.setAuthorizationService(flavor.hasForeignData() ? new LmhAuthorizationService() : new CoreAuthorizationService());
         p2POptions.setRecalledIdentifier(new FailSafeRecalledID());
 
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
@@ -189,9 +189,13 @@ public class ChwApplication extends CoreChwApplication {
 
         // init libraries
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        ImmunizationLibrary.getInstance().setAllowSyncImmediately(flavor.saveOnSubmission());
+
         ConfigurableViewsLibrary.init(context);
         FamilyLibrary.init(context, getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         AncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        AncLibrary.getInstance().setSubmitOnSave(flavor.saveOnSubmission());
+
         PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         FpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
@@ -407,13 +411,25 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasForeignData();
 
+        boolean showNoDueVaccineView();
+
         boolean prioritizeChildNameOnChildRegister();
 
-        boolean hasHpvVaccineChildren();
+        boolean showChildrenUnderTwoAndGirlsAgeNineToEleven();
 
         boolean dueVaccinesFilterInChildRegister();
 
         boolean showAllChildServicesDueIncludingCurrentChild();
+
+        boolean saveOnSubmission();
+
+        boolean relaxVisitDateRestrictions();
+
+        boolean showLastNameOnChildProfile();
+
+        boolean showChildrenAboveTwoDueStatus();
+
+        boolean showFamilyServicesScheduleWithChildrenAboveTwo();
     }
 
 }

@@ -27,11 +27,16 @@ condition: "homeAlertRule.isVisitWithinThisMonth()"
 actions:
   - "homeAlertRule.buttonStatus = 'VISIT_THIS_MONTH'"
 ---
+name: overdue
+description: previous month not visited
+priority: 2
+condition: "homeAlertRule.evaluateIfOverdueWithinMonth(1)"
+actions:
+  - "homeAlertRule.buttonStatus = 'OVERDUE'"
+---
 name: due
 description: due first day of month and same month
 priority: 3
-condition: "homeAlertRule.isLmhChildDueWithinMonth()"
+condition: "homeAlertRule.isDueWithinMonth()"
 actions:
   - "homeAlertRule.buttonStatus = 'DUE'"
-
-

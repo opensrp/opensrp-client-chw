@@ -313,6 +313,7 @@
     <string name="pnc_umblicord_care">Umbilical cord care</string>
     <string name="pnc_umblicord_care_child">Umbilical cord care ({0})</string>
     <string name="pnc_exclusive_breastfeeding">Exclusive breastfeeding ({0})</string>
+    <string name="pnc_birth_certification">Birth certification ({0})</string>
     <string name="pnc_kangaroo_mother_care">Kangaroo mother care (KMC) - ({0})</string>
     <string name="pnc_family_planning">Family planning</string>
     <string name="fp_update_family_planning">Update Family planning Registration</string>
@@ -407,4 +408,6 @@
     <string name="fhir_bundle">fhirBundle</string>
     <string name="thinkmd_identifier_type">thinkmd_id</string>
     <string name="ten_digits_validation">Number must be 10 digits</string>
+    <string name="select_cha">Select CHAs</string>
+    <string name="select_options">Select options</string>
 </resources>

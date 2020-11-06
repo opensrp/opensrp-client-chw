@@ -102,7 +102,8 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return true;
     }
 
-    public boolean hasForeignData() {
+    @Override
+    public boolean showNoDueVaccineView() {
         return true;
     }
 
@@ -112,7 +113,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
-    public boolean hasHpvVaccineChildren() {
+    public boolean showChildrenUnderTwoAndGirlsAgeNineToEleven() {
         return true;
     }
 
@@ -122,7 +123,34 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
-    public boolean showAllChildServicesDueIncludingCurrentChild(){
+    public boolean showAllChildServicesDueIncludingCurrentChild() {
         return false;
     }
+
+    @Override
+    public boolean saveOnSubmission() {
+        return true;
+    }
+
+    @Override
+    public boolean relaxVisitDateRestrictions() {
+        return true;
+    }
+
+    @Override
+    public boolean showLastNameOnChildProfile() {
+        return true;
+    }
+
+    @Override
+    public boolean showChildrenAboveTwoDueStatus(){
+        return false;
+    }
+
+    @Override
+    public boolean showFamilyServicesScheduleWithChildrenAboveTwo() {return false;}
+
+    @Override
+    public boolean hasForeignData(){return true;}
+
 }

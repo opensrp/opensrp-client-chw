@@ -260,7 +260,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
 
     private void getAge(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
         String dobString = org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
-        dobString = org.smartregister.family.util.Utils.getDuration(dobString);
+        dobString = Utils.getDuration(dobString);
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "0";
         jsonObject.put(JsonFormUtils.VALUE, Integer.valueOf(dobString));
     }

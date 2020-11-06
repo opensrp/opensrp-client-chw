@@ -28,6 +28,7 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
 import static org.smartregister.chw.util.Utils.getClientName;
 
 public class FamilyActivityRegisterProvider extends org.smartregister.family.provider.FamilyActivityRegisterProvider {
@@ -69,13 +70,13 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
         String patientName = getClientName(firstName, middleName, lastName);
 
         String dob = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
-        String dobString = Utils.getDuration(dob);
+        String dobString = getDuration(dob);
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
 
         String dod = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOD, false);
         if (StringUtils.isNotBlank(dod)) {
 
-            dobString = Utils.getDuration(dod, dob);
+            dobString = getDuration(dod, dob);
             dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
 
             patientName = patientName + ", " + dobString + " " + eventType + context.getString(org.smartregister.family.R.string.deceased_brackets);

@@ -83,6 +83,8 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     public void finishActivity() {
         this.finish();
     }
+    public void setUpToolbar() {
+        updateToolbarTitle(this, R.id.toolbar_title, memberObject.getFirstName());
 
     @Override
     public void setUpToolbar() {
@@ -108,7 +110,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
             openMedicalHistoryScreen();
         } else if (i == R.id.most_due_overdue_row) {
             openUpcomingServicePage();
-        } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
+        } else if(i == R.id.view_due_today){
+            openUpcomingServicePage();
+        }
+        else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
             openVisitHomeScreen(false);
         } else if (i == R.id.family_has_row) {
             openFamilyDueTab();
@@ -134,7 +139,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
         presenter = new ChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
     }
-
     @Override
     protected void setupViews() {
         super.setupViews();
