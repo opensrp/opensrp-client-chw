@@ -115,9 +115,9 @@ public class ReportDao extends AbstractDao {
         String sql = "select c.base_entity_id , c.unique_id , c.first_name , c.last_name , c.middle_name ," +
                 "f.first_name family_name  , c.dob , c.gender , l.location_id " +
                 "from ec_child c " +
-                "left join ec_family f on c.relational_id = f.base_entity_id " +
-                "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
-                "inner join ec_family_member m on m.base_entity_id = c.base_entity_id " +
+                "left join ec_family f on c.relational_id = f.base_entity_id and f.is_closed = 0 and f.date_removed is null COLLATE NOCASE " +
+                "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id COLLATE NOCASE " +
+                "inner join ec_family_member m on m.base_entity_id = c.base_entity_id and m.is_closed = 0 and m.date_removed is null COLLATE NOCASE  " +
                 "where c.date_removed is null and c.is_closed = 0 and m.is_closed = 0 ";
 
         if (communityIds != null && !communityIds.isEmpty())
@@ -137,34 +137,36 @@ public class ReportDao extends AbstractDao {
             String name = getCursorValue(c, "first_name", "") + " " + getCursorValue(c, "middle_name", "");
             name = name.trim() + " " + getCursorValue(c, "last_name", "");
 
-            List<Alert> raw_alerts = computeChildAlerts(new DateTime(dob).minusDays(days), baseEntityId, allVaccines.get(baseEntityId));
-            List<Alert> alerts = new ArrayList<>();
-            for(Alert alert: raw_alerts){
-                if(alert.startDate() != null && alert.status() != AlertStatus.complete)
-                    alerts.add(alert);
-            }
-
-            String[] dueVaccines = new String[alerts.size()];
-            int x = 0;
-            while (x < alerts.size()) {
-                dueVaccines[x] = alerts.get(x).scheduleName();
-                x++;
-            }
-
             int age = (int) Math.ceil(Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays() / 365.4);
 
-            // create return object
+            if (age < 2 || (age >= 9 && age < 11 && "Female".equalsIgnoreCase(gender))) {
+                List<Alert> raw_alerts = computeChildAlerts(new DateTime(dob).minusDays(days), baseEntityId, allVaccines.get(baseEntityId));
+                List<Alert> alerts = new ArrayList<>();
+                for (Alert alert : raw_alerts) {
+                    if (alert.startDate() != null && alert.status() != AlertStatus.complete)
+                        alerts.add(alert);
+                }
 
-            EligibleChild child = new EligibleChild();
-            child.setID(baseEntityId);
-            child.setDateOfBirth(adjustedDob);
-            child.setFullName(name.trim());
-            child.setFamilyName(getCursorValue(c, "family_name") + " Family");
-            child.setDueVaccines(dueVaccines);
-            child.setAlerts(alerts);
+                String[] dueVaccines = new String[alerts.size()];
+                int x = 0;
+                while (x < alerts.size()) {
+                    dueVaccines[x] = alerts.get(x).scheduleName();
+                    x++;
+                }
 
-            if (age < 2 || (age >= 9 && age < 11 && "Female".equalsIgnoreCase(gender)) && dueVaccines.length > 0) {
-                eligibleChildren.add(child);
+                // create return object
+
+                EligibleChild child = new EligibleChild();
+                child.setID(baseEntityId);
+                child.setDateOfBirth(adjustedDob);
+                child.setFullName(name.trim());
+                child.setFamilyName(getCursorValue(c, "family_name") + " Family");
+                child.setDueVaccines(dueVaccines);
+                child.setAlerts(alerts);
+
+                if (dueVaccines.length > 0) {
+                    eligibleChildren.add(child);
+                }
             }
 
             return null;
