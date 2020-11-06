@@ -12,6 +12,7 @@ import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.provider.CoreChildRegisterProvider;
 import org.smartregister.chw.core.task.UpdateLastAsyncTask;
 import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.task.ChwUpdateLastAsyncTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.DBConstants;
@@ -101,7 +102,7 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
     }
 
     private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        Utils.startAsyncTask(new UpdateLastAsyncTask(context, commonRepository, viewHolder, pc.entityId(), onClickListener), null);
+        Utils.startAsyncTask(new ChwUpdateLastAsyncTask(context, commonRepository, viewHolder, pc.entityId(), onClickListener), null);
     }
 
 }

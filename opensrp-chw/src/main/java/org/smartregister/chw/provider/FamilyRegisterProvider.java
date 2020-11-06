@@ -153,8 +153,16 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
                 fpCount = FpDao.getFpWomenCount(familyBaseEntityId) != null ? FpDao.getFpWomenCount(familyBaseEntityId) : 0;
 
-            services = FamilyDao.getFamilyServiceSchedule(familyBaseEntityId);
+            services = getFamilyDueState(familyBaseEntityId);
             return null;
+        }
+
+        private Map<String, Integer>  getFamilyDueState(String familyBaseEntityId) {
+            if (ChwApplication.getApplicationFlavor().showFamilyServicesScheduleWithChildrenAboveTwo()) {
+                return FamilyDao.getFamilyServiceSchedule(familyBaseEntityId);
+            } else {
+                return FamilyDao.getFamilyServiceScheduleWithChildrenOnlyUnderTwo(familyBaseEntityId);
+            }
         }
 
         @Override
