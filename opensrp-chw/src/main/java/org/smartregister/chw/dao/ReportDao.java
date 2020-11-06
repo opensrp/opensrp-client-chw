@@ -117,7 +117,8 @@ public class ReportDao extends AbstractDao {
                 "from ec_child c " +
                 "left join ec_family f on c.relational_id = f.base_entity_id " +
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
-                "where c.date_removed is null and c.is_closed = 0 ";
+                "inner join ec_family_member m on m.base_entity_id = c.base_entity_id " +
+                "where c.date_removed is null and c.is_closed = 0 and m.is_closed = 0 ";
 
         if (communityIds != null && !communityIds.isEmpty())
             sql += " and ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') ";
@@ -162,7 +163,7 @@ public class ReportDao extends AbstractDao {
             child.setDueVaccines(dueVaccines);
             child.setAlerts(alerts);
 
-            if (age <= 2 || (age >= 9 && age <= 11 && "Female".equalsIgnoreCase(gender)) && dueVaccines.length > 0) {
+            if (age < 2 || (age >= 9 && age < 11 && "Female".equalsIgnoreCase(gender)) && dueVaccines.length > 0) {
                 eligibleChildren.add(child);
             }
 
@@ -209,7 +210,7 @@ public class ReportDao extends AbstractDao {
                 "left join ec_family f on c.relational_id = f.base_entity_id " +
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id " +
                 "where ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') " +
-                "and (((julianday('now') - julianday(c.dob))/365.25) < 2 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11))) " +
+                " and (((julianday('now') - julianday(c.dob))/365.25) < 2 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11))) " +
                 "and l.base_entity_id in (select caseID from alerts where status not in ('expired','complete') and startDate <= '" + paramDate + "' and expiryDate >= '" + paramDate + "') " +
                 "order by c.first_name , c.last_name , c.middle_name ";
 
@@ -258,15 +259,14 @@ public class ReportDao extends AbstractDao {
         Map<String, Integer> map = new TreeMap<>();
 
         DataMap<Void> dataMap = c -> {
-            //String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
-            String scheduleName = getCursorValue(c, "scheduleName", "");
+            String scheduleName = getCursorValue(c, "scheduleName", "").replaceAll("\\d", "").trim();
+            //String scheduleName = getCursorValue(c, "scheduleName", "");
 
             Integer count = getCursorIntValue(c, "cnt", 0);
+            Integer total = map.get(scheduleName);
+            total = ((total == null) ? 0 : total) + count;
 
-         /*   Integer total = map.get(scheduleName);
-            total = ((total == null) ? 0 : total) + count;*/
-
-            map.put(scheduleName, count);
+            map.put(scheduleName, total);
             return null;
         };
         readData(sql, dataMap);
@@ -295,12 +295,12 @@ public class ReportDao extends AbstractDao {
             for (Alert alert : child.getAlerts()) {
                 TreeMap<String, Integer> vaccineMaps = resultMap.get(child.getLocationId());
                 if (vaccineMaps == null) vaccineMaps = new TreeMap<>();
+                String scheduleName = alert.scheduleName().replaceAll("\\d", "").trim();
 
-                Integer count = vaccineMaps.get(alert.scheduleName());
+                Integer count = vaccineMaps.get(scheduleName);
                 count = count == null ? 1 : count + 1;
-                vaccineMaps.put(alert.scheduleName(), count);
+                vaccineMaps.put(scheduleName, count);
 
-                vaccineMaps.put(alert.scheduleName(), count);
                 resultMap.put(child.getLocationId(), vaccineMaps);
 
                 // count defaults
@@ -484,7 +484,6 @@ public class ReportDao extends AbstractDao {
                 "and STRFTIME('%Y-%m-%d', datetime(re.date/1000,'unixepoch')) >=date('now', '-6 month'))";
     }
 
-
     @Contract(pure = true)
     private static String getSql(String indicatorCode) {
         String sql = "";
@@ -553,5 +552,4 @@ public class ReportDao extends AbstractDao {
 
         return res;
     }
-
 }
