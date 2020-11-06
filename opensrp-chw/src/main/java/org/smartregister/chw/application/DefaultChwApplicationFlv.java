@@ -174,7 +174,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean showAllChildServicesDueIncludingCurrentChild(){
+    public boolean includeCurrentChild(){
         return true;
     }
 
@@ -201,4 +201,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
 
     @Override
     public boolean hasForeignData(){return false;}
+
+    @Override
+    public boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
+        return false;
+    }
 }

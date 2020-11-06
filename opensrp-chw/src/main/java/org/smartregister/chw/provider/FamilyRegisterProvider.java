@@ -11,6 +11,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.fp.dao.FpDao;
@@ -87,6 +88,16 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
     @Override
     public ChildVisit mergeChildVisits(List<ChildVisit> childVisitList) {
         return null;
+    }
+
+    @Override
+    public String getChildAgeLimitFilter(){
+        if(ChwApplication.getApplicationFlavor().showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven()){
+          return org.smartregister.chw.util.ChildDBConstants.childDueVaccinesFilterForChildrenBelowTwoAndGirlsAgeNineToEleven();
+        }
+        else {
+            return ChildDBConstants.childAgeLimitFilter();
+        }
     }
 
     private void updateButtonState(Context context, RegisterViewHolder viewHolder, Map<String, Integer> services) {
