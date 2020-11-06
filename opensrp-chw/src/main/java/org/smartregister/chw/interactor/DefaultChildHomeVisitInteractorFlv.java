@@ -231,11 +231,13 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         //int age = getAgeInMonths();
         if (getAgeInMonths() >= immunizationCeiling()) return;
 
-        List<VaccineGroup> childVaccineGroups = getVaccineGroups(memberObject.getAge() >= FIVE_YEARS ? Constants.CHILD_OVER_5 : CoreConstants.SERVICE_GROUPS.CHILD);
+        String vaccineCategory = memberObject.getAge() >= FIVE_YEARS ? CoreConstants.SERVICE_GROUPS.CHILD_OVER_5 : CoreConstants.SERVICE_GROUPS.CHILD;
+
+        List<VaccineGroup> childVaccineGroups = getVaccineGroups(vaccineCategory);
         List<Vaccine> specialVaccines = getSpecialVaccines();
         List<org.smartregister.immunization.domain.Vaccine> vaccines = getVaccineRepo().findByEntityId(memberObject.getBaseEntityId());
 
-        List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(memberObject.getAge() >= FIVE_YEARS ? Constants.CHILD_OVER_5 : CoreConstants.SERVICE_GROUPS.CHILD);
+        List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(vaccineCategory);
         Map<String, VaccineRepo.Vaccine> vaccinesRepo = new HashMap<>();
         for (VaccineRepo.Vaccine vaccine : allVacs) {
             vaccinesRepo.put(vaccine.display().toLowerCase().replace(" ", ""), vaccine);
@@ -248,10 +250,11 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 childVaccineGroups,
                 specialVaccines,
                 vaccines,
-                details
+                details,
+                vaccineCategory
         );
 
-        ImmunizationValidator validator = new ImmunizationValidator(childVaccineGroups, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
+        ImmunizationValidator validator = new ImmunizationValidator(childVaccineGroups, specialVaccines, vaccineCategory, vaccines);
 
         for (Map.Entry<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> entry : pendingVaccines.entrySet()) {
             // add the objects to be displayed here
@@ -260,8 +263,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             List<VaccineDisplay> displays = VisitVaccineUtil.toDisplays(wrappers);
 
             String title = MessageFormat.format(context.getString(R.string.immunizations_count), VisitVaccineUtil.getVaccineTitle(entry.getKey().name, context));
-            BaseHomeVisitImmunizationFragmentFlv fragment =
-                    BaseHomeVisitImmunizationFragmentFlv.getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked);
+            BaseHomeVisitImmunizationFragmentFlv fragment = BaseHomeVisitImmunizationFragmentFlv.getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked);
             if (ChwApplication.getApplicationFlavor().relaxVisitDateRestrictions()) {
                 fragment.setRelaxedDates(ChwApplication.getApplicationFlavor().relaxVisitDateRestrictions());
                 fragment.setMinimumDate(dob);
