@@ -78,4 +78,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean getChildFlavorUtil(){
         return true;
     }
+
+    @Override
+    public boolean includeCurrentChild(){
+        return true;
+    }
 }

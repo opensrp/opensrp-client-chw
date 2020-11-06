@@ -407,4 +407,7 @@
     <string name="ten_digits_validation">Number must be 10 digits</string>
     <string name="select_cha">Select CHAs</string>
     <string name="select_options">Select options</string>
+
+    <!--Child Profile Strings -->
+    <string name="family_has_nothing_else_due">Family has nothing else due</string>
 </resources>

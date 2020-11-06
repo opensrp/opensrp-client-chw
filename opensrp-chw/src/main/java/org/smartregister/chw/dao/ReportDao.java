@@ -139,7 +139,7 @@ public class ReportDao extends AbstractDao {
 
             int age = (int) Math.ceil(Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays() / 365.4);
 
-            if (age < 2 || (age >= 9 && age < 11 && "Female".equalsIgnoreCase(gender))) {
+            if (age < 2 || (age >= 9 && age <= 11 && "Female".equalsIgnoreCase(gender))) {
                 List<Alert> raw_alerts = computeChildAlerts(new DateTime(dob).minusDays(days), baseEntityId, allVaccines.get(baseEntityId));
                 List<Alert> alerts = new ArrayList<>();
                 for (Alert alert : raw_alerts) {

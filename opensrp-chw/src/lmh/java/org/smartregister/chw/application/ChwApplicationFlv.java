@@ -117,7 +117,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
-    public boolean showAllChildServicesDueIncludingCurrentChild() {
+    public boolean includeCurrentChild() {
         return false;
     }
 
@@ -147,4 +147,8 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     @Override
     public boolean hasForeignData(){return true;}
 
+    @Override
+    public  boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
+        return true;
+    }
 }

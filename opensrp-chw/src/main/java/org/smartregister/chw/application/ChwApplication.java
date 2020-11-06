@@ -412,7 +412,7 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean dueVaccinesFilterInChildRegister();
 
-        boolean showAllChildServicesDueIncludingCurrentChild();
+        boolean includeCurrentChild();
 
         boolean saveOnSubmission();
 
@@ -423,6 +423,9 @@ public class ChwApplication extends CoreChwApplication {
         boolean showChildrenAboveTwoDueStatus();
 
         boolean showFamilyServicesScheduleWithChildrenAboveTwo();
+
+        boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven();
+
     }
 
 }
