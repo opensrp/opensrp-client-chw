@@ -16,7 +16,7 @@ public class ChildProfileActivityFlvTest {
 
     private ChildProfileActivity.Flavor childProfileActivityFlv;
     private CommonPersonObjectClient commonPersonObjectClient;
-    HashMap<String, String> columnMaps = new HashMap<>();
+    private HashMap<String, String> columnMaps = new HashMap<>();
 
     @Before
     public void setUp() {
@@ -47,7 +47,7 @@ public class ChildProfileActivityFlvTest {
 
 
     @Test
-    public void isChildOverTwoMonthsReturnsTWhenChildIsUnder() {
+    public void isChildOverTwoMonthsReturnsFalseWhenChildIsUnder() {
         LocalDate localDate = LocalDate.now();
         String dateString = localDate.toString("yyyy-MM-dd");
         columnMaps.put(DBConstants.KEY.DOB, dateString);
