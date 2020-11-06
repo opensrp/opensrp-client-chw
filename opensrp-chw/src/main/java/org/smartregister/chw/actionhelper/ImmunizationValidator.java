@@ -120,7 +120,7 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
 
             Map<String, Date> allReceivedVaccines = new HashMap<>();
             for (Map.Entry<Integer, Map<String, Date>> map : previousVaccines.entrySet()) {
-                if (position <= map.getKey()) {
+                if (position >= map.getKey()) {
                     allReceivedVaccines.putAll(map.getValue());
                 }
             }
