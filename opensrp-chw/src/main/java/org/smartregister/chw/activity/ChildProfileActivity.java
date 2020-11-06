@@ -27,7 +27,6 @@ import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreConstants.JSON_FORM;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
-import org.smartregister.chw.dao.ChwAlertDao;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
@@ -97,10 +96,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
             openMedicalHistoryScreen();
         } else if (i == R.id.most_due_overdue_row) {
             openUpcomingServicePage();
-        } else if(i == R.id.view_due_today){
+        } else if (i == R.id.view_due_today) {
             openUpcomingServicePage();
-        }
-        else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
+        } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
             openVisitHomeScreen(false);
         } else if (i == R.id.family_has_row) {
             openFamilyDueTab();
@@ -126,6 +124,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
         presenter = new ChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
     }
+
     @Override
     protected void setupViews() {
         super.setupViews();
@@ -148,18 +147,16 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         }
     }
 
-    public void setFamilyHasNoDueServicesText(){
+    public void setFamilyHasNoDueServicesText() {
         AlertStatus alertStatus = FamilyDao.getFamilyAlertStatus(((ChildProfilePresenter) presenter()).getFamilyID());
-        if(ChwApplication.getApplicationFlavor().includeCurrentChild()){
+        if (ChwApplication.getApplicationFlavor().includeCurrentChild()) {
             textViewFamilyHas.setText(getString(org.smartregister.chw.core.R.string.family_has_nothing_due));
-        }
-        else {
+        } else {
             //Check if the family has other due services that don't include the current child that is being displayed
-            if(alertStatus.equals(AlertStatus.normal)){
+            if (alertStatus.equals(AlertStatus.normal)) {
                 //if the family has more services due the show
                 textViewFamilyHas.setText(getString(R.string.family_has_nothing_else_due));
-            }
-            else {
+            } else {
                 textViewFamilyHas.setText(getString(org.smartregister.chw.core.R.string.family_has_nothing_due));
             }
         }
