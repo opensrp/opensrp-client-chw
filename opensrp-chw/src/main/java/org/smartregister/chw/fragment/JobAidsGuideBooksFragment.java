@@ -61,6 +61,7 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
         initializePresenter();
+        presenter.initialize();
         return rootView;
     }
 
