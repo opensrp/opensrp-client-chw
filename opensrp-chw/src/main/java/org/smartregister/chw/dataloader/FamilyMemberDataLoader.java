@@ -28,9 +28,21 @@ import java.util.Map;
 public class FamilyMemberDataLoader extends NativeFormsDataLoader {
     private String familyName;
     private boolean isPrimaryCaregiver;
+    private String isEverSchool;
+    private String schoolLevel;
     private String title;
     private String eventType;
     private String uniqueID;
+
+    public FamilyMemberDataLoader(String familyName, boolean isPrimaryCaregiver, String isEverSchool, String schoolLevel, String title, String eventType, String uniqueID) {
+        this.familyName = familyName;
+        this.isPrimaryCaregiver = isPrimaryCaregiver;
+        this.isEverSchool = isEverSchool;
+        this.schoolLevel = schoolLevel;
+        this.title = title;
+        this.eventType = eventType;
+        this.uniqueID = uniqueID;
+    }
 
     public FamilyMemberDataLoader(String familyName, boolean isPrimaryCaregiver, String title, String eventType, String uniqueID) {
         this.familyName = familyName;
@@ -70,6 +82,14 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
             case Constants.JsonAssets.IS_PRIMARY_CARE_GIVER:
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
                 return isPrimaryCaregiver ? "Yes" : "No";
+
+            case CoreConstants.JsonAssets.FAMILY_MEMBER.EVER_SCHOOL:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.OPENMRS_ENTITY, true);
+                return isEverSchool;
+
+            case CoreConstants.JsonAssets.FAMILY_MEMBER.SCHOOL_LEVEL:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.OPENMRS_ENTITY, true);
+                return schoolLevel;
 
             default:
                 return super.getValue(context, baseEntityID, jsonObject, dbData);
@@ -125,7 +145,7 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
         String lastName = client.getLastName();
 
         JSONObject sameAsFamName = org.smartregister.util.JsonFormUtils.getFieldJSONObject(jsonArray, SAME_AS_FAM_NAME);
-        if(sameAsFamName != null) {
+        if (sameAsFamName != null) {
             JSONObject sameOptions = sameAsFamName.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
 
             if (familyName.equals(lastName)) {
@@ -136,7 +156,7 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
         }
 
         JSONObject surname = org.smartregister.util.JsonFormUtils.getFieldJSONObject(jsonArray, SURNAME);
-        if(surname != null) {
+        if (surname != null) {
             if (!familyName.equals(lastName)) {
                 surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, lastName);
             } else {
