@@ -29,7 +29,10 @@ public class PinLoginPresenter implements PinLoginContract.Presenter, PinLogger.
             getView().onLoginInitiated(this);
 
         boolean result = logger.attemptPinVerification(pin, this);
-        if (!result) return;
+        if (!result) {
+            getView().onLoginAttemptFailed("Invalid PIN");
+            return;
+        }
 
         String userName = logger.getLoggedInUserName();
         String passWord = logger.getPassword(pin);

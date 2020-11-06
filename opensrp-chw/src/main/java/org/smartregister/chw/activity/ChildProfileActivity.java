@@ -74,8 +74,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
     @Override
     public void setUpToolbar() {
-        updateToolbarTitle(this, R.id.toolbar_title, memberObject.getFirstName());
-
+        updateToolbarTitle(this, R.id.toolbar_title, flavor.getToolbarTitleName(memberObject));
     }
 
     @Override
@@ -301,5 +300,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
         void setVaccineHistoryView(String days, RelativeLayout layoutVaccineHistoryRow, View viewVaccineHistoryRow, Context context);
 
+        String getToolbarTitleName(MemberObject memberObject);
     }
 }

@@ -137,7 +137,7 @@
           "label": "Age"
         },
         "min_date": "today-150y",
-        "max_date": "today-5y",
+        "max_date": "today-11y",
         "v_required": {
           "value": "true",
           "err": "Please enter the date of birth"
