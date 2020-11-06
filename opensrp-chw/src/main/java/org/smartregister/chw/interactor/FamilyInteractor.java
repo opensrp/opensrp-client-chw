@@ -14,7 +14,6 @@ import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ChwAlertDao;
 import org.smartregister.chw.dao.FamilyDao;
-import org.smartregister.chw.fragment.PncRegisterFragment;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -26,11 +25,10 @@ import java.util.Map;
 import io.reactivex.Observable;
 
 public class FamilyInteractor extends CoreFamilyInteractor {
-    private AlertStatus getChildAlert(String familyId, String childId){
-        if(ChwApplication.getApplicationFlavor().includeCurrentChild()){
-          return FamilyDao.getFamilyAlertStatus(familyId);
-        }
-        else {
+    private AlertStatus getChildAlert(String familyId, String childId) {
+        if (ChwApplication.getApplicationFlavor().includeCurrentChild()) {
+            return FamilyDao.getFamilyAlertStatus(familyId);
+        } else {
             //Check if the family has other due services that don't include the current child that is being displayed
             return ChwAlertDao.getFamilyAlertStatus(familyId, childId);
         }
