@@ -231,7 +231,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         //int age = getAgeInMonths();
         if (getAgeInMonths() >= immunizationCeiling()) return;
 
-        String vaccineCategory = memberObject.getAge() >= FIVE_YEARS ? CoreConstants.SERVICE_GROUPS.CHILD_OVER_5 : CoreConstants.SERVICE_GROUPS.CHILD;
+        String vaccineCategory = memberObject.getAge() > FIVE_YEARS ? CoreConstants.SERVICE_GROUPS.CHILD_OVER_5 : CoreConstants.SERVICE_GROUPS.CHILD;
 
         List<VaccineGroup> childVaccineGroups = getVaccineGroups(vaccineCategory);
         List<Vaccine> specialVaccines = getSpecialVaccines();
