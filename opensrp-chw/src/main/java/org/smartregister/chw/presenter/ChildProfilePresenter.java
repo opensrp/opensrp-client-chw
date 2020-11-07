@@ -197,6 +197,33 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     }
 
     @Override
+    public void updateFamilyMemberServiceDue(String serviceDueStatus) {
+        if(ChwApplication.getApplicationFlavor().includeCurrentChild()){
+            super.updateFamilyMemberServiceDue(serviceDueStatus);
+        }
+        else {
+            if (getView() != null) {
+                if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.DUE.name())) {
+                    getView().setFamilyHasServiceDue();
+                }
+               else if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.DUE.name())) {
+                    getView().setFamilyHasServiceDue();
+                }
+                else if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.OVERDUE.name())) {
+                    getView().setFamilyHasServiceOverdue();
+                }
+                else if(serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.NOTHING.name()) && ChwChildDao.hasActiveSchedule(childBaseEntityId)) {
+                    getView().setFamilyHasNothingElseDue();
+                }
+                else {
+                    getView().setFamilyHasNothingDue();
+                }
+            }
+        }
+
+    }
+
+    @Override
     public void updateChildVisit(ChildVisit childVisit) {
         if (!ChwApplication.getApplicationFlavor().showNoDueVaccineView()) {
             super.updateChildVisit(childVisit);
