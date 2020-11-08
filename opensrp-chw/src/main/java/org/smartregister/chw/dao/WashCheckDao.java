@@ -22,7 +22,7 @@ public class WashCheckDao extends AbstractDao {
         String sql = "select created_at from visits where visit_type = 'WASH check' and " +
                 "base_entity_id = '" + familyBaseEntityID + "' order by created_at desc limit 1";
 
-        DataMap<Date> dataMap = c -> getCursorValueAsDate(c, "eventDate", getDobDateFormat());
+        DataMap<Date> dataMap = c -> getCursorValueAsDate(c, "created_at", getDobDateFormat());
         List<Date> res = AbstractDao.readData(sql, dataMap);
         if (res == null || res.size() == 0)
             return 0;
