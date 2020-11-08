@@ -47,13 +47,28 @@ public class WashCheckDaoTest extends WashCheckDao {
     @Test
     public void testUpdateWashCheckVisitDetails() {
         Mockito.doReturn(database).when(repository).getWritableDatabase();
-        WashCheckDao.updateWashCheckVisitDetails(Long.parseLong("1567329933757"),"12345","Yes","Yes","Yes");
+        WashCheckDao.updateWashCheckVisitDetails(Long.parseLong("1567329933757"), "12345", "Yes", "Yes", "Yes");
         Mockito.verify(database).rawExecSQL(Mockito.anyString());
     }
+
     @Test
     public void testUpdateWashCheckVisits() {
         Mockito.doReturn(database).when(repository).getWritableDatabase();
-        WashCheckDao.updateWashCheckVisits(Long.parseLong("1567329933757"),"12345","sample_json");
+        WashCheckDao.updateWashCheckVisits(Long.parseLong("1567329933757"), "12345", "sample_json");
         Mockito.verify(database).rawExecSQL(Mockito.anyString());
     }
+
+    @Test
+    public void testGetWashCheckDetails() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"base_entity_id", "visit_key", "human_readable_details"});
+        matrixCursor.addRow(new Object[]{"12345", "handwashing_facilities", "Yes"});
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        WashCheckDao.getWashCheckDetails(Long.parseLong("1567329933757"), "12345");
+
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+    }
+
 }
