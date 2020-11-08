@@ -1,8 +1,7 @@
 {
   "count": "1",
-  "encounter_type": "Family Details",
+  "encounter_type": "Umbilical cord care",
   "entity_id": "",
-  "relational_id": "",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -45,57 +44,49 @@
       "openmrs_data_type": "phonenumber",
       "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     },
-    "encounter_location": "",
-    "look_up": {
-      "entity_id": "",
-      "value": ""
-    }
+    "encounter_location": ""
   },
   "step1": {
-    "title": "Family Details",
+    "title": "Umbilical cord care",
     "fields": [
       {
-        "key": "fam_name",
+        "key": "cord_care",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "Family name",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the family name"
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Are any products being applied to the umbilical cord stump?",
+        "values": [
+          "No products",
+          "Chlorhexidine",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "No products": "products",
+          "Chlorhexidine": "73263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "Other"
         },
-        "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "Please enter a valid name"
-        }
-      },
-      {
-        "key": "unique_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_identifier",
-        "openmrs_entity_id": "opensrp_id",
-        "hidden": "true",
-        "type": "barcode",
-        "barcode_type": "qrcode",
-        "hint": "ID *",
-        "scanButtonText": "Scan QR Code",
-        "v_numeric": {
-          "value": "true",
-          "err": "Please enter a valid ID"
-        }
-      },
-      {
-        "key": "village_town",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "cityVillage",
-        "type": "edit_text",
-        "hint": "Village/Town",
         "v_required": {
           "value": "true",
-          "err": "Please enter the village or town"
+          "err": "Please select one option"
+        }
+      },
+      {
+        "key": "cord_care_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "cord_care_other",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "The other product that is being applied to the umbilical cord stump.",
+        "expanded": false,
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_umbilical_cord_relevance.yml"
+            }
+          }
         }
       }
     ]

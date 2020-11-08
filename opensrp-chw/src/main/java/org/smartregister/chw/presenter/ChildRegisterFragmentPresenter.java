@@ -20,14 +20,14 @@ public class ChildRegisterFragmentPresenter extends CoreChildRegisterFragmentPre
     @Override
     public String getMainCondition() {
         if (ChwApplication.getApplicationFlavor().dueVaccinesFilterInChildRegister())
-            return String.format(" %s.%s is null AND %s", CoreConstants.TABLE_NAME.CHILD, DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childDueVaccinesFilter());
+            return String.format(" %s.%s is null AND %s", CoreConstants.TABLE_NAME.CHILD, DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childDueVaccinesFilterForChildrenBelowTwoAndGirlsAgeNineToEleven());
         return super.getMainCondition();
     }
 
     @Override
     public String getMainCondition(String tableName) {
         if (ChwApplication.getApplicationFlavor().dueVaccinesFilterInChildRegister())
-            return String.format(" %s is null AND %s", tableName + "." + DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childDueVaccinesFilter(tableName));
+            return String.format(" %s is null AND %s", tableName + "." + DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childDueVaccinesFilterForChildrenBelowTwoAndGirlsAgeNineToEleven(tableName));
         return super.getMainCondition(tableName);
     }
 }

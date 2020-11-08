@@ -176,7 +176,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
             }
         }
     }
-    private void getDueView(ChildVisit childVisit){
+    private void setDueView(ChildVisit childVisit){
         if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name())){
             if(ChwChildDao.hasDueSchedule(childBaseEntityId)){
                 getView().setVisitButtonDueStatus();
@@ -187,21 +187,30 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         }
     }
 
+    private void setVisitDoneThisMonth(){
+            if(ChwChildDao.hasDueVaccines(childBaseEntityId)){
+                getView().setVisitAboveTwentyFourView();
+            }
+            else {
+                getView().setNoButtonView();
+            }
+    }
+
     @Override
     public void updateChildVisit(ChildVisit childVisit) {
         if (!ChwApplication.getApplicationFlavor().showNoDueVaccineView()) {
             super.updateChildVisit(childVisit);
         } else {
             if (childVisit != null) {
-                getDueView(childVisit);
+                setDueView(childVisit);
                 if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.OVERDUE.name())) {
                     getView().setVisitButtonOverdueStatus();
                 }
                 if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.LESS_TWENTY_FOUR.name())) {
                     getView().setVisitLessTwentyFourView(childVisit.getLastVisitMonthName());
                 }
-                if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.VISIT_THIS_MONTH.name())) {
-                    getView().setVisitAboveTwentyFourView();
+                if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.VISIT_THIS_MONTH.name()) ) {
+                    setVisitDoneThisMonth();
                 }
                 if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.NOT_VISIT_THIS_MONTH.name())) {
                     boolean withinEditPeriod = isWithinEditPeriod(childVisit.getLastNotVisitDate());
