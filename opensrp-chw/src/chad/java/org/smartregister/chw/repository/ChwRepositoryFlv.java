@@ -10,8 +10,12 @@ import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
+import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 import timber.log.Timber;
 
@@ -46,6 +50,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 9:
                     upgradeToVersion9(db);
+                    break;
+                case 10:
+                    upgradeToVersion10(db, oldVersion);
                     break;
                 default:
                     break;
@@ -144,6 +151,28 @@ public class ChwRepositoryFlv {
             db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion9");
+        }
+    }
+
+    private static void upgradeToVersion10(SQLiteDatabase db, int oldDbVersion) {
+        try {
+            ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+            if (oldDbVersion == 9) {
+                reportingLibraryInstance.truncateIndicatorDefinitionTables(db);
+            }
+            initializeIndicatorDefinitions(reportingLibraryInstance, db);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private static void initializeIndicatorDefinitions(ReportingLibrary reportingLibrary, SQLiteDatabase sqLiteDatabase) {
+        String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
+        String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
+        String pncIndicatorConfigFile = "config/pnc-reporting-indicator-definitions.yml";
+        for (String configFile : Collections.unmodifiableList(
+                Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile, pncIndicatorConfigFile))) {
+            reportingLibrary.readConfigFile(configFile, sqLiteDatabase);
         }
     }
 }
