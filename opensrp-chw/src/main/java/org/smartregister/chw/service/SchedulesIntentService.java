@@ -59,7 +59,7 @@ public class SchedulesIntentService extends IntentService {
         Timber.v("Computing child schedules");
         ScheduleDao.deleteChildrenVaccines();
         ChwApplication.getInstance().getScheduleRepository().deleteSchedulesNotCreatedToday(CoreConstants.SCHEDULE_TYPES.CHILD_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
-        List<String> baseEntityIDs = ChwApplication.getApplicationFlavor().showChildrenUnderTwoAndGirlsAgeNineToEleven() ? ScheduleDao.getActiveChildrenUnder2AndGirlsAge9to11(CoreConstants.SCHEDULE_TYPES.CHILD_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT) : ScheduleDao.getActiveChildren(CoreConstants.SCHEDULE_TYPES.CHILD_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
+        List<String> baseEntityIDs = ChwApplication.getApplicationFlavor().showChildrenUnderTwoAndGirlsAgeNineToEleven() ? ScheduleDao.getActiveChildrenUnder5AndGirlsAge9to11(CoreConstants.SCHEDULE_TYPES.CHILD_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT) : ScheduleDao.getActiveChildren(CoreConstants.SCHEDULE_TYPES.CHILD_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
         if (baseEntityIDs == null) return;
 
         for (String baseID : baseEntityIDs) {

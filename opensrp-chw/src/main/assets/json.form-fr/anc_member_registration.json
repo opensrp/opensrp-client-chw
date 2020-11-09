@@ -63,14 +63,14 @@
         "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Date de dernières règles (DDR)",
-        "label_info_title": "DDR",
+        "label_info_title": "LMP",
         "label_info_text": "DDR = La première journée des dernières règles. Si la date exacte est inconnue mais la période du mois est connue, utiliser jour 5 pour le début du mois, jour 15 pour le milieu du mois, et jour 25 pour la fin du mois.",
         "expanded": false,
         "max_date": "today",
         "min_date": "today-50w",
         "v_required": {
           "value": "true",
-          "err": "Cette réponse est requise."
+          "err": "LMP required"
         },
         "calculation": {
           "rules-engine": {
@@ -128,7 +128,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Cette réponse est requise."
+          "err": "Required"
         }
       },
       {
@@ -187,19 +187,19 @@
         "hint": "Nombre de grossesses antérieures",
         "v_required": {
           "value": "true",
-          "err": "Cette réponse est requise."
+          "err": "Required"
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "Le nombre doit être égal ou supérieur à 0r"
+          "err": "Must be a rounded number"
         },
         "v_min": {
           "value": "0",
-          "err": "Le nombre doit être égal ou supérieur à 0"
+          "err": "Number must be equal or greater than 0"
         },
         "v_max": {
           "value": "45",
-          "err": "Le nombre doit être égal ou inférieur à 45"
+          "err": "Number must be equal or less than 45"
         }
       },
       {
@@ -226,15 +226,15 @@
         "hint": "Nombre d'enfants survivants",
         "v_required": {
           "value": "true",
-          "err": "Cette réponse est requise."
+          "err": "Required"
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "Le nombre doit être égal ou supérieur à 0r"
+          "err": "Must be a rounded number"
         },
         "v_relative_max": {
           "value": "no_prev_preg",
-          "err": "Le nombre doit être inférieur ou égal au nombre de grossesses précédentes"
+          "err": "Number must be less than or equal to Number of Previous Pregnancies"
         }
       },
       {
@@ -246,42 +246,11 @@
         "hint": "Numéro de téléphone",
         "v_numeric": {
           "value": "true",
-          "err": "Le numéro doit être composé de 8 à 16 chiffres."
+          "err": "Must be a number."
         },
         "v_required": {
           "value": false,
-          "err": "Cette réponse est requise"
-        }
-      },
-      {
-        "key": "marital_status",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "État matrimonial",
-        "v_required": {
-          "value": "true",
-          "err": "Please select one option"
-        },
-        "values": [
-          "Mariée",
-          "Cohabite",
-          "Célibataire",
-          "Veuve"
-        ],
-        "keys": [
-          "Married",
-          "Co-habiting",
-          "Single",
-          "Widowed"
-        ],
-        "openmrs_choice_ids": {
-          "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Co-habiting": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Widowed": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "err": "Please specify the phone number"
         }
       }
     ]

@@ -611,7 +611,32 @@
               "reference": "prerequisite",
               "prerequisite": "Penta 2",
               "offset": "+28d",
-              "window": "+4y"
+              "window": "+4y",
+              "condition": {
+                "vaccine": "Penta 1",
+                "type": "given",
+                "age": {
+                  "from": "+0d",
+                  "to": "+365d"
+                },
+                "value": "-0d",
+                "comparison": "at_least"
+              }
+            },
+            {
+              "reference": "prerequisite",
+              "prerequisite": "Penta 2",
+              "offset": "+180d",
+              "window": "+4y",
+              "condition": {
+                "vaccine": "Penta 1",
+                "type": "given",
+                "age": {
+                  "from": "+366d"
+                },
+                "value": "-0d",
+                "comparison": "at_least"
+              }
             }
           ],
           "expiry": [
@@ -622,51 +647,10 @@
           ],
           "conditions": [
             {
-              "value": "or",
-              "type": "join",
-              "conditions": [
-                {
-                  "value": "and",
-                  "type": "join",
-                  "conditions": [
-                    {
-                      "vaccine": "Penta 1",
-                      "type": "given",
-                      "age": {
-                        "from": "+0d",
-                        "to": "+365d"
-                      },
-                      "value": "-0d"
-                    },
-                    {
-                      "vaccine": "Penta 2",
-                      "type": "given",
-                      "comparison": "at_least",
-                      "value": "-28d"
-                    }
-                  ]
-                },
-                {
-                  "value": "and",
-                  "type": "join",
-                  "conditions": [
-                    {
-                      "vaccine": "Penta 1",
-                      "type": "given",
-                      "age": {
-                        "from": "+366d"
-                      },
-                      "value": "-0d"
-                    },
-                    {
-                      "vaccine": "Penta 2",
-                      "type": "given",
-                      "comparison": "at_least",
-                      "value": "-180d"
-                    }
-                  ]
-                }
-              ]
+              "vaccine": "Penta 1",
+              "type": "given",
+              "value": "-0d",
+              "comparison": "at_least"
             }
           ]
         }
@@ -1025,9 +1009,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "MCV 1",
-              "offset": "+28d",
+              "reference": "dob",
+              "offset": "+548d",
               "window": "+5y"
             }
           ],
@@ -1038,6 +1021,12 @@
             }
           ],
           "conditions": [
+            {
+              "vaccine": "MCV 1",
+              "type": "given",
+              "comparison": "at_least",
+              "value": "-28d"
+            },
             {
               "value": "or",
               "type": "join",

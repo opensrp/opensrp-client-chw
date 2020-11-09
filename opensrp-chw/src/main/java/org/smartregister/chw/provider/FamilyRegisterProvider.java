@@ -11,6 +11,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.fp.dao.FpDao;
@@ -89,6 +90,16 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         return null;
     }
 
+    @Override
+    public String getChildAgeLimitFilter(){
+        if(ChwApplication.getApplicationFlavor().showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven()){
+          return org.smartregister.chw.util.ChildDBConstants.childDueVaccinesFilterForChildrenBelowTwoAndGirlsAgeNineToEleven();
+        }
+        else {
+            return ChildDBConstants.childAgeLimitFilter();
+        }
+    }
+
     private void updateButtonState(Context context, RegisterViewHolder viewHolder, Map<String, Integer> services) {
         if (services != null && !services.isEmpty()) {
             viewHolder.dueButton.setVisibility(View.VISIBLE);
@@ -153,8 +164,16 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
                 fpCount = FpDao.getFpWomenCount(familyBaseEntityId) != null ? FpDao.getFpWomenCount(familyBaseEntityId) : 0;
 
-            services = FamilyDao.getFamilyServiceSchedule(familyBaseEntityId);
+            services = getFamilyDueState(familyBaseEntityId);
             return null;
+        }
+
+        private Map<String, Integer>  getFamilyDueState(String familyBaseEntityId) {
+            if (ChwApplication.getApplicationFlavor().showFamilyServicesScheduleWithChildrenAboveTwo()) {
+                return FamilyDao.getFamilyServiceSchedule(familyBaseEntityId);
+            } else {
+                return FamilyDao.getFamilyServiceScheduleWithChildrenOnlyUnderTwo(familyBaseEntityId);
+            }
         }
 
         @Override

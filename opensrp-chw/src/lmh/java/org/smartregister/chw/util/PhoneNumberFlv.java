@@ -7,4 +7,9 @@ public class PhoneNumberFlv implements MemberAdapter.Flavor {
     public boolean isPhoneNumberLength16Digit() {
         return true;
     }
+
+    @Override
+    public boolean showPhoneNumberInputFields() {
+        return false;
+    }
 }

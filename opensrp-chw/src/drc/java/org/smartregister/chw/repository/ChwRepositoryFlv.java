@@ -4,6 +4,7 @@ import android.content.Context;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
@@ -34,6 +35,21 @@ public class ChwRepositoryFlv {
                     break;
                 case 3:
                     upgradeToVersion3(db);
+                    break;
+                case 4:
+                    upgradeToVersion4(db);
+                    break;
+                case 5:
+                    upgradeToVersion5(db);
+                    break;
+                case 7:
+                    upgradeToVersion7(db);
+                    break;
+                case 8:
+                    upgradeToVersion8(db);
+                    break;
+                case 9:
+                    upgradeToVersion9(db);
                     break;
                 default:
                     break;
@@ -121,6 +137,14 @@ public class ChwRepositoryFlv {
             }
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion3 - Part 4");
+        }
+    }
+    private static void upgradeToVersion9(SQLiteDatabase db) {
+        try {
+            db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
+            db.execSQL("ALTER TABLE ec_anc_register ADD COLUMN delivery_kit VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion9");
         }
     }
 }

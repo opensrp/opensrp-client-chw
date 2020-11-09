@@ -27,10 +27,12 @@ import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreConstants.JSON_FORM;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.util.Constants;
 
 import java.util.ArrayList;
@@ -72,8 +74,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
     @Override
     public void setUpToolbar() {
-        updateToolbarTitle(this, R.id.toolbar_title, memberObject.getFirstName());
-
+        updateToolbarTitle(this, R.id.toolbar_title, flavor.getToolbarTitleName(memberObject));
     }
 
     @Override
@@ -94,10 +95,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
             openMedicalHistoryScreen();
         } else if (i == R.id.most_due_overdue_row) {
             openUpcomingServicePage();
-        } else if(i == R.id.view_due_today){
+        } else if (i == R.id.view_due_today) {
             openUpcomingServicePage();
-        }
-        else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
+        } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
             openVisitHomeScreen(false);
         } else if (i == R.id.family_has_row) {
             openFamilyDueTab();
@@ -123,6 +123,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
         presenter = new ChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
     }
+
     @Override
     protected void setupViews() {
         super.setupViews();
@@ -142,6 +143,21 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     public void updateHasPhone(boolean hasPhone) {
         if (familyFloatingMenu != null) {
             familyFloatingMenu.reDraw(hasPhone);
+        }
+    }
+
+    public void setFamilyHasNoDueServicesText() {
+        AlertStatus alertStatus = FamilyDao.getFamilyAlertStatus(((ChildProfilePresenter) presenter()).getFamilyID());
+        if (ChwApplication.getApplicationFlavor().includeCurrentChild()) {
+            textViewFamilyHas.setText(getString(org.smartregister.chw.core.R.string.family_has_nothing_due));
+        } else {
+            //Check if the family has other due services that don't include the current child that is being displayed
+            if (alertStatus.equals(AlertStatus.normal)) {
+                //if the family has more services due the show
+                textViewFamilyHas.setText(getString(R.string.family_has_nothing_else_due));
+            } else {
+                textViewFamilyHas.setText(getString(org.smartregister.chw.core.R.string.family_has_nothing_due));
+            }
         }
     }
 
@@ -284,5 +300,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
         void setVaccineHistoryView(String days, RelativeLayout layoutVaccineHistoryRow, View viewVaccineHistoryRow, Context context);
 
+        String getToolbarTitleName(MemberObject memberObject);
     }
 }
