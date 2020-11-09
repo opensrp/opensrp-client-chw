@@ -82,6 +82,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     protected Boolean editMode = false;
     protected Boolean vaccinesDefaultChecked = true;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+    private static final int FIVE_YEARS = 5;
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
@@ -229,7 +230,9 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         List<Vaccine> specialVaccines = getSpecialVaccines();
         List<org.smartregister.immunization.domain.Vaccine> vaccines = getVaccineRepo().findByEntityId(memberObject.getBaseEntityId());
 
-        List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(CoreConstants.SERVICE_GROUPS.CHILD);
+        String vaccineCategory = memberObject.getAge() > FIVE_YEARS ? Constants.CHILD_OVER_5 : CoreConstants.SERVICE_GROUPS.CHILD;
+        List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(vaccineCategory);
+
         Map<String, VaccineRepo.Vaccine> vaccinesRepo = new HashMap<>();
         for (VaccineRepo.Vaccine vaccine : allVacs) {
             vaccinesRepo.put(vaccine.display().toLowerCase().replace(" ", ""), vaccine);
