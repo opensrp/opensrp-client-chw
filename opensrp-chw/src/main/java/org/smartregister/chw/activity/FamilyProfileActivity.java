@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
@@ -16,7 +18,6 @@ import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
-import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.chw.fp.dao.FpDao;
@@ -181,41 +182,40 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         return this;
     }
 
-    private Intent getMaleAndFemaleChildrenIntent(Integer yearOfBirth){
-        if (yearOfBirth != null && yearOfBirth >= 5) {
-            return new Intent(this, getAboveFiveChildProfileActivityClass());
-        } else {
+    private Intent getDefaultChildrenIntent(int age) {
+        if (age < 5) {
             return new Intent(this, getChildProfileActivityClass());
+        } else {
+            return new Intent(this, getAboveFiveChildProfileActivityClass());
         }
     }
 
-    private Intent getFemaleChildrenIntent(Integer yearOfBirth){
-        if (yearOfBirth != null && ((yearOfBirth >= 5 && yearOfBirth < 9) || (yearOfBirth >= 11))) {
-            return new Intent(this, getAboveFiveChildProfileActivityClass());
-        } else {
+    private Intent getIntentForChildrenUnderFiveAndGirlsAgeNineToEleven(int age, String gender) {
+        if (age < 5 || (gender.equalsIgnoreCase("Female") && (age >= 9 && age <= 11))) {
             return new Intent(this, getChildProfileActivityClass());
+        } else {
+            return new Intent(this, getAboveFiveChildProfileActivityClass());
         }
     }
 
-    private Intent getChildIntent(CommonPersonObjectClient patient){
-        String dobString = getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
-        Integer yearOfBirth = CoreChildUtils.dobStringToYear(dobString);
-        if(!ChwApplication.getApplicationFlavor().showChildrenUnderTwoAndGirlsAgeNineToEleven()){
-           return getMaleAndFemaleChildrenIntent(yearOfBirth);
-        }
-        else {
-            if(ChwChildDao.getChildGender(patient.entityId()).equalsIgnoreCase("Female")){
-             return getFemaleChildrenIntent(yearOfBirth);
-            }
-            else {
-                return getMaleAndFemaleChildrenIntent(yearOfBirth);
-            }
+    private Intent getChildIntent(CommonPersonObjectClient patient) {
+       // String dobString = getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
+       // int age = (int) Math.ceil(Days.daysBetween(new DateTime(dobString).toLocalDate(), new DateTime().toLocalDate()).getDays() / 365.4);
+        String dobString = Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false);
+
+        int age =  (int)(Days.daysBetween(new DateTime(dobString).toLocalDate(), new DateTime().toLocalDate()).getDays() / 365.4);
+
+        String gender = ChwChildDao.getChildGender(patient.entityId());
+        if (ChwApplication.getApplicationFlavor().showChildrenUnderFiveAndGirlsAgeNineToEleven()) {
+            return getIntentForChildrenUnderFiveAndGirlsAgeNineToEleven(age, gender);
+        } else {
+            return getDefaultChildrenIntent(age);
         }
     }
 
     @Override
     public void goToChildProfileActivity(CommonPersonObjectClient patient, Bundle bundle) {
-       Intent intent = getChildIntent(patient);
+        Intent intent = getChildIntent(patient);
 
         if (bundle != null) {
             intent.putExtras(bundle);
@@ -224,7 +224,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         memberObject.setFamilyName(familyName);
         passToolbarTitle(this, intent);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject );
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         startActivity(intent);
     }
 
