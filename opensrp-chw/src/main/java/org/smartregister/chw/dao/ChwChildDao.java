@@ -12,8 +12,21 @@ public class ChwChildDao extends ChildDao {
     public static boolean hasDueVaccines(String baseEntityID) {
         String sql = "select count(*) count \n" +
                 "FROM alerts  " +
-                "where caseID = '" + baseEntityID + "'" +
-                "and status = 'normal'";
+                "where caseID = '" + baseEntityID + "'";
+
+        DataMap<Integer> dataMap = cursor -> getCursorIntValue(cursor, "count");
+
+        List<Integer> res = readData(sql, dataMap);
+        if (res == null || res.get(0) == 0)
+            return false;
+
+        res.size();
+        return true;
+    }
+
+    public static boolean hasDueSchedule(String baseEntityID) {
+        String sql = "select count(*) count from schedule_service\n" +
+                "where base_entity_id = '" + baseEntityID + "'";
 
         DataMap<Integer> dataMap = cursor -> getCursorIntValue(cursor, "count");
 
@@ -38,7 +51,6 @@ public class ChwChildDao extends ChildDao {
         return values.get(0) == null ? "" : values.get(0); // Return a default value of Low
     }
 
-
     public static String getChildQuery(String baseEntityID) {
         if (!ChwApplication.getApplicationFlavor().showChildrenUnderTwoAndGirlsAgeNineToEleven()) {
             return ChildDao.getChildQuery(baseEntityID);
@@ -61,7 +73,7 @@ public class ChwChildDao extends ChildDao {
                     ") lastVisitNotDone on lastVisitNotDone.base_entity_id = c.base_entity_id " +
                     "where c.base_entity_id = '" + baseEntityID + "' " +
                     "and  m.date_removed is null and m.is_closed = 0 " +
-                    "and (((julianday('now') - julianday(c.dob))/365.25) < 2 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11))) " +
+                    "and (((julianday('now') - julianday(c.dob))/365.25) <= 5 or (c.gender = 'Female' and (((julianday('now') - julianday(c.dob))/365.25) BETWEEN 9 AND 11))) " +
                     "and c.is_closed = 0 ";
         }
     }

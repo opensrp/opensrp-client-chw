@@ -404,19 +404,28 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasForeignData();
 
+        boolean showNoDueVaccineView();
+
         boolean prioritizeChildNameOnChildRegister();
 
         boolean showChildrenUnderTwoAndGirlsAgeNineToEleven();
 
         boolean dueVaccinesFilterInChildRegister();
 
-        boolean showAllChildServicesDueIncludingCurrentChild();
+        boolean includeCurrentChild();
 
         boolean saveOnSubmission();
 
         boolean relaxVisitDateRestrictions();
 
         boolean showLastNameOnChildProfile();
+
+        boolean showChildrenAboveTwoDueStatus();
+
+        boolean showFamilyServicesScheduleWithChildrenAboveTwo();
+
+        boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven();
+
     }
 
 }

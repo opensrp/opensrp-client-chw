@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONObject;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Utils;
@@ -32,13 +33,13 @@ public class ChildProfileActivityFlv extends DefaultChildProfileActivityFlv {
     }
 
     @Override
-    public void setLastVisitRowView(String days, RelativeLayout layoutLastVisitRow, View viewLastVisitRow, TextView textViewLastVisit, Context context){
-            layoutLastVisitRow.setVisibility(View.GONE);
-            viewLastVisitRow.setVisibility(View.GONE);
+    public void setLastVisitRowView(String days, RelativeLayout layoutLastVisitRow, View viewLastVisitRow, TextView textViewLastVisit, Context context) {
+        layoutLastVisitRow.setVisibility(View.GONE);
+        viewLastVisitRow.setVisibility(View.GONE);
     }
 
     @Override
-    public void setVaccineHistoryView(String days, RelativeLayout layoutVaccineHistoryRow, View viewVaccineHistoryRow, Context context){
+    public void setVaccineHistoryView(String days, RelativeLayout layoutVaccineHistoryRow, View viewVaccineHistoryRow, Context context) {
         if (TextUtils.isEmpty(days)) {
             layoutVaccineHistoryRow.setVisibility(View.GONE);
             viewVaccineHistoryRow.setVisibility(View.GONE);
@@ -46,5 +47,10 @@ public class ChildProfileActivityFlv extends DefaultChildProfileActivityFlv {
             layoutVaccineHistoryRow.setVisibility(View.VISIBLE);
             viewVaccineHistoryRow.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public String getToolbarTitleName(MemberObject memberObject) {
+        return memberObject.getFamilyName();
     }
 }

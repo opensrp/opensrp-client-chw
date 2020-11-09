@@ -178,7 +178,7 @@ public class ReportDaoTest extends ReportDao {
         String villageName = "Grenaligne";
         Date dueDate = new DateTime().plusDays(7).toDate();
         Map<String, Integer> map = new TreeMap<>();
-        map.put("ROTA 1", 0);
+        map.put("ROTA", 0);
         List<VillageDose> villageDoseList = ReportDao.villageDosesReportSummary(villageName, dueDate);
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
         Assert.assertEquals(villageDoseList.get(0).getRecurringServices(), map);

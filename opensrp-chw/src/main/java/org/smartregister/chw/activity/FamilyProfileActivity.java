@@ -39,7 +39,6 @@ import java.util.HashMap;
 
 import static org.smartregister.chw.core.utils.Utils.getDuration;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
-import static org.smartregister.family.util.DBConstants.KEY.LAST_NAME;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private BaseFamilyProfileDueFragment profileDueFragment;
@@ -222,7 +221,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
             intent.putExtras(bundle);
         }
         MemberObject memberObject = new MemberObject(patient);
-        memberObject.setFamilyName(Utils.getValue(patient.getColumnmaps(), LAST_NAME, false));
+        memberObject.setFamilyName(familyName);
         passToolbarTitle(this, intent);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject );

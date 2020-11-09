@@ -6,17 +6,16 @@ import org.smartregister.family.util.DBConstants;
 
 public class ChildDBConstants extends org.smartregister.chw.core.utils.ChildDBConstants {
 
-    private static final int FIVE_YEAR = 5;
 
-    public static String childDueVaccinesFilter() {
-        return childDueVaccinesFilter(DBConstants.KEY.DOB, FIVE_YEAR, org.smartregister.chw.core.utils.ChildDBConstants.KEY.ENTRY_POINT, org.smartregister.chw.core.utils.ChildDBConstants.KEY.MOTHER_ENTITY_ID);
+    public static String childDueVaccinesFilterForChildrenBelowTwoAndGirlsAgeNineToEleven() {
+        return childDueVaccinesFilterForChildrenBelowTwoAndGirlsAgeNineToEleven(DBConstants.KEY.DOB, org.smartregister.chw.core.utils.ChildDBConstants.KEY.ENTRY_POINT, org.smartregister.chw.core.utils.ChildDBConstants.KEY.MOTHER_ENTITY_ID);
     }
 
-    public static String childDueVaccinesFilter(String tableName) {
-        return childDueVaccinesFilter(tableColConcat(tableName, DBConstants.KEY.DOB), FIVE_YEAR, tableColConcat(tableName, org.smartregister.chw.core.utils.ChildDBConstants.KEY.ENTRY_POINT), tableColConcat(tableName, org.smartregister.chw.core.utils.ChildDBConstants.KEY.MOTHER_ENTITY_ID));
+    public static String childDueVaccinesFilterForChildrenBelowTwoAndGirlsAgeNineToEleven(String tableName) {
+        return childDueVaccinesFilterForChildrenBelowTwoAndGirlsAgeNineToEleven(tableColConcat(tableName, DBConstants.KEY.DOB), tableColConcat(tableName, org.smartregister.chw.core.utils.ChildDBConstants.KEY.ENTRY_POINT), tableColConcat(tableName, org.smartregister.chw.core.utils.ChildDBConstants.KEY.MOTHER_ENTITY_ID));
     }
 
-    private static String childDueVaccinesFilter(String dateColumn, int age, String entryPoint, String motherEntityId) {
+    private static String childDueVaccinesFilterForChildrenBelowTwoAndGirlsAgeNineToEleven(String dateColumn, String entryPoint, String motherEntityId) {
         return " (( ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + entryPoint + ",'') <> 'PNC' ) " +
                 " or (ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + entryPoint + ",'') = 'PNC'" +
                 " and ( date(" + CoreConstants.TABLE_NAME.CHILD + "." + dateColumn + ", '+28 days') <= date() " +

@@ -2,22 +2,29 @@ indicators:
   - key: "CHW_001"
     description: "Total U2 children"
     indicatorQuery: "select count(*) from ec_child c
-                     inner join ec_family_member m on c.base_entity_id = m.base_entity_id COLLATE NOCASE
-                     inner join ec_family f on f.base_entity_id = m.relational_id COLLATE NOCASE
-                     where m.date_removed is null and m.is_closed = 0
-                     and ((( julianday('now') - julianday(c.dob))/365.25) < 2) and c.is_closed = 0
-                     and ((( ifnull(entry_point,'') <> 'PNC' )) or (ifnull(entry_point,'') = 'PNC' and ( date (c.dob, '+28 days') <= date() and ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 0)))  or (ifnull(entry_point,'') = 'PNC'  and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 1))"
+                                          inner join ec_family_member m on c.base_entity_id = m.base_entity_id COLLATE NOCASE
+                                          inner join ec_family f on f.base_entity_id = m.relational_id COLLATE NOCASE
+                                          where m.date_removed is null and m.is_closed = 0
+                                          and (((julianday('now') - julianday(c.dob))/365.25) < 2)
+                                          and c.is_closed = 0
+                                          and ((( ifnull(entry_point,'') <> 'PNC' )) or (ifnull(entry_point,'') = 'PNC'
+                                          and ( date (c.dob, '+28 days') <= date() and
+                                          ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 0)))
+                                          or (ifnull(entry_point,'') = 'PNC'
+                                          and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = mother_entity_id ) = 1))"
 
   - key: "CHW_002"
     description: "Children (0-11 months) who died in the last year"
-    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child
-                      where (((date(ec_child.dob) >= date('now', '-11 month')) or (date(ec_child.dob) >= date('now', '-24 month') and date(ec_child.dob) < date('now', '-11 month'))) and date(ec_child.dod) >= date('now', '-12 month'))"
+    indicatorQuery: "select count(ec_child.base_entity_id) from ec_child
+                     where ((date(ec_child.dod) > date('now', '-12 month'))
+                     and (date(ec_child.dod) < date(ec_child.dob, '+12 month')))"
 
   - key: "CHW_003"
     description: "Children (12-23 months) who died in the last year"
     indicatorQuery: "select count(ec_child.base_entity_id) from ec_child
-                     where date(ec_child.dob) >= date('now', '-24 month') and date(ec_child.dob) < date('now', '-11 month')
-                     and date(ec_child.dod) >= date('now', '-12 month')"
+                     where(
+                     (date(ec_child.dod) > date('now', '-12 month'))
+                     and (date(ec_child.dod) >= date(ec_child.dob, '+12 month')))"
 
   - key: "CHW_004"
     description: "Children (0-23 months) with a birth certificate"
