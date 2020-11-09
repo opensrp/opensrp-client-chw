@@ -25,11 +25,13 @@ import java.util.Map;
 import io.reactivex.Observable;
 
 public class FamilyInteractor extends CoreFamilyInteractor {
+
     private AlertStatus getChildAlert(String familyId, String childId) {
+
         if (ChwApplication.getApplicationFlavor().includeCurrentChild()) {
+
             return FamilyDao.getFamilyAlertStatus(familyId);
         } else {
-            //Check if the family has other due services that don't include the current child that is being displayed
             return ChwAlertDao.getFamilyAlertStatus(familyId, childId);
         }
     }
