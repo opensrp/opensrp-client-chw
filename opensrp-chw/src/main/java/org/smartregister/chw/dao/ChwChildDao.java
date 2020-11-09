@@ -1,11 +1,17 @@
 package org.smartregister.chw.dao;
 
+import org.joda.time.DateTime;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.domain.Child;
 import org.smartregister.dao.AbstractDao;
+import org.smartregister.domain.Alert;
+import org.smartregister.domain.AlertStatus;
+import org.smartregister.immunization.domain.Vaccine;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ChwChildDao extends ChildDao {
 
@@ -13,6 +19,22 @@ public class ChwChildDao extends ChildDao {
         String sql = "select count(*) count \n" +
                 "FROM alerts  " +
                 "where caseID = '" + baseEntityID + "'";
+
+        DataMap<Integer> dataMap = cursor -> getCursorIntValue(cursor, "count");
+
+        List<Integer> res = readData(sql, dataMap);
+        if (res == null || res.get(0) == 0)
+            return false;
+
+        res.size();
+        return true;
+    }
+
+    public static boolean hasDueAlerts(String baseEntityID) {
+        String sql = "select count(*) count \n" +
+                "FROM alerts  " +
+                "where caseID = '" + baseEntityID + "'" +
+                "and (status = 'upcoming' or status = 'normal' or status = 'urgent')";
 
         DataMap<Integer> dataMap = cursor -> getCursorIntValue(cursor, "count");
 
@@ -39,17 +61,25 @@ public class ChwChildDao extends ChildDao {
         return true;
     }
 
-    public static boolean hasDueSchedule(String baseEntityID) {
-        String sql = "select count(*) count from schedule_service\n" +
-                "where base_entity_id = '" + baseEntityID + "'";
+    public static boolean hasDueTodayVaccines(String baseEntityID) {
+        Map<String, List<Vaccine>> allVaccines = ReportDao.fetchAllVaccines();
+        List<Alert> raw_alerts = ReportDao.computeChildAlerts(new DateTime(), baseEntityID, allVaccines.get(baseEntityID));
+        List<Alert> alerts = new ArrayList<>();
+        for (Alert alert : raw_alerts) {
+            if (alert.startDate() != null && alert.status() != AlertStatus.complete)
+                alerts.add(alert);
+        }
 
-        DataMap<Integer> dataMap = cursor -> getCursorIntValue(cursor, "count");
+        String[] dueVaccines = new String[alerts.size()];
+        int x = 0;
+        while (x < alerts.size()) {
+            dueVaccines[x] = alerts.get(x).scheduleName();
+            x++;
+        }
 
-        List<Integer> res = readData(sql, dataMap);
-        if (res == null || res.get(0) == 0)
+        if (dueVaccines.length == 0)
             return false;
 
-        res.size();
         return true;
     }
 
@@ -65,7 +95,8 @@ public class ChwChildDao extends ChildDao {
 
         return values.get(0) == null ? "" : values.get(0); // Return a default value of Low
     }
-    private static String getChildrenUnderTwoAndGirlsAgeNineToElevenQuery(String baseEntityID){
+
+    private static String getChildrenUnderFiveAndGirlsAgeNineToElevenQuery(String baseEntityID) {
         return "select  c.base_entity_id , c.first_name , c.last_name , c.middle_name , c.mother_entity_id , c.relational_id , c.dob , c.date_created ,  lastVisit.last_visit_date , last_visit_not_done_date " +
                 "from ec_child c " +
                 "inner join ec_family_member m on c.base_entity_id = m.base_entity_id COLLATE NOCASE " +
@@ -89,10 +120,10 @@ public class ChwChildDao extends ChildDao {
     }
 
     public static String getChildQuery(String baseEntityID) {
-        if (!ChwApplication.getApplicationFlavor().showChildrenUnderTwoAndGirlsAgeNineToEleven()) {
+        if (!ChwApplication.getApplicationFlavor().showChildrenUnderFiveAndGirlsAgeNineToEleven()) {
             return ChildDao.getChildQuery(baseEntityID);
         } else {
-           return getChildrenUnderTwoAndGirlsAgeNineToElevenQuery(baseEntityID);
+            return getChildrenUnderFiveAndGirlsAgeNineToElevenQuery(baseEntityID);
         }
     }
 
