@@ -191,7 +191,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     }
 
     private Intent getIntentForChildrenUnderFiveAndGirlsAgeNineToEleven(int age, String gender) {
-        if (age < 5 || (gender.equalsIgnoreCase("Female") && (age >= 9 && age <= 11))) {
+        if (age < 5 || (gender.equalsIgnoreCase("Female") && (age >= 9 && age < 11))) {
             return new Intent(this, getChildProfileActivityClass());
         } else {
             return new Intent(this, getAboveFiveChildProfileActivityClass());
