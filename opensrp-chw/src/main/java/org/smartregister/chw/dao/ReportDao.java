@@ -177,7 +177,7 @@ public class ReportDao extends AbstractDao {
         return eligibleChildren;
     }
 
-    private static List<Alert> computeChildAlerts(DateTime anchorDate, String baseEntityId, @Nullable List<Vaccine> issuedVaccines) {
+    protected static List<Alert> computeChildAlerts(DateTime anchorDate, String baseEntityId, @Nullable List<Vaccine> issuedVaccines) {
         try {
             HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules = getVaccineSchedules("child");
             return VisitVaccineUtil.getInMemoryAlerts(vaccineSchedules, baseEntityId, anchorDate, "child", issuedVaccines == null ? new ArrayList<>() : issuedVaccines);

@@ -408,7 +408,7 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean prioritizeChildNameOnChildRegister();
 
-        boolean showChildrenUnderTwoAndGirlsAgeNineToEleven();
+        boolean showChildrenUnderFiveAndGirlsAgeNineToEleven();
 
         boolean dueVaccinesFilterInChildRegister();
 
