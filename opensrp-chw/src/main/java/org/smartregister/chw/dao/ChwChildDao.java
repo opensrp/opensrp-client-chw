@@ -77,10 +77,7 @@ public class ChwChildDao extends ChildDao {
             x++;
         }
 
-        if (dueVaccines.length == 0)
-            return false;
-
-        return true;
+        return dueVaccines.length != 0;
     }
 
     public static String getChildGender(String baseEntityID) {
