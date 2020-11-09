@@ -17,7 +17,7 @@ public class ChwUpdateLastAsyncTask extends UpdateLastAsyncTask {
     }
 
     private void setDueState() {
-        if (ChwChildDao.hasDueTodayVaccines(baseEntityId)) {
+        if (ChwChildDao.hasDueTodayVaccines(baseEntityId)  || ChwChildDao.hasDueAlerts(baseEntityId)) {
             setVisitButtonDueStatus(context, viewHolder.dueButton);
         } else {
             setVisitButtonNoDueStatus(viewHolder.dueButton);

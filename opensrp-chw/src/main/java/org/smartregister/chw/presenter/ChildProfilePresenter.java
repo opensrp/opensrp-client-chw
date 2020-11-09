@@ -178,7 +178,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     }
 
     private void setDueView() {
-        if (ChwChildDao.hasDueTodayVaccines(childBaseEntityId)) {
+        if (ChwChildDao.hasDueTodayVaccines(childBaseEntityId) || ChwChildDao.hasDueAlerts(childBaseEntityId)) {
             getView().setVisitButtonDueStatus();
         } else {
             getView().setNoButtonView();
