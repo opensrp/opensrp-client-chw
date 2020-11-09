@@ -176,46 +176,38 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
             }
         }
     }
-    private void setDueView(ChildVisit childVisit){
-        if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name())){
-            if(ChwChildDao.hasDueSchedule(childBaseEntityId)){
-                getView().setVisitButtonDueStatus();
-            }
-            else {
-                getView().setNoButtonView();
-            }
+
+    private void setDueView() {
+        if (ChwChildDao.hasDueTodayVaccines(childBaseEntityId)) {
+            getView().setVisitButtonDueStatus();
+        } else {
+            getView().setNoButtonView();
         }
     }
 
-    private void setVisitDoneThisMonth(){
-            if(ChwChildDao.hasDueVaccines(childBaseEntityId)){
-                getView().setVisitAboveTwentyFourView();
-            }
-            else {
-                getView().setNoButtonView();
-            }
+    private void setVisitDoneThisMonth() {
+        if (ChwChildDao.hasDueTodayVaccines(childBaseEntityId) || ChwChildDao.hasDueAlerts(childBaseEntityId)) {
+            getView().setVisitAboveTwentyFourView();
+        } else {
+            getView().setNoButtonView();
+        }
     }
 
     @Override
     public void updateFamilyMemberServiceDue(String serviceDueStatus) {
-        if(ChwApplication.getApplicationFlavor().includeCurrentChild()){
+        if (ChwApplication.getApplicationFlavor().includeCurrentChild()) {
             super.updateFamilyMemberServiceDue(serviceDueStatus);
-        }
-        else {
+        } else {
             if (getView() != null) {
                 if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.DUE.name())) {
                     getView().setFamilyHasServiceDue();
-                }
-               else if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.DUE.name())) {
+                } else if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.DUE.name())) {
                     getView().setFamilyHasServiceDue();
-                }
-                else if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.OVERDUE.name())) {
+                } else if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.OVERDUE.name())) {
                     getView().setFamilyHasServiceOverdue();
-                }
-                else if(serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.NOTHING.name()) && ChwChildDao.hasActiveSchedule(childBaseEntityId)) {
+                } else if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.NOTHING.name()) && ChwChildDao.hasActiveSchedule(childBaseEntityId)) {
                     getView().setFamilyHasNothingElseDue();
-                }
-                else {
+                } else {
                     getView().setFamilyHasNothingDue();
                 }
             }
@@ -229,14 +221,16 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
             super.updateChildVisit(childVisit);
         } else {
             if (childVisit != null) {
-                setDueView(childVisit);
+                if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name())) {
+                    setDueView();
+                }
                 if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.OVERDUE.name())) {
                     getView().setVisitButtonOverdueStatus();
                 }
                 if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.LESS_TWENTY_FOUR.name())) {
                     getView().setVisitLessTwentyFourView(childVisit.getLastVisitMonthName());
                 }
-                if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.VISIT_THIS_MONTH.name()) ) {
+                if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.VISIT_THIS_MONTH.name())) {
                     setVisitDoneThisMonth();
                 }
                 if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.NOT_VISIT_THIS_MONTH.name())) {
