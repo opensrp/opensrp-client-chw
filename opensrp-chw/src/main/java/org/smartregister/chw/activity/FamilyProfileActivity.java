@@ -38,7 +38,6 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
 
-import static org.smartregister.chw.core.utils.Utils.getDuration;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
@@ -199,11 +198,11 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     }
 
     private Intent getChildIntent(CommonPersonObjectClient patient) {
-       // String dobString = getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
-       // int age = (int) Math.ceil(Days.daysBetween(new DateTime(dobString).toLocalDate(), new DateTime().toLocalDate()).getDays() / 365.4);
+        // String dobString = getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
+        // int age = (int) Math.ceil(Days.daysBetween(new DateTime(dobString).toLocalDate(), new DateTime().toLocalDate()).getDays() / 365.4);
         String dobString = Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false);
 
-        int age =  (int)(Days.daysBetween(new DateTime(dobString).toLocalDate(), new DateTime().toLocalDate()).getDays() / 365.4);
+        int age = (int) Math.floor(Days.daysBetween(new DateTime(dobString).toLocalDate(), new DateTime().toLocalDate()).getDays() / 365.4);
 
         String gender = ChwChildDao.getChildGender(patient.entityId());
         if (ChwApplication.getApplicationFlavor().showChildrenUnderFiveAndGirlsAgeNineToEleven()) {
