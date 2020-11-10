@@ -394,7 +394,7 @@
         "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Marital status",
+        "hint": "État matrimonial",
         "v_required": {
           "value": "true",
           "err": "Please select one option"
