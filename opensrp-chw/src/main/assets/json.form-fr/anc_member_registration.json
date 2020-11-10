@@ -1,8 +1,6 @@
 {
-  "validate_on_submit": true,
-  "show_errors_on_submit": false,
   "count": "1",
-  "encounter_type": "Pregnancy Outcome",
+  "encounter_type": "ANC Registration",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -49,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Résultat de la grossesse",
+    "title": "Enregistrement CPN",
     "fields": [
       {
         "key": "relational_id",
@@ -59,386 +57,201 @@
         "type": "hidden"
       },
       {
-        "key": "pregnancy_outcome_label",
-        "type": "label",
-        "text": "Résultat de la grossesse",
-        "has_bg": true,
-        "left_padding": "20dp",
-        "right_padding": "20dp",
-        "text_size": "8sp",
-        "text_color": "#000000",
+        "key": "last_menstrual_period",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": ""
-      },
-      {
-        "key": "preg_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "161033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Résultat de la grossesse",
-        "values": [
-          "Naissance vivante",
-          "Mort-né",
-          "Fausse couche",
-          "Autre"
-        ],
-        "keys": [
-          "Live birth",
-          "Stillbirth",
-          "Miscarriage",
-          "Other"
-        ],
-        "openmrs_choice_ids": {
-          "Live birth": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Stillbirth": "125872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Miscarriage": "48AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select one option"
-        }
-      },
-      {
-        "key": "miscarriage_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165248AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Date de fausse couche",
+        "hint": "Date de dernières règles (DDR)",
+        "label_info_title": "LMP",
+        "label_info_text": "DDR = La première journée des dernières règles. Si la date exacte est inconnue mais la période du mois est connue, utiliser jour 5 pour le début du mois, jour 15 pour le milieu du mois, et jour 25 pour la fin du mois.",
         "expanded": false,
         "max_date": "today",
+        "min_date": "today-50w",
         "v_required": {
           "value": "true",
-          "err": "Please enter date the woman miscarried."
+          "err": "LMP required"
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
         },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+              "rules-file": "anc_member_registration_relevance.yml"
             }
           }
         }
       },
       {
-        "key": "delivery_date",
+        "key": "last_menstrual_period_unknown",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "last_menstrual_period_unknown",
+        "openmrs_data_type": "text",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "lmp_unknown",
+            "text": "DDR inconnue?",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "edd",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Date d'accouchement",
-        "expanded": false,
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter date the woman delivered"
+        "hint": "Date probable d'accouchement (DPA)",
+        "max_date": "today+50w",
+        "min_date": "today",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
         },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+              "rules-file": "anc_member_registration_relevance.yml"
             }
           }
-        }
-      },
-      {
-        "key": "delivery_place",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Lieu d'accouchement",
-        "values": [
-          "Maison",
-          "Formation sanitaire",
-          "Autre"
-        ],
-        "keys": [
-          "Home",
-          "Health facility",
-          "Other"
-        ],
-        "openmrs_choice_ids": {
-          "Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Health facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
+          "err": "Required"
         }
       },
       {
-        "key": "baby_label",
-        "type": "label",
-        "text": "Détails de l'enfant",
-        "has_bg": true,
-        "left_padding": "20dp",
-        "right_padding": "20dp",
-        "text_size": "8sp",
-        "text_color": "#000000",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "fam_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "fam_name",
-        "type": "hidden"
-      },
-      {
-        "key": "no_children",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden"
-      },
-      {
-        "key": "no_children_no",
-        "type": "repeating_group",
-        "reference_edit_text_hint": "Number of children born",
-        "repeating_group_label": "baby",
+        "key": "gest_age_note",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "relevance": {
+        "type": "edit_text",
+        "hint": "Âge gestationnel (AG)",
+        "read_only": true,
+        "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+              "rules-file": "anc_member_registration_calculation.yml"
             }
           }
+        }
+      },
+      {
+        "key": "edd_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Date probable d'accouchement (DPA)",
+        "read_only": true,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "gest_age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_prev_preg",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_prev_preg",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Nombre de grossesses antérieures",
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Number must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "45",
+          "err": "Number must be equal or less than 45"
+        }
+      },
+      {
+        "key": "gravida",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_surv_children",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Nombre d'enfants survivants",
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_relative_max": {
+          "value": "no_prev_preg",
+          "err": "Number must be less than or equal to Number of Previous Pregnancies"
+        }
+      },
+      {
+        "key": "phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Numéro de téléphone",
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number."
         },
         "v_required": {
-          "value": true,
-          "err": "Please specify the # of babies"
-        },
-        "value": [
-          {
-            "key": "surname",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "type": "edit_text",
-            "hint": "Nom",
-            "edit_type": "name",
-            "v_regex": {
-              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-              "err": "Please enter a valid name"
-            },
-            "v_required": {
-              "value": "true",
-              "err": "Please enter the surname"
-            },
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-dynamic": "anc_pregnancy_outcome_relevance.yml"
-                }
-              }
-            }
-          },
-          {
-            "key": "same_as_fam_name",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_data_type": "text",
-            "type": "check_box",
-            "options": [
-              {
-                "key": "same_as_fam_name",
-                "text": "Même nom que ménage",
-                "text_size": "18px",
-                "value": "false"
-              }
-            ]
-          },
-          {
-            "key": "first_name",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "person",
-            "openmrs_entity_id": "first_name",
-            "type": "edit_text",
-            "hint": "Prénom",
-            "edit_type": "name",
-            "v_required": {
-              "value": "true",
-              "err": "Please enter the first name"
-            },
-            "v_regex": {
-              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-              "err": "Please enter a valid name"
-            }
-          },
-          {
-            "key": "middle_name",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "person",
-            "openmrs_entity_id": "middle_name",
-            "type": "edit_text",
-            "hint": "Deuxième prénom",
-            "edit_type": "name",
-            "v_regex": {
-              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-              "err": "Please enter a valid name"
-            }
-          },
-          {
-            "key": "dob",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "person",
-            "openmrs_entity_id": "birthdate",
-            "type": "hidden"
-          },
-          {
-            "key": "gender",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "person",
-            "openmrs_entity_id": "gender",
-            "type": "spinner",
-            "hint": "Sexe",
-            "values": [
-              "Masculin",
-              "Feminin"
-            ],
-            "keys": [
-              "Male",
-              "Female"
-            ],
-            "v_required": {
-              "value": "true",
-              "err": "Please enter the sex"
-            }
-          },
-          {
-            "key": "lbw",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1431AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "type": "spinner",
-            "hint": "Est-ce que le bébé est de poids faible à la naissance (pèse moins de 2.5 kg)? ",
-            "values": [
-              "Oui",
-              "Non"
-            ],
-            "keys": [
-              "Yes",
-              "No"
-            ],
-            "openmrs_choice_ids": {
-              "Yes": "1",
-              "No": "0"
-            },
-            "v_required": {
-              "value": "true",
-              "err": "Please enter the sex"
-            }
-          },
-          {
-            "key": "early_bf_1hr",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "type": "spinner",
-            "hint": "Mise au sein precoce á la naissance (1 hr)?",
-            "values": [
-              "Oui",
-              "Non"
-            ],
-            "keys": [
-              "Yes",
-              "No"
-            ],
-            "openmrs_choice_ids": {
-              "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-            },
-            "v_required": {
-              "value": "true",
-              "err": "Please enter the sex"
-            }
-          },
-          {
-            "key": "disabilities",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "type": "spinner",
-            "hint": "Enfant vivant avec un handicap?",
-            "values": [
-              "Oui",
-              "Non"
-            ],
-            "keys": [
-              "Yes",
-              "No"
-            ],
-            "openmrs_choice_ids": {
-              "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-            },
-            "v_required": {
-              "value": "true",
-              "err": "Please enter the sex"
-            }
-          },
-          {
-            "key": "opv0_date",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "opv0_date",
-            "type": "date_picker",
-            "hint": "Date de VPO",
-            "expanded": false,
-            "min_date": "today-120y",
-            "max_date": "today",
-            "constraints": [
-              {
-                "type": "date",
-                "ex": "greaterThanEqualTo(., step1:delivery_date)",
-                "err": "Date of OPV 0 can't occur before delivery date"
-              }
-            ]
-          },
-          {
-            "key": "bcg_date",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "opv0_date",
-            "type": "date_picker",
-            "hint": "Date de BCG",
-            "expanded": false,
-            "min_date": "today-120y",
-            "max_date": "today",
-            "constraints": [
-              {
-                "type": "date",
-                "ex": "greaterThanEqualTo(., step1:delivery_date)",
-                "err": "Date of BCG can't occur before delivery date"
-              }
-            ]
-          }
-        ]
+          "value": false,
+          "err": "Please specify the phone number"
+        }
       }
     ]
   }

@@ -16,6 +16,14 @@ public class ChwUpdateLastAsyncTask extends UpdateLastAsyncTask {
         super(context, commonRepository, viewHolder, baseEntityId, onClickListener);
     }
 
+    private void setDueState() {
+        if (ChwChildDao.hasDueTodayVaccines(baseEntityId)  || ChwChildDao.hasDueAlerts(baseEntityId)) {
+            setVisitButtonDueStatus(context, viewHolder.dueButton);
+        } else {
+            setVisitButtonNoDueStatus(viewHolder.dueButton);
+        }
+    }
+
     @Override
     protected void onPostExecute(Void param) {
         if (!ChwApplication.getApplicationFlavor().showNoDueVaccineView()) {
@@ -23,12 +31,9 @@ public class ChwUpdateLastAsyncTask extends UpdateLastAsyncTask {
         } else {
             if (commonPersonObject != null) {
                 viewHolder.dueButton.setVisibility(View.VISIBLE);
-                if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name()) && ChwChildDao.hasDueSchedule(baseEntityId)) {
-                    setVisitButtonDueStatus(context, viewHolder.dueButton);
-                } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name()) && !ChwChildDao.hasDueSchedule(baseEntityId)) {
-                    setVisitButtonNoDueStatus(viewHolder.dueButton);
-                }
-                if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.OVERDUE.name())) {
+                if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.DUE.name())) {
+                    setDueState();
+                } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.OVERDUE.name())) {
                     setVisitButtonOverdueStatus(context, viewHolder.dueButton, childVisit.getNoOfMonthDue());
                 } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreConstants.VisitType.LESS_TWENTY_FOUR.name())) {
                     setVisitLessTwentyFourView(context, viewHolder.dueButton);
