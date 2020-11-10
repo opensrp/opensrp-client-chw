@@ -21,7 +21,7 @@ public class FamilyKitCheckScheduler extends BaseTaskExecutor {
         long dateCreatedFamily = FamilyDao.getFamilyCreateDate(baseEntityID);
 
         FamilyKitAlertRule alertRule = new FamilyKitAlertRule(
-                ChwApplication.getInstance().getApplicationContext(), baseEntityID, lastWashCheck, dateCreatedFamily);
+                ChwApplication.getInstance().getApplicationContext(), lastWashCheck, dateCreatedFamily);
         baseScheduleTask.setScheduleDueDate(alertRule.getDueDate());
         baseScheduleTask.setScheduleExpiryDate(alertRule.getExpiryDate());
         baseScheduleTask.setScheduleCompletionDate(alertRule.getCompletionDate());
