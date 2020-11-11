@@ -14,7 +14,7 @@ import org.smartregister.repository.Repository;
 
 import java.util.Map;
 
-public class FamilyKitDaoTest extends FamilyKitDao {
+public class WashCheckDaoTest extends WashCheckDao {
     @Mock
     private Repository repository;
 
@@ -29,7 +29,7 @@ public class FamilyKitDaoTest extends FamilyKitDao {
     }
 
     @Test
-    public void testGetFamilyKitDetails() {
+    public void testGetWashCheckDetails() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"visit_id", "base_entity_id", "visit_key",
@@ -37,7 +37,7 @@ public class FamilyKitDaoTest extends FamilyKitDao {
 
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
-        Map<String, VisitDetail> map = FamilyKitDao.getFamilyKitDetails(239872398L, "123456");
+        Map<String, VisitDetail> map = WashCheckDao.getWashCheckDetails(239872398L, "123456");
 
 
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
@@ -45,14 +45,14 @@ public class FamilyKitDaoTest extends FamilyKitDao {
     }
 
     @Test
-    public void testGetLastFamilyKitDate() {
+    public void testGetLastWashCheckDate() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"eventDate"});
 
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
-        long eventDate = FamilyKitDao.getLastFamilyKitDate("1234567");
+        long eventDate = WashCheckDao.getLastWashCheckDate("1234567");
 
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
         Assert.assertEquals(eventDate, 0);
