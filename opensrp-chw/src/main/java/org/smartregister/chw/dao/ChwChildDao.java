@@ -70,7 +70,7 @@ public class ChwChildDao extends ChildDao {
         int age =  (int)Math.floor(Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime().toLocalDate()).getDays() / 365.4);
 
         List<Vaccine> myVaccines = allVaccines.get(baseEntityID);
-        List<Alert> raw_alerts = ReportDao.computeChildAlerts(age, new DateTime(), baseEntityID, allVaccines.get(baseEntityID));
+        List<Alert> raw_alerts = ReportDao.computeChildAlerts(age, new DateTime(dob), baseEntityID, allVaccines.get(baseEntityID));
 
         Set<String> myGivenVaccines = new HashSet<>();
         if(myVaccines != null){

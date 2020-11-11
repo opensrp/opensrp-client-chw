@@ -199,9 +199,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
             super.updateFamilyMemberServiceDue(serviceDueStatus);
         } else {
             if (getView() != null) {
-                if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.DUE.name())) {
-                    getView().setFamilyHasServiceDue();
-                } else if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.DUE.name())) {
+                 if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.DUE.name())) {
                     getView().setFamilyHasServiceDue();
                 } else if (serviceDueStatus.equalsIgnoreCase(CoreConstants.FamilyServiceType.OVERDUE.name())) {
                     getView().setFamilyHasServiceOverdue();

@@ -198,8 +198,6 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     }
 
     private Intent getChildIntent(CommonPersonObjectClient patient) {
-        // String dobString = getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
-        // int age = (int) Math.ceil(Days.daysBetween(new DateTime(dobString).toLocalDate(), new DateTime().toLocalDate()).getDays() / 365.4);
         String dobString = Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false);
 
         int age = (int) Math.floor(Days.daysBetween(new DateTime(dobString).toLocalDate(), new DateTime().toLocalDate()).getDays() / 365.4);
