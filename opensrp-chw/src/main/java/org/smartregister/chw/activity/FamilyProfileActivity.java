@@ -102,7 +102,6 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     @Override
     protected ViewPager setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
         FamilyProfileMemberFragment profileMemberFragment = (FamilyProfileMemberFragment) FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
         profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
         FamilyProfileActivityFragment profileActivityFragment = (FamilyProfileActivityFragment) FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
