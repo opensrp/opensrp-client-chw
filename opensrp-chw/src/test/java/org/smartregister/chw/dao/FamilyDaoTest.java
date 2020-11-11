@@ -134,6 +134,36 @@ public class FamilyDaoTest extends FamilyDao {
     }
 
     @Test
+    public void testFamilyHasChildUnderFiveTrue() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"underFive"});
+        matrixCursor.addRow(new Object[]{2});
+
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        Boolean familyHasChildUnderFive = FamilyDao.familyHasChildUnderFive("12345");
+
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertEquals(familyHasChildUnderFive, true);
+    }
+
+    @Test
+    public void testFamilyHasChildUnderFiveFalse() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"underFive"});
+        matrixCursor.addRow(new Object[]{0});
+
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        Boolean familyHasChildUnderFive = FamilyDao.familyHasChildUnderFive("12345");
+
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertEquals(familyHasChildUnderFive, false);
+    }
+
+    @Test
     public void testIsFamily() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 

@@ -56,8 +56,9 @@
         "openmrs_entity_id": "",
         "type": "image_view",
         "image_folder": "img/",
+        "text": "Family Kit Task",
         "image_file": "family_kit.png",
-        "text_color": "#000000"
+        "text_color": "#ffffff"
       },
       {
         "key": "family_kit_received",

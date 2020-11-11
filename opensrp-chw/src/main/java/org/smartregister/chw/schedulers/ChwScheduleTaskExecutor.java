@@ -126,8 +126,8 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         List<ScheduleService> scheduleServices = new ArrayList<>();
         scheduleServices.add(new FamilyKitCheckScheduler());
 
-        addToClassifers(CoreConstants.EventType.FAMILY_REGISTRATION, classifier, scheduleServices);
-        addToClassifers(CoreConstants.EventType.UPDATE_FAMILY_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.CHILD_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.FAMILY_KIT, classifier, scheduleServices);
     }
 

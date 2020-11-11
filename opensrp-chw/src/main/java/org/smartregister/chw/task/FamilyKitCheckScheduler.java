@@ -8,6 +8,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.dao.FamilyKitDao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,19 +18,17 @@ public class FamilyKitCheckScheduler extends BaseTaskExecutor {
     public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate) {
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
 
-        long lastWashCheck = FamilyKitDao.getLastFamilyKitDate(baseEntityID);
+        long lastFamilyKitDate = FamilyKitDao.getLastFamilyKitDate(baseEntityID);
         long dateCreatedFamily = FamilyDao.getFamilyCreateDate(baseEntityID);
+        if (!FamilyDao.familyHasChildUnderFive(baseEntityID))
+            return new ArrayList<>();
 
-        FamilyKitAlertRule alertRule = new FamilyKitAlertRule(
-                ChwApplication.getInstance().getApplicationContext(), lastWashCheck, dateCreatedFamily);
+        FamilyKitAlertRule alertRule = new FamilyKitAlertRule(ChwApplication.getInstance().getApplicationContext(), lastFamilyKitDate, dateCreatedFamily);
         baseScheduleTask.setScheduleDueDate(alertRule.getDueDate());
         baseScheduleTask.setScheduleExpiryDate(alertRule.getExpiryDate());
         baseScheduleTask.setScheduleCompletionDate(alertRule.getCompletionDate());
         baseScheduleTask.setScheduleOverDueDate(alertRule.getOverDueDate());
-        if (FamilyDao.familyHasChildUnderFive(baseEntityID))
-            return toScheduleList(baseScheduleTask);
-        else
-            return null;
+        return toScheduleList(baseScheduleTask);
     }
 
     @Override
