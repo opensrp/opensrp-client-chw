@@ -22,4 +22,6 @@
     <string name="hpv">HPV</string>
     <string name="penta">Penta</string>
     <string name="rota">Rota</string>
+
+    <string name="remove_family_count">%s adults and %s U11 children</string>
 </resources>
