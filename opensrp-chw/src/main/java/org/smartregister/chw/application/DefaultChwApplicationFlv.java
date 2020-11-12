@@ -42,6 +42,11 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean hasFamilyKitCheck() {
+        return false;
+    }
+
+    @Override
     public boolean hasRoutineVisit() {
         return false;
     }

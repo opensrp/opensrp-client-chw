@@ -2,17 +2,20 @@ package org.smartregister.chw.presenter;
 
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.model.FamilyKitModel;
 import org.smartregister.chw.model.WashCheckModel;
 import org.smartregister.family.contract.FamilyProfileDueContract;
 import org.smartregister.family.presenter.BaseFamilyProfileDuePresenter;
 
 public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
     private WashCheckModel washCheckModel;
+    private FamilyKitModel familyKitModel;
     private String childBaseEntityId;
 
     public FamilyProfileDuePresenter(FamilyProfileDueContract.View view, FamilyProfileDueContract.Model model, String viewConfigurationIdentifier, String familyBaseEntityId, String childBaseEntityId) {
         super(view, model, viewConfigurationIdentifier, familyBaseEntityId);
         washCheckModel = new WashCheckModel(familyBaseEntityId);
+        familyKitModel = new FamilyKitModel(familyBaseEntityId);
         this.childBaseEntityId = childBaseEntityId;
     }
 
@@ -59,4 +62,7 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
         return washCheckModel.saveWashCheckEvent(jsonObject);
     }
 
+    public boolean saveDataFamilyKit(String jsonObject) {
+        return familyKitModel.saveFamilyKitEvent(jsonObject);
+    }
 }
