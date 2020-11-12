@@ -11,21 +11,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.smartregister.repository.Repository;
-
-import java.util.Date;
-
-@RunWith(MockitoJUnitRunner.class)
-public class WashCheckDaoTest extends WashCheckDao {
-
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.repository.Repository;
 
+import java.util.Date;
 import java.util.Map;
 
+@RunWith(MockitoJUnitRunner.class)
 public class WashCheckDaoTest extends WashCheckDao {
     @Mock
     private Repository repository;
@@ -55,6 +47,21 @@ public class WashCheckDaoTest extends WashCheckDao {
     }
 
     @Test
+    public void testGetWashCheckDetails() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"visit_id", "base_entity_id", "visit_key",
+                "parent_code", "preprocessed_type", "details", "human_readable_details"});
+
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        Map<String, VisitDetail> map = WashCheckDao.getWashCheckDetails(239872398L, "123456");
+
+
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertEquals(map.size(), 0);
+    }
+    @Test
     public void testUpdateWashCheckVisitDetails() {
         Mockito.doReturn(database).when(repository).getWritableDatabase();
         WashCheckDao.updateWashCheckVisitDetails(Long.parseLong("1567329933757"), "12345", "Yes", "Yes", "Yes");
@@ -68,45 +75,4 @@ public class WashCheckDaoTest extends WashCheckDao {
         Mockito.verify(database).rawExecSQL(Mockito.anyString());
     }
 
-    @Test
-    public void testGetWashCheckDetails() {
-        Mockito.doReturn(database).when(repository).getReadableDatabase();
-
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"base_entity_id", "visit_key", "human_readable_details"});
-        matrixCursor.addRow(new Object[]{"12345", "handwashing_facilities", "Yes"});
-        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
-
-        WashCheckDao.getWashCheckDetails(Long.parseLong("1567329933757"), "12345");
-
-        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
-    }
-
-    public void testGetWashCheckDetails() {
-        Mockito.doReturn(database).when(repository).getReadableDatabase();
-
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"visit_id", "base_entity_id", "visit_key",
-        "parent_code", "preprocessed_type", "details", "human_readable_details"});
-
-        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
-
-        Map<String, VisitDetail> map = WashCheckDao.getWashCheckDetails(239872398L, "123456");
-
-
-        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
-        Assert.assertEquals(map.size(), 0);
-    }
-
-    @Test
-    public void testGetLastWashCheckDate() {
-        Mockito.doReturn(database).when(repository).getReadableDatabase();
-
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"eventDate"});
-
-        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
-
-        long eventDate = WashCheckDao.getLastWashCheckDate("1234567");
-
-        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
-        Assert.assertEquals(eventDate, 0);
-    }
 }
