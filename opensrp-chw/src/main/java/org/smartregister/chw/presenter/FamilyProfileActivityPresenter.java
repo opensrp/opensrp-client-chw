@@ -54,6 +54,9 @@ public class FamilyProfileActivityPresenter extends BaseFamilyProfileActivityPre
         if (ChwApplication.getApplicationFlavor().hasWashCheck())
             events.add(CoreConstants.EventType.WASH_CHECK);
 
+        if (ChwApplication.getApplicationFlavor().hasFamilyKitCheck())
+            events.add(CoreConstants.EventType.FAMILY_KIT);
+
         if (ChwApplication.getApplicationFlavor().hasRoutineVisit())
             events.add(CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT);
 

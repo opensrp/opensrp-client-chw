@@ -128,6 +128,20 @@ public class FamilyDao extends AbstractDao {
         return dueStatus;
     }
 
+    public static boolean familyHasChildUnderFive(String baseEntityID) {
+        String sql = "select count(*) underFive from ec_child c " +
+                "inner join ec_family_member m on c.base_entity_id = m.base_entity_id COLLATE NOCASE " +
+                "inner join ec_family f on f.base_entity_id = m.relational_id COLLATE NOCASE " +
+                "where ((( julianday('now') - julianday(c.dob))/365.25) < 5) and c.is_closed = 0 " +
+                "and c.relational_id = '" + baseEntityID + "'";
+
+        DataMap<String> dataMap = c -> getCursorValue(c, "underFive");
+        List<String> values = AbstractDao.readData(sql, dataMap);
+        if (values == null || values.size() == 0)
+            return false;
+
+        return Integer.valueOf(values.get(0)) > 0;
+    }
 
     public static long getFamilyCreateDate(String familyBaseEntityID) {
         String sql = "select eventDate from event where eventType = 'Family Registration' and " +

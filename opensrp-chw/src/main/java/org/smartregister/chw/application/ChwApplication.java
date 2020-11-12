@@ -356,6 +356,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasWashCheck();
 
+        boolean hasFamilyKitCheck();
+
         boolean hasRoutineVisit();
 
         boolean hasServiceReport();

@@ -98,7 +98,7 @@ public class FamilyDaoTest extends FamilyDao {
 
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
-        String visitState = FamilyDao.getMemberDueStatus("12345");
+        String visitState = FamilyDao.getMemberDueStatusForUnderTwoChildren("12345");
 
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
         Assert.assertEquals(visitState, "DUE");
@@ -112,7 +112,7 @@ public class FamilyDaoTest extends FamilyDao {
 
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
-        String visitState = FamilyDao.getMemberDueStatus("12345");
+        String visitState = FamilyDao.getMemberDueStatusForUnderTwoChildren("12345");
 
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
         String empty = "";
@@ -131,6 +131,36 @@ public class FamilyDaoTest extends FamilyDao {
 
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
         Assert.assertEquals(eventDate, 0);
+    }
+
+    @Test
+    public void testFamilyHasChildUnderFiveTrue() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"underFive"});
+        matrixCursor.addRow(new Object[]{2});
+
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        Boolean familyHasChildUnderFive = FamilyDao.familyHasChildUnderFive("12345");
+
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertEquals(familyHasChildUnderFive, true);
+    }
+
+    @Test
+    public void testFamilyHasChildUnderFiveFalse() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"underFive"});
+        matrixCursor.addRow(new Object[]{0});
+
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        Boolean familyHasChildUnderFive = FamilyDao.familyHasChildUnderFive("12345");
+
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertEquals(familyHasChildUnderFive, false);
     }
 
     @Test
