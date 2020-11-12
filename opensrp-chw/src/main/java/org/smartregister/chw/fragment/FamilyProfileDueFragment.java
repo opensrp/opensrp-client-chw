@@ -106,6 +106,8 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
             if (scheduleName.equalsIgnoreCase(CoreConstants.SCHEDULE_TYPES.WASH_CHECK)) {
                 startForm(org.smartregister.chw.util.Constants.JSON_FORM.getWashCheck(), org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH);
+            } else if (scheduleName.equalsIgnoreCase(CoreConstants.SCHEDULE_TYPES.FAMILY_KIT)) {
+                startForm(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyKit(), org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_FAMILY_KIT);
             } else if (scheduleName.equalsIgnoreCase(CoreConstants.SCHEDULE_TYPES.ROUTINE_HOUSEHOLD_VISIT)) {
                 startForm(org.smartregister.chw.util.Constants.JSON_FORM.getRoutineHouseholdVisit(), org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_HOUSEHOLD);
             } else {
@@ -165,6 +167,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH:
+            case org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_FAMILY_KIT:
             case org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_HOUSEHOLD:
                 if (resultCode == Activity.RESULT_OK) {
                     try {
@@ -176,6 +179,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                             case org.smartregister.chw.util.Constants.EventType.WASH_CHECK:
                             case org.smartregister.chw.util.Constants.EventType.ROUTINE_HOUSEHOLD_VISIT:
                                 ((FamilyProfileDuePresenter) presenter).saveData(jsonString);
+                                break;
+                            case org.smartregister.chw.util.Constants.EventType.FAMILY_KIT:
+                                ((FamilyProfileDuePresenter) presenter).saveDataFamilyKit(jsonString);
                                 break;
                             default:
                                 break;

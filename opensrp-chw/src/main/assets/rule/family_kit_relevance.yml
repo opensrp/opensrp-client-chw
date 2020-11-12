@@ -1,0 +1,7 @@
+---
+name: step1_family_kit_used
+description: birth notification and instruct
+priority: 1
+condition: "step1_family_kit_received == 'Simple Kit (ORS/ZINC and Paracetamol)' || step1_family_kit_received == 'Simple Kit (ORS/ZINC and Paracetamol) with micronutrients'"
+actions:
+  - "isRelevant = true"
