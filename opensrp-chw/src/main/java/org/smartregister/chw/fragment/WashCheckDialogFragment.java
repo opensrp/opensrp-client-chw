@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -226,7 +227,8 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
                 visitJson);
     }
 
-    private String updateVisitJson(String visitJson) throws JSONException {
+    @VisibleForTesting
+    protected String updateVisitJson(String visitJson) throws JSONException {
         JSONObject visitJsonObject = new JSONObject(visitJson);
         JSONArray obsArray = visitJsonObject.getJSONArray("obs");
         for (int i = 0; i < obsArray.length(); i++) {
