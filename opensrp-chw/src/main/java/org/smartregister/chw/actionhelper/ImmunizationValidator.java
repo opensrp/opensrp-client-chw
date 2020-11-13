@@ -96,9 +96,8 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
         if (pos != null) {
             for (Map.Entry<String, BaseAncHomeVisitAction> entry : actions.entrySet()) {
                 Integer entryPos = vaccineOrder.get(entry.getKey());
-                if (entryPos != null && entryPos > pos) {
-                    if (entry.getValue().getJsonPayload() != null)
-                        entry.getValue().setJsonPayload(null);
+                if (entryPos != null && entryPos > pos && entry.getValue().getJsonPayload() != null) {
+                    entry.getValue().setJsonPayload(null);
                 }
             }
         }
