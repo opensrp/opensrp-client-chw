@@ -9,13 +9,14 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
-import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.NativeFormLibrary;
+import com.vijay.jsonwizard.domain.Form;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 import org.koin.core.context.GlobalContextKt;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
@@ -54,6 +55,7 @@ import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.sync.ChwClientProcessor;
+import org.smartregister.chw.util.ChwLocationBasedClassifier;
 import org.smartregister.chw.util.FailSafeRecalledID;
 import org.smartregister.chw.util.FileUtils;
 import org.smartregister.chw.util.JsonFormUtils;
@@ -74,6 +76,7 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
+import org.smartregister.sync.P2PClassifier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -335,7 +338,12 @@ public class ChwApplication extends CoreChwApplication {
     }
 
     @Override
-    public boolean getChildFlavorUtil(){
+    public P2PClassifier<JSONObject> getP2PClassifier() {
+        return flavor.hasForeignData() ? new ChwLocationBasedClassifier() : null;
+    }
+
+    @Override
+    public boolean getChildFlavorUtil() {
         return flavor.getChildFlavorUtil();
     }
 
@@ -355,6 +363,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasMalaria();
 
         boolean hasWashCheck();
+
+        boolean hasFamilyKitCheck();
 
         boolean hasRoutineVisit();
 
@@ -396,8 +406,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean usesPregnancyRiskProfileLayout();
 
-        boolean splitUpcomingServicesView(); 
-        
+        boolean splitUpcomingServicesView();
+
         boolean getChildFlavorUtil();
 
         boolean showChildrenUnder5();
