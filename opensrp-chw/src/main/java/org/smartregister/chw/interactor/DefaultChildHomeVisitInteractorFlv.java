@@ -250,6 +250,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         ImmunizationValidator validator = new ImmunizationValidator(childVaccineGroups, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
 
+        Map<String,BaseAncHomeVisitAction> actions = new HashMap<>();
+        Map<String,Integer> vaccineOrder = new HashMap<>();
+
+        int position = 0;
         for (Map.Entry<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> entry : pendingVaccines.entrySet()) {
             // add the objects to be displayed here
 
@@ -275,8 +279,14 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                     .withValidator(validator)
                     .build();
 
+            actions.put(title,action);
+            vaccineOrder.put(title,position);
             actionList.put(title, action);
+            position++;
         }
+
+        validator.setActions(actions);
+        validator.setVaccineOrder(vaccineOrder);
 
     }
 
