@@ -141,7 +141,15 @@ public class ReportDao extends AbstractDao {
             name = name.trim() + " " + getCursorValue(c, "last_name", "");
             int age = (int) Math.floor(Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays() / 365.4);
             if (age < 2 || (age >= 9 && age <= 11 && "Female".equalsIgnoreCase(gender))) {
-                List<Vaccine> myVaccines = allVaccines.get(baseEntityId);
+                List<Vaccine> rawVaccines = allVaccines.get(baseEntityId);
+                List<Vaccine> myVaccines = new ArrayList<>();
+                if(rawVaccines != null){
+                    for(Vaccine vaccine: rawVaccines){
+                        vaccine.setDate(new DateTime(vaccine.getDate()).minusDays(days).toDate());
+                        myVaccines.add(vaccine);
+                    }
+                }
+
                 List<Alert> raw_alerts = computeChildAlerts(age, new DateTime(dob).minusDays(days), baseEntityId, myVaccines);
                 Set<String> myGivenVaccines = new HashSet<>();
                 if(myVaccines != null){
