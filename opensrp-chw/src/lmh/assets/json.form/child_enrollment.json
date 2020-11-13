@@ -186,8 +186,8 @@
           "err": "Age must be equal or greater than 0"
         },
         "v_max": {
-          "value": "5",
-          "err": "Age must be equal or less than 5"
+          "value": "11",
+          "err": "Age must be equal or less than 11"
         },
         "relevance": {
           "rules-engine": {
@@ -215,33 +215,6 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the sex"
-        }
-      },
-      {
-        "key": "early_bf_1hr",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Early initiation of breastfeeding (1 hr)?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please enter Early initiation of breastfeeding"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
-            }
-          }
         }
       }
     ]

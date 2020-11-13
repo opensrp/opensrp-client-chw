@@ -179,7 +179,7 @@ public class ChwApplication extends CoreChwApplication {
     private void initializeLibraries() {
         //Initialize Modules
         P2POptions p2POptions = new P2POptions(true);
-        p2POptions.setAuthorizationService(new CoreAuthorizationService());
+        p2POptions.setAuthorizationService(flavor.hasForeignData() ? new LmhAuthorizationService() : new CoreAuthorizationService());
         p2POptions.setRecalledIdentifier(new FailSafeRecalledID());
 
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
@@ -356,6 +356,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasWashCheck();
 
+        boolean hasFamilyKitCheck();
+
         boolean hasRoutineVisit();
 
         boolean hasServiceReport();
@@ -404,15 +406,28 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasForeignData();
 
+        boolean showNoDueVaccineView();
+
         boolean prioritizeChildNameOnChildRegister();
 
-        boolean hasHpvVaccineChildren();
+        boolean showChildrenUnderFiveAndGirlsAgeNineToEleven();
 
         boolean dueVaccinesFilterInChildRegister();
 
-        boolean showAllChildServicesDueIncludingCurrentChild();
+        boolean includeCurrentChild();
 
         boolean saveOnSubmission();
+
+        boolean relaxVisitDateRestrictions();
+
+        boolean showLastNameOnChildProfile();
+
+        boolean showChildrenAboveTwoDueStatus();
+
+        boolean showFamilyServicesScheduleWithChildrenAboveTwo();
+
+        boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven();
+
     }
 
 }

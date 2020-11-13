@@ -1,6 +1,7 @@
 package org.smartregister.chw.util;
 
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.Utils;
 
 public class Constants extends CoreConstants {
     public static final String REFERRAL_TASK_FOCUS = "referral_task_focus";
@@ -10,6 +11,8 @@ public class Constants extends CoreConstants {
     public static final String MALARIA_REFERRAL_FORM = "malaria_referral_form";
     public static final String ALL_CLIENT_REGISTRATION_FORM = "all_clients_registration_form";
     public static String pregnancyOutcome = "preg_outcome";
+    public static String FAMILY_MEMBER_LOCATION_TABLE = "ec_family_member_location";
+    public static String CHILD_OVER_5 = "child_over_5";
 
     public enum FamilyRegisterOptionsUtil {Miscarriage, Other}
 
@@ -41,5 +44,14 @@ public class Constants extends CoreConstants {
 
     public static class PeerToPeerUtil {
         public static String COUNTRY_ID = "COUNTRY_ID";
+    }
+
+    public static class AncHomeVisitUtil {
+        private static final String DELIVERY_KIT_RECEIVED = "anc_woman_delivery_kit_received";
+
+        public static String getDeliveryKitReceived() {
+            return Utils.getLocalForm(DELIVERY_KIT_RECEIVED, JSON_FORM.locale, JSON_FORM.assetManager);
+        }
+
     }
 }

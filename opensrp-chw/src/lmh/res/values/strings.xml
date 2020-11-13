@@ -7,13 +7,21 @@
     <string name="opv_1">Polio (OPV 1)</string>
     <string name="opv_2">Polio (OPV 2)</string>
     <string name="opv_3">Polio (OPV 3)</string>
+    <string name="opv">Polio (OPV)</string>
     <string name="bcg">BCG (Anti-TB)</string>
     <string name="pcv_1">Pneumo (PCV 1)</string>
     <string name="pcv_2">Pneumo (PCV 2)</string>
     <string name="pcv_3">Pneumo (PCV 3)</string>
+    <string name="pcv">Pneumo (PCV)</string>
     <string name="ipv">Polio (IPV)</string>
     <string name="mcv_1">Measles (MCV 1)</string>
     <string name="mcv_2">Measles (MCV 2)</string>
+    <string name="mcv">Measles (MCV)</string>
     <string name="hpv_1">HPV 1</string>
     <string name="hpv_2">HPV 2</string>
+    <string name="hpv">HPV</string>
+    <string name="penta">Penta</string>
+    <string name="rota">Rota</string>
+
+    <string name="remove_family_count">%s adults and %s U11 children</string>
 </resources>

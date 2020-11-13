@@ -82,6 +82,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     protected Boolean editMode = false;
     protected Boolean vaccinesDefaultChecked = true;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+    private static final int FIVE_YEARS = 5;
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
@@ -229,7 +230,9 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         List<Vaccine> specialVaccines = getSpecialVaccines();
         List<org.smartregister.immunization.domain.Vaccine> vaccines = getVaccineRepo().findByEntityId(memberObject.getBaseEntityId());
 
-        List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(CoreConstants.SERVICE_GROUPS.CHILD);
+        String vaccineCategory = memberObject.getAge() > FIVE_YEARS ? Constants.CHILD_OVER_5 : CoreConstants.SERVICE_GROUPS.CHILD;
+        List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(vaccineCategory);
+
         Map<String, VaccineRepo.Vaccine> vaccinesRepo = new HashMap<>();
         for (VaccineRepo.Vaccine vaccine : allVacs) {
             vaccinesRepo.put(vaccine.display().toLowerCase().replace(" ", ""), vaccine);
@@ -256,6 +259,10 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             String title = MessageFormat.format(context.getString(R.string.immunizations_count), VisitVaccineUtil.getVaccineTitle(entry.getKey().name, context));
             BaseHomeVisitImmunizationFragmentFlv fragment =
                     BaseHomeVisitImmunizationFragmentFlv.getInstance(view, memberObject.getBaseEntityId(), details, displays, vaccinesDefaultChecked);
+            if (ChwApplication.getApplicationFlavor().relaxVisitDateRestrictions()) {
+                fragment.setRelaxedDates(ChwApplication.getApplicationFlavor().relaxVisitDateRestrictions());
+                fragment.setMinimumDate(dob);
+            }
 
             validator.addFragment(title, fragment, entry.getKey(), new DateTime(dob));
 
@@ -509,7 +516,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.ECD);
         try {
             jsonObject = CoreJsonFormUtils.getEcdWithDatePass(jsonObject, memberObject.getDob());
-            JsonFormUtils.populateForm(jsonObject,details);
+            JsonFormUtils.populateForm(jsonObject, details);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -766,7 +773,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         }
     }
 
-    private class BirthCertHelper extends HomeVisitActionHelper {
+    public static class BirthCertHelper extends HomeVisitActionHelper {
         private String birth_cert;
         private String birth_cert_issue_date;
         private String birth_cert_num;

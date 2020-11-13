@@ -1,0 +1,7 @@
+---
+name: step1_cord_care_other
+description: cord_other_product relevance
+priority: 1
+condition: "step1_cord_care == 'Other'"
+actions:
+  - "isRelevant = true"

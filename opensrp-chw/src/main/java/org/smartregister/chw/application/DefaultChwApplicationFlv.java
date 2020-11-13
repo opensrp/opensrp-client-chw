@@ -42,6 +42,11 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean hasFamilyKitCheck() {
+        return false;
+    }
+
+    @Override
     public boolean hasRoutineVisit() {
         return false;
     }
@@ -129,7 +134,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean hasForeignData() {
+    public boolean showNoDueVaccineView() {
         return false;
     }
 
@@ -164,7 +169,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean hasHpvVaccineChildren() {
+    public boolean showChildrenUnderFiveAndGirlsAgeNineToEleven() {
         return false;
     }
 
@@ -174,12 +179,36 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean showAllChildServicesDueIncludingCurrentChild(){
+    public boolean includeCurrentChild(){
         return true;
     }
 
     @Override
     public boolean saveOnSubmission() {
+        return false;
+    }
+
+    @Override
+    public boolean relaxVisitDateRestrictions() {
+        return false;
+    }
+
+    @Override
+    public boolean showLastNameOnChildProfile() {
+        return false;
+    }
+
+    @Override
+    public boolean showChildrenAboveTwoDueStatus(){return true;}
+
+    @Override
+    public boolean showFamilyServicesScheduleWithChildrenAboveTwo(){return true;}
+
+    @Override
+    public boolean hasForeignData(){return false;}
+
+    @Override
+    public boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
         return false;
     }
 }

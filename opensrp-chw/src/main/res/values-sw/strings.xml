@@ -19,6 +19,7 @@
     <string name="family_has_service_overdue"><![CDATA[Kaya ina <font color=#FF0000>huduma zilizopitiliza muda wake </font></b>]]></string>
     <string name="view_upcoming_services">Angalia huduma zinazokaribia</string>
     <string name="upcoming_services">Huduma zinazokaribia</string>
+    <string name="delivery_kit">Kitanda cha utoaji</string>
     <string name="overdue_3_oct">Imepita(3 oct)</string>
     <string name="view_medical_history">Angalia historia ya matibabu</string>
     <string name="last_visit_40_days_ago">Tembeleo la mwisho %1$s iliyopita</string>
@@ -44,6 +45,7 @@
     <string name="observations_illness_episodes_medical"><![CDATA[Uchunguzi na Ugonjwa]]></string>
     <string name="home_visit_suffix"> &#183; Tembeleo</string>
     <string name="wash_check_suffix"> &#183; Wash check</string>
+    <string name="family_kit_suffix"> &#183; Family Kit</string>
     <string name="last_visit_prefix">Tembeleo la mwisho %1$s iliyopita</string>
     <string name="completed_on_prefix">Imekamilika tarehe %1$s</string>
 
@@ -153,6 +155,7 @@
     <string name="anc_home_visit_remarks_and_comments">Maoni</string>
 
     <string name="anc_home_visit_anc_card_received">Amepewa kadi ya kliniki ya mama mjamzito</string>
+    <string name="anc_woman_delivery_kit_received">Vifaa vya kujifungua vimepokelewa</string>
     <string name="anc_home_visit_sleeping_under_llitn_net">Analala kwenye chandarua chenye viuwatilifu cha muda mrefu</string>
     <string name="anc_home_visit_counseling">Ushauri kuhusu kliniki ya wajawazito</string>
     <string name="anc_home_visit_tt_immunization">Pepopunda {0} chanjo</string>
@@ -280,6 +283,7 @@
     <string name="pnc_umblicord_care">Utunzaji wa kitovu</string>
     <string name="pnc_umblicord_care_child">Umbilical cord care ({0})</string>
     <string name="pnc_exclusive_breastfeeding">Unyonyeshwaji wa maziwa ya mama pekee ({0})</string>
+    <string name="pnc_birth_certification">Cheti cha kuzaliwa ({0})</string>
     <string name="pnc_kangaroo_mother_care">Huduma ya Kangaruu (KMC) </string>
     <string name="pnc_family_planning">Uzazi wa Mpango</string>
     <string name="fp_update_family_planning">Update usajili wa uzazi wa mpango</string>

@@ -1,26 +1,16 @@
 package org.smartregister.chw.service;
 
-import android.util.Pair;
-
 import org.joda.time.DateTime;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.domain.Child;
+import org.smartregister.chw.core.utils.ChwServiceSchedule;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
-import org.smartregister.chw.core.utils.VisitVaccineUtil;
-import org.smartregister.domain.Alert;
-import org.smartregister.immunization.domain.Vaccine;
-import org.smartregister.immunization.domain.VaccineSchedule;
+import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 import org.smartregister.immunization.util.VaccinatorUtils;
-import org.smartregister.repository.AlertRepository;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import timber.log.Timber;
 
@@ -45,10 +35,10 @@ public class ChildAlertService {
 
     public static void updateAlerts(String baseEntityID) {
 
-        Child child = ChildDao.getChild(baseEntityID);
+        Child child = ChwChildDao.getChild(baseEntityID);
         if (child != null) {
             try {
-                Pair<List<Vaccine>, Map<String, Date>> issuedVaccines = VisitVaccineUtil.getIssuedVaccinesList(baseEntityID, true);
+              /*  Pair<List<Vaccine>, Map<String, Date>> issuedVaccines = VisitVaccineUtil.getIssuedVaccinesList(baseEntityID, true);
 
                 /// compute the alerts
                 HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules =
@@ -66,7 +56,9 @@ public class ChildAlertService {
                 // save the alerts
                 for (Alert a : alerts) {
                     repository.createAlert(a);
-                }
+                }*/
+                VaccineScheduleUtil.updateOfflineAlerts(child.getBaseEntityID(), new DateTime(child.getDateOfBirth()), CoreConstants.SERVICE_GROUPS.CHILD);
+                ChwServiceSchedule.updateOfflineAlerts(child.getBaseEntityID(), new DateTime(child.getDateOfBirth()), CoreConstants.SERVICE_GROUPS.CHILD);
             } catch (Exception e) {
                 Timber.e(e);
             }

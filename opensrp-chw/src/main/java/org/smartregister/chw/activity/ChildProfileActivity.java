@@ -72,8 +72,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
     @Override
     public void setUpToolbar() {
-        updateToolbarTitle(this, R.id.toolbar_title, memberObject.getFirstName());
-
+        updateToolbarTitle(this, R.id.toolbar_title, flavor.getToolbarTitleName(memberObject));
     }
 
     @Override
@@ -94,10 +93,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
             openMedicalHistoryScreen();
         } else if (i == R.id.most_due_overdue_row) {
             openUpcomingServicePage();
-        } else if(i == R.id.view_due_today){
+        } else if (i == R.id.view_due_today) {
             openUpcomingServicePage();
-        }
-        else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
+        } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
             openVisitHomeScreen(false);
         } else if (i == R.id.family_has_row) {
             openFamilyDueTab();
@@ -123,6 +121,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
         presenter = new ChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
     }
+
     @Override
     protected void setupViews() {
         super.setupViews();
@@ -269,6 +268,12 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
     }
 
+    @Override
+    public void setFamilyHasNothingElseDue() {
+        layoutFamilyHasRow.setVisibility(View.VISIBLE);
+        viewFamilyRow.setVisibility(View.VISIBLE);
+        textViewFamilyHas.setText(getString(R.string.family_has_nothing_else_due));
+    }
 
     public interface Flavor {
 
@@ -284,5 +289,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
         void setVaccineHistoryView(String days, RelativeLayout layoutVaccineHistoryRow, View viewVaccineHistoryRow, Context context);
 
+        String getToolbarTitleName(MemberObject memberObject);
     }
 }
