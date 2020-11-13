@@ -6,6 +6,9 @@ import org.smartregister.family.util.DBConstants;
 
 public class ChildDBConstants extends org.smartregister.chw.core.utils.ChildDBConstants {
 
+    public static String ADD_COLUMN_THINK_MD_ID = "ALTER TABLE ec_child ADD COLUMN thinkmd_id VARCHAR;";
+    public static String ADD_COLUMN_HTML_ASSESSMENT = "ALTER TABLE ec_child ADD COLUMN html_assessment VARCHAR;";
+    public static String ADD_COLUMN_CARE_PLAN_DATE = "ALTER TABLE ec_child ADD COLUMN care_plan_date VARCHAR;";
     private static final int FIVE_YEAR = 5;
 
     public static String childDueVaccinesFilter() {

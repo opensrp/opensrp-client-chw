@@ -185,6 +185,22 @@
           }
         },
         {
+          "column_name": "ever_school",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "everSchool"
+          }
+        },
+        {
+          "column_name": "school_level",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "schoolLevel"
+          }
+        },
+        {
           "column_name": "phone_number",
           "type": "Event",
           "json_mapping": {
@@ -249,6 +265,7 @@
             "field": "baseEntityId"
           }
         },
+
         {
           "column_name": "thinkmd_id",
           "type": "Client",
@@ -801,39 +818,6 @@
           "type": "Event",
           "json_mapping": {
             "field": "eventDate"
-          }
-        }
-      ]
-    },
-    {
-      "name": "ec_family_member_location",
-      "columns": [
-        {
-          "column_name": "location_id",
-          "type": "Event",
-          "json_mapping": {
-            "field": "locationId"
-          }
-        },
-        {
-          "column_name": "provider_id",
-          "type": "Event",
-          "json_mapping": {
-            "field": "providerId"
-          }
-        },
-        {
-          "column_name": "form_submission_id",
-          "type": "Event",
-          "json_mapping": {
-            "field": "formSubmissionId"
-          }
-        },
-        {
-          "column_name": "base_entity_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "baseEntityId"
           }
         }
       ]

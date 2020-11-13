@@ -20,7 +20,6 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
-import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
@@ -83,13 +82,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     public void finishActivity() {
         this.finish();
     }
-    public void setUpToolbar() {
-        updateToolbarTitle(this, R.id.toolbar_title, memberObject.getFirstName());
 
-    @Override
     public void setUpToolbar() {
         if (memberObject != null && memberObject.getFirstName() != null)
-            updateToolbarTitle(this, org.smartregister.chw.core.R.id.toolbar_title, memberObject.getFirstName());
+            updateToolbarTitle(this, R.id.toolbar_title, memberObject.getFirstName());
     }
 
     @Override
@@ -110,10 +106,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
             openMedicalHistoryScreen();
         } else if (i == R.id.most_due_overdue_row) {
             openUpcomingServicePage();
-        } else if(i == R.id.view_due_today){
+        } else if (i == R.id.view_due_today) {
             openUpcomingServicePage();
-        }
-        else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
+        } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
             openVisitHomeScreen(false);
         } else if (i == R.id.family_has_row) {
             openFamilyDueTab();
@@ -139,6 +134,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
         presenter = new ChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
     }
+
     @Override
     protected void setupViews() {
         super.setupViews();
@@ -199,7 +195,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         menu.findItem(R.id.action_thinkmd_health_assessment).setVisible(ChwApplication.getApplicationFlavor().useThinkMd()
                 && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()));
         if (ChwApplication.getApplicationFlavor().useThinkMd()
-                && ChildDao.isThinkMDCarePlanExist(childBaseEntityId)) {
+                && StringUtils.isNotBlank(getThinkMDCarePlan(childBaseEntityId, CARE_PLAN_DATE))) {
             menu.findItem(R.id.action_thinkmd_careplan).setVisible(true);
             menu.findItem(R.id.action_thinkmd_careplan).setTitle(
                     String.format(getResources().getString(R.string.thinkmd_careplan), getThinkMDCarePlan(childBaseEntityId, CARE_PLAN_DATE))
