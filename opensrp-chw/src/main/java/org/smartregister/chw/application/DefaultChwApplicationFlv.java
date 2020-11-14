@@ -2,6 +2,16 @@ package org.smartregister.chw.application;
 
 public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor {
     @Override
+    public boolean checkP2PTeamId() {
+        return false;
+    }
+
+    @Override
+    public boolean hasCustomDate() {
+        return false;
+    }
+
+    @Override
     public boolean hasP2P() {
         return true;
     }
@@ -174,7 +184,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean showAllChildServicesDueIncludingCurrentChild(){
+    public boolean includeCurrentChild(){
         return true;
     }
 
@@ -201,4 +211,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
 
     @Override
     public boolean hasForeignData(){return false;}
+
+    @Override
+    public boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
+        return false;
+    }
 }

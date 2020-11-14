@@ -15,6 +15,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
@@ -94,4 +95,8 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
             viewVaccineHistoryRow.setVisibility(View.GONE);
     }
 
+    @Override
+    public String getToolbarTitleName(MemberObject memberObject) {
+        return memberObject.getFirstName();
+    }
 }

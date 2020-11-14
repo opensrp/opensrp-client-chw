@@ -2,12 +2,17 @@ package org.smartregister.chw.application;
 
 import com.google.common.collect.ImmutableList;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.chw.BuildConfig;
-import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.chw.activity.LoginActivity;
+import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.view.activity.BaseLoginActivity;
 
 import java.util.List;
+
+import static org.smartregister.util.Utils.isEmptyCollection;
 
 /**
  * Created by samuelgithengi on 10/19/18.
@@ -25,7 +30,15 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-        return Utils.getSyncFilterValue();
+        String providerId = org.smartregister.Context.getInstance().allSharedPreferences().fetchRegisteredANM();
+        String userLocationId = org.smartregister.Context.getInstance().allSharedPreferences().fetchUserLocalityId(providerId);
+        List<String> locationIds = LocationHelper.getInstance().locationsFromHierarchy(true, null);
+        if (!isEmptyCollection(locationIds)) {
+            int index = locationIds.indexOf(userLocationId);
+            List<String> subLocationIds = locationIds.subList(index, locationIds.size());
+            return StringUtils.join(subLocationIds, ",");
+        }
+        return userLocationId;
     }
 
     @Override
@@ -50,7 +63,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public SyncFilter getEncryptionParam() {
-        return SyncFilter.LOCATION;
+        return SyncFilter.TEAM_ID;
     }
 
     @Override
@@ -60,7 +73,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public boolean isSyncUsingPost() {
-        return !BuildConfig.DEBUG;
+        return true;
     }
 
     @Override
@@ -69,7 +82,32 @@ public class ChwSyncConfiguration extends SyncConfiguration {
     }
 
     @Override
+    public SyncFilter getSettingsSyncFilterParam() {
+        return SyncFilter.TEAM_ID;
+    }
+
+    @Override
+    public boolean clearDataOnNewTeamLogin() {
+        return true;
+    }
+
+    @Override
     public String getTopAllowedLocationLevel() {
         return "District";
+    }
+
+    @Override
+    public String getOauthClientId() {
+        return BuildConfig.OAUTH_CLIENT_ID;
+    }
+
+    @Override
+    public String getOauthClientSecret() {
+        return BuildConfig.OAUTH_CLIENT_SECRET;
+    }
+
+    @Override
+    public Class<? extends BaseLoginActivity> getAuthenticationActivity() {
+        return LoginActivity.class;
     }
 }

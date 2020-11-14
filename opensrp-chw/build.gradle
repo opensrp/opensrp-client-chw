@@ -69,6 +69,35 @@ android {
                 includeCompileClasspath = true
             }
         }
+
+        if (project.rootProject.file("local.properties").exists()) {
+
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+            if (properties != null && properties.containsKey("oauth.client.id")) {
+
+                buildConfigField "String", "OAUTH_CLIENT_ID", properties["oauth.client.id"]
+
+            } else {
+                project.logger.error("oauth.client.id variable is not set in your local.properties")
+                buildConfigField "String", "OAUTH_CLIENT_ID", "\"sample_client_id\""
+            }
+
+
+            if (properties != null && properties.containsKey("oauth.client.secret")) {
+
+                buildConfigField "String", "OAUTH_CLIENT_SECRET", properties["oauth.client.secret"]
+
+            } else {
+                project.logger.error("oauth.client.secret variable is not set in your local.properties")
+                buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
+            }
+        }else {
+            println("local.properties does not exist")
+            buildConfigField "String", "OAUTH_CLIENT_ID", "\"sample_client_id\""
+            buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
+        }
     }
     
     android.defaultConfig.javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true
@@ -183,30 +212,31 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".chad"
             versionCode 1
-            versionName "0.0.1"
-            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            versionName "1.0.1"
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-td.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/chad/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
-            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "Province" , "Health District","Health Facility","Village"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Health District","Health Facility","Village"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Health District","Health Facility","Village"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             buildConfigField "int", "DATABASE_VERSION", '10'
         }
         drc {
             dimension = 'baseDimension'
             applicationIdSuffix ".drc"
             versionCode 1
-            versionName "0.0.1"
-            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
-            buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/drc/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            versionName "1.0.0"
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-cd.smartregister.org/opensrp/"'
+            buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/default/"'
+            buildConfigField "String", 'opensrp_url_preview', '"https://wcaro-cd-preview.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante","VILLAGE/COMMUNAUTE"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante","VILLAGE/COMMUNAUTE"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante","VILLAGE/COMMUNAUTE"}'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"VILLAGE/COMMUNAUTE"'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"VILLAGE/COMMUNAUTE"'
             buildConfigField "int", "DATABASE_VERSION", '9'
         }
         guinea {

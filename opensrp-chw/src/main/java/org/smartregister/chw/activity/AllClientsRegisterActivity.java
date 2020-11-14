@@ -33,6 +33,8 @@ import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.util.Map;
+
 import timber.log.Timber;
 
 public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity
@@ -50,8 +52,13 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity
     }
 
     @Override
+    public void startFormActivity(String s, String s1, Map<String, String> map) {
+
+    }
+
+    @Override
     public void startRegistration() {
-        startFormActivity(Constants.ALL_CLIENT_REGISTRATION_FORM,null, null);
+        this.startFormActivity(Constants.ALL_CLIENT_REGISTRATION_FORM,null, "");
     }
 
     @Override
