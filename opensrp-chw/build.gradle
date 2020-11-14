@@ -91,7 +91,7 @@ android {
                 project.logger.error("oauth.client.secret variable is not set in your local.properties")
                 buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
             }
-        }else {
+        } else {
             println("local.properties does not exist")
             buildConfigField "String", "OAUTH_CLIENT_ID", "\"sample_client_id\""
             buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
@@ -208,11 +208,11 @@ android {
             buildConfigField "String", 'opensrp_url', '"https://wcaro-td.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/chad/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "Province" , "Health District","Health Facility","Village"}'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "Province" , "Health District","Health Facility","Village","Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Health District","Health Facility","Village"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Health District","Health Facility","Village"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
             buildConfigField "int", "DATABASE_VERSION", '10'
         }
         drc {
