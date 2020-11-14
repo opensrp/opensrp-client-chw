@@ -62,7 +62,7 @@ android {
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "false"
         buildConfigField "String", "THINKMD_BASE_URL", '"https://thinkmd-v4-app-b-ona.herokuapp.com"'
-        buildConfigField "String", "THINKMD_END_POINT", '"/access/ona/2020new"'
+        buildConfigField "String", "THINKMD_END_POINT", '"/#/start"'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {

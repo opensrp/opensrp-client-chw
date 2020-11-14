@@ -74,6 +74,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         if (getIntent().hasExtra(context().getStringResource(R.string.fhir_bundle))
                 && !StringUtils.isEmpty(getIntent().getStringExtra(context().getStringResource(R.string.fhir_bundle)))) {
             presenter().createCarePlanEvent(getContext(), getIntent().getStringExtra(context().getStringResource(R.string.fhir_bundle)));
+        } else if (getIntent().hasExtra(context().getStringResource(R.string.fhir_bundle))
+                && StringUtils.isEmpty(getIntent().getStringExtra(context().getStringResource(R.string.fhir_bundle)))) {
+            finishActivity();
         }
         //  setVaccineHistoryView(lastVisitDay);
     }
