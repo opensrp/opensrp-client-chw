@@ -12,6 +12,10 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean flvSetFamilyLocation(){
+        return true;
+    }
+    @Override
     public boolean hasANC() {
         return true;
     }

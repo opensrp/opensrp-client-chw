@@ -12,6 +12,11 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean flvSetFamilyLocation() {
+        return false;
+    }
+
+    @Override
     public boolean hasANC() {
         return true;
     }
@@ -126,7 +131,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean showChildrenUnder5(){return true;}
+    public boolean showChildrenUnder5() {
+        return true;
+    }
 
     @Override
     public boolean launchChildClientsAtLogin() {

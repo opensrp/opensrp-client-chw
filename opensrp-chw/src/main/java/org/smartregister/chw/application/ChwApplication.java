@@ -9,6 +9,7 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
+import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -85,7 +86,10 @@ import java.util.Locale;
 import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
+import io.ona.kujaku.KujakuLibrary;
 import timber.log.Timber;
+
+import static org.koin.core.context.GlobalContext.getOrNull;
 
 public class ChwApplication extends CoreChwApplication {
 
@@ -177,6 +181,10 @@ public class ChwApplication extends CoreChwApplication {
         }
 
         EventBus.getDefault().register(this);
+
+        // Init Kujaku
+        Mapbox.getInstance(this, BuildConfig.MAPBOX_SDK_ACCESS_TOKEN);
+        KujakuLibrary.init(getApplicationContext());
     }
 
     private void initializeLibraries() {
@@ -207,10 +215,12 @@ public class ChwApplication extends CoreChwApplication {
         GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION, growthMonitoringConfig);
 
         if (hasReferrals()) {
-            //Setup referral library
-            ReferralLibrary.init(this);
-            ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
-            ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
+            //Setup referral library and initialize Koin dependencies once
+            if (getOrNull() == null) {
+                ReferralLibrary.init(this);
+                ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
+                ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
+            }
         }
 
         OpdLibrary.init(context, getRepository(),
@@ -351,6 +361,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasP2P();
 
         boolean hasReferrals();
+
+        boolean flvSetFamilyLocation();
 
         boolean hasANC();
 

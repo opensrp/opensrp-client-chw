@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.smartregister.chw.core.activity.HIA2ReportsActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 
 import java.util.Arrays;

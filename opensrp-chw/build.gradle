@@ -67,6 +67,22 @@ android {
                 includeCompileClasspath = true
             }
         }
+
+        if (project.rootProject.file("local.properties").exists()) {
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file("local.properties").newDataInputStream())
+            if (properties != null &&
+                    properties.containsKey("mapbox.sdk.token")) {
+                buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", properties["mapbox.sdk.token"]
+            } else {
+                println("Mapbox key config variables is not set in your local.properties")
+                buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", "\"sample_key\""
+            }
+
+        } else {
+            println("local.properties does not exist")
+            buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", "\"sample_key\""
+        }
     }
 
     dexOptions {
@@ -158,8 +174,8 @@ android {
         ba {
             dimension = 'baseDimension'
             applicationIdSuffix ".ba"
-            versionCode 8
-            versionName "1.0.8"
+            versionCode 9
+            versionName "1.0.9"
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
@@ -169,7 +185,10 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Ward", "MOH Jhpiego Facility Name", "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '20'
+            // Kujaku variables
+            buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
+
+            buildConfigField "int", "DATABASE_VERSION", '21'
         }
         chad {
             dimension = 'baseDimension'
@@ -284,6 +303,12 @@ dependencies {
         exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
+    implementation('io.ona.kujaku:library:0.9.0') {
+        exclude group: 'com.android.volley', module: 'volley'
+        exclude group: 'stax', module: 'stax-api'
+    }
+
     //Do not upgrade to 1.1.0 due to compatibility issues
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
@@ -293,13 +318,14 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'com.android.support:multidex:1.0.3'
     //Do not upgrade to 24.jre-1 due to compatibility issues
-    implementation 'com.google.guava:guava:20.0'
+    implementation 'com.google.guava:guava:24.1-jre'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation 'org.mockito:mockito-android:3.0.0'
 
     implementation 'com.github.lecho:hellocharts-android:v1.5.8'
 
+    testImplementation "org.koin:koin-test:2.0.1"
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.1.0'
     testImplementation 'org.robolectric:robolectric:4.3.1'
