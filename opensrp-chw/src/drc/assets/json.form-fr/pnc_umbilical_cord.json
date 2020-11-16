@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Umbilical cord care",
+    "title": "Soins du cordon ombilical",
     "fields": [
       {
         "key": "cord_care",
@@ -56,8 +56,13 @@
         "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Are any products being applied to the umbilical cord stump?",
+        "hint": "Des produits sont-ils appliqués sur le moignon du cordon ombilical?",
         "values": [
+          "Aucun produit",
+          "Chlorhexidine",
+          "Autre"
+        ],
+        "keys": [
           "No products",
           "Chlorhexidine",
           "Other"
@@ -79,7 +84,7 @@
         "openmrs_entity_id": "cord_care_other",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Other product:",
+        "hint": "Autre produit:",
         "expanded": false,
         "relevance": {
           "rules-engine": {
