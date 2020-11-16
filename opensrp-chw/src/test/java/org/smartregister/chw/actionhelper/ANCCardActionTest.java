@@ -27,7 +27,7 @@ public class ANCCardActionTest extends BaseUnitTest {
         Map<String, Object> values = new HashMap<>();
         values.put("anc_card", "Yes");
 
-        JSONObject jsonObject = ReadForm.getFormJson(context, formName);
+        JSONObject jsonObject = ReadFormHelper.getFormJson(context, formName);
         NativeFormProcessor.createInstance(jsonObject)
                 .populateValues(values);
 

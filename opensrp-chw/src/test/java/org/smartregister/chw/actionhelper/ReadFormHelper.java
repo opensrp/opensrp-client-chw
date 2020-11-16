@@ -16,7 +16,7 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class ReadForm {
+public class ReadFormHelper {
 
     public static JSONObject getFormJson(Context mContext, String formIdentity) {
         if (mContext != null) {
