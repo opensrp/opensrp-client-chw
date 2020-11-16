@@ -11,7 +11,6 @@ import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.core.utils.NativeFormProcessor;
-import org.smartregister.util.FormUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,13 +20,14 @@ public class ANCCardActionTest extends BaseUnitTest {
     @Test
     public void testOnPayloadReceive() throws Exception {
         ANCCardAction ancCardAction = new ANCCardAction();
+        Context context = RuntimeEnvironment.application;
 
         String formName = "anc_hv_anc_card_received";
 
         Map<String, Object> values = new HashMap<>();
         values.put("anc_card", "Yes");
 
-        JSONObject jsonObject = FormUtils.getInstance(RuntimeEnvironment.application).getFormJson(formName);
+        JSONObject jsonObject = ReadForm.getFormJson(context, formName);
         NativeFormProcessor.createInstance(jsonObject)
                 .populateValues(values);
 
