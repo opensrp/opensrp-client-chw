@@ -283,9 +283,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "OPV 1",
-              "offset": "+28d",
+              "reference": "dob",
+              "offset": "+70d",
               "window": "+5y"
             }
           ],
@@ -296,6 +295,12 @@
             }
           ],
           "conditions": [
+            {
+              "vaccine": "OPV 1",
+              "type": "given",
+              "comparison": "at_least",
+              "value": "-28d"
+            },
             {
               "value": "or",
               "type": "join",
@@ -382,9 +387,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "Penta 1",
-              "offset": "+28d",
+              "reference": "dob",
+              "offset": "+70d",
               "window": "+4y"
             }
           ],
@@ -392,6 +396,14 @@
             {
               "reference": "dob",
               "offset": "+4y"
+            }
+          ],
+          "conditions": [
+            {
+              "vaccine": "Penta 1",
+              "type": "given",
+              "comparison": "at_least",
+              "value": "-28d"
             }
           ]
         }
@@ -413,9 +425,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "PCV 1",
-              "offset": "+28d",
+              "reference": "dob",
+              "offset": "+70d",
               "window": "+5y"
             }
           ],
@@ -426,6 +437,12 @@
             }
           ],
           "conditions": [
+            {
+              "vaccine": "PCV 1",
+              "type": "given",
+              "comparison": "at_least",
+              "value": "-28d"
+            },
             {
               "value": "or",
               "type": "join",
@@ -471,9 +488,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "Rota 1",
-              "offset": "+28d",
+              "reference": "dob",
+              "offset": "+70d",
               "window": "+106d"
             }
           ],
@@ -481,6 +497,14 @@
             {
               "reference": "dob",
               "offset": "+106d"
+            }
+          ],
+          "conditions": [
+            {
+              "vaccine": "Rota 1",
+              "type": "given",
+              "comparison": "at_least",
+              "value": "-28d"
             }
           ]
         }
