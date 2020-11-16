@@ -1,6 +1,5 @@
 package org.smartregister.chw.application;
 
-
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.koin.core.context.GlobalContext;
