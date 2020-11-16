@@ -32,6 +32,9 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
     private Map<String, Date> administeredVaccines = new HashMap<>();
     private Map<Integer, Map<String, Date>> previousVaccines = new HashMap<>();
 
+    private Map<String, BaseAncHomeVisitAction> actions = new HashMap<>();
+    private Map<String, Integer> vaccineOrder = new HashMap<>();
+
     public ImmunizationValidator(
             List<VaccineGroup> vaccinesGroups,
             List<org.smartregister.immunization.domain.jsonmapping.Vaccine> specialVaccines,
@@ -42,6 +45,14 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
         for (org.smartregister.immunization.domain.Vaccine vaccine : vaccines) {
             administeredVaccines.put(vaccine.getName(), vaccine.getDate());
         }
+    }
+
+    public void setActions(Map<String, BaseAncHomeVisitAction> actions) {
+        this.actions = actions;
+    }
+
+    public void setVaccineOrder(Map<String, Integer> vaccineOrder) {
+        this.vaccineOrder = vaccineOrder;
     }
 
     public void addFragment(String key, BaseHomeVisitImmunizationFragmentFlv fragment, VaccineGroup vaccineGroup, DateTime anchorDate) {
@@ -78,6 +89,18 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
     public boolean isEnabled(String s) {
         int position = keyPositions.indexOf(s);
         return position >= 0 && position <= lastValidKeyPosition;
+    }
+
+    public void resetVaccinesBelow(String s) {
+        Integer pos = vaccineOrder.get(s);
+        if (pos != null) {
+            for (Map.Entry<String, BaseAncHomeVisitAction> entry : actions.entrySet()) {
+                Integer entryPos = vaccineOrder.get(entry.getKey());
+                if (entryPos != null && entryPos > pos && entry.getValue().getJsonPayload() != null) {
+                    entry.getValue().setJsonPayload(null);
+                }
+            }
+        }
     }
 
     /**
@@ -154,6 +177,9 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
             }
         }
 
+
+        // reset all vaccines below
+        resetVaccinesBelow(s);
     }
 
     private List<VaccineDisplay> generateDisplaysFromWrappers(List<VaccineWrapper> wrappers, Date startDate) {

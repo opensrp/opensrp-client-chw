@@ -28,7 +28,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
     }
 
     @Override
-    protected void processEvents(ClientClassification clientClassification, Table vaccineTable, Table serviceTable, EventClient eventClient, Event event, String eventType) throws Exception {
+    public void processEvents(ClientClassification clientClassification, Table vaccineTable, Table serviceTable, EventClient eventClient, Event event, String eventType) throws Exception {
         if (eventClient != null && eventClient.getEvent() != null) {
             String baseEntityID = eventClient.getEvent().getBaseEntityId();
 
