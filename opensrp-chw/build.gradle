@@ -275,14 +275,14 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".lmh"
             versionCode 2
-            versionName "0.1.5"
+            versionName "0.1.6"
             buildConfigField "String", 'opensrp_url', '"https://lmh-liberia.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/lmh/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://lmh-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village"}'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village","Commune"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village","Commune"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Commune"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
@@ -294,7 +294,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.5.24-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.5.25-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'

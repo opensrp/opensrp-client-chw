@@ -364,6 +364,8 @@ public class ChwApplication extends CoreChwApplication {
     public interface Flavor {
         boolean hasP2P();
 
+        boolean syncUsingPost();
+
         boolean hasReferrals();
 
         boolean flvSetFamilyLocation();
