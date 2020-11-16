@@ -214,13 +214,11 @@ public class ChwApplication extends CoreChwApplication {
         growthMonitoringConfig.setWeightForHeightZScoreFile("weight_for_height.csv");
         GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION, growthMonitoringConfig);
 
-        if (hasReferrals()) {
+        if (hasReferrals() && getOrNull() == null) {
             //Setup referral library and initialize Koin dependencies once
-            if (getOrNull() == null) {
                 ReferralLibrary.init(this);
                 ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
                 ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
-            }
         }
 
         OpdLibrary.init(context, getRepository(),
