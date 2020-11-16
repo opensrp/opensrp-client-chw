@@ -7,6 +7,11 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean syncUsingPost() {
+        return true;
+    }
+
+    @Override
     public boolean hasReferrals() {
         return false;
     }
