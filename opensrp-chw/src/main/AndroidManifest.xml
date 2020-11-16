@@ -122,6 +122,7 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.ChildProfileActivity"
+            android:launchMode="singleTop"
             android:label="@string/child_details"
             android:theme="@style/ChwTheme.NoActionBar">
             <intent-filter>

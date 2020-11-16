@@ -43,6 +43,7 @@ import java.util.List;
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
 import static org.smartregister.chw.core.dao.ChildDao.getThinkMDCarePlan;
 import static org.smartregister.chw.core.utils.CoreConstants.ThinkMdConstants.CARE_PLAN_DATE;
+import static org.smartregister.chw.core.utils.CoreConstants.ThinkMdConstants.FHIR_BUNDLE_INTENT;
 import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
 import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
@@ -72,20 +73,16 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         }
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
-
-        if (getIntent().hasExtra(context().getStringResource(R.string.fhir_bundle))
-                && !StringUtils.isEmpty(getIntent().getStringExtra(context().getStringResource(R.string.fhir_bundle)))) {
-            presenter().createCarePlanEvent(getContext(), getIntent().getStringExtra(context().getStringResource(R.string.fhir_bundle)));
-        } else if (getIntent().hasExtra(context().getStringResource(R.string.fhir_bundle))
-                && StringUtils.isEmpty(getIntent().getStringExtra(context().getStringResource(R.string.fhir_bundle)))) {
-            finishActivity();
-        }
         //  setVaccineHistoryView(lastVisitDay);
     }
 
     @Override
-    public void finishActivity() {
-        this.finish();
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent.hasExtra(FHIR_BUNDLE_INTENT)
+                && !StringUtils.isEmpty(intent.getStringExtra(FHIR_BUNDLE_INTENT))) {
+            presenter().createCarePlanEvent(getContext(), intent.getStringExtra(FHIR_BUNDLE_INTENT));
+        }
     }
 
     public void setUpToolbar() {
