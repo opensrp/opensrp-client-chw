@@ -11,7 +11,7 @@ import org.smartregister.repository.Repository;
 
 import java.util.concurrent.Executors;
 
-import io.ona.kujaku.data.realm.RealmDatabase;
+import timber.log.Timber;
 
 /**
  * Created by keyman on 11/03/2019.
@@ -24,7 +24,11 @@ public class TestChwApplication extends ChwApplication {
         super.onCreate();
         mInstance = this;
         setTheme(R.style.Theme_AppCompat);
-        RealmDatabase.init(this);
+    }
+
+    @Override
+    protected void initializeMapBox() {
+        Timber.v("Mute Map Box");
     }
 
     @Override

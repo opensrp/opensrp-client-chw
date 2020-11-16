@@ -186,7 +186,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean includeCurrentChild(){
+    public boolean includeCurrentChild() {
         return true;
     }
 
@@ -206,16 +206,27 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean showChildrenAboveTwoDueStatus(){return true;}
+    public boolean showChildrenAboveTwoDueStatus() {
+        return true;
+    }
 
     @Override
-    public boolean showFamilyServicesScheduleWithChildrenAboveTwo(){return true;}
+    public boolean showFamilyServicesScheduleWithChildrenAboveTwo() {
+        return true;
+    }
 
     @Override
-    public boolean hasForeignData(){return false;}
+    public boolean hasForeignData() {
+        return false;
+    }
 
     @Override
-    public boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
+    public boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven() {
+        return false;
+    }
+
+    @Override
+    public boolean hasMap() {
         return false;
     }
 }

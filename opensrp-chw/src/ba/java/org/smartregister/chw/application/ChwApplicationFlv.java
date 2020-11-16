@@ -87,4 +87,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean includeCurrentChild(){
         return true;
     }
+
+    @Override
+    public boolean hasMap(){
+        return true;
+    }
 }

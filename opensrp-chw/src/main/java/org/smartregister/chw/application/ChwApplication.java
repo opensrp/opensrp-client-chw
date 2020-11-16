@@ -182,8 +182,14 @@ public class ChwApplication extends CoreChwApplication {
 
         EventBus.getDefault().register(this);
 
+        if (getApplicationFlavor().hasMap()) {
+            initializeMapBox();
+        }
+    }
+
+    protected void initializeMapBox() {
         // Init Kujaku
-        Mapbox.getInstance(this, BuildConfig.MAPBOX_SDK_ACCESS_TOKEN);
+        Mapbox.getInstance(getApplicationContext(), BuildConfig.MAPBOX_SDK_ACCESS_TOKEN);
         KujakuLibrary.init(getApplicationContext());
     }
 
@@ -216,9 +222,9 @@ public class ChwApplication extends CoreChwApplication {
 
         if (hasReferrals() && getOrNull() == null) {
             //Setup referral library and initialize Koin dependencies once
-                ReferralLibrary.init(this);
-                ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
-                ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
+            ReferralLibrary.init(this);
+            ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
+            ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
         }
 
         OpdLibrary.init(context, getRepository(),
@@ -445,6 +451,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean showFamilyServicesScheduleWithChildrenAboveTwo();
 
         boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven();
+
+        boolean hasMap();
 
     }
 
