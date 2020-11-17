@@ -283,9 +283,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "OPV 1",
-              "offset": "+28d",
+              "reference": "dob",
+              "offset": "+70d",
               "window": "+5y"
             }
           ],
@@ -296,6 +295,12 @@
             }
           ],
           "conditions": [
+            {
+              "vaccine": "OPV 1",
+              "type": "given",
+              "comparison": "at_least",
+              "value": "-28d"
+            },
             {
               "value": "or",
               "type": "join",
@@ -382,9 +387,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "Penta 1",
-              "offset": "+28d",
+              "reference": "dob",
+              "offset": "+70d",
               "window": "+4y"
             }
           ],
@@ -392,6 +396,14 @@
             {
               "reference": "dob",
               "offset": "+4y"
+            }
+          ],
+          "conditions": [
+            {
+              "vaccine": "Penta 1",
+              "type": "given",
+              "comparison": "at_least",
+              "value": "-28d"
             }
           ]
         }
@@ -413,9 +425,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "PCV 1",
-              "offset": "+28d",
+              "reference": "dob",
+              "offset": "+70d",
               "window": "+5y"
             }
           ],
@@ -426,6 +437,12 @@
             }
           ],
           "conditions": [
+            {
+              "vaccine": "PCV 1",
+              "type": "given",
+              "comparison": "at_least",
+              "value": "-28d"
+            },
             {
               "value": "or",
               "type": "join",
@@ -471,9 +488,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "Rota 1",
-              "offset": "+28d",
+              "reference": "dob",
+              "offset": "+70d",
               "window": "+106d"
             }
           ],
@@ -481,6 +497,14 @@
             {
               "reference": "dob",
               "offset": "+106d"
+            }
+          ],
+          "conditions": [
+            {
+              "vaccine": "Rota 1",
+              "type": "given",
+              "comparison": "at_least",
+              "value": "-28d"
             }
           ]
         }
@@ -509,9 +533,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "OPV 2",
-              "offset": "+28d",
+              "reference": "dob",
+              "offset": "+98d",
               "window": "+5y"
             }
           ],
@@ -522,6 +545,12 @@
             }
           ],
           "conditions": [
+            {
+              "vaccine": "OPV 2",
+              "type": "given",
+              "comparison": "at_least",
+              "value": "-28d"
+            },
             {
               "value": "or",
               "type": "join",
@@ -672,9 +701,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "PCV 2",
-              "offset": "+28d",
+              "reference": "dob",
+              "offset": "+98d",
               "window": "+1y"
             }
           ],
@@ -682,6 +710,14 @@
             {
               "reference": "dob",
               "offset": "+1y"
+            }
+          ],
+          "conditions": [
+            {
+              "vaccine": "PCV 2",
+              "type": "given",
+              "comparison": "at_least",
+              "value": "-28d"
             }
           ]
         }
@@ -988,9 +1024,9 @@
     ]
   },
   {
-    "name": "18 Months",
-    "id": "Eighteen_Months",
-    "days_after_birth_due": 548,
+    "name": "15 Months",
+    "id": "Fifteen_Months",
+    "days_after_birth_due": 456,
     "vaccines": [
       {
         "name": "MCV 2",
@@ -1010,7 +1046,7 @@
           "due": [
             {
               "reference": "dob",
-              "offset": "+548d",
+              "offset": "+456d",
               "window": "+5y"
             }
           ],

@@ -1,6 +1,7 @@
 package org.smartregister.chw.dao;
 
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.domain.Child;
@@ -10,8 +11,10 @@ import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.domain.Vaccine;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ChwChildDao extends ChildDao {
 
@@ -63,13 +66,23 @@ public class ChwChildDao extends ChildDao {
 
     public static boolean hasDueTodayVaccines(String baseEntityID) {
         Map<String, List<Vaccine>> allVaccines = ReportDao.fetchAllVaccines();
-        List<Alert> raw_alerts = ReportDao.computeChildAlerts(new DateTime(), baseEntityID, allVaccines.get(baseEntityID));
+        String dob = PersonDao.getDob(baseEntityID);
+        int age =  (int)Math.floor(Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime().toLocalDate()).getDays() / 365.4);
+
+        List<Vaccine> myVaccines = allVaccines.get(baseEntityID);
+        List<Alert> raw_alerts = ReportDao.computeChildAlerts(age, new DateTime(dob), baseEntityID, allVaccines.get(baseEntityID));
+
+        Set<String> myGivenVaccines = new HashSet<>();
+        if(myVaccines != null){
+            for(Vaccine vaccine : myVaccines) {
+                myGivenVaccines.add(ReportDao.cleanName(vaccine.getName()));
+            }
+        }
         List<Alert> alerts = new ArrayList<>();
         for (Alert alert : raw_alerts) {
-            if (alert.startDate() != null && alert.status() != AlertStatus.complete)
+            if (alert.startDate() != null && alert.status() != AlertStatus.complete && !myGivenVaccines.contains(ReportDao.cleanName(alert.visitCode())))
                 alerts.add(alert);
         }
-
         String[] dueVaccines = new String[alerts.size()];
         int x = 0;
         while (x < alerts.size()) {
@@ -79,6 +92,7 @@ public class ChwChildDao extends ChildDao {
 
         return dueVaccines.length != 0;
     }
+
 
     public static String getChildGender(String baseEntityID) {
         String sql = String.format("SELECT gender from ec_child\n" +
