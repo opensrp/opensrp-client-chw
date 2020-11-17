@@ -60,7 +60,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public boolean isSyncUsingPost() {
-        return !BuildConfig.DEBUG;
+        return !BuildConfig.DEBUG && ChwApplication.getApplicationFlavor().syncUsingPost();
     }
 
     @Override

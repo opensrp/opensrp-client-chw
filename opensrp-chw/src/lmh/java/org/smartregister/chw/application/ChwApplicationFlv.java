@@ -7,6 +7,11 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean syncUsingPost() {
+        return false;
+    }
+
+    @Override
     public boolean hasPNC() {
         return false;
     }
