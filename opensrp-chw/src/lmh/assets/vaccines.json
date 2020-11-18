@@ -533,9 +533,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "OPV 2",
-              "offset": "+28d",
+              "reference": "dob",
+              "offset": "+98d",
               "window": "+5y"
             }
           ],
@@ -546,6 +545,12 @@
             }
           ],
           "conditions": [
+            {
+              "vaccine": "OPV 2",
+              "type": "given",
+              "comparison": "at_least",
+              "value": "-28d"
+            },
             {
               "value": "or",
               "type": "join",
@@ -696,9 +701,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "PCV 2",
-              "offset": "+28d",
+              "reference": "dob",
+              "offset": "+98d",
               "window": "+1y"
             }
           ],
@@ -706,6 +710,14 @@
             {
               "reference": "dob",
               "offset": "+1y"
+            }
+          ],
+          "conditions": [
+            {
+              "vaccine": "PCV 2",
+              "type": "given",
+              "comparison": "at_least",
+              "value": "-28d"
             }
           ]
         }
