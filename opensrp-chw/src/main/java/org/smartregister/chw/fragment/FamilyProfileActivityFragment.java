@@ -153,6 +153,10 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
             FormHistoryDialogFragment dialogFragment = FormHistoryDialogFragment.getInstance(formDetails);
             FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
             dialogFragment.show(ft, FormHistoryDialogFragment.DIALOG_TAG);
+        } else if (CoreConstants.EventType.FAMILY_KIT.equalsIgnoreCase(type)) {
+            FamilyKitDialogFragment dialogFragment = FamilyKitDialogFragment.getInstance(familyBaseEntityId, visitDate);
+            FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+            dialogFragment.show(ft, FamilyKitDialogFragment.DIALOG_TAG);
         }
     }
 

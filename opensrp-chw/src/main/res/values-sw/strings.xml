@@ -45,6 +45,7 @@
     <string name="observations_illness_episodes_medical"><![CDATA[Uchunguzi na Ugonjwa]]></string>
     <string name="home_visit_suffix"> &#183; Tembeleo</string>
     <string name="wash_check_suffix"> &#183; Wash check</string>
+    <string name="family_kit_suffix"> &#183; Family Kit</string>
     <string name="last_visit_prefix">Tembeleo la mwisho %1$s iliyopita</string>
     <string name="completed_on_prefix">Imekamilika tarehe %1$s</string>
 

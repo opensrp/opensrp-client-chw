@@ -28,12 +28,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.VisitVaccineUtil.getInMemoryAlerts;
 
 /**
  * @author rkodev
@@ -106,11 +110,14 @@ public class ReportDao extends AbstractDao {
         return result;
     }
 
+    protected static String cleanName(String name){
+        return name.toLowerCase().replace("_", "").replace(" ","");
+    }
+
     public static List<EligibleChild> fetchLiveEligibleChildrenReport(@Nullable List<String> communityIds, Date dueDate) {
         // fetch all children in the region
         String _communityIds = "('" + StringUtils.join(communityIds, "','") + "')";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-
         int days = Days.daysBetween(new DateTime().toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays();
         String sql = "select c.base_entity_id , c.unique_id , c.first_name , c.last_name , c.middle_name ," +
                 "f.first_name family_name  , c.dob , c.gender , l.location_id " +
@@ -119,12 +126,9 @@ public class ReportDao extends AbstractDao {
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id COLLATE NOCASE " +
                 "inner join ec_family_member m on m.base_entity_id = c.base_entity_id and m.is_closed = 0 and m.date_removed is null COLLATE NOCASE  " +
                 "where c.date_removed is null and c.is_closed = 0 and m.is_closed = 0 ";
-
         if (communityIds != null && !communityIds.isEmpty())
             sql += " and ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') ";
-
         sql += "order by c.first_name , c.last_name , c.middle_name ";
-
         Map<String, List<Vaccine>> allVaccines = fetchAllVaccines();
         List<EligibleChild> eligibleChildren = new ArrayList<>();
         DataMap<Void> dataMap = c -> {
@@ -133,29 +137,38 @@ public class ReportDao extends AbstractDao {
             String gender = getCursorValue(c, "gender");
             Date dob = getCursorValueAsDate(c, "dob", sdf);
             Date adjustedDob = new DateTime(dob).minusDays(days).toDate();
-
             String name = getCursorValue(c, "first_name", "") + " " + getCursorValue(c, "middle_name", "");
             name = name.trim() + " " + getCursorValue(c, "last_name", "");
-
-            int age = (int) Math.ceil(Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays() / 365.4);
-
+            int age = (int) Math.floor(Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays() / 365.4);
             if (age < 2 || (age >= 9 && age <= 11 && "Female".equalsIgnoreCase(gender))) {
-                List<Alert> raw_alerts = computeChildAlerts(new DateTime(dob).minusDays(days), baseEntityId, allVaccines.get(baseEntityId));
-                List<Alert> alerts = new ArrayList<>();
-                for (Alert alert : raw_alerts) {
-                    if (alert.startDate() != null && alert.status() != AlertStatus.complete)
-                        alerts.add(alert);
+                List<Vaccine> rawVaccines = allVaccines.get(baseEntityId);
+                List<Vaccine> myVaccines = new ArrayList<>();
+                if(rawVaccines != null){
+                    for(Vaccine vaccine: rawVaccines){
+                        vaccine.setDate(new DateTime(vaccine.getDate()).minusDays(days).toDate());
+                        myVaccines.add(vaccine);
+                    }
                 }
 
+                List<Alert> raw_alerts = computeChildAlerts(age, new DateTime(dob).minusDays(days), baseEntityId, myVaccines);
+                Set<String> myGivenVaccines = new HashSet<>();
+                if(myVaccines != null){
+                    for(Vaccine vaccine : myVaccines) {
+                        myGivenVaccines.add(cleanName(vaccine.getName()));
+                    }
+                }
+                List<Alert> alerts = new ArrayList<>();
+                for (Alert alert : raw_alerts) {
+                    if (alert.startDate() != null && alert.status() != AlertStatus.complete && !myGivenVaccines.contains(cleanName(alert.visitCode())))
+                        alerts.add(alert);
+                }
                 String[] dueVaccines = new String[alerts.size()];
                 int x = 0;
                 while (x < alerts.size()) {
                     dueVaccines[x] = alerts.get(x).scheduleName();
                     x++;
                 }
-
                 // create return object
-
                 EligibleChild child = new EligibleChild();
                 child.setID(baseEntityId);
                 child.setDateOfBirth(adjustedDob);
@@ -163,24 +176,21 @@ public class ReportDao extends AbstractDao {
                 child.setFamilyName(getCursorValue(c, "family_name") + " Family");
                 child.setDueVaccines(dueVaccines);
                 child.setAlerts(alerts);
-
                 if (dueVaccines.length > 0) {
                     eligibleChildren.add(child);
                 }
             }
-
             return null;
         };
-
         readData(sql, dataMap);
-
         return eligibleChildren;
     }
 
-    private static List<Alert> computeChildAlerts(DateTime anchorDate, String baseEntityId, @Nullable List<Vaccine> issuedVaccines) {
+    protected static List<Alert> computeChildAlerts(int age, DateTime anchorDate, String baseEntityId, @Nullable List<Vaccine> issuedVaccines) {
         try {
-            HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules = getVaccineSchedules("child");
-            return VisitVaccineUtil.getInMemoryAlerts(vaccineSchedules, baseEntityId, anchorDate, "child", issuedVaccines == null ? new ArrayList<>() : issuedVaccines);
+            String category = age < 2 ? "child" : "child_over_5";
+            HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules = getVaccineSchedules(category);
+            return getInMemoryAlerts(vaccineSchedules, baseEntityId, anchorDate, category, issuedVaccines == null ? new ArrayList<>() : issuedVaccines);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -188,8 +198,10 @@ public class ReportDao extends AbstractDao {
     }
 
     private static HashMap<String, HashMap<String, VaccineSchedule>> getVaccineSchedules(String category) {
+        String fileName = category.equalsIgnoreCase("child")?  "vaccines.json": "vaccines/child_over_5_vaccines.json";
+
         List<VaccineGroup> vaccineGroups =
-                VaccineScheduleUtil.getVaccineGroups(CoreChwApplication.getInstance().getApplicationContext(), category);
+                VaccineScheduleUtil.getVaccineGroups(CoreChwApplication.getInstance().getApplicationContext(), fileName);
 
         List<org.smartregister.immunization.domain.jsonmapping.Vaccine> specialVaccines =
                 VaccinatorUtils.getSpecialVaccines(CoreChwApplication.getInstance().getApplicationContext());

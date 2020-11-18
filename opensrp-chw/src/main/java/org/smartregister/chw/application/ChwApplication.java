@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 import org.koin.core.context.GlobalContextKt;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
@@ -55,6 +56,7 @@ import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.sync.ChwClientProcessor;
+import org.smartregister.chw.util.ChwLocationBasedClassifier;
 import org.smartregister.chw.util.FailSafeRecalledID;
 import org.smartregister.chw.util.FileUtils;
 import org.smartregister.chw.util.JsonFormUtils;
@@ -75,6 +77,7 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
+import org.smartregister.sync.P2PClassifier;
 import org.smartregister.util.LangUtils;
 
 import java.util.ArrayList;
@@ -343,6 +346,11 @@ public class ChwApplication extends CoreChwApplication {
     }
 
     @Override
+    public P2PClassifier<JSONObject> getP2PClassifier() {
+        return flavor.hasForeignData() ? new ChwLocationBasedClassifier() : null;
+    }
+
+    @Override
     public boolean getChildFlavorUtil() {
         return flavor.getChildFlavorUtil();
     }
@@ -353,6 +361,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasCustomDate();
 
         boolean hasP2P();
+
+        boolean syncUsingPost();
 
         boolean hasReferrals();
 
@@ -367,6 +377,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasMalaria();
 
         boolean hasWashCheck();
+
+        boolean hasFamilyKitCheck();
 
         boolean hasRoutineVisit();
 
@@ -420,7 +432,7 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean prioritizeChildNameOnChildRegister();
 
-        boolean showChildrenUnderTwoAndGirlsAgeNineToEleven();
+        boolean showChildrenUnderFiveAndGirlsAgeNineToEleven();
 
         boolean dueVaccinesFilterInChildRegister();
 

@@ -17,6 +17,11 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean syncUsingPost() {
+        return true;
+    }
+
+    @Override
     public boolean hasReferrals() {
         return false;
     }
@@ -49,6 +54,11 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     @Override
     public boolean hasWashCheck() {
         return true;
+    }
+
+    @Override
+    public boolean hasFamilyKitCheck() {
+        return false;
     }
 
     @Override
@@ -174,7 +184,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean showChildrenUnderTwoAndGirlsAgeNineToEleven() {
+    public boolean showChildrenUnderFiveAndGirlsAgeNineToEleven() {
         return false;
     }
 

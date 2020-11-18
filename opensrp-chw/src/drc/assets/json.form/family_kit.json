@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Umbilical cord care",
+  "encounter_type": "Family Kit",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,44 +47,68 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Umbilical cord care",
+    "title": "Family Kit",
     "fields": [
       {
-        "key": "cord_care",
+        "key": "illustration_text_description",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "image_view",
+        "image_folder": "img/",
+        "text": "Family Kit Task",
+        "image_file": "family_kit.png",
+        "text_color": "#ffffff"
+      },
+      {
+        "key": "family_kit_received",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "family_kit_entity_id",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Are any products being applied to the umbilical cord stump?",
+        "label_info_title": "What type of kit has the family received?",
+        "hint": "What type of kit has the family received?",
         "values": [
-          "No products",
-          "Chlorhexidine",
-          "Other"
+          "Simple Kit (ORS/ZINC and Paracetamol)",
+          "Simple Kit (ORS/ZINC and Paracetamol) with micronutrients",
+          "No kit received"
         ],
         "openmrs_choice_ids": {
-          "No products": "products",
-          "Chlorhexidine": "73263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other": "Other"
+          "Simple Kit (ORS/ZINC and Paracetamol)": "key_simple_kit_simple",
+          "Simple Kit (ORS/ZINC and Paracetamol) with micronutrients": "key_simple_kit_with_micronutrients",
+          "No kit received": "key_no_kit_received"
         },
         "v_required": {
-          "value": "true",
-          "err": "Please select one option"
+          "value": true,
+          "err": "Please select option"
         }
       },
       {
-        "key": "cord_care_other",
+        "key": "family_kit_used",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "cord_care_other",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "Other product:",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
         "expanded": false,
+        "type": "spinner",
+        "hint": "Has the kit been used?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "key_kit_used",
+          "No": "key_kit_not_used"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select option"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "pnc_umbilical_cord_relevance.yml"
+              "rules-file": "family_kit_relevance.yml"
             }
           }
         }

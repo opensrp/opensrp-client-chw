@@ -57,6 +57,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     public static final String ENCOUNTER_TYPE = "encounter_type";
     public static final int REQUEST_CODE_GET_JSON = 2244;
     public static final int REQUEST_CODE_GET_JSON_WASH = 22444;
+    public static final int REQUEST_CODE_GET_JSON_FAMILY_KIT = 22447;
     public static final int REQUEST_CODE_GET_JSON_HOUSEHOLD = 22445;
 
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";

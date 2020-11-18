@@ -5,4 +5,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean checkP2PTeamId() {
         return false;
     }
+
+    @Override
+    public boolean hasFamilyKitCheck() {
+        return true;
+    }
 }
