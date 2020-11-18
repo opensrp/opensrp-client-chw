@@ -41,8 +41,9 @@ public class FamilyKitDialogFragment extends DialogFragment implements View.OnCl
     private Long familyKitDate;
     private String baseEntityID;
     private RadioGroup radioGroupFamilyKit;
-    private RadioGroup radioGroupKitUsed;
+    private RadioButton radioButtonKitUsed, radioButtonKitNotUsed;
     private Map<String, String> selectedOptions = new HashMap<>();
+    private Map<String, String> selectedOptionsKey = new HashMap<>();
 
     public static FamilyKitDialogFragment getInstance(String familyBaseEntityID, Long visitDate) {
         FamilyKitDialogFragment familyKitDialogFragment = new FamilyKitDialogFragment();
@@ -88,7 +89,8 @@ public class FamilyKitDialogFragment extends DialogFragment implements View.OnCl
         familyKitDate = getArguments().getLong(VISIT_DATE);
 
         radioGroupFamilyKit = view.findViewById(R.id.radio_group_family_kit);
-        radioGroupKitUsed = view.findViewById(R.id.radio_group_kit_used);
+        radioButtonKitUsed = view.findViewById(R.id.choice_1_kit_used);
+        radioButtonKitNotUsed = view.findViewById(R.id.choice_2_kit_used);
         view.findViewById(R.id.close).setOnClickListener(this);
 
 
@@ -99,6 +101,7 @@ public class FamilyKitDialogFragment extends DialogFragment implements View.OnCl
             } else {
                 for (Map.Entry<String, VisitDetail> entry : washData.entrySet()) {
                     selectedOptions.put(entry.getKey(), entry.getValue().getHumanReadable());
+                    selectedOptionsKey.put(entry.getKey(), entry.getValue().getDetails());
                 }
             }
 
@@ -157,7 +160,7 @@ public class FamilyKitDialogFragment extends DialogFragment implements View.OnCl
 
     private void refreshUI() {
         notifyUIValues(radioGroupFamilyKit, "family_kit_received");
-        notifyUIValues(radioGroupKitUsed, "family_kit_used");
+        notifyUIValues(radioButtonKitUsed, radioButtonKitNotUsed, "family_kit_used");
     }
 
     private void notifyUIValues(RadioGroup radioGroup, String optionName) {
@@ -170,6 +173,20 @@ public class FamilyKitDialogFragment extends DialogFragment implements View.OnCl
                 if (selectedAnswer.getText().equals(selectedOptionString)) {
                     selectedAnswer.setChecked(true);
                 }
+            }
+        }
+    }
+
+    private void notifyUIValues(RadioButton radioButtonYes, RadioButton radioButtonNo, String optionName) {
+        String handWashing = selectedOptionsKey.get(optionName);
+
+        if (handWashing != null) {
+            if (handWashing.equals("key_kit_used")) {
+                radioButtonYes.setChecked(true);
+                radioButtonNo.setEnabled(false);
+            } else {
+                radioButtonNo.setChecked(true);
+                radioButtonYes.setEnabled(false);
             }
         }
     }
