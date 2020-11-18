@@ -48,6 +48,7 @@
                         android:checked="false"
                         android:clickable="false"
                         android:padding="10dp"
+                        android:tag="key_simple_kit_simple"
                         android:text="Simple Kit (ORS/ZINC and Paracetamol)"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/register_list_desc_size" />
@@ -59,6 +60,7 @@
                         android:checked="false"
                         android:clickable="false"
                         android:padding="10dp"
+                        android:tag="key_simple_kit_with_micronutrients"
                         android:text="Simple Kit (ORS/ZINC and Paracetamol) with micronutrients"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/register_list_desc_size" />
@@ -70,6 +72,7 @@
                         android:checked="false"
                         android:clickable="false"
                         android:padding="10dp"
+                        android:tag="key_no_kit_received"
                         android:text="No kit received"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/register_list_desc_size" />
@@ -111,6 +114,7 @@
                         android:checked="false"
                         android:clickable="false"
                         android:padding="10dp"
+                        android:tag="key_kit_used"
                         android:text="@string/yes"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/register_list_desc_size" />
@@ -122,6 +126,7 @@
                         android:checked="false"
                         android:clickable="false"
                         android:padding="10dp"
+                        android:tag="key_kit_not_used"
                         android:text="@string/no"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/register_list_desc_size" />
