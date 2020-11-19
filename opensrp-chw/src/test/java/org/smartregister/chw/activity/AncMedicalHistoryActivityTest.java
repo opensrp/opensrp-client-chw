@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.content.Intent;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import org.smartregister.chw.BaseActivityTestSetUp;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.core.activity.CoreAncMedicalHistoryActivity;
+import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,5 +65,18 @@ public class AncMedicalHistoryActivityTest extends BaseActivityTestSetUp<AncMedi
         activity.renderView(visits);
         Mockito.verify(flavor).processViewData(listArgumentCaptor.capture(), Mockito.eq(activity));
         Assert.assertEquals(listArgumentCaptor.getValue(), visits);
+    }
+
+    @After
+    public void tearDown() {
+        try {
+            SyncStatusBroadcastReceiver.destroy(activity);
+            activity.finish();
+            controller.pause().stop().destroy(); //destroy controller if we can
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.gc();
     }
 }
