@@ -81,8 +81,6 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
             } catch (Exception e) {
                 Timber.e(e);
             }
-        } else {
-            this.finish();
         }
     }
 }
