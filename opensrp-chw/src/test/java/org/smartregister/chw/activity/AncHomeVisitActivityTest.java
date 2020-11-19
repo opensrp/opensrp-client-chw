@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import android.content.Intent;
 
 import org.json.JSONObject;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -33,10 +34,12 @@ public class AncHomeVisitActivityTest extends BaseUnitTest {
     @Mock
     private BaseAncHomeVisitContract.Presenter presenter;
 
+    private ActivityController<AncHomeVisitActivity> controller;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        ActivityController<AncHomeVisitActivity> controller = Robolectric.buildActivity(AncHomeVisitActivity.class);
+        controller = Robolectric.buildActivity(AncHomeVisitActivity.class);
         activity = controller.get();
 
         activity = Mockito.spy(activity);
@@ -75,5 +78,15 @@ public class AncHomeVisitActivityTest extends BaseUnitTest {
     public void testSubmittedAndCloseCloseActivity() {
         activity.submittedAndClose();
         Mockito.verify(activity).close();
+    }
+
+    @After
+    public void tearDown() {
+        try {
+            activity.finish();
+            controller.pause().stop().destroy(); //destroy controller if we can
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
