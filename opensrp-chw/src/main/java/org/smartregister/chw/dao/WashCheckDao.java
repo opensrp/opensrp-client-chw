@@ -19,15 +19,17 @@ import static org.mvel2.DataConversion.convert;
 public class WashCheckDao extends AbstractDao {
 
     public static long getLastWashCheckDate(String familyBaseEntityID) {
-        String sql = "select max(visit_date,created_at) from visits where visit_type = 'WASH check' and " +
+        String sql = "select CASE WHEN created_at <= visit_date THEN created_at ELSE visit_date END wash_check_date from visits where visit_type = 'WASH check' and " +
                 "base_entity_id = '" + familyBaseEntityID + "' order by created_at desc limit 1";
 
-        DataMap<Date> dataMap = c -> getCursorValueAsDate(c, "max(visit_date,created_at)", getDobDateFormat());
-        List<Date> res = AbstractDao.readData(sql, dataMap);
-        if (res == null || res.size() == 0)
-            return 0;
+        DataMap<String> dataMap = c -> getCursorValue(c, "wash_check_date");
 
-        return res.get(0).getTime();
+        List<String> res = AbstractDao.readData(sql, dataMap);
+        if (res == null || res.size() == 0) {
+            return 0;
+        }
+
+        return Long.parseLong(res.get(0));
     }
 
     public static List<String> getAllWashCheckVisits(SQLiteDatabase db) {

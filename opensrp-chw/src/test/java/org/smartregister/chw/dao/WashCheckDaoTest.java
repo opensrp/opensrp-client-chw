@@ -14,7 +14,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.repository.Repository;
 
-import java.util.Date;
 import java.util.Map;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -36,14 +35,14 @@ public class WashCheckDaoTest extends WashCheckDao {
     public void testGetLastWashCheckDate() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
 
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"created_at"});
-        matrixCursor.addRow(new Object[]{getDobDateFormat().format(new Date())});
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"wash_check_date"});
+        matrixCursor.addRow(new Object[]{"1567636636641"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         long washCheckDate = WashCheckDao.getLastWashCheckDate("12345");
 
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
-        Assert.assertTrue(getDobDateFormat().format(new Date()).equals(getDobDateFormat().format(washCheckDate)));
+        Assert.assertEquals("1567636636641",String.valueOf(washCheckDate));
     }
 
     @Test
