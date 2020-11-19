@@ -45,7 +45,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByEntityID(baseEntityID);
                     if (child != null) {
                         String familyBaseEntityID = child.getFamilyBaseEntityID();
-                        ChwApplication.getInstance().getScheduleRepository().deleteChildMember(baseEntityID);
+                        ChwApplication.getInstance().getScheduleRepository().closeChildMember(baseEntityID);
                         if (!FamilyDao.familyHasChildUnderFive(familyBaseEntityID) && ChwApplication.getApplicationFlavor().hasFamilyKitCheck()) {
                             ChwApplication.getInstance().getScheduleRepository().deleteFamilyKitSchedule(familyBaseEntityID);
                         }
