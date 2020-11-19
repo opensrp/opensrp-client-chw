@@ -12,6 +12,7 @@ buildscript {
         jcenter()
         mavenLocal()
         maven { url 'https://maven.fabric.io/public' }
+        maven { url "http://dl.bintray.com/ona/kujaku" }
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
@@ -54,6 +55,7 @@ allprojects {
         maven { url 'https://maven.fabric.io/public' }
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
         maven { url "https://dl.bintray.com/ona/rdt-capture" }
+        maven { url "http://dl.bintray.com/ona/kujaku" }
         maven { url 'https://dl.bintray.com/ibm-watson-health/ibm-fhir-server-releases' }
     }
 }
