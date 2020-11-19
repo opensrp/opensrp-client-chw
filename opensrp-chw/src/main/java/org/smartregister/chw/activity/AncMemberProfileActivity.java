@@ -304,7 +304,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     @Override
     public void setFamilyLocation() {
-        if (ChwApplication.getApplicationFlavor().hasFamilyLocationRow() && !StringUtils.isBlank(getMemberGPS())) {
+        if (ChwApplication.getApplicationFlavor().flvSetFamilyLocation()) {
             view_family_location_row.setVisibility(View.VISIBLE);
             rlFamilyLocation.setVisibility(View.VISIBLE);
         }
@@ -378,6 +378,15 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, formJson, Utils.metadata().familyMemberFormActivity),
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
+
+
+
+    @Override
+    public void openFamilyLocation() {
+        Intent intent = new Intent(this, AncMemberMapActivity.class);
+        this.startActivity(intent);
+    }
+
 
     @Override
     public List<ReferralTypeModel> getReferralTypeModels() {

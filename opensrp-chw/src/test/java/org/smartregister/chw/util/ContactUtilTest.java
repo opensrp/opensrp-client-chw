@@ -47,10 +47,6 @@ public class ContactUtilTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = Robolectric.buildActivity(FamilyProfileActivity.class).create().start();
-        activity = controller.get();
-
-
         Context context = Context.getInstance();
         CoreLibrary.init(context);
 
@@ -63,7 +59,6 @@ public class ContactUtilTest {
         MockitoAnnotations.initMocks(this);
         Intent testIntent = new Intent();
         controller = Robolectric.buildActivity(FamilyProfileActivity.class, testIntent).create().start();
-
         activity = controller.get();
     }
 
@@ -88,9 +83,7 @@ public class ContactUtilTest {
         }
 
         //logout
-        Context context = Context.getInstance();
-        context.session().expire();
-
+        Context.getInstance().session().expire();
         System.gc();
     }
 }
