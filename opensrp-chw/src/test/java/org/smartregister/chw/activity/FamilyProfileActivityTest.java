@@ -49,10 +49,6 @@ public class FamilyProfileActivityTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = Robolectric.buildActivity(FamilyProfileActivity.class).create().start();
-        activity = controller.get();
-
-
         Context context = Context.getInstance();
         CoreLibrary.init(context);
 
@@ -82,9 +78,7 @@ public class FamilyProfileActivityTest {
         }
 
         //logout
-        Context context = Context.getInstance();
-        context.session().expire();
-
+        Context.getInstance().session().expire();
         System.gc();
     }
 

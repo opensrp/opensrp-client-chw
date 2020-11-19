@@ -370,6 +370,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
+    maxHeapSize = "3g"
 }
 
 tasks.coveralls {

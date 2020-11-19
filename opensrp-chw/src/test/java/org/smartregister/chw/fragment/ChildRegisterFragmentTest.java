@@ -113,7 +113,6 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         System.gc();
     }
 
