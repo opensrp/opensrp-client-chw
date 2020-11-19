@@ -9,12 +9,14 @@ import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
+import org.robolectric.android.controller.ActivityController;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
@@ -48,6 +50,7 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
     private View view;
 
     private FragmentActivity activity;
+    private ActivityController<AppCompatActivity> controller;
 
     @Before
     public void setUp() {
@@ -60,7 +63,8 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
 
         CoreLibrary.init(context);
         when(context.commonrepository(anyString())).thenReturn(commonRepository);
-        activity = Robolectric.buildActivity(AppCompatActivity.class).create().resume().get();
+        controller = Robolectric.buildActivity(AppCompatActivity.class).create().resume();
+        activity = controller.get();
         Context.bindtypes = new ArrayList<>();
         SyncStatusBroadcastReceiver.init(activity);
     }
@@ -99,6 +103,20 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
         dueOnlyLayout.setVisibility(View.VISIBLE);
         assertEquals(View.VISIBLE, dueOnlyLayout.getVisibility());
     }
+
+    @After
+    public void tearDown() {
+        try {
+            SyncStatusBroadcastReceiver.destroy(activity);
+            activity.finish();
+            controller.pause().stop().destroy(); //destroy controller if we can
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.gc();
+    }
+
 }
 
 
