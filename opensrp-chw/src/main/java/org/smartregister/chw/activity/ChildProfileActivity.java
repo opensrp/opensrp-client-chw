@@ -74,13 +74,17 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
         //  setVaccineHistoryView(lastVisitDay);
+        if (getIntent().hasExtra(FHIR_BUNDLE_INTENT)
+                && StringUtils.isNotBlank(getIntent().getStringExtra(FHIR_BUNDLE_INTENT))) {
+            presenter().createCarePlanEvent(getContext(), getIntent().getStringExtra(FHIR_BUNDLE_INTENT));
+        }
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (intent.hasExtra(FHIR_BUNDLE_INTENT)
-                && !StringUtils.isEmpty(intent.getStringExtra(FHIR_BUNDLE_INTENT))) {
+                && StringUtils.isNotBlank(intent.getStringExtra(FHIR_BUNDLE_INTENT))) {
             presenter().createCarePlanEvent(getContext(), intent.getStringExtra(FHIR_BUNDLE_INTENT));
         }
     }
