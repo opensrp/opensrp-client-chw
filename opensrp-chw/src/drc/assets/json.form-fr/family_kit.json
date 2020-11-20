@@ -94,8 +94,8 @@
         "type": "spinner",
         "hint": "Has the kit been used?",
         "values": [
-          "Yes",
-          "No"
+          "Oui",
+          "Non"
         ],
         "keys": [
           "Yes",
