@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,6 +44,8 @@ public class AncRegisterFragmentTest extends BaseUnitTest {
     @Mock
     private CommonPersonObjectClient client;
 
+    private ActivityController<AppCompatActivity> controller;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -51,7 +54,7 @@ public class AncRegisterFragmentTest extends BaseUnitTest {
 
         CoreLibrary.init(context);
         when(context.commonrepository(anyString())).thenReturn(commonRepository);
-        ActivityController controller = Robolectric.buildActivity(AppCompatActivity.class).create().resume();
+        controller = Robolectric.buildActivity(AppCompatActivity.class).create().resume();
         activity = (FragmentActivity) controller.get();
     }
 
@@ -88,6 +91,16 @@ public class AncRegisterFragmentTest extends BaseUnitTest {
         fragment.openHomeVisit(client);
         Activity activity = Mockito.mock(Activity.class);
         AncHomeVisitActivity.startMe(activity, client.getCaseId(), false);
+    }
+
+    @After
+    public void tearDown() {
+        try {
+            activity.finish();
+            controller.pause().stop().destroy(); //destroy controller if we can
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

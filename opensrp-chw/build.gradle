@@ -91,10 +91,20 @@ android {
                 project.logger.error("oauth.client.secret variable is not set in your local.properties")
                 buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
             }
+
+            if (properties != null &&
+                    properties.containsKey("mapbox.sdk.token")) {
+                buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", properties["mapbox.sdk.token"]
+            } else {
+                println("Mapbox key config variables is not set in your local.properties")
+                buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", "\"sample_key\""
+            }
+
         } else {
             println("local.properties does not exist")
             buildConfigField "String", "OAUTH_CLIENT_ID", "\"sample_client_id\""
             buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
+            buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", "\"sample_key\""
         }
     }
 

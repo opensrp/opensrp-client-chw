@@ -153,6 +153,7 @@ public class FpRegisterFragmentTest extends BaseUnitTest {
     @After
     public void tearDown() {
         try {
+            SyncStatusBroadcastReceiver.destroy(activity);
             activityController.pause().stop().destroy();
             activity.finish();
         } catch (Exception e) {
