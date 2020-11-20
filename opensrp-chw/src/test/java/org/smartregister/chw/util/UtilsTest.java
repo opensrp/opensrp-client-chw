@@ -34,6 +34,15 @@ public class UtilsTest extends BaseUnitTest {
         Assert.assertEquals("A b", Utils.firstCharacterUppercase("a b"));
     }
 
+    @Test
+    public void testTableColConcatEmpty() {
+        Assert.assertEquals("", ChildDBConstants.tableColConcat("", ""));
+    }
+
+    @Test
+    public void testTableColConcatValidInput() {
+        Assert.assertEquals("table.col", ChildDBConstants.tableColConcat("table", "col"));
+    }
 
     @Test
     public void testFormatDateForVisual() {

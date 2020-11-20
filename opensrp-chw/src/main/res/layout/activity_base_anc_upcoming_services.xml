@@ -84,7 +84,6 @@
                 android:text="@string/upcoming_services"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:visibility="gone"
                 app:layout_goneMarginTop="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +96,6 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/upcoming_services" />
 
             <ProgressBar

@@ -25,7 +25,7 @@ public class ChildDBConstants extends org.smartregister.chw.core.utils.ChildDBCo
                 "and (((julianday('now') - julianday(ec_child.dob))/365.25) < 2 or (ec_child.gender = 'Female' and (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11)))\n";
     }
 
-    private static String tableColConcat(String tableName, String columnName) {
+    public static String tableColConcat(String tableName, String columnName) {
         if (StringUtils.isBlank(tableName) || StringUtils.isBlank(columnName)) {
             return "";
         }
