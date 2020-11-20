@@ -234,7 +234,7 @@ android {
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/default/"'
             buildConfigField "String", 'opensrp_url_preview', '"https://wcaro-cd-preview.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante","VILLAGE/COMMUNAUTE"}'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante","CAC","VILLAGE/COMMUNAUTE"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante","VILLAGE/COMMUNAUTE"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante","VILLAGE/COMMUNAUTE"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"VILLAGE/COMMUNAUTE"'
