@@ -147,10 +147,13 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         super.setupViews();
         PncVisitAlertRule summaryVisit = getVisitDetails();
         String statusVisit = summaryVisit.getButtonStatus();
+
         if (statusVisit.equals("OVERDUE")) {
+            layoutRecordView.setVisibility(View.VISIBLE);
             textview_record_visit.setVisibility(View.VISIBLE);
             textview_record_visit.setBackgroundResource(R.drawable.rounded_red_btn);
         } else if (statusVisit.equals("DUE")) {
+            layoutRecordView.setVisibility(View.VISIBLE);
             textview_record_visit.setVisibility(View.VISIBLE);
             textview_record_visit.setBackgroundResource(R.drawable.rounded_blue_btn);
         } else if (ChildProfileInteractor.VisitType.VISIT_DONE.name().equals(statusVisit)) {
@@ -165,6 +168,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 }
 
             } else {
+                layoutRecordView.setVisibility(View.VISIBLE);
                 textview_record_visit.setVisibility(View.VISIBLE);
                 textview_record_visit.setBackgroundResource(R.drawable.rounded_blue_btn);
             }
