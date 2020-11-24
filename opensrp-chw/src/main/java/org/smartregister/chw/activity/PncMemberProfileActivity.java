@@ -149,13 +149,9 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         String statusVisit = summaryVisit.getButtonStatus();
 
         if (statusVisit.equals("OVERDUE")) {
-            layoutRecordView.setVisibility(View.VISIBLE);
-            textview_record_visit.setVisibility(View.VISIBLE);
-            textview_record_visit.setBackgroundResource(R.drawable.rounded_red_btn);
+            updateVisitsOverdueUi();
         } else if (statusVisit.equals("DUE")) {
-            layoutRecordView.setVisibility(View.VISIBLE);
-            textview_record_visit.setVisibility(View.VISIBLE);
-            textview_record_visit.setBackgroundResource(R.drawable.rounded_blue_btn);
+            updateVisitsDueUi();
         } else if (ChildProfileInteractor.VisitType.VISIT_DONE.name().equals(statusVisit)) {
             Visit lastVisit = getVisit(Constants.EVENT_TYPE.PNC_HOME_VISIT);
             if (lastVisit != null) {
@@ -168,14 +164,24 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 }
 
             } else {
-                layoutRecordView.setVisibility(View.VISIBLE);
-                textview_record_visit.setVisibility(View.VISIBLE);
-                textview_record_visit.setBackgroundResource(R.drawable.rounded_blue_btn);
+                updateVisitsDueUi();
             }
         } else {
             textview_record_visit.setVisibility(View.GONE);
             layoutRecordView.setVisibility(View.GONE);
         }
+    }
+
+    protected void updateVisitsDueUi() {
+        layoutRecordView.setVisibility(View.VISIBLE);
+        textview_record_visit.setVisibility(View.VISIBLE);
+        textview_record_visit.setBackgroundResource(R.drawable.rounded_blue_btn);
+    }
+
+    protected void updateVisitsOverdueUi() {
+        layoutRecordView.setVisibility(View.VISIBLE);
+        textview_record_visit.setVisibility(View.VISIBLE);
+        textview_record_visit.setBackgroundResource(R.drawable.rounded_red_btn);
     }
 
     private void refreshOnHomeVisitResult() {
