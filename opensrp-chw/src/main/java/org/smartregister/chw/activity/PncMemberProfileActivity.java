@@ -149,36 +149,35 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         String statusVisit = summaryVisit.getButtonStatus();
 
         if (statusVisit.equals("OVERDUE")) {
-            updateVisitsOverdueUi();
+            updateUiForVisitsOverdue();
         } else if (statusVisit.equals("DUE")) {
-            updateVisitsDueUi();
+            updateUiForVisitsDue();
         } else if (ChildProfileInteractor.VisitType.VISIT_DONE.name().equals(statusVisit)) {
             Visit lastVisit = getVisit(Constants.EVENT_TYPE.PNC_HOME_VISIT);
             if (lastVisit != null) {
                 if ((Days.daysBetween(new DateTime(lastVisit.getCreatedAt()), new DateTime()).getDays() < 1) &&
                         (Days.daysBetween(new DateTime(lastVisit.getDate()), new DateTime()).getDays() <= 1)) {
                     setEditViews(true, true, lastVisit.getDate().getTime());
-                } else {
-                    textview_record_visit.setVisibility(View.GONE);
-                    layoutRecordView.setVisibility(View.GONE);
-                }
+                } else updateUiForVisitsNotAvailable();
+                
+            } else updateUiForVisitsDue();
 
-            } else {
-                updateVisitsDueUi();
-            }
-        } else {
-            textview_record_visit.setVisibility(View.GONE);
-            layoutRecordView.setVisibility(View.GONE);
-        }
+        } else updateUiForVisitsNotAvailable();
+
     }
 
-    protected void updateVisitsDueUi() {
+    private void updateUiForVisitsNotAvailable() {
+        textview_record_visit.setVisibility(View.GONE);
+        layoutRecordView.setVisibility(View.GONE);
+    }
+
+    private void updateUiForVisitsDue() {
         layoutRecordView.setVisibility(View.VISIBLE);
         textview_record_visit.setVisibility(View.VISIBLE);
         textview_record_visit.setBackgroundResource(R.drawable.rounded_blue_btn);
     }
 
-    protected void updateVisitsOverdueUi() {
+    private void updateUiForVisitsOverdue() {
         layoutRecordView.setVisibility(View.VISIBLE);
         textview_record_visit.setVisibility(View.VISIBLE);
         textview_record_visit.setBackgroundResource(R.drawable.rounded_red_btn);
