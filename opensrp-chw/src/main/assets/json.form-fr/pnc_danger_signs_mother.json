@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label_info_image_src": "img/chw.png",
+        "label_info_image_src": "img/chw_fr.png",
         "label_info_has_image": true,
         "label": "Y a-t-il des signes de danger?",
         "label_text_style": "normal",
