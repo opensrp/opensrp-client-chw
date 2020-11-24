@@ -21,7 +21,6 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.application.TestChwApplication;
-import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.shadows.BaseJobShadow;
 import org.smartregister.chw.shadows.ContextShadow;
 
