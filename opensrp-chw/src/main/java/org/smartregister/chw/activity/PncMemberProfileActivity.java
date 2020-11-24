@@ -158,26 +158,26 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 if ((Days.daysBetween(new DateTime(lastVisit.getCreatedAt()), new DateTime()).getDays() < 1) &&
                         (Days.daysBetween(new DateTime(lastVisit.getDate()), new DateTime()).getDays() <= 1)) {
                     setEditViews(true, true, lastVisit.getDate().getTime());
-                } else updateUiForVisitsNotAvailable();
-                
+                } else updateUiForNoVisits();
+
             } else updateUiForVisitsDue();
 
-        } else updateUiForVisitsNotAvailable();
+        } else updateUiForNoVisits();
 
     }
 
-    private void updateUiForVisitsNotAvailable() {
+    protected void updateUiForNoVisits() {
         textview_record_visit.setVisibility(View.GONE);
         layoutRecordView.setVisibility(View.GONE);
     }
 
-    private void updateUiForVisitsDue() {
+    protected void updateUiForVisitsDue() {
         layoutRecordView.setVisibility(View.VISIBLE);
         textview_record_visit.setVisibility(View.VISIBLE);
         textview_record_visit.setBackgroundResource(R.drawable.rounded_blue_btn);
     }
 
-    private void updateUiForVisitsOverdue() {
+    protected void updateUiForVisitsOverdue() {
         layoutRecordView.setVisibility(View.VISIBLE);
         textview_record_visit.setVisibility(View.VISIBLE);
         textview_record_visit.setBackgroundResource(R.drawable.rounded_red_btn);
