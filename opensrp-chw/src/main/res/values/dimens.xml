@@ -37,4 +37,7 @@
     <dimen name="member_profile_list_title_size">18sp</dimen>
     <dimen name="member_due_list_title_size">17.5sp</dimen>
 
+    <dimen name="family_register_text_size">4sp</dimen>
+    <dimen name="family_register_image_size">22dp</dimen>
+    <dimen name="family_register_count_size">34dp</dimen>
 </resources>

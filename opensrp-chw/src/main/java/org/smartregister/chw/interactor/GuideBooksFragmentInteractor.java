@@ -72,7 +72,11 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
         if (context == null) return;
 
         // attempt to refresh the list if the internet is on
-        String folder = Environment.getExternalStorageDirectory() + File.separator +
+        File externalFile = context.getExternalFilesDir(null);
+        if(externalFile == null){
+            throw new IllegalStateException("Root directory not found");
+        }
+        String folder = externalFile.getAbsolutePath() + File.separator +
                 ChwApplication.getGuideBooksDirectory() + File.separator;
         String fileName = "files.json";
 
