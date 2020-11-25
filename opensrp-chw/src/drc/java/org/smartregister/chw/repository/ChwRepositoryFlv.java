@@ -10,8 +10,12 @@ import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
+import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 import timber.log.Timber;
 
@@ -31,18 +35,6 @@ public class ChwRepositoryFlv {
                     break;
                 case 3:
                     upgradeToVersion3(db);
-                    break;
-                case 4:
-                    upgradeToVersion4(db);
-                    break;
-                case 5:
-                    upgradeToVersion5(db);
-                    break;
-                case 7:
-                    upgradeToVersion7(db);
-                    break;
-                case 8:
-                    upgradeToVersion8(db);
                     break;
                 case 9:
                     upgradeToVersion9(db);
@@ -87,19 +79,16 @@ public class ChwRepositoryFlv {
             db.execSQL(RecurringServiceRecordRepository.ALTER_ADD_CREATED_AT_COLUMN);
             RecurringServiceRecordRepository.migrateCreatedAt(db);
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion3 ");
+            Timber.e(e, "upgradeToVersion3 - Part 0");
         }
+
         try {
             Column[] columns = {EventClientRepository.event_column.formSubmissionId};
             EventClientRepository.createIndex(db, EventClientRepository.Table.event, columns);
-
-
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion3 " + e.getMessage());
+            Timber.e(e, "upgradeToVersion3 - Part 1");
         }
-    }
 
-    private static void upgradeToVersion4(SQLiteDatabase db) {
         try {
             db.execSQL(AlertRepository.ALTER_ADD_OFFLINE_COLUMN);
             db.execSQL(AlertRepository.OFFLINE_INDEX);
@@ -108,36 +97,37 @@ public class ChwRepositoryFlv {
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_COL);
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion4 ");
+            Timber.e(e, "upgradeToVersion3 - Part 2");
         }
 
-    }
-
-    private static void upgradeToVersion5(SQLiteDatabase db) {
         try {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion5 ");
+            Timber.e(e, "upgradeToVersion3 - Part 3");
         }
-    }
 
-    private static void upgradeToVersion7(SQLiteDatabase db) {
-        try {
-            //db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN);
-            //db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN)
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion7 ");
-        }
-    }
-
-    private static void upgradeToVersion8(SQLiteDatabase db) {
         try {
             RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion7 ");
+            Timber.e(e, "upgradeToVersion3 - Part 4");
+        }
+
+        try {
+            // setup reporting
+            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+            String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
+            String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
+            String pncIndicatorConfigFile = "config/pnc-reporting-indicator-definitions.yml";
+            for (String configFile : Collections.unmodifiableList(
+                    Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile, pncIndicatorConfigFile))) {
+                reportingLibrary.readConfigFile(configFile, db);
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion3 - Part 4");
         }
     }
+
     private static void upgradeToVersion9(SQLiteDatabase db) {
         try {
             db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
