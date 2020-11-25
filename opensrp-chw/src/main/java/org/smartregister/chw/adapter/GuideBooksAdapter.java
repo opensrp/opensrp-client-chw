@@ -133,7 +133,7 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private ImageView icon;
         private ProgressBar progressBar;
