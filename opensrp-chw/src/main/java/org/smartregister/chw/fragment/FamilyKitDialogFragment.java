@@ -143,7 +143,7 @@ public class FamilyKitDialogFragment extends DialogFragment implements View.OnCl
         }
     }
 
-    private String getValueFromJsonFieldNode(JSONArray field, String key) {
+    public String getValueFromJsonFieldNode(JSONArray field, String key) {
         JSONObject jsonObject = JsonFormUtils.getFieldJSONObject(field, key);
         if (jsonObject == null)
             return null;

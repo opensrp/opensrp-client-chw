@@ -11,7 +11,6 @@ import org.smartregister.chw.core.utils.Utils;
 
 import static org.smartregister.chw.util.Utils.formatDateForVisual;
 import static org.smartregister.chw.util.Utils.getClientName;
-import static org.smartregister.family.util.Utils.context;
 
 public class UtilsTest extends BaseUnitTest {
 
