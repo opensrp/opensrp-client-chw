@@ -78,8 +78,6 @@ public class WashCheckDaoTest extends WashCheckDao {
 
     @Test
     public void testGetWashCheckEvents() {
-        Mockito.doReturn(database).when(repository).getReadableDatabase();
-
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"visit_id", "base_entity_id", "visit_key",
                 "parent_code", "preprocessed_type", "details", "human_readable_details"});
 
