@@ -290,6 +290,10 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         flavor.onCreateOptionsMenu(menu, memberObject.getBaseEntityId());
+        menu.findItem(R.id.action_malaria_diagnosis).setVisible(ChwApplication.getApplicationFlavor().hasMalaria());
+        menu.findItem(R.id.action_malaria_registration).setVisible(ChwApplication.getApplicationFlavor().hasMalaria());
+        menu.findItem(R.id.action_malaria_followup_visit).setVisible(ChwApplication.getApplicationFlavor().hasMalaria());
+        menu.findItem(R.id.action_malaria_diagnosis).setVisible(ChwApplication.getApplicationFlavor().hasMalaria());
         return true;
     }
 
