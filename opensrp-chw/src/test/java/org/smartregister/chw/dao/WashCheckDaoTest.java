@@ -49,8 +49,6 @@ public class WashCheckDaoTest extends WashCheckDao {
 
     @Test
     public void testGetAllWashCheckVisits() {
-        Mockito.doReturn(database).when(repository).getReadableDatabase();
-
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"visit_id"});
         matrixCursor.addRow(new Object[]{"123456"});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
