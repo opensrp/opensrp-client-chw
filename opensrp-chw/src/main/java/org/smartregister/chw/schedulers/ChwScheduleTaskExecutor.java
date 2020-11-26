@@ -101,6 +101,7 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         scheduleServices.add(new PNCVisitScheduler());
 
         addToClassifers(CoreConstants.EventType.PREGNANCY_OUTCOME, classifier, scheduleServices);
+        addToClassifers("PNC Child Registration", classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.PNC_REGISTRATION, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.PNC_HOME_VISIT, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE, classifier, scheduleServices);
@@ -128,6 +129,7 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         scheduleServices.add(new FamilyKitCheckScheduler());
 
         addToClassifers(CoreConstants.EventType.FAMILY_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.PREGNANCY_OUTCOME, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.UPDATE_FAMILY_REGISTRATION, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.FAMILY_KIT, classifier, scheduleServices);
