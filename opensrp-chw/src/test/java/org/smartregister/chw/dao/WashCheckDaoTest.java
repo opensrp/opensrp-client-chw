@@ -12,8 +12,10 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.domain.db.EventClient;
 import org.smartregister.repository.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -72,6 +74,22 @@ public class WashCheckDaoTest extends WashCheckDao {
         Mockito.doReturn(database).when(repository).getWritableDatabase();
         WashCheckDao.updateWashCheckVisits(Long.parseLong("1567329933757"), "12345", "sample_json");
         Mockito.verify(database).rawExecSQL(Mockito.anyString());
+    }
+
+    @Test
+    public void testGetWashCheckEvents() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"visit_id", "base_entity_id", "visit_key",
+                "parent_code", "preprocessed_type", "details", "human_readable_details"});
+
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        List<EventClient> eventClients = WashCheckDao.getWashCheckEvents(database);
+
+
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertEquals(eventClients.size(), 0);
     }
 
 }
