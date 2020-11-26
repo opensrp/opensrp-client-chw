@@ -16,7 +16,6 @@ import org.smartregister.chw.core.task.RunnableTask;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.PncRegisterFragment;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
-import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
