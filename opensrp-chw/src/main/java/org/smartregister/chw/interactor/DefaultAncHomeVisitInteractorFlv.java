@@ -221,21 +221,24 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         Visit latestVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.IPTP_SP);
         ServiceWrapper serviceWrapper;
         String serviceIteration;
-        if (latestVisit == null || latestVisit.getUpdatedAt() == null) {
+        int overdueMonth;
+        if (latestVisit == null || latestVisit.getUpdatedAt() == null || editMode) {
             Map<String, ServiceWrapper> serviceWrapperMap = RecurringServiceUtil.getRecurringServices(memberObject.getBaseEntityId(), lmp, CoreConstants.SERVICE_GROUPS.WOMAN, true);
             serviceWrapper = serviceWrapperMap.get("IPTp-SP");
+            overdueMonth = new Period(serviceWrapper.getVaccineDate(), new DateTime()).getMonths();
         } else {
             Map<String, List<ServiceWrapper>> nextWrappers = RecurringServiceUtil.getNextWrappers(memberObject.getBaseEntityId(), lmp, CoreConstants.SERVICE_GROUPS.WOMAN, true);
             if (nextWrappers == null) return;
             List<ServiceWrapper> wrappers = nextWrappers.get("IPTp-SP");
             if (wrappers == null || nextWrappers.isEmpty()) return;
             serviceWrapper = wrappers.get(0);
+            DateTime lastVisitDate = new DateTime(latestVisit.getUpdatedAt());
+            overdueMonth = new Period(serviceWrapper.getVaccineDate(), lastVisitDate).getMonths();
         }
         if (serviceWrapper == null) return;
         serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
         String iptp = MessageFormat.format(context.getString(R.string.anc_home_visit_iptp_sp), serviceIteration);
-        int overdueMonth = new Period(serviceWrapper.getVaccineDate(), lmp).getMonths();
         String dueState = (overdueMonth < 1) ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
         IPTPAction helper = new IPTPAction(context, serviceIteration);
