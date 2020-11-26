@@ -4,8 +4,11 @@ package org.smartregister.chw.sync;
 import android.content.Context;
 
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.domain.Child;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.ChwChildDao;
+import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.domain.Event;
@@ -38,7 +41,15 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case CoreConstants.EventType.REMOVE_MEMBER:
                     ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByEntityID(baseEntityID);
                 case CoreConstants.EventType.REMOVE_CHILD:
+                    Child child = ChwChildDao.getChild(baseEntityID);
                     ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByEntityID(baseEntityID);
+                    if (child != null) {
+                        String familyBaseEntityID = child.getFamilyBaseEntityID();
+                        ChwApplication.getInstance().getScheduleRepository().closeChildMember(baseEntityID);
+                        if (!FamilyDao.familyHasChildUnderFive(familyBaseEntityID) && ChwApplication.getApplicationFlavor().hasFamilyKitCheck()) {
+                            ChwApplication.getInstance().getScheduleRepository().deleteFamilyKitSchedule(familyBaseEntityID);
+                        }
+                    }
                     break;
                 default:
                     break;
