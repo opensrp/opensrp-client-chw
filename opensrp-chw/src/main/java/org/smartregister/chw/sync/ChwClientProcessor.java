@@ -63,6 +63,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case CoreConstants.EventType.CHILD_HOME_VISIT:
                 case CoreConstants.EventType.CHILD_VISIT_NOT_DONE:
                 case CoreConstants.EventType.CHILD_REGISTRATION:
+                case CoreConstants.EventType.PREGNANCY_OUTCOME:
                 case CoreConstants.EventType.UPDATE_CHILD_REGISTRATION:
                     ChildAlertService.updateAlerts(baseEntityID);
                 default:
