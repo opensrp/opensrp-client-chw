@@ -335,5 +335,11 @@
     <string name="cancel_download">Annuler le téléchargement</string>
 
     <string name="update">Mise à jour</string>
+    <string name="hint_kit_type">Quel type de kit familiale a été reçu par la famille?</string>
+    <string name="simple_kit_hint">Kit simple (SRO/ZINC et paracétamol)</string>
+    <string name="simple_kit_with_micro_hint">Kit simple + micronutriments</string>
+    <string name="no_kit_received_hint">Aucun kit reçu</string>
+    <string name="kit_been_used_hint">Le kit a-t-il été utilisé?</string>
+    <string name="family_kit">Kit Familiale</string>
 
 </resources>
