@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Family Kit",
+    "title": "Kit Familiale",
     "fields": [
       {
         "key": "illustration_text_description",
@@ -67,9 +67,14 @@
         "openmrs_entity_id": "family_kit_entity_id",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "label_info_title": "What type of kit has the family received?",
-        "hint": "What type of kit has the family received?",
+        "label_info_title": "Quel type de kit familiale a été reçu par la famille?",
+        "hint": "Quel type de kit familiale a été reçu par la famille?",
         "values": [
+          "Kit simple (SRO/ZINC et paracétamol)",
+          "Kit simple + micronutriments",
+          "Aucun kit reçu"
+        ],
+        "keys": [
           "Simple Kit (ORS/ZINC and Paracetamol)",
           "Simple Kit (ORS/ZINC and Paracetamol) with micronutrients",
           "No kit received"
@@ -92,7 +97,7 @@
         "openmrs_data_type": "select one",
         "expanded": false,
         "type": "spinner",
-        "hint": "Has the kit been used?",
+        "hint": "Le kit a-t-il été utilisé?",
         "values": [
           "Oui",
           "Non"
