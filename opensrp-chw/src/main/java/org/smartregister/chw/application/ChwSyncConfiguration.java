@@ -88,7 +88,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public boolean clearDataOnNewTeamLogin() {
-        return true;
+        return false;
     }
 
     @Override
