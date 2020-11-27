@@ -22,14 +22,11 @@ public class WashCheckDao extends AbstractDao {
         String sql = "select CASE WHEN created_at <= visit_date THEN created_at ELSE visit_date END wash_check_date from visits where visit_type = 'WASH check' and " +
                 "base_entity_id = '" + familyBaseEntityID + "' order by created_at desc limit 1";
 
-        DataMap<String> dataMap = c -> getCursorValue(c, "wash_check_date");
+        DataMap<Long> dataMap = c -> getCursorLongValue(c, "wash_check_date");
 
-        List<String> res = AbstractDao.readData(sql, dataMap);
-        if (res == null || res.size() == 0) {
-            return 0;
-        }
+        List<Long> res = AbstractDao.readData(sql, dataMap);
 
-        return Long.parseLong(res.get(0));
+        return res == null || res.isEmpty() ? 0 : res.get(0);
     }
 
     public static List<String> getAllWashCheckVisits(SQLiteDatabase db) {
