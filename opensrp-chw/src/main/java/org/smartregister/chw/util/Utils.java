@@ -115,7 +115,7 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         return format.format(newDate);
     }
 
-    public static String getDateTimeFromTimeStamp(Long time, String mDateFormat) {
+    public static String getFormattedDateFromTimeStamp(Long time, String mDateFormat) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(mDateFormat, Locale.getDefault());
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date dateTime = new Date(time);
