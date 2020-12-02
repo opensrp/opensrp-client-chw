@@ -341,5 +341,6 @@
     <string name="no_kit_received_hint">Aucun kit reçu</string>
     <string name="kit_been_used_hint">Le kit a-t-il été utilisé?</string>
     <string name="family_kit">Kit Familiale</string>
-
+    <string name="anc_home_visit_delivery_kit_received">Kit d\'accouchement reçu</string>
+    <string name="delivery_kit">Kit d\'accouchement</string>
 </resources>
