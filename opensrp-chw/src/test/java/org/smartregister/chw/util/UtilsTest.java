@@ -70,10 +70,8 @@ public class UtilsTest extends BaseUnitTest {
     }
     @Test
     public void testGetDateTimeFromTimeStamp() {
-        String mDateFormat = "dd MMM yyyy";
-        Long time = Long.valueOf("1606780800000");
-        String formattedDateFromTimeStamp = getFormattedDateFromTimeStamp(time, mDateFormat);
-        Assert.assertEquals("01 Dec 2020",formattedDateFromTimeStamp);
+        Assert.assertEquals("01 Dec 2020",getFormattedDateFromTimeStamp(Long.valueOf("1606780800000"), "dd MMM yyyy"));
+        Assert.assertEquals("2020-12-02",getFormattedDateFromTimeStamp(Long.valueOf("1606889233342"), "yyyy-MM-dd"));
 
     }
 }
