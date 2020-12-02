@@ -84,6 +84,7 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity
         form.setNavigationBackground(R.color.family_navigation);
         form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
         form.setPreviousLabel(getResources().getString(R.string.back));
+        intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
 
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
