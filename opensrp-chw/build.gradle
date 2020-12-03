@@ -226,6 +226,7 @@ android {
             buildConfigField "int", "DATABASE_VERSION", '10'
         }
         drc {
+            resConfigs "en", "fr"
             dimension = 'baseDimension'
             applicationIdSuffix ".drc"
             versionCode 3
