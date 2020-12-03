@@ -68,7 +68,6 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
         form.setActionBarBackground(R.color.family_actionbar);
         form.setNavigationBackground(R.color.family_navigation);
         form.setWizard(true);
-        intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         return intent;
     }
