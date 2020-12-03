@@ -418,4 +418,6 @@
     <string name="no_kit_received_hint">No kit received</string>
     <string name="kit_been_used_hint">Has the kit been used?</string>
     <string name="family_kit">Family Kit</string>
+    <string name="anc_home_visit_delivery_kit_received">Delivery kit received</string>
+    <string name="delivery_kit">Delivery kit</string>
 </resources>
