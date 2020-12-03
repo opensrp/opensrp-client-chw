@@ -347,4 +347,6 @@
     <string name="drc_minimum_dietary_choice_2">2 - Deux types d\'aliments différents</string>
     <string name="drc_minimum_dietary_choice_3">3 - Trois types d\'aliment différents</string>
     <string name="drc_minimum_dietary_choice_4">4 - Quatre types d\'aliment différents</string>
+    <string name="anc_home_visit_delivery_kit_received">Kit d\'accouchement reçu</string>
+    <string name="delivery_kit">Kit d\'accouchement</string>
 </resources>
