@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Child vaccine card received",
+    "title": "{{pnc_vaccine_card.step1.title}}",
     "fields": [
       {
         "key": "vaccine_card",
@@ -57,7 +57,7 @@
         "openmrs_data_type": "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "image": "ic_form_vaccine_card",
-        "hint": "Did the child receive their vaccine card?",
+        "hint": "{{pnc_vaccine_card.step1.vaccine_card.hint}}",
         "values": [
           "Yes",
           "No"
@@ -68,5 +68,6 @@
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "pnc_vaccine_card"
 }

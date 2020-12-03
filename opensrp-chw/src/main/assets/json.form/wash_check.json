@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "WASH check",
+    "title": "{{wash_check.step1.title}}",
     "fields": [
       {
         "key": "handwashing_facilities",
@@ -58,7 +58,7 @@
         "type": "spinner",
         "label_info_title": "Does the household have handwashing facilities?",
         "label_info_text": "Respond \"Yes\" if the household has a designated space to wash hands (or a mobile handwashing point), water, and soap. Otherwise, respond \"No\".",
-        "hint": "Does the household have handwashing facilities?",
+        "hint": "{{wash_check.step1.handwashing_facilities.hint}}",
         "values": [
           "Yes",
           "No"
@@ -69,7 +69,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please select option"
+          "err": "{{wash_check.step1.handwashing_facilities.v_required.err}}"
         }
       },
       {
@@ -81,7 +81,7 @@
         "type": "spinner",
         "label_info_title": "Does the household have access to clean drinking water?",
         "label_info_text": "Respond \"yes\" if the household has access to improved water sources that are available when needed and free from contamination. Improved drinking water sources are those that have the potential to deliver safe water by nature of their design and construction, and include: piped water, boreholes or tubewells, protected dug wells, protected springs, rainwater, and packaged or delivered water.",
-        "hint": "Does the household have access to clean drinking water?",
+        "hint": "{{wash_check.step1.drinking_water.hint}}",
         "values": [
           "Yes",
           "No"
@@ -92,7 +92,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please select option"
+          "err": "{{wash_check.step1.drinking_water.v_required.err}}"
         }
       },
       {
@@ -104,7 +104,7 @@
         "type": "spinner",
         "label_info_title": "Do household members use a hygienic latrine for the disposal of feces?",
         "label_info_text": "Respond \"yes\" if the household uses improved sanitation facilities which are not shared with other households. Improved sanitation facilities are those designed to hygienically separate excreta from human contact, and include: flush/pour flush to piped sewer system, septic tanks or pit latrines; ventilated improved pit latrines, composting toilets or pit latrines with slabs.\n\nRespond \"no\" if they are practicing open defecation: disposal of human feces in fields, forests, bushes, open bodies of water, beaches and other open spaces or with solid waste.",
-        "hint": "Do household members use a hygienic latrine for the disposal of feces?",
+        "hint": "{{wash_check.step1.hygienic_latrine.hint}}",
         "values": [
           "Yes",
           "No"
@@ -115,9 +115,10 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please select option"
+          "err": "{{wash_check.step1.hygienic_latrine.v_required.err}}"
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "wash_check"
 }

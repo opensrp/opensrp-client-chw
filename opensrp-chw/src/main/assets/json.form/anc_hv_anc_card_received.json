@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC card received",
+    "title": "{{anc_hv_anc_card_received.step1.title}}",
     "fields": [
       {
         "key": "anc_card",
@@ -57,7 +57,7 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "image": "form_received_card",
-        "hint": "ANC card received?",
+        "hint": "{{anc_hv_anc_card_received.step1.anc_card.hint}}",
         "values": [
           "Yes",
           "No"
@@ -68,5 +68,6 @@
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "anc_hv_anc_card_received"
 }

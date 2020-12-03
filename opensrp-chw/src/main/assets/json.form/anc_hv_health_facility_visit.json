@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC {0} health facility visit",
+    "title": "{{anc_hv_health_facility_visit.step1.title}}",
     "fields": [
       {
         "key": "anc_hf_visit",
@@ -58,14 +58,14 @@
         "label_info_title": "Did the woman attend her ANC {0} visit at the health facility?",
         "label_info_text": "Whether or not the woman attended her ANC visit at the health facility.",
         "type": "spinner",
-        "hint": "Did the woman attend her ANC {0} visit at the health facility?\n\nVisit due date: {1}",
+        "hint": "{{anc_hv_health_facility_visit.step1.anc_hf_visit.hint}}",
         "values": [
           "Yes",
           "No"
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "{{anc_hv_health_facility_visit.step1.anc_hf_visit.v_required.err}}"
         }
       },
       {
@@ -77,14 +77,14 @@
         "label_info_title": "Date of visit",
         "label_info_text": "The date of the last ANC visit the woman attended at the health facility.",
         "type": "date_picker",
-        "label": "Date of visit",
-        "hint": "Date of visit",
+        "label": "{{anc_hv_health_facility_visit.step1.anc_hf_visit_date.label}}",
+        "hint": "{{anc_hv_health_facility_visit.step1.anc_hf_visit_date.hint}}",
         "expanded": false,
         "min_date": "today-10y",
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Enter the date of the ANC visit"
+          "err": "{{anc_hv_health_facility_visit.step1.anc_hf_visit_date.v_required.err}}"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -109,22 +109,22 @@
         "label_info_title": "Weight (kg)",
         "label_info_text": "Weight (in kg) of the woman.",
         "edit_type": "number",
-        "hint": "Weight (kg)",
+        "hint": "{{anc_hv_health_facility_visit.step1.weight.hint}}",
         "v_required": {
           "value": "false",
-          "err": "Required"
+          "err": "{{anc_hv_health_facility_visit.step1.weight.v_required.err}}"
         },
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "{{anc_hv_health_facility_visit.step1.weight.v_numeric.err}}"
         },
         "v_min": {
           "value": "30",
-          "err": "Weight must be equal or greater than 30"
+          "err": "{{anc_hv_health_facility_visit.step1.weight.v_min.err}}"
         },
         "v_max": {
           "value": "200",
-          "err": "Weight must be equal or less than 200"
+          "err": "{{anc_hv_health_facility_visit.step1.weight.v_max.err}}"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -142,18 +142,18 @@
         "edit_type": "number",
         "label_info_title": "Systolic BP (mmHg)",
         "label_info_text": "Systolic blood pressure of the woman. ",
-        "hint": "Systolic BP (mmHg)",
+        "hint": "{{anc_hv_health_facility_visit.step1.sys_bp.hint}}",
         "v_min": {
           "value": "0",
-          "err": "The value must be greater than or equal to 0"
+          "err": "{{anc_hv_health_facility_visit.step1.sys_bp.v_min.err}}"
         },
         "v_required": {
           "value": "false",
-          "err": "Required"
+          "err": "{{anc_hv_health_facility_visit.step1.sys_bp.v_required.err}}"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Must be a rounded number"
+          "err": "{{anc_hv_health_facility_visit.step1.sys_bp.v_numeric.err}}"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -171,18 +171,18 @@
         "edit_type": "number",
         "label_info_title": "Diastolic BP (mmHg)",
         "label_info_text": "Diastolic blood pressure of the woman. ",
-        "hint": "Diastolic BP (mmHg)",
+        "hint": "{{anc_hv_health_facility_visit.step1.dia_bp.hint}}",
         "v_min": {
           "value": "0",
-          "err": "The value must be greater than or equal to 0"
+          "err": "{{anc_hv_health_facility_visit.step1.dia_bp.v_min.err}}"
         },
         "v_required": {
           "value": "false",
-          "err": "Required"
+          "err": "{{anc_hv_health_facility_visit.step1.dia_bp.v_required.err}}"
         },
         "v_numeric": {
           "value": "true",
-          "err": "Must be a rounded number"
+          "err": "{{anc_hv_health_facility_visit.step1.dia_bp.v_numeric.err}}"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -199,15 +199,15 @@
         "type": "edit_text",
         "edit_type": "number",
         "label_info_title": "Haemoglobin level (g/dl)",
-        "label_info_text": "The woman's haemoglobin level (g/dl).",
-        "hint": "Haemoglobin level (g/dl)",
+        "label_info_text": "The woman\u0027s haemoglobin level (g/dl).",
+        "hint": "{{anc_hv_health_facility_visit.step1.hb_level.hint}}",
         "v_required": {
           "value": "false",
-          "err": "Required"
+          "err": "{{anc_hv_health_facility_visit.step1.hb_level.v_required.err}}"
         },
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "{{anc_hv_health_facility_visit.step1.hb_level.v_numeric.err}}"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -224,14 +224,14 @@
         "type": "spinner",
         "label_info_title": "IFA received?",
         "label_info_text": "Whether the woman has received IFA tablets.",
-        "hint": "IFA received?",
+        "hint": "{{anc_hv_health_facility_visit.step1.ifa_received.hint}}",
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "{{anc_hv_health_facility_visit.step1.ifa_received.v_required.err}}"
         },
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "{{anc_hv_health_facility_visit.step1.ifa_received.v_numeric.err}}"
         },
         "values": [
           "Yes",
@@ -254,7 +254,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Which tests were done?",
+        "label": "{{anc_hv_health_facility_visit.step1.tests_done.label}}",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -263,28 +263,28 @@
         "options": [
           {
             "key": "chk_none",
-            "text": "None",
+            "text": "{{anc_hv_health_facility_visit.step1.tests_done.options.chk_none.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_urine",
-            "text": "Urine analysis",
+            "text": "{{anc_hv_health_facility_visit.step1.tests_done.options.chk_urine.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "161156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_hiv",
-            "text": "HIV test",
+            "text": "{{anc_hv_health_facility_visit.step1.tests_done.options.chk_hiv.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_syphilis",
-            "text": "Syphilis test",
+            "text": "{{anc_hv_health_facility_visit.step1.tests_done.options.chk_syphilis.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -292,7 +292,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please pick at least one"
+          "err": "{{anc_hv_health_facility_visit.step1.tests_done.v_required.err}}"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -312,5 +312,6 @@
         "value": "0"
       }
     ]
-  }
+  },
+  "properties_file_name": "anc_hv_health_facility_visit"
 }
