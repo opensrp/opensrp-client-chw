@@ -21,7 +21,7 @@ import timber.log.Timber;
 import static org.smartregister.chw.core.utils.CoreConstants.EventType.ANC_REGISTRATION;
 
 public class AncRegisterActivity extends CoreAncRegisterActivity {
-    private static boolean shouldFinishOnBack;
+    protected static boolean shouldFinishOnBack;
 
     public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
                                                     String uniqueId, String familyBaseID, String family_name) {
