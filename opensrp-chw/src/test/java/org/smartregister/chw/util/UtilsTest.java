@@ -11,6 +11,7 @@ import org.smartregister.chw.core.utils.Utils;
 
 import static org.smartregister.chw.util.Utils.formatDateForVisual;
 import static org.smartregister.chw.util.Utils.getClientName;
+import static org.smartregister.chw.util.Utils.getFormattedDateFromTimeStamp;
 
 public class UtilsTest extends BaseUnitTest {
 
@@ -65,6 +66,12 @@ public class UtilsTest extends BaseUnitTest {
             Assert.assertEquals("first_name middle_name last_name", name);
         else
             Assert.assertEquals("first_name middle_name", name);
+
+    }
+    @Test
+    public void testGetDateTimeFromTimeStamp() {
+        Assert.assertEquals("01 Dec 2020",getFormattedDateFromTimeStamp(Long.valueOf("1606780800000"), "dd MMM yyyy"));
+        Assert.assertEquals("2020-12-02",getFormattedDateFromTimeStamp(Long.valueOf("1606889233342"), "yyyy-MM-dd"));
 
     }
 }
