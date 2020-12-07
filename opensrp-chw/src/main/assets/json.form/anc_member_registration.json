@@ -134,7 +134,7 @@
       {
         "key": "gest_age_note",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "{{anc_member_registration.step1.gest_age_note.hint}}",
@@ -196,10 +196,6 @@
         "v_min": {
           "value": "0",
           "err": "{{anc_member_registration.step1.no_prev_preg.v_min.err}}"
-        },
-        "v_max": {
-          "value": "45",
-          "err": "{{anc_member_registration.step1.no_prev_preg.v_max.err}}"
         }
       },
       {
@@ -217,6 +213,94 @@
         }
       },
       {
+        "key": "delivery_method",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "{{anc_member_registration.step1.delivery_method.label}}",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "chk_vaginally",
+            "text": "{{anc_member_registration.step1.delivery_method.options.chk_vaginally.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_cesarean_section",
+            "text": "{{anc_member_registration.step1.delivery_method.options.chk_cesarean_section.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_miscarriage",
+            "text": "{{anc_member_registration.step1.delivery_method.options.chk_miscarriage.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_member_registration.step1.delivery_method.v_required.err}}"
+        }
+      },
+      {
+        "key": "delivery_method_one",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "{{anc_member_registration.step1.delivery_method_one.label}}",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "chk_vaginally",
+            "text": "{{anc_member_registration.step1.delivery_method_one.options.chk_vaginally.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_cesarean_section",
+            "text": "{{anc_member_registration.step1.delivery_method_one.options.chk_cesarean_section.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_miscarriage",
+            "text": "{{anc_member_registration.step1.delivery_method_one.options.chk_miscarriage.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_member_registration.step1.delivery_method_one.v_required.err}}"
+        }
+      },
+      {
         "key": "no_surv_children",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -224,6 +308,13 @@
         "type": "edit_text",
         "edit_type": "number",
         "hint": "{{anc_member_registration.step1.no_surv_children.hint}}",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "{{anc_member_registration.step1.no_surv_children.v_required.err}}"
@@ -238,6 +329,40 @@
         }
       },
       {
+        "key": "marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{anc_member_registration.step1.marital_status.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_member_registration.step1.marital_status.v_required.err}}"
+        },
+        "values": [
+          "Married",
+          "Co-habiting",
+          "Single",
+          "Divorced",
+          "Widowed"
+        ],
+        "keys": [
+          "Married",
+          "Co-habiting",
+          "Single",
+          "Divorced",
+          "Widowed"
+        ],
+        "openmrs_choice_ids": {
+          "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Co-habiting": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Divorced": "1058AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Widowed": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      },
+      {
         "key": "phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -248,9 +373,83 @@
           "value": "true",
           "err": "{{anc_member_registration.step1.phone_number.v_numeric.err}}"
         },
+        "v_regex": {
+          "value": "(0[0-9]{9})|\\s*",
+          "err": "{{anc_member_registration.step1.phone_number.v_regex.err}}"
+        },
         "v_required": {
-          "value": false,
-          "err": "{{anc_member_registration.step1.phone_number.v_required.err}}"
+          "value": false
+        }
+      },
+      {
+        "key": "person_assist",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{anc_member_registration.step1.person_assist.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_member_registration.step1.person_assist.v_required.err}}"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      },
+      {
+        "key": "name_person_assist",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "{{anc_member_registration.step1.name_person_assist.hint}}",
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_member_registration.step1.name_person_assist.v_required.err}}"
+        }
+      },
+      {
+        "key": "phone_person_assist",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "{{anc_member_registration.step1.phone_person_assist.hint}}",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{anc_member_registration.step1.phone_person_assist.v_numeric.err}}"
+        },
+        "v_regex": {
+          "value": "(0[0-9]{9})|\\s*",
+          "err": "{{anc_member_registration.step1.phone_person_assist.v_regex.err}}"
         }
       }
     ]
