@@ -79,7 +79,6 @@ import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.P2PClassifier;
-import org.smartregister.util.CrashLyticsTree;
 import org.smartregister.util.LangUtils;
 
 import java.util.ArrayList;
@@ -193,14 +192,6 @@ public class ChwApplication extends CoreChwApplication {
         if (getApplicationFlavor().hasMap()) {
             initializeMapBox();
         }
-    }
-
-
-    /**
-     * Plant the crashlytics tree fro every application to use
-     */
-    public void initializeCrashLyticsTree() {
-        Timber.plant(new CrashLyticsTree());
     }
 
     protected void initializeMapBox() {
