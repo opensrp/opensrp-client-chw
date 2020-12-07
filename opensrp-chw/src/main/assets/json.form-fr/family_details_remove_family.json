@@ -145,7 +145,7 @@
         "relevance": {
           "step1:remove_reason": {
             "type": "string",
-            "ex": "equalTo(., \"Déménagé\")"
+            "ex": "equalTo(., \"Moved away\")"
           }
         }
       }
