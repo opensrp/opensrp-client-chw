@@ -219,24 +219,36 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         // if there are no pending vaccines
         DateTime lmp = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
         Visit latestVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.IPTP_SP);
-        ServiceWrapper serviceWrapper;
+        ServiceWrapper serviceWrapper = null;
         String serviceIteration;
+        DateTime overDueDate;
         int overdueMonth;
-        if (latestVisit == null || latestVisit.getUpdatedAt() == null || editMode) {
+        List<VisitDetail> visitDetail = null;
+        if (latestVisit == null || latestVisit.getUpdatedAt() == null) {
             Map<String, ServiceWrapper> serviceWrapperMap = RecurringServiceUtil.getRecurringServices(memberObject.getBaseEntityId(), lmp, CoreConstants.SERVICE_GROUPS.WOMAN, true);
             serviceWrapper = serviceWrapperMap.get("IPTp-SP");
             overdueMonth = new Period(serviceWrapper.getVaccineDate(), new DateTime()).getMonths();
+            overDueDate = serviceWrapper.getVaccineDate();
         } else {
+            Map<String, List<VisitDetail>> visitDetails = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(latestVisit.getVisitId()));
             Map<String, List<ServiceWrapper>> nextWrappers = RecurringServiceUtil.getNextWrappers(memberObject.getBaseEntityId(), lmp, CoreConstants.SERVICE_GROUPS.WOMAN, true);
-            if (nextWrappers == null) return;
-            List<ServiceWrapper> wrappers = nextWrappers.get("IPTp-SP");
-            if (wrappers == null || nextWrappers.isEmpty()) return;
-            serviceWrapper = wrappers.get(0);
-            DateTime lastVisitDate = new DateTime(latestVisit.getUpdatedAt());
-            overdueMonth = new Period(serviceWrapper.getVaccineDate(), lastVisitDate).getMonths();
+            Object firstKey = visitDetails.keySet().toArray()[0];
+            visitDetail = visitDetails.get(firstKey);
+            DateTime lastVisitDate = DateTime.parse(visitDetail.get(0).getDetails());
+            overdueMonth = new Period(lastVisitDate, new DateTime()).getMonths();
+            overDueDate = lastVisitDate.plusMonths(1);
+            if (!editMode) {
+                if (nextWrappers == null) return;
+                List<ServiceWrapper> wrappers = nextWrappers.get("IPTp-SP");
+                if (wrappers == null || nextWrappers.isEmpty()) return;
+                serviceWrapper = wrappers.get(0);
+            }
         }
-        if (serviceWrapper == null) return;
-        serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
+        if (serviceWrapper == null && !editMode) return;
+        if (!editMode)
+            serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
+        else
+            serviceIteration = visitDetail.get(0).getPreProcessedJson().substring(visitDetail.get(0).getPreProcessedJson().length() - 1);
 
         String iptp = MessageFormat.format(context.getString(R.string.anc_home_visit_iptp_sp), serviceIteration);
         String dueState = (overdueMonth < 1) ? context.getString(R.string.due) : context.getString(R.string.overdue);
@@ -263,11 +275,11 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .withPayloadDetails(MessageFormat.format("IPTp-SP_dose_{0}", serviceIteration))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
                 .withScheduleStatus((overdueMonth < 1) ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
-                .withSubtitle(MessageFormat.format("{0}{1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
+                .withSubtitle(MessageFormat.format("{0}{1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(overDueDate)))
                 .build();
 
         // don't show if its after now
-        if (!serviceWrapper.getVaccineDate().isAfterNow()) {
+        if (editMode || !serviceWrapper.getVaccineDate().isAfterNow()) {
             actionList.put(iptp, iptp_action);
         }
     }
