@@ -231,13 +231,13 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
             overDueDate = serviceWrapper.getVaccineDate();
         } else {
             Map<String, List<VisitDetail>> visitDetails = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(latestVisit.getVisitId()));
-            Map<String, List<ServiceWrapper>> nextWrappers = RecurringServiceUtil.getNextWrappers(memberObject.getBaseEntityId(), lmp, CoreConstants.SERVICE_GROUPS.WOMAN, true);
             Object firstKey = visitDetails.keySet().toArray()[0];
             visitDetail = visitDetails.get(firstKey);
             DateTime lastVisitDate = DateTime.parse(visitDetail.get(0).getDetails());
             overdueMonth = new Period(lastVisitDate, new DateTime()).getMonths();
             overDueDate = lastVisitDate.plusMonths(1);
             if (!editMode) {
+                Map<String, List<ServiceWrapper>> nextWrappers = RecurringServiceUtil.getNextWrappers(memberObject.getBaseEntityId(), lmp, CoreConstants.SERVICE_GROUPS.WOMAN, true);
                 if (nextWrappers == null) return;
                 List<ServiceWrapper> wrappers = nextWrappers.get("IPTp-SP");
                 if (wrappers == null || nextWrappers.isEmpty()) return;
