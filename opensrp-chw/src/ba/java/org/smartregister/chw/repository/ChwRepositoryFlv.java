@@ -10,6 +10,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.BuildConfig;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
+import org.smartregister.chw.core.utils.ChwDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.RepositoryUtils;
@@ -91,6 +92,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 20:
                     upgradeToVersion20(db);
+                    break;
+                case 21:
+                    upgradeToVersion21(db);
                     break;
                 default:
                     break;
@@ -323,4 +327,18 @@ public class ChwRepositoryFlv {
             Timber.e(e, "upgradeToVersion20");
         }
     }
+
+    private static void upgradeToVersion21(SQLiteDatabase db) {
+        try {
+            // add missing columns
+            List<String> columns = new ArrayList<>();
+            columns.add(DBConstants.KEY.VILLAGE_TOWN);
+            columns.add(ChwDBConstants.NEAREST_HEALTH_FACILITY);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.FAMILY, columns);
+
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion21 ");
+        }
+    }
+
 }
