@@ -64,13 +64,6 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
     }
 
     @Override
-    protected void attachBaseContext(Context base) {
-        // get language from prefs
-        String lang = LangUtils.getLanguage(base.getApplicationContext());
-        super.attachBaseContext(LangUtils.setAppLocale(base, lang));
-    }
-
-    @Override
     public void onDestroy() {
         try {
             super.onDestroy();

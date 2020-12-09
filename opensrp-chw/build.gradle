@@ -6,8 +6,9 @@ buildscript {
     }
     dependencies {
         classpath 'org.apache.commons:commons-lang3:3.10'
-        classpath 'io.fabric.tools:gradle:1.31.2'
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:4.0.2'
+        classpath 'com.google.gms:google-services:4.3.4'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
     }
 }
 
@@ -24,7 +25,8 @@ allprojects {
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 apply from: "jacoco.gradle"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -316,7 +318,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:2.0.5-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.0.7-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -338,7 +340,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //Do not upgrade to 1.1.0 due to compatibility issues
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.android.support:multidex:1.0.3'
     //Do not upgrade to 24.jre-1 due to compatibility issues
     implementation 'com.google.guava:guava:24.1-jre'
