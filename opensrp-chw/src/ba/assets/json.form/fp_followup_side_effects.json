@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Side Effects",
+    "title": "{{fp_followup_side_effects.step1.title}}",
     "fields": [
       {
         "key": "fp_method",
@@ -78,10 +78,10 @@
           "Others": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
-        "hint": "Is she/he experiencing any side effects?",
+        "hint": "{{fp_followup_side_effects.step1.condom_side_effects.hint}}",
         "v_required": {
           "value": "true",
-          "err": "This value cannot be null"
+          "err": "{{fp_followup_side_effects.step1.condom_side_effects.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -98,10 +98,10 @@
         "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
-        "hint": "Others:",
+        "hint": "{{fp_followup_side_effects.step1.condom_side_effects_other.hint}}",
         "v_required": {
           "value": "true",
-          "err": "This value cannot be null"
+          "err": "{{fp_followup_side_effects.step1.condom_side_effects_other.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -135,10 +135,10 @@
           "Others": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
-        "hint": "Is she experiencing any side effects?",
+        "hint": "{{fp_followup_side_effects.step1.cocpop_side_effects.hint}}",
         "v_required": {
           "value": "true",
-          "err": "This value cannot be null"
+          "err": "{{fp_followup_side_effects.step1.cocpop_side_effects.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -155,10 +155,10 @@
         "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5274AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
-        "hint": "Others:",
+        "hint": "{{fp_followup_side_effects.step1.cocpop_side_effects_other.hint}}",
         "v_required": {
           "value": "true",
-          "err": "This value cannot be null"
+          "err": "{{fp_followup_side_effects.step1.cocpop_side_effects_other.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -192,10 +192,10 @@
           "Others": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
-        "hint": "Is she experiencing any side effects?",
+        "hint": "{{fp_followup_side_effects.step1.inject_side_effects.hint}}",
         "v_required": {
           "value": "true",
-          "err": "This value cannot be null"
+          "err": "{{fp_followup_side_effects.step1.inject_side_effects.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -212,10 +212,10 @@
         "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
-        "hint": "Others:",
+        "hint": "{{fp_followup_side_effects.step1.inject_side_effects_other.hint}}",
         "v_required": {
           "value": "true",
-          "err": "This value cannot be null"
+          "err": "{{fp_followup_side_effects.step1.inject_side_effects_other.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -258,10 +258,10 @@
           "Others": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
-        "hint": "Is she experiencing any side effects?",
+        "hint": "{{fp_followup_side_effects.step1.IUCD_side_effects.hint}}",
         "v_required": {
           "value": "true",
-          "err": "This value cannot be null"
+          "err": "{{fp_followup_side_effects.step1.IUCD_side_effects.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -278,10 +278,10 @@
         "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
-        "hint": "Others:",
+        "hint": "{{fp_followup_side_effects.step1.IUCD_side_effects_other.hint}}",
         "v_required": {
           "value": "true",
-          "err": "This value cannot be null"
+          "err": "{{fp_followup_side_effects.step1.IUCD_side_effects_other.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -318,10 +318,10 @@
           "Others": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
-        "hint": "Is she/he experiencing any side effects?",
+        "hint": "{{fp_followup_side_effects.step1.sterilization_side_effects.hint}}",
         "v_required": {
           "value": "true",
-          "err": "This value cannot be null"
+          "err": "{{fp_followup_side_effects.step1.sterilization_side_effects.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -338,10 +338,10 @@
         "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
-        "hint": "Others:",
+        "hint": "{{fp_followup_side_effects.step1.sterilization_side_effects_other.hint}}",
         "v_required": {
           "value": "true",
-          "err": "This value cannot be null"
+          "err": "{{fp_followup_side_effects.step1.sterilization_side_effects_other.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -357,33 +357,33 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Action taken",
+        "label": "{{fp_followup_side_effects.step1.action_taken.label}}",
         "options": [
           {
             "key": "managed",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Managed"
+            "text": "{{fp_followup_side_effects.step1.action_taken.options.managed.text}}"
           },
           {
             "key": "referred",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Referred"
+            "text": "{{fp_followup_side_effects.step1.action_taken.options.referred.text}}"
           },
           {
             "key": "no_action_taken",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No action taken"
+            "text": "{{fp_followup_side_effects.step1.action_taken.options.no_action_taken.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This value cannot be null"
+          "err": "{{fp_followup_side_effects.step1.action_taken.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -392,8 +392,8 @@
             }
           }
         }
-
       }
     ]
-  }
+  },
+  "properties_file_name": "fp_followup_side_effects"
 }

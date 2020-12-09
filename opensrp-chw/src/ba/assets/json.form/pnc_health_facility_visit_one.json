@@ -28,7 +28,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": ""
         }
       },
       {
@@ -56,7 +56,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": ""
         }
       },
       {
@@ -84,9 +84,10 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": ""
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "pnc_health_facility_visit_one"
 }

@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Malaria prevention",
+    "title": "{{anc_hv_malaria.step1.title}}",
     "fields": [
       {
         "key": "fam_llin",
@@ -56,7 +56,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Does the woman have a long lasting insecticide net (LLIN)?",
+        "hint": "{{anc_hv_malaria.step1.fam_llin.hint}}",
         "values": [
           "Yes",
           "No"
@@ -71,7 +71,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "{{anc_hv_malaria.step1.fam_llin.v_required.err}}"
         }
       },
       {
@@ -81,7 +81,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Did she sleep under the LLIN last night?",
+        "hint": "{{anc_hv_malaria.step1.llin_2days.hint}}",
         "values": [
           "Yes",
           "No"
@@ -96,7 +96,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "{{anc_hv_malaria.step1.llin_2days.v_required.err}}"
         },
         "relevance": {
           "step1:fam_llin": {
@@ -112,7 +112,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "LLIN condition",
+        "hint": "{{anc_hv_malaria.step1.llin_condition.hint}}",
         "values": [
           "Okay",
           "Bad"
@@ -127,7 +127,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "{{anc_hv_malaria.step1.llin_condition.v_required.err}}"
         },
         "relevance": {
           "step1:fam_llin": {
@@ -137,5 +137,6 @@
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "anc_hv_malaria"
 }
