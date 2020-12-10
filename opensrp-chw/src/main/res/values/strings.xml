@@ -427,5 +427,6 @@
 
     <string name="anc_home_visit_delivery_kit_received">Delivery kit received</string>
     <string name="delivery_kit">Delivery kit</string>
+    <string name="select_one_option">Please select one option</string>
 
 </resources>
