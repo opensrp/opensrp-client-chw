@@ -8,6 +8,7 @@
 
     <string name="child_under_five">Mtoto chini ya miaka 5</string>
     <string name="add_eligible_child">Mtoto stahiki</string>
+    <string name="add_child_under_11">Ongeza watato chini ya miaka 11</string>
     <string name="go_to_family_s_profile">Elekea kwenye taarifa binafsi za kaya</string>
     <string name="family_has_nothing_due">Muda wa huduma kwenye kaya haujafika</string>
     <string name="family_has_services_due">Muda wa huduma kwenye kaya umefika</string>
@@ -19,7 +20,6 @@
     <string name="family_has_service_overdue"><![CDATA[Kaya ina <font color=#FF0000>huduma zilizopitiliza muda wake </font></b>]]></string>
     <string name="view_upcoming_services">Angalia huduma zinazokaribia</string>
     <string name="upcoming_services">Huduma zinazokaribia</string>
-    <string name="delivery_kit">Kitanda cha utoaji</string>
     <string name="overdue_3_oct">Imepita(3 oct)</string>
     <string name="view_medical_history">Angalia historia ya matibabu</string>
     <string name="last_visit_40_days_ago">Tembeleo la mwisho %1$s iliyopita</string>
@@ -45,7 +45,7 @@
     <string name="observations_illness_episodes_medical"><![CDATA[Uchunguzi na Ugonjwa]]></string>
     <string name="home_visit_suffix"> &#183; Tembeleo</string>
     <string name="wash_check_suffix"> &#183; Wash check</string>
-    <string name="family_kit_suffix"> &#183; Family Kit</string>
+    <string name="family_kit_suffix"> &#183; Vifaa vya Kaya</string>
     <string name="last_visit_prefix">Tembeleo la mwisho %1$s iliyopita</string>
     <string name="completed_on_prefix">Imekamilika tarehe %1$s</string>
 
@@ -188,7 +188,6 @@
     <string name="anc_home_visit_remarks_and_comments">Maoni</string>
 
     <string name="anc_home_visit_anc_card_received">Amepewa kadi ya kliniki ya mama mjamzito</string>
-    <string name="anc_home_visit_delivery_kit_received">Vifaa vya kujifungua vimepokelewa</string>
     <string name="anc_home_visit_sleeping_under_llitn_net">Analala kwenye chandarua chenye viuwatilifu cha muda mrefu</string>
     <string name="anc_home_visit_counseling">Ushauri kuhusu kliniki ya wajawazito</string>
     <string name="anc_home_visit_tt_immunization">Pepopunda {0} chanjo</string>
@@ -288,7 +287,7 @@
     <string name="pnc_indicator_4">Watoto ambao walipokea chanjo ya BCG kwa wakati (miezi 6 iliyopita)</string>
     <string name="pnc_indicator_4_note">Kwa wakati inamaanisha ndani ya wiki nne za kuzaliwa</string>
     <string name="pnc_indicator_5">WRA ambao wamekufa katika mwaka jana</string>
-    <string name="pnc_indicator_5_note">WRA = Wanawake wa umri wa uzazi (10 &amp; # 8211; 49)</string>
+    <string name="pnc_indicator_5_note">WRA = Wanawake wa umri wa uzazi (10 & # 8211; 49)</string>
     <string name="pnc_indicator_6">Wanawake wasio na dalili za hatari katika tembeleo la mwisho ya nyumbani baada ya kujifungua</string>
     <string name="pnc_indicator_7">Watoto wachanga wasio na dalili za hatari katika tembeleo la mwisho ya nyumbani baada ya kujifungua</string>
     <string name="pnc_indicator_8">Njia za wanawake za kuchaguliwa uzazi wa mpango baada ya kujifungua (miezi 6 iliyopita)</string>
@@ -405,8 +404,29 @@
     <!---Anc Home Visit Strings -->
     <string name="anc_home_visit_pregnancy_risk">Hatari ya ujauzito</string>
     <string name="loading_content">Inapakia taarifa</string>
-    <string name="update">Sasisha</string>
 
     <string name="ten_digits_validation">Namba iwe na tarakimu 10</string>
-    <string name="select_communities">Chagua jamii</string>
+    <string name="select_cha">Chagua CHAs</string>
+    <string name="select_options">Chagua chaguzi</string>
+    <string name="update">Update</string>
+
+    <!--Child Profile Strings -->
+    <string name="family_has_nothing_else_due">Muda wa huduma kwenye kaya haujafika</string>
+    <string name="hint_kit_type">Kaya imepata aina gani ya vifaa?</string>
+    <string name="simple_kit_hint">Vifaa rahisi (ORS/ZINC na Paracetamol)</string>
+    <string name="simple_kit_with_micro_hint">Vifaa rahisi (ORS/ZINC na Paracetamol) pamoja na virutubisho</string>
+    <string name="no_kit_received_hint">Hajapewa vifaa</string>
+    <string name="kit_been_used_hint">Je, vifaa vimetumwa?</string>
+    <string name="family_kit">Vifaa vya kaya</string>
+
+    <string name="drc_minimum_dietary_choice_0">0 - Hakuna bidhaa</string>
+    <string name="drc_minimum_dietary_choice_1">3 - Bidhaa 1 tu kati ya 4</string>
+    <string name="drc_minimum_dietary_choice_2">3 - Bidhaa 2 tu kati ya 4</string>
+    <string name="drc_minimum_dietary_choice_3">3 - Bidhaa 3 tu kati ya 4</string>
+    <string name="drc_minimum_dietary_choice_4">4 - Bidhaa zote 4</string>
+
+    <string name="anc_home_visit_delivery_kit_received">Vifaa vya kujifungua vimepokelewa</string>
+    <string name="delivery_kit">Vifaa vya kujifungua </string>
+    <string name="select_one_option">Tafadhali chagua chaguo moja</string>
+
 </resources>
