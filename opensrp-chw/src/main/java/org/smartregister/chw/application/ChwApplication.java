@@ -456,6 +456,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasMap();
 
+        boolean hasEventDateOnFamilyProfile();
+
     }
 
 }

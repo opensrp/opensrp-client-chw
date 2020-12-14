@@ -12,6 +12,7 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.ChildDBConstants;
+import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
@@ -91,6 +92,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 20:
                     upgradeToVersion20(db);
+                    break;
+                case 22:
+                    upgradeToVersion22(db);
                     break;
                 default:
                     break;
@@ -323,4 +327,22 @@ public class ChwRepositoryFlv {
             Timber.e(e, "upgradeToVersion20");
         }
     }
+
+    private static void upgradeToVersion22(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family ADD COLUMN event_date VARCHAR; ");
+            db.execSQL("UPDATE ec_family SET event_date = (select min(eventDate) from event where event.baseEntityId = ec_family.base_entity_id and event.eventType = 'Family Registration') \n" +
+                    "where event_date is null;");
+
+            // add missing columns
+            List<String> columns = new ArrayList<>();
+            columns.add(DBConstants.KEY.VILLAGE_TOWN);
+            columns.add(ChwDBConstants.NEAREST_HEALTH_FACILITY);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.FAMILY, columns);
+
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion22 ");
+        }
+    }
+
 }
