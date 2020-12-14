@@ -244,4 +244,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean hasMap() {
         return false;
     }
+
+    @Override
+    public boolean hasEventDateOnFamilyProfile(){
+        return false;
+    }
 }

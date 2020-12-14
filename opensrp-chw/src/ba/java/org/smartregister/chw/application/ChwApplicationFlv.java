@@ -92,4 +92,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean hasMap(){
         return true;
     }
+
+    @Override
+    public boolean hasEventDateOnFamilyProfile(){
+        return true;
+    }
 }

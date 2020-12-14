@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
@@ -42,6 +45,7 @@ import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private BaseFamilyProfileDueFragment profileDueFragment;
+    private TextView tvEventDate;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -49,6 +53,21 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         if (resultCode == Activity.RESULT_OK && profileDueFragment != null) {
             profileDueFragment.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+        tvEventDate = findViewById(R.id.textview_event_date);
+    }
+
+    @Override
+    public void setEventDate(String eventDate) {
+        if (ChwApplication.getApplicationFlavor().hasEventDateOnFamilyProfile()) {
+            tvEventDate.setVisibility(View.VISIBLE);
+            tvEventDate.setText(String.format(this.getString(R.string.created), eventDate));
+        }
+
     }
 
     @Override
