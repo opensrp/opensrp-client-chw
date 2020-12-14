@@ -418,4 +418,15 @@
     <string name="no_kit_received_hint">No kit received</string>
     <string name="kit_been_used_hint">Has the kit been used?</string>
     <string name="family_kit">Family Kit</string>
+
+    <string name="drc_minimum_dietary_choice_0">0 - None of the 4 products</string>
+    <string name="drc_minimum_dietary_choice_1">1 - Only 1 of the 4 products</string>
+    <string name="drc_minimum_dietary_choice_2">2 - Only 2 of the 4 products</string>
+    <string name="drc_minimum_dietary_choice_3">3 - Only 3 of the 4 products</string>
+    <string name="drc_minimum_dietary_choice_4">4 - All 4 of the products</string>
+
+    <string name="anc_home_visit_delivery_kit_received">Delivery kit received</string>
+    <string name="delivery_kit">Delivery kit</string>
+    <string name="select_one_option">Please select one option</string>
+
 </resources>

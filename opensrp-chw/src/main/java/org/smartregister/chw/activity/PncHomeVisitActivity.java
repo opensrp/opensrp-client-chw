@@ -59,10 +59,4 @@ public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        // get language from prefs
-        String lang = LangUtils.getLanguage(base.getApplicationContext());
-        super.attachBaseContext(LangUtils.setAppLocale(base, lang));
-    }
 }
