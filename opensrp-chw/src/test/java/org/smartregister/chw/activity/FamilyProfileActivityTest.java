@@ -204,4 +204,9 @@ public class FamilyProfileActivityTest {
         spyActivity.setEventDate(Mockito.anyString());
         Mockito.verify(spyActivity, times(1)).setEventDate(Mockito.anyString());
     }
+
+    @Test
+    public void testGetPresenter(){
+        Assert.assertEquals(presenter, activity.getFamilyProfilePresenter());
+    }
 }
