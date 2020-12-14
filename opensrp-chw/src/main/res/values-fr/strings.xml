@@ -349,4 +349,6 @@
     <string name="drc_minimum_dietary_choice_4">4 - Quatre types d\'aliment différents</string>
     <string name="anc_home_visit_delivery_kit_received">Kit d\'accouchement reçu</string>
     <string name="delivery_kit">Kit d\'accouchement</string>
+    <string name="family_profile_title">Ménage %1$s</string>
+    <string name="family_profile_title_with_firstname">Ménage %1$s %2$s</string>
 </resources>

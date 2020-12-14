@@ -268,18 +268,18 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
             versionCode 13
-            versionName "1.1.1"
+            versionName "1.1.2"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-togo.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/togo/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-togo-preview.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village" }'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
-            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHW"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '16'
+            buildConfigField "int", "DATABASE_VERSION", '17'
         }
         liberia {
             dimension = 'baseDimension'
