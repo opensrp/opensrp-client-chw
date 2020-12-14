@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.family.contract.FamilyProfileActivityContract;
@@ -36,6 +37,14 @@ public class FamilyProfileActivityPresenterTest extends BaseUnitTest {
     public void testDefaultSort() {
         FamilyProfileActivityPresenter familyProfileActivityPresenter = (FamilyProfileActivityPresenter) presenter;
         Assert.assertEquals("visits.visit_date DESC", familyProfileActivityPresenter.getDefaultSortQuery());
+    }
+
+    @Test
+    public void testGetMainCondition() {
+        FamilyProfileActivityPresenter familyProfileActivityPresenter = (FamilyProfileActivityPresenter) presenter;
+        String mainCondition = "(ec_family_member.relational_id = 'familyBaseEntityId' or visits.base_entity_id = 'familyBaseEntityId') " +
+                "AND visit_type in ( 'ANC Home Visit','ANC Home Visit Not Done','PNC Home Visit','Child Home Visit','Visit not done') ";
+        Assert.assertEquals(mainCondition, familyProfileActivityPresenter.getMainCondition());
     }
 
 }
