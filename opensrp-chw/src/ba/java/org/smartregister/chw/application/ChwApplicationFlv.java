@@ -1,5 +1,13 @@
 package org.smartregister.chw.application;
 
+import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.util.ChwDBConstants;
+import org.smartregister.family.util.DBConstants;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     @Override
     public boolean hasP2P() {
@@ -12,9 +20,10 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
-    public boolean flvSetFamilyLocation(){
+    public boolean flvSetFamilyLocation() {
         return true;
     }
+
     @Override
     public boolean hasANC() {
         return true;
@@ -79,22 +88,42 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         return true;
     }
 
-    public boolean getChildFlavorUtil(){
+    public boolean getChildFlavorUtil() {
         return true;
     }
 
     @Override
-    public boolean includeCurrentChild(){
+    public boolean includeCurrentChild() {
         return true;
     }
 
     @Override
-    public boolean hasMap(){
+    public boolean hasMap() {
         return true;
     }
 
     @Override
-    public boolean hasEventDateOnFamilyProfile(){
+    public boolean hasEventDateOnFamilyProfile() {
         return true;
+    }
+
+    @Override
+    public Map<String, String[]> getFTSSearchMap() {
+        Map<String, String[]> map = new HashMap<>();
+        map.put(CoreConstants.TABLE_NAME.FAMILY, new String[]{
+                DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.VILLAGE_TOWN, DBConstants.KEY.FIRST_NAME,
+                DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID, ChwDBConstants.NEAREST_HEALTH_FACILITY
+        });
+
+        map.put(CoreConstants.TABLE_NAME.FAMILY_MEMBER, new String[]{
+                DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.MIDDLE_NAME,
+                DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID, ChildDBConstants.KEY.ENTRY_POINT, DBConstants.KEY.DOB, DBConstants.KEY.DATE_REMOVED
+        });
+
+        map.put(CoreConstants.TABLE_NAME.CHILD, new String[]{
+                DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.MIDDLE_NAME,
+                DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID, ChildDBConstants.KEY.ENTRY_POINT, DBConstants.KEY.DOB, DBConstants.KEY.DATE_REMOVED
+        });
+        return map;
     }
 }
