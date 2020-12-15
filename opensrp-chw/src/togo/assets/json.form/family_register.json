@@ -406,50 +406,6 @@
         }
       },
       {
-        "key": "ever_school",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "everSchool",
-        "type": "spinner",
-        "expanded": false,
-        "hint": "Has the child ever attended school or any early childhood education programme?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "key_yes",
-          "No": "key_no"
-        }
-      },
-      {
-        "key": "school_level",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "schoolLevel",
-        "type": "spinner",
-        "expanded": false,
-        "hint": "What level or year of school is s/he attending right now?",
-        "values": [
-          "Not currently attending school or any learning program",
-          "Early childhood programme",
-          "Primary",
-          "Lower secondary",
-          "Upper secondary",
-          "Alternative learning program",
-          "Higher"
-        ],
-        "openmrs_choice_ids": {
-          "Not currently attending school or any learning program": "school_level_none",
-          "Early childhood programme": "school_level_early_childhood",
-          "Primary": "school_level_primary",
-          "Lower secondary": "school_level_lower_secondary",
-          "Upper secondary": "school_level_upper_secondary",
-          "Alternative learning program": "school_level_alternative",
-          "Higher": "school_level_Higher"
-        }
-      },
-      {
         "key": "phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
