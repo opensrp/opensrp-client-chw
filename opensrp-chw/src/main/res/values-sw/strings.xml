@@ -411,4 +411,5 @@
     <string name="select_communities">Chagua jamii</string>
     <string name="family_title">Kaya ya {0} </string>
     <string name="family_profile_title_with_firstname">Kaya ya %1$s %2$s</string>
+    <string name="created">Imeumbwa: %s</string>
 </resources>
