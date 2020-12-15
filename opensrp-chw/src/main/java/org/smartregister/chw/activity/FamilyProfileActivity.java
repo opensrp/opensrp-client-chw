@@ -244,9 +244,4 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         startActivity(intent);
     }
-
-    @Override
-    public void setEventDate(String s) {
-        // do nothing
-    }
 }
