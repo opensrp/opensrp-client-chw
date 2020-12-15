@@ -245,4 +245,8 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void setEventDate(String s) {
+        // do nothing
+    }
 }
