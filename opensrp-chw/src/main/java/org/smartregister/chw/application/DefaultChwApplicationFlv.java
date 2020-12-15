@@ -2,7 +2,6 @@ package org.smartregister.chw.application;
 
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.family.util.DBConstants;
 
 import java.util.HashMap;
