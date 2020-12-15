@@ -284,6 +284,12 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
                 break;
 
+            case ChwDBConstants.EVENT_DATE:
+
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.EVENT_DATE, false));
+
+                break;
+
             default:
 
                 Timber.e("ERROR:: Unprocessed Form Object Key " + jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY));

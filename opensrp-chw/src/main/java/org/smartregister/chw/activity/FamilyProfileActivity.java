@@ -46,6 +46,7 @@ import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private BaseFamilyProfileDueFragment profileDueFragment;
     private TextView tvEventDate;
+    private TextView tvInterpunct;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -59,15 +60,16 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     protected void setupViews() {
         super.setupViews();
         tvEventDate = findViewById(R.id.textview_event_date);
+        tvInterpunct = findViewById(R.id.interpunct);
     }
 
     @Override
     public void setEventDate(String eventDate) {
         if (ChwApplication.getApplicationFlavor().hasEventDateOnFamilyProfile()) {
             tvEventDate.setVisibility(View.VISIBLE);
+            tvInterpunct.setVisibility(View.VISIBLE);
             tvEventDate.setText(String.format(this.getString(R.string.created), eventDate));
         }
-
     }
 
     @Override

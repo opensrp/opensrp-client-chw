@@ -96,6 +96,9 @@ public class ChwRepositoryFlv {
                 case 22:
                     upgradeToVersion22(db);
                     break;
+                case 23:
+                    upgradeToVersion23(db);
+                    break;
                 default:
                     break;
             }
@@ -331,10 +334,21 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion22(SQLiteDatabase db) {
         try {
             db.execSQL("ALTER TABLE ec_family ADD COLUMN event_date VARCHAR; ");
-            db.execSQL("UPDATE ec_family SET event_date = (select min(eventDate) from event where event.baseEntityId = ec_family.base_entity_id and event.eventType = 'Family Registration') \n" +
-                    "where event_date is null;");
-
             // add missing columns
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion22 ");
+        }
+
+        try {
+            db.execSQL("UPDATE ec_family SET event_date = (select min(eventDate) from event where event.baseEntityId = ec_family.base_entity_id and event.eventType = 'Family Registration') where event_date is null;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion22 ");
+        }
+
+    }
+
+    private static void upgradeToVersion23(SQLiteDatabase db) {
+        try {
             List<String> columns = new ArrayList<>();
             columns.add(DBConstants.KEY.VILLAGE_TOWN);
             columns.add(ChwDBConstants.NEAREST_HEALTH_FACILITY);
