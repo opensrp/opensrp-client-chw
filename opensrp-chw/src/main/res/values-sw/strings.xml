@@ -408,4 +408,6 @@
 
     <string name="ten_digits_validation">Namba iwe na tarakimu 10</string>
     <string name="select_communities">Chagua jamii</string>
+
+    <string name="created">Imeumbwa: %s</string>
 </resources>

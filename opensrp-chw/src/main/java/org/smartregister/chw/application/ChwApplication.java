@@ -61,6 +61,7 @@ import org.smartregister.chw.util.FailSafeRecalledID;
 import org.smartregister.chw.util.FileUtils;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
@@ -95,6 +96,7 @@ public class ChwApplication extends CoreChwApplication {
 
     private static Flavor flavor = new ChwApplicationFlv();
     private AppExecutors appExecutors;
+    private CommonFtsObject commonFtsObject;
 
     public static Flavor getApplicationFlavor() {
         return flavor;
@@ -122,6 +124,23 @@ public class ChwApplication extends CoreChwApplication {
         return "opensrp_guidebooks_" + (suffix.equalsIgnoreCase("chw") ? "liberia" : suffix);
     }
 
+    public CommonFtsObject getCommonFtsObject() {
+        if (commonFtsObject == null) {
+
+            String[] tables = flavor.getFTSTables();
+
+            Map<String, String[]> searchMap = flavor.getFTSSearchMap();
+            Map<String, String[]> sortMap = flavor.getFTSSortMap();
+
+            commonFtsObject = new CommonFtsObject(tables);
+            for (String ftsTable : commonFtsObject.getTables()) {
+                commonFtsObject.updateSearchFields(ftsTable, searchMap.get(ftsTable));
+                commonFtsObject.updateSortFields(ftsTable, sortMap.get(ftsTable));
+            }
+        }
+        return commonFtsObject;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -129,7 +148,7 @@ public class ChwApplication extends CoreChwApplication {
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(createCommonFtsObject());
+        context.updateCommonFtsObject(getCommonFtsObject());
 
         //Necessary to determine the right form to pick from assets
         CoreConstants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(),
@@ -456,6 +475,13 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasMap();
 
+        boolean hasEventDateOnFamilyProfile();
+
+        String[] getFTSTables();
+
+        Map<String, String[]> getFTSSearchMap();
+
+        Map<String, String[]> getFTSSortMap();
     }
 
 }

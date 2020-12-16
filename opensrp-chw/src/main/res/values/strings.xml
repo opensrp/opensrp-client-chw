@@ -411,4 +411,6 @@
 
     <!--Child Profile Strings -->
     <string name="family_has_nothing_else_due">Family has nothing else due</string>
+
+    <string name="created">Created: %s</string>
 </resources>
