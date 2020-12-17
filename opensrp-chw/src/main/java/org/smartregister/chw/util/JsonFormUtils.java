@@ -284,6 +284,12 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
                 break;
 
+            case ChwDBConstants.EVENT_DATE:
+
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.EVENT_DATE, false));
+
+                break;
+
             default:
 
                 Timber.e("ERROR:: Unprocessed Form Object Key " + jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY));
@@ -415,8 +421,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         member.setPhone(getJsonFieldValue(fields, org.smartregister.chw.util.Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER));
         member.setOtherPhone(getJsonFieldValue(fields, org.smartregister.chw.util.Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER));
         member.setEduLevel(getJsonFieldValue(fields, org.smartregister.chw.util.Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL));
-        member.setEverSchool(getJsonFieldValue(fields, CoreConstants.JsonAssets.FAMILY_MEMBER.EVER_SCHOOL));
-        member.setSchoolLevel(getJsonFieldValue(fields, CoreConstants.JsonAssets.FAMILY_MEMBER.SCHOOL_LEVEL));
         member.setPrimaryCareGiver(
                 getJsonFieldValue(fields, org.smartregister.chw.util.Constants.JsonAssets.PRIMARY_CARE_GIVER).equalsIgnoreCase("Yes") ||
                         getJsonFieldValue(fields, org.smartregister.chw.util.Constants.JsonAssets.IS_PRIMARY_CARE_GIVER).equalsIgnoreCase("Yes")

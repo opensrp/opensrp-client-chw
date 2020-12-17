@@ -257,7 +257,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
                     form.put(JsonFormUtils.ENCOUNTER_TYPE, CoreConstants.EventType.UPDATE_ANC_REGISTRATION);
                 }
 
-
             } else if (formName.equals(CoreConstants.JSON_FORM.getFamilyMemberRegister())) {
 
                 String eventName = org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType;
@@ -382,7 +381,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, formJson, Utils.metadata().familyMemberFormActivity),
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
-
 
 
     @Override
