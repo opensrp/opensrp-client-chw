@@ -306,7 +306,6 @@
           }
         }
       },
-
       {
         "key": "school_level",
         "openmrs_entity_parent": "",
