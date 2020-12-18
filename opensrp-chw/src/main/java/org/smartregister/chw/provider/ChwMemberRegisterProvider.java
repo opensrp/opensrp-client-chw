@@ -150,11 +150,13 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     protected void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
         super.populateIdentifierColumn(pc, viewHolder);
         String baseEntityId = pc.getCaseId();
-        boolean isPhysicallyChallenged = ChildDao.isPhysicallyChallenged(baseEntityId);
-        if (isPhysicallyChallenged) {
-            viewHolder.physicallyChallenged.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.physicallyChallenged.setVisibility(View.GONE);
+        if (ChwApplication.getApplicationFlavor().showsPhysicallyDisabledView()) {
+            boolean isPhysicallyChallenged = ChildDao.isPhysicallyChallenged(baseEntityId);
+            if (isPhysicallyChallenged) {
+                viewHolder.physicallyChallenged.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.physicallyChallenged.setVisibility(View.GONE);
+            }
         }
     }
 

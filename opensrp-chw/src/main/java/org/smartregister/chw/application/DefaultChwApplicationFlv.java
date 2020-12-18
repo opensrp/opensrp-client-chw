@@ -289,4 +289,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
         });
         return map;
     }
+
+    @Override
+    public boolean showsPhysicallyDisabledView() {
+        return true;
+    }
 }
