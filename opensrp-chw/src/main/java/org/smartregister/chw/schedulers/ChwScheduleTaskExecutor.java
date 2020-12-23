@@ -8,6 +8,7 @@ import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.chw.task.ANCVisitScheduler;
 import org.smartregister.chw.task.ChildHomeVisitScheduler;
+import org.smartregister.chw.task.FamilyKitCheckScheduler;
 import org.smartregister.chw.task.FpVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
 import org.smartregister.chw.task.PNCVisitScheduler;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.smartregister.chw.util.Constants.EncounterType.PNC_CHILD_REGISTRATION;
 
 public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
@@ -52,6 +55,9 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
 
             if (ChwApplication.getApplicationFlavor().hasWashCheck())
                 initializeWashClassifier(scheduleServiceMap);
+
+            if (ChwApplication.getApplicationFlavor().hasFamilyKitCheck())
+                initializeFamilyKitClassifier(scheduleServiceMap);
 
             if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
                 initializeFPClassifier(scheduleServiceMap);
@@ -97,6 +103,7 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         scheduleServices.add(new PNCVisitScheduler());
 
         addToClassifers(CoreConstants.EventType.PREGNANCY_OUTCOME, classifier, scheduleServices);
+        addToClassifers(PNC_CHILD_REGISTRATION, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.PNC_REGISTRATION, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.PNC_HOME_VISIT, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE, classifier, scheduleServices);
@@ -117,6 +124,17 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         addToClassifers(CoreConstants.EventType.FAMILY_REGISTRATION, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.UPDATE_FAMILY_REGISTRATION, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.WASH_CHECK, classifier, scheduleServices);
+    }
+
+    private void initializeFamilyKitClassifier(Map<String, List<ScheduleService>> classifier) {
+        List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new FamilyKitCheckScheduler());
+
+        addToClassifers(CoreConstants.EventType.FAMILY_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.PREGNANCY_OUTCOME, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.UPDATE_FAMILY_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.FAMILY_KIT, classifier, scheduleServices);
     }
 
     private void initializeFPClassifier(Map<String, List<ScheduleService>> classifier) {

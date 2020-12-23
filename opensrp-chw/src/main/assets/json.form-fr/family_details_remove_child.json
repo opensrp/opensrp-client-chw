@@ -99,11 +99,6 @@
           "Déménagé",
           "Autre"
         ],
-        "keys": [
-          "Died",
-          "Moved away",
-          "Other"
-        ],
         "v_required": {
           "value": "true",
           "err": "Sélectionnez la raison pour déplacer le dossier de l'enfant."

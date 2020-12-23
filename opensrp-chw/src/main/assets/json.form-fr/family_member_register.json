@@ -289,6 +289,64 @@
         }
       },
       {
+        "key": "ever_school",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "everSchool",
+        "type": "spinner",
+        "expanded": false,
+        "hint": "L'enfant a-t-il déjà fréquenté l'école ou un programme d'éducation de la petite enfance?",
+        "values": [
+          "Oui",
+          "Non"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "school_level",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "schoolLevel",
+        "type": "spinner",
+        "expanded": false,
+        "hint": "Quel niveau ou quelle année scolaire fréquente-t-il actuellement?",
+        "values": [
+          "Ne fréquente actuellement ni l'école ni aucun programme d'apprentissage",
+          "Programme d'éducation de la petite enfance",
+          "Primaire",
+          "Secondaire inférieur",
+          "Secondaire supérieur",
+          "Programme d'apprentissage alternatif",
+          "Plus haute"
+        ],
+        "keys": [
+          "Not currently attending school or any learning program",
+          "Early childhood programme",
+          "Primary",
+          "Lower secondary",
+          "Upper secondary",
+          "Alternative learning program",
+          "Higher"
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "primary_caregiver",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -394,7 +452,7 @@
         "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Marital status",
+        "hint": "État matrimonial",
         "v_required": {
           "value": "true",
           "err": "Please select one option"
@@ -404,6 +462,12 @@
           "Cohabite",
           "Célibataire",
           "Veuve"
+        ],
+        "keys": [
+          "Married",
+          "Co-habiting",
+          "Single",
+          "Widowed"
         ],
         "openmrs_choice_ids": {
           "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

@@ -14,6 +14,8 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 public class UpdatesRegisterActivity extends BaseChwNotificationRegister {
 
     @Override
@@ -38,7 +40,7 @@ public class UpdatesRegisterActivity extends BaseChwNotificationRegister {
 
     @Override
     public void startFormActivity(String s, String s1, Map<String, String> map) {
-
+        Timber.v("startFormActivity");
     }
 
     @Override

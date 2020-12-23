@@ -7,14 +7,14 @@
     <string name="not_provided">Haijatolewa</string>
 
     <string name="child_under_five">Mtoto chini ya miaka 5</string>
-    <string name="add_eligible_child">Mtoto anayefaa</string>
+    <string name="add_eligible_child">Mtoto stahiki</string>
     <string name="go_to_family_s_profile">Elekea kwenye taarifa binafsi za kaya</string>
     <string name="family_has_nothing_due">Muda wa huduma kwenye kaya haujafika</string>
     <string name="family_has_services_due">Muda wa huduma kwenye kaya umefika</string>
     <string name="vaccine_service_overdue"><![CDATA[%1$s <font color=#f04646> muda umepita (%2$s)</font> </b>]]></string>
     <string name="vaccine_service_due"><![CDATA[%1$s <font color=#000000> imefika (%2$s)</font></b>]]></string>
     <string name="vaccine_service_upcoming"><![CDATA[%1$s <font color=#7f7f7f> inakaribia (%2$s) </font> </b>]]></string>
-    <string name="due_today">Kwa Leo</string>
+    <string name="due_today">Zinazopaswa leo</string>
 
     <string name="family_has_service_overdue"><![CDATA[Kaya ina <font color=#FF0000>huduma zilizopitiliza muda wake </font></b>]]></string>
     <string name="view_upcoming_services">Angalia huduma zinazokaribia</string>
@@ -45,6 +45,7 @@
     <string name="observations_illness_episodes_medical"><![CDATA[Uchunguzi na Ugonjwa]]></string>
     <string name="home_visit_suffix"> &#183; Tembeleo</string>
     <string name="wash_check_suffix"> &#183; Wash check</string>
+    <string name="family_kit_suffix"> &#183; Family Kit</string>
     <string name="last_visit_prefix">Tembeleo la mwisho %1$s iliyopita</string>
     <string name="completed_on_prefix">Imekamilika tarehe %1$s</string>
 
@@ -110,6 +111,39 @@
 
     <string name="children_0_24_months_upto_date_vaccinations">Watoto (0&#8211;23 months) walio kwenye chanjo mpaka sasa</string>
     <string name="children_0_24_months_overdue_vaccinations">Watoto (6&#8211;23 months) ambao hivi sasa wamepitiliza muda wa kupata chanjo angalau moja au zaidi.</string>
+
+
+    <string name="total_under_2_children_label">Jumla ya watoto chini ya miaka 2</string>
+    <string name="deceased_children_12_23_months">Watoto (12&#8211;23 miezi) waliofariki mwaka uliopita</string>
+    <string name="children_0_23_months_with_birth_certificate">Watoto (0&#8211;23 miezi) waliofariki mwaka uliopita</string>
+    <string name="children_0_23_months_without_birth__certificate">Watoto (0&#8211;23 miezi) ambao hawana cheti cha kuzaliwa</string>
+    <string name="children_12_23_months_dewormed">Watoto (12&#8211;23 miezi) ambao walipata kinga tiba dhidi ya minyoo katika kipindi cha miezi 6 ya mwisho</string>
+    <string name="children_12_23_months_not_dewormed">Watoto (12&#8211;23 miezi) ambao hawakupata kinga tiba dhidi ya minyoo katika kipindi cha miezi 6 ya mwisho</string>
+    <string name="children_6_23_months_received_vitamin_A">Watoto (6&#8211;23 miezi) ambao walipata Vitamin A katika kipindi cha miezi 6 ya mwisho</string>
+    <string name="children_6_23_months_not_received_vitamin_A">Watoto (6&#8211;23 miezi) ambao hawakupata Vitamin A katika kipindi cha miezi 6 ya mwisho</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <string name="opv_0_not_included">OPV 0 haijajumuishwa</string>
 
     <string name="yes_slice_label">Ndiyo</string>
@@ -154,7 +188,7 @@
     <string name="anc_home_visit_remarks_and_comments">Maoni</string>
 
     <string name="anc_home_visit_anc_card_received">Amepewa kadi ya kliniki ya mama mjamzito</string>
-    <string name="anc_woman_delivery_kit_received">Vifaa vya kujifungua vimepokelewa</string>
+    <string name="anc_home_visit_delivery_kit_received">Vifaa vya kujifungua vimepokelewa</string>
     <string name="anc_home_visit_sleeping_under_llitn_net">Analala kwenye chandarua chenye viuwatilifu cha muda mrefu</string>
     <string name="anc_home_visit_counseling">Ushauri kuhusu kliniki ya wajawazito</string>
     <string name="anc_home_visit_tt_immunization">Pepopunda {0} chanjo</string>
@@ -290,7 +324,7 @@
     <string name="pnc_observation_and_illness_baby">Uchunguzi na ugonjwa - mtoto ({0})</string>
 
     <string name="pnc_counselling">Ushauri</string>
-    <string name="pnc_nutrition_status">Hali ya lishe - mama </string>
+    <string name="pnc_nutrition_status">Hali ya lishe-mama</string>
     <string name="pnc_nutrition_status_baby_name">Hali ya lishe kwa mtoto ({0})</string>
     <string name="pnc_malaria_prevention">Kinga dhidi ya malaria</string>
     <!-- PNC Home visit subtitle text -->
@@ -371,4 +405,11 @@
     <!---Anc Home Visit Strings -->
     <string name="anc_home_visit_pregnancy_risk">Hatari ya ujauzito</string>
     <string name="loading_content">Inapakia taarifa</string>
+    <string name="update">Sasisha</string>
+
+    <string name="ten_digits_validation">Namba iwe na tarakimu 10</string>
+    <string name="select_communities">Chagua jamii</string>
+    <string name="family_title">Kaya ya {0} </string>
+    <string name="family_profile_title_with_firstname">Kaya ya %1$s %2$s</string>
+    <string name="created">Imeumbwa: %s</string>
 </resources>

@@ -9,12 +9,17 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.JsonFormUtils;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
+import org.smartregister.chw.core.task.RunnableTask;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.PncRegisterFragment;
+import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.view.fragment.BaseRegisterFragment;
+
+import java.util.Date;
 
 import timber.log.Timber;
 
@@ -39,6 +44,10 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
     public void onRegistrationSaved(String encounterType, boolean isEdit, boolean hasChildren) {
         if (encounterType.equalsIgnoreCase(Constants.EVENT_TYPE.PREGNANCY_OUTCOME)) {
             Timber.d("We are home - PNC Register");
+            if (ChwApplication.getApplicationFlavor().hasFamilyKitCheck()) {
+                Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(familyBaseEntityId, CoreConstants.EventType.FAMILY_KIT, new Date());
+                org.smartregister.chw.util.Utils.startAsyncTask(new RunnableTask(runnable), null);
+            }
         } else {
             super.onRegistrationSaved(encounterType, isEdit, hasChildren);
         }
@@ -81,8 +90,6 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
             } catch (Exception e) {
                 Timber.e(e);
             }
-        } else {
-            this.finish();
         }
     }
 }

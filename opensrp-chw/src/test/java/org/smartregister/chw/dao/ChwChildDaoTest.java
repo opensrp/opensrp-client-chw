@@ -147,4 +147,66 @@ public class ChwChildDaoTest extends ChwChildDao {
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
         Assert.assertEquals(dueVaccines, false);
     }
+
+
+    @Test
+    public void testHasDueAlerts() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"count"});
+        matrixCursor.addRow(new Object[]{2});
+
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        Boolean dueVaccines = ChwChildDao.hasDueAlerts("12345");
+
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertEquals(dueVaccines, true);
+    }
+
+    @Test
+    public void testHasDueAlertsReturnsFalse() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"count"});
+        matrixCursor.addRow(new Object[]{0});
+
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        Boolean dueVaccines = ChwChildDao.hasDueAlerts("12345");
+
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertEquals(dueVaccines, false);
+    }
+
+
+    @Test
+    public void testHasActiveSchedule() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"count"});
+        matrixCursor.addRow(new Object[]{2});
+
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        Boolean dueVaccines = ChwChildDao.hasActiveSchedule("12345");
+
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertEquals(dueVaccines, true);
+    }
+
+    @Test
+    public void testHasActiveVaccinesReturnsFalse() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"count"});
+        matrixCursor.addRow(new Object[]{0});
+
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        Boolean dueVaccines = ChwChildDao.hasActiveSchedule("12345");
+
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertEquals(dueVaccines, false);
+    }
 }

@@ -73,7 +73,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public boolean isSyncUsingPost() {
-        return true;
+        return !BuildConfig.DEBUG && ChwApplication.getApplicationFlavor().syncUsingPost();
     }
 
     @Override
@@ -88,7 +88,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public boolean clearDataOnNewTeamLogin() {
-        return true;
+        return false;
     }
 
     @Override

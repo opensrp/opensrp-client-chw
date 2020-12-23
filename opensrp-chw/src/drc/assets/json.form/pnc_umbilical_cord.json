@@ -79,7 +79,7 @@
         "openmrs_entity_id": "cord_care_other",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "The other product that is being applied to the umbilical cord stump.",
+        "hint": "Other product:",
         "expanded": false,
         "relevance": {
           "rules-engine": {

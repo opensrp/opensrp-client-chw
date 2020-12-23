@@ -9,14 +9,15 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
+import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
 import com.vijay.jsonwizard.domain.Form;
 
-import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 import org.koin.core.context.GlobalContextKt;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
@@ -55,10 +56,12 @@ import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.sync.ChwClientProcessor;
+import org.smartregister.chw.util.ChwLocationBasedClassifier;
 import org.smartregister.chw.util.FailSafeRecalledID;
 import org.smartregister.chw.util.FileUtils;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
@@ -78,6 +81,7 @@ import org.smartregister.repository.Repository;
 import org.smartregister.thinkmd.ThinkMDConfig;
 import org.smartregister.thinkmd.ThinkMDLibrary;
 import org.smartregister.util.LangUtils;
+import org.smartregister.sync.P2PClassifier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,12 +90,16 @@ import java.util.Locale;
 import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
+import io.ona.kujaku.KujakuLibrary;
 import timber.log.Timber;
+
+import static org.koin.core.context.GlobalContext.getOrNull;
 
 public class ChwApplication extends CoreChwApplication {
 
     private static Flavor flavor = new ChwApplicationFlv();
     private AppExecutors appExecutors;
+    private CommonFtsObject commonFtsObject;
 
     public static Flavor getApplicationFlavor() {
         return flavor;
@@ -119,6 +127,23 @@ public class ChwApplication extends CoreChwApplication {
         return "opensrp_guidebooks_" + (suffix.equalsIgnoreCase("chw") ? "liberia" : suffix);
     }
 
+    public CommonFtsObject getCommonFtsObject() {
+        if (commonFtsObject == null) {
+
+            String[] tables = flavor.getFTSTables();
+
+            Map<String, String[]> searchMap = flavor.getFTSSearchMap();
+            Map<String, String[]> sortMap = flavor.getFTSSortMap();
+
+            commonFtsObject = new CommonFtsObject(tables);
+            for (String ftsTable : commonFtsObject.getTables()) {
+                commonFtsObject.updateSearchFields(ftsTable, searchMap.get(ftsTable));
+                commonFtsObject.updateSortFields(ftsTable, sortMap.get(ftsTable));
+            }
+        }
+        return commonFtsObject;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -126,7 +151,7 @@ public class ChwApplication extends CoreChwApplication {
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(createCommonFtsObject());
+        context.updateCommonFtsObject(getCommonFtsObject());
 
         //Necessary to determine the right form to pick from assets
         CoreConstants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(),
@@ -156,22 +181,17 @@ public class ChwApplication extends CoreChwApplication {
 
         setOpenSRPUrl();
 
-        String language = getInstance().getContext().allSharedPreferences().fetchLanguagePreference();
-
-        if (StringUtils.isBlank(language)) {
-            Configuration configuration = getApplicationContext().getResources().getConfiguration();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                language = configuration.getLocales().get(0).getLanguage();
-            } else {
-                language = configuration.locale.getLanguage();
-            }
+        Configuration configuration = getApplicationContext().getResources().getConfiguration();
+        String language;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            language = configuration.getLocales().get(0).getLanguage();
+        } else {
+            language = configuration.locale.getLanguage();
         }
 
         if (language.equals(Locale.FRENCH.getLanguage())) {
             saveLanguage(Locale.FRENCH.getLanguage());
-            LangUtils.saveLanguage(getApplicationContext(), Locale.FRENCH.getLanguage());
         }
-
 
         // create a folder for guidebooks
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -183,12 +203,22 @@ public class ChwApplication extends CoreChwApplication {
         }
 
         EventBus.getDefault().register(this);
+
+        if (getApplicationFlavor().hasMap()) {
+            initializeMapBox();
+        }
+    }
+
+    protected void initializeMapBox() {
+        // Init Kujaku
+        Mapbox.getInstance(getApplicationContext(), BuildConfig.MAPBOX_SDK_ACCESS_TOKEN);
+        KujakuLibrary.init(getApplicationContext());
     }
 
     private void initializeLibraries() {
         //Initialize Modules
         P2POptions p2POptions = new P2POptions(true);
-        p2POptions.setAuthorizationService(flavor.hasForeignData() ? new LmhAuthorizationService() : new CoreAuthorizationService(flavor.checkP2PTeamId()));
+        p2POptions.setAuthorizationService(flavor.hasForeignData() ? new LmhAuthorizationService() : new CoreAuthorizationService());
         p2POptions.setRecalledIdentifier(new FailSafeRecalledID());
 
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
@@ -212,8 +242,8 @@ public class ChwApplication extends CoreChwApplication {
         growthMonitoringConfig.setWeightForHeightZScoreFile("weight_for_height.csv");
         GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION, growthMonitoringConfig);
 
-        if (hasReferrals()) {
-            //Setup referral library
+        if (hasReferrals() && getOrNull() == null) {
+            //Setup referral library and initialize Koin dependencies once
             ReferralLibrary.init(this);
             ReferralLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
             ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
@@ -236,8 +266,7 @@ public class ChwApplication extends CoreChwApplication {
 
         // Set display date format for date pickers in native forms
         Form form = new Form();
-        if (flavor.hasCustomDate())
-            form.setDatePickerDisplayFormat("dd MMM yyyy");
+        form.setDatePickerDisplayFormat("dd MMM yyyy");
 
         NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
         // ThinkMD library
@@ -350,18 +379,23 @@ public class ChwApplication extends CoreChwApplication {
     }
 
     @Override
+    public P2PClassifier<JSONObject> getP2PClassifier() {
+        return flavor.hasForeignData() ? new ChwLocationBasedClassifier() : null;
+    }
+
+    @Override
     public boolean getChildFlavorUtil() {
         return flavor.getChildFlavorUtil();
     }
 
     public interface Flavor {
-        boolean checkP2PTeamId();
-
-        boolean hasCustomDate();
-
         boolean hasP2P();
 
+        boolean syncUsingPost();
+
         boolean hasReferrals();
+
+        boolean flvSetFamilyLocation();
 
         boolean hasANC();
 
@@ -374,6 +408,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasMalaria();
 
         boolean hasWashCheck();
+
+        boolean hasFamilyKitCheck();
 
         boolean hasRoutineVisit();
 
@@ -427,7 +463,7 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean prioritizeChildNameOnChildRegister();
 
-        boolean showChildrenUnderTwoAndGirlsAgeNineToEleven();
+        boolean showChildrenUnderFiveAndGirlsAgeNineToEleven();
 
         boolean dueVaccinesFilterInChildRegister();
 
@@ -445,6 +481,15 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven();
 
+        boolean hasMap();
+
+        boolean hasEventDateOnFamilyProfile();
+
+        String[] getFTSTables();
+
+        Map<String, String[]> getFTSSearchMap();
+
+        Map<String, String[]> getFTSSortMap();
     }
 
 }

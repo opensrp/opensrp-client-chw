@@ -1,7 +1,7 @@
 indicators:
   - key: "anc_report_indicator_1"
     description: "COUNT of {wra} in the app"
-    indicatorQuery: "SELECT count (*) FROM  ec_family_member   inner join ec_family  on ec_family.base_entity_id = ec_family_member.relational_id WHERE ec_family_member.is_closed == '0' AND entity_type = 'ec_family_member' AND gender = 'Female' AND dod IS NULL AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int)  >= 10 AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int) <= 49;"
+    indicatorQuery: "SELECT count(*) FROM  ec_family_member f inner join ec_family  on ec_family.base_entity_id = f.relational_id  WHERE f.is_closed == '0' AND f.entity_type = 'ec_family_member'  AND gender = 'Female' AND dod IS NULL AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int)  >= 10 AND cast(strftime('%Y', 'now') - strftime('%Y', dob) as int) <= 49;"
 
   - key: "anc_report_indicator_2"
     description: "COUNT of all ANC women who are registered in the ANC register"

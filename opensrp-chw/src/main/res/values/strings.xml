@@ -45,6 +45,7 @@
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Illness Episodes]]></string>
     <string name="home_visit_suffix"> &#183; Home Visit</string>
     <string name="wash_check_suffix"> &#183; WASH check</string>
+    <string name="family_kit_suffix"> &#183; Family Kit</string>
     <string name="last_visit_prefix">Last visit %1$s ago</string>
     <string name="completed_on_prefix">Completed on %1$s</string>
 
@@ -410,7 +411,28 @@
     <string name="ten_digits_validation">Number must be 10 digits</string>
     <string name="select_cha">Select CHAs</string>
     <string name="select_options">Select options</string>
+    <string name="update">Update</string>
 
     <!--Child Profile Strings -->
     <string name="family_has_nothing_else_due">Family has nothing else due</string>
+    <string name="hint_kit_type">What type of kit has the family received?</string>
+    <string name="simple_kit_hint">Simple Kit (ORS/ZINC and Paracetamol)</string>
+    <string name="simple_kit_with_micro_hint">Simple Kit (ORS/ZINC and Paracetamol) with micronutrients</string>
+    <string name="no_kit_received_hint">No kit received</string>
+    <string name="kit_been_used_hint">Has the kit been used?</string>
+    <string name="family_kit">Family Kit</string>
+
+    <string name="drc_minimum_dietary_choice_0">0 - None of the 4 products</string>
+    <string name="drc_minimum_dietary_choice_1">1 - Only 1 of the 4 products</string>
+    <string name="drc_minimum_dietary_choice_2">2 - Only 2 of the 4 products</string>
+    <string name="drc_minimum_dietary_choice_3">3 - Only 3 of the 4 products</string>
+    <string name="drc_minimum_dietary_choice_4">4 - All 4 of the products</string>
+
+    <string name="anc_home_visit_delivery_kit_received">Delivery kit received</string>
+    <string name="delivery_kit">Delivery kit</string>
+    <string name="select_one_option">Please select one option</string>
+    <string name="family_profile_title">%1$s Family</string>
+    <string name="family_profile_title_with_firstname">%1$s %2$s Family</string>
+    <string name="created">Created: %s</string>
+
 </resources>

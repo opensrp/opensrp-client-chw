@@ -36,18 +36,6 @@ public class ChwRepositoryFlv {
                 case 3:
                     upgradeToVersion3(db);
                     break;
-                case 4:
-                    upgradeToVersion4(db);
-                    break;
-                case 5:
-                    upgradeToVersion5(db);
-                    break;
-                case 7:
-                    upgradeToVersion7(db);
-                    break;
-                case 8:
-                    upgradeToVersion8(db);
-                    break;
                 case 9:
                     upgradeToVersion9(db);
                     break;
@@ -139,6 +127,7 @@ public class ChwRepositoryFlv {
             Timber.e(e, "upgradeToVersion3 - Part 4");
         }
     }
+
     private static void upgradeToVersion9(SQLiteDatabase db) {
         try {
             db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
