@@ -39,7 +39,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
-import static org.smartregister.chw.core.dao.ChildDao.getThinkMDCarePlan;
+import static org.smartregister.chw.core.dao.ChildDao.queryColumnWithBaseEntityId;
 import static org.smartregister.chw.core.utils.CoreConstants.ThinkMdConstants.CARE_PLAN_DATE;
 import static org.smartregister.chw.core.utils.CoreConstants.ThinkMdConstants.FHIR_BUNDLE_INTENT;
 import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
@@ -72,10 +72,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
         //  setVaccineHistoryView(lastVisitDay);
-        if (getIntent().hasExtra(FHIR_BUNDLE_INTENT)
-                && StringUtils.isNotBlank(getIntent().getStringExtra(FHIR_BUNDLE_INTENT))) {
-            presenter().createCarePlanEvent(getContext(), getIntent().getStringExtra(FHIR_BUNDLE_INTENT));
-        }
     }
 
     @Override
@@ -199,10 +195,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         menu.findItem(R.id.action_thinkmd_health_assessment).setVisible(ChwApplication.getApplicationFlavor().useThinkMd()
                 && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()));
         if (ChwApplication.getApplicationFlavor().useThinkMd()
-                && StringUtils.isNotBlank(getThinkMDCarePlan(childBaseEntityId, CARE_PLAN_DATE))) {
+                && StringUtils.isNotBlank(queryColumnWithBaseEntityId(childBaseEntityId, CARE_PLAN_DATE))) {
             menu.findItem(R.id.action_thinkmd_careplan).setVisible(true);
             menu.findItem(R.id.action_thinkmd_careplan).setTitle(
-                    String.format(getResources().getString(R.string.thinkmd_careplan), getThinkMDCarePlan(childBaseEntityId, CARE_PLAN_DATE))
+                    String.format(getResources().getString(R.string.thinkmd_careplan), queryColumnWithBaseEntityId(childBaseEntityId, CARE_PLAN_DATE))
             );
         }
         return true;

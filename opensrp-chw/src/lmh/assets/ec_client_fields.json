@@ -251,17 +251,17 @@
         },
         {
           "column_name": "thinkmd_id",
-          "type": "Client",
+          "type": "Event",
           "json_mapping": {
             "field": "identifiers.thinkmd_id"
           }
         },
         {
-          "column_name": "html_assessment",
+          "column_name": "thinkmd_fhir_bundle",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "generatedDiv"
+            "concept": "thinkmd_fhir_bundle"
           }
         },
         {

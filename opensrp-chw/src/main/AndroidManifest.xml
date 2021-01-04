@@ -26,10 +26,15 @@
 
     <application
         android:name=".application.ChwApplication"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/ChwTheme"
         tools:replace="android:theme">
+
+        <meta-data
+            android:name="asset_statements"
+            android:resource="@string/asset_statements" />
         <activity
             android:name=".activity.FamilyPlanningMemberProfileActivity"
             android:label="@string/family_planning"
@@ -127,9 +132,28 @@
             android:theme="@style/ChwTheme.NoActionBar">
             <intent-filter>
                 <action android:name="org.smartregister.action.THINKMD_ASSESSMENT" />
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="https" android:host="smartregister.org" android:path="/"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="smartregister.org"
+                    android:path="/" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="org.smartregister.thinkmd.activity.LaunchPWAActivity"
+            android:theme="@style/ChwTheme.NoActionBar">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="thinkmd-v4-app-b-ona.herokuapp.com" />
             </intent-filter>
         </activity>
         <activity
@@ -227,7 +251,7 @@
             android:name=".activity.AllClientsRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".core.activity.WebViewActivity"
+            android:name=".core.activity.DisplayCarePlanActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name="org.smartregister.opd.activity.BaseOpdFormActivity"

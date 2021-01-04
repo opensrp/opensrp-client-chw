@@ -281,7 +281,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
                 ChildFHIRBundleDao fhirBundleDao = new ChildFHIRBundleDao();
                 FHIRBundleModel bundle = fhirBundleDao.fetchFHIRDateModel(context, getChildBaseEntityId());
                 addThinkmdIdentifier(context, bundle.getUniqueIdGeneratedForThinkMD(), getChildBaseEntityId());
-                ThinkMDLibrary.getInstance().processHealthAssessment(bundle);
+                ThinkMDLibrary.getInstance().processHealthAssessment(context,bundle);
             } catch (Exception e) {
                 Timber.e(e);
             }
