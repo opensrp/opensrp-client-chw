@@ -24,6 +24,8 @@ public class ChildProfilePresenterTest extends BaseUnitTest {
     @Mock
     private CoreChildProfileContract.View childProfileView;
     @Mock
+    private CoreChildProfileContract.Flavor flavor;
+    @Mock
     private CoreChildProfileContract.Model childProfileModel;
 
     @Mock
@@ -43,7 +45,7 @@ public class ChildProfilePresenterTest extends BaseUnitTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        childProfilePresenter = new ChildProfilePresenter(childProfileView, childProfileModel, testBaseEntityId);
+        childProfilePresenter = new ChildProfilePresenter(childProfileView, flavor, childProfileModel, testBaseEntityId);
         interactor.setpClient(personObjectClient);
         ((ChildProfilePresenter) childProfilePresenter).setInteractor(interactor);
         Mockito.doReturn(context).when(childProfileView).getContext();
@@ -80,7 +82,7 @@ public class ChildProfilePresenterTest extends BaseUnitTest {
     public void testRefreshProfileTopSection() {
 
 
-        ChildProfilePresenter profilePresenter = new ChildProfilePresenter(view, model, "12345");
+        ChildProfilePresenter profilePresenter = new ChildProfilePresenter(view, flavor, model, "12345");
         Mockito.doReturn(context).when(view).getContext();
 
         Resources resources = Mockito.mock(Resources.class);

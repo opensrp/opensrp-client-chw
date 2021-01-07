@@ -19,6 +19,7 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
+import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
@@ -44,7 +45,7 @@ import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRow
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
 
-public class ChildProfileActivity extends CoreChildProfileActivity implements OnRetrieveNotifications {
+public class ChildProfileActivity extends CoreChildProfileActivity implements OnRetrieveNotifications, CoreChildProfileContract.Flavor {
     public FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new ChildProfileActivityFlv();
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
@@ -119,7 +120,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
             familyName = "";
         }
 
-        presenter = new ChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
+        presenter = new ChildProfilePresenter(this, this, new CoreChildProfileModel(familyName), childBaseEntityId);
     }
 
     @Override
@@ -273,6 +274,15 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         layoutFamilyHasRow.setVisibility(View.VISIBLE);
         viewFamilyRow.setVisibility(View.VISIBLE);
         textViewFamilyHas.setText(getString(R.string.family_has_nothing_else_due));
+    }
+
+    @Override
+    public void togglePhysicallyDisabled(boolean show) {
+        if (show) {
+            physicallyChallenged.setVisibility(View.VISIBLE);
+        } else {
+            physicallyChallenged.setVisibility(View.GONE);
+        }
     }
 
     public interface Flavor {
