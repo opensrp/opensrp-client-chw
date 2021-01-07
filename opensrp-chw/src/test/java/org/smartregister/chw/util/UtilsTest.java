@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.chw.BaseUnitTest;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.Utils;
 
@@ -49,6 +50,12 @@ public class UtilsTest extends BaseUnitTest {
     @Test
     public void testTableColConcatValidInput() {
         Assert.assertEquals("table.col", ChildDBConstants.tableColConcat("table", "col"));
+    }
+
+    @Test
+    public void testGetDownloadUrl() {
+        String downloadUrl = BuildConfig.guidebooks_url + RuntimeEnvironment.application.getResources().getConfiguration().locale + "/fileName";
+        Assert.assertEquals(downloadUrl, DownloadGuideBooksUtils.getDownloadUrl("fileName", RuntimeEnvironment.application));
     }
 
     @Test
