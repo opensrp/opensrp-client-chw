@@ -46,13 +46,11 @@ public class IPTPAction extends HomeVisitActionHelper {
 
         JSONObject visit_field = JsonFormUtils.getFieldJSONObject(fields, "iptp{0}_date");
         visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration));
-        if(iteration.equalsIgnoreCase("1")){
+        if (iteration.equalsIgnoreCase("1")) {
             visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), context.getString(R.string.one)));
-        }
-       else if(iteration.equalsIgnoreCase("2")){
+        } else if (iteration.equalsIgnoreCase("2")) {
             visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), context.getString(R.string.two)));
-        }
-      else if(iteration.equalsIgnoreCase("3")){
+        } else if (iteration.equalsIgnoreCase("3")) {
             visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), context.getString(R.string.three)));
         }
 
@@ -63,29 +61,7 @@ public class IPTPAction extends HomeVisitActionHelper {
     public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
         Timber.v("onJsonFormLoaded");
     }
-/*
-    @Override
-    public void onPayloadReceived(BaseAncHomeVisitAction ba) {
-        try {
-            JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
-            String value = org.smartregister.chw.util.JsonFormUtils.getValue(jsonObject, MessageFormat.format("iptp{0}_date", serviceIteration));
 
-            try {
-                if (ba.getServiceWrapper() != null && ba.getServiceWrapper().size() > 0) {
-                    DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
-                    ba.getServiceWrapper().get(0).setUpdatedVaccineDate(updateDate, false);
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-
-        } catch (JSONException e) {
-            Timber.e(e);
-        }
-    }
-
-
-*/
     @Override
     public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
         return null;

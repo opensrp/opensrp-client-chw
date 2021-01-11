@@ -13,7 +13,6 @@ import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
 import com.vijay.jsonwizard.domain.Form;
 
-import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -62,6 +61,7 @@ import org.smartregister.chw.util.FailSafeRecalledID;
 import org.smartregister.chw.util.FileUtils;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
@@ -79,7 +79,6 @@ import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.P2PClassifier;
-import org.smartregister.util.LangUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,6 +96,7 @@ public class ChwApplication extends CoreChwApplication {
 
     private static Flavor flavor = new ChwApplicationFlv();
     private AppExecutors appExecutors;
+    private CommonFtsObject commonFtsObject;
 
     public static Flavor getApplicationFlavor() {
         return flavor;
@@ -124,6 +124,23 @@ public class ChwApplication extends CoreChwApplication {
         return "opensrp_guidebooks_" + (suffix.equalsIgnoreCase("chw") ? "liberia" : suffix);
     }
 
+    public CommonFtsObject getCommonFtsObject() {
+        if (commonFtsObject == null) {
+
+            String[] tables = flavor.getFTSTables();
+
+            Map<String, String[]> searchMap = flavor.getFTSSearchMap();
+            Map<String, String[]> sortMap = flavor.getFTSSortMap();
+
+            commonFtsObject = new CommonFtsObject(tables);
+            for (String ftsTable : commonFtsObject.getTables()) {
+                commonFtsObject.updateSearchFields(ftsTable, searchMap.get(ftsTable));
+                commonFtsObject.updateSortFields(ftsTable, sortMap.get(ftsTable));
+            }
+        }
+        return commonFtsObject;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -131,7 +148,7 @@ public class ChwApplication extends CoreChwApplication {
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(createCommonFtsObject());
+        context.updateCommonFtsObject(getCommonFtsObject());
 
         //Necessary to determine the right form to pick from assets
         CoreConstants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(),
@@ -161,22 +178,17 @@ public class ChwApplication extends CoreChwApplication {
 
         setOpenSRPUrl();
 
-        String language = getInstance().getContext().allSharedPreferences().fetchLanguagePreference();
-
-        if (StringUtils.isBlank(language)) {
-            Configuration configuration = getApplicationContext().getResources().getConfiguration();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                language = configuration.getLocales().get(0).getLanguage();
-            } else {
-                language = configuration.locale.getLanguage();
-            }
+        Configuration configuration = getApplicationContext().getResources().getConfiguration();
+        String language;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            language = configuration.getLocales().get(0).getLanguage();
+        } else {
+            language = configuration.locale.getLanguage();
         }
 
         if (language.equals(Locale.FRENCH.getLanguage())) {
             saveLanguage(Locale.FRENCH.getLanguage());
-            LangUtils.saveLanguage(getApplicationContext(), Locale.FRENCH.getLanguage());
         }
-
 
         // create a folder for guidebooks
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -203,7 +215,7 @@ public class ChwApplication extends CoreChwApplication {
     private void initializeLibraries() {
         //Initialize Modules
         P2POptions p2POptions = new P2POptions(true);
-        p2POptions.setAuthorizationService(flavor.hasForeignData() ? new LmhAuthorizationService() : new CoreAuthorizationService(flavor.checkP2PTeamId()));
+        p2POptions.setAuthorizationService(flavor.hasForeignData() ? new LmhAuthorizationService() : new CoreAuthorizationService());
         p2POptions.setRecalledIdentifier(new FailSafeRecalledID());
 
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
@@ -251,8 +263,7 @@ public class ChwApplication extends CoreChwApplication {
 
         // Set display date format for date pickers in native forms
         Form form = new Form();
-        if (flavor.hasCustomDate())
-            form.setDatePickerDisplayFormat("dd MMM yyyy");
+        form.setDatePickerDisplayFormat("dd MMM yyyy");
 
         NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
         NativeFormLibrary.getInstance().setPerformFormsTranslation(true);
@@ -371,10 +382,6 @@ public class ChwApplication extends CoreChwApplication {
     }
 
     public interface Flavor {
-        boolean checkP2PTeamId();
-
-        boolean hasCustomDate();
-
         boolean hasP2P();
 
         boolean syncUsingPost();
@@ -469,6 +476,15 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasMap();
 
+        boolean showsPhysicallyDisabledView();
+
+        boolean hasEventDateOnFamilyProfile();
+
+        String[] getFTSTables();
+
+        Map<String, String[]> getFTSSearchMap();
+
+        Map<String, String[]> getFTSSortMap();
     }
 
 }

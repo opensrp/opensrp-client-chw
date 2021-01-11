@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "{{family_register.step1.title}}",
+    "title": "Détails sur le ménage",
     "fields": [
       {
         "key": "fam_name",
@@ -60,15 +60,15 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "hint": "{{family_register.step1.fam_name.hint}}",
+        "hint": "Nom",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "{{family_register.step1.fam_name.v_required.err}}"
+          "err": "Veuillez entrer le nom de famille"
         },
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "{{family_register.step1.fam_name.v_regex.err}}"
+          "err": "Veuillez entrer un nom valide"
         }
       },
       {
@@ -77,11 +77,11 @@
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
         "type": "barcode",
-        "hint": "{{family_register.step1.unique_id.hint}}",
-        "scanButtonText": "{{family_register.step1.unique_id.scanButtonText}}",
+        "hint": "ID *",
+        "scanButtonText": "Scanner le code QR",
         "v_numeric": {
           "value": "true",
-          "err": "{{family_register.step1.unique_id.v_numeric.err}}"
+          "err": "Veuillez entrer un ID valide"
         },
         "hidden": "true",
         "barcode_type": "qrcode"
@@ -92,10 +92,10 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
-        "hint": "{{family_register.step1.village_town.hint}}",
+        "hint": "Ville/Village",
         "v_required": {
           "value": "true",
-          "err": "{{family_register.step1.village_town.v_required.err}}"
+          "err": "Veuillez entrer la ville ou le village"
         }
       },
       {
@@ -104,10 +104,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "commune",
-        "hint": "{{family_register.step1.quarter_clan.hint}}",
+        "hint": "Commune",
         "v_required": {
           "value": "true",
-          "err": "{{family_register.step1.quarter_clan.v_required.err}}"
+          "err": "Veuillez entrer le commune"
         }
       },
       {
@@ -116,7 +116,7 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "street",
         "type": "edit_text",
-        "hint": "{{family_register.step1.street.hint}}"
+        "hint": "Rue/Block"
       },
       {
         "key": "landmark",
@@ -124,7 +124,7 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "landmark",
         "type": "edit_text",
-        "hint": "{{family_register.step1.landmark.hint}}"
+        "hint": "Point de répère"
       },
       {
         "key": "gps",
@@ -147,16 +147,16 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "fam_source_income",
-        "hint": "{{family_register.step1.fam_source_income.hint}}",
+        "hint": "Source de revenue du ménage",
         "type": "spinner",
         "openmrs_data_type": "",
         "values": [
           "Petit commerce",
           "Agriculture, chasse et pêche",
-          "L\u0027exploitation des mines et carrières",
-          "l\u0027industrie manufacturière",
+          "L'exploitation des mines et carrières",
+          "l'industrie manufacturière",
           "Construction",
-          "l\u0027électricité, gas naturel et eau",
+          "l'électricité, gas naturel et eau",
           "Commerciale, hôtels et restaurants",
           "Transport, entrêposage et communications",
           "Institutions financières",
@@ -196,7 +196,7 @@
   "validate_on_submit": true,
   "show_errors_on_submit": false,
   "step2": {
-    "title": "{{family_register.step2.title}}",
+    "title": "Chef de ménage",
     "fields": [
       {
         "key": "photo",
@@ -204,7 +204,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "choose_image",
-        "uploadButtonText": "{{family_register.step2.photo.uploadButtonText}}"
+        "uploadButtonText": "Prenez un photo de la personne"
       },
       {
         "key": "unique_id",
@@ -212,16 +212,16 @@
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
-        "hint": "{{family_register.step2.unique_id.hint}}",
+        "hint": "ID *",
         "value": "0",
         "read_only": "true",
         "v_numeric": {
           "value": "true",
-          "err": "{{family_register.step2.unique_id.v_numeric.err}}"
+          "err": "Veuillez entrer une ID valide"
         },
         "v_required": {
           "value": "true",
-          "err": "{{family_register.step2.unique_id.v_required.err}}"
+          "err": "Veuillez entrer la ID"
         }
       },
       {
@@ -229,13 +229,13 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label_info_text": "Quel est leur numéro d\u0027identité national ou leur numéro de carte d\u0027électeur?",
-        "label_info_title": "Numéro d\u0027identification national",
+        "label_info_text": "Quel est leur numéro d'identité national ou leur numéro de carte d'électeur?",
+        "label_info_title": "Numéro d'identification national",
         "type": "edit_text",
-        "hint": "{{family_register.step2.national_id.hint}}",
+        "hint": "Numéro d'identification national",
         "v_numeric": {
           "value": "true",
-          "err": "{{family_register.step2.national_id.v_numeric.err}}"
+          "err": "Doit être un nombre."
         }
       },
       {
@@ -244,15 +244,15 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "{{family_register.step2.surname.hint}}",
+        "hint": "Nom",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "{{family_register.step2.surname.v_required.err}}"
+          "err": "Veuillez entrer le nom"
         },
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "{{family_register.step2.surname.v_regex.err}}"
+          "err": "Veuillez entrer un nom valide"
         },
         "relevance": {
           "rules-engine": {
@@ -268,11 +268,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "{{family_register.step2.same_as_fam_name.label}}",
+        "label": "",
         "options": [
           {
             "key": "same_as_fam_name",
-            "text": "{{family_register.step2.same_as_fam_name.options.same_as_fam_name.text}}",
+            "text": "Même nom que ménage",
             "text_size": "18px",
             "value": "false"
           }
@@ -285,7 +285,7 @@
         "openmrs_entity_id": "last_name",
         "type": "edit_text",
         "hidden": true,
-        "hint": "{{family_register.step2.surname_calculation.hint}}",
+        "hint": "Utiliser même nom que ménage",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -300,15 +300,15 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "hint": "{{family_register.step2.first_name.hint}}",
+        "hint": "Prénom",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "{{family_register.step2.first_name.v_required.err}}"
+          "err": "Veuillez entrer le prénom"
         },
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "{{family_register.step2.first_name.v_regex.err}}"
+          "err": "Veuillez entrer un prénom valide"
         }
       },
       {
@@ -317,11 +317,11 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "middle_name",
         "type": "edit_text",
-        "hint": "{{family_register.step2.middle_name.hint}}",
+        "hint": "Deuxième prénom",
         "edit_type": "name",
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "{{family_register.step2.middle_name.v_regex.err}}"
+          "err": "Veuillez entrer un deuxième prénom valide"
         }
       },
       {
@@ -330,16 +330,16 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
         "type": "date_picker",
-        "hint": "{{family_register.step2.dob.hint}}",
+        "hint": "Date de naissance (DDN)",
         "expanded": false,
         "duration": {
-          "label": "{{family_register.step2.dob.duration.label}}"
+          "label": "Âge"
         },
         "min_date": "today-120y",
         "max_date": "today-15y",
         "v_required": {
           "value": "true",
-          "err": "{{family_register.step2.dob.v_required.err}}"
+          "err": "Veuillez entrer la date de naissance"
         },
         "relevance": {
           "rules-engine": {
@@ -355,11 +355,11 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
-        "label": "{{family_register.step2.dob_unknown.label}}",
+        "label": "",
         "options": [
           {
             "key": "dob_unknown",
-            "text": "{{family_register.step2.dob_unknown.options.dob_unknown.text}}",
+            "text": "DDN inconnue?",
             "text_size": "18px",
             "value": "false"
           }
@@ -371,22 +371,22 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "age_entered",
         "type": "edit_text",
-        "hint": "{{family_register.step2.age.hint}}",
+        "hint": "Âge",
         "v_numeric_integer": {
           "value": "true",
-          "err": "{{family_register.step2.age.v_numeric_integer.err}}"
+          "err": "Must be a rounded number"
         },
         "v_numeric": {
           "value": "true",
-          "err": "{{family_register.step2.age.v_numeric.err}}"
+          "err": "Numéro doit commencer avec 0 et doit consister de 10 chiffres au total"
         },
         "v_min": {
           "value": "15",
-          "err": "{{family_register.step2.age.v_min.err}}"
+          "err": "l'âge doit être égale ou supérieure à 15"
         },
         "v_max": {
           "value": "120",
-          "err": "{{family_register.step2.age.v_max.err}}"
+          "err": "l'âge doit être égal ou moins de 120"
         },
         "relevance": {
           "rules-engine": {
@@ -397,7 +397,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "{{family_register.step2.age.v_required.err}}"
+          "err": "Veuillez entrer l'âge"
         }
       },
       {
@@ -406,7 +406,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "spinner",
-        "hint": "{{family_register.step2.sex.hint}}",
+        "hint": "Sexe",
         "values": [
           "Masculin",
           "Feminin"
@@ -417,7 +417,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "{{family_register.step2.sex.v_required.err}}"
+          "err": "Veuillez entrer le sexe"
         }
       },
       {
@@ -426,14 +426,14 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "{{family_register.step2.phone_number.hint}}",
+        "hint": "Numéro de téléphone",
         "v_numeric": {
           "value": "true",
-          "err": "{{family_register.step2.phone_number.v_numeric.err}}"
+          "err": "Doit être un nombre"
         },
         "v_required": {
           "value": false,
-          "err": "{{family_register.step2.phone_number.v_required.err}}"
+          "err": "Veuillez spécifier le numéro de téléphone"
         }
       },
       {
@@ -442,10 +442,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "{{family_register.step2.other_phone_number.hint}}",
+        "hint": "Autre numéro de téléphone",
         "v_numeric": {
           "value": "true",
-          "err": "{{family_register.step2.other_phone_number.v_numeric.err}}"
+          "err": "Doit être un nombre"
         }
       },
       {
@@ -455,7 +455,7 @@
         "openmrs_entity_id": "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "{{family_register.step2.highest_edu_level.hint}}",
+        "hint": "Plus haut niveau d'éducation/de formation",
         "values": [
           "Aucun",
           "Alphabétiser",
@@ -485,10 +485,10 @@
         "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "{{family_register.step2.marital_status.hint}}",
+        "hint": "État matrimonial",
         "v_required": {
           "value": "true",
-          "err": "{{family_register.step2.marital_status.v_required.err}}"
+          "err": "Please select one option"
         },
         "values": [
           "Mariée",
@@ -504,6 +504,5 @@
         }
       }
     ]
-  },
-  "properties_file_name": "family_register"
+  }
 }
