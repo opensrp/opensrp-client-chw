@@ -266,7 +266,7 @@ public class ChwApplication extends CoreChwApplication {
         form.setDatePickerDisplayFormat("dd MMM yyyy");
 
         NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
-        NativeFormLibrary.getInstance().setPerformFormsTranslation(true);
+        NativeFormLibrary.getInstance().setPerformFormTranslation(true);
     }
 
     @Override
