@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Exclusive breastfeeding",
+    "title": "{{pnc_exclusive_breastfeeding.step1.title}}",
     "fields": [
       {
         "key": "exclusive_breast_feeding",
@@ -57,7 +57,7 @@
         "openmrs_data_type": "exclusive_breast_feeding",
         "type": "spinner",
         "image": "ic_form_bf",
-        "hint": "Did the child receive any liquid or food other than breast milk yesterday and last night?",
+        "hint": "{{pnc_exclusive_breastfeeding.step1.exclusive_breast_feeding.hint}}",
         "values": [
           "Yes",
           "No"
@@ -68,5 +68,6 @@
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "pnc_exclusive_breastfeeding"
 }

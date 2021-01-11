@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Sick child form",
+    "title": "{{child_referral_form.step1.title}}",
     "fields": [
       {
         "key": "chw_referral_hf_child",
@@ -75,12 +75,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Health problem / condition",
+        "label": "{{child_referral_form.step1.referral_problem_child.label}}",
         "label_text_style": "bold",
         "options": [
           {
             "key": "Fast_breathing_and_difficulty_with_breathing",
-            "text": "Fast breathing and difficulty with breathing",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Fast_breathing_and_difficulty_with_breathing.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -88,7 +88,7 @@
           },
           {
             "key": "Umbilical_cord_navel_bleeding",
-            "text": "Umbilical cord/navel bleeding",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Umbilical_cord_navel_bleeding.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -96,7 +96,7 @@
           },
           {
             "key": "Excessive_crying",
-            "text": "Excessive crying",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Excessive_crying.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -104,7 +104,7 @@
           },
           {
             "key": "Convulsions",
-            "text": "Convulsions",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Convulsions.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -112,7 +112,7 @@
           },
           {
             "key": "Unable_to_breastfeed_or_swallow",
-            "text": "Unable to breastfeed or swallow",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Unable_to_breastfeed_or_swallow.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -120,7 +120,7 @@
           },
           {
             "key": "Neck_stiffness",
-            "text": "Neck stiffness",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Neck_stiffness.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "112721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -128,7 +128,7 @@
           },
           {
             "key": "Fever",
-            "text": "Fever",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Fever.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -136,7 +136,7 @@
           },
           {
             "key": "Bloating",
-            "text": "Bloating",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Bloating.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "147132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -144,7 +144,7 @@
           },
           {
             "key": "Redness_around_the_umbilical_cord_foul_smelling_discharge_from_the_umbilical_cord",
-            "text": "Redness around the umbilical cord, foul-smelling discharge from the umbilical cord",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Redness_around_the_umbilical_cord_foul_smelling_discharge_from_the_umbilical_cord.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "132407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -152,7 +152,7 @@
           },
           {
             "key": "Bacterial_conjunctivitis",
-            "text": "Bacterial conjunctivitis",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Bacterial_conjunctivitis.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "148026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -160,7 +160,7 @@
           },
           {
             "key": "Severe_anaemia",
-            "text": "Severe anaemia",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Severe_anaemia.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -168,7 +168,7 @@
           },
           {
             "key": "Severe_abdominal_pain",
-            "text": "Severe abdominal pain",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Severe_abdominal_pain.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -176,7 +176,7 @@
           },
           {
             "key": "Pale_or_jaundiced",
-            "text": "Pale or jaundiced",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Pale_or_jaundiced.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -184,7 +184,7 @@
           },
           {
             "key": "Cyanosis_blueness_of_lips",
-            "text": "Cyanosis (blueness of lips)",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Cyanosis_blueness_of_lips.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -192,7 +192,7 @@
           },
           {
             "key": "Skin_rash_pustules",
-            "text": "Skin rash / pustules",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Skin_rash_pustules.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -200,7 +200,7 @@
           },
           {
             "key": "Diarrhea",
-            "text": "Diarrhea",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Diarrhea.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -208,7 +208,7 @@
           },
           {
             "key": "Vomiting",
-            "text": "Vomiting",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Vomiting.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -216,7 +216,7 @@
           },
           {
             "key": "Disabilities",
-            "text": "Disabilities",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Disabilities.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -224,7 +224,7 @@
           },
           {
             "key": "Premature_baby",
-            "text": "Premature baby",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Premature_baby.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -232,7 +232,7 @@
           },
           {
             "key": "Care_of_HIV_exposed_infant",
-            "text": "Care of HIV-exposed infant",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Care_of_HIV_exposed_infant.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -240,7 +240,7 @@
           },
           {
             "key": "Immunisation",
-            "text": "Immunisation",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Immunisation.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -248,7 +248,7 @@
           },
           {
             "key": "Other_symptom",
-            "text": "Other symptom",
+            "text": "{{child_referral_form.step1.referral_problem_child.options.Other_symptom.text}}",
             "value": false,
             "ignore": true,
             "openmrs_entity": "concept",
@@ -258,7 +258,7 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Please specify health problem"
+          "err": "{{child_referral_form.step1.referral_problem_child.v_required.err}}"
         }
       },
       {
@@ -268,7 +268,7 @@
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
-        "hint": "Other symptom",
+        "hint": "{{child_referral_form.step1.referral_problem_child_other.hint}}",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -283,7 +283,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Pre-referral management given",
+        "label": "{{child_referral_form.step1.service_before_child.label}}",
         "label_text_style": "bold",
         "is_problem": false,
         "exclusive": [
@@ -292,7 +292,7 @@
         "options": [
           {
             "key": "ORS",
-            "text": "ORS",
+            "text": "{{child_referral_form.step1.service_before_child.options.ORS.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -300,7 +300,7 @@
           },
           {
             "key": "Panadol",
-            "text": "Panadol",
+            "text": "{{child_referral_form.step1.service_before_child.options.Panadol.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -308,7 +308,7 @@
           },
           {
             "key": "Other_treatment",
-            "text": "Other treatment",
+            "text": "{{child_referral_form.step1.service_before_child.options.Other_treatment.text}}",
             "value": false,
             "ignore": true,
             "openmrs_entity": "concept",
@@ -317,7 +317,7 @@
           },
           {
             "key": "None",
-            "text": "None",
+            "text": "{{child_referral_form.step1.service_before_child.options.None.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -326,7 +326,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Pre-referral management field is required"
+          "err": "{{child_referral_form.step1.service_before_child.v_required.err}}"
         }
       },
       {
@@ -336,11 +336,11 @@
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
-        "hint": "Other treatment",
+        "hint": "{{child_referral_form.step1.service_before_child_other.hint}}",
         "is_problem": false,
         "v_required": {
           "value": "true",
-          "err": "Please specify other treatment"
+          "err": "{{child_referral_form.step1.service_before_child_other.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -381,5 +381,6 @@
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "child_referral_form"
 }

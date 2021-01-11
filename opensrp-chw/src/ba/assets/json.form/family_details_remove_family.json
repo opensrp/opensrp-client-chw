@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Remove Family",
+    "title": "{{family_details_remove_family.step1.title}}",
     "fields": [
       {
         "key": "spacer",
@@ -68,7 +68,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "",
+        "text": "{{family_details_remove_family.step1.fam_name.text}}",
         "text_size": "25px"
       },
       {
@@ -77,7 +77,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "",
+        "text": "{{family_details_remove_family.step1.details.text}}",
         "text_size": "25px"
       },
       {
@@ -102,7 +102,7 @@
         "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Reason for closure",
+        "hint": "{{family_details_remove_family.step1.closure_reason_fam.hint}}",
         "values": [
           "Relocation",
           "Other"
@@ -113,7 +113,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Select the reason for removing the family's record."
+          "err": "{{family_details_remove_family.step1.closure_reason_fam.v_required.err}}"
         },
         "openmrs_choice_ids": {
           "Relocation": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -127,10 +127,10 @@
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Other reason",
+        "hint": "{{family_details_remove_family.step1.closure_reason_other_fam.hint}}",
         "v_required": {
           "value": "true",
-          "err": "Enter reason of closure"
+          "err": "{{family_details_remove_family.step1.closure_reason_other_fam.v_required.err}}"
         },
         "relevance": {
           "step1:closure_reason_fam": {
@@ -146,7 +146,7 @@
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Household relocation",
+        "hint": "{{family_details_remove_family.step1.closure_reason_relocation_fam.hint}}",
         "values": [
           "Within the district",
           "Outside the district"
@@ -157,7 +157,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Enter reason of closure"
+          "err": "{{family_details_remove_family.step1.closure_reason_relocation_fam.v_required.err}}"
         },
         "relevance": {
           "step1:closure_reason_fam": {
@@ -167,5 +167,6 @@
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "family_details_remove_family"
 }

@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Malaria Prevention",
+    "title": "{{child_hv_malaria_prevention.step1.title}}",
     "fields": [
       {
         "key": "fam_llin_1m5yr",
@@ -56,7 +56,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Does the child have a long lasting insecticide net (LLIN)?",
+        "hint": "{{child_hv_malaria_prevention.step1.fam_llin_1m5yr.hint}}",
         "values": [
           "Yes",
           "No"
@@ -71,7 +71,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "{{child_hv_malaria_prevention.step1.fam_llin_1m5yr.v_required.err}}"
         }
       },
       {
@@ -81,7 +81,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Did the child sleep under the LLIN last night?",
+        "hint": "{{child_hv_malaria_prevention.step1.llin_2days_1m5yr.hint}}",
         "values": [
           "Yes",
           "No"
@@ -96,7 +96,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "{{child_hv_malaria_prevention.step1.llin_2days_1m5yr.v_required.err}}"
         },
         "relevance": {
           "step1:fam_llin_1m5yr": {
@@ -112,7 +112,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "LLIN condition",
+        "hint": "{{child_hv_malaria_prevention.step1.llin_condition_1m5yr.hint}}",
         "values": [
           "Okay",
           "Bad"
@@ -127,7 +127,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "{{child_hv_malaria_prevention.step1.llin_condition_1m5yr.v_required.err}}"
         },
         "relevance": {
           "step1:fam_llin_1m5yr": {
@@ -137,5 +137,6 @@
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "child_hv_malaria_prevention"
 }

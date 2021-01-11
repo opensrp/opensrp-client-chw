@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Minimum dietary diversity",
+    "title": "{{child_hv_dietary_diversity.step1.title}}",
     "fields": [
       {
         "key": "diet_diversity",
@@ -57,7 +57,7 @@
         "openmrs_data_type": "select one",
         "type": "radio",
         "image": "ic_form_diverity",
-        "hint": "Has the child received, in the previous 24 hours, any animal products (e.g. eggs, liver, milk), fruits, vegetables, or cereals?",
+        "hint": "{{child_hv_dietary_diversity.step1.diet_diversity.hint}}",
         "options": [
           {
             "key": "chk_none_of_four_products",
@@ -97,5 +97,6 @@
         ]
       }
     ]
-  }
+  },
+  "properties_file_name": "child_hv_dietary_diversity"
 }

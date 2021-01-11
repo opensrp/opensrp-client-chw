@@ -49,7 +49,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Pregnancy Outcome",
+    "title": "{{anc_pregnancy_outcome.step1.title}}",
     "fields": [
       {
         "key": "relational_id",
@@ -61,7 +61,7 @@
       {
         "key": "pregnancy_outcome_label",
         "type": "label",
-        "text": "PREGNANCY OUTCOME",
+        "text": "{{anc_pregnancy_outcome.step1.pregnancy_outcome_label.text}}",
         "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
@@ -75,7 +75,7 @@
         "openmrs_entity_id": "161033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Pregnancy outcome",
+        "hint": "{{anc_pregnancy_outcome.step1.preg_outcome.hint}}",
         "values": [
           "Live birth",
           "Stillbirth",
@@ -90,7 +90,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "{{anc_pregnancy_outcome.step1.preg_outcome.v_required.err}}"
         }
       },
       {
@@ -99,12 +99,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165248AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Date of miscarriage",
+        "hint": "{{anc_pregnancy_outcome.step1.miscarriage_date.hint}}",
         "expanded": false,
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please enter date the woman miscarried."
+          "err": "{{anc_pregnancy_outcome.step1.miscarriage_date.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -120,12 +120,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Delivery date",
+        "hint": "{{anc_pregnancy_outcome.step1.delivery_date.hint}}",
         "expanded": false,
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please enter date the woman delivered"
+          "err": "{{anc_pregnancy_outcome.step1.delivery_date.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -142,7 +142,7 @@
         "openmrs_entity_id": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Place of delivery",
+        "hint": "{{anc_pregnancy_outcome.step1.delivery_place.hint}}",
         "values": [
           "Home",
           "Health facility",
@@ -155,7 +155,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "{{anc_pregnancy_outcome.step1.delivery_place.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -168,7 +168,7 @@
       {
         "key": "baby_label",
         "type": "label",
-        "text": "BABY DETAILS",
+        "text": "{{anc_pregnancy_outcome.step1.baby_label.text}}",
         "left_padding": "20dp",
         "right_padding": "20dp",
         "text_size": "7sp",
@@ -197,7 +197,7 @@
       {
         "key": "no_children_no",
         "type": "repeating_group",
-        "reference_edit_text_hint": "Number of children born",
+        "reference_edit_text_hint": "{{anc_pregnancy_outcome.step1.no_children_no.reference_edit_text_hint}}",
         "repeating_group_label": "Baby Details #",
         "repeating_group_max": "10",
         "openmrs_entity_parent": "",
@@ -212,7 +212,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please specify the # of babies"
+          "err": "{{anc_pregnancy_outcome.step1.no_children_no.v_required.err}}"
         },
         "value": [
           {
@@ -418,7 +418,7 @@
               {
                 "type": "date",
                 "ex": "greaterThanEqualTo(., step1:delivery_date)",
-                "err": "Date of OPV 0 can't occur before delivery date"
+                "err": "Date of OPV 0 can\u0027t occur before delivery date"
               }
             ]
           },
@@ -435,12 +435,13 @@
               {
                 "type": "date",
                 "ex": "greaterThanEqualTo(., step1:delivery_date)",
-                "err": "Date of BCG can't occur before delivery date"
+                "err": "Date of BCG can\u0027t occur before delivery date"
               }
             ]
           }
         ]
       }
     ]
-  }
+  },
+  "properties_file_name": "anc_pregnancy_outcome"
 }
