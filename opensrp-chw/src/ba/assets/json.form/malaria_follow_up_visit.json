@@ -81,7 +81,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": ""
         }
       },
       {
@@ -144,7 +144,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": ""
         },
         "relevance": {
           "rules-engine": {
@@ -186,7 +186,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": ""
         },
         "relevance": {
           "rules-engine": {
@@ -223,7 +223,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": ""
         }
       },
       {
@@ -251,7 +251,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": ""
         },
         "relevance": {
           "rules-engine": {
