@@ -8,7 +8,7 @@
 <script>
     (async() => {
         let data = await fetch("http://localhost:8085/thinkmd/fhir_update_latest.json");
-        let fhir = await data.json();
+        let fhir = await data.json()
 
         const getFhirResourcesByType = type => {
             return fhir.entry.filter(entry => (entry.resource && entry.resource.resourceType === type))
@@ -86,31 +86,6 @@
                 document.getElementById("Condition").appendChild(node)
         })
 
-        // Parse observations
-        let observations = getFhirResourcesByType("Observation")
-        observations.forEach(item => {
-            try {
-                let el = document.createElement("toAdd")
-                el.innerHTML = item.resource.text.div
-                let value = el.children[0].children[2].innerText
-                let name = el.children[0].children[1].innerText
-
-                let node = document.createElement("tr")
-                let name_node = document.createElement("td")
-                name_node.innerText = formatString(name)
-                node.appendChild(name_node)
-
-                let value_node = document.createElement("td")
-                value_node.innerText = ' ' + formatString(value)
-                node.appendChild(value_node)
-
-                document.getElementById("Observation").appendChild(node)
-            }
-            catch (e) {
-                console.log(`no div info for ${item.resource.id}`)
-            }
-        })
-
         // Parse CarePlans
 
         let careplans = getFhirResourcesByType("CarePlan")
@@ -172,25 +147,47 @@
             })
 
         }
+        
+        // Parse observations
+        let obs_node = newContainer("Observations", "table", "Observation")
+        
+        let observations = getFhirResourcesByType("Observation")
+        observations.forEach(item => {
+            try {
+                let el = document.createElement("toAdd")
+                el.innerHTML = item.resource.text.div
+                let value = el.children[0].children[2].innerText
+                let name = el.children[0].children[1].innerText
+
+                let node = document.createElement("tr")
+                let name_node = document.createElement("td")
+                name_node.innerText = formatString(name)
+                node.appendChild(name_node)
+
+                let value_node = document.createElement("td")
+                value_node.innerText = ' ' + formatString(value)
+                node.appendChild(value_node)
+
+                obs_node.appendChild(node)
+            }
+            catch (e) {
+                console.log(`no div info for ${item.resource.id}`)
+            }
+        })
 
     })()
-
 </script>
 
 <body>
-<div id="thinkmd-encounter">
-    <div id="header">
-        <h1 id="title">THINKMD Assessment</h1>
+    <div id="thinkmd-encounter">
+        <div id="header">
+            <h1 id="title">THINKMD Assessment</h1>
+        </div>
+        <div class="container">
+            <h2>Conditions</h2>
+            <ul id="Condition"></ul>
+        </div>
     </div>
-    <div class="container">
-        <h2>Conditions</h2>
-        <ul id="Condition"></ul>
-    </div>
-    <div class="container">
-        <h2>Observations</h2>
-        <table id="Observation"></table>
-    </div>
-</div>
 </body>
 
 <style>
@@ -268,7 +265,6 @@
         font-weight: 500;
         font-size: 1.25rem;
     }
-
 </style>
 
 </html>
