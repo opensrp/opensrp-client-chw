@@ -223,12 +223,12 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
                     JSONObject gest_age_note = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, "gest_age_note");
                     JSONObject gest_age = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, "gest_age");
 
-                    String phoneNumber = phoneNumberObject.getString(CoreJsonFormUtils.VALUE);
-                    String _LAST_MENSTRUAL_PERIOD = LAST_MENSTRUAL_PERIOD.getString(CoreJsonFormUtils.VALUE);
-                    String _EDD = EDD.getString(CoreJsonFormUtils.VALUE);
-                    String _gest_age_note = gest_age_note.getString(CoreJsonFormUtils.VALUE);
-                    String _gest_age = gest_age.getString(CoreJsonFormUtils.VALUE);
-                    String _last_menstrual_period_unknown = last_menstrual_period_unknown.getString(CoreJsonFormUtils.VALUE);
+                    String phoneNumber = phoneNumberObject.optString(CoreJsonFormUtils.VALUE, null);
+                    String _LAST_MENSTRUAL_PERIOD = LAST_MENSTRUAL_PERIOD.optString(CoreJsonFormUtils.VALUE, null);
+                    String _EDD = EDD.optString(CoreJsonFormUtils.VALUE, null);
+                    String _gest_age_note = gest_age_note.optString(CoreJsonFormUtils.VALUE, null);
+                    String _gest_age = gest_age.optString(CoreJsonFormUtils.VALUE, null);
+                    String _last_menstrual_period_unknown = last_menstrual_period_unknown.optString(CoreJsonFormUtils.VALUE, null);
 
                     String baseEntityId = baseEvent.getBaseEntityId();
                     if (commonsRepository != null) {
