@@ -217,11 +217,28 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
                     JSONArray field = org.smartregister.util.JsonFormUtils.fields(form);
                     JSONObject phoneNumberObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER);
+                    JSONObject LAST_MENSTRUAL_PERIOD = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.LAST_MENSTRUAL_PERIOD);
+                    JSONObject last_menstrual_period_unknown = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, "last_menstrual_period_unknown");
+                    JSONObject EDD = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.EDD);
+                    JSONObject gest_age_note = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, "gest_age_note");
+                    JSONObject gest_age = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, "gest_age");
+
                     String phoneNumber = phoneNumberObject.getString(CoreJsonFormUtils.VALUE);
+                    String _LAST_MENSTRUAL_PERIOD = LAST_MENSTRUAL_PERIOD.getString(CoreJsonFormUtils.VALUE);
+                    String _EDD = EDD.getString(CoreJsonFormUtils.VALUE);
+                    String _gest_age_note = gest_age_note.getString(CoreJsonFormUtils.VALUE);
+                    String _gest_age = gest_age.getString(CoreJsonFormUtils.VALUE);
+                    String _last_menstrual_period_unknown = last_menstrual_period_unknown.getString(CoreJsonFormUtils.VALUE);
+
                     String baseEntityId = baseEvent.getBaseEntityId();
                     if (commonsRepository != null) {
                         ContentValues values = new ContentValues();
                         values.put(DBConstants.KEY.PHONE_NUMBER, phoneNumber);
+                        values.put(DBConstants.KEY.LAST_MENSTRUAL_PERIOD, _LAST_MENSTRUAL_PERIOD);
+                        values.put("last_menstrual_period_unknown", _last_menstrual_period_unknown);
+                        values.put(DBConstants.KEY.EDD, _EDD);
+                        values.put("gest_age_note", _gest_age_note);
+                        values.put("gest_age", _gest_age);
                         CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CoreConstants.TABLE_NAME.ANC_MEMBER, values, DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{baseEntityId});
                     }
 
