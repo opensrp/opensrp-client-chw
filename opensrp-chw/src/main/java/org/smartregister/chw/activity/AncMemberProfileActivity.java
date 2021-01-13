@@ -217,28 +217,19 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
                     JSONArray field = org.smartregister.util.JsonFormUtils.fields(form);
                     JSONObject phoneNumberObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER);
-                    JSONObject LAST_MENSTRUAL_PERIOD = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.LAST_MENSTRUAL_PERIOD);
-                    JSONObject last_menstrual_period_unknown = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, "last_menstrual_period_unknown");
-                    JSONObject EDD = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.EDD);
-                    JSONObject gest_age_note = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, "gest_age_note");
-                    JSONObject gest_age = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, "gest_age");
+                    JSONObject lmpObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.LAST_MENSTRUAL_PERIOD);
+                    JSONObject eddObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.EDD);
 
-                    String phoneNumber = phoneNumberObject.optString(CoreJsonFormUtils.VALUE, null);
-                    String _LAST_MENSTRUAL_PERIOD = LAST_MENSTRUAL_PERIOD.optString(CoreJsonFormUtils.VALUE, null);
-                    String _EDD = EDD.optString(CoreJsonFormUtils.VALUE, null);
-                    String _gest_age_note = gest_age_note.optString(CoreJsonFormUtils.VALUE, null);
-                    String _gest_age = gest_age.optString(CoreJsonFormUtils.VALUE, null);
-                    String _last_menstrual_period_unknown = last_menstrual_period_unknown.optString(CoreJsonFormUtils.VALUE, null);
+                    String phoneNumber = phoneNumberObject.optString(CoreJsonFormUtils.VALUE, "");
+                    String _LAST_MENSTRUAL_PERIOD = lmpObject.optString(CoreJsonFormUtils.VALUE, "");
+                    String _EDD = eddObject.optString(CoreJsonFormUtils.VALUE, "");
 
                     String baseEntityId = baseEvent.getBaseEntityId();
                     if (commonsRepository != null) {
                         ContentValues values = new ContentValues();
-                        values.put(DBConstants.KEY.PHONE_NUMBER, phoneNumber);
-                        values.put(DBConstants.KEY.LAST_MENSTRUAL_PERIOD, _LAST_MENSTRUAL_PERIOD);
-                        values.put("last_menstrual_period_unknown", _last_menstrual_period_unknown);
-                        values.put(DBConstants.KEY.EDD, _EDD);
-                        values.put("gest_age_note", _gest_age_note);
-                        values.put("gest_age", _gest_age);
+                        updateContentValue(values, DBConstants.KEY.PHONE_NUMBER, phoneNumber);
+                        updateContentValue(values, DBConstants.KEY.LAST_MENSTRUAL_PERIOD, _LAST_MENSTRUAL_PERIOD);
+                        updateContentValue(values, DBConstants.KEY.EDD, _EDD);
                         CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CoreConstants.TABLE_NAME.ANC_MEMBER, values, DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{baseEntityId});
                     }
 
@@ -255,6 +246,12 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         } else if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
             ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.ANC_HOME_VISIT, new Date());
             finish();
+        }
+    }
+
+    private void updateContentValue(ContentValues contentValues, String key, String value) {
+        if (!value.equals("")) {
+            contentValues.put(key, value);
         }
     }
 
