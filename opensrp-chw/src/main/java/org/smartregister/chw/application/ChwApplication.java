@@ -483,6 +483,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasMap();
 
+        boolean showsPhysicallyDisabledView();
+
         boolean hasEventDateOnFamilyProfile();
 
         String[] getFTSTables();

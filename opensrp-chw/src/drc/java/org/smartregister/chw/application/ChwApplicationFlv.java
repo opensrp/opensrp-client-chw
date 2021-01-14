@@ -10,4 +10,10 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean hasFamilyKitCheck() {
         return true;
     }
+
+    @Override
+    public boolean showsPhysicallyDisabledView() {
+        return true;
+    }
+
 }
