@@ -32,9 +32,6 @@
         android:theme="@style/ChwTheme"
         tools:replace="android:theme">
 
-        <meta-data
-            android:name="asset_statements"
-            android:resource="@string/asset_statements" />
         <activity
             android:name=".activity.FamilyPlanningMemberProfileActivity"
             android:label="@string/family_planning"
@@ -140,20 +137,6 @@
                     android:scheme="https"
                     android:host="smartregister.org"
                     android:path="/" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="org.smartregister.thinkmd.activity.LaunchPWAActivity"
-            android:theme="@style/ChwTheme.NoActionBar">
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:scheme="https"
-                    android:host="thinkmd-v4-app-b-ona.herokuapp.com" />
             </intent-filter>
         </activity>
         <activity
