@@ -1,5 +1,7 @@
 package org.smartregister.chw.util;
 
+import android.os.Environment;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,6 +58,12 @@ public class UtilsTest extends BaseUnitTest {
     public void testGetDownloadUrl() {
         String downloadUrl = BuildConfig.guidebooks_url + RuntimeEnvironment.application.getResources().getConfiguration().locale + "/fileName";
         Assert.assertEquals(downloadUrl, DownloadGuideBooksUtils.getDownloadUrl("fileName", RuntimeEnvironment.application));
+    }
+
+    @Test
+    public void testHasExternalDisk() {
+        Boolean canWrite = Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
+        Assert.assertEquals(canWrite, FileUtils.hasExternalDisk());
     }
 
     @Test

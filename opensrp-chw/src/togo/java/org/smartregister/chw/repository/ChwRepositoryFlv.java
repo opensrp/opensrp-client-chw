@@ -100,6 +100,9 @@ public class ChwRepositoryFlv {
                 case 17:
                     upgradeToVersion17(db);
                     break;
+                case 18:
+                    upgradeToVersion18(db);
+                    break;
                 default:
                     break;
             }
@@ -392,7 +395,7 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion16(SQLiteDatabase db) {
         try {
-           RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
+            RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -403,6 +406,15 @@ public class ChwRepositoryFlv {
             db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion17");
+        }
+    }
+
+    private static void upgradeToVersion18(SQLiteDatabase db) {
+        try {
+            ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+            initializeIndicatorDefinitions(reportingLibraryInstance, db);
+        }catch (Exception e){
+            Timber.e(e, "upgradeToVersion18");
         }
     }
 }
