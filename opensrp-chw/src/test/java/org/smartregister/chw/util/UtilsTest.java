@@ -12,8 +12,6 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.Utils;
 
-import java.util.Arrays;
-
 import static org.smartregister.chw.util.Utils.formatDateForVisual;
 import static org.smartregister.chw.util.Utils.getClientName;
 import static org.smartregister.chw.util.Utils.getFormattedDateFromTimeStamp;
