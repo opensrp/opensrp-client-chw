@@ -83,10 +83,17 @@ public class UtilsTest extends BaseUnitTest {
             Assert.assertEquals("first_name middle_name", name);
 
     }
+
     @Test
     public void testGetDateTimeFromTimeStamp() {
-        Assert.assertEquals("01 Dec 2020",getFormattedDateFromTimeStamp(Long.valueOf("1606780800000"), "dd MMM yyyy"));
-        Assert.assertEquals("2020-12-02",getFormattedDateFromTimeStamp(Long.valueOf("1606889233342"), "yyyy-MM-dd"));
+        Assert.assertEquals("01 Dec 2020", getFormattedDateFromTimeStamp(Long.valueOf("1606780800000"), "dd MMM yyyy"));
+        Assert.assertEquals("2020-12-02", getFormattedDateFromTimeStamp(Long.valueOf("1606889233342"), "yyyy-MM-dd"));
 
+    }
+
+    @Test
+    public void testGetWFHZScore() {
+        double score = org.smartregister.chw.util.Utils.getWFHZScore("Male", "70", "70");
+        Assert.assertNotEquals(100.0, score, 0.0);
     }
 }

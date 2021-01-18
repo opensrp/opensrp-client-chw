@@ -39,6 +39,9 @@ public class ChwRepositoryFlv {
                 case 9:
                     upgradeToVersion9(db);
                     break;
+                case 10:
+                    upgradeToVersion10(context, db);
+                    break;
                 default:
                     break;
             }
@@ -59,8 +62,6 @@ public class ChwRepositoryFlv {
 
 //            EventClientRepository.createTable(db, EventClientRepository.Table.path_reports, EventClientRepository.report_column.values());
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
-
-            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion2 ");
@@ -134,6 +135,17 @@ public class ChwRepositoryFlv {
             db.execSQL("ALTER TABLE ec_anc_register ADD COLUMN delivery_kit VARCHAR;");
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion9");
+        }
+    }
+
+    private static void upgradeToVersion10(Context context, SQLiteDatabase db) {
+        try {
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
+
+            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 }
