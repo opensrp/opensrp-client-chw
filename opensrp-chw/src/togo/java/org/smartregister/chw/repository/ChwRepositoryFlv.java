@@ -101,7 +101,10 @@ public class ChwRepositoryFlv {
                     upgradeToVersion17(db);
                     break;
                 case 18:
-                    upgradeToVersion18(context, db);
+                    upgradeToVersion18(db);
+                    break;
+                case 19:
+                    upgradeToVersion19(db);
                     break;
                 default:
                     break;
@@ -393,7 +396,7 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion16(SQLiteDatabase db) {
         try {
-           RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
+            RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -406,8 +409,17 @@ public class ChwRepositoryFlv {
             Timber.e(e, "upgradeToVersion17");
         }
     }
-
-    private static void upgradeToVersion18(Context context, SQLiteDatabase db) {
+  
+    private static void upgradeToVersion18(SQLiteDatabase db) {
+        try {
+            ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+            initializeIndicatorDefinitions(reportingLibraryInstance, db);
+        } catch (Exception e){
+            Timber.e(e, "upgradeToVersion18");
+        }
+    }
+  
+   private static void upgradeToVersion19(Context context, SQLiteDatabase db) {
         try {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
