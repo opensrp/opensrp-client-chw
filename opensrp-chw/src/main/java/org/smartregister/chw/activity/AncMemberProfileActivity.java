@@ -241,12 +241,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         }
     }
 
-    private void updateContentValue(ContentValues contentValues, String key, String value) {
-        if (!value.equals("")) {
-            contentValues.put(key, value);
-        }
-    }
-
     @Override
     public void startFormForEdit(Integer title_resource, String formName) {
         try {
