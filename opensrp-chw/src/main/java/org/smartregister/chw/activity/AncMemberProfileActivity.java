@@ -217,19 +217,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
                     JSONArray field = org.smartregister.util.JsonFormUtils.fields(form);
                     JSONObject phoneNumberObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER);
-                    JSONObject lmpObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.LAST_MENSTRUAL_PERIOD);
-                    JSONObject eddObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.EDD);
-
-                    String phoneNumber = phoneNumberObject.optString(CoreJsonFormUtils.VALUE, "");
-                    String _LAST_MENSTRUAL_PERIOD = lmpObject.optString(CoreJsonFormUtils.VALUE, "");
-                    String _EDD = eddObject.optString(CoreJsonFormUtils.VALUE, "");
-
+                    String phoneNumber = phoneNumberObject.getString(CoreJsonFormUtils.VALUE);
                     String baseEntityId = baseEvent.getBaseEntityId();
                     if (commonsRepository != null) {
                         ContentValues values = new ContentValues();
-                        updateContentValue(values, DBConstants.KEY.PHONE_NUMBER, phoneNumber);
-                        updateContentValue(values, DBConstants.KEY.LAST_MENSTRUAL_PERIOD, _LAST_MENSTRUAL_PERIOD);
-                        updateContentValue(values, DBConstants.KEY.EDD, _EDD);
+                        values.put(DBConstants.KEY.PHONE_NUMBER, phoneNumber);
                         CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CoreConstants.TABLE_NAME.ANC_MEMBER, values, DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{baseEntityId});
                     }
 
