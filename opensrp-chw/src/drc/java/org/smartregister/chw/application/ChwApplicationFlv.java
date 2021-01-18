@@ -11,9 +11,4 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean showsPhysicallyDisabledView() {
         return true;
     }
-
-    @Override
-    public boolean saveOnSubmission() {
-        return true;
-    }
 }

@@ -15,7 +15,11 @@ public class ChwANCDao extends AbstractDao {
 
             AbstractDao.DataMap<String> dataMap = cursor -> getCursorValue(cursor, "earliestVisitDate");
 
-            return readSingleValue(sql, dataMap);
+            String earliestVisitDate = readSingleValue(sql, dataMap);
+            if (earliestVisitDate != null)
+                return earliestVisitDate;
+
+            return "";
         } catch (Exception e) {
             return "";
         }
@@ -30,7 +34,7 @@ public class ChwANCDao extends AbstractDao {
             Date lastContactDate = simpleDateFormat.parse(readSingleValue(sql, dataMap));
             Date lastVisitDate = new DateTime().withMillis(Long.parseLong(getLastVisitDate(baseEntityId))).toDate();
 
-            if(lastVisitDate.before(lastContactDate))
+            if (lastVisitDate.before(lastContactDate))
                 return simpleDateFormat.format(lastVisitDate);
 
             return simpleDateFormat.format(lastContactDate);
