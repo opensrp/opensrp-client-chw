@@ -12,7 +12,9 @@ import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AlertRepository;
+import org.smartregister.repository.ClientFormRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.ManifestRepository;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -41,6 +43,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 10:
                     upgradeToVersion10(context, db);
+                    break;
+                case 11:
+                    upgradeToVersion11(db);
                     break;
                 default:
                     break;
@@ -147,5 +152,9 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+    private static void upgradeToVersion11(SQLiteDatabase db) {
+        ClientFormRepository.createTable(db);
+        ManifestRepository.createTable(db);
     }
 }
