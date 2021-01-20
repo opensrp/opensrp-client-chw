@@ -1,5 +1,7 @@
 package org.smartregister.chw.util;
 
+import android.os.Environment;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,6 +61,12 @@ public class UtilsTest extends BaseUnitTest {
     }
 
     @Test
+    public void testHasExternalDisk() {
+        Boolean canWrite = Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
+        Assert.assertEquals(canWrite, FileUtils.hasExternalDisk());
+    }
+
+    @Test
     public void testFormatDateForVisual() {
         String date = "2020-06-23";
         String inputFormat = "yyyy-MM-dd";
@@ -75,10 +83,17 @@ public class UtilsTest extends BaseUnitTest {
             Assert.assertEquals("first_name middle_name", name);
 
     }
+
     @Test
     public void testGetDateTimeFromTimeStamp() {
-        Assert.assertEquals("01 Dec 2020",getFormattedDateFromTimeStamp(Long.valueOf("1606780800000"), "dd MMM yyyy"));
-        Assert.assertEquals("2020-12-02",getFormattedDateFromTimeStamp(Long.valueOf("1606889233342"), "yyyy-MM-dd"));
+        Assert.assertEquals("01 Dec 2020", getFormattedDateFromTimeStamp(Long.valueOf("1606780800000"), "dd MMM yyyy"));
+        Assert.assertEquals("2020-12-02", getFormattedDateFromTimeStamp(Long.valueOf("1606889233342"), "yyyy-MM-dd"));
 
+    }
+
+    @Test
+    public void testGetWFHZScore() {
+        double score = org.smartregister.chw.util.Utils.getWFHZScore("Male", "70", "70");
+        Assert.assertNotEquals(100.0, score, 0.0);
     }
 }

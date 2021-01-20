@@ -55,7 +55,10 @@ public class ChwRepositoryFlv {
                     upgradeToVersion10(db, oldVersion);
                     break;
                 case 11:
-                    upgradeToVersion11(db);
+                    upgradeToVersion11(context,db);
+                    break;
+                case 12:
+                    upgradeToVersion12(db);
                     break;
                 default:
                     break;
@@ -77,9 +80,6 @@ public class ChwRepositoryFlv {
 
 //            EventClientRepository.createTable(db, EventClientRepository.Table.path_reports, EventClientRepository.report_column.values());
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
-
-            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
-
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion2 ");
         }
@@ -152,13 +152,13 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion9(SQLiteDatabase db) {
     }
 
-    private static void upgradeToVersion11(SQLiteDatabase db) {
+    private static void upgradeToVersion12(SQLiteDatabase db) {
         try {
             db.execSQL(ChildDBConstants.ADD_COLUMN_THINK_MD_ID);
             db.execSQL(ChildDBConstants.ADD_COLUMN_HTML_ASSESSMENT);
             db.execSQL(ChildDBConstants.ADD_COLUMN_CARE_PLAN_DATE);
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion11");
+            Timber.e(e, "upgradeToVersion12");
         }
     }
 
@@ -169,6 +169,17 @@ public class ChwRepositoryFlv {
                 reportingLibraryInstance.truncateIndicatorDefinitionTables(db);
             }
             initializeIndicatorDefinitions(reportingLibraryInstance, db);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion11(Context context, SQLiteDatabase db) {
+        try {
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
+
+            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
         } catch (Exception e) {
             Timber.e(e);
         }

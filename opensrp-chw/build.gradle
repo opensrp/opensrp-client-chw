@@ -218,7 +218,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Ward", "MOH Jhpiego Facility Name", "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '22'
+            buildConfigField "int", "DATABASE_VERSION", '23'
         }
         chad {
             dimension = 'baseDimension'
@@ -233,7 +233,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "int", "DATABASE_VERSION", '10'
+            buildConfigField "int", "DATABASE_VERSION", '11'
         }
         drc {
             resConfigs "en", "fr"
@@ -250,7 +250,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante","VILLAGE/COMMUNAUTE"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"VILLAGE/COMMUNAUTE"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"VILLAGE/COMMUNAUTE"'
-            buildConfigField "int", "DATABASE_VERSION", '9'
+            buildConfigField "int", "DATABASE_VERSION", '10'
         }
         guinea {
             dimension = 'baseDimension'
@@ -270,7 +270,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_PREVIEW', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHW"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '5'
+            buildConfigField "int", "DATABASE_VERSION", '6'
         }
         togo {
             dimension = 'baseDimension'
@@ -287,7 +287,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '17'
+            buildConfigField "int", "DATABASE_VERSION", '19'
         }
         liberia {
             dimension = 'baseDimension'
@@ -301,7 +301,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "int", "DATABASE_VERSION", '4'
+            buildConfigField "int", "DATABASE_VERSION", '5'
         }
         lmh {
             dimension = 'baseDimension'
@@ -326,7 +326,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:2.0.9-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.0.12-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
