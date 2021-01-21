@@ -99,6 +99,9 @@ public class ChwRepositoryFlv {
                 case 22:
                     upgradeToVersion22(db);
                     break;
+                case 23:
+                    upgradeToVersion23(context, db);
+                    break;
                 default:
                     break;
             }
@@ -119,8 +122,6 @@ public class ChwRepositoryFlv {
 
 //            EventClientRepository.createTable(db, EventClientRepository.Table.path_reports, EventClientRepository.report_column.values());
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
-
-            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion2 ");
@@ -356,6 +357,17 @@ public class ChwRepositoryFlv {
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion22 ");
+        }
+    }
+
+    private static void upgradeToVersion23(Context context, SQLiteDatabase db) {
+        try {
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
+
+            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 
