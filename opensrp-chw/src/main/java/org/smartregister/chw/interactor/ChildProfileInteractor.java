@@ -281,7 +281,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
                 ChildFHIRBundleDao fhirBundleDao = new ChildFHIRBundleDao();
                 FHIRBundleModel bundle = fhirBundleDao.fetchFHIRDateModel(context, getChildBaseEntityId());
                 addThinkmdIdentifier(context, bundle.getUniqueIdGeneratedForThinkMD(), getChildBaseEntityId());
-                ThinkMDLibrary.getInstance().processHealthAssessment(context,bundle);
+                ThinkMDLibrary.getInstance().processHealthAssessment(context, bundle);
             } catch (Exception e) {
                 Timber.e(e);
             }
@@ -295,7 +295,9 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
                 .withBaseEntityId(childBaseEntityId)
                 .withEventType("update_thinkmd_id")
                 .withEntityType("ec_child")
+                .withEventDate(new Date())
                 .addIdentifier(context.getString(R.string.thinkmd_identifier_type), uniqueIdGeneratedForThinkMD);
+        event.withDateCreated(new Date());
         tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), event);
 
         try {
