@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.UUID;
@@ -91,8 +92,9 @@ public class ChildProfilePresenterTest extends BaseUnitTest {
         Mockito.doReturn("12345").when(resources).getString(Mockito.anyInt());
         Mockito.doReturn("String").when(context).getString(Mockito.anyInt());
         Mockito.doReturn("String").when(view).getString(Mockito.anyInt());
+        CommonPersonObject personObject = Mockito.mock(CommonPersonObject.class);
 
-        profilePresenter.refreshProfileTopSection(personObjectClient);
+        profilePresenter.refreshProfileTopSection(personObjectClient, personObject);
 
         Mockito.verify(view).setProfileName(Mockito.any());
         Mockito.verify(view).setAge(Mockito.any());
