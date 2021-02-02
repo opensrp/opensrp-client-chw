@@ -36,6 +36,9 @@ public class ChwRepositoryFlv {
                 case 4:
                     upgradeToVersion4(db);
                     break;
+                case 5:
+                    upgradeToVersion5(context, db);
+                    break;
                 default:
                     break;
             }
@@ -55,7 +58,6 @@ public class ChwRepositoryFlv {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_OUT_OF_AREA_COL);
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_OUT_OF_AREA_COL_INDEX);
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
-            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
 
             // add missing event repository table
             Column[] columns = {EventClientRepository.event_column.formSubmissionId};
@@ -104,7 +106,18 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion4(SQLiteDatabase db) {
         try {
-          RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
+            RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion5(Context context, SQLiteDatabase db) {
+        try {
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
+
+            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
         } catch (Exception e) {
             Timber.e(e);
         }

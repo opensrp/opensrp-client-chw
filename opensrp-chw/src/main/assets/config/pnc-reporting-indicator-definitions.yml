@@ -50,7 +50,7 @@ indicators:
         inner join ec_child ec on ec.base_entity_id = vacc.base_entity_id and (ifnull(ec.entry_point,'') = 'PNC')
         inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null
         inner join ec_pregnancy_outcome po on ec.mother_entity_id = po.base_entity_id
-        where vacc.name = 'bcg' and ec.dob >= date('now', '-6 month') and STRFTIME('%Y-%m-%d', datetime(vacc.date/1000,'unixepoch')) <= date(ec.dob, '+28 days')
+        where vacc.name = 'bcg' and vacc.is_voided = '0' and ec.dob >= date('now', '-6 month') and STRFTIME('%Y-%m-%d', datetime(vacc.date/1000,'unixepoch')) <= date(ec.dob, '+28 days')
         and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month');"
 
   - key: "pnc_report_indicator_4_2"
@@ -60,7 +60,7 @@ indicators:
                                inner join ec_child ec on ec.base_entity_id = vacc.base_entity_id and (ifnull(ec.entry_point,'') = 'PNC')
                                inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null
                                inner join ec_pregnancy_outcome po on ec.mother_entity_id = po.base_entity_id
-                               where vacc.name = 'bcg' and ec.dob >= date('now', '-6 month') and STRFTIME('%Y-%m-%d', datetime(vacc.date/1000,'unixepoch')) > date(ec.dob, '+28 days')
+                               where vacc.name = 'bcg' and vacc.is_voided = '0' and ec.dob >= date('now', '-6 month') and STRFTIME('%Y-%m-%d', datetime(vacc.date/1000,'unixepoch')) > date(ec.dob, '+28 days')
                                and po.preg_outcome = 'Live birth' and (substr(po.delivery_date, 7, 4) || '-' || substr(po.delivery_date, 4, 2) || '-' || substr(po.delivery_date, 1, 2)) >= date('now', '-6 month');"
 
   - key: "pnc_report_indicator_5_1"
