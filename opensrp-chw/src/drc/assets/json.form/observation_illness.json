@@ -90,9 +90,9 @@
         },
         "openmrs_data_type": "select one",
         "values": [
-          "Géré",
-          "Orienté",
-          "Aucun mesure n\u0027a été prise"
+          "{{observation_illness.step1.action_taken.values[0]}}",
+          "{{observation_illness.step1.action_taken.values[1]}}",
+          "{{observation_illness.step1.action_taken.values[2]}}"
         ],
         "keys": [
           "Managed",

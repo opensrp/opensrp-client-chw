@@ -90,9 +90,9 @@
           "err": "{{observation_illness.step1.action_taken.v_required.err}}"
         },
         "values": [
-          "Managed",
-          "Referred",
-          "No action taken"
+          "{{observation_illness.step1.action_taken.values[0]}}",
+          "{{observation_illness.step1.action_taken.values[1]}}",
+          "{{observation_illness.step1.action_taken.values[2]}}"
         ],
         "openmrs_choice_ids": {
           "Managed": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

@@ -60,8 +60,8 @@
         "type": "spinner",
         "hint": "{{anc_hv_health_facility_visit.step1.anc_hf_visit.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{anc_hv_health_facility_visit.step1.anc_hf_visit.values[0]}}",
+          "{{anc_hv_health_facility_visit.step1.anc_hf_visit.values[1]}}"
         ],
         "v_required": {
           "value": "true",
@@ -234,8 +234,8 @@
           "err": "{{anc_hv_health_facility_visit.step1.ifa_received.v_numeric.err}}"
         },
         "values": [
-          "Yes",
-          "No"
+          "{{anc_hv_health_facility_visit.step1.ifa_received.values[0]}}",
+          "{{anc_hv_health_facility_visit.step1.ifa_received.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

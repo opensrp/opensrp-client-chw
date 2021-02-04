@@ -255,7 +255,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     .withDetails(details)
                     .withBaseEntityID(baby.getBaseEntityID())
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getVaccineCard(), null, details, null))
+                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, Constants.JSON_FORM.PNC_HOME_VISIT.getVaccineCard(), null, details, null))
                     .withHelper(new VaccineCardHelper(baby.getDob()))
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_child_vaccine_card_recevied), baby.getFullName()), action);
@@ -357,7 +357,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
                     .withPayloadDetails(MessageFormat.format("Exclusive_breastfeeding{0}", serviceIteration))
-                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, jsonObject, details, serviceIteration))
+                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, null, jsonObject, details, serviceIteration))
                     .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                     .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                     .build();
@@ -402,7 +402,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     .withDetails(details)
                     .withBaseEntityID(person.getBaseEntityID())
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getKangarooCare(), null, details, null))
+                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, Constants.JSON_FORM.PNC_HOME_VISIT.getKangarooCare(), null, details, null))
                     .withHelper(new KangarooHelper())
                     .build();
             actionList.put(title, action);

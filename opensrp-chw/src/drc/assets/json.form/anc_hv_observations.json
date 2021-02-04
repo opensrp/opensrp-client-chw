@@ -90,9 +90,9 @@
           "err": "{{anc_hv_observations.step1.action_taken.v_required.err}}"
         },
         "values": [
-          "Géré",
-          "Orienté",
-          "Aucun action prise"
+          "{{anc_hv_observations.step1.action_taken.values[0]}}",
+          "{{anc_hv_observations.step1.action_taken.values[1]}}",
+          "{{anc_hv_observations.step1.action_taken.values[2]}}"
         ],
         "keys": [
           "Managed",

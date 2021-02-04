@@ -77,10 +77,10 @@
         "type": "spinner",
         "hint": "{{anc_pregnancy_outcome.step1.preg_outcome.hint}}",
         "values": [
-          "Live birth",
-          "Stillbirth",
-          "Miscarriage",
-          "Other"
+          "{{anc_pregnancy_outcome.step1.preg_outcome.values[0]}}",
+          "{{anc_pregnancy_outcome.step1.preg_outcome.values[1]}}",
+          "{{anc_pregnancy_outcome.step1.preg_outcome.values[2]}}",
+          "{{anc_pregnancy_outcome.step1.preg_outcome.values[3]}}"
         ],
         "openmrs_choice_ids": {
           "Live birth": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -144,9 +144,9 @@
         "type": "spinner",
         "hint": "{{anc_pregnancy_outcome.step1.delivery_place.hint}}",
         "values": [
-          "Home",
-          "Health facility",
-          "Other"
+          "{{anc_pregnancy_outcome.step1.delivery_place.values[0]}}",
+          "{{anc_pregnancy_outcome.step1.delivery_place.values[1]}}",
+          "{{anc_pregnancy_outcome.step1.delivery_place.values[2]}}"
         ],
         "openmrs_choice_ids": {
           "Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

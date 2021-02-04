@@ -276,8 +276,8 @@
         "type": "spinner",
         "hint": "{{family_member_register.step1.sex.hint}}",
         "values": [
-          "Male",
-          "Female"
+          "{{family_member_register.step1.sex.values[0]}}",
+          "{{family_member_register.step1.sex.values[1]}}"
         ],
         "v_required": {
           "value": "true",
@@ -293,8 +293,8 @@
         "expanded": false,
         "hint": "{{family_member_register.step1.ever_school.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{family_member_register.step1.ever_school.values[0]}}",
+          "{{family_member_register.step1.ever_school.values[1]}}"
         ],
         "relevance": {
           "rules-engine": {
@@ -313,13 +313,13 @@
         "expanded": false,
         "hint": "{{family_member_register.step1.school_level.hint}}",
         "values": [
-          "Not currently attending school or any learning program",
-          "Early childhood programme",
-          "Primary",
-          "Lower secondary",
-          "Upper secondary",
-          "Alternative learning program",
-          "Higher"
+          "{{family_member_register.step1.school_level.values[0]}}",
+          "{{family_member_register.step1.school_level.values[1]}}",
+          "{{family_member_register.step1.school_level.values[2]}}",
+          "{{family_member_register.step1.school_level.values[3]}}",
+          "{{family_member_register.step1.school_level.values[4]}}",
+          "{{family_member_register.step1.school_level.values[5]}}",
+          "{{family_member_register.step1.school_level.values[6]}}"
         ],
         "relevance": {
           "rules-engine": {
@@ -337,8 +337,8 @@
         "type": "spinner",
         "hint": "{{family_member_register.step1.primary_caregiver.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{family_member_register.step1.primary_caregiver.values[0]}}",
+          "{{family_member_register.step1.primary_caregiver.values[1]}}"
         ],
         "relevance": {
           "rules-engine": {
@@ -397,11 +397,11 @@
         "type": "spinner",
         "hint": "{{family_member_register.step1.highest_edu_level.hint}}",
         "values": [
-          "None",
-          "Literacy",
-          "Primary",
-          "Secondary",
-          "University"
+          "{{family_member_register.step1.highest_edu_level.values[0]}}",
+          "{{family_member_register.step1.highest_edu_level.values[1]}}",
+          "{{family_member_register.step1.highest_edu_level.values[2]}}",
+          "{{family_member_register.step1.highest_edu_level.values[3]}}",
+          "{{family_member_register.step1.highest_edu_level.values[4]}}"
         ],
         "openmrs_choice_ids": {
           "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -430,10 +430,10 @@
           "err": "{{family_member_register.step1.marital_status.v_required.err}}"
         },
         "values": [
-          "Married",
-          "Co-habiting",
-          "Single",
-          "Widowed"
+          "{{family_member_register.step1.marital_status.values[0]}}",
+          "{{family_member_register.step1.marital_status.values[1]}}",
+          "{{family_member_register.step1.marital_status.values[2]}}",
+          "{{family_member_register.step1.marital_status.values[3]}}"
         ],
         "openmrs_choice_ids": {
           "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

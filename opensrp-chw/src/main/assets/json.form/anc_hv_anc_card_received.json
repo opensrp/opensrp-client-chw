@@ -59,8 +59,8 @@
         "image": "form_received_card",
         "hint": "{{anc_hv_anc_card_received.step1.anc_card.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{anc_hv_anc_card_received.step1.anc_card.values[0]}}",
+          "{{anc_hv_anc_card_received.step1.anc_card.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

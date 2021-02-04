@@ -136,7 +136,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .withOptional(false)
                 .withDetails(details)
                 .withHelper(new SleepingUnderLLITNAction())
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.ANC_HOME_VISIT.getSleepingUnderLlitn(), null, details, null))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, Constants.JSON_FORM.ANC_HOME_VISIT.getSleepingUnderLlitn(), null, details, null))
                 .build();
 
         actionList.put(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), sleeping);
@@ -151,7 +151,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .withOptional(false)
                 .withDetails(details)
                 .withHelper(new ANCCardAction())
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.ANC_HOME_VISIT.getAncCardReceived(), null, details, null))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, Constants.JSON_FORM.ANC_HOME_VISIT.getAncCardReceived(), null, details, null))
                 .build();
 
         actionList.put(context.getString(R.string.anc_home_visit_anc_card_received), anc_card);
@@ -204,7 +204,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withPayloadType(BaseAncHomeVisitAction.PayloadType.VACCINE)
                 .withPayloadDetails(MessageFormat.format("tt_{0}", individualVaccine.getRight()))
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, individualVaccine.getRight()))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, null, preProcessObject, details, individualVaccine.getRight()))
                 .withScheduleStatus((overdueMonth < 1) ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0}{1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(individualVaccine.getLeft()))))
                 .build();
@@ -273,7 +273,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
                 .withPayloadDetails(MessageFormat.format("IPTp-SP_dose_{0}", serviceIteration))
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, null, preProcessObject, details, serviceIteration))
                 .withScheduleStatus((overdueMonth < 1) ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0}{1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(overDueDate)))
                 .build();

@@ -58,6 +58,11 @@
         "type": "spinner",
         "hint": "{{pnc_umbilical_cord.step1.cord_care.hint}}",
         "values": [
+          "{{pnc_umbilical_cord.step1.cord_care.values[0]}}",
+          "{{pnc_umbilical_cord.step1.cord_care.values[1]}}",
+          "{{pnc_umbilical_cord.step1.cord_care.values[2]}}"
+        ],
+        "keys": [
           "No products",
           "Chlorhexidine",
           "Other"

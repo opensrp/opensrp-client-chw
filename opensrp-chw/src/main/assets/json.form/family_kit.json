@@ -70,9 +70,9 @@
         "label_info_title": "What type of kit has the family received?",
         "hint": "{{family_kit.step1.family_kit_received.hint}}",
         "values": [
-          "Simple Kit (ORS/ZINC and Paracetamol)",
-          "Simple Kit (ORS/ZINC and Paracetamol) with micronutrients",
-          "No kit received"
+          "{{family_kit.step1.family_kit_received.values[0]}}",
+          "{{family_kit.step1.family_kit_received.values[1]}}",
+          "{{family_kit.step1.family_kit_received.values[2]}}"
         ],
         "openmrs_choice_ids": {
           "Simple Kit (ORS/ZINC and Paracetamol)": "key_simple_kit_simple",
@@ -94,8 +94,8 @@
         "type": "spinner",
         "hint": "{{family_kit.step1.family_kit_used.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{family_kit.step1.family_kit_used.values[0]}}",
+          "{{family_kit.step1.family_kit_used.values[1]}}"
         ],
         "keys": [
           "Yes",

@@ -60,8 +60,8 @@
         "label_info_text": "Every pregnancy is special. All pregnant women need at least eight antenatal care visits to help ensure a safe and healthy pregnancy. Pregnant women and their families need to be able to recognize the signs of labour and the warning signs of pregnancy complications. They need to have plans and resources for obtaining skilled care for the birth and immediate help if problems arise.",
         "hint": "{{anc_hv_counseling.step1.anc_counseling.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{anc_hv_counseling.step1.anc_counseling.values[0]}}",
+          "{{anc_hv_counseling.step1.anc_counseling.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -93,8 +93,8 @@
         "label_info_text": "Promote delivery at a health facility and discuss the advantages of having a skilled birth attendant.",
         "hint": "{{anc_hv_counseling.step1.birth_hf_counseling.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{anc_hv_counseling.step1.birth_hf_counseling.values[0]}}",
+          "{{anc_hv_counseling.step1.birth_hf_counseling.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -116,8 +116,8 @@
         "label_info_text": "The risks associated with childbearing for the mother and her baby can be greatly reduced if the woman is healthy and well-nourished before becoming pregnant. During pregnancy and while breastfeeding, all women need more nutritious meals, increased quantities of food, more rest than usual, iron and folic acid or multiple micronutrient supplements, even if they are consuming fortified foods, and iodized salt to ensure the proper mental development of their babies.",
         "hint": "{{anc_hv_counseling.step1.nutrition_counseling.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{anc_hv_counseling.step1.nutrition_counseling.values[0]}}",
+          "{{anc_hv_counseling.step1.nutrition_counseling.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

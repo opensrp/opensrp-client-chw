@@ -59,8 +59,8 @@
         "image": "form_kangaroo",
         "hint": "{{pnc_kangaroo_care.step1.kangaroo.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{pnc_kangaroo_care.step1.kangaroo.values[0]}}",
+          "{{pnc_kangaroo_care.step1.kangaroo.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

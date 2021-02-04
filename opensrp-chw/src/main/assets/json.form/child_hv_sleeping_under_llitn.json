@@ -59,8 +59,8 @@
         "image": "form_llitn",
         "hint": "{{child_hv_sleeping_under_llitn.step1.llitn.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{child_hv_sleeping_under_llitn.step1.llitn.values[0]}}",
+          "{{child_hv_sleeping_under_llitn.step1.llitn.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

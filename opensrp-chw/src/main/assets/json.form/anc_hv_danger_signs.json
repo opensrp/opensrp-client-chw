@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label_info_image_src": "img/chw.png",
+        "label_info_image_src": "{{anc_hv_danger_signs.step1.danger_signs_present.label_info_image_src}}",
         "label_info_has_image": true,
         "label": "{{anc_hv_danger_signs.step1.danger_signs_present.label}}",
         "label_text_style": "normal",
@@ -162,8 +162,8 @@
         "type": "spinner",
         "hint": "{{anc_hv_danger_signs.step1.danger_signs_counseling.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{anc_hv_danger_signs.step1.danger_signs_counseling.values[0]}}",
+          "{{anc_hv_danger_signs.step1.danger_signs_counseling.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

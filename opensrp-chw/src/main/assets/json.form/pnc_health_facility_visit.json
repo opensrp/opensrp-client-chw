@@ -62,8 +62,8 @@
           "err": "{{pnc_health_facility_visit.step1.pnc_visit_{0}.v_required.err}}"
         },
         "values": [
-          "Yes",
-          "No"
+          "{{pnc_health_facility_visit.step1.pnc_visit_{0}.values[0]}}",
+          "{{pnc_health_facility_visit.step1.pnc_visit_{0}.values[1]}}"
         ]
       },
       {

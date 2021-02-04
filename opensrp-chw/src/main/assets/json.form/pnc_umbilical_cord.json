@@ -58,9 +58,9 @@
         "type": "spinner",
         "hint": "{{pnc_umbilical_cord.step1.cord_care.hint}}",
         "values": [
-          "No products",
-          "Chlorhexidine",
-          "Other"
+          "{{pnc_umbilical_cord.step1.cord_care.values[0]}}",
+          "{{pnc_umbilical_cord.step1.cord_care.values[1]}}",
+          "{{pnc_umbilical_cord.step1.cord_care.values[2]}}"
         ],
         "openmrs_choice_ids": {
           "No products": "products",

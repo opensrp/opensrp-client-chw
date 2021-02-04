@@ -85,7 +85,7 @@ public class AncHomeVisitInteractorFlv extends DefaultAncHomeVisitInteractorFlv 
                 .withOptional(false)
                 .withDetails(details)
                 .withHelper(new DeliveryKitAction())
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.AncHomeVisitUtil.getDeliveryKitReceived(), null, details, null))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, Constants.AncHomeVisitUtil.getDeliveryKitReceived(), null, details, null))
                 .build();
 
         actionList.put(context.getString(R.string.anc_home_visit_delivery_kit_received), deliveryKitAction);

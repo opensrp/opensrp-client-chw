@@ -104,8 +104,8 @@
         "type": "spinner",
         "hint": "{{family_details_remove_family.step1.remove_reason.hint}}",
         "values": [
-          "Moved away",
-          "Other"
+          "{{family_details_remove_family.step1.remove_reason.values[0]}}",
+          "{{family_details_remove_family.step1.remove_reason.values[1]}}"
         ],
         "v_required": {
           "value": "true",

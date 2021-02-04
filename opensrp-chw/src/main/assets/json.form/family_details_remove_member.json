@@ -99,9 +99,9 @@
           "err": "{{family_details_remove_member.step1.remove_reason.v_required.err}}"
         },
         "values": [
-          "Died",
-          "Moved away",
-          "Other"
+          "{{family_details_remove_member.step1.remove_reason.values[0]}}",
+          "{{family_details_remove_member.step1.remove_reason.values[1]}}",
+          "{{family_details_remove_member.step1.remove_reason.values[2]}}"
         ],
         "openmrs_choice_ids": {
           "Died": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

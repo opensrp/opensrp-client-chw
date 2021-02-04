@@ -59,8 +59,8 @@
         "image": "ic_form_bf",
         "hint": "{{pnc_exclusive_breastfeeding.step1.exclusive_breast_feeding.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{pnc_exclusive_breastfeeding.step1.exclusive_breast_feeding.values[0]}}",
+          "{{pnc_exclusive_breastfeeding.step1.exclusive_breast_feeding.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

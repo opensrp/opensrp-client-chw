@@ -154,17 +154,17 @@
         "type": "spinner",
         "hint": "{{family_register.step1.fam_source_income.hint}}",
         "values": [
-          "Petty trade",
-          "Agriculture, hunting and fishing",
-          "Exploitation of mines and quarries",
-          "Manufacturing industry",
-          "Construction",
-          "Electricity, gas and water",
-          "Commercial, hotels and restaurants",
-          "Transport, storage and communications",
-          "Financial institutions",
-          "Communication, social and personal services",
-          "Other"
+          "{{family_register.step1.fam_source_income.values[0]}}",
+          "{{family_register.step1.fam_source_income.values[1]}}",
+          "{{family_register.step1.fam_source_income.values[2]}}",
+          "{{family_register.step1.fam_source_income.values[3]}}",
+          "{{family_register.step1.fam_source_income.values[4]}}",
+          "{{family_register.step1.fam_source_income.values[5]}}",
+          "{{family_register.step1.fam_source_income.values[6]}}",
+          "{{family_register.step1.fam_source_income.values[7]}}",
+          "{{family_register.step1.fam_source_income.values[8]}}",
+          "{{family_register.step1.fam_source_income.values[9]}}",
+          "{{family_register.step1.fam_source_income.values[10]}}"
         ],
         "openmrs_choice_ids": {
           "Petty trade": "1539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -395,8 +395,8 @@
         "type": "spinner",
         "hint": "{{family_register.step2.sex.hint}}",
         "values": [
-          "Male",
-          "Female"
+          "{{family_register.step2.sex.values[0]}}",
+          "{{family_register.step2.sex.values[1]}}"
         ],
         "v_required": {
           "value": "true",
@@ -440,11 +440,11 @@
         "type": "spinner",
         "hint": "{{family_register.step2.highest_edu_level.hint}}",
         "values": [
-          "None",
-          "Literacy",
-          "Primary",
-          "Secondary",
-          "University"
+          "{{family_register.step2.highest_edu_level.values[0]}}",
+          "{{family_register.step2.highest_edu_level.values[1]}}",
+          "{{family_register.step2.highest_edu_level.values[2]}}",
+          "{{family_register.step2.highest_edu_level.values[3]}}",
+          "{{family_register.step2.highest_edu_level.values[4]}}"
         ],
         "openmrs_choice_ids": {
           "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -467,10 +467,10 @@
           "err": "{{family_register.step2.marital_status.v_required.err}}"
         },
         "values": [
-          "Married",
-          "Co-habiting",
-          "Single",
-          "Widowed"
+          "{{family_register.step2.marital_status.values[0]}}",
+          "{{family_register.step2.marital_status.values[1]}}",
+          "{{family_register.step2.marital_status.values[2]}}",
+          "{{family_register.step2.marital_status.values[3]}}"
         ],
         "openmrs_choice_ids": {
           "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

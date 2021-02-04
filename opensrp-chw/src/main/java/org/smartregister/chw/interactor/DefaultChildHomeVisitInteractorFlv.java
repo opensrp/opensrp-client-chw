@@ -220,7 +220,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withBaseEntityID(memberObject.getBaseEntityId())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withHelper(new ChildVaccineCardHelper(dob))
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getVaccineCard(), null, details, null))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, Constants.JSON_FORM.CHILD_HOME_VISIT.getVaccineCard(), null, details, null))
                 .build();
 
         actionList.put(context.getString(R.string.vaccine_card_title), vaccine_card);
@@ -326,7 +326,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
                 .withPayloadDetails(MessageFormat.format("Exclusive_breastfeeding{0}", serviceIteration))
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, jsonObject, details, serviceIteration))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, null, jsonObject, details, serviceIteration))
                 .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0}{1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                 .build();
@@ -370,7 +370,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
                 .withPayloadDetails(MessageFormat.format("Vitamin_A{0}", serviceIteration))
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, null, preProcessObject, details, serviceIteration))
                 .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                 .build();
@@ -416,7 +416,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
                 .withPayloadDetails(MessageFormat.format("Deworming_{0}", serviceIteration))
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, null, preProcessObject, details, serviceIteration))
                 .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                 .build();
@@ -456,7 +456,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withPayloadType(BaseAncHomeVisitAction.PayloadType.SERVICE)
                 .withPayloadDetails(MessageFormat.format("MNP{0}", serviceIteration))
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, null, preProcessObject, details, serviceIteration))
                 .withScheduleStatus(!isOverdue ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
                 .build();
@@ -495,7 +495,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withBaseEntityID(memberObject.getBaseEntityId())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withHelper(new MUACHelper())
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getMUAC(), null, details, null))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, Constants.JSON_FORM.CHILD_HOME_VISIT.getMUAC(), null, details, null))
                 .build();
 
         actionList.put(context.getString(R.string.muac_title), action);
@@ -515,7 +515,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withBaseEntityID(memberObject.getBaseEntityId())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withHelper(new DietaryHelper())
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getDIETARY(), null, details, null))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, Constants.JSON_FORM.CHILD_HOME_VISIT.getDIETARY(), null, details, null))
                 .build();
 
         actionList.put(context.getString(R.string.minimum_dietary_title), action);
@@ -561,7 +561,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .withBaseEntityID(memberObject.getBaseEntityId())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withHelper(new LLITNHelper())
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getSleepingUnderLlitn(), null, details, null))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, Constants.JSON_FORM.CHILD_HOME_VISIT.getSleepingUnderLlitn(), null, details, null))
                 .build();
 
         actionList.put(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), sleeping);

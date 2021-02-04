@@ -204,8 +204,8 @@
         "type": "spinner",
         "hint": "{{pnc_child_enrollment.step1.disabilities.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{pnc_child_enrollment.step1.disabilities.values[0]}}",
+          "{{pnc_child_enrollment.step1.disabilities.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -224,8 +224,8 @@
         "type": "spinner",
         "hint": "{{pnc_child_enrollment.step1.early_bf_1hr.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{pnc_child_enrollment.step1.early_bf_1hr.values[0]}}",
+          "{{pnc_child_enrollment.step1.early_bf_1hr.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -244,8 +244,8 @@
         "type": "spinner",
         "hint": "{{pnc_child_enrollment.step1.lbw.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{pnc_child_enrollment.step1.lbw.values[0]}}",
+          "{{pnc_child_enrollment.step1.lbw.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1",

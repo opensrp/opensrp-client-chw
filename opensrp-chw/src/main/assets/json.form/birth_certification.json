@@ -58,8 +58,8 @@
         "type": "spinner",
         "hint": "{{birth_certification.step1.birth_cert.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{birth_certification.step1.birth_cert.values[0]}}",
+          "{{birth_certification.step1.birth_cert.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -129,8 +129,8 @@
         "type": "spinner",
         "hint": "{{birth_certification.step1.birth_notification.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{birth_certification.step1.birth_notification.values[0]}}",
+          "{{birth_certification.step1.birth_notification.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
