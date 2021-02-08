@@ -3,9 +3,11 @@ package org.smartregister.chw.sync;
 
 import android.content.Context;
 
+import org.smartregister.CoreLibrary;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.Child;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
+import org.smartregister.chw.core.sync.ProcessTimer;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.chw.dao.FamilyDao;
@@ -15,7 +17,10 @@ import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.Table;
+import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.sync.ClientProcessorForJava;
+
+import java.util.List;
 
 public class ChwClientProcessor extends CoreClientProcessor {
 
@@ -37,19 +42,27 @@ public class ChwClientProcessor extends CoreClientProcessor {
 
             switch (eventType) {
                 case CoreConstants.EventType.REMOVE_FAMILY:
+                    ProcessTimer.startTiming(eventType + "chw");
                     ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByFamilyEntityID(baseEntityID);
+                    ProcessTimer.endTiming();
                 case CoreConstants.EventType.REMOVE_MEMBER:
+                    ProcessTimer.startTiming(eventType + "chw");
                     ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByEntityID(baseEntityID);
+                    ProcessTimer.endTiming();
                 case CoreConstants.EventType.REMOVE_CHILD:
-                    Child child = ChwChildDao.getChild(baseEntityID);
-                    ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByEntityID(baseEntityID);
-                    if (child != null) {
-                        String familyBaseEntityID = child.getFamilyBaseEntityID();
-                        ChwApplication.getInstance().getScheduleRepository().closeChildMember(baseEntityID);
-                        if (!FamilyDao.familyHasChildUnderFive(familyBaseEntityID) && ChwApplication.getApplicationFlavor().hasFamilyKitCheck()) {
-                            ChwApplication.getInstance().getScheduleRepository().deleteFamilyKitSchedule(familyBaseEntityID);
+                    ProcessTimer.startTiming(eventType + "chw");
+                    if(!CoreLibrary.getInstance().isPeerToPeerProcessing() && !SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
+                        Child child = ChwChildDao.getChild(baseEntityID);
+                        ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByEntityID(baseEntityID);
+                        if (child != null) {
+                            String familyBaseEntityID = child.getFamilyBaseEntityID();
+                            ChwApplication.getInstance().getScheduleRepository().closeChildMember(baseEntityID);
+                            if (!FamilyDao.familyHasChildUnderFive(familyBaseEntityID) && ChwApplication.getApplicationFlavor().hasFamilyKitCheck()) {
+                                ChwApplication.getInstance().getScheduleRepository().deleteFamilyKitSchedule(familyBaseEntityID);
+                            }
                         }
                     }
+                    ProcessTimer.endTiming();
                     break;
                 default:
                     break;
@@ -65,11 +78,19 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case CoreConstants.EventType.CHILD_REGISTRATION:
                 case CoreConstants.EventType.PREGNANCY_OUTCOME:
                 case CoreConstants.EventType.UPDATE_CHILD_REGISTRATION:
-                    ChildAlertService.updateAlerts(baseEntityID);
+                    ProcessTimer.startTiming(eventType + "chw");
+                    if(!CoreLibrary.getInstance().isPeerToPeerProcessing() && !SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
+                        ChildAlertService.updateAlerts(baseEntityID); // 495 seconds , needs optimization
+                    }
+                    ProcessTimer.endTiming();
                 default:
                     break;
             }
         }
-        ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
+        ProcessTimer.startTiming("Schedule Executor");
+        if(!CoreLibrary.getInstance().isPeerToPeerProcessing() && !SyncStatusBroadcastReceiver.getInstance().isSyncing()){
+            ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
+        }
+        ProcessTimer.endTiming();
     }
 }
