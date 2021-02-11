@@ -84,8 +84,70 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "label_info_title": "Does the caregiver show attitudes and knowledge on stimulation and nurturing care?",
-        "label_info_text": "Specific attitudes and knowledge on stimulation and nurturing care per age group are:  \n     ● 0-1 week: the caregiver engages in skin to skin contact, looks into baby’s eyes and communicates to the child\n     ● 0-6 months: the caregiver moves colorful things for the child to see, smiles, talks and copies the child's sounds and gestures\n     ● 6-9 months: the caregiver gives clean and safe household things to play with, responds to the child's sounds and calls the child's name to see if the child responds\n     ● 9-12 months: the caregiver hides toys (peek-a-boo) and tells the child names of things and people\n     ● 12-24 months: the caregiver gives the child things to stack up and asks the child simple questions\n     ● 2 years and older: the caregiver makes simple toys for the child, teaches stories, songs and games to the child",
+        "dynamic_label_info": [
+          {
+            "dynamic_label_title": "0 - 1 week",
+            "dynamic_label_text": "Specific attitudes and knowledge on stimulation a caregiver should know: the caregiver engages in skin to skin contact, looks into the baby’s eyes, and communicates with the baby",
+            "dynamic_label_image_src": "img/zero_one_week_img.png"
+          },
+          {
+            "dynamic_label_title": "0 - 6 months",
+            "dynamic_label_text": "Specific attitudes and knowledge on stimulation a caregiver should know: the caregiver moves colorful things for the child to see, smiles, talks, and copies the child’s sounds and gestures",
+            "dynamic_label_image_src": "img/one_six_months_img_one.png"
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "",
+            "dynamic_label_image_src": "img/one_six_months_img_two.png"
+          },
+          {
+            "dynamic_label_title": "6 - 9 months",
+            "dynamic_label_text": "Specific attitudes and knowledge on stimulation a caregiver should know: the caregiver gives clean and safe household things to play with, respond to the child’s name to see if the child responds",
+            "dynamic_label_image_src": "img/six_nine_months_img_one.png"
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "",
+            "dynamic_label_image_src": "img/six_nine_months_img_two.png"
+          },
+          {
+            "dynamic_label_title": "9 - 12 months",
+            "dynamic_label_text": "Specific attitudes and knowledge on stimulation a caregiver should know: the caregiver hids toys (peek-a-boo) and tells the child names of things and people",
+            "dynamic_label_image_src": "img/nine_twelve_months_img_one.png"
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "",
+            "dynamic_label_image_src": "img/nine_twelve_months_img_two.png"
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "",
+            "dynamic_label_image_src": "img/nine_twelve_months_img_three.png"
+          },
+          {
+            "dynamic_label_title": "12 - 24 months",
+            "dynamic_label_text": "Specific attitudes and knowledge on stimulation a caregiver should know: the caregiver gives the child things to stack up and asks the child simple questions",
+            "dynamic_label_image_src": "img/twelve_twenty_four_months_img_one.png"
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "",
+            "dynamic_label_image_src": "img/twelve_twenty_four_months_img_two.png"
+          },
+          {
+            "dynamic_label_title": "2 years and older",
+            "dynamic_label_text": "Specific attitudes and knowledge on stimulation a caregiver should know: the caregiver makes simple toys for the child, teaches stories, songs, and games to the child",
+            "dynamic_label_image_src": "img/two_years_and_old_img_one.png"
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "",
+            "dynamic_label_image_src": "img/two_years_and_old_img_two.png"
+          }
+        ],
         "hint": "Does the caregiver show attitudes and knowledge on stimulation and nurturing care?",
+        "label_is_dynamic": true,
         "values": [
           "Yes",
           "No"
