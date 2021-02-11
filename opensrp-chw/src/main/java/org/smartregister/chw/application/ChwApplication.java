@@ -2,9 +2,12 @@ package org.smartregister.chw.application;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -77,6 +80,7 @@ import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.configuration.OpdConfiguration;
+import org.smartregister.receiver.P2pProcessingStatusBroadcastReceiver;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
@@ -95,11 +99,12 @@ import timber.log.Timber;
 
 import static org.koin.core.context.GlobalContext.getOrNull;
 
-public class ChwApplication extends CoreChwApplication implements SyncStatusBroadcastReceiver.SyncStatusListener {
+public class ChwApplication extends CoreChwApplication implements SyncStatusBroadcastReceiver.SyncStatusListener, P2pProcessingStatusBroadcastReceiver.StatusUpdate {
 
     private static Flavor flavor = new ChwApplicationFlv();
     private AppExecutors appExecutors;
     private CommonFtsObject commonFtsObject;
+    private P2pProcessingStatusBroadcastReceiver p2pProcessingStatusBroadcastReceiver;
 
     private boolean fetchedLoad = false;
 
@@ -262,6 +267,11 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         SyncStatusBroadcastReceiver.init(this);
         SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(this);
 
+        LocalBroadcastManager.getInstance(this)
+                .registerReceiver(p2pProcessingStatusBroadcastReceiver
+                        , new IntentFilter(AllConstants.PeerToPeer.PROCESSING_ACTION));
+
+
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.DEBUG ? BuildConfig.ALLOWED_LOCATION_LEVELS_DEBUG : BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEBUG ? BuildConfig.DEFAULT_LOCATION_DEBUG : BuildConfig.DEFAULT_LOCATION);
 
         // set up processor
@@ -407,10 +417,20 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
     public void onSyncComplete(FetchStatus fetchStatus) {
         if (fetchedLoad) {
             Timber.v("Sync complete scheduling");
-            ScheduleJob.scheduleJobImmediately(ScheduleJob.TAG);
-            BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
+            startProcessing();
             fetchedLoad = false;
         }
+    }
+
+    private void startProcessing() {
+        ScheduleJob.scheduleJobImmediately(ScheduleJob.TAG);
+        BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
+    }
+
+    @Override
+    public void onStatusUpdate(boolean isProcessing) {
+        if (!isProcessing)
+            startProcessing();
     }
 
     public interface Flavor {
