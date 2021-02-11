@@ -250,6 +250,12 @@
             android:name=".core.activity.CoreCommunityRespondersRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
+        <activity android:name=".fragment.JobAidsGuideBooksTutorialsActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+
+        <activity android:name=".fragment.JobAidsPDFActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />

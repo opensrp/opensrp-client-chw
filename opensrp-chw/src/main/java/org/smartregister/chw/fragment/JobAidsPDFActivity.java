@@ -1,28 +1,30 @@
 package org.smartregister.chw.fragment;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.barteksc.pdfviewer.PDFView;
+
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.GuideBooksAdapter;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.GuideBooksFragmentContract;
 import org.smartregister.chw.interactor.GuideBooksFragmentInteractor;
 import org.smartregister.chw.presenter.GuideBooksFragmentPresenter;
 import org.smartregister.chw.util.DownloadGuideBooksUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,39 +32,32 @@ import java.util.List;
 import java.util.Map;
 
 
-public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFragmentContract.View {
+public class JobAidsPDFActivity extends Activity implements GuideBooksFragmentContract.View {
 
     protected RecyclerView.Adapter mAdapter;
+    protected PDFView pdfView;
     protected GuideBooksFragmentContract.Presenter presenter;
-    private List<GuideBooksFragmentContract.Video> videos = new ArrayList<>();
+    private List<GuideBooksFragmentContract.RemoteFile> videos = new ArrayList<>();
     private ProgressBar progressBar;
-    private Map<String, GuideBooksFragmentContract.Video> allVideos = new HashMap<>();
-
-    public static JobAidsGuideBooksFragment newInstance() {
-        JobAidsGuideBooksFragment fragment = new JobAidsGuideBooksFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private Map<String, GuideBooksFragmentContract.RemoteFile> allVideos = new HashMap<>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_job_aids_guide_books, container, false);
-        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView);
-        progressBar = rootView.findViewById(R.id.progress_bar);
+    protected void onCreate(@androidx.annotation.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_job_aids_pdf);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        progressBar = findViewById(R.id.progress_bar);
+        pdfView = findViewById(R.id.pdfView);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getViewContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new GuideBooksAdapter(videos, this);
+        mAdapter = new GuideBooksAdapter(videos, this, ChwApplication.getCounselingDocsDirectory());
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
         initializePresenter();
-        presenter.initialize();
-        return rootView;
+        presenter.initialize("pdf_files.json", ChwApplication.getCounselingDocsDirectory());
     }
 
     @Override
@@ -76,10 +71,10 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
     }
 
     @Override
-    public void onDataReceived(List<GuideBooksFragmentContract.Video> receivedVideos) {
+    public void onDataReceived(List<GuideBooksFragmentContract.RemoteFile> receivedVideos) {
 
-        for (GuideBooksFragmentContract.Video video : receivedVideos) {
-            GuideBooksFragmentContract.Video available = allVideos.get(video.getID());
+        for (GuideBooksFragmentContract.RemoteFile video : receivedVideos) {
+            GuideBooksFragmentContract.RemoteFile available = allVideos.get(video.getID());
             if (available == null) {
                 allVideos.put(video.getID(), video);
             } else if (video.isDowloaded() && !available.isDowloaded()) {
@@ -87,7 +82,7 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
             }
         }
 
-        List<GuideBooksFragmentContract.Video> res = new ArrayList<>(allVideos.values());
+        List<GuideBooksFragmentContract.RemoteFile> res = new ArrayList<>(allVideos.values());
         Collections.sort(res, (video1, video2) -> video1.getTitle().compareTo(video2.getTitle()));
 
         this.videos.clear();
@@ -98,7 +93,7 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
 
     @Override
     public @Nullable Context getViewContext() {
-        return getContext();
+        return this;
     }
 
     @Override
@@ -107,15 +102,28 @@ public class JobAidsGuideBooksFragment extends Fragment implements GuideBooksFra
     }
 
     @Override
-    public void playVideo(GuideBooksFragmentContract.Video video) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse(video.getLocalPath()), "video/*");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivity(intent);
+    public void playVideo(GuideBooksFragmentContract.RemoteFile video) {
+        pdfView.setVisibility(View.VISIBLE);
+        pdfView.fromFile(new File(video.getLocalPath()))
+                .load();
     }
 
     @Override
-    public void downloadVideo(GuideBooksFragmentContract.DownloadListener downloadListener, GuideBooksFragmentContract.Video video) {
-        new DownloadGuideBooksUtils(downloadListener, video.getName(), getViewContext()).execute();
+    public void downloadVideo(GuideBooksFragmentContract.DownloadListener downloadListener, GuideBooksFragmentContract.RemoteFile video) {
+        new DownloadGuideBooksUtils(downloadListener, video.getName(), ChwApplication.getCounselingDocsDirectory(), getViewContext()).execute();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (pdfView.getVisibility() == View.VISIBLE) {
+            pdfView.recycle();
+            pdfView.setVisibility(View.GONE);
+        }
+        else
+            super.onBackPressed();
+    }
+
+    public void onBackIconClicked(View view) {
+        onBackPressed();
     }
 }
