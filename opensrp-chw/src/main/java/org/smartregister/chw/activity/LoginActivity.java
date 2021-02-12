@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.ChooseLoginMethodFragment;
 import org.smartregister.chw.fragment.PinLoginFragment;
 import org.smartregister.chw.pinlogin.PinLogger;
@@ -21,6 +23,7 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.growthmonitoring.service.intent.WeightForHeightIntentService;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.task.SaveTeamLocationsTask;
+import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
 
@@ -99,9 +102,14 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
             String DBNAME = "drishti.db";
             String COPYDBNAME = "chw";
 
-            Toast.makeText(this, R.string.export_db_notification, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.export_db_notification, Toast.LENGTH_SHORT).show();
             String currentTimeStamp = new SimpleDateFormat("yyyy-MM-dd-HHmmss", Locale.ENGLISH).format(new Date());
-            copyDatabase(DBNAME, COPYDBNAME + "-" + currentTimeStamp + ".db", this);
+            if (PermissionUtils.isPermissionGranted(this
+                    , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
+                    , CoreConstants.RQ_CODE.STORAGE_PERMISIONS)) {
+                copyDatabase(DBNAME, COPYDBNAME + "-" + currentTimeStamp + ".db", this);
+                Toast.makeText(this, R.string.export_db_done_notification, Toast.LENGTH_SHORT).show();
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -109,7 +117,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     public void copyDatabase(String dbName, String copyDbName, Context context) {
         try {
             final String inFileName = context.getDatabasePath(dbName).getPath();
-            final String outFileName = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOWNLOADS + "/" + copyDbName;
+            final String outFileName = Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_DOWNLOADS + "/" + copyDbName;
             File dbFile = new File(inFileName);
             FileInputStream fis = new FileInputStream(dbFile);
 
