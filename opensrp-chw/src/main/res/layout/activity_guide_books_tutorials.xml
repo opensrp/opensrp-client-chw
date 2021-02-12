@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".fragment.JobAidsGuideBooksTutorialsActivity">
+    tools:context=".activity.GuideBooksTutorialsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"

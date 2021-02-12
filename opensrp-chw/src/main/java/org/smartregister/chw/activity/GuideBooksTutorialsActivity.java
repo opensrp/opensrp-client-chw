@@ -1,4 +1,4 @@
-package org.smartregister.chw.fragment;
+package org.smartregister.chw.activity;
 
 
 import android.app.Activity;
@@ -6,12 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class JobAidsGuideBooksTutorialsActivity extends Activity implements GuideBooksFragmentContract.View {
+public class GuideBooksTutorialsActivity extends Activity implements GuideBooksFragmentContract.View {
 
     protected RecyclerView.Adapter mAdapter;
     protected GuideBooksFragmentContract.Presenter presenter;
@@ -43,7 +40,7 @@ public class JobAidsGuideBooksTutorialsActivity extends Activity implements Guid
     @Override
     protected void onCreate(@androidx.annotation.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_job_aids1);
+        setContentView(R.layout.activity_guide_books_tutorials);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         progressBar = findViewById(R.id.progress_bar);
 

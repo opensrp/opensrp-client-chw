@@ -250,10 +250,10 @@
             android:name=".core.activity.CoreCommunityRespondersRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
-        <activity android:name=".fragment.JobAidsGuideBooksTutorialsActivity"
+        <activity android:name=".activity.GuideBooksTutorialsActivity"
             android:theme="@style/ChwTheme.NoActionBar"/>
 
-        <activity android:name=".fragment.JobAidsPDFActivity"
+        <activity android:name=".activity.GuideBooksCounselingActivity"
             android:theme="@style/ChwTheme.NoActionBar"/>
 
         <meta-data

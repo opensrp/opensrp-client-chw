@@ -27,7 +27,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.fragment.JobAidsDashboardFragment;
-import org.smartregister.chw.fragment.JobAidsGuideBooksFragment1;
+import org.smartregister.chw.fragment.GuideBooksFragment;
 import org.smartregister.chw.listener.JobsAidsBottomNavigationListener;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
@@ -86,7 +86,7 @@ public class JobAidsActivity extends FamilyRegisterActivity {
                 case 0:
                     return JobAidsDashboardFragment.newInstance();
                 case 1:
-                    return JobAidsGuideBooksFragment1.newInstance();
+                    return GuideBooksFragment.newInstance();
                 default:
                     return JobAidsDashboardFragment.newInstance();
             }

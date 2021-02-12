@@ -11,12 +11,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.GuideBooksCounselingActivity;
+import org.smartregister.chw.activity.GuideBooksTutorialsActivity;
 
 
-public class JobAidsGuideBooksFragment1 extends Fragment {
+public class GuideBooksFragment extends Fragment {
 
-    public static JobAidsGuideBooksFragment1 newInstance() {
-        JobAidsGuideBooksFragment1 fragment = new JobAidsGuideBooksFragment1();
+    public static GuideBooksFragment newInstance() {
+        GuideBooksFragment fragment = new GuideBooksFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -26,16 +28,16 @@ public class JobAidsGuideBooksFragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_job_aids_guide_books1, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_job_aids_guide_books, container, false);
         ConstraintLayout layoutTutorials = rootView.findViewById(R.id.layoutTutorials);
         ConstraintLayout layoutCounseling = rootView.findViewById(R.id.layoutCounseling);
         layoutCounseling.setOnClickListener(view -> {
-            Intent intent = new Intent(getActivity(), JobAidsPDFActivity.class);
+            Intent intent = new Intent(getActivity(), GuideBooksCounselingActivity.class);
             getActivity().startActivity(intent);
         });
 
         layoutTutorials.setOnClickListener(view -> {
-            Intent intent = new Intent(getActivity(), JobAidsGuideBooksTutorialsActivity.class);
+            Intent intent = new Intent(getActivity(), GuideBooksTutorialsActivity.class);
             getActivity().startActivity(intent);
         });
 
