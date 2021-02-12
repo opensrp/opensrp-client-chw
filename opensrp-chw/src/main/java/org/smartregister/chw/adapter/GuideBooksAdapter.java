@@ -23,6 +23,9 @@ import org.smartregister.chw.util.DownloadGuideBooksUtils;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static org.smartregister.chw.adapter.GuideBooksAdapter.FileType.PDF;
+import static org.smartregister.chw.adapter.GuideBooksAdapter.FileType.VIDEO;
+
 public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.MyViewHolder> {
     private List<GuideBooksFragmentContract.RemoteFile> remoteFiles;
     private GuideBooksFragmentContract.View view;
@@ -94,11 +97,11 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
     }
 
     private void showDownloadedIcon(@NonNull MyViewHolder myViewHolder) {
-        switch (getFileType(directory)){
-            case "pdf":
+        switch (getFileType(directory)) {
+            case PDF:
                 myViewHolder.icon.setImageResource(R.drawable.ic_pdf_icon);
                 break;
-            case "video":
+            case VIDEO:
             default:
                 myViewHolder.icon.setImageResource(R.drawable.ic_play_circle_black);
                 break;
@@ -168,12 +171,16 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
         }
     }
 
-    private String getFileType(String directory) {
+    private FileType getFileType(String directory) {
         if (directory.equals(ChwApplication.getGuideBooksDirectory()))
-            return "video";
+            return VIDEO;
         else if (directory.equals(ChwApplication.getCounselingDocsDirectory()))
-            return "pdf";
-        return "";
+            return PDF;
+        return VIDEO;
     }
 
+    public enum FileType {
+        VIDEO,
+        PDF
+    }
 }
