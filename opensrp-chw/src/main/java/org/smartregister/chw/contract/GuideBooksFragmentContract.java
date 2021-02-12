@@ -21,9 +21,9 @@ public interface GuideBooksFragmentContract {
 
         void displayLoadingState(boolean state);
 
-        void playVideo(RemoteFile video);
+        void openFile(RemoteFile remoteFile);
 
-        void downloadVideo(DownloadListener downloadListener, RemoteFile video);
+        void downloadFile(DownloadListener downloadListener, RemoteFile video);
     }
 
     interface Presenter {

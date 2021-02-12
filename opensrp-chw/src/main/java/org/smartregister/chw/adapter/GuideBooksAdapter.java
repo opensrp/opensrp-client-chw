@@ -83,7 +83,7 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
 
         myViewHolder.icon.setOnClickListener(v -> {
             if (remoteFile.isDowloaded()) {
-                view.playVideo(remoteFile);
+                view.openFile(remoteFile);
             } else {
                 if (downloadTask.get() != null) {
                     if (downloadTask.get().getStatus() == AsyncTask.Status.FINISHED)

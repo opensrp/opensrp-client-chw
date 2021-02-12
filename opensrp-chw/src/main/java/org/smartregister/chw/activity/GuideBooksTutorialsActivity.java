@@ -97,15 +97,15 @@ public class GuideBooksTutorialsActivity extends Activity implements GuideBooksF
     }
 
     @Override
-    public void playVideo(GuideBooksFragmentContract.RemoteFile video) {
+    public void openFile(GuideBooksFragmentContract.RemoteFile remoteFile) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse(video.getLocalPath()), "video/*");
+        intent.setDataAndType(Uri.parse(remoteFile.getLocalPath()), "video/*");
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivity(intent);
     }
 
     @Override
-    public void downloadVideo(GuideBooksFragmentContract.DownloadListener downloadListener, GuideBooksFragmentContract.RemoteFile video) {
+    public void downloadFile(GuideBooksFragmentContract.DownloadListener downloadListener, GuideBooksFragmentContract.RemoteFile video) {
         new DownloadGuideBooksUtils(downloadListener, video.getName(), ChwApplication.getGuideBooksDirectory(), getViewContext()).execute();
     }
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.util.FitPolicy;
 
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
@@ -100,14 +101,16 @@ public class GuideBooksCounselingActivity extends Activity implements GuideBooks
     }
 
     @Override
-    public void playVideo(GuideBooksFragmentContract.RemoteFile video) {
+    public void openFile(GuideBooksFragmentContract.RemoteFile remoteFile) {
         pdfView.setVisibility(View.VISIBLE);
-        pdfView.fromFile(new File(video.getLocalPath()))
+        pdfView.fromFile(new File(remoteFile.getLocalPath()))
+                .pageFitPolicy(FitPolicy.WIDTH)
+                .spacing(0)
                 .load();
     }
 
     @Override
-    public void downloadVideo(GuideBooksFragmentContract.DownloadListener downloadListener, GuideBooksFragmentContract.RemoteFile video) {
+    public void downloadFile(GuideBooksFragmentContract.DownloadListener downloadListener, GuideBooksFragmentContract.RemoteFile video) {
         new DownloadGuideBooksUtils(downloadListener, video.getName(), ChwApplication.getCounselingDocsDirectory(), getViewContext()).execute();
     }
 
