@@ -1,10 +1,8 @@
-package org.smartregister.chw.fragment;
+package org.smartregister.chw.activity;
 
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -32,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class JobAidsPDFActivity extends Activity implements GuideBooksFragmentContract.View {
+public class GuideBooksCounselingActivity extends Activity implements GuideBooksFragmentContract.View {
 
     protected RecyclerView.Adapter mAdapter;
     protected PDFView pdfView;
@@ -44,7 +42,7 @@ public class JobAidsPDFActivity extends Activity implements GuideBooksFragmentCo
     @Override
     protected void onCreate(@androidx.annotation.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_job_aids_pdf);
+        setContentView(R.layout.activity_guide_books_counseling);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         progressBar = findViewById(R.id.progress_bar);
         pdfView = findViewById(R.id.pdfView);
