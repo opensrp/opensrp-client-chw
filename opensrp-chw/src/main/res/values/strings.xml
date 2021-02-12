@@ -293,6 +293,7 @@
     <string name="pnc_indicator_8">Postpartum women\'s chosen family planning methods (last 6 months)</string>
     <string name="pnc_indicator_9">Newborns (0&#8211;28 days) who died in the last year</string>
     <string name="pnc_indicator_10">Women up to date with their PNC health facility visits</string>
+    <string name="physically_challenged">PHYSICALLY CHALLENGED</string>
 
     <string name="maternal_deaths_slice_label">Maternal deaths</string>
     <string name="other_wra_deaths_slice_label">Other WRA deaths</string>
