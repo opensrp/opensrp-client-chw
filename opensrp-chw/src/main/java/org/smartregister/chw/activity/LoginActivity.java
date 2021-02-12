@@ -1,10 +1,13 @@
 package org.smartregister.chw.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -20,6 +23,16 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import timber.log.Timber;
 
 
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
@@ -62,7 +75,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         }
     }
 
-    private boolean hasPinLogin(){
+    private boolean hasPinLogin() {
         return ChwApplication.getApplicationFlavor().hasPinLogin();
     }
 
@@ -72,6 +85,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         if (hasPinLogin() && !pinLogger.isFirstAuthentication()) {
             menu.add("Reset Pin Login");
         }
+        menu.add(getString(R.string.export_database));
         return true;
     }
 
@@ -81,8 +95,38 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
             pinLogger.resetPinLogin();
             this.recreate();
             return true;
+        } else if (item.getTitle().toString().equalsIgnoreCase(getString(R.string.export_database))) {
+            String DBNAME = "drishti.db";
+            String COPYDBNAME = "chw";
+
+            Toast.makeText(this, R.string.export_db_notification, Toast.LENGTH_LONG).show();
+            String currentTimeStamp = new SimpleDateFormat("yyyy-MM-dd-HHmmss", Locale.ENGLISH).format(new Date());
+            copyDatabase(DBNAME, COPYDBNAME + "-" + currentTimeStamp + ".db", this);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void copyDatabase(String dbName, String copyDbName, Context context) {
+        try {
+            final String inFileName = context.getDatabasePath(dbName).getPath();
+            final String outFileName = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOWNLOADS + "/" + copyDbName;
+            File dbFile = new File(inFileName);
+            FileInputStream fis = new FileInputStream(dbFile);
+
+            OutputStream output = new FileOutputStream(outFileName);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = fis.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+
+            output.flush();
+            output.close();
+            fis.close();
+
+        } catch (Exception e) {
+            Timber.e("copyDatabase: backup error " + e.toString());
+        }
     }
 
     @Override
@@ -104,7 +148,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
         if (hasPinLogin()) {
             startPinHome(remote);
-        }else{
+        } else {
             startHome(remote);
         }
 

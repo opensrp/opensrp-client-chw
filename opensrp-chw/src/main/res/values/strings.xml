@@ -432,5 +432,7 @@
     <string name="family_profile_title">%1$s Family</string>
     <string name="family_profile_title_with_firstname">%1$s %2$s Family</string>
     <string name="created">Created: %s</string>
+    <string name="export_database">Export Database</string>
+    <string name="export_db_notification">Exporting Database</string>
 
 </resources>
