@@ -57,7 +57,7 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
             myViewHolder.icon.setImageResource(R.drawable.ic_save_outline_black);
         }
         myViewHolder.progressBar.setVisibility(View.GONE);
-        AtomicReference<DownloadGuideBooksUtils> downloadTask = new AtomicReference<>(getDownloadTask(remoteFile, myViewHolder));
+        AtomicReference<DownloadGuideBooksUtils> downloadTask = new AtomicReference<>(getDownloadTask(remoteFile, myViewHolder, position));
 
         myViewHolder.progressBar.setOnClickListener(v -> {
             if (myViewHolder.progressBar.getVisibility() == View.VISIBLE) {
@@ -69,7 +69,7 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
                             if (downloadTask.get() != null)
                                 downloadTask.get().cancelDownload();
 
-                            downloadTask.set(getDownloadTask(remoteFile, myViewHolder));
+                            downloadTask.set(getDownloadTask(remoteFile, myViewHolder, position));
 
                             dialog.dismiss();
                             myViewHolder.progressBar.setVisibility(View.GONE);
@@ -87,7 +87,7 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
             } else {
                 if (downloadTask.get() != null) {
                     if (downloadTask.get().getStatus() == AsyncTask.Status.FINISHED)
-                        downloadTask.set(getDownloadTask(remoteFile, myViewHolder));
+                        downloadTask.set(getDownloadTask(remoteFile, myViewHolder, position));
 
                     downloadTask.get().execute();
                 }
@@ -102,14 +102,16 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
                 myViewHolder.icon.setImageResource(R.drawable.ic_pdf_icon);
                 break;
             case VIDEO:
-            default:
                 myViewHolder.icon.setImageResource(R.drawable.ic_play_circle_black);
+                break;
+            default:
+                myViewHolder.icon.setImageResource(R.drawable.ic_save_outline_black);
                 break;
         }
     }
 
     @Nullable
-    private DownloadGuideBooksUtils getDownloadTask(GuideBooksFragmentContract.RemoteFile remoteFile, @NonNull GuideBooksAdapter.MyViewHolder myViewHolder) {
+    private DownloadGuideBooksUtils getDownloadTask(GuideBooksFragmentContract.RemoteFile remoteFile, @NonNull GuideBooksAdapter.MyViewHolder myViewHolder, int position) {
         DownloadGuideBooksUtils downloadTask = null;
         if (!remoteFile.isDowloaded()) {
             GuideBooksFragmentContract.DownloadListener listener = new GuideBooksFragmentContract.DownloadListener() {
@@ -123,15 +125,15 @@ public class GuideBooksAdapter extends RecyclerView.Adapter<GuideBooksAdapter.My
                     myViewHolder.icon.setVisibility(View.VISIBLE);
 
                     if (successful) {
-                        showDownloadedIcon(myViewHolder);
+                        remoteFiles.get(position).setDownloaded(true);
                     } else {
-                        myViewHolder.icon.setImageResource(R.drawable.ic_save_outline_black);
-
+                        remoteFiles.get(position).setDownloaded(false);
                         if (view.getViewContext() != null)
                             Toast.makeText(view.getViewContext(),
                                     view.getViewContext().getString(R.string.jobs_aid_failed_download, remoteFile.getTitle())
                                     , Toast.LENGTH_SHORT).show();
                     }
+                    notifyDataSetChanged();
                 }
 
                 @Override
