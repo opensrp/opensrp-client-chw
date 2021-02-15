@@ -232,7 +232,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".drc"
             versionCode 3
-            versionName "1.0.3"
+            versionName "1.0.5"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-cd.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/default/"'
             buildConfigField "String", 'opensrp_url_preview', '"https://wcaro-cd-preview.smartregister.org/opensrp/"'
