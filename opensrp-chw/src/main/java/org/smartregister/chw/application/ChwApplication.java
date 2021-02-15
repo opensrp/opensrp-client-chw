@@ -2,9 +2,12 @@ package org.smartregister.chw.application;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -47,7 +50,9 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
 import org.smartregister.chw.fp.FpLibrary;
+import org.smartregister.chw.job.BasePncCloseJob;
 import org.smartregister.chw.job.ChwJobCreator;
+import org.smartregister.chw.job.ScheduleJob;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
 import org.smartregister.chw.pnc.PncLibrary;
@@ -64,6 +69,7 @@ import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.domain.FamilyMetadata;
 import org.smartregister.family.util.AppExecutors;
@@ -74,6 +80,7 @@ import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.configuration.OpdConfiguration;
+import org.smartregister.receiver.P2pProcessingStatusBroadcastReceiver;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
@@ -92,11 +99,14 @@ import timber.log.Timber;
 
 import static org.koin.core.context.GlobalContext.getOrNull;
 
-public class ChwApplication extends CoreChwApplication {
+public class ChwApplication extends CoreChwApplication implements SyncStatusBroadcastReceiver.SyncStatusListener, P2pProcessingStatusBroadcastReceiver.StatusUpdate {
 
     private static Flavor flavor = new ChwApplicationFlv();
     private AppExecutors appExecutors;
     private CommonFtsObject commonFtsObject;
+    private P2pProcessingStatusBroadcastReceiver p2pProcessingStatusBroadcastReceiver;
+
+    private boolean fetchedLoad = false;
 
     public static Flavor getApplicationFlavor() {
         return flavor;
@@ -255,6 +265,12 @@ public class ChwApplication extends CoreChwApplication {
         );
 
         SyncStatusBroadcastReceiver.init(this);
+        SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(this);
+
+        LocalBroadcastManager.getInstance(this)
+                .registerReceiver(p2pProcessingStatusBroadcastReceiver
+                        , new IntentFilter(AllConstants.PeerToPeer.PROCESSING_ACTION));
+
 
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.DEBUG ? BuildConfig.ALLOWED_LOCATION_LEVELS_DEBUG : BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEBUG ? BuildConfig.DEFAULT_LOCATION_DEBUG : BuildConfig.DEFAULT_LOCATION);
 
@@ -358,6 +374,9 @@ public class ChwApplication extends CoreChwApplication {
     public void onVisitEvent(Visit visit) {
         if (visit != null) {
             Timber.v("Visit Submitted re processing Schedule for event ' %s '  : %s", visit.getVisitType(), visit.getBaseEntityId());
+            if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+                return;
+
             ChwScheduleTaskExecutor.getInstance().execute(visit.getBaseEntityId(), visit.getVisitType(), visit.getDate());
 
             ChildAlertService.updateAlerts(visit.getBaseEntityId());
@@ -379,6 +398,40 @@ public class ChwApplication extends CoreChwApplication {
     @Override
     public boolean getChildFlavorUtil() {
         return flavor.getChildFlavorUtil();
+    }
+
+    @Override
+    public void onSyncStart() {
+        Timber.v("Sync started");
+        fetchedLoad = false;
+    }
+
+    @Override
+    public void onSyncInProgress(FetchStatus fetchStatus) {
+        if ((fetchStatus == FetchStatus.fetched) || (fetchStatus == FetchStatus.fetchProgress))
+            fetchedLoad = true;
+
+        Timber.v("Sync progressing : Status " + FetchStatus.fetched.name());
+    }
+
+    @Override
+    public void onSyncComplete(FetchStatus fetchStatus) {
+        if (fetchedLoad) {
+            Timber.v("Sync complete scheduling");
+            startProcessing();
+            fetchedLoad = false;
+        }
+    }
+
+    private void startProcessing() {
+        ScheduleJob.scheduleJobImmediately(ScheduleJob.TAG);
+        BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
+    }
+
+    @Override
+    public void onStatusUpdate(boolean isProcessing) {
+        if (!isProcessing)
+            startProcessing();
     }
 
     public interface Flavor {

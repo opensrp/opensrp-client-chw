@@ -90,9 +90,9 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
             evaluateSleepingUnderLLITN();
             evaluateANCCard();
             evaluateHealthFacilityVisit(dateMap);
+            evaluateObservation();
             evaluateTTImmunization(vaccineTaskModel);
             evaluateIPTP();
-            evaluateObservation();
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
         } catch (Exception e) {
@@ -143,7 +143,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
     }
 
     protected void evaluateANCCard() throws Exception {
-        if (memberObject.getHasAncCard() != null && memberObject.getHasAncCard().equals("Yes")) {
+        if (memberObject.getHasAncCard() != null && memberObject.getHasAncCard().equals("Yes") && !editMode) {
             return;
         }
 

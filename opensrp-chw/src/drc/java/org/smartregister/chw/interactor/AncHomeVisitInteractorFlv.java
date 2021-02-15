@@ -64,9 +64,9 @@ public class AncHomeVisitInteractorFlv extends DefaultAncHomeVisitInteractorFlv 
             evaluateANCCard();
             evaluateDeliveryKit();
             evaluateHealthFacilityVisit(dateMap);
+            evaluateObservation();
             evaluateTTImmunization(vaccineTaskModel);
             evaluateIPTP();
-            evaluateObservation();
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
         } catch (Exception e) {
@@ -77,7 +77,7 @@ public class AncHomeVisitInteractorFlv extends DefaultAncHomeVisitInteractorFlv 
     }
 
     protected void evaluateDeliveryKit() throws BaseAncHomeVisitAction.ValidationException {
-        if (memberObject.getDeliveryKit() != null && memberObject.getDeliveryKit().equalsIgnoreCase("Yes")) {
+        if (memberObject.getDeliveryKit() != null && memberObject.getDeliveryKit().equalsIgnoreCase("Yes") && !editMode) {
             return;
         }
 
