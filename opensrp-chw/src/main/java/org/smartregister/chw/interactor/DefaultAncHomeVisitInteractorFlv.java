@@ -45,6 +45,8 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.util.Utils.getLastIPTPServiceIteration;
+
 public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor {
 
     protected MemberObject memberObject;
@@ -175,8 +177,9 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
             return;
         }
         // compute the due date
+
         final Triple<DateTime, VaccineRepo.Vaccine, String> individualVaccine = VaccineScheduleUtil.getIndividualVaccine(vaccineTaskModel, "TT");
-        if (individualVaccine == null || individualVaccine.getLeft().isAfter(new DateTime())) {
+        if (individualVaccine == null) {
             return;
         }
 
@@ -210,7 +213,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .build();
 
         // don't show if its after now
-        if (!individualVaccine.getLeft().isAfterNow()) {
+        if (editMode || !individualVaccine.getLeft().isAfterNow()) {
             actionList.put(title, tt_immunization);
         }
     }
@@ -247,8 +250,9 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         if (serviceWrapper == null && !editMode) return;
         if (!editMode)
             serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
-        else
-            serviceIteration = visitDetail.get(0).getPreProcessedJson().substring(visitDetail.get(0).getPreProcessedJson().length() - 1);
+        else {
+            serviceIteration = getLastIPTPServiceIteration(visitDetail.get(0).getVisitKey());
+        }
 
         String iptp = MessageFormat.format(context.getString(R.string.anc_home_visit_iptp_sp), serviceIteration);
         String dueState = (overdueMonth < 1) ? context.getString(R.string.due) : context.getString(R.string.overdue);
