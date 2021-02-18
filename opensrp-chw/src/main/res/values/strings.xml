@@ -433,5 +433,7 @@
     <string name="family_profile_title">%1$s Family</string>
     <string name="family_profile_title_with_firstname">%1$s %2$s Family</string>
     <string name="created">Created: %s</string>
+    <string name="tutorials">Tutorials</string>
+    <string name="counseling">Counseling</string>
 
 </resources>
