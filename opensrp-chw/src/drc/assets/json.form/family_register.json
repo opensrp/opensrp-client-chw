@@ -229,8 +229,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label_info_text": "Quel est leur numéro d\u0027identité national ou leur numéro de carte d\u0027électeur?",
-        "label_info_title": "Numéro d\u0027identification national",
+        "label_info_text": "{{family_register.step2.national_id.label_info_text}}",
+        "label_info_title": "{{family_register.step2.national_id.label_info_title}}",
         "type": "edit_text",
         "hint": "{{family_register.step2.national_id.hint}}",
         "v_numeric": {

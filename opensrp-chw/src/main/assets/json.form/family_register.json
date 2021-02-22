@@ -1,6 +1,4 @@
 {
-  "validate_on_submit": true,
-  "show_errors_on_submit": false,
   "count": "2",
   "encounter_type": "Family Registration",
   "entity_id": "",
@@ -55,7 +53,6 @@
   },
   "step1": {
     "title": "{{family_register.step1.title}}",
-    "next": "step2",
     "fields": [
       {
         "key": "fam_name",
@@ -79,15 +76,15 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
-        "hidden": "true",
         "type": "barcode",
-        "barcode_type": "qrcode",
         "hint": "{{family_register.step1.unique_id.hint}}",
         "scanButtonText": "{{family_register.step1.unique_id.scanButtonText}}",
         "v_numeric": {
           "value": "true",
           "err": "{{family_register.step1.unique_id.v_numeric.err}}"
-        }
+        },
+        "hidden": "true",
+        "barcode_type": "qrcode"
       },
       {
         "key": "village_town",
@@ -103,10 +100,10 @@
       },
       {
         "key": "quarter_clan",
+        "type": "edit_text",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "commune",
-        "type": "edit_text",
         "hint": "{{family_register.step1.quarter_clan.hint}}",
         "v_required": {
           "value": "true",
@@ -134,8 +131,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "text",
-        "type": "gps"
+        "type": "gps",
+        "openmrs_data_type": "text"
       },
       {
         "key": "spacer",
@@ -150,9 +147,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "fam_source_income",
-        "openmrs_data_type": "",
-        "type": "spinner",
         "hint": "{{family_register.step1.fam_source_income.hint}}",
+        "type": "spinner",
+        "openmrs_data_type": "",
         "values": [
           "{{family_register.step1.fam_source_income.values[0]}}",
           "{{family_register.step1.fam_source_income.values[1]}}",
@@ -165,6 +162,19 @@
           "{{family_register.step1.fam_source_income.values[8]}}",
           "{{family_register.step1.fam_source_income.values[9]}}",
           "{{family_register.step1.fam_source_income.values[10]}}"
+        ],
+        "keys": [
+          "Petty trade",
+          "Agriculture, hunting and fishing",
+          "Exploitation of mines and quarries",
+          "Manufacturing industry",
+          "Construction",
+          "Electricity, gas and water",
+          "Commercial, hotels and restaurants",
+          "Transport, storage and communications",
+          "Financial institutions",
+          "Communication, social and personal services",
+          "Other"
         ],
         "openmrs_choice_ids": {
           "Petty trade": "1539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -180,8 +190,11 @@
           "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
-    ]
+    ],
+    "next": "step2"
   },
+  "validate_on_submit": true,
+  "show_errors_on_submit": false,
   "step2": {
     "title": "{{family_register.step2.title}}",
     "fields": [
@@ -216,8 +229,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label_info_text": "What is their national identity number or their voter registration number?",
-        "label_info_title": "National ID number",
+        "label_info_text": "{{family_register.step2.national_id.label_info_text}}",
+        "label_info_title": "{{family_register.step2.national_id.label_info_title}}",
         "type": "edit_text",
         "hint": "{{family_register.step2.national_id.hint}}",
         "v_numeric": {
@@ -398,6 +411,10 @@
           "{{family_register.step2.sex.values[0]}}",
           "{{family_register.step2.sex.values[1]}}"
         ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
         "v_required": {
           "value": "true",
           "err": "{{family_register.step2.sex.v_required.err}}"
@@ -445,6 +462,13 @@
           "{{family_register.step2.highest_edu_level.values[2]}}",
           "{{family_register.step2.highest_edu_level.values[3]}}",
           "{{family_register.step2.highest_edu_level.values[4]}}"
+        ],
+        "keys": [
+          "None",
+          "Literacy",
+          "Primary",
+          "Secondary",
+          "University"
         ],
         "openmrs_choice_ids": {
           "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

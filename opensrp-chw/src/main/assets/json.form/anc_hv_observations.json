@@ -94,6 +94,11 @@
           "{{anc_hv_observations.step1.action_taken.values[1]}}",
           "{{anc_hv_observations.step1.action_taken.values[2]}}"
         ],
+        "keys": [
+          "Managed",
+          "Referred",
+          "No action taken"
+        ],
         "openmrs_choice_ids": {
           "Managed": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Referred": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

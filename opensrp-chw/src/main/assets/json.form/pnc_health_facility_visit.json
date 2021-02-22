@@ -64,6 +64,10 @@
         "values": [
           "{{pnc_health_facility_visit.step1.pnc_visit_{0}.values[0]}}",
           "{{pnc_health_facility_visit.step1.pnc_visit_{0}.values[1]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ]
       },
       {
@@ -95,11 +99,11 @@
         "edit_type": "number",
         "hint": "{{pnc_health_facility_visit.step1.baby_weight.hint}}",
         "v_min": {
-          "value": "0.0",
+          "value": "0",
           "err": "{{pnc_health_facility_visit.step1.baby_weight.v_min.err}}"
         },
         "v_max": {
-          "value": "20.0",
+          "value": "20",
           "err": "{{pnc_health_facility_visit.step1.baby_weight.v_max.err}}"
         },
         "v_required": {
@@ -126,11 +130,11 @@
         "edit_type": "number",
         "hint": "{{pnc_health_facility_visit.step1.baby_temp.hint}}",
         "v_min": {
-          "value": "35.0",
+          "value": "35",
           "err": "{{pnc_health_facility_visit.step1.baby_temp.v_min.err}}"
         },
         "v_max": {
-          "value": "42.0",
+          "value": "42",
           "err": "{{pnc_health_facility_visit.step1.baby_temp.v_max.err}}"
         },
         "v_required": {

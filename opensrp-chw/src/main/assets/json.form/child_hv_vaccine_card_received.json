@@ -62,6 +62,10 @@
           "{{child_hv_vaccine_card_received.step1.child_vaccine_card.values[0]}}",
           "{{child_hv_vaccine_card_received.step1.child_vaccine_card.values[1]}}"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

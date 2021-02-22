@@ -56,22 +56,22 @@
         "openmrs_entity_id": "1730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "{{observation_illness.step1.date_of_illness.hint}}",
-        "expanded": false,
-        "max_date": "today",
-        "min_date": "",
         "v_required": {
           "value": "true",
           "err": "{{observation_illness.step1.date_of_illness.v_required.err}}"
-        }
+        },
+        "expanded": false,
+        "max_date": "today",
+        "min_date": ""
       },
       {
         "key": "illness_description",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "{{observation_illness.step1.illness_description.hint}}",
+        "openmrs_data_type": "text",
         "v_required": {
           "value": "true",
           "err": "{{observation_illness.step1.illness_description.v_required.err}}"
@@ -82,17 +82,22 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "{{observation_illness.step1.action_taken.hint}}",
         "v_required": {
           "value": "true",
           "err": "{{observation_illness.step1.action_taken.v_required.err}}"
         },
+        "openmrs_data_type": "select one",
         "values": [
           "{{observation_illness.step1.action_taken.values[0]}}",
           "{{observation_illness.step1.action_taken.values[1]}}",
           "{{observation_illness.step1.action_taken.values[2]}}"
+        ],
+        "keys": [
+          "Managed",
+          "Referred",
+          "No action taken"
         ],
         "openmrs_choice_ids": {
           "Managed": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

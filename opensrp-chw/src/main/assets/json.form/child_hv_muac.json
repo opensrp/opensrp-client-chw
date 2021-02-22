@@ -61,21 +61,21 @@
         "options": [
           {
             "key": "chk_green",
-            "text": "Green",
+            "text": "{{child_hv_muac.step1.muac.options.chk_green.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_yellow",
-            "text": "Yellow",
+            "text": "{{child_hv_muac.step1.muac.options.chk_yellow.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_red",
-            "text": "Red",
+            "text": "{{child_hv_muac.step1.muac.options.chk_red.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

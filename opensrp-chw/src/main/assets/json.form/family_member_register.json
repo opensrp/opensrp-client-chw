@@ -71,7 +71,7 @@
         "read_only": "true",
         "hint": "{{family_member_register.step1.unique_id.hint}}",
         "value": "0",
-        "scanButtonText": "Scan QR Code",
+        "scanButtonText": "Scanner Code QR",
         "v_numeric": {
           "value": "true",
           "err": "{{family_member_register.step1.unique_id.v_numeric.err}}"
@@ -86,9 +86,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label_info_text": "What is their national identity number or their voter registration number?",
-        "label_info_title": "National ID number",
         "type": "edit_text",
+        "label_info_text": "{{family_member_register.step1.national_id.label_info_text}}",
+        "label_info_title": "{{family_member_register.step1.national_id.label_info_title}}",
         "hint": "{{family_member_register.step1.national_id.hint}}",
         "v_numeric": {
           "value": "true",
@@ -97,10 +97,10 @@
       },
       {
         "key": "surname",
+        "type": "edit_text",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "type": "edit_text",
         "hint": "{{family_member_register.step1.surname.hint}}",
         "edit_type": "name",
         "v_regex": {
@@ -124,8 +124,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "openmrs_data_type": "text",
         "type": "check_box",
+        "openmrs_data_type": "text",
         "label": "{{family_member_register.step1.same_as_fam_name.label}}",
         "exclusive": [
           "none"
@@ -169,11 +169,11 @@
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
         "hint": "{{family_member_register.step1.first_name.hint}}",
-        "edit_type": "name",
         "v_required": {
           "value": "true",
           "err": "{{family_member_register.step1.first_name.v_required.err}}"
         },
+        "edit_type": "name",
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "{{family_member_register.step1.first_name.v_regex.err}}"
@@ -184,8 +184,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "middle_name",
-        "type": "edit_text",
         "hint": "{{family_member_register.step1.middle_name.hint}}",
+        "type": "edit_text",
         "edit_type": "name",
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
@@ -279,6 +279,10 @@
           "{{family_member_register.step1.sex.values[0]}}",
           "{{family_member_register.step1.sex.values[1]}}"
         ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
         "v_required": {
           "value": "true",
           "err": "{{family_member_register.step1.sex.v_required.err}}"
@@ -295,6 +299,10 @@
         "values": [
           "{{family_member_register.step1.ever_school.values[0]}}",
           "{{family_member_register.step1.ever_school.values[1]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ],
         "relevance": {
           "rules-engine": {
@@ -321,6 +329,15 @@
           "{{family_member_register.step1.school_level.values[5]}}",
           "{{family_member_register.step1.school_level.values[6]}}"
         ],
+        "keys": [
+          "Not currently attending school or any learning program",
+          "Early childhood programme",
+          "Primary",
+          "Lower secondary",
+          "Upper secondary",
+          "Alternative learning program",
+          "Higher"
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -339,6 +356,10 @@
         "values": [
           "{{family_member_register.step1.primary_caregiver.values[0]}}",
           "{{family_member_register.step1.primary_caregiver.values[1]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ],
         "relevance": {
           "rules-engine": {
@@ -403,6 +424,13 @@
           "{{family_member_register.step1.highest_edu_level.values[3]}}",
           "{{family_member_register.step1.highest_edu_level.values[4]}}"
         ],
+        "keys": [
+          "None",
+          "Primary",
+          "Literacy",
+          "Secondary",
+          "University"
+        ],
         "openmrs_choice_ids": {
           "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Literacy": "",
@@ -434,6 +462,12 @@
           "{{family_member_register.step1.marital_status.values[1]}}",
           "{{family_member_register.step1.marital_status.values[2]}}",
           "{{family_member_register.step1.marital_status.values[3]}}"
+        ],
+        "keys": [
+          "Married",
+          "Co-habiting",
+          "Single",
+          "Widowed"
         ],
         "openmrs_choice_ids": {
           "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

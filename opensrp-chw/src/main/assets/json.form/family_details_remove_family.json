@@ -107,13 +107,17 @@
           "{{family_details_remove_family.step1.remove_reason.values[0]}}",
           "{{family_details_remove_family.step1.remove_reason.values[1]}}"
         ],
+        "keys": [
+          "Moved away",
+          "Other"
+        ],
         "v_required": {
           "value": "true",
           "err": "{{family_details_remove_family.step1.remove_reason.v_required.err}}"
         },
         "openmrs_choice_ids": {
-          "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Déménagé": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Autre": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       },
       {
@@ -135,7 +139,7 @@
         "constraints": [
           {
             "type": "date",
-            "err": "Date moved away occur before date of birth"
+            "err": "Date déménagé est avant la date de naissance"
           }
         ],
         "relevance": {

@@ -61,6 +61,10 @@
           "{{birth_certification.step1.birth_cert.values[0]}}",
           "{{birth_certification.step1.birth_cert.values[1]}}"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -131,6 +135,10 @@
         "values": [
           "{{birth_certification.step1.birth_notification.values[0]}}",
           "{{birth_certification.step1.birth_notification.values[1]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

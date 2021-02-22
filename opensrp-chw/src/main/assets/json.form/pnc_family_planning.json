@@ -61,6 +61,10 @@
           "{{pnc_family_planning.step1.fp_counseling.values[0]}}",
           "{{pnc_family_planning.step1.fp_counseling.values[1]}}"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -87,6 +91,16 @@
           "{{pnc_family_planning.step1.fp_method.values[5]}}",
           "{{pnc_family_planning.step1.fp_method.values[6]}}",
           "{{pnc_family_planning.step1.fp_method.values[7]}}"
+        ],
+        "keys": [
+          "None",
+          "Abstinence",
+          "Condom",
+          "Tablets",
+          "Injectable",
+          "IUD",
+          "Implant",
+          "Other"
         ],
         "openmrs_choice_ids": {
           "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

@@ -73,17 +73,17 @@
       },
       {
         "key": "divider1",
-        "type": "h_line",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": ""
-      },
-      {
-        "key": "spacer",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
+        "type": "h_line"
+      },
+      {
+        "key": "spacer",
         "type": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
         "spacer_height": "15dp"
       },
       {
@@ -91,8 +91,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
         "type": "spinner",
+        "openmrs_data_type": "select one",
         "hint": "{{family_details_remove_member.step1.remove_reason.hint}}",
         "v_required": {
           "value": "true",
@@ -103,10 +103,15 @@
           "{{family_details_remove_member.step1.remove_reason.values[1]}}",
           "{{family_details_remove_member.step1.remove_reason.values[2]}}"
         ],
+        "keys": [
+          "Died",
+          "Moved away",
+          "Other"
+        ],
         "openmrs_choice_ids": {
-          "Died": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Décédé": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Déménagé": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Autre": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       },
       {
@@ -138,8 +143,8 @@
         "constraints": [
           {
             "type": "date",
-            "ex": "greaterThanEqualTo(., step1:dob)",
-            "err": "Date moved away occur before date of birth"
+            "err": "Date déménagé est avant la date de naissance",
+            "ex": "greaterThanEqualTo(., step1:dob)"
           }
         ],
         "relevance": {
@@ -169,7 +174,7 @@
           {
             "type": "date",
             "ex": "greaterThanEqualTo(., step1:dob)",
-            "err": "Date of death can\u0027t occur before date of birth"
+            "err": "Date du décès ne peut pas être avant la date de naissance"
           }
         ],
         "relevance": {

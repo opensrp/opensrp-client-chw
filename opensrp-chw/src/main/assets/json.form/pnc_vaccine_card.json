@@ -62,6 +62,10 @@
           "{{pnc_vaccine_card.step1.vaccine_card.values[0]}}",
           "{{pnc_vaccine_card.step1.vaccine_card.values[1]}}"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

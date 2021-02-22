@@ -2,7 +2,6 @@
   "count": "1",
   "encounter_type": "Child Registration",
   "entity_id": "",
-  "relational_id": "",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -69,15 +68,15 @@
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
         "hint": "{{child_enrollment.step1.unique_id.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{child_enrollment.step1.unique_id.v_required.err}}"
+        },
         "read_only": "true",
         "value": "0",
         "v_numeric": {
           "value": "true",
           "err": "{{child_enrollment.step1.unique_id.v_numeric.err}}"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "{{child_enrollment.step1.unique_id.v_required.err}}"
         }
       },
       {
@@ -87,11 +86,6 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "{{child_enrollment.step1.surname.hint}}",
-        "edit_type": "name",
-        "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "{{child_enrollment.step1.surname.v_regex.err}}"
-        },
         "v_required": {
           "value": "true",
           "err": "{{child_enrollment.step1.surname.v_required.err}}"
@@ -102,6 +96,11 @@
               "rules-file": "family-child-relevance.yml"
             }
           }
+        },
+        "edit_type": "name",
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "err": "{{child_enrollment.step1.surname.v_regex.err}}"
         }
       },
       {
@@ -279,6 +278,10 @@
           "{{child_enrollment.step1.gender.values[0]}}",
           "{{child_enrollment.step1.gender.values[1]}}"
         ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
         "v_required": {
           "value": "true",
           "err": "{{child_enrollment.step1.gender.v_required.err}}"
@@ -295,12 +298,16 @@
           "{{child_enrollment.step1.early_bf_1hr.values[0]}}",
           "{{child_enrollment.step1.early_bf_1hr.values[1]}}"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
-          "value": "true",
+          "value": "vrai",
           "err": "{{child_enrollment.step1.early_bf_1hr.v_required.err}}"
         },
         "relevance": {
@@ -322,6 +329,10 @@
           "{{child_enrollment.step1.physically_challenged.values[0]}}",
           "{{child_enrollment.step1.physically_challenged.values[1]}}"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -333,5 +344,6 @@
       }
     ]
   },
+  "relational_id": "",
   "properties_file_name": "child_enrollment"
 }

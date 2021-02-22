@@ -62,6 +62,10 @@
           "{{pnc_kangaroo_care.step1.kangaroo.values[0]}}",
           "{{pnc_kangaroo_care.step1.kangaroo.values[1]}}"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

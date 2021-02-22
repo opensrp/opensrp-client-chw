@@ -165,6 +165,10 @@
           "{{anc_hv_danger_signs.step1.danger_signs_counseling.values[0]}}",
           "{{anc_hv_danger_signs.step1.danger_signs_counseling.values[1]}}"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

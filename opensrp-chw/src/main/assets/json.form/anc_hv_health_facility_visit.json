@@ -55,13 +55,17 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
-        "label_info_title": "Did the woman attend her ANC {0} visit at the health facility?",
-        "label_info_text": "Whether or not the woman attended her ANC visit at the health facility.",
+        "label_info_title": "{{anc_hv_health_facility_visit.step1.anc_hf_visit.label_info_title}}",
+        "label_info_text": "{{anc_hv_health_facility_visit.step1.anc_hf_visit.label_info_text}}",
         "type": "spinner",
         "hint": "{{anc_hv_health_facility_visit.step1.anc_hf_visit.hint}}",
         "values": [
           "{{anc_hv_health_facility_visit.step1.anc_hf_visit.values[0]}}",
           "{{anc_hv_health_facility_visit.step1.anc_hf_visit.values[1]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ],
         "v_required": {
           "value": "true",
@@ -74,8 +78,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159590AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
-        "label_info_title": "Date of visit",
-        "label_info_text": "The date of the last ANC visit the woman attended at the health facility.",
+        "label_info_title": "Date de la visite",
+        "label_info_text": "La date de la dernière visite CPN de la femme visitée à la structure de santé.",
         "type": "date_picker",
         "label": "{{anc_hv_health_facility_visit.step1.anc_hf_visit_date.label}}",
         "hint": "{{anc_hv_health_facility_visit.step1.anc_hf_visit_date.hint}}",
@@ -94,20 +98,13 @@
         }
       },
       {
-        "key": "anc_hf_next_visit_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "anc_hf_next_visit_date",
-        "type": "spacer"
-      },
-      {
         "key": "weight",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "label_info_title": "Weight (kg)",
-        "label_info_text": "Weight (in kg) of the woman.",
+        "label_info_title": "{{anc_hv_health_facility_visit.step1.weight.label_info_title}}",
+        "label_info_text": "{{anc_hv_health_facility_visit.step1.weight.label_info_text}}",
         "edit_type": "number",
         "hint": "{{anc_hv_health_facility_visit.step1.weight.hint}}",
         "v_required": {
@@ -134,14 +131,21 @@
         }
       },
       {
+        "key": "anc_hf_next_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "anc_hf_next_visit_date",
+        "type": "spacer"
+      },
+      {
         "key": "sys_bp",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "edit_type": "number",
-        "label_info_title": "Systolic BP (mmHg)",
-        "label_info_text": "Systolic blood pressure of the woman. ",
+        "label_info_title": "{{anc_hv_health_facility_visit.step1.sys_bp.label_info_title}}",
+        "label_info_text": "{{anc_hv_health_facility_visit.step1.sys_bp.label_info_text}}",
         "hint": "{{anc_hv_health_facility_visit.step1.sys_bp.hint}}",
         "v_min": {
           "value": "0",
@@ -169,8 +173,8 @@
         "openmrs_entity_id": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "edit_type": "number",
-        "label_info_title": "Diastolic BP (mmHg)",
-        "label_info_text": "Diastolic blood pressure of the woman. ",
+        "label_info_title": "{{anc_hv_health_facility_visit.step1.dia_bp.label_info_title}}",
+        "label_info_text": "{{anc_hv_health_facility_visit.step1.dia_bp.label_info_text}}",
         "hint": "{{anc_hv_health_facility_visit.step1.dia_bp.hint}}",
         "v_min": {
           "value": "0",
@@ -198,8 +202,8 @@
         "openmrs_entity_id": "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "edit_type": "number",
-        "label_info_title": "Haemoglobin level (g/dl)",
-        "label_info_text": "The woman\u0027s haemoglobin level (g/dl).",
+        "label_info_title": "{{anc_hv_health_facility_visit.step1.hb_level.label_info_title}}",
+        "label_info_text": "{{anc_hv_health_facility_visit.step1.hb_level.label_info_text}}",
         "hint": "{{anc_hv_health_facility_visit.step1.hb_level.hint}}",
         "v_required": {
           "value": "false",
@@ -222,8 +226,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "label_info_title": "IFA received?",
-        "label_info_text": "Whether the woman has received IFA tablets.",
+        "label_info_title": "{{anc_hv_health_facility_visit.step1.ifa_received.label_info_title}}",
+        "label_info_text": "{{anc_hv_health_facility_visit.step1.ifa_received.label_info_text}}",
         "hint": "{{anc_hv_health_facility_visit.step1.ifa_received.hint}}",
         "v_required": {
           "value": "true",

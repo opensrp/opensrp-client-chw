@@ -62,6 +62,10 @@
           "{{anc_hv_anc_card_received.step1.anc_card.values[0]}}",
           "{{anc_hv_anc_card_received.step1.anc_card.values[1]}}"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

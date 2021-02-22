@@ -155,18 +155,31 @@
           "{{family_details_register.step1.fam_source_income.values[9]}}",
           "{{family_details_register.step1.fam_source_income.values[10]}}"
         ],
+        "keys": [
+          "Petty trade",
+          "Agriculture, hunting and fishing",
+          "Exploitation of mines and quarries",
+          "Manufacturing industry",
+          "Construction",
+          "Electricity, gas and water",
+          "Commercial, hotels and restaurants",
+          "Transport, storage and communications",
+          "Financial institutions",
+          "Communication, social and personal services",
+          "Other"
+        ],
         "openmrs_choice_ids": {
-          "Petty trade": "1539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Agriculture, hunting and fishing": "165411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Exploitation of mines and quarries": "165412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Manufacturing industry": "165407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Petit commerce": "1539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Agriculture, chasse et pêche": "165411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "L\u0027exploitation des mines et carrières": "165412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "l\u0027industrie manufacturière": "165407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Construction": "165408AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Electricity, gas and water": "165409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Commercial, hotels and restaurants": "165410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Transport, storage and communications": "165413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Financial institutions": "165414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Communication, social and personal services": "165415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "l\u0027électricité, gas naturel et eau": "165409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Commerciale, hôtels et restaurants": "165410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Transport, entrêposage et communications": "165413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Institutions financières": "165414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Communications, services sociaux et personnelles": "165415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Autre": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]

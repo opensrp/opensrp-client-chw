@@ -62,6 +62,10 @@
           "{{pnc_exclusive_breastfeeding.step1.exclusive_breast_feeding.values[0]}}",
           "{{pnc_exclusive_breastfeeding.step1.exclusive_breast_feeding.values[1]}}"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

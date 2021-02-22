@@ -99,6 +99,11 @@
           "{{family_details_remove_child.step1.remove_reason.values[1]}}",
           "{{family_details_remove_child.step1.remove_reason.values[2]}}"
         ],
+        "keys": [
+          "Died",
+          "Moved away",
+          "Other"
+        ],
         "v_required": {
           "value": "true",
           "err": "{{family_details_remove_child.step1.remove_reason.v_required.err}}"
@@ -139,7 +144,7 @@
           {
             "type": "date",
             "ex": "greaterThanEqualTo(., step1:dob)",
-            "err": "Moved away date cannot be before date of birth"
+            "err": "{{family_details_remove_child.step1.date_moved.constraints.err}}"
           }
         ],
         "relevance": {
@@ -169,7 +174,7 @@
           {
             "type": "date",
             "ex": "greaterThanEqualTo(., step1:dob)",
-            "err": "Date of death can\u0027t occur before date of birth"
+            "err": "{{family_details_remove_child.step1.date_died.constraints.err}}"
           }
         ],
         "relevance": {

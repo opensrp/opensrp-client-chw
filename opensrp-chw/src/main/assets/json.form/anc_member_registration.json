@@ -63,8 +63,8 @@
         "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "{{anc_member_registration.step1.last_menstrual_period.hint}}",
-        "label_info_title": "LMP",
-        "label_info_text": "LMP \u003d first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month.",
+        "label_info_title": "{{anc_member_registration.step1.last_menstrual_period.label_info_title}}",
+        "label_info_text": "{{anc_member_registration.step1.last_menstrual_period.label_info_text}}",
         "expanded": false,
         "max_date": "today",
         "min_date": "today-50w",
@@ -152,7 +152,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "value": "weeks",
+        "value": "semaines",
         "type": "hidden"
       },
       {

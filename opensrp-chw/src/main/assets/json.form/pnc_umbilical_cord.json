@@ -62,6 +62,11 @@
           "{{pnc_umbilical_cord.step1.cord_care.values[1]}}",
           "{{pnc_umbilical_cord.step1.cord_care.values[2]}}"
         ],
+        "keys": [
+          "No products",
+          "Chlorhexidine",
+          "Other"
+        ],
         "openmrs_choice_ids": {
           "No products": "products",
           "Chlorhexidine": "73263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
