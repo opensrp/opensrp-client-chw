@@ -113,8 +113,21 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         return flavor;
     }
 
+    public static void prepareDirectories(){
+        prepareGuideBooksFolder();
+        prepareCounselingDocsFolder();
+    }
+
     public static void prepareGuideBooksFolder() {
         String rootFolder = getGuideBooksDirectory();
+        createFolders(rootFolder, false);
+        boolean onSdCard = FileUtils.canWriteToExternalDisk();
+        if (onSdCard)
+            createFolders(rootFolder, true);
+    }
+
+    public static void prepareCounselingDocsFolder() {
+        String rootFolder = getCounselingDocsDirectory();
         createFolders(rootFolder, false);
         boolean onSdCard = FileUtils.canWriteToExternalDisk();
         if (onSdCard)
@@ -133,6 +146,12 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         String[] packageName = ChwApplication.getInstance().getContext().applicationContext().getPackageName().split("\\.");
         String suffix = packageName[packageName.length - 1];
         return "opensrp_guidebooks_" + (suffix.equalsIgnoreCase("chw") ? "liberia" : suffix);
+    }
+
+    public static String getCounselingDocsDirectory() {
+        String[] packageName = ChwApplication.getInstance().getContext().applicationContext().getPackageName().split("\\.");
+        String suffix = packageName[packageName.length - 1];
+        return "opensrp_counseling_docs_" + (suffix.equalsIgnoreCase("chw") ? "liberia" : suffix);
     }
 
     public CommonFtsObject getCommonFtsObject() {
@@ -204,10 +223,10 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         // create a folder for guidebooks
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                prepareGuideBooksFolder();
+                prepareDirectories();
             }
         } else {
-            prepareGuideBooksFolder();
+            prepareDirectories();
         }
 
         EventBus.getDefault().register(this);

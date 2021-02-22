@@ -436,5 +436,7 @@
     <string name="export_database">Export Database</string>
     <string name="export_db_notification">Exporting Database</string>
     <string name="export_db_done_notification">Exporting Database Complete</string>
+    <string name="tutorials">Tutorials</string>
+    <string name="counseling">Counseling</string>
 
 </resources>

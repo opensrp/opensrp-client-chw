@@ -234,7 +234,7 @@ android {
             versionCode 3
             versionName "1.0.5"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-cd.smartregister.org/opensrp/"'
-            buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/default/"'
+            buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/drc/"'
             buildConfigField "String", 'opensrp_url_preview', '"https://wcaro-cd-preview.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante","VILLAGE/COMMUNAUTE"}'
@@ -349,6 +349,9 @@ dependencies {
     androidTestImplementation 'org.mockito:mockito-android:3.0.0'
 
     implementation 'com.github.lecho:hellocharts-android:v1.5.8'
+
+    //For viewing PDFs in the app
+    implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
 
     testImplementation "org.koin:koin-test:2.0.1"
     testImplementation 'junit:junit:4.13'

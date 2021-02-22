@@ -28,6 +28,7 @@
         android:name=".application.ChwApplication"
         android:allowBackup="true"
         android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/ChwTheme"
         tools:replace="android:theme">
         <activity
@@ -249,6 +250,12 @@
         <activity
             android:name=".core.activity.CoreCommunityRespondersRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity android:name=".activity.GuideBooksTutorialsActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+
+        <activity android:name=".activity.GuideBooksCounselingActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
