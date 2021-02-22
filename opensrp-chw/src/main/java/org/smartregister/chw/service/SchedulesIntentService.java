@@ -43,54 +43,65 @@ public class SchedulesIntentService extends IntentService {
         super("SchedulesIntentService");
     }
 
+    public boolean isSyncing() {
+        return CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing();
+    }
+
+    public ChwApplication getChwApplication() {
+        return (ChwApplication) ChwApplication.getInstance();
+    }
+
+    public ChwApplication.Flavor getApplicationFlavor() {
+        return ChwApplication.getApplicationFlavor();
+    }
+
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         // execute all children schedules
-        if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+        if (isSyncing())
             return;
 
-        if (ChwApplication.getInstance().allowLazyProcessing())
+        if (getChwApplication().allowLazyProcessing())
             processLazyEvents();
 
         executeChildVisitSchedules();
 
         // execute all anc schedules
-        if (ChwApplication.getApplicationFlavor().hasANC())
+        if (getApplicationFlavor().hasANC())
             executeAncVisitSchedules();
 
         // execute all pnc schedules
-        if (ChwApplication.getApplicationFlavor().hasPNC())
+        if (getApplicationFlavor().hasPNC())
             executePncVisitSchedules();
 
         // execute all wash check
-        if (ChwApplication.getApplicationFlavor().hasWashCheck())
+        if (getApplicationFlavor().hasWashCheck())
             executeWashCheckSchedules();
 
         // execute all family kit check
-        if (ChwApplication.getApplicationFlavor().hasFamilyKitCheck())
+        if (getApplicationFlavor().hasFamilyKitCheck())
             executeFamilyKitSchedules();
 
         // execute all fp schedules
-        if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
+        if (getApplicationFlavor().hasFamilyPlanning())
             executeFpVisitSchedules();
 
-        if (ChwApplication.getApplicationFlavor().hasRoutineVisit())
+        if (getApplicationFlavor().hasRoutineVisit())
             executeRoutineHouseholdSchedules();
-
 
     }
 
     private void processLazyEvents() {
-        if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+        if (isSyncing())
             return;
 
         // process missing visits
         List<Event> eventClients = EventDao.getUnprocessedEvents(ChwApplication.getInstance().lazyProcessedEvents());
-        ((ChwApplication) ChwApplication.getInstance()).setBulkProcessing(!eventClients.isEmpty());
+        getChwApplication().setBulkProcessing(!eventClients.isEmpty());
 
         Set<String> entityIds = new HashSet<>();
         for (Event event : eventClients) {
-            if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+            if (isSyncing())
                 break;
 
             if (CoreConstants.EventType.CHILD_HOME_VISIT.equals(event.getEventType())) {
@@ -100,11 +111,11 @@ public class SchedulesIntentService extends IntentService {
             }
 
             if (!entityIds.contains(event.getBaseEntityId())) {
-                ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByEntityID(event.getBaseEntityId());
+                getChwApplication().getScheduleRepository().deleteSchedulesByEntityID(event.getBaseEntityId());
                 entityIds.add(event.getBaseEntityId());
             }
         }
-        ((ChwApplication) ChwApplication.getInstance()).setBulkProcessing(false);
+        getChwApplication().setBulkProcessing(false);
     }
 
     public void processHomeVisit(Event event, String parentEventType) {
@@ -132,17 +143,17 @@ public class SchedulesIntentService extends IntentService {
     }
 
     private void executeChildVisitSchedules() {
-        if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+        if (isSyncing())
             return;
 
         Timber.v("Computing child schedules");
         ScheduleDao.deleteChildrenVaccines();
-        ChwApplication.getInstance().getScheduleRepository().deleteSchedulesNotCreatedToday(CoreConstants.SCHEDULE_TYPES.CHILD_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
+        getChwApplication().getScheduleRepository().deleteSchedulesNotCreatedToday(CoreConstants.SCHEDULE_TYPES.CHILD_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
         List<String> baseEntityIDs = ChwApplication.getApplicationFlavor().showChildrenUnderFiveAndGirlsAgeNineToEleven() ? ScheduleDao.getActiveChildrenUnder5AndGirlsAge9to11(CoreConstants.SCHEDULE_TYPES.CHILD_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT) : ScheduleDao.getActiveChildren(CoreConstants.SCHEDULE_TYPES.CHILD_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
         if (baseEntityIDs == null) return;
 
         for (String baseID : baseEntityIDs) {
-            if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+            if (isSyncing())
                 break;
 
             Timber.v("  Computing child schedules for %s", baseID);
@@ -151,7 +162,7 @@ public class SchedulesIntentService extends IntentService {
     }
 
     private void executeAncVisitSchedules() {
-        if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+        if (isSyncing())
             return;
 
         Timber.v("Computing ANC schedules");
@@ -160,7 +171,7 @@ public class SchedulesIntentService extends IntentService {
         if (baseEntityIDs == null) return;
 
         for (String baseID : baseEntityIDs) {
-            if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+            if (isSyncing())
                 break;
 
             Timber.v("  Computing ANC schedules for %s", baseID);
@@ -169,7 +180,7 @@ public class SchedulesIntentService extends IntentService {
     }
 
     private void executePncVisitSchedules() {
-        if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+        if (isSyncing())
             return;
 
         Timber.v("Computing PNC schedules");
@@ -178,7 +189,7 @@ public class SchedulesIntentService extends IntentService {
         if (baseEntityIDs == null) return;
 
         for (String baseID : baseEntityIDs) {
-            if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+            if (isSyncing())
                 break;
 
             Timber.v("  Computing PNC schedules for %s", baseID);
@@ -187,7 +198,7 @@ public class SchedulesIntentService extends IntentService {
     }
 
     private void executeWashCheckSchedules() {
-        if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+        if (isSyncing())
             return;
 
         Timber.v("Computing Wash Check schedules");
@@ -196,7 +207,7 @@ public class SchedulesIntentService extends IntentService {
         if (baseEntityIDs == null) return;
 
         for (String baseID : baseEntityIDs) {
-            if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+            if (isSyncing())
                 break;
 
             Timber.v("  Computing Wash Check schedules for %s", baseID);
@@ -205,7 +216,7 @@ public class SchedulesIntentService extends IntentService {
     }
 
     private void executeFamilyKitSchedules() {
-        if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+        if (isSyncing())
             return;
 
         Timber.v("Computing Family Kit schedules");
@@ -214,7 +225,7 @@ public class SchedulesIntentService extends IntentService {
         if (baseEntityIDs == null) return;
 
         for (String baseID : baseEntityIDs) {
-            if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+            if (isSyncing())
                 break;
 
             Timber.v("  Computing Family Kit schedules for %s", baseID);
@@ -223,7 +234,7 @@ public class SchedulesIntentService extends IntentService {
     }
 
     private void executeFpVisitSchedules() {
-        if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+        if (isSyncing())
             return;
 
         Timber.v("Computing Fp schedules");
@@ -232,7 +243,7 @@ public class SchedulesIntentService extends IntentService {
         if (baseEntityIDs == null) return;
 
         for (String baseID : baseEntityIDs) {
-            if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+            if (isSyncing())
                 break;
 
             Timber.v("  Computing Fp schedules for %s", baseID);
@@ -241,7 +252,7 @@ public class SchedulesIntentService extends IntentService {
     }
 
     private void executeRoutineHouseholdSchedules() {
-        if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+        if (isSyncing())
             return;
 
         Timber.v("Computing Routine household schedules");
@@ -250,7 +261,7 @@ public class SchedulesIntentService extends IntentService {
         if (baseEntityIDs == null) return;
 
         for (String baseID : baseEntityIDs) {
-            if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+            if (isSyncing())
                 break;
 
             Timber.v("  Computing Routine household schedules for %s", baseID);

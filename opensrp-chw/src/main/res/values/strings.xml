@@ -438,5 +438,6 @@
     <string name="export_db_done_notification">Exporting Database Complete</string>
     <string name="tutorials">Tutorials</string>
     <string name="counseling">Counseling</string>
+    <string name="reset_pin_login">Reset Pin Login</string>
 
 </resources>

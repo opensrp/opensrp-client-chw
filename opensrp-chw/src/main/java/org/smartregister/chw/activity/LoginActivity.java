@@ -86,7 +86,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         if (hasPinLogin() && !pinLogger.isFirstAuthentication()) {
-            menu.add("Reset Pin Login");
+            menu.add(getString(R.string.reset_pin_login));
         }
         menu.add(getString(R.string.export_database));
         return true;
@@ -94,7 +94,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getTitle().toString().equalsIgnoreCase("Reset Pin Login")) {
+        if (item.getTitle().toString().equalsIgnoreCase(getString(R.string.reset_pin_login))) {
             pinLogger.resetPinLogin();
             this.recreate();
             return true;
@@ -104,14 +104,18 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
             Toast.makeText(this, R.string.export_db_notification, Toast.LENGTH_SHORT).show();
             String currentTimeStamp = new SimpleDateFormat("yyyy-MM-dd-HHmmss", Locale.ENGLISH).format(new Date());
-            if (PermissionUtils.isPermissionGranted(this
-                    , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
-                    , CoreConstants.RQ_CODE.STORAGE_PERMISIONS)) {
+            if (hasPermissions()) {
                 copyDatabase(DBNAME, COPYDBNAME + "-" + currentTimeStamp + ".db", this);
                 Toast.makeText(this, R.string.export_db_done_notification, Toast.LENGTH_SHORT).show();
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean hasPermissions(){
+        return PermissionUtils.isPermissionGranted(this
+                , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
+                , CoreConstants.RQ_CODE.STORAGE_PERMISIONS);
     }
 
     public void copyDatabase(String dbName, String copyDbName, Context context) {
