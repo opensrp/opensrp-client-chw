@@ -50,6 +50,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
 import org.smartregister.chw.fp.FpLibrary;
+import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.job.BasePncCloseJob;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.job.ScheduleJob;
@@ -105,7 +106,7 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
     private AppExecutors appExecutors;
     private CommonFtsObject commonFtsObject;
     private P2pProcessingStatusBroadcastReceiver p2pProcessingStatusBroadcastReceiver;
-
+    private boolean isBulkProcessing;
     private boolean fetchedLoad = false;
 
     public static Flavor getApplicationFlavor() {
@@ -267,6 +268,9 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         SyncStatusBroadcastReceiver.init(this);
         SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(this);
 
+        if (p2pProcessingStatusBroadcastReceiver == null)
+            p2pProcessingStatusBroadcastReceiver = new P2pProcessingStatusBroadcastReceiver(this);
+
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(p2pProcessingStatusBroadcastReceiver
                         , new IntentFilter(AllConstants.PeerToPeer.PROCESSING_ACTION));
@@ -373,7 +377,7 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
     public void onVisitEvent(Visit visit) {
         if (visit != null) {
             Timber.v("Visit Submitted re processing Schedule for event ' %s '  : %s", visit.getVisitType(), visit.getBaseEntityId());
-            if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+            if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing() || isBulkProcessing())
                 return;
 
             ChwScheduleTaskExecutor.getInstance().execute(visit.getBaseEntityId(), visit.getVisitType(), visit.getDate());
@@ -402,6 +406,7 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
     @Override
     public void onSyncStart() {
         Timber.v("Sync started");
+        setBulkProcessing(false);
         fetchedLoad = false;
     }
 
@@ -411,6 +416,49 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
             fetchedLoad = true;
 
         Timber.v("Sync progressing : Status " + FetchStatus.fetched.name());
+    }
+
+    @Override
+    public boolean allowLazyProcessing() {
+        return true;
+    }
+
+    @Override
+    public String[] lazyProcessedEvents() {
+        return new String[]{
+                CoreConstants.EventType.CHILD_HOME_VISIT,
+                CoreConstants.EventType.FAMILY_KIT,
+                CoreConstants.EventType.CHILD_VISIT_NOT_DONE,
+                CoreConstants.EventType.WASH_CHECK,
+                CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT,
+                CoreConstants.EventType.MINIMUM_DIETARY_DIVERSITY,
+                CoreConstants.EventType.MUAC,
+                CoreConstants.EventType.LLITN,
+                CoreConstants.EventType.ECD,
+                CoreConstants.EventType.DEWORMING,
+                CoreConstants.EventType.VITAMIN_A,
+                CoreConstants.EventType.EXCLUSIVE_BREASTFEEDING,
+                CoreConstants.EventType.MNP,
+                CoreConstants.EventType.IPTP_SP,
+                CoreConstants.EventType.TT,
+                CoreConstants.EventType.VACCINE_CARD_RECEIVED,
+                CoreConstants.EventType.DANGER_SIGNS_BABY,
+                CoreConstants.EventType.PNC_HEALTH_FACILITY_VISIT,
+                CoreConstants.EventType.KANGAROO_CARE,
+                CoreConstants.EventType.UMBILICAL_CORD_CARE,
+                CoreConstants.EventType.IMMUNIZATION_VISIT,
+                CoreConstants.EventType.OBSERVATIONS_AND_ILLNESS,
+                CoreConstants.EventType.SICK_CHILD,
+                CoreConstants.EventType.ANC_HOME_VISIT,
+                org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE,
+                org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO,
+                CoreConstants.EventType.PNC_HOME_VISIT,
+                CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE,
+                FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT,
+                FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION,
+                org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.MALARIA_FOLLOW_UP_VISIT,
+                CoreConstants.EventType.CHILD_VACCINE_CARD_RECEIVED
+        };
     }
 
     @Override
@@ -431,6 +479,14 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
     public void onStatusUpdate(boolean isProcessing) {
         if (!isProcessing)
             startProcessing();
+    }
+
+    public boolean isBulkProcessing() {
+        return isBulkProcessing;
+    }
+
+    public void setBulkProcessing(boolean bulkProcessing) {
+        isBulkProcessing = bulkProcessing;
     }
 
     public interface Flavor {
