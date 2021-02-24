@@ -380,7 +380,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             BaseAncHomeVisitAction action = getBuilder(title)
                     .withOptional(false)
                     .withDetails(details)
-                    .withBaseEntityID(person.getBaseEntityID())
+                    .withBaseEntityID(baby.getBaseEntityID())
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withHelper(new DefaultChildHomeVisitInteractorFlv.BirthCertHelper(baby.getDob()))
                     .withFormName(Constants.JSON_FORM.getBirthCertification())
