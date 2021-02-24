@@ -234,6 +234,8 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         if (getApplicationFlavor().hasMap()) {
             initializeMapBox();
         }
+
+        reloadLanguage();
     }
 
     protected void initializeMapBox() {
@@ -476,7 +478,8 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
                 FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT,
                 FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION,
                 org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.MALARIA_FOLLOW_UP_VISIT,
-                CoreConstants.EventType.CHILD_VACCINE_CARD_RECEIVED
+                CoreConstants.EventType.CHILD_VACCINE_CARD_RECEIVED,
+                CoreConstants.EventType.BIRTH_CERTIFICATION
         };
     }
 
