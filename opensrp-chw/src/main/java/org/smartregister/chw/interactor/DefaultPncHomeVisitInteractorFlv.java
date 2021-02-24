@@ -374,7 +374,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         String title = MessageFormat.format(context.getString(R.string.pnc_birth_certification), baby.getFullName());
         hasBirthCert = VisitDao.memberHasBirthCert(person.getBaseEntityID());
 
-        if (editMode || !hasBirthCert) {
+        if (!hasBirthCert) {
             Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.BIRTH_CERTIFICATION);
 
             BaseAncHomeVisitAction action = getBuilder(title)
