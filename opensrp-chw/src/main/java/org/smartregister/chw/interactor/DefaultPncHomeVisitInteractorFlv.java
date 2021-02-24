@@ -372,19 +372,22 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     protected void evaluateBirthCertForm(Person person) throws Exception {
         PncBaby baby = (PncBaby) person;
         String title = MessageFormat.format(context.getString(R.string.pnc_birth_certification), baby.getFullName());
+        hasBirthCert = VisitDao.memberHasBirthCert(person.getBaseEntityID());
 
-        Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.BIRTH_CERTIFICATION);
+        if (editMode || !hasBirthCert) {
+            Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.BIRTH_CERTIFICATION);
 
-        BaseAncHomeVisitAction action = getBuilder(title)
-                .withOptional(false)
-                .withDetails(details)
-                .withBaseEntityID(baby.getBaseEntityID())
-                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                .withHelper(new DefaultChildHomeVisitInteractorFlv.BirthCertHelper(baby.getDob()))
-                .withFormName(Constants.JSON_FORM.getBirthCertification())
-                .build();
+            BaseAncHomeVisitAction action = getBuilder(title)
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                    .withHelper(new DefaultChildHomeVisitInteractorFlv.BirthCertHelper(baby.getDob()))
+                    .withFormName(Constants.JSON_FORM.getBirthCertification())
+                    .build();
 
-        actionList.put(MessageFormat.format(context.getString(R.string.pnc_birth_certification), baby.getFullName()), action);
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_birth_certification), baby.getFullName()), action);
+        }
     }
 
     private void evaluateKangarooMotherCare(Person person) throws Exception {
