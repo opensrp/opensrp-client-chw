@@ -84,8 +84,70 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "label_info_title": "La gardienne démontre-t-elle les attitudes et les connaissances au sujets de stimulation et de soins aimants?",
-        "label_info_text": "Les attitudes et connaissances au sujet de stimulation et soins aimants spécifiques aux tranches d’âge sont:\n     ● 0-1 semaine: la gardienne s’engage dans le contact peau contre peau, regarde aux yeux du bébé et communique avec l’enfant\n     ● 0-6 mois: la gardienne manipule et bouge les objets colorés pour que l’enfant puisse les voir, elle sourit, parle, et copie les gestes et les sons de l’enfant\n     ● 6-9 mois: la gardienne donne à l’enfant des objets ménagers propres et sécuritaires pour jouer avec, elle répond aux sonds de l’enfant et appelle l’enfant par son nom pour voire si il répond \n     ● 9-12 mois: la gardienne cache des jouets (coucou!) et rencontre les noms des personnes et des choses à l’enfant.\n     ● 12-24 mois: la gardienne donne des objets à l’enfant pour qu’il ou elle les empilent et lui demande des questions simples\n     ● 2 ans et plus âgée: la gardienne crée des jouets simples pour l’enfant, enseigne des histoires, des chansons et des jeux à l’enfant",
+        "dynamic_label_info": [
+          {
+            "dynamic_label_title": "0 à 1 semaine",
+            "dynamic_label_text": "Attitudes et connaissances spécifiques sur la stimulation qu'un soignant doit connaître : le soignant entre en contact avec la peau, regarde le bébé dans les yeux et communique avec lui",
+            "dynamic_label_image_src": "img/zero_one_week_img.png"
+          },
+          {
+            "dynamic_label_title": "0 à 6 mois",
+            "dynamic_label_text": "Attitudes et connaissances spécifiques sur la stimulation que doit connaître la personne qui s'occupe de l'enfant : elle déplace des objets colorés pour que l'enfant les voit, sourit, parle et copie les sons et les gestes de l'enfant",
+            "dynamic_label_image_src": "img/one_six_months_img_one.png"
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "",
+            "dynamic_label_image_src": "img/one_six_months_img_two.png"
+          },
+          {
+            "dynamic_label_title": "6 à 9 mois",
+            "dynamic_label_text": "Attitudes et connaissances spécifiques sur la stimulation que doit connaître la personne qui s'occupe de l'enfant : elle donne des objets ménagers propres et sûrs pour jouer, réagit au nom de l'enfant pour voir si celui-ci réagit",
+            "dynamic_label_image_src": "img/six_nine_months_img_one.png"
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "",
+            "dynamic_label_image_src": "img/six_nine_months_img_two.png"
+          },
+          {
+            "dynamic_label_title": "9 à 12 mois",
+            "dynamic_label_text": "Attitudes et connaissances spécifiques en matière de stimulation qu'un éducateur doit connaître : l'éducateur cache les jouets (coucou) et donne à l'enfant des noms de choses et de personnes",
+            "dynamic_label_image_src": "img/nine_twelve_months_img_one.png"
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "",
+            "dynamic_label_image_src": "img/nine_twelve_months_img_two.png"
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "",
+            "dynamic_label_image_src": "img/nine_twelve_months_img_three.png"
+          },
+          {
+            "dynamic_label_title": "12 à 24 mois",
+            "dynamic_label_text": "Attitudes et connaissances spécifiques en matière de stimulation que doit connaître l'éducateur : l'éducateur donne à l'enfant des objets à empiler et lui pose des questions simples",
+            "dynamic_label_image_src": "img/twelve_twenty_four_months_img_one.png"
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "",
+            "dynamic_label_image_src": "img/twelve_twenty_four_months_img_two.png"
+          },
+          {
+            "dynamic_label_title": "2 ans et plus",
+            "dynamic_label_text": "Attitudes et connaissances spécifiques en matière de stimulation qu'un éducateur doit connaître : l'éducateur fabrique des jouets simples pour l'enfant, lui apprend des histoires, des chansons et des jeux",
+            "dynamic_label_image_src": "img/two_years_and_old_img_one.png"
+          },
+          {
+            "dynamic_label_title": "",
+            "dynamic_label_text": "",
+            "dynamic_label_image_src": "img/two_years_and_old_img_two.png"
+          }
+        ],
         "hint": "La gardienne démontre-t-elle les attitudes et les connaissances au sujets de stimulation et de soins aimants?",
+        "label_is_dynamic": true,
         "values": [
           "Oui",
           "Non"

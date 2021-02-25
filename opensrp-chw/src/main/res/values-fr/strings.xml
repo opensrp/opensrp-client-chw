@@ -257,6 +257,9 @@
     <string name="pnc_indicator_7">Nouveau-nés sans signes de danger lors de leur dernière visite CPoN à domicile</string>
     <string name="pnc_indicator_8">Méthodes de planification familiale choisies par les femmes en postpartum (6 derniers mois)</string>
     <string name="pnc_indicator_9">Nouveau-nés (0&#8211;28 jours) décédés au cours de la dernière année</string>
+    <string name="pnc_indicator_10">Femmes à jour avec leurs visites CPoN au centres de santé</string>
+    <string name="physically_challenged">VIVRE AVEC UN HANDICAP</string>
+
 
     <string name="maternal_deaths_slice_label">Décès maternels</string>
     <string name="other_wra_deaths_slice_label">Autres décès des FAP</string>
