@@ -86,10 +86,9 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
+import org.smartregister.sync.P2PClassifier;
 import org.smartregister.thinkmd.ThinkMDConfig;
 import org.smartregister.thinkmd.ThinkMDLibrary;
-import org.smartregister.util.LangUtils;
-import org.smartregister.sync.P2PClassifier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
