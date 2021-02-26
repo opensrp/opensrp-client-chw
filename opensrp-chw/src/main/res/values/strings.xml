@@ -54,7 +54,7 @@
     <string name="profile_activity_not_visited">Marked not visited on %s</string>
 
     <string name="cancel">CANCEL</string>
-    <string name="submit">SUBMIT</string>
+    <string name="submit">SAVE</string>
 
     <string name="dose_not_given">DOSE NOT GIVEN</string>
     <string name="has_birt_cert">Has birth certificate?</string>
