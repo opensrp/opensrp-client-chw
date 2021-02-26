@@ -180,13 +180,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         }
         return super.onOptionsItemSelected(item);
     }
-
-    Menu menu;
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        this.menu = menu;
         menu.findItem(R.id.action_sick_child_form).setVisible(ChwApplication.getApplicationFlavor().hasChildSickForm()
                 && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient())
                 && !ChwApplication.getApplicationFlavor().useThinkMd());

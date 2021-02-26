@@ -160,7 +160,7 @@ public class ChwRepositoryFlv {
         try {
             db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion12");
+            Timber.e(e, "upgradeToVersion9");
         }
     }
 
