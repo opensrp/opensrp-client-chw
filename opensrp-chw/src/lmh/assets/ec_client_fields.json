@@ -251,7 +251,7 @@
         },
         {
           "column_name": "thinkmd_id",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
             "field": "identifiers.thinkmd_id"
           }

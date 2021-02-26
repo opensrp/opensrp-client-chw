@@ -11,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.application.ChwApplication;
@@ -57,6 +56,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.CoreConstants.ThinkMdConstants.THINKMD_IDENTIFIER_TYPE;
 import static org.smartregister.opd.utils.OpdJsonFormUtils.locationId;
 
 public class ChildProfileInteractor extends CoreChildProfileInteractor {
@@ -280,7 +280,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
             try {
                 ChildFHIRBundleDao fhirBundleDao = new ChildFHIRBundleDao();
                 FHIRBundleModel bundle = fhirBundleDao.fetchFHIRDateModel(context, getChildBaseEntityId());
-                addThinkmdIdentifier(context, bundle.getUniqueIdGeneratedForThinkMD(), getChildBaseEntityId());
+                addThinkmdIdentifier(bundle.getUniqueIdGeneratedForThinkMD(), getChildBaseEntityId());
                 ThinkMDLibrary.getInstance().processHealthAssessment(context, bundle);
             } catch (Exception e) {
                 Timber.e(e);
@@ -290,13 +290,13 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
         appExecutors.diskIO().execute(runnable);
     }
 
-    private void addThinkmdIdentifier(@NotNull Context context, String uniqueIdGeneratedForThinkMD, @NotNull String childBaseEntityId) {
+    private void addThinkmdIdentifier(String uniqueIdGeneratedForThinkMD, @NotNull String childBaseEntityId) {
         Event event = new Event()
                 .withBaseEntityId(childBaseEntityId)
                 .withEventType("update_thinkmd_id")
                 .withEntityType("ec_child")
                 .withEventDate(new Date())
-                .addIdentifier(context.getString(R.string.thinkmd_identifier_type), uniqueIdGeneratedForThinkMD);
+                .addIdentifier(THINKMD_IDENTIFIER_TYPE, uniqueIdGeneratedForThinkMD);
         event.withDateCreated(new Date());
         tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), event);
 
@@ -309,7 +309,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
             //Update REGISTER and FTS Tables
             if (allCommonsRepository != null) {
                 ContentValues values = new ContentValues();
-                values.put(context.getString(R.string.thinkmd_identifier_type), uniqueIdGeneratedForThinkMD);
+                values.put(THINKMD_IDENTIFIER_TYPE, uniqueIdGeneratedForThinkMD);
                 allCommonsRepository.update("ec_child", values, childBaseEntityId);
             }
         } catch (Exception e) {
