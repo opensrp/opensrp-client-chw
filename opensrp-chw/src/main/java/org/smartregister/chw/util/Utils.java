@@ -1,7 +1,6 @@
 package org.smartregister.chw.util;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -132,17 +131,6 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         } else {
             return Utils.getName(trimFirstName, trimMiddleName);
         }
-    }
-
-
-    public static String getDisplayLanguage(Context context) {
-        Locale locale = context.getResources().getConfiguration().locale;
-        return locale.getDisplayLanguage();
-    }
-
-    public static String getAppLanguage(Context context) {
-        Locale locale = context.getResources().getConfiguration().locale;
-        return locale.getLanguage();
     }
 
 }

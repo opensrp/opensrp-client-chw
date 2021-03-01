@@ -16,9 +16,9 @@ public class ChildFHIRBundleDao extends FHIRBundleDao {
         FHIRBundleModel bundle = super.fetchFHIRDateModel(context, childBaseEntityId);
         bundle.setRootPackageName(context.getApplicationContext().getPackageName());
         bundle.setAppVersion(String.valueOf(BuildConfig.VERSION_CODE));
-        bundle.setDisplayLanguage(Utils.getDisplayLanguage(context));
+        bundle.setDisplayLanguage(context.getResources().getConfiguration().locale.getDisplayLanguage());
         bundle.setAppName(context.getResources().getString(R.string.app_name));
-        bundle.setAppLanguage(Utils.getAppLanguage(context));
+        bundle.setAppLanguage(context.getResources().getConfiguration().locale.getLanguage());
         bundle.setEndPointPackageName(Constants.ThinkMdConstants.CHILD_PROFILE_ACTIVITY);
         return bundle;
     }
