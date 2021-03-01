@@ -5,7 +5,6 @@ import android.content.Context;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.dao.FHIRBundleDao;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.Utils;
 import org.smartregister.fp.BuildConfig;
 import org.smartregister.thinkmd.model.FHIRBundleModel;
 
