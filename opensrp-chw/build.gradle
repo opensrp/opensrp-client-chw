@@ -111,8 +111,6 @@ android {
             buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", "\"sample_key\""
         }
     }
-    
-    android.defaultConfig.javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true
 
     dexOptions {
         javaMaxHeapSize "4g"
