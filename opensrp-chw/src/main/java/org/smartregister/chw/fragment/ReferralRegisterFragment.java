@@ -11,7 +11,6 @@ import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.MalariaFollowUpVisitActivity;
 import org.smartregister.chw.anc.util.DBConstants;
@@ -30,6 +29,7 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.activity.BaseRegisterActivity;
+import org.smartregister.view.contract.IView;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.text.MessageFormat;
@@ -47,7 +47,7 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
     private boolean dueFilterActive = false;
 
     @Override
-    public void initializeAdapter(@Nullable Set<? extends org.smartregister.configurableviews.model.View> visibleColumns) {
+    public void initializeAdapter(Set<IView> visibleColumns) {
         ReferralRegisterProvider referralRegisterProvider = new ReferralRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, referralRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);

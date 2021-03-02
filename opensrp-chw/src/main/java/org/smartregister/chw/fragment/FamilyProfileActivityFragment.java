@@ -14,12 +14,12 @@ import org.smartregister.chw.model.FamilyProfileActivityModel;
 import org.smartregister.chw.presenter.FamilyProfileActivityPresenter;
 import org.smartregister.chw.provider.FamilyActivityRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.view.contract.IView;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -40,7 +40,7 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
     }
 
     @Override
-    public void initializeAdapter(Set<View> visibleColumns) {
+    public void initializeAdapter(Set<IView> visibleColumns) {
         FamilyActivityRegisterProvider familyActivityRegisterProvider = new FamilyActivityRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
         clientAdapter = new FamilyRecyclerViewCustomAdapter(null, familyActivityRegisterProvider, context().commonrepository(this.tablename), Utils.metadata().familyActivityRegister.showPagination);
         clientAdapter.setCurrentlimit(Utils.metadata().familyActivityRegister.currentLimit);

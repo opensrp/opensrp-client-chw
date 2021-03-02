@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.ChwDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.fragment.ReferralRegisterFragment;
 import org.smartregister.chw.referral.contract.BaseReferralRegisterFragmentContract;
 import org.smartregister.chw.referral.presenter.BaseReferralRegisterFragmentPresenter;
 import org.smartregister.chw.referral.util.DBConstants;
@@ -14,7 +15,7 @@ import static org.smartregister.chw.referral.util.Constants.Tables;
 
 public class ReferralRegisterFragmentPresenter extends BaseReferralRegisterFragmentPresenter {
 
-    public ReferralRegisterFragmentPresenter(BaseReferralRegisterFragmentContract.View view, BaseReferralRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
+    public ReferralRegisterFragmentPresenter(ReferralRegisterFragment view, BaseReferralRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
         super(view, model, viewConfigurationIdentifier);
     }
 

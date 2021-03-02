@@ -28,6 +28,7 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.JsonFormUtils;
+import org.smartregister.view.contract.IView;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -69,7 +70,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     }
 
     @Override
-    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+    public void initializeAdapter(Set<IView> visibleColumns) {
         ChwDueRegisterProvider chwDueRegisterProvider = new ChwDueRegisterProvider(this.getActivity(), this.commonRepository(), visibleColumns, this.registerActionHandler, this.paginationViewHandler);
         this.clientAdapter = new FamilyRecyclerViewCustomAdapter(null, chwDueRegisterProvider, this.context().commonrepository(this.tablename), Utils.metadata().familyDueRegister.showPagination);
         this.clientAdapter.setCurrentlimit(Utils.metadata().familyDueRegister.currentLimit);

@@ -10,10 +10,10 @@ import org.smartregister.chw.model.ChildRegisterFragmentModel;
 import org.smartregister.chw.presenter.ChildRegisterFragmentPresenter;
 import org.smartregister.chw.provider.ChildRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.activity.BaseRegisterActivity;
+import org.smartregister.view.contract.IView;
 
 import java.util.Set;
 
@@ -44,7 +44,7 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
     }
 
     @Override
-    public void initializeAdapter(Set<View> visibleColumns) {
+    public void initializeAdapter(Set<IView> visibleColumns) {
         ChildRegisterProvider childRegisterProvider = new ChildRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, childRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);

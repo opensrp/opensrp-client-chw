@@ -8,10 +8,10 @@ import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.provider.FamilyRegisterProvider;
-import org.smartregister.chw.util.Utils;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.view.contract.IView;
 
 import java.util.Set;
 
@@ -20,7 +20,7 @@ import timber.log.Timber;
 public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
 
     @Override
-    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+    public void initializeAdapter(Set<IView> visibleColumns) {
         CoreRegisterProvider chwRegisterProvider = new FamilyRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, chwRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);

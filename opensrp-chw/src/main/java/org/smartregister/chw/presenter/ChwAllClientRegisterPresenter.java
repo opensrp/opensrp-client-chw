@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.presenter.CoreAllClientsRegisterPresenter;
@@ -86,7 +87,7 @@ public class ChwAllClientRegisterPresenter extends CoreAllClientsRegisterPresent
     }
 
 
-    public void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception {
+    public void startForm(String formName, String entityId, String metadata, String currentLocationId) {
 
         if (StringUtils.isBlank(entityId)) {
             Triple<String, String, String> triple = Triple.of(formName, metadata, currentLocationId);
@@ -94,7 +95,12 @@ public class ChwAllClientRegisterPresenter extends CoreAllClientsRegisterPresent
             return;
         }
 
-        JSONObject form = model.getFormAsJson(formName, entityId, currentLocationId);
+        JSONObject form = null;
+        try {
+            form = model.getFormAsJson(formName, entityId, currentLocationId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         if (getView() != null)
             getView().startFormActivity(form);
 

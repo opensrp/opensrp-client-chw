@@ -8,13 +8,14 @@ import org.smartregister.chw.referral.presenter.BaseReferralRegisterFragmentPres
 import org.smartregister.chw.referral.util.DBConstants;
 import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.view.contract.BaseRegisterFragmentContract;
 
 import static org.smartregister.chw.referral.util.Constants.ReferralType;
 import static org.smartregister.chw.referral.util.Constants.Tables;
 
 public class ReferralFollowupFragmentPresenter extends BaseReferralRegisterFragmentPresenter {
 
-    public ReferralFollowupFragmentPresenter(BaseReferralRegisterFragmentContract.View view, BaseReferralRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
+    public ReferralFollowupFragmentPresenter(BaseRegisterFragmentContract.View view, BaseReferralRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
         super(view, model, viewConfigurationIdentifier);
     }
 
