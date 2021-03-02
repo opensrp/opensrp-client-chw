@@ -398,15 +398,17 @@
     <string name="tb_referral">Clinic Of Tuberculosis Treatment</string>
     <string name="gbv_referral">Gender Based Violence Referral</string>
     <string name="child_gbv_referral">Child Gender Based Violence Referral</string>
-    <string name="client_registration" >Client Registration</string>
+    <string name="client_registration">Client Registration</string>
     <string name="error_opening_profile">Error opening client profile</string>
     <string name="location_details">Location Details</string>
-    <string name="update_client_registration" >Update Client Details</string>
+    <string name="update_client_registration">Update Client Details</string>
 
     <!---Anc Home Visit Strings -->
     <string name="anc_home_visit_pregnancy_risk">Pregnancy risk</string>
     <string name="loading_content">Loading content</string>
 
+    <!--    thindmd integration-->
+    <string name="thinkmd_assessment_saved">ThinkMD health assessment saved</string>
     <string name="ten_digits_validation">Number must be 10 digits</string>
     <string name="select_cha">Select CHAs</string>
     <string name="select_options">Select options</string>

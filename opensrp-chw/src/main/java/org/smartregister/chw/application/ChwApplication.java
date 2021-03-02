@@ -87,6 +87,8 @@ import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.P2PClassifier;
+import org.smartregister.thinkmd.ThinkMDConfig;
+import org.smartregister.thinkmd.ThinkMDLibrary;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -307,6 +309,11 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         form.setDatePickerDisplayFormat("dd MMM yyyy");
 
         NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
+        // ThinkMD library
+        ThinkMDConfig thinkMDConfig = new ThinkMDConfig();
+        thinkMDConfig.setThinkmdEndPoint(BuildConfig.THINKMD_BASE_URL);
+        thinkMDConfig.setThinkmdBaseUrl(BuildConfig.THINKMD_END_POINT);
+        ThinkMDLibrary.init(getApplicationContext(), thinkMDConfig);
     }
 
     @Override

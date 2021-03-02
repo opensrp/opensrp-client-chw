@@ -16,8 +16,7 @@
             "field": "eventType",
             "field_value": "Family Member Registration",
             "creates_case": [
-              "ec_family_member",
-              "ec_family_member_location"
+              "ec_family_member"
             ]
           },
           {
@@ -25,8 +24,7 @@
             "field_value": "Child Registration",
             "creates_case": [
               "ec_child",
-              "ec_family_member",
-              "ec_family_member_location"
+              "ec_family_member"
             ]
           },
           {
@@ -34,8 +32,7 @@
             "field_value": "PNC Child Registration",
             "creates_case": [
               "ec_child",
-              "ec_family_member",
-              "ec_family_member_location"
+              "ec_family_member"
             ]
           },
           {

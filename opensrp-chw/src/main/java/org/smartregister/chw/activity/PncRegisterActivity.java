@@ -53,8 +53,7 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
             closeOnCancel = true;
         }
     }
-
-
+    
     @Override
     public void onRegistrationSaved(String encounterType, boolean isEdit, boolean hasChildren) {
         if (encounterType.equalsIgnoreCase(Constants.EVENT_TYPE.PREGNANCY_OUTCOME)) {
