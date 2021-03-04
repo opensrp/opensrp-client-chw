@@ -95,7 +95,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         children.addAll(getChildren(memberObject.getBaseEntityId()));
         try {
             Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
-        }catch (Exception e){
+        } catch (Exception e) {
             Timber.e(e);
         }
 
@@ -106,14 +106,14 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             evaluateFamilyPlanning();
             evaluateObservationAndIllnessMother();
 
-            for(Person baby : children){
+            for (Person baby : children) {
                 evaluateDangerSignsBaby(baby);
                 evaluateChildVaccineCard(baby);
                 evaluateImmunization(baby);
                 evaluateUmbilicalCord(baby);
                 evaluateExclusiveBreastFeeding(baby);
                 evaluateKangarooMotherCare(baby);
-                evaluateBirthCertForm(baby, VisitDao.memberHasBirthCert(baby.getBaseEntityID()));
+                evaluateBirthCertForm(baby);
                 evaluateObservationAndIllnessBaby(baby);
             }
 
@@ -369,18 +369,18 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         }
     }
 
-    protected void evaluateBirthCertForm(Person person, Boolean hasBirthCert) throws Exception {
+    protected void evaluateBirthCertForm(Person person) throws Exception {
         PncBaby baby = (PncBaby) person;
         String title = MessageFormat.format(context.getString(R.string.pnc_birth_certification), baby.getFullName());
+        hasBirthCert = VisitDao.memberHasBirthCert(person.getBaseEntityID());
 
         if (!hasBirthCert) {
-
-            Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.BIRTH_CERTIFICATION);
+            Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.BIRTH_CERTIFICATION);
 
             BaseAncHomeVisitAction action = getBuilder(title)
                     .withOptional(false)
                     .withDetails(details)
-                    .withBaseEntityID(person.getBaseEntityID())
+                    .withBaseEntityID(baby.getBaseEntityID())
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withHelper(new DefaultChildHomeVisitInteractorFlv.BirthCertHelper(baby.getDob()))
                     .withFormName(Constants.JSON_FORM.getBirthCertification())

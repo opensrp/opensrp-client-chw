@@ -209,7 +209,7 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
         ReflectionHelpers.setField(interactor, "children", children);
 
         for (Person baby : children) {
-            ReflectionHelpers.callInstanceMethod(interactor, "evaluateBirthCertForm", ReflectionHelpers.ClassParameter.from(Person.class, baby), ReflectionHelpers.ClassParameter.from(Boolean.class, false));
+            ReflectionHelpers.callInstanceMethod(interactor, "evaluateBirthCertForm", ReflectionHelpers.ClassParameter.from(Person.class, baby));
         }
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }

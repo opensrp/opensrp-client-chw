@@ -5,6 +5,7 @@ import android.content.Context;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
@@ -55,7 +56,13 @@ public class ChwRepositoryFlv {
                     upgradeToVersion10(db, oldVersion);
                     break;
                 case 11:
-                    upgradeToVersion11(context, db);
+                    upgradeToVersion11(context,db);
+                    break;
+                case 12:
+                    upgradeToVersion12(db);
+                    break;
+                case 13:
+                    upgradeToVersion13(db);
                     break;
                 default:
                     break;
@@ -147,10 +154,23 @@ public class ChwRepositoryFlv {
     }
 
     private static void upgradeToVersion9(SQLiteDatabase db) {
+    }
+
+    private static void upgradeToVersion12(SQLiteDatabase db) {
         try {
             db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion9");
+        }
+    }
+
+    private static void upgradeToVersion13(SQLiteDatabase db) {
+        try {
+            db.execSQL(ChildDBConstants.ADD_COLUMN_THINK_MD_ID);
+            db.execSQL(ChildDBConstants.ADD_COLUMN_HTML_ASSESSMENT);
+            db.execSQL(ChildDBConstants.ADD_COLUMN_CARE_PLAN_DATE);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion13");
         }
     }
 
