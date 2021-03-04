@@ -133,4 +133,7 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         }
     }
 
+    public static String getLastIPTPServiceIteration(String visitKey) {
+        return String.valueOf(visitKey.charAt(4));
+    }
 }

@@ -96,4 +96,11 @@ public class UtilsTest extends BaseUnitTest {
         double score = org.smartregister.chw.util.Utils.getWFHZScore("Male", "70", "70");
         Assert.assertNotEquals(100.0, score, 0.0);
     }
+
+    @Test
+    public void testGetLastIPTPServiceIteration() {
+        String iteration1 = "1";
+        String visitKeyOne = "iptp1_dose";
+        Assert.assertEquals(iteration1, org.smartregister.chw.util.Utils.getLastIPTPServiceIteration(visitKeyOne));
+    }
 }
