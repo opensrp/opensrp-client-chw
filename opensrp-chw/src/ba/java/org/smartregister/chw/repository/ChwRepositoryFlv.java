@@ -99,6 +99,9 @@ public class ChwRepositoryFlv {
                 case 22:
                     upgradeToVersion22(db);
                     break;
+                case 23:
+                    upgradeToVersion23(db);
+                    break;
                 default:
                     break;
             }
@@ -356,6 +359,15 @@ public class ChwRepositoryFlv {
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion22 ");
+        }
+    }
+
+    private static void upgradeToVersion23(SQLiteDatabase db) {
+        try {
+            db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
+            db.execSQL("ALTER TABLE ec_anc_register ADD COLUMN delivery_kit VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion23");
         }
     }
 
