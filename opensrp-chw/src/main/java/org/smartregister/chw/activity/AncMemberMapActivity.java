@@ -166,6 +166,7 @@ public class AncMemberMapActivity extends AppCompatActivity {
         int counter = 0;
         for (CommunityResponderModel communityResponderModel : communityResponders) {
             try {
+                if (communityResponderModel.getResponderLocation() == null) continue;
                 Feature feature = getFeature(communityResponderModel);
                 feature.addNumberProperty(RECYCLER_VIEW_POSITION_PROPERTY, counter);
                 featureList.add(feature);
