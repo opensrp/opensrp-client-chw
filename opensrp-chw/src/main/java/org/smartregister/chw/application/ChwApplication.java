@@ -577,6 +577,8 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
 
         boolean useThinkMd();
 
+        boolean hasDeliveryKit();
+
         boolean hasFamilyLocationRow();
 
         boolean usesPregnancyRiskProfileLayout();
