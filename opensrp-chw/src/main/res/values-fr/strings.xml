@@ -354,4 +354,7 @@
     <string name="delivery_kit">Kit d\'accouchement</string>
     <string name="family_profile_title">Ménage %1$s</string>
     <string name="family_profile_title_with_firstname">Ménage %1$s %2$s</string>
+    <string name="tutorials">Tutoriel</string>
+    <string name="counseling">Conseil</string>
+
 </resources>
