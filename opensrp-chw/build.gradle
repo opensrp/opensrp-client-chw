@@ -269,7 +269,7 @@ android {
         togo {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
-            versionCode 19
+            versionCode 20
             versionName "1.2.0"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
