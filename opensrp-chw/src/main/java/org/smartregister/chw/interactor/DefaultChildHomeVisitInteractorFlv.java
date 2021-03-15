@@ -254,8 +254,8 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         ImmunizationValidator validator = new ImmunizationValidator(childVaccineGroups, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
 
-        Map<String,BaseAncHomeVisitAction> actions = new HashMap<>();
-        Map<String,Integer> vaccineOrder = new HashMap<>();
+        Map<String, BaseAncHomeVisitAction> actions = new HashMap<>();
+        Map<String, Integer> vaccineOrder = new HashMap<>();
 
         int position = 0;
         for (Map.Entry<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> entry : pendingVaccines.entrySet()) {
@@ -283,8 +283,8 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                     .withValidator(validator)
                     .build();
 
-            actions.put(title,action);
-            vaccineOrder.put(title,position);
+            actions.put(title, action);
+            vaccineOrder.put(title, position);
             actionList.put(title, action);
             position++;
         }
@@ -570,13 +570,20 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
     protected void evaluateObsAndIllness() throws Exception {
         Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.OBS_ILLNESS);
+        String parsedDate = "";
+        try {
+            Date minDate = dateFormat.parse(memberObject.getDob());
+            parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(minDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         BaseAncHomeVisitAction observation = getBuilder(context.getString(R.string.anc_home_visit_observations_n_illnes))
                 .withOptional(true)
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                .withHelper(new ObservationAction())
+                .withHelper(new ObservationAction(parsedDate))
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
                 .build();
 
