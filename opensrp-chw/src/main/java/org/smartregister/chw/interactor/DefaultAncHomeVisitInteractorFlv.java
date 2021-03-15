@@ -90,9 +90,9 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
             evaluateSleepingUnderLLITN();
             evaluateANCCard();
             evaluateHealthFacilityVisit(dateMap);
-            evaluateObservation();
             evaluateTTImmunization(vaccineTaskModel);
             evaluateIPTP();
+            evaluateObservation();
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
         } catch (Exception e) {
