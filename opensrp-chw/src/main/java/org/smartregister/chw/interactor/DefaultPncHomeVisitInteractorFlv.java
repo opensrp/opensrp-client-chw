@@ -102,7 +102,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         try {
             parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(children.get(0).getDob());
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
         try {
@@ -559,7 +559,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     dateOfIllness.put(JsonFormConstants.MIN_DATE, dob);
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         }
 

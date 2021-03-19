@@ -575,7 +575,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
             Date minDate = dateFormat.parse(memberObject.getDob());
             parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(minDate);
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
         BaseAncHomeVisitAction observation = getBuilder(context.getString(R.string.anc_home_visit_observations_n_illnes))

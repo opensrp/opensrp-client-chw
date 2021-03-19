@@ -48,7 +48,7 @@ public class ObservationAction implements BaseAncHomeVisitAction.AncHomeVisitAct
                 dateOfIllness.put(JsonFormConstants.MIN_DATE, dob);
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
     }
 
