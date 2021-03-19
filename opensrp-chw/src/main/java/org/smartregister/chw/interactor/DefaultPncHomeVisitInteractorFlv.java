@@ -554,8 +554,8 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             try {
                 if (StringUtils.isNotBlank(dob)) {
                     jsonObject = new JSONObject(jsonString);
-                    JSONArray fields = org.smartregister.chw.anc.util.JsonFormUtils.fields(jsonObject);
-                    JSONObject dateOfIllness = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "fp_start_date");
+                    JSONArray fields = JsonFormUtils.fields(jsonObject);
+                    JSONObject dateOfIllness = JsonFormUtils.getFieldJSONObject(fields, "fp_start_date");
                     dateOfIllness.put(JsonFormConstants.MIN_DATE, dob);
                 }
             } catch (JSONException e) {
