@@ -9,8 +9,6 @@ import android.os.Build;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
@@ -43,7 +41,6 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.configs.AllClientsRegisterRowOptions;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.core.loggers.CrashlyticsTree;
 import org.smartregister.chw.core.provider.CoreAllClientsRegisterQueryProvider;
 import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -96,7 +93,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import io.fabric.sdk.android.Fabric;
 import io.ona.kujaku.KujakuLibrary;
 import timber.log.Timber;
 
@@ -115,7 +111,7 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         return flavor;
     }
 
-    public static void prepareDirectories(){
+    public static void prepareDirectories() {
         prepareGuideBooksFolder();
         prepareCounselingDocsFolder();
     }
@@ -190,13 +186,6 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         NavigationMenu.setupNavigationMenu(this, new NavigationMenuFlv(), new NavigationModelFlv(),
                 getRegisteredActivities(), flavor.hasP2P());
 
-        if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        } else {
-            Timber.plant(new CrashlyticsTree(ChwApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM()));
-        }
-
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
         initializeLibraries();
 
