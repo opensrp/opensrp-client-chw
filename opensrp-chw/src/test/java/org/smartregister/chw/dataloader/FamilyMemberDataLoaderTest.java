@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class FamilyMemberDataLoaderTest {
 
-    private final FamilyMemberDataLoader dataLoader = new FamilyMemberDataLoader("",false,"","","");
+    private final FamilyMemberDataLoader dataLoader = new FamilyMemberDataLoader("", false, "", "", "");
 
     @Test
     public void testGetEventTypes() {
