@@ -419,7 +419,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 .withOptional(false)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getFamilyPlanning())
-                .withHelper(new FamilyPlanningHelper(parsedDate))
+                .withHelper(new FamilyPlanningHelper(context, parsedDate))
                 .build();
         actionList.put(context.getString(R.string.pnc_family_planning), action);
     }
@@ -544,9 +544,11 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         private Date start_date;
         private String dob;
         private JSONObject jsonObject;
+        private Context context;
 
-        public FamilyPlanningHelper(String dob) {
+        public FamilyPlanningHelper(Context context, String dob) {
             this.dob = dob;
+            this.context = context;
         }
 
         @Override
