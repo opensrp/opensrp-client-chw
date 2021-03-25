@@ -63,35 +63,35 @@ public class EventDao extends AbstractDao {
         // select delete events
 
         Timber.v("Closing kids");
-        String sql = "update ec_child set is_closed = 1\n" +
-                "where \n" +
-                "base_entity_id in (\n" +
-                "\tselect baseEntityId from event \n" +
-                "\twhere eventType in ('Remove Child Under 5','Remove Family Member')\n" +
-                ") or relational_id in (\n" +
-                "\tselect baseEntityId from event where eventType in ('Remove Family')\n" +
+        String sql = "update ec_child set is_closed = 1 " +
+                "where  " +
+                "base_entity_id in ( " +
+                " select baseEntityId from event  " +
+                " where eventType in ('Remove Child Under 5','Remove Family Member') " +
+                ") or relational_id in ( " +
+                " select baseEntityId from event where eventType in ('Remove Family') " +
                 ")";
 
         updateDB(sql);
 
         Timber.v("Closing family members");
-        String sql2 = "update ec_family_member set is_closed = 1\n" +
-                "where \n" +
-                "base_entity_id in (\n" +
-                "\tselect baseEntityId from event \n" +
-                "\twhere eventType in ('Remove Child Under 5','Remove Family Member')\n" +
-                ") or relational_id in (\n" +
-                "\tselect baseEntityId from event where eventType in ('Remove Family')\n" +
+        String sql2 = "update ec_family_member set is_closed = 1 " +
+                "where  " +
+                "base_entity_id in ( " +
+                " select baseEntityId from event  " +
+                " where eventType in ('Remove Child Under 5','Remove Family Member') " +
+                ") or relational_id in ( " +
+                " select baseEntityId from event where eventType in ('Remove Family') " +
                 ")";
 
         updateDB(sql2);
 
         Timber.v("Closing families");
-        String sql3 = "update ec_family set is_closed = 1\n" +
-                "where \n" +
-                "base_entity_id in (\n" +
-                "\tselect baseEntityId from event \n" +
-                "\twhere eventType in ('Remove Family')\n" +
+        String sql3 = "update ec_family set is_closed = 1 " +
+                "where  " +
+                "base_entity_id in ( " +
+                " select baseEntityId from event  " +
+                " where eventType in ('Remove Family') " +
                 ")";
 
         updateDB(sql3);
